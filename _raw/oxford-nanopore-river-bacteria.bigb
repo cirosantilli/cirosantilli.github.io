@@ -1,0 +1,610 @@
+= How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it
+{c}
+{numbered}
+{scope}
+{tag=DNA sequencing}
+{tag=Metagenomics}
+{tag=Polymerase chain reaction}
+{tag=articles}
+
+This article gives an idea of how this kind of biological experiment feels like to a <software engineer> who has never done any <biology> like <Ciro Santilli>.
+
+= Experiment background
+{parent=oxford nanopore river bacteria}
+
+https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few <University of Cambridge> <doctor of Philosophy>[PhDs] that aims to determine which <bacteria> are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
+
+In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
+
+The data collected in this experiment, together with other collection sessions done by the organizers actually led to a publication on <eLife>: https://elifesciences.org/articles/61504 "Freshwater monitoring by nanopore sequencing" by Lara Urban et al. (2021), so it is awesome to see that were are actual being part of "real science".
+
+Ciro knows nothing about biology, but since he is <molecular biology technologies>[very curious about it], he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
+
+All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!
+
+The impressions you get from the experiment as a software engineer will be:
+* OMG, this is so labour intensive, why haven't they automated this
+* OMG, this is frightening, all the 8 hours of work I've just done are present in that tiny plastic tube
+* Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster and don't break you piece of junk!
+
+= Overview of the experiment
+{parent=oxford nanopore river bacteria}
+
+For those that know biology and just want to do the thing, see: <protocols used>{full}.
+
+The PuntSeq team uses an <Oxford Nanopore MinION> <DNA sequencing>[DNA sequencer] made by <Oxford Nanopore Technologies> to sequence the <16S ribosomal RNA>[16S] region of bacterial <DNA>, which is about 1500 nucleotides long.
+
+This kind of "decode everything from the sample to see what species are present approach" is called "<metagenomics>".
+
+This is how the MinION looks like: <image Oxford Nanopore MinION top>{full}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg]
+{title=Oxford Nanopore MinION top}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Oxford_Nanopore_MinION_side_cropped.jpg/191px-Oxford_Nanopore_MinION_side_cropped.jpg]
+{title=Oxford Nanopore MinION side}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Oxford_Nanopore_MinION_top_open_cropped.jpg/110px-Oxford_Nanopore_MinION_top_open_cropped.jpg]
+{title=Oxford Nanopore MinION top open}
+{height=500}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg]
+{title=Oxford Nanopore MinION side USB}
+
+The 16S region codes for one of the <RNA> pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome].
+
+Before <sequencing>[sequencing the DNA], we will do a <PCR> with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.
+
+The PCR replicates only the DNA region between our two selected primers a gazillion times so that only those regions will actually get picked up by the sequencing step in practice.
+
+<eukarya>[Eukaryotes] also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.
+
+This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding eukaryotes entirely.
+
+Despite coding such a fundamental piece of RNA, there is still surprisingly variability in the 16S region across different bacteria, and it is those differences will allow us to identify which bacteria are present in the river.
+
+The variability exists because certain base pairs are not fundamental for the function of the 16S region. This variability happens mostly on https://en.wikipedia.org/wiki/Stem-loop[RNA loops as opposed to stems], i.e. parts of the RNA that don't base pair with other RNA in the https://en.wikipedia.org/wiki/Nucleic_acid_secondary_structure[RNA secondary structure] as shown at: <code RNA stem-loop structure>{full}.
+
+``
+                A-U
+               /   \
+A-U-C-G-A-U-C-G     C
+| | | | | | | |     |
+U-A-G-C-U-A-G-C     G
+               \   /
+                U-A
+|             ||    |
++-------------++----+
+    stem        loop
+``
+{title=RNA stem-loop structure}
+
+This is how the 16S RNA secondary structure looks like in its full glory: <image 16S RNA secondary structure>{full}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg]
+[height=800]
+{title=16S RNA secondary structure}
+{height=500}
+
+Since loops don't base pair, they are less crucial in the determination of the secondary structure of the RNA.
+
+The variability is such that it is possible to identify individual species apart if full sequences are known with certainty.
+
+With the experimental limitations of experiment however, we would only be able to obtain https://en.wikipedia.org/wiki/Family_(biology)[family] or https://en.wikipedia.org/wiki/Genus[genus] level breakdowns.
+
+= Why Oxford Nanopore was used instead of Illumina for the sequencing
+{parent=Overview of the experiment}
+
+At the time of the experiment, <Illumina> equipment was cheaper per base pair and dominates the <human genome> sequencing market, but it required a much higher initial investment for the equipment (TODO how much).
+
+The reusable Nanopore device costs just https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/[about 500 dollars], and https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html[about 500 dollars (50 unit volume)] for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 human genomes 1x! Note that 1x is basically useless for one of the most important of all applications of sequencing: detection of <single-nucleotide polymorphisms>, since the error rate would be too high to base clinical decisions on.
+
+Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).
+
+Other advantages of the MinION over Illumina which didn't really matter to this particular experiment are:
+* portability for e.g. to do analysis on the field near infections outbreaks. Compare that to the smallest Illumina sequencer currently available in 2019, the iSeq 100: <image Illumina iSeq 100 DNA sequencer>{full}.
+
+  \Image[https://web.archive.org/web/20190922113448if_/https://www.illumina.com/content/dam/illumina-marketing/images/systems/v2/web-graphic/iseq-100-demo-video-thumbnail-web-graphic.jpg]
+  {title=Illumina iSeq 100 DNA sequencer}
+  {source=https://www.illumina.com/systems/sequencing-platforms/iseq.html}
+* long reads which can be necessary for long repetitive regions, see also: <sequence alignment>{full}
+
+= Sample collection
+{parent=oxford nanopore river bacteria}
+
+As you would expect, not much secret here, we just dumped a 1 liter glass bottle with a rope attached around the neck in a few different locations of the river, and pulled it out with the rope.
+
+And, in the name of science, we even wore gloves to not contaminate the samples!
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/River_water_sample_collection_swans.jpg/800px-River_water_sample_collection_swans.jpg]
+{title=Swans swimming in the river when during sample collection}
+{description=Swam poo bacteria?}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg]
+{title=Tying rope to bootle for river water sample collection}
+{height=400}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/River_water_sample_collection_get_sample.jpg/360px-River_water_sample_collection_get_sample.jpg]
+{title=Dumping the bottle into the river to collect the water sample}
+{height=400}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River_water_sample_collection_measure_temperature.jpg/360px-River_water_sample_collection_measure_temperature.jpg]
+{title=Measuring the river water sample temperature with a <mercury thermometer>}
+{height=400}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg]
+{title=Measuring the river water sample <pH> with a <pH strip>}
+{description=The strip is compared with the color of a <mobile app> that gives the pH for a given strip color.}
+{height=400}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg]
+{title=Noting sample collection location on the water bottle}
+{height=400}
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv/River_water_sample_collection_with_a_bottle_and_string.ogv.480p.vp9.webm]
+{title=Dumping the bottle into the river to collect the water sample}
+{description=That was fun.}
+{height=400}
+
+= DNA extraction
+{parent=oxford nanopore river bacteria}
+
+The first thing we had to do with the sample was to extract the DNA present in the water in a pure form for the PCR.
+
+We did that with a <Qiagen DNeasy PowerWater Kit>.
+
+As you would expect, this consists of a purification procedure with several steps.
+
+In each step we take a physical or chemical action on the sample, which splits it into two parts: the one with the DNA and the one without.
+
+We then take the part with the DNA, and throw away the one without the DNA.
+
+The first steps are coarser, and finer and finer splits are done as we move forward.
+
+= Filtration with vacuum pump
+{parent=DNA extraction}
+
+The first thing we did was to filter the water samples with a membrane filter that is so fine that not even bacteria can pass through, but water can.
+
+Therefore, after filtration, we would have all particles such as bacteria and larger dirt pieces in the filter.
+
+From the 1 liter in each bottle, we only used 400 ml because previous experiments showed that filtering the remaining 600 ml is very time consuming because the membrane filter gets clogged up.
+
+Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable <Eppendorf tube> volumes: <image An Eppendorf tube>{full}. Reagents are expensive, and lab bench centrifuges are small!
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg]
+{title=An <Eppendorf tube>}
+{description=They are small, convenient and disposable.}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg/640px-Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg]
+{title=Labelled Eppendorf tubes on a rack}
+
+Since the filter is so fine, filtering by gravity alone would take forever, and so we used a vacuum pump to speed thing up!
+
+For that we used:
+* <Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters>
+* <KNF Laboport series laboratory vacuum pump>
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/6/6e/Vacuum_pump_filter_peel_filter.png]
+{title=Peeling the vacuum pump filter protection peel before usage}
+{height=400}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/7/78/Vacuum_pump_filter_place_filter.png]
+{title=Placing the vacuum pump filter}
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/Vacuum_pump_filter_pour_sample_and_turn_on.webm/Vacuum_pump_filter_pour_sample_and_turn_on.webm.480p.vp9.webm]
+{title=Pouring the water sample into the vacuum tube and turning on the vacuum pump}
+{height=400}
+
+= Post filtration purification
+{parent=DNA extraction}
+
+After filtration, all DNA should present in the filter, so we cut the paper up with scissors and put the pieces into an Eppendorf: <video Cutting vacuum pump filter and placing it in Eppendorf>{full}.
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/8/85/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm.480p.vp9.webm]
+{title=Cutting vacuum pump filter and placing it in <Eppendorf>}
+{height=400}
+
+Now that we had the DNA in Eppendorfs, we were ready to continue the purification in a simpler and more standardized lab pipeline fashion.
+
+First we added some small specialized beads and chemicals to the water and shook them Eppendorfs hard in a <Scientific Industries Inc. Vortex-Genie 2> machine to break the <cell (biology)> and free the DNA.
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e1/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm.480p.vp9.webm]
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/1/19/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv.480p.vp9.webm]
+{height=400}
+
+Once that was done, we added several reagents which split the solution into two phases: one containing the DNA and the other not. We would then pipette the phase with the DNA out to the next Eppendorf, and continue the process.
+
+In one step for example, the DNA was present as a white precipitate at the bottom of the tube, and we threw away the supernatant liquid: <image White precipitate formed with Qiagen DNeasy PowerWater Kit>{full}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg/586px-Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg]
+{title=White precipitate formed with Qiagen DNeasy PowerWater Kit}
+
+At various stages, centrifuging was also necessary. Much like the previous vacuum pump step, this adds extra gravity to speed up the separation of phases with different molecular masses.
+
+In our case, we used a <VWR Micro Star 17 microcentrifuge> for those steps:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VWR_Micro_Star_17_microcentrifuge.jpg/360px-VWR_Micro_Star_17_microcentrifuge.jpg]
+{height=400}
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/VWR_Micro_Star_17_microcentrifuge_loading.png/358px-VWR_Micro_Star_17_microcentrifuge_loading.png]
+{titleFromSrc}
+
+Then, when we had finally finished all the purification steps, we measured the quantity of DNA with a <Biochrom SimpliNano spectrophotometer> to check that the purification went well:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg]
+{height=400}
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg]
+{titleFromSrc}
+
+And because the readings were good, we put it in our -20 C fridge to preserve it until the second day of the workshop and called it a day:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Minus_20_fridge_storing_samples.jpg/183px-Minus_20_fridge_storing_samples.jpg]
+{height=400}
+{titleFromSrc}
+
+= PCR
+{c}
+{parent=oxford nanopore river bacteria}
+{tag=/Polymerase chain reaction}
+
+More generic PCR information at: </polymerase chain reaction>{full}.
+
+Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so participants did not get to take many photos.
+
+PCR protocols are very standard it seems, all that biologists need to know to reproduce is the time and temperature of each step.
+
+We did 35 cycles of:
+* 94˚C for 30 seconds
+* 60˚C for 30 seconds
+* 72˚C for 45 seconds
+
+This process used a <Marshal Scientific MJ Research PTC-200 Thermal Cycler>:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg/360px-Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg]
+{titleFromSrc}
+
+We added PCR primers for regions that surround the 16S DNA. The primers are just bought from a vendor, and we used well known regions are called 27F and 1492R. Here is a paper that analyzes other choices: https://academic.oup.com/femsle/article/221/2/299/630719 (https://web.archive.org/web/20190911091818/https://academic.oup.com/femsle/article/221/2/299/630719[archive]) "Evaluation of primers and PCR conditions for the analysis of 16S rRNA genes from a natural environment" by Yuichi Hongoh, Hiroe Yuzawa, Moriya Ohkuma, Toshiaki Kudo (2003)
+
+One cool thing about the PCR is that we can also add a known barcode at the end of each primer as shown at <code PCR diagram>{full}.
+
+This means that we bought a few different versions of our 27F/1492R primers, each with a different small DNA tag attached directly to them in addition to the matching sequence.
+
+This way, we were able to:
+* use a different barcode for samples collected from different locations. This means we
+  * did PCR separately for each one of them
+  * for each PCR run, used a different set of primers, each with a different tag
+  * the primer is still able to attach, and then the tag just gets amplified with the rest of everything!
+* sequence them all in one go
+* then just from the sequencing output the barcode to determine where each sequence came from!
+
+``
+Input: Bacterial DNA (a little bit)
+... --- 27S --- 16S --- 1492R --- ...
+
+|||
+|||
+vvv
+
+Output: PCR output (a lot of)
+Barcode --- 27S --- 16S --- 1492R
+``
+{title=PCR diagram}
+
+Finally, after purification, we used the <Qiagen QIAquick PCR Purification Kit> protocol to purify the generated from unwanted PCR byproducts.
+
+= PCR verification with gel electrophoresis
+{parent=PCR}
+
+Biology experiments are hard, and so they go wrong, a lot.
+
+For this reason, it is wise to verify that certain steps are correct whenever possible.
+
+And so this is the first thing we did on the second day!
+
+<Gel electrophoresis> separates molecules by their charge-to-mass ratio. It is one of those ultra common lab procedures!
+
+This allows us to determine how long are the DNA fragments present in our solution.
+
+Since we know that we amplified the 16S regions which we know the rough size of (there might be a bit of variability across species, but not that much), we were expecting to see a big band at that size.
+
+And that is exactly what we saw!
+
+First we had to prepare the gel, put the gel comb, and pipette the samples into wells present in the gel:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Gel_electrophoresis_insert_comb.jpg/360px-Gel_electrophoresis_insert_comb.jpg]
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Gel_electrophoresis_top_view_with_wells_visible.jpg/360px-Gel_electrophoresis_top_view_with_wells_visible.jpg]
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gel_electrophoresis_pipette_sample_into_wells.jpg/360px-Gel_electrophoresis_pipette_sample_into_wells.jpg]
+{titleFromSrc}
+
+To see the DNA, we added <ethidium bromide> to the samples, which is a substance that that both binds to DNA and is fluorescent.
+
+Because it interacts heavily with DNA, ethidium bromide is a <mutagen>, and the biology people sure did treat the dedicated electrophoresis bench area with respect! <image Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination.>{full}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg/360px-Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg]
+{title=<Gel electrophoresis> dedicated bench area to prevent <ethidium bromide> contamination.}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg/360px-Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg]
+{titleFromSrc}
+
+The UV transilluminator we used to shoot <UV light> into the gel was the <Fisher Scientific UVP LM-26E Benchtop 2UV Transilluminator>. The fluorescent substance then emitted a light we can see.
+
+As barely seen at <image Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator illuminated gel.>{full} due to bad photo quality due to lack of light, there is one strong green line, which compared to the ladder matches our expected 16S length. What we saw it with the naked eyes was very clear however.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg/640px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg]
+{title=Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg]
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg]
+{titleFromSrc}
+
+= Sequencing
+{parent=oxford nanopore river bacteria}
+
+Once we had the amplified 16S DNA, we were almost ready to start sequencing!
+
+= Pre-sequencing preparation
+{parent=Sequencing}
+
+One cool thing we did in this procedure was to use https://en.wikipedia.org/wiki/Magnetic_separation[magnetic separation] with magnetic beads to further concentrate the DNA: <image GE MagRack 6 pipetting.>{full}.
+
+The beads are coated to stick to the DNA, which allows us to easily extract the DNA from the rest of the solution. This is cool, but bio people are borderline obsessed by those beads! Go figure!
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg]
+{height=400}
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg/503px-GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg]
+{titleFromSrc}
+
+Then we prepared the DNA for sequencing with the Oxford Nanopore specific part: <Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit>.
+
+Here some of the steps required a bit more of vortexing for mixing the reagents, and for this we used the <VELP Scientifica WIZARD IR Infrared Vortex Mixer> which appears to be quicker to use and not as strong as the Vortex Genie 2 previously used to break up the cells:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg/360px-VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg]
+{height=400}
+{titleFromSrc}
+
+After all that was done, the DNA of the several 400 ml water bottles and hours of hard purification labour were contained in one single Eppendorf!
+
+= Using the Oxford Nanopore
+{parent=Sequencing}
+
+With all this ready, we opened the Nanopore flow cell, which is the 500 dollar consumable piece that goes in the sequencer.
+
+We then had to pipette the final golden Eppendorf into the flow cell. My anxiety levels were going through the roof: <image Oxford nanopore MinION flow cell pipette loading.>{full}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oxford_nanopore_MinION_flow_cell_package.jpg/304px-Oxford_nanopore_MinION_flow_cell_package.jpg]
+{height=400}
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Oxford_nanopore_MinION_flow_cell_front.jpg/640px-Oxford_nanopore_MinION_flow_cell_front.jpg]
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Oxford_nanopore_MinION_flow_cell_back.jpg/1024px-Oxford_nanopore_MinION_flow_cell_back.jpg]
+{titleFromSrc}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg/278px-Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg]
+{height=400}
+{titleFromSrc}
+
+At this point bio people start telling lab horror stories of expensive solutions being spilled and people having to recover them from fridge walls, or of how people threw away golden Eppendorfs and had to pick them out of trash bins with hundreds of others looking exactly the same etc. (but also how some discoveries were made like this). This reminded Ciro of: https://youtu.be/89UNPdNtOoE?t=919 https://en.wikipedia.org/wiki/Alfred_Maddock[Alfred Maddock's plutonium spill horror story].
+
+Luckily this time, it worked out!
+
+We then just had to connect the MinION to the computer, and wait for 2 days.
+
+During this time, the DNA would be sucked through the pores.
+
+As can be seen from <video Oxford Nanopore MinION software channels pannel on Mac.> the software tells us which pores are still working.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg/360px-Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg]
+{height=400}
+{titleFromSrc}
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm]
+{titleFromSrc}
+
+Pores go bad sooner or later randomly, until there are none left, at which point we can stop the process and throw the flow cell away.
+
+48 hours was expected to be a reasonable time until all pores went bad, and so we called it a day, and waited for an email from the PuntSeq team telling us how things went.
+
+We reached a yield of 16 billion base pairs out of the 30Gbp nominal maximum, which the bio people said was not bad.
+
+= Bioinformatics
+{parent=oxford nanopore river bacteria}
+
+Because Ciro's a software engineer, and he's done enough staring in computers for a lifetime already, and he believes in the power of <Git>, he didn't pay much attention to this part ;-)
+
+According to the eLife paper, the code appears to have been uploaded to: https://github.com/d-j-k/puntseq[]. TODO at least mention the key algorithms used more precisely.
+
+Ciro can however see that it does present interesting problems!
+
+Because it was necessary to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year to illustrate the software.
+
+First there is some signal processing/machine learning required to do the <base calling>, which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.
+
+After the base calling was done, the data was analyzed using computer programs that match the sequenced 16S sequences to a database of known sequenced species.
+
+This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.
+
+The PuntSeq team would later upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data would be uploaded to: https://www.puntseq.co.uk/data
+
+= Conclusions
+{parent=oxford nanopore river bacteria}
+
+* against all odds, the experiment worked and we got DNA out of the water, despite a bunch of non-bio newbs actively messing with random parts of the experiment
+* PuntSeq and Biomakespace people, and all those tho do scientific outreach, are awesome!
+* biology is hard
+* creating insanely media rich articles like this is also hard, but the following helped enormously:
+  * <media rationale of Ciro Santilli's website>[Wikimedia Commons] to store large media files out of Git
+  * \a[markdown-style-guide][Asciidoctor]{external} extensions to easily include those media files. The lessons learnt in this article were then an important motivation for Ciro's <OurBigBook Markup>, to which this article was later migrated.
+  * https://unix.stackexchange.com/questions/25978/image-viewer-for-multiple-images/539333#539333[Nomacs] to give <Google Photos> photos meaningful names and to edit people's faces out of pictures ;-)
+* some scientific Wikipedia pages may or may not have been edited with better pictures during the course of writing this article
+
+= Protocols used
+{parent=oxford nanopore river bacteria}
+
+Protocols are the biologist term for "recipe".
+
+I found that a lot of biology comes down to this: get the right recipe, follow it well even though you don't understand all the proprietary details, and pray.
+
+= Qiagen DNeasy PowerWater Kit
+{c}
+{parent=Protocols used}
+
+https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit (https://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/[archive]) Here is its documentation: https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en (https://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en[archive]).
+
+Manual archive: https://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en
+
+Kit to extract clean DNA from water.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Qiagen_DNeasy_PowerWater_Kit_open_box.jpg/360px-Qiagen_DNeasy_PowerWater_Kit_open_box.jpg]
+{height=400}
+{titleFromSrc}
+
+= Qiagen QIAquick PCR Purification Kit
+{c}
+{parent=Protocols used}
+
+https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation (https://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/[archive])
+
+Manual archive: https://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&lang=en
+
+Removes PCR byproducts from purified DNA.
+
+= Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit
+{c}
+{parent=Protocols used}
+
+https://store.nanoporetech.com/ligation-sequencing-kit.html (https://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html[archive])
+
+Repairs the ends of DNA, and also attaches an adapter protein to the DNA that makes them go through the pores of e.g. an <Oxford Nanopore MinION>.
+
+= Equipment used
+{parent=oxford nanopore river bacteria}
+
+= Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters
+{c}
+{parent=Equipment used}
+
+https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781 (https://web.archive.org/web/20190907131756/https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781[archive])
+
+This is where we poured the water. It was not large enough for the entire 1L sample, so we had to do it a few times.
+
+= KNF Laboport series laboratory vacuum pump
+{c}
+{parent=Equipment used}
+
+https://www.knfusa.com/en/laboport/ (https://web.archive.org/web/20190907132036/https://www.knfusa.com/en/laboport/[archive]).
+
+\Comment[[\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/KNF_Laboport_series_laboratory_vacuum_pump.jpg/640px-KNF_Laboport_series_laboratory_vacuum_pump.jpg]]
+
+= Scientific Industries Inc. Vortex-Genie 2
+{c}
+{parent=Equipment used}
+
+https://www.scientificindustries.com/vortex-genie-2.html (https://web.archive.org/web/20190908034549/https://www.scientificind.ustries.com/vortex-genie-2.html[archive])
+
+https://en.wikipedia.org/wiki/Vortex_mixer
+
+\Comment[[
+\Video[https://upload.wikimedia.org/wikipedia/commons/e/e1/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm]
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/1/19/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv]
+]]
+
+= VWR Micro Star 17 microcentrifuge
+{c}
+{parent=Equipment used}
+
+https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r (https://web.archive.org/web/20190908040119/https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r[archive]).
+
+\Comment[[
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/VWR_Micro_Star_17_microcentrifuge_loading.png/358px-VWR_Micro_Star_17_microcentrifuge_loading.png]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VWR_Micro_Star_17_microcentrifuge.jpg/360px-VWR_Micro_Star_17_microcentrifuge.jpg]
+]]
+
+= VELP Scientifica WIZARD IR Infrared Vortex Mixer
+{c}
+{parent=Equipment used}
+
+https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer (https://web.archive.org/web/20190908091343/https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer[archive]).
+
+\Comment[[\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg/360px-VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg]]
+
+= Marshal Scientific MJ Research PTC-200 Thermal Cycler
+{c}
+{parent=Equipment used}
+
+https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm (https://web.archive.org/web/20190908091629/https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm[archive]).
+
+\Comment[[\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg/360px-Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg]]
+
+= GE MagRack 6
+{c}
+{parent=Equipment used}
+
+https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761 (https://web.archive.org/web/20190908091852/https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761[archive]).
+
+\Comment[[
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg/503px-GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg]
+]]
+
+= BTLab Systems Mini Centrifuge
+{c}
+{parent=Equipment used}
+
+https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K (https://web.archive.org/web/20190908094324/https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K[archive]).
+
+Manual: https://web.archive.org/web/20190908094334/https://www.btlabsystems.com/downloads/BT602_Mini_Centrifuge_7K_Fixed.pdf
+
+\Comment[[\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/BTLab_Systems_Mini_Centrifuge_open.jpg/360px-BTLab_Systems_Mini_Centrifuge_open.jpg]]
+
+= Fisher Scientific UVP LM-26E Benchtop 2UV Transilluminator
+{c}
+{parent=Equipment used}
+{tag=Fisher Scientific product}
+
+https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0 (https://web.archive.org/web/20190908094721/https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0[archive]) Cannot exact same product on official website, but here is a similar one: https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038 (https://web.archive.org/web/20190908094903/https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038[archive]).
+
+\Comment[[
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg/640px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg]
+]]
+
+= Biochrom SimpliNano spectrophotometer
+{c}
+{parent=Equipment used}
+
+https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html (https://web.archive.org/web/20190920214435/https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html[archive])
+
+Manual: https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf (https://web.archive.org/web/20190920214755/https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf[archive])
+
+\Comment[[
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg]
+]]
+
+= External links to this page
+{parent=oxford nanopore river bacteria}
+
+* 2021-03-25: <Oxford Nanopore Technologies> https://twitter.com/cirosantilli/status/1177856415068823552/retweets[retweeted] this article, that's awesome!
+* 2021: https://hackaday.com/author/wd5gnr1/ "SEQUENCING DNA FOR METAGENOMICS" by Al Williams (2021). This came after <Ciro Santilli> self promoted at: https://stackoverflow.blog/2021/02/03/sequencing-your-dna-with-a-usb-dongle-and-open-source-code/#comment-1411921
