@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+for d in */; do
+  cd "$d"
+  if [ -x test ]; then
+    echo "$d"
+    ./test
+  fi
+  cd ..
+done
+echo tests passed

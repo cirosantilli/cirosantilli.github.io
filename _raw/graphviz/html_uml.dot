@@ -1,0 +1,18 @@
+// https://stackoverflow.com/questions/38806374/marking-labeling-node-edge-connection-points-with-graphviz/74795871#74795871
+digraph structs {
+    node [shape=plaintext]
+    house [label=<
+<table border="0" cellborder="1" cellspacing="0">
+  <th><td><b>House</b></td></th>
+  <tr><td port="cw">Clean water</td></tr>
+  <tr><td port="dw">Dirty water</td></tr>
+</table>>];
+    street [label=<
+<table border="0" cellborder="1" cellspacing="0">
+  <th><td><b>Street</b></td></th>
+  <tr><td port="cw">Clean water</td></tr>
+  <tr><td port="dw">Dirty water</td></tr>
+</table>>];
+    street:cw -> house:cw;
+    house:dw -> street:dw;
+}
