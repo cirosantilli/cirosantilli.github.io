@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -eu
+if [ $# -gt 0 ]; then
+  test=true
+else
+  test=false
+fi
+if [ -d "../ourbigbook" ] && "$test"; then
+  cd ../ourbigbook
+  web/bin/pg_dump_heroku
+  cd -
+fi
+ourbigbook --web
+ourbigbook -p
+if [ -d "../ourbigbook" ] && "$test"; then
+  cd ../ourbigbook
+  ./heroku run web/bin/normalize -c nested-set -u cirosantilli
+  cd -
+fi
