@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Source code overview - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="../"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="../sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="source-code-overview"><div class="notnav"><h1><a href="">Source code overview</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../species"> Species</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../bacteria"> Bacteria</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../list-of-bacteria"> List of bacteria</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../escherichia-coli"> Escherichia coli</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-whole-cell-simulation"> E. Coli whole cell simulation</a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-whole-cell-model-by-covert-lab"> E. Coli Whole Cell Model by Covert Lab</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/source-code-overview"><img src="../_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 1k</span><span class="dcnt"> articles: 1</span></span></div></nav></div><div class="p" id="_105">The key model database is located in the source code at <code>reconstruction/ecoli/flat</code>.</div><div class="p" id="_106">Let's try to understand some interesting looking, with a special focus on our understanding of the tiny <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-k-12-mg1655-operon-thrlabc">E. Coli K-12 MG1655 operon thrLABC</a> part of the metabolism, which we have well understood at <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-k-12-mg1655-operon-thrlabc">Section "E. Coli K-12 MG1655 operon thrLABC"</a>.</div><div class="p" id="_107">We'll realize that a lot of data and IDs come from/match <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../biocyc">BioCyc</a> quite closely.</div><div class="p" id="_108">Before we start, there is one major thing missing thing in the current model: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../promoter-genetics">promoters</a>/<a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transcription-factor">transcription factor</a> interactions are not modelled due to lack/low quality of experimental data: <a href="https://github.com/CovertLab/WholeCellEcoliRelease/issues/21">github.com/CovertLab/WholeCellEcoliRelease/issues/21</a>. They just have a magic direct "<a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transcription-factor">transcription factor</a> to <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../gene">gene</a>" relationship, encoded at <a href="https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/reconstruction/ecoli/flat/foldChanges.tsv">reconstruction/ecoli/flat/foldChanges.tsv</a> in terms of type "if this is present, such protein is expressed 10x more". <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transcription-unit">Transcription units</a> are not implemented at all it appears.</div><div><ul id="_109"><li id="_110"><code>reconstruction/ecoli/flat/compartments.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cellular-compartment">cellular compartment</a> information:
+<div class="code" id="_111"><pre><code>"abbrev" "id"
+"n" "CCO-BAC-NUCLEOID"
+"j" "CCO-CELL-PROJECTION"
+"w" "CCO-CW-BAC-NEG"
+"c" "CCO-CYTOSOL"
+"e" "CCO-EXTRACELLULAR"
+"m" "CCO-MEMBRANE"
+"o" "CCO-OUTER-MEM"
+"p" "CCO-PERI-BAC"
+"l" "CCO-PILUS"
+"i" "CCO-PM-BAC-NEG"</code></pre></div><div><ul id="_112"><li id="_113"><code>CCO</code>: "Celular COmpartment"</li><li id="_114"><code>BAC-NUCLEOID</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../nucleoid">nucleoid</a></li><li id="_115"><code>CELL-PROJECTION</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cell-projection">cell projection</a></li><li id="_116"><code>CW-BAC-NEG</code>: TODO confirm: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cell-wall">cell wall</a> (of a <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../gram-negative-bacteria">Gram-negative bacteria</a>)</li><li id="_117"><code>CYTOSOL</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cytosol">cytosol</a></li><li id="_118"><code>EXTRACELLULAR</code>: outside the cell</li><li id="_119"><code>MEMBRANE</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cell-membrane">cell membrane</a></li><li id="_120"><code>OUTER-MEM</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../bacterial-outer-membrane">bacterial outer membrane</a></li><li id="_121"><code>PERI-BAC</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../periplasm">periplasm</a></li><li id="_122"><code>PILUS</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../pilus">pilus</a></li><li id="_123"><code>PM-BAC-NEG</code>: TODO: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../organelle">plasma membrane</a>, but that is the same as <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cell-membrane">cell membrane</a> no?</li></ul></div></li><li id="_124"><code>reconstruction/ecoli/flat/promoters.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../promoter-genetics">promoter</a> information. Simple file, sample lines:
+<div class="code" id="_125"><pre><code>"position" "direction" "id" "name"
+148 "+" "PM00249" "thrLp"</code></pre></div>
+corresponds to <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-k-12-mg1655-promoter-thrlp">E. Coli K-12 MG1655 promoter thrLp</a>, which starts as position 148.</li><li id="_126"><code>reconstruction/ecoli/flat/proteins.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein">protein</a> information. Sample line corresponding to <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-k-12-mg1655-gene-thra">e. Coli K-12 MG1655 gene thrA</a>:
+<div class="code" id="_127"><pre><code>"aaCount" "name" "seq" "comments" "codingRnaSeq" "mw" "location" "rnaId" "id" "geneId"
+[91, 46, 38, 44, 12, 53, 30, 63, 14, 46, 89, 34, 23, 30, 29, 51, 34, 4, 20, 0, 69] "ThrA" "MRVL..." "Location information from Ecocyc dump." "AUGCGAGUGUUG..." [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 89103.51099999998, 0.0, 0.0, 0.0, 0.0] ["c"] "EG10998_RNA" "ASPKINIHOMOSERDEHYDROGI-MONOMER" "EG10998"</code></pre></div>
+so we understand that:<div><ul id="_128"><li id="_129"><code>aaCount</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../amino-acid">amino acid</a> count, how many of each of the 20 <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../proteinogenic-amino-acid">proteinogenic amino acid</a> are there</li><li id="_130"><code>seq</code>: full sequence, using the single letter abbreviation of the <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../proteinogenic-amino-acid">proteinogenic amino acids</a></li><li id="_131"><code>mw</code>; molecular weight? The 11 components appear to be given at <code>reconstruction/ecoli/flat/scripts/unifyBulkFiles.py</code>:
+<div class="code" id="_132"><pre><code>molecular_weight_keys = [
+  '23srRNA',
+  '16srRNA',
+  '5srRNA',
+  'tRNA',
+  'mRNA',
+  'miscRNA',
+  'protein',
+  'metabolite',
+  'water',
+  'DNA',
+  'RNA' # nonspecific RNA
+  ]</code></pre></div>
+so they simply classify the weight? Presumably this exists for complexes that have multiple classes?<div><ul id="_133"><li id="_134"><code>23srRNA</code>, <code>16srRNA</code>, <code>5srRNA</code> are the three structural <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../rna">RNAs</a> present in the <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../ribosome">ribosome</a>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../23s-ribosomal-rna">23S ribosomal RNA</a>, <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../16s-ribosomal-rna">16S ribosomal RNA</a>, <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../5s-ribosomal-rna">5S ribosomal RNA</a>, all others are obvious:</li><li id="_135"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transfer-rna">tRNA</a></li><li id="_136"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../messenger-rna">mRNA</a></li><li id="_137"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein">protein</a>. This is the seventh class, and this enzyme only contains mass in this class as expected.</li><li id="_138"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../metabolite">metabolite</a></li><li id="_139"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../water">water</a></li><li id="_140"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../dna">DNA</a></li><li id="_141"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../rna">RNA</a>: TODO <code>rna</code> vs <code>miscRNA</code></li></ul></div></li><li id="_142"><code>location</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cellular-compartment">cell compartment</a> where the protein is present, <code>c</code> defined at <code>reconstruction/ecoli/flat/compartments.tsv</code> as <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../cytoplasm">cytoplasm</a>, as expected for something that will make an <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../amino-acid">amino acid</a></li></ul></div></li><li id="_143"><code>reconstruction/ecoli/flat/rnas.tsv</code>: TODO vs <code>transcriptionUnits.tsv</code>. Sample lines:
+<div class="code" id="_144"><pre><code>"halfLife" "name" "seq" "type" "modifiedForms" "monomerId" "comments" "mw" "location" "ntCount" "id" "geneId" "microarray expression"
+174.0 "ThrA [RNA]" "AUGCGAGUGUUG..." "mRNA" [] "ASPKINIHOMOSERDEHYDROGI-MONOMER" "" [0.0, 0.0, 0.0, 0.0, 790935.00399999996, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] ["c"] [553, 615, 692, 603] "EG10998_RNA" "EG10998" 0.0005264904</code></pre></div><div><ul id="_145"><li id="_146"><code>halfLife</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../half-life">half-life</a></li><li id="_147"><code>mw</code>: molecular weight, same as in <code>reconstruction/ecoli/flat/proteins.tsv</code>. This <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../molecule">molecule</a> only have weight in the <code>mRNA</code> class, as expected, as it just codes for a protein</li><li id="_148"><code>location</code>: same as in <code>reconstruction/ecoli/flat/proteins.tsv</code></li><li id="_149"><code>ntCount</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../nucleotide">nucleotide</a> count for each of the ATGC</li><li id="_150"><code>microarray expression</code>: presumably refers to <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../dna-microarray">DNA microarray</a> for <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../gene-expression-profiling">gene expression profiling</a>, but what measure exactly?</li></ul></div></li><li id="_151"><code>reconstruction/ecoli/flat/sequence.fasta</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../fasta-format">FASTA</a> <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../dna">DNA</a> sequence, first two lines:
+<div class="code" id="_152"><pre><code>&gt;E. coli K-12 MG1655 U00096.2 (1 to 4639675 = 4639675 bp)
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTG</code></pre></div></li><li id="_153"><code>reconstruction/ecoli/flat/transcriptionUnits.tsv</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transcription-unit">transcription units</a>. We can observe for example the two different transcription units of the <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-k-12-mg1655-operon-thrlabc">E. Coli K-12 MG1655 operon thrLABC</a> in the lines:
+<div class="code" id="_154"><pre><code>"expression_rate" "direction" "right" "terminator_id"  "name"    "promoter_id" "degradation_rate" "id"       "gene_id"                                   "left"
+0.0               "f"         310     ["TERM0-1059"]   "thrL"    "PM00249"     0.198905992329492 "TU0-42486" ["EG11277"]                                  148
+657.057317358791  "f"         5022    ["TERM_WC-2174"] "thrLABC" "PM00249"     0.231049060186648 "TU00178"   ["EG10998", "EG10999", "EG11000", "EG11277"] 148</code></pre></div><div><ul id="_155"><li id="_156"><code>promoter_id</code>: matches promoter id in <code>reconstruction/ecoli/flat/promoters.tsv</code></li><li id="_157"><code>gene_id</code>: matches id in <code>reconstruction/ecoli/flat/genes.tsv</code></li><li id="_158"><code>id</code>: matches exactly those used in <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../biocyc">BioCyc</a>, which is quite nice, might be more or less standardized:<div><ul id="_159"><li id="_160"><a href="https://biocyc.org/ECOLI/NEW-IMAGE?object=TU0-42486">biocyc.org/ECOLI/NEW-IMAGE?object=TU0-42486</a></li><li id="_161"><a href="https://biocyc.org/ECOLI/NEW-IMAGE?type=OPERON&amp;object=TU00178">biocyc.org/ECOLI/NEW-IMAGE?type=OPERON&amp;object=TU00178</a></li></ul></div></li></ul></div></li><li id="_162"><code>reconstruction/ecoli/flat/genes.tsv</code>
+<div class="code" id="_163"><pre><code>"length" "name"                      "seq"             "rnaId"      "coordinate" "direction" "symbol" "type" "id"      "monomerId"
+66       "thr operon leader peptide" "ATGAAACGCATT..." "EG11277_RNA" 189         "+"         "thrL"   "mRNA" "EG11277" "EG11277-MONOMER"
+2463     "ThrA"                      "ATGCGAGTGTTG"    "EG10998_RNA" 336         "+"         "thrA"   "mRNA" "EG10998" "ASPKINIHOMOSERDEHYDROGI-MONOMER"</code></pre></div></li><li id="_164"><div class="p" id="_165"><code>reconstruction/ecoli/flat/metabolites.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../metabolite">metabolite</a> information. Sample lines:
+<div class="code" id="_166"><pre><code>"id"                       "mw7.2" "location"
+"HOMO-SER"                 119.12  ["n", "j", "w", "c", "e", "m", "o", "p", "l", "i"]
+"L-ASPARTATE-SEMIALDEHYDE" 117.104 ["n", "j", "w", "c", "e", "m", "o", "p", "l", "i"]</code></pre></div>
+In the case of the enzyme thrA, one of the two reactions it catalyzes is "L-aspartate 4-semialdehyde" into "Homoserine".</div><div class="p" id="_167">Starting from the enzyme page: <a href="https://biocyc.org/gene?orgid=ECOLI&amp;id=EG10998">biocyc.org/gene?orgid=ECOLI&amp;id=EG10998</a> we reach the reaction page: <a href="https://biocyc.org/ECOLI/NEW-IMAGE?type=REACTION&amp;object=HOMOSERDEHYDROG-RXN">biocyc.org/ECOLI/NEW-IMAGE?type=REACTION&amp;object=HOMOSERDEHYDROG-RXN</a> which has reaction ID <code>HOMOSERDEHYDROG-RXN</code>, and that page which clarifies the IDs:<div><ul id="_168"><li id="_169"><a href="https://biocyc.org/compound?orgid=ECOLI&amp;id=L-ASPARTATE-SEMIALDEHYDE:">biocyc.org/compound?orgid=ECOLI&amp;id=L-ASPARTATE-SEMIALDEHYDE:</a> "L-aspartate 4-semialdehyde" has ID <code>L-ASPARTATE-SEMIALDEHYDE</code></li><li id="_170"><a href="https://biocyc.org/compound?orgid=ECOLI&amp;id=HOMO-SER:">biocyc.org/compound?orgid=ECOLI&amp;id=HOMO-SER:</a> "Homoserine" has ID <code>HOMO-SER</code>
+</li></ul></div>so these are the compounds that we care about.</div></li><li id="_171"><code>reconstruction/ecoli/flat/reactions.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../chemical-reaction">chemical reaction</a> information. Sample lines:
+<div class="code" id="_172"><pre><code>"reaction id" "stoichiometry" "is reversible" "catalyzed by"
+
+"HOMOSERDEHYDROG-RXN-HOMO-SER/NAD//L-ASPARTATE-SEMIALDEHYDE/NADH/PROTON.51."
+  {"NADH[c]": -1, "PROTON[c]": -1, "HOMO-SER[c]": 1, "L-ASPARTATE-SEMIALDEHYDE[c]": -1, "NAD[c]": 1}
+  false
+  ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]
+
+"HOMOSERDEHYDROG-RXN-HOMO-SER/NADP//L-ASPARTATE-SEMIALDEHYDE/NADPH/PROTON.53."
+  {"NADPH[c]": -1, "NADP[c]": 1, "PROTON[c]": -1, "L-ASPARTATE-SEMIALDEHYDE[c]": -1, "HOMO-SER[c]": 1
+  false
+  ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]</code></pre></div><div><ul id="_173"><li id="_174"><code>catalized by</code>: here we see <code>ASPKINIHOMOSERDEHYDROGI-CPLX</code>, which we can guess is a <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein-complex">protein complex</a> made out of <code>ASPKINIHOMOSERDEHYDROGI-MONOMER</code>, which is the ID for the <code>thrA</code> we care about! This is confirmed in <code>complexationReactions.tsv</code>.</li></ul></div></li><li id="_175"><code>reconstruction/ecoli/flat/complexationReactions.tsv</code> contains information about <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../chemical-reaction">chemical reactions</a> that produce <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein-complex">protein complexes</a>:
+<div class="code" id="_176"><pre><code>"process" "stoichiometry" "id" "dir"
+"complexation"
+  [
+    {
+      "molecule": "ASPKINIHOMOSERDEHYDROGI-CPLX",
+      "coeff": 1,
+      "type": "proteincomplex",
+      "location": "c",
+      "form": "mature"
+    },
+    {
+      "molecule": "ASPKINIHOMOSERDEHYDROGI-MONOMER",
+      "coeff": -4,
+      "type": "proteinmonomer",
+      "location": "c",
+      "form": "mature"
+    }
+  ]
+"ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
+1</code></pre></div>
+The <code>coeff</code> is how many monomers need to get together for form the final complex. This can be seen from the Summary section of <a href="https://ecocyc.org/gene?orgid=ECOLI&amp;id=ASPKINIHOMOSERDEHYDROGI-MONOMER">ecocyc.org/gene?orgid=ECOLI&amp;id=ASPKINIHOMOSERDEHYDROGI-MONOMER</a>:
+<blockquote id="_177">Aspartate kinase I / homoserine dehydrogenase I comprises a dimer of ThrA dimers. Although the dimeric form is catalytically active, the binding equilibrium dramatically favors the tetrameric form. The aspartate kinase and homoserine dehydrogenase activities of each ThrA monomer are catalyzed by independent domains connected by a linker region.</blockquote>
+Fantastic literature summary! Can't find that in database form there however.</li><li id="_178"><code>reconstruction/ecoli/flat/proteinComplexes.tsv</code> contains <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein-complex">protein complex</a> information:
+<div class="code" id="_179"><pre><code>"name" "comments" "mw" "location" "reactionId" "id"
+"aspartate kinase / homoserine dehydrogenase"
+""
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 356414.04399999994, 0.0, 0.0, 0.0, 0.0]
+["c"]
+"ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
+"ASPKINIHOMOSERDEHYDROGI-CPLX"</code></pre></div></li><li id="_180"><code>reconstruction/ecoli/flat/protein_half_lives.tsv</code> contains the <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../half-life">half-life</a> of <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../protein">proteins</a>. Very few proteins are listed however for some reason.</li><li id="_181"><code>reconstruction/ecoli/flat/tfIds.csv</code>: <a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../transcription-factor">transcription factors</a> information:
+<div class="code" id="_182"><pre><code>"TF"   "geneId"  "oneComponentId"  "twoComponentId" "nonMetaboliteBindingId" "activeId" "notes"
+"arcA" "EG10061" "PHOSPHO-ARCA"    "PHOSPHO-ARCA"
+"fnr"  "EG10325" "FNR-4FE-4S-CPLX" "FNR-4FE-4S-CPLX"
+"dksA" "EG10230"</code></pre></div></li></ul></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 1k</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/e-coli-whole-cell-model-by-covert-lab/condition"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/condition">1. Condition</a><span class="hover-metadata"><a href="#_toc/e-coli-whole-cell-model-by-covert-lab/condition" class="c"></a><a href="#_toc" class="u"> Source code overview</a><span class="metrics"><span class="wcntr"> 473</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-whole-cell-model-by-covert-lab">E. Coli Whole Cell Model by Covert Lab</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../e-coli-whole-cell-simulation">E. Coli whole cell simulation</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../escherichia-coli">Escherichia coli</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../list-of-bacteria">List of bacteria</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../bacteria">Bacteria</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../species">Species</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../taxonomy">Taxonomy</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../biology">Biology</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../natural-science">Natural science</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../science">Science</a></li><li><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/../">Ciro Santilli's Homepage</a></li></ol></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div>Source code for this page: <a href="../_file/e-coli-whole-cell-model-by-covert-lab.bigb">e-coli-whole-cell-model-by-covert-lab.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "e-coli-whole-cell-model-by-covert-lab/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

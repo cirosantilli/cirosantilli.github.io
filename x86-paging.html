@@ -1,337 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-      
-        x86 Paging Tutorial -
-      
-      Ciro Santilli
-    </title>
-    
-      <meta name="description" content="With simple examples and applications.">
-    
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
-    <!-- #jquery. Must come *before* all its many dependencies. -->
-      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <!-- #bootstrap -->
-      <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <!-- #data table -->
-      <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
-      <style>
-        table.dataTable tr.odd { background-color: white; }
-        table.dataTable tr.even { background-color: white; }
-        table.dataTable tr.odd td.sorting_1 { background-color: white; }
-        table.dataTable tr.odd td.sorting_2 { background-color: white; }
-        table.dataTable tr.odd td.sorting_3 { background-color: white; }
-        table.dataTable tr.even td.sorting_1 { background-color: white; }
-        table.dataTable tr.even td.sorting_2 { background-color: white; }
-        table.dataTable tr.even td.sorting_3 { background-color: white; }
-      </style>
-    <!-- #font awesome font icons -->
-      <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
-    <!-- Custom styles and scripts. Come at end to use and override libraries. -->
-      <!--<script src="/assets/main.js"></script>-->
-      <link rel="stylesheet" href="/assets/main.css"/>
-      <link rel="stylesheet" href="/assets/header-link.css"/>
-      <link rel="stylesheet" href="/assets/syntax.css"/>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header ">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Ciro Santilli</a>
-          </div>
-          <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-              
-              <li >
-                <a href="/articles" title="">Articles</a>
-              </li>
-              
-              <li >
-                <a href="/projects" title="">Projects</a>
-              </li>
-              
-              <li >
-                <a href="/skills" title="">Skills</a>
-              </li>
-              
-              <li >
-                <a href="/interests" title="">Interests</a>
-              </li>
-              
-              <li >
-                <a href="/education" title="">Education</a>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <div class="article-and-sidebar">
-      <div class="content">
-        <aside>
-          <div>
-            <a href="/">
-              <img style="width:100%;" src="/me.jpg" alt="">
-            </a>
-          </div>
-          <div>
-            <a class="nav" href="https://stackoverflow.com/users/895245"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
-            <a class="nav" href="https://github.com/cirosantilli"><i class="fa fa-github fa-fw"></i>GitHub</a>
-            <a class="nav" href="https://www.linkedin.com/in/cirosantilli"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
-            <a class="nav" href="https://www.youtube.com/channel/UCBrJjpKMpdrkA1VsAiR2wEg"><i class="fa fa-youtube fa-fw"></i>YouTube</a>
-            <a class="nav" href="https://twitter.com/cirosantilli"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
-            
-            <a class="nav" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fa fa-question-circle fa-fw"></i>Zhihu 知乎</a>
-            <a class="nav" href="https://www.weibo.com/p/1005055601627311"><i class="fa fa-weibo fa-fw"></i>Weibo 微博</a>
-            
-            <a class="nav" href="/accounts"><i class="fa fa-ellipsis-h fa-fw"></i>Other accounts</a>
-          </div>
-          <div>
-            
-            
-            
-            
-            
-            <a class="nav" href="https://github.com/cirosantilli/cirosantilli.github.io/issues/new?title=x86+Paging+Tutorial%20-%20">
-              <i class="fa fa-exclamation-circle fa-fw"></i>Report Issue
-            </a>
-          </div>
-        </aside>
-        <main>
-          <h1 class="page-title">x86 Paging Tutorial</h1>
-          <p>With simple examples and applications.</p>
-          <p>Extracted and expanded from <a href="https://stackoverflow.com/a/18431262/895245">my Stack Overflow answer</a>.</p>
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>x86 Paging Tutorial - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "_obb/dist/ourbigbook.css";
 
-<ol id="markdown-toc">
-  <li><a href="#sample-code" id="markdown-toc-sample-code">Sample code</a></li>
-  <li><a href="#intel-manual" id="markdown-toc-intel-manual">Intel manual</a></li>
-  <li><a href="#application" id="markdown-toc-application">Application</a></li>
-  <li><a href="#hardware-implementation" id="markdown-toc-hardware-implementation">Hardware implementation</a></li>
-  <li><a href="#segmentation" id="markdown-toc-segmentation">Segmentation</a></li>
-  <li><a href="#example-simplified-single-level-paging-scheme" id="markdown-toc-example-simplified-single-level-paging-scheme">Example: simplified single-level paging scheme</a>    <ol>
-      <li><a href="#single-level-paging-scheme-visualization" id="markdown-toc-single-level-paging-scheme-visualization">Single level paging scheme visualization</a></li>
-      <li><a href="#single-level-paging-scheme-numerical-translation-example" id="markdown-toc-single-level-paging-scheme-numerical-translation-example">Single level paging scheme numerical translation example</a></li>
-      <li><a href="#multiple-addresses-translate-to-a-single-physical-address" id="markdown-toc-multiple-addresses-translate-to-a-single-physical-address">Multiple addresses translate to a single physical address</a></li>
-      <li><a href="#identity-mapping" id="markdown-toc-identity-mapping">Identity mapping</a></li>
-      <li><a href="#page-faults" id="markdown-toc-page-faults">Page faults</a></li>
-      <li><a href="#page-table-entries" id="markdown-toc-page-table-entries">Page table entries</a></li>
-      <li><a href="#page-size-choice" id="markdown-toc-page-size-choice">Page size choice</a></li>
-    </ol>
-  </li>
-  <li><a href="#example-multi-level-paging-scheme" id="markdown-toc-example-multi-level-paging-scheme">Example: multi-level paging scheme</a>    <ol>
-      <li><a href="#the-problem-with-single-level-paging" id="markdown-toc-the-problem-with-single-level-paging">The problem with single-level paging</a></li>
-      <li><a href="#k-ary-trees-to-the-rescue" id="markdown-toc-k-ary-trees-to-the-rescue">K-ary trees to the rescue</a></li>
-      <li><a href="#why-not-a-balanced-tree" id="markdown-toc-why-not-a-balanced-tree">Why not a balanced tree</a></li>
-      <li><a href="#how-the-k-ary-tree-is-used-in-x86" id="markdown-toc-how-the-k-ary-tree-is-used-in-x86">How the K-ary tree is used in x86</a></li>
-      <li><a href="#multi-level-paging-scheme-numerical-translation-example" id="markdown-toc-multi-level-paging-scheme-numerical-translation-example">Multi-level paging scheme numerical translation example</a></li>
-    </ol>
-  </li>
-  <li><a href="#64-bit-architectures" id="markdown-toc-64-bit-architectures">64-bit architectures</a></li>
-  <li><a href="#pae" id="markdown-toc-pae">PAE</a></li>
-  <li><a href="#pse" id="markdown-toc-pse">PSE</a></li>
-  <li><a href="#pae-and-pse-page-table-schemes" id="markdown-toc-pae-and-pse-page-table-schemes">PAE and PSE page table schemes</a></li>
-  <li><a href="#tlb" id="markdown-toc-tlb">TLB</a>    <ol>
-      <li><a href="#basic-operation" id="markdown-toc-basic-operation">Basic operation</a></li>
-      <li><a href="#replacement-policy" id="markdown-toc-replacement-policy">Replacement policy</a></li>
-      <li><a href="#cam" id="markdown-toc-cam">CAM</a></li>
-      <li><a href="#invalidating-entries" id="markdown-toc-invalidating-entries">Invalidating entries</a></li>
-    </ol>
-  </li>
-  <li><a href="#linux-kernel-usage" id="markdown-toc-linux-kernel-usage">Linux kernel usage</a>    <ol>
-      <li><a href="#play-with-physical-addresses-in-linux" id="markdown-toc-play-with-physical-addresses-in-linux">Play with physical addresses in Linux</a></li>
-      <li><a href="#kernel-vs-process-memory-layout" id="markdown-toc-kernel-vs-process-memory-layout">Kernel vs process memory layout</a></li>
-      <li><a href="#process-memory-layout" id="markdown-toc-process-memory-layout">Process memory layout</a></li>
-      <li><a href="#copy-on-write" id="markdown-toc-copy-on-write">Copy-on-write</a></li>
-      <li><a href="#linux-source-tree" id="markdown-toc-linux-source-tree">Linux source tree</a></li>
-    </ol>
-  </li>
-  <li><a href="#memory-management-unit" id="markdown-toc-memory-management-unit">Memory management unit</a></li>
-  <li><a href="#second-level-address-translation" id="markdown-toc-second-level-address-translation">Second Level Address Translation</a></li>
-  <li><a href="#other-architectures" id="markdown-toc-other-architectures">Other architectures</a>    <ol>
-      <li><a href="#arm" id="markdown-toc-arm">ARM</a></li>
-    </ol>
-  </li>
-  <li><a href="#bibliography" id="markdown-toc-bibliography">Bibliography</a></li>
-</ol>
-
-<h2 id="sample-code">Sample code</h2>
-
-<p>Minimal example: <a href="https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S">https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S</a></p>
-
-<p>Like everything else in programming, the only way to really understand this is to play with minimal examples.</p>
-
-<p>What makes this a “hard” subject is that the minimal example is large because you need to make your own small OS.</p>
-
-<h2 id="intel-manual">Intel manual</h2>
-
-<p>Although it is impossible to understand without examples in mind, try to get familiar with the manuals as soon as possible.</p>
-
-<p>Intel describes paging in the <a href="https://web.archive.org/web/20151025081259/http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-system-programming-manual-325384.pdf">Intel Manual Volume 3 System Programming Guide - 325384-056US September 2015</a> Chapter 4 “Paging”.</p>
-
-<p>Specially interesting is Figure 4-4 “Formats of CR3 and Paging-Structure Entries with 32-Bit Paging”, which gives the key data structures.</p>
-
-<h2 id="application">Application</h2>
-
-<p>Paging makes it easier to compile and run two programs at the same time on a single computer.</p>
-
-<p>For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.</p>
-
-<p>So nothing prevents it from using the same RAM address, say, <code class="highlighter-rouge">0x1234</code>, to store a global variable.</p>
-
-<p>But if two programs use the same address and run at the same time, this is obviously going to break them!</p>
-
-<p>Paging solves this problem beautifully by adding one degree of indirection:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(logical) ------------&gt; (physical)
-             paging
-</code></pre></div></div>
-
-<p>Where:</p>
-
-<ul>
-  <li>
-    <p>logical addresses are what userland programs see, e.g. the contents of <code class="highlighter-rouge">rsi</code> in <code class="highlighter-rouge">mov eax, [rsi]</code>.</p>
-
-    <p>They are often called “virtual” addresses as well.</p>
-  </li>
-  <li>
-    <p>physical addresses can be though of the values that go to physical RAM index wires.</p>
-
-    <p>But keep in mind that this is not 100% true because of further indirections such as:</p>
-
-    <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">memory-mapped I/O regions</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/Multi-channel_memory_architecture">multi channel memory</a></li>
-    </ul>
-  </li>
-</ul>
-
-<p>Compilers don’t need to worry about other programs: they just use simple logical addresses.</p>
-
-<p>As far as programs are concerned, they think they can use any address between 0 and 4GiB (2^32, <code class="highlighter-rouge">FFFFFFFF</code>) on 32-bit systems.</p>
-
-<p>The OS then sets up paging so that identical logical addresses will go into different physical addresses and not overwrite each other.</p>
-
-<p>This makes it much simpler to compile programs and run them at the same time.</p>
-
-<p>Paging achieves that goal, and in addition:</p>
-
-<ul>
-  <li>
-    <p>the switch between programs is very fast, because it is implemented by hardware</p>
-  </li>
-  <li>
-    <p>the memory of both programs can grow and shrink as needed without too much fragmentation</p>
-  </li>
-  <li>
-    <p>one program can never access the memory of another program, even if it wanted to.</p>
-
-    <p>This is good both for security, and to prevent bugs in one program from crashing other programs.</p>
-  </li>
-</ul>
-
-<h2 id="hardware-implementation">Hardware implementation</h2>
-
-<p>Paging is implemented by the CPU hardware itself.</p>
-
-<p>Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!</p>
-
-<p>Operating systems must setup and control paging by communicating to the CPU hardware. This is done mostly via:</p>
-
-<ul>
-  <li>
-    <p>the CR3 register, which tells the CPU where the page table is in RAM memory</p>
-  </li>
-  <li>
-    <p>writing the correct paging data structures to the RAM pointed to the CR3 register.</p>
-
-    <p>Using RAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.</p>
-
-    <p>The format of the configuration data structures is fixed <em>by the hardware</em>, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via <code class="highlighter-rouge">cr3</code>).</p>
-
-    <p>Then some heavy caching is done to ensure that the RAM access will be fast, in particular using the TLB.</p>
-
-    <p>Another notable example of RAM data structure used by the CPU is the <a href="https://en.wikipedia.org/wiki/Interrupt_descriptor_table">IDT</a> which sets up interrupt handlers.</p>
-  </li>
-</ul>
-
-<p>The OS makes it impossible for programs to change the paging setup directly without going through the OS:</p>
-
-<ul>
-  <li>CR3 cannot be modified in ring 3. The OS runs in ring 0. See also:
-    <ul>
-      <li><a href="https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809">https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809</a></li>
-      <li><a href="https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os">https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os</a></li>
-    </ul>
-  </li>
-  <li>the page table structures are made invisible to the process using paging itself!</li>
-</ul>
-
-<p>Processes can however make requests to the OS that cause the page tables to be modified, notably:</p>
-
-<ul>
-  <li>stack size changes</li>
-  <li><code class="highlighter-rouge">brk</code> and <code class="highlighter-rouge">mmap</code> calls, see also: <a href="https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353">https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353</a></li>
-</ul>
-
-<p>The kernel then decides if the request will be granted or not in a controlled manner.</p>
-
-<h2 id="segmentation">Segmentation</h2>
-
-<p>In x86 systems, there may actually be 2 address translation steps:</p>
-
-<ul>
-  <li>first segmentation</li>
-  <li>then paging</li>
-</ul>
-
-<p>As such:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(logical) ------------------&gt; (linear) ------------&gt; (physical)
-             segmentation                 paging
-</code></pre></div></div>
-
-<p>The major difference between paging and segmentation is that:</p>
-
-<ul>
-  <li>paging splits RAM into equal sized chunks called pages</li>
-  <li>segmentation splits memory into chunks of arbitrary sizes</li>
-</ul>
-
-<p>This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems. See also:</p>
-
-<ul>
-  <li><a href="https://stackoverflow.com/questions/16643180/differences-or-similarities-between-segmented-paging-and-paged-segmentation">https://stackoverflow.com/questions/16643180/differences-or-similarities-between-segmented-paging-and-paged-segmentation</a></li>
-  <li><a href="https://softwareengineering.stackexchange.com/questions/100047/why-not-segmentation">https://softwareengineering.stackexchange.com/questions/100047/why-not-segmentation</a></li>
-  <li><a href="https://www.quora.com/What-is-the-difference-between-paging-and-segment-in-memory-management">https://www.quora.com/What-is-the-difference-between-paging-and-segment-in-memory-management</a></li>
-</ul>
-
-<p>Paging came after segmentation historically, and largely replaced it for the implementation of virtual memory in modern OSs.</p>
-
-<p>Paging has become so much more popular that support for segmentation was dropped in x86-64 in 64-bit mode, the main mode of operation for new software, where it only exists in compatibility mode, which emulates IA-32.</p>
-
-<h2 id="example-simplified-single-level-paging-scheme">Example: simplified single-level paging scheme</h2>
-
-<p>This is an example of how paging operates on a <em>simplified</em> version of a x86 architecture to implement a virtual memory space with a <code class="highlighter-rouge">20 | 12</code> address split (4 KiB page size).</p>
-
-<h3 id="single-level-paging-scheme-visualization">Single level paging scheme visualization</h3>
-
-<p>This is how the memory could look like in a single level paging scheme:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Links   Data                    Physical address
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="."><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="x86-paging"><div class="notnav"><h1><a href="">x86 Paging Tutorial</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/information-technology"> Information technology</a><a href="https://ourbigbook.com/cirosantilli/computer"> Computer</a><a href="https://ourbigbook.com/cirosantilli/computer-hardware"> Computer hardware</a><a href="https://ourbigbook.com/cirosantilli/instruction-set-architecture"> Instruction set architecture</a><a href="https://ourbigbook.com/cirosantilli/list-of-instruction-set-architectures"> List of instruction set architectures</a><a href="https://ourbigbook.com/cirosantilli/x86"> x86</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="tags"> tags: <a href="https://ourbigbook.com/cirosantilli/articles">The best articles by Ciro Santilli</a></span><span class="metrics"><span class="wcntr"> words: 6k</span><span class="dcnt"> articles: 39</span></span></div></nav></div><div class="p" id="_1">This tutorial explains the very basics of how paging works, with focus on <a href="https://ourbigbook.com/cirosantilli/x86">x86</a>, although most high level concepts will also apply to other <a href="https://ourbigbook.com/cirosantilli/instruction-set-architecture">instruction set architectures</a>, e.g. <a href="https://ourbigbook.com/cirosantilli/arm-architecture-family">ARM</a>.</div><div class="p" id="_2">The goals are to:<div><ul id="_3"><li id="_4">demonstrate minimal concrete simplified paging examples that will be useful to those learning paging for the first time</li><li id="_5">explain the motivation behind paging</li></ul></div></div><div class="p" id="_6">This tutorial was extracted and expanded from <a href="https://stackoverflow.com/a/18431262/895245">this Stack Overflow answer</a>.</div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 6k</span><span class="dcnt"> 39</span></span></span></span></div><ul><li><div id="_toc/x86-paging/sample-code"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#sample-code">1. Sample code</a><span class="hover-metadata"><a href="#_toc/x86-paging/sample-code" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 43</span></span></span></span></div></li><li><div id="_toc/x86-paging/intel-manual"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#intel-manual">2. Intel manual</a><span class="hover-metadata"><a href="#_toc/x86-paging/intel-manual" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 60</span></span></span></span></div></li><li><div id="_toc/x86-paging/application"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#application">3. Application</a><span class="hover-metadata"><a href="#_toc/x86-paging/application" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 340</span></span></span></span></div></li><li><div id="_toc/x86-paging/hardware-implementation"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#hardware-implementation">4. Hardware implementation</a><span class="hover-metadata"><a href="#_toc/x86-paging/hardware-implementation" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 275</span></span></span></span></div></li><li><div id="_toc/x86-paging/segmentation"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#segmentation">5. Segmentation</a><span class="hover-metadata"><a href="#_toc/x86-paging/segmentation" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 126</span></span></span></span></div></li><li class="has-child"><div id="_toc/x86-paging/example-simplified-single-level-paging-scheme"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#example-simplified-single-level-paging-scheme">6. Example: simplified single-level paging scheme</a><span class="hover-metadata"><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 2k</span><span class="dcnt"> 7</span></span></span></span></div><ul><li><div id="_toc/x86-paging/single-level-paging-scheme-visualization"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#single-level-paging-scheme-visualization">6.1. Single level paging scheme visualization</a><span class="hover-metadata"><a href="#_toc/x86-paging/single-level-paging-scheme-visualization" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 257</span></span></span></span></div></li><li><div id="_toc/x86-paging/single-level-paging-scheme-numerical-translation-example"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#single-level-paging-scheme-numerical-translation-example">6.2. Single level paging scheme numerical translation example</a><span class="hover-metadata"><a href="#_toc/x86-paging/single-level-paging-scheme-numerical-translation-example" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 562</span></span></span></span></div></li><li><div id="_toc/x86-paging/multiple-addresses-translate-to-a-single-physical-address"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#multiple-addresses-translate-to-a-single-physical-address">6.3. Multiple addresses translate to a single physical address</a><span class="hover-metadata"><a href="#_toc/x86-paging/multiple-addresses-translate-to-a-single-physical-address" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 82</span></span></span></span></div></li><li><div id="_toc/x86-paging/identity-mapping"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#identity-mapping">6.4. Identity mapping</a><span class="hover-metadata"><a href="#_toc/x86-paging/identity-mapping" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 28</span></span></span></span></div></li><li><div id="_toc/x86-paging/page-faults"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#page-faults">6.5. Page faults</a><span class="hover-metadata"><a href="#_toc/x86-paging/page-faults" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 300</span></span></span></span></div></li><li><div id="_toc/x86-paging/page-table-entries"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#page-table-entries">6.6. Page table entries</a><span class="hover-metadata"><a href="#_toc/x86-paging/page-table-entries" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 211</span></span></span></span></div></li><li><div id="_toc/x86-paging/page-size-choice"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#page-size-choice">6.7. Page size choice</a><span class="hover-metadata"><a href="#_toc/x86-paging/page-size-choice" class="c"></a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><span class="metrics"><span class="wcntr"> 114</span></span></span></span></div></li></ul><li class="has-child"><div id="_toc/x86-paging/example-multi-level-paging-scheme"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#example-multi-level-paging-scheme">7. Example: multi-level paging scheme</a><span class="hover-metadata"><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 1k</span><span class="dcnt"> 5</span></span></span></span></div><ul><li><div id="_toc/x86-paging/the-problem-with-single-level-paging"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#the-problem-with-single-level-paging">7.1. The problem with single-level paging</a><span class="hover-metadata"><a href="#_toc/x86-paging/the-problem-with-single-level-paging" class="c"></a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><span class="metrics"><span class="wcntr"> 109</span></span></span></span></div></li><li><div id="_toc/x86-paging/k-ary-trees-to-the-rescue"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#k-ary-trees-to-the-rescue">7.2. K-ary trees to the rescue</a><span class="hover-metadata"><a href="#_toc/x86-paging/k-ary-trees-to-the-rescue" class="c"></a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><span class="metrics"><span class="wcntr"> 309</span></span></span></span></div></li><li><div id="_toc/x86-paging/why-not-a-balanced-tree"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#why-not-a-balanced-tree">7.3. Why not a balanced tree</a><span class="hover-metadata"><a href="#_toc/x86-paging/why-not-a-balanced-tree" class="c"></a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><span class="metrics"><span class="wcntr"> 65</span></span></span></span></div></li><li><div id="_toc/x86-paging/how-the-k-ary-tree-is-used-in-x86"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#how-the-k-ary-tree-is-used-in-x86">7.4. How the K-ary tree is used in x86</a><span class="hover-metadata"><a href="#_toc/x86-paging/how-the-k-ary-tree-is-used-in-x86" class="c"></a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><span class="metrics"><span class="wcntr"> 352</span></span></span></span></div></li><li><div id="_toc/x86-paging/multi-level-paging-scheme-numerical-translation-example"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#multi-level-paging-scheme-numerical-translation-example">7.5. Multi-level paging scheme numerical translation example</a><span class="hover-metadata"><a href="#_toc/x86-paging/multi-level-paging-scheme-numerical-translation-example" class="c"></a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><span class="metrics"><span class="wcntr"> 460</span></span></span></span></div></li></ul><li><div id="_toc/x86-paging/64-bit-architectures"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#64-bit-architectures">8. 64-bit architectures</a><span class="hover-metadata"><a href="#_toc/x86-paging/64-bit-architectures" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 182</span></span></span></span></div></li><li><div id="_toc/x86-paging/pae"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#pae">9. PAE</a><span class="hover-metadata"><a href="#_toc/x86-paging/pae" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 114</span></span></span></span></div></li><li><div id="_toc/x86-paging/pse"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#pse">10. PSE</a><span class="hover-metadata"><a href="#_toc/x86-paging/pse" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 35</span></span></span></span></div></li><li><div id="_toc/x86-paging/pae-and-pse-page-table-schemes"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#pae-and-pse-page-table-schemes">11. PAE and PSE page table schemes</a><span class="hover-metadata"><a href="#_toc/x86-paging/pae-and-pse-page-table-schemes" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 300</span></span></span></span></div></li><li class="has-child"><div id="_toc/x86-paging/tlb"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#tlb">12. TLB</a><span class="hover-metadata"><a href="#_toc/x86-paging/tlb" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 677</span><span class="dcnt"> 4</span></span></span></span></div><ul><li><div id="_toc/x86-paging/basic-tlb-operation"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#basic-tlb-operation">12.1. Basic TLB operation</a><span class="hover-metadata"><a href="#_toc/x86-paging/basic-tlb-operation" class="c"></a><a href="#_toc/x86-paging/tlb" class="u"> TLB</a><span class="metrics"><span class="wcntr"> 166</span></span></span></span></div></li><li><div id="_toc/x86-paging/tlb-replacement-policy"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#tlb-replacement-policy">12.2. TLB replacement policy</a><span class="hover-metadata"><a href="#_toc/x86-paging/tlb-replacement-policy" class="c"></a><a href="#_toc/x86-paging/tlb" class="u"> TLB</a><span class="metrics"><span class="wcntr"> 85</span></span></span></span></div></li><li><div id="_toc/x86-paging/cam"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#cam">12.3. CAM</a><span class="hover-metadata"><a href="#_toc/x86-paging/cam" class="c"></a><a href="#_toc/x86-paging/tlb" class="u"> TLB</a><span class="metrics"><span class="wcntr"> 181</span></span></span></span></div></li><li><div id="_toc/x86-paging/invalidating-tlb-entries"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#invalidating-tlb-entries">12.4. Invalidating TLB entries</a><span class="hover-metadata"><a href="#_toc/x86-paging/invalidating-tlb-entries" class="c"></a><a href="#_toc/x86-paging/tlb" class="u"> TLB</a><span class="metrics"><span class="wcntr"> 188</span></span></span></span></div></li></ul><li class="has-child"><div id="_toc/x86-paging/linux-kernel-usage"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#linux-kernel-usage">13. Linux kernel usage</a><span class="hover-metadata"><a href="#_toc/x86-paging/linux-kernel-usage" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 685</span><span class="dcnt"> 5</span></span></span></span></div><ul><li><div id="_toc/x86-paging/play-with-physical-addresses-in-linux"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#play-with-physical-addresses-in-linux">13.1. Play with physical addresses in Linux</a><span class="hover-metadata"><a href="#_toc/x86-paging/play-with-physical-addresses-in-linux" class="c"></a><a href="#_toc/x86-paging/linux-kernel-usage" class="u"> Linux kernel usage</a><span class="metrics"><span class="wcntr"> 40</span></span></span></span></div></li><li><div id="_toc/x86-paging/kernel-vs-process-memory-layout"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#kernel-vs-process-memory-layout">13.2. Kernel vs process memory layout</a><span class="hover-metadata"><a href="#_toc/x86-paging/kernel-vs-process-memory-layout" class="c"></a><a href="#_toc/x86-paging/linux-kernel-usage" class="u"> Linux kernel usage</a><span class="metrics"><span class="wcntr"> 141</span></span></span></span></div></li><li><div id="_toc/x86-paging/process-memory-layout"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#process-memory-layout">13.3. Process memory layout</a><span class="hover-metadata"><a href="#_toc/x86-paging/process-memory-layout" class="c"></a><a href="#_toc/x86-paging/linux-kernel-usage" class="u"> Linux kernel usage</a><span class="metrics"><span class="wcntr"> 256</span></span></span></span></div></li><li><div id="_toc/x86-paging/copy-on-write"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#copy-on-write">13.4. Copy-on-write (COW)</a><span class="hover-metadata"><a href="#_toc/x86-paging/copy-on-write" class="c"></a><a href="#_toc/x86-paging/linux-kernel-usage" class="u"> Linux kernel usage</a><span class="metrics"><span class="wcntr"> 120</span></span></span></span></div></li><li><div id="_toc/x86-paging/linux-source-tree"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#linux-source-tree">13.5. Linux source tree</a><span class="hover-metadata"><a href="#_toc/x86-paging/linux-source-tree" class="c"></a><a href="#_toc/x86-paging/linux-kernel-usage" class="u"> Linux kernel usage</a><span class="metrics"><span class="wcntr"> 74</span></span></span></span></div></li></ul><li><div id="_toc/x86-paging/memory-management-unit"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#memory-management-unit">14. Memory management unit</a><span class="hover-metadata"><a href="#_toc/x86-paging/memory-management-unit" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 45</span></span></span></span></div></li><li><div id="_toc/x86-paging/second-level-address-translation"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#second-level-address-translation">15. Second Level Address Translation</a><span class="hover-metadata"><a href="#_toc/x86-paging/second-level-address-translation" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 10</span></span></span></span></div></li><li class="has-child"><div id="_toc/x86-paging/other-architectures"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#other-architectures">16. Other architectures</a><span class="hover-metadata"><a href="#_toc/x86-paging/other-architectures" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 57</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/x86-paging/arm"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#arm">16.1. ARM</a><span class="hover-metadata"><a href="#_toc/x86-paging/arm" class="c"></a><a href="#_toc/x86-paging/other-architectures" class="u"> Other architectures</a><span class="metrics"><span class="wcntr"> 8</span></span></span></span></div></li></ul><li><div id="_toc/x86-paging/bibliography"><div class="arrow"><div></div></div><span class="not-arrow"><a href="#bibliography">17. Bibliography</a><span class="hover-metadata"><a href="#_toc/x86-paging/bibliography" class="c"></a><a href="#_toc" class="u"> x86 Paging Tutorial</a><span class="metrics"><span class="wcntr"> 35</span></span></span></span></div></li></ul></li></ul></div><div class="h" id="sample-code"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/sample-code">1. Sample code</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 43</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/sample-code" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/sample-code"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_7">Minimal example: <a href="https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S">github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S</a></div><div class="p" id="_8">Like everything else in programming, the only way to really understand this is to play with minimal examples.</div><div class="p" id="_9">What makes this a "hard" subject is that the minimal example is large because you need to make your own small <a href="https://ourbigbook.com/cirosantilli/operating-system">OS</a>.</div><div class="h" id="intel-manual"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/intel-manual">2. Intel manual</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 60</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/intel-manual" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/intel-manual"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_10">Although it is impossible to understand without examples in mind, try to get familiar with the manuals as soon as possible.</div><div class="p" id="_11">Intel describes paging in the <a href="https://web.archive.org/web/20151025081259/http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-system-programming-manual-325384.pdf">Intel Manual Volume 3 System Programming Guide - 325384-056US September 2015</a> Chapter 4 "Paging".</div><div class="p" id="_12">Specially interesting is Figure 4-4 "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging", which gives the key data structures.</div><div class="h" id="application"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/application">3. Application</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 340</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/application" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/application"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_13">Paging makes it easier to compile and run two programs or threads at the same time on a single computer.</div><div class="p" id="_14">For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.</div><div class="p" id="_15">So nothing prevents it from using the same <a href="https://ourbigbook.com/cirosantilli/random-access-memory">RAM</a> address, say, <code>0x1234</code>, to store a global variable.</div><div class="p" id="_16">And thread <a href="https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134">stacks</a>, that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!</div><div class="p" id="_17">But if two programs use the same address and run at the same time, this is obviously going to break them!</div><div class="p" id="_18">Paging solves this problem beautifully by adding one degree of indirection:</div><div class="code" id="_19"><pre><code>(logical) ------------&gt; (physical)
+             paging</code></pre></div><div class="p" id="_20">Where:<div><ul id="_21"><li id="_22"><div class="p" id="_23">logical addresses are what userland programs see, e.g. the contents of <code>rsi</code> in <code>mov eax, [rsi]</code>.</div><div class="p" id="_24">They are often called "virtual" addresses as well.</div></li><li id="_25"><div class="p" id="_26">physical addresses can be though of the values that go to physical RAM index wires.</div><div class="p" id="_27">But keep in mind that this is not 100% true because of further indirections such as:</div><div><ul id="_28"><li id="_29"><a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">memory-mapped I/O regions</a></li><li id="_30"><a href="https://en.wikipedia.org/wiki/Multi-channel_memory_architecture">multi channel memory</a></li></ul></div></li></ul></div></div><div class="p" id="_31"><a href="https://ourbigbook.com/cirosantilli/compiler">Compilers</a> don't need to worry about other programs: they just use simple logical addresses.</div><div class="p" id="_32">As far as programs are concerned, they think they can use any address between 0 and 4GiB (2^32, <code>FFFFFFFF</code>) on 32-bit systems.</div><div class="p" id="_33">The OS then sets up paging so that identical logical addresses will go into different physical addresses and not overwrite each other.</div><div class="p" id="_34">This makes it much simpler to compile programs and run them at the same time.</div><div class="p" id="_35">Paging achieves that goal, and in addition:<div><ul id="_36"><li id="_37">the switch between programs is very fast, because it is implemented by hardware</li><li id="_38">the memory of both programs can grow and shrink as needed without too much fragmentation</li><li id="_39"><div class="p" id="_40">one program can never access the memory of another program, even if it wanted to.</div><div class="p" id="_41">This is good both for security, and to prevent bugs in one program from crashing other programs.</div></li></ul></div></div><div class="p" id="_42">Or if you like non-funny jokes:</div><figure id="image-comparison-between-the-linux-kernel-userland-memory-virtualization-and-the-matrix"><div class="float-wrap"><a href="https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png"><img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png" loading="lazy" height="315"></a></div><figcaption><a href="#image-comparison-between-the-linux-kernel-userland-memory-virtualization-and-the-matrix"><span class="caption-prefix">Figure 1</span></a>. Comparison between the <a href="https://ourbigbook.com/cirosantilli/linux-kernel">Linux kernel</a> userland memory virtualization and <a href="https://ourbigbook.com/cirosantilli/the-matrix-franchise">The Matrix</a>. <a href="https://commons.wikimedia.org/wiki/File:Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png">Source</a>. Is this RAM real?</figcaption></figure><div class="h" id="hardware-implementation"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/hardware-implementation">4. Hardware implementation</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 275</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/hardware-implementation" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/hardware-implementation"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_43">Paging is implemented by the <a href="https://ourbigbook.com/cirosantilli/central-processing-unit">CPU</a> hardware itself.</div><div class="p" id="_44">Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!</div><div class="p" id="_45">Operating systems must setup and control paging by communicating to the CPU hardware. This is done mostly via:<div><ul id="_46"><li id="_47">the CR3 register, which tells the CPU where the page table is in RAM memory</li><li id="_48"><div class="p" id="_49">writing the correct paging data structures to the RAM pointed to the CR3 register.</div><div class="p" id="_50">Using RAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.</div><div class="p" id="_51">The format of the configuration data structures is fixed _by the hardware_, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via <code>cr3</code>).</div><div class="p" id="_52">Then some heavy caching is done to ensure that the RAM access will be fast, in particular using the TLB.</div><div class="p" id="_53">Another notable example of RAM data structure used by the CPU is the <a href="https://en.wikipedia.org/wiki/Interrupt_descriptor_table">IDT</a> which sets up interrupt handlers.</div><div class="p" id="_54">The OS makes it impossible for programs to change the paging setup directly without going through the OS:</div></li><li id="_55">CR3 cannot be modified in ring 3. The OS runs in ring 0. See also:<div><ul id="_56"><li id="_57"><a href="https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809">stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809</a></li><li id="_58"><a href="https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os">stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os</a></li></ul></div></li><li id="_59">the page table structures are made invisible to the process using paging itself!</li></ul></div></div><div class="p" id="_60">Processes can however make requests to the OS that cause the page tables to be modified, notably:<div><ul id="_61"><li id="_62">stack size changes</li><li id="_63"><code>brk</code> and <code>mmap</code> calls, see also: <a href="https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353">stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353</a></li></ul></div></div><div class="p" id="_64">The kernel then decides if the request will be granted or not in a controlled manner.</div><div class="h" id="segmentation"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/segmentation">5. Segmentation</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 126</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/segmentation" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/segmentation"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_65">In x86 systems, there may actually be 2 address translation steps:<div><ul id="_66"><li id="_67">first segmentation</li><li id="_68">then paging
+</li></ul></div>like this:
+<div class="code" id="_69"><pre><code>(logical) ------------------&gt; (linear) ------------&gt; (physical)
+             segmentation                 paging</code></pre></div></div><div class="p" id="_70">The major difference between paging and segmentation is that:<div><ul id="_71"><li id="_72">paging splits RAM into equal sized chunks called pages</li><li id="_73">segmentation splits memory into chunks of arbitrary sizes</li></ul></div></div><div class="p" id="_74">This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems. See also:<div><ul id="_75"><li id="_76"><a href="https://stackoverflow.com/questions/16643180/differences-or-similarities-between-segmented-paging-and-paged-segmentation">stackoverflow.com/questions/16643180/differences-or-similarities-between-segmented-paging-and-paged-segmentation</a></li><li id="_77"><a href="https://softwareengineering.stackexchange.com/questions/100047/why-not-segmentation">softwareengineering.stackexchange.com/questions/100047/why-not-segmentation</a></li><li id="_78"><a href="https://www.quora.com/What-is-the-difference-between-paging-and-segment-in-memory-management">www.quora.com/What-is-the-difference-between-paging-and-segment-in-memory-management</a></li></ul></div></div><div class="p" id="_79">Paging came after segmentation historically, and largely replaced it for the implementation of virtual memory in modern OSs.</div><div class="p" id="_80">Paging has become so much more popular that support for segmentation was dropped in x86-64 in 64-bit mode, the main mode of operation for new software, where it only exists in compatibility mode, which emulates IA-32.</div><div class="h" id="example-simplified-single-level-paging-scheme"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/example-simplified-single-level-paging-scheme">6. Example: simplified single-level paging scheme</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 2k</span><span class="dcnt"> articles: 7</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/example-simplified-single-level-paging-scheme" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/example-simplified-single-level-paging-scheme"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_81">This is an example of how paging operates on a _simplified_ version of a x86 architecture to implement a virtual memory space with a <code>20 | 12</code> address split (4 KiB page size).</div><div class="h" id="single-level-paging-scheme-visualization"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/single-level-paging-scheme-visualization">6.1. Single level paging scheme visualization</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 257</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/single-level-paging-scheme-visualization" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/single-level-paging-scheme-visualization"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_82">This is how the memory could look like in a single level paging scheme:
+<div class="code" id="_83"><pre><code>Links   Data                    Physical address
 
       +-----------------------+ 2^32 - 1
       |                       |
@@ -369,51 +69,25 @@
       |                       |
       .                       .
       |                       |
-      +-----------------------+  0
-</code></pre></div></div>
-
-<p>Notice that:</p>
-
-<ul>
-  <li>the CR3 register points to the first entry of the page table</li>
-  <li>the page table is just a large array with 2^20 page table entries</li>
-  <li>each entry is 4 bytes big, so the array takes up 4 MiB</li>
-  <li>each page table contains the physical address a page</li>
-  <li>each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use</li>
-  <li>we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory</li>
-</ul>
-
-<h3 id="single-level-paging-scheme-numerical-translation-example">Single level paging scheme numerical translation example</h3>
-
-<p>Suppose that the OS has setup the following page tables for process 1:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entry index   entry address       page address   present
+      +-----------------------+  0</code></pre></div></div><div class="p" id="_84">Notice that:<div><ul id="_85"><li id="_86">the CR3 register points to the first entry of the page table</li><li id="_87">the page table is just a large array with 2^20 page table entries</li><li id="_88">each entry is 4 bytes big, so the array takes up 4 MiB</li><li id="_89">each page table contains the physical address a page</li><li id="_90">each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use</li><li id="_91">we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory</li></ul></div></div><div class="h" id="single-level-paging-scheme-numerical-translation-example"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/single-level-paging-scheme-numerical-translation-example">6.2. Single level paging scheme numerical translation example</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 562</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/single-level-paging-scheme-numerical-translation-example" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/single-level-paging-scheme-numerical-translation-example"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_92">Suppose that the OS has setup the following page tables for process 1:
+<div class="code" id="_93"><pre><code>entry index   entry address       page address   present
 -----------   ------------------  ------------   -------
 0             CR3_1 + 0      * 4  0x00001        1
 1             CR3_1 + 1      * 4  0x00000        1
 2             CR3_1 + 2      * 4  0x00003        1
 3             CR3_1 + 3      * 4                 0
 ...
-2^20-1        CR3_1 + 2^20-1 * 4  0x00005        1
-</code></pre></div></div>
-
-<p>And for process 2:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entry index   entry address       page address   present
+2^20-1        CR3_1 + 2^20-1 * 4  0x00005        1</code></pre></div>
+and for process 2:
+<div class="code" id="_94"><pre><code>entry index   entry address       page address   present
 -----------   -----------------   ------------   -------
 0             CR3_2 + 0      * 4  0x0000A        1
 1             CR3_2 + 1      * 4  0x12345        1
 2             CR3_2 + 2      * 4                 0
 3             CR3_2 + 3      * 4  0x00003        1
 ...
-2^20-1        CR3_2 + 2^20-1 * 4  0xFFFFF        1
-</code></pre></div></div>
-
-<p>Before process 1 starts running, the OS sets its <code class="highlighter-rouge">cr3</code> to point to the page table 1 at <code class="highlighter-rouge">CR3_1</code>.</p>
-
-<p>When process 1 tries to access a linear address, this is the physical addresses that will be actually accessed:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear     physical
+2^20-1        CR3_2 + 2^20-1 * 4  0xFFFFF        1</code></pre></div></div><div class="p" id="_95">Before process 1 starts running, the OS sets its <code>cr3</code> to point to the page table 1 at <code>CR3_1</code>.</div><div class="p" id="_96">When process 1 tries to access a linear address, this is the physical addresses that will be actually accessed:
+<div class="code" id="_97"><pre><code>linear     physical
 ---------  ---------
 00000 001  00001 001
 00000 002  00001 002
@@ -423,12 +97,8 @@
 00001 001  00000 001
 00001 FFF  00000 FFF
 00002 000  00003 000
-FFFFF 000  00005 000
-</code></pre></div></div>
-
-<p>To switch to process 2, the OS simply sets <code class="highlighter-rouge">cr3</code> to <code class="highlighter-rouge">CR3_2</code>, and now the following translations would happen:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear     physical
+FFFFF 000  00005 000</code></pre></div></div><div class="p" id="_98">To switch to process 2, the OS simply sets <code>cr3</code> to <code>CR3_2</code>, and now the following translations would happen:
+<div class="code" id="_99"><pre><code>linear     physical
 ---------  ---------
 00000 002  0000A 002
 00000 003  0000A 003
@@ -437,239 +107,29 @@ FFFFF 000  00005 000
 00001 001  12345 001
 00001 FFF  12345 FFF
 00004 000  00003 000
-FFFFF 000  FFFFF 000
-</code></pre></div></div>
-
-<p>Step-by-step translation for process 1 of logical address <code class="highlighter-rouge">0x00000001</code> to physical address <code class="highlighter-rouge">0x00001001</code>:</p>
-
-<ul>
-  <li>
-    <p>split the linear address into two parts:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| page (20 bits) | offset (12 bits) |
-</code></pre></div>    </div>
-
-    <p>So in this case we would have:</p>
-
-    <ul>
-      <li>page = 0x00000. This part must be translated to a physical location.</li>
-      <li>offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position <em>within</em> the page.</li>
-    </ul>
-  </li>
-  <li>
-    <p>look into Page table 1 because <code class="highlighter-rouge">cr3</code> points to it.</p>
-  </li>
-  <li>
-    <p>The hardware knows that this entry is located at RAM address <code class="highlighter-rouge">CR3 + 0x00000 * 4 = CR3</code>:</p>
-
-    <ul>
-      <li><code class="highlighter-rouge">0x00000</code> because the page part of the logical address is <code class="highlighter-rouge">0x00000</code></li>
-      <li><code class="highlighter-rouge">4</code> because that is the fixed size in bytes of every page table entry</li>
-    </ul>
-  </li>
-  <li>
-    <p>since it is present, the access is valid</p>
-  </li>
-  <li>
-    <p>by the page table, the location of page number <code class="highlighter-rouge">0x00000</code> is at <code class="highlighter-rouge">0x00001 * 4K = 0x00001000</code>.</p>
-  </li>
-  <li>
-    <p>to find the final physical address we just need to add the offset:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  00001 000
+FFFFF 000  FFFFF 000</code></pre></div></div><div class="p" id="_100">Step-by-step translation for process 1 of logical address <code>0x00000001</code> to physical address <code>0x00001001</code>:<div><ul id="_101"><li id="_102"><div class="p" id="_103">split the linear address into two parts:</div><div class="code" id="_104"><pre><code>| page (20 bits) | offset (12 bits) |</code></pre></div><div class="p" id="_105">So in this case we would have:
+*page = 0x00000. This part must be translated to a physical location.
+*offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position _within_ the page.</div></li><li id="_106">look into Page table 1 because <code>cr3</code> points to it.</li><li id="_107">The hardware knows that this entry is located at RAM address <code>CR3 + 0x00000 * 4 = CR3</code>:
+*<code>0x00000</code> because the page part of the logical address is <code>0x00000</code>
+*<code>4</code> because that is the fixed size in bytes of every page table entry</li><li id="_108">since it is present, the access is valid</li><li id="_109">by the page table, the location of page number <code>0x00000</code> is at <code>0x00001 * 4K = 0x00001000</code>.</li><li id="_110"><div class="p" id="_111">to find the final physical address we just need to add the offset:</div><div class="code" id="_112"><pre><code>  00001 000
 + 00000 001
   ---------
-  00001 001
-</code></pre></div>    </div>
-
-    <p>because <code class="highlighter-rouge">00001</code> is the physical address of the page looked up on the table and <code class="highlighter-rouge">001</code> is the offset.</p>
-
-    <p>We shift <code class="highlighter-rouge">00001</code> by 12 bits because the pages are always aligned to 4KiB.</p>
-
-    <p>The offset is always simply added the physical address of the page.</p>
-  </li>
-  <li>
-    <p>the hardware then gets the memory at that physical location and puts it in a register.</p>
-  </li>
-</ul>
-
-<p>Another example: for logical address <code class="highlighter-rouge">0x00001001</code>:</p>
-
-<ul>
-  <li>the page part is <code class="highlighter-rouge">00001</code>, and the offset part is <code class="highlighter-rouge">001</code></li>
-  <li>the hardware knows that its page table entry is located at RAM address: <code class="highlighter-rouge">CR3 + 1 * 4</code> (<code class="highlighter-rouge">1</code> because of the page part), and that is where it will look for it</li>
-  <li>it finds the page address <code class="highlighter-rouge">0x00000</code> there</li>
-  <li>so the final address is <code class="highlighter-rouge">0x00000 * 4k + 0x001 = 0x00000001</code></li>
-</ul>
-
-<h3 id="multiple-addresses-translate-to-a-single-physical-address">Multiple addresses translate to a single physical address</h3>
-
-<p>The same linear address can translate to different physical addresses for different processes, depending only on the value inside <code class="highlighter-rouge">cr3</code>.</p>
-
-<p>Both linear addresses <code class="highlighter-rouge">00002 000</code> from process 1 and <code class="highlighter-rouge">00004 000</code> from process 2 point to the same physical address <code class="highlighter-rouge">00003 000</code>. This is completely allowed by the hardware, and it is up to the operating system to handle such cases.</p>
-
-<p>This often in normal operation because of Copy-on-write (COW), which be explained elsewhere.</p>
-
-<p>Such mappings are sometime called “aliases”.</p>
-
-<h3 id="identity-mapping">Identity mapping</h3>
-
-<p><code class="highlighter-rouge">FFFFF 000</code> points to its own physical address <code class="highlighter-rouge">FFFFF 000</code>. This kind of translation is called an “identity mapping”, and can be very convenient for OS-level debugging.</p>
-
-<h3 id="page-faults">Page faults</h3>
-
-<p>What if Process 1 tries to access <code class="highlighter-rouge">0x00003000</code>, which is not present?</p>
-
-<p>The hardware notifies the software via a Page Fault Exception.</p>
-
-<p>When an exception happens, the CPU jumps to an address that the OS had previously registered as the fault handler. This is usually done at boot time by the OS.</p>
-
-<p>This could happen for example due to a programming error:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int *is = malloc(1);
-is[2] = 1;
-</code></pre></div></div>
-
-<p>but there are cases where it is not a bug, for example in Linux when:</p>
-
-<ul>
-  <li>
-    <p>the program wants to increase its stack.</p>
-
-    <p>It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space, otherwise, it sends a signal to the process.</p>
-  </li>
-  <li>
-    <p>the page was swapped to disk.</p>
-
-    <p>The OS will need to do some work behind the processes back to get the page back into RAM.</p>
-
-    <p>The OS can discover that this is the case based on the contents of the rest of the page table entry, since if the present flag is clear, the other entries of the page table entry are completely left for the OS to to what it wants.</p>
-
-    <p>On Linux for example, when present = 0:</p>
-
-    <ul>
-      <li>
-        <p>if all the fields of the page table entry are 0, invalid address.</p>
-      </li>
-      <li>
-        <p>else, the page has been swapped to disk, and the actual values of those fields encode the position of the page on the disk.</p>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<p>In any case, the OS needs to know which address generated the Page Fault to be able to deal with the problem. This is why the nice IA32 developers set the value of <code class="highlighter-rouge">cr2</code> to that address whenever a Page Fault occurs. The exception handler can then just look into <code class="highlighter-rouge">cr2</code> to get the address.</p>
-
-<h3 id="page-table-entries">Page table entries</h3>
-
-<p>The exact format of table entries is fixed <em>by the hardware</em>.</p>
-
-<p>Each page entry can be seen as a <code class="highlighter-rouge">struct</code> with many fields.</p>
-
-<p>The page table is then an array of <code class="highlighter-rouge">struct</code>.</p>
-
-<p>On this simplified example, the page table entries contain only two fields:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bits   function
+  00001 001</code></pre></div><div class="p" id="_113">because <code>00001</code> is the physical address of the page looked up on the table and <code>001</code> is the offset.</div><div class="p" id="_114">We shift <code>00001</code> by 12 bits because the pages are always aligned to 4KiB.</div><div class="p" id="_115">The offset is always simply added the physical address of the page.</div></li><li id="_116">the hardware then gets the memory at that physical location and puts it in a register.</li></ul></div></div><div class="p" id="_117">Another example: for logical address <code>0x00001001</code>:<div><ul id="_118"><li id="_119">the page part is <code>00001</code>, and the offset part is <code>001</code></li><li id="_120">the hardware knows that its page table entry is located at RAM address: <code>CR3 + 1 * 4</code> (<code>1</code> because of the page part), and that is where it will look for it</li><li id="_121">it finds the page address <code>0x00000</code> there</li><li id="_122">so the final address is <code>0x00000 * 4k + 0x001 = 0x00000001</code></li></ul></div></div><div class="h" id="multiple-addresses-translate-to-a-single-physical-address"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/multiple-addresses-translate-to-a-single-physical-address">6.3. Multiple addresses translate to a single physical address</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 82</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/multiple-addresses-translate-to-a-single-physical-address" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/multiple-addresses-translate-to-a-single-physical-address"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_123">The same linear address can translate to different physical addresses for different processes, depending only on the value inside <code>cr3</code>.</div><div class="p" id="_124">Both linear addresses <code>00002 000</code> from process 1 and <code>00004 000</code> from process 2 point to the same physical address <code>00003 000</code>. This is completely allowed by the hardware, and it is up to the operating system to handle such cases.</div><div class="p" id="_125">This often in normal operation because of Copy-on-write (COW), which be explained elsewhere.</div><div class="p" id="_126">Such mappings are sometime called "aliases".</div><div class="h" id="identity-mapping"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/identity-mapping">6.4. Identity mapping</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 28</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/identity-mapping" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/identity-mapping"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_127"><code>FFFFF 000</code> points to its own physical address <code>FFFFF 000</code>. This kind of translation is called an "identity mapping", and can be very convenient for OS-level debugging.</div><div class="h" id="page-faults"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-faults">6.5. Page faults</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 300</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/page-faults" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-faults"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_128">What if Process 1 tries to access <code>0x00003000</code>, which is not present?</div><div class="p" id="_129">The hardware notifies the software via a Page Fault Exception.</div><div class="p" id="_130">When an exception happens, the CPU jumps to an address that the OS had previously registered as the fault handler. This is usually done at boot time by the OS.</div><div class="p" id="_131">This could happen for example due to a programming error:
+<div class="code" id="_132"><pre><code>int *is = malloc(1);
+is[2] = 1;</code></pre></div>
+but there are cases where it is not a bug, for example in Linux when:<div><ul id="_133"><li id="_134"><div class="p" id="_135">the program wants to increase its stack.</div><div class="p" id="_136">It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space, otherwise, it sends a signal to the process.</div></li><li id="_137"><div class="p" id="_138">the page was swapped to disk.</div><div class="p" id="_139">The OS will need to do some work behind the processes back to get the page back into RAM.</div><div class="p" id="_140">The OS can discover that this is the case based on the contents of the rest of the page table entry, since if the present flag is clear, the other entries of the page table entry are completely left for the OS to to what it wants.</div><div class="p" id="_141">On Linux for example, when present = 0:<div><ul id="_142"><li id="_143">if all the fields of the page table entry are 0, invalid address.</li><li id="_144">else, the page has been swapped to disk, and the actual values of those fields encode the position of the page on the disk.</li></ul></div></div></li></ul></div></div><div class="p" id="_145">In any case, the OS needs to know which address generated the Page Fault to be able to deal with the problem. This is why the nice IA32 developers set the value of <code>cr2</code> to that address whenever a Page Fault occurs. The exception handler can then just look into <code>cr2</code> to get the address.</div><div class="h" id="page-table-entries"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-table-entries">6.6. Page table entries</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 211</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/page-table-entries" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-table-entries"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_146">The exact format of table entries is fixed _by the hardware_.</div><div class="p" id="_147">Each page entry can be seen as a <code>struct</code> with many fields.</div><div class="p" id="_148">The page table is then an array of <code>struct</code>.</div><div class="p" id="_149">On this simplified example, the page table entries contain only two fields:
+<div class="code" id="_150"><pre><code>bits   function
 -----  -----------------------------------------
 20     physical address of the start of the page
-1      present flag
-</code></pre></div></div>
-
-<p>so in this example the hardware designers could have chosen the size of the page table to b <code class="highlighter-rouge">21</code> instead of <code class="highlighter-rouge">32</code> as we’ve used so far.</p>
-
-<p>All real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.</p>
-
-<p>It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose 32 to make access faster, and just reserve bits the remaining bits for later usage. The actual value on x86 is 32 bits.</p>
-
-<p>Here is a screenshot from the Intel manual image “Formats of CR3 and Paging-Structure Entries with 32-Bit Paging” showing the structure of a page table in all its glory:</p>
-
-<p><a href="/x86-page-entry.png"><img src="/x86-page-entry.png" alt="" style="width:700px;" /></a></p>
-
-<p>The fields are explained in the manual just after.</p>
-
-<h3 id="page-size-choice">Page size choice</h3>
-
-<p>Why are pages 4KiB anyways?</p>
-
-<p>There is a trade-off between memory wasted in:</p>
-
-<ul>
-  <li>page tables</li>
-  <li>extra padding memory within pages</li>
-</ul>
-
-<p>This can be seen with the extreme cases:</p>
-
-<ul>
-  <li>if the page size were 1 byte:
-    <ul>
-      <li>granularity would be great, and the OS would never have to allocate unneeded padding memory</li>
-      <li>but the page table would have 2^32 entries, and take up the entire memory!</li>
-    </ul>
-  </li>
-  <li>if the page size were 4GiB:
-    <ul>
-      <li>we would need to swap 4GiB to disk every time a new process becomes active</li>
-      <li>the page size would be a single entry, so it would take almost no memory at all</li>
-    </ul>
-  </li>
-</ul>
-
-<p>x86 designers have found that 4KiB pages are a good middle ground.</p>
-
-<h2 id="example-multi-level-paging-scheme">Example: multi-level paging scheme</h2>
-
-<h3 id="the-problem-with-single-level-paging">The problem with single-level paging</h3>
-
-<p>The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries <em>per</em> process.</p>
-
-<p>If each entry is 4 bytes long, that would make 4M <em>per process</em>, which is too much even for a desktop computer: <code class="highlighter-rouge">ps -A | wc -l</code> says that I am running 244 processes right now, so that would take around 1GB of my RAM!</p>
-
-<p>For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.</p>
-
-<p>The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.</p>
-
-<h3 id="k-ary-trees-to-the-rescue">K-ary trees to the rescue</h3>
-
-<p>The algorithmically minded will have noticed that paging requires <a href="https://en.wikipedia.org/wiki/Associative_array">associative array</a> (like Java <code class="highlighter-rouge">Map</code> of Python <code class="highlighter-rouge">dict()</code>) abstract data structure where:</p>
-
-<ul>
-  <li>the keys are linear pages addresses, thus of integer type</li>
-  <li>the values are physical page addresses, also of integer type</li>
-</ul>
-
-<p>The single level paging scheme uses a simple array implementation of the associative array:</p>
-
-<ul>
-  <li>the keys are the array index</li>
-  <li>this implementation is very fast in time</li>
-  <li>but it is too inefficient in memory</li>
-</ul>
-
-<p>and in C pseudo-code it looks like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear_address[0]      = physical_address_0
+1      present flag</code></pre></div>
+so in this example the hardware designers could have chosen the size of the page table to b <code>21</code> instead of <code>32</code> as we've used so far.</div><div class="p" id="_151">All real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.</div><div class="p" id="_152">It would be impractical to align things at 21 bits since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose 32 to make access faster, and just reserve bits the remaining bits for later usage. The actual value on x86 is 32 bits.</div><div class="p" id="_153">Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory: <a href="#image-x86-page-entry-format">Figure 2. "x86 page entry format"</a>.</div><figure id="image-x86-page-entry-format"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_entry_format.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_entry_format.png" loading="lazy" height="300"></a></div><figcaption><a href="#image-x86-page-entry-format"><span class="caption-prefix">Figure 2</span></a>. x86 page entry format. </figcaption></figure><div class="p" id="_154">The fields are explained in the manual just after.</div><div class="h" id="page-size-choice"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-size-choice">6.7. Page size choice</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 114</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-simplified-single-level-paging-scheme" class="u"> Example: simplified single-level paging scheme</a><a href="#_toc/x86-paging/page-size-choice" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/page-size-choice"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_155">Why are pages 4KiB anyways?</div><div class="p" id="_156">There is a trade-off between memory wasted in:<div><ul id="_157"><li id="_158">page tables</li><li id="_159">extra padding memory within pages</li></ul></div></div><div class="p" id="_160">This can be seen with the extreme cases:<div><ul id="_161"><li id="_162">if the page size were 1 byte:<div><ul id="_163"><li id="_164">granularity would be great, and the OS would never have to allocate unneeded padding memory</li><li id="_165">but the page table would have 2^32 entries, and take up the entire memory!</li></ul></div></li><li id="_166">if the page size were 4GiB:<div><ul id="_167"><li id="_168">we would need to swap 4GiB to disk every time a new process becomes active</li><li id="_169">the page size would be a single entry, so it would take almost no memory at all</li></ul></div></li></ul></div></div><div class="p" id="_170">x86 designers have found that 4KiB pages are a good middle ground.</div><div class="h" id="example-multi-level-paging-scheme"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/example-multi-level-paging-scheme">7. Example: multi-level paging scheme</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 1k</span><span class="dcnt"> articles: 5</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/example-multi-level-paging-scheme" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/example-multi-level-paging-scheme"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="h" id="the-problem-with-single-level-paging"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/the-problem-with-single-level-paging">7.1. The problem with single-level paging</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 109</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><a href="#_toc/x86-paging/the-problem-with-single-level-paging" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/the-problem-with-single-level-paging"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_171">The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries _per_ process.</div><div class="p" id="_172">If each entry is 4 bytes long, that would make 4M _per process_, which is too much even for a desktop computer: <code>ps -A | wc -l</code> says that I am running 244 processes right now, so that would take around 1GB of my RAM!</div><div class="p" id="_173">For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.</div><div class="p" id="_174">The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.</div><div class="h" id="k-ary-trees-to-the-rescue"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/k-ary-trees-to-the-rescue">7.2. K-ary trees to the rescue</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 309</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><a href="#_toc/x86-paging/k-ary-trees-to-the-rescue" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/k-ary-trees-to-the-rescue"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_175">The algorithmically minded will have noticed that paging requires <a href="https://ourbigbook.com/cirosantilli/associative-array">associative array</a> (like Java <code>Map</code> of Python <code>dict()</code>) abstract data structure where:<div><ul id="_176"><li id="_177">the keys are linear pages addresses, thus of integer type</li><li id="_178">the values are physical page addresses, also of integer type</li></ul></div></div><div class="p" id="_179">The single level paging scheme uses a simple array implementation of the associative array:<div><ul id="_180"><li id="_181">the keys are the array index</li><li id="_182">this implementation is very fast in time</li><li id="_183">but it is too inefficient in memory
+</li></ul></div>and in C pseudo-code it looks like this:
+<div class="code" id="_184"><pre><code>linear_address[0]      = physical_address_0
 linear_address[1]      = physical_address_1
 linear_address[2]      = physical_address_2
 ...
-linear_address[2^20-1] = physical_address_N
-</code></pre></div></div>
-
-<p>But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <a href="https://en.wikipedia.org/wiki/K-ary_tree">K-ary tree</a>.</p>
-
-<p>A K-ary tree, is just like a <a href="https://en.wikipedia.org/wiki/Binary_tree">binary tree</a>, but with K children instead of 2.</p>
-
-<p>Using a K-ary tree instead of an array implementation has the following trade-offs:</p>
-
-<ul>
-  <li>it uses way less memory</li>
-  <li>it is slower since we have to de-reference extra pointers</li>
-</ul>
-
-<p>In C-pseudo code, a 2-level K-ary tree with <code class="highlighter-rouge">K = 2^10</code> looks like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>level0[0] = &amp;level1_0[0]
+linear_address[2^20-1] = physical_address_N</code></pre></div></div><div class="p" id="_185">But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <a href="https://ourbigbook.com/cirosantilli/k-ary-tree">k-ary tree</a>.</div><div class="p" id="_186">A K-ary tree, is just like a <a href="https://ourbigbook.com/cirosantilli/binary-tree">binary tree</a>, but with K children instead of 2.</div><div class="p" id="_187">Using a K-ary tree instead of an array implementation has the following trade-offs:<div><ul id="_188"><li id="_189">it uses way less memory</li><li id="_190">it is slower since we have to de-reference extra pointers</li></ul></div></div><div class="p" id="_191">In C-pseudo code, a 2-level K-ary tree with <code>K = 2^10</code> looks like this:
+<div class="code" id="_192"><pre><code>level0[0] = &amp;level1_0[0]
     level1_0[0]      = physical_address_0_0
     level1_0[1]      = physical_address_0_1
     ...
@@ -684,124 +144,34 @@ level0[N] = &amp;level1_N[0]
     level1_N[0]      = physical_address_N_0
     level1_N[1]      = physical_address_N_1
     ...
-    level1_N[2^10-1] = physical_address_N_N
-</code></pre></div></div>
-
-<p>and we have the following arrays:</p>
-
-<ul>
-  <li>one <code class="highlighter-rouge">directory</code>, which has <code class="highlighter-rouge">2^10</code> elements. Each element contains a pointer to a page table array.</li>
-  <li>up to 2^10 <code class="highlighter-rouge">pagetable</code> arrays. Each one has <code class="highlighter-rouge">2^10</code> 4 byte page entries.</li>
-</ul>
-
-<p>and it still contains <code class="highlighter-rouge">2^10 * 2^10 = 2^20</code> possible keys.</p>
-
-<p>K-ary trees can save up a lot of space, because if we only have one key, then we only need the following arrays:</p>
-
-<ul>
-  <li>one <code class="highlighter-rouge">directory</code> with 2^10 entries</li>
-  <li>one <code class="highlighter-rouge">pagetable</code> at <code class="highlighter-rouge">directory[0]</code> with 2^10 entries</li>
-  <li>all other <code class="highlighter-rouge">directory[i]</code> are marked as invalid, don’t point to anything, and we don’t allocate <code class="highlighter-rouge">pagetable</code> for them at all</li>
-</ul>
-
-<h3 id="why-not-a-balanced-tree">Why not a balanced tree</h3>
-
-<p>Learned readers will ask themselves: so why use an unbalanced tree instead of balanced one, which offers better asymptotic times <a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree">https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree</a>?</p>
-
-<p>Likely:</p>
-
-<ul>
-  <li>the maximum number of entries is small enough due to memory size limitations, that we won’t waste too much memory with the root directory entry</li>
-  <li>different entries would have different levels, and thus different access times</li>
-  <li>tree rotations would likely make caching more complicated</li>
-</ul>
-
-<h3 id="how-the-k-ary-tree-is-used-in-x86">How the K-ary tree is used in x86</h3>
-
-<p>x86’s multi-level paging scheme uses a 2 level K-ary tree with 2^10 bits on each level.</p>
-
-<p>Addresses are now split as:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| directory (10 bits) | table (10 bits) | offset (12 bits) |
-</code></pre></div></div>
-
-<p>Then:</p>
-
-<ul>
-  <li>
-    <p>the top 10 bits are used to walk the top level of the K-ary tree (<code class="highlighter-rouge">level0</code>)</p>
-
-    <p>The top table is called a “directory of page tables”.</p>
-
-    <p><code class="highlighter-rouge">cr3</code> now points to the location on RAM of the page directory of the current process instead of page tables.</p>
-
-    <p>Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.</p>
-
-    <p>Each directory entry also takes up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.</p>
-
-    <p>Page directory entries also contain a valid flag: if invalid, the OS does not allocate a page table for that entry, and saves memory.</p>
-
-    <p>Each process has one and only one page directory associated to it (and pointed to by <code class="highlighter-rouge">cr3</code>), so it will contain at least <code class="highlighter-rouge">2^10 = 1K</code> page directory entries, much better than the minimum 1M entries required on a single-level scheme.</p>
-  </li>
-  <li>
-    <p>the next 10 bits are used to walk the second level of the K-ary tree (<code class="highlighter-rouge">level1</code>)</p>
-
-    <p>Second level entries are also called page tables like the single level scheme.</p>
-
-    <p>Page tables are only allocated only as needed by the OS.</p>
-
-    <p>Each page table has only <code class="highlighter-rouge">2^10 = 1K</code> page table entries instead of <code class="highlighter-rouge">2^20</code> for the single paging scheme.</p>
-
-    <p>Each process can now have up to <code class="highlighter-rouge">2^10</code> page tables instead of <code class="highlighter-rouge">2^20</code> for the single paging scheme.</p>
-  </li>
-  <li>
-    <p>the offset is again not used for translation, it only gives the offset within a page</p>
-  </li>
-</ul>
-
-<p>One reason for using 10 bits on the first two levels (and not, say, <code class="highlighter-rouge">12 | 8 | 12</code> ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.</p>
-
-<h3 id="multi-level-paging-scheme-numerical-translation-example">Multi-level paging scheme numerical translation example</h3>
-
-<p>Page directory given to process by the OS:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entry index   entry address      page table address  present
+    level1_N[2^10-1] = physical_address_N_N</code></pre></div>
+and we have the following arrays:<div><ul id="_193"><li id="_194">one <code>directory</code>, which has <code>2^10</code> elements. Each element contains a pointer to a page table array.</li><li id="_195">up to 2^10 <code>pagetable</code> arrays. Each one has <code>2^10</code> 4 byte page entries.
+</li></ul></div>and it still contains <code>2^10 * 2^10 = 2^20</code> possible keys.</div><div class="p" id="_196">K-ary trees can save up a lot of space, because if we only have one key, then we only need the following arrays:<div><ul id="_197"><li id="_198">one <code>directory</code> with 2^10 entries</li><li id="_199">one <code>pagetable</code> at <code>directory[0]</code> with 2^10 entries</li><li id="_200">all other <code>directory[i]</code> are marked as invalid, don't point to anything, and we don't allocate <code>pagetable</code> for them at all</li></ul></div></div><div class="h" id="why-not-a-balanced-tree"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/why-not-a-balanced-tree">7.3. Why not a balanced tree</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 65</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><a href="#_toc/x86-paging/why-not-a-balanced-tree" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/why-not-a-balanced-tree"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_201">Learned readers will ask themselves: so why use an unbalanced tree instead of balanced one, which offers better asymptotic times <a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree?">en.wikipedia.org/wiki/Self-balancing_binary_search_tree?</a></div><div class="p" id="_202">Likely:<div><ul id="_203"><li id="_204">the maximum number of entries is small enough due to memory size limitations, that we won't waste too much memory with the root directory entry</li><li id="_205">different entries would have different levels, and thus different access times</li><li id="_206">tree rotations would likely make caching more complicated</li></ul></div></div><div class="h" id="how-the-k-ary-tree-is-used-in-x86"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/how-the-k-ary-tree-is-used-in-x86">7.4. How the K-ary tree is used in x86</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 352</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><a href="#_toc/x86-paging/how-the-k-ary-tree-is-used-in-x86" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/how-the-k-ary-tree-is-used-in-x86"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_207">x86's multi-level paging scheme uses a 2 level K-ary tree with 2^10 bits on each level.</div><div class="p" id="_208">Addresses are now split as:
+<div class="code" id="_209"><pre><code>| directory (10 bits) | table (10 bits) | offset (12 bits) |</code></pre></div></div><div class="p" id="_210">Then:<div><ul id="_211"><li id="_212"><div class="p" id="_213">the top 10 bits are used to walk the top level of the K-ary tree (<code>level0</code>)</div><div class="p" id="_214">The top table is called a "directory of page tables".</div><div class="p" id="_215"><code>cr3</code> now points to the location on RAM of the page directory of the current process instead of page tables.</div><div class="p" id="_216">Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.</div><div class="p" id="_217">Each directory entry also takes up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.</div><div class="p" id="_218">Page directory entries also contain a valid flag: if invalid, the OS does not allocate a page table for that entry, and saves memory.</div><div class="p" id="_219">Each process has one and only one page directory associated to it (and pointed to by <code>cr3</code>), so it will contain at least <code>2^10 = 1K</code> page directory entries, much better than the minimum 1M entries required on a single-level scheme.</div></li><li id="_220"><div class="p" id="_221">the next 10 bits are used to walk the second level of the K-ary tree (<code>level1</code>)</div><div class="p" id="_222">Second level entries are also called page tables like the single level scheme.</div><div class="p" id="_223">Page tables are only allocated only as needed by the OS.</div><div class="p" id="_224">Each page table has only <code>2^10 = 1K</code> page table entries instead of <code>2^20</code> for the single paging scheme.</div><div class="p" id="_225">Each process can now have up to <code>2^10</code> page tables instead of <code>2^20</code> for the single paging scheme.</div></li><li id="_226">the offset is again not used for translation, it only gives the offset within a page</li></ul></div></div><div class="p" id="_227">One reason for using 10 bits on the first two levels (and not, say, <code>12 | 8 | 12</code> ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.</div><div class="h" id="multi-level-paging-scheme-numerical-translation-example"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/multi-level-paging-scheme-numerical-translation-example">7.5. Multi-level paging scheme numerical translation example</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 460</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#example-multi-level-paging-scheme" class="u"> Example: multi-level paging scheme</a><a href="#_toc/x86-paging/multi-level-paging-scheme-numerical-translation-example" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/multi-level-paging-scheme-numerical-translation-example"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_228">Page directory given to process by the OS:
+<div class="code" id="_229"><pre><code>entry index   entry address      page table address  present
 -----------   ----------------   ------------------  --------
 0             CR3 + 0      * 4   0x10000             1
 1             CR3 + 1      * 4                       0
 2             CR3 + 2      * 4   0x80000             1
 3             CR3 + 3      * 4                       0
 ...
-2^10-1        CR3 + 2^10-1 * 4                       0
-</code></pre></div></div>
-
-<p>Page tables given to process by the OS at <code class="highlighter-rouge">PT1 = 0x10000000</code> (<code class="highlighter-rouge">0x10000</code> * 4K):</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entry index   entry address      page address  present
+2^10-1        CR3 + 2^10-1 * 4                       0</code></pre></div></div><div class="p" id="_230">Page tables given to process by the OS at <code>PT1 = 0x10000000</code> (<code>0x10000</code> * 4K):
+<div class="code" id="_231"><pre><code>entry index   entry address      page address  present
 -----------   ----------------   ------------  -------
 0             PT1 + 0      * 4   0x00001       1
 1             PT1 + 1      * 4                 0
 2             PT1 + 2      * 4   0x0000D       1
 ...                                  ...
-2^10-1        PT1 + 2^10-1 * 4   0x00005       1
-</code></pre></div></div>
-
-<p>Page tables given to process by the OS at <code class="highlighter-rouge">PT2  = 0x80000000</code> (<code class="highlighter-rouge">0x80000</code> * 4K):</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entry index   entry address     page address  present
+2^10-1        PT1 + 2^10-1 * 4   0x00005       1</code></pre></div></div><div class="p" id="_232">Page tables given to process by the OS at <code>PT2  = 0x80000000</code> (<code>0x80000</code> * 4K):
+<div class="code" id="_233"><pre><code>entry index   entry address     page address  present
 -----------   ---------------   ------------  ------------
 0             PT2 + 0     * 4   0x0000A       1
 1             PT2 + 1     * 4   0x0000C       1
 2             PT2 + 2     * 4                 0
 ...
-2^10-1        PT2 + 0x3FF * 4   0x00003       1
-</code></pre></div></div>
-
-<p>where <code class="highlighter-rouge">PT1</code> and <code class="highlighter-rouge">PT2</code>: initial position of page table 1 and page table 2 for process 1 on RAM.</p>
-
-<p>With that setup, the following translations would happen:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear    10 10 12 split  physical
+2^10-1        PT2 + 0x3FF * 4   0x00003       1</code></pre></div>
+where <code>PT1</code> and <code>PT2</code>: initial position of page table 1 and page table 2 for process 1 on RAM.</div><div class="p" id="_234">With that setup, the following translations would happen:
+<div class="code" id="_235"><pre><code>linear    10 10 12 split  physical
 --------  --------------  ----------
 00000001  000 000 001     00001001
 00001001  000 001 001     page fault
@@ -810,70 +180,17 @@ level0[N] = &amp;level1_N[0]
 00800001  002 000 001     0000A001
 00801004  002 001 004     0000C004
 00802004  002 002 004     page fault
-00B00001  003 000 000     page fault
-</code></pre></div></div>
-
-<p>Let’s translate the linear address <code class="highlighter-rouge">0x00801004</code> step by step:</p>
-
-<ul>
-  <li>
-    <p>In binary the linear address is:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    0    8    0    1    0    0    4
-0000 0000 1000 0000 0001 0000 0000 0100
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Grouping as <code class="highlighter-rouge">10 | 10 | 12</code> gives:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0000000010 0000000001 000000000100
-0x2        0x1        0x4
-</code></pre></div>    </div>
-
-    <p>which gives:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>page directory entry = 0x2
+00B00001  003 000 000     page fault</code></pre></div></div><div class="p" id="_236">Let's translate the linear address <code>0x00801004</code> step by step:<div><ul id="_237"><li id="_238">In binary the linear address is:
+<div class="code" id="_239"><pre><code>0    0    8    0    1    0    0    4
+0000 0000 1000 0000 0001 0000 0000 0100</code></pre></div></li><li id="_240">Grouping as <code>10 | 10 | 12</code> gives:
+<div class="code" id="_241"><pre><code>0000000010 0000000001 000000000100
+0x2        0x1        0x4</code></pre></div>
+which gives:
+<div class="code" id="_242"><pre><code>page directory entry = 0x2
 page table     entry = 0x1
-offset               = 0x4
-</code></pre></div>    </div>
-
-    <p>So the hardware looks for entry 2 of the page directory.</p>
-  </li>
-  <li>
-    <p>The page directory table says that the page table is located at <code class="highlighter-rouge">0x80000 * 4K = 0x80000000</code>. This is the first RAM access of the process.</p>
-
-    <p>Since the page table entry is <code class="highlighter-rouge">0x1</code>, the hardware looks at entry 1 of the page table at <code class="highlighter-rouge">0x80000000</code>, which tells it that the physical page is located at address <code class="highlighter-rouge">0x0000C * 4K = 0x0000C000</code>. This is the second RAM access of the process.</p>
-  </li>
-  <li>
-    <p>Finally, the paging hardware adds the offset, and the final address is <code class="highlighter-rouge">0x0000C004</code>.</p>
-  </li>
-</ul>
-
-<p>Page faults occur if either a page directory entry or a page table entry is not present.</p>
-
-<p>The Intel manual gives a picture of this translation process in the image “Linear-Address Translation to a 4-KByte Page using 32-Bit Paging”:</p>
-
-<p><a href="/x86-page-translation.png"><img src="/x86-page-translation.png" alt="" /></a></p>
-
-<h2 id="64-bit-architectures">64-bit architectures</h2>
-
-<p>64 bits is still too much address for current RAM sizes, so most architectures will use less bits.</p>
-
-<p>x86_64 uses 48 bits (256 TiB), and legacy mode’s PAE already allows 52-bit addresses (4 PiB). 56-bits is a likely future candidate.</p>
-
-<p>12 of those 48 bits are already reserved for the offset, which leaves 36 bits.</p>
-
-<p>If a 2 level approach is taken, the best split would be two 18 bit levels.</p>
-
-<p>But that would mean that the page directory would have <code class="highlighter-rouge">2^18 = 256K</code> entries, which would take too much RAM: close to a single-level paging for 32 bit architectures!</p>
-
-<p>Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.</p>
-
-<p>x86_64 uses 4 levels in a <code class="highlighter-rouge">9 | 9 | 9 | 9</code> scheme, so that the upper level only takes up only <code class="highlighter-rouge">2^9</code> higher level entries.</p>
-
-<p>The 48 bits are split equally into two disjoint parts:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------- FFFFFFFF FFFFFFFF
+offset               = 0x4</code></pre></div>
+So the hardware looks for entry 2 of the page directory.</li><li id="_243"><div class="p" id="_244">The page directory table says that the page table is located at <code>0x80000 * 4K = 0x80000000</code>. This is the first RAM access of the process.</div><div class="p" id="_245">Since the page table entry is <code>0x1</code>, the hardware looks at entry 1 of the page table at <code>0x80000000</code>, which tells it that the physical page is located at address <code>0x0000C * 4K = 0x0000C000</code>. This is the second RAM access of the process.</div></li><li id="_246">Finally, the paging hardware adds the offset, and the final address is <code>0x0000C004</code>.</li></ul></div></div><div class="p" id="_247">Page faults occur if either a page directory entry or a page table entry is not present.</div><div class="p" id="_248">The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": <a href="#image-x86-page-translation-process">Figure 3. "x86 page translation process"</a></div><figure id="image-x86-page-translation-process"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png" loading="lazy" height="300"></a></div><figcaption><a href="#image-x86-page-translation-process"><span class="caption-prefix">Figure 3</span></a>. x86 page translation process. </figcaption></figure><div class="h" id="64-bit-architectures"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/64-bit-architectures">8. 64-bit architectures</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 182</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/64-bit-architectures" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/64-bit-architectures"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_249">64 bits is still too much address for current RAM sizes, so most architectures will use less bits.</div><div class="p" id="_250">x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addresses (4 PiB). 56-bits is a likely future candidate.</div><div class="p" id="_251">12 of those 48 bits are already reserved for the offset, which leaves 36 bits.</div><div class="p" id="_252">If a 2 level approach is taken, the best split would be two 18 bit levels.</div><div class="p" id="_253">But that would mean that the page directory would have <code>2^18 = 256K</code> entries, which would take too much RAM: close to a single-level paging for 32 bit architectures!</div><div class="p" id="_254">Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.</div><div class="p" id="_255">x86_64 uses 4 levels in a <code>9 | 9 | 9 | 9</code> scheme, so that the upper level only takes up only <code>2^9</code> higher level entries.</div><div class="p" id="_256">The 48 bits are split equally into two disjoint parts:
+<div class="code" id="_257"><pre><code>----------------- FFFFFFFF FFFFFFFF
 Top half
 ----------------- FFFF8000 00000000
 
@@ -883,240 +200,54 @@ Not addressable
 
 ----------------- 00007FFF FFFFFFFF
 Bottom half
------------------ 00000000 00000000
-</code></pre></div></div>
-
-<p>A 5-level scheme is emerging in 2016: <a href="https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf">https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf</a> which allows 52-bit addresses with 4k pagetables.</p>
-
-<h2 id="pae">PAE</h2>
-
-<p>Physical address extension.</p>
-
-<p>With 32 bits, only 4GB RAM can be addressed.</p>
-
-<p>This started becoming a limitation for large servers, so Intel introduced the PAE mechanism to Pentium Pro.</p>
-
-<p>To relieve the problem, Intel added 4 new address lines, so that 64GB could be addressed.</p>
-
-<p>Page table structure is also altered if PAE is on. The exact way in which it is altered depends on weather PSE is on or off.</p>
-
-<p>PAE is turned on and off via the <code class="highlighter-rouge">PAE</code> bit of <code class="highlighter-rouge">cr4</code>.</p>
-
-<p>Even if the total addressable memory is 64GB, individual process are still only able to use up to 4GB. The OS can however put different processes on different 4GB chunks.</p>
-
-<h2 id="pse">PSE</h2>
-
-<p>Page size extension.</p>
-
-<p>Allows for pages to be 4M ( or 2M if PAE is on ) in length instead of 4K.</p>
-
-<p>PSE is turned on and off via the <code class="highlighter-rouge">PAE</code> bit of <code class="highlighter-rouge">cr4</code>.</p>
-
-<h2 id="pae-and-pse-page-table-schemes">PAE and PSE page table schemes</h2>
-
-<p>If either PAE and PSE are active, different paging level schemes are used:</p>
-
-<ul>
-  <li>
-    <p>no PAE and no PSE: <code class="highlighter-rouge">10 | 10 | 12</code></p>
-  </li>
-  <li>
-    <p>no PAE and PSE: <code class="highlighter-rouge">10 | 22</code>.</p>
-
-    <p>22 is the offset within the 4Mb page, since 22 bits address 4Mb.</p>
-  </li>
-  <li>
-    <p>PAE and no PSE: <code class="highlighter-rouge">2 | 9 | 9 | 12</code></p>
-
-    <p>The design reason why 9 is used twice instead of 10 is that now entries cannot fit anymore into 32 bits, which were all filled up by 20 address bits and 12 meaningful or reserved flag bits.</p>
-
-    <p>The reason is that 20 bits are not enough anymore to represent the address of page tables: 24 bits are now needed because of the 4 extra wires added to the processor.</p>
-
-    <p>Therefore, the designers decided to increase entry size to 64 bits, and to make them fit into a single page table it is necessary reduce the number of entries to 2^9 instead of 2^10.</p>
-
-    <p>The starting 2 is a new Page level called Page Directory Pointer Table (PDPT), since it <em>points</em> to page directories and fill in the 32 bit linear address. PDPTs are also 64 bits wide.</p>
-
-    <p><code class="highlighter-rouge">cr3</code> now points to PDPTs which must be on the fist four 4GB of memory and aligned on 32 bit multiples for addressing efficiency. This means that now <code class="highlighter-rouge">cr3</code> has 27 significative bits instead of 20: 2^5 for the 32 multiples * 2^27 to complete the 2^32 of the first 4GB.</p>
-  </li>
-  <li>
-    <p>PAE and PSE: <code class="highlighter-rouge">2 | 9 | 21</code></p>
-
-    <p>Designers decided to keep a 9 bit wide field to make it fit into a single page.</p>
-
-    <p>This leaves 23 bits. Leaving 2 for the PDPT to keep things uniform with the PAE case without PSE leaves 21 for offset, meaning that pages are 2M wide instead of 4M.</p>
-  </li>
-</ul>
-
-<h2 id="tlb">TLB</h2>
-
-<p>The Translation Lookahead Buffer (TLB) is a cache for paging addresses.</p>
-
-<p>Since it is a cache, it shares many of the design issues of the CPU cache, such as associativity level.</p>
-
-<p>This section shall describe a simplified fully associative TLB with 4 single address entries. Note that like other caches, real TLBs are not usually fully associative.</p>
-
-<h3 id="basic-operation">Basic operation</h3>
-
-<p>After a translation between linear and physical address happens, it is stored on the TLB. For example, a 4 entry TLB starts in the following state:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  valid  linear  physical
+----------------- 00000000 00000000</code></pre></div></div><div class="p" id="_258">A 5-level scheme is emerging in 2016: <a href="https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf">software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf</a> which allows 52-bit addresses with 4k pagetables.</div><div class="h" id="pae"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/pae">9. PAE</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 114</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/pae" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/pae"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_259">Physical address extension.</div><div class="p" id="_260">With 32 bits, only 4GB RAM can be addressed.</div><div class="p" id="_261">This started becoming a limitation for large servers, so Intel introduced the PAE mechanism to Pentium Pro.</div><div class="p" id="_262">To relieve the problem, Intel added 4 new address lines, so that 64GB could be addressed.</div><div class="p" id="_263">Page table structure is also altered if PAE is on. The exact way in which it is altered depends on weather PSE is on or off.</div><div class="p" id="_264">PAE is turned on and off via the <code>PAE</code> bit of <code>cr4</code>.</div><div class="p" id="_265">Even if the total addressable memory is 64GB, individual process are still only able to use up to 4GB. The OS can however put different processes on different 4GB chunks.</div><div class="h" id="pse"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/pse">10. PSE</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 35</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/pse" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/pse"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_266">Page size extension.</div><div class="p" id="_267">Allows for pages to be 4M ( or 2M if PAE is on ) in length instead of 4K.</div><div class="p" id="_268">PSE is turned on and off via the <code>PSE</code> bit of <code>cr4</code>.</div><div class="h" id="pae-and-pse-page-table-schemes"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/pae-and-pse-page-table-schemes">11. PAE and PSE page table schemes</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 300</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/pae-and-pse-page-table-schemes" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/pae-and-pse-page-table-schemes"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_269">If either PAE and PSE are active, different paging level schemes are used:<div><ul id="_270"><li id="_271">no PAE and no PSE: <code>10 | 10 | 12</code></li><li id="_272"><div class="p" id="_273">no PAE and PSE: <code>10 | 22</code>.</div><div class="p" id="_274">22 is the offset within the 4Mb page, since 22 bits address 4Mb.</div></li><li id="_275"><div class="p" id="_276">PAE and no PSE: <code>2 | 9 | 9 | 12</code></div><div class="p" id="_277">The design reason why 9 is used twice instead of 10 is that now entries cannot fit anymore into 32 bits, which were all filled up by 20 address bits and 12 meaningful or reserved flag bits.</div><div class="p" id="_278">The reason is that 20 bits are not enough anymore to represent the address of page tables: 24 bits are now needed because of the 4 extra wires added to the processor.</div><div class="p" id="_279">Therefore, the designers decided to increase entry size to 64 bits, and to make them fit into a single page table it is necessary reduce the number of entries to 2^9 instead of 2^10.</div><div class="p" id="_280">The starting 2 is a new Page level called Page Directory Pointer Table (PDPT), since it _points_ to page directories and fill in the 32 bit linear address. PDPTs are also 64 bits wide.</div><div class="p" id="_281"><code>cr3</code> now points to PDPTs which must be on the fist four 4GB of memory and aligned on 32 bit multiples for addressing efficiency. This means that now <code>cr3</code> has 27 significative bits instead of 20: 2^5 for the 32 multiples * 2^27 to complete the 2^32 of the first 4GB.</div></li><li id="_282"><div class="p" id="_283">PAE and PSE: <code>2 | 9 | 21</code></div><div class="p" id="_284">Designers decided to keep a 9 bit wide field to make it fit into a single page.</div><div class="p" id="_285">This leaves 23 bits. Leaving 2 for the PDPT to keep things uniform with the PAE case without PSE leaves 21 for offset, meaning that pages are 2M wide instead of 4M.</div></li></ul></div></div><div class="h" id="tlb"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/tlb">12. TLB</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 677</span><span class="dcnt"> articles: 4</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/tlb" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/tlb"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_286">The Translation Lookahead Buffer (TLB) is a cache for paging addresses.</div><div class="p" id="_287">Since it is a cache, it shares many of the design issues of the CPU cache, such as associativity level.</div><div class="p" id="_288">This section shall describe a simplified fully associative TLB with 4 single address entries. Note that like other caches, real TLBs are not usually fully associative.</div><div class="h" id="basic-tlb-operation"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/basic-tlb-operation">12.1. Basic TLB operation</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 166</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#tlb" class="u"> TLB</a><a href="#_toc/x86-paging/basic-tlb-operation" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/basic-tlb-operation"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_289">After a translation between linear and physical address happens, it is stored on the TLB. For example, a 4 entry TLB starts in the following state:
+<div class="code" id="_290"><pre><code>  valid  linear  physical
   -----  ------  --------
 &gt; 0      00000   00000
   0      00000   00000
   0      00000   00000
-  0      00000   00000
-</code></pre></div></div>
-
-<p>The <code class="highlighter-rouge">&gt;</code> indicates the current entry to be replaced.</p>
-
-<p>and after a page linear address <code class="highlighter-rouge">00003</code> is translated to a physical address <code class="highlighter-rouge">00005</code>, the TLB becomes:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  valid  linear  physical
+  0      00000   00000</code></pre></div></div><div class="p" id="_291">The <code>&gt;</code> indicates the current entry to be replaced.</div><div class="p" id="_292">And after a page linear address <code>00003</code> is translated to a physical address <code>00005</code>, the TLB becomes:
+<div class="code" id="_293"><pre><code>  valid  linear  physical
   -----  ------  --------
   1      00003   00005
 &gt; 0      00000   00000
   0      00000   00000
-  0      00000   00000
-</code></pre></div></div>
-
-<p>and after a second translation of <code class="highlighter-rouge">00007</code> to <code class="highlighter-rouge">00009</code> it becomes:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  valid  linear  physical
+  0      00000   00000</code></pre></div>
+and after a second translation of <code>00007</code> to <code>00009</code> it becomes:
+<div class="code" id="_294"><pre><code>  valid  linear  physical
   -----  ------  --------
   1      00003   00005
   1      00007   00009
 &gt; 0      00000   00000
-  0      00000   00000
-</code></pre></div></div>
-
-<p>Now if <code class="highlighter-rouge">00003</code> needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access <code class="highlighter-rouge">00003 --&gt; 00005</code>.</p>
-
-<p>Of course, <code class="highlighter-rouge">00000</code> is not on the TLB since no valid entry contains <code class="highlighter-rouge">00000</code> as a key.</p>
-
-<h3 id="replacement-policy">Replacement policy</h3>
-
-<p>When TLB is filled up, older addresses are overwritten. Just like CPU cache, the replacement policy is a potentially complex operation, but a simple and reasonable heuristic is to remove the least recently used entry (LRU).</p>
-
-<p>With LRU, starting from state:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  valid  linear  physical
+  0      00000   00000</code></pre></div></div><div class="p" id="_295">Now if <code>00003</code> needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access <code>00003 --&gt; 00005</code>.</div><div class="p" id="_296">Of course, <code>00000</code> is not on the TLB since no valid entry contains <code>00000</code> as a key.</div><div class="h" id="tlb-replacement-policy"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/tlb-replacement-policy">12.2. TLB replacement policy</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 85</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#tlb" class="u"> TLB</a><a href="#_toc/x86-paging/tlb-replacement-policy" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/tlb-replacement-policy"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_297">When TLB is filled up, older addresses are overwritten. Just like CPU cache, the replacement policy is a potentially complex operation, but a simple and reasonable heuristic is to remove the least recently used entry (LRU).</div><div class="p" id="_298">With LRU, starting from state:
+<div class="code" id="_299"><pre><code>  valid  linear  physical
   -----  ------  --------
 &gt; 1      00003   00005
   1      00007   00009
   1      00009   00001
-  1      0000B   00003
-</code></pre></div></div>
-
-<p>adding <code class="highlighter-rouge">0000D -&gt; 0000A</code> would give:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  valid  linear  physical
+  1      0000B   00003</code></pre></div>
+adding <code>0000D -&gt; 0000A</code> would give:
+<div class="code" id="_300"><pre><code>  valid  linear  physical
   -----  ------  --------
   1      0000D   0000A
 &gt; 1      00007   00009
   1      00009   00001
-  1      0000B   00003
-</code></pre></div></div>
-
-<h3 id="cam">CAM</h3>
-
-<p>Using the TLB makes translation faster, because the initial translation takes one access <em>per TLB level</em>, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.</p>
-
-<p>The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.</p>
-
-<p>Mappings could also be implemented on RAM addresses, but CAM mappings may required much less entries than a RAM mapping.</p>
-
-<p>For example, a map in which:</p>
-
-<ul>
-  <li>both keys and values have 20 bits (the case of a simple paging schemes)</li>
-  <li>at most 4 values need to be stored at each time</li>
-</ul>
-
-<p>could be stored in a TLB with 4 entries:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear  physical
+  1      0000B   00003</code></pre></div></div><div class="h" id="cam"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/cam">12.3. CAM</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 181</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#tlb" class="u"> TLB</a><a href="#_toc/x86-paging/cam" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/cam"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_301">Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.</div><div class="p" id="_302">The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.</div><div class="p" id="_303">Mappings could also be implemented on RAM addresses, but CAM mappings may required much less entries than a RAM mapping.</div><div class="p" id="_304">For example, a map in which:<div><ul id="_305"><li id="_306">both keys and values have 20 bits (the case of a simple paging schemes)</li><li id="_307">at most 4 values need to be stored at each time
+</li></ul></div>could be stored in a TLB with 4 entries:</div><div class="code" id="_308"><pre><code>linear  physical
 ------  --------
 00000   00001
 00001   00010
 00010   00011
-FFFFF   00000
-</code></pre></div></div>
-
-<p>However, to implement this with RAM, <em>it would be necessary to have 2^20 addresses</em>:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linear  physical
+FFFFF   00000</code></pre></div><div class="p" id="_309">However, to implement this with RAM, _it would be necessary to have 2^20 addresses_:
+<div class="code" id="_310"><pre><code>linear  physical
 ------  --------
 00000   00001
 00001   00010
 00010   00011
 ... (from 00011 to FFFFE)
-FFFFF   00000
-</code></pre></div></div>
-
-<p>which would be even more expensive than using a TLB.</p>
-
-<h3 id="invalidating-entries">Invalidating entries</h3>
-
-<p>When <code class="highlighter-rouge">cr3</code> changes, all TLB entries are invalidated, because a new page table for a new process is going to be used, so it is unlikely that any of the old entries have any meaning.</p>
-
-<p>The x86 also offers the <code class="highlighter-rouge">invlpg</code> instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.</p>
-
-<h2 id="linux-kernel-usage">Linux kernel usage</h2>
-
-<p>The Linux kernel makes extensive usage of the paging features of x86 to allow fast process switches with small data fragmentation.</p>
-
-<h3 id="play-with-physical-addresses-in-linux">Play with physical addresses in Linux</h3>
-
-<p>Convert virtual addresses to physical from user space with <code class="highlighter-rouge">/proc/&lt;pid&gt;/pagemap</code> and from kernel space with <code class="highlighter-rouge">virt_to_phys</code>:</p>
-
-<ul>
-  <li><a href="https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487">https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487</a></li>
-  <li><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li>
-  <li><code class="highlighter-rouge">virt_to_phys</code>:
-    <ul>
-      <li><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/0677dbd4b582d1a913462d75caad0abf21e87f32/kernel_module/virt_to_phys.c">https://github.com/cirosantilli/linux-kernel-module-cheat/blob/0677dbd4b582d1a913462d75caad0abf21e87f32/kernel_module/virt_to_phys.c</a></li>
-      <li><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li>
-    </ul>
-  </li>
-</ul>
-
-<p>Dump all page tables from userspace with <code class="highlighter-rouge">/proc/&lt;pid&gt;/maps</code> and <code class="highlighter-rouge">/proc/&lt;pid&gt;/pagemap</code>:</p>
-
-<ul>
-  <li><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li>
-  <li><a href="https://stackoverflow.com/questions/6284810/proc-pid-pagemaps-and-proc-pid-maps-linux/45500208#45500208">https://stackoverflow.com/questions/6284810/proc-pid-pagemaps-and-proc-pid-maps-linux/45500208#45500208</a></li>
-</ul>
-
-<p>Read and write physical addresses from userspace with <code class="highlighter-rouge">/dev/mem</code>:</p>
-
-<ul>
-  <li><a href="https://stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890">https://stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890</a></li>
-  <li><a href="https://free-electrons.com/pub/mirror/devmem2.c">https://free-electrons.com/pub/mirror/devmem2.c</a></li>
-</ul>
-
-<h3 id="kernel-vs-process-memory-layout">Kernel vs process memory layout</h3>
-
-<p>The Linux Kernel reserves two zones of virtual memory:</p>
-
-<ul>
-  <li>one for kernel memory</li>
-  <li>one for programs</li>
-</ul>
-
-<p>The exact split is configured by <code class="highlighter-rouge">CONFIG_VMSPLIT_...</code>. By default:</p>
-
-<ul>
-  <li>
-    <p>on 32-bit:</p>
-
-    <ul>
-      <li>the bottom 3/4 is program space: <code class="highlighter-rouge">00000000</code> to <code class="highlighter-rouge">BFFFFFFF</code></li>
-      <li>the top 1/4 is kernel memory: <code class="highlighter-rouge">C0000000</code> to <code class="highlighter-rouge">FFFFFFFF</code></li>
-    </ul>
-
-    <p>Like this:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------ FFFFFFFF
+FFFFF   00000</code></pre></div>
+which would be even more expensive than using a TLB.</div><div class="h" id="invalidating-tlb-entries"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/invalidating-tlb-entries">12.4. Invalidating TLB entries</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 188</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#tlb" class="u"> TLB</a><a href="#_toc/x86-paging/invalidating-tlb-entries" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/invalidating-tlb-entries"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_311">When the process changes, <code>cr3</code> change to point to the page table of the new current process.</div><div class="p" id="_312">This creates a problem: the TLB is now filled with a bunch of cached entries for the old process.</div><div class="p" id="_313">A simple and naive solution would be to completely invalidate the TLB whenever the <code>cr3</code> changes.</div><div class="p" id="_314">However, this is would not be very efficient, because it often happens that we switch back to process 1 before process 2 has completely used up the entire TLB cache entries.</div><div class="p" id="_315">The solution for this is to use so called "Address Space Identifiers" (ASID) as mentioned in sources such as:<div><ul id="_316"><li id="_317"><a href="https://stackoverflow.com/questions/52813239/how-many-bits-there-are-in-a-tlb-asid-tag-for-intel-processors-and-how-to-handl">stackoverflow.com/questions/52813239/how-many-bits-there-are-in-a-tlb-asid-tag-for-intel-processors-and-how-to-handl</a></li><li id="_318"><a href="https://stackoverflow.com/questions/52713940/purpose-of-address-spaced-identifiersasids">stackoverflow.com/questions/52713940/purpose-of-address-spaced-identifiersasids</a></li><li id="_319"><a href="https://www.inf.ed.ac.uk/teaching/courses/os/slides/10-paging16.pdf">www.inf.ed.ac.uk/teaching/courses/os/slides/10-paging16.pdf</a></li></ul></div></div><div class="p" id="_320">Basically, the OS assigns a different ASID for each process, and then TLB entries are automatically also tagged with that ASID. This way when the process makes an access, the TLB can determine if a hit is actually for the current process, or if it is an old address coincidence with another process.</div><div class="p" id="_321">The x86 also offers the <code>invlpg</code> instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.</div><div class="h" id="linux-kernel-usage"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/linux-kernel-usage">13. Linux kernel usage</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 685</span><span class="dcnt"> articles: 5</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/linux-kernel-usage" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/linux-kernel-usage"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_322">The Linux kernel makes extensive usage of the paging features of x86 to allow fast process switches with small data fragmentation.</div><div class="p" id="_323">There are also however some features that the Linux kernel might not use, either because they are only for backwards compatibility, or because the Linux devs didn't feel it was worth it yet.</div><div class="h" id="play-with-physical-addresses-in-linux"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/play-with-physical-addresses-in-linux">13.1. Play with physical addresses in Linux</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 40</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#linux-kernel-usage" class="u"> Linux kernel usage</a><a href="#_toc/x86-paging/play-with-physical-addresses-in-linux" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/play-with-physical-addresses-in-linux"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_324">Convert virtual addresses to physical from user space with <code>/proc/&lt;pid&gt;/pagemap</code> and from kernel space with <code>virt_to_phys</code>:<div><ul id="_325"><li id="_326"><a href="https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487">stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487</a></li><li id="_327"><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li><li id="_328"><code>virt_to_phys</code>:<div><ul id="_329"><li id="_330"><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/0677dbd4b582d1a913462d75caad0abf21e87f32/kernel_module/virt_to_phys.c">github.com/cirosantilli/linux-kernel-module-cheat/blob/0677dbd4b582d1a913462d75caad0abf21e87f32/kernel_module/virt_to_phys.c</a></li><li id="_331"><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li></ul></div></li></ul></div></div><div class="p" id="_332">Dump all page tables from userspace with <code>/proc/&lt;pid&gt;/maps</code> and <code>/proc/&lt;pid&gt;/pagemap</code>:<div><ul id="_333"><li id="_334"><a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c">github.com/cirosantilli/linux-kernel-module-cheat/blob/1f4f7faebacca75267cc1d63bfeffc30080d017d/kernel_module/user/virt_to_phys_user.c</a></li><li id="_335"><a href="https://stackoverflow.com/questions/6284810/proc-pid-pagemaps-and-proc-pid-maps-linux/45500208#45500208">stackoverflow.com/questions/6284810/proc-pid-pagemaps-and-proc-pid-maps-linux/45500208#45500208</a></li></ul></div></div><div class="p" id="_336">Read and write physical addresses from userspace with <code>/dev/mem</code>:<div><ul id="_337"><li id="_338"><a href="https://stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890">stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890</a></li><li id="_339"><a href="https://free-electrons.com/pub/mirror/devmem2.c">free-electrons.com/pub/mirror/devmem2.c</a></li></ul></div></div><div class="h" id="kernel-vs-process-memory-layout"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/kernel-vs-process-memory-layout">13.2. Kernel vs process memory layout</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 141</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#linux-kernel-usage" class="u"> Linux kernel usage</a><a href="#_toc/x86-paging/kernel-vs-process-memory-layout" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/kernel-vs-process-memory-layout"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_340">The Linux Kernel reserves two zones of virtual memory:<div><ul id="_341"><li id="_342">one for kernel memory</li><li id="_343">one for programs</li></ul></div></div><div class="p" id="_344">The exact split is configured by <code>CONFIG_VMSPLIT_...</code>. By default:<div><ul id="_345"><li id="_346">on 32-bit:<div><ul id="_347"><li id="_348">the bottom 3/4 is program space: <code>00000000</code> to <code>BFFFFFFF</code></li><li id="_349">the top 1/4 is kernel memory: <code>C0000000</code> to <code>FFFFFFFF</code>, like this:
+<div class="code" id="_350"><pre><code>------------------ FFFFFFFF
 Kernel
 ------------------ C0000000
 ------------------ BFFFFFFF
@@ -1125,20 +256,7 @@ Kernel
 Process
 
 
------------------- 00000000
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>on 64-bit: currently only 48-bits are actually used, split into two equally sized disjoint spaces. The Linux kernel just assigns:</p>
-
-    <ul>
-      <li>the bottom part to processes <code class="highlighter-rouge">00000000 00000000</code> to <code class="highlighter-rouge">008FFFFF FFFFFFFF</code></li>
-      <li>the top part to the kernel: <code class="highlighter-rouge">FFFF8000 00000000</code> to <code class="highlighter-rouge">FFFFFFFF FFFFFFFF</code></li>
-    </ul>
-
-    <p>Like this:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------ FFFFFFFF
+------------------ 00000000</code></pre></div></li></ul></div></li><li id="_351">on 64-bit: currently only 48-bits are actually used, split into two equally sized disjoint spaces. The Linux kernel just assigns:<div><ul id="_352"><li id="_353">the bottom part to processes <code>00000000 00000000</code> to <code>008FFFFF FFFFFFFF</code></li><li id="_354"><div class="p" id="_355">the top part to the kernel: <code>FFFF8000 00000000</code> to <code>FFFFFFFF FFFFFFFF</code>, like this:</div><div class="code" id="_356"><pre><code>------------------ FFFFFFFF
 Kernel
 ------------------ C0000000
 
@@ -1148,22 +266,8 @@ Kernel
 
 ------------------ BFFFFFFF
 Process
------------------- 00000000
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>Kernel memory <a href="https://stackoverflow.com/questions/18953598/is-it-true-that-whole-system-space-address-space-in-linux-does-not-use-demand-pa">is also paged</a>.</p>
-
-<p>In previous versions, <a href="https://stackoverflow.com/questions/1658757/linux-3-1-virtual-address-split">the paging was continuous, but with HIGHMEM this changed</a>.</p>
-
-<p>There is no clear physical memory split: <a href="https://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64">https://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64</a></p>
-
-<h3 id="process-memory-layout">Process memory layout</h3>
-
-<p>For each process, the virtual address space looks like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------ 2^32 - 1
+------------------ 00000000</code></pre></div></li></ul></div></li></ul></div></div><div class="p" id="_357">Kernel memory <a href="https://stackoverflow.com/questions/18953598/is-it-true-that-whole-system-space-address-space-in-linux-does-not-use-demand-pa">is also paged</a>.</div><div class="p" id="_358">In previous versions, <a href="https://stackoverflow.com/questions/1658757/linux-3-1-virtual-address-split">the paging was continuous, but with HIGHMEM this changed</a>.</div><div class="p" id="_359">There is no clear physical memory split: <a href="https://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64">stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64</a></div><div class="h" id="process-memory-layout"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/process-memory-layout">13.3. Process memory layout</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 256</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#linux-kernel-usage" class="u"> Linux kernel usage</a><a href="#_toc/x86-paging/process-memory-layout" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/process-memory-layout"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_360">For each process, the virtual address space looks like this:
+<div class="code" id="_361"><pre><code>------------------ 2^32 - 1
 Stack (grows down)
 v v v v v v v v v
 ------------------
@@ -1195,167 +299,57 @@ Data
 Text
 -------------------
 
-------------------- 0
-</code></pre></div></div>
-
-<p>The kernel maintains a list of pages that belong to each process, and synchronizes that with the paging.</p>
-
-<p>If the program accesses memory that does not belong to it, the kernel handles a page-fault, and decides what to do:</p>
-
-<ul>
-  <li>if it is above the maximum stack size, allocate those pages to the process</li>
-  <li>otherwise, send a SIGSEGV to the process, which usually kills it</li>
-</ul>
-
-<p>When an ELF file is loaded by the kernel to start a program with the <code class="highlighter-rouge">exec</code> system call, the kernel automatically registers text, data, BSS and stack for the program.</p>
-
-<p>The <code class="highlighter-rouge">brk</code> and <code class="highlighter-rouge">mmap</code> areas can be modified by request of the program through the <a href="https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353"><code class="highlighter-rouge">brk</code></a> and <code class="highlighter-rouge">mmap</code> system calls. But the kernel can also deny the program those areas if there is not enough memory.</p>
-
-<p><code class="highlighter-rouge">brk</code> and <code class="highlighter-rouge">mmap</code> can be used to implement <code class="highlighter-rouge">malloc</code>, or the so called “heap”.</p>
-
-<p><code class="highlighter-rouge">mmap</code> is also used to load dynamically loaded libraries into the program’s memory so that it can access and run it.</p>
-
-<p>Stack allocation: <a href="https://stackoverflow.com/questions/17671423/stack-allocation-for-process">https://stackoverflow.com/questions/17671423/stack-allocation-for-process</a></p>
-
-<p>Calculating exact addresses Things are complicated by:</p>
-
-<ul>
-  <li><a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization">Address Space Layout Randomization</a>.</li>
-  <li>the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <a href="https://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323">https://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323</a></li>
-</ul>
-
-<p>Why the text does not start at 0: <a href="https://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0">https://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0</a></p>
-
-<h3 id="copy-on-write">Copy-on-write</h3>
-
-<p><a href="https://en.wikipedia.org/wiki/Copy-on-write">https://en.wikipedia.org/wiki/Copy-on-write</a></p>
-
-<p>Besides a missing page, a very common source of page faults is copy-on-write (COW).</p>
-
-<p>Page tables have extra flags that allow the OS to mark a page a read-only.</p>
-
-<p>Those page faults only happen when a process tries to write to the page, and not read from it.</p>
-
-<p>When Linux forks a process:</p>
-
-<ul>
-  <li>instead of copying all the pages, which is unnecessarily costly, it makes the page tables of the two process point to the same physical address.</li>
-  <li>it marks those linear addresses as read-only</li>
-  <li>whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses</li>
-</ul>
-
-<h3 id="linux-source-tree">Linux source tree</h3>
-
-<p>In <code class="highlighter-rouge">v4.2</code>, look under <code class="highlighter-rouge">arch/x86/</code>:</p>
-
-<ul>
-  <li><code class="highlighter-rouge">include/asm/pgtable*</code></li>
-  <li><code class="highlighter-rouge">include/asm/page*</code></li>
-  <li><code class="highlighter-rouge">mm/pgtable*</code></li>
-  <li><code class="highlighter-rouge">mm/page*</code></li>
-</ul>
-
-<p>There seems to be no structs defined to represent the pages, only macros: <code class="highlighter-rouge">include/asm/page_types.h</code> is specially interesting. Excerpt:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _PAGE_BIT_PRESENT   0   /* is present */
+------------------- 0</code></pre></div></div><div class="p" id="_362">The kernel maintains a list of pages that belong to each process, and synchronizes that with the paging.</div><div class="p" id="_363">If the program accesses memory that does not belong to it, the kernel handles a page-fault, and decides what to do:<div><ul id="_364"><li id="_365">if it is above the maximum stack size, allocate those pages to the process</li><li id="_366">otherwise, send a SIGSEGV to the process, which usually kills it</li></ul></div></div><div class="p" id="_367">When an ELF file is loaded by the kernel to start a program with the <code>exec</code> system call, the kernel automatically registers text, data, BSS and stack for the program.</div><div class="p" id="_368">The <code>brk</code> and <code>mmap</code> areas can be modified by request of the program through the <a href="https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353"><code>brk</code></a> and <code>mmap</code> system calls. But the kernel can also deny the program those areas if there is not enough memory.</div><div class="p" id="_369"><code>brk</code> and <code>mmap</code> can be used to implement <code>malloc</code>, or the so called "heap".</div><div class="p" id="_370"><code>mmap</code> is also used to load dynamically loaded libraries into the program's memory so that it can access and run it.</div><div class="p" id="_371">Stack allocation: <a href="https://stackoverflow.com/questions/17671423/stack-allocation-for-process">stackoverflow.com/questions/17671423/stack-allocation-for-process</a></div><div class="p" id="_372">Calculating exact addresses Things are complicated by:<div><ul id="_373"><li id="_374"><a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization">Address Space Layout Randomization</a>.</li><li id="_375">the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <a href="https://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323">unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323</a></li></ul></div></div><div class="p" id="_376">Why the text does not start at 0: <a href="https://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0">stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0</a></div><div class="h" id="copy-on-write"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/copy-on-write">13.4. Copy-on-write (COW)</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 120</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#linux-kernel-usage" class="u"> Linux kernel usage</a><a href="#_toc/x86-paging/copy-on-write" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/copy-on-write"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_378"><a href="https://en.wikipedia.org/wiki/Copy-on-write">en.wikipedia.org/wiki/Copy-on-write</a></div><div class="p" id="_379">Besides a missing page, a very common source of page faults is copy-on-write (COW).</div><div class="p" id="_380">Page tables have extra flags that allow the OS to mark a page a read-only.</div><div class="p" id="_381">Those page faults only happen when a process tries to write to the page, and not read from it.</div><div class="p" id="_382">When Linux forks a process:<div><ul id="_383"><li id="_384">instead of copying all the pages, which is unnecessarily costly, it makes the page tables of the two process point to the same physical address.</li><li id="_385">it marks those linear addresses as read-only</li><li id="_386">whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses</li></ul></div></div><div class="h" id="linux-source-tree"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/linux-source-tree">13.5. Linux source tree</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 74</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#linux-kernel-usage" class="u"> Linux kernel usage</a><a href="#_toc/x86-paging/linux-source-tree" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/linux-source-tree"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_387">In <code>v4.2</code>, look under <code>arch/x86/</code>:<div><ul id="_388"><li id="_389"><code>include/asm/pgtable*</code></li><li id="_390"><code>include/asm/page*</code></li><li id="_391"><code>mm/pgtable*</code></li><li id="_392"><code>mm/page*</code></li></ul></div></div><div class="p" id="_393">There seems to be no structs defined to represent the pages, only macros: <code>include/asm/page_types.h</code> is specially interesting. Excerpt:
+<div class="code" id="_394"><pre><code>#define _PAGE_BIT_PRESENT   0   /* is present */
 #define _PAGE_BIT_RW        1   /* writeable */
 #define _PAGE_BIT_USER      2   /* userspace addressable */
-#define _PAGE_BIT_PWT       3   /* page write through */
-</code></pre></div></div>
-
-<p><code class="highlighter-rouge">arch/x86/include/uapi/asm/processor-flags.h</code> defines <code class="highlighter-rouge">CR0</code>, and in particular the <code class="highlighter-rouge">PG</code> bit position:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define X86_CR0_PG_BIT      31 /* Paging */
-</code></pre></div></div>
-
-<h2 id="memory-management-unit">Memory management unit</h2>
-
-<p>Paging is done by the <a href="https://en.wikipedia.org/wiki/Memory_management_unit">Memory Management Unit</a> (MMU) part of the CPU.</p>
-
-<p>Like many others (e.g. <a href="https://en.wikipedia.org/wiki/X87">x87 co-processor</a>, <a href="https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller">APIC</a>), this used to be by separate chip on early days.</p>
-
-<p>It was later integrated into the CPU, but the term MMU still used.</p>
-
-<h2 id="second-level-address-translation">Second Level Address Translation</h2>
-
-<p><a href="https://en.wikipedia.org/wiki/Second_Level_Address_Translation">https://en.wikipedia.org/wiki/Second_Level_Address_Translation</a></p>
-
-<p>Two level address translation to make OS emulation more efficient.</p>
-
-<h2 id="other-architectures">Other architectures</h2>
-
-<p><a href="https://stackoverflow.com/a/32258855/895245">Peter Cordes mentions</a> that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.</p>
-
-<h3 id="arm">ARM</h3>
-
-<p>Some interesting features and characteristics of ARMv8 page tables:</p>
-
-<ul>
-  <li>9 9 9 9 address split</li>
-  <li>pages other than the last level (3 if you count from 0) can be leaves. When this happens, the page is larger than 4k (since more bits are left for the offset)</li>
-</ul>
-
-<h2 id="bibliography">Bibliography</h2>
-
-<p>Free:</p>
-
-<ul>
-  <li>
-    <p><a href="https://www.cs.rutgers.edu/~pxk/416/notes/">rutgers-pxk-416</a> chapter “Memory management: lecture notes”</p>
-
-    <p>Good historical review of memory organization techniques used by older OS.</p>
-  </li>
-</ul>
-
-<p>Non-free:</p>
-
-<ul>
-  <li>
-    <p><a href="https://www.amazon.com/books/dp/0596005652">bovet05</a> chapter “Memory addressing”</p>
-
-    <p>Reasonable intro to x86 memory addressing. Missing some good and simple examples.</p>
-  </li>
-</ul>
-
-
-        </main>
-      </div>
-        
-    </div>
-    <!-- Scripts -->
-      <!--data table-->
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ></script>
-        <script>
-          $('.data-table').dataTable({
-            //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
-            "aaSorting": [],
-            "bFilter": false,
-            "bInfo": false,
-            "bPaginate": false
-          });
-        </script>
-      <!--mathjax-->
-        <script
-          src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        ></script>
-        <script>
-          MathJax.Hub.Config({
-              jax: ["input/TeX","output/HTML-CSS"],
-              displayAlign: "left",
-              displayIndent: "20px"
-          });
-        </script>
-      <!--google analytics-->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-47867706-1', 'auto');
-          ga('require', 'displayfeatures');
-          ga('send', 'pageview');
-
-        </script>
-  </body>
+#define _PAGE_BIT_PWT       3   /* page write through */</code></pre></div></div><div class="p" id="_395"><code>arch/x86/include/uapi/asm/processor-flags.h</code> defines <code>CR0</code>, and in particular the <code>PG</code> bit position:
+<div class="code" id="_396"><pre><code>#define X86_CR0_PG_BIT      31 /* Paging */</code></pre></div></div><div class="h" id="memory-management-unit"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/memory-management-unit">14. Memory management unit</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 45</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/memory-management-unit" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/memory-management-unit"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_397">Paging is done by the <a href="https://en.wikipedia.org/wiki/Memory_management_unit">Memory Management Unit</a> (MMU) part of the CPU.</div><div class="p" id="_398">Like many others (e.g. <a href="https://en.wikipedia.org/wiki/X87">x87 co-processor</a>, <a href="https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller">APIC</a>), this used to be by separate chip on early days.</div><div class="p" id="_399">It was later integrated into the CPU, but the term MMU still used.</div><div class="h" id="second-level-address-translation"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/second-level-address-translation">15. Second Level Address Translation</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 10</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/second-level-address-translation" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/second-level-address-translation"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_400"><a href="https://en.wikipedia.org/wiki/Second_Level_Address_Translation">en.wikipedia.org/wiki/Second_Level_Address_Translation</a></div><div class="p" id="_401">Two level address translation to make OS emulation more efficient.</div><div class="h" id="other-architectures"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/other-architectures">16. Other architectures</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 57</span><span class="dcnt"> articles: 1</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/other-architectures" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/other-architectures"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_402"><a href="https://stackoverflow.com/a/32258855/895245">Peter Cordes mentions</a> that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.</div><div class="h" id="arm"><div class="notnav"><h3><a href="https://ourbigbook.com/cirosantilli/x86-paging/arm">16.1. ARM</a></h3><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 8</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="#other-architectures" class="u"> Other architectures</a><a href="#_toc/x86-paging/arm" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/arm"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_403">Information about ARM paging can be found at: <a href="https://cirosantilli.com/linux-kernel-module-cheat#arm-paging">cirosantilli.com/linux-kernel-module-cheat#arm-paging</a></div><div class="h" id="bibliography"><div class="notnav"><h2><a href="https://ourbigbook.com/cirosantilli/x86-paging/bibliography">17. Bibliography</a></h2><span class="hover-meta"> <span class="metrics"><span class="wcntr"> words: 35</span></span></span></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="" class="u"> x86 Paging Tutorial</a><a href="#_toc/x86-paging/bibliography" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/x86-paging/bibliography"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a></div></nav></div><div class="p" id="_404">Free:<div><ul id="_405"><li id="_406"><div class="p" id="_407"><a href="https://www.cs.rutgers.edu/~pxk/416/notes/">rutgers-pxk-416</a> chapter "Memory management: lecture notes"</div><div class="p" id="_408">Good historical review of memory organization techniques used by older OS.</div></li></ul></div></div><div class="p" id="_409">Non-free:<div><ul id="_410"><li id="_411"><div class="p" id="_412"><a href="https://www.amazon.com/books/dp/0596005652">bovet05</a> chapter "Memory addressing"</div><div class="p" id="_413">Reasonable intro to x86 memory addressing. Missing some good and simple examples.</div></li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/x86">x86</a></li><li><a href="https://ourbigbook.com/cirosantilli/list-of-instruction-set-architectures">List of instruction set architectures</a></li><li><a href="https://ourbigbook.com/cirosantilli/instruction-set-architecture">Instruction set architecture</a></li><li><a href="https://ourbigbook.com/cirosantilli/computer-hardware">Computer hardware</a></li><li><a href="https://ourbigbook.com/cirosantilli/computer">Computer</a></li><li><a href="https://ourbigbook.com/cirosantilli/information-technology">Information technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/area-of-technology">Area of technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/technology">Technology</a></li><li><a href="">Ciro Santilli's Homepage</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900"></span> Incoming links</a></h2><div><ul><li><a href="https://ourbigbook.com/cirosantilli/articles">The best articles by Ciro Santilli</a></li><li><a href="https://ourbigbook.com/cirosantilli/skills/programming-languages">Programming languages</a></li></ul></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div>Source code for this page: <a href="_file/x86-paging.bigb">x86-paging.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "x86-paging/";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
 </html>

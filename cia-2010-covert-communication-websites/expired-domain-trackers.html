@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Expired domain trackers - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="../"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="../sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="expired-domain-trackers"><div class="notnav"><h1><a href="">Expired domain trackers</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../secret-service"> Secret service</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../intelligence-agency"> Intelligence agency</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../central-intelligence-agency"> Central Intelligence Agency</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../cia-2010-covert-communication-websites"> CIA 2010 covert communication websites</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/methodology"> Methodology</a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/data-sources"> Data sources</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/expired-domain-trackers"><img src="../_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 977</span><span class="dcnt"> articles: 1</span></span></div></nav></div><div class="p" id="_4709">When you <a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../google">Google</a> most of the hit domains, many of them show up on "expired domain trackers", and above all Chinese expired domain trackers for some reason, notably e.g.:<div><ul id="_4710"><li id="_4711"><div class="p" id="_4712"><a href="https://hupo.com">hupo.com</a>: e.g. <a href="http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt">static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt</a>. Heavily IP throttled. Tor hindered more than helped.</div><div class="p" id="_4713">Scraping script: <a href="../_raw/cia-2010-covert-communication-websites/hupo.sh">cia-2010-covert-communication-websites/hupo.sh</a>. Scraping does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad.</div><div class="p" id="_4714">Results are stored under <code>tmp/humo/&lt;day&gt;</code>.</div><div class="p" id="_4715">Check for hit overlap:
+<div class="code" id="_4716"><pre><code>grep -Fx -f &lt;( jq -r '.[].host' ../media/cia-2010-covert-communication-websites/hits.json ) cia-2010-covert-communication-websites/tmp/hupo/*</code></pre></div>
+The hits are very well distributed amongst days and months, at least they did a good job hiding these potential timing fingerprints. This feels very deliberately designed.</div><div class="p" id="_4717">There are lots of hits. The data set is very inclusive. Also we understand that it must have been obtains through means other than <a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../web-crawling">Web crawling</a>, since it contains so many of the hits.</div><div class="p" id="_4718">Nice output format for scraping as the HTML is very minimal</div><div class="p" id="_4719">They randomly changed their URL format to remove the space before the .com after 2012-02-03:<div><ul id="_4720"><li id="_4721"><a href="http://static.hupo.com/expdomain_myadmin/2012-01-01（国际域名）%20.txt">static.hupo.com/expdomain_myadmin/2012-01-01（国际域名）%20.txt</a></li><li id="_4722"><a href="http://static.hupo.com/expdomain_myadmin/2013-01-01（国际域名）.txt">static.hupo.com/expdomain_myadmin/2013-01-01（国际域名）.txt</a></li></ul></div></div><div class="p" id="_4723">Some of their files are simply missing however unfortunately, e.g. neither of the following exist:<div><ul id="_4724"><li id="_4725"><a href="http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）%20.txt">static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）%20.txt</a></li><li id="_4726"><a href="http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）.txt">static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）.txt</a>
+</li></ul></div>webmasterhome.cn did contain that one however: <a href="http://domain.webmasterhome.cn/com/2012-07-01.asp">domain.webmasterhome.cn/com/2012-07-01.asp</a>. Hmm. we might have better luck over there then?</div><div class="p" id="_4727">2018-11-19 is corrupt in a new and wonderful way, with a bunch of trailing zeros:
+<div class="code" id="_4728"><pre><code>wget -O hupo-2018-11-19 'http://static.hupo.com/expdomain_myadmin/2018-11-19%EF%BC%88%E5%9B%BD%E9%99%85%E5%9F%9F%E5%90%8D%EF%BC%89.txt
+hd hupo-2018-11-19</code></pre></div>
+ends in:
+<div class="code" id="_4729"><pre><code>000ffff0  74 75 64 69 65 73 2e 63  6f 6d 0d 0a 70 31 63 6f  |tudies.com..p1co|
+00100000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+0018a5e0  00 00 00 00 00 00 00 00  00                       |.........|</code></pre></div></div><div class="p" id="_4730">More generally, several files contain invalid domain names with non-ASCII characters, e.g. 2013-01-02 contains <code>365&lt;D3&gt;л&lt;FA&gt;&lt;C2&gt;&lt;CC&gt;.com</code>. Domain names can only contain ASCII charters: <a href="https://stackoverflow.com/questions/1133424/what-are-the-valid-characters-that-can-show-up-in-a-url-host">stackoverflow.com/questions/1133424/what-are-the-valid-characters-that-can-show-up-in-a-url-host</a> Maybe we should get rid of any such lines as noise.</div><div class="p" id="_4731">Some files around 2011-09-06 start with an empty line. 2014-01-15 starts with about twenty empty lines. Oh and that last one also has some trash bytes the end  <code>&lt;B7&gt;&lt;B5&gt;&lt;BB&gt;&lt;D8&gt;</code>. Beauty.</div></li><li id="_4732"><div class="p" id="_4733"><a href="https://webmasterhome.cn">webmasterhome.cn</a>: e.g. <a href="http://domain.webmasterhome.cn/com/2012-03-06.asp">domain.webmasterhome.cn/com/2012-03-06.asp</a>. Appears to contain the exact same data as "static.hupo.com"</div><div class="p" id="_4734">Also heavily IP throttled, and a bit more than hupo apparently.</div><div class="p" id="_4735">Scraper <a href="../_raw/cia-2010-covert-communication-websites/webmastercn.sh">cia-2010-covert-communication-websites/webmastercn.sh</a>.</div><div class="p" id="_4736">Also has some randomly missing dates like hupo.com, though different missing ones from hupo, so they complement each other nicely.</div><div class="p" id="_4737">Some of the URLs are broken and don't inform that with HTTP status code, they just replace the results with some Chinese text 无法找到该页 (The requested page could not be found):<div><ul id="_4738"><li id="_4739"><a href="https://domain.webmasterhome.cn/com/2012-02-06.asp">domain.webmasterhome.cn/com/2012-02-06.asp</a></li><li id="_4740"><a href="https://domain.webmasterhome.cn/com/2012-02-14.asp">domain.webmasterhome.cn/com/2012-02-14.asp</a></li><li id="_4741"><a href="https://domain.webmasterhome.cn/com/2013-04-30.asp">domain.webmasterhome.cn/com/2013-04-30.asp</a></li></ul></div></div><div class="p" id="_4742">Several URLs just return length 0 content, e.g.:
+<div class="code" id="_4743"><pre><code>curl -vvv http://domain.webmasterhome.cn/com/2015-10-31.asp
+*   Trying 125.90.93.11:80...
+* Connected to domain.webmasterhome.cn (125.90.93.11) port 80 (#0)
+&gt; GET /com/2015-10-31.asp HTTP/1.1
+&gt; Host: domain.webmasterhome.cn
+&gt; User-Agent: curl/7.88.1
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Date: Sat, 21 Oct 2023 15:12:23 GMT
+&lt; Server: Microsoft-IIS/6.0
+&lt; X-Powered-By: ASP.NET
+&lt; Content-Length: 0
+&lt; Content-Type: text/html
+&lt; Set-Cookie: ASPSESSIONIDCSTTTBAD=BGGPAONBOFKMMFIPMOGGHLMJ; path=/
+&lt; Cache-control: private
+&lt; 
+* Connection #0 to host domain.webmasterhome.cn left intact</code></pre></div>
+It is not fully clear if this is a throttling mechanism, or if the data is just missing entirely.</div><div class="p" id="_4744">Starting around 2018, the IP limiting became very intense, 30 mins / 1 hour per URL, so we just gave up. Therefore, data from 2018 onwards does not contain webmasterhome.cn data.</div><div class="p" id="_4745">Starting from <code>2013-05-10</code> the format changes randomly. This also shows us that they just have all the HTML pages as static files on their server. E.g. with:
+<div class="code" id="_4746"><pre><code>grep -a '&lt;pre' * | s</code></pre></div>
+we see:
+<div class="code" id="_4747"><pre><code>2013-05-09:&lt;pre style='font-family:Verdana, Arial, Helvetica, sans-serif; '&gt;&lt;strong&gt;2013&lt;C4&gt;&lt;EA&gt;05&lt;D4&gt;&lt;C2&gt;09&lt;C8&gt;յ&lt;BD&gt;&lt;C6&gt;ڹ&lt;FA&gt;&lt;BC&gt;&lt;CA&gt;&lt;D3&gt;&lt;F2&gt;&lt;C3&gt;&lt;FB&gt;&lt;/strong&gt;&lt;br&gt;0-3y.com
+2013-05-10:&lt;pre&gt;&lt;strong&gt;2013&lt;C4&gt;&lt;EA&gt;05&lt;D4&gt;&lt;C2&gt;10&lt;C8&gt;յ&lt;BD&gt;&lt;C6&gt;ڹ&lt;FA&gt;&lt;BC&gt;&lt;CA&gt;&lt;D3&gt;&lt;F2&gt;&lt;C3&gt;&lt;FB&gt;&lt;/strong&gt;</code></pre></div></div></li><li id="_4748"><a href="https://justdropped.com">justdropped.com</a>: e.g. <a href="https://www.justdropped.com/drops/030612com.html">www.justdropped.com/drops/030612com.html</a></li><li id="_4749"><a href="http://yoid.com">yoid.com</a>: e.g.: <a href="http://yoid.com/bydate.php?d=2016-06-03&amp;a=a">yoid.com/bydate.php?d=2016-06-03&amp;a=a</a>
+</li></ul></div>This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".</div><div class="p" id="_4750">We've made the following pipelines for hupo.com + webmasterhome.cn merging:
+<div class="code" id="_4751"><pre><code>./hupo.sh &amp;
+./webmastercn.sh &amp;
+wait
+./hupo-merge.sh
+# Export as small Google indexable files in a Git repository.
+./hupo-repo.sh
+# Export as per year zips for Internet Archive.
+./hupo-zip.sh
+# Obtain count statistics:
+./hupo-wc.sh</code></pre></div></div><div class="p" id="_4752">The extracted data is present at:<div><ul id="_4753"><li id="_4754"><a href="https://archive.org/details/expired-domain-names-by-day">archive.org/details/expired-domain-names-by-day</a></li><li id="_4755"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-*">github.com/cirosantilli/expired-domain-names-by-day-*</a> repos:<div><ul id="_4756"><li id="_4757"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2011">github.com/cirosantilli/expired-domain-names-by-day-2011</a> (~11M)</li><li id="_4758"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2012">github.com/cirosantilli/expired-domain-names-by-day-2012</a> (~18M)</li><li id="_4759"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2013">github.com/cirosantilli/expired-domain-names-by-day-2013</a> (~28M)</li><li id="_4760"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2014">github.com/cirosantilli/expired-domain-names-by-day-2014</a> (~29M)</li><li id="_4761"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2015">github.com/cirosantilli/expired-domain-names-by-day-2015</a> (~28M)</li><li id="_4762"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2016">github.com/cirosantilli/expired-domain-names-by-day-2016</a></li><li id="_4763"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2017">github.com/cirosantilli/expired-domain-names-by-day-2017</a></li><li id="_4764"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2018">github.com/cirosantilli/expired-domain-names-by-day-2018</a></li><li id="_4765"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2019">github.com/cirosantilli/expired-domain-names-by-day-2019</a></li><li id="_4766"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2020">github.com/cirosantilli/expired-domain-names-by-day-2020</a></li><li id="_4767"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2021">github.com/cirosantilli/expired-domain-names-by-day-2021</a></li><li id="_4768"><a href="https://github.com/cirosantilli/expired-domain-names-by-day-2022">github.com/cirosantilli/expired-domain-names-by-day-2022</a>
+</li></ul></div></li></ul></div>Soon after uploading, these repos started getting some interesting traffic, presumably started by security trackers going "bling bling" on certain malicious domain names in their databases:<div><ul id="_4769"><li id="_4770">GitHub trackers:<div><ul id="_4771"><li id="_4772">admin-monitor.shiyue.com</li><li id="_4773">anquan.didichuxing.com</li><li id="_4774">app.cloudsek.com</li><li id="_4775">app.flare.io</li><li id="_4776">app.rainforest.tech</li><li id="_4777">app.shadowmap.com</li><li id="_4778">bo.serenety.xmco.fr 8 1</li><li id="_4779">bts.linecorp.com</li><li id="_4780">burn2give.vercel.app</li><li id="_4781">cbs.ctm360.com 17 2</li><li id="_4782">code6.d1m.cn</li><li id="_4783">code6-ops.juzifenqi.com</li><li id="_4784">codefend.devops.cndatacom.com</li><li id="_4785">dlp-code.airudder.com</li><li id="_4786">easm.atrust.sangfor.com</li><li id="_4787">ec2-34-248-93-242.eu-west-1.compute.amazonaws.com</li><li id="_4788">ecall.beygoo.me 2 1</li><li id="_4789">eos.vip.vip.com 1 1</li><li id="_4790">foradar.baimaohui.net 2 1</li><li id="_4791">fty.beygoo.me</li><li id="_4792">hive.telefonica.com.br 2 1</li><li id="_4793">hulrud.tistory.com</li><li id="_4794">kartos.enthec.com</li><li id="_4795">soc.futuoa.com</li><li id="_4796">lullar-com-3.appspot.com</li><li id="_4797">penetration.houtai.io 2 1</li><li id="_4798">platform.sec.corp.qihoo.net</li><li id="_4799">plus.k8s.onemt.co	4 1</li><li id="_4800">pmp.beygoo.me 2 1</li><li id="_4801">portal.protectorg.com</li><li id="_4802">qa-boss.amh-group.com</li><li id="_4803">saicmotor.saas.cubesec.cn</li><li id="_4804">scan.huoban.com</li><li id="_4805">sec.welab-inc.com</li><li id="_4806">security.ctrip.com 10 3</li><li id="_4807">siem-gs.int.black-unique.com 2 1</li><li id="_4808">soc-github.daojia-inc.com</li><li id="_4809">spigotmc.org 2 1</li><li id="_4810">tcallzgroup.blueliv.com</li><li id="_4811">tcthreatcompass05.blueliv.com 4 1</li><li id="_4812">tix.testsite.woa.com 2 1</li><li id="_4813">toucan.belcy.com 1 1</li><li id="_4814">turbo.gwmdevops.com 18 2</li><li id="_4815">urlscan.watcherlab.com</li><li id="_4816">zelenka.guru. Looks like a Russian hacker forum.</li></ul></div></li><li id="_4817">LinkedIn profile views:<div><ul id="_4818"><li id="_4819">"Information Security Specialist at Forcepoint"</li></ul></div></li></ul></div></div><div class="p" id="_4820">Check for overlap of the merge:
+<div class="code" id="_4821"><pre><code>grep -Fx -f &lt;( jq -r '.[].host' ../media/cia-2010-covert-communication-websites/hits.json ) cia-2010-covert-communication-websites/tmp/merge/*</code></pre></div></div><div class="p" id="_4822">Next, we can start searching by keyword with <a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/wayback-machine-cdx-scanning-with-tor-parallelization">Wayback Machine CDX scanning with Tor parallelization</a> with out helper <a href="../_raw/cia-2010-covert-communication-websites/hupo-cdx-tor.sh">cia-2010-covert-communication-websites/hupo-cdx-tor.sh</a>, e.g. to check domains that contain the term "news":
+<div class="code" id="_4823"><pre><code>./hupo-cdx-tor.sh mydir 'news|global' 2011 2019</code></pre></div>
+produces per-year results for the regex term <code>news|global</code> between the years under:
+<div class="code" id="_4824"><pre><code>tmp/hupo-cdx-tor/mydir/2011
+tmp/hupo-cdx-tor/mydir/2012</code></pre></div>
+OK lets:
+<div class="code" id="_4825"><pre><code>./hupo-cdx-tor.sh out 'news|headline|internationali|mondo|mundo|mondi|iran|today'</code></pre></div></div><div class="p" id="_4826">Other searches that are not dense enough for our patience:
+<div class="code" id="_4827"><pre><code>world|global|[^.]info</code></pre></div></div><div class="p" id="_4828">OMG <code>news</code> search might be producing some golden, golden new hits!!! Going full into this. Hits:<div><ul id="_4829"><li id="_4830">thepyramidnews.com</li><li id="_4831">echessnews.com</li><li id="_4832">tickettonews.com</li><li id="_4833">airuafricanews.com</li><li id="_4834">vuvuzelanews.com</li><li id="_4835">dayenews.com</li><li id="_4836">newsupdatesite.com</li><li id="_4837">arabicnewsonline.com</li><li id="_4838">arabicnewsunfiltered.com</li><li id="_4839">newsandsportscentral.com</li><li id="_4840">networkofnews.com</li><li id="_4841">trekkingtoday.com</li><li id="_4842">financial-crisis-news.com
+</li></ul></div>and a few more. It's amazing.</div><div class="p" id="_4843">Related:<div><ul id="_4844"><li id="_4845"><a href="https://webmasters.stackexchange.com/questions/33806/expired-domains-database/143542#143542">webmasters.stackexchange.com/questions/33806/expired-domains-database/143542#143542</a></li><li id="_4846"><a href="https://stackoverflow.com/questions/928549/how-to-create-a-list-of-recently-expired-domains/77336749#77336749">stackoverflow.com/questions/928549/how-to-create-a-list-of-recently-expired-domains/77336749#77336749</a></li><li id="_4847"><a href="https://github.com/spaze/domains">github.com/spaze/domains</a></li></ul></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 977</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/cia-2010-covert-communication-websites/club-domain-cn"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/club-domain-cn">club.domain.cn</a><span class="hover-metadata"><a href="#_toc/cia-2010-covert-communication-websites/club-domain-cn" class="c"></a><a href="#_toc" class="u"> Expired domain trackers</a><span class="metrics"><span class="wcntr"> 96</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/data-sources">Data sources</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/methodology">Methodology</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../central-intelligence-agency">Central Intelligence Agency</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../intelligence-agency">Intelligence agency</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../secret-service">Secret service</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../espionage">Espionage</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../war">War</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../social-science">Social science</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../scientific-method">Scientific method</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../science">Science</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../">Ciro Santilli's Homepage</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900"></span> Incoming links</a></h2><div><ul><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/are-there-org-hits">Are there .org hits?</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/searching-for-carson">Searching for Carson</a></li><li><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/the-reuters-websites">The Reuters websites</a></li></ul></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div>Source code for this page: <a href="../_file/cia-2010-covert-communication-websites.bigb">cia-2010-covert-communication-websites.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "cia-2010-covert-communication-websites/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

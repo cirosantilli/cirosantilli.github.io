@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>HTML canvas - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="."><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="html-canvas"><div class="notnav"><h1><a href="">HTML canvas</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/information-technology"> Information technology</a><a href="https://ourbigbook.com/cirosantilli/computer"> Computer</a><a href="https://ourbigbook.com/cirosantilli/software"> Software</a><a href="https://ourbigbook.com/cirosantilli/web-technology"> Web technology</a><a href="https://ourbigbook.com/cirosantilli/html"> HTML</a><a href="https://ourbigbook.com/cirosantilli/html-element"> HTML element</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/html-canvas"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 24</span><span class="dcnt"> articles: 2</span></span></div></nav></div><div class="p" id="_42"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">developer.mozilla.org/en-US/docs/Web/API/Canvas_API</a></div><div class="p" id="_43">Allows us to draw with JavaScript pixel by pixel! Great way to create <a href="https://ourbigbook.com/cirosantilli/computational-physics">computational physics</a> demos!</div><div class="p" id="_44">Here is an animation demo with some useful controls:
+<pre class="ourbigbook-js-canvas-demo"><code>new class extends OurbigbookCanvasDemo {
+  init() {
+    super.init('hello');
+    this.pixel_size_input = this.addInputAfterEnable(
+      'Pixel size',
+      {
+        'min': 1,
+        'type': 'number',
+        'value': 1,
+      }
+    );
+  }
+  draw() {
+    var pixel_size = parseInt(this.pixel_size_input.value);
+    for (var x = 0; x &lt; this.width; x += pixel_size) {
+      for (var y = 0; y &lt; this.height; y += pixel_size) {
+        var b = ((1.0 + Math.sin(this.time * Math.PI / 16)) / 2.0);
+        this.ctx.fillStyle =
+          'rgba(' +
+          (x / this.width) * 255 + ',' +
+          (y / this.height) * 255 + ',' +
+          b * 255 +
+          ',255)'
+        ;
+        this.ctx.fillRect(x, y, pixel_size, pixel_size);
+      }
+    }
+  }
+}</code></pre></div><div class="p" id="_46">Bibliography: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations">developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations"&gt;https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations</a></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 24</span><span class="dcnt"> 2</span></span></span></span></div><ul><li class="has-child"><div id="_toc/webgl"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/webgl">WebGL</a><span class="hover-metadata"><a href="#_toc/webgl" class="c"></a><a href="#_toc" class="u"> HTML canvas</a><span class="metrics"><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/three-js"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/three-js">three.js</a><span class="hover-metadata"><a href="#_toc/three-js" class="c"></a><a href="#_toc/webgl" class="u"> WebGL</a></span></span></div></li></ul></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/html-element">HTML element</a></li><li><a href="https://ourbigbook.com/cirosantilli/html">HTML</a></li><li><a href="https://ourbigbook.com/cirosantilli/web-technology">Web technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/software">Software</a></li><li><a href="https://ourbigbook.com/cirosantilli/computer">Computer</a></li><li><a href="https://ourbigbook.com/cirosantilli/information-technology">Information technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/area-of-technology">Area of technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/technology">Technology</a></li><li><a href="">Ciro Santilli's Homepage</a></li></ol></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div>Source code for this page: <a href="_file/web-technology.bigb">web-technology.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

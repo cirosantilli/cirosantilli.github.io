@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>numpy/fft.py - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="../../"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="../../sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/numpy/fft.py"><div class="notnav"><h1><a href="">numpy/fft.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../list-of-programming-languages"> List of programming languages</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-programming-language"> Python</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-library"> Python library</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-scientific-library"> Python scientific library</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../numpy"> NumPy</a><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../numpy-fft"> numpy.fft</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/numpy/fft.py"><img src="../../_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 191</span></span></div><div class="nav file"><b> <a href="../../_dir/">(root)</a> / <a href="../../_dir/numpy">numpy</a> / <a href="../../_raw/numpy/fft.py">fft.py</a></b></div></nav></div><div class="p" id="_231">Output:
+<div class="code" id="_232"><pre><code>sin(t)
+fft
+real 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10
+rfft
+real 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 0 0 0 0 0 0 0
+
+sin(t) + sin(4t)
+fft
+real 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 -10 0 0 0 0 0 0 0 0 0 0 0 10 0 0 10
+rfft
+real 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 -10 0 0 0 0 0 0</code></pre></div>
+With our understanding of the <a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../discrete-fourier-transform">discrete Fourier transform</a> we see clearly that:<div><ul id="_233"><li id="_234">the signal is being decomposed into <a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../sinusoidal">sinusoidal</a> components</li><li id="_235">because we are doing the <a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../discrete-fourier-transform-of-a-real-signal">Discrete Fourier transform of a real signal</a>, for the <code>fft</code>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.028441em;vertical-align:-0.208331em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8201099999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">ˉ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span> so there is redundancy in the. We also understand that <code>rfft</code> simply cuts off and only keeps half of the coefficients</li></ul></div></div><div class="p"><b>numpy/fft.py</b></div><div class="code"><pre><code>#!/usr/bin/env python
+import math
+import numpy as np
+
+def printi(X):
+    # Round to int otherwise there is a lot of small numerical noise.
+    print('real ' + ' '.join(str(int(np.real(x))) for x in X))
+    print('imag ' + ' '.join(str(int(np.imag(x))) for x in X))
+
+def analyze(x):
+    # FFT
+    X = np.fft.fft(x)
+    print('fft')
+    printi(X)
+
+    # Real FFT
+    Xr = np.fft.rfft(x)
+    print('rfft')
+    printi(Xr)
+
+N = 20
+
+print('sin(t)')
+x = np.array([math.sin(i * 2 * math.pi / N) for i in range(N)])
+analyze(x)
+print()
+
+print('sin(t) + sin(4t)')
+x = np.array([math.sin(i * 2 * math.pi / N) + math.sin(i * 2 * math.pi * 4 / N) for i in range(N)])
+analyze(x)
+print()
+</code></pre></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../numpy-fft">Numpy.fft</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../numpy">NumPy</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-scientific-library">Python scientific library</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-library">Python library</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../python-programming-language">Python</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../list-of-programming-languages">List of programming languages</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../programming-language">Programming language</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../software">Software</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../computer">Computer</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../information-technology">Information technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../area-of-technology">Area of technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../technology">Technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../">Ciro Santilli's Homepage</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900"></span> Incoming links</a></h2><div><ul><li><a href="https://ourbigbook.com/cirosantilli/_file/numpy/../../discrete-fourier-transform">Discrete Fourier transform</a></li></ul></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div>Source code for this page: <a href="../../_file/programming-language.bigb">programming-language.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

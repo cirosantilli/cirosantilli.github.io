@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>.symtab - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg" />
+</head>
+<body>
+<header>
+<a href="../"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="../sponsor">$£ Sponsor €¥</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="symtab"><div class="notnav"><h1><a href=""><code>.symtab</code></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../software"> Software</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../systems-programming"> Systems programming</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../executable-file-format"> Executable file format</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../executable-and-linkable-format"> Executable and Linkable Format</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../elf-hello-world"> ELF Hello World Tutorial</a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/sections"> Sections</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/symtab"><img src="../_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 792</span><span class="dcnt"> articles: 5</span></span></div></nav></div><div class="p" id="_255">Section type: <code>sh_type == SHT_SYMTAB</code>.</div><div class="p" id="_256">Common name: "symbol table".</div><div class="p" id="_257">First the we note that:<div><ul id="_258"><li id="_259"><code>sh_link</code> = <code>5</code></li><li id="_260"><code>sh_info</code> = <code>6</code></li></ul></div></div><div class="p" id="_261">For <code>SHT_SYMTAB</code> sections, those numbers mean that:<div><ul id="_262"><li id="_263">strings that give symbol names are in section 5, <code>.strtab</code></li><li id="_264">the relocation data is in section 6, <code>.rela.text</code></li></ul></div></div><div class="p" id="_265">A good high level tool to disassemble that section is:
+<div class="code" id="_266"><pre><code>nm hello_world.o</code></pre></div>
+which gives:
+<div class="code" id="_267"><pre><code>0000000000000000 T _start
+0000000000000000 d hello_world
+000000000000000d a hello_world_len</code></pre></div></div><div class="p" id="_268">This is however a high level view that omits some types of symbols and in which the symbol types . A more detailed disassembly can be obtained with:
+<div class="code" id="_269"><pre><code>readelf -s hello_world.o</code></pre></div>
+which gives:
+<div class="code" id="_270"><pre><code>Symbol table '.symtab' contains 7 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS hello_world.asm
+     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1
+     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    2
+     4: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    1 hello_world
+     5: 000000000000000d     0 NOTYPE  LOCAL  DEFAULT  ABS hello_world_len
+     6: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT    2 _start</code></pre></div></div><div class="p" id="_271">The binary format of the table is documented at <a href="http://www.sco.com/developers/gabi/2003-12-17/ch4.symtab.html">www.sco.com/developers/gabi/2003-12-17/ch4.symtab.html</a></div><div class="p" id="_272">The data is:
+<div class="code" id="_273"><pre><code>readelf -x .symtab hello_world.o</code></pre></div>
+which gives:
+<div class="code" id="_274"><pre><code>Hex dump of section '.symtab':
+  0x00000000 00000000 00000000 00000000 00000000 ................
+  0x00000010 00000000 00000000 01000000 0400f1ff ................
+  0x00000020 00000000 00000000 00000000 00000000 ................
+  0x00000030 00000000 03000100 00000000 00000000 ................
+  0x00000040 00000000 00000000 00000000 03000200 ................
+  0x00000050 00000000 00000000 00000000 00000000 ................
+  0x00000060 11000000 00000100 00000000 00000000 ................
+  0x00000070 00000000 00000000 1d000000 0000f1ff ................
+  0x00000080 0d000000 00000000 00000000 00000000 ................
+  0x00000090 2d000000 10000200 00000000 00000000 -...............
+  0x000000a0 00000000 00000000                   ........</code></pre></div></div><div class="p" id="_275">The entries are of type:
+<div class="code" id="_276"><pre><code>typedef struct {
+    Elf64_Word  st_name;
+    unsigned char   st_info;
+    unsigned char   st_other;
+    Elf64_Half  st_shndx;
+    Elf64_Addr  st_value;
+    Elf64_Xword st_size;
+} Elf64_Sym;</code></pre></div></div><div class="p" id="_277">Like in the section table, the first entry is magical and set to a fixed meaningless values.</div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 792</span><span class="dcnt"> 5</span></span></span></span></div><ul><li><div id="_toc/elf-hello-world/stt-file"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/stt-file">1. <code>STT_FILE</code></a><span class="hover-metadata"><a href="#_toc/elf-hello-world/stt-file" class="c"></a><a href="#_toc" class="u"> <code>.symtab</code></a><span class="metrics"><span class="wcntr"> 199</span></span></span></span></div></li><li><div id="_toc/elf-hello-world/stt-section"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/stt-section">2. <code>STT_SECTION</code></a><span class="hover-metadata"><a href="#_toc/elf-hello-world/stt-section" class="c"></a><a href="#_toc" class="u"> <code>.symtab</code></a><span class="metrics"><span class="wcntr"> 47</span></span></span></span></div></li><li class="has-child"><div id="_toc/elf-hello-world/stt-notype"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/stt-notype">3. <code>STT_NOTYPE</code></a><span class="hover-metadata"><a href="#_toc/elf-hello-world/stt-notype" class="c"></a><a href="#_toc" class="u"> <code>.symtab</code></a><span class="metrics"><span class="wcntr"> 201</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/elf-hello-world/shn-abs"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/shn-abs">3.1. <code>SHN_ABS</code></a><span class="hover-metadata"><a href="#_toc/elf-hello-world/shn-abs" class="c"></a><a href="#_toc/elf-hello-world/stt-notype" class="u"> <code>STT_NOTYPE</code></a><span class="metrics"><span class="wcntr"> 107</span></span></span></span></div></li></ul><li><div id="_toc/elf-hello-world/sht-symtab-on-the-executable"><div class="arrow"><div></div></div><span class="not-arrow"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/sht-symtab-on-the-executable">4. <code>SHT_SYMTAB</code> on the executable</a><span class="hover-metadata"><a href="#_toc/elf-hello-world/sht-symtab-on-the-executable" class="c"></a><a href="#_toc" class="u"> <code>.symtab</code></a><span class="metrics"><span class="wcntr"> 48</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900"></span> Ancestors</a></h2><div><ol><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/sections">Sections</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../elf-hello-world">ELF Hello World Tutorial</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../executable-and-linkable-format">Executable and Linkable Format</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../executable-file-format">Executable file format</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../systems-programming">Systems programming</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../software">Software</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../computer">Computer</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../information-technology">Information technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../area-of-technology">Area of technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../technology">Technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/../">Ciro Santilli's Homepage</a></li></ol></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div>Source code for this page: <a href="../_file/elf-hello-world.bigb">elf-hello-world.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "elf-hello-world/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>
