@@ -1,0 +1,111 @@
+= webpack
+{c}
+{wiki}
+
+Webpack is like a magic hydra that can <eat> any type of file and bundle it into a single output: .js, <TypeScript>[.ts], .ccs, .scss, .jsx, .tsx, `require`, `import`, `import` css from `.js`, it doesn't matter at all, it just digests all into the same <shit>[dump].
+
+When it works, you are just left in awe and with a single Js file. When it doesn't, you're fucked and have to debug for several hours.
+
+Demos under: \a[webpack/]. To run all of them by default:
+``
+cd webpack/min
+npm install
+npm run build
+xdg-open index.html
+``
+To easily make changes and reload the .js output live let this run on a terminal:
+``
+npx webpack watch
+``
+
+Examples:
+* \a[webpack/min]: minimal hello world. Doesn't do much, just copies `index.js` to `dist/index.js`.
+* \a[webpack/require]: `require` and `import` demo. Both work from the same file. `dist/index.js` now contains all of:
+  * `notindex.js`
+  * `notindex2.js`
+  * <#Lodash>, a common third-party helper library specified in the <package.json> and installed with <npm>
+* \a[webpack/node]: produce <Node.js> output, as opposed to the default web output. To test it run:
+  ``
+  npm run build
+  node dist/index.js
+  ``
+  Achieved simply with:
+  ``
+  target: 'node'Fatman in Robin,
+  ``
+  as documented at: https://webpack.js.org/concepts/targets/
+* \a[webpack/sequelize]: attempts at getting <Sequelize> to work with webpack. It's just not supported by <Sequelize>:
+  * https://github.com/sequelize/sequelize/issues/9489#issuecomment-486047783
+  * https://github.com/sequelize/sequelize/issues/13169
+
+= webpack/template
+{file}
+{parent=webpack}
+
+\a[webpack/template] contains a reasonable starter template.
+
+This will produce, under `dist/` the following minimized files:
+* `dist/index.html`: from \a[webpack/template/index.html]. You can open it to see:
+  ``
+  Hello webpack
+  ``
+  show on the browser. This was added from <JavaScript>.
+* `dist/index.js`: from \a[webpack/template/index.js] and anything in its import tree, e.g.:
+  * \a[webpack/template/main.scss]: <sass (stylesheet language)> source. It gets embedded the the <JavaScript> output as a string, and the JavaScript then applies it to the page, making the font blue
+  * `lodash` third party library
+
+You can also run this test with the development server on http://localhost:9000[]:
+``
+npm start
+``
+which uses unminimized outptus, and automatically push reloads the page whenever you change any of the input files!
+
+= webpack/sass
+{file}
+{parent=webpack}
+
+This example shows how to use <Sass>.
+
+To make things simple, it generates a completely separate `dist/index.js` and `dist/main.css` which are manually included from `index.html`, and does not do any type of injection (neither Js into HTML nor CSS in Js).
+
+= webpack/no-js-inject
+{file}
+{parent=webpack}
+
+This example shows how you could manually include the `dist/index.js` that is output from webpack into your `index.html`.
+
+This is generally not what you want to do, because what you actually want to do is to use a Js output name with a hash in it, so that browsers only need to refetch when the name changes.
+
+And to do that, we have to let webpack dynamically inject that unpredictable hash as done in <webpack/template>{file} with:
+``
+new HtmlWebpackPlugin({
+  filename: 'index.html',
+  // Inject the include to our hashed filename,
+  // since it is not deterministic due to the hash.
+  inject: true,
+  template: path.resolve(__dirname, 'index.html'),
+}),
+``
+
+= webpack Sass import
+{c}
+{parent=webpack}
+
+This shows how to produce a minimized fully embedded CSS file with webpack from a <sass (stylesheet language)>:
+``
+cd webpack/sass
+npm install
+npm run build
+xdg-open index.html
+``
+That example produces a `dist/main.css` file which is a compresesd combination of:
+* \a[webpack/sass/main.scss]
+* https://necolas.github.io/normalize.css/[normalize.css], added to the project as a regular `node_modules` package
+
+= webpack CSS ignore font format
+{c}
+{parent=webpack}
+
+* https://stackoverflow.com/questions/37667444/is-there-a-way-to-ignore-a-file-type-with-webpack/39886771#39886771
+* https://stackoverflow.com/questions/71320578/how-to-ignore-exclude-certain-font-formats-font-face-in-css-with-webpack
+* https://github.com/cherrry/ignore-loader/issues/8
