@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>mouseleave after click</title>
+<style>
+div.item {
+    border: 1px solid black;
+    margin: 10px;
+}
+div.modal {
+    display: none;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+div.modal.on {
+    display: block;
+}
+</style>
+</head>
+<body>
+<p>Items have on-mouse-over information show up on hover. Information is added on mousenter, and removed on mouseleave. When the a button is clicked, a modal appears in front of the item. Does that trigger a mouseleave, and if not how to make it do so? Outcome on Chromium 131: mouseleve gets called.</pp>
+<div id="1" class="item">A <button>Options...</button></div>
+<div id="2" class="item">B <button>Options...</button></div>
+<div id="3" class="item">C <button>Options...</button></div>
+<div id="modal" class="modal">Contents of the modal! Click anywhere to close.</div>
+<script>
+for (const e of document.getElementsByClassName('item')) {
+    e.addEventListener('mouseenter', (e) => {
+        console.log(`mouseenter ${e.currentTarget.id}`)
+        const t = e.target
+        const s = document.createElement('span')
+        s.innerHTML = ` ${t.id}`
+        t.append(s)
+    })
+    e.addEventListener('mouseleave', (e) => {
+        console.log(`mouseleave ${e.currentTarget.id}`)
+        const t = e.target
+        t.removeChild(t.children[t.children.length - 1])
+    })
+}
+const modal = document.getElementById('modal')
+modal.addEventListener('click', (e) => {
+    modal.classList.remove('on')
+})
+for (const e of document.getElementsByTagName('button')) {
+   e.addEventListener('click', (e) => {
+        console.log(`click`)
+        modal.classList.add('on')
+    })
+}
+</script>
+</body>
+</html>
