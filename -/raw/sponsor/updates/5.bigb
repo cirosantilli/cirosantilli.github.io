@@ -1,0 +1,194 @@
+= Ciro's Edict \#5
+{numbered}
+{scope}
+{title2=2022-03-28}
+
+<Cirists>,
+
+= ourbigbook.com
+{parent=5}
+
+= Advances
+{parent=ourbigbook.com}
+
+= `\Include` and `\x` and working on dynamic website
+{parent=Advances}
+
+This was the major final step of fully integrating the <OurBigBook CLI> into the dynamic website (besides fixing some nasty bugs that escaped passed by me from the previous newsletter).
+
+The implementation was done by "simply" reusing https://cirosantilli.com/ourbigbook/h-scope-argument[scopes], e.g.: `cirosantilli`'s article about `mathematics` has scope `cirosantilli` and full ID `cirosantilli/mathematics`.
+
+That on the website is equivalent to a local file structure of:
+``
+cirodown/mathematics.bigb
+``
+
+The problem is that a bunch of subdirectory scope operations were broken locally as well, as it simply wasn't a major use case. But now they became a major use case for , so I fixed them.
+
+= Improve header summary display
+{parent=Advances}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cirodown-metadata-before-fontawesome.png]
+{title=Before}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cirodown-metadata-after-fontawesome.png]
+{title=After}
+
+Added font awesome icons. https://github.com/ourbigbook/ourbigbook/issues/151
+
+Didn't manage to subset, but so be it for now: https://stackoverflow.com/questions/62395038/how-can-i-export-only-one-character-from-ttf-woff-file-to-avoid-load-unnecessa/71197892#71197892
+
+= Skip ID extraction and rendering based on database timestamps
+{parent=Advances}
+
+Now that we can reliably split files at will with `\Include`, I finally added this feature.
+
+This means while developing a website locally with the <OurBigBook CLI>, if you have a bunch of files with an error in one of them, your first run will run slowly until the error:
+``
+extract_ids README.ciro
+extract_ids README.ciro finished in 73.82836899906397 ms
+extract_ids art.ciro
+extract_ids art.ciro finished in 671.1738419979811 ms
+extract_ids ciro-santilli.ciro
+extract_ids ciro-santilli.ciro finished in 1009.6256089992821 ms
+extract_ids science.ciro
+error: science.ciro:13686:1: named argument "parent" given multiple times
+extract_ids science.ciro finished in 1649.6193730011582 ms
+``
+but further runs will blast through the files that worked, skipping all files that have sucessfully converted:
+``
+extract_ids README.ciro
+extract_ids README.ciro skipped by timestamp
+extract_ids art.ciro
+extract_ids art.ciro skipped by timestamp
+extract_ids ciro-santilli.ciro
+extract_ids ciro-santilli.ciro skipped by timestamp
+extract_ids science.ciro
+``
+so you can fix file by file and move on quickly.
+
+More details at: https://cirosantilli.com/ourbigbook#no-render-timestamp
+
+This was not fully trivial to implement because we had to rework how duplicate IDs are checked. Previously, we just nuked the DB every time on a directory conversion, and then repopulated everything. If a duplicated showed up on a file, it was a duplicate.
+
+But now that we are not necessarily extracing IDs from every file, we can't just nuke the database anymore, otherwise we'd lose the information. Therefore, what we have to do is to convert every file, and only at the end check the duplicates.
+
+Managed to do that with a single query as documented at: https://stackoverflow.com/questions/71235548/how-to-find-all-rows-that-have-certain-columns-duplicated-in-sequelize/71235550#71235550
+
+= Completely rebrand Cirodown to OurBigBook
+{parent=Advances}
+
+The name cirodown should not appear anywhere now, except with very few exceptions, e.g.:
+* https://github.com/cirosantilli/cirodown to https://github.com/ourbigbook/ourbigbook
+* file extension from `.ciro` to `.bigb`
+* the Node.js NPM package was renamed from `cirodown` to `ourbibook`.
+* all in-code instances
+
+I have also squatted `OurBigBook` on all major social media handles for near future usage, e.g.: https://twitter.com/ourbigbook[] and so on.
+
+I was going to do this sooner or later, it was inevitable, but the timing was partly triggered due to noticing that English speakers (and likely many other nationalities) are not able to easily read/hear/pronounce "Ciro".
+
+= Staging server
+{parent=Advances}
+
+After breaking production and sweating for a bit hotfixing (not that anyone uses the website yet), I decided to be smart and created a staging server: https://ourbigbook-staging.herokuapp.com[]. Now I can blow that server up as I wish without afecting users. Documented at: https://cirosantilli.com/ourbigbook/staging-deployment
+
+= OurBigBook Library tested on PostgreSQL
+{parent=Advances}
+
+After something broke on the website due to SQLite vs PostgreSQL inconsistencies and took me a day to figure it out, I finally decided to update the test system so that `OURBIGBOOK_POSTGRES=true npm test` will run the tests on PostgreSQL.
+
+Originally, these were being run only on SQLite, which is the major use case for OurBigBook CLI, which came before the website.
+
+But the website runs on PostgreSQL, so it is fundamental to test things in PostgreSQL as well.
+
+= Make `\Include` headers show on table of contents work for cirosantilli.com
+{parent=Advances}
+
+One of the <4/the table of contents shows across different files via \Include>[key advances of the previous update] was to show include headers on the table of contents.
+
+This was to allow splitting source files freely.
+
+While that goal was in principle achieved in that commit, when I went ahead to split the huge index of cirosantilli.com into multiple files, I notice several bugs that took a week to fix.
+
+After all of these were solved, I finally managed to split the https://github.com/cirosantilli/cirosantilli.github.io/blob/84c8a6e7fdbe252041accfb7a06d9b7462287131/README.ciro[README] at: https://github.com/cirosantilli/cirosantilli.github.io/commit/84c8a6e7fdbe252041accfb7a06d9b7462287131 and keep the previous desired output. You can now see that the README contains just:
+``
+\Include[ciro-santilli]
+\Include[science]
+\Include[mathematics]
+\Include[technology]
+\Include[art]
+``
+
+This split led to a small positive modification of the output as follows. Previously, a section such as "Quantum Electrodynamics" would have been present in the monolithic README.ciro as:
+``
+= Quantum electrodynamics
+``
+If you visited https://cirosantilli.com/quantum-electrodynamics[], you would see see a link to the "nosplit" version, which would link you back to https://cirosantilli.com#quantum-electrodynamics[], but that is not great, since this is was a humongous page with all of the README.ciro, and took long to display.
+
+After the split, `= Quantum electrodynamics` is present under `science.ciro`, and the nosplit version is the more manageable https://cirosantilli.com/science#quantum-electrodynamics[].
+
+The key changes that were missing for that to happen were:
+* <link to an image or video in another file that has an \x on title from another file>
+
+= Link to an image or video in another file that has an `\x` on title from another file
+{parent=Make Include headers show on table of contents work for cirosantilli.com}
+
+Issue report at:  https://github.com/ourbigbook/ourbigbook/issues/198 Suppose you had:
+
+programming-language.ciro
+
+``
+= Programming language
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/python-logo.jpg]
+{title=The \x[python-programming-language] logo}
+
+== Python
+{c}
+{disambiguate=programming-language}
+``
+
+logos-i-like.ciro
+
+``
+= Logos I like
+
+\x[image-the-python-logo]
+``
+
+Now, when rendering `\x[image-the-python-logo]`, we would need to fetch two IDs:
+* `image-the-python-logo` for the `The ` and ` logo` part
+* `python-programming-language` itself, to know that `\x[python-programming-language]` should render as `Python`
+
+But after <4/group all SQL queries together> was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
+
+This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` to the existing References table, which tracks dependencies between IDs.
+
+After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single <JOIN (SQL)>.
+
+= Next steps
+{parent=ourbigbook.com}
+
+* upload all of https://cirosantilli.com to https://ourbigbook.com[]. I will do this by implementing an import from filesystem functionality based on the <OurBigBook CLI>. This will also require implementing slit headeres on the server to work well, I'll need to create one `Article` for every header on render.
+* get `\x` and `\Include` working on the live web preview editor. This will require creating a new simple API, currently the editor jus shows broken references, but final render works because it goes through the database backend
+* implement email verification signup. Finally! Maybe add some notifications too, e.g. on new comments or likes.
+
+= Misc OurBigBook.com
+{parent=ourbigbook.com}
+
+Some smart people just brought up to my attention that OurBigBook.com is a bit like: https://roamresearch.com/ and other graph knowledges. I feel ashemed for not having seen this software and its alternatives before. I was so focused on the "book aspect" of it that I didn't search much in there. I couldn't find an immediate project killer superset from the options in that area, but maybe one exists. We'll see.
+
+= Misc tech
+{parent=5}
+
+= China front
+{c}
+{parent=5}
+
+The <China> front was of course the <Russia> front this time: https://stackoverflow.com/users/895245 (https://web.archive.org/web/20220322230513/https://stackoverflow.com/users/895245/ciro-santilli-Путлер-Капут-六四事[])
+
+= Not work
+{parent=5}
+
+I read <Human Compatible by Stuart J. Russell (2019)>. Some <AI safety> people were actually giving out free copies after a talk, can you believe it! <Good book>.
