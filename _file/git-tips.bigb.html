@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>git-tips.bigb - Ciro Santilli</title>
+<meta property="og:title" content="git-tips.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/git-tips.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/git-tips.bigb">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/git-tips.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">git-tips.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/git-tips.bigb"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../_dir">(root)</a> / <a href="../_raw/git-tips.bigb">git-tips.bigb</a></b></div></nav></div><div class="p"><b>git-tips.bigb</b></div><div class="code"><div><pre><code>= Git tips
+{scope}
+
+This is a quick presentation that goes over some of the most common difficulties people find with &lt;Git&gt;.
+
+= Understand the commit tree
+{parent=Git tips}
+
+This is the most important thing to understand Git!
+
+You must:
+* be able to visualize the commit tree
+* understand how each git command modifies the commit DAG
+
+= It's not a tree, it's actually a DAG
+{parent=Git tips}
+{title2=Directed Acyclic Graph}
+
+Every &lt;tree (data structure)&gt; is a &lt;directed acyclic graph&gt;.
+
+But not every &lt;directed acyclic graph&gt; is a tree.
+
+Example of a tree (and therefore also a DAG):
+``
+5
+|
+4 7
+| |
+3 6
+|/
+2
+|
+1
+``
+Convention in this presentation: arrows implicitly point up, just like in a `git log`, i.e.:
+* 1 is parent of 2
+* 2 is parent of 3 and 6
+* 3 is parent of 4
+and so on.
+
+Example of a DAG that is not a tree:
+``
+7
+|\
+4 6
+| |
+3 5
+|/
+2
+|
+1
+``
+This is not a tree because there are two ways to reach 7:
+* 2, 3, 4, 7
+* 2, 5, 6, 7
+
+But we often say "tree" intead of "DAG" in the context of Git because DAG sounds ugly.
+
+Example of a graph that is not a DAG:
+``
+6
+^
+|
+3-&gt;4
+^  |
+|  v
+2&lt;-5
+^
+|
+1
+``
+This one is not acyclic because there is a cycle 2, 3, 4, 5, 2.
+
+= Why is Git a DAG?
+{parent=Git tips}
+
+Because a Git commit can have more than 1 parent due to merge commits when you do:
+``
+git merge
+``
+
+It can even have more than 2, there's no limit. Although that is not so common (with good reason, 2 is already one too many): https://softwareengineering.stackexchange.com/questions/314215/can-a-git-commit-have-more-than-2-parents/377903#377903
+
+= Linear history vs branching
+{parent=Git tips}
+
+There are two ways to organize a project:
+* linear history
+* branched history: history with merge commits
+
+Some people like merges, but they are ugly and stupid. Rebase instead and keep linear history.
+
+Linear history:
+``
+5 master
+|
+4
+|
+3
+|
+2
+|
+1 first commit
+``
+
+Branched history:
+``
+7   master
+|\
+| \
+6  \
+|\  \
+| |  |
+3 4  5
+| |  |
+| /  /
+|/  /
+2  /
+| /
+1/  first commit
+``
+
+Here commits 6 and 7 are the so called "merge commits":
+* they have multiple parents:
+  * 6 has parents 3 and 4
+  * 7 has parents 5 and 6
+* they are useless and don't contain any real information
+
+Which type of tree do you think will be easier to understand and maintain?
+
+????
+
+????????????
+
+You may disconnect now if you still like branched history.
+
+= How to visualize the commit tree
+{parent=Git tips}
+
+Generate a minimal test repo. You should get in the habit of doing this to test stuff out.
+``
+#!/usr/bin/env bash
+
+mkdir git-tips
+cd git-tips
+git init
+
+for i in 1 2 3 4 5; do
+  echo $i &gt; f
+  git add f
+  git commit -m $i
+done
+
+git checkout HEAD~2
+git checkout -b my-feature
+
+for i in 6 7; do
+  echo $i &gt; f
+  git add f
+  git commit -m $i
+done
+``
+
+= gitk
+{parent=How to visualize the commit tree}
+
+For the newbs.
+
+Slick? No. But &lt;gitk&gt; does the job, like any one of the other 100 billion free &lt;Git UI&gt; viewers out there
+
+``
+gitk master HEAD
+``
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/gitk.png]
+{height=500}
+
+Many &lt;IDEs&gt; are also implementing this now (e.g. &lt;VS Code&gt;, &lt;Eclipse (IDE)&gt;. Most free IDE GIt implementations are still crap, but that is the future, because you want to edit, view history, edit, view history, commit, edit.
+
+= `git log --graph`
+{parent=How to visualize the commit tree}
+
+For the strong.
+
+``
+git log --abbrev-commit --decorate --graph --pretty=oneline master HEAD
+``
+
+Output:
+``
+* b4ec057 (master) 5
+* 0b37c1b 4
+| * fbfbfe8 (HEAD -&gt; my-feature) 7
+| * 7b0f59d 6
+|/
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1
+``
+
+If we also add the `--simplify-by-decoration`, which you very often want want on a real repository with many commits:
+``
+* b4ec057 (master) 5
+| * fbfbfe8 (HEAD -&gt; my-feature) 7
+|/
+* c5f8a2c 1
+``
+As we can see, this removes any commit that is neither:
+* under a branch or tag
+* at the intersection of too branches or tags
+
+= How to modify the commit tree
+{parent=Git tips}
+
+Option 1) `git commit`. Doh!!!
+
+Option 2) `git rebase`. Basically allows you to do arbitrary modifications to the tree. The most important ones are:
+
+= git rebase 101
+{parent=How to modify the commit tree}
+
+= Move your branch on top of newest master
+{parent=git rebase 101}
+
+Before:
+``
+5 master
+|
+4 7 my-feature HEAD
+| |
+3 6
+|/
+2
+|
+1
+``
+
+Action:
+``
+git rebase
+``
+
+After:
+``
+7 my-feature HEAD
+|
+6
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+Ready to push with linear history!
+
+= Modify contents of an old commit in your branch
+{parent=git rebase 101}
+
+Before:
+``
+7 my-feature HEAD
+|
+6
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+
+Oh, commit 6 was crap:
+``
+git rebase -i HEAD~2
+``
+
+Mark `6` to be modified.
+
+After:
+``
+7 my-feature HEAD
+|
+6v2
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+Better now, ready to push.
+
+Note: history changes change all commits SHAs. All parents are considereEven time is considered. So is commit message/author. And obviously file contents. So now commit "7" will actually have a different SHA.
+
+= Merge two or more commits into one
+{parent=git rebase 101}
+
+Before
+``
+7 my-feature HEAD
+|
+6
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+
+Oh, commit 6 was just a temporary step, should be put together with commit 7:
+``
+git rebase -i HEAD~2
+``
+
+Mark `6` to be squashed.
+
+After:
+``
+67 my-feature HEAD
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+Better now, ready to push.
+
+= Oh, but there are 2 trees: local and remote
+{parent=Git tips}
+
+Oh but there are usually 2 trees: local and remote.
+
+So you also have to learn how to observe and modify and sync with the remote tree!
+
+But basically:
+``
+git fetch
+``
+to update the remote tree. And then you can use it exactly like any other branch, except you prefix them with the remote (usually `origin/*`), e.g.:
+* `origin/master` is the latest fetch of the remote version of `master`
+* `origin/my-feature`  is the latest fetch of the remote version of `my-feature`
+
+= Merge conflicts
+{parent=Git tips}
+
+= git rebase moves commits one by one
+{parent=Merge conflicts}
+
+In order to solve conflicts, you just have to understand what commit you are trying to move where.
+
+E.g. if from:
+``
+5 master
+|
+4 7 my-feature HEAD
+| |
+3 6
+|/
+2
+|
+1
+``
+we do:
+``
+git rebase master
+``
+what happens step by step is first 6 is moved on top of 5:
+``
+6on5 HEAD
+|
+5 master
+|
+4                 7 my-feature
+|                 |
+3                 6
+|                 |
+2-----------------+
+|
+1
+``
+and then 7 is moved on top of the new 6:
+``
+7on5 HEAD
+|
+6on5
+|
+5 master
+|
+4                 7 my-feature
+|                 |
+3                 6
+|                 |
+2-----------------+
+|
+1
+``
+
+All good? so OK, let's move the `my-feature` to the new 7:
+
+``
+7on5 my-feature HEAD
+|
+6on5
+|
+5 master
+|
+4
+|
+3
+|
+2
+|
+1
+``
+
+= The key to solve conflicts: see the two conflicting diffs
+{parent=Merge conflicts}
+
+The key to solve conflicts is:
+&gt; You have to understand what are the two commits that touched a given line (one from master, one from features), and then combine them somehow.
+
+Or in other words, at every rebase conflict we have something like:
+``
+master-commit    feature-commit
+|                |
+|                |
+base-commit------+
+|
+|
+``
+Therefore there are 2 diffs that you have to understand and reconcile:
+* `base-commit` to `master-commit`
+* `base-commit` to `feature-commit`
+
+= Conflict resolution tool
+{parent=Merge conflicts}
+
+= `diff3`
+{parent=Conflict resolution tool}
+
+`diff3` conflict is basically what you always want to see, either by setting it as the default as per https://stackoverflow.com/questions/27417656/should-diff3-be-default-conflictstyle-on-git[]:
+``
+git config --global merge.conflictstyle diff3
+``
+or as a one off:
+``
+git checkout --conflict=diff3
+``
+
+With this, conflicts now show up as:
+``
+++&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+ +5
+++||||||| parent of 7b0f59d (6)
+++3
+++=======
++ 6
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; 7b0f59d (6)
+``
+`7b0f59d` is the &lt;SHA-2&gt; of commit 6.
+
+instead of the inferior default:
+``
+++&lt;&lt;&lt;&lt;&lt;&lt;&lt; ours
+ +5
+++=======
++ 6
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs
+``
+
+We can also observe the current tree state during resolution:
+``
+* b4ec057 (HEAD, master) 5
+* 0b37c1b 4
+| * fbfbfe8 (my-feature) 7
+| * 7b0f59d 6
+|/
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1
+``
+so we understand that we are now at 5 and that we are trying to apply our commit `6`
+
+So it is much clearer what is happening:
+* master changed the code from `3` to `5`
+* our feature changed the code from `3` to `6`
+and so now we have to decide what the new code is that will put both of these together.
+
+Let's say we decide it is `5 + 6 = 11` and continue rebasing:
+``
+git add .
+git rebase --continue
+``
+
+We now reach:
+``
+++&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+ +11
+++||||||| parent of fbfbfe8 (7)
+++6
+++=======
++ 7
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; fbfbfe8 (7)
+``
+and the tree looks like:
+``
+* ca7f7ff (HEAD) 6
+* b4ec057 (master) 5
+* 0b37c1b 4
+| * fbfbfe8 (my-feature) 7
+| * 7b0f59d 6
+|/
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1
+``
+So we understand that:
+* after the previous step we added commit 6 on top of 5
+* now we are adding 7 on top of the new 6 (which we decided would contain `11`)
+and after resolving that one we now reach:
+``
+* e1aaf20 (HEAD -&gt; my-feature) 7
+* ca7f7ff 6
+* b4ec057 (master) 5
+* 0b37c1b 4
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1
+``
+
+= `git mergetool` with `meld` or `kdiff3`
+{parent=Conflict resolution tool}
+
+These are good free newbie GUI options:
+``
+sudo apt install meld
+git mergetool --tool meld
+
+sudo apt install kdiff3
+git mergetool --tool kdiff3
+``
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/meld.png]
+{height=500}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/kdiff3.png]
+{height=500}
+
+Let's make a more interesting conflict:
+
+git-tips-2.sh
+``
+#!/usr/bin/env bash
+
+set -eux
+
+add() (
+  rm -f f
+  for i in `seq 10`; do
+    printf "before $i\n\n" &gt;&gt; f
+  done
+  printf "conflict 1 $1\n\n" &gt;&gt; f
+  for i in `seq 10`; do
+    printf "middle $i\n\n" &gt;&gt; f
+  done
+  printf "conflict 2 $2\n\n" &gt;&gt; f
+  for i in `seq 10`; do
+    printf "after $i\n\n" &gt;&gt; f
+  done
+  git add f
+)
+
+rm -rf git-tips-2
+mkdir git-tips-2
+cd git-tips-2
+git init
+
+for i in 1 2 3; do
+  add $i $i
+  git commit -m $i
+done
+
+add 3 4
+git commit -m 4
+
+add 5 4
+git commit -m 5
+
+git checkout HEAD~2
+git checkout -b my-feature
+
+add 3 6
+git commit -m 6
+
+add 7 6
+git commit -m 7
+``
+
+= But which commit from master did we conflict with exactly?
+{parent=Conflict resolution tool}
+
+`git rebase` does not tell you that, and that sucks.
+
+We only know which commit from the feature branch caused the problem.
+
+Generally we can guess or it is not needed, but `imerge` does look promising: https://stackoverflow.com/questions/18162930/how-can-i-find-out-which-git-commits-cause-conflicts
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>bitcoin/generate_wallets.js - Ciro Santilli</title>
+<meta property="og:title" content="bitcoin/generate_wallets.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/bitcoin/generate_wallets.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/bitcoin/generate_wallets.js">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/bitcoin/generate_wallets.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">bitcoin/generate_wallets.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/bitcoin/generate_wallets.js"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/bitcoin">bitcoin</a> / <a href="../../_raw/bitcoin/generate_wallets.js">generate_wallets.js</a></b></div></nav></div><div class="p"><b>bitcoin/generate_wallets.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+/**
+ * Generate wallets (Alice, Bob, Carol), create a json file and import private keys to Bitcoin Core
+ *
+ * BIP32 methods
+ *  - fromBase58
+ *  - fromPrivateKey
+ *  - fromPublicKey
+ *  - fromSeed
+ *
+ * BIP39 methods
+ *  - mnemonicToSeed
+ *  - mnemonicToSeedHex
+ *  - mnemonicToEntropy
+ *  - entropyToMnemonic
+ *  - generateMnemonic
+ *  - validateMnemonic
+ */
+
+const { exec } = require('child_process')
+const bitcoin = require('bitcoinjs-lib')
+const bip32 = require('bip32')
+const bip39 = require('bip39')
+// Change the network appropriately
+const network = bitcoin.networks.regtest
+
+// Replace these values
+// 128 bit entropy =&gt; 12 words mnemonic
+// bx seed -b 128
+const wallets = [
+  {alice: '182301471f6892728ae56bb95b54396e'},
+  {bob: '28c8b37e1462a460fafa440d3ec66d29'},
+  {carol: '61628dbe355f4675d895d399b984aaf4'}
+]
+
+// Create a json file with main info
+let walletsJSON="{"
+
+// Iterate on wallets
+wallets.map((wallet, wallet_index) =&gt; {
+  walletsJSON += `"${Object.keys(wallet)}": [`
+  // Get mnemonic from entropy
+  let mnemonic = bip39.entropyToMnemonic(wallet[Object.keys(wallet)])
+  console.log(`${Object.keys(wallet)} mnemonic  `, mnemonic)
+  // Get seed from mnemonic
+  let seed = bip39.mnemonicToSeed(mnemonic)
+  console.log(`${Object.keys(wallet)} seed  `, seed.toString('hex'))
+  // Get master BIP32 master from seed
+  let master = bip32.fromSeed(seed, network)
+  // Get private key WIF
+  let wif = master.toWIF()
+  console.log(`${Object.keys(wallet)} master wif  `, wif)
+  // Get BIP32 extended private key
+  let xpriv = master.toBase58()
+  console.log(`${Object.keys(wallet)} master xpriv  `, xpriv)
+  // Get BIP32 extended public key
+  let xpub = master.neutered().toBase58()
+  console.log(`${Object.keys(wallet)} master xpub  `, xpub)
+  console.log()
+
+  /**
+   * Bitcoin Core derivation - m/0'/0'/${index}'
+   * Derive 3 sets of addresses
+   */
+  ;[...Array(3)].map((u, i) =&gt; {
+    // Get child node
+    let child = master.derivePath(`m/0'/0'/${i}'`)
+    // Get child wif private key
+    let wif = child.toWIF()
+    console.log(`${Object.keys(wallet)} child ${i} wif  `, wif)
+    // Get child extended private key
+    console.log(`${Object.keys(wallet)} child ${i} xpriv  `, child.toBase58())
+    // Get child EC private key
+    console.log(`${Object.keys(wallet)} child ${i} privKey  `, child.privateKey.toString('hex'))
+    // Get child extended public key
+    console.log(`${Object.keys(wallet)} child ${i} xpub  `, child.neutered().toBase58())
+    // Get child EC public key
+    let ECPubKey =  child.publicKey.toString('hex')
+    console.log(`${Object.keys(wallet)} child ${i} pubKey  `, ECPubKey)
+
+    // Addresses
+    // P2PKH
+    let p2pkh = bitcoin.payments.p2pkh({pubkey: child.publicKey, network}).address
+    console.log(`${Object.keys(wallet)} child ${i} address p2pkh  `, p2pkh)
+    // P2WPKH
+    let p2wpkh = bitcoin.payments.p2wpkh({pubkey: child.publicKey, network})
+    let p2wpkhAddress = p2wpkh.address
+    console.log(`${Object.keys(wallet)} child ${i} address p2wpkh  `, p2wpkhAddress)
+    // P2SH-P2WPKH
+    let p2sh_p2wpkh = bitcoin.payments.p2sh({redeem: p2wpkh, network}).address
+    console.log(`${Object.keys(wallet)} child ${i} address p2sh-p2wpkh  `, p2sh_p2wpkh)
+    console.log()
+
+    // No comma for the last derivation
+    if (i === 2) {
+      walletsJSON += `{"wif": "${wif}", "pubKey": "${ECPubKey}", "p2pkh": "${p2pkh}", "p2wpkh": "${p2wpkhAddress}", "p2sh-p2wpkh": "${p2sh_p2wpkh}"}`
+    } else {
+      walletsJSON += `{"wif": "${wif}", "pubKey": "${ECPubKey}", "p2pkh": "${p2pkh}", "p2wpkh": "${p2wpkhAddress}", "p2sh-p2wpkh": "${p2sh_p2wpkh}"},`
+    }
+  })
+
+  // No comma for last wallet
+  wallet_index === 2 ? walletsJSON+="]}" : walletsJSON+="],"
+  console.log()
+})
+
+
+
+// Write a json file with main info
+exec(
+  `echo '${walletsJSON}' | jq . &gt; wallets.json`, (error, stdout, stderr) =&gt; {
+  if (error) {
+    console.error('stderr', stderr)
+    throw error
+  }
+    stdout &amp;&amp; console.log(stdout)
+    console.log('wallets.json has been written successfully')
+
+    // Import private keys to Bitcoin Core
+    exec('./import_privkeys.sh', (error, stdout, stderr) =&gt; {
+      if (error) {
+        console.error('stderr', stderr)
+        throw error
+      }
+      stdout &amp;&amp; console.log(stdout)
+      console.log('Private keys have been imported to Bitcoin Core successfully')
+    })
+})
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>
