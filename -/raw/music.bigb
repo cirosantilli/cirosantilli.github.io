@@ -1,0 +1,1073 @@
+= Music
+{wiki}
+
+<Ciro Santilli> took courses once upon a time, maybe that has influenced his passion? <Ciro Santilli's musical education>.
+
+= Computer music
+{parent=Music}
+{wiki}
+
+= LilyPond
+{c}
+{parent=Computer music}
+{wiki}
+
+http://lilypond.org/
+
+Music notation engine. <domain-specific language> input. The <LaTeX> of music.
+
+= Computer music file format
+{parent=Computer music}
+
+Looking for formats that:
+* are human readable <plaintext files>
+* can be converted/played as <MIDI>
+* can be converted to sheet music <PDFs>
+* supports basic guitar effects (bends and slides)
+
+Bibliography:
+* https://music.stackexchange.com/questions/23320/file-formats-for-sheet-music
+* https://sound.stackexchange.com/questions/39457/how-to-open-midi-file-in-text-editor/50058#50058
+* https://askubuntu.com/questions/848531/music-notation-software-for-ubuntu
+
+= ABC notation
+{c}
+{parent=Computer music file format}
+{wiki}
+
+Standard from 2011: http://abcnotation.com/wiki/abc:standard:v2.1
+
+A decent way to write diatonic music as plaintext!
+
+Conversion to <MIDI> with <abcmidi>.
+
+No bend/vibratto/slides :-(
+
+Multitrack volatile: http://abcnotation.com/wiki/abc:standard:v2.1#multiple_voices
+
+= abcmidi
+{c}
+{parent=ABC notation}
+
+https://sound.stackexchange.com/questions/39457/how-to-open-midi-file-in-text-editor/50058#50058
+
+= MusicXML
+{c}
+{parent=Computer music file format}
+{wiki}
+
+Higher level than <Csound>: describes the notes only, not the exact waveforms it seems.
+
+Therefore also a bit harder to convert to actual sound: https://stackoverflow.com/questions/33775336/convert-musicxml-to-wav but possibly easier to convert to <LilyPond>.
+
+Now they need to create a "MusicCSS" that gives the waveforms! :-)
+
+The usual "let's make a standard without a reference implementation" W3C approach.
+
+= Linux audio system
+{c}
+{parent=Computer music}
+{wiki}
+
+= Advanced Linux Sound Architecture
+{c}
+{parent=Linux audio system}
+{title2=ALSA}
+{wiki}
+
+ALSA can be thought as analogous to  physical wires linking up machines.
+
+Except that instead of machines, you have separate programs. One such typical link is:
+* from a MIDI source, e.g. <vmpk> or a <MIDI> editor with playback like <Ardour (software)>
+* to a synthesizer like <FluidSynth> or <ZynAddSubFX>
+
+The advantage of this setup is that separate programs can collaborate to make complex sounds. 
+
+The disadvantage of this setup is that it makes it very hard to reproduce results, you basically need a <Docker (software)> image with the exact same version of everything. And some script to launch and connect all programs correctly.
+
+Some composition systems like <LMMS> reduce that problem by having synthesizers as plugins, so that you don't have to setup any connections yourself.
+
+`aconnect` <vmpk> <hello world>: https://askubuntu.com/questions/34391/virtual-midi-piano-keyboard-setup/1298026#1298026
+
+= Software synthesizer
+{parent=Computer music}
+{wiki}
+
+Dominating awesome list: https-github-com-nodiscc-awesome-linuxaudio
+
+A large part of these projects are on <SourceForge> as of 2020, it is scary. They just die.
+
+= Bristol
+{disambiguate=synthesizer}
+{c}
+{parent=Software synthesizer}
+{wiki}
+
+Simulates vintage <hardware synthesizers>, and includes some pretty complex ones!
+
+Aims to show an UI that looks exactly like the synthesizers in question.
+
+For example for the <Minimoog> on <Ubuntu> 20.04:
+``
+sudo apt install bristol
+startBristol -mini -alsa
+``
+
+This is a really good piece of software. You can search on <YouTube> how some classic synths, work, and the immediately start playing them!
+
+= FluidSynth
+{c}
+{parent=Software synthesizer}
+{wiki}
+
+Synthesizes MIDI input. <vmpk> + `aconnect` + <Advanced Linux Sound Architecture> <hello world>: https://askubuntu.com/questions/34391/virtual-midi-piano-keyboard-setup/1298026#1298026
+
+Supports only very basic effects it seems: <chorus effect> and <reverberation>. The main way to add instruments to it is via <SoundFont> files.
+
+= Qsynth
+{c}
+{parent=FluidSynth}
+
+<Qt (software)> front-end for <FluidSynth>.
+
+= ZynAddSubFX
+{c}
+{parent=Software synthesizer}
+{wiki}
+
+https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988
+
+Contains a large database of instruments, and allows you to edit them. This is a fun toy.
+
+Instruments are edited on a <GUI>. It is a multi-window program, and you open new windows from new windows from new windows, all filled with hundreds of virtual knobs that you drag with your keyboard, and which would be better done from textual software like <Csound>. It is a thing of beauty.
+
+It does not seem possible to program arbitrary <modular synthesizer> circuits therefore. But if you understand <additive synthesis> and <subtractive synthesis> well, you can make some funky sounds with it.
+
+It is basically a superset of all popular <hardware synthesizers> ever made.
+
+Has its own built-in MIDI keyboard which is nice.
+
+On Ubuntu 20.04 Version: 3.0.5:
+``
+sudo apt install zynaddsubfx
+zynaddsubfx -O alsa
+``
+as per https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988
+To do anything of interest, switch to the Advanced UI:
+* Misc
+* Switch Interface Mode
+
+The UI is completely different form what is shown on the website as of 2020: https://zynaddsubfx.sourceforge.io/[], it looks instead like: https://www.youtube.com/watch?v=iVPr6iUuO3g[] Maybe on the website it is the new zyn-fusion UI... https://www.reddit.com/r/linuxaudio/comments/bxn3ur/some_help_for_installing_zynfusion_zynaddsubfx/ so confusing.
+
+And they have some crappy policy of asking for 45 USD for binary downloads.
+
+Compiling from source:
+``
+git clone https://github.com/zynaddsubfx/zynaddsubfx
+cd zynaddsubfx
+git checkout a789866de4d45a784c1f4d95fcf5a1938347baef
+sudo apt build-dep zynaddsubfx
+mkdir build
+cd build
+cmake ..
+make -j`nproc`
+``
+fails with:
+``
+Traceback (most recent call last):
+  File "/usr/bin/cxxtestgen", line 7, in <module>
+    import cxxtest.cxxtestgen
+  File "/usr/share/cxxtest/cxxtest/__init__.py", line 33, in <module>
+    from cxxtest.cxxtestgen import *
+  File "/usr/share/cxxtest/cxxtest/cxxtestgen.py", line 18, in <module>
+    import __release__
+ModuleNotFoundError: No module named '__release__'
+``
+Ciro gives up for now.
+
+= GUI music editor
+{c}
+{parent=Software synthesizer}
+
+Lists:
+* https://itsfoss.com/best-audio-editors-linux/
+
+= Scorewriter
+{parent=GUI music editor}
+{wiki}
+
+Basically a <GUI music editor> where you can specifically see and export classical music notation instead of tablature-style notation.
+
+Best open source one found so far as of 2020: <MuseScore>.
+
+= MuseScore
+{c}
+{parent=Scorewriter}
+{wiki}
+
+https://github.com/musescore/MuseScore
+
+This software feels amazing. You can really start composing very quickly, lots of features, good keyboard shortcuts.
+
+GPL, and there's a backing company that makes money with an online and mobile version of it.
+
+Can export to:
+* <MIDI>
+* <PDF>
+
+Ubuntu 20.04: sound preview worked, first hat that trailing Contra-like sound artifacts (like `spd-say`), but then it went away?
+
+Feels like a lot of effort was put into usability, including keyboard shortcuts by default, seems like a powerful and easy to start using software to compose music!
+
+Glissando: yes: https://musescore.org/en/handbook/arpeggios-and-glissandi
+
+= TuxGuitar
+{c}
+{parent=Scorewriter}
+{wiki}
+
+Just use <MuseScore> instead.
+
+Weight: light.
+
+Can import from: <MIDI>.
+
+Can export to:
+* <MIDI>
+* <MusicXML>
+* <LilyPond>
+
+<Ubuntu> 20.04:
+``
+sudo apt install tuxguitar tuxguitar-alsa tuxguitar-jsa tuxguitar-oss
+``
+`tuxguitar-jsa` was needed, otherwise no sound: https://askubuntu.com/questions/457321/tuxguitar-no-sound-in-14-04
+
+Has OK step sequencer non-realtime up/down/left/right guitar based composition interface.
+
+Has chord insertion.
+
+Has bend editor.
+
+Could be more amazing, but it is OK.
+
+A bit limited by being very "guitar oriented". Shows you guitar strings, and you enter offset to each string. So to enter two adjacent notes you need to use two seprate strings and thing about the offsets. If only it had a more piano based interface.
+
+Drum notation is also atrocious, you have to go to the top chord, and use high numbers starting at 36.
+
+= Ardour
+{disambiguate=software}
+{c}
+{parent=GUI music editor}
+{wiki}
+
+Weight: heavy.
+
+<MIDI> support is kind of secondary: https://www.youtube.com/watch?v=vnkJ0uYXMG8[], e.g. how to export MIDI? https://discourse.ardour.org/t/export-an-entire-project-into-a-midi-file/88116
+
+\Video[https://www.youtube.com/watch?v=bfTAKv4htDE]
+{title=Ardour 6 Quickstart (recording, editing, mixing and exporting) by unfa (2020)}
+{description=unfa is a helpful Ardour master and <open source software> junkie at your <YouTube> service.}
+
+Ardour <vmpk> input: https://askubuntu.com/questions/709673/save-as-midi-when-playing-from-vmpk-qsynth/1298231#1298231
+
+= LMMS
+{c}
+{parent=GUI music editor}
+{wiki}
+
+Very easy to use and pretty powerful <MIDI> creator!!!
+
+One of the rare audio applications actually works with PulseAudio on Ubuntu 20.04 out-of-the-box, so you don't have to turn off every other audio application!!!
+
+Has lot's of plugins built-in just working out of the box, e.g. <ZynAddSubFX> out-of-the-box without doing a gazillion complex setup connections.
+
+Most plugins are just simple toys however, <ZynAddSubFX> is the only super powerful one. The others are more LMMS integrate however, and seem to use a more dedicated LMMS <GUI> style.
+
+TODO can you do liver performance with a virtual instrument?
+* https://lmms.io/forum/viewtopic.php?t=27428
+* https://www.reddit.com/r/lmms/comments/b485ds/is_it_possible_to_do_live_looping_performances_in/
+* https://lmms.io/forum/viewtopic.php?t=28504
+
+If you open <vmpk>, you can then right click on a piano track, and go MIDI, Input and it just shows up there, and it does produce sound as shown at: https://www.youtube.com/watch?v=NpeP2th08ak
+
+TODO: what about recording the input MIDI? Yes, there is a record button on the piano roll!
+
+= Rosegarden
+{c}
+{parent=GUI music editor}
+{wiki}
+
+Weight: medium.
+
+Can import from: <MIDI>.
+
+Can export to:
+* <Csound>
+* <MusicXML>
+* <MIDI>
+* <LilyPond>
+
+Cannot hear any sound from it on <Ubuntu> 20.04: https://askubuntu.com/questions/510052/how-do-you-get-rosegarden-to-play-sound-when-playing-a-midi-in-it
+
+= Text-based music synthesizer
+{parent=Software synthesizer}
+
+So we can track the music in <Git>!
+
+* https://www.reddit.com/r/Python/comments/1mvx4u/using_python_to_create_music/
+
+= Csound
+{c}
+{parent=Text-based music synthesizer}
+{wiki}
+
+https://www.csounds.com/
+
+https://github.com/csound/csound
+
+<XML> file format (but with 99% of the action of interest in a <domain-specific language> on the `CsInstruments` and `CsScore` elements) that can be played and the reference implementation. Offers complex effects out-of-box apparently.
+
+Allows you to easily define instruments with seemingly arbitrary mathematical functions, and then use them to play notes at given time intervals.
+
+The instrument functions can be parametrized, and each note played can have different parameters.
+
+The instrument definition actually defines a block diagram graph, much like a hardware synthesizer would.
+
+Csound is so not-bloated that it contains an UI system. And it includes an interactive virtual MIDI keyboard that interacts with parameter knobs: http://www.csounds.com/manual/html/MidiTop.html
+
+But hey, it's fun. And like any other good <domain-specific language>, <debugging> it is barbaric of course.
+
+If only it had been written in <Python>... the array manipulation boilerplate would be likely perfect for <NumPy>, and this would have been exactly what <Ciro Santilli> wanted!
+
+CSound states that one of its design goals is backward compatibility, and it shows. Some of the stuff is utterly arcane, e.g. you have to remember what `GEN10`, `GEN11`, etc. mean instead of having named enums.
+
+It just worked on <Ubuntu> 20.04 no questions asked:
+``
+sudo apt install csound
+git clone https://github.com/csound/csound
+cd csound
+git checkout 92409ecce053d707360a5794f5f4f6bf5ebf5d24
+csound examples/xanadu.csd
+``
+which runs this file: https://github.com/csound/csound/blob/92409ecce053d707360a5794f5f4f6bf5ebf5d24/examples/xanadu.csd and this plays a relly cool sound demo:
+\Video[https://www.youtube.com/watch?v=7fXhVMDCfaA]
+{title=Xanadu Csound demo}
+
+Save to file instead of playing:
+``
+csound -o xanadu.wav xanadu.csd
+``
+or direct ogg output:
+``
+csound --ogg -o xanadu.ogg xanadu.csd
+``
+or pipe to stdout to <FFmpeg> TODO: https://stackoverflow.com/questions/64970503/how-to-pipe-csound-output-to-ffmpeg-for-conversion-without-an-intermediate-file
+
+TODO find the most amazing set of songs made with it on GitHub? Some examples:
+* http://www.csounds.com/toots/index.html has a good 101 on instrument design
+* <Csound FLOSS manual>
+* http://iainmccurdy.org/csound.html about 100 <CC BY-SA> examples. Each is a minimal study showing a specific technique, not a full composition, some seem advanced. Dude's a beast.
+* https://github.com/csound/csound/tree/f2e70825fb543a6b15011c6984371f61ab2a00dd/tests/soak in-tree minimal examples
+* https://github.com/csound/manual/tree/4049b286493d972ff7248b5596e47e7ae97a0cf9/examples contains the examples for the manual which is rendered at: It's insane, but it's fun!  Ah those newbs who separate manuals from main tree.
+* http://linuxsynths.com/CsoundPatchesDemos/csound.html on <LinuxSynths>
+* https://github.com/csound/examples/tree/ae578159328178142c1055c7f78e28b42eb29774/csd as a few dozen examples
+* http://freaknet.org/martin/audio/csound/ 10 pieces with source
+
+Documentation-wise, it's a bit lacking. The only dude who can explain it really well, Dr https://en.wikipedia.org/wiki/Richard_Boulanger[Richard Boulanger], made the "The Csound Book" <closed source>, so, congrats, this will forever hurt the popularity of Csound.
+
+Examples:
+* \a[csound/sine.csd]
+* \a[csound/amplitude_frequency.csd]
+* \a[csound/linen.csd]: simple attack/release <envelope (music)>, documented at: http://www.csounds.com/manual/html/linen.html
+* \a[csound/chorus.csd]: <chorus effect>
+* \a[csound/bend.csd]: bend using `linseg`
+* \a[csound/vibrato.csd]
+* \a[csound/crossfade_generators.csd]
+* \a[csound/table.csd]
+* \a[csound/virtual_keyboard.csd]
+
+= Csound FLOSS manual
+{c}
+{parent=Csound}
+
+https://flossmanual.csound.com/introduction/preface
+
+Very good open source book: https://github.com/csound-flossmanual/csound-floss[]
+
+Includes introduction to the basic <sound synthesis> and their implementation in <Csound>.
+
+Examples run on browser via <Emscripten> and just worked on <Ubuntu> 20.04!
+
+Examples can also be downloaded all at once from: http://www.csound-tutorial.net/floss_manual/ Shame not in Git as standalone files.
+
+https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <Minimoog>-like <subtractive synthesis>.
+
+= CsoundQt
+{c}
+{parent=Csound}
+{wiki}
+
+https://github.com/CsoundQt/CsoundQt
+
+= Cabbage
+{disambiguate=Csound}
+{c}
+{parent=Csound}
+{wiki}
+
+https://github.com/rorywalsh/cabbage
+
+2.5.0 manual prebuilt download install on Ubuntu 20.04 just worked. Launch directly from unzip without install. Play with examples under `install/Examples`
+
+Their docs are a reasonable way to learn Csound: https://cabbageaudio.com/docs/introduction/
+
+= pyo
+{c}
+{parent=Text-based music synthesizer}
+
+<Python> library, therefore the nicest possible type of text interface.
+
+https://stackoverflow.com/questions/32445375/pyo-server-boot-returns-error-on-ubuntu-14-04/64960589#64960589 God how to get it to <fucking> play a sine sound?!?!
+
+= SuperCollider
+{c}
+{parent=Text-based music synthesizer}
+{wiki}
+
+https://github.com/supercollider/supercollider
+
+<domain-specific language> unfortunately, but at least it's on <GitHub>, looks promising.
+
+How to play scores and save them to files is discussed at: https://doc.sccode.org/Guides/Non-Realtime-Synthesis.html
+
+They have a nice looking <IDE>, but running anything from the <command-line interface> is super hard, much unlike <Csound>. How to get a decent <hello world>: https://stackoverflow.com/questions/65360414/how-to-play-a-supercollider-file-non-interactively-from-the-terminal-command-lin
+
+Sample composition with custom synths + notes: http://sccode.org/1-5cl
+
+https://leanpub.com/ScoringSound looks like a decent tutorial, it is basically the <Csound FLOSS manual> for <SuperCollider>.
+
+= Computer music bibliography
+{parent=Computer music}
+
+= LinuxSynths
+{c}
+{parent=Computer music bibliography}
+
+http://linuxsynths.com
+
+Lots of demos.
+
+= Music education
+{parent=Music}
+{wiki}
+
+= Musical study
+{parent=Music education}
+{wiki=Étude}
+
+= Free music
+{parent=Music}
+{wiki}
+
+= Music free for commercial reuse
+{parent=Music}
+{wiki}
+
+= ccmixter
+{parent=Music free for commercial reuse}
+
+That website needs a "create playlist" function!
+* http://dig.ccmixter.org/people/airtone He's one of the best artists in ccmixter!
+* http://dig.ccmixter.org/files/flatwound/14476
+* http://dig.ccmixter.org/files/AlexBeroza/27187
+* http://dig.ccmixter.org/files/onlymeith/38010
+
+= Music genre
+{parent=Music}
+{wiki}
+
+= Folk music
+{parent=Music genre}
+{wiki}
+
+= Sea shanty
+{parent=Folk music}
+{wiki}
+
+= 99 Bottles of Beer
+{parent=Sea shanty}
+{wiki}
+
+= Flamenco
+{parent=Music genre}
+{wiki}
+
+= Paco de Lucía
+{c}
+{parent=Flamenco}
+{tag=Guitarist}
+{tag=The best modern instrumental Western musicians}
+{wiki}
+
+God, <Ciro Santilli> respects this guy.
+
+Watching https://www.youtube.com/watch?v=-SbZZPX-y9g[] in 2022, who was one of his inspirations, <Ciro Santilli's musical education>[made Ciro miss his guitar so much]... one day, maybe, one day.
+
+\Video[https://www.youtube.com/watch?v=VKtAhJPZS6o]
+{title=https://en.wikipedia.org/wiki/Bulerías[Bulerias] by Camaron de La Isla and <Paco de Lucía>}
+{description=TODO date and location. }
+
+\Video[https://www.youtube.com/watch?v=VKtAhJPZS6o]
+{title=https://en.wikipedia.org/wiki/Bulerías[Rondeña] by Camaron de La Isla and <Paco de Lucía>}
+{description=TODO date and location}
+
+= Jazz
+{parent=Music genre}
+{wiki}
+
+= Jazz album
+{parent=Jazz}
+
+= Good jazz album
+{parent=Jazz album}
+
+= Jazz song
+{parent=Jazz}
+
+= Good jazz song
+{parent=Jazz song}
+
+Bibliography:
+* https://www.jazz24.org/the-jazz-100
+
+= Jazz artist
+{parent=Jazz}
+
+= Jazz bassist
+{parent=Jazz artist}
+
+= Charles Mingus
+{c}
+{parent=Jazz bassist}
+{tag=Instrumental musician}
+{title2=1922 - 1979}
+{wiki}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/3/3f/Charles_Mingus_1976_cropped.jpg]
+
+= Album by Charles Mingus
+{parent=Charles Mingus}
+
+= Mingus Ah Um
+{parent=Album by Charles Mingus}
+{tag=Good jazz album}
+{title2=1959}
+{wiki}
+
+* <Discogs> entry: https://www.discogs.com/master/65014-Charles-Mingus-Mingus-Ah-Um 
+
+\Image[https://web.archive.org/web/20240127204501if_/https://i.discogs.com/GsTjRis5h8jKE280mEK71gSIowywxLfYd07nPmT72xU/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzNTU3/NDItMTQzNDM0MDE4/OS0zNDc0LmpwZWc.jpeg]
+
+= Mingus Ah Um track
+{parent=Mingus Ah Um}
+{tag=Good jazz song}
+
+= Goodbye Pork Pie Hat
+{parent=Mingus Ah Um track}
+{tag=Smooth jazz}
+{tag=Requiem}
+{tag=Good jazz song}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=CWWO_VcdnHY]
+{title=Goodbye Pork Pie Hat}
+
+= Jazz pianist
+{parent=Jazz artist}
+
+= Herbie Hancock
+{c}
+{parent=Jazz pianist}
+{title2=1940-}
+{wiki}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/6/6d/Herbie_Hancock_2023.jpg]
+
+= Album by Herbie Hancock
+{parent=Herbie Hancock}
+
+= Maiden Voyage
+{disambiguate=Herbie Hancock album}
+{parent=Album by Herbie Hancock}
+{title2=1965}
+{wiki}
+
+= Maiden Voyage track
+{parent=Maiden Voyage (Herbie Hancock album)}
+
+= Maiden Voyage
+{disambiguate=composition}
+{parent=Maiden Voyage track}
+{tag=Good jazz song}
+
+\Video[https://www.youtube.com/watch?v=EWC5x9G45yo]
+{title=Maiden Voyage}
+
+= Jazz subgenre
+{parent=Jazz}
+{tag=Music genre}
+
+= Smooth jazz
+{parent=Jazz subgenre}
+{wiki}
+
+= Jazz music to study to
+{synonym}
+{title2}
+
+<Ciro Santilli> defines "Smooth Jazz" simply as jazz that he can leave on the background to work without being particularly distracted.
+
+It does not mean that the music is bad in any way. Just not particularly distracting.
+
+<Ciro Santilli>'s "Soft Jazz" <YouTube> playlist: https://www.youtube.com/playlist?list=PLcZOZrP1P_V4Sxz8y1JLKLbZOv3GLb_Xf
+
+List:
+* Page One by Joe Henderson (1963)
+
+= Jazz fusion
+{parent=Jazz subgenre}
+{wiki}
+
+<Ciro Santilli>'s favorite <music genre>.
+
+Ciro's 2020 perfect Friday evening: jazz fusion + study <quantum field theory> on an <Amazon Kindle>. Ahhhhhh.
+
+= Jazz fusion subgenre
+{parent=Jazz fusion}
+
+= Ethereal jazz
+{parent=Jazz fusion}
+
+Lot's of ECM ones!
+* Arbour Zena by Keith Jarrett (1976)
+* Timeless by John Abercrombie (1974)
+* Bright Size Life by Pat Metheny (1975)
+
+Non-ECM:
+* Blues Dream by Bill Brisell (2001)
+
+= Jazz fusion musician
+{parent=Jazz fusion}
+{tag=Musician}
+
+<Ciro Santilli>'s favorites, including album when they're more of a one hit wonder:
+* <Allan Holdsworth>
+* <#Joe Satriani>
+* <Jean-Luc Ponty>
+* <#Chick Corea>
+* <#Billy Cobham>
+* <#Pat Metheny>
+* <#Keith Jarrett> (Arbor Zena)
+* <#John Abercrombie> (Timelesss)
+* <#Bill Brisell> (Blues Dream)
+* <#Larry Coryell> (Spaces)
+
+= Jean-Luc Ponty
+{c}
+{parent=Jazz fusion musician}
+{wiki}
+
+Many good albums, <Ciro Santilli>'s favorites:
+* https://en.wikipedia.org/wiki/Aurora_(Jean-Luc_Ponty_album)[Aurora (1976)]
+* https://en.wikipedia.org/wiki/Enigmatic_Ocean[Enigmatic ocean (1977)]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/3/30/Jean-Luc_Ponty_2008_by_Guillaume_Laurent.jpg]
+
+\Video[http://youtube.com/watch?v=VTrWQN1hRZk]
+{title=<Jean-Luc Ponty> Live in Chicago on "Soundstage" (1976)}
+
+= Jazz fusion band
+{parent=Jazz fusion}
+{tag=Musical ensemble}
+{title2=1972-}
+{wiki}
+
+= Return to Forever
+{c}
+{parent=Jazz fusion band}
+{wiki}
+
+<Scientology> music! So good.
+
+= Return to Forever album
+{c}
+{parent=Return to Forever}
+
+= Romantic Warrior by Return to Forever (1976)
+{c}
+{parent=Return to Forever album}
+{tag=The best modern instrumental Western music}
+{wiki=Romantic_Warrior}
+
+= Progressive rock
+{parent=Jazz fusion}
+{wiki}
+
+Good ones:
+* https://en.wikipedia.org/wiki/In_the_Court_of_the_Crimson_King[In the Court of the Crimson King] by King Crimson (1969)
+
+\Video[https://www.youtube.com/watch?v=UlKrH07au6E]
+{title=I Talk To The Wind by <#King Crimson>}
+
+= The best modern instrumental Western music
+{parent=Jazz}
+
+Not in other sections:
+* Grant Green: https://en.wikipedia.org/wiki/Idle_Moments[Idle Moments] (1963)
+* John Abercrombie: https://en.wikipedia.org/wiki/Timeless_(John_Abercrombie_album)[Timeless] (1975). Just close your eyes, and imagine.
+* <Paco de Lucía>: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
+* Modern Jazz Quartet: https://en.wikipedia.org/wiki/Django_(album)[Django] (1956)
+* Bill Bruford https://en.wikipedia.org/wiki/Feels_Good_to_Me[Feels Good to Me (1978)]. Well, with <Allan Holdsworth> on the g
+* <Jean-Luc Ponty>
+
+= The best modern instrumental Western musicians
+{parent=The best modern instrumental Western music}
+
+= Very good jazz album
+{parent=The best modern instrumental Western music}
+
+= The best jazz albums of all time
+{parent=Very good jazz album}
+
+= Surfing with the Alien by Joe Satriani (1987)
+{c}
+{parent=The best jazz albums of all time}
+{tag=The best modern instrumental Western music}
+{wiki=Surfing_with_the_Alien}
+
+= Secrets by Allan Holdsworth (1989)
+{c}
+{parent=The best jazz albums of all time}
+{tag=The best modern instrumental Western music}
+{wiki=Secrets_(Allan_Holdsworth_album)}
+
+I.O.U, Road Games, and Metal Fatigue are also extremely worth it, they are so good that even the singing does not spoil them. s2 forever Allan.
+
+= Maiden Voyage by Herbie Hancock (1965)
+{c}
+{parent=The best jazz albums of all time}
+{tag=The best modern instrumental Western music}
+{wiki=Maiden_Voyage_(Herbie_Hancock_album)}
+
+= Bitches Brew by Miles Davis (1970)
+{c}
+{parent=The best jazz albums of all time}
+{tag=The best modern instrumental Western music}
+{wiki=Bitches_Brew}
+
+There is of course no need to talk much more about the Jazz God, this one line of mandatory tribute is enough.
+
+= Pop music
+{parent=Music genre}
+{wiki}
+
+Pop music cannot be good by definition: any <art> that appeals to the masses (Popular!) has to be a boring watered down version of everything, and therefore boring shit. Just like the movies: <high budget movies are shit>.
+
+Until maybe one day we can actually get a <free gifted education>[decent education for everyone].
+
+= K-pop
+{c}
+{parent=Pop music}
+{tag=Evil}
+{tag=Korean art}
+{wiki}
+
+K-pop is even more evil than <pop music>: https://www.youtube.com/watch?v=KdOA5BCwBi0 Confessions Of A Former K-pop Idol (ft. Crayon Pop) by Asian Boss (2019)
+
+= Rapping
+{parent=Music genre}
+{wiki}
+
+= Rap
+{synonym}
+
+= Rock music
+{parent=Music genre}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=iYYRH4apXDo]
+{title=Space Oddity by David Bowie (1969)}
+
+\Video[https://www.youtube.com/watch?v=QkF3oxziUI4]
+{title=Stairway to Heaven by Led Zeppelin (1971)}
+
+= Rock musician
+{parent=Rock music}
+
+= Jimi Hendrix
+{c}
+{parent=Rock musician}
+{tag=Music teenager Ciro Santilli liked to listen to}
+
+* Are you experienced. OMG that album...
+
+= Rap rock
+{parent=Rock music}
+{tag=Rapping}
+{wiki}
+
+= Music by country
+{parent=Music genre}
+
+<Wikipedia> page: https://en.wikipedia.org/wiki/List_of_cultural_and_regional_genres_of_music
+
+\Include[brazilian-music]{parent=Music by country}
+
+= Rorogwela
+{parent=Music by country}
+
+\Video[https://www.youtube.com/watch?v=eGjgLrWbIfQ]
+{title=Rorogwela by Afunakwa (1970)}
+{description=Later used as a vocal sample in the https://en.wikipedia.org/wiki/Sweet_Lullaby[Sweet Lullaby] by Deep Forest (1992), which notably featured in https://en.wikipedia.org/wiki/Where_the_Hell_is_Matt[Where the hell is Matt (2006)], an early <YouTube> viral video. The original destroys the Deep Forest version however.}
+
+= Requiem
+{parent=Music genre}
+{wiki}
+
+= Vaporwave
+{parent=Music genre}
+{wiki}
+
+<Ciro Santilli>'s playlist: https://www.youtube.com/playlist?list=PLcZOZrP1P_V7UScvtQh4R3ES1oTvE7mtc
+
+\Video[https://www.youtube.com/watch?v=FZWHVo-t2Vo]
+{title=Know The Feelin' by SHAG}
+
+= Vocal and instrumental music
+{parent=Music genre}
+{wiki}
+
+= Instrumental music
+{parent=Vocal and instrumental music}
+{wiki}
+
+= Instrumental musician
+{parent=Instrumental music}
+
+= Vocal music
+{parent=Vocal and instrumental music}
+{wiki}
+
+= Sound synthesis
+{parent=Music}
+{wiki=Synthesizer\#Sound_synthesis}
+
+Technique to make cool sound instruments mathematically, either with electronic hardware components, or with a <software synthesizer>.
+
+Good tutorials:
+* <Csound FLOSS manual>
+
+Best known techniques:
+* <additive synthesis>
+* <subtractive synthesis>
+
+= Sound synthesis technique
+{parent=Sound synthesis}
+
+= Additive synthesis
+{parent=Sound synthesis technique}
+
+= Modular synthesizer
+{parent=Sound synthesis technique}
+
+= Chorus effect
+{parent=Sound synthesis technique}
+
+= Envelope
+{disambiguate=music}
+{parent=Sound synthesis technique}
+{wiki}
+
+= Frequency modulation synthesis
+{parent=Sound synthesis technique}
+
+= Reverberation
+{parent=Sound synthesis technique}
+{wiki}
+
+= Subtractive synthesis
+{parent=Sound synthesis technique}
+
+= Hardware synthesizer
+{parent=Sound synthesis}
+
+= Minimoog
+{c}
+{parent=Hardware synthesizer}
+{wiki}
+
+https://www.youtube.com/watch?v=0hfdSrK46EE How To Use A Minimoog Synthesizer by Doctor Mix (2020)
+
+Software emulators:
+* <Bristol (synthesizer)>
+* https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <Minimoog>-like <subtractive synthesis> in <Csound>
+
+= The best modern sung Western music of all time
+{parent=Music}
+
+You have to know the language to appreciate them.
+
+The 60's and 70's were the days, those great https://en.wikipedia.org/wiki/Proxy_war[proxy wars] and https://en.wikipedia.org/wiki/Operation_Condor[CIA dictatorships] allowed hippies to make awesome freedom music without too imminent a fear of death.
+
+Songs making fun of things or that are pure <Brazil> nostalgia are also accepted. No love songs, ever. Except <popular Brazilian music>[some by Caetano], but that's it!
+
+English:
+* 1967 https://www.youtube.com/watch?v=EtYS3EYjVyk[Red Telephone] track from the https://en.wikipedia.org/wiki/Forever_Changes[Forever Changes (1967)] album by https://en.wikipedia.org/wiki/Love_(band)[Love]
+* 1967 https://www.youtube.com/watch?v=EUY2kJE0AZE[White Rabbit] track from the https://en.wikipedia.org/wiki/Surrealistic_Pillow[Surrealistic Pillow (1967)] album by https://en.wikipedia.org/wiki/Jefferson_Airplane[Jefferson Airplane]
+
+French:
+* https://www.youtube.com/watch?v=zKbXUcJawUI[Emmenez-moi] (https://fr.wikipedia.org/wiki/Emmenez-moi_(chanson)[wiki]) from the album Entre Deux Rêves (1967) by https://en.wikipedia.org/wiki/Charles_Aznavour[Charles Aznavour]
+
+= Leitmotif
+{parent=Music}
+{wiki}
+
+= Musical instrument
+{parent=Music}
+{wiki}
+
+= Guitar
+{parent=Musical instrument}
+{wiki}
+
+The <guitar> is a highly imperfect instrument if compared to something like a <piano>, which is much more <mathematically> elegant.
+
+However, <Ciro Santilli> just loves this imperfection for some reason, especially in the case of the <electric guitar>.
+
+Bending, sliding and strumming just feel to good to not have.
+
+And Ciro sucks are doing things in parallel, so the more single threaded approach of the guitar fits his brain/abilities better.
+
+For those reasons, the <electric guitar> is Ciro's favorite <musical instrument>.
+
+= Guitarrist
+{parent=Guitar}
+
+= Electric guitar
+{parent=Guitar}
+{wiki}
+
+See also some remarks of <Ciro Santilli>'s thoughts on the instrument <Ciro Santilli's musical education>.
+
+= Electric guitar player
+{parent=Electric guitar}
+{tag=Guitarrist}
+
+* <Allan Holdsworth>
+
+= Greatest electric guitar players of all time
+{parent=Electric guitar}
+
+= List of electric guitar players
+{parent=Electric guitar}
+
+= Allan Holdsworth
+{c}
+{parent=List of electric guitar players}
+{tag=Greatest electric guitar players of all time}
+{tag=Jazz fusion musician}
+{wiki}
+
+\Image[https://web.archive.org/web/20230228133215im_/https://static01.nyt.com/images/2017/04/20/arts/20holdsworth-obit/19holdsworth-obit-superJumbo.jpg?quality=75&auto=webp]
+{title=<Allan Holdsworth> performing in Central Park in (1978)}
+{source=https://www.nytimes.com/2017/04/18/arts/music/allan-holdsworth-virtuoso-guitarist-dies-at-70.html}
+
+\Video[https://www.youtube.com/watch?v=gSqz17gtv8U]
+{title=<The Sixteen Men Of Tain>}
+{disambiguate=allan-holdsworth}
+
+\Video[https://www.youtube.com/watch?v=KXTHVqeIxnc]
+{title=<Secrets (Allan Holdsworth album)> <Allan Holdsworth> album}
+{disambiguate=allan-holdsworth}
+
+= Allan Holdsworth album
+{c}
+{parent=Allan Holdsworth}
+
+= Secrets
+{disambiguate=Allan Holdsworth album}
+{c}
+{parent=Allan Holdsworth album}
+{title2=1989}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=KXTHVqeIxnc]
+{title=Secrets <Allan Holdsworth> album}
+
+= The Sixteen Men Of Tain
+{c}
+{parent=Allan Holdsworth album}
+{title2=2000}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=gSqz17gtv8U]
+{title=<The Sixteen Men Of Tain>}
+{description=One of the best <Jazz fusion> albums ever made}
+
+= Legato
+{parent=Guitar}
+{wiki}
+
+= Vibrato
+{parent=Guitar}
+{wiki}
+
+= Guitarist
+{parent=Guitar}
+{tag=Musician}
+{wiki}
+
+= Piano
+{parent=Musical instrument}
+{wiki}
+
+The piano is the most elegant non-electronic instrument. But it requires way too many strings, so expensive and not portable.
+
+Also it allows for no <legato> or <vibrato>.
+
+The <guitar> is kind of the opposite.
+
+After computer <sound synthesis> however, all of these distinctions become meaningless.
+
+= Musical ensemble
+{parent=Music}
+{wiki}
+
+= Music group
+{synonym}
+
+= Musician
+{parent=Music}
+{wiki}
+
+= Victor Wooten
+{c}
+{parent=Musician}
+{wiki}
+
+= Victor Wooten album
+{c}
+{parent=Victor Wooten}
+
+= A Show of Hands by Victor Wooten (1996)
+{parent=Victor Wooten album}
+{tag=Very good jazz album}
+
+OMG this is sick.
+
+Full official album on <YouTube>: https://www.youtube.com/playlist?list=OLAK5uy_myUBkJ0UJbkV7O1q-hg7ONxxGBLGz4SzU[]. so glad he managed to upload it...
+
+= Title track
+{parent=Music}
+{wiki}

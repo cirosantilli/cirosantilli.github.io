@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>CIA 2010 covert communication websites / JAR reverse engineering by Codex - Ciro Santilli</title>
+<meta property="og:title" content="CIA 2010 covert communication websites / JAR reverse engineering by Codex - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/cia-2010-covert-communication-websites/jar-reverse-engineering-by-codex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/jar-reverse-engineering-by-codex">
+<style>@import "../-/obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../-/raw/main.css">
+<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="jar-reverse-engineering-by-codex"><div class="notnav"><h1><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a><span class="meta"> / </span><a href="">JAR reverse engineering by Codex</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#-/ancestors">&nbsp;...</a><a href="../science#central-intelligence-agency"> Central Intelligence Agency</a><a href="../cia-2010-covert-communication-websites"> CIA 2010 covert communication websites</a><a href="../cia-2010-covert-communication-websites#methodology"> Methodology</a><a href="../cia-2010-covert-communication-websites#reverse-engineering"> Reverse engineering</a><a href="../cia-2010-covert-communication-websites#communication-mechanism"> Communication mechanism</a><a href="../cia-2010-covert-communication-websites#jar-reverse-engineering"> JAR reverse engineering</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/jar-reverse-engineering-by-codex"><img src="../-/obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="../programming-language#jar-file-format">JAR</a></span><a class="nosplit" href="../cia-2010-covert-communication-websites#jar-reverse-engineering-by-codex"></a><span class="metrics"><span class="wcntr"> Words: 1k</span></span></div></nav></div><div class="p" id="-/6586">This project was originally done before <a href="../ciro-santilli">Ciro Santilli</a> knew how to use <a href="../artificial-intelligence#codex">Codex</a> and before Codex was so incredibly strong. Codex 6 Astra High can now just disassemble, deobfuscate and datamine the fuck out of such binaries, so we asked it to. Unfortunately it couldn't really find anything mind blowing, but here are the results anyways.</div><div class="p" id="-/6587">The analysis scripts is: <a href="https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar.py">jar.py</a> and it should be pointed to a dump directory of the websites such as <a href="../cia-2010-covert-communication-websites#cia-2010-websites-dump">CIA 2010 websites dump</a>. The analysis below was done as of commit b9eb31618c36421133e4875bc1cd7d7ac7763a32.</div><div class="p" id="-/6588">These scripts produce TODO directories.</div><div class="p" id="-/6589">The JARs are obfuscated, and Codex believes that they have a strong match to the <a href="https://www.zelix.com/">Zelix KlassMaster</a> commercial obfuscator, and points to this analysis from 2006: <a href="https://www.exploit-db.com/docs/english/13132-cracking-string-encryption-in-java-obfuscated-bytecode.pdf">www.exploit-db.com/docs/english/13132-cracking-string-encryption-in-java-obfuscated-bytecode.pdf</a>. Zelix appears to have the exact same string obfucation mechanism <a href="../cia-2010-covert-communication-websites#jar-reverse-engineering-by-quat1024">quat1024</a> had already previously manually discovered. It stores all string literals XOR'ed with 5 consecutive key bytes along:<div class="code" id="-/6590"><div><pre><code>switch (character_index % 5):
+    case 0: key = 47
+    case 1: key = 41
+    case 2: key = 84
+    case 3: key = 35
+    default: key = 14</code></pre></div></div>It then injects an encoder/decoder for this which transforms the strings as neede at runtime. The bytes are present in each class file itself.</div><div class="p" id="-/6591">Zelix is made by an <a href="https://www.zelix.com/klassmaster/contactUs.html">Australian company</a> based in Narraweena and its website proudly sates:<div><blockquote id="-/6592">Leading Java Obfuscator since 1997</blockquote></div>Shame they failed to list the <a href="../science#central-intelligence-agency">CIA</a> in their users list! I'm goign to ping them actually.</div><div class="p" id="-/6593">Here are the best small finds:<div class="list"><ul id="-/6594"><li id="-/6595"><div class="p" id="-/6596">some of the <code>resource/resources.bin</code> files contain the string:<div class="code" id="-/6597"><div><pre><code>#Auto-generated Starbuck client config file</code></pre></div></div>Codex could not find any clear public reference to what <code>Starbuck</code> is, which leads to the tentalizing possibility that could be an internal project codename. Though the possibility that it is just some internal of some public tool so obscure that even the web has lost track of it is also too strong to refute entirely.</div><div class="p" id="-/6598">This string is part of a more complete key/value pair, e.g. <code>dryterrainnews.com</code> contains:<div class="list"><ul id="-/6599"><li id="-/6600">key: <code>Config.properties.old.1277148810409</code></li><li id="-/6601"><div class="p" id="-/6602">value:</div><div class="code" id="-/6603"><div><pre><code>#Auto-generated Starbuck client config file: Mon Jun 21 14:32:02 ACT 2010
+#Mon Jun 21 14:32:02 ACT 2010
+ServerURL=http\\://www.dryterrainnews.com/cgi-bin/nigeria.cgi
+EncSharedSecret=7A948986EF08B9DDF800E5AF229EC118D4F8AD9609C5080CBF2AB92397C2A9B8
+KeyE=1F7D7
+KeyN=67D8EA7BF935232E55863DCED7A279F701B7492316FE96F15D00C983CBFDB93B97D35898FA8928FA13D4F320E2B62D1B92F08FA8692F7D043EC197E2857D2A540E01A2529AEB232EB386917992B80D5CADE283D2C4E8DCBF682704F419E29D013FFCF33D9A1BC94E4AA469058BB508EEE1D654CF9FC4B89977A13FA33CDEDAED</code></pre></div></div></li></ul></div>which would be present insie the <code>resource/resources.bin</code> file present inside the <a href="../programming-language#jar-file-format">JAR</a>.</div><div class="p" id="-/6604"><code>resource/resources.bin</code> file is encrypted with <a href="../cryptography#international-data-encryption-algorithm">International Data Encryption Algorithm</a>, a public <a href="../cryptography#symmetric-encryption">symmetric encryption</a> standard. However the key is itself present inside the JAR as an XOR obfuscated string.</div><div class="p" id="-/6605">The decrypted form of <code>resource/resources.bin</code> is a custom key value format which Codex could not identify the source of for the life in it. The JAR contains a decoder for it in its code.</div><div class="p" id="-/6606">There are different alternative filenames for this file all with the same format, each one with a single key used across all JARs, and each JAR having at most one of them:<div class="list"><ul id="-/6607"><li id="-/6608"><code>Applet.properties</code>: key: <code>7A5DAEC4029C91ED</code>, occurances: 76. Exmaple: <code>aryannews.net/20101229122727/headlines.jar</code> path <code>c/b/b/Applet.properties</code>.</li><li id="-/6609"><code>Client.properties</code>: key: <code>60A514D96C19F93C</code>, occurances: 33. Example: <code>activegaminginfo.com/20110202130304/gaming.jar</code> path  <code>a/b/f/Client.properties</code></li><li id="-/6610"><code>resource/resources.bin</code>: key: <code>0C5C45F2EC3C2A63</code>, occurances: 45. Example: <code>all-sport-headlines.com/20110207144821/birdie.jar</code> path <code>resource/resources.bin</code></li></ul></div></div><div class="p" id="-/6611">The remaining JARs use other arrangements:<div class="list"><ul id="-/6612"><li id="-/6613"><div class="p" id="-/6614"><code>applet.configs</code>, XOR-obfuscated as a single string: 35. Example: <code>aeronet-news.com/20110202122601/aeronet.jar</code> path <code>a/a/b/applet.configs</code>. Deobfuscated content might look like:</div><div class="code" id="-/6615"><div><pre><code>#Applet Properties
+#Thu Aug 19 08:19:00 AMT 2010
+RequestKey.UserData.1.IsQuery=set
+Applet.BundleSize=1
+ResponseKey.UserData.0.Size=85</code></pre></div></div></li><li id="-/6616"><code>bw.properties</code>, ZIP-packed: 30. Example: <code>casanewsnow.com/20110201184918/casanews.jar</code> path <code>b/a/bw.properties</code></li><li id="-/6617">none of these configuration resources: 9. Example: <code>factorforcenews.com/20110202125321/factorspeed.jar</code></li></ul></div></div><div class="p" id="-/6618">These files contain a wide variety of resources, including server paths, images, user strings and various settings.</div></li><li id="-/6619">there's a certain number of timestamps present in the Jars. Although these could have been faked, it feels unlikey that they were. The sources of those include:<div class="list"><ul id="-/6620"><li id="-/6621">ZIP modification time of each file<div class="list"><ul id="-/6622"><li id="-/6623">present in: all <a href="../programming-language#jar-file-format">JAR</a>, since JARs are ZIPs</li><li id="-/6624">timezone: no</li><li id="-/6625">visible with: <code>zipinfo -v travelxtreme.net/20101226193020/xtreme.jar</code></li></ul></div></li><li id="-/6626">Certificate validity dates: <div class="list"><ul id="-/6627"><li id="-/6628">present in 37 JARs. Example: <code>latinamericanewsbeat.com/20100513191045/today.jar</code> file <code>META-INF/INLINE.DSA</code></li><li id="-/6629">timezone: yes</li><li id="-/6630">format: Standard binary <code>PKCS#7/X.509</code> encoding unencrypted, readable with OpenSSL</li><li id="-/6631">usage: these are part of a standard JAR public key signatures scheme, which if a key trusted would have given greater execution priviledges to the JAR. They are validly signed but self signed as you might expect...</li></ul></div></li><li id="-/6632"><code>applet.configs</code>: comment timestamp as shown above</li><li id="-/6633"><code>Starbuck</code> client comment as shown above:<div class="code" id="-/6634"><div><pre><code>#Auto-generated Starbuck client config file: Mon Jun 21 14:32:02 ACT 2010</code></pre></div></div></li><li id="-/6635">config key backup Unix epoch milliseconds key, e.g. the <code>1277148810409</code> in <code>Config.properties.old.1277148810409</code>. So their editing tool kept backups as they were editing it, which is a small OPSEC defect.</li></ul></div></li></ul></div></div><div class="p" id="-/6636">We've dumped timestamp data to: <a href="https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar/dates.csv">github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar/dates.csv</a> No dates of interest was found in the <a href="../cia-2010-covert-communication-websites#swf-reverse-engineering">SWF</a>.</div><div class="p" id="-/6637">Many of the timestamps present are much older than the earliest archive we have for each website, suggesting that they were around for much longer. E.g. 2005-06-02.</div><div class="p" id="-/6638">The operators worked exclusively on weekdays, and much less on Friday than other days of the week, lol they're only human:<div class="code" id="-/6639"><div><pre><code>   Day          Configuration timestamps    Distinct configuration calendar dates    ZIP timestamps¹
+   Monday                             21                                       11                 72
+   Tuesday                            12                                       10                 78
+   Wednesday                          16                                       13                 72
+   Thursday                           12                                       11                 72
+   Friday                              5                                        5                 60
+   Saturday                            0                                        0                  0
+   Sunday                              0                                        0                  0</code></pre></div></div>92% of timestamps fall in conventional work hours between 08:00 and 18:00, so it was not a James Bond work through the clock to save the world business.</div><div class="p" id="-/6640">The timezones are:<div class="code" id="-/6641"><div><pre><code>Timezone label    applet.configs    Backups in resources.bin    Total    Possible locations / interpretations
+  EST                          9                           4       13    Eastern United States, eastern Canada, parts of the Caribbean
+  EDT                          8                          11       19    Eastern United States, eastern Canada, parts of the Caribbean
+  AMT                         18                           0       18    Western Brazil (Amazon Time), Armenia
+  ACT                          0                          16       16    Acre in Brazil (Acre Time), Northern Territory in Australia if interpreted as Java’s short timezone ID</code></pre></div></div></div><div class="p" id="-/6642">There are a few plausible timestamp trigram documentations with slightly different possibilities among them:<div class="list"><ul id="-/6643"><li id="-/6644"><a href="https://code.googlesource.com/edge/openjdk/+/refs/heads/master/jdk/src/share/classes/java/time/ZoneId.java">code.googlesource.com/edge/openjdk/+/refs/heads/master/jdk/src/share/classes/java/time/ZoneId.java</a></li><li id="-/6645"><a href="https://docs.oracle.com/cd/E98457_01/opera_5_6_core_help/PDFs/Time_Zones.pdf">docs.oracle.com/cd/E98457_01/opera_5_6_core_help/PDFs/Time_Zones.pdf</a></li><li id="-/6646"><a href="https:////android.googlesource.com/platform/libcore/+/9f08ee8977750b228382eaf9a081f4847a1e0377/jdk/src/share/classes/sun/util/resources/TimeZoneNames.java">//android.googlesource.com/platform/libcore/+/9f08ee8977750b228382eaf9a081f4847a1e0377/jdk/src/share/classes/sun/util/resources/TimeZoneNames.java</a></li></ul></div></div><div class="p" id="-/6647">EST an EDT are obvious, <a href="../united-states#langley">Langley</a>. ACT is understandable, Australia, a <a href="../science#five-eyes">Five Eyes</a> country and center of US espionage is East Asia. But AMT? That one is weird.</div><div class="p" id="-/6648">A few sites have timestamps from multiple locations e.g.:<div class="code" id="-/6649"><div><pre><code>Site                               Labels and counts
+internationalnewsworthiness.com    EDT ×2, ACT ×2
+intlnewsdaily.com                  EDT ×2, ACT ×1
+www.myhealthlibrary.net            EDT ×1, ACT ×5
+www.todaysnewsreports.net          EDT ×1, ACT ×3</code></pre></div></div></div><div class="p" id="-/6650">Codex also spots the interesting case of myhealthlibrary on April 11, 2011 backup sequence, configuration comments go:<div class="code" id="-/6651"><div><pre><code>09:18:19 ACT
+13:59:13 EDT
+13:34:14 ACT
+13:43:20 ACT
+14:17:18 ACT</code></pre></div></div>which in UTC would jump backwards in time if ACT actually means Australia...<div class="code" id="-/6652"><div><pre><code>09:18:19 ACT    April 10, 23:48:19
+13:59:13 EDT    April 11, 17:59:13
+13:34:14 ACT    April 11, 04:04:14
+13:43:20 ACT    April 11, 04:13:20
+14:17:18 ACT    April 11, 04:47:18</code></pre></div></div>but would work neatly if ACT is actualy Acre Standard time at UTC-4. Damn, Brazilian operators???<div class="code" id="-/6653"><div><pre><code>14:18:19 UTC
+17:59:13 UTC
+18:34:14 UTC
+18:43:20 UTC
+19:17:18 UTC</code></pre></div></div>Codex also comments:<div><blockquote id="-/6654">One historical wrinkle: Acre’s official clocks used UTC−4 during 2008–2013, including April 2011. An older Java timezone database could still apply UTC−5, so the label alone doesn’t establish the offset actually used.</blockquote></div>Too strong. Too strong.</div><div class="p" id="-/6655">About the backups Codex analyses:<div><blockquote id="-/6656"><div class="list"><ul id="-/6657"><li id="-/6658">31 backups across 11 sites; eight sites have multiple backups.</li><li id="-/6659">Of 20 successive intervals, 11 are under an hour, 15 under a day.</li><li id="-/6660">Four intervals exceed a month; the longest is about 560 days.</li></ul></div><div class="p" id="-/6661">This fits bursts of configuration work followed by occasional maintenance.</div></blockquote></div></div><h2 id="-/ancestors"><a href="#-/ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(16)</span></a></h2><div class="list"><ol><li><a href="../cia-2010-covert-communication-websites#jar-reverse-engineering">JAR reverse engineering</a></li><li><a href="../cia-2010-covert-communication-websites#communication-mechanism">Communication mechanism</a></li><li><a href="../cia-2010-covert-communication-websites#reverse-engineering">Reverse engineering</a></li><li><a href="../cia-2010-covert-communication-websites#methodology">Methodology</a></li><li><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a></li><li><a href="../science#central-intelligence-agency">Central Intelligence Agency</a></li><li><a href="../science#american-intelligence-agency">American intelligence agency</a></li><li><a href="../science#united-states-intelligence-community">United States Intelligence Community</a></li><li><a href="../science#intelligence-community">Intelligence community</a></li><li><a href="../science#secret-service">Secret service</a></li><li><a href="../science#espionage">Espionage</a></li><li><a href="../science#war">War</a></li><li><a href="../science#social-science">Social science</a></li><li><a href="../science#scientific-method">Scientific method</a></li><li><a href="../science">Science</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+<footer>
+<div><button type="button" class="ourbigbook-theme-toggle" onclick="ourbigbook_runtime.toggleTheme()"><span class="fas fa-solid-900 ourbigbook-theme-toggle-icon" aria-hidden="true">&#xf186;</span> <span class="ourbigbook-theme-toggle-label">Dark theme</span></button></div>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../-/dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../-/file/cia-2010-covert-communication-websites.bigb">Source code for this page: cia-2010-covert-communication-websites.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/4838bd4670ecff18d9ee7170f13781a2dca9cc61/cia-2010-covert-communication-websites.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "cia-2010-covert-communication-websites/";
+</script>
+<script src="../-/obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../-/raw/main.js"></script>
+</body>
+</html>
