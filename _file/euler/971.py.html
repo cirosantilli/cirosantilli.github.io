@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>euler/971.py - Ciro Santilli</title>
+<meta property="og:title" content="euler/971.py - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/euler/971.py">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/euler/971.py">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/euler/971.py"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">euler/971.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/euler/971.py"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/euler">euler</a> / <a href="../../_raw/euler/971.py">971.py</a></b></div></nav></div><div class="p"><b>euler/971.py</b></div><div class="code"><div><pre><code>#!/usr/bin/env python
+
+'''
+By GPT-5. Runtime: 3.4s on pypy3 3.11.11, Ubuntu 25.04, Lenovo ThinkPad P14s.
+'''
+
+from math import isqrt
+
+def sieve_primes_upto(n):
+    """Return list of primes &lt;= n using odd-only sieve (memory ~ n/2 bytes).
+    """
+    if n &lt; 2:
+        return []
+    sieve = bytearray((n//2) + 1)  # index i represents number 2*i+1
+    limit = isqrt(n)
+    for i in range(1, (limit//2) + 1):
+        if sieve[i] == 0:
+            p = 2*i + 1
+            start = (p*p - 1)//2
+            sieve[start::p] = b'\x01' * (((len(sieve) - 1 - start)//p) + 1)
+    primes = [2]
+    primes.extend([2*i+1 for i, v in enumerate(sieve) if i&gt;0 and v==0 and (2*i+1) &lt;= n])
+    return primes
+
+# For mapping on the 5-element subgroup mu5 we will use simple graph traversal to
+# classify which elements are on cycles. We represent elements by their canonical
+# integer residue in 0..p-1.
+
+def count_periodic_in_mu5(p):
+    """For prime p with p % 5 == 1, compute t = number of s in mu5 that are periodic under phi(s)=s*(1+s)^n mod p,
+    where n=(p-1)//5. Returns t.
+    """
+    n = (p-1)//5
+    # find an a with a^n != 1, so that zeta = a^n is a generator of mu5 (or at least not 1)
+    # in practice small a (2,3,5,7,11...) will work; loop until found.
+    a = 2
+    zeta = pow(a, n, p)
+    while zeta == 1:
+        a += 1
+        zeta = pow(a, n, p)
+    # build mu5 list (five distinct elements)
+    mu5 = [1]
+    cur = 1
+    for _ in range(1,5):
+        cur = (cur * zeta) % p
+        mu5.append(cur)
+    # Map each element to its image under phi (reduced modulo p)
+    phi = {}
+    for s in mu5:
+        one_plus = (1 + s) % p
+        # (1+s)^n mod p
+        pow_val = pow(one_plus, n, p)
+        phi[s] = (s * pow_val) % p
+        # phi(s) should remain inside mu5; if not, we still handle generically
+
+    # classify nodes: detect cycles in functional graph phi: mu5 -&gt; residues
+    visited = {}  # s -&gt; 0: unvisited, 1: in stack, 2: done
+    in_cycle = set()
+    for s in mu5:
+        if s in visited:
+            continue
+        path = []
+        cur = s
+        while True:
+            if cur not in visited:
+                visited[cur] = 1
+                path.append(cur)
+                cur = phi.get(cur, None)
+                if cur is None:
+                    # maps outside mu5 — no cycle within mu5 via this path
+                    for node in path:
+                        visited[node] = 2
+                    break
+            else:
+                if visited[cur] == 1:
+                    # found a cycle: nodes from first occurrence of cur in path to end
+                    idx = path.index(cur)
+                    cycle_nodes = path[idx:]
+                    for node in cycle_nodes:
+                        in_cycle.add(node)
+                    # mark all nodes in path as done
+                    for node in path:
+                        visited[node] = 2
+                else:
+                    # visited[cur] == 2: it leads to a previously processed region (may contain cycle)
+                    for node in path:
+                        visited[node] = 2
+                break
+    return len(in_cycle)
+
+
+def compute_S(limit):
+    primes = sieve_primes_upto(limit)
+    total = 0
+    count_primes = 0
+    for p in primes:
+        if p &lt; 5:
+            if p == 2 or p == 3:
+                continue
+        if p % 5 != 1:
+            continue
+        count_primes += 1
+        n = (p-1)//5
+        t = count_periodic_in_mu5(p)
+        C_p = 1 + n * t
+        total += C_p
+    return total
+
+if __name__ == '__main__':
+    assert compute_S(11) == 7
+    assert compute_S(100) == 127
+    print(compute_S(10**8))
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

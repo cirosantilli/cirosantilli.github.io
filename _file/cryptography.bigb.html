@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>cryptography.bigb - Ciro Santilli</title>
+<meta property="og:title" content="cryptography.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/cryptography.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/cryptography.bigb">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/cryptography.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">cryptography.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/cryptography.bigb"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../_dir">(root)</a> / <a href="../_raw/cryptography.bigb">cryptography.bigb</a></b></div></nav></div><div class="p"><b>cryptography.bigb</b></div><div class="code"><div><pre><code>= Cryptography
+{wiki}
+
+= Cryptosystem
+{parent=Cryptography}
+{wiki}
+
+= Encryption algorithm
+{synonym}
+{title2}
+
+= Random number generation
+{parent=Cryptography}
+{title2=RNG}
+{wiki}
+
+= Random number generator
+{synonym}
+
+= Hardware random number generation
+{parent=Random number generation}
+{wiki}
+
+= Symmetric and public-key cryptography
+{parent=Cryptography}
+
+= Symmetric encryption
+{parent=Symmetric and public-key cryptography}
+
+Symmetric encryption is a type of &lt;encryption&gt; where you use a password (also known as a "key") to encrypt your data, and then the same password to decrypt the data.
+
+For example, this is the type of encryption that is used for encrypting the data in our &lt;smartphones&gt; and &lt;laptops&gt; with &lt;disk encryption&gt;.
+
+This way, if your laptop gets stolen, the thief is not able to see your private photos without knowing your password, even though they are able to read every byte of your disk.
+
+The downside is that that you have to type your password every time you want to login. This leads people to want to use shorter passwords, which in turn are more prone to &lt;password cracking&gt;.
+
+The other main type of encryption is &lt;public-key cryptography&gt;.
+
+The advantage of &lt;public-key cryptography&gt; is that it allows you to send secret messages to other people even an the attacker is able to capture the encrypted messages. This is for example what you want to do when sending a personal message to a friend over the &lt;Internet&gt;. Such &lt;encryption&gt; is especially crucial when using &lt;wireless communication&gt; such as &lt;Wi-Fi&gt;, where anyone nearby can capture the signals you send and receive, and would be able to read all your data if it weren't encrypted.
+
+Easily sending encrypted messages over the &lt;Internet&gt; is not possible with &lt;symmetric encryption&gt; because for your friend to decrypt the message in that system, you'd need to send them the password, which the attacker would also be able to eavesdrop and then decrypt the message that follows using it. The problem of sharing a password with another person online is called &lt;key exchange&gt;.
+
+&lt;Advanced Encryption Standard&gt; (AES) is one of the most popular families of &lt;symmetric encryption&gt; algorithms.
+
+&lt;OpenSSL&gt; is a popular &lt;open source&gt; implementation of &lt;symmetric and public-key cryptography&gt;. A simple example of using &lt;OpenSSL&gt; for &lt;symmetric encryption&gt; from the &lt;command-line&gt; is:
+``
+echo 'Hello World!' &gt; message.txt
+openssl aes-256-cbc -a -salt -pbkdf2 -in message.txt -out message.txt.enc
+``
+This asks for a password, which we set as `asdfqwer`, and then produces a file `message.txt.enc` containing garbled text such that:
+``
+hd message.txt.enc
+``
+contains:
+``
+00000000  55 32 46 73 64 47 56 6b  58 31 38 58 48 65 2f 30  |U2FsdGVkX18XHe/0|
+00000010  70 56 42 2b 70 45 6c 55  59 38 2b 54 38 7a 4e 34  |pVB+pElUY8+T8zN4|
+00000020  4e 37 6d 52 2f 73 6d 4d  62 64 30 3d 0a           |N7mR/smMbd0=.|
+0000002d
+``
+Then to decrypt:
+``
+openssl aes-256-cbc -d -a -pbkdf2 -in message.txt.enc -out message.new.txt
+``
+once again asks for your password and given the correct password produces a file `message.new.txt` containing the original message:
+``
+Hello World!
+``
+This was tested on &lt;Ubuntu 24.04&gt;, OpenSSL 3.0.13. See also: https://stackoverflow.com/questions/16056135/how-to-use-openssl-to-encrypt-decrypt-files[How to use OpenSSL to encrypt/decrypt files? on Stack Overflow].
+
+There is no &lt;provably secure symmetric-key algorithm&gt; besides the &lt;one-time pad&gt;, which has the serious drawback of requiring the key to be as long as the message. This means that we believe that most encryption algorithms are secure because it is a hugely valuable target and no one has managed to crack them yet. But we don't have a mathematical proof that they are actually secure, so they could in theory be broken by new algorithms one day.
+
+= Provably secure symmetric-key algorithm
+{parent=Symmetric encryption}
+{wiki}
+
+There aren't any 2020, except in the trivial &lt;one-time pad&gt; case where the key is as large as the message: https://crypto.stackexchange.com/questions/10815/how-do-we-prove-that-aes-des-etc-are-secure
+
+= One-time pad
+{parent=Symmetric encryption}
+{wiki}
+
+The only perfect cryptosystem!
+
+The problem is that you need a shared &lt;key (cryptography)&gt; as large as the message.
+
+Systems like &lt;advanced Encryption Standard&gt; allow us to encrypt things larger than the key, but the tradeoff is that they could be possibly broken, as don't have any &lt;provably secure symmetric-key algorithms&gt; as of 2020.
+
+= Symmetric-key algorithm
+{parent=Symmetric encryption}
+
+Symmetric-key algorithm is al algorithm implementing &lt;symmetric encryption&gt;.
+
+= Advanced Encryption Standard
+{parent=Symmetric-key algorithm}
+{title2=AES}
+{wiki}
+
+= Is AES quantum resistant?
+{parent=Advanced Encryption Standard}
+{tag=Quantum resistant cryptosystem}
+
+2020-so-far yes, &lt;Grover's algorithm&gt; would only effectively reduce key sizes by half:
+* https://crypto.stackexchange.com/questions/6712/is-aes-256-a-post-quantum-secure-cipher-or-not
+* https://qvault.io/cryptography/is-aes-256-quantum-resistant/
+but there isn't a mathematical proof either.
+
+= Public-key cryptography
+{parent=Symmetric and public-key cryptography}
+{wiki}
+
+= Public key
+{synonym}
+
+= Private key
+{synonym}
+
+It allows you to do two things:
+* &lt;encryption&gt;
+* &lt;digital signature&gt;
+
+= Digital signature
+{parent=Public-key cryptography}
+{wiki}
+
+One notable application: &lt;cryptocurrency&gt;, see e.g. &lt;how Bitcoin works&gt;.
+
+= Ring signature
+{parent=Public-key cryptography}
+{wiki}
+
+Used for example:
+* by &lt;Monero&gt; to hide the input of a transaction
+* anonymous &lt;electronic voting&gt;
+
+= Public-key cryptosystem
+{parent=Public-key cryptography}
+{tag=Cryptosystem}
+
+= RSA
+{disambiguate=cryptosystem}
+{c}
+{parent=Public-key cryptosystem}
+{wiki}
+
+Based on the fact that we don't have a &lt;P (complexity)&gt; algorithm for &lt;integer factorization&gt; as of 2020. But nor proof that one does not exist!
+
+The private key is made of two randomly generated prime numbers: $p$ and $q$. How such large primes are found: &lt;how large primes are found for RSA&gt;.
+
+The public key is made of:
+* `n = p*q`
+* a randomly chosen integer exponent $e$ between `1` and `e_max = lcm(p -1, q -1)`, where `lcm` is the &lt;Least common multiple&gt;
+
+Given a plaintext message `m`, the encrypted &lt;ciphertext&gt; version is:
+``
+c = m^e mod n
+``
+This operation is called &lt;modular exponentiation&gt; can be calculated efficiently with the &lt;Extended Euclidean algorithm&gt;.
+
+The inverse operation of finding the private `m` from the public `c`, `e` and $n$ is however believed to be a hard problem without knowing the factors of `n`.
+
+However, if we know the private `p` and `q`, we can solve the problem. As follows.
+
+First we calculate the &lt;modular multiplicative inverse&gt;. TODO continue.
+
+Bibliography:
+* https://www.comparitech.com/blog/information-security/rsa-encryption/ has a numeric example
+
+= How large primes are found for RSA
+{parent=RSA (cryptosystem)}
+
+* https://crypto.stackexchange.com/questions/1970/how-are-primes-generated-for-rsa
+* https://crypto.stackexchange.com/questions/690/can-i-select-a-large-random-prime-using-this-procedure/693#693
+
+Answers suggest hat you basically pick a random large odd number, and add 2 to it until your selected &lt;primality test&gt; passes.
+
+The &lt;prime number theorem&gt; tells us that the probability that a number between 1 and $N$ is a prime number is $1/log(N)$.
+
+Therefore, for an N-bit integer, we only have to run the test N times on average to find a prime.
+
+Since say, A 512-bit integer is already humongous and sufficiently large, we would only need to search 512 times on average even for such sizes, and therefore the procedure scales well.
+
+= RSA vs Diffie-Hellman
+{c}
+{parent=RSA (cryptosystem)}
+
+&lt;RSA (cryptosystem)&gt; vs &lt;Diffie-Hellman key exchange&gt; are the dominant &lt;public-key cryptography&gt; systems as of 2020, so it is natural to ask how they compare:
+* https://security.stackexchange.com/questions/35471/is-there-any-particular-reason-to-use-diffie-hellman-over-rsa-for-key-exchange
+* https://crypto.stackexchange.com/questions/2867/whats-the-fundamental-difference-between-diffie-hellman-and-rsa
+* https://crypto.stackexchange.com/questions/797/is-diffie-hellman-mathematically-the-same-as-rsa
+
+As its name indicates, &lt;Diffie-Hellman key exchange&gt; is a &lt;key exchange&gt; algorithm. TODO verify: this means that in order to transmit a message, both parties must first send data to one another to reach a shared secret key. For RSA on the other hand, you can just take the public key of the other party and send encrypted data to them, the receiver does not need to send you any data at any point.
+
+= Diffie-Hellman key exchange
+{c}
+{parent=Public-key cryptography}
+{wiki=Diffie–Hellman_key_exchange}
+
+= DHKE
+{c}
+{synonym}
+{title2}
+
+Based on the fact that we don't have a &lt;P (complexity)&gt; algorithm for the &lt;discrete logarithm of the cyclic group&gt; as of 2020, but we do have an efficient algorithm for &lt;modular exponentiation&gt;. But nor do we have proof that one does not exist! Living on the edge as usual for &lt;public-key cryptography&gt;.
+
+= Key exchange
+{parent=Diffie-Hellman key exchange}
+
+= Elliptic curve cryptography
+{parent=Public-key cryptography}
+{tag=Elliptic curve}
+{tag=Discrete logarithm}
+{wiki}
+
+= Elliptic-curve Diffie-Hellman
+{c}
+{parent=Elliptic curve cryptography}
+{tag=Diffie-Hellman key exchange}
+{wiki}
+
+= ECDH
+{c}
+{synonym}
+{title2}
+
+The algorithm is completely analogous to &lt;Diffie-Hellman key exchange&gt; in that you efficiently raise a number to a power $n$ times and send the result over while keeping $n$ as private key.
+
+The only difference is that a different group is used: instead of using the &lt;cyclic group&gt;, we use the &lt;elliptic curve group&gt; of an &lt;elliptic curve over a finite field&gt;.
+
+\Video[https://www.youtube.com/watch?v=NF1pwjL9-DE]
+{title=&lt;Elliptic curves&gt; by &lt;Computerphile&gt; (2018)}
+{description=https://youtu.be/NF1pwjL9-DE?t=143 shows the continuous group well, but then fails to explain the discrete part.}
+
+Variant of &lt;Diffie-Hellman key exchange&gt; based on &lt;elliptic curve cryptography&gt;.
+
+= Diffie-Hellman vs ECDH
+{c}
+{parent=Elliptic-curve Diffie-Hellman}
+
+https://crypto.stackexchange.com/questions/29906/how-does-diffie-hellman-differ-from-elliptic-curve-diffie-hellman
+
+&lt;ECDH&gt; has smaller keys. https://youtu.be/gAtBM06xwaw?t=634 mentions some interesting downsides:
+* bad curves exist, while in modular, any number seems to work well. TODO why?
+* TODO can't find this mentioned anywher else: &lt;Diffie-Hellman key exchange&gt; has a proof that there is no algorithm, &lt;ECDH&gt; doesn't. Which proof?
+
+= Encryption
+{parent=Cryptography}
+{wiki}
+
+= Encrypted
+{synonym}
+
+= Encryption software
+{parent=Encryption}
+{wiki}
+
+= OpenSSL
+{c}
+{parent=Encryption software}
+{wiki}
+
+= Steganography
+{parent=Encryption}
+{wiki}
+
+= Steganographically
+{synonym}
+
+= Deniable authentication
+{parent=Encryption}
+{wiki}
+
+= End-to-end encryption
+{parent=Encryption}
+{tag=Good}
+{wiki}
+
+= E2EE
+{c}
+{synonym}
+{title2}
+
+= End-to-end encrypted
+{synonym}
+
+= Forward secrecy
+{parent=Encryption}
+{wiki}
+
+= Perfect forward secrecy
+{synonym}
+
+https://stackoverflow.com/questions/20505942/how-does-perfect-forward-secrecy-pfs-work/66118134#66118134
+
+= Disk encryption
+{parent=Encryption}
+{wiki}
+
+= Can a smartphone's PIN or password be brute-forced in an offline attack?
+{parent=Disk encryption}
+
+https://security.stackexchange.com/questions/202174/can-a-smartphones-pin-or-password-be-brute-forced-in-an-offline-attack
+
+&lt;Ciro Santilli&gt; has a hard time understanding why this is possible, e.g. many people use short 4 digit pins, or a short swipe pattern. Why can't this be cracked easily offline?
+
+= Linux Unified Key Setup
+{c}
+{parent=Disk encryption}
+{wiki}
+
+= LUKS
+{c}
+{synonym}
+{title2}
+
+= Disk encryption password handover plausible deniability
+{parent=Disk encryption}
+{wiki}
+
+* https://security.stackexchange.com/questions/135846/is-plausible-deniability-actually-feasible-for-encrypted-volumes-disks
+* https://security.stackexchange.com/questions/87153/linux-plausibly-deniable-file-system
+
+Can we do better than "wrong password implies random bytes"?
+
+Can the last disk access times be checked via forensic methods?
+
+= GNU Privacy Guard
+{c}
+{parent=Cryptography}
+{tag=GNU package}
+{title2=GnuPG}
+{title2=GPG}
+{wiki}
+
+Generate public private key, test encrypt and test decrypt:
+``
+# Create your pubkey.
+gpg --gen-key
+gpg --armor --output pubkey.gpg --export &lt;myemail&gt;
+
+# Encrypt using someone's pubkey.
+gpg --import pubkey2.gpg
+echo 'hello world' &gt; hello.txt
+gpg --output hello.txt.gpg --encrypt --recipient &lt;other-email&gt; hello.txt
+
+# Double check it is not plaintext in the encrypted message.
+grep hello hello.txt.gpg
+
+# Decrypt.
+gpg --output hello.decrypt.txt --decrypt --recipient &lt;myemail&gt; hello.txt.gpg
+diff -u hello.decrypt.txt hello.txt
+``
+
+= Internet privacy
+{c}
+{parent=Cryptography}
+{wiki}
+
+= Anonymity
+{parent=Internet privacy}
+{wiki}
+
+= Anonymous
+{synonym}
+
+= Anonymously
+{synonym}
+
+= Receiving an anonymous donation
+{parent=Anonymity}
+
+Closely related:
+* &lt;De-banking&gt;
+
+Bibliography:
+* https://www.quora.com/Is-it-legal-for-billionaires-to-make-anonymous-charitable-donations-How-can-it-be-determined-if-a-large-sum-of-money-was-donated-anonymously-or-not
+
+= Receiving an anonymous donation in the UK
+{parent=Receiving an anonymous donation}
+
+&lt;Ciro Santilli&gt;'s experience: https://www.quora.com/Is-it-legal-for-billionaires-to-make-anonymous-charitable-donations-How-can-it-be-determined-if-a-large-sum-of-money-was-donated-anonymously-or-not/answer/Ciro-Santilli
+
+= Internet privacy organizations
+{parent=Internet privacy}
+
+= Riseup
+{c}
+{parent=Internet privacy organizations}
+{wiki}
+
+= Operations security
+{parent=Internet privacy}
+{wiki}
+
+= Operational security
+{synonym}
+
+= OPSEC
+{c}
+{synonym}
+{title2}
+
+= Tor
+{disambiguate=anonymity network}
+{c}
+{parent=Internet privacy}
+{wiki}
+
+= Tor
+{synonym}
+
+= Tor Browser
+{c}
+{parent=Tor (anonymity network)}
+{wiki}
+
+= Onion service
+{c}
+{parent=Tor (anonymity network)}
+{wiki=https://en.wikipedia.org/wiki/Tor_(network)#Onion_services}
+
+= Tor Onion service
+{c}
+{synonym}
+
+= Tor hidden service
+{c}
+{synonym}
+
+= Onion hidden service
+{c}
+{synonym}
+
+This is a way to host a server that actually hide the &lt;IP&gt; of the server from the client, just like &lt;Tor (anonymity network)&gt; hides the &lt;IP&gt; of the client from the server. Amazing tecnology!
+
+This is why it enables hosting &lt;illegal&gt; things like the &lt;Silk Road (marketplace)&gt;: &lt;law enforcement&gt; is not able find where the server is hosted, and take it down or identify the owner.
+
+Bibliography:
+* https://security.stackexchange.com/questions/38194/how-can-i-get-the-ip-address-for-a-tor-hidden-service-hs-with-a-onion-address
+
+= Dark web
+{parent=Onion service}
+{wiki}
+
+= Hidden Answers
+{parent=Onion service}
+{wiki}
+
+https://www.reddit.com/r/onions/comments/sfquss/hidden_answers_is_back/ gives pbqttnffb5sh6ckgnz4f5by55w25gd6tuw5f5qcctmnyk62eyhgx6rad.onion which is Dead Janary 2024
+
+= Onion service search engine
+{parent=Onion service}
+
+= Uncensored Onion service search engine
+{parent=Onion service search engine}
+
+This is where "fun" stuff is likely to be.
+
+= Tor.link
+{parent=Uncensored Onion service search engine}
+
+https://tor.link/
+
+Live January 2024.
+
+= The Hidden Wiki
+{c}
+{parent=Tor (anonymity network)}
+{wiki}
+
+= Can ISPs deanonymize Tor users based on timestamps of public posts?
+{parent=Tor (anonymity network)}
+{wiki}
+
+https://security.stackexchange.com/questions/237632/can-isp-deanonymize-telegram-public-channel-creators
+
+= Ciphertext, plaintext, key and salt
+{parent=Cryptography}
+
+= Ciphertext
+{parent=Ciphertext, plaintext, key and salt}
+{wiki}
+
+= Key
+{disambiguate=cryptography}
+{parent=Ciphertext, plaintext, key and salt}
+{wiki}
+
+= Pre-shared key
+{parent=Key (cryptography)}
+{wiki}
+
+An overview of what you can do with a pre-shared key with tradeoffs can be found at: https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 The options are:
+* &lt;one-time pad&gt;
+* &lt;symmetric encryption&gt;
+* authentication with some &lt;message authentication code&gt; protocol
+
+= Message authentication code
+{parent=Pre-shared key}
+{wiki}
+
+Bibliography:
+* https://crypto.stackexchange.com/questions/59958/is-it-safe-to-hash-a-packet-with-a-shared-secret-to-prove-authenticity
+
+= Man-in-the-middle attack
+{parent=Cryptography}
+{wiki}
+
+= Man-in-the-middle
+{synonym}
+
+= MITM
+{c}
+{synonym}
+{title2}
+
+= Authentication
+{disambiguate=cryptography}
+{parent=Man-in-the-middle attack}
+
+In the context of cryptography, authentication means "ensuring that the message you got comes from who you think it did".
+
+Authentication is how we prevent the &lt;man-in-the-middle attack&gt;.
+
+Authentication is one of the hardest parts of cryptography, because the only truly secure way to do it is by driving to the other party yourself to establish a &lt;pre-shared key&gt; so you can do &lt;message authentication code&gt;. Or to share your &lt;public key&gt; with them if you are satisfied with the safety of &lt;post-quantum cryptography&gt;.
+
+= Zero-knowledge proof
+{parent=Cryptography}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Otvcbw6k4eo]
+{title=I can prove I've solved this Sudoku without revealing it by Polylog}
+
+= Zero-knowledge proof vs digital signature
+{parent=Zero-knowledge proof}
+{tag=Digital signature}
+
+* https://crypto.stackexchange.com/questions/35177/is-using-digital-signatures-to-prove-identity-a-zero-knowledge-proof
+* https://www.reddit.com/r/crypto/comments/stspyl/is_digital_signature_a_form_of_zero_knowledge/
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,1851 @@
+= Machine learning
+{wiki}
+
+= Machine learn
+{synonym}
+
+The main reason <Ciro Santilli> never touched it is that it feels that every public data set has already been fully mined or has already had the most interesting algorithms developed for it, so you can't do much outside of big companies.
+
+This is why Ciro started <Ciro's 2D reinforcement learning games> to generate synthetic data and thus reduce the cost of data.
+
+The other reason is that it is ugly.
+
+\Include[artificial-intelligence]
+
+= Training machine learning on copyrighted data
+{parent=Machine learning}
+
+* 2023-12: <New York Times> vs <OpenAI>: https://www.wsj.com/tech/ai/new-york-times-sues-microsoft-and-openai-alleging-copyright-infringement-fd85e1c4
+* 2023-02: Getty Images vs Stable Diffusion: https://www.theverge.com/2023/2/6/23587393/ai-art-copyright-lawsuit-getty-images-stable-diffusion
+
+= Deepfake
+{parent=Machine learning}
+{wiki}
+
+= Deepfakes
+{synonym}
+
+= Dimensionality reduction
+{parent=Machine learning}
+{tag=Descriptive statistics}
+{wiki}
+
+= Dimentionality reduction
+{synonym}
+
+= Principal component analysis
+{parent=Dimensionality reduction}
+{title2=PCA}
+{wiki}
+
+Given a bunch of points in $n$ dimensions, PCA maps those points to a new $p$ dimensional space with $p \le n$.
+
+$p$ is a <hyperparameter>, $p=1$ and $p=2$ are common choices when doing dataset exploration, as they can be easily visualized on a planar plot.
+
+The mapping is done by projecting all points to a $p$ dimensional <hyperplane>. PCA is an algorithm for choosing this hyperplane and the coordinate system within this hyperplane.
+
+The hyperplane choice is done as follows:
+* the <hyperplane> will have origin at the <mean> point
+* the first axis is picked along the direction of greatest <variance>, i.e. where points are the most spread out.
+
+  Intuitively, if we pick an axis of small variation, that would be bad, because all the points are very close to one another on that axis, so it doesn't contain as much information that helps us differentiate the points.
+* then we pick a second axis, orthogonal to the first one, and on the direction of second largest variance
+* and so on until $p$ orthogonal axes are taken
+
+https://www.sartorius.com/en/knowledge/science-snippets/what-is-principal-component-analysis-pca-and-how-it-is-used-507186 provides an OK-ish example with a concrete context. In there, each point is a country, and the input data is the consumption of different kinds of foods per year, e.g.:
+* flour
+* dry codfish
+* olive oil
+* sausage
+so in this example, we would have input points in 4D.
+
+The question is then: we want to be able to identify the country by what they eat.
+
+Suppose that every country consumes the same amount of flour every year. Then, that number doesn't tell us much about which country each point represents (has the least <variance>), and the first PCA axes would basically never point anywhere near that direction.
+
+Another cool thing is that PCA seems to automatically account for linear dependencies in the data, so it skips selecting highly correlated axes multiple times. For example, suppose that dry codfish and olive oil consumption are very high in Portugal and Spain, but very low in Germany and Poland. Therefore, the variation is very high in those two parameters, and contains a lot of information.
+
+However, suppose that dry codfish consumption is also directly proportional to olive oil consumption. Because of this, it would be kind of wasteful if we selected:
+* dry codfish as the first axis
+* olive oil as the second axis
+since the information about codfish already tells us the olive oil. PCA apparently recognizes this, and instead picks the first axis at a 45 degree angle to both dry codfish and olive oil, and then moves on to something else for the second axis.
+
+We can see that much like the rest of <machine learning>, PCA can <Machine learning as a form of data compression>[be seen as a form of compression].
+
+= Hyperparameter
+{parent=Machine learning}
+{tag=AI-complete}
+{wiki=Hyperparameter_(machine_learning)}
+
+A parameter that you choose which determines how the algorithm will perform.
+
+In the case of <machine learning> in particular, it is not part of the <training data set>.
+
+Hyperparameters can also be considered in domains outside of <machine learning> however, e.g. the step size in <partial differential equation solver> is entirely independent from the problem itself and could be considered a hyperparamter. One difference from machine learning however is that step size hyperparameters in <numerical analysis> are clearly better if smaller at a higher computational cost. In machine learning however, there is often an optimum somewhere, beyond which <overfitting> becomes excessive.
+
+= Overfitting
+{parent=Hyperparameter}
+{wiki}
+
+= Machine learning as a form of data compression
+{parent=Overfitting}
+{tag=Overfitting}
+
+Philosophically, machine learning can be seen as a form of <lossy compression>.
+
+And if we make it too <lossless>, then we are basically <overfitting>.
+
+Bibliography:
+* https://bair.berkeley.edu/blog/2019/09/19/bit-swap/
+* https://www.eecs.tufts.edu/~dsculley/papers/compressionAndVectors.pdf
+* https://arxiv.org/abs/2202.06533
+* https://towardsdatascience.com/ai-based-image-compression-the-state-of-the-art-fb5aa6042bfa
+
+= Natural language processing
+{parent=Machine learning}
+{tag=AI-complete}
+{wiki}
+
+= NLP
+{c}
+{synonym}
+
+An impossible <AI-complete> dream!
+
+It is impossible to understand speech, and take meaningful actions from it, if you don't understand what is being talked about.
+
+And without doubt, "understanding what is being talked about" comes down to understanding (efficiently representing) the geometry of the 3D world with a time component.
+
+Not from hearing sounds alone.
+
+= Recommender system
+{parent=Machine learning}
+{wiki}
+
+* https://analyticsindiamag.com/5-open-source-recommender-systems-you-should-try-for-your-next-project/ 5 Open-Source Recommender Systems You Should Try For Your Next Project (2019)
+
+= Supervised and unsupervised learning
+{parent=Machine learning}
+{wiki}
+
+= Supervised learning
+{parent=Supervised and unsupervised learning}
+{wiki}
+
+= k-nearest neighbors algorithm
+{c}
+{parent=Supervised learning}
+{wiki}
+
+= k-NN
+{c}
+{synonym}
+{title2}
+
+One of the most simply classification algorithm one can think of: just see whatever kind of point your new point seems to be closer to, and say it is also of that type! Then it is just a question of defining "close".
+
+<Scikit-learn> implementation https://scikit-learn.org/stable/auto_examples/neighbors/plot_classification.html at \a[python/sklearn/knn.py]
+
+= Training, validation, and test data sets
+{parent=Supervised learning}
+{wiki}
+
+https://stats.stackexchange.com/questions/19048/what-is-the-difference-between-test-set-and-validation-set
+
+= Training data set
+{parent=Training, validation, and test data sets}
+
+= Training data
+{synonym}
+
+= Validation data set
+{parent=Training, validation, and test data sets}
+
+= Test data set
+{parent=Training, validation, and test data sets}
+
+= Test data
+{synonym}
+
+= Training and inference
+{parent=Supervised learning}
+{wiki}
+
+This is the first thing you have to know about <supervised learning>:
+* training is when you learn model parameters from input. This literally means learning the best value we can for a bunch of number input numbers of the model. This can easily be on the hundreds of thousands.
+* inference is when we take a trained model (i.e. with the parameters determined), and apply it to new inputs
+Both of those already have <hardware acceleration> available as of the 2010s.
+
+= Inference
+{disambiguate=ML}
+{parent=Training and inference}
+
+= Inference
+{synonym}
+
+= Training
+{disambiguate=ML}
+{parent=Training and inference}
+
+= Unsupervised learning
+{parent=Supervised and unsupervised learning}
+{wiki}
+
+= Reinforcement learning
+{parent=Unsupervised learning}
+{wiki}
+
+= Machine learning architecture
+{parent=Machine learning}
+
+= Symbolic artificial intelligence
+{parent=Machine learning architecture}
+{wiki}
+
+= Symbolic AI
+{synonym}
+
+= The Bitter Lesson by Rich Sutton
+{parent=Symbolic artificial intelligence}
+{title2=2019}
+
+https://www.cs.utexas.edu/~eunsol/courses/data/bitter_lesson.pdf
+
+= Neuro-symbolic AI
+{c}
+{parent=Symbolic artificial intelligence}
+
+https://researcher.watson.ibm.com/researcher/view_group.php?id=10518
+
+An <IBM> made/pushed term, but that matches <Ciro Santilli>'s general view of how we should move forward <AGI>.
+
+Ciro's motivation/push for this can be seen e.g. at: <Ciro's 2D reinforcement learning games>.
+
+= Neural network
+{parent=Machine learning}
+{wiki}
+
+= Artificial neural network
+{parent=Neural network}
+{wiki}
+
+= ANN
+{c}
+{synonym}
+{title2}
+
+= ANN model
+{c}
+{parent=Artificial neural network}
+
+= ANN architecture
+{c}
+{synonym}
+{title2}
+
+https://modelzoo.co/
+
+= Residual neural network
+{parent=ANN model}
+{title2=2015}
+{wiki}
+
+= ResNet
+{c}
+{synonym}
+{title2}
+
+Interesting layer skip architecture thing.
+
+Apparently destroyed <ImageNet 2015> and became very very famous as such.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/255px-ResNets.svg.png]
+
+Bibliography:
+* https://pub.aimind.so/a-brief-introduction-to-resnets-d43ae4f1e2a0
+
+= ResNet implementation
+{c}
+{parent=Residual neural network}
+
+* <torchvision ResNet>
+* <MLperf v2.1 ResNet> contains a pre-trained <ResNet> <ONNX> at https://zenodo.org/record/4735647/files/resnet50_v1.onnx for its inference benchmark. We've tested it at: <Run MLperf v2.1 ResNet on Imagenette>.
+
+= ResNet variant
+{c}
+{parent=Residual neural network}
+
+= ResNet v1 vs v1.5
+{c}
+{parent=ResNet variant}
+
+https://catalog.ngc.nvidia.com/orgs/nvidia/resources/resnet_50_v1_5_for_pytorch explains:
+> The difference between v1 and v1.5 is that, in the bottleneck blocks which requires downsampling, v1 has stride = 2 in the first 1x1 convolution, whereas v1.5 has stride = 2 in the 3x3 convolution.
+
+  This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a small performance drawback (~5% imgs/sec).
+
+= Convolutional neural network
+{parent=ANN model}
+{tag=Convolution}
+{title2=CNN}
+{wiki}
+
+= CNN convolution kernels are also learnt
+{parent=Convolutional neural network}
+
+CNN convolution kernels are not hardcoded. They are learnt and optimized via <backpropagation>. You just specify their size! Example in <PyTorch> you'd do just:
+``
+nn.Conv2d(1, 6, kernel_size=(5, 5))
+``
+as used for example at: <activatedgeek LeNet-5>.
+
+This can also be inferred from: https://stackoverflow.com/questions/55594969/how-to-visualise-filters-in-a-cnn-with-pytorch where we see that the kernels are not perfectly regular as you'd expected from something hand coded.
+
+= List of convolutional neural networks
+{parent=Convolutional neural network}
+
+= LeNet
+{c}
+{parent=List of convolutional neural networks}
+{title2=1998}
+{wiki}
+
+= LeNet-5
+{c}
+{synonym}
+{title2}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/c/cc/Comparison_image_neural_networks.svg]
+{height=600}
+
+= LeNet implementation
+{c}
+{parent=LeNet}
+
+= activatedgeek/LeNet-5
+{parent=LeNet implementation}
+{tag=PyTorch model}
+
+https://github.com/activatedgeek/LeNet-5
+
+This repository contains a very clean minimal <PyTorch> implementation of <LeNet-5> for <MNIST>.
+
+It trains the <LeNet-5> <neural network> on the <MNIST> dataset from scratch, and afterwards you can give it newly hand-written digits 0 to 9 and it will hopefully recognize the digit for you.
+
+<Ciro Santilli> created a small fork of this repo at <lenet>{file} adding better automation for:
+* <extracting MNIST images> as PNG
+* <ONNX> CLI inference taking any image files as input
+* a <Python tkinter> GUI that lets you draw and see inference live
+* running on <GPU>
+
+Install on <Ubuntu 24.10> with:
+``
+sudo apt install protobuf-compiler
+git clone https://github.com/activatedgeek/LeNet-5
+cd LeNet-5
+git checkout 95b55a838f9d90536fd3b303cede12cf8b5da47f
+virtualenv -p python3 .venv
+. .venv/bin/activate
+pip install \
+  Pillow==6.2.0 \
+  numpy==1.24.2 \
+  onnx==1.13.1 \
+  torch==2.0.0 \
+  torchvision==0.15.1 \
+  visdom==0.2.4 \
+;
+``
+We use our own `pip install` because their requirements.txt uses `>=` instead of `==` making it random if things will work or not.
+
+On <Ubuntu 22.10> it was instead:
+``
+pip install
+  Pillow==6.2.0 \
+  numpy==1.26.4 \
+  onnx==1.17.0 torch==2.6.0 \
+  torchvision==0.21.0 \
+  visdom==0.2.4 \
+;
+``
+
+Then run with:
+``
+python run.py
+``
+This script:
+* does a fixed 15 <epoch (deep learning)>[epochs] on the <training data>
+* it then uses the trained net from memory to check accuracy with the <test data>
+* then it also produces a `lenet.onnx` <ONNX> file which contains the trained network, nice!
+It throws a billion exceptions because we didn't start the Visdom server, but everything works nevertheless, we just don't get a visualization of the training.
+
+The terminal outputs lines such as:
+``
+Train - Epoch 1, Batch: 0, Loss: 2.311587
+Train - Epoch 1, Batch: 10, Loss: 2.067062
+Train - Epoch 1, Batch: 20, Loss: 0.959845
+...
+Train - Epoch 1, Batch: 230, Loss: 0.071796
+Test Avg. Loss: 0.000112, Accuracy: 0.967500
+...
+Train - Epoch 15, Batch: 230, Loss: 0.010040
+Test Avg. Loss: 0.000038, Accuracy: 0.989300
+``
+
+And the runtime on <Ubuntu 22.10>, <Ciro Santilli's hardware/P51> was:
+``
+real    2m10.262s
+user    11m9.771s
+sys     0m26.368s
+``
+
+One of the benefits of the <ONNX> output is that we can nicely visualize the <neural network> on <Netron>:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/e9225ddf4bb8ce4bad8cc2a9d6503d683dec5db6/activatedgeek_LeNet-5_onnx.svg]
+{title=<Netron> visualization of the <activatedgeek LeNet-5> <ONNX> output}
+{description=
+From this we can see the bifurcation on the computational graph as done in the code at:
+``
+output = self.c1(img)
+x = self.c2_1(output)
+output = self.c2_2(output)
+output += x
+output = self.c3(output)
+``
+This doesn't seem to conform to the original <LeNet-5> however?
+}
+{height=1200}
+
+= activatedgeek/LeNet-5 use ONNX for inference
+{parent=activatedgeek LeNet-5}
+
+Now let's try and use the trained <ONNX> file for inference on some manually drawn images on <GIMP>:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png]
+{title=Number 9 drawn with mouse on <GIMP> by <Ciro Santilli> (2023)}
+
+Note that:
+* the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
+* images must be converted to 32x32 for `lenet.onnx`, as that is what training was done on. The training step converted the 28x28 images to 32x32 as the first thing it does before training even starts
+
+We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[lenet/infer.py]:
+``
+cd lenet
+cp ~/git/LeNet-5/lenet.onnx .
+wget -O 9.png https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png
+./infer.py 9.png
+``
+and it works pretty well! The program outputs:
+``
+9
+``
+as desired.
+
+We can also try with images directly from <Extract MNIST images>.
+``
+infer_mnist.py lenet.onnx mnist_png/out/testing/1/*.png
+``
+and the accuracy is great as expected.
+
+= activatedgeek/LeNet-5 run on GPU
+{parent=activatedgeek LeNet-5}
+
+By default, the setup runs on <CPU> only, not <GPU>, as could be seen by running <htop>. But by the magic of <PyTorch>, modifying the program to run on the <GPU> is trivial:
+``
+cat << EOF | patch
+diff --git a/run.py b/run.py
+index 104d363..20072d1 100644
+--- a/run.py
++++ b/run.py
+@@ -24,7 +24,8 @@ data_test = MNIST('./data/mnist',
+ data_train_loader = DataLoader(data_train, batch_size=256, shuffle=True, num_workers=8)
+ data_test_loader = DataLoader(data_test, batch_size=1024, num_workers=8)
+
+-net = LeNet5()
++device = 'cuda'
++net = LeNet5().to(device)
+ criterion = nn.CrossEntropyLoss()
+ optimizer = optim.Adam(net.parameters(), lr=2e-3)
+
+@@ -43,6 +44,8 @@ def train(epoch):
+     net.train()
+     loss_list, batch_list = [], []
+     for i, (images, labels) in enumerate(data_train_loader):
++        labels = labels.to(device)
++        images = images.to(device)
+         optimizer.zero_grad()
+
+         output = net(images)
+@@ -71,6 +74,8 @@ def test():
+     total_correct = 0
+     avg_loss = 0.0
+     for i, (images, labels) in enumerate(data_test_loader):
++        labels = labels.to(device)
++        images = images.to(device)
+         output = net(images)
+         avg_loss += criterion(output, labels).sum()
+         pred = output.detach().max(1)[1]
+@@ -84,7 +89,7 @@ def train_and_test(epoch):
+     train(epoch)
+     test()
+
+-    dummy_input = torch.randn(1, 1, 32, 32, requires_grad=True)
++    dummy_input = torch.randn(1, 1, 32, 32, requires_grad=True).to(device)
+     torch.onnx.export(net, dummy_input, "lenet.onnx")
+
+     onnx_model = onnx.load("lenet.onnx")
+EOF
+``
+and leads to a faster runtime, with less `user` as now we are spending more time on the GPU than CPU:
+``
+real    1m27.829s
+user    4m37.266s
+sys     0m27.562s
+``
+
+= lenet
+{file}
+{parent=activatedgeek LeNet-5}
+
+This is a small fork of <activatedgeek LeNet-5> by <Ciro Santilli> adding better integration and automation for:
+* <extracting MNIST images> as <PNG>
+* <ONNX> CLI inference taking any image files as input
+* a <Python tkinter> GUI that lets you draw and see inference live
+* running on <GPU>
+
+Install on <Ubuntu 24.10>:
+``
+sudo apt install protobuf-compiler
+cd lenet
+virtualenv -p python3 .venv
+. .venv/bin/activate
+pip install -r requirements-python-3-12.txt
+``
+
+Download and extract <MNIST> train, test accuracy, and generate the <ONNX> `lenet.onnx`:
+``
+./train.py
+``
+<Extract MNIST images> as <PNG>:
+``
+./extract_pngs.py
+``
+Infer some individual images using the <ONNX>:
+``
+./infer.py data/MNIST/png/test/0/*.png
+``
+Draw on a <GUI> and see live inference using the <ONNX>:
+``
+./draw.py
+``
+TODO: the following are missing for this to work:
+* start a background task. This we know how to do: https://stackoverflow.com/questions/1198262/tkinter-locks-python-when-an-icon-is-loaded-and-tk-mainloop-is-in-a-thread/79502287#79502287
+* get bytes from the canvas: all methods are ugly: https://stackoverflow.com/questions/9886274/how-can-i-convert-canvas-content-to-an-image
+
+= AlexNet
+{c}
+{parent=List of convolutional neural networks}
+{title2=2012-}
+{wiki}
+
+Became notable for performing extremely well on <ImageNet> starting in 2012.
+
+It is also notable for being one of the first to make successful use of <GPU> training rather than <GPU> training.
+
+= You Only Look Once
+{c}
+{parent=List of convolutional neural networks}
+{title2=2015-}
+{wiki}
+
+= YOLO model
+{c}
+{synonym}
+
+Object detection model.
+
+You can get some really sweet pre-trained versions of this, typically trained on the <COCO dataset>.
+
+= RetinaNet
+{c}
+{parent=List of convolutional neural networks}
+{title2=2017-}
+
+* https://paperswithcode.com/method/retinanet
+* https://paperswithcode.com/paper/focal-loss-for-dense-object-detection
+
+= Trained artificial neural network
+{parent=Artificial neural network}
+{tag=Training (ML)}
+
+= Deep learning
+{parent=Artificial neural network}
+{wiki}
+
+Deep learning is the name <artificial neural networks> basically converged to in the 2010s/2020s.
+
+It is a bit of an unfortunate as it suggests something like "deep understanding" and even reminds one of <AGI>, which it almost certainly will not attain on its own. But at least it sounds good.
+
+= Backpropagation
+{parent=Deep learning}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Ilg3gGewQ5U]
+{title=What is backpropagation really doing? by <3Blue1Brown> (2017)}
+{description=Good <hand-wave> intuition, but does not describe the exact <algorithm>.}
+
+= Epoch and batch size
+{parent=Backpropagation}
+{tag=Hyperparameter}
+
+= Epoch
+{disambiguate=deep learning}
+{parent=Epoch and batch size}
+
+= Batch size
+{disambiguate=deep learning}
+{parent=Epoch and batch size}
+
+= Learning rate
+{parent=Backpropagation}
+{tag=Hyperparameter}
+
+= Deep learning benchmark
+{parent=Deep learning}
+
+= MLperf
+{c}
+{parent=Deep learning benchmark}
+
+https://mlcommons.org/en/ Their homepage is not amazingly organized, but it does the job.
+
+Benchmark focused on <deep learning>. It has two parts:
+* <training (ML)>: produces a trained network
+* <inference (ML)>: uses the trained network
+Furthermore, a specific network model is specified for each benchmark in the closed category: so it goes beyond just specifying the dataset.
+
+Results can be seen e.g. at:
+* <training (ML)>: https://mlcommons.org/en/training-normal-21/ (https://web.archive.org/web/20230923035847/https://mlcommons.org/en/training-normal-21/[archive])
+* <inference (ML)>: https://mlcommons.org/en/inference-datacenter-21/ (https://web.archive.org/web/20230923030959/https://mlcommons.org/en/inference-datacenter-21/)
+Those URLs broke as of 2025 of course, now you have to click on their Tableau down to the 2.1 round and there's no fixed URL for it:
+* https://mlcommons.org/benchmarks/training/
+* https://mlcommons.org/benchmarks/inference-datacenter/
+
+And there are also separate repositories for each:
+* https://github.com/mlcommons/inference
+* https://github.com/mlcommons/training
+
+E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the benchmarks are:
+
+|| Dataset
+|| Model
+
+| <ImageNet>
+| <ResNet>
+
+| KiTS19
+| 3D U-Net
+
+| <Open Images dataset>[OpenImages]
+| RetinaNet
+
+| <COCO dataset>
+| Mask R-CNN
+
+| LibriSpeech
+| RNN-T
+
+| Wikipedia
+| BERT
+
+| 1TB Clickthrough
+| DLRM
+
+| <Go (game)>
+| <MiniGo>
+
+= MLperf v2.1 ResNet
+{parent=MLperf}
+{tag=ResNet}
+
+Instructions at:
+* https://github.com/mlcommons/inference/blob/v2.1/vision/classification_and_detection
+* https://github.com/mlcommons/inference/blob/v2.1/vision/classification_and_detection/GettingStarted.ipynb
+
+<Ubuntu 22.10> setup with tiny dummy manually generated <ImageNet> and run on <ONNX>:
+``
+sudo apt install pybind11-dev
+
+git clone https://github.com/mlcommons/inference
+cd inference
+git checkout v2.1
+
+virtualenv -p python3 .venv
+. .venv/bin/activate
+pip install numpy==1.24.2 pycocotools==2.0.6 onnxruntime==1.14.1 opencv-python==4.7.0.72 torch==1.13.1
+
+cd loadgen
+CFLAGS="-std=c++14" python setup.py develop
+cd -
+
+cd vision/classification_and_detection
+python setup.py develop
+wget -q https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx
+export MODEL_DIR="$(pwd)"
+export EXTRA_OPS='--time 10 --max-latency 0.2'
+
+tools/make_fake_imagenet.sh
+DATA_DIR="$(pwd)/fake_imagenet" ./run_local.sh onnxruntime mobilenet cpu --accuracy
+``
+
+Last line of output on <Ciro Santilli's hardware/P51>, which appears to contain the benchmark results
+``
+TestScenario.SingleStream qps=58.85, mean=0.0138, time=0.136, acc=62.500%, queries=8, tiles=50.0:0.0129,80.0:0.0137,90.0:0.0155,95.0:0.0171,99.0:0.0184,99.9:0.0187
+``
+where presumably `qps` means queries per second, and is the main results we are interested in, the more the better.
+
+Running:
+``
+tools/make_fake_imagenet.sh
+``
+produces a tiny <ImageNet subset> with 8 images under `fake_imagenet/`.
+
+`fake_imagenet/val_map.txt` contains:
+``
+val/800px-Porsche_991_silver_IAA.jpg 817
+val/512px-Cacatua_moluccensis_-Cincinnati_Zoo-8a.jpg 89
+val/800px-Sardinian_Warbler.jpg 13
+val/800px-7weeks_old.JPG 207
+val/800px-20180630_Tesla_Model_S_70D_2015_midnight_blue_left_front.jpg 817
+val/800px-Welsh_Springer_Spaniel.jpg 156
+val/800px-Jammlich_crop.jpg 233
+val/782px-Pumiforme.JPG 285
+``
+where the numbers are the category indices from <ImageNet1k>. At https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a see e.g.:
+* 817: 'sports car, sport car',
+* 89: 'sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita',
+and so on, so they are coherent with the image names. By quickly looking at the script we see that it just downloads from Wikimedia and manually creates the file.
+
+TODO prepare and test on the actual <ImageNet> validation set, README says:
+> Prepare the imagenet dataset to come.
+
+Since that one is undocumented, let's try the <COCO dataset> instead, which uses <COCO 2017> and is also a bit smaller. Note that his is not part of MLperf anymore since v2.1, only <ImageNet> and open images are used. But still:
+``
+wget https://zenodo.org/record/4735652/files/ssd_mobilenet_v1_coco_2018_01_28.onnx
+DATA_DIR_BASE=/mnt/data/coco
+export DATA_DIR="${DATADIR_BASE}/val2017-300"
+mkdir -p "$DATA_DIR_BASE"
+cd "$DATA_DIR_BASE"
+wget http://images.cocodataset.org/zips/val2017.zip
+wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip
+unzip val2017.zip
+unzip annotations_trainval2017.zip
+mv annotations val2017
+cd -
+cd "$(git-toplevel)"
+python tools/upscale_coco/upscale_coco.py --inputs "$DATA_DIR_BASE" --outputs "$DATA_DIR" --size 300 300 --format png
+cd -
+``
+
+Now:
+``
+./run_local.sh onnxruntime mobilenet cpu --accuracy
+``
+fails immediately with:
+``
+No such file or directory: '/path/to/coco/val2017-300/val_map.txt
+``
+The more plausible looking:
+``
+./run_local.sh onnxruntime mobilenet cpu --accuracy --dataset coco-300
+``
+first takes a while to preprocess something most likely, which it does only one, and then fails:
+``
+Traceback (most recent call last):
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/main.py", line 596, in <module>
+    main()
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/main.py", line 468, in main
+    ds = wanted_dataset(data_path=args.dataset_path,
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/coco.py", line 115, in __init__
+    self.label_list = np.array(self.label_list)
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 2 dimensions. The detected shape was (5000, 2) + inhomogeneous part.
+``
+
+TODO!
+
+= Run MLperf v2.1 ResNet on Imagenette
+{c}
+{parent=MLperf v2.1 ResNet}
+
+Let's run on this Imagenet10 subset called <Imagenette>.
+
+First ensure that you get the dummy test data run working as per <MLperf v2.1 ResNet>.
+
+Next, in the `imagenette2` directory, first let's create a 224x224 scaled version of the inputs as required by the benchmark at https://mlcommons.org/en/inference-datacenter-21/[]:
+``
+#!/usr/bin/env bash
+rm -rf val224x224
+mkdir -p val224x224
+for syndir in val/*: do
+  syn="$(dirname $syndir)"
+  for img in "$syndir"/*; do
+    convert "$img" -resize 224x224 "val224x224/$syn/$(basename "$img")"
+  done
+done
+``
+and then let's create the `val_map.txt` file to match the format expected by MLPerf:
+``
+#!/usr/bin/env bash
+wget https://gist.githubusercontent.com/aaronpolhamus/964a4411c0906315deb9f4a3723aac57/raw/aa66dd9dbf6b56649fa3fab83659b2acbf3cbfd1/map_clsloc.txt
+i=0
+rm -f val_map.txt
+while IFS="" read -r p || [ -n "$p" ]; do
+  synset="$(printf '%s\n' "$p" | cut -d ' ' -f1)"
+  if [ -d "val224x224/$synset" ]; then
+    for f in "val224x224/$synset/"*; do
+      echo "$f $i" >> val_map.txt
+    done
+  fi
+  i=$((i + 1))
+done < <( sort map_clsloc.txt )
+``
+then back on the mlperf directory we download our model:
+``
+wget https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+``
+and finally run!
+``
+DATA_DIR=/mnt/sda3/data/imagenet/imagenette2 time ./run_local.sh onnxruntime resnet50 cpu --accuracy
+``
+which gives on <Ciro Santilli's hardware/P51>:
+``
+TestScenario.SingleStream qps=164.06, mean=0.0267, time=23.924, acc=87.134%, queries=3925, tiles=50.0:0.0264,80.0:0.0275,90.0:0.0287,95.0:0.0306,99.0:0.0401,99.9:0.0464
+``
+where `qps` presumably means "querries per second". And the `time` results:
+``
+446.78user 33.97system 2:47.51elapsed 286%CPU (0avgtext+0avgdata 964728maxresident)k
+``
+The `time=23.924` is much smaller than the `time` executable because of some lengthy pre-loading (TODO not sure what that means) that gets done every time:
+``
+INFO:imagenet:loaded 3925 images, cache=0, took=52.6sec
+INFO:main:starting TestScenario.SingleStream
+``
+
+Let's try on the <GPU> now:
+``
+DATA_DIR=/mnt/sda3/data/imagenet/imagenette2 time ./run_local.sh onnxruntime resnet50 gpu --accuracy
+``
+which gives:
+``
+TestScenario.SingleStream qps=130.91, mean=0.0287, time=29.983, acc=90.395%, queries=3925, tiles=50.0:0.0265,80.0:0.0285,90.0:0.0405,95.0:0.0425,99.0:0.0490,99.9:0.0512
+455.00user 4.96system 1:59.43elapsed 385%CPU (0avgtext+0avgdata 975080maxresident)k
+``
+TODO lower `qps` on GPU!
+
+= Deep learning is mostly matrix multiplication
+{parent=Deep learning}
+
+* https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+* https://math.stackexchange.com/questions/41706/practical-uses-of-matrix-multiplication/4647422#4647422
+
+Notably, <convolution> can be implemented in terms of <GEMM>:
+* https://stackoverflow.com/questions/64506489/what-does-it-mean-to-say-convolution-implementation-is-based-on-gemm-matrix-mul
+* https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+
+= Deep learning framework
+{parent=Deep learning}
+{wiki}
+
+= ONNX
+{c}
+{parent=Deep learning framework}
+{tag=Good}
+{wiki}
+
+The most important thing this project provides appears to be the `.onnx` file format, which represents <ANN models>, pre-trained or not.
+
+<Deep learning frameworks> can then output such `.onnx` files for interchangeability and serialization.
+
+Some examples:
+* <activatedgeek LeNet-5> produces a trained `.onnx` from <PyTorch>
+* <MLperf v2.1 ResNet> can use `.onnx` as a pre-trained model
+
+The cool thing is that <ONNX> can then run <inference> in an uniform manner on a variety of devices without installing the <deep learning framework> used for. It's a bit like having a kind of portable executable. Neat.
+
+= Netron
+{c}
+{parent=ONNX}
+
+https://netron.app/
+
+<ONNX> visualizer.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/e9225ddf4bb8ce4bad8cc2a9d6503d683dec5db6/activatedgeek_LeNet-5_onnx.svg]
+{title=<Netron> visualization of the <activatedgeek LeNet-5> <ONNX> output}
+{disambiguate=netron}
+{height=1000}
+
+= JAX
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+= PyTorch
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+= python/pytorch/matmul.py
+{file}
+{parent=PyTorch}
+
+<Matrix multiplication> example.
+
+Fundamental since <deep learning is mostly matrix multiplication>.
+
+<NumPy> does not automatically use the <GPU> for it: https://stackoverflow.com/questions/49605231/does-numpy-automatically-detect-and-use-gpu[], and PyTorch is one of the most notable compatible implementations, as it uses the same memory structure as NumPy arrays.
+
+Sample runs on <Ciro Santilli's hardware/P51> to observe the <GPU> speedup:
+``
+$ time ./matmul.py g 10000 1000 10000 100
+real    0m22.980s
+user    0m22.679s
+sys     0m1.129s
+$ time ./matmul.py c 10000 1000 10000 100
+real    1m9.924s
+user    4m16.213s
+sys     0m17.293s
+``
+
+= PyTorch model
+{c}
+{parent=PyTorch}
+
+This section lists specific models that have been implemented in <PyTorch>.
+
+= torchvision
+{c}
+{parent=PyTorch}
+{tag=Pre-trained computer vision model}
+
+Contains several <computer vision> models, e.g. <ResNet>, all of them including <pre-trained computer vision model>[pre-trained] versions on some dataset, which is quite sweet.
+
+Documentation: https://pytorch.org/vision/stable/index.html
+
+= torchvision ResNet
+{parent=torchvision}
+
+https://pytorch.org/vision/0.13/models.html has a minimal runnable example adapted to \a[python/pytorch/resnet_demo.py].
+
+That example uses a <ResNet> pre-trained on the <COCO dataset> to do some inference, tested on <Ubuntu 22.10>:
+``
+cd python/pytorch
+wget -O resnet_demo_in.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg
+./resnet_demo.py resnet_demo_in.jpg resnet_demo_out.jpg
+``
+This first downloads the model, which is currently 167 MB.
+
+We know it is COCO because of the docs: https://pytorch.org/vision/0.13/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html which explains that 
+``
+FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+``
+is an alias for:
+``
+FasterRCNN_ResNet50_FPN_V2_Weights.COCO_V1
+``
+
+The runtime is relatively slow on <Ciro Santilli's hardware/P51>, about 4.7s.
+
+After it finishes, the program prints the recognized classes:
+``
+['bird', 'banana']
+``
+so we get the expected `bird`, but also the more intriguing `banana`.
+
+By looking at the output image with bounding boxes, we understand where the banana came from!
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg]
+{title=python/pytorch/resnet_demo_in.jpg}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/python/pytorch/resnet_demo_out.jpg]
+{title=python/pytorch/resnet_demo_out.jpg}
+{description=The beak was of course a banana, not a beak!}
+
+= TensorFlow
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+= TensorFlow quantum
+{c}
+{parent=TensorFlow}
+{tag=Quantum computing}
+
+Version of <TensorFlow> with a <Cirq> backend that can run in either <quantum computers> or <classical computer> simulations, with the goal of potentially speeding up <deep learning> applications on a <quantum computer> some day.
+
+= Computer vision
+{parent=Machine learning}
+{wiki}
+
+= Object detection
+{parent=Computer vision}
+
+= Image segmentation
+{parent=Object detection}
+{wiki}
+
+= Face detection
+{parent=Object detection}
+{wiki}
+
+<Open source software> reviews:
+* https://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures detect + crop
+* https://superuser.com/questions/420885/is-there-a-face-recognition-command-line-tool
+
+= Facial recognition system
+{parent=Face detection}
+{tag=Classification problem}
+{tag=Biometrics}
+{wiki}
+
+= Facial recognition
+{synonym}
+
+= Face recognition
+{synonym}
+
+<Open source software> reviews:
+* https://softwarerecs.stackexchange.com/questions/1988/floss-tools-for-facial-recognition/90995#90995
+* https://superuser.com/questions/420885/is-there-a-face-recognition-command-line-tool
+
+= Face representation standard
+{parent=Facial recognition system}
+
+Is there nothing standardized besides just raw images?
+
+E.g. https://www.nist.gov/system/files/documents/2021/02/25/ansi-nist_2007_griffin-face-std-m1.pdf from 2005 by <NIST> says:
+> Specify face images because there is no agreement on a standard face recognition template - Unlike <finger minutiae> ...
+so comparing it to <fingerprint file formats> such as <ISO 19794-2>. Sad!
+
+= Face clustering
+{parent=Facial recognition system}
+{tag=Cluster analysis}
+
+Given multiple <images>, decide how many people show up these images and when each person shows up.
+
+One particular case of this is for <videos>, where you also have a timestamp for each image, and way more data.
+
+Bibliography:
+* https://github.com/kunalagarwal101/Face-Clustering
+* https://www.reddit.com/r/software/comments/1aiv3yu/software_that_can_index_my_personal_photos_so_i/
+
+= Porn image detection
+{parent=Object detection}
+{tag=Pornography}
+
+* https://github.com/topics/nsfw-recognition
+* https://stackoverflow.com/questions/14396211/how-to-recognise-adult-content-programmatically
+
+= Pre-trained computer vision model
+{parent=Computer vision}
+
+= Pre-trained computer vision model CLI
+{parent=Pre-trained computer vision model}
+
+= yolov5-pip
+{c}
+{parent=Pre-trained computer vision model CLI}
+{tag=YOLO model}
+
+https://github.com/fcakyon/yolov5-pip
+
+OK, now we're talking, two liner and you get a window showing <bounding box> object detection from your <webcam> feed!
+``
+python -m pip install -U yolov5==7.0.9
+yolov5 detect --source 0
+``
+The accuracy is crap for anything but people. But still. Well done. Tested on <Ubuntu 22.10>, <Ciro Santilli's hardware/P51>.
+
+\Video[https://www.youtube.com/watch?v=1MD3Wn7e6OE]
+{title=fcakyon/yolov5-pip webcam object detection demo by <Ciro Santilli> (2023)}
+
+= Computer vision dataset
+{parent=Computer vision}
+
+= MNIST database
+{c}
+{parent=Computer vision dataset}
+{title2=1998}
+{wiki}
+
+= MNIST
+{c}
+{synonym}
+
+70,000 28x28 grayscale (1 byte per pixel) images of hand-written digits 0-9, i.e. 10 categories. 60k are considered <training data>, 10k are considered for <test data>.
+
+This is THE "<OG>" <computer vision dataset>.
+
+Playing with it is the de-facto <computer vision> <hello world>.
+
+It was on this dataset that <Yann LeCun> made great progress with the <LeNet> model. Running <LeNet> on <MNIST> has to be the most classic computer vision thing ever. See e.g. <activatedgeek LeNet-5> for a minimal and modern <PyTorch> educational implementation.
+
+But it is important to note that as of the 2010's, the benchmark had become too easy for many applications. It is perhaps fair to say that the next big dataset revolution of the same importance was with <ImageNet>.
+
+The dataset could be downloaded from http://yann.lecun.com/exdb/mnist/[] but as of March 2025 it was down and seems to have broken from time to time randomly, so <Wayback Machine> to the rescue:
+``
+wget \
+ https://web.archive.org/web/20120828222752/http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz \
+ https://web.archive.org/web/20120828182504/http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz \
+ https://web.archive.org/web/20240323235739/http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz \
+ https://web.archive.org/web/20240328174015/http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+
+``
+but doing so is kind of pointless as both files use some crazy single-file custom binary format to store all images and labels. OMG!
+
+OK-ish data explorer: https://knowyourdata-tfds.withgoogle.com/#tab=STATS&dataset=mnist
+
+\Image[http://web.archive.org/web/20230430064700im_/https://i.stack.imgur.com/7q9Zg.png]
+{title=<MNIST> image 1 of a '0'}
+
+\Image[http://web.archive.org/web/20230430064700im_/https://i.stack.imgur.com/RemMm.png]
+{title=<MNIST> image 21 of a '0'}
+
+\Image[http://web.archive.org/web/20230430064700im_/https://i.stack.imgur.com/qoTGE.png]
+{title=<MNIST> image 3 of a '1'}
+
+= Extract <MNIST> images
+{c}
+{parent=MNIST database}
+
+= Extracting <MNIST> images
+{synonym}
+
+* https://stackoverflow.com/questions/40427435/extract-images-from-idx3-ubyte-file-or-gzip-via-python/75993239#75993239
+* https://stackoverflow.com/questions/55049511/how-to-download-mnist-images-as-pngs/75993252#75993252
+
+= Best algorithm for <MNIST>
+{c}
+{parent=MNIST database}
+
+The table: https://en.wikipedia.org/w/index.php?title=MNIST_database&oldid=1152541822#Classifiers
+
+= Fashion <MNIST>
+{c}
+{parent=MNIST database}
+{title2=2017}
+{wiki}
+
+Same style as <MNIST>: 28x28 grayscale images, but with clothes rather than hand written digits.
+
+It was designed to be much harder than <MNIST>, and more representative of modern applications, while still retaining the low resolution of <MNIST> for simplicity of training.
+
+\Image[https://web.archive.org/web/20250511105702im_/https://github.com/zalandoresearch/fashion-mnist/raw/master/doc/img/fashion-mnist-sprite.png]
+
+= CIFAR-10
+{c}
+{parent=Computer vision dataset}
+{wiki}
+
+https://www.cs.toronto.edu/~kriz/cifar.html
+
+60,000 tiny 32x32 color images in 10 different classes: airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks.
+
+TODO release date.
+
+This dataset can be thought of as an intermediate between the simplicity of <MNIST>, and a more full blown <ImageNet>.
+
+\Image[https://web.archive.org/web/20250517192041im_/https://www.cs.toronto.edu/~kriz/cifar-10-sample/airplane1.png]
+
+\Image[https://web.archive.org/web/20250517192041im_/https://www.cs.toronto.edu/~kriz/cifar-10-sample/automobile1.png]
+
+\Image[https://web.archive.org/web/20250517192041im_/https://www.cs.toronto.edu/~kriz/cifar-10-sample/bird1.png]
+
+\Image[https://web.archive.org/web/20250517192041im_/https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat1.png]
+
+= #Toronto faces dataset
+{c}
+{parent=Computer vision dataset}
+{title2=TFD}
+
+TODO where to find it: https://www.kaggle.com/general/50987
+
+Cited on original <Generative adversarial network> paper: https://proceedings.neurips.cc/paper_files/paper/2014/file/5ca3e9b122f61f8f06494c97b1afccf3-Paper.pdf
+
+= ImageNet
+{c}
+{parent=Computer vision dataset}
+{tag=Closed standard}
+{title2=2009}
+{wiki}
+
+14 million images with more than 20k categories, typically denoting prominent objects in the image, either common daily objects, or a wild range of animals. About 1 million of them also have <bounding boxes> for the objects. The images have different sizes, they are not all standardized to a single size like <MNIST>https://stackoverflow.com/questions/36109886/what-is-the-resolution-of-an-image-in-imagenet-dataset{ref}.
+
+Each image appears to have a single label associated to it. Care must have been taken somehow with categories, since some images contain severl possible objects, e.g. a person and some object.
+
+In practice, the <ILSVRC> subset of <ImageNet> is the most commonly used dataset.
+
+Official project page: https://www.image-net.org/
+
+The data license is restrictive and forbids commercial usage: https://www.image-net.org/download.php[]. Also as a result you have to login to download the dataset. Super annoying.
+
+How to visualize: https://datascience.stackexchange.com/questions/111756/where-can-i-view-the-imagenet-classes-as-a-hierarchy-on-wordnet
+
+The categories are all part of <WordNet>, which means that there are several parent/child categories such as dog vs type of dog available. <ImageNet1k> only appears to have leaf nodes however (i.e. no "dog" label, just specific types of dog).
+
+A major model that performed well on <ImageNet> starting on 2012 and became notable is <AlexNet>.
+
+= Fei-Fei Li
+{c}
+{parent=ImageNet}
+{wiki}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/c/c7/Fei-Fei_Li_at_AI_for_Good_2017.jpg]
+{title=<Fei-Fei Li>}
+{height=600}
+
+= ImageNet subset
+{c}
+{parent=ImageNet}
+
+Subset generators:
+* https://github.com/mf1024/ImageNet-datasets-downloader[] generates on download, very good. As per https://github.com/mf1024/ImageNet-Datasets-Downloader/issues/14 counts go over the limit due to bad multithreading. Also unfortunately it does not start with a subset of 1k.
+* https://github.com/BenediktAlkin/ImageNetSubsetGenerator
+
+Unfortunately, since <ImageNet> is a <closed standard> no one can upload such pre-made subsets, forcing everybody to download the full dataset, in <ImageNet1k>, which is huge!
+
+= Imagenette
+{c}
+{parent=ImageNet subset}
+{title2=Imagenet10}
+
+https://github.com/fastai/imagenette
+
+An imagenet10 subset by <fast.ai>.
+
+Size of full sized image version: 1.5 GB.
+
+= ImageNet Large Scale Visual Recognition Challenge dataset
+{c}
+{parent=ImageNet subset}
+
+= ILSVRC
+{c}
+{synonym}
+{title2}
+
+= ImageNet1k
+{c}
+{synonym}
+{title2}
+
+Subset of <ImageNet>. About 167.62 GB in size according to https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data[].
+
+Contains 1,281,167 images and exactly 1k categories which is why this dataset is also known as ImageNet1k: https://datascience.stackexchange.com/questions/47458/what-is-the-difference-between-imagenet-and-imagenet1k-how-to-download-it
+
+https://www.kaggle.com/competitions/imagenet-object-localization-challenge/overview clarifies a bit further how the categories are inter-related according to <WordNet> relationships:
+> The 1000 object categories contain both internal nodes and leaf nodes of ImageNet, but do not overlap with each other.
+
+https://image-net.org/challenges/LSVRC/2012/browse-synsets.php lists all 1k labels with their <WordNet> IDs.
+``
+n02119789: kit fox, Vulpes macrotis
+n02100735: English setter
+n02096294: Australian terrier
+``
+There is a bug on that page however towards the middle:
+``
+n03255030: dumbbell
+href="ht:
+n02102040: English springer, English springer spaniel
+``
+and there is one missing label if we ignore that dummy `href=` line. A thinkg of beauty!
+
+Also the lines are not sorted by synset, if we do then the first three lines are:
+``
+n01440764: tench, Tinca tinca
+n01443537: goldfish, Carassius auratus
+n01484850: great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias
+``
+
+https://gist.github.com/aaronpolhamus/964a4411c0906315deb9f4a3723aac57 has lines of type:
+``
+n02119789 1 kit_fox
+n02100735 2 English_setter
+n02110185 3 Siberian_husky
+``
+therefore numbered on the exact same order as https://image-net.org/challenges/LSVRC/2012/browse-synsets.php
+
+https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file with their benchmark IDs.
+``
+{0: 'tench, Tinca tinca',
+ 1: 'goldfish, Carassius auratus',
+ 2: 'great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias',
+``
+therefore numbered on sorted order of https://image-net.org/challenges/LSVRC/2012/browse-synsets.php
+
+The official line numbering in-benchmark-data can be seen at `LOC_synset_mapping.txt`, e.g. https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data?select=LOC_synset_mapping.txt
+``
+n01440764 tench, Tinca tinca
+n01443537 goldfish, Carassius auratus
+n01484850 great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias
+``
+
+https://huggingface.co/datasets/imagenet-1k also has some useful metrics on the split:
+* train: 1,281,167 images, 145.7 GB zipped
+* validation: 50,000 images, 6.67 GB zipped
+* test: 100,000 images, 13.5 GB zipped
+
+= ImageNet1k download
+{parent=ImageNet}
+
+The official page: https://www.image-net.org/challenges/LSVRC/index.php points to a download link on <Kaggle>: https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data Kaggle says that the size is 167.62 GB!
+
+To download from Kaggle, create an API token on kaggle.com, which downloads a `kaggle.json` file then:
+``
+mkdir -p ~/.kaggle
+mv ~/down/kaggle.json ~/.kaggle
+python3 -m pip install kaggle
+kaggle competitions download -c imagenet-object-localization-challenge
+``
+The download speed is wildly server/limited and take A LOT of hours. Also, the tool does not seem able to pick up where you stopped last time.
+
+Another download location appears to be: https://huggingface.co/datasets/imagenet-1k on <Hugging Face>, but you have to login due to their license terms. Once you login you have a very basic data explorer available: https://huggingface.co/datasets/imagenet-1k/viewer/default/train[].
+
+Bibliography:
+* http://www.adeveloperdiary.com/data-science/computer-vision/how-to-prepare-imagenet-dataset-for-image-classification/
+* https://stackoverflow.com/questions/65685437/access-to-imagenet-data-download
+
+= ImageNet competition
+{c}
+{parent=ImageNet}
+
+= ImageNet 2015
+{c}
+{parent=ImageNet competition}
+
+= COCO dataset
+{c}
+{parent=Computer vision dataset}
+{title2=2014}
+
+https://cocodataset.org
+
+From https://cocodataset.org/[]:
+* 330K images (>200K labeled)
+* 1.5 million object instances
+* 80 object categories
+* 91 stuff categories
+* 5 captions per image. A caption is a short textual description of the image.
+
+So they have relatively few object labels, but their focus seems to be putting a bunch of objects on the same image. E.g. they have 13 cat plus pizza photos. Searching for such weird combinations is kind of fun.
+
+Their official dataset explorer is actually good: https://cocodataset.org/#explore
+
+And the objects don't just have bounding boxes, but detailed polygons.
+
+Also, images have captions describing the relation between objects:
+> a black and white cat standing on a table next to a pizza.
+Epic.
+
+This dataset is kind of cool.
+
+Original 2014 <paper> by <Microsoft>: https://arxiv.org/abs/1405.0312
+
+= COCO subset
+{c}
+{parent=COCO dataset}
+
+= COCO 2017
+{c}
+{parent=COCO subset}
+
+This is the one used on <MLperf v2.1 ResNet>, likely one of the most popular choices out there.
+
+2017 challenge subset:
+* train: 118k images, 18GB
+* validation: 5k images, 1GB
+* test: 41k images, 6GB
+
+= Open Images dataset
+{c}
+{parent=Computer vision dataset}
+{title2=2014-}
+
+https://storage.googleapis.com/openimages/web/index.html
+
+TODO vs <COCO dataset>.
+
+As of v7:
+* ~9M images
+* 600 object classes
+* <bounding boxes>
+* visual relatoinships are really hard: https://storage.googleapis.com/openimages/web/factsfigures_v7.html#visual-relationships e.g. "person kicking ball": https://storage.googleapis.com/openimages/web/visualizer/index.html?type=relationships&set=train&c=kick
+* https://google.github.io/localized-narratives/ localized narratives is ludicrous, you can actually hear the (<Indian> women mostly) annotators describing the image while hovering their mouses to point what they are talking about). They are clearly bored out of their minds the poor people!
+
+The images and annotations are both under <CC BY>, with <Google> as the copyright holder.
+
+= Optical character recognition
+{parent=Computer vision}
+{wiki}
+
+= OCR
+{c}
+{synonym}
+{title2}
+
+= Machine learning company
+{parent=Machine learning}
+
+This section is about companies that primarily specialize in <machine learning>.
+
+The term "machine learning company" is perhaps not great as it could be argued that any of the <Big Tech> are leaders and sometimes, especially in the case of <Google>, has a main product that is arguably a form of <machine learning>.
+
+Most of the companies in this section likely going to be from the <AI boom> era.
+
+= Anthropic
+{c}
+{parent=Machine learning company}
+{tag=American company}
+{wiki}
+
+= Literal Labs
+{c}
+{parent=Machine learning company}
+{tag=British company}
+{tag=Neuro-symbolic AI}
+
+https://www.literal-labs.ai/
+
+= Rainbird Technologies
+{c}
+{parent=Machine learning company}
+{tag=British company}
+{tag=Neuro-symbolic AI}
+
+= Reflection AI
+{c}
+{parent=Machine learning company}
+
+https://reflection.ai/
+> Building Frontier Open Intelligence
+
+= Symbolica
+{c}
+{parent=Machine learning company}
+{tag=French company}
+{tag=Neuro-symbolic AI}
+
+https://www.symbolica.ai/
+
+= H Company
+{c}
+{parent=Machine learning company}
+{tag=French company}
+
+= Holistic AI
+{c}
+{synonym}
+{title2}
+
+Their one letter name is extremelly annyoing! The previous "<Holistic AI>" was so much saner.
+
+https://www.hcompany.ai/
+
+They claim to want to achieve <AGI>, but it is not clear if they are just going to try larger <LLMs> or if they have something actual in mind.
+
+Their main initial product thing seems to be browser automation which is cool.
+
+= Hugging Face
+{c}
+{parent=Machine learning company}
+{wiki}
+
+https://huggingface.co/
+
+Interesting website, hosts mostly:
+* datasets
+* <ANN models>
+* some live running demos called "apps": e.g. https://huggingface.co/spaces/ronvolutional/ai-pokemon-card
+
+What's the point of this website vs <GitHub>? https://www.reddit.com/r/MLQuestions/comments/ylf4be/whats_the_deal_with_hugging_faces_popularity/
+
+= InstaDeep
+{c}
+{parent=Machine learning company}
+{wiki}
+
+= Mistral AI
+{c}
+{parent=Machine learning company}
+{wiki}
+
+= Poolside AI
+{c}
+{parent=Machine learning company}
+
+https://poolside.ai/
+
+= Exploration-exploitation dilemma
+{parent=Machine learning}
+{wiki}
+
+= Ontology
+{parent=Machine learning}
+{wiki}
+
+= Ontology language
+{parent=Ontology}
+{wiki}
+
+= Knowledge graph
+{parent=Ontology}
+{wiki}
+
+Many people believe that <knowledge graphs> are a key element of <AGI>: <Knowledge graph as a component of AGI>.
+
+Bibligraphy:
+* https://www.knowledgegraph.tech/ The <Knowledge graph> Conference
+
+= Knowledge graph as a component of AGI
+{c}
+{parent=Knowledge graph}
+{tag=Elements of AGI}
+
+Related:
+* https://twitter.com/yoheinakajima/status/1759107727463518702 "smallest RAG test possible of an indirect relationship on a knowledge graph"
+* https://www.quora.com/Do-knowledge-graphs-bases-have-a-place-in-the-pursuit-of-artificial-general-intelligence-AGI-or-can-their-features-be-better-represented-in-a-learning-based-system "Do knowledge graphs / bases have a place in the pursuit of artificial general intelligence (AGI), or can their features be better represented in a learning-based system?"
+
+= Knowledge graph representation of natural language
+{parent=Knowledge graph}
+{tag=LLM}
+
+* https://stackoverflow.com/questions/3408867/representing-natural-language-as-rdf
+
+  Mentions the interesting sounding "Attempto" project:
+  * http://attempto.ifi.uzh.ch/site/
+  * https://github.com/Attempto/ACE-in-GF
+  * http://attempto.ifi.uzh.ch/site/docs/writing_owl_in_ace.html
+
+= Knowledge graph and LLMs
+{parent=Knowledge graph representation of natural language}
+{tag=LLM}
+
+https://github.com/RManLuo/Awesome-LLM-KG
+
+\Video[https://www.youtube.com/watch?v=knDDGYHnnSI]
+{title=GraphRAG: The Marriage of Knowledge Graphs and RAG by Emil Eifrem}
+
+\Video[https://www.youtube.com/watch?v=ww99npDh4cg]
+{title=The Future of <Knowledge graphs> in a World of <LLMs> by <Denny Vrandečić>}
+
+= Resource Description Framework
+{parent=Knowledge graph}
+{wiki}
+
+= RDF
+{c}
+{synonym}
+{title2}
+
+This is one of those <idealistic> <W3C> specifications with super messy implementations all over.
+
+= RDF language
+{c}
+{parent=Resource Description Framework}
+
+= Terse RDF
+{parent=RDF language}
+{title2=.ttl}
+{wiki=Turtle_(syntax)}
+
+= Turtle RDF
+{synonym}
+
+= Web Ontology Language
+{parent=RDF language}
+{title2=OWL}
+{wiki}
+
+Reasonable introduction: https://www.w3.org/TR/owl2-primer/
+
+= RDF Turtle
+{synonym}
+
+Example: \a[rdf/vcard.ttl].
+
+Implemented by:
+* <Apache Jena>
+
+= Semantic triple
+{parent=Resource Description Framework}
+{wiki}
+
+= Triplestore
+{parent=Semantic triple}
+{wiki}
+
+https://github.com/totogo/awesome-knowledge-graph/tree/d7d8b80e83e21a57042876ca76a9c31be6ba47d4?tab=readme-ov-file#triple-stores
+
+= Semantic triple HOWTO
+{parent=Semantic triple}
+
+= Conditional in semantic triple
+{parent=Semantic triple HOWTO}
+
+https://stackoverflow.com/questions/69610970/how-to-store-conditional-data-in-rdf
+
+= SPARQL
+{c}
+{parent=Semantic triple}
+{wiki}
+
+= SPARQL tutorial
+{c}
+{parent=SPARQL}
+
+In this tutorial, we will use the <Jena SPARQL hello world> as a starting point. Tested on <Apache Jena> 4.10.0.
+
+Basic query on \a[rdf/vcard.ttl] <RDF Turtle> data to find the person with full name "John Smith":
+``
+sparql --data=rdf/vcard.ttl --query=<( printf '%s\n' 'SELECT ?x WHERE { ?x <http://www.w3.org/2001/vcard-rdf/3.0#FN> "John Smith" }')
+``
+Output:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+To avoid writing `http://www.w3.org/2001/vcard-rdf/3.0#` a billion times as queries grow larger, we can use the `PREFIX` syntax:
+``
+sparql --data=rdf/vcard.ttl --query=<( printf '%s\n' '
+PREFIX vc: <http://www.w3.org/2001/vcard-rdf/3.0#>
+SELECT ?x
+WHERE { ?x vc:FN "John Smith" }
+')
+``
+Output:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+Bibliography:
+* <UniProt> contains some amazing examples runnable on their servers: https://sparql.uniprot.org/.well-known/sparql-examples/
+
+= SPARQL implementation
+{c}
+{parent=SPARQL}
+
+= Apache Jena
+{c}
+{parent=SPARQL implementation}
+{tag=Java library}
+{wiki}
+
+Bibliography:
+* https://www.reddit.com/r/semanticweb/comments/131wzn1/whats_the_best_way_to_work_with_apache_jena/
+
+= Apache Jena CLI tools setup
+{parent=Apache Jena}
+
+The <CLI> tools don't appear to be packaged for <Ubuntu 23.10>? Annoying... There is a package `libapache-jena-java` but it doesn't contain any binaries, only <Java> library files.
+
+To run the CLI tools easily we can download the prebuilt:
+``
+sudo apt install openjdk-22-jre
+wget https://dlcdn.apache.org/jena/binaries/apache-jena-4.10.0.zip
+unzip apache-jena-4.10.0.zip
+cd apache-jena-4.10.0
+export JENA_HOME="$(pwd)"
+export PATH="$PATH:$(pwd)/bin"
+``
+and we can confirm it works with:
+``
+sparql -version
+``
+which outputs:
+``
+Apache Jena version 4.10.0
+``
+
+If your <Java> is too old then then running `sparql` with the prebuilts fails with:
+``
+Error: A JNI error has occurred, please check your installation and try again
+Exception in thread "main" java.lang.UnsupportedClassVersionError: arq/sparql has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+        at java.lang.ClassLoader.defineClass1(Native Method)
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:756)
+        at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+        at java.net.URLClassLoader.defineClass(URLClassLoader.java:473)
+        at java.net.URLClassLoader.access$100(URLClassLoader.java:74)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:369)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:363)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:362)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+        at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:621)
+``
+
+Build from source is likely something like:
+``
+sudo apt install maven openjdk-22-jdk
+git clone https://github.com/apache/jena --branch jena-4.10.0 --depth 1
+cd jena
+mvn clean install
+``
+TODO test it.
+
+If you make the mistake of trying to run the source tree without build:
+``
+git clone https://github.com/apache/jena --branch jena-4.10.0 --depth 1
+cd jena
+export JENA_HOME="$(pwd)"
+export PATH="$PATH:$(pwd)/apache-jena/bin"
+``
+it fails with:
+``
+Error: Could not find or load main class arq.sparql
+``
+as per: https://users.jena.apache.narkive.com/T5TaEszT/sparql-tutorial-querying-datasets-error-unrecognized-option-graph
+
+= Jena SPARQL hello world
+{parent=Apache Jena}
+{tag=Hello world}
+
+They have a tutorial at: https://jena.apache.org/tutorials/sparql.html
+
+Once you've done the <Apache Jena CLI tools setup> we can query all users with Full Name (FN) "John Smith" directly fom the \a[rdf/vcard.ttl] <Turtle RDF> file with the \a[rdf/vcard.rq] <SPARQL> query:
+``
+sparql --data=rdf/vcard.ttl --query=rdf/vcard.rq
+``
+and that outputs:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+Bibliography:
+* https://stackoverflow.com/questions/41959550/cli-tool-ala-csvsql-for-sparql-and-ttl-n3-files-hello-world-example-for
+
+= RDFlib
+{c}
+{parent=SPARQL implementation}
+{tag=Python library}
+{wiki}
+
+Hello world: https://stackoverflow.com/questions/16829351/is-there-a-hello-world-example-for-sparql-with-rdflib
+
+= Virtuoso Universal Server
+{c}
+{parent=SPARQL implementation}
+{wiki}
+
+= Hyponymy and hypernymy
+{parent=Ontology}
+{title2=is a}
+{wiki}
+
+= Meronymy and holonymy
+{parent=Ontology}
+{title2=is part of}
+{wiki}
+
+= List of ontologies
+{parent=Ontology}
+
+= Cyc
+{c}
+{parent=List of ontologies}
+{title2=1984}
+{wiki}
+
+= Obituary for the greatest monument to logical AGI by Liu Yuxi
+{parent=Cyc}
+
+https://yuxi-liu-wired.github.io/essays/posts/cyc/
+
+= Cycorp
+{c}
+{parent=Cyc}
+
+Many good mentions at: <Obituary for the greatest monument to logical AGI by Liu Yuxi>. They were largely funded by the 
+
+= DBPedia
+{c}
+{parent=List of ontologies}
+{wiki}
+
+It appears to only extract <structured data> from <Wikipedia>, not <natural language>, so it is kind of basic then.
+
+= Wikidata
+{c}
+{parent=List of ontologies}
+{tag=Wikimedia Foundation project}
+{wiki}
+
+= Wikibase
+{c}
+{parent=Wikidata}
+{wiki}
+
+The software that powers <Wikidata>. <Wikidata> is an instance of <Wikibase>.
+
+= Abstract Wikipedia
+{parent=Wikidata}
+{wiki}
+
+<MediaWiki> extension that does this:
+``
+... the capital city is [[Has capital::Berlin]] ...
+``
+It diddn't take off and is not in main <Wikipedia>. Kind of cool though.
+
+= Semantic MediaWiki
+{parent=Wikidata}
+{wiki}
+
+= WordNet
+{c}
+{parent=List of ontologies}
+{wiki}
+
+Groups concepts by <hyponymy and hypernymy> and <meronymy and holonymy>. That actually makes a lot of sense! TODO: is there a clear separation between hyponymy and meronymy?
+
+Browse: http://wordnetweb.princeton.edu/perl/webwn Appears dead as of 2025 lol.
+> The online version of WordNet has been deprecated and is no longer available.
+
+Does not contain intermediat scientific terms, only very common ones, e.g. no mention, of "<Josephson effect>", "<photoelectric effect>"
+
+= Machine learning bibliography
+{parent=Machine learning}
+
+= fast.ai
+{c}
+{parent=Machine learning bibliography}
+
+A pair of Austrailan <deep learning> training provider/consuntants that have produced a lot of good free learning materials:
+* https://github.com/fastai
+* https://www.fast.ai/
+* https://twitter.com/fastdotai
+Authors:
+* https://twitter.com/jeremyphoward Jeremy Howard
+* https://twitter.com/math_rachel Rachel Thomas
+
+= Machine learning YouTube channel
+{parent=Machine learning bibliography}
+
+= Two Minute Papers
+{parent=Machine learning bibliography}
+
+https://www.youtube.com/@TwoMinutePapers
+
+The approach of this channel of exposing recent research papers is a "honking good idea" that should be taken to other areas beyond just <machine learning>. It takes a very direct stab at <the missing link between basic and advanced>!

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>css/flex.html - Ciro Santilli</title>
+<meta property="og:title" content="css/flex.html - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/css/flex.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/css/flex.html">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/css/flex.html"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">css/flex.html</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/css/flex.html"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/css">css</a> / <a href="../../_raw/css/flex.html">flex.html</a></b></div></nav></div><div class="p"><b>css/flex.html</b></div><div class="code"><div><pre><code>&lt;!doctype html&gt;
+&lt;html lang=en&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8&gt;
+&lt;style&gt;
+.container {
+  display: flex;
+  width: 400px;
+}
+.container .child-1 {
+  background-color: red;
+  height: 2em;
+}
+.container .child-2 {
+  background-color: blue;
+  height: 2em;
+}
+.container .subchild-1 {
+  background-color: green;
+}
+.container .subchild-2 {
+  background-color: yellow;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+ruler
+&lt;div class="container"&gt;
+  &lt;div style="width: 50px; background-color: magenta;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: cyan;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: magenta;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: cyan;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: magenta;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: cyan;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: magenta;"&gt;50&lt;/div&gt;
+  &lt;div style="width: 50px; background-color: cyan;"&gt;50&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 1 (the default). child-1 wants 100, child-2 wants 150, we have 150 left to 400. So divide this 150 equally, 75 each. Thus adds 75 (175 = 100 + 75) to child-1 and 75 to child-2 (225 = 150 + 75)
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1;"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1;"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 1. Analogous, adds 50 to each.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1;"&gt;&lt;div class="subchild-1" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1;"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 1 flex-basis: 150px. child-1 wants to have 150, just like child-2. So add 50 each.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1; flex-basis:  150px;"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1;"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 1 flex-basis 100. flex-basis is still used as the value that counts even if it is smaller than the minimal content size.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1; flex-basis:  100px;"&gt;&lt;div class="subchild-1" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1;"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 2. child-1 wants 100, child-2 wants 200. We have 100 left to 400. Because of flex-grow 2, child-2 will grow 2x more than child-1, so child-1 grows 33 from 100 to 133 and child-2 grows 67 from 200 to 267
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1;"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 2;"&gt;&lt;div class="subchild-2" style="width: 200px"&gt;200&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 2
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1;"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 2;"&gt;&lt;div class="subchild-2" style="width: 250px"&gt;250&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 0 1. child-1 simply cannot grow, so child-2 takes up all remaining space.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 0"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1"&gt;&lt;div class="subchild-2" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 0 0. How much is 300 divided by 0? Doesn't matter, if neither can grow we go below the min.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 0"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 0"&gt;&lt;div class="subchild-2" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+No more space left, all fits perfectly.
+&lt;div class="container"&gt;
+  &lt;div class="child-1"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2"&gt;&lt;div class="subchild-2" style="width: 300px"&gt;300&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-basis 200. child-1 wants to be 200, child-2 also 200, there is enough space, so let child-1 be 200.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-basis: 200px"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2"&gt;&lt;div class="subchild-2" style="width: 200px"&gt;200&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-basis 200. child-1 wants to be 200, but child-2 needs 250, so we can only give child-1 50
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-basis: 200px"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2"&gt;&lt;div class="subchild-2" style="width: 250px"&gt;250&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-basis 200 flex-shrink 0. child-1 refuses to shrink due to shrink 0, so we have no choice but to overflow the container.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-basis: 200px; flex-shrink: 0;"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2"&gt;&lt;div class="subchild-2" style="width: 250px"&gt;250&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-basis 300 300. Both want 300px. There isn't enough space, so we shrink both by an equal amount, from 300 to 150.
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-basis: 300px"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-basis: 300px"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-basis 300 300 flex-shrink 2 1. This time, child-1 will shrink 2x more than child-2. We need to shrink from 600 to 400, child-2 shrinks 200/3 = 66 from 300 to 233, and child-1 shrinks 2*66 = 133 from 300 to 167
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-basis: 300px;flex-shrink: 2;"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-basis: 300px;flex-shrink: 1;"&gt;&lt;div class="subchild-2" style="width: 150px"&gt;150&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+minimal content size doesn't fit, nothing we can do about it
+&lt;div class="container"&gt;
+  &lt;div class="child-1"&gt;&lt;div class="subchild-1" style="width: 100px"&gt;100&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2"&gt;&lt;div class="subchild-2" style="width: 400px"&gt;400&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 0 1 + reflowing text content
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 0; height: auto;"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1; height: auto;"&gt;&lt;div class="subchild-2"&gt;asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 1 1 + reflowing text content
+&lt;div class="container"&gt;
+  &lt;div class="child-1" style="flex-grow: 1; height: auto;"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1; height: auto;"&gt;&lt;div class="subchild-2"&gt;asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+flex-grow 0 1 + reflowing text content, and align-items center
+&lt;div class="container" style="align-items: center;"&gt;
+  &lt;div class="child-1" style="flex-grow: 0; height: auto;"&gt;&lt;div class="subchild-1" style="width: 50px"&gt;50&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="child-2" style="flex-grow: 1; height: auto;"&gt;&lt;div class="subchild-2"&gt;asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+for (let container of document.getElementsByClassName('container')) {
+  const widths = [];
+  for (let child of container.children) {
+    widths.push(child.offsetWidth)
+  }
+  container.insertAdjacentHTML('afterEnd', `&lt;div&gt;widths: ${widths.join(' ')}&lt;/div&gt;`)
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

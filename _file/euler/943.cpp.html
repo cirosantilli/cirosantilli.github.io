@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>euler/943.cpp - Ciro Santilli</title>
+<meta property="og:title" content="euler/943.cpp - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/euler/943.cpp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/euler/943.cpp">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/euler/943.cpp"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">euler/943.cpp</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/euler/943.cpp"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/euler">euler</a> / <a href="../../_raw/euler/943.cpp">943.cpp</a></b></div></nav></div><div class="p"><b>euler/943.cpp</b></div><div class="code"><div><pre><code>// https://github.com/lucky-bai/projecteuler-solutions/issues/100#issuecomment-3552252592
+
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+namespace {
+using u64 = unsigned long long;
+using u128 = __uint128_t;
+
+struct Result {
+    u64 count_a = 0;
+    u64 count_b = 0;
+    u64 next_state = 0;
+
+    u64 total() const { return count_a + count_b; }
+};
+
+struct KolakoskiSolver {
+    int a;
+    int b;
+    unordered_map&lt;u64, Result&gt; cache;
+
+    explicit KolakoskiSolver(int aa, int bb) : a(aa), b(bb) {
+        cache.reserve(1 &lt;&lt; 15);
+    }
+
+    Result calc(u64 state, int level, u64 maxlen) {
+        u64 length_bit = 2ULL &lt;&lt; level;
+        u64 bit = state &amp; length_bit;
+        u64 run_len = bit ? static_cast&lt;u64&gt;(b) : static_cast&lt;u64&gt;(a);
+        u64 count = min(run_len, maxlen);
+
+        if (level == 0) {
+            Result res;
+            if ((state &amp; 1ULL) == 0ULL) {
+                res.count_a = count;
+            } else {
+                res.count_b = count;
+            }
+            res.next_state = state ^ 1ULL;
+            return res;
+        }
+
+        u64 produced_a = 0;
+        u64 produced_b = 0;
+        u64 substate = state ^ bit;
+        for (u64 i = 0; i &lt; count; ++i) {
+            u64 child_key = substate + (2ULL &lt;&lt; level);
+            Result child;
+            auto it = cache.find(child_key);
+            if (it != cache.end()) {
+                u64 child_total = it-&gt;second.count_a + it-&gt;second.count_b;
+                if (produced_a + produced_b + child_total &lt;= maxlen) {
+                    child = it-&gt;second;
+                } else {
+                    child = calc(substate, level - 1, maxlen - (produced_a + produced_b));
+                }
+            } else {
+                child = calc(substate, level - 1, maxlen - (produced_a + produced_b));
+            }
+            produced_a += child.count_a;
+            produced_b += child.count_b;
+            substate = child.next_state;
+        }
+
+        Result res;
+        res.count_a = produced_a;
+        res.count_b = produced_b;
+        res.next_state = substate ^ bit ^ (1ULL &lt;&lt; level);
+        cache[state + (4ULL &lt;&lt; level)] = res;
+        return res;
+    }
+};
+
+struct CountsAB {
+    u64 count_a;
+    u64 count_b;
+    int level_used;
+};
+
+CountsAB evaluate_counts(int a, int b, u64 limit) {
+    KolakoskiSolver solver(a, b);
+    int level = 0;
+    Result res{};
+    do {
+        res = solver.calc(0ULL, level, limit);
+        ++level;
+    } while (res.count_a + res.count_b &lt; limit &amp;&amp; level &lt; 64);
+    if (res.count_a + res.count_b &lt; limit) {
+        throw runtime_error("Insufficient level depth");
+    }
+    return CountsAB{res.count_a, res.count_b, level - 1};
+}
+
+u64 compute_T(int a, int b, u64 limit) {
+    CountsAB counts = evaluate_counts(a, b, limit);
+    u128 sum = static_cast&lt;u128&gt;(counts.count_a) * static_cast&lt;u128&gt;(a) +
+               static_cast&lt;u128&gt;(counts.count_b) * static_cast&lt;u128&gt;(b);
+    return static_cast&lt;u64&gt;(sum);
+}
+
+} // namespace
+
+int main(int argc, char **argv) {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    constexpr u64 MOD = 2233222333ULL;
+    constexpr u64 N = 22332223332233ULL;
+
+    if (argc == 4) {
+        int a = stoi(argv[1]);
+        int b = stoi(argv[2]);
+        u64 limit = stoull(argv[3]);
+        if (a &lt; 2 || b &lt; 2 || a &gt; 223 || b &gt; 223 || a == b) {
+            cerr &lt;&lt; "Invalid parameters" &lt;&lt; '\n';
+            return 1;
+        }
+        CountsAB counts = evaluate_counts(a, b, limit);
+        u64 value = static_cast&lt;u64&gt;(counts.count_a * static_cast&lt;u64&gt;(a) +
+                                     counts.count_b * static_cast&lt;u64&gt;(b));
+        cout &lt;&lt; value &lt;&lt; '\n';
+        return 0;
+    }
+
+    u64 total = 0ULL;
+    for (int a = 2; a &lt;= 223; ++a) {
+        for (int b = 2; b &lt;= 223; ++b) {
+            if (a == b) continue;
+            u64 contribution = compute_T(a, b, N) % MOD;
+            total += contribution;
+            total %= MOD;
+        }
+    }
+
+    cout &lt;&lt; total % MOD &lt;&lt; '\n';
+    return 0;
+}
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

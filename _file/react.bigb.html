@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>react.bigb - Ciro Santilli</title>
+<meta property="og:title" content="react.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/react.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/react.bigb">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/react.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">react.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/react.bigb"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../_dir">(root)</a> / <a href="../_raw/react.bigb">react.bigb</a></b></div></nav></div><div class="p"><b>react.bigb</b></div><div class="code"><div><pre><code>= React
+{c}
+{wiki=React_(JavaScript library)}
+
+= React.js
+{c}
+{synonym}
+
+= React
+{disambiguate=JavaScript library}
+{c}
+{synonym}
+
+Website: https://reactjs.org
+
+React officially recommends that you use &lt;Next.js&gt;https://reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains{ref}, so just do it. It just sets up obvious missing functionality from raw React.
+
+React feels like a good. But it also feels impossible to use/learn sometimes.
+
+Its main design goal is to reduce DOM changes to improve rendering times.
+
+And an important side effect of that is that it becomes easier to do stuff of the type:
+* user creates a new comment that appears on screen without page reload
+* comment has a delete button, which is JavaScript callback activated
+and then the new comment easily gets the callback attached to it.
+
+And it also ends up naturally doubling as a template engine.
+
+But React can also be extremely hard to use. It can be very hard to know what you can and cannot do sometimes, then you have to stop and try to understand how react works things better:
+* &lt;cannot update a component while rendering a different component warning in React&gt;
+* Rendered more hooks than during the previous render.
+* cannot use hooks from helpers:
+  * https://www.benmvp.com/blog/helper-functions-react-useeffect-hook/
+  * https://stackoverflow.com/questions/68273638/using-hooks-inside-helper-functions
+  * https://stackoverflow.com/questions/64689409/helper-function-using-hooks-inside-a-functional-component
+The biggest problem is that it is hard to automatically detect such errors, but perhaps this is the same for other frontend stuff. Though when doing &lt;server-side rendering&gt;, the setup should really tell you about such errors, so you don't just discover them in production later on.
+
+Is is also very difficult to understand precisely why hooks run a certain number of times.
+
+Examples under: \a[react].
+* &lt;react/hello.html&gt;{file}
+* \a[react/hello-func.html]: Hello World with a &lt;React function component&gt; instead of classes. At page load console shows:
+  ``
+  Main
+  ``
+  and then after each click:
+  ``
+  onClick
+  Main
+  ``
+  so we understand that `Main` insanely functions both as the constructor and as the render function in &lt;React function components&gt;.
+* \a[react/hello-func-use-callback.html]: same as \a[react/hello-func.html] but with useCallback. TODO no advantages in this case? When does it help?
+* \a[react/hello-without-jsx.html]: Hello World in pure &lt;JavaScript&gt;, without &lt;JSX&gt;. Exactly equivalent to \a[react/hello.html]. Documented at: https://reactjs.org/docs/react-without-jsx.html Understanding this is fundamental to understanding React.
+* \a[react/prop-change.html]: shows what gets called as parameters flow down through the tree.
+
+  By looking at the console, we see all `render` get called every time, even if `props` didn't change, but not the constructors.
+
+  After page load the console contains:
+  ``
+  Main.constructor
+  Main.render
+  NotMain.constructor
+  NotMain.render
+  NotMain2.constructor
+  NotMain2.render
+  ``
+
+  Then, every time we click the button it adds:
+  ``
+  handleClick
+  Main.render
+  NotMain.render
+  NotMain2.render
+  ``
+
+  Note how the `props` of `NotMain` only change every other click, but `render` still gets called every time.
+
+  In order to make `React` not re-render when there are not changes, you have to either:
+  * define the `shouldComponentUpdate` method of class components
+  * wrap functional components in `React.memo`
+
+  Related:
+  * https://stackoverflow.com/questions/61301937/why-is-react-component-rerendering-when-props-has-not-changed
+  * https://stackoverflow.com/questions/67214500/why-react-rerendres-components-even-if-props-didnt-changed
+* \a[react/prop-change-hook.html]: same as \a[react/prop-change.html], but using hooks. The notable difference is that functional components don't have a clear constructor/render separation, the function just gets called every time. Then React does some magic to ensure that `useState` returns the current state, except for the first render where they return the initial value.
+* \a[react/prop-change-hook-use-memo.html]: TODO forgot if this example is useful, was tring to use `useMemo`
+* \a[react/prop-change-child.html]: shows what child prop changes do not call render on parent, `Main` does not show up on console when you click under `NotMain`
+* \a[react/hook-from-function-fail.html]: TODO got some errors that seemed linked to this on a larger program, but failed to minimize them here
+* \a[react/hook-different-number-of-times.html]: this illustrates one of the cardinal points of using hooks: you must always call them the same number of times, otherwise it fails with:
+  &gt; React has detected a change in the order of Hooks called by Main. This will lead to bugs and errors if not fixed.
+  In the case of `useState`, we can kind of understand why this happens: React must use the order of calls to determine which state variable to return at each point in time.
+* \a[react/hello-hook-use-effect.html]: just checking when it gets called. Happens after every render
+  ``
+  handleClick
+  Main
+  useEffect
+  useEffect2
+  ``
+* TODO create a test `\a[react/img-broken.html]`
+  * https://stackoverflow.com/questions/34097560/react-js-replace-img-src-onerror
+  * https://stackoverflow.com/questions/36305805/how-to-hide-alt-text-using-css-when-the-image-is-not-present
+
+How React works bibliography:
+* https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/ shows how `uesState` works under the hood with crazy closures
+* https://medium.com/@gethylgeorge/how-virtual-dom-and-diffing-works-in-react-6fc805f9f84e
+
+\Video[https://www.youtube.com/watch?v=HyWYpM_S-2c]
+{title=React for the Haters in 100 Seconds by Fireship (2022)}
+
+= React JSX
+{c}
+{parent=React}
+
+= JSX
+{c}
+{synonym}
+{title2}
+
+= React error
+{c}
+{parent=React}
+
+= Cannot update a component while rendering a different component warning in React
+{parent=React error}
+
+Minimal reproduction: https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning/70317831#70317831
+
+= React example
+{parent=React}
+
+= react/hello.html
+{file}
+{parent=React example}
+
+Minimal React hello world example. As you click:
+* one counter increments every time
+* the other increments every two clicks
+By opening a web inspector, you can see that only modified elements get updated. So we understand that &lt;JSX&gt; parses its "HTML-like" into a tree, and then propagates updates on that tree.
+
+By looking at the terminal, we see that `render()` does get called every time the button is clicked, so the tree of elements does get recreated every time. But then React diffes thing out and only updates things in the DOM where needed.
+
+= react/ref-twice.html
+{file}
+{parent=React example}
+
+Failed attempt at minimizing &lt;nodejs/next/ref-twice&gt;{file} outside of &lt;Next.js&gt;.
+
+= React DOM manipulation
+{parent=React}
+
+= React DOM mainpulation
+{synonym}
+
+= React `ref`
+{synonym}
+
+= react/ref-click-counter.html
+{file}
+{parent=React DOM manipulation}
+
+Dummy example of using a &lt;React ref&gt; This example is useless and to the end user seems functionally equivalent to &lt;react/hello.html&gt;{file}.
+
+It does however serve as a good example of what react does that is useful: it provides a "clear" separation between state and render code (which becomes once again much less clear in &lt;React function components&gt;.
+
+Notably, this example is insane because at:
+``
+&lt;button onClick={() =&gt; {
+  elem.innerHTML = (parseInt(elem.innerHTML) + 1).toString()
+``
+we are extracing state from some random HTML string rather than having a clean &lt;JavaScript&gt; variable containing that value.
+
+In this case we managed to get away with it, but this is in general not easy/possible.
+
+= react/ref-click-counter-func.html
+{file}
+{parent=React DOM manipulation}
+
+&lt;React function component&gt; version of &lt;react/ref-click-counter.html&gt;{file} using &lt;useRef&gt;.
+
+= React class vs function component
+{c}
+{parent=React}
+
+&lt;React function components&gt; do produce shorter code. But they are also impossible to understand without knowing what is their corresponding class component.
+
+Hooks were introduced much after classes, and just require less code, so everyone is using them now instead of classes.
+
+= React class component
+{c}
+{parent=React class vs function component}
+
+= React function component
+{c}
+{parent=React class vs function component}
+
+= React hook
+{c}
+{parent=React function component}
+
+= `useEffect`
+{parent=React hook}
+
+This should only be used for things that happen outside of the state that &lt;React&gt; trackes, e.g. `window` event handlers.
+
+Examples:
+* &lt;react/ref-click-counter-func.html&gt;{file}
+
+= `useRef`
+{parent=React hook}
+
+= `useCallback`
+{parent=React hook}
+
+= Next.js
+{c}
+{parent=React}
+{wiki}
+
+Framework built on top of &lt;React (JavaScript library)&gt;.
+
+Officially recommended by &lt;React (JavaScript library)&gt;https://reactjs.org/docs/create-a-new-react-app.html{ref}:
+&gt; Recommended Toolchains
+
+  If you’re building a server-rendered website with Node.js, try Next.js.
+
+&lt;gothinkster realworld&gt; blog example by &lt;Ciro Santilli&gt;: &lt;node Express Sequelize Next.js realworld example app&gt;.
+
+Basically what this does is to get &lt;server-side rendering&gt; just working by &lt;React (JavaScript library)&gt;, including hydration, which is a good thing.
+
+Next.js sends the first pre-rendered HTML page along with the JavaScript code. Then, JavaScript page switches just load the API data.
+
+Next.js does this nicely by forcing you to provide page data in a serialized JSON format, even when rendering server-side (e.g. the return value of `getServerSideProps`). This way, it is also able to provide either the full HTML, or just the JSON.
+
+Some general downsides:
+* it does feel like they don't document deployment very well however, especially non-Vercel options, which is the company behind Next.js. I'm unable to find how to use a non Vercel CDN with ISR supposing that is possible.
+* Next.js is very opinionated, and like any opinionated library it is sometimes hard to know why something is/isn't happening, and sometimes it is hard/impossible to do what you want with it unless they add support. They have done good progress, but even as of 2022, some aspects just feel so immature, some major-looking use cases are not very well done.
+
+In theory, Next.js could be the "ultimate frontend framework". It does have a lot of development difficulties that need to be ironed out, but the general concepts, and things it tries to integrate, including e.g. &lt;webpack&gt;, &lt;TypeScript&gt;, etc. are good. Maybe the question is when will someone put it together with an amazing backend library and dominate and finally put an end to the infinite number of Js Frameworks!
+
+In-tree examples at: https://github.com/vercel/next.js/tree/canary/examples
+
+`canary` is their `master`: https://github.com/vercel/next.js/issues/3211
+
+In order to offer its amazing features, Next.js is also extremely opinionated, which means that if something wasn't designed to be possible, it basically isn't.
+
+No prerender with custom &lt;server&gt;? It forces you to write your API with next as well? Or does it mean something else?
+* https://github.com/vercel/next.js/discussions/25394
+* https://nextjs.org/docs/advanced-features/custom-server
+
+TODO can it statically generate pages that are created at runtime? E.g. if I create a new blog post, will it automatically upload a static page? It seems that yes, and that this is exactly what Incremental Static Regeneration means:
+* https://github.com/vercel/next.js/discussions/25410
+* https://vercel.com/docs/next.js/incremental-static-regeneration
+* https://github.com/vercel/next.js/discussions/17711
+* https://www.reddit.com/r/nextjs/comments/mvvhym/a_complete_guide_to_incremental_static/
+* https://github.com/vercel/next.js/discussions/11552#discussioncomment-115595
+* https://stackoverflow.com/questions/62105756/how-to-use-aws-with-next-js
+* https://github.com/vercel/next.js/discussions/17080
+* https://github.com/vercel/next.js/discussions/16852
+However, Ciro can't find any mention of how to specify where the pages are uploaded to... this is pat of the non-Vercel deployment problem.
+
+Can't ISR prerenter by URL query parameters:
+* https://stackoverflow.com/questions/66133814/how-to-get-url-query-string-on-next-js-static-site-generation
+* https://github.com/vercel/next.js/discussions/17269
+That plus the requirement to have one page per file under `pages/` leads to a lot of useless duplication, because then you are forced to place the URL parameters on the pathnames.
+
+"Module not found: Can't resolve 'fs'" &lt;Hell&gt;. The main reason this happens seems to be the that in a higher order component, &lt;webpack&gt; can't determine if callbacks use the require or not to remove it from frontend code. Fully investigated and solved at:
+* https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153
+
+Overviews:
+* https://www.reddit.com/r/reactjs/comments/8evy5d/what_are_the_downsides_to_nextjs/ 2017 What are the downsides to Next.js?
+
+TODO answer:
+* https://stackoverflow.com/questions/59674496/how-to-pass-pageprops-in-next-js-from-a-child-component-to-app-js
+
+= Next.js example
+{parent=Next.js}
+
+Our examples are located under \a[nodejs/next]:
+* \a[nodejs/next/hello-world]: a hello world. There's an in-tree one at: https://github.com/vercel/next.js/tree/e75361fd03872b097e817634c049b3185f24cf56/examples/hello-world[], but ours is truly minimal
+* \a[nodejs/next/hoc]: shows how to use a higher order component (HOC) to factor out `getStaticProps` across two pages: \a[nodejs/next/hoc/pages/index.js] and \a[nodejs/next/hoc/pages/notindex.js]
+* \a[nodejs/next/typescript]: simple &lt;TypeScript&gt; example, minimized from: https://github.com/vercel/next.js/tree/d61b0761efae09bd9cb1201ff134ed8950d9deca/examples/with-typescript
+
+  Notably, that shows how `require` errors are avoided in that case as mentioned at: https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153
+* \a[nodejs/next/localStorage]: a counter that is persistent across page reloads by using `localStorage`. Used in: https://stackoverflow.com/questions/54819721/next-js-access-localstorage-before-rendering-page/68136224#68136224
+
+Solved ones:
+* solved by https://nextjs.org/docs/advanced-features/preview-mode[preview mode] in Next.js 12:
+  * ISR was basically unusable for CRUD websites because you can't force a one-off immediate page update:
+    * https://github.com/vercel/next.js/discussions/25677
+
+= nodejs/next/posts
+{file}
+{parent=Next.js example}
+
+The goal of this example is to understand when states and effects happen when changing between different routes that use the same component.
+
+Behavior is follows:
+* visit: http://localhost:3001/1
+* click `count++`. This makes `count: 1`
+* click "2" to visit http://localhost:3001/2
+* outcome: count is still 1
+
+This is likely because in &lt;React&gt; the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchanged.
+
+Next if we click:
+* "Index" to go to http://localhost:3000
+* "1" to go to http://localhost:3001/1
+then the count is back to 0. This is because we changed the `Post` object in the DOM to `Index` and back, which resets everything.
+
+This example also illustrates how to prevent this from happening with &lt;useEffect&gt;.
+
+Bibliography:
+* https://stackoverflow.com/questions/63143334/how-to-not-persist-state-between-next-js-dynamic-routes
+
+= nodejs/next/ref-twice
+{file}
+{parent=Next.js example}
+
+This is a minimal reproducible example for the terrible problem of external effects applying twice to refs for effects that are not idempotent and thus blowup if applied twice.
+
+The issue is currently discussed at: https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed (https://web.archive.org/web/20240720100401/https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed[archive]) which says "you need to cleanup the thing yourself". https://web.archive.org/web/20240720100401/https://react.dev/learn/synchronizing-with-effects#subscribing-to-events is also says that for the specific case of `addEventListener`.
+
+But that's annoying! Can't we just somehow tell if we applied twice or not to avoid having to implement a cleanup? What if a third party system does not provide a cleanup at all?
+
+Is the correct solution to just just have a &lt;useEffect&gt; with empty dependency list? Seems to be good according to posts and to &lt;ESLint&gt;!
+
+Tried to do a &lt;React&gt; only reproduction at: &lt;react/ref-twice.html&gt;{file}.
+
+Bibliography:
+* https://github.com/facebook/react/issues/8619
+* https://github.com/vercel/next.js/tree/276fd521d04b6c228d5637ce359220ffa8f62a2f/examples/with-three-js
+* https://www.reddit.com/r/reactjs/comments/tbt2z8/comment/lizezgd/
+
+&lt;Ciro Santilli&gt;'s questions:
+* https://stackoverflow.com/questions/78891187/how-to-prevent-a-react-useeffect-from-running-twice-in-strictmode-development-wi
+* https://www.reddit.com/r/reactjs/comments/1ewprza/how_to_prevent_a_react_useeffect_from_running/
+
+= nodejs/next/inject-into-static
+{file}
+{parent=Next.js example}
+
+In this example we attempt to inject &lt;React&gt; elements into statically rendered HTML coming from the server, and properly hydrate them.
+
+Questions by &lt;Ciro Santilli&gt;:
+* https://stackoverflow.com/questions/78892868/how-to-inject-a-react-component-inside-static-pre-rendered-html-coming-from-the
+* https://www.reddit.com/r/nextjs/comments/1ewwea3/how_to_inject_a_react_component_inside_static/
+* https://github.com/vercel/next.js/discussions/69099
+
+Bibliography:
+* https://stackoverflow.com/questions/76489919/nextjs-custom-component-hydration
+* https://stackoverflow.com/questions/67915232/how-to-use-domparser-in-next-js
+
+= Node Express Sequelize Next.js realworld example app
+{parent=Next.js}
+{tag=gothinkster realworld implementation}
+
+https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/trigger_count.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/trigger_count.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/trigger_count.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/trigger_count.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/sequelize/trigger_count.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/trigger_count.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/trigger_count.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../_raw/nodejs/sequelize/trigger_count.js">trigger_count.js</a></b></div></nav></div><div class="p"><b>nodejs/sequelize/trigger_count.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
+const path = require('path')
+const { DataTypes } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2])
+const force = process.argv.length &lt;= 3 || process.argv[3] !== '0'
+;(async () =&gt; {
+
+// on: lowercase 'insert', 'delete' or 'update'
+async function createTrigger(sequelize, model, on, action, { after, when, nameExtra } = {}) {
+  if (after === undefined) {
+    after = 'AFTER'
+  }
+  if (nameExtra) {
+    nameExtra = `_${nameExtra})`
+  } else {
+    nameExtra = ''
+  }
+  const oldnew = on === 'delete' ? 'OLD' : 'NEW'
+  const triggerName = `${model.tableName}_${on}${nameExtra}`
+  if (when) {
+    when = `\n  WHEN (${when})`
+  } else {
+    when = ''
+  }
+  if (sequelize.options.dialect === 'postgres') {
+    const functionName = `${triggerName}_fn`
+    await sequelize.query(`CREATE OR REPLACE FUNCTION "${functionName}"()
+  RETURNS TRIGGER
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+  ${action};
+  RETURN ${oldnew};
+END;
+$$
+`)
+    // CREATE OR REPLACE TRIGGER was only added on postgresql 14 so let's be a bit more portable for now:
+    // https://stackoverflow.com/questions/35927365/create-or-replace-trigger-postgres
+    await sequelize.query(`DROP TRIGGER IF EXISTS ${triggerName} ON "${model.tableName}"`)
+    await sequelize.query(`CREATE TRIGGER ${triggerName}
+  ${after} ${on.toUpperCase()}
+  ON "${model.tableName}"
+  FOR EACH ROW${when}
+  EXECUTE PROCEDURE "${functionName}"();
+`)
+  } else if (sequelize.options.dialect === 'sqlite') {
+    await sequelize.query(`
+CREATE TRIGGER IF NOT EXISTS ${triggerName}
+  ${after} ${on.toUpperCase()}
+  ON "${model.tableName}"
+  FOR EACH ROW${when}
+  BEGIN
+    ${action};
+  END;
+`)
+  }
+}
+
+const Post = sequelize.define('Post', {
+  title: { type: DataTypes.STRING },
+});
+const User = sequelize.define('User', {
+  username: { type: DataTypes.STRING },
+  postCount: { type: DataTypes.INTEGER },
+});
+User.hasMany(Post)
+Post.belongsTo(User)
+await sequelize.sync({ force })
+await createTrigger(sequelize, Post, 'insert', `UPDATE "${User.tableName}" SET "postCount" = "postCount" + 1 WHERE id = NEW."UserId"`)
+await createTrigger(sequelize, Post, 'delete', `UPDATE "${User.tableName}" SET "postCount" = "postCount" - 1 WHERE id = OLD."UserId"`)
+await createTrigger(
+  sequelize,
+  Post,
+  'update',
+  `UPDATE "${User.tableName}" SET "postCount" = "postCount" - 1 WHERE id = OLD."UserId";
+UPDATE "${User.tableName}" SET "postCount" = "postCount" + 1 WHERE id = NEW."UserId"`,
+  {
+    when: 'OLD."UserId" &lt;&gt; NEW."UserId"',
+  }
+)
+
+async function reset() {
+  const user0 = await User.create({ username: 'user0', postCount: 0 });
+  const user1 = await User.create({ username: 'user1', postCount: 0 });
+  await Post.create({ title: 'user0 post0', UserId: user0.id });
+  await Post.create({ title: 'user0 post1', UserId: user0.id });
+  await Post.create({ title: 'user1 post0', UserId: user1.id });
+  return [user0, user1]
+}
+let rows, user0, user1
+[user0, user1] = await reset()
+
+// Check that the posts created increased postCount for users.
+rows = await User.findAll({ order: [['username', 'ASC']] })
+common.assertEqual(rows, [
+  { username: 'user0', postCount: 2 },
+  { username: 'user1', postCount: 1 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user0 post1' },
+  { title: 'user1 post0' },
+])
+
+// UPDATE the author of a post and check counts again.
+await Post.update({ UserId: user1.id }, { where: { title: 'user0 post1' } })
+rows = await User.findAll({ order: [['username', 'ASC']] })
+common.assertEqual(rows, [
+  { username: 'user0', postCount: 1 },
+  { username: 'user1', postCount: 2 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user0 post1' },
+  { title: 'user1 post0' },
+])
+
+// DELETE some posts.
+
+await Post.destroy({ where: { title: 'user0 post1' } })
+rows = await User.findAll({ order: [['username', 'ASC']] })
+common.assertEqual(rows, [
+  { username: 'user0', postCount: 1 },
+  { username: 'user1', postCount: 1 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user1 post0' },
+])
+
+await Post.destroy({ where: { title: 'user0 post0' } })
+rows = await User.findAll({ order: [['username', 'ASC']] })
+common.assertEqual(rows, [
+  { username: 'user0', postCount: 0 },
+  { username: 'user1', postCount: 1 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user1 post0' },
+])
+
+})().finally(() =&gt; { return sequelize.close() })
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

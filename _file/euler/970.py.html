@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>euler/970.py - Ciro Santilli</title>
+<meta property="og:title" content="euler/970.py - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/euler/970.py">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/euler/970.py">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/euler/970.py"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">euler/970.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/euler/970.py"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/euler">euler</a> / <a href="../../_raw/euler/970.py">970.py</a></b></div></nav></div><div class="p"><b>euler/970.py</b></div><div class="code"><div><pre><code>#!/usr/bin/env python
+
+'''
+By GPT-5. Instant solution on pypy3.
+'''
+
+import mpmath as mp
+
+def first_eight_non6_digits(n: int, dps: int = 200) -&gt; str:
+    """
+    Returns the first eight digits after the decimal point of H(n) that are different from 6.
+    Uses the asymptotic representation:
+      H(n) = 2n + 2/3 + 2*Re(e^{λ n}/λ) + (exponentially tiny terms),
+    where λ = 1 + W_1(-e^{-1}) and the conjugate λ̄ has the same contribution via the cosine.
+    For very large n (like 10^6) this is exact for all practical purposes.
+
+    dps controls working precision; 200 is plenty for n up to ~1e9.
+    """
+    mp.mp.dps = dps
+
+    # Dominant complex root: λ = 1 + W_1(-e^{-1})  (branch k=1)
+    lam = 1 + mp.lambertw(-mp.e**-1, 1)  # complex
+    # Precompute modulus and argument of λ
+    lam_abs = mp.fabs(lam)
+    lam_arg = mp.arg(lam)
+
+    # Phase θ = Im(λ)*n - arg(λ); reduce mod 2π carefully at high precision
+    two_pi = 2 * mp.pi
+    theta = mp.im(lam) * n - lam_arg
+    # Bring to principal value to keep cos well-conditioned
+    theta = mp.fmod(theta, two_pi)
+    if theta &gt; mp.pi:
+        theta -= two_pi
+    elif theta &lt; -mp.pi:
+        theta += two_pi
+
+    c = mp.cos(theta)  # this incorporates the conjugate root automatically
+    # If cos is (pathologically) ~0, we could fall back to next pole; but that is astronomically unlikely.
+
+    # Log10 of the tiny correction ε = 2*Re(e^{λ n}/λ) = (2/|λ|) * e^{Re(λ) n} * cosθ
+    a = mp.log10(2 / lam_abs) + (mp.re(lam) * n) / mp.log(10) + mp.log10(mp.fabs(c))
+
+    # L = number of leading '6's after the decimal point in H(n)
+    L = int(mp.floor(-a))
+
+    # Mantissa of ε scaled to ~[0.1, 1]: δ = ε * 10^L  (preserves sign)
+    delta_mag = mp.power(10, a + L)
+    delta = mp.sign(c) * delta_mag
+
+    # Now form s = 2/3 + δ. The "first eight digits that are not 6"
+    # in H(n)'s fractional part equal the first eight non-6 digits of s's fractional expansion.
+    s = mp.mpf(2) / 3 + delta
+
+    # Extract digits after the decimal point, skipping any '6's, until we have 8
+    res = []
+    frac = s - mp.floor(s)
+    # Iterate enough steps; we usually need only ~10–20 here
+    for _ in range(200):
+        frac *= 10
+        d = int(mp.floor(frac))
+        if d != 6:
+            res.append(str(d))
+            if len(res) == 8:
+                break
+        frac -= d
+
+    if len(res) &lt; 8:
+        raise RuntimeError("Did not collect 8 non-6 digits; increase precision or loop bound.")
+
+    return "".join(res)
+
+if __name__ == "__main__":
+    # Example calls (H(2) and H(3) values in the problem statement are *not* from the asymptotic;
+    # for very small n the neglected poles matter. For n = 10**6 this method is effectively exact.)
+    print(first_eight_non6_digits(10**6, dps=220))
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>
