@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>ELF Hello World Tutorial / ELF header - Ciro Santilli</title>
+<meta property="og:title" content="ELF Hello World Tutorial / ELF header - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/elf-hello-world/elf-header">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/elf-hello-world/elf-header">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="elf-header"><div class="notnav"><h1><a href="../elf-hello-world">ELF Hello World Tutorial</a><span class="meta"> / </span><a href="">ELF header</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../computer"> Computer</a><a href="../software"> Software</a><a href="../systems-programming"> Systems programming</a><a href="../systems-programming#executable-file-format"> Executable file format</a><a href="../systems-programming#executable-and-linkable-format"> Executable and Linkable Format</a><a href="../elf-hello-world"> ELF Hello World Tutorial</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/elf-header"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../elf-hello-world#elf-header"></a><span class="metrics"><span class="wcntr"> Words: 823</span></span></div></nav></div><div class="p" id="_125">Running:<div class="code" id="_126"><div><pre><code>readelf -h hello_world.o</code></pre></div></div>outputs:<div class="code" id="_127"><div><pre><code>Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+Class:                             ELF64
+Data:                              2's complement, little endian
+Version:                           1 (current)
+OS/ABI:                            UNIX - System V
+ABI Version:                       0
+Type:                              REL (Relocatable file)
+Machine:                           Advanced Micro Devices X86-64
+Version:                           0x1
+Entry point address:               0x0
+Start of program headers:          0 (bytes into file)
+Start of section headers:          64 (bytes into file)
+Flags:                             0x0
+Size of this header:               64 (bytes)
+Size of program headers:           0 (bytes)
+Number of program headers:         0
+Size of section headers:           64 (bytes)
+Number of section headers:         7
+Section header string table index: 3</code></pre></div></div></div><div class="p" id="_128">Running:<div class="code" id="_129"><div><pre><code>readelf -h hello_world.out</code></pre></div></div>outputs:<div class="code" id="_130"><div><pre><code>Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+Class:                             ELF64
+Data:                              2's complement, little endian
+Version:                           1 (current)
+OS/ABI:                            UNIX - System V
+ABI Version:                       0
+Type:                              EXEC (Executable file)
+Machine:                           Advanced Micro Devices X86-64
+Version:                           0x1
+Entry point address:               0x4000b0
+Start of program headers:          64 (bytes into file)
+Start of section headers:          272 (bytes into file)
+Flags:                             0x0
+Size of this header:               64 (bytes)
+Size of program headers:           56 (bytes)
+Number of program headers:         2
+Size of section headers:           64 (bytes)
+Number of section headers:         6
+Section header string table index: 3</code></pre></div></div></div><div class="p" id="_131">Bytes in the object file:<div class="code" id="_132"><div><pre><code>00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  01 00 3e 00 01 00 00 00  00 00 00 00 00 00 00 00  |..&gt;.............|
+00000020  00 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
+00000030  00 00 00 00 40 00 00 00  00 00 40 00 07 00 03 00  |....@.....@.....|</code></pre></div></div></div><div class="p" id="_133">Executable:<div class="code" id="_134"><div><pre><code>00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  02 00 3e 00 01 00 00 00  b0 00 40 00 00 00 00 00  |..&gt;.......@.....|
+00000020  40 00 00 00 00 00 00 00  10 01 00 00 00 00 00 00  |@...............|
+00000030  00 00 00 00 40 00 38 00  02 00 40 00 06 00 03 00  |....@.8...@.....|</code></pre></div></div></div><div class="p" id="_135">Structure represented:<div class="code" id="_136"><div><pre><code># define EI_NIDENT 16
+
+typedef struct {
+    unsigned char   e_ident[EI_NIDENT];
+    Elf64_Half      e_type;
+    Elf64_Half      e_machine;
+    Elf64_Word      e_version;
+    Elf64_Addr      e_entry;
+    Elf64_Off       e_phoff;
+    Elf64_Off       e_shoff;
+    Elf64_Word      e_flags;
+    Elf64_Half      e_ehsize;
+    Elf64_Half      e_phentsize;
+    Elf64_Half      e_phnum;
+    Elf64_Half      e_shentsize;
+    Elf64_Half      e_shnum;
+    Elf64_Half      e_shstrndx;
+} Elf64_Ehdr;</code></pre></div></div></div><div class="p" id="_137">Manual breakdown:</div><div class="list"><ul id="_138"><li id="_139">0 0: <code>EI_MAG</code> = <code>7f 45 4c 46</code> = <code>0x7f 'E', 'L', 'F'</code>: ELF magic number</li><li id="_140">0 4: <code>EI_CLASS</code> = <code>02</code> = <code>ELFCLASS64</code>: 64 bit elf</li><li id="_141">0 5: <code>EI_DATA</code> = <code>01</code> = <code>ELFDATA2LSB</code>: little endian data</li><li id="_142">0 6: <code>EI_VERSION</code> = <code>01</code>: format version</li><li id="_143">0 7: <code>EI_OSABI</code> (only in 2003 Update) = <code>00</code> = <code>ELFOSABI_NONE</code>: no extensions.</li><li id="_144">0 8: <code>EI_PAD</code> = 8x <code>00</code>: reserved bytes. Must be set to 0.</li><li id="_145"><div class="p" id="_146">1 0: <code>e_type</code> = <code>01 00</code> = 1 (big endian) = <code>ET_REl</code>: relocatable format</div><div class="p" id="_147">On the executable it is <code>02 00</code> for <code>ET_EXEC</code>.</div><div class="p" id="_148">Another important possibility for the executable is <code>ET_DYN</code> for PIE executables and shared libraries.</div><div class="p" id="_149"><code>ET_DYN</code> tells the Linux kernel that the code is position independent, and can loaded at a random memory location with ASLR.</div><div class="p" id="_150">This is explained further at:<div class="list"><ul id="_151"><li id="_152"><a href="https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031">stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031</a></li><li id="_153"><a href="https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865">stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865</a></li></ul></div></div></li><li id="_154">1 2: <code>e_machine</code> = <code>3e 00</code> = <code>62</code> = <code>EM_X86_64</code>: AMD64 architecture</li><li id="_155">1 4: <code>e_version</code> = <code>01 00 00 00</code>: must be 1</li><li id="_156"><div class="p" id="_157">1 8: <code>e_entry</code> = 8x <code>00</code>: execution address entry point, or 0 if not applicable like for the object file since there is no entry point.</div><div class="p" id="_158">On the executable, it is <code>b0 00 40 00 00 00 00 00</code>. The kernel puts the RIP directly on that value when executing. It can be configured by the linker script or <code>-e</code>. But it will segfault if you set it too low: <a href="https://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n">stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n</a></div></li><li id="_159"><div class="p" id="_160">2 0: <code>e_phoff</code> = 8x <code>00</code>: program header table offset, 0 if not present.</div><div class="p" id="_161"><code>40 00 00 00</code> on the executable, i.e. it starts immediately after the ELF header.</div></li><li id="_162">2 8: <code>e_shoff</code> = <code>40</code> 7x <code>00</code> = <code>0x40</code>: section header table file offset, 0 if not present.</li><li id="_163"><div class="p" id="_164">3 0: <code>e_flags</code> = <code>00 00 00 00</code> Arch specific. <code>i386</code> docs say:</div><div><blockquote id="_165">The Intel386 architecture defines no flags; so this member contains zero.</blockquote></div></li><li id="_166">3 4: <code>e_ehsize</code> = <code>40 00</code>: size of this elf header. TODO why this field needed? Isn't the size fixed?</li><li id="_167"><div class="p" id="_168">3 6: <code>e_phentsize</code> = <code>00 00</code>: size of each program header, 0 if not present.</div><div class="p" id="_169"><code>38 00</code> on executable: it is 56 bytes long</div></li><li id="_170"><div class="p" id="_171">3 8: <code>e_phnum</code> = <code>00 00</code>: number of program header entries, 0 if not present.</div><div class="p" id="_172"><code>02 00</code> on executable: there are 2 entries.</div></li><li id="_173">3 A: <code>e_shentsize</code> and <code>e_shnum</code> = <code>40 00 07 00</code>: section header size and number of entries</li><li id="_174">3 E: <code>e_shstrndx</code> (<code>Section Header STRing iNDeX</code>) = <code>03 00</code>: index of the <code>.shstrtab</code> section.</li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(10)</span></a></h2><div class="list"><ol><li><a href="../elf-hello-world">ELF Hello World Tutorial</a></li><li><a href="../systems-programming#executable-and-linkable-format">Executable and Linkable Format</a></li><li><a href="../systems-programming#executable-file-format">Executable file format</a></li><li><a href="../systems-programming">Systems programming</a></li><li><a href="../software">Software</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/elf-hello-world.bigb">Source code for this page: elf-hello-world.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/elf-hello-world.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "elf-hello-world/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

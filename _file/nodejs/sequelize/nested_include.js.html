@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/nested_include.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/nested_include.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/nested_include.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/nested_include.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/sequelize/nested_include.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/nested_include.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/nested_include.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../_raw/nodejs/sequelize/nested_include.js">nested_include.js</a></b></div></nav></div><div class="p"><b>nodejs/sequelize/nested_include.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
+const assert = require('assert')
+const { DataTypes, Op, Sequelize } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2])
+;(async () =&gt; {
+
+// Create the tables.
+const User = sequelize.define('User', {
+  name: { type: DataTypes.STRING },
+});
+const Post = sequelize.define('Post', {
+  body: { type: DataTypes.STRING },
+});
+User.belongsToMany(User, {through: 'UserFollowUser', as: 'Follows'});
+User.hasMany(Post);
+Post.belongsTo(User);
+await sequelize.sync({force: true});
+
+// Create data.
+const users = await User.bulkCreate([
+  {name: 'user0'},
+  {name: 'user1'},
+  {name: 'user2'},
+  {name: 'user3'},
+])
+
+const posts = await Post.bulkCreate([
+  {body: 'body00', UserId: users[0].id},
+  {body: 'body01', UserId: users[0].id},
+  {body: 'body10', UserId: users[1].id},
+  {body: 'body11', UserId: users[1].id},
+  {body: 'body20', UserId: users[2].id},
+  {body: 'body21', UserId: users[2].id},
+  {body: 'body30', UserId: users[3].id},
+  {body: 'body31', UserId: users[3].id},
+])
+
+await users[0].addFollows([users[1], users[2]])
+
+// Get all posts by authors that user0 follows.
+// The posts are placed inside their respetive authors under .Posts
+// so we loop to gather all of them.
+{
+  const user0Follows = (await User.findByPk(users[0].id, {
+    include: [
+      {
+        model: User,
+        as: 'Follows',
+        include: [
+          {
+            model: Post,
+          }
+        ],
+      },
+    ],
+  })).Follows
+  const postsFound = []
+  for (const followedUser of user0Follows) {
+    postsFound.push(...followedUser.Posts)
+  }
+  postsFound.sort((x, y) =&gt; { return x.body &lt; y.body ? -1 : x.body &gt; y.body ? 1 : 0 })
+  assert.strictEqual(postsFound[0].body, 'body10')
+  assert.strictEqual(postsFound[1].body, 'body11')
+  assert.strictEqual(postsFound[2].body, 'body20')
+  assert.strictEqual(postsFound[3].body, 'body21')
+  assert.strictEqual(postsFound.length, 4)
+}
+
+// Similar to the above, but now with ordering, offset and limit.
+// The posts are placed inside their respetive authors under .Posts
+// The only difference is that posts that we didn't select got removed.
+{
+  const user0Follows = (await User.findByPk(users[0].id, {
+    offset: 1,
+    limit: 2,
+    // TODO why is this needed? It does try to make a subquery otherwise, and then it doesn't work.
+    // https://selleo.com/til/posts/ddesmudzmi-offset-pagination-with-subquery-in-sequelize-
+    subQuery: false,
+    include: [
+      {
+        model: User,
+        as: 'Follows',
+        include: [
+          {
+            model: Post,
+          }
+        ],
+      },
+    ],
+  })).Follows
+  assert.strictEqual(user0Follows[0].name, 'user1')
+  assert.strictEqual(user0Follows[1].name, 'user2')
+  assert.strictEqual(user0Follows.length, 2)
+  const postsFound = []
+  for (const followedUser of user0Follows) {
+    postsFound.push(...followedUser.Posts)
+  }
+  postsFound.sort((x, y) =&gt; { return x.body &lt; y.body ? -1 : x.body &gt; y.body ? 1 : 0 })
+  assert.strictEqual(postsFound[0].body, 'body11')
+  assert.strictEqual(postsFound[1].body, 'body20')
+  assert.strictEqual(postsFound.length, 2)
+
+  // Same as above, but now with DESC ordering.
+  {
+    const user0Follows = (await User.findByPk(users[0].id, {
+      order: [[
+        {model: User, as: 'Follows'},
+        Post,
+        'body',
+        'DESC'
+      ]],
+      offset: 1,
+      limit: 2,
+      subQuery: false,
+      include: [
+        {
+          model: User,
+          as: 'Follows',
+          include: [
+            {
+              model: Post,
+            }
+          ],
+        },
+      ],
+    })).Follows
+    // Note how user ordering is also reversed from an ASC.
+    // it likely takes the use that has the first post.
+    assert.strictEqual(user0Follows[0].name, 'user2')
+    assert.strictEqual(user0Follows[1].name, 'user1')
+    assert.strictEqual(user0Follows.length, 2)
+    const postsFound = []
+    for (const followedUser of user0Follows) {
+      postsFound.push(...followedUser.Posts)
+    }
+    // In this very specific data case, this would not be needed.
+    // because user2 has the second post body and user1 has the first
+    // alphabetically.
+    postsFound.sort((x, y) =&gt; { return x.body &lt; y.body ? 1 : x.body &gt; y.body ? -1 : 0 })
+    // Note that what happens is that some of the
+    assert.strictEqual(postsFound[0].body, 'body20')
+    assert.strictEqual(postsFound[1].body, 'body11')
+    assert.strictEqual(postsFound.length, 2)
+  }
+
+  // Here user2 would have no post hits due to the limit,
+  // so it is entirely pruned from the user list as desired.
+  // Otherwise we would fetch a lot of unwanted user data
+  // in a large database.
+  const user0FollowsLimit2 = (await User.findByPk(users[0].id, {
+    limit: 2,
+    subQuery: false,
+    include: [
+      {
+        model: User,
+        as: 'Follows',
+        include: [ { model: Post } ],
+      },
+    ],
+  })).Follows
+  assert.strictEqual(user0FollowsLimit2[0].name, 'user1')
+  assert.strictEqual(user0FollowsLimit2.length, 1)
+
+  // Get just the count of the posts authored by users followed by user0.
+  // attributes: [] excludes all other data from the SELECT of the querries
+  // to optimize things a bit.
+  // https://stackoverflow.com/questions/37817808/counting-associated-entries-with-sequelize
+  {
+    const user0Follows = await User.findByPk(users[0].id, {
+      attributes: [
+        [Sequelize.fn('COUNT', Sequelize.col('Follows.Posts.id')), 'count']
+      ],
+      raw: true,
+      includeIgnoreAttributes: false,
+      include: [
+        {
+          model: User,
+          as: 'Follows',
+          include: [{
+            model: Post,
+          }],
+        },
+      ],
+    })
+    assert.strictEqual(parseInt(user0Follows.count, 10), 4);
+  }
+
+  // Case in which our post-sorting is needed.
+  // TODO: possible to get sequelize to do this for us by returning
+  // a flat array directly?
+  // It's not big deal since the LIMITed result should be small,
+  // but feels wasteful.
+  // https://stackoverflow.com/questions/41502699/return-flat-object-from-sequelize-with-association
+  // https://github.com/sequelize/sequelize/issues/4419
+  {
+    await Post.truncate({restartIdentity: true})
+    const posts = await Post.bulkCreate([
+      {body: 'body0', UserId: users[0].id},
+      {body: 'body1', UserId: users[1].id},
+      {body: 'body2', UserId: users[2].id},
+      {body: 'body3', UserId: users[3].id},
+      {body: 'body4', UserId: users[0].id},
+      {body: 'body5', UserId: users[1].id},
+      {body: 'body6', UserId: users[2].id},
+      {body: 'body7', UserId: users[3].id},
+    ])
+    const user0Follows = (await User.findByPk(users[0].id, {
+      order: [[
+        {model: User, as: 'Follows'},
+        Post,
+        'body',
+        'DESC'
+      ]],
+      subQuery: false,
+      include: [
+        {
+          model: User,
+          as: 'Follows',
+          include: [
+            {
+              model: Post,
+            }
+          ],
+        },
+      ],
+    })).Follows
+    assert.strictEqual(user0Follows[0].name, 'user2')
+    assert.strictEqual(user0Follows[1].name, 'user1')
+    assert.strictEqual(user0Follows.length, 2)
+    const postsFound = []
+    for (const followedUser of user0Follows) {
+      postsFound.push(...followedUser.Posts)
+    }
+    // We need this here, otherwise we would get all user2 posts first:
+    // body6, body2, body5, body1
+    postsFound.sort((x, y) =&gt; { return x.body &lt; y.body ? 1 : x.body &gt; y.body ? -1 : 0 })
+    assert.strictEqual(postsFound[0].body, 'body6')
+    assert.strictEqual(postsFound[1].body, 'body5')
+    assert.strictEqual(postsFound[2].body, 'body2')
+    assert.strictEqual(postsFound[3].body, 'body1')
+    assert.strictEqual(postsFound.length, 4)
+  }
+
+  // This almost achieves the flat array return. We just have to understand the undocumented custom on:
+  // to specify from which side of the UserFollowsUser we are coming. The on:
+  // is ignored without super many to many unfortunately, the below just returns all posts.
+  // We only managed to achieve this with super many to many so far.
+  {
+    const postsFound = await Post.findAll({
+      order: [[
+        'body',
+        'DESC'
+      ]],
+      subQuery: false,
+      include: [
+        {
+          model: User,
+          //on: {idasdf: '$Post.User.FollowId$'},
+          include: [
+            {
+              model: User,
+              as: 'Follows',
+              where: {id: users[0].id},
+            }
+          ],
+        },
+      ],
+    })
+    //console.error(postsFound.length);
+    //assert.strictEqual(postsFound[0].body, 'body6')
+    //assert.strictEqual(postsFound[1].body, 'body5')
+    //assert.strictEqual(postsFound[2].body, 'body2')
+    //assert.strictEqual(postsFound[3].body, 'body1')
+    //assert.strictEqual(postsFound.length, 4)
+  }
+}
+
+})().finally(() =&gt; { return sequelize.close() });
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

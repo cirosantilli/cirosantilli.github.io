@@ -1,0 +1,1523 @@
+= Systems programming
+{wiki}
+
+<Ciro Santilli>'s definition: https://softwareengineering.stackexchange.com/questions/151610/what-exactly-is-system-programming/399625#399625
+
+Ciro's tutorial: <Linux Kernel Module Cheat>.
+
+= Being proud of low level programming is stupid
+{parent=Systems programming}
+{tag=Essays by Ciro Santilli}
+
+Ciro's word of caution for 2019 aspiring system programmers: https://cirosantilli.com/linux-kernel-module-cheat/#should-you-waste-your-life-with-systems-programming[Should you waste your life with systems programming?]
+
+This is basically a direct consequence of <backward design>.
+
+The higher the level you can operate at, the better.
+
+<C (language)> is better than <assembly>, <userland> better than <kernelland>.
+
+The ideal level to operate at, and one of humankind's greatest ambitions is "<AGI>, make me money", the highest possible level.
+
+Only go down a level when it seems necessary.
+
+= Bootloader
+{parent=Systems programming}
+{wiki}
+
+= Operating system
+{parent=Systems programming}
+{title2=OS}
+{wiki}
+
+Magic software that allows you to write a single program that runs on a wide range of hardware.
+
+= Operating system concept
+{parent=Operating system}
+
+= User and kernel space
+{parent=Operating system concept}
+{wiki}
+
+Bibliography:
+* https://unix.stackexchange.com/questions/137820/whats-the-difference-of-the-userland-vs-the-kernel
+* https://unix.stackexchange.com/questions/87625/what-is-difference-between-user-space-and-kernel-space
+* https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-the-context-of-operating-systems
+
+= User space
+{parent=User and kernel space}
+
+= Userland
+{synonym}
+
+= Kernel space
+{parent=User and kernel space}
+
+= Kernelland
+{synonym}
+
+= Bare metal
+{parent=Operating system}
+{wiki=Bare_machine}
+
+Bare metal programming is to run a program without an <operating system> below it.
+
+Or in other words, it is basically implementing an <operating system>/<firmware> yourself ad hoc, together with your actual program.
+
+= Driver
+{disambiguate=software}
+{parent=Operating system}
+{wiki}
+
+= Embedded operating system
+{parent=Operating system}
+{tag=Microcontroller}
+{wiki}
+
+= Embedded OS
+{synonym}
+
+= MicroPython
+{c}
+{parent=Embedded operating system}
+{tag=Python (programming language)}
+{wiki}
+
+It is interpreted. It actually implements a Python (-like ?) interpreter that can run on a microcontroller. See e.g.: <Compile MicroPython code for Micro Bit locally>.
+
+As a result, it is both very convenient, as it does not require a C toolchain to build for, but also very slow and produces larger images.
+
+= Run MicroPython on X
+{c}
+{parent=MicroPython}
+
+= MicroPython example
+{c}
+{parent=MicroPython}
+
+Under: \a[micropython]
+
+= micropython/blink_gpio.py
+{file}
+{parent=MicroPython example}
+
+Toggle pin 0 twice per second. This could be used for example to blink LED on pin 0 once per second with this test circuit:
+
+``
+BOARD__1gp0____3gnd
+       |       |
+       R_2k    |
+       |       |
+       +-aLEDc-+
+``
+
+Tested on:
+
+* <RPI Pico W>
+
+= Zephyr
+{disambiguate=operating system}
+{c}
+{parent=Embedded operating system}
+{wiki}
+
+= Zephyr
+{c}
+{synonym}
+
+Zephyr is cool. Its installation setup is annoying. But the project is cool.
+
+= Zephyr example
+{parent=Zephyr (operating system)}
+
+= Zephyr non-official example
+{parent=Zephyr example}
+
+= zephyr/blink_gpio.c
+{file}
+{parent=Zephyr example}
+
+Same behavior as <micropython/blink_gpio.py>{file}.
+
+= Zephyr official example
+{parent=Zephyr example}
+
+= Zephyr blinky example
+{parent=Zephyr official example}
+
+Blinks the on-board LED if the board has one.
+
+Does not work on:
+* <Micro Bit>: build fails
+* <Raspberry Pi Pico W>: build works but does nothing because the LED is connected differently
+
+= Zephyr hello world example
+{parent=Zephyr official example}
+
+Uses `printf` to print some bytes somewhere, usually the first <UART> of the board.
+
+= Run Zephyr on X
+{parent=Zephyr (operating system)}
+
+= Run Zephyr on <QEMU>
+{parent=Run Zephyr on X}
+{tag=QEMU}
+
+Real hardware is for newbs. Real hardware is for newbs.
+
+Tested on <Ubuntu 23.10> we approximately follow instructions from: https://docs.zephyrproject.org/3.4.0/develop/getting_started/index.html stopping before the "Flash the sample" section, as we don't flash <QEMU>. We just run it.
+
+``
+sudo apt install --no-install-recommends git cmake ninja-build gperf \
+  ccache dfu-util device-tree-compiler wget \
+  python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
+  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 python3-pyelftools
+python3 -m venv ~/zephyrproject/.venv
+source ~/zephyrproject/.venv/bin/activate
+pip install west
+west init ~/zephyrproject
+cd ~/zephyrproject
+west update
+west zephyr-export
+cd ~
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+tar xvf zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+cd zephyr-sdk-0.16.1
+./setup.sh
+``
+
+The installation procedure install all <compiler toolchains> for us, so we can then basically compile for any target. It also fetches the latest Git source code of Zephyr under:
+``
+~/zephyrproject/zephyr
+``
+
+The "most default" blinky hello world example which blinks an LED is a bit useless for us because QEMU doesn't have LEDs, so instead we are going to use one of the <UART> examples which will print characters we can see on QEMU stdout.
+
+Let's start with the <hello world> example on an x86 target:
+``
+cd ~/zephyrproject/zephyr
+west build -b qemu_x86 samples/hello_world -t run
+``
+and it outputs:
+``
+Hello World! qemu_x86
+``
+The `qemu_x64` on the output comes from the `CONFIG_BOARD` macro https://github.com/zephyrproject-rtos/zephyr/blob/c15ff103001899ba0321b2c38013d1008584edc0/samples/hello_world/src/main.c#L11
+``
+#include <zephyr/kernel.h>
+
+int main(void)
+{
+	printk("Hello World! %s\n", CONFIG_BOARD);
+	return 0;
+}
+``
+
+The `qemu_x86` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html
+
+You can also first `cd` into the directory that you want to build in to avoid typing `samples/hello_world` all the time:
+``
+cd ~/zephyrproject/zephyr/samples/hello_world
+zephyr west build -b qemu_x86 -t run
+``
+
+You can also build and run separately with:
+``
+west build -b qemu_x86
+west build -t run
+``
+
+Another important option is:
+``
+west build -t menuconfig
+``
+But note that it does not modify your `prj.conf` automatically for you.
+
+Let's try on another target:
+``
+rm -rf build
+zephyr west build -b qemu_cortex_a53 -t run
+``
+and same output, but on a completely different board! The `qemu_cortex_a53` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/arm64/qemu_cortex_a53/doc/index.html
+
+The list of all examples can be seen under:
+``
+ls ~/zephyrproject/zephyr/samples
+``
+which for example contains:
+``
+zephyrproject/zephyr/samples/hello_world
+``
+
+So run another sample simply select it, e.g. to run `zephyrproject/zephyr/samples/synchronization`:
+``
+west build -b qemu_cortex_a53 samples/synchronization -t run
+``
+
+= Firmware
+{parent=Operating system}
+{tag=Software}
+{wiki}
+
+= BIOS
+{c}
+{parent=Firmware}
+{wiki}
+
+= System call
+{parent=Operating system}
+{wiki}
+
+= The three operating systems
+{parent=Operating system}
+
+As of 2025 and much earlier, there were only 3 operating systems that mattered on desktop:
+* <Windows>
+* <MacOS>
+* <Linux>
+We refer to them as "the three operating systems".
+
+= List of operating systems
+{c}
+{parent=Operating system}
+{wiki}
+
+= Linux
+{c}
+{parent=List of operating systems}
+{wiki}
+
+It ain't perfect, but it's decent enough.
+
+From a technical point of view, it can do anything that <Microsoft Windows> can. Except being forcefully installed on every non-<MacOS> 2019 computer you can buy.
+
+<Ciro Santilli>'s conversion to Linux happened around 2012, and was a central part of <Ciro Santilli's Open Source Enlightenment>, since it fundamentally enables the discovery and contribution to <open source software>. Because what awesome open source person would waste time porting their amazing projects to closed source OSes?
+
+Ciro's modest nature can be seen as he likes to compare this event https://en.wikipedia.org/wiki/Great_Renunciation[Buddha's Great Renunciation].
+
+Linux should track glibc and <POSIX command line utilities> in-tree like <BSD Operating System>, otherwise people have <Linux Kernel Module Cheat>[no way to get the thing running in the first place without blobs or large out-of-tree scripts]! https://blog.farhan.codes/2018/06/25/linux-maintains-bugs-the-real-reason-ifconfig-on-linux-is-deprecated/[Another enlightened soul] who agrees.
+
+Particularly interesting in the history of Linux is how it won out over the open competitors that were coming up in the time: https://en.wikipedia.org/wiki/MINIX[MINIX] (see https://ponderwall.com/index.php/2019/04/02/linux-tanenbaum-newsgroup-linus-torvalds/[the chat]) and <BSD Operating System> that got https://en.wikipedia.org/wiki/UNIX_System_Laboratories,_Inc._v._Berkeley_Software_Design,_Inc.[legally bogged down] at the critical growth moment.
+
+You must watch this: <truth Happens advertisement by Red Hat>.
+
+\Image[https://web.archive.org/web/20210129024945if_/https://imgs.xkcd.com/comics/supported_features.png]
+{title=<xkcd> 619: Supported Features}
+{description=This perfectly illustrates Linux development. First features that matter. Then useless features.}
+{source=https://xkcd.com/619/}
+
+\Video[http://youtube.com/watch?v=njos57IJf-0]
+{title=<Bill Gates> vs <Steve Jobs> by <Epic Rap Battles of History> (2012)}
+{description=Just stop whatever you are doing, and watch this right now. "I'm on <Linux>, bitch, I thought you GNU". https://epicrapbattlesofhistory.fandom.com/wiki/Steve_Jobs_vs_Bill_Gates/Rap_Meanings[Fandom explanations]. It is just a shame that the Bill Gates actor looks absolutely nothing like the real gates. Actually, the entire Gates/Jobs parts are good, but not genial. But the Linux one is.}
+
+= Tux
+{disambiguate=mascot}
+{c}
+{parent=Linux}
+{wiki}
+
+= Linux kernel
+{c}
+{parent=Linux}
+{wiki}
+
+<Ciro Santilli> has a tutorial at <Linux Kernel Module Cheat>.
+
+= Linux Foundation
+{c}
+{parent=Linux kernel}
+
+The fact that this foundation has a bunch of paid, closed, certification courses makes <Ciro Santilli> not respect them at all. They should be making <open access> content instead!
+
+= Linux kernel build output
+{c}
+{parent=Linux kernel}
+
+= vmlinux
+{parent=Linux kernel build output}
+
+= Step debug the Linux kernel
+{c}
+{parent=Linux kernel}
+
+* https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642 How to debug the Linux kernel with GDB and QEMU?
+* https://cirosantilli.com/linux-kernel-module-cheat/gdb
+
+= JTAG
+{c}
+{parent=Step debug the Linux kernel}
+{wiki}
+
+= Serial wire debug
+{c}
+{parent=JTAG}
+{title2=SWD}
+
+= Linux kernel bibliography
+{parent=Linux kernel}
+
+= Linux insides
+{c}
+{parent=Linux kernel bibliography}
+
+https://github.com/0xAX/linux-insides
+
+Documents the <Linux kernel>. Somewhat of a competitor to <Linux Kernel Module Cheat>, but more wordy and less automated.
+
+= Linux Device Drivers book
+{parent=Linux kernel bibliography}
+
+This is perhaps by far the most famous kernel driver book.
+
+As of 2025 the latest version was quite old however, <Linux Device Drivers book 3rd edition> from 2005.
+
+= Linux Device Drivers book edition
+{parent=Linux Device Drivers book}
+
+= Linux Device Drivers book 3rd edition
+{parent=Linux Device Drivers book edition}
+{title2=2005}
+{title2=Kernel 2.6.10}
+
+= LDD3
+{synonym}
+{title2}
+
+https://lwn.net/Kernel/LDD3/ contains the PDF of each chapter.
+
+https://www.amazon.co.uk/dp/B0026OR2XQ
+
+The book covers the Linux kernel version 2.6.10.
+
+= martinezjavier/ldd3
+{parent=Linux Device Drivers book 3rd edition}
+
+https://github.com/martinezjavier/ldd3
+
+This repo has ported the kernels up to 5.10 as of writing. https://github.com/martinezjavier/ldd3/pull/86 attempts to go further into 6.x but has been ignored for two years unfortunately.
+
+= Linux distribution
+{c}
+{parent=Linux}
+{wiki}
+
+= Linux distro
+{c}
+{synonym}
+
+= Distro
+{synonym}
+
+= Linux distribution buildable from source
+{c}
+{parent=Linux distribution}
+
+= Linux distributions buildable from source
+{c}
+{synonym}
+
+As of 2020, no one knows how to build the major desktop distros fully from source into the ISO, and especially so in a reproducible build way. Everything is done in build servers somewhere with complicated layers of prebuilds. It's crap.
+
+See also: https://cirosantilli.com/linux-kernel-module-cheat/#linux-distro-choice
+
+Yes:
+* <Buildroot>
+* <NixOS>
+
+No:
+* <Ubuntu>: https://askubuntu.com/questions/82302/how-to-compile-ubuntu-from-source-code source: https://quoteinvestigator.com/2010/07/08/laws-sausages/[sausage factory]
+
+= Package manager
+{parent=Linux distribution}
+
+= Cross distro package manager
+{parent=Linux distribution}
+
+= AppImage
+{c}
+{parent=Cross distro package manager}
+{wiki}
+
+= Flatpak
+{c}
+{parent=Cross distro package manager}
+{wiki}
+
+= Snap
+{disambiguate=package manager}
+{c}
+{parent=Cross distro package manager}
+{wiki}
+
+= Snap
+{synonym}
+
+https://merlijn.sebrechts.be/blog/2020-08-02-why-one-snap-store/ has some very good comments on how `snap` is more closed than <Flatpak>.
+
+Snap's permission system is extremely annoying, notably restricting access to home files. They need a popup that says "permission required by app, accept?" urgently!!!
+* https://askubuntu.com/questions/1238211/how-to-make-snaps-access-hidden-files-and-folders-in-home
+
+= List of Linux distributions
+{c}
+{parent=Linux}
+{wiki}
+
+= Android
+{disambiguate=operating system}
+{c}
+{parent=List of Linux distributions}
+
+= Android
+{c}
+{synonym}
+
+* the best full featured free OS we have today, since POSIX gave up short of any UI specification, and Chrome OS is not there yet
+* usable and likely efficient <Java> <API> for apps if https://en.wikipedia.org/wiki/Google_v._Oracle_America[Oracle doesn't manage to destroy it with its lawsuit]
+
+However, many, many, many terrible horrors come with it:
+* it hasn't made the move to desktop for too many years. It could destroy <Microsoft Windows> and replace it with open source, but they just won't budge towards an unified mobile/desktop setup.
+* vendors litter it with uninstallable bloatware that should be <illegal>. <European Union> to the rescue!!! https://www.cnbc.com/2020/12/15/digital-markets-act-eus-new-rules-on-big-tech.html
+* vendors lock down devices so it is very hard to get sudo, let alone to modify their images!
+* there isn't enough hardware standardization for open source distros to thrive like on desktop
+* code drops mean that "master" is useless and trying to contribute from outside vendors' closed walls is a waste of time: https://stackoverflow.com/questions/1809774/how-to-compile-the-android-aosp-kernel-and-test-it-with-the-android-emulator/48310014#48310014
+* if you ever go below the Java API, e.g. to <C++> or AOSP build, everything is horrendous and https://unix.stackexchange.com/questions/122787/how-to-compile-extra-files-into-the-root-directory-of-an-android-rom[undocumented]
+* <Google> doesn't care about the CLI, even the <hello world> requires creating infinite out-of-control boilerplate from a <GUI>: https://stackoverflow.com/questions/20801042/how-to-create-android-project-with-gradle-from-command-line/46994747#46994747
+* the boot is uber bloated and takes forever in cycle simulators
+
+= Android Open Source Project
+{c}
+{parent=Android (operating system)}
+{title2=AOSP}
+{wiki}
+
+= Transfer Android 11 camera videos to Ubuntu 20.10
+{c}
+{parent=Android (operating system)}
+
+https://android.stackexchange.com/questions/66385/how-to-transfer-files-from-an-android-phone-to-a-ubuntu-pc-by-using-a-usb-cable/194107#194107
+
+The video folder is `DCIM/Camera`.
+
+= F-Droid
+{c}
+{parent=Android (operating system)}
+{tag=Good}
+{wiki}
+
+= Arch Linux
+{c}
+{parent=List of Linux distributions}
+{tag=Linux distribution buildable from source}
+{wiki}
+
+Respect. Big respect. Those people are hardcore from scratch hackers, and their wiki is amazing: https://wiki.archlinux.org/
+
+It's just that <Buildroot> is more hardcore ;-)
+
+But can you build the ISO full from source: <Linux distribution buildable from source>
+
+= Buildroot
+{c}
+{parent=List of Linux distributions}
+{tag=Good}
+{tag=Linux distribution buildable from source}
+{wiki}
+
+The basis for <Linux Kernel Module Cheat>.
+
+Buildroot is <good>.
+
+= BusyBox
+{c}
+{parent=Buildroot}
+{wiki}
+
+= NixOS
+{c}
+{parent=List of Linux distributions}
+{tag=Linux distribution buildable from source}
+{wiki}
+
+This thing is sexy.
+
+= Ubuntu
+{c}
+{parent=List of Linux distributions}
+{wiki}
+
+<Ciro Santilli>'s Linux distro of choice as of 2019.
+
+It ain't perfect, but it's decent enough.
+
+The greatest advantage of it being that it has the likely largest desktop user base, and therefore the highest likelihood that your problems are solved on https://askubuntu.com/users/52975[Ask Ubuntu], and goes together with Ciro's philosophy that <having more than one natural language is bad for the world>["people should do everything in the same way to factor stuff out"], especially the <open source software>[open source losers].
+
+Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: <Linux distribution buildable from source>. This is why Ciro based the <Linux Kernel Module Cheat> on <Buildroot>, see also: <Linux distribution buildable from source>.
+
+= Canonical
+{disambiguate=company}
+{parent=Ubuntu}
+{wiki}
+
+= Canonical
+{c}
+{synonym}
+
+= apport
+{disambiguate=software}
+{c}
+{parent=Ubuntu}
+{wiki}
+
+<Source code>: https://github.com/canonical/apport
+
+= apport-cli
+{c}
+{parent=apport (software)}
+
+= Ubuntu HOWTO
+{c}
+{parent=Ubuntu}
+
+= Make a bug report for a crash on Ubuntu
+{parent=Ubuntu HOWTO}
+
+On <Ubuntu 23.10>, a crash led to the creation of:
+``
+/var/crash/_usr_bin_gnome-shell.1000.crash
+``
+After that simply running <apport-cli> as:
+``
+apport-cli gnome-shell
+``
+ led to the creation of: https://bugs.launchpad.net/ubuntu/+source/gnome-shell/+bug/2049368 a bug on the `gnome-shell` package.
+
+= Find GPU information in Ubuntu
+{parent=Ubuntu HOWTO}
+
+* https://askubuntu.com/questions/5417/how-to-get-the-gpu-info/692858#692858
+* https://askubuntu.com/questions/68028/how-do-i-check-if-ubuntu-is-using-my-nvidia-graphics-card/692412#692412
+* https://askubuntu.com/questions/524242/how-to-find-out-which-nvidia-gpu-i-have/1469351#1469351
+
+= How to report Ubuntu crashes
+{parent=Ubuntu HOWTO}
+
+Their crash system does not have an amazing user interface.
+
+Tested on <Ubuntu 21.10>.
+
+After something crashes, look under `/var/crash` for a crash file, which helps to determine which package to report under on <Launchpad (website)>.
+
+E.g. a file `/var/crash/_usr_sbin_gdm3.0.crash` makes you want to file the bug under gdm at: https://bugs.launchpad.net/ubuntu/+source/gdm/+filebug
+
+Then, while reporting the bug, you want to give the developpers access to that `.crash` file. But you can't publicly upload it because it contains memory dumps and could contain secret information. The way to do it is to look at the ID under:
+``
+sudo cat /var/crash/_usr_sbin_gdm3.0.uploaded
+``
+Ubuntu's crash report system has already uploaded the `.crash` for you, so you just have to confirm it and give the ID on the ticket.
+
+You can view a list of all your uploaded errors at:
+``
+xdg-open https://errors.ubuntu.com/user/$(sudo cat /var/lib/whoopsie/whoopsie-id)
+``
+and each of those contain a link to:
+``
+https://errors.ubuntu.com/oops/<.uloaded error id>
+``
+which you yourself cannot see.
+
+https://askubuntu.com/questions/434431/how-can-i-read-a-crash-file-from-var-crash asks how to read the `.crash` files.
+
+Running:
+``
+sudo apport-unpack /var/crash/_usr_sbin_gdm3.0.crash /tmp/app
+``
+splits it up into a few files, but does not make any major improvements.
+
+`apport-retrace`
+``
+sudo apt install apport-retrace
+sudo chmod 666 /var/crash/_usr_sbin_gdm3.0.crash
+apport-retrace -g /var/crash/_usr_sbin_gdm3.0.crash
+``
+opens GDB with the core dump. Debug symbols are supplied as separate packages, which is a really cool idea: so you should be able to download them after the crash to see symbols. https://askubuntu.com/questions/487222/how-to-install-debug-symbols-for-installed-packages mentions how to install them. Official docs at: https://wiki.ubuntu.com/DebuggingProgramCrash#Debug_Symbol_Packages
+
+Tried:
+``
+echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ddebs.list
+echo -e "deb http://ddebs.ubuntu.com $(lsb_release -cs)-updates main restricted universe multiverse\ndeb http://ddebs.ubuntu.com $(lsb_release -cs)-proposed main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ddebs.list
+sudo apt install ubuntu-dbgsym-keyring
+``
+but then `sudo apt update` fails with:
+``
+E: The repository 'http://ddebs.ubuntu.com impish-security Release' does not have a Release file.
+``
+
+= Compile Linux kernel for Ubuntu
+{parent=Ubuntu HOWTO}
+
+= Compiling Linux kernel for Ubuntu
+{synonym}
+
+This section describes our attempts at compiling the <Linux kernel> for <Ubuntu> so as to use the exact patches and build configuration as used for a given <Ubuntu release>. The same toolchain would also be ideal, but perhaps this would require a <Linux distribution buildable from source>.
+
+https://canonical-kteam-docs.readthedocs-hosted.com/en/public/how-to/build-kernel.html seems promising it says that for <Ubuntu 24.04> and above you should do the following which was tested on <Ubuntu 24.10>:
+
+``
+sudo cp /etc/apt/sources.list /etc/apt/sources.list~
+sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+sudo apt-get update
+sudo apt build-dep -y linux linux-image-unsigned-$(uname -r)
+sudo apt install -y fakeroot llvm libncurses-dev dwarves
+apt source linux-image-unsigned-$(uname -r)
+~/tmp/ubuntu/linux-6.11.0
+cd linux-6.11.0
+chmod a+x debian/rules
+chmod a+x debian/scripts/*
+chmod a+x debian/scripts/misc/*
+fakeroot debian/rules clean
+fakeroot debian/rules binary
+``
+
+The build is extremely slow compared to a build of a more embedded and specifically targeted minimal kernel, and took about 2 hours on <Ciro Santilli's hardware/P14s>. Their philosophy is likely to enable as many drivers as possible so that a single download will work for everyone. Which makes sense, fair enough. It would be cute though if there was a smarter way. Oh well.
+
+After it finally finishes the build including our <vmlinux> is present at:
+
+``
+linux-6.11.0/debian/build/build-generic
+``
+
+= Emulate <Windows> on Ubuntu
+{parent=Ubuntu HOWTO}
+
+* https://superuser.com/questions/1707074/create-a-stable-virtualized-windows-os-on-ubuntu
+* https://www.reddit.com/r/linux/comments/11ruj9u/creating_a_qemu_windows_10_vm_on_linux/
+
+More specialized versions:
+* https://askubuntu.com/questions/1523535/installing-windows-11-in-a-vm-on-ubuntu-24-04 wants to keep real Windows data as well
+* https://askubuntu.com/questions/1528367/what-is-the-best-way-to-set-up-a-windows-10-vm-with-hypervisor-and-virtual-machi asks for some hypervisor stuff
+
+= Ubuntu release
+{c}
+{parent=Ubuntu}
+{wiki}
+
+= Ubuntu 25.10
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 25.10 bug
+{parent=Ubuntu 25.10}
+
+* https://askubuntu.com/questions/1560258/how-to-prevent-ubuntu-25-10-from-waking-up-from-suspend-when-i-close-the-laptop?noredirect=1&lq=1
+
+= Ubuntu 25.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 24.10
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 24.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 24.04 installer "Erase disk and install Ubuntu" doesn't work when BitLocker enabled
+{parent=Ubuntu 24.04}
+
+https://bugs.launchpad.net/subiquity/+bug/2045480
+
+<Ciro Santilli> reproduced on <Ciro Santilli's hardware/Dell Inspiron 15 3520> with factory defaults. This bug prevents "wipe windows" installation without workarounds, one of which is to disable encryption in Windows.
+
+= Ubuntu 24.04 "The application files has closed unexpectedly"
+{parent=Ubuntu 24.04}
+
+Happens at startup without doing anything, and then keeps happening randomly infinitely many times... on a almost clean 24.04 ISO install on <Ciro Santilli's hardware/Dell Inspiron 15 3520>... God how can it be so bad.
+
+Viewing the <apport (software)> issue a bit further shows title:
+``
+nautilus crashed with sigabrt in g_assertion_message_expr
+``
+
+Possibly related:
+* https://www.reddit.com/r/Ubuntu/comments/1ce1027/2404_is_a_terrible_release/
+* https://bugs.launchpad.net/ubuntu/+source/nautilus/+bug/1795210
+* https://bugs.launchpad.net/ubuntu/+source/nautilus/+bug/1823529
+* https://askubuntu.com/questions/1406294/nautilus-keeps-crashing-in-22-04
+* https://superuser.com/questions/42068/application-are-closed-down-unexpectedly-under-ubuntu
+* https://ubuntuforums.org/showthread.php?t=2466502
+* https://x.com/cirosantilli/status/1792792620323967227
+
+\Image[https://web.archive.org/web/20240521054355if_/https://files.mastodon.social/media_attachments/files/112/477/476/049/270/962/original/d6346176be376ff5.jpg]
+
+= Ubuntu 23.10
+{c}
+{parent=Ubuntu release}
+
+= gfx_v11_0_priv_reg_irq: register access in command stream
+{c}
+{parent=Ubuntu 23.10}
+
+Had this happen on <ciro santilli s hardware/P14s> on <Ubuntu 23.10> while causally using <Chromium (web browser)>. The screen went blank for a few seconds, but it apparently managed to reboot itself, and things started working again, except that and most windows were killed:
+``
+[drm:gfx_v11_0_priv_reg_irq [amdgpu]] *ERROR* Illegal register access in command stream
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_0.0.0 timeout, signaled seq=5774109, emitted seq=5774111
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process chrome pid 14023 thread chrome:cs0 pid 14087
+amdgpu 0000:64:00.0: amdgpu: GPU reset begin!
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:gfx_v11_0_cp_gfx_enable.isra.0 [amdgpu]] *ERROR* failed to halt cp gfx
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: MODE2 reset
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: GPU reset succeeded, trying to resume
+Dec 27 15:03:38 ciro-p14s kernel: [drm] PCIE GART of 512M enabled (table at 0x0000008000900
+``
+It appears to be a bug in the <AMDGPU> open source driver.
+
+Related reports:
+* https://gitlab.freedesktop.org/drm/amd/-/issues/2451
+* https://gitlab.freedesktop.org/drm/amd/-/issues/475
+* https://github.com/ValveSoftware/csgo-osx-linux/issues/3386
+
+I think this was on <Wayland>. Possibly relatd but on <X Window System>, crashed the UI, showed message "oh no! Something has gone wrong."
+``
+2024-01-13_21-55-07@ciro@ciro-p14s$ cat /var/log/apport.log
+ERROR: apport (pid 975172) 2024-01-13 21:41:02,087: host pid 3528 crashed in a separate mount namespace, ignoring
+INFO: apport (pid 975227) 2024-01-13 21:41:02,398: called for pid 2728, signal 5, core limit 0, dump mode 1
+INFO: apport (pid 975227) 2024-01-13 21:41:02,401: executable: /usr/bin/gnome-shell (command line "/usr/bin/gnome-shell")
+INFO: apport (pid 975227) 2024-01-13 21:41:12,667: wrote report /var/crash/_usr_bin_gnome-shell.1000.crash
+``
+
+= Unable to lock screen on Ubuntu
+{c}
+{parent=Ubuntu 23.10}
+
+Happened on <ciro santilli s hardware/P14s> on <Ubuntu 23.10>, which started with fresh Ubuntu 23.10 install.
+
+However it did not happen on <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)> also on <Ubuntu 23.10> which had been upgraded several times from God knows what starting point... At first one had X11 (forced by <Nvidia> drivers) and the other Wayland, but moving to p14s X11 changed nothing.
+
+Both were running <GNOME Display Manager>.
+
+Same happens with Super + L, but also CLI commands: https://askubuntu.com/questions/7776/how-do-i-lock-the-desktop-screen-via-command-line
+
+Bibliography:
+* https://askubuntu.com/questions/1242110/after-upgrading-to-ubuntu-20-04-lockscreen-not-working canon
+* https://askubuntu.com/questions/1246622/ubuntu-20-04-unable-to-lock-screen
+* https://askubuntu.com/questions/1245071/cant-lock-screen-with-shortcut-on-ubuntu-20-04-gnome
+* https://askubuntu.com/questions/1248756/super-l-not-working-on-ubuntu-20-04
+
+= Ubuntu 23.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 23.04 boot broken on kernel 6.2
+{c}
+{parent=Ubuntu 23.04}
+
+On <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
+
+Switching to the other installed kernel, 5.9 made boot work.
+
+The solution on kernel 6.2 was:
+``
+sudo apt instal nvidia-driver-515
+``
+as per comments under: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2012559[]. This also made the nvidia driver work: <Find GPU information in Ubuntu>.
+
+Previously I had:
+``
+nvidia-driver-510
+``
+and it blew up before reaching disk decryption.
+
+I also tried:
+``
+nvidia-driver-525
+``
+but that broke in a different way:
+``
+Finished apport-autoreport.service - Process error reports when automatic reporting is enabled.
+nvidia-modeset: ERROR: GPU:0: Idling display engine timed out: 0x0000947d:0:0:407
+(1 of 2) Job systemd-backlight@backlight: nvidia_e.service/start running (32s no limit)
+``
+
+Some threads:
+* https://askubuntu.com/questions/1465606/kubuntu-23-04-not-booting-with-the-6-2-kernel
+* https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2012559
+
+= Ubuntu 22.10
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 22.04
+{c}
+{parent=Ubuntu release}
+
+= snap "Pending Update of" notifications
+{c}
+{parent=Ubuntu 22.04}
+
+Happening multiple times a day on Ubuntu 22.04 for Chromium, even though I turn computer on and off daily, unbearable:
+* https://askubuntu.com/questions/1412575/pending-update-of-snap-store
+* https://askubuntu.com/questions/1412140/pending-update-of-firefox-snap-close-the-app-to-avoid-disruptions
+* https://forum.snapcraft.io/t/how-to-disable-snapd-update-notifications-permanently/31117 Settings > Notifications > Snapd User Session Agent
+* https://www.reddit.com/r/Ubuntu/comments/v1s919/disable_pending_update_of_snap_message_kiosk/
+* https://forum.snapcraft.io/t/refresh-app-awareness-call-for-testing/29123
+
+= Ubuntu 21.10
+{c}
+{parent=Ubuntu release}
+
+GDM crashes sometimes when switching windows right after opening a new window: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/1956299
+
+= Ubuntu 21.10 does not wake up from suspend
+{parent=Ubuntu 21.10}
+{title2=`nv_set_system_power_state`}
+
+Please refer to <video Linus Torvalds saying "Nvidia Fuck You" (2012)>.
+
+https://askubuntu.com/questions/1032633/18-04-screen-remains-blank-after-wake-up-from-suspend/1391917#1391917
+
+Reported at: https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-470/+bug/1953674
+
+On <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
+
+Does not happen every time, only some times. Can't figure out why. Usually happens when has suspended for a longer time.
+
+https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-470/+bug/1946303 sounds like a likely report, <Nvidia> driver version 470, but can't find those error messages anywhere. The last line of:
+``
+journalctl -o short-precise -k -b -1
+``
+once was:
+``
+PM: suspend entry (deep)
+``
+which is when sleep starts.
+
+This suggests that it is not a video bug then, seems that it is not waking up at all? Gotta try to SSH into it. OK. I did SSH into it, and that was fine, so it is just the video that won't start.
+
+``
+PM: suspend exit
+``
+
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1949977 is another possible bug, based on kernel version. I'm running 5.13, which is one of the failing versions on the report. Can't find any interesting dmesg though.
+
+In another crash:
+``
+journalctl -o short-precise -k -b -1
+``
+had the following interesting lines:
+``
+nvidia-modeset: WARNING: GPU:0: Lost display notification (0:0x00000000); continuing.
+[24307.640014] NVRM: GPU at PCI:0000:01:00: GPU-18af74bb-7c72-ff70-e447-87d48378ea20
+[24307.640018] NVRM: Xid (PCI:0000:01:00): 79, pid=8828, GPU has fallen off the bus.
+[24307.640021] NVRM: GPU 0000:01:00.0: GPU has fallen off the bus.
+[24328.054022] nvidia-modeset: ERROR: GPU:0: The requested configuration of display devices (LGD (DP-4)) is not supported on this GPU.
+[repeats several more times]
+[24328.056767] nvidia-modeset: ERROR: GPU:0: The requested configuration of display devices (LGD (DP-4)) is not supported on this GPU.
+[24328.056951] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:0:0:0x0000000f
+[24328.056955] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:1:0:0x0000000f
+[24328.056959] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:2:0:0x0000000f
+[24328.056962] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:3:0:0x0000000f
+[24328.056983] nvidia-modeset: ERROR: GPU:0: DP-4: Failed to disable DisplayPort audio stream-0
+[24328.056992] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000947d:0:0:0x0000000f
+``
+and there was a corresponding `/var/crash/_usr_sbin_gdm3.0.crash`.
+
+Related "GPU has fallen off the bus": https://askubuntu.com/questions/868321/gpu-has-fallen-off-the-bus-nvidia
+
+= Ubuntu 21.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 20.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 18.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 16.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu feature request
+{parent=Ubuntu}
+
+Sometimes it just feels like Ubuntu devs don't actually use Ubuntu as a desktop.
+
+Some extremely annoying problems are introduced and just never get fixed, even though they feel so obvious!
+
+Would never happen on <Mac>...
+
+= couldn't save system state: Minimum free space to take a snapshot and preserve ZFS performance is
+{parent=Ubuntu feature request}
+
+This BS started after the move to ZFS. The temporary solution appears to be: https://askubuntu.com/questions/1293685/out-of-space-on-boot-zpool-and-cant-run-updates-anymore/1374204#1374204
+
+And then this to disable automatic snapshots in the future: https://askubuntu.com/questions/1233049/disable-automatic-zsys-snapshots-zfs-on-root/1279593#1279593
+``
+sudo mv /etc/apt/apt.conf.d/90_zsys_system_autosnapshot /etc/apt/apt.conf.d/90_zsys_system_autosnapshot.disabled
+``
+
+God, this is so annoying:
+* https://askubuntu.com/questions/1382986/zfs-bpool-is-almost-full-how-can-i-free-up-space-so-i-can-keep-updating-my-syst
+* https://askubuntu.com/questions/1233049/disable-automatic-zsys-snapshots-zfs-on-root
+* https://askubuntu.com/questions/1246232/ubuntu-20-04-thinks-its-out-of-free-space-but-it-isnt
+
+= Hide top bar on Ubuntu
+{parent=Ubuntu feature request}
+
+This has annoyed <Ciro Santilli> for many years, it is just too wasteful of screen space on <laptops>!
+
+Or likely more generally, on <GNOME desktop>, which is the default <desktop environment> as of <Ubuntu 22.10>.
+
+Issues:
+* https://askubuntu.com/questions/1029881/how-to-hide-top-bar-in-ubuntu-18-04
+* https://stackoverflow.com/questions/71204126/how-to-remove-the-title-bar-of-gnome-applications
+* https://superuser.com/questions/1764903/am-i-able-to-hide-the-gnome-title-bar-for-applications
+
+= Launchpad
+{disambiguate=website}
+{c}
+{parent=Ubuntu}
+{tag=Software with bad user interface}
+{wiki}
+
+= Berkeley Software Distribution
+{c}
+{parent=List of operating systems}
+
+= BSD Operating System
+{c}
+{synonym}
+{title2}
+
+https://en.wikipedia.org/wiki/List_of_BSD_operating_systems
+
+<Legal> issues stalled them at the turning point of the <Internet>, and <Linux> won. Can't change <history>.
+
+Did <Apple> just fork it and made Mac OS X without giving anything back?
+
+= FreeBSD
+{c}
+{parent=Berkeley Software Distribution}
+{wiki}
+
+= TempleOS
+{c}
+{parent=List of operating systems}
+{wiki}
+
+The OS that the <Gods> ordered be made.
+
+One is reminded of https://ulillillia.fandom.com/wiki/Ulillillia[Ulillillia], see also: https://www.youtube.com/watch?v=9-79yOZ13qg The Story of Ulillillia by Atrocity Guide (2019)
+
+We are <autism>[all somewhere in the spectrum].
+
+\Video[https://www.youtube.com/watch?v=FoTYV22qZTg]
+{title=I like elephants and <God> likes elephants}
+
+= Terry A. Davis
+{c}
+{parent=TempleOS}
+{title2=Creator of TempleOS}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=ozhHrzOXZkI]
+{title=<Terry A. Davis> writes a message to the <CIA>}
+
+= UNIX
+{c}
+{parent=Operating system}
+{wiki}
+
+= POSIX
+{c}
+{parent=UNIX}
+{tag=Good}
+{wiki}
+
+The real explanation: https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755
+
+= Environment variable
+{parent=POSIX}
+{wiki}
+
+Overview by <Ciro Santilli> at: https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them/1864687#1864687
+
+= POSIX environment variable
+{parent=Environment variable}
+
+This section is about <POSIX> environment variable that have special effects.
+
+They are documented by <POSIX> at: https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html#tag_08
+
+= `PATH` environment variable
+{parent=POSIX environment variable}
+
+Some mentions by <Ciro Santilli> at: https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them/1864687#1864687
+
+= GNU Core Utils
+{c}
+{parent=POSIX}
+{tag=GNU package}
+{wiki}
+
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html
+
+= GNU Core Utils command line utility
+{c}
+{parent=GNU Core Utils}
+
+= Non-POSIX GNU Core Utils command line utility
+{synonym}
+
+Non-<POSIX> only here.
+
+= sha1sum
+{parent=GNU Core Utils command line utility}
+{wiki}
+
+= shred
+{disambiguate=UNIX}
+{parent=GNU Core Utils command line utility}
+{wiki}
+
+= Non-POSIX command line utility
+{parent=POSIX}
+
+= Non-POSIX command line utilities
+{synonym}
+
+= POSIX command line utility
+{c}
+{parent=POSIX}
+{tag=Command line utility}
+
+= POSIX command line utilities
+{c}
+{synonym}
+
+Listed at: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.htm
+
+= `diff`
+{c}
+{parent=POSIX}
+{wiki}
+
+= `grep`
+{c}
+{parent=POSIX}
+{wiki}
+
+If you are a programmer, `grep` becomes a verb: "to grep" means "to search text files", much like "to <Google>" means "to search random stuff online".
+
+= grep large binary files
+{parent=grep}
+
+This is a weak point of grep, it can't handle large lines that don't fit fully into memory:
+* https://superuser.com/questions/1703029/is-there-a-limit-for-a-line-length-for-grep-command-to-process-correctly what is the grep line limit?
+* https://unix.stackexchange.com/questions/223078/best-way-to-grep-big-binary-file/758528#758528 Ciro's `bgrep` canon
+* large not required but mentioning bgrep anyways:
+  * https://superuser.com/questions/1368263/use-grep-for-a-long-line-to-get-the-part-of-the-line/1811969#1811969
+  * https://unix.stackexchange.com/questions/217936/equivalent-command-to-grep-binary-files/758544#758544
+  * https://stackoverflow.com/questions/2034799/how-to-truncate-long-matching-lines-returned-by-grep-or-ack/77263826#77263826
+  * https://stackoverflow.com/questions/9988379/how-to-grep-a-text-file-which-contains-some-binary-data leaving this one alone for now
+* https://stackoverflow.com/questions/65674717/how-to-check-if-a-binary-file-is-contained-inside-another-binary-from-the-linux search pattern from file
+
+= `bgrep`
+{c}
+{parent=grep}
+
+https://github.com/tmbinc/bgrep
+
+Getting started tutorial: https://unix.stackexchange.com/questions/223078/best-way-to-grep-a-big-binary-file/758528#758528
+
+= `sed`
+{c}
+{parent=POSIX}
+{wiki}
+
+= `wc`
+{disambiguate=unix}
+{c}
+{parent=POSIX}
+{wiki}
+
+= Standard streams
+{parent=POSIX}
+{wiki}
+
+= Standard input
+{parent=Standard streams}
+
+= stdin
+{c}
+{synonym}
+
+= Standard output
+{parent=Standard streams}
+
+= stdout
+{c}
+{synonym}
+
+= Executable file format
+{parent=Systems programming}
+
+* https://en.wikipedia.org/wiki/Executable
+* https://en.wikipedia.org/wiki/Comparison_of_executable_file_formats
+* https://en.wikipedia.org/wiki/Object_file
+
+= Executable and Linkable Format
+{parent=Executable file format}
+{wiki}
+
+= ELF
+{c}
+{synonym}
+
+For a quick and dirty introduction to the format, see: <elf hello world>.
+
+\Include[elf-hello-world]
+
+= Molecular biology feels like systems programming
+{parent=Systems programming}
+{wiki}
+
+Whenever <Ciro Santilli> learns about molecular biology, he can't help but to feel that it feels like programming, and notably systems programming and computer hardware design.
+
+In some sense, the comparison is obvious: <DNA> is clearly a programmable medium like any <assembly language>, but still, systems programming did give Ciro some further feelings.
+
+* The most important analogy perhaps is observability, or more precisely the lack of it. For the computer, this is described at: <The lower level you go into a computer, the harder it is to observe things>.
+
+  And then, when Ciro started learning a bit about biology techniques, he started to feel the exact same thing.
+
+  For example when he played with <E. Coli Whole Cell Model by Covert Lab>, the main thing Ciro felt was: it is going to be hard to verify any of this data, because it is hard/impossible to know the concentration of each element in a cell as a function of time.
+
+  More generally of course, this is exactly why making any biology discovery is so hard: we can't easily see what's going on inside the cell, and have to resort to indirect ways of doing so..
+
+  This exact idea was highlighted by <I should have loved biology by James Somers>:
+  > For a computer scientist, a biologist's methods can seem insane; the trouble comes from the fact that cells are too small, too numerous, too complex to analyze the way a programmer would, say in a <step debugger>[step-by-step debugger].
+
+  And then just like in software, some of the methods biologists use to overcome the lack of visibility have direct software analogues:
+  * add <instrumentation (software)> to cells, e.g. <GFP tagging> comes to mind
+  * <emulation>, e.g. <E. Coli Whole Cell Model by Covert Lab>
+* The boot process is another one. E.g. in <x86> the way that you start in 16-bit mode, largely compatible into the 70's, then move to 32-bit and finally 64, does feel a lot the way a earlier stages of embryo development looks more and more like more ancient animals.
+
+Ciro likes to think that maybe that is why a hardcore <systems programmer> like <Bert Hubert> got into molecular biology.
+
+Some other people who mention similar things:
+* <I should have loved biology by James Somers> highlights the <How computers work?>[computer abstraction layer] analogy between the two:
+  > Everywhere you look - the <compiler>, the shell, the <CPU>, the DOM - is an abstraction hiding lifetimes of work.
+
+= Virtualization
+{parent=Systems programming}
+{tag=Good}
+{wiki}
+
+= Docker
+{disambiguate=software}
+{c}
+{parent=Virtualization}
+{wiki}
+
+= Docker
+{c}
+{synonym}
+
+Docker is good.
+
+As a lightweight virtualization however, it does break more often than full proper virtualization like <QEMU> after some updates.
+
+The images also appear to randomly update slightly and break things, even though you've specified e.g.:
+``
+FROM ubuntu:20.04
+``
+
+Also, we need more <Linux distributions buildable from source>, especially with <Reproducible builds>.
+
+= Emulator
+{parent=Virtualization}
+{wiki}
+
+= Emulate
+{synonym}
+
+= Emulation
+{synonym}
+
+One of the things <Ciro Santilli> really likes, see: <Linux Kernel Module Cheat>.
+
+If <computational physics> simulates physics, emulators simulates <computers>.
+
+= List of emulators
+{parent=Emulator}
+
+= gem5
+{c}
+{parent=List of emulators}
+{wiki}
+
+https://cirosantilli.com/linux-kernel-module-cheat/gem5
+
+= QEMU
+{c}
+{parent=List of emulators}
+{wiki}
+
+https://cirosantilli.com/linux-kernel-module-cheat/introduction-to-qemu
+
+The leading open source cross architecture and KVM emulator of the 2010's.
+
+Great way to understand how operating systems work, which <Ciro Santilli> used extensively in his <Linux Kernel Module Cheat>.
+
+<Ciro Santilli> has some good related articles listed under: <articles>{full}.
+
+= User mode emulation
+{parent=QEMU}
+
+<User mode emulation> refers to the ability of certain <emulators> to emulate userland code running on top of a specific <operating system>, usually <Linux>.
+
+For example, <QEMU> allows you to run a variety of userland <ELF> programs directly on it, without an underlying <Linux kernel> running.
+
+User mode emulation is achieved by implementing <system calls> and special filesystems such as `/dev` manually on the emulator one by one.
+
+The general tradeoff is that simulation is less acurate as it may lack certain highly advanced kernel functionality you haven't implemented yet. But it is much easier to run executables with it, and you don't have to wait for boot to finish before running, you just run executables directly from the command line.
+
+= QEMU JavaScript port
+{parent=QEMU}
+{tag=JavaScript library}
+
+This is especially interesting for <user mode emulation>.
+
+= QEMU.js
+{c}
+{parent=QEMU JavaScript port}
+
+Stopped 2019 apparently. Shame. We need something to be upstreamed!
+
+* source code: https://github.com/atrosinenko/qemujs
+* demo: https://atrosinenko.github.io/qemujs-demo/
+* demo source code: https://github.com/atrosinenko/qemujs-demo
+
+= Binary translation
+{parent=QEMU}
+{wiki}
+
+= Emulator manager
+{parent=Emulator}
+
+= virt-manager
+{c}
+{parent=Emulator manager}
+{wiki}
+
+https://virt-manager.org/
+
+= quickemu
+{c}
+{parent=Emulator manager}
+
+This is a cool project that attempts to make it easy to emulate any of <the three operating systems> on <QEMU>.
+
+Homepage: https://github.com/quickemu-project/quickemu
+
+Introductor tutorial by <Ciro Santilli>: https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1545712#1545712 intro
+
+Unofrtunately as of 2025 the project was falling a bit back on support, and the latest versions of the two closed source systems were buggy, tested as of quickemu 4.9.7 on <Ubuntu 25.04>:
+* <Windows 11>: https://github.com/quickemu-project/quickemu/issues/1475
+* <MacOS 14> (Sonoma) installs <MacOS 15>, which is not listed on the list of installable systems: https://github.com/quickemu-project/quickemu/issues/1561[]. The issue was closed, but it still happens.
+
+= quickemu HOWTO
+{c}
+{parent=quickemu}
+
+= quickemu directory sharing
+{c}
+{parent=quickemu HOWTO}
+
+Tutorial by <Ciro Santilli>: https://www.reddit.com/r/commandline/comments/v85fmx/comment/mpsvd25/
+
+= quickemu serial without GUI
+{c}
+{parent=quickemu HOWTO}
+
+This would serve as a good workaround for the lack of clipboard and the default annoyiance of mouse capture!
+
+I don't see how to get it working out of box immediately, but after you do on guest:
+``
+sudo apt install openssh-server
+``
+then the host terminal tells you the ssh command e.g.:
+``
+ssh user@localhost -p 22220
+``
+and that worked. You can also <quickemu> with:
+``
+quickemu --display none
+``
+to not get any annoying GUI.
+
+= Systems programmer
+{parent=Systems programming}
+{tag=Software engineer}
+
+= Systems programming software engineer
+{synonym}
+{title2}
+
+= The most awesome systems programmers
+{parent=Systems programmer}
+
+= The most awesome systems programming software engineers
+{synonym}
+
+Notable mentions:
+* Tom Tromey from <Red Hat>: https://www.youtube.com/watch?v=RwDA3oIOtWw Dude's a <GDB> God! He might be gay from that talk.
+
+Other notable people that are likely also awesome but Ciro has less familiarity with their contributions:
+* <Dwayne Richard Hipp> from <SQLite>
+* https://en.wikipedia.org/wiki/Daniel_Stenberg[Daniel Stenberg] from cURL
+* Michael Niedermayer also from <FFmpeg>. http://ikaruga.co.uk/~snacky/mn.html highlights his brutal directness and efficiency, and sometimes sense of humour
+
+= List of systems programmers
+{parent=Systems programmer}
+
+= Bert Hubert
+{c}
+{parent=List of systems programmers}
+{tag=Ciro Santilli's e-soulmates}
+
+Co-founder of PowerDNS, an <open source> <dNS> implementation.
+
+Homepage: https://berthub.eu/ says:
+> I sometimes contribute to science, I care a lot about <Europe>, innovation, <biology> & health
+.
+All stuff Ciro cares about too! Cool dude! In particular Ciro loved <quote i should have loved biology by james somers intro>[his quote of I should have loved biology].
+
+He's writing a fun-sounding book about <molecular biology> as of 2022: https://berthub.eu/dna-book[]. Appears to be closed source though. Ciro wonders if he really needs to sell the book for money after all those years though, rather than just publishing it online for free.
+
+Looking at Bert just brings the <Dutch Golden Age>, and more in particular <Antonie van Leeuwenhoek> to mind. Epic.
+
+\Video[https://www.youtube.com/watch?v=8aVBAcwDY7g]
+{title=How life is Digital by <Bert Hubert> (2021)}
+{description=Just a "boring" overview of the <central dogma of molecular biology> ;-)}
+
+= D. Richard Hipp
+{c}
+{parent=List of systems programmers}
+{tag=The most awesome systems programmers}
+{tag=SQLite}
+{title2=Creator of SQLite}
+
+= Dwayne Richard Hipp
+{synonym}
+{title2}
+
+\Image[https://upload.wikimedia.org/wikipedia/en/e/e7/Richard_hipp.jpeg]
+
+His standard C header seems to be as per example: https://www.sqlite.org/src/file/ext/misc/rot13.c
+
+``
+** The author disclaims copyright to this source code.  In place of
+** a legal notice, here is a blessing:
+**
+**    May you do good and not evil.
+**    May you find forgiveness for yourself and forgive others.
+**    May you share freely, never taking more than you give.
+``
+
+= Eli Benderski
+{c}
+{parent=List of systems programmers}
+{tag=The most awesome systems programmers}
+
+Homepage: https://eli.thegreenplace.net/
+
+Amazing <systems programming> tutorials. Whenever you <Google> a hard topic, his blog comes up.
+
+Also has many great contributions on <Stack Overflow>: https://stackoverflow.com/users/8206/eli-bendersky[]
+
+As of 2016, Eli worked at <Google> (https://dl.acm.org/citation.cfm?doid=2854038.2854041[reference]). TODO before that, I had found his earlier info previously but lost it.
+
+Eli focuses mostly on <compiler toolchains>.
+
+He also has some <mathematics> stuff, so cute: https://eli.thegreenplace.net/2015/change-of-basis-in-linear-algebra/
+
+= Fabrice Bellard
+{c}
+{parent=List of systems programmers}
+{tag=The most awesome systems programmers}
+{title2=creator of QEMU and FFmpeg}
+{wiki}
+
+Creator of <QEMU> and <FFmpeg>, both of which <Ciro Santilli> deeply respects. And a bunch other random stuff.
+
+What is shocking about Fabrice this is that both are insanely important software that <Ciro Santilli> really likes, and both seem to be completely unrelated subjects!
+
+<Google> made billions on top of this dude:
+* <FFmpeg is the backend of YouTube>
+* <QEMU> is the default emulator for https://en.wikipedia.org/wiki/Android_Studio[Android Studio] as of 2019, which <Android> developers use by default under the hood to develop Android Apps on their desktop without the need for a real device.
+
+At last but not least, Fabrice also studied in the same school that <Ciro Santilli> studied in France, <École Polytechnique>.
+
+It is a shame that he keeps such a low profile, there are no videos of him on the web, and he https://smartbear.com/blog/test-and-monitor/fabrice-bellard-portrait-of-a-super-productive-pro/[declines interviews].
+
+Another surprising fact is that Fabrice has not worked for the "Big Tech Companies" as far as can be publicly seen, but rather mostly on smaller companies that he co-founded: https://www.quora.com/Computer-Programmers/Computer-Programmers-Where-is-Fabrice-Bellard-employed
+
+And he's also into some completely random projcts unsurprisingly:
+* https://www.computerhistory.org/tdih/january/6/ Computer Scientist Fabrice Bellard Announces Computing Pi to Record Number of Digits
+
+Bibliography:
+* https://smartbear.com/de/blog/2011/fabrice-bellard-portrait-of-a-super-productive-pro/ contains a list of his projects as of 2011
+
+\Image[https://web.archive.org/web/20151227191405if_/https://dufoli.files.wordpress.com/2007/06/picture060.jpg]
+{title=<Fabrice Bellard> in 2007}
+{description=At a restaurant with the author apparently. Plus Miguel De Icaza who was in Paris for some conference, which they all presumably attended.}
+{height=600}
+{source=https://dufoli.wordpress.com/2007/06/23/ammmmaaaazing-night/}
+
+\Image[https://web.archive.org/web/20221216161034im_/https://images.computerhistory.org/tdih/06january-2.jpg?w=600]
+{title=<Fabrice Bellard> with light}
+{description=There are no in-focus images of Fabrice on the <Internet>.}
+
+= Linus Torvalds
+{c}
+{parent=List of systems programmers}
+{tag=The most awesome systems programmers}
+{wiki}
+
+= Robert O'Callahan
+{c}
+{parent=List of systems programmers}
+
+Creator of <Mozilla rr>, of which <Ciro Santilli> is a huge fan of!
+
+He quit Mozilla in 2016 to try and commercialize an `rr` extension called <Pernosco>.
+
+But as of 2022, he advertised himself as part of "<Google> Research", so maybe that went under, sample source: https://archive.ph/o9622[]. TODO when did he start? There's apparently an unrelated homonym: https://www.linkedin.com/in/rob-ocallahan/
+
+He's apparently very religious, and very New Zelandish, https://twitter.com/rocallahan[] auto-describes:
+> Christian. Repatriate Kiwi.
+<Terry A. Davis> and <D. Richard Hipp> come to mind. One is tempted to speculate a correlation even, the proportion amongst systems programmers feels so much higher than in other areas of programming! Maybe it is because you have to be a God to do it in the first place.
+
+\Video[https://www.youtube.com/watch?v=dMroSfg9kio]
+{title=Robert O'Callahan interview by Toby Ho (2022)}

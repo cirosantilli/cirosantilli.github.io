@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>SQL histogram - Ciro Santilli</title>
+<meta property="og:title" content="SQL histogram - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/sql-histogram">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/sql-histogram">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="sql-histogram"><div class="notnav"><h1><a href="">SQL histogram</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software#database"> Database</a><a href="software#type-of-database"> Type of database</a><a href="software#relational-database"> Relational database</a><a href="software#relational-database-management-system"> Relational database management system</a><a href="sql"> SQL</a><a href="sql#sql-application"> SQL application</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/sql-histogram"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="sql#sql-histogram"></a><span class="metrics"><span class="wcntr"> Words: 439</span><span class="dcnt"> Articles: 1</span></span></div></nav></div><div class="p" id="_403">OK, there's a billion questions:<div class="list"><ul id="_404"><li id="_405"><a href="sql#oracle-database">SQL Server</a><div class="list"><ul id="_406"><li id="_407"><a href="https://stackoverflow.com/questions/485409/generating-a-histogram-from-column-values-in-a-database">stackoverflow.com/questions/485409/generating-a-histogram-from-column-values-in-a-database</a> OP did not know the difference between count and histogram :-) But it's the number one Google result.</li><li id="_408"><a href="https://stackoverflow.com/questions/19103991/create-range-bins-from-sql-server-table-for-histograms">stackoverflow.com/questions/19103991/create-range-bins-from-sql-server-table-for-histograms</a> has a minor extra group by twist, but otherwise fine</li><li id="_409"><a href="https://stackoverflow.com/questions/16268441/generate-histogram-in-sql-server">stackoverflow.com/questions/16268441/generate-histogram-in-sql-server</a></li></ul></div></li><li id="_410"><a href="sql#sqlite">SQLite</a><div class="list"><ul id="_411"><li id="_412"><a href="https://stackoverflow.com/questions/67514208/how-to-optimise-creating-histogram-bins-in-sqlite">stackoverflow.com/questions/67514208/how-to-optimise-creating-histogram-bins-in-sqlite</a> perf only, benchmarking would be needed. <a href="sql#sqlite">SQLite</a>.</li><li id="_413"><a href="https://stackoverflow.com/questions/32155449/create-a-histogram-with-a-dynamic-number-of-partitions-in-sqlite">stackoverflow.com/questions/32155449/create-a-histogram-with-a-dynamic-number-of-partitions-in-sqlite</a> variable bin size, same number of entries per bin</li><li id="_414"><a href="https://stackoverflow.com/questions/60348109/histogram-for-time-periods-using-sqlite-regular-buckets-1h-wide">stackoverflow.com/questions/60348109/histogram-for-time-periods-using-sqlite-regular-buckets-1h-wide</a> time</li></ul></div></li><li id="_415"><a href="sql#mysql">MySQL</a>: <a href="https://stackoverflow.com/questions/1764881/getting-data-for-histogram-plot">stackoverflow.com/questions/1764881/getting-data-for-histogram-plot</a> MySQL appears to extend <code>ROUND</code> to also round by integers: <code>ROUND(numeric_value, -2)</code>, but this is not widely portable which is a shame</li><li id="_416"><a href="https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql">stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql</a> specifically asks about empty bins, which is amazing. <a href="computer-hardware#amazon-redshift">Amazon Redshift</a> dialect unfortunately, but answer provided works widely, and Redshift was forked from <a href="sql#postgresql">PostgreSQL</a>, so there's hope. Those newb <a href="software#open-source-software">open source</a> server focused projects that don't use <a href="law#affero-general-public-license">AGPL</a>!</li></ul></div></div><div class="p" id="_417">Let's try it on <a href="sql#sqlite">SQLite</a> 3.40.1, <a href="systems-programming#ubuntu-23-04">Ubuntu 23.04</a>. Data setup:<div class="code" id="_418"><div><pre><code>sqlite3 tmp.sqlite 'create table t(x integer)'
+sqlite3 tmp.sqlite &lt;&lt;EOF
+insert into t values (
+  0,
+  2,
+  2,
+  3,
+
+  5,
+  6,
+  6,
+  8,
+  9,
+
+  17,
+)
+EOF
+sqlite3 tmp.sqlite 'create index tx on t(x)'</code></pre></div></div></div><div class="p" id="_419">For a bin size of 5 ignoring empty ranges we can:<div class="code" id="_420"><div><pre><code>sqlite3 tmp.sqlite &lt;&lt;EOF
+select floor(x/5)*5 as x,
+       count(*) as cnt
+from t
+group by 1
+order by 1
+EOF</code></pre></div></div>which produces the desired:<div class="code" id="_421"><div><pre><code>0|4
+5|5
+15|1</code></pre></div></div></div><div class="p" id="_422">And to consider empty ranges we can use <a href="sql#sql-genenerate-series">SQL <code>genenerate_series</code></a> + as per <a href="https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql">stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql</a>:<div class="code" id="_423"><div><pre><code>sqlite3 tmp.sqlite &lt;&lt;EOF
+select x, sum(cnt) from (
+  select floor(x/5)*5 as x,
+         count(*) as cnt
+    from t
+    group by 1
+  union
+  select *, 0 as cnt from generate_series(0, 15, 5)
+)
+group by x
+EOF</code></pre></div></div>which outputs the desired:<div class="code" id="_424"><div><pre><code>0|4
+5|5
+10|0
+15|1</code></pre></div></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 439</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/sql-2d-histogram"><div class="arrow"><div></div></div><span class="not-arrow"><a href="sql#sql-2d-histogram">SQL 2D histogram</a><span class="hover-metadata"><a href="#_toc" class="u"> SQL histogram</a><span class="metrics"><span class="wcntr"> 199</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(12)</span></a></h2><div class="list"><ol><li><a href="sql#sql-application">SQL application</a></li><li><a href="sql">SQL</a></li><li><a href="software#relational-database-management-system">Relational database management system</a></li><li><a href="software#relational-database">Relational database</a></li><li><a href="software#type-of-database">Type of database</a></li><li><a href="software#database">Database</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/sql.bigb">Source code for this page: sql.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/sql.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

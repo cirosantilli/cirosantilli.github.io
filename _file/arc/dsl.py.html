@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>arc/dsl.py - Ciro Santilli</title>
+<meta property="og:title" content="arc/dsl.py - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/arc/dsl.py">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/arc/dsl.py">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/arc/dsl.py"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">arc/dsl.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/arc/dsl.py"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/arc">arc</a> / <a href="../../_raw/arc/dsl.py">dsl.py</a></b></div></nav></div><div class="p"><b>arc/dsl.py</b></div><div class="code"><div><pre><code>#!/usr/bin/env python
+
+import argparse
+from fractions import Fraction
+import json
+from dataclasses import dataclass, field
+from typing import Optional
+from pathlib import Path
+
+@dataclass
+class MonocolorObject:
+    i: int
+    j: int
+    color: int
+    pixel_indices: list[int] = field(default_factory=list)
+    # Bounding box. We can check if the object is a perpendicular
+    # line of width 1 from this, and give it much more importance in that case.
+    min_i: Optional[int] = None
+    min_j: Optional[int] = None
+    max_i: Optional[int] = None
+    max_j: Optional[int] = None
+
+    def __post_init__(self):
+        self.pixel_indices.append((self.i, self.j))
+        self.min_i = self.i
+        self.max_i = self.i
+        self.min_j = self.j
+        self.max_j = self.j
+
+    def append(self, i, j):
+        self.pixel_indices.append((i, j))
+        if i &lt; self.min_i:
+            self.min_i = i
+        if j &lt; self.min_j:
+            self.min_j = j
+        if i &gt; self.max_i:
+            self.max_i = i
+        if j &gt; self.max_j:
+            self.max_j = j
+
+    def __len__(self):
+        return len(self.pixel_indices)
+
+    def __repr__(self):
+        return f'i={self.i} j={self.j} color={self.color} len={len(self.pixel_indices)} pixel_indices={self.pixel_indices}'
+
+def get_dsl(image):
+    height = len(image)
+    width = len(image[0])
+
+    monocolorObjectsIndex = {
+        # Perpendicular = false: counts diagonals as adjacent.
+        False: {},
+        # Perpendicular = true: does not count diagonals as adjacent.
+        True: {},
+    }
+    monocolorObjects = {
+        False: [],
+        True: [],
+    }
+    for perpendicular in (True, False):
+        index = monocolorObjectsIndex[perpendicular]
+        list_ = monocolorObjects[perpendicular]
+        for i in range(height):
+            row = image[i]
+            for j in range(width):
+                color = row[j]
+                if not (i, j) in index:
+                    obj = MonocolorObject(i, j, color)
+                    index[(i, j)] = obj
+                    list_.append(obj)
+                    todo = []
+                    def append(i, j, color):
+                        if i &gt;= 0 and i &lt; height and j &gt;= 0 and j &lt; width and image[i][j] == color:
+                            if not (i, j) in index:
+                                obj.append(i, j)
+                                index[(i, j)] = obj
+                                todo.append((i, j))
+                    curi = i
+                    curj = j
+                    while True:
+                        append(curi - 1, curj    , color)
+                        append(curi    , curj - 1, color)
+                        append(curi    , curj + 1, color)
+                        append(curi + 1, curj    , color)
+                        if not perpendicular:
+                            append(curi - 1, curj - 1, color)
+                            append(curi - 1, curj + 1, color)
+                            append(curi + 1, curj - 1, color)
+                            append(curi + 1, curj + 1, color)
+                        if len(todo):
+                            curi, curj = todo.pop()
+                        else:
+                            break
+    return {
+        'height': height,
+        'monocolorObjectsIndex': monocolorObjectsIndex,
+        'monocolorObjects': monocolorObjects,
+        'width': width,
+    }
+
+def all_equal(l: list):
+    return l.count(l[0]) == len(l)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('json-path', nargs='+')
+    args = parser.parse_args()
+    json_paths = getattr(args, 'json-path')
+    for json_path in json_paths:
+        id = Path(json_path).stem
+        with open(json_path) as f:
+            task = json.load(f)
+        inputWidths = []
+        inputHeights = []
+        ioWidthRatios = []
+        ioHeightRatios = []
+        outputWidths = []
+        outputHeights = []
+        for i, io in enumerate(task['train']):
+            #print(f'input {i}')
+            input = io['input']
+            inputWidth = len(input[0])
+            inputWidths.append(inputWidth)
+            inputHeight = len(input)
+            inputHeights.append(inputHeight)
+            input_dsl = get_dsl(input)
+            #print(input_dsl)
+
+            #print(f'output {i}')
+            output = io['output']
+            outputWidth = len(output[0])
+            outputWidths.append(outputWidth)
+            outputHeight = len(output)
+            outputHeights.append(outputHeight)
+            output_dsl = get_dsl(output)
+            #print(output_dsl)
+
+            ioWidthRatios.append(Fraction(outputWidth, inputWidth))
+            ioHeightRatios.append(Fraction(outputHeight, inputHeight))
+
+        inputConstraints = []
+        outputConstraints = []
+
+        if all_equal(inputWidths):
+            w = inputWidths[0]
+            inputConstraints.append(('fixedWidth', lambda dsl: dsl['width'] != w and f'{dsl['width']} != {w}'))
+        if all_equal(inputHeights):
+            h = inputHeights[0]
+            inputConstraints.append(('fixedHeight', lambda dsl: dsl['height'] != h and f'{dsl['height']} != {h}'))
+        
+        # Output width inference.
+        for isWidth in [True, False]:
+            if isWidth:
+                outputs = outputWidths
+                ioRatios = ioWidthRatios
+                wh_str = 'width'
+            else:
+                outputs = outputHeights
+                ioRatios = ioHeightRatios
+                wh_str = 'height'
+            outputsEqual = all_equal(outputs)
+            outputRatiosEqual = all_equal(ioRatios)
+            if outputsEqual or outputRatiosEqual:
+                def f(dsl_i, dsl_o):
+                    expect = outputs[0]
+                    r = ioRatios[0]
+                    w = dsl_o[wh_str]
+                    expectRatio = dsl_i[wh_str] * r.numerator // r.denominator
+                    actualRatio = w
+                    if expect != w and expectRatio != actualRatio:
+                        return f'actual: {w} fixed expect: {expect} ratio expect: {expectRatio}'
+                outputConstraints.append((f'{wh_str}FixedOrRatio', f))
+            else:
+                print(f'{id}: unknown output {wh_str} rule {ioRatios}')
+
+        #for perpendicular in (True, False):
+        #    for obj in sorted(monocolorObjects[perpendicular], key=lambda o: -len(o)):
+        #        print(obj)
+
+        for i, io in enumerate(task['test']):
+            input = io['input']
+            output = io['output']
+            dsl_i = get_dsl(input)
+            dsl_o = get_dsl(output)
+            for name, inputConstraint in inputConstraints:
+                msg = inputConstraint(dsl_i)
+                if msg :
+                    print(f'{id} {i}: input constraint {name} failed: {msg}')
+            for name, outputConstraint in outputConstraints:
+                msg = outputConstraint(dsl_i, dsl_o)
+                if msg :
+                    print(f'{id} {i}: output constraint {name} failed: {msg}')
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

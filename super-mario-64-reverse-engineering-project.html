@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Super Mario 64 reverse engineering project - Ciro Santilli</title>
+<meta property="og:title" content="Super Mario 64 reverse engineering project - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/Screenshot_of_Mupen64Plus_running_on_Ubuntu_20.04_emulating_Super_Mario_64_with_the_title_screen_hacked_by_Ciro_Santilli.png">
+<meta property="og:url" content="https://cirosantilli.com/super-mario-64-reverse-engineering-project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/super-mario-64-reverse-engineering-project">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="super-mario-64-reverse-engineering-project"><div class="notnav"><h1><a href="">Super Mario 64 reverse engineering project <span class="meta">(n64decomp/sm64)</span></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="video-game#video-game-console-company"> Video game console company</a><a href="video-game#nintendo"> Nintendo</a><a href="video-game#nintendo-video-game-console"> Nintendo video game console</a><a href="video-game#nintendo-64"> Nintendo 64</a><a href="video-game#nintendo-64-game"> Nintendo 64 game</a><a href="video-game#super-mario-64"> Super Mario 64</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/super-mario-64-reverse-engineering-project"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="video-game#video-game-decompilation">Video game decompilation</a></span><a class="nosplit" href="video-game#super-mario-64-reverse-engineering-project"></a><span class="metrics"><span class="wcntr"> Words: 554</span></span></div></nav></div><div class="p" id="_217"><a href="https://github.com/MitchellSternke/SuperMarioBros-C">github.com/MitchellSternke/SuperMarioBros-C</a></div><div class="p" id="_218">OMG, both of those just <a href="biology#sexual-intercourse">fucking</a> work on <a href="systems-programming#ubuntu-20-04">Ubuntu 20.04</a> with README instructions, it is unbelievable, those people don't have lives. And it builds the ROM <a href="software#reproducible-builds">byte by byte equal from source</a>!</div><div class="p" id="_219">There are a few different versions:<div class="list"><ul id="_220"><li id="_221"><a href="https://github.com/n64decomp/sm64">github.com/n64decomp/sm64</a> for <a href="systems-programming#emulator">emulator</a> (i.e. or real hardware), tested at 9214dddabcce4723d9b6cda2ebccbac209f6447d</li><li id="_222"><div class="p" id="_223"><a href="https://github.com/sm64-port/sm64-port">github.com/sm64-port/sm64-port</a> <a href="systems-programming#ubuntu">Ubuntu</a> native, tested at 6b47859f757a40096fedd6237f2bc3573d0bc2a4</div><div class="p" id="_224">Full screen with F10.</div></li><li id="_225"><div class="p" id="_226"><a href="https://github.com/sm64pc/sm64ex">github.com/sm64pc/sm64ex</a>: fork of sm64-port, untested by <a href="ciro-santilli">Ciro Santilli</a>, but more new amazing usability features, notably:</div><div class="list"><ul id="_227"><li id="_228"><code>--skip-intro</code>: skips the annoying pipe intro and the need to wait for Lakitu to bring Peaches message!</li><li id="_229">in-game menu:<div class="list"><ul id="_230"><li id="_231">cheats:</li><li id="_232">hide HUD!</li></ul></div></li><li id="_233">no level selection yet, but a matter of time?<div class="list"><ul id="_234"><li id="_235"><a href="https://github.com/sm64pc/sm64ex/pull/417">github.com/sm64pc/sm64ex/pull/417</a></li><li id="_236"><a href="https://github.com/sm64pc/sm64ex/pull/402">github.com/sm64pc/sm64ex/pull/402</a></li><li id="_237"><a href="https://github.com/sm64pc/sm64ex/issues/425">github.com/sm64pc/sm64ex/issues/425</a></li><li id="_238"><a href="https://github.com/sm64pc/sm64ex/issues/424">github.com/sm64pc/sm64ex/issues/424</a></li></ul></div></li></ul></div><div class="p" id="_239">Also reported to work on ARM: <a href="https://www.reddit.com/r/linux/comments/ityg6w/pinephone_playing_super_mario_64_30fps/">www.reddit.com/r/linux/comments/ityg6w/pinephone_playing_super_mario_64_30fps/</a></div><div class="p" id="_240">They also ported to browser with Emscripten: <a href="https://github.com/sm64pc/sm64ex/wiki/Compiling-for-the-web">github.com/sm64pc/sm64ex/wiki/Compiling-for-the-web</a></div></li></ul></div></div><div class="p" id="_241">Tested with the USA ROM at <a href="systems-programming#sha1sum">sha1sum</a> 9bef1128717f958171a4afac3ed78ee2bb4e86ce (you need a ROM to extract assets, which the project automates), which is also documented in the project itself: <a href="https://github.com/sm64-port/sm64-port/blob/6b47859f757a40096fedd6237f2bc3573d0bc2a4/sm64.us.sha1">github.com/sm64-port/sm64-port/blob/6b47859f757a40096fedd6237f2bc3573d0bc2a4/sm64.us.sha1</a>. Disclaimer: <a href="ciro-santilli">Ciro Santilli</a> owns a copy of <a href="video-game#super-mario-64">Super Mario 64</a>.</div><div class="p" id="_242">The only dependency missing from Ubuntu packages is the <a href="https://en.wikipedia.org/wiki/IRIX">IRIX</a> <a href="systems-programming#qemu">QEMU</a> <a href="https://cirosantilli.com/linux-kernel-module-cheat/#user-mode-simulation">user mode</a> which they need for their tooling. The project also has a QEMU fork for that, and provide a working deb.</div><div class="p" id="_243">From this project it was also noticed that certain ROM releases were not compiled with optimizations enabled, presumably because as a release title the compiler had optimization bugs! <a href="https://www.resetera.com/threads/so-apparently-the-ntsc-build-of-mario-64-didnt-use-any-compiler-optimizations.166277/">www.resetera.com/threads/so-apparently-the-ntsc-build-of-mario-64-didnt-use-any-compiler-optimizations.166277/</a> But now they do have a working compiler, and by turning that switch FPS increases in certain levels!!!</div><div class="p" id="_244">It is good to know that this game will "never die".</div><div class="p" id="_245">Some quick stupid patches:</div><div class="list"><ul id="_246"><li id="_247"><div class="p" id="_248">jump really high:</div><div class="code" id="_249"><div><pre><code>diff --git a/src/game/mario.c b/src/game/mario.c
+index 5b103fa..83c9f40 100644
+--- a/src/game/mario.c
++++ b/src/game/mario.c
+@@ -826,7 +826,7 @@ static u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actio
+         case ACT_JUMP:
+         case ACT_HOLD_JUMP:
+             m-&gt;marioObj-&gt;header.gfx.unk38.animID = -1;
+-            set_mario_y_vel_based_on_fspeed(m, 42.0f, 0.25f);
++            set_mario_y_vel_based_on_fspeed(m, 200.0f, 0.25f);
+             m-&gt;forwardVel *= 0.8f;
+             break;</code></pre></div></div></li></ul></div><div class="p" id="_250">Interesting entry points:<div class="list"><ul id="_251"><li id="_252"><code>src/game/game_init.c</code></li></ul></div></div><div class="p" id="_253">TODO: enable the level select debug feature! <a href="https://tcrf.net/Super_Mario_64_(Nintendo_64)/Debug_Content#Classic_Debug_Display">tcrf.net/Super_Mario_64_(Nintendo_64)/Debug_Content#Classic_Debug_Display</a> They actually shipped quite a few debug features into the retail game, and they have been reversed too. I tried this but it didn't work (or I don't know how to enable the level select menu):<div class="code" id="_254"><div><pre><code>diff --git a/src/game/main.c b/src/game/main.c
+index 9e53e50..b7443a8 100644
+--- a/src/game/main.c
++++ b/src/game/main.c
+@@ -65,7 +65,7 @@ s8 sAudioEnabled = 1;
+ u32 sNumVblanks = 0;
+ s8 gResetTimer = 0;
+ s8 D_8032C648 = 0;
+-s8 gDebugLevelSelect = 0;
++s8 gDebugLevelSelect = 1;
+ s8 D_8032C650 = 0;
+
+ s8 gShowProfiler = FALSE;</code></pre></div></div></div><div class="p" id="_255">The <code>enhancements/</code> folder contains a few sample patches.</div><div class="figure"><figure id="image-screenshot-of-mupen64plus-running-on-ubuntu-20-04-emulating-super-mario-64-with-the-title-screen-hacked-by-ciro-santilli-based-on-the-super-mario-64-reverse-engineering-project" class="multiline"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/master/Screenshot_of_Mupen64Plus_running_on_Ubuntu_20.04_emulating_Super_Mario_64_with_the_title_screen_hacked_by_Ciro_Santilli.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/Screenshot_of_Mupen64Plus_running_on_Ubuntu_20.04_emulating_Super_Mario_64_with_the_title_screen_hacked_by_Ciro_Santilli.png" loading="lazy" height="500"></a></div><figcaption><a href="#image-screenshot-of-mupen64plus-running-on-ubuntu-20-04-emulating-super-mario-64-with-the-title-screen-hacked-by-ciro-santilli-based-on-the-super-mario-64-reverse-engineering-project"><span class="caption-prefix">Figure 5. </span></a><div class="title">Screenshot of mupen64Plus running on Ubuntu 20.04 emulating Super Mario 64 with the title screen hacked by Ciro Santilli based on the Super Mario 64 reverse engineering project</div>. The title was on a string, so the hack was trivial! The patch used was:<div class="code" id="_256"><div><pre><code>diff --git a/include/text_strings.h.in b/include/text_strings.h.in
+index 749179b..626f87e 100644
+--- a/include/text_strings.h.in
++++ b/include/text_strings.h.in
+@@ -131,7 +131,7 @@
+  */
+ // Main Screens
+ #define TEXT_MARIO _("MARIO") // View Score Menu
+-#define TEXT_SELECT_FILE _("SELECT FILE")
++#define TEXT_SELECT_FILE _("HACKED BY CIRO")
+ #define TEXT_CHECK_FILE _("CHECK FILE")
+ #define TEXT_COPY_FILE _("COPY FILE")
+ #define TEXT_ERASE_FILE _("ERASE FILE")</code></pre></div></div></figcaption></figure></div><div class="p" id="_257">Some tutorials of hacking it:<div class="list"><ul id="_258"><li id="_259"><a href="https://www.youtube.com/watch?v=Jkb7Naczoww">www.youtube.com/watch?v=Jkb7Naczoww</a> SM64 Decomp Tutorial 1: Setting Up and First Code Changes by Bitlytic (2021)</li><li id="_260"><a href="https://www.youtube.com/watch?v=IuIpqX4neWg">www.youtube.com/watch?v=IuIpqX4neWg</a> Rovert Decomp Tech Demo by Rovert (2019) Metal cap makes Mario huge.</li><li id="_261"><a href="https://www.youtube.com/watch?v=5aG1Iyjo20w">www.youtube.com/watch?v=5aG1Iyjo20w</a> Is it Possible to Beat Super Mario 64 as Tiny Mario? (Mini Mario Challenge) coverts the obvious make Mario huge/tiny hack. Huge mario verion: <a href="https://www.youtube.com/watch?v=pR_gol6zlIo">www.youtube.com/watch?v=pR_gol6zlIo</a>. There was a pre-decompilation ROM hack doing that trivial change already: Tiny Huge Mario 64. Sample <a href="video-game#tool-assisted-speedrun">tool-assisted speedrun</a>: <a href="https://www.youtube.com/watch?v=C7BjzZ_Nkk0">www.youtube.com/watch?v=C7BjzZ_Nkk0</a></li></ul></div></div><div class="figure"><figure id="video-fixing-the-entire-sm64-source-code-by-kaze-emanuar-2022"><div class="float-wrap"><iframe width="560" height="315" loading="lazy" src="https://www.youtube.com/embed/t_rzYnXEQlE" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><figcaption><a href="#video-fixing-the-entire-sm64-source-code-by-kaze-emanuar-2022"><span class="caption-prefix">Video 12. </span></a><div class="title">FIXING the ENTIRE SM64 Source Code by Kaze Emanuar (2022)</div> <a href="https://www.youtube.com/watch?v=t_rzYnXEQlE">Source</a>. Now that we have the source, <a href="video-game#video-game-modding">modders</a> like this are going nuts.</figcaption></figure></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(10)</span></a></h2><div class="list"><ol><li><a href="video-game#super-mario-64">Super Mario 64</a></li><li><a href="video-game#nintendo-64-game">Nintendo 64 game</a></li><li><a href="video-game#nintendo-64">Nintendo 64</a></li><li><a href="video-game#nintendo-video-game-console">Nintendo video game console</a></li><li><a href="video-game#nintendo">Nintendo</a></li><li><a href="video-game#video-game-console-company">Video game console company</a></li><li><a href="video-game">Video game</a></li><li><a href="art#game">Game</a></li><li><a href="art">Art</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(3)</span></a></h2><div class="list"><ul><li><a href="technology#reverse-engineering">Reverse engineering</a></li><li><a href="video-game#super-mario-64-reverse-engineering-project">Super Mario 64 reverse engineering project</a></li><li><a href="video-game#tool-assisted-speedrun">Tool-assisted speedrun</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/video-game.bigb">Source code for this page: video-game.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/video-game.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>sponsor/updates/7.bigb - Ciro Santilli</title>
+<meta property="og:title" content="sponsor/updates/7.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/sponsor/updates/7.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/7.bigb">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/sponsor/updates/7.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">sponsor/updates/7.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/7.bigb"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/sponsor">sponsor</a> / <a href="../../../_dir/sponsor/updates">updates</a> / <a href="../../../_raw/sponsor/updates/7.bigb">7.bigb</a></b></div></nav></div><div class="p"><b>sponsor/updates/7.bigb</b></div><div class="code"><div><pre><code>= Ciro's Edict \#7
+{numbered}
+{scope}
+{title2=2022-07-06}
+
+&lt;Cirists&gt;,
+
+= ourbigbook.com
+{parent=7}
+
+= Advances
+{parent=ourbigbook.com}
+
+= Email verification and reCAPTCHA signup protection
+{parent=Advances}
+
+Added this basic but fundamental protection layer to the website.
+
+The email setup will of course be reused when notifications are eventually implemented.
+
+Currently using &lt;SendGrid&gt; as the email provider. Very easy to setup, and has a free plan.
+
+Adding &lt;reCAPTCHA&gt; immediately after email is a must otherwise an attacker could send infinitely many emails to random addresses, which would lead to the domain being marked as spam. I was pleasantly surprised about how easy the integration ended up being.
+
+= Issue tracker
+{parent=Advances}
+
+Every article now has a (very basic) GitHub-like issue tracker. Comments now go under issues, and issues go under articles. Issues themselves are very similar to articles, with a title and a body.
+
+This was part of 1.0, but not the first priority, but I did it now anyways because I'm trying to do all the database changes ASAP as I'm not in the mood to write database migrations.
+
+Here's an example:
+* https://ourbigbook.com/go/issue/2/donald-trump/atomic-orbital a specific issue about the article "Atomic Orbital" by Donald Trump. Note the comments possibly by other users at the bottom.
+* https://ourbigbook.com/go/issues/1/donald-trump/atomic-orbital list of issues about the article "Atomic Orbital" by Donald Trump
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_issue_list_on_article_page.png]
+{height=800}
+
+= Insane links and parents
+{parent=Advances}
+
+You can now write:
+``
+&lt;Blue cats&gt; are nice.
+
+= Blue cat
+
+= Big blue cat
+{parent=Blue cat}
+``
+in lieu of the old:
+``
+\x[blue-cat]{c}{p} are nice.
+
+= Blue cat
+
+= Big blue cat
+{parent=blue-cat}
+``
+
+= `--format-source`
+{parent=Advances}
+
+Added `ourbigbook --format-source` automatic code formatting. I implemented it for the following reasons:
+* I want to do certain automatic modifications to source code on web, e.g.:
+  * allow users to select the parent article of a new article on the web UI, but that is currently doable only with `\Include` macros
+  * allow users to edit the source only for a specific header
+* later on, much later, this will allow &lt;WYSIWYG&gt; export to plaintext
+
+This also ended up having one unexpected benefit: whenever a new feature is added that deprecates an old feature, by converting the large corpus from https://github.com/cirosantilli/cirosantilli.github.io to the new feature I can test the new preferred feature very well.
+
+For example, converting `\x[blue cat]` en masse to the new insane syntax `&lt;blue cat&gt;` found several bugs with the new insane syntax.
+
+This seemed somewhat easy at first, so I started it as a way of procrastinating more urgent Web features (web scares me, you know), but it ended being insanely hard to implement, because there are many edge cases. Also, most bugs are not acceptable, as they would corrupt your precious source code and potentially output.
+
+But well, it is done!
+
+= Next steps
+{parent=ourbigbook.com}
+
+Improve article editing which is very buggy and inconvenient!
+
+I'll also look into some more likely easy but very important topic improvements:
+* https://github.com/ourbigbook/ourbigbook/issues/256
+* https://github.com/ourbigbook/ourbigbook/issues/255
+
+= Misc tech
+{parent=7}
+
+= Not work
+{parent=7}
+
+I was trying to learn about how some types of &lt;quantum computers&gt; work, when I came across this pearl:
+&gt; https://en.wikipedia.org/wiki/Wolfgang_Paul#Scientific_results Wolfgang Paul, 1989 &lt;Nobel Prize&gt; in Physics winner, referred to &lt;Wolfgang Pauli&gt;, 1945 winner, as his "imaginary part".
+
+I also did a bit of &lt;Ciro Santilli's cycling&gt;[cycling tourism]: https://bicycles.stackexchange.com/questions/3779/im-going-to-take-my-bike-with-me-on-a-plane-do-i-really-need-a-special-bike-tr/84238#84238[]
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

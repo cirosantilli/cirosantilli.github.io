@@ -1,0 +1,1732 @@
+= Formalization of mathematics
+
+= Foundation of mathematics
+{synonym}
+
+= Formal mathematics
+{synonym}
+
+= Formal maths
+{synonym}
+
+Mathematics is a <art>[beautiful game] played on https://en.wikipedia.org/wiki/String_(computer_science[strings], which <mathematicians> call https://en.wikipedia.org/wiki/Theorem["theorems"].
+
+Here is a more understandable description of the semi-satire that follows: https://math.stackexchange.com/questions/53969/what-does-formal-mean/3297537#3297537
+
+You start with a very small list of:
+* certain arbitrarily chosen initial strings, which mathematicians call "<axioms>"
+* rules of how to obtain new strings from old strings, called https://en.wikipedia.org/wiki/Rule_of_inference["rules of inference"] Every transformation rule is very simple, and can be verified by a computer.
+
+Using those rules, you choose a target string that you want to reach, and then try to reach it. Before the target string is reached, mathematicians call it a https://en.wikipedia.org/wiki/Conjecture["conjecture"].
+
+Mathematicians call the list of transformation rules used to reach a string a https://en.wikipedia.org/wiki/Mathematical_proof["proof"].
+
+Since every step of the proof is very simple and can be verified by a computer automatically, the entire proof can also be automatically verified by a computer very easily.
+
+Finding proofs however is undoubtedly an <computable problem>[uncomputable problem].
+
+Most mathematicians can't code or deal with the real world in general however, so they haven't created the obviously necessary: <website front-end for a mathematical formal proof system>.
+
+The fact that Mathematics happens to be the best way to describe <physics> and that humans can use physical intuition heuristics to reach the NP-hard proofs of mathematics is one of the great miracles of the universe.
+
+Once we have mathematics formally modelled, one of the coolest results is https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems[Gödel's incompleteness theorems], which states that for any reasonable proof system, there are necessarily theorems that cannot be proven neither true nor false starting from any given set of axioms: those theorems are independent from those axioms. Therefore, there are three possible outcomes for any hypothesis: true, false or independent!
+
+Some famous theorems have even been proven to be independent of some famous <axioms>. One of the most notable is that the http://en.wikipedia.org/wiki/Continuum_hypothesis[Continuum Hypothesis] is <independent (mathematical logic)> from <Zermelo-Fraenkel set theory>! Such independence proofs rely on modelling the proof system inside another proof system, and https://en.wikipedia.org/wiki/Forcing_(mathematics)[forcing] is one of the main techniques used for this.
+
+\Image[https://web.archive.org/web/20190430151331im_/http://abstrusegoose.com/strips/i_dont_give_a_shit_about_your_mountain.png]
+{title=The landscape of modern Mathematics comic by Abstruse Goose}
+{description=This comic shows that Mathematics is one of the most diversified areas of <art>[useless] human knowledge.}
+{source=https://abstrusegoose.com/211}
+
+= Proof assistant
+{parent=Formalization of mathematics}
+{wiki}
+
+Much of this section will be dumped at <website front-end for a mathematical formal proof system>{full} instead.
+
+= QED manifesto
+{c}
+{parent=Proof assistant}
+{wiki}
+
+If <Ciro Santilli> ever becomes rich, he's going to solve this with: <website front-end for a mathematical formal proof system>, promise.
+
+= Web-based proof assistant
+{parent=Proof assistant}
+
+A more verbose description of this at: <Website front-end for a mathematical formal proof system>{full}.
+
+= The Math Genome Project
+{c}
+{parent=Web-based proof assistant}
+{tag=Closed source software}
+{title2=2023-}
+
+https://www.themathgenome.com/
+
+The website was dead as of February 2025. Last archive: https://web.archive.org/web/20240418004442/http://www.themathgenome.com/[] Pings:
+* https://x.com/cirosantilli/status/1890873216551313861
+They were seeking help on May 2024:
+* https://x.com/TheMathGenome/status/1792963871193608593
+* https://www.linkedin.com/feed/update/urn:li:activity:7198688750355259393/
+so its likely the followup death. LinkedIn post gives basic stack: MERN stack, <Heroku>, Supabase/<MongoDB> Atlas.
+
+Appears to support multiple <proof assistant> backends including <Lean (proof assistant)>, Hol and <Coq>.
+
+A discussion on the <Lean (proof assistant)> Zulip: https://leanprover.zulipchat.com/#narrow/stream/113488-general/topic/The.20Math.20Genome.20Project/near/352639129[]. Lean people are not convinced about the model in general it seems however.
+
+TODO <closed source>? Really? https://www.themathgenome.com/pricing
+
+TODO not viewable without login?
+
+Has <conjectures> feature.
+
+Built by this dude John Mercer:
+* https://www.linkedin.com/in/johnmercer/
+* https://x.com/john_d_mercer
+He must be <independently wealthy> or something to do such a project? What a hero. But he seems to have jobs. On the side? Hardcore.
+
+A failed <Hacker News> self post: https://news.ycombinator.com/item?id=35775071 
+
+<Ciro Santilli> asked: https://discord.com/channels/1096393420408360989/1096393420408360996/1137047842159079474
+> Does the website actually automatically check the formal proofs, or is this intended to be implemented at some point? And if yes, is it intended to allow proofs to depend on other proofs of the website (possibly by other people)
+Owner:
+> Hi Ciro, yes we will be releasing in-browser proof assistant environments/checkers (e.g. Lean). Our goal is not to replace the underlying open-source repos (e.g. Mathlib) so the main dependency will be on the current repos; then when statement formalizations and proofs come in and are certified they can be PR'd to the respective repos. So we will be the source of truth for the informal latex code but only a stepping stone and orchestration layer on the way to the respective formal libraries.
+So apparently there will be proof checking, but no dependencies between proofs, you still have to pull request everything back and face the pain.
+
+Bibliography:
+* https://www.reddit.com/r/mathematics/comments/1cpm5kb/math_genome_project/
+* https://news.ycombinator.com/item?id=35775071 by the creator
+
+= Comparison of proof assistants
+{parent=Proof assistant}
+
+* https://ntietz.com/blog/first-impressions-of-lean-and-coq/ My first impressions from a few weeks with <Lean> and <Coq>
+
+= List of proof assistants
+{parent=Proof assistant}
+
+= Lean
+{disambiguate=proof assistant}
+{c}
+{parent=List of proof assistants}
+{tag=Microsoft product}
+{tag=Open source software}
+{wiki}
+
+= Lean
+{c}
+{synonym}
+
+<Source code>:
+* https://github.com/leanprover/lean4 why a separate repo per version... but it is what it is.
+* https://github.com/leanprover/lean
+
+They are huge fans of <Unicode> characters! Check this out from a <formal proof of the prime number theorem>: https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/blob/fbdbb5310d036d33b9797b35f3b04b08f2447a6e/PrimeNumberTheoremAnd/ZetaBounds.lean
+
+Their dependency graph thingy is just beautiful however: https://alexkontorovich.github.io/PrimeNumberTheoremAnd/web/dep_graph_document.html
+
+Their 2025 current installation method is bullshit, recommends <VS Code> extension on Ubuntu. Lol.
+
+From CLI:
+``
+curl https://elan.lean-lang.org/elan-init.sh -sSf | sh
+source $HOME/.elan/env
+``
+Then when you run:
+``
+lean
+``
+it downloads the `lean` executable for you. Insane shit, could only come from a <Microsoft> mindset.
+
+= elan
+{c}
+{parent=Lean (proof assistant)}
+
+https://github.com/leanprover/elan
+
+= Lean vs <Coq>
+{c}
+{parent=Lean (proof assistant)}
+
+* https://proofassistants.stackexchange.com/questions/153/what-are-the-main-differences-between-coq-and-lean
+* https://news.ycombinator.com/item?id=22171305
+
+= Lean bibliography
+{c}
+{parent=Lean (proof assistant)}
+
+= How To Prove It with Lean 
+{parent=Lean bibliography}
+
+https://djvelleman.github.io/HTPIwL
+
+This tutorial has the merit of actually trying you to do some meaningful mathematics before teaching you a billion items of syntax and dependent type theory nuances.
+
+= Logic and Proof
+{disambiguate=Lean book}
+{parent=Lean bibliography}
+
+https://leanprover-community.github.io/logic_and_proof/index.html
+
+= Lean library
+{c}
+{parent=Lean (proof assistant)}
+
+= Lean Mathlib
+{parent=Lean library}
+
+= mathlib4
+{c}
+{parent=Lean Mathlib}
+
+https://github.com/leanprover-community/mathlib4
+
+Here is a specific minimal example of how to use mathlib4: https://proofassistants.stackexchange.com/questions/2526/how-to-run-lean4-with-mathlib-manually/5299#5299
+
+= Formal Conjectures
+{c}
+{parent=Lean library}
+
+https://github.com/google-deepmind/formal-conjectures
+
+= Coq
+{c}
+{disambiguate=software}
+{parent=List of proof assistants}
+{wiki}
+
+= Coq
+{synonym}
+
+= Rocq
+{synonym}
+{title2}
+
+This used to have the best name ever allowing you to say:
+> I love Coq
+to English speakers and watch their faces drop.
+
+But in 2023 the bastards renamed it to "<Rocq>", presumably pronounced "rock". Why, God, why.
+
+= Mathematical Intelligence
+{c}
+{parent=List of proof assistants}
+{disambiguate=Proof assistant}
+
+https://github.com/wenitte/mathematical-intelligence
+
+This will never work but OK. New custom language after <Lean>.
+
+= Metamath
+{c}
+{parent=List of proof assistants}
+{wiki}
+
+http://metamath.org/
+
+It seems to implement <Zermelo-Fraenkel set theory>.
+
+= Formal proof
+{parent=Formalization of mathematics}
+{wiki}
+
+A proof in some system for the <formalization of mathematics>.
+
+= Formal proof is useless
+{parent=Formal proof}
+
+= Formal proff is useless
+{synonym}
+
+The only cases where formal proof of <theorems> seem to have had actual mathematical value is for theorems that require checking a very large number of case, so much so that no human can be fully certain that no mistakes were made. Some examples:
+* https://en.wikipedia.org/wiki/Four_color_theorem[Four color theorem]
+* <BB(5)>
+* <classification of finite simple groups>
+
+= Mathematical proof
+{parent=Formal proof}
+{wiki}
+
+= Formal system
+{parent=Formal proof}
+
+= Formal proof system
+{synonym}
+
+= Set theory
+{parent=Formal system}
+{wiki}
+
+When <Ciro Santilli> says <set theory>, he basically means. <Zermelo-Fraenkel set theory>.
+
+= Zermelo-Fraenkel set theory
+{c}
+{parent=Set theory}
+{title2=ZF}
+{wiki=Zermelo–Fraenkel_set_theory}
+
+One of the first <formal proof systems>. This is actually understandable!
+
+This is <Ciro Santilli>-2020 definition of the <foundation of mathematics> (and the only one he had any patience to study at all).
+
+TODO what are its limitations? Why were other systems created?
+
+= Zermelo-Fraenkel axioms
+{c}
+{parent=Zermelo-Fraenkel set theory}
+{title2=ZF}
+
+= Zermelo-Fraenkel axioms with the axiom of choice
+{c}
+{parent=Zermelo-Fraenkel axioms}
+
+= ZFC
+{c}
+{synonym}
+{title2}
+
+= Type theory
+{parent=Formal system}
+{wiki}
+
+Alternative to <set theory>, and some say it is better for <proof assistants>, and many of the most popular proof assistants of the 2020s use it e.g. <Lean> and <Coq>.
+
+\Video[https://www.youtube.com/watch?v=QRrcwahx-3s]
+{title=Why should you learn Type Theory? by Dapper Mink}
+{description=Uses <Lean> syntax largely.}
+
+= Axiom
+{parent=Formal proof}
+{wiki}
+
+= Consistency
+{parent=Axiom}
+{wiki}
+
+= Consistent
+{synonym}
+
+A set of <axioms> is consistent if they don't lead to any contradictions.
+
+When a set of axioms is not consistent, false can be proven, and then everything is true, making the set of axioms useless.
+
+= Independence
+{disambiguate=mathematical logic}
+{parent=Axiom}
+{wiki}
+
+= Independent
+{disambiguate=mathematical logic}
+{synonym}
+
+A <theorem> is said to be independent from a set of <axioms> if it cannot be proven neither true nor false from those axioms.
+
+It or its negation could therefore be arbitrarily added to the set of axioms.
+
+= Open problem in mathematics
+{parent=Formal proof}
+{wiki=List_of_unsolved_problems_in_mathematics}
+
+= Conjecture
+{parent=Open problem in mathematics}
+{wiki}
+
+A <conjecture> is an <open problem in mathematics> for which some famous dude gave heuristic arguments which indicate if the <theorem> is true or false.
+
+= Famous conjecture
+{parent=Conjecture}
+
+This section groups conjectures that are famous, solved or unsolved.
+
+They are usually conjectures that have a strong intuitive reasoning, but took a very long time to prove, despite great efforts.
+
+The list: https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics
+
+= Collatz conjecture
+{c}
+{parent=Famous conjecture}
+{tag=Simple to state but hard to prove}
+{title2=1937-}
+{wiki}
+
+Given stuff like https://arxiv.org/pdf/2107.12475.pdf on <Erdős' conjecture on powers of 2>, it feels like this one will be somewhere close to <computer science>/<Halting problem> issues than <number theory>. Who knows. This is suggested e.g. at <The Busy Beaver Competition: a historical survey by Pascal Michel>.
+
+= Collatz function
+{c}
+{parent=Collatz conjecture}
+
+= Shortcut Collatz function
+{parent=Collatz function}
+
+The <Collatz function> is not very elegant in that the odd $3n + 1$ case is always even because $n$ is odd, so it is always predictably followed by a division by two. This is not the case for the even case, where the result can be either even or odd.
+
+A much more elegant formulation is to immediately also divide by two when the number is odd:
+$$
+\frac{3n + 1}{2}
+$$
+
+= Collatz conjecture failure mode
+{c}
+{parent=Collatz conjecture}
+
+There are to ways in which the <collatz conjecture> can fail:
+* <Collatz cycle>: there is a cycle that loops forever and never reaches 1
+* <Unbounded Collatz trajectory>: there is a sequence that grows without bound without looping
+These are the only two options because if any sequence has an upper bound, it must sooner or later repeat an element, leading to a cycle.
+
+= Collatz cycle
+{c}
+{parent=Collatz conjecture failure mode}
+
+= Collatz n-cycle
+{parent=Collatz cycle}
+
+= Collatz 1-cycle
+{parent=Collatz n-cycle}
+
+= Collatz cycle length lower bound
+{parent=Collatz n-cycle}
+
+* https://www.sciencedirect.com/science/article/pii/0012365X9390052U?via%3Dihub
+
+= Unbounded Collatz trajectory
+{c}
+{parent=Collatz conjecture failure mode}
+
+= Collatz-like problem
+{c}
+{parent=Collatz conjecture}
+
+We ust use the if mod notation definition as mentioned at: https://math.stackexchange.com/questions/4305972/what-exactly-is-a-collatz-like-problem/4773230#4773230
+
+= The Busy Beaver Competition: a historical survey by Pascal Michel
+{c}
+{parent=Collatz conjecture}
+{title2=2013}
+
+https://arxiv.org/abs/0906.3749
+
+= Erdős' conjecture on powers of 2
+{c}
+{parent=Collatz conjecture}
+{tag=Conjecture by Erdős}
+
+Described at: https://arxiv.org/pdf/2107.12475.pdf[] where a relation to the <Busy beaver scale> is proven, and the intuitive relation to the <Collatz conjecture> described. Perhaps more directly: https://demonstrations.wolfram.com/CollatzSequenceComputedByATuringMachine/
+
+= Theorem
+{parent=Formal proof}
+{wiki}
+
+= Corollary
+{parent=Theorem}
+{wiki}
+
+An easy to prove <theorem> that follows from a harder to prove theorem.
+
+= Lemma
+{disambiguate=mathematics}
+{parent=Formalization of mathematics}
+
+A <theorem> that is not very important on its own, often an intermediate step to proving something that the author feels deserves the name "<theorem>".
+
+= Set
+{disambiguate=mathematics}
+{parent=Formalization of mathematics}
+
+= Set
+{synonym}
+
+Intuitively: unordered container where all the values are unique, just like C++ `std::set`.
+
+More precisely for set theory <formalization of mathematics>:
+* everything is a set, including the elements of sets
+* string manipulation wise:
+  * `{}` is an empty set. The natural number `0` is defined as `{}` as well.
+  * `{{}}` is a set that contains an empty set
+  * `{{}, {{}}}` is a set that contains two sets: `{}` and `{{}}`
+  * `{{}, {}}` is not well formed, because it contains `{}` twice
+
+= Union
+{disambiguate=set theory}
+{parent=Set (mathematics)}
+{title2=$A \bigcup B$}
+{wiki}
+
+= Set union
+{synonym}
+
+= Cardinality
+{parent=Set (mathematics)}
+
+The size of a set.
+
+For <finite> sizes, the definition is simple, and the intuitive name "size" matches well.
+
+But for infinity, things are messier, e.g. the size of the <real numbers> is strictly larger than the size of the <integers> as shown by <Cantor's diagonal argument>, which is kind of what justifies a fancier word "cardinality" to distinguish it from the more normal word "size".
+
+The key idea is to compare set sizes with <bijections>.
+
+= Function
+{disambiguate=mathematics}
+{parent=Formalization of mathematics}
+{wiki}
+
+= Function
+{synonym}
+
+<Set (mathematics)> of <ordered pairs>. That's it! This is illustrated at: https://math.stackexchange.com/questions/1480651/is-fx-x-1-x-2-a-function/1481099#1481099
+
+= Domain, codomain and image
+{parent=Function (mathematics)}
+
+= Bijection
+{parent=Domain, codomain and image}
+{wiki}
+
+= Bijective
+{synonym}
+
+= One-to-one
+{synonym}
+
+= 1-to-1
+{synonym}
+
+= Injective function
+{parent=Bijection}
+{wiki}
+
+= Injection
+{synonym}
+
+= Injective
+{synonym}
+
+Mnemonic: in means into. So we are going into a <codomain> that is large enough so that we can have a different image for every input.
+
+= Surjective function
+{parent=Bijection}
+{wiki}
+
+= Surjection
+{synonym}
+
+= Surjective
+{synonym}
+
+Mnemonic: sur means over. So we are going over the <codomain>, and covering it entirely.
+
+= Domain of a function
+{parent=Domain, codomain and image}
+{wiki}
+
+= Domain
+{disambiguate=function}
+{synonym}
+
+= Codomain
+{parent=Domain, codomain and image}
+{wiki}
+
+Vs: <image (mathematics)>: the codomain is the set that the function might reach.
+
+The <image (mathematics)> is the exact set that it actually reaches.
+
+E.g. the function:
+$$
+f(x) = x^2
+$$
+could have:
+* codomain $\R$
+* image $\R_{+}$
+
+Note that the definition of the codomain is somewhat arbitrary, e.g. $x^2$ could as well technically have codomain:
+$$
+\R \bigcup \R^2
+$$
+even though it will obviously never reach any value in $\R^2$.
+
+The exact image is in general therefore harder to characterize.
+
+= Endofunction
+{parent=Codomain}
+
+A <function> where the <domain (function)> is the same as the <codomain>.
+
+= Image
+{disambiguate=mathematics}
+{parent=Domain, codomain and image}
+{wiki}
+
+= Image of a function
+{synonym}
+
+= Image
+{disambiguate=function}
+{synonym}
+
+= Periodic function
+{c}
+{parent=Function (mathematics)}
+{wiki}
+
+= Square wave
+{parent=Periodic function}
+{wiki}
+
+= Rectangular wave
+{parent=Square wave}
+
+= Function by signature
+{parent=Function (mathematics)}
+
+In this section we classify some functions by the type of inputs and outputs they take and produce.
+
+= Functional function
+{parent=Function by signature}
+
+This is about functions that take functions as input or output.
+
+= Convolution
+{parent=Functional function}
+{wiki}
+
+= Set function
+{parent=Function by signature}
+
+This section is about functions that operates on arbitrary <sets>.
+
+= Cartesian product
+{c}
+{parent=Set function}
+{wiki}
+
+A function that maps two <sets> to a third set.
+
+= Direct product
+{c}
+{parent=Set function}
+{wiki}
+
+A <Cartesian product> that carries over some extra structure of the input groups.
+
+E.g. the <direct product of groups> carries over <group> structure on both sides.
+
+= Numeric function
+{parent=Function by signature}
+
+This section is about functions that operate on numbers such as the <integers> or <real numbers>.
+
+= Addition
+{parent=Numeric function}
+{wiki}
+
+= Subtraction
+{parent=Numeric function}
+{wiki}
+
+= Multiplication
+{parent=Numeric function}
+{wiki}
+
+= Division
+{parent=Numeric function}
+{wiki}
+
+= Exponentiation
+{parent=Numeric function}
+{title2=$x^y$}
+{wiki}
+
+= Exponentiation grows really fast
+{parent=Exponentiation}
+
+It is quite <the beauty of mathematics> beautiful that with exponentiation, even if you take relatively small numbers of the order of 100 then:
+$$
+2^{265}
+$$
+is already equal to the number of atoms in the universe.
+
+= Wheat and chessboard problem
+{parent=Exponentiation grows really fast}
+{wiki}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/c/cd/Wheat_and_chessboard_problem.jpg]
+
+= nth root
+{parent=Exponentiation}
+{wiki}
+
+= Square root
+{parent=nth root}
+{wiki}
+
+= Exponentiation functional equation
+{parent=Exponentiation}
+{tag=Functional equation}
+
+We define this as the <functional equation>:
+$$
+f(x, y) = f(x)f(y)
+$$
+It is a bit like <cauchy's functional equation> but with <multiplication> instead of <addition>.
+
+= Exponential function
+{parent=Exponentiation}
+{title2=$e^x$}
+{wiki}
+
+= Exponential
+{synonym}
+
+= Exponential function differential equation
+{parent=Exponential function}
+
+The <differential equation> that is solved by the <exponential function>:
+$$
+y'(x) = y(x)
+$$
+with <initial condition>:
+$$
+y(0) = 1
+$$
+
+TODO find better name for it, "<linear differential equation>[linear] homogenous differential equation of degree one" almost fully constrainst it except for the exponent constant and initial value.
+
+= Definition of the exponential function
+{parent=Exponential function}
+{wiki=Characterizations_of_the_exponential_function}
+
+= Taylor expansion definition of the exponential function
+{c}
+{parent=Definition of the exponential function}
+
+The <Taylor series> expansion is the most direct definition of the expontial as it obviously satisfies the <exponential function differential equation>:
+* the first constant term dies
+* each other term gets converted to the one before
+* because we have <infinite> many terms, we get what we started with!
+$$
+e^x = \sum_{n=0}^\infty \frac{x^n}{n!} = 1 + \frac{x}{1} + \frac{x^2}{2} + \frac{x^3}{2 \times 3} + \frac{x^4}{2 \times 3 \times 4} + \ldots
+$$
+
+= Product definition of the exponential function
+{parent=Definition of the exponential function}
+
+$$
+e^x = \lim_{n\to\infty} \left(1+\frac x n \right)^n
+$$
+
+The basic intuition for this is to start from the origin and make small changes to the function based on its known derivative at the origin.
+
+More precisely, we know that for any base b, <exponentiation> satisfies:
+* $b^{x + y} = b^x b^y$.
+* $b^{0} = 1$.
+And we also know that for $b = e$ in particular that we satisfy the <exponential function differential equation> and so:
+$$
+\dv{e^x}{x}(0) = 1
+$$
+One interesting fact is that the only thing we use from the <exponential function differential equation> is the value around $x = 0$, which is quite little information! This idea is basically what is behind the importance of the ralationship between <Lie group-Lie algebra correspondence> via the <exponential map>. In the more general settings of groups and <manifolds>, restricting ourselves to be near the origin is a huge advantage.
+
+Now suppose that we want to calculate $e^1$. The idea is to start from $e^0$ and then then to use the first order of the <Taylor series> to extend the known value of $e^0$ to $e^1$.
+
+E.g., if we split into 2 parts, we know that:
+$$
+e^1 = e^{1/2}e^{1/2}
+$$
+or in three parts:
+$$
+e^1 = e^{1/3}e^{1/3}e^{1/3}
+$$
+so we can just use arbitrarily many parts $e^{1/n}$ that are arbitrarily close to $x = 0$:
+$$
+e^1 = (e^{1/n})^n
+$$
+and more generally for any $x$ we have:
+$$
+e^x = (e^{x/n})^n
+$$
+
+Let's see what happens with the Taylor series. We have near $y = 0$ in <little-o notation>:
+$$
+e^y = 1 + y + o(y)
+$$
+Therefore, for $y = x/n$, which is near $y = 0$ for any fixed $x$:
+$$
+e^{x/n} = 1 + x/n + o(1/n)
+$$
+and therefore:
+$$
+e^x = (e^{x/n})^n = (1 + x/n + o(1/n))^n
+$$
+which is basically the formula tha we wanted. We just have to convince ourselves that at $\lim_{n \to \infty}$, the $o(1/n)$ disappears, i.e.:
+$$
+(1 + x/n + o(1/n))^n = (1 + x/n)^n
+$$
+
+To do that, let's multiply $e^y$ by itself once:
+$$
+e^y e^y = (1 + y + o(y))(1 + y + o(y)) = 1 + 2y + o(y)
+$$
+and multiplying a third time:
+$$
+e^y e^y e^y = (1 + 2y + o(y))(1 + y + o(y)) = 1 + 3y + o(y)
+$$
+TODO conclude.
+
+= Gaussian function
+{c}
+{parent=Exponential function}
+{title2=$e{-x^{2}}$}
+
+= Gaussian
+{c}
+{synonym}
+
+= Logarithm
+{parent=Exponential function}
+{wiki}
+
+= Matrix exponential
+{parent=Exponential function}
+{wiki}
+
+Is the solution to a <system of linear ordinary differential equations>, the <exponential function> is just a 1-dimensional subcase.
+
+Note that more generally, the <matrix exponential> can be defined on any <ring (mathematics)>.
+
+The matrix exponential is of particular interest in the study of <Lie groups>, because in the case of the <Lie algebra of a matrix Lie group>, it provides the correct <exponential map>.
+
+\Video[https://www.youtube.com/watch?v=O85OWBJ2ayo]
+{title=How (and why) to raise e to the power of a matrix by <3Blue1Brown> (2021)}
+
+= Logarithm of a matrix
+{parent=Matrix exponential}
+{wiki}
+
+= Matrix logarithm
+{synonym}
+
+= Existence of the matrix logarithm
+{parent=Logarithm of a matrix}
+
+= The matrix exponential is not surjective
+{synonym}
+
+https://en.wikipedia.org/wiki/Logarithm_of_a_matrix#Existence mentions it always exists for all <invertible> <complex> matrices. But the <real> condition is more complicated. Notable counter example: -1 cannot be reached by any real $e^{tk}$.
+
+The <Lie algebra exponential covering problem> can be seen as a generalized version of this problem, because
+* <Lie algebra> of <GL(n)> is just the entire <M_n>
+* we can immediately exclude non-invertible matrices from being the result of the exponential, because $e^{tM}$ has inverse $e^{-tM}$, so we already know that non-invertible matrices are not reachable
+
+= Polynomial
+{parent=Numeric function}
+{wiki}
+
+= Degree of a polynomial
+{parent=Polynomial}
+
+= Degree of the polynomial
+{synonym}
+
+= Algebraic equation
+{parent=Polynomial}
+{tag=Functional equation}
+{wiki}
+
+= Polynomial equation
+{synonym}
+{title2}
+
+= Named algebraic equation
+{parent=Algebraic equation}
+
+= Quadratic equation
+{parent=Named algebraic equation}
+{wiki}
+
+= Quadratic equation modulo n
+{parent=Quadratic equation}
+
+= Quadratic formula modulo n
+{synonym}
+
+= Quadratic equation over a cyclic group
+{synonym}
+{title2}
+
+* https://math.stackexchange.com/questions/229218/modulo-version-of-the-quadratic-formula-and-eulers-criterion
+
+= Quadratic formula
+{parent=Quadratic equation}
+{wiki}
+
+= Cubic equation
+{parent=Named algebraic equation}
+{wiki}
+
+= Quartic equation
+{parent=Named algebraic equation}
+{wiki}
+
+= Quintic equation
+{parent=Named algebraic equation}
+{wiki}
+
+= Abel-Ruffini theorem
+{c}
+{parent=Quintic equation}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=1EWUsef0iFs]
+{title=But why is there no quintic formula? by #MathKiwi}
+{description=10 minutes, that's about the right length, well done.}
+
+= Algebraic equation over a field
+{parent=Algebraic equation}
+
+In this section we collect results about <algebraic equations> over more "exotic" <fields>
+
+= Algebraic equation modulo n
+{parent=Algebraic equation}
+{wiki}
+
+= Algebraic number
+{parent=Algebraic equation}
+{tag=Number}
+{title2=Root of a polynomial}
+{wiki}
+
+= Algebraic number field
+{parent=Algebraic number}
+{tag=Quadratically closed field}
+{title2=$\overline{\Q}$}
+{wiki=https://en.wikipedia.org/w/index.php?title=Algebraic_number&oldid=1168427661#Field}
+
+The set of all <algebraic numbers> forms a <field>.
+
+This field contains all of the <rational numbers>, but it is a <quadratically closed field>.
+
+Like the <rationals>, this field also has the same <cardinality> as the <natural numbers>, because we can specify and enumerate each of its members by a fixed number of integers from the <polynomial equation> that defines them. So it is a bit like the <rationals>, but we use potentially arbitrary numbers of integers to specify each number (polynomial coefficients + index of which root we are talking about) instead of just always two as for the rationals.
+
+Each <algebraic number> also has a degree associated to it, i.e. the <degree of the polynomial> used to define it.
+
+= Algebraic function
+{parent=Algebraic number}
+{title2=Root of a polynomial}
+{wiki}
+
+TODO understand.
+
+= Transcendental number
+{parent=Algebraic number}
+{wiki}
+
+Sometimes <mathematicians> go a little overboard with their naming.
+
+Bibliography:
+* https://www.quantamagazine.org/recounting-the-history-of-maths-transcendental-numbers-20230627/
+
+= Transcendental number conjecture
+{parent=Transcendental number}
+{tag=Simple to state but hard to prove}
+
+https://en.wikipedia.org/wiki/Transcendental_number#Conjectured_transcendental_numbers
+
+There's a billion simple looking expressions which are not known to be transcendental numbers or not. It's cute <simple to state but hard to prove> at its best.
+
+Open as of 2020:
+* $e + \pi$
+
+Bibliography:
+* https://www.quantamagazine.org/recounting-the-history-of-maths-transcendental-numbers-20230627/ How Math Achieved Transcendence by David S. Richeson (2023).
+
+\Video[https://www.youtube.com/watch?v=BdHFLfv-ThQ]
+{title=Why π^π^π^π could be an integer by Stand-up Maths (2021)}
+{description=Sponsored by Jane Street. <finance is a cancer of society>[Shame].}
+
+= Diophantine equation
+{c}
+{parent=Polynomial}
+{wiki}
+
+<Polynomial> (possibly a <multivariate polynomial>) with <integer> coefficients.
+
+Sometimes systems of <Diophantine equations> are considered.
+
+Problems generally involve finding integer solutions to the equations, notably determining if any solution exists, and if infinitely solutions exist.
+
+The general problem is known to be <undecidable>: <Hilbert's tenth problem>.
+
+The <Pythagorean triples>, and its generalization <Fermat's last theorem>, are the quintessential examples.
+
+= Pythagorean triple
+{c}
+{parent=Diophantine equation}
+{title2=$a^2 + b^2 = c^2$}
+{wiki}
+
+\Image[https://web.archive.org/web/20220528162407im_/https://upload.wikimedia.org/wikipedia/commons/4/4c/Pythagorean_theorem_-_Ani.gif]
+{source=https://en.wikipedia.org/wiki/File:Pythagorean_theorem_-_Ani.gif}
+
+= Euclid's formula
+{c}
+{parent=Pythagorean triple}
+{wiki=Pythagorean_triple\#Generating_a_triple}
+
+= There are infinitely many Pythagorean triples
+{parent=Euclid's formula}
+
+Direct consequence of <Euclid's formula>.
+
+= Euclid's formula generates all Pythagorean triples
+{parent=Euclid's formula}
+
+= Classification of Pythagorean triples
+{parent=Pythagorean triple}
+{tag=Classification (mathematics)}
+
+https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple
+
+= Taxicab number
+{parent=Pythagorean triple}
+{wiki}
+
+= Fermat's last theorem
+{c}
+{parent=Pythagorean triple}
+{wiki}
+
+A generalization of the <Pythagorean triple> infinity question.
+
+= Andrew Wiles
+{c}
+{parent=Fermat's last theorem}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=i0UTeQfnzfM]
+{title=Beauty Is Suffering}
+
+= Hilbert's tenth problem
+{c}
+{parent=Diophantine equation}
+{tag=Undecidable problem}
+{tag=Hilbert's problems}
+{title2=1970}
+{wiki}
+
+= Determine if one Diophantine equation has a solution
+{synonym}
+{title2}
+
+Once you hear about the <uncomputability> of such problems, it makes you see that all <Diophantine equation> questions risk being <undecidable>, though in some simpler cases we manage to come up with answers. The feeling is similar to watching people trying to solve the <Halting problem>, e.g. in the effort to determine <BB(5)>.
+
+= Hilbert's tenth problem variant
+{parent=Hilbert's tenth problem}
+
+https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
+
+= Decidability of Hilbert's tenth problem in modular arithmetic
+{parent=Hilbert's tenth problem variant}
+
+https://www.jstor.org/stable/1970438 says for <prime> modulo there is an algorithm.
+
+Question for non-prime modulo: https://math.stackexchange.com/questions/4944623/are-diophantine-equations-decidable-in-modular-arithmetic
+
+= Decidability of Hilbert's tenth problem of a given degree and number of variables
+{parent=Hilbert's tenth problem variant}
+
+* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
+* https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
+
+= Quadratic Diophantine equation
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
+
+= Hilbert's tenth problem is decidable for quadratic equations
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
+{tag=Quadratic Diophantine equation}
+
+TODO is it or is not:
+* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
+* https://math.stackexchange.com/questions/181380/second-degree-diophantine-equations
+* https://mathoverflow.net/questions/142938/is-there-an-algorithm-to-solve-quadratic-diophantine-equations
+* https://math.stackexchange.com/questions/798609/is-there-any-solution-to-this-quadratic-diophantine-equation
+
+= Undecidable Diophantine equation example
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
+{tag=Undecidable problem}
+
+= Undecidable Diophantine equation problems
+{synonym}
+
+https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/103415#103415 provides a specific single undecidable <Diophantine equation>.
+
+= Hilbert's tenth problem over other rings
+{c}
+{parent=Hilbert's tenth problem variant}
+
+= Hilbert's tenth problem over other fields
+{c}
+{synonym}
+
+https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/11557#11557 contains a good overview of the decidability status of variants over <rings> other than the <integers>.
+
+= Additive number theory
+{parent=Diophantine equation}
+{wiki}
+
+= Additive basis
+{parent=Additive number theory}
+{wiki}
+
+= Additive basis theorem
+{parent=Additive basis}
+
+= Waring's problem
+{c}
+{parent=Additive basis theorem}
+{title2=Every number is a sum of $g$ positive numbers to the power of $k$}
+{wiki}
+
+And when it can't, attempt to classify which subset of the <integers> can be reached. E.g. <Legendre's three-square theorem>.
+
+= Waring's problem for squares
+{c}
+{parent=Waring's problem}
+
+4 squares are sufficient by <Lagrange's four-square theorem>.
+
+3 is not enough by <Legendre's three-square theorem>.
+
+The subsets reachable with 2 and 3 squares are fully characterized by <Legendre's three-square theorem>.
+
+= Lagrange's four-square theorem
+{c}
+{parent=Waring's problem for squares}
+{title2=Every natural number is a sum of four squares}
+{title2=1770}
+{wiki}
+
+= Legendre's three-square theorem
+{c}
+{parent=Waring's problem for squares}
+{title2=iff not of form $4^a(8b + 7)$}
+{title2=1770}
+{wiki}
+
+= Sum of two squares theorem
+{parent=Waring's problem for squares}
+{wiki}
+
+= Waring problem variant
+{parent=Waring's problem}
+
+= Waring problem with negative numbers allowed
+{parent=Waring problem variant}
+
+= Sum of three cubes
+{parent=Waring problem with negative numbers allowed}
+{tag=Open problem in mathematics}
+{title2=Every number has infinitely many representations as the sum of three cubes}
+{wiki}
+
+Compared to <Waring's problem>, this is potentially much harder, as we can go infinitely negative in our attempts, there isn't a bound on how many tries we can have for each number.
+
+In other words, it is unlikely to have a <Conjecture reduction to a halting problem>.
+
+\Video[https://www.youtube.com/watch?v=GXhzZAem7k0]
+{title=3 as the sum of the 3 cubes by <Numberphile> (2019)}
+
+= Waring-Goldbach problem
+{c}
+{parent=Waring problem variant}
+{tag=Goldbach's conjecture}
+{wiki}
+
+It is exactly what you'd expect from the name, Waring was <Netflix and chill>[watching Netflix] with Goldbach, when they suddenly came up with this.
+
+= Named small order polynomial
+{parent=Polynomial}
+
+= Linear polynomial
+{parent=Named small order polynomial}
+
+A <polynomial> of degree 1, i.e. of form $ax + b$.
+
+= Galois theory
+{c}
+{parent=Polynomial}
+{wiki}
+
+= Irreducible polynomial
+{parent=Polynomial}
+{wiki}
+
+= Multivariate polynomial
+{parent=Polynomial}
+
+A <polynomial> with multiple input arguments, e.g. with two inputs $x$ and $y$:
+$$
+f(x, y) = x^2 + 2x + y^3 + 1
+$$
+as opposed to a <polynomial> with a single argument e.g. one with just $x$:
+$$
+f(x) = x^2 + 2x + 1
+$$
+
+= Domain of a polynomial
+{parent=Polynomial}
+
+= Polynomial over a field
+{parent=Domain of a polynomial}
+{title2=$Field[X]$}
+{wiki}
+
+By default, we think of polynomials over the <real numbers> or <complex numbers>.
+
+However, a polynomial can be defined over any other field just as well, the most notable example being that of a polynomial over a <finite field>.
+
+For example, given the finite field of <order (algebra)> 9, $GP(3)$ and with elements $\{0, 1, 2\}$, we can denote polynomials over that ring as
+$$
+GP(3)[x]
+$$
+where $x$ is the variable name.
+
+For example, one such polynomial could be:
+$$
+P(x) = 2x^4 + x^2 + 2
+$$
+and another one:
+$$
+Q(X) = x^3 + 2x^2 + 2
+$$
+Note how all the coefficients are members of the finite field we chose.
+
+Given this, we could evaluate the polynomial for any element of the field, e.g.:
+$$
+P(0) = 2 (0 \times 0 \times 0 \times 0) + (0 \times 0) + 2 = 2
+P(1) = 2 (1 \times 1 \times 1 \times 1) + (1 \times 1) + 2 = 2 (1) + 1 + 2 = 2
+P(2) = 2 (2 \times 2 \times 2 \times 2) + (2 \times 2) + 2 = 2 (16 % 3) + (4 % 3) + 2 = 2 + 1 + 2 = 2
+$$
+and so on.
+
+We can also add polynomials as usual over the field:
+$$
+P(x) + Q(x) = 2x^4 + x^3 + (1+2)x^2 + (2 + 2) = 2x^4 + x^3 + (0)x^2 + 1 = 2x^4 + x^3 + 1
+$$
+and multiplication works analogously.
+
+= Polynomial over a ring
+{parent=Domain of a polynomial}
+{wiki}
+
+The usual definition of a <polynomial> is over a <field (mathematics)> as shown at <polynomial over a field>.
+
+However, there is nothing in the immediate definition that prevents us from having a <ring (mathematics)> instead, i.e. a <field (mathematics)> but without the <commutative property> and <inverse elements>.
+
+The only thing is that then we would need to differentiate between different orderings of the terms of <multivariate polynomial>, e.g. the following would all be potentially different terms:
+$$
+2xxy + 2xyx + 2yxx +
+x2xy + x2yx + y2xx +
+xx2y + xy2x + yx2x +
+xxy2 + xyx2 + yxx2
+$$
+while for a field they would all go into a single term:
+$$
+12x^2y
+$$
+so when considering a polynomial over a <ring (mathematics)> we end up with a lot more more possible terms.
+
+If the <ring> is a <commutative ring> however, polynomials do look like proper polynomials: <Polynomial over a commutative ring>{full}.
+
+= Polynomial over a commutative ring
+{parent=Domain of a polynomial}
+{wiki}
+
+Unlike <Polynomial over a ring>[over non-commutative rings], polynomials do look like proper <polynomials> over <commutative ring>.
+
+In particular, <Hilbert's tenth problem> is about <polynomials> over the <integers>, which is a <commutative ring>, and therefore brings mindshare to this definition.
+
+= Polynomial ring
+{parent=Polynomial}
+{wiki}
+
+The polynomials together with polynomial addition and multiplication form a <commutative> <ring (mathematics)>.
+
+= Step function
+{parent=Numeric function}
+{wiki}
+
+= Heavyside step function
+{c}
+{parent=Step function}
+{wiki}
+
+= Integer sequence
+{parent=Numeric function}
+{wiki}
+
+= Fibonacci sequence
+{c}
+{parent=Integer sequence}
+{wiki}
+
+= Tribonacci
+{c}
+{parent=Integer sequence}
+
+Interview problem!
+
+Solutions:
+* \a[cpp/tribonacci.cpp]
+
+<Coding challenge websites>:
+* https://leetcode.com/problems/n-th-tribonacci-number
+* https://www.geeksforgeeks.org/tribonacci-numbers/
+
+= Kolakoski sequence
+{c}
+{parent=Integer sequence}
+{wiki}
+
+= Generalized Kolakoski sequence
+{parent=Kolakoski sequence}
+
+The generalized Kolakoski sequence is the generalization of the <Kolakoski sequence> where you don't need to restrict yourself to 1,2 but can instead use any a,b pair.
+
+= Nilsson algorithm for the Kolakoski sequence
+{c}
+{parent=Kolakoski sequence}
+
+This algorithm is more efficient in space, using only $log(n)$, as it recursively compresses the state required to keep track of what to do next.
+
+Time is still $O(n)$.
+
+The table at https://maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf page 20 has a summary image, but it is hard to understand.
+
+Let's do a step by step version now.
+
+The notation we use is as follows:
+``
+1 2 (1) 1 (1)
+``
+means that:
+* this is number 2
+* there is 1 occurrence count left
+
+Note that column 1 does not need to keep a count so we use notation such as:
+
+``
+1 2(0) 1(1)
+``
+
+The starting state is:
+``
+2 | 2 2(1) 2(1) 2(1) 2(1) ...
+``
+which means that it implicitly contains infinitely many `2(1)` at the end which we abbreviate just as:
+``
+2 | 2 2(1) ...
+``
+The actual algorithm will of course omit as many trailing `2(1)` as it can.
+
+The update rules are:
+* go left to right:
+  * flip:
+    ``
+    x(0)       y(0)
+    !x((!x)-1) unchanged
+    ``
+    continue going left to right.
+  * repeat:
+    ``
+    x(0)   y(n > 0)
+    x(x-1) y(n - 1)
+    ``
+    and then stop further updates.
+Note that both rules don't overlap so that each update is always determined by only one of them at a time.
+
+Also the first column is always implicitly `(0)`.
+
+Use column 2 up once to repeat column 1:
+
+``
+2 | 2 2(1) ...
+3 | 2 2(0) 2(1) ...
+``
+
+Here we:
+* switch column 1 because column 2 reached 0 on previous step
+* use column 3 up once to repeat column 2
+
+``
+2 | 2 2(1) ...
+3 | 2 2(0) 2(1) ...
+4 | 1 2(1) 2(0) 2(1) ...
+``
+
+* use column 2 up once to repeat 1
+
+``
+2 | 2 2(1) ...
+3 | 2 2(0) 2(1) ...
+4 | 1 2(1) 2(0) 2(1) ...
+5 | 1 2(0) 2(1) 2(0) 2(1) ...
+``
+
+``
+ 2 | 2 2(1) ...
+ 3 | 2 2(0) 2(1) ...
+ 4 | 1 2(1) 2(0) 2(1) ...
+ 5 | 1 2(0) 2(0) 2(1) ...
+ 6 | 2 1(0) 2(1) 2(0) 2(1) ...
+ 7 | 1 1(0) 2(0) 2(0) 2(1) ...
+ 8 | 2 2(1) 1(0) 2(1) 2(0) 2(1) ...
+ 9 | 2 2(0) 1(0) 2(1) 2(0) 2(1) ...
+10 | 1 1(0) 1(0) 2(0) 2(0) 2(1) ...
+11 | 2 2(1) 2(1) 1(0) 2(1) 2(0) 2(1) ...
+12 | 2 2(0) 2(1) 1(0) 2(1) 2(0) 2(1) ...
+13 | 1 2(1) 2(0) 1(0) 2(1) 2(0) 2(1) ...
+14 | 1 2(0) 2(0) 1(0) 2(1) 2(0) 2(1) ...
+15 | 2 1(0) 1(0) 1(0) 2(0) 2(0) 2(1) ...
+16 | 1 2(1) 2(1) 2(1) 1(0) 2(1) 2(0) 2(1) ...
+``
+
+= Nilsson algorithm for the generalized Kolakoski sequence
+{c}
+{parent=Kolakoski sequence}
+
+Here's an execution for 2, 3. When `a != 1` we use `a` as the extra numbers instead of `b`:
+``
+ 1 | 2 2(1) ...
+ 2 | 2 2(0) 2(1) ...
+ 3 | 3 2(1) 2(0) 2(1) ...
+ 4 | 3 2(0) 2(0) 2(1) ...
+ 5 | 2 3(2) 2(1) 2(0) 2(0) ...
+ 6 | 2 3(1) 2(1) 2(0) 2(1) ...
+ 7 | 2 3(0) 2(1) 2(0) 2(1) ...
+ 8 | 3 3(2) 2(0) 2(0) 2(1) ...
+ 9 | 3 3(1) 2(0) 2(0) 2(1) ...
+10 | 3 3(0) 2(0) 2(0) 2(1) ...
+11 | 2 2(1) 3(2) 2(1) 2(0) 2(1) ...
+12 | 2 2(0) 3(2) 2(1) 2(0) 2(1) ...
+13 | 3 2(1) 3(1) 2(1) 2(0) 2(1) ...
+14 | 3 2(0) 3(1) 2(1) 2(0) 2(1) ...
+15 | 2 2(1) 3(0) 2(1) 2(0) 2(1) ...
+16 | 2 2(0) 3(0) 2(1) 2(0) 2(1) ...
+17 | 3 3(2) 3(2) 2(0) 2(0) 2(1) ...
+``
+Furthermore, note that if `a = 1`, then the `a, b` sequence is a subset of the `b, a` sequence e.g.:
+``
+1, 2 = [1, 2, 2, 1, 1, 2, 1, ...]
+2, 1 = [   2, 2, 1, 1, 2, 1, ...]
+``
+therefore we can always make `a` not be 1 by switching the pair and then using the generalized algorithm with `a != 1`.
+
+= Function space
+{parent=Formalization of mathematics}
+{wiki}
+
+Most notable example: <l2>.
+
+= Number
+{parent=Formalization of mathematics}
+{wiki}
+
+= Scientific notation
+{parent=Number}
+{wiki}
+
+= E notation
+{c}
+{parent=Scientific notation}
+{tag=Good}
+{wiki=Scientific_notation\#E_notation}
+
+What do you prefer, `1 \times 10^{10}` or `1E10`.
+
+= Natural number
+{parent=Number}
+{title2=$\N$}
+{title2=0, 1, 2, ...}
+{wiki}
+
+= Integer
+{parent=Number}
+{tag=Commutative ring}
+{title2=$\Z$}
+{title2=..., -2, -1, 0, 1, 2, ...}
+{wiki}
+
+= Rational number
+{parent=Number}
+{title2=$\Q$}
+{title2=$\frac{1}{2}$, $\frac{4}{3}$}
+{wiki}
+
+= Rational
+{synonym}
+
+= Rationals
+{synonym}
+
+= Irrational number
+{parent=Rational number}
+{wiki}
+
+= Irrational
+{synonym}
+
+= Number of unknown rationality
+{parent=Irrational number}
+
+This section is about numbers that we don't know if they are rational or not.
+
+Bibliography:
+* https://www.quantamagazine.org/rational-or-not-this-basic-math-question-took-decades-to-answer-20250108/ Rational or Not? This Basic Math Question Took Decades to Answer (2025)
+
+= Fraction
+{parent=Rational number}
+{wiki}
+
+= Reduced fraction
+{parent=Fraction}
+
+A "reduced fraction" is a fraction that has the smallest possible <integer> <numerator> and <denominator> for its value.
+
+For example:
+$$
+\frac{3}{6}
+$$
+is not a reduced fraction, because there is another fraction equal to it but with smaller <numerator> and <denominator>:
+$$
+\frac{1}{2}
+$$
+
+= Farey sequence
+{c}
+{parent=Reduced fraction}
+{title2=$F_n$}
+{wiki}
+
+= Farey sunburst
+{c}
+{parent=Farey sequence}
+
+https://en.wikipedia.org/w/index.php?title=Farey_sequence&oldid=1223364653#Farey_sunburst
+
+= Number of elements in a Farey sequence
+{c}
+{parent=Reduced fraction}
+{wiki}
+
+https://en.wikipedia.org/w/index.php?title=Farey_sequence&oldid=1223364653#Sequence_length_and_index_of_a_fraction
+$$
+|F_n| = 1 + \Phi(n)
+$$
+where $\Phi(n)$ is the <totient summatory function>.
+
+= Numerator
+{parent=Fraction}
+{title2=Number on top}
+
+= Denominator
+{parent=Fraction}
+{title2=Number on bottom}
+
+= Real number
+{parent=Number}
+{title2=$\R$}
+{wiki}
+
+= Real
+{synonym}
+
+A good definition is by using <Dedekind cuts>.
+
+= Dedekind cut
+{c}
+{parent=Real number}
+{wiki}
+
+= Cardinality of the continuum
+{parent=Real number}
+
+= Countable set
+{parent=Cardinality of the continuum}
+{wiki}
+
+= Cantor's diagonal argument
+{c}
+{parent=Cardinality of the continuum}
+{wiki}
+
+= Mathematical constant
+{parent=Real number}
+{wiki}
+
+= Pi
+{parent=Mathematical constant}
+{tag=Transcendental number}
+{wiki}
+
+= π
+{id=π}
+{synonym}
+{title2}
+
+= Complex number
+{parent=Formalization of mathematics}
+{wiki}
+
+= Complex
+{synonym}
+
+An <ordered pair> of two <real numbers> with the complex addition and multiplication defined.
+
+Forms both a:
+* <division algebra> if thought of <\R^2> with complex multiplication as the bilinear map of the <algebra over a field>[algebra]
+* <field (mathematics)>
+
+= Complex conjugate
+{parent=Complex number}
+{title2=$\overline{x}$}
+{wiki}
+
+= Imaginary number
+{parent=Complex number}
+{wiki}
+
+= Imaginary unit
+{parent=Complex number}
+{title2=$i$}
+{wiki}
+
+= Cayley-Dickson construction
+{c}
+{parent=Complex number}
+{wiki=Cayley–Dickson construction}
+
+Constructs the <quaternions> from <complex numbers>, <octonions> from <quaternions>, and keeps doubling like this indefinitely.
+
+= Quaternion
+{parent=Cayley-Dickson construction}
+{title2=$\H$}
+{title2=4}
+{wiki}
+
+Kind of extends the <complex numbers>.
+
+Some facts that make them stand out:
+* one of the only three real <associative> <division algebras> in addition to the <real numbers> and <complex numbers>, according to the <classification of associative real division algebras>
+* the simplest non-<commutative> <division algebra>. Contrast for example with <complex numbers> where multiplication is <commutative>
+
+= Octonion
+{parent=Cayley-Dickson construction}
+{title2=8}
+{wiki}
+
+Unlike the <quaternions>, it is non-<associative>.
+
+= Sedenion
+{parent=Cayley-Dickson construction}
+{title2=16}
+{wiki}
+
+= Ordered pair
+{parent=Formalization of mathematics}
+{wiki}
+
+<Sets> are unordered, but we can use them to create ordered objects, which are of fundamental importance. Notably, they are used in the definition of <functions>.
+
+= Logic
+{parent=Formalization of mathematics}
+{wiki}
+
+= Propositional logic
+{parent=Logic}
+{wiki}
+
+This is the part of the <formalization of mathematics> that deals only with the propositions.
+
+In some systems, e.g. including <Metamath>, <modus ponens> alone tends to be enough, everything else can be defined based on it.
+
+= Modus ponens
+{parent=Propositional logic}
+{wiki}
+
+= If and only if
+{parent=Propositional logic}
+{wiki}
+
+= Iff
+{synonym}
+{title2}
+
+= First-order logic
+{parent=Logic}
+{wiki}
+
+Builds on top of <propositional logic>, adding notably <existential quantification>.
+
+= Existential quantification
+{parent=First-order logic}
+{title2=$\exists$}
+{wiki}
+
+Models <existence> in the context of the <formalization of mathematics>.
+
+= Existence and uniqueness
+{parent=Existential quantification}
+{wiki}
+
+Existence and uniqueness results are fundamental in <mathematics> because we often define objects by their properties, and then start calling them "the object", which is fantastically convenient.
+
+But calling something "the object" only makes sense if there exists exactly one, and only one, object that satisfies the properties.
+
+One particular context where these come up very explicitly is in solutions to <differential equations>, e.g. <existence and uniqueness of solutions of partial differential equations>.
+
+= Existence
+{parent=Existence and uniqueness}
+
+= Exists
+{synonym}
+
+= Exist
+{synonym}
+
+= Uniqueness
+{parent=Existence and uniqueness}
+
+= Unique
+{synonym}
+
+= Universal quantification
+{parent=First-order logic}
+{title2=$\forall$}
+{wiki}
+
+= Formalization of X
+{parent=Formalization of mathematics}
+
+This section is about formalization efforts of specific fields of <mathematics>.
+
+= Formalization of <physics>
+{parent=Formalization of X}
+
+= Formalization of physics project
+{parent=Formalization of physics}
+
+= PhysLean
+{c}
+{parent=Formalization of physics project}
+{tag=Lean library}
+
+https://physlean.com/
+
+= Physics Derivation Graph
+{parent=Formalization of physics project}
+
+* https://www.youtube.com/channel/UCBSInUAbtBkYDYKNc_iauVQ
+* https://derivationmap.net
+* https://github.com/allofphysicsgraph/proofofconcept

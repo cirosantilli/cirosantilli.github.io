@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>x86 Paging Tutorial / How the K-ary tree is used in x86 - Ciro Santilli</title>
+<meta property="og:title" content="x86 Paging Tutorial / How the K-ary tree is used in x86 - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/x86-paging/how-the-k-ary-tree-is-used-in-x86">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/x86-paging/how-the-k-ary-tree-is-used-in-x86">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="how-the-k-ary-tree-is-used-in-x86"><div class="notnav"><h1><a href="../x86-paging">x86 Paging Tutorial</a><span class="meta"> / </span><a href="">How the K-ary tree is used in x86</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../computer-hardware#processor-computing"> Processor (computing)</a><a href="../computer-hardware#instruction-set-architecture"> Instruction set architecture</a><a href="../computer-hardware#list-of-instruction-set-architectures"> List of instruction set architectures</a><a href="../computer-hardware#x86"> x86</a><a href="../x86-paging"> x86 Paging Tutorial</a><a href="../x86-paging#example-multi-level-paging-scheme"> Example: multi-level paging scheme</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/x86-paging/how-the-k-ary-tree-is-used-in-x86"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../x86-paging#how-the-k-ary-tree-is-used-in-x86"></a><span class="metrics"><span class="wcntr"> Words: 352</span></span></div></nav></div><div class="p" id="_208">x86's multi-level paging scheme uses a 2 level K-ary tree with 2^10 bits on each level.</div><div class="p" id="_209">Addresses are now split as:<div class="code" id="_210"><div><pre><code>| directory (10 bits) | table (10 bits) | offset (12 bits) |</code></pre></div></div></div><div class="p" id="_211">Then:<div class="list"><ul id="_212"><li id="_213"><div class="p" id="_214">the top 10 bits are used to walk the top level of the K-ary tree (<code>level0</code>)</div><div class="p" id="_215">The top table is called a "directory of page tables".</div><div class="p" id="_216"><code>cr3</code> now points to the location on RAM of the page directory of the current process instead of page tables.</div><div class="p" id="_217">Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.</div><div class="p" id="_218">Each directory entry also takes up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.</div><div class="p" id="_219">Page directory entries also contain a valid flag: if invalid, the OS does not allocate a page table for that entry, and saves memory.</div><div class="p" id="_220">Each process has one and only one page directory associated to it (and pointed to by <code>cr3</code>), so it will contain at least <code>2^10 = 1K</code> page directory entries, much better than the minimum 1M entries required on a single-level scheme.</div></li><li id="_221"><div class="p" id="_222">the next 10 bits are used to walk the second level of the K-ary tree (<code>level1</code>)</div><div class="p" id="_223">Second level entries are also called page tables like the single level scheme.</div><div class="p" id="_224">Page tables are only allocated only as needed by the OS.</div><div class="p" id="_225">Each page table has only <code>2^10 = 1K</code> page table entries instead of <code>2^20</code> for the single paging scheme.</div><div class="p" id="_226">Each process can now have up to <code>2^10</code> page tables instead of <code>2^20</code> for the single paging scheme.</div></li><li id="_227">the offset is again not used for translation, it only gives the offset within a page</li></ul></div></div><div class="p" id="_228">One reason for using 10 bits on the first two levels (and not, say, <code>12 | 8 | 12</code> ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="../x86-paging#example-multi-level-paging-scheme">Example: multi-level paging scheme</a></li><li><a href="../x86-paging">x86 Paging Tutorial</a></li><li><a href="../computer-hardware#x86">x86</a></li><li><a href="../computer-hardware#list-of-instruction-set-architectures">List of instruction set architectures</a></li><li><a href="../computer-hardware#instruction-set-architecture">Instruction set architecture</a></li><li><a href="../computer-hardware#processor-computing">Processor (computing)</a></li><li><a href="../computer-hardware#computer-hardware-component-type">Computer hardware component type</a></li><li><a href="../computer-hardware">Computer hardware</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/x86-paging.bigb">Source code for this page: x86-paging.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/x86-paging.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "x86-paging/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>x86 Paging Tutorial / Multi-level paging scheme numerical translation example - Ciro Santilli</title>
+<meta property="og:title" content="x86 Paging Tutorial / Multi-level paging scheme numerical translation example - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png">
+<meta property="og:url" content="https://cirosantilli.com/x86-paging/multi-level-paging-scheme-numerical-translation-example">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/x86-paging/multi-level-paging-scheme-numerical-translation-example">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="multi-level-paging-scheme-numerical-translation-example"><div class="notnav"><h1><a href="../x86-paging">x86 Paging Tutorial</a><span class="meta"> / </span><a href="">Multi-level paging scheme numerical translation example</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../computer-hardware#processor-computing"> Processor (computing)</a><a href="../computer-hardware#instruction-set-architecture"> Instruction set architecture</a><a href="../computer-hardware#list-of-instruction-set-architectures"> List of instruction set architectures</a><a href="../computer-hardware#x86"> x86</a><a href="../x86-paging"> x86 Paging Tutorial</a><a href="../x86-paging#example-multi-level-paging-scheme"> Example: multi-level paging scheme</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/x86-paging/multi-level-paging-scheme-numerical-translation-example"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../x86-paging#multi-level-paging-scheme-numerical-translation-example"></a><span class="metrics"><span class="wcntr"> Words: 460</span></span></div></nav></div><div class="p" id="_229">Page directory given to process by the OS:<div class="code" id="_230"><div><pre><code>entry index   entry address      page table address  present
+-----------   ----------------   ------------------  --------
+0             CR3 + 0      * 4   0x10000             1
+1             CR3 + 1      * 4                       0
+2             CR3 + 2      * 4   0x80000             1
+3             CR3 + 3      * 4                       0
+...
+2^10-1        CR3 + 2^10-1 * 4                       0</code></pre></div></div></div><div class="p" id="_231">Page tables given to process by the OS at <code>PT1 = 0x10000000</code> (<code>0x10000</code> * 4K):<div class="code" id="_232"><div><pre><code>entry index   entry address      page address  present
+-----------   ----------------   ------------  -------
+0             PT1 + 0      * 4   0x00001       1
+1             PT1 + 1      * 4                 0
+2             PT1 + 2      * 4   0x0000D       1
+...                                  ...
+2^10-1        PT1 + 2^10-1 * 4   0x00005       1</code></pre></div></div></div><div class="p" id="_233">Page tables given to process by the OS at <code>PT2  = 0x80000000</code> (<code>0x80000</code> * 4K):<div class="code" id="_234"><div><pre><code>entry index   entry address     page address  present
+-----------   ---------------   ------------  ------------
+0             PT2 + 0     * 4   0x0000A       1
+1             PT2 + 1     * 4   0x0000C       1
+2             PT2 + 2     * 4                 0
+...
+2^10-1        PT2 + 0x3FF * 4   0x00003       1</code></pre></div></div>where <code>PT1</code> and <code>PT2</code>: initial position of page table 1 and page table 2 for process 1 on RAM.</div><div class="p" id="_235">With that setup, the following translations would happen:<div class="code" id="_236"><div><pre><code>linear    10 10 12 split  physical
+--------  --------------  ----------
+00000001  000 000 001     00001001
+00001001  000 001 001     page fault
+003FF001  000 3FF 001     00005001
+00400000  001 000 000     page fault
+00800001  002 000 001     0000A001
+00801004  002 001 004     0000C004
+00802004  002 002 004     page fault
+00B00001  003 000 000     page fault</code></pre></div></div></div><div class="p" id="_237">Let's translate the linear address <code>0x00801004</code> step by step:<div class="list"><ul id="_238"><li id="_239">In binary the linear address is:<div class="code" id="_240"><div><pre><code>0    0    8    0    1    0    0    4
+0000 0000 1000 0000 0001 0000 0000 0100</code></pre></div></div></li><li id="_241">Grouping as <code>10 | 10 | 12</code> gives:<div class="code" id="_242"><div><pre><code>0000000010 0000000001 000000000100
+0x2        0x1        0x4</code></pre></div></div>which gives:<div class="code" id="_243"><div><pre><code>page directory entry = 0x2
+page table     entry = 0x1
+offset               = 0x4</code></pre></div></div>So the hardware looks for entry 2 of the page directory.</li><li id="_244"><div class="p" id="_245">The page directory table says that the page table is located at <code>0x80000 * 4K = 0x80000000</code>. This is the first RAM access of the process.</div><div class="p" id="_246">Since the page table entry is <code>0x1</code>, the hardware looks at entry 1 of the page table at <code>0x80000000</code>, which tells it that the physical page is located at address <code>0x0000C * 4K = 0x0000C000</code>. This is the second RAM access of the process.</div></li><li id="_247">Finally, the paging hardware adds the offset, and the final address is <code>0x0000C004</code>.</li></ul></div></div><div class="p" id="_248">Page faults occur if either a page directory entry or a page table entry is not present.</div><div class="p" id="_249">The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": <a href="#image-x86-page-translation-process">Figure 3. "x86 page translation process"</a></div><div class="figure"><figure id="image-x86-page-translation-process"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png" loading="lazy" height="300"></a></div><figcaption><a href="#image-x86-page-translation-process"><span class="caption-prefix">Figure 3. </span></a><div class="title">x86 page translation process</div>. </figcaption></figure></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="../x86-paging#example-multi-level-paging-scheme">Example: multi-level paging scheme</a></li><li><a href="../x86-paging">x86 Paging Tutorial</a></li><li><a href="../computer-hardware#x86">x86</a></li><li><a href="../computer-hardware#list-of-instruction-set-architectures">List of instruction set architectures</a></li><li><a href="../computer-hardware#instruction-set-architecture">Instruction set architecture</a></li><li><a href="../computer-hardware#processor-computing">Processor (computing)</a></li><li><a href="../computer-hardware#computer-hardware-component-type">Computer hardware component type</a></li><li><a href="../computer-hardware">Computer hardware</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/x86-paging.bigb">Source code for this page: x86-paging.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/x86-paging.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "x86-paging/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

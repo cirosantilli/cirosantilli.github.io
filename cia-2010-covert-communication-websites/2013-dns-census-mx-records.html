@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>CIA 2010 covert communication websites / 2013 DNS census MX records - Ciro Santilli</title>
+<meta property="og:title" content="CIA 2010 covert communication websites / 2013 DNS census MX records - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/cia-2010-covert-communication-websites/2013-dns-census-mx-records">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/2013-dns-census-mx-records">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="2013-dns-census-mx-records"><div class="notnav"><h1><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a><span class="meta"> / </span><a href="">2013 DNS census MX records</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../science#american-intelligence-agency"> American intelligence agency</a><a href="../science#central-intelligence-agency"> Central Intelligence Agency</a><a href="../cia-2010-covert-communication-websites"> CIA 2010 covert communication websites</a><a href="../cia-2010-covert-communication-websites#methodology"> Methodology</a><a href="../cia-2010-covert-communication-websites#data-sources"> Data sources</a><a href="../cia-2010-covert-communication-websites#dns-census-2013"> DNS Census 2013</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/2013-dns-census-mx-records"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../cia-2010-covert-communication-websites#2013-dns-census-mx-records"></a><span class="metrics"><span class="wcntr"> Words: 383</span></span></div></nav></div><div class="p" id="_6085">Let' see if there's anything in records/mx.xz.</div><div class="p" id="_6086">mx.csv is 21GB.</div><div class="p" id="_6087">They do have <code>"</code> in the files to escape commas so:</div><div class="p" id="_6088">mx.py<div class="code" id="_6089"><div><pre><code>import csv
+import sys
+writer = csv.writer(sys.stdout)
+with open('mx.csv', 'r') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        writer.writerow([row[0], row[3]])</code></pre></div></div>Would have been better with csvkit: <a href="https://stackoverflow.com/questions/36287982/bash-parse-csv-with-quotes-commas-and-newlines">stackoverflow.com/questions/36287982/bash-parse-csv-with-quotes-commas-and-newlines</a></div><div class="p" id="_6090">then:</div><div class="code" id="_6091"><div><pre><code># uniq not amazing as there are often two or three slightly different records repeated on multiple timestamps, but down to 11 GB
+python3 mx.py | uniq &gt; mx-uniq.csv
+sqlite3 mx.sqlite 'create table t(d text, m text)'
+# 13 GB
+time sqlite3 mx.sqlite ".import --csv --skip 1 'mx-uniq.csv' t"
+
+# 41 GB
+time sqlite3 mx.sqlite 'create index td on t(d)'
+time sqlite3 mx.sqlite 'create index tm on t(m)'
+time sqlite3 mx.sqlite 'create index tdm on t(d, m)'
+
+# Remove dupes.
+# Rows: 150m
+time sqlite3 mx.sqlite &lt;&lt;EOF
+delete from t
+where rowid not in (
+  select min(rowid)
+  from t
+  group by d, m
+)
+EOF
+
+# 15 GB
+time sqlite3 mx.sqlite vacuum</code></pre></div></div><div class="p" id="_6092">Let's see what the hits use:<div class="code" id="_6093"><div><pre><code>awk -F, 'NR&gt;1{ print $2 }' ../media/cia-2010-covert-communication-websites/hits.csv | xargs -I{} sqlite3 mx.sqlite "select distinct * from t where d = '{}'"</code></pre></div></div></div><div class="p" id="_6094">At around 267 total hits, only 84 have MX records, and from those that do, almost all of them have exactly:<div class="code" id="_6095"><div><pre><code>smtp.secureserver.net
+mailstore1.secureserver.net</code></pre></div></div>with only three exceptions:<div class="code" id="_6096"><div><pre><code>dailynewsandsports.com|dailynewsandsports.com
+inews-today.com|mail.inews-today.com
+just-kidding-news.com|just-kidding-news.com</code></pre></div></div>We need to count out of the totals!<div class="code" id="_6097"><div><pre><code>sqlite3 mx.sqlite "select count(*) from t where m = 'mailstore1.secureserver.net'"</code></pre></div></div>which gives, ~18M, so nope, it is too much by itself...</div><div class="p" id="_6098">Let's try to use that to reduce <code>av.sqlite</code> from <a href="../cia-2010-covert-communication-websites#2013-dns-census-virtual-host-cleanup">2013 DNS Census virtual host cleanup</a> a bit further:<div class="code" id="_6099"><div><pre><code>time sqlite3 mx.sqlite '.mode csv' "attach 'aiddcu.sqlite' as 'av'" '.load ./ip' "select ipi2s(av.t.i), av.t.d from av.t inner join t as mx on av.t.d = mx.d and mx.m = 'mailstore1.secureserver.net' order by av.t.i asc" &gt; avm.csv</code></pre></div></div>where <code>avm</code> stands for <code>av</code> with <code>mx</code> pruning. This leaves us with only ~500k entries left. With one more figerprint we could do a <a href="../cia-2010-covert-communication-websites#wayback-machine-cdx-scanning">Wayback Machine CDX scanning</a> scan.</div><div class="p" id="_6100">Let's check that we still have most our hits in there:<div class="code" id="_6101"><div><pre><code>grep -f &lt;(awk -F, 'NR&gt;1{print $2}' /home/ciro/bak/git/media/cia-2010-covert-communication-websites/hits.csv) avm.csv</code></pre></div></div>At 267 hits we got 81, so all are still present.</div><div class="p" id="_6102">secureserver is a hosting provider, we can see their blank page e.g. at: <a href="https://web.archive.org/web/20110128152204/http://emmano.com/">web.archive.org/web/20110128152204/http://emmano.com/</a>. <a href="https://security.stackexchange.com/questions/12610/why-did-secureserver-net-godaddy-access-my-gmail-account/12616#12616">security.stackexchange.com/questions/12610/why-did-secureserver-net-godaddy-access-my-gmail-account/12616#12616</a> comments:<div><blockquote id="_6103">secureserver.net is the name GoDaddy use as the reverse DNS for IP addresses used for dedicated/virtual server hosting</blockquote></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(15)</span></a></h2><div class="list"><ol><li><a href="../cia-2010-covert-communication-websites#dns-census-2013">DNS Census 2013</a></li><li><a href="../cia-2010-covert-communication-websites#data-sources">Data sources</a></li><li><a href="../cia-2010-covert-communication-websites#methodology">Methodology</a></li><li><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a></li><li><a href="../science#central-intelligence-agency">Central Intelligence Agency</a></li><li><a href="../science#american-intelligence-agency">American intelligence agency</a></li><li><a href="../science#united-states-intelligence-community">United States Intelligence Community</a></li><li><a href="../science#intelligence-community">Intelligence community</a></li><li><a href="../science#secret-service">Secret service</a></li><li><a href="../science#espionage">Espionage</a></li><li><a href="../science#war">War</a></li><li><a href="../science#social-science">Social science</a></li><li><a href="../science#scientific-method">Scientific method</a></li><li><a href="../science">Science</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="../cia-2010-covert-communication-websites#2013-dns-census-secureserver-net-mx-records-intersection-2013-dns-census-virtual-host-cleanup">2013 DNS census secureserver.net MX records intersection 2013 DNS Census virtual host cleanup</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/cia-2010-covert-communication-websites.bigb">Source code for this page: cia-2010-covert-communication-websites.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/cia-2010-covert-communication-websites.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "cia-2010-covert-communication-websites/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

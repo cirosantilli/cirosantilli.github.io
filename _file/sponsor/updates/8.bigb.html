@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>sponsor/updates/8.bigb - Ciro Santilli</title>
+<meta property="og:title" content="sponsor/updates/8.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/sponsor/updates/8.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/8.bigb">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/sponsor/updates/8.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">sponsor/updates/8.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/8.bigb"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/sponsor">sponsor</a> / <a href="../../../_dir/sponsor/updates">updates</a> / <a href="../../../_raw/sponsor/updates/8.bigb">8.bigb</a></b></div></nav></div><div class="p"><b>sponsor/updates/8.bigb</b></div><div class="code"><div><pre><code>= Ciro's Edict \#8
+{numbered}
+{scope}
+{title2=2022-08-02}
+
+&lt;Cirists&gt;,
+
+This month included several exciting extremelly user visible web developments.
+
+I can't help to feel how the speed of developments reflects my relative mastery of the stack, I'm very happy about how it went.
+
+= OurBigBook.com
+{parent=8}
+
+= Advances
+{parent=OurBigBook.com}
+
+= Article metadata shown next to every header
+{parent=Advances}
+
+This is a major feature: we have now started to inject the following buttons next to every single pre-rendered header:
+* "Like"
+* "By Other On The Same Topic"
+* "Discussions", i.e. the issue tracker for the header
+* "Create my own version" or "View my version of the page" or "Edit" button depending on wether the user can edit or already has a version of the article or not
+
+This crucial feature makes it clear to every new user that every single header has its own separate metadata, which is a crucial idea of the website.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_metadata_on_every_header.png]
+{title=Screenshot showing metadata next to each header}
+{description=The page is: https://ourbigbook.com/donald-trump/chemistry[]. Note how even the subheaders "Chemical element" and "Hydrogen" show the metadata.}
+{height=800}
+
+= List topics on home page
+{parent=Advances}
+
+The new default homepage for a logged out user how shows a list of the topics with the most articles.
+
+This is a reasonable choice for default homepage, and it immediately exposes users to this central feature of the website: the topic system.
+
+Doing this required in particular calculating the best title for a topic, since it is possible to have different titles with the same ID, the most common way being with capitalization changes, e.g.:
+``
+JavaScript
+Javascript
+``
+would both have topic ID `javascript`.
+
+With this in place we also added the preferred topic title to the top topic page.
+
+The algorithm chosen is to pick the top 10 most upvoted topics, and select the most common title from amongst them. This should make topic title vandalism quite hard. This was made in a single &lt;SQL&gt; query, and became the most complext SQL query &lt;Ciro Santilli&gt; has ever written so far: https://twitter.com/cirosantilli2/status/1549721815832043522
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_topic_index_page.png]
+{title=Screenshot showing the list of topics}
+{description=The page is: https://ourbigbook.com[] for the logged out user, https://ourbigbook.com/go/topics[] for the logged in user.}
+{height=800}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_topic_page_with_title.png]
+{title=Screenshot showing a topic page}
+{description=The page is: https://ourbigbook.com/go/topic/vector-space[]. Before this sprint, we didn't have the "Vector Space" at the top, as it wasn't necessarily trivial to determine what the preferred title would be.}
+{height=400}
+
+= Article size and count limits
+{parent=Advances}
+
+Limited the number of articles, and the size of article bodies. This, together with the reCAPTCHA setup from &lt;7/Email verification and reCAPTCHA signup protection&gt; should prevent the most basic types of &lt;denial-of-service&gt; attacks by filling up our database.
+
+The limits can be increased by admin users from the web UI, and will be done generously when it is evident that it is not a &lt;DoS attack&gt;. Admin users are also a recently added feature.
+
+= Next steps
+{parent=OurBigBook.com}
+
+Editor. As last time. And the one before. But now it is for real.
+
+I guess ended up doing all the "how things should look like" features because they clarify what the website is supposed to do, and I already have my own content to bring it alive via `ourbigbook --web` upload.
+
+But now I honestly feel that all the major elements of "how things should look like" have fallen into place.
+
+And yeah, nobody else is never going to contribute as things are! &lt;WYSIWYG&gt; is a must.
+
+I was really impressed by &lt;Trillium Notes&gt;. I should have checked it long ago. The UI is amazing, and being all Js-based, could potentially be reused for our purposes. The project itself is a single-person/full trust notetaking only for now however, so not a direct replacement to OurBigBook.
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

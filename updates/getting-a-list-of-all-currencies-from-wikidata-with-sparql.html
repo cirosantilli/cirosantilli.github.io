@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Updates / Getting a list of all currencies from Wikidata with SPARQL - Ciro Santilli</title>
+<meta property="og:title" content="Updates / Getting a list of all currencies from Wikidata with SPARQL - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://files.mastodon.social/media_attachments/files/113/509/536/025/260/785/original/428906b92ab725f5.jpg">
+<meta property="og:url" content="https://cirosantilli.com/updates/getting-a-list-of-all-currencies-from-wikidata-with-sparql">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/updates/getting-a-list-of-all-currencies-from-wikidata-with-sparql">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="getting-a-list-of-all-currencies-from-wikidata-with-sparql"><div class="notnav"><h1><a href="../updates">Updates</a><span class="meta"> / </span><a href="">Getting a list of all currencies from Wikidata with SPARQL</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a><a href="../ciro-santilli"> Ciro Santilli</a><a href="../updates"> Updates</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/updates/getting-a-list-of-all-currencies-from-wikidata-with-sparql"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../updates#getting-a-list-of-all-currencies-from-wikidata-with-sparql"></a><span class="metrics"><span class="wcntr"> Words: 494</span></span></div></nav></div><div class="p" id="_512"><a href="https://opendata.stackexchange.com/questions/1560/how-can-i-get-a-list-of-currencies-from-wikidata/21839#21839">opendata.stackexchange.com/questions/1560/how-can-i-get-a-list-of-currencies-from-wikidata/21839#21839</a></div><div class="p" id="_513">I've had a bit more fun with <a href="../machine-learning#sparql">SPARQL</a> and <a href="../machine-learning#wikidata">Wikidata</a>.</div><div class="p" id="_514">This one was way harder than my previous fun with "find the oldest people who won a given prize" (<a href="../nobel-prize">Nobel Prize</a>/<a href="https://ourbigbook.com/go/topic/oscar">Oscar</a>) <a href="https://mastodon.social/@cirosantilli/112689376315990248">mastodon.social/@cirosantilli/112689376315990248</a> because unlike those prizes where all the decisions are centralized, countries are much more complicated beasts, with changing currencies and international recognition.</div><div class="p" id="_515">This was a good experience to see a few ways in which Wikidata is inconsistent, with the same concept being expressed in multiple different ways, e.g. "end time" property of the current vs the superior "end time" qualifier.</div><div class="p" id="_516">Particularly bad is the notion of a "<a href="https://www.wikidata.org/wiki/Help:Ranking#Deprecated_rank">deprecated rank</a>", that should really not exist.</div><div class="p" id="_517">This is exactly the type of semi interactive data munching that I like to do, a bit in the same vein as <a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a> and <a href="../cool-data-embedded-in-the-bitcoin-blockchain">Cool data embedded in the Bitcoin blockchain</a>.</div><div class="p" id="_518">As you might imagine, the <a href="../science#secret-service">secret services</a> use exactly this type of knowledge modelling to do their dirty business, e.g. <a href="https://github.com/gchq/Gaffer">Gaffer</a> by the <a href="../science#gchq">GCHQ</a>.</div><div class="p" id="_519">If only I weren't such a rebel, I'd be a perfect fit for the <a href="../science#intelligence-agency">intelligence agencies</a>.</div><div class="p" id="_520">This is the best monstrosity I had the patience to come up with:<div class="code" id="_521"><div><pre><code>SELECT
+  ?currency
+  (GROUP_CONCAT(DISTINCT ?currencyIsoCode; SEPARATOR=", ") AS ?currencyIsoCodes)
+  ?currencyLabel
+  (GROUP_CONCAT(DISTINCT ?countryLabel; SEPARATOR=", ") AS ?countries)
+WHERE {
+  ?country wdt:P31/wdt:P279* wd:Q6256. # is country
+  ?country p:P38 ?countryHasCurrency.
+  ?countryHasCurrency ps:P38 ?currency.
+  ?countryHasCurrency wikibase:rank ?countryHasCurrencyRank.
+  OPTIONAL {
+    ?currency p:P498 ?currencyHasIsoCode.
+    ?currencyHasIsoCode ps:P498 ?currencyIsoCode.
+  }
+  FILTER NOT EXISTS {?country wdt:P576 ?countryAbolished}
+  FILTER NOT EXISTS {?currency wdt:P576 ?currencyAbolished}
+  FILTER NOT EXISTS {?currency wdt:P582 ?currencyEndTime}
+  FILTER NOT EXISTS {?countryHasCurrency pq:P582 ?countryHasCurrencyEndtime}
+  FILTER (?countryHasCurrencyRank != wikibase:DeprecatedRank)
+  FILTER (!bound(?currencyHasIsoCode) || ?currencyHasIsoCode != wikibase:DeprecatedRank)
+  # TODO makes query take timeout? Why? Needed to exclude PLZ.
+  FILTER NOT EXISTS {?currencyHasIsoCode pq:P582 ?currencyHasIsoCodeEndtime}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?currency rdfs:label ?currencyLabel .
+    ?country rdfs:label ?countryLabel .
+  }
+}
+GROUP BY ?currency ?currencyLabel
+ORDER BY ?currencyIsoCodes ?currencyLabel</code></pre></div></div>It got quite close to the ISO 4217 list.</div><div class="p" id="_522">I was drawn into this waste of time after I noticed that someone had managed to create the Wikipedia of <a href="../quantum-computing#psiquantum">PsiQuantum</a> which I had tried earlier but got deleted: <a href="https://mastodon.social/@cirosantilli/113488891292906243">mastodon.social/@cirosantilli/113488891292906243</a>, and then I made the mistake of having a look at the <a href="../machine-learning#wikidata">Wikidata</a> page of <a href="../quantum-computing#psiquantum">PsiQuantum</a>.</div><div class="figure"><figure id="image-500-000-transnistrian-ruble-banknote-1997-series"><div class="float-wrap"><a href="https://files.mastodon.social/media_attachments/files/113/509/536/025/260/785/original/428906b92ab725f5.jpg"><img src="https://files.mastodon.social/media_attachments/files/113/509/536/025/260/785/original/428906b92ab725f5.jpg" loading="lazy" height="315"></a></div><figcaption><a href="#image-500-000-transnistrian-ruble-banknote-1997-series"><span class="caption-prefix">Figure 24. </span></a><div class="title">500,000 Transnistrian ruble banknote 1997 series</div>. This is one of the most widely used currencies which does not have an ISO 4217 code.</figcaption></figure></div><div class="p" id="_523">Announcements:<div class="list"><ul id="_524"><li id="_525"><a href="https://mastodon.social/@cirosantilli/113509491731720236">mastodon.social/@cirosantilli/113509491731720236</a></li><li id="_526"><a href="https://x.com/cirosantilli/status/1858846619359219848">x.com/cirosantilli/status/1858846619359219848</a></li></ul></div></div><div class="p" id="_527">I also had one more fun with: <a href="https://opendata.stackexchange.com/questions/15750/structured-data-for-nobel-prizes/21847#21847">opendata.stackexchange.com/questions/15750/structured-data-for-nobel-prizes/21847#21847</a> getting some basic info about <a href="../nobel-prize">Nobel Prize</a> winners, and noticed one, <a href="../biology#john-sulston">John Sulston</a>, <a href="../nobel-prize#2002-nobel-prize-in-physiology-and-medicine">2002 Nobel Prize in Physiology and Medicine</a> laureate, who likely has the wrong place of birth on his Nobel Prize profile: <a href="https://www.nobelprize.org/prizes/medicine/2002/sulston/facts/">www.nobelprize.org/prizes/medicine/2002/sulston/facts/</a> which is funny. I suggested the change now. Edit they fixed it after I pointed it out:<div class="list"><ul id="_528"><li id="_529">bad: <a href="https://web.archive.org/web/20241008022931/https://www.nobelprize.org/prizes/medicine/2002/sulston/facts/">web.archive.org/web/20241008022931/https://www.nobelprize.org/prizes/medicine/2002/sulston/facts/</a></li><li id="_530">good: <a href="https://web.archive.org/web/20241127133204/https://www.nobelprize.org/prizes/medicine/2002/sulston/facts/">web.archive.org/web/20241127133204/https://www.nobelprize.org/prizes/medicine/2002/sulston/facts/</a></li></ul></div></div><div class="p" id="_531">Another highlight was <a href="https://ourbigbook.com/go/topic/1913-nobel-prize-in-chemistry">1913 Nobel Prize in Chemistry</a> laureate <a href="https://ourbigbook.com/go/topic/alfred-werner">Alfred Werner</a> who born either in Mulhouse in Alsace, France, or in "Yo no sé qué me pasó" ("I don't know what happened to me" in <a href="../linguistics#spanish-language">Spanish</a>), a <a href="https://www.youtube.com/watch?v=83PeS6bKla0">1986 song by Mexican singer Juan Gabriel</a>.</div><div class="p" id="_532">Announcements:<div class="list"><ul id="_533"><li id="_534"><a href="https://mastodon.social/@cirosantilli/113528952716463018">mastodon.social/@cirosantilli/113528952716463018</a></li><li id="_535"><a href="https://x.com/cirosantilli/status/1860088866335785187">x.com/cirosantilli/status/1860088866335785187</a></li></ul></div></div><div class="figure"><figure id="_536"><div class="float-wrap"><a href="https://upload.wikimedia.org/wikipedia/commons/f/fe/John_Sulston_%282008%29.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/John_Sulston_%282008%29.jpg" loading="lazy" height="315"></a></div><figcaption><a href="#_536"><span class="caption-prefix">Figure 25. </span></a><a href="https://commons.wikimedia.org/wiki/File:John_Sulston_%282008%29.jpg">Source</a>. </figcaption></figure></div><div class="p" id="_537">Also at <a href="https://opendata.stackexchange.com/questions/21849/how-to-get-a-list-of-all-nobel-prize-winners-who-never-had-a-doctorate-from-wiki/21850#21850">opendata.stackexchange.com/questions/21849/how-to-get-a-list-of-all-nobel-prize-winners-who-never-had-a-doctorate-from-wiki/21850#21850</a> I tried to get the list of <a href="../education#rebel-without-a-phd">Nobel Prize laureates who don't have a PhD</a>. I think the query was correct, but <a href="../machine-learning#wikidata">Wikidata</a> data is just too incomplete. Related:<div class="list"><ul id="_538"><li id="_539"><a href="https://www.reddit.com/r/NoStupidQuestions/comments/mv85av/has_anybody_without_a_phd_ever_won_the_nobel/">www.reddit.com/r/NoStupidQuestions/comments/mv85av/has_anybody_without_a_phd_ever_won_the_nobel/</a></li><li id="_540"><a href="https://www.quora.com/Has-anyone-ever-won-a-Nobel-Prize-without-a-PhD">www.quora.com/Has-anyone-ever-won-a-Nobel-Prize-without-a-PhD</a></li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(3)</span></a></h2><div class="list"><ol><li><a href="../updates">Updates</a></li><li><a href="../ciro-santilli">Ciro Santilli</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="../biology#john-sulston">John Sulston</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/updates.bigb">Source code for this page: updates.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/updates.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "updates/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

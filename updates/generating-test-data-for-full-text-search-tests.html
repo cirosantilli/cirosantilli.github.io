@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Updates / Generating test data for full text search tests - Ciro Santilli</title>
+<meta property="og:title" content="Updates / Generating test data for full text search tests - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/updates/generating-test-data-for-full-text-search-tests">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/updates/generating-test-data-for-full-text-search-tests">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="generating-test-data-for-full-text-search-tests"><div class="notnav"><h1><a href="../updates">Updates</a><span class="meta"> / </span><a href="">Generating test data for full text search tests</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a><a href="../ciro-santilli"> Ciro Santilli</a><a href="../updates"> Updates</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/updates/generating-test-data-for-full-text-search-tests"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../updates#generating-test-data-for-full-text-search-tests"></a><span class="metrics"><span class="wcntr"> Words: 358</span></span></div></nav></div><div class="p" id="_489">I've been thinking lightly about adding full text search to <a href="../ciro-santilli-s-projects#ourbigbook">OurBigBook</a>.</div><div class="p" id="_490">For example, at <a href="https://docs.ourbigbook.com/news/article-and-topic-id-prefix-search">docs.ourbigbook.com/news/article-and-topic-id-prefix-search</a> article search was added, but it only finds if you search something that appears right at the start of a title, e.g. for:<div class="code" id="_491"><div><pre><code>Fundamental theorem of calculus</code></pre></div></div>you'd get a hit for:<div class="code" id="_492"><div><pre><code>fundamental</code></pre></div></div>but not for<div class="code" id="_493"><div><pre><code>calculus</code></pre></div></div></div><div class="p" id="_494">To do this efficiently, we need full text search, which <a href="../sql#postgresql">PostgreSQL</a> implements.</div><div class="p" id="_495">But finding a clean way to generate test data for testing out the speedup was not so easy and exploration into this led me to publishing a few new slightly improved methods where Googlers can now find them:<div class="list"><ul id="_496"><li id="_497"><div class="p" id="_498"><a href="https://unix.stackexchange.com/questions/97160/is-there-something-like-a-lorem-ipsum-generator/787733#787733">unix.stackexchange.com/questions/97160/is-there-something-like-a-lorem-ipsum-generator/787733#787733</a> I propose a neat random "sentence" generator using common CLI tools like <a href="../systems-programming#grep"><code>grep</code></a> and <a href="../systems-programming#sed"><code>sed</code></a> and the pre-installed Ubuntu dictionary <code>/usr/share/dict/american-english</code>:<div class="code" id="_499"><div><pre><code>grep -v "'" /usr/share/dict/american-english |
+shuf -r |
+paste -d ' ' $(printf "%4s" | sed 's/ /- /g') |
+sed -e 's/^\(.\)/\U\1/;s/$/./' |
+head -n10000000 \
+&gt; lorem.txt</code></pre></div></div></div><div class="list"><ul id="_500"><li id="_501">to achieve that, I also proposed two superior "join every N lines" method for the CLI: <a href="https://stackoverflow.com/questions/25973140/joining-every-group-of-n-lines-into-one-with-bash/79257780#79257780">stackoverflow.com/questions/25973140/joining-every-group-of-n-lines-into-one-with-bash/79257780#79257780</a>, notably this <a href="../programming-language#awk">awk</a> poem:<div class="code" id="_502"><div><pre><code>seq 10 | awk '{ printf("%s%s", NR  == 1 ? "" : NR % 3 == 1 ? "\n" : " ", $0 ) } END { printf("\n") }'</code></pre></div></div></li></ul></div></li><li id="_503"><a href="https://stackoverflow.com/questions/3371503/sql-populate-table-with-random-data/79255281#79255281">stackoverflow.com/questions/3371503/sql-populate-table-with-random-data/79255281#79255281</a> I propose:<div class="list"><ul id="_504"><li id="_505">a clean <a href="../sql#postgresql">PostgreSQL</a> random string stored procedure that picks random characters from an allowed character list<div class="code" id="_506"><div><pre><code>CREATE OR REPLACE FUNCTION random_string(int) RETURNS TEXT as $$
+select
+string_agg(substr(characters, (random() * length(characters) + 1)::integer, 1), '') as random_word
+from (values('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-    ')) as symbols(characters)
+join generate_series(1, $1) on 1 = 1
+$$ language sql;</code></pre></div></div></li><li id="_507">first generating <a href="../sql#postgresql">PostgreSQL</a> data as <a href="../computer#comma-separated-values">CSV</a>, and then importing the CSV into PostgreSQL as a more flexible method. This can also be done in a streaming fashion from stdin which is neat.<div class="code" id="_508"><div><pre><code>python generate_data.py 10 | psql mydb -c '\copy "mytable" FROM STDIN'</code></pre></div></div></li></ul></div></li><li id="_509"><a href="https://stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/79437030#79437030">stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/79437030#79437030</a> regarding the safe generation of prefix search <code>tsquery</code> from user inputs without query errors, I've learned about <code>websearch_to_tsquery</code> and further highlighted a possible <code>tsquery -&gt; text -&gt; tsquery</code> approach that might be correct for prefix searches</li><li id="_510"><a href="https://stackoverflow.com/questions/67438575/fulltext-search-using-sequelize-postgres/79439253#79439253">stackoverflow.com/questions/67438575/fulltext-search-using-sequelize-postgres/79439253#79439253</a> I put everything together into a minimal <a href="../sequelize">Sequelize</a> example, read for usage in <a href="../ciro-santilli-s-projects#ourbigbook">OurBigBook</a></li></ul></div></div><div class="p" id="_511">Finally I did a writeup summarizing PostgreSQL full text search: <a href="../sql#postgresql-full-text-search">Section "PostgreSQL full-text search"</a> and also dumped it at: <a href="https://www.reddit.com/r/PostgreSQL/comments/12yld1o/is_it_worth_using_postgres_builtin_fulltext/">www.reddit.com/r/PostgreSQL/comments/12yld1o/is_it_worth_using_postgres_builtin_fulltext/</a> for good measure.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(3)</span></a></h2><div class="list"><ol><li><a href="../updates">Updates</a></li><li><a href="../ciro-santilli">Ciro Santilli</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/updates.bigb">Source code for this page: updates.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/updates.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "updates/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

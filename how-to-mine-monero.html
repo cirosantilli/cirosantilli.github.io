@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>How to mine Monero - Ciro Santilli</title>
+<meta property="og:title" content="How to mine Monero - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/how-to-mine-monero">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/how-to-mine-monero">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="how-to-mine-monero"><div class="notnav"><h1><a href="">How to mine Monero</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="social-technology"> Social technology</a><a href="social-technology#money"> Money</a><a href="social-technology#blockchain"> Blockchain</a><a href="cryptocurrency"> Cryptocurrency</a><a href="cryptocurrency#list-of-cryptocurrencies"> List of cryptocurrencies</a><a href="cryptocurrency#monero"> Monero</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/how-to-mine-monero"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="cryptocurrency#how-to-mine-monero"></a><span class="metrics"><span class="wcntr"> Words: 136</span></span></div></nav></div><div class="p" id="_827"><a href="systems-programming#ubuntu">Ubuntu</a> 20.10 as per <a href="https://xmrig.com/docs/miner/build/ubuntu">xmrig.com/docs/miner/build/ubuntu</a>:<div class="code" id="_828"><div><pre><code>sudo apt install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+git clone https://github.com/xmrig/xmrig.git
+mkdir xmrig/build &amp;&amp; cd xmrig/build
+cmake ..
+make -j$(nproc)</code></pre></div></div>At <a href="https://minexmr.com/#getting_started">minexmr.com/#getting_started</a> we see that all you then need is a single CLI command:<div class="code" id="_829"><div><pre><code>xmrig -o pool.minexmr.com:4444 -u &lt;your-monero-address&gt;</code></pre></div></div>Seems simple, well done devs!</div><div class="p" id="_830">Benchmark on <a href="ciro-santilli-s-hardware#lenovo-thinkpad-p51-2017">Lenovo ThinkPad P51 (2017)</a> as per <a href="https://xmrig.com/docs/miner/benchmark">xmrig.com/docs/miner/benchmark</a>:<div class="code" id="_831"><div><pre><code>./xmrig --bench=1M</code></pre></div></div>gives:<div class="code" id="_832"><div><pre><code>948.1 h/s</code></pre></div></div>which according to the <a href="https://minexmr.com">minexmr.com</a> <a href="cryptocurrency#mining-pool">mining pool</a> would generate 0.0005 XMR/day, which at the February 2021 rate of 140 USD/XMR is 0.07 USD/day. The minimum payout in that pool is 0.004 XMR so it would take 8 days to reach that.</div><div class="p" id="_833">So clearly, <a href="computer-hardware#application-specific-integrated-circuit">application-specific integrated circuit</a> mining is the only viable way of doing this.</div><div class="p" id="_834">Some people considering <a href="computer-hardware#raspberry-pi">Raspberry Pis</a> also conclude obviously that it is useless at a 10H/s rate:<div class="list"><ul id="_835"><li id="_836"><a href="https://monero.stackexchange.com/questions/6862/could-i-use-a-raspberry-pi-to-mine-monero">monero.stackexchange.com/questions/6862/could-i-use-a-raspberry-pi-to-mine-monero</a></li><li id="_837"><a href="https://raspberrypi.stackexchange.com/questions/49552/the-hashrate-of-the-raspberry-pi-2-and-3/87252#87252">raspberrypi.stackexchange.com/questions/49552/the-hashrate-of-the-raspberry-pi-2-and-3/87252#87252</a></li></ul></div></div><div class="p" id="_838"><a href="https://www.makeuseof.com/cryptos-you-can-mine-at-home/">www.makeuseof.com/cryptos-you-can-mine-at-home/</a> is a completely full of bullshit article that says otherwise. How can someone publish that!</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(9)</span></a></h2><div class="list"><ol><li><a href="cryptocurrency#monero">Monero</a></li><li><a href="cryptocurrency#list-of-cryptocurrencies">List of cryptocurrencies</a></li><li><a href="cryptocurrency">Cryptocurrency</a></li><li><a href="social-technology#blockchain">Blockchain</a></li><li><a href="social-technology#money">Money</a></li><li><a href="social-technology">Social technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/cryptocurrency.bigb">Source code for this page: cryptocurrency.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/cryptocurrency.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

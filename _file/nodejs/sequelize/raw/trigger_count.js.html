@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/raw/trigger_count.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/raw/trigger_count.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/raw/trigger_count.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/trigger_count.js">
+<style>@import "../../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/nodejs/sequelize/raw/trigger_count.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/raw/trigger_count.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../../../../software#type-of-database"> Type of database</a><a href="../../../../software#relational-database"> Relational database</a><a href="../../../../software#relational-database-management-system"> Relational database management system</a><a href="../../../../sql"> SQL</a><a href="../../../../sql#sql-keyword"> SQL keyword</a><a href="../../../../sql#iso-sql-trigger-syntax"> ISO SQL TRIGGER syntax</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/trigger_count.js"><img src="../../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../../../../sql#_file/nodejs/sequelize/raw/trigger_count.js"></a><span class="metrics"><span class="wcntr"> Words: 16</span></span></div><div class="nav file"><b> <a href="../../../../_dir">(root)</a> / <a href="../../../../_dir/nodejs">nodejs</a> / <a href="../../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../../_dir/nodejs/sequelize/raw">raw</a> / <a href="../../../../_raw/nodejs/sequelize/raw/trigger_count.js">trigger_count.js</a></b></div></nav></div><div class="p" id="_368">In this example we cache track the number of posts per user on a cache column.</div><div class="p"><b>nodejs/sequelize/raw/trigger_count.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+// https://cirosantilli.com/sql-trigger
+
+const assert = require('assert');
+const common = require('../common')
+const sequelize = common.sequelize(__filename, process.argv[2])
+common.assertEqual.typecast = { cnt: (s) =&gt; parseInt(s, 10) }
+;(async () =&gt; {
+
+await common.drop(sequelize, 'Post')
+await common.drop(sequelize, 'User')
+await sequelize.query(`
+CREATE TABLE "User" (
+  "id" INTEGER NOT NULL,
+  "username" TEXT NOT NULL,
+  "postCount" INTEGER NOT NULL,
+  PRIMARY KEY ("id")
+)
+`)
+await sequelize.query(`
+CREATE TABLE "Post" (
+  "id" INTEGER NOT NULL,
+  "title" TEXT NOT NULL,
+  "author" INTEGER NOT NULL,
+  PRIMARY KEY ("id"),
+  FOREIGN KEY ("author") REFERENCES "User"(id) ON DELETE CASCADE ON UPDATE CASCADE
+)
+`)
+
+if (sequelize.options.dialect === 'postgres') {
+// INSERT trigger
+await sequelize.query(`
+CREATE OR REPLACE FUNCTION User_postCount_insert_fn()
+  RETURNS TRIGGER
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+  UPDATE "User" SET "postCount" = "postCount" + 1 WHERE id = NEW."author";
+  RETURN NEW;
+END;
+$$
+`)
+await sequelize.query(`
+CREATE TRIGGER User_postCount_insert
+  AFTER INSERT
+  ON "Post"
+  FOR EACH ROW
+  EXECUTE PROCEDURE User_postCount_insert_fn();
+`)
+
+// DELETE trigger
+await sequelize.query(`
+CREATE OR REPLACE FUNCTION User_postCount_delete_fn()
+  RETURNS TRIGGER
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+  UPDATE "User" SET "postCount" = "postCount" - 1 WHERE id = OLD."author";
+  RETURN OLD;
+END;
+$$
+`)
+await sequelize.query(`
+CREATE TRIGGER User_postCount_delete
+  AFTER DELETE
+  ON "Post"
+  FOR EACH ROW
+  EXECUTE PROCEDURE User_postCount_delete_fn();
+`)
+
+// UPDATE trigger
+await sequelize.query(`
+CREATE OR REPLACE FUNCTION User_postCount_update_fn()
+  RETURNS TRIGGER
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+  UPDATE "User" SET "postCount" = "postCount" - 1 WHERE id = OLD."author";
+  UPDATE "User" SET "postCount" = "postCount" + 1 WHERE id = NEW."author";
+  RETURN NEW;
+END;
+$$
+`)
+await sequelize.query(`
+CREATE TRIGGER User_postCount_update
+  AFTER UPDATE OF "author"
+  ON "Post"
+  FOR EACH ROW
+  WHEN (OLD."author" &lt;&gt; NEW."author")
+  EXECUTE PROCEDURE User_postCount_update_fn();
+`)
+} else if (sequelize.options.dialect === 'sqlite') {
+  // TODO is there a single syntax that works for both sqlite and postgresql?
+  // Is there an ISO standard for it and does any of the two conform?
+  // Related compatibility section: https://www.postgresql.org/docs/current/sql-createtrigger.html
+await sequelize.query(`
+CREATE TRIGGER User_postCount_insert
+  AFTER INSERT
+  ON "Post"
+  FOR EACH ROW
+  BEGIN
+    UPDATE "User" SET "postCount" = "postCount" + 1 WHERE id = NEW."author";
+  END;
+`)
+await sequelize.query(`
+CREATE TRIGGER User_postCount_delete
+  AFTER DELETE
+  ON "Post"
+  FOR EACH ROW
+  BEGIN
+    UPDATE "User" SET "postCount" = "postCount" - 1 WHERE id = OLD."author";
+  END;
+`)
+await sequelize.query(`
+CREATE TRIGGER User_postCount_update
+  AFTER UPDATE
+  ON "Post"
+  FOR EACH ROW
+  WHEN (OLD."author" &lt;&gt; NEW."author")
+  BEGIN
+    UPDATE "User" SET "postCount" = "postCount" - 1 WHERE id = OLD."author";
+    UPDATE "User" SET "postCount" = "postCount" + 1 WHERE id = NEW."author";
+  END;
+`)
+}
+
+async function reset() {
+  await sequelize.query(`DELETE FROM "Post"`)
+  await sequelize.query(`DELETE FROM "User"`)
+  await sequelize.query(`
+INSERT INTO "User" VALUES
+(0, 'user0', 0),
+(1, 'user1', 0)
+`)
+  await sequelize.query(`
+INSERT INTO "Post" VALUES
+(0, 'user0 post0', 0),
+(1, 'user0 post1', 0),
+(2, 'user2 post0', 1)
+`)
+}
+await reset()
+
+// Check that the posts created increased postCount for users.
+;[rows, meta] = await sequelize.query(`SELECT * FROM "User" ORDER BY "User".id ASC`)
+common.assertEqual(rows, [
+  { id: 0, postCount: 2 },
+  { id: 1, postCount: 1 },
+])
+
+// Change the author of a post and check counts again.
+await sequelize.query(`UPDATE "Post" SET "author" = 1 WHERE "id" = 1`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "User" ORDER BY "User"."id" ASC`)
+common.assertEqual(rows, [
+  { id: 0, postCount: 1 },
+  { id: 1, postCount: 2 },
+])
+
+// Delete some posts.
+await sequelize.query(`DELETE FROM "Post" WHERE id = 1`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "User" ORDER BY "User".id ASC`)
+common.assertEqual(rows, [
+  { id: 0, postCount: 1 },
+  { id: 1, postCount: 1 },
+])
+
+await sequelize.query(`DELETE FROM "Post" WHERE id = 0`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "User" ORDER BY "User".id ASC`)
+common.assertEqual(rows, [
+  { id: 0, postCount: 0 },
+  { id: 1, postCount: 1 },
+])
+
+})().finally(() =&gt; { return sequelize.close() });
+</code></pre></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="../../../../sql#iso-sql-trigger-syntax">ISO SQL TRIGGER syntax</a></li><li><a href="../../../../sql#sql-keyword">SQL keyword</a></li><li><a href="../../../../sql">SQL</a></li><li><a href="../../../../software#relational-database-management-system">Relational database management system</a></li><li><a href="../../../../software#relational-database">Relational database</a></li><li><a href="../../../../software#type-of-database">Type of database</a></li><li><a href="../../../../software#database">Database</a></li><li><a href="../../../../software">Software</a></li><li><a href="../../../../computer">Computer</a></li><li><a href="../../../../technology#information-technology">Information technology</a></li><li><a href="../../../../technology#area-of-technology">Area of technology</a></li><li><a href="../../../../technology">Technology</a></li><li><a href="../../../.."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../../../../_file/sql.bigb">Source code for this page: sql.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/sql.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

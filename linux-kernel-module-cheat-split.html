@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Linux Kernel Module Cheat - Ciro Santilli</title>
+<meta property="og:title" content="Linux Kernel Module Cheat - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/linux-kernel-module-cheat-split">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/linux-kernel-module-cheat">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="linux-kernel-module-cheat"><div class="notnav"><h1><a href="">Linux Kernel Module Cheat <span class="meta">(LKMC)</span></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a><a href="ciro-santilli"> Ciro Santilli</a><a href="the-most-important-projects-done-by-ciro-santilli"> The most important projects done by Ciro Santilli</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/linux-kernel-module-cheat"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="the-most-important-projects-done-by-ciro-santilli#linux-kernel-module-cheat"></a><span class="metrics"><span class="wcntr"> Words: 574</span></span></div></nav></div><div class="p" id="_16"><a href="https://github.com/cirosantilli/linux-kernel-module-cheat">github.com/cirosantilli/linux-kernel-module-cheat</a></div><div class="p" id="_17"><a href="software#dan-kaminsky-approves-linux-kernel-module-cheat">Dan Kaminsky approves Linux Kernel Module Cheat</a>.</div><div class="p" id="_18">This is the most important technical tutorial project that <a href="ciro-santilli">Ciro Santilli</a> has done in his life so far as of 2019.</div><div class="p" id="_19">The scope is insane and unprecedented, and goes beyond <a href="systems-programming#linux-kernel">Linux kernel</a>-land alone, which is where it started.</div><div class="p" id="_20">It ended up <a href="biology#eating">eating</a> every system programming content Ciro had previously written! Including:<div class="list"><ul id="_21"><li id="_22"><a href="programming-language#c-programming-language">C</a>, <a href="programming-language#c-plus-plus">C++</a>, <a href="systems-programming#posix">POSIX</a></li><li id="_23"><a href="computer-hardware#x86">x86</a> and arm userland assembly</li><li id="_24">arm baremetal assembly. x86 baremetal is at: <a href="https://github.com/cirosantilli/x86-bare-metal-examples">github.com/cirosantilli/x86-bare-metal-examples</a> and would in theory be migrated, but he's lazy</li><li id="_25"><a href="systems-programming#qemu">QEMU</a> and <a href="systems-programming#gem5">gem5</a> emulation</li></ul></div>so that that repo would better be called "System Programming Cheat". But "Linux Kernel Module Cheat" sounds more hardcore ;-)</div><div class="p" id="_26">Other major things that could be added there as well in the future are:<div class="list"><ul id="_27"><li id="_28"><a href="https://github.com/cirosantilli/algorithm-cheat">github.com/cirosantilli/algorithm-cheat</a></li><li id="_29"><a href="computer#computer-architecture">computer architecture</a> tutorials with <a href="systems-programming#gem5">gem5</a></li></ul></div></div><div class="p" id="_30">Due to this project, some have <a href="https://github.com/cirosantilli/linux-kernel-module-cheat/issues/105#issuecomment-553220982">considered Ciro to be</a> (<a href="https://web.archive.org/web/20191113151131/https://github.com/cirosantilli/linux-kernel-module-cheat/issues/105#issuecomment-553220982">archive</a>):<div><blockquote id="_31">some kind of Linux kernel god.</blockquote></div>which made Ciro smile, although "Linux kernel documenter <a href="religion#god">God</a>" would have been more precise.</div><div class="code" id="code-terminal-dump-of-a-lkmc-session-with-two-tmux-panes-with-qemu-on-left-and-gdb-on-right-showing-a-backtrace-of-the-linux-kernel-code-currently-being-under-qemu"><div><pre><code>[    1.451857] input: AT Translated Set 2 keyboard as /devices/platform/i8042/s1│loading @0xffffffffc0000000: ../kernel_modules-1.0//timer.ko
+[    1.454310] ledtrig-cpu: registered to indicate activity on CPUs             │(gdb) b lkmc_timer_callback
+[    1.455621] usbcore: registered new interface driver usbhid                  │Breakpoint 1 at 0xffffffffc0000000: file /home/ciro/bak/git/linux-kernel-module
+[    1.455811] usbhid: USB HID core driver                                      │-cheat/out/x86_64/buildroot/build/kernel_modules-1.0/./timer.c, line 28.
+[    1.462044] NET: Registered protocol family 10                               │(gdb) c
+[    1.467911] Segment Routing with IPv6                                        │Continuing.
+[    1.468407] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver              │
+[    1.470859] NET: Registered protocol family 17                               │Breakpoint 1, lkmc_timer_callback (data=0xffffffffc0002000 &lt;mytimer&gt;)
+[    1.472017] 9pnet: Installing 9P2000 support                                 │    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    1.475461] sched_clock: Marking stable (1473574872, 0)-&gt;(1554017593, -80442)│kernel_modules-1.0/./timer.c:28
+[    1.479419] ALSA device list:                                                │28      {
+[    1.479567]   No soundcards found.                                           │(gdb) c
+[    1.619187] ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100                 │Continuing.
+[    1.622954] ata2.00: configured for MWDMA2                                   │
+[    1.644048] scsi 1:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ P5│Breakpoint 1, lkmc_timer_callback (data=0xffffffffc0002000 &lt;mytimer&gt;)
+[    1.741966] tsc: Refined TSC clocksource calibration: 2904.010 MHz           │    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    1.742796] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x29dc0f4s│kernel_modules-1.0/./timer.c:28
+[    1.743648] clocksource: Switched to clocksource tsc                         │28      {
+[    2.072945] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8043│(gdb) bt
+[    2.078641] EXT4-fs (vda): couldn't mount as ext3 due to feature incompatibis│#0  lkmc_timer_callback (data=0xffffffffc0002000 &lt;mytimer&gt;)
+[    2.080350] EXT4-fs (vda): mounting ext2 file system using the ext4 subsystem│    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    2.088978] EXT4-fs (vda): mounted filesystem without journal. Opts: (null)  │kernel_modules-1.0/./timer.c:28
+[    2.089872] VFS: Mounted root (ext2 filesystem) readonly on device 254:0.    │#1  0xffffffff810ab494 in call_timer_fn (timer=0xffffffffc0002000 &lt;mytimer&gt;,
+[    2.097168] devtmpfs: mounted                                                │    fn=0xffffffffc0000000 &lt;lkmc_timer_callback&gt;) at kernel/time/timer.c:1326
+[    2.126472] Freeing unused kernel memory: 1264K                              │#2  0xffffffff810ab71f in expire_timers (head=&lt;optimized out&gt;,
+[    2.126706] Write protecting the kernel read-only data: 16384k               │    base=&lt;optimized out&gt;) at kernel/time/timer.c:1363
+[    2.129388] Freeing unused kernel memory: 2024K                              │#3  __run_timers (base=&lt;optimized out&gt;) at kernel/time/timer.c:1666
+[    2.139370] Freeing unused kernel memory: 1284K                              │#4  run_timer_softirq (h=&lt;optimized out&gt;) at kernel/time/timer.c:1692
+[    2.246231] EXT4-fs (vda): warning: mounting unchecked fs, running e2fsck isd│#5  0xffffffff81a000cc in __do_softirq () at kernel/softirq.c:285
+[    2.259574] EXT4-fs (vda): re-mounted. Opts: block_validity,barrier,user_xatr│#6  0xffffffff810577cc in invoke_softirq () at kernel/softirq.c:365
+hello S98                                                                       │#7  irq_exit () at kernel/softirq.c:405
+                                                                                │#8  0xffffffff818021ba in exiting_irq () at ./arch/x86/include/asm/apic.h:541
+Apr 15 23:59:23 login[49]: root login on 'console'                              │#9  smp_apic_timer_interrupt (regs=&lt;optimized out&gt;)
+hello /root/.profile                                                            │    at arch/x86/kernel/apic/apic.c:1052
+# insmod /timer.ko                                                              │#10 0xffffffff8180190f in apic_timer_interrupt ()
+[    6.791945] timer: loading out-of-tree module taints kernel.                 │    at arch/x86/entry/entry_64.S:857
+# [    7.821621] 4294894248                                                     │#11 0xffffffff82003df8 in init_thread_union ()
+[    8.851385] 4294894504                                                       │#12 0x0000000000000000 in ?? ()
+                                                                                │(gdb)</code></pre><div class="caption"><a href="#code-terminal-dump-of-a-lkmc-session-with-two-tmux-panes-with-qemu-on-left-and-gdb-on-right-showing-a-backtrace-of-the-linux-kernel-code-currently-being-under-qemu"><span class="caption-prefix">Code 1. </span></a><div class="title">Terminal dump of a LKMC session with two tmux panes with QEMU on left and GDB on right showing a backtrace of the Linux kernel code currently being under QEMU</div>. </div></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(3)</span></a></h2><div class="list"><ol><li><a href="the-most-important-projects-done-by-ciro-santilli">The most important projects done by Ciro Santilli</a></li><li><a href="ciro-santilli">Ciro Santilli</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(23)</span></a></h2><div class="list"><ul><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li><li><a href="software#_file/test_executables.js">Test_executables.js</a></li><li><a href="computer-hardware#assembly-language">Assembly language</a></li><li><a href="systems-programming#buildroot">Buildroot</a></li><li><a href="ciro-santilli#ciro-santilli-s-documentation-superpowers">Ciro Santilli's documentation superpowers</a></li><li><a href="ciro-santilli-s-hardware#computers">Computers</a></li><li><a href="software#computer-security">Computer security</a></li><li><a href="systems-programming#emulator">Emulator</a></li><li><a href="mathematics#high-flying-bird-vs-gophers">High flying bird vs gophers</a></li><li><a href="computer#how-computers-work">How computers work?</a></li><li><a href="systems-programming#linux">Linux</a></li><li><a href="systems-programming#linux-insides">Linux insides</a></li><li><a href="systems-programming#linux-kernel">Linux kernel</a></li><li><a href="ciro-santilli#molecular-biology-technologies">Molecular biology technologies</a></li><li><a href="cirosantilli-com#one-page-to-rule-them-all">One page to rule them all</a></li><li><a href="systems-programming#qemu">QEMU</a></li><li><a href="systems-programming">Systems programming</a></li><li><a href="systems-programming#ubuntu">Ubuntu</a></li><li><a href="updates#i-ended-up-doing-tech-rather-than-content-as-usual">I ended up doing tech rather than content as usual</a></li><li><a href="updates#post-ourbigbook-job-search-round-2025">Post OurBigBook job search round 2025</a></li><li><a href="updates#two-linux-kernel-module-cheat-videos">Two Linux Kernel Module Cheat videos</a></li><li><a href="todo#website-front-end-for-a-mathematical-formal-proof-system">Website front-end for a mathematical formal proof system</a></li><li><a href="ciro-santilli-s-projects#x86-bare-metal-examples">x86 bare metal examples</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/the-most-important-projects-done-by-ciro-santilli.bigb">Source code for this page: the-most-important-projects-done-by-ciro-santilli.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/the-most-important-projects-done-by-ciro-santilli.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

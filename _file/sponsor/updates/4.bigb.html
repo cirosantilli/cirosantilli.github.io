@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>sponsor/updates/4.bigb - Ciro Santilli</title>
+<meta property="og:title" content="sponsor/updates/4.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/sponsor/updates/4.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/4.bigb">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/sponsor/updates/4.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">sponsor/updates/4.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/sponsor/updates/4.bigb"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/sponsor">sponsor</a> / <a href="../../../_dir/sponsor/updates">updates</a> / <a href="../../../_raw/sponsor/updates/4.bigb">4.bigb</a></b></div></nav></div><div class="p"><b>sponsor/updates/4.bigb</b></div><div class="code"><div><pre><code>= Ciro's Edict \#4
+{numbered}
+{scope}
+{title2=2022-02-13}
+
+&lt;Cirists&gt;,
+
+= ourbigbook.com
+{parent=4}
+
+I had meant to make an update earlier, but I wanted to try and add some more "visible end-user changes" to &lt;/OurBigBook.com&gt;.
+
+Just noticed BTW that signup on the website is broken. Facepalm. Not that it matters much since it is not very useful in the current state, but still. Going to fix that soon. EDIT: nevermind, it wasn't broken, I just had JavaScript disabled on that website with an extension to test if pages are visible without JavaScript, and yes, they are perfectly visible, you can't tell the difference! But you can't login without JavaScript either!
+
+I still haven't the user visible ones I wanted, but I've hit major milestones, and it feels like time for an update.
+
+I have now finished all the &lt;OurBigBook CLI&gt; features that I wanted for 1.0, all of which will be automatically reused in ourbigbook.com.
+
+The two big things since last email were the following:
+* &lt;group all SQL queries together&gt;
+* &lt;the table of contents shows across different files via \Include&gt;
+
+A secondary but also important advance was: &lt;further improvements to the website's base technology&gt;.
+
+I knew I was going to do them for several months now, and I knew they were going to hurt, and they did, but I did them.
+
+These change caused two big bugs that I will solve next, one them infinite recursion in the database recursive query, but they shouldn't be too hard.
+
+= Advances
+{parent=ourbigbook.com}
+
+= Group all SQL queries together
+{parent=Advances}
+
+And do 5 big queries instead of hundreds of smaller ones.
+
+For example, a README.ciro document that references another document saying:
+``
+The \x[speed-of-light] is fast.
+``
+needs to fetch "speed-of-light" from the ID database (previously populated e.g. by preparsing light.ciro:
+``
+= Light
+
+== Speed of light
+``
+to decide that it should display as "Speed of light" (the title rather than the ID).
+
+Previously, I was doing a separate fetch for each `\x[]` as they were needed, leading to hundreds of them at different times.
+
+Now I refactored things so that I do very few database queries, but large ones that fetch everything during parsing. And then at render time they are all ready in cache.
+
+This will be fundamental for the live preview on the browser, where the roundtrip to server would make it impossible
+
+= The table of contents shows across different files via `\Include`
+{parent=Advances}
+
+E.g.:
+
+README.ciro
+``
+= My website
+
+== h2
+
+\Include[not-readme]
+``
+not-readme.ciro
+``
+= Not readme
+
+== Not readme h2
+``
+the table of contents for `index.html` also contains the headers for `not-readme.ciro` producing:
+* My website
+  * h2
+    * Not readme
+      * Not readme h2
+
+This feature means that you can split large input files if rendering starts to slow you down, and things will still render exactly the same, with the larger table of contents.
+
+This will be especially important for the website because initially I want users to be able to edit one header at a time, and join all headers with `\Include`. But I still want the ToC to show those children.
+
+This was a bit hard because it required doing RECURSIVE SQL queries, something I hadn't done before: https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/192462#192462 + of course the usual refactor a bunch of stuff and fix tests until you go mad.
+
+= Further improvements to the website's base technology
+{parent=Advances}
+
+https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app contains the same baseline tech as OurBigBook, and I have been use to quickly test/benchmark new concepts for the website base.
+
+I'm almost proud about that project, as a reasonable template for a Next.js project. It is not perfect, notably see issues on the issue tracker, but it it quite reasonable.
+
+&lt;The side effects of ambitious goals are often the most valuable thing achieved&gt; once again? I to actually make the project be more important thatn the side effects this time, but we'll see.
+
+Since the last update, I've made some major improvements to the baseline tech of the website, which I'll move little by little into OurBigBook. Some of the improvements actually started in OurBigBook.com. The improvements were:
+* got a satisfactorily comprehensive linting working at: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/bf2eec3537a70e56b89e6e3cc3e546610cf8f51c[this commit]. Nothing is easy, not even that! Part of the wisdom extracted to: https://stackoverflow.com/questions/58233482/next-js-setting-up-eslint-for-nextjs/70519682#70519682[].
+* fully rationalized directory structure to avoid nasty errors that show up in &lt;Next.js&gt; when accidentally requiring backend stuff on the client. https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/67962af74b5c7e5efe9b3af168763d16a2e7c9f0[Commit]. A detailed explanation of this was extracted to: https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153[].
+* create an extremely clean and rationalized way to do API tests from a simple `npm test`. These now actually start a clean server, and make full HTTP requests to that server. https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/9ee4962b04d75399bf8ab04ae0540e5d039cff45[Commit]. Wisdom extracted to: https://stackoverflow.com/questions/63762896/whats-the-best-way-to-test-express-js-api/70479940#70479940[].
+* greatly reduce the number of SQL queries, fully understood every problem 
+  * more intelligently using JOINs where I have managed to get &lt;Sequelize&gt; to do what I fucking want. This also led to several sequelize Stack Overflow answers as usual: https://stackoverflow.com/search?tab=newest&amp;q=user%3a895245%20%5bsequelize%5d
+
+    Everything that I didn't manage to do because of crappy sequelize is documented at: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/issues/5
+  * better understanding Next.js/React/useSWR do avoid doing double API queries
+
+= Next steps
+{parent=ourbigbook.com}
+
+= Enable reference features into ourbigbook.com
+{parent=Next steps}
+
+Currently, none of the crucial cross file features like `\x`, `\Include` and table of contents are working. I was waiting until the above mentioned features were done, and now I'm going to get to that.
+
+= Misc tech
+{parent=4}
+
+I've finally had enough of &lt;Nvidia&gt; breaking my &lt;Ubuntu 21.10&gt; suspend, so I investigated some more and found a workaround on the NVIDIA forums: https://stackoverflow.com/questions/58233482/next-js-setting-up-eslint-for-nextjs/70519682#70519682[].
+
+Thanks enormously to https://forums.developer.nvidia.com/t/fixed-suspend-resume-issues-with-the-driver-version-470/187150/3[heroic user humblebee], and once again, &lt;video Linus Torvalds saying "Nvidia Fuck You" (2012)&gt;[Nvidia, fuck you].
+
+= China front
+{c}
+{parent=4}
+
+At https://github.com/cirosantilli/china-dictatorship/issues/738 a user made a comment about gang raping my mother (more like country-raping).
+
+As mentioned at https://github.com/cirosantilli/china-dictatorship/issues/739[], ally Martin then reported the issue, and GitHub took down the wumao's account for a while using https://stackoverflow.com/questions/50720844/can-github-delete-your-account/66105692#66105692[their undocumented shadowban feature], until the wumao edited the issue.
+
+Based on the discussion with Martin, I then recommended at https://github.com/cirosantilli/china-dictatorship/blob/41b4741a4e6553f44f5f1ef85cf63c55eb7b8277/CONTRIBUTING.md that we do not report such issues, and that GitHub do not delete such accounts, with rationale explained on the CONTRIBUTING.
+
+= Not work
+{parent=4}
+
+I caught and overcame a minor addiction to &lt;Cataclysm: Dark Days Ahead&gt;.
+
+It does bring back the &lt;The Sims&gt; feeling from my teenage years, but with killer zombies added in.
+
+I especially like going to sleep in that game, and how you need to setup a confy bed for it.
+
+Some further comments at: &lt;Cataclysm: Dark Days Ahead&gt;{full}.
+
+The way to quit is simple: delete your saves, then get annoyed with slowness of progressing back up, then use built-in debug/cheat menu to overcome that, then it's not fun anymore. This is a major advantage of single player open source games: addiction resistance!
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Common Crawl - Ciro Santilli</title>
+<meta property="og:title" content="Common Crawl - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/common-crawl">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/common-crawl">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="common-crawl"><div class="notnav"><h1><a href="">Common Crawl</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="technology#information-technology"> Information technology</a><a href="computer"> Computer</a><a href="software"> Software</a><a href="software#search-engine"> Search engine</a><a href="software#web-crawling"> Web crawling</a><a href="software#open-web-crawling"> Open web crawling</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://en.wikipedia.org/wiki/Common_Crawl" class="wiki"></a><a href="https://ourbigbook.com/cirosantilli/common-crawl"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="cirism#good">Good</a></span><a class="nosplit" href="software#common-crawl"></a><span class="metrics"><span class="wcntr"> Words: 579</span><span class="dcnt"> Articles: 2</span></span></div></nav></div><div class="p" id="_634"><a href="https://commoncrawl.org/">commoncrawl.org/</a></div><div class="p" id="_635">Amazing project, that basically makes a more searchable <a href="website#wayback-machine">Wayback Machine</a>.</div><div class="p" id="_636">A bit hard to use their data though, partly due to size, but also lack of free to use querrying mechanisms, and how obtuse <a href="computer-hardware#amazon-s3">Amazon S3</a> is to use.</div><div class="p" id="_637">Notably, <a href="computer-hardware#aws-cli">aws-cli</a> with an account is the only reliable way, everything else is way too broken, e.g. trying the to check the an index <a href="https://index.commoncrawl.org/CC-MAIN-2023-06/">index.commoncrawl.org/CC-MAIN-2023-06/</a> very often 500s.</div><div class="p" id="_638">But still, their projct is amazing.</div><div class="p" id="_639">The only out-of-the-box search they seem to have is: <a href="http://urlsearch.commoncrawl.org/">urlsearch.commoncrawl.org/</a> for domains/URLs. It is good, but there could be so much more... notably <a href="computer#ip-address">IPs</a>.</div><div class="p" id="_640">Also could should document the data shape a bit better.</div><div class="p" id="_641">Sample sizes can be found at: <a href="https://commoncrawl.org/2023/04/mar-apr-2023-crawl-archive-now-available/">commoncrawl.org/2023/04/mar-apr-2023-crawl-archive-now-available/</a></div><div class="p" id="_642">To explore the data, after login:<div class="code" id="_643"><div><pre><code>aws s3 ls s3://commoncrawl/crawl-data/CC-MAIN-2013-20/</code></pre></div></div></div><div class="p" id="_644">Copy the toplevel directory only:<div class="code" id="_645"><div><pre><code>aws s3 cp s3://commoncrawl/crawl-data/CC-MAIN-2013-20/ . --recursive --exclude "*/*"</code></pre></div></div></div><div class="p" id="_646">Copy some wet/wat files:<div class="code" id="_647"><div><pre><code>aws s3 cp s3://commoncrawl/crawl-data/CC-MAIN-2013-20/segments/1368696381249/wat/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wat.gz .
+aws s3 sync s3://commoncrawl/crawl-data/CC-MAIN-2013-20/segments/1368696381249/wet/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wet.gz .</code></pre></div></div></div><div class="p" id="_648">Directory structrure:<div class="list"><ul id="_649"><li id="_650">cc-index.paths.gz (1K)</li><li id="_651">cc-index-table.paths.gz (1K)</li><li id="_652">segment.paths.gz (1.7K) Sample lines:<div class="code" id="_653"><div><pre><code>crawl-data/CC-MAIN-2013-20/segments/1368696381249/
+crawl-data/CC-MAIN-2013-20/segments/1368696381630/</code></pre></div></div></li><li id="_654">index.html (2.3K)</li><li id="_655">wat.paths.gz (98K) Sample lines:<div class="code" id="_656"><div><pre><code>crawl-data/CC-MAIN-2013-20/segments/1368696381249/wat/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wat.gz
+crawl-data/CC-MAIN-2013-20/segments/1368696381249/wat/CC-MAIN-20130516092621-00001-ip-10-60-113-184.ec2.internal.warc.wat.gz</code></pre></div></div></li><li id="_657">wet.paths.gz (98K) Sample lines:<div class="code" id="_658"><div><pre><code>crawl-data/CC-MAIN-2013-20/segments/1368696381249/wet/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wet.gz
+crawl-data/CC-MAIN-2013-20/segments/1368696381249/wet/CC-MAIN-20130516092621-00001-ip-10-60-113-184.ec2.internal.warc.wet.gz</code></pre></div></div></li><li id="_659">warc.paths.gz (99K)<div class="code" id="_660"><div><pre><code>crawl-data/CC-MAIN-2013-20/segments/1368696381249/warc/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz
+crawl-data/CC-MAIN-2013-20/segments/1368696381249/warc/CC-MAIN-20130516092621-00001-ip-10-60-113-184.ec2.internal.warc.gz</code></pre></div></div></li><li id="_661">segments: directgory with actual data<div class="list"><ul id="_662"><li id="_663">1368696381249: one of many segments, any meaning of name?<div class="list"><ul id="_664"><li id="_665"><div class="p" id="_666">CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wet.gz (142M, 334M unzipped)</div><div class="p" id="_667">A tiny bit of metadata, and then plaintext content from the website, e.g. the second one:<div class="code" id="_668"><div><pre><code>WARC/1.0
+WARC-Type: conversion
+WARC-Target-URI: http://004eeb5.netsolhost.com/stephensilver.htm
+WARC-Date: 2013-05-18T08:11:02Z
+WARC-Record-ID: &lt;urn:uuid:773b31ba-ddc6-47a5-ae24-d08141b9944d&gt;
+WARC-Refers-To: &lt;urn:uuid:4b1bdbff-4926-4ced-86f6-072f5bb3837a&gt;
+WARC-Block-Digest: sha1:LQFSCR2LIJQYMPTXRHWU7HAPQTVSYS3A
+Content-Type: text/plain
+Content-Length: 12046
+
+Stephen Silver is a journalist and editor who specializes in the areas of politics, pop culture, film and sports. He works as an editor with the North American Publishing Co. and as a film critic with The Trend, a local newspaper in the Philadelphia area.</code></pre></div></div>No <a href="computer#ip-address">IP</a> unfortunately.</div></li><li id="_669"><div class="p" id="_670">CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.wat.gz (329M, 1.4G unzipped)</div><div class="p" id="_671">A lot of JSON metadata and no contents as desired. Contains IP! Some entries however are humongous with a ton of useless data, that's what bloats these so much:<div class="code" id="_672"><div><pre><code>WARC/1.0
+WARC-Type: metadata
+WARC-Target-URI: CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz
+WARC-Date: 2013-11-22T14:51:12Z
+WARC-Record-ID: &lt;urn:uuid:ec54e493-8965-41be-b344-07596cc30b3a&gt;
+WARC-Refers-To: &lt;urn:uuid:cfeff436-7c4c-4119-aaa4-ec2ce27ad3e1&gt;
+Content-Type: application/json
+Content-Length: 1180
+
+{"Envelope":{"Format":"WARC","WARC-Header-Length":"274","Block-Digest":"sha1:JCZOI4V3UOTXGIRLFMPLW4J2WPLAKGVR","Actual-Content-Length":"372","WARC-Header-Metadata":{"WARC-Type":"warcinfo","WARC-Filename":"CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz","WARC-Date":"2013-11-22T14:51:12Z","Content-Length":"372","WARC-Record-ID":"&lt;urn:uuid:cfeff436-7c4c-4119-aaa4-ec2ce27ad3e1&gt;","Content-Type":"application/warc-fields"},"Payload-Metadata":{"Trailing-Slop-Length":"0","Actual-Content-Type":"application/warc-fields","Actual-Content-Length":"372","Headers-Corrupt":true,"WARC-Info-Metadata":{"robots":"classic","software":"Nutch 1.6 (CC)/CC WarcExport 1.0","description":"Wide crawl of the web with URLs provided by Blekko for Spring 2013","hostname":"ip-10-60-113-184.ec2.internal","format":"WARC File Format 1.0","isPartOf":"CC-MAIN-2013-20","operator":"CommonCrawl Admin","publisher":"CommonCrawl"}}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"453","Header-Length":"10","Inflated-CRC":"866052549","Inflated-Length":"650"},"Offset":"0","Filename":"CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz"}}
+
+WARC/1.0
+WARC-Type: metadata
+WARC-Target-URI: http://%20jwashington@ap.org/Content/Press-Release/2012/How-AP-reported-in-all-formats-from-tornado-stricken-regions
+WARC-Date: 2013-05-18T05:48:54Z
+WARC-Record-ID: &lt;urn:uuid:d519658f-7a63-46c1-849b-4cd92332ddb8&gt;
+WARC-Refers-To: &lt;urn:uuid:cefd363b-1fec-4590-8305-4c6fab2e095f&gt;
+Content-Type: application/json
+Content-Length: 1501
+
+{"Envelope":{"Format":"WARC","WARC-Header-Length":"433","Block-Digest":"sha1:B2B6JDSGWCUQIIUGV54SXEE25RX4SANS","Actual-Content-Length":"302","WARC-Header-Metadata":{"WARC-Type":"request","WARC-Date":"2013-05-18T05:48:54Z","WARC-Warcinfo-ID":"&lt;urn:uuid:cfeff436-7c4c-4119-aaa4-ec2ce27ad3e1&gt;","Content-Length":"302","WARC-Record-ID":"&lt;urn:uuid:cefd363b-1fec-4590-8305-4c6fab2e095f&gt;","WARC-Target-URI":"http://%20jwashington@ap.org/Content/Press-Release/2012/How-AP-reported-in-all-formats-from-tornado-stricken-regions","WARC-IP-Address":"165.1.125.44","Content-Type":"application/http; msgtype=request"},"Payload-Metadata":{"Trailing-Slop-Length":"4","HTTP-Request-Metadata":{"Headers":{"Accept-Language":"en-us,en-gb,en;q=0.7,*;q=0.3","Host":"ap.org","Accept-Encoding":"x-gzip, gzip, deflate","User-Agent":"CCBot/2.0","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},"Headers-Length":"300","Entity-Length":"0","Entity-Trailing-Slop-Bytes":"0","Request-Message":{"Method":"GET","Version":"HTTP/1.0","Path":"/Content/Press-Release/2012/How-AP-reported-in-all-formats-from-tornado-stricken-regions"},"Entity-Digest":"sha1:3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ"},"Actual-Content-Type":"application/http; msgtype=request"}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"455","Header-Length":"10","Inflated-CRC":"453539965","Inflated-Length":"739"},"Offset":"453","Filename":"CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz"}}</code></pre></div></div>Let's beautify one of them to see it better:<div class="code" id="_673"><div><pre><code>
+{
+  "Envelope": {
+    "Format": "WARC",
+    "WARC-Header-Length": "274",
+    "Block-Digest": "sha1:JCZOI4V3UOTXGIRLFMPLW4J2WPLAKGVR",
+    "Actual-Content-Length": "372",
+    "WARC-Header-Metadata": {
+      "WARC-Type": "warcinfo",
+      "WARC-Filename": "CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz",
+      "WARC-Date": "2013-11-22T14:51:12Z",
+      "Content-Length": "372",
+      "WARC-Record-ID": "&lt;urn:uuid:cfeff436-7c4c-4119-aaa4-ec2ce27ad3e1&gt;",
+      "Content-Type": "application/warc-fields"
+    },
+    "Payload-Metadata": {
+      "Trailing-Slop-Length": "0",
+      "Actual-Content-Type": "application/warc-fields",
+      "Actual-Content-Length": "372",
+      "Headers-Corrupt": true,
+      "WARC-Info-Metadata": {
+        "robots": "classic",
+        "software": "Nutch 1.6 (CC)/CC WarcExport 1.0",
+        "description": "Wide crawl of the web with URLs provided by Blekko for Spring 2013",
+        "hostname": "ip-10-60-113-184.ec2.internal",
+        "format": "WARC File Format 1.0",
+        "isPartOf": "CC-MAIN-2013-20",
+        "operator": "CommonCrawl Admin",
+        "publisher": "CommonCrawl"
+      }
+    }
+  },
+  "Container": {
+    "Compressed": true,
+    "Gzip-Metadata": {
+      "Footer-Length": "8",
+      "Deflate-Length": "453",
+      "Header-Length": "10",
+      "Inflated-CRC": "866052549",
+      "Inflated-Length": "650"
+    },
+    "Offset": "0",
+    "Filename": "CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz"
+  }
+}</code></pre></div></div>Fuck no IP addresses either. But other entries do have it, why not this one?</div><div class="p" id="_674">The reason these can be huge is the <code>HTML-Metadata</code> section which contain all outlinks! <a href="https://gist.github.com/Smerity/e750f0ef0ab9aa366558#file-bbc-pretty-wat-L34">gist.github.com/Smerity/e750f0ef0ab9aa366558#file-bbc-pretty-wat-L34</a></div></li><li id="_675"><div class="p" id="_676"><code>CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz</code> ()</div><div class="p" id="_677">Obtain:<div class="code" id="_678"><div><pre><code>aws s3 cp s3://commoncrawl/crawl-data/CC-MAIN-2013-20/segments/1368696381249/warc/CC-MAIN-20130516092621-00000-ip-10-60-113-184.ec2.internal.warc.gz .</code></pre></div></div></div></li></ul></div></li></ul></div></li></ul></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 579</span><span class="dcnt"> 2</span></span></span></span></div><ul><li><div id="_toc/common-crawl-athena"><div class="arrow"><div></div></div><span class="not-arrow"><a href="software#common-crawl-athena">Common Crawl Athena</a><span class="hover-metadata"><a href="#_toc" class="u"> Common Crawl</a><span class="metrics"><span class="wcntr"> 4</span></span></span></span></div></li><li><div id="_toc/common-crawl-web-graph"><div class="arrow"><div></div></div><span class="not-arrow"><a href="software#common-crawl-web-graph">Common Crawl web graph</a><span class="hover-metadata"><a href="#_toc" class="u"> Common Crawl</a><span class="metrics"><span class="wcntr"> 68</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(9)</span></a></h2><div class="list"><ol><li><a href="software#open-web-crawling">Open web crawling</a></li><li><a href="software#web-crawling">Web crawling</a></li><li><a href="software#search-engine">Search engine</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(3)</span></a></h2><div class="list"><ul><li><a href="ciro-santilli#job-application-by-ciro-santilli">Job application by Ciro Santilli</a></li><li><a href="google#open-pagerank-implementation-and-data">Open PageRank implementation and data</a></li><li><a href="updates#quick-fun-with-the-common-crawl-web-graph">Quick fun with the Common Crawl web graph</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/software.bigb">Source code for this page: software.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/software.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

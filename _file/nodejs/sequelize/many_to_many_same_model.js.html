@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/many_to_many_same_model.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/many_to_many_same_model.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/many_to_many_same_model.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many_same_model.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/sequelize/many_to_many_same_model.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/many_to_many_same_model.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many_same_model.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../_raw/nodejs/sequelize/many_to_many_same_model.js">many_to_many_same_model.js</a></b></div></nav></div><div class="p"><b>nodejs/sequelize/many_to_many_same_model.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+// https://cirosantilli.com/sequelize-example
+
+const assert = require('assert');
+const path = require('path');
+const { DataTypes } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+;(async () =&gt; {
+
+// Create the tables.
+const User = sequelize.define('User', {
+  username: { type: DataTypes.STRING },
+}, {});
+User.belongsToMany(User, { through: 'UserFollowUser', as: 'Follows', foreignKey: 'UserId' });
+// This is ony needed for the function followedFindAll. "foreignKey" could be removed otherwise.
+User.belongsToMany(User, { through: 'UserFollowUser', as: 'Followed', foreignKey: 'FollowId' });
+await sequelize.sync({ force: true });
+
+// Create some users.
+
+const user0 = await User.create({ username: 'user0' })
+const user1 = await User.create({ username: 'user1' })
+const user2 = await User.create({ username: 'user2' })
+const user3 = await User.create({ username: 'user3' })
+
+// Make user0 follow user1 and user2
+await user0.addFollows([user1, user2])
+// Make user2 and user3 follow user0
+await user2.addFollow(user0)
+await user3.addFollow(user0)
+
+let rows
+
+// Get users followed by user0.
+rows = await user0.getFollows({order: [['username', 'ASC']]})
+common.assertEqual(rows, [
+  { username: 'user1' },
+  { username: 'user2' },
+])
+
+// Reverse order.
+rows = await user0.getFollows({order: [['username', 'DESC']]})
+common.assertEqual(rows, [
+  { username: 'user2' },
+  { username: 'user1' },
+])
+
+// Get users followed by user1.
+rows = await user1.getFollows({order: [['username', 'ASC']]})
+common.assertEqual(rows, [])
+
+// Get users followed by user2.
+rows = await user2.getFollows({order: [['username', 'ASC']]})
+common.assertEqual(rows, [
+  { username: 'user0' },
+])
+
+// Get users followed by user3.
+rows = await user3.getFollows({order: [['username', 'ASC']]})
+common.assertEqual(rows, [
+  { username: 'user0' },
+])
+
+// Get users followed by an user by username instead of user object using findOne.
+// Also get rid of all useless fields from the through table.
+// followedFindAll is almost always a better alternative to this.
+async function followedFindOne(username, opts={}) {
+  return (await User.findOne(Object.assign({
+    where: { username },
+    attributes: [],
+    include: [{
+      model: User,
+      as: 'Follows',
+      through: {attributes: []},
+    }],
+    order: [['Follows', 'username', 'ASC']]
+  }, opts))).Follows
+}
+rows = await followedFindOne('user0')
+common.assertEqual(rows, [
+  { username: 'user1'},
+  { username: 'user2'},
+])
+// TODO how to implement limit in this case? We managed it in followedFindAll however.
+// Does not work like this because the limit would be applied to the outer findOne.
+//rows = await followedFindOne('user0', { limit: 1 })
+//common.assertEqual(rows, [
+//  { username: 'user1'},
+//])
+// Reverse order.
+rows = await followedFindOne('user0', { order: [['Follows', 'username', 'DESC']] })
+common.assertEqual(rows, [
+  { username: 'user2'},
+  { username: 'user1'},
+])
+
+// Same but with findAll. This is the preferred approach in most real world applications.
+// Get users followed by an user by username instead of user object using findAll.
+// Note that for this to work, we needed to add the extra relation:
+// ``
+// User.belongsToMany(User, { through: 'UserFollowUser', as: 'Followed', foreignKey: 'FollowId' });
+// ``
+async function followedFindAll(username, opts={}) {
+  return User.findAll(Object.assign({
+    include: [{
+      model: User,
+      as: 'Followed',
+      attributes: [],
+      through: { attributes: [] },
+      where: { username },
+    }],
+    // Required for limit to work.
+    subQuery: false,
+    order: [['username', 'ASC']]
+  }, opts))
+}
+rows = await followedFindAll('user0')
+common.assertEqual(rows, [
+  { username: 'user1'},
+  { username: 'user2'},
+])
+rows = await followedFindAll('user0', { limit: 1 })
+common.assertEqual(rows, [
+  { username: 'user1'},
+])
+rows = await followedFindAll('user0', { order: [['username', 'DESC']] })
+common.assertEqual(rows, [
+  { username: 'user2'},
+  { username: 'user1'},
+])
+
+// Now the inverse: find users that follow a given user.
+
+// Find users that follow a given user by username.
+// TODO Any way with the autogenerated methods? Anyways, this is good enough, almost always what we need.
+// * https://github.com/sequelize/sequelize/issues/8263
+// * https://stackoverflow.com/questions/27065154/how-to-get-all-children-or-parents-in-a-many-to-many-association-if-one-model-re
+async function following(username, opts={}) {
+  return User.findAll(
+    Object.assign({
+      include: [{
+        model: User,
+        as: 'Follows',
+        where: { username },
+        attributes: [],
+        through: { attributes: [] }
+      }],
+      // subQuery is mandatory if you want to apply a limit, like in every real query.
+      subQuery: false,
+      order: [['username', 'ASC']],
+    }, opts)
+  )
+}
+common.assertEqual(await following('user0'), [
+  { username: 'user2' },
+  { username: 'user3' },
+])
+common.assertEqual(await following('user0', { order: [['username', 'DESC']] }), [
+  { username: 'user3' },
+  { username: 'user2' },
+])
+common.assertEqual(await following('user0', { limit: 1 }), [
+  { username: 'user2' },
+])
+common.assertEqual(await following('user0', { limit: 1, order: [['username', 'DESC']] }), [
+  { username: 'user3' },
+])
+common.assertEqual(await following('user1'), [
+  { username: 'user0' },
+])
+common.assertEqual(await following('user2'), [
+  { username: 'user0' },
+])
+common.assertEqual(await following('user3'), [])
+
+// has methods
+assert(!await user0.hasFollow(user0))
+assert(!await user0.hasFollow(user0.id))
+assert( await user0.hasFollow(user1))
+assert( await user0.hasFollow(user2))
+assert(!await user0.hasFollow(user3))
+
+// Count method
+assert.strictEqual(await user0.countFollows(), 2)
+
+})().finally(() =&gt; { return sequelize.close() });
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

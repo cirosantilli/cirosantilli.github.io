@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>JavaScript memory usage benchmark - Ciro Santilli</title>
+<meta property="og:title" content="JavaScript memory usage benchmark - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/javascript-memory-usage-benchmark">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/javascript-memory-usage-benchmark">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="javascript-memory-usage-benchmark"><div class="notnav"><h1><a href="">JavaScript memory usage benchmark</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software"> Software</a><a href="programming-language"> Programming language</a><a href="programming-language#list-of-programming-languages"> List of programming languages</a><a href="programming-language#javascript"> JavaScript</a><a href="node-js"> Node.js</a><a href="node-js#node-js-example"> Node.js example</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/javascript-memory-usage-benchmark"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="node-js#javascript-memory-usage-benchmark"></a><span class="metrics"><span class="wcntr"> Words: 683</span></span></div></nav></div><div class="p" id="_20">In this section we will use the file <a href="_raw/nodejs/bench_mem.js">nodejs/bench_mem.js</a>, tests are run on Node.js v16.14.2 from NVM, Ubuntu 21.10, on <a href="ciro-santilli-s-hardware#lenovo-thinkpad-p51-2017">Lenovo ThinkPad P51 (2017)</a> which has 32 GB RAM.</div><div class="p" id="_21">Related answer: <a href="https://stackoverflow.com/questions/12023359/what-do-the-return-values-of-node-js-process-memoryusage-stand-for/72043884#72043884">stackoverflow.com/questions/12023359/what-do-the-return-values-of-node-js-process-memoryusage-stand-for/72043884#72043884</a></div><div class="p" id="_22">First using <code>topp</code> from <a href="https://stackoverflow.com/questions/1221555/retrieve-cpu-usage-and-memory-usage-of-a-single-process-on-linux/40576129#40576129">stackoverflow.com/questions/1221555/retrieve-cpu-usage-and-memory-usage-of-a-single-process-on-linux/40576129#40576129</a> let's observe the memory usage of some baseline cases.</div><div class="p" id="_23">A C hello world with an infinite loop at the end has:<div class="list"><ul id="_24"><li id="_25">2.7 MB</li><li id="_26">770 KB</li></ul></div></div><div class="p" id="_27">For a Node.js infinite loop <a href="_raw/nodejs/infinite_loop.js">nodejs/infinite_loop.js</a><div class="code" id="_28"><div><pre><code>topp infinite_loop.js</code></pre></div></div>This gives approximately:<div class="list"><ul id="_29"><li id="_30">RSS: 20 MB</li><li id="_31">VSZ: 230 MB</li></ul></div></div><div class="p" id="_32">Adding a single hello world to it as in <a href="_raw/nodejs/infinite_hello.js">nodejs/infinite_hello.js</a> and running:<div class="code" id="_33"><div><pre><code>topp infinite_hello.js</code></pre></div></div>leads to:<div class="list"><ul id="_34"><li id="_35">RSS: 26 MB</li><li id="_36">VSZ: 580 MB</li></ul></div>We understand that Node.js preallocates VSZ wildly. No big deal, but it does mean that VSZ is a useless measure for Node.js.</div><div class="p" id="_37">Forcing garbage collection as in <a href="_raw/nodejs/infinite_hello.js">nodejs/infinite_hello.js</a> brings it down to 20 MB however:<div class="code" id="_38"><div><pre><code>topp node --expose-gc infinite_hello_gc.js</code></pre></div></div></div><div class="p" id="_39">Finally let's see a baseline for <code>process.memoryUsage</code> <a href="_raw/nodejs/infinite_memoryusage.js">nodejs/infinite_memoryusage.js</a>:<div class="code" id="_40"><div><pre><code>node --expose-gc infinite_memoryusage.js</code></pre></div></div>which gives initially:<div class="code" id="_41"><div><pre><code>{
+  rss: 23851008,
+  heapTotal: 6987776,
+  heapUsed: 3674696,
+  external: 285296,
+  arrayBuffers: 10422
+}</code></pre></div></div>but after a few seconds randomly jumps to:<div class="code" id="_42"><div><pre><code>{
+  rss: 26005504,
+  heapTotal: 9084928,
+  heapUsed: 3761240,
+  external: 285296,
+  arrayBuffers: 10422
+}</code></pre></div></div>so we understand that<div class="list"><ul id="_43"><li id="_44"><code>heapUsed</code> seems constant at 3.7 MB</li><li id="_45"><code>heapTotal</code> is a very noisy, as it starts at 7 MB, but randomly jumps to 9 MB at one point without apparent reason</li></ul></div></div><div class="p" id="_46">Now let's run our main test program.</div><div class="p" id="_47">First a baseline case with an array of length 1:<div class="code" id="_48"><div><pre><code>node --expose-gc bench_mem.js n 1</code></pre></div></div>This gives the same results as <code>node --expose-gc infinite_memoryusage.js</code>. The same result is obtained by doing:<div class="code" id="_49"><div><pre><code>a = undefined</code></pre></div></div>with:<div class="code" id="_50"><div><pre><code>node --expose-gc bench_mem.js dealloc</code></pre></div></div></div><div class="p" id="_51">Not let's vary the size of <code>n</code> a bit with:<div class="code" id="_52"><div><pre><code>node --expose-gc bench_mem.js n N</code></pre></div></div>which gives:<div class="table" id="_53"><div><table><thead><tr id="_54"><th id="_55">N</th><th id="_56"><code>heapUsed</code></th><th id="_57"><code>heapTotal</code></th><th id="_58"><code>rss</code></th><th id="_59"><code>heapUsed</code> per elem</th><th id="_60"><code>rss</code> per elem</th></tr></thead><tbody><tr id="_61"><td id="_62">1 M</td><td id="_63">14 MB</td><td id="_64">48 MB</td><td id="_65">56 MB</td><td id="_66">10</td><td id="_67">30</td></tr><tr id="_68"><td id="_69">10 M</td><td id="_70">122 MB</td><td id="_71">157 MB</td><td id="_72">176 MB</td><td id="_73">18</td><td id="_74">15</td></tr><tr id="_75"><td id="_76">100 M</td><td id="_77">906 MB</td><td id="_78">940 MB</td><td id="_79">960 MB</td><td id="_80">9</td><td id="_81">9.3</td></tr></tbody></table></div></div></div><div class="p" id="_82">"<code>rss</code> per elem" is calculated as: <code>rss</code> - 26 MB, where 26 MB is the baseline RSS seen on <code>n 1</code>.</div><div class="p" id="_83">Similarly "<code>heapUsed</code> per elem" deduces the 4 MB (approximation of the above 3.7 MB) seen on <code>n 1</code>.</div><div class="p" id="_84">Note that to reach <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> we would need 8 bytes per elem worst case.</div><div class="p" id="_85">Everything below 100 million (8) is therefore very memory wasteful in terms of RSS.</div><div class="p" id="_86">If we use <code>Int32Array</code> typed array buffers instead of a simple <code>Array</code>:<div class="code" id="_87"><div><pre><code>node --expose-gc bench_mem.js array-buffer n N</code></pre></div></div>we see that the memory is now, unsurprisingly, accounted for under <code>arrayBuffers</code>, e.g. for <code>N</code> 1 million:<div class="code" id="_88"><div><pre><code>{
+  rss: 31776768,
+  heapTotal: 6463488,
+  heapUsed: 3674520,
+  external: 4285296,
+  arrayBuffers: 4010422
+}</code></pre></div></div>Results for different N:<div class="code" id="_89"><div><pre><code>|| N
+|| `arrayBuffers`
+|| `rss`
+|| `rss` per elem
+
+| 1 M
+| 4 MB
+| 31 MB
+| 5
+
+| 10 M
+| 40 MB
+| 67 MB
+| 4.6
+
+| 100 M
+| 40 MB
+| 427 MB
+| 4</code></pre></div></div>We see therefore that typed arrays are much closer to what they advertise (4 bytes per element), even for smaller element counts, as expected.</div><div class="p" id="_90">Now let's try one million objects of type <code>{ a: 1, b: -1 }</code>:<div class="code" id="_91"><div><pre><code>node --expose-gc bench_mem.js obj</code></pre></div></div>gives:<div class="code" id="_92"><div><pre><code>{
+  rss: 138969088,
+  heapTotal: 105246720,
+  heapUsed: 70103896,
+  external: 285296,
+  arrayBuffers: 10422
+}</code></pre></div></div>Disaster! Memory usage is up to 70 MB! Why?? We were expecting only about 24, 4 baseline + 2 * 10 for each million int?!</div><div class="p" id="_93">And now an equivalent version using <code>class</code>:<div class="code" id="_94"><div><pre><code>node --expose-gc bench_mem.js class</code></pre></div></div>gives the same result.</div><div class="p" id="_95">Let's try Array:<div class="code" id="_96"><div><pre><code>node --expose-gc bench_mem.js arr</code></pre></div></div>is even worse at 78 MB!! OMG why.<div class="code" id="_97"><div><pre><code>{
+  rss: 164597760,
+  heapTotal: 129363968,
+  heapUsed: 78117008,
+  external: 285296,
+  arrayBuffers: 10422
+}</code></pre></div></div></div><div class="p" id="_98">Let's change the number of fields on the object? First as a sanity check:<div class="code" id="_99"><div><pre><code>node --expose-gc bench_mem.js obj 2</code></pre></div></div>produces as expected the smae result as:<div class="code" id="_100"><div><pre><code>node --expose-gc bench_mem.js obj</code></pre></div></div>so adding properties one by one doesn't change anything from creating the literal all at once. Good.</div><div class="p" id="_101">Now:<div class="code" id="_102"><div><pre><code>node --expose-gc bench_mem.js obj N</code></pre></div></div>gives <code>heapUsed</code>:<div class="list"><ul id="_103"><li id="_104">1: 70M</li><li id="_105">2: 70M</li><li id="_106">3: 70M</li><li id="_107">4: 70M</li><li id="_108">5: 110M</li><li id="_109">6: 110M</li><li id="_110">7: 110M</li><li id="_111">8: 134M</li><li id="_112">9: 134M</li><li id="_113">10: 134M</li><li id="_114">11: 158M</li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="node-js#node-js-example">Node.js example</a></li><li><a href="node-js">Node.js</a></li><li><a href="programming-language#javascript">JavaScript</a></li><li><a href="programming-language#list-of-programming-languages">List of programming languages</a></li><li><a href="programming-language">Programming language</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/node-js.bigb">Source code for this page: node-js.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/node-js.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

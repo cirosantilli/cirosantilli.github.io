@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/express/index.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/express/index.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/express/index.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/express/index.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/express/index.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/express/index.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/express/index.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/express">express</a> / <a href="../../../_raw/nodejs/express/index.js">index.js</a></b></div></nav></div><div class="p"><b>nodejs/express/index.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+// https://cirosantilli.com/express-js
+
+const assert = require('assert')
+const http = require('http')
+
+const express = require('express')
+
+// Test it.
+function test(port, path, method, status, resBodyExpect, reqBody) {
+  const options = {
+    hostname: 'localhost',
+    port,
+    path,
+    method,
+  }
+  const req = http.request(options, res =&gt; {
+    console.log([path, method, status, resBodyExpect]);
+    assert.strictEqual(res.statusCode, status);
+    res.on('data', d =&gt; {
+      if (resBodyExpect !== undefined) {
+        assert.strictEqual(d.toString(), resBodyExpect);
+      }
+    })
+  })
+  if (reqBody !== undefined) {
+    req.write(reqBody)
+  }
+  req.end()
+}
+
+function check_helper(req, res) {
+  if (req.params.param.length &gt; 2) {
+    res.status(404)
+    res.send('ko')
+  } else {
+    return req.params.param + 'ok'
+  }
+}
+
+const tests = [
+  ['/hello', 'GET', 200, 'hello world'],
+  ['/', 'POST', 404],
+  ['/form', 'GET', 200],
+  // TODO lazy
+  // Need to set headers as well likely.
+  // https://nodejs.dev/learn/make-an-http-post-request-using-nodejs
+  //['/form', 'POST', 200, 'aa: 00 bb: 11', 'aa=00&amp;bb=11'],
+  ['/dontexist', 'GET', 404],
+
+  ['/query?aa=000&amp;bb=111', 'GET', 200, 'aa: 000 bb: 111'],
+  // Repeated params becomes lists instead of strings. Type safety is for the weak.
+  // https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
+  ['/query?aa=000&amp;aa=111', 'GET', 200, 'aa: 000,111 bb: undefined'],
+
+  // https://stackoverflow.com/questions/10020099/express-js-routing-optional-splat-param
+  // https://stackoverflow.com/questions/16829803/express-js-route-parameter-with-slashes
+  // https://stackoverflow.com/questions/34571784/how-to-use-parameters-containing-a-slash-character
+  ['/splat/aaa', 'GET', 200, 'splat aaa'],
+  ['/splat/aaa/bbb', 'GET', 200, 'splat aaa/bbb'],
+  ['/splat/aaa/bbb/ccc', 'GET', 200, 'splat aaa/bbb/ccc'],
+
+  ['/check-helper-1/aa', 'GET', 200, 'aaok'],
+  ['/check-helper-2/bb', 'GET', 200, 'bbok'],
+  ['/check-helper-1/ccc', 'GET', 404, 'ko'],
+  ['/check-helper-2/ddd', 'GET', 404, 'ko'],
+
+  // Shows stack traceon terminal.
+  ['/error', 'GET', 500],
+
+  // Shows stack traceon terminal.
+  ['/error/custom-handler', 'GET', 500],
+
+  // The default errot handler inspects the .status
+  // property of the error. 4xx and 5xx are kept.
+  // everything else is replaced with 500.
+  //
+  // With NODE_ENV=production however
+  // it is coded  to omit stack traces,
+  // and show just the error name.
+  ['/error/code/404', 'GET', 404],
+  ['/error/code/505', 'GET', 505],
+  ['/error/code/606', 'GET', 500],
+]
+
+const app = express()
+app.use(express.urlencoded({ extended: true }))
+app.get('/', (req, res) =&gt; {
+  res.send(`&lt;!doctype html&gt;
+&lt;html lang=en&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8&gt;
+&lt;title&gt;Min sane&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul&gt;
+${tests.filter(t =&gt; t[1] === 'GET').map(t =&gt; `&lt;li&gt;&lt;a href="${t[0]}"&gt;${t[0]}&lt;/a&gt;&lt;/li&gt;`).join('\n')}
+&lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+`)
+})
+app.get('/hello', (req, res) =&gt; {
+  res.send('hello world')
+})
+app.get('/form', (req, res) =&gt; {
+  res.send(`&lt;!doctype html&gt;
+&lt;html lang=en&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8&gt;
+&lt;title&gt;Min sane&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form action="/form" method="post"&gt;
+  &lt;input type="text" name="aa" placeholder="aa"&gt;&lt;br&gt;
+  &lt;input type="text" name="bb" placeholder="bb"&gt;&lt;br&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+`)
+})
+app.post('/form', (req, res) =&gt; {
+  // Requires the middleware:
+  // app.use(express.urlencoded
+  console.error(req.body);
+  res.send(`aa: ${req.body.aa} bb: ${req.body.bb}`)
+})
+app.get('/check-helper-1/:param', (req, res) =&gt; {
+  const ret = check_helper(req, res)
+  if (ret) {
+    res.send(ret)
+  }
+})
+app.get('/check-helper-2/:param', (req, res) =&gt; {
+  const ret = check_helper(req, res)
+  if (ret) {
+    res.send(ret)
+  }
+})
+app.get('/query', (req, res) =&gt; {
+  res.send(`aa: ${req.query.aa} bb: ${req.query.bb}`)
+})
+app.get('/splat/:splat(*)', (req, res) =&gt; {
+  res.send('splat ' + req.params.splat)
+})
+
+// Error cases.
+app.get('/error', async (req, res, next) =&gt; {
+  try {
+    asdfqwer
+  } catch(error) {
+    next(error);
+  }
+})
+app.get('/error/code/:param', async (req, res, next) =&gt; {
+  try {
+    throw {
+      status: parseInt(req.params.param, 10),
+      stack: `fake stack ${req.params.param}`
+    }
+  } catch(error) {
+    next(error);
+  }
+})
+app.get('/error/custom-handler',
+  async (req, res, next) =&gt; {
+    try {
+      asdfqwer
+    } catch(error) {
+      next(error);
+    }
+  },
+  async (err, req, res, next) =&gt; {
+    res.locals.msg = ['Custom handler']
+    next(err)
+  },
+  async (err, req, res, next) =&gt; {
+    res.locals.msg.push('Custom handler 2')
+    res.status(500).send(res.locals.msg.join('\n'))
+    // If we did next() here again, it falls down
+    // to the default handler.
+    //next(err)
+  }
+)
+
+app.listen(3000, function () {
+  const port = this.address().port
+  console.log(`listening: http://localhost:${port}`)
+  for (let atest of tests) {
+    console.error(atest);
+    test(port, ...atest)
+  }
+})
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

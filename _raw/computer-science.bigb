@@ -1,0 +1,1139 @@
+= Computer science
+{wiki}
+
+A branch of <mathematics> that attempts to prove stuff about <computers>.
+
+Unfortunately, all <software engineers> already know the answer to the useful theorems though (except perhaps notably for <cryptography>), e.g. all programmers obviously know that iehter <p versus NP problem>[P != NP] or that this is <independence (mathematical logic)>[unprovable or some other "for all practical purposes practice P != NP"], even though they don't have proof.
+
+And 99% of their time, software engineers are not dealing with mathematically formulatable problems anyways, which is sad.
+
+The only useful "computer science" subset every programmer ever needs to know is:
+* for arrays: <dynamic array> vs <linked list>
+* for <associative array>: <binary search tree> vs <hash table>. See also https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834[Heap vs Binary Search Tree (BST)]. No need to understand the algorithmic details of the hash function, the <NSA> has already done that for you.
+* don't use https://en.wikipedia.org/wiki/Bubble_sort[Bubble sort] for sorting
+* you can't parse HTML with regular expressions: https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454[] because of <formal language theory>
+
+Funnily, due to the <formalization of mathematics>, <mathematics> can be seen as a branch of computer science, just like computer science can be seen as a branch of Mathematics!
+
+= Turing machine
+{c}
+{parent=Computer science}
+{wiki}
+
+The dominating model of a computer.
+
+The model is extremely simple, but has been proven to be able to solve all the problems that any reasonable computer model can solve, thus its adoption as the "default model".
+
+The smallest known Turing machine that cannot be proven to halt or not as of 2019 is 7,918-states: https://www.scottaaronson.com/blog/?p=2725[]. https://www.scottaaronson.com/[Shtetl-Optimized] by Scott Aaronson is just the best website.
+
+A bunch of non-reasonable-looking computers have also been proven to be Turing complete for fun, e.g. <Magic: The Gathering>.
+
+= Universal Turing machine
+{c}
+{parent=Turing machine}
+{wiki}
+
+A Turing machine that simulates another Turing machine/input pair that has been encoded as a string.
+
+In other words: an <emulator>!
+
+The concept is fundamental to state several key results in <computer science>, notably the <halting problem>.
+
+= Turing complete
+{c}
+{parent=Turing machine}
+{wiki=Turing_completeness}
+
+A computer model that is as powerful as the most powerful computer model we have: <Turing machine>!
+
+= Formal language theory
+{parent=Computer science}
+
+= Formal language
+{parent=Formal language theory}
+{wiki}
+
+= Abstract syntax tree
+{parent=Formal language}
+{title2=AST}
+{wiki}
+
+= Chomsky hierarchy
+{c}
+{parent=Formal language theory}
+{wiki}
+
+This is the classic result of <formal language theory>, but there is too much slack between context free and context sensitive, which is <PSPACE> (larger than <NP (complexity)>!).
+
+By <Noam Chomsky>.
+
+A good summary table that opens up each category much more can be seen e.g. at the bottom of https://en.wikipedia.org/wiki/Automata_theory under the summary thingy at the bottom entitled "Automata theory: formal languages and formal grammars".
+
+= Recursively enumerable language
+{parent=Chomsky hierarchy}
+{tag=Chomsky hierarchy}
+{wiki}
+
+There is a <Turing machine> that halts for every member of the language with the answer yes, but does not necessarily halt for non-members.
+
+Non-examples: https://cs.stackexchange.com/questions/52503/non-recursively-enumerable-languages
+
+= RE
+{disambiguate=complexity}
+{parent=Recursively enumerable language}
+{wiki}
+
+= Recursive language
+{parent=Recursively enumerable language}
+{wiki}
+
+Subset of <recursively enumerable language> as explained at: <difference between recursive language and recursively enumerable language>.
+
+= R
+{disambiguate=complexity}
+{parent=Recursive language}
+{wiki}
+
+Set of all <decision problems> solvable by a <Turing machine>, i.e. that decide if a string belongs to a <recursive language>.
+
+= Undecidable problem
+{parent=Recursive language}
+{tag=Decision problem}
+{wiki}
+
+= Undecidable
+{synonym}
+
+Is a <decision problem> of determining if something belongs to a non-<recursive language>.
+
+Or in other words: there is no <Turing machine> that always halts for every input with the yes/no output.
+
+Every undecidable problem must obviously have an infinite number of "possibilities of stuff you can try": if there is only a finite number, then you can brute-force it.
+
+Some undecidable problems are of <recursively enumerable language>, e.g. the <halting problem>.
+
+Lists of undecidable problems.
+* https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics
+* https://en.wikipedia.org/wiki/List_of_undecidable_problems
+
+Coolest ones besides the obvious boring <halting problem>:
+* <mortal matrix problem>
+* <Diophantine equation> existence of solutions: <undecidable Diophantine equation problems>
+
+= Undecidability requires infinitely many inputs
+{parent=Undecidable problem}
+
+If there are infinitely many inputs, we can always construct a (potentially exponentially huge) <Turing machine> that hardcodes the outcome for every possible input, so the problem is never <undecidable>.
+
+The problem is of course deciding and proving the outcome for each possible input, notably as it is possible that calculation for some of the inputs may be <independent (mathematical logic)> from <ZFC>.
+
+= Mortal matrix problem
+{parent=Undecidable problem}
+
+https://en.wikipedia.org/wiki/Zero_matrix#Occurrences
+
+One of the most simple to state <undecidable problems>.
+
+The reason that it is undecidable is that you can repeat each matrix any number of times, so there isn't a finite number of possibilities to check.
+
+= Computable problem
+{parent=Undecidable problem}
+{wiki}
+
+= Uncomputable problem
+{synonym}
+
+= Computable
+{synonym}
+
+= Uncomputable
+{synonym}
+
+= Uncomputability
+{synonym}
+
+A:
+* <undecidable problem>[decidable problem] is to a <decision problem>
+* like a computable problem is to a <function problem>
+
+= Computable function
+{parent=Undecidable problem}
+{wiki}
+
+= Uncomputable function
+{parent=Computable function}
+
+The prototypical example is the <Busy beaver function>, which is the easiest example to reach from the <halting problem>.
+
+= Computable number
+{parent=Undecidable problem}
+{wiki}
+
+= Uncomputable number
+{synonym}
+
+https://math.stackexchange.com/questions/462790/are-there-any-examples-of-non-computable-real-numbers
+
+There are only boring examples of taking an uncomputable language and converting it into a number?
+
+= Difference between recursive language and recursively enumerable language
+{parent=Recursive language}
+{wiki}
+
+https://stackoverflow.com/questions/33467040/what-is-the-difference-between-recursive-and-recursively-enumerable-languages/65455863#65455863
+
+= Recursive set
+{parent=Recursive language}
+{wiki}
+
+Same as <recursive language> but in the context of the <integers>.
+
+= Context-free language
+{parent=Recursive language}
+{wiki}
+
+= Regular language
+{parent=Context-free language}
+{wiki}
+
+= Regular expression
+{parent=Regular language}
+{wiki}
+
+= Computational problem
+{parent=Computer science}
+{wiki}
+
+The list: https://complexityzoo.uwaterloo.ca/Complexity_Zoo
+
+= Decision problem
+{parent=Computational problem}
+{wiki}
+
+<Computational problem> where the solution is either yes or no.
+
+When there are more than two possible answers, it is called a <function problem>.
+
+Decision problems come up often in <computer science> because many important problems are often stated in terms of "decide if a given string belongs to given <formal language>".
+
+= Halting problem
+{parent=Decision problem}
+{tag=Undecidable problem}
+{wiki}
+
+The canonical <undecidable problem>.
+
+= Turing machine decider
+{c}
+{parent=Halting problem}
+
+A <Turing machine> decider is a program that decides if one or more <Turing machines> halts of not.
+
+Of course, because what we know about the <halting problem>, there cannot exist a single decider that decides all <Turing machines>.
+
+E.g. <The Busy Beaver Challenge> has a set of deciders clearly published, which decide a large part of <BB(5)>. Their proposed deciders are listed at: https://discuss.bbchallenge.org/c/deciders/5[] and actually applied ones at: https://bbchallenge.org[].
+
+But there are deciders that can decide large classes of turing machines.
+
+Many (all/most?) deciders are based on simulation of machines with arbitrary cutoff <hyperparameters>, e.g. the cutoff space/time of a <Turing machine cycler decider>.
+
+The simplest and most obvious example is the <Turing machine cycler decider>
+
+= Turing machine regex tape notation
+{c}
+{parent=Turing machine decider}
+
+<Turing machine regex tape notation> is <Ciro Santilli>'s made up name for the notation used e.g. at:
+* https://www.sligocki.com/2023/02/02/skelet-34.html
+* https://www.sligocki.com/2022/06/10/ctl.html
+Most of it is just regular <regular expression> notation, with a few differences:
+* $0^{\inf}$ denotes the right or left edge of the (zero initialized) tape. It is often omitted as we always just assume it is always present on both sides of every regex
+* `A`, `B`, `C`, `D` and `E` denotes the current machine state. This is especially common notation in the context of the <BB(5)> problem
+* `<` and `>` next to the state indicate if the head is on top of the left or right element. E.g.:
+  ``
+  11 (01)^n <A 00 (0011)^{n+2}
+  ``
+  indicates that the head `A` is on top of the last `1` of the last sequence of n `01`s to the left of the head.
+
+This notation is very useful, as it helps compress long repeated sequences of <Turing machine> tape and extract higher level patterns from them, which is how you go about understanding a Turing machine in order to apply <Turing machine acceleration>.
+
+= Cycler Turing machine
+{parent=Turing machine decider}
+
+= Turing machine cycler decider
+{c}
+{synonym}
+
+Bibliography: https://discuss.bbchallenge.org/t/decider-cyclers/33[]
+
+Example: https://bbchallenge.org/279081[].
+
+These are very simple, they just check for exact state repetitions, which obviously imply that they will run forever.
+
+Unfortunately, cyclers may need to run through an initial setup phase before reaching the initial cycle point, which is not very elegant.
+
+Also, we have no way of knowing the initial setup length of the actual cycle length, so we just need an arbitrary cutoff value.
+
+And unfortunately, this can lead to misses, e.g. <Skelet machine #1>, a 5 state machine, has a (translated) cycle that starts at around 50-200M steps, and takes 8 trillion steps to repeat.
+
+= Translated cycler Turing machine
+{parent=Turing machine decider}
+
+Bibliography: https://discuss.bbchallenge.org/t/decider-translated-cyclers/34
+
+Like a cycler, but the cycle starts at an offset.
+
+To see infinity, we check that if the machine only goes left N squares until reaching the repetition, then repetition must only be N squares long.
+
+= Closed Tape Language decider
+{parent=Turing machine decider}
+
+Described at: https://www.sligocki.com/2022/06/10/ctl.html
+
+= Busy beaver
+{parent=Halting problem}
+{tag=Function problem}
+{wiki}
+
+= Busy beaver game
+{synonym}
+
+The busy beaver game consists in finding, for a given $n$, the turing machine with $n$ states that writes the largest possible number of 1's on a tape initially filled with 0's. In other words, computing the <busy beaver function> for a given $n$.
+
+There are only finitely many Turing machines with $n$ states, so we are certain that there exists such a maximum. Computing the <Busy beaver function> for a given $n$ then comes down to solving the halting problem for every single machine with $n$ states.
+
+Some variant definitions define it as the number of time steps taken by the machine instead. Wikipedia talks about their relationship, but no patience right now.
+
+The Busy Beaver problem is cool because it puts the <halting problem> in a more precise numerical light, e.g.:
+* the <Busy beaver function> is the most obvious <uncomputable function> one can come up with starting from the <halting problem>
+* the <Busy beaver scale> allows us to gauge the difficulty of proving certain (yet unproven!) mathematical <conjectures>
+
+Bibliography:
+* https://www.scottaaronson.com/blog/?p=4916
+* https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
+
+= Step busy beaver
+{parent=Busy beaver}
+
+The <step busy beaver> is a variant of the <busy beaver game> counts the number of steps before halt, instead of the number of 1's written to the tape.
+
+As of 2023, it appears that <BB(5)> the same machine, , will win both for 5 states. But this is not always necessarily the case.
+
+= Busy beaver function
+{parent=Busy beaver}
+{tag=Uncomputable function}
+{title2=$BB(n)$}
+
+$BB(n)$ is the largest number of 1's written by a <halting problem>[halting] $n$-state <Turing machine> on a tape initially filled with 0's.
+
+\Video[https://www.youtube.com/watch?v=kmAc1nDizu0]
+{title=The Boundary of Computation by Mutual Information (2023)}
+
+= Specific values of the Busy beaver function
+{parent=Busy beaver function}
+
+The following things come to mind when you look into research in this area, especially the search for <BB(5)> which was hard but doable:
+* it is largely <recreational mathematics>, i.e. done by non-professionals, a bit like the <aperiodic tiling>. Humbly, they tend to call their results <lemma (mathematics)>[lemmas]
+* complex structure emerges from simple rules, leading to a complex <classification (mathematics)> with a few edge cases, much like the <classification of finite simple groups>
+
+Bibliography:
+* https://cs.stackexchange.com/questions/59344/what-are-very-short-programs-with-unknown-halting-status
+  * https://cs.stackexchange.com/questions/44869/what-are-the-simplest-examples-of-programs-that-we-do-not-know-whether-they-term imprecise duplicate
+* https://cstheory.stackexchange.com/questions/20978/what-is-the-smallest-turing-machine-where-it-is-unknown-if-it-halts-or-not
+
+= Turing machine acceleration
+{c}
+{parent=Specific values of the Busy beaver function}
+
+<Turing machine acceleration> refers to using high level understanding of specific properties of specific Turing machines to be able to simulate them much fatser than naively running the simulation as usual.
+
+Acceleration allows one to use simulation to find infinite loops that might be very long, and would not be otherwise spotted without acceleration.
+
+This is for example the case of https://www.sligocki.com/2023/03/13/skelet-1-infinite.html proof of <Skelet machine #1>.
+
+= Busy Beaver Challenge
+{c}
+{parent=Specific values of the Busy beaver function}
+
+= The Busy Beaver Challenge
+{synonym}
+
+https://bbchallenge.org/story
+
+Project trying to compute <BB(5)> once and for all. Notably it has better presentation and organization than any other previous effort, and appears to have grouped everyone who cares about the topic as of the early 2020s.
+
+Very cool initiative!
+
+By 2023, they had basically decided every machine: https://discuss.bbchallenge.org/t/the-30-to-34-ctl-holdouts-from-bb-5/141
+
+In June 2024 they felt that they had verified the result after a full <Coq> proof was published: 
+* https://www.quantamagazine.org/amateur-mathematicians-find-fifth-busy-beaver-turing-machine-20240702/
+* https://discuss.bbchallenge.org/t/july-2nd-2024-we-have-proved-bb-5-47-176-870/237
+So now onto <BB(6)> I guess.
+
+= BB(5)
+{c}
+{parent=Specific values of the Busy beaver function}
+
+= Busy beaver function of 5
+{synonym}
+{title2}
+
+The last value we will likely every know for the <busy beaver function>! <BB(6)> is likely completely out of reach forever.
+
+By 2023, it had basically been decided by the <The Busy Beaver Challenge> as mentioned at: https://discuss.bbchallenge.org/t/the-30-to-34-ctl-holdouts-from-bb-5/141[], pending only further verification. It is going to be one of those highly computational proofs that will be needed to be <formally verified> for people to finally settle.
+
+As that project beautifully puts it, as of 2023 prior to full resolution, this can be considered the:
+> simplest open problem in mathematics
+on the <Busy beaver scale>.
+
+= Marxen-Buntrock machine
+{parent=BB(5)}
+{title2=1989}
+{title2=4098 1's}
+{title2=~47M steps}
+
+Best <busy beaver> machine known since 1989 as of 2023, before a full proof of all 5 state machines had been carried out.
+
+Entry on <The Busy Beaver Challenge>: https://bbchallenge.org/1RB1LC_1RC1RB_1RD0LE_1LA1LD_1RZ0LA
+
+Paper extracted to HTML by Heiner Marxen: http://turbotm.de/~heiner/BB/mabu90.html
+
+= Skelet’s machines
+{c}
+{parent=BB(5)}
+{title2=2003}
+
+List on <The Busy Beaver Challenge>: https://bbchallenge.org/skelet
+
+Bibliography:
+* https://bbchallenge.org/story#skelets-43-undecided-machines
+* https://skelet.ludost.net/bb/nreg.html
+
+= Skelet machine \#1
+{c}
+{parent=Skelet’s machines}
+{tag=Translated cycler Turing machine}
+{title2=proved 2023}
+{title2=cycle start: 50-200M}
+{title2=period: ~8B}
+
+On <The Busy Beaver Challenge>: https://bbchallenge.org/68329601
+
+= Skelet machine \#1 is infinite
+{c}
+{parent=Skelet machine 1}
+
+Non formal proof with a program March 2023: https://www.sligocki.com/2023/03/13/skelet-1-infinite.html Awesome article that describes the proof procedure.
+
+<Formal proof> August 2023: https://discuss.bbchallenge.org/t/skelet-1-is-a-translated-cycler-coq-agrees/166
+
+The proof uses <Turing machine acceleration> to show that <Skelet machine #1> is a <Translated cycler Turing machine> with humongous cycle paramters:
+* start between 50-200 M steps, not calculated precisely on the original post
+* period: ~8 billion steps
+
+= BB(6)
+{c}
+{parent=Specific values of the Busy beaver function}
+
+= Busy beaver function of 6
+{synonym}
+{title2}
+
+= BB(6) is hard
+{c}
+{parent=BB(6)}
+
+A hard problem ha been found for it, and it was called the "<antihydra>":
+* https://news.ycombinator.com/item?id=40864949 BB(6), The 6th Busy Beaver Number, is harder than a Collatz-like math problem 
+* https://www.reddit.com/r/math/comments/1dubva0/finding_the_6th_busy_beaver_number_%CF%836_aka_bb6_is/ "Finding the 6th busy beaver number (Σ(6), AKA BB(6)) is at least as hard as a hard Collatz-like math problem called Antihydra":
+* https://www.reddit.com/r/compsci/comments/1duc62e/finding_the_6th_busy_beaver_number_%CF%836_aka_bb6_is/
+
+= Antihydra
+{parent=BB(6) is hard}
+{title2=28 Jun 2024}
+
+The <Antihydra> is the first hard-looking problem for <BB(6)>, what some would classify as a <Collatz-like problem>.
+
+It is documented on the <Busy Beaver Challenge> wiki at: https://wiki.bbchallenge.org/wiki/Antihydra
+
+= Antihydra in Magic: The Gathering
+{c}
+{parent=Antihydra}
+
+Some dude recreated the <antihydra> on <Magic: The Gathering> at: https://aesort.com/antihydra[], probably: https://x.com/IsaacKing314/status/1870637729375219740[].
+
+It is known that <Magic: The Gathering is Turing complete>, but it is cool to have a concrete specific example of an <open problem in mathematics> coded in it.
+
+\Image[https://web.archive.org/web/20241222020126im_/https://aesort.com/static/img/antihydra.png]
+{title=Screenshot of the <Antihydra in Magic: The Gathering> construction}
+{height=800}
+
+= Antihydra GMP implementation
+{parent=Antihydra}
+{tag=GNU Multiple Precision Arithmetic Library}
+
+= gmp/antihydra.c
+{file}
+{parent=Antihydra}
+{tag=GMP example}
+
+Also posted at:
+* https://wiki.bbchallenge.org/w/index.php?title=Antihydra&oldid=958 But <deletionism on Wikipedia>[obviously it got deleted], not even a tiny shitpage maintained by 5 people is immune to <deletionism>
+* https://cstheory.stackexchange.com/questions/20978/what-is-the-smallest-turing-machine-where-it-is-unknown-if-it-halts-or-not/53326#53326
+* https://cs.stackexchange.com/questions/59344/what-are-very-short-programs-with-unknown-halting-status/162108#162108
+
+= Busy beaver scale
+{parent=Busy beaver}
+
+The <Busy beaver scale> allows us to gauge the difficulty of proving certain (yet unproven!) mathematical <conjectures>!
+
+To to this, people have reduced certain mathematical problems to deciding the <halting problem> of a specific <Turing machine>.
+
+A good example is perhaps the <Goldbach's conjecture>. We just make a <Turing machine> that successively checks for each even number of it is a sum of two primes by naively looping down and trying every possible pair. Let the machine halt if the check fails. So this machine halts <iff> the <Goldbach's conjecture> is false! See also <Conjecture reduction to a halting problem>.
+
+Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
+
+Of course, in practice, $BB$ is generally <uncomputable>, so we will never know it. And furthermore, even if it were computable, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
+
+However, philosophically speaking at least, the number of states of the equivalent <Turing machine> gives us a philosophical idea of the complexity of the problem.
+
+The <busy beaver scale> is likely mostly useless, since we are able to prove that many non-trivial <Turing machines> do halt, often by reducing problems to simpler known cases. But still, it is cute.
+
+But maybe, just maybe, reduction to Turing machine form could be useful. E.g. <The Busy Beaver Challenge> and other attempts to solve <BB(5)> have come up with large number of automated (usually parametrized up to a certain threshold) <Turing machine decider> programs that automatically determine if certain (often large numbers of) Turing machines run forever.
+
+So it it not impossible that after some reduction to a standard <Turing machine> form, some conjecture just gets automatically brute-forced by one of the deciders, this is a path to
+
+= Turing machine compiler
+{c}
+{parent=Busy beaver scale}
+
+https://cs.stackexchange.com/questions/50815/compiler-that-compiles-to-a-turing-machine/161872#161872
+
+= Automated theorem proving by halting problem reduction
+{parent=Busy beaver scale}
+{tag=Automated theorem proving}
+
+If you can reduce a mathematical problem to the <Halting problem> of a specific turing machine, as in the case of a few machines of the <Busy beaver scale>, then using <Turing machine deciders> could serve as a method of <automated theorem proving>.
+
+That feels like it could be an elegant proof method, as you reduce your problem to one of the most well studied representations that exists: a <Turing machine>.
+
+However it also appears that certain problems cannot be reduced to a <halting problem>... OMG life sucks (or is awesome?): <Turing machine that halts if and only if Collatz conjecture is false>{full}.
+
+= Conjecture reduction to a halting problem
+{c}
+{parent=Automated theorem proving by halting problem reduction}
+
+https://bbchallenge.org/story#what-is-known-about-bb lists some (all?) cool examples, 
+* BB(15): <Erdős' conjecture on powers of 2>, which has some relation to <Collatz conjecture>
+* BB(27): <Goldbach's conjecture>
+* BB(744): <Riemann hypothesis>
+* BB(748): <independent (mathematical logic)> from the <Zermelo-Fraenkel axioms>
+* BB(7910): <independent (mathematical logic)> from the <ZFC>
+
+https://wiki.bbchallenge.org/wiki/Cryptids contains a larger list. In June 2024 it was discovered that <BB(6) is hard>.
+
+= Turing machine that halts if and only if the Goldbach conjecture is false
+{c}
+{parent=Conjecture reduction to a halting problem}
+{tag=Goldbach conjecture}
+{title2=27-state}
+
+https://www.scottaaronson.com/papers/bb.pdf
+
+= Turing machine that halts if and only if Collatz conjecture is false
+{c}
+{parent=Conjecture reduction to a halting problem}
+{tag=Collatz conjecture}
+
+https://mathoverflow.net/questions/309044/is-there-a-known-turing-machine-which-halts-if-and-only-if-the-collatz-conjectur suggests one does not exist. Amazing.
+
+Intuitively we see that the situation is fundamentally different from the <Turing machine that halts if and only if the Goldbach conjecture is false> because for Collatz the counter example must go off into infinity, while in Goldbach conjecture we can finitely check any failures.
+
+Amazing.
+
+= Function problem
+{parent=Computational problem}
+{wiki}
+
+A problem that has more than two possible yes/no outputs.
+
+It is therefore a generalization of a <decision problem>.
+
+= Inverse problem
+{parent=Function problem}
+{wiki}
+
+= Integer algorithm
+{parent=Function problem}
+
+We define an "integer algorithm" as an algorithm that takes <integer> inputs and produces <integer> outputs.
+
+= Integer multiplication
+{parent=Integer algorithm}
+
+https://cs.stackexchange.com/questions/16226/what-is-the-fastest-algorithm-for-multiplication-of-two-n-digit-numbers
+
+= Integer factorization
+{parent=Integer algorithm}
+{wiki}
+
+Complexity: <NP-intermediate> as of 2020:
+* expected not to be <NP-complete> because it would imply NP != <Co-NP>: https://cstheory.stackexchange.com/questions/167/what-are-the-consequences-of-factoring-being-np-complete#comment104849_169
+* expected not to be in <P (complexity)> because "could we be that dumb that we haven't found a solution after having tried for that long?
+
+The basis of RSA: <RSA (cryptosystem)>. But not proved <NP-complete>, which leads to:
+
+= Integer factorization algorithm
+{parent=Integer factorization}
+
+= NP-hard cryptosystem
+{c}
+{parent=Integer factorization}
+
+= NP-hard cryptosystems
+{c}
+{synonym}
+
+This is natural question because both <integer factorization> and <discrete logarithm> are the basis for the most popular <public-key cryptography> systems as of 2020 (<RSA (cryptosystem)> and <Diffie-Hellman key exchange> respectively), and both are <NP-intermediate>. Why not use something more provenly hard?
+* https://cs.stackexchange.com/questions/356/why-hasnt-there-been-an-encryption-algorithm-that-is-based-on-the-known-np-hard "Why hasn't there been an encryption algorithm that is based on the known NP-Hard problems?"
+
+= Discrete logarithm
+{parent=Function problem}
+{wiki}
+
+<Logarithm> of a <discrete> <group (mathematics)>[groups].
+
+<NP-intermediate> as of 2020 for similar reasons as <integer factorization>.
+
+An important case is the <discrete logarithm of the cyclic group> in which the group is a <cyclic group>.
+
+= Discrete logarithm of the cyclic group
+{parent=Discrete logarithm}
+
+This is the <discrete logarithm> problem where the group is a <cyclic group>.
+
+In this case, the problem becomes equivalent to reversing <modular exponentiation>.
+
+This computational problem forms the basis for <Diffie-Hellman key exchange>, because <modular exponentiation> can be efficiently computed, but no known way exists to efficiently compute the reverse function.
+
+= Functional problem with array as input
+{parent=Function problem}
+{wiki}
+
+= Largest element in an array
+{parent=Functional problem with array as input}
+
+https://www.geeksforgeeks.org/program-to-find-largest-element-in-an-array/
+
+= K-th largest element in an array
+{parent=Functional problem with array as input}
+{wiki}
+
+Simple interview problem!
+* https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/60309
+* https://www.geeksforgeeks.org/kth-largest-element-in-an-array/
+
+= Longest common subsequence
+{parent=Functional problem with array as input}
+{wiki}
+
+Note that the subsequences do not need to be contiguous.
+
+Implementations:
+* \a[cpp/longest_common_subsequence.cpp]
+
+On <coding challenge websites>:
+* https://leetcode.com/problems/longest-common-subsequence/description/
+* https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
+
+= Subset sum problem
+{parent=Functional problem with array as input}
+{wiki}
+
+Sample implementation:
+* \a[cpp/subset_sum.cpp]
+
+On <coding challenge websites>:
+* https://www.hackerrank.com/challenges/subset-sum/problem
+* https://leetcode.com/problems/partition-equal-subset-sum/
+* https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
+
+= 3SUM
+{parent=Subset sum problem}
+{tag=Simple to state but hard to prove}
+{wiki}
+
+It is cool how even for such a "simple looking" problem, we were still unable to prove optimality as of 2020!
+
+= Two sum problem
+{parent=3SUM}
+
+= Algorithm
+{parent=Computational problem}
+{wiki}
+
+A solution to a <computational problem>!
+
+= Algorithm cheatsheet
+{parent=Algorithm}
+
+Draft by <Ciro Santilli> with cross language input/output test cases: https://github.com/cirosantilli/algorithm-cheat
+
+By others:
+* https://github.com/TheAlgorithms/Python
+
+= Data structure
+{parent=Algorithm}
+{wiki}
+
+= Associative array
+{parent=Data structure}
+{title2=map}
+{title2=dictionary}
+{wiki}
+
+More commonly known as a map or dictionary.
+
+= Binary search tree
+{parent=Associative array}
+{tag=Binary tree}
+{tag=Ordered tree}
+{title2=BST}
+{wiki}
+
+= B-tree
+{c}
+{parent=Binary search tree}
+
+Like <Binary search tree>, but each node can have multiple objects and more than two children.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/B-tree.svg/799px-B-tree.svg.png]
+
+= Hash table
+{parent=Associative array}
+{wiki}
+
+= Hash map
+{synonym}
+{title2}
+
+= Dynamic array
+{parent=Data structure}
+{wiki}
+
+= Linked list
+{parent=Data structure}
+{wiki}
+
+= Trie
+{parent=Data structure}
+{wiki}
+
+Sample implementations:
+* <C++>: \a[cpp/trie.cpp]
+
+= Recursion
+{disambiguate=computer science}
+{parent=Algorithm}
+{wiki}
+
+= Recursion
+{synonym}
+
+= Recursive algorithm
+{synonym}
+
+= Iteration
+{parent=Recursion (computer science)}
+{wiki}
+
+= Iterative algorithm
+{parent=Iteration}
+{wiki}
+
+= Sorting algorithm
+{parent=Algorithm}
+{wiki}
+
+= String-sorting algorithm
+{parent=Sorting algorithm}
+
+= Natural sort order
+{parent=String-sorting algorithm}
+{wiki}
+
+= String-search algorithm
+{parent=Algorithm}
+{wiki}
+
+= Class of algorithm
+{parent=Algorithm}
+
+= Greedy algorithm
+{parent=Class of algorithm}
+{wiki}
+
+= Dynamic programming
+{parent=Class of algorithm}
+{wiki}
+
+= Complexity class
+{parent=Computational problem}
+{wiki}
+
+= Complexity
+{synonym}
+
+= Time complexity
+{parent=Complexity class}
+{wiki}
+
+= Quasilinear time
+{parent=Time complexity}
+{title2=$O(n \log^k(n))$}
+{wiki}
+
+= Big O notation family
+{parent=Complexity class}
+
+This is a family of notations related to the <big O notation>. A good mnemonic summary of all notations would be:
+* <big O notation>: $|f| \le g$
+* <little-o notation>: $|f| \lt g$
+
+= Big O notation
+{parent=Big O notation family}
+{title2=$O(n)$}
+{wiki}
+
+Module bound above, possibly multiplied by a constant:
+$$
+f(x) = O(g(x))
+$$
+is defined as:
+$$
+\exists M > 0 \exists x_0  \forall x > x_0 \colon |f(x)| \leq M g(x)
+$$
+
+E.g.:
+* $\forall c \in \R x + c = O(x)$. For $c < 0$, $M = 1$ is enough. Otherwise, any $M > 1$ will do, the bottom line will always catch up to the top one eventually.
+
+= Little-o notation
+{parent=Big O notation family}
+{title2=$o(n)$}
+
+Stronger version of the <big O notation>, basically means that ratio goes to zero. In <big O notation>, the ratio does not need to go to zero.
+
+So in informal terms, <big O notation> means $\leq$, and <little-o notation> means $<$.
+
+E.g.:
+* $x = O(x)$
+* $x \ne o(x)$K does not tend to zero
+* $x = O(x^2)$
+* $x = o(x^2)$
+
+= Primitive recursive function
+{parent=Complexity class}
+{wiki}
+
+= Primitive recursive
+{synonym}
+
+In intuitive terms it consists of all integer functions, possibly with multiple input arguments, that can be written only with a sequence of:
+* variable assignments
+* addition and subtraction
+* integer comparisons and if/else
+* <for loops>
+``
+for (i = 0; i < n; i++)
+``
+and such that `n` does not change inside the loop body, i.e. no <while loops> with arbitrary conditions.
+
+`n` does not have to be a constant, it may come from previous calculations. But it must not change inside the loop body.
+
+<Primitive recursive functions> basically include every integer function that comes up in practice. Primitive recursive functions can have huge complexity, and it strictly contains <EXPTIME>. As such, they mostly only come up in <foundation of mathematics> contexts.
+
+The cool thing about <primitive recursive functions> is that the number of iterations is always bound, so we are certain that they terminate and are therefore <computable>.
+
+This also means that there are necessarily functions which are not <primitive recursive>, as we know that there must exist <uncomputable> functions, e.g. the <busy beaver function>.
+
+Adding unbounded <while loops> of course enables us to simulate arbitrary <Turing machines>, and therefore increases the <complexity class>.
+
+More finely, there are <non-primitive total recursive functions>, e.g. most famously the <Ackermann function>.
+
+= Non-primitive total recursive function
+{parent=Primitive recursive function}
+
+= Ackermann function
+{c}
+{parent=Non-primitive total recursive function}
+{wiki}
+
+To get an intuition for it, see the sample computation at: https://en.wikipedia.org/w/index.php?title=Ackermann_function&oldid=1170238965#TRS,_based_on_2-ary_function where $S(n) = n + 1$ in this context. From this, we immediately get the intuition that these functions are recursive somehow.
+
+= Galactic algorithm
+{parent=Complexity class}
+{wiki}
+
+= ELEMENTARY
+{disambiguate=complexity}
+{c}
+{parent=Complexity class}
+{title2=$2^n$, $2^{2^n}$, ...}
+{wiki=EXPTIME}
+
+= EXPTIME
+{c}
+{parent=ELEMENTARY (complexity)}
+{wiki}
+
+= PSPACE
+{parent=EXPTIME}
+{wiki}
+
+= NP
+{disambiguate=complexity}
+{c}
+{parent=PSPACE}
+{wiki}
+
+Strictly speaking, only defined for decision problems: https://cs.stackexchange.com/questions/9664/is-it-necessary-for-np-problems-to-be-decision-problems/128702#128702
+
+= P
+{disambiguate=complexity}
+{c}
+{parent=NP (complexity)}
+{wiki}
+
+= Polynomial time
+{synonym}
+{title2}
+
+= NC
+{disambiguate=complexity}
+{parent=P (complexity)}
+{title2=Efficiently parallelizable}
+{wiki}
+
+= Polynomial time algorithm
+{parent=P (complexity)}
+
+= NP-complete
+{c}
+{parent=NP (complexity)}
+{wiki=NP-completeness}
+
+A problem that is both <NP (complexity)> and <NP-hard>.
+
+= Cook-Levin theorem
+{c}
+{parent=NP-complete}
+{wiki=Cook–Levin_theorem}
+
+= P versus NP problem
+{parent=NP-complete}
+{wiki}
+
+= P vs NP
+{c}
+{synonym}
+{title2}
+
+Interesting because of the <Cook-Levin theorem>: if only a single <NP-complete> problem were in <P (complexity)>, then all NP-complete problems would also be P!
+
+We all know the answer for this: either false or <independent (mathematical logic)>.
+
+= Ladner's Theorem
+{c}
+{parent=P versus NP problem}
+
+= NP-hard
+{c}
+{parent=NP (complexity)}
+{wiki=NP-hardness}
+
+A problem such that all NP problems can be reduced in polynomial time to it.
+
+= NP-intermediate
+{c}
+{parent=NP (complexity)}
+{wiki}
+
+This is the most interesting class of problems for <BQP> as we haven't proven that they are neither:
+* <P (complexity)>: would be boring on quantum computer
+* <NP-complete>: would likely be impossible on a quantum computer
+
+Big list: https://cstheory.stackexchange.com/questions/79/problems-between-p-and-npc/460#460
+
+= BQP
+{c}
+{parent=NP-intermediate}
+{wiki}
+
+<P (complexity)> for <quantum computing>!
+
+Heck, we know nothing about this class yet related to non quantum classes!
+* conjectured not to intersect with <NP-complete>, because if it were, all NP-complete problems could be solved efficiently on quantum computers, and none has been found so far as of 2020.
+* conjectured to be larger than <P (complexity)>, but we don't have a single algorithm provenly there:
+  * it is believed that the NP complete ones can't be solved
+  * if they were neither NP-complete nor P, it would imply <p versus NP problem>[P != NP]
+* we just don't know if it is even contained inside <NP (complexity)>!
+
+= Co-NP
+{c}
+{parent=NP (complexity)}
+{wiki}
+
+* https://math.stackexchange.com/questions/361422/why-isnt-np-conp "Why isn't NP = coNP?"
+* https://stackoverflow.com/questions/17046440/whats-the-difference-between-np-and-co-np
+* https://cs.stackexchange.com/questions/9795/is-the-open-question-np-co-np-the-same-as-p-np
+* https://mathoverflow.net/questions/31821/problems-known-to-be-in-both-np-and-conp-but-not-known-to-be-in-p
+
+= Constraint satisfaction problem
+{parent=Computational problem}
+{wiki}
+
+= Optimization problem
+{parent=Computational problem}
+{wiki}
+
+= Linear programming
+{parent=Optimization problem}
+{wiki}
+
+= Logistics
+{parent=Optimization problem}
+{wiki}
+
+= Last mile problem
+{parent=Logistics}
+
+The exact same problem appears over and over, e.g.:
+* https://en.wikipedia.org/wiki/Last_mile_(transportation)[transportaion]: the last mile of the trip when everyone leaves the train and goes to their different respective offices is the most expensive
+* https://en.wikipedia.org/wiki/Last_mile_(telecommunications)[telecommunications]: the last mile of wire linking local hubs to actual homes is the most expensive
+* electrical grid: same as telecommunications
+
+<Ciro Santilli> also identified knowledge version of this problem: <the missing link between basic and advanced>.
+
+= Optimization software
+{parent=Optimization problem}
+{tag=Software}
+
+* https://en.wikipedia.org/wiki/List_of_optimization_software
+* https://en.wikipedia.org/wiki/Comparison_of_optimization_software
+
+= CPLEX
+{c}
+{parent=Optimization software}
+
+= Limiting factor
+{parent=Optimization problem}
+{wiki}
+
+= Critical path method
+{parent=Limiting factor}
+{wiki}
+
+= Critical path
+{parent=Critical path method}
+
+= Dependency graph
+{parent=Critical path method}
+{wiki}
+
+= Value function
+{parent=Optimization problem}
+{wiki}
+
+The function being maximized in a <optimization problem>.
+
+= List of computational problems
+{parent=Computational problem}
+
+= Computer scientist
+{parent=Computer science}
+{wiki}
+
+= Alan Turing
+{c}
+{parent=Computer scientist}
+{wiki}
+
+= Noam Chomsky
+{c}
+{parent=Computer scientist}
+{tag=Cool person}
+{wiki}
+
+= Scott Aaronson
+{c}
+{parent=Computer scientist}
+{wiki}
+
+\Include[cryptography]{parent=computer-science}
+
+= Hash function
+{parent=Computer science}
+{wiki}
+
+= Hash
+{synonym}
+
+Applications:
+* https://en.wikipedia.org/wiki/Hash_table[hash map] which is a O(1) amortized implementation of a map
+* creating unbreakable chains of data, e.g. for https://stackoverflow.com/questions/22968856/what-is-the-file-format-of-a-git-commit-object-data-structure/37438460#37438460[Git commits] or <Bitcoin>. 
+* storing passwords on a server in a way that if the password database is stolen, attackers can't reuse them on other websites where the user used the same password: https://security.blogoverflow.com/2013/09/about-secure-password-hashing/
+
+= Secure Hash Algorithms
+{c}
+{parent=Hash function}
+{wiki}
+
+= SHA
+{c}
+{synonym}
+{title2}
+
+= SHA-1
+{c}
+{parent=Secure Hash Algorithms}
+{wiki}
+
+= SHA-2
+{c}
+{parent=Secure Hash Algorithms}
+{wiki}
+
+= SHA-256
+{c}
+{parent=SHA-2}
+
+= Merkle tree
+{c}
+{parent=Hash function}
+
+= Hash tree
+{synonym}
+
+= Computer science bibliography
+{parent=Computer science}
+
+= Computer science YouTube channel
+{parent=Computer science bibliography}
+{tag=YouTube channel}
+
+= Computerphile
+{c}
+{parent=Computer science YouTube channel}
+{tag=Brady Haran production}
+{wiki}
+
+= Brady Haran
+{c}
+{parent=Computerphile}
+{wiki}
+
+= Brady Haran production
+{c}
+{parent=Brady Haran}
+{tag=Science communicator}

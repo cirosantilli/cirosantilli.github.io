@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/many_to_many_custom_table.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/many_to_many_custom_table.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/many_to_many_custom_table.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many_custom_table.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/sequelize/many_to_many_custom_table.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/many_to_many_custom_table.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many_custom_table.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../_raw/nodejs/sequelize/many_to_many_custom_table.js">many_to_many_custom_table.js</a></b></div></nav></div><div class="p"><b>nodejs/sequelize/many_to_many_custom_table.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
+const assert = require('assert')
+const { DataTypes, Op } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+;(async () =&gt; {
+
+// Create the tables.
+const User = sequelize.define('User', {
+  name: { type: DataTypes.STRING },
+});
+const Post = sequelize.define('Post', {
+  body: { type: DataTypes.STRING },
+});
+const UserLikesPost = sequelize.define('UserLikesPost', {
+  UserId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id'
+    }
+  },
+  PostId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Post,
+      key: 'id'
+    }
+  },
+  score: {
+    type: DataTypes.INTEGER,
+  },
+});
+// UserLikesPost is the name of the relation table.
+// Sequelize creates it automatically for us.
+// On SQLite that table looks like this:
+// CREATE TABLE `UserLikesPost` (
+//   `createdAt` DATETIME NOT NULL,
+//   `updatedAt` DATETIME NOT NULL,
+//   `UserId` INTEGER NOT NULL REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+//   `PostId` INTEGER NOT NULL REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+//   `Score` INTEGER,
+//   PRIMARY KEY (`UserId`, `PostId`)
+// );
+User.belongsToMany(Post, {through: UserLikesPost});
+Post.belongsToMany(User, {through: UserLikesPost});
+await sequelize.sync({force: true});
+
+// Create some users and likes.
+
+const user0 = await User.create({name: 'user0'})
+const user1 = await User.create({name: 'user1'})
+const user2 = await User.create({name: 'user2'})
+
+const post0 = await Post.create({body: 'post0'});
+const post1 = await Post.create({body: 'post1'});
+const post2 = await Post.create({body: 'post2'});
+
+// Autogenerated add* methods
+
+// Make some useres like some posts.
+await user0.addPost(post0, {through: {score: 1}})
+await user1.addPost(post1, {through: {score: 2}})
+await user1.addPost(post2, {through: {score: 3}})
+
+// Find what user0 likes.
+const user0Likes = await user0.getPosts({order: [['body', 'ASC']]})
+assert.strictEqual(user0Likes[0].body, 'post0');
+console.error(user0Likes[0]);
+assert.strictEqual(user0Likes[0].UserLikesPost.score, 1);
+assert.strictEqual(user0Likes.length, 1);
+
+// Find what user1 likes.
+const user1Likes = await user1.getPosts({order: [['body', 'ASC']]})
+assert.strictEqual(user1Likes[0].body, 'post1');
+assert.strictEqual(user1Likes[0].UserLikesPost.score, 2);
+assert.strictEqual(user1Likes[1].body, 'post2');
+assert.strictEqual(user1Likes[1].UserLikesPost.score, 3);
+assert.strictEqual(user1Likes.length, 2);
+
+// Where on the custom through table column.
+// Find posts that user1 likes which have score greater than 2.
+// https://stackoverflow.com/questions/38857156/how-to-query-many-to-many-relationship-sequelize
+{
+  const rows = await Post.findAll({
+    include: [
+      {
+        model: User,
+        where: {id: user1.id},
+        through: {
+          where: {score: { [Op.gt]: 2 }},
+        },
+      },
+    ],
+  })
+  assert.strictEqual(rows[0].body, 'post2');
+  // TODO how to get the score here as well?
+  //assert.strictEqual(rows[0].UserLikesPost.score, 3);
+  assert.strictEqual(rows.length, 1);
+}
+
+// TODO: this doesn't work. Possible at all in a single addUsers call?
+// Make user0 and user2 like post1
+// This method automatically generated.
+//await post1.addUsers(
+//  [user0, user2],
+//  {through: [
+//    {score: 2},
+//    {score: 3},
+//  ]}
+//)
+
+})().finally(() =&gt; { return sequelize.close() });
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

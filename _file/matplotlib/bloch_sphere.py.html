@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>matplotlib/bloch_sphere.py - Ciro Santilli</title>
+<meta property="og:title" content="matplotlib/bloch_sphere.py - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/matplotlib/bloch_sphere.py">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/matplotlib/bloch_sphere.py">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/matplotlib/bloch_sphere.py"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">matplotlib/bloch_sphere.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/matplotlib/bloch_sphere.py"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/matplotlib">matplotlib</a> / <a href="../../_raw/matplotlib/bloch_sphere.py">bloch_sphere.py</a></b></div></nav></div><div class="p"><b>matplotlib/bloch_sphere.py</b></div><div class="code"><div><pre><code>import math
+import numpy as np
+import matplotlib
+import mpl_toolkits
+from matplotlib.patches import FancyArrowPatch
+
+import common
+
+class Arrow3D(matplotlib.patches.FancyArrowPatch):
+    def __init__(self, xs, ys, zs, *args, **kwargs):
+        matplotlib.patches.FancyArrowPatch.__init__(self, (0,0), (0,0), *args, **kwargs)
+        self._verts3d = xs, ys, zs
+
+    def draw(self, renderer):
+        xs3d, ys3d, zs3d = self._verts3d
+        xs, ys, zs = mpl_toolkits.mplot3d.proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
+        matplotlib.patches.FancyArrowPatch.draw(self, renderer)
+
+def draw_arrow_3d(ax, x, y, z):
+    """
+    https://stackoverflow.com/questions/22867620/putting-arrowheads-on-vectors-in-matplotlibs-3d-plot
+    https://stackoverflow.com/questions/11140163/plotting-a-3d-cube-a-sphere-and-a-vector-in-matplotlib
+    """
+    ax.add_artist(Arrow3D(
+        x,
+        y,
+        z,
+        mutation_scale=20,
+        lw=1,
+        arrowstyle="-|&gt;",
+        color="black"
+    ))
+
+def plot(plt, params):
+
+    matplotlib.rcParams['font.weight'] = 'bold'
+    matplotlib.rcParams['font.size'] = 15
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    # Working labels
+    ax.azim = 60
+    ax.elev = 30
+    ax.grid(False)
+    ax.set_axis_off()
+    fig.subplots_adjust(left=0, right=1, bottom=0, top=1, wspace=0)
+
+    # Params.
+    r = 1
+
+    lim = r*1.5
+
+    # Reduce actual "visible limit" to reduce excessive whitespace around figure.
+    # https://stackoverflow.com/questions/41225293/remove-white-spaces-in-axes3d-matplotlib
+    lim_vis = lim * 0.55
+    ax.set_xlim(-lim_vis, lim_vis)
+    ax.set_ylim(-lim_vis, lim_vis)
+    ax.set_zlim(-lim_vis, lim_vis)
+
+    # Axes.
+    draw_arrow_3d(ax, [-lim, lim], [0, 0], [0, 0])
+    draw_arrow_3d(ax, [0, 0], [-lim, lim], [0, 0])
+    draw_arrow_3d(ax, [0, 0], [0, 0], [-lim, lim])
+    ax.text(lim, 0, 0.1*lim, 'x')
+    ax.text(0, lim, -0.11*lim, 'y')
+    ax.text(-0.05*lim, 0, lim, 'z')
+
+    # Circles.
+    # https://stackoverflow.com/questions/56870675/how-to-do-a-3d-circle-in-matplotlib/64843339#64843339
+    p = matplotlib.patches.Circle((0, 0), 1, fill=False)
+    ax.add_patch(p)
+    mpl_toolkits.mplot3d.art3d.pathpatch_2d_to_3d(p, z=0, zdir="x")
+    # p = matplotlib.patches.Circle((0, 0), 1, fill=False)
+    # ax.add_patch(p)
+    # mpl_toolkits.mplot3d.art3d.pathpatch_2d_to_3d(p, z=0, zdir="y")
+    p = matplotlib.patches.Circle((0, 0), 1, fill=False, ls='--')
+    ax.add_patch(p)
+    mpl_toolkits.mplot3d.art3d.pathpatch_2d_to_3d(p, z=0, zdir="z")
+
+    p = matplotlib.patches.Circle((0, 0), 1, fill=False, ls='--')
+    ax.add_patch(p)
+    mpl_toolkits.mplot3d.art3d.pathpatch_2d_to_3d(p, z=0, zdir="z")
+
+    # Markers.
+    def marker(x, y, z):
+        # Some of the points appear below the rest of the plot, which is undesired,
+        # but maybe there is no way to get it to work:
+        # - https://github.com/matplotlib/matplotlib/issues/14148
+        # - https://github.com/matplotlib/matplotlib/issues/14175
+        # - https://github.com/matplotlib/matplotlib/pull/14508
+        # - https://stackoverflow.com/questions/56010933/matplotlib-plot3d-surface-line-scatter-plot-how-to-define-z-order
+        # - https://stackoverflow.com/questions/37611023/3d-parametric-curve-in-matplotlib-does-not-respect-zorder-workaround
+        # - https://stackoverflow.com/questions/52923540/matplotlib-3d-workaround-for-plot-order
+        # - https://stackoverflow.com/questions/23188561/matplotlib-3d-plot-zorder-issue
+        ax.scatter(x, y, z, s=100, color='white', edgecolors='black')
+    marker(-r,  0,  0)
+    marker( r,  0,  0)
+    marker( 0,  r,  0)
+    marker( 0, -r,  0)
+    marker( 0,  0,  r)
+    marker( 0,  0, -r)
+
+    # Marker text.
+    ha = 'center'
+    ax.text(     r,      0, -0.3*r, common.braket( '+'), ha=ha)
+    ax.text(-1.1*r, -0.1*r,  0.2*r, common.braket( '-'), ha=ha)
+    ax.text(-0.1*r,  1.1*r,  0.3*r, common.braket('-i'), ha=ha)
+    ax.text(-0.2*r, -1.5*r,  0.1*r, common.braket( 'i'), ha=ha)
+    ax.text(-0.2*r,      0,      r, common.braket( '0'), ha=ha)
+    ax.text( 0.2*r,      0, 1.1*-r, common.braket( '1'), ha=ha)
+
+    # Sample vector. with theta and phi.
+    if False:
+        # It is getting too hard to cram everything in a single image,
+        # bail out for now, just point people to https://en.wikipedia.org/wiki/File:Bloch_sphere.svg
+        # which shows that pretty well.
+        theta = np.pi/4
+        phi = np.pi/4
+        sin_theta = np.sin(theta)
+        x = sin_theta*np.cos(phi)
+        y = sin_theta*np.sin(phi)
+        z = np.cos(theta)
+        draw_arrow_3d(ax, [0, x], [0, y], [0, z])
+        ax.plot([x, x], [y, y], [0, z], color='black', ls='--')
+        ax.plot([0, x], [0, y], [0, 0], color='black', ls='--')
+
+    # return {'bbox_inches': fig.bbox_inches.from_bounds(1, 1, 8, 6)}
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

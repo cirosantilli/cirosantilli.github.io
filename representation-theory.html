@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Representation theory - Ciro Santilli</title>
+<meta property="og:title" content="Representation theory - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/representation-theory">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/representation-theory">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="representation-theory"><div class="notnav"><h1><a href="">Representation theory</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a><a href="mathematics"> Mathematics</a><a href="mathematics#area-of-mathematics"> Area of mathematics</a><a href="geometry"> Geometry</a><a href="geometry#differential-geometry"> Differential geometry</a><a href="geometry#lie-group"> Lie group</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://en.wikipedia.org/wiki/Representation_theory" class="wiki"></a><a href="https://ourbigbook.com/cirosantilli/representation-theory"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="geometry#representation-theory"></a><span class="metrics"><span class="wcntr"> Words: 239</span><span class="dcnt"> Articles: 3</span></span></div></nav></div><div class="p" id="_443">Basically, a "representation" means associating each group element as an invertible <a href="linear-algebra#matrix">matrices</a>, i.e. a matrix in (possibly some subset of) <a href="geometry#general-linear-group"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></a>, that has the same properties as the group.</div><div class="p" id="_444">Or in other words, associating to the more abstract notion of a <a href="group">group</a> more concrete objects with which we are familiar (e.g. a matrix). </div><div class="p" id="_445">Each such matrix then represents one specific element of the group.</div><div class="p" id="_446">This is basically what everyone does (or should do!) when starting to study <a href="geometry#lie-group">Lie groups</a>: we start looking at <a href="geometry#matrix-lie-group">matrix Lie groups</a>, which are very concrete.</div><div class="p" id="_447">Or more precisely, mapping each group element to a <a href="linear-algebra#linear-map">linear map</a> over some <a href="group#vector-field">vector field</a> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> (which can be represented by a matrix infinite dimension), in a way that respects the group operations:<div class="math" id="_448"><div><div class="equation"><div><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span></div><div class="number"><a href="#_448">(40)</a></div></div></div></div></div><div class="p" id="_449">As shown at <a href="physicist#physics-from-symmetry-by-jakob-schwichtenberg-2015">Physics from Symmetry by Jakob Schwichtenberg (2015)</a><div class="list"><ul id="_450"><li id="_451">page 51, a representation is not unique, we can even use matrices of different dimensions to represent the same group</li><li id="_452">3.6 classifies the <a href="geometry#representations-of-su-2">representations of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span></span></span></span></a>. There is only one possibility per dimension!</li><li id="_453">3.7 "The Lorentz Group O(1,3)" mentions that even for a "simple" group such as the <a href="geometry#lorentz-group">Lorentz group</a>, not all representations can be described in terms of matrices, and that we can construct such representations with the help of <a href="geometry#lie-group">Lie group</a> theory, and that they have fundamental physical application</li></ul></div></div><div class="p" id="_454">Motivation:<div class="list"><ul id="_455"><li id="_456"><a href="https://math.stackexchange.com/questions/1628464/what-is-representation-theory">math.stackexchange.com/questions/1628464/what-is-representation-theory</a></li></ul></div></div><div class="p" id="_457">Bibliography:<div class="list"><ul id="_458"><li id="_459"><a href="https://www.youtube.com/watch?v=9rDzaKASMTM">www.youtube.com/watch?v=9rDzaKASMTM</a> "RT1: Representation Theory Basics" by <a href="mathematics#mathdoctorbob">MathDoctorBob</a> (2011). Too much theory, give me the motivation!</li><li id="_460"><a href="https://www.quantamagazine.org/the-useless-perspective-that-transformed-mathematics-20200609">www.quantamagazine.org/the-useless-perspective-that-transformed-mathematics-20200609</a> The "Useless" Perspective That Transformed Mathematics by <a href="science#quanta-magazine">Quanta Magazine</a> (2020). Maybe there is something in there amidst the "the reader might not know what a <a href="linear-algebra#matrix">matrix</a> is" stuff.</li></ul></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 239</span><span class="dcnt"> 3</span></span></span></span></div><ul><li class="has-child"><div id="_toc/irreducible-representation"><div class="arrow"><div></div></div><span class="not-arrow"><a href="geometry#irreducible-representation">Irreducible representation</a><span class="hover-metadata"><a href="#_toc" class="u"> Representation theory</a><span class="metrics"><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/casimir-element"><div class="arrow"><div></div></div><span class="not-arrow"><a href="geometry#casimir-element">Casimir element</a><span class="hover-metadata"><a href="#_toc/irreducible-representation" class="u"> Irreducible representation</a></span></span></div></li></ul><li><div id="_toc/schur-s-lemma"><div class="arrow"><div></div></div><span class="not-arrow"><a href="geometry#schur-s-lemma">Schur's lemma</a><span class="hover-metadata"><a href="#_toc" class="u"> Representation theory</a></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(6)</span></a></h2><div class="list"><ol><li><a href="geometry#lie-group">Lie group</a></li><li><a href="geometry#differential-geometry">Differential geometry</a></li><li><a href="geometry">Geometry</a></li><li><a href="mathematics#area-of-mathematics">Area of mathematics</a></li><li><a href="mathematics">Mathematics</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(2)</span></a></h2><div class="list"><ul><li><a href="quantum-field-theory#quantum-field-theory-lecture-by-tobias-osborne-2017/lecture-1">Lecture 1</a></li><li><a href="relativistic-quantum-mechanics#spin-number-of-a-field">Spin number of a field</a></li></ul></div><h2 id="_synonyms"><a href="#_synonyms"><span title="Synonyms" class="fa-solid-900 icon"></span> Synonyms <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="geometry#representation-theory">Representation (group theory)</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/geometry.bigb">Source code for this page: geometry.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/geometry.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

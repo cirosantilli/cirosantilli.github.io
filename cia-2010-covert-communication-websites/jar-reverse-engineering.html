@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>CIA 2010 covert communication websites / JAR reverse engineering - Ciro Santilli</title>
+<meta property="og:title" content="CIA 2010 covert communication websites / JAR reverse engineering - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/cia-2010-covert-communication-websites/jar-reverse-engineering">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/jar-reverse-engineering">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="jar-reverse-engineering"><div class="notnav"><h1><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a><span class="meta"> / </span><a href="">JAR reverse engineering</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../science#american-intelligence-agency"> American intelligence agency</a><a href="../science#central-intelligence-agency"> Central Intelligence Agency</a><a href="../cia-2010-covert-communication-websites"> CIA 2010 covert communication websites</a><a href="../cia-2010-covert-communication-websites#methodology"> Methodology</a><a href="../cia-2010-covert-communication-websites#reverse-engineering"> Reverse engineering</a><a href="../cia-2010-covert-communication-websites#communication-mechanism"> Communication mechanism</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/cia-2010-covert-communication-websites/jar-reverse-engineering"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../cia-2010-covert-communication-websites#jar-reverse-engineering"></a><span class="metrics"><span class="wcntr"> Words: 283</span></span></div></nav></div><div class="p" id="_6565">TODO it would be cool to have a look at the JARs and see if they have anything in common that makes for a good fringerprint. Would not help find new ones, but would help to confirm possible hits.</div><div class="p" id="_6566">The most advanced reverse engineering effort so far has been by <a href="https://github.com/quat1024">GitHub user quat1024</a>, an undergratuate student at Ohio State University, <a href="https://modrinth.com/user/quat">Minecraft modding extraordinaire</a> and <a href="https://highlysuspect.agency/photos/">furry afficionado</a>. Minecraft is written in Java, which may partly explains his Java skills.<div class="list"><ul id="_6567"><li id="_6568"><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues/203">github.com/cirosantilli/cirosantilli.github.io/issues/203</a></li><li id="_6569"><a href="https://notes.highlysuspect.agency/cia-jars.html">notes.highlysuspect.agency/cia-jars.html</a></li></ul></div>He managed to deobfuscate the strings present inthe JARs using Enigma, possibly <a href="https://github.com/FabricMC/Enigma">github.com/FabricMC/Enigma</a>, a Java reverse engineering tool. Cool findings on <a href="https://web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar">web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar</a> include:<div class="list"><ul id="_6570"><li id="_6571"><code>applet.configs1</code> deobfuscated contains a date:<div class="code" id="_6572"><div><pre><code> Fri Feb 05 12:04:29 EST 2010</code></pre></div></div>Also cool is the present of a timeszone, "EST" unsurprisingly.</li></ul></div></div><div class="p" id="_6573"><a href="https://web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar">web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar</a> unzips to:</div><div class="p" id="_6574"><div class="code" id="_6575"><div><pre><code>.
+./c
+./c/b
+./c/b/b.class
+./c/b/c.class
+./c/b/d.class
+./c/b/a
+./c/b/a/a.class
+./c/b/a/b.class
+./c/b/a/c.class
+./c/b/a/d.class
+./c/a
+./c/a/a.class
+./c/a/b.class
+./c/a/c.class
+./b
+./b/a
+./b/a/a
+./b/a/a/e.class
+./b/a/a/f.class
+./b/a/a/a.class
+./b/a/a/b.class
+./b/a/a/g.class
+./b/a/a/c.class
+./b/a/a/d.class
+./META-INF
+./META-INF/MANIFEST.MF
+./a
+./a/cre
+./a/a
+./a/a/b
+./a/a/b/a.class
+./a/a/a
+./a/a/a/e.class
+./a/a/a/applet.configs
+./a/a/a/b
+./a/a/a/b/e.class
+./a/a/a/b/f.class
+./a/a/a/b/b.class
+./a/a/a/b/g.class
+./a/a/a/b/c.class
+./a/a/a/b/d.class
+./a/a/a/b/a
+./a/a/a/b/a/a.class
+./a/a/a/b/a/b.class
+./a/a/a/b/a/c.class
+./a/a/a/c.class
+./a/a/a/d.class
+./a/a/a/a
+./a/a/a/a/a.class</code></pre></div></div>so it is fully obfuscated.</div><div class="p" id="_6576"><code>./META-INF/MANIFEST.MF</code><div class="code" id="_6577"><div><pre><code>Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_17-b04 (Sun Microsystems Inc.)</code></pre></div></div></div><div class="p" id="_6578">Other files whose existence might help to fingerprint include:<div class="list"><ul id="_6579"><li id="_6580"><code>a/a/a/applet.configs</code></li><li id="_6581">empty <code>a/cre</code></li></ul></div></div><div class="p" id="_6582">A quick:<div class="code" id="_6583"><div><pre><code>find . -type f | xargs strings | sort -u</code></pre></div></div>does not reveal any obvious cryptography calls.</div><div class="p" id="_6584"><a href="https://web.archive.org/web/20110207204640/http://flyingtimeline.com/aircraft.jar">web.archive.org/web/20110207204640/http://flyingtimeline.com/aircraft.jar</a> is very similar looking. <code>META-INF/MANIFEST.MF</code> is identical:<div class="code" id="_6585"><div><pre><code>Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_17-b04 (Sun Microsystems Inc.)</code></pre></div></div></div><div class="p" id="_6586"><a href="https://web.archive.org/web/20110202185659/http://differentviewtoday.com/bwm.jar">web.archive.org/web/20110202185659/http://differentviewtoday.com/bwm.jar</a> is a bit different with tree:<div class="code" id="_6587"><div><pre><code>META-INF/MANIFEST.MF
+a/a.class
+b/a/a/a.class
+b/a/a/b.class
+b/a/a/c.class
+b/a/b/a.class
+b/a/b/b.class
+b/a/b/c.class
+b/a/b/d.class
+b/a/b/e.class
+b/a/bw.properties
+b/a/c.class
+c/a/a/a.class
+c/a/a/b.class
+c/a/a/c.class
+c/a/a/d.class
+c/a/b.class
+c/a/c.class
+c/a/d.class
+c/a/e.class
+c/b/a.class
+c/b/b.class
+c/b/c.class</code></pre></div></div>and:<div class="code" id="_6588"><div><pre><code>META-INF/MANIFEST.MF
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.5
+Created-By: 1.5.0_12-b04 (Sun Microsystems Inc.)</code></pre></div></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(15)</span></a></h2><div class="list"><ol><li><a href="../cia-2010-covert-communication-websites#communication-mechanism">Communication mechanism</a></li><li><a href="../cia-2010-covert-communication-websites#reverse-engineering">Reverse engineering</a></li><li><a href="../cia-2010-covert-communication-websites#methodology">Methodology</a></li><li><a href="../cia-2010-covert-communication-websites">CIA 2010 covert communication websites</a></li><li><a href="../science#central-intelligence-agency">Central Intelligence Agency</a></li><li><a href="../science#american-intelligence-agency">American intelligence agency</a></li><li><a href="../science#united-states-intelligence-community">United States Intelligence Community</a></li><li><a href="../science#intelligence-community">Intelligence community</a></li><li><a href="../science#secret-service">Secret service</a></li><li><a href="../science#espionage">Espionage</a></li><li><a href="../science#war">War</a></li><li><a href="../science#social-science">Social science</a></li><li><a href="../science#scientific-method">Scientific method</a></li><li><a href="../science">Science</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/cia-2010-covert-communication-websites.bigb">Source code for this page: cia-2010-covert-communication-websites.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/cia-2010-covert-communication-websites.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "cia-2010-covert-communication-websites/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

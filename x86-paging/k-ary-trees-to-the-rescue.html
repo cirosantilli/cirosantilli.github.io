@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>x86 Paging Tutorial / K-ary trees to the rescue - Ciro Santilli</title>
+<meta property="og:title" content="x86 Paging Tutorial / K-ary trees to the rescue - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/x86-paging/k-ary-trees-to-the-rescue">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/x86-paging/k-ary-trees-to-the-rescue">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="k-ary-trees-to-the-rescue"><div class="notnav"><h1><a href="../x86-paging">x86 Paging Tutorial</a><span class="meta"> / </span><a href="">K-ary trees to the rescue</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../computer-hardware#processor-computing"> Processor (computing)</a><a href="../computer-hardware#instruction-set-architecture"> Instruction set architecture</a><a href="../computer-hardware#list-of-instruction-set-architectures"> List of instruction set architectures</a><a href="../computer-hardware#x86"> x86</a><a href="../x86-paging"> x86 Paging Tutorial</a><a href="../x86-paging#example-multi-level-paging-scheme"> Example: multi-level paging scheme</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/x86-paging/k-ary-trees-to-the-rescue"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../x86-paging#k-ary-trees-to-the-rescue"></a><span class="metrics"><span class="wcntr"> Words: 309</span></span></div></nav></div><div class="p" id="_176">The algorithmically minded will have noticed that paging requires <a href="../computer-science#associative-array">associative array</a> (like Java <code>Map</code> of Python <code>dict()</code>) abstract data structure where:<div class="list"><ul id="_177"><li id="_178">the keys are linear pages addresses, thus of integer type</li><li id="_179">the values are physical page addresses, also of integer type</li></ul></div></div><div class="p" id="_180">The single level paging scheme uses a simple array implementation of the associative array:<div class="list"><ul id="_181"><li id="_182">the keys are the array index</li><li id="_183">this implementation is very fast in time</li><li id="_184">but it is too inefficient in memory</li></ul></div>and in C pseudo-code it looks like this:<div class="code" id="_185"><div><pre><code>linear_address[0]      = physical_address_0
+linear_address[1]      = physical_address_1
+linear_address[2]      = physical_address_2
+...
+linear_address[2^20-1] = physical_address_N</code></pre></div></div></div><div class="p" id="_186">But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <a href="../mathematics#k-ary-tree">k-ary tree</a>.</div><div class="p" id="_187">A K-ary tree, is just like a <a href="../mathematics#binary-tree">binary tree</a>, but with K children instead of 2.</div><div class="p" id="_188">Using a K-ary tree instead of an array implementation has the following trade-offs:<div class="list"><ul id="_189"><li id="_190">it uses way less memory</li><li id="_191">it is slower since we have to de-reference extra pointers</li></ul></div></div><div class="p" id="_192">In C-pseudo code, a 2-level K-ary tree with <code>K = 2^10</code> looks like this:<div class="code" id="_193"><div><pre><code>level0[0] = &amp;level1_0[0]
+    level1_0[0]      = physical_address_0_0
+    level1_0[1]      = physical_address_0_1
+    ...
+    level1_0[2^10-1] = physical_address_0_N
+level0[1] = &amp;level1_1[0]
+    level1_1[0]      = physical_address_1_0
+    level1_1[1]      = physical_address_1_1
+    ...
+    level1_1[2^10-1] = physical_address_1_N
+...
+level0[N] = &amp;level1_N[0]
+    level1_N[0]      = physical_address_N_0
+    level1_N[1]      = physical_address_N_1
+    ...
+    level1_N[2^10-1] = physical_address_N_N</code></pre></div></div>and we have the following arrays:<div class="list"><ul id="_194"><li id="_195">one <code>directory</code>, which has <code>2^10</code> elements. Each element contains a pointer to a page table array.</li><li id="_196">up to 2^10 <code>pagetable</code> arrays. Each one has <code>2^10</code> 4 byte page entries.</li></ul></div>and it still contains <code>2^10 * 2^10 = 2^20</code> possible keys.</div><div class="p" id="_197">K-ary trees can save up a lot of space, because if we only have one key, then we only need the following arrays:<div class="list"><ul id="_198"><li id="_199">one <code>directory</code> with 2^10 entries</li><li id="_200">one <code>pagetable</code> at <code>directory[0]</code> with 2^10 entries</li><li id="_201">all other <code>directory[i]</code> are marked as invalid, don't point to anything, and we don't allocate <code>pagetable</code> for them at all</li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="../x86-paging#example-multi-level-paging-scheme">Example: multi-level paging scheme</a></li><li><a href="../x86-paging">x86 Paging Tutorial</a></li><li><a href="../computer-hardware#x86">x86</a></li><li><a href="../computer-hardware#list-of-instruction-set-architectures">List of instruction set architectures</a></li><li><a href="../computer-hardware#instruction-set-architecture">Instruction set architecture</a></li><li><a href="../computer-hardware#processor-computing">Processor (computing)</a></li><li><a href="../computer-hardware#computer-hardware-component-type">Computer hardware component type</a></li><li><a href="../computer-hardware">Computer hardware</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/x86-paging.bigb">Source code for this page: x86-paging.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/x86-paging.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "x86-paging/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>lenet/lenet.py - Ciro Santilli</title>
+<meta property="og:title" content="lenet/lenet.py - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/lenet/lenet.py">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/lenet/lenet.py">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/lenet/lenet.py"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">lenet/lenet.py</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/lenet/lenet.py"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/lenet">lenet</a> / <a href="../../_raw/lenet/lenet.py">lenet.py</a></b></div></nav></div><div class="p"><b>lenet/lenet.py</b></div><div class="code"><div><pre><code>import torch.nn as nn
+from collections import OrderedDict
+
+
+class C1(nn.Module):
+    def __init__(self):
+        super(C1, self).__init__()
+
+        self.c1 = nn.Sequential(OrderedDict([
+            ('c1', nn.Conv2d(1, 6, kernel_size=(5, 5))),
+            ('relu1', nn.ReLU()),
+            ('s1', nn.MaxPool2d(kernel_size=(2, 2), stride=2))
+        ]))
+
+    def forward(self, img):
+        output = self.c1(img)
+        return output
+
+
+class C2(nn.Module):
+    def __init__(self):
+        super(C2, self).__init__()
+
+        self.c2 = nn.Sequential(OrderedDict([
+            ('c2', nn.Conv2d(6, 16, kernel_size=(5, 5))),
+            ('relu2', nn.ReLU()),
+            ('s2', nn.MaxPool2d(kernel_size=(2, 2), stride=2))
+        ]))
+
+    def forward(self, img):
+        output = self.c2(img)
+        return output
+
+
+class C3(nn.Module):
+    def __init__(self):
+        super(C3, self).__init__()
+
+        self.c3 = nn.Sequential(OrderedDict([
+            ('c3', nn.Conv2d(16, 120, kernel_size=(5, 5))),
+            ('relu3', nn.ReLU())
+        ]))
+
+    def forward(self, img):
+        output = self.c3(img)
+        return output
+
+
+class F4(nn.Module):
+    def __init__(self):
+        super(F4, self).__init__()
+
+        self.f4 = nn.Sequential(OrderedDict([
+            ('f4', nn.Linear(120, 84)),
+            ('relu4', nn.ReLU())
+        ]))
+
+    def forward(self, img):
+        output = self.f4(img)
+        return output
+
+
+class F5(nn.Module):
+    def __init__(self):
+        super(F5, self).__init__()
+
+        self.f5 = nn.Sequential(OrderedDict([
+            ('f5', nn.Linear(84, 10)),
+            ('sig5', nn.LogSoftmax(dim=-1))
+        ]))
+
+    def forward(self, img):
+        output = self.f5(img)
+        return output
+
+
+class LeNet5(nn.Module):
+    """
+    Input - 1x32x32
+    Output - 10
+    """
+    def __init__(self):
+        super(LeNet5, self).__init__()
+
+        self.c1 = C1()
+        self.c2_1 = C2() 
+        self.c2_2 = C2() 
+        self.c3 = C3() 
+        self.f4 = F4() 
+        self.f5 = F5() 
+
+    def forward(self, img):
+        output = self.c1(img)
+
+        x = self.c2_1(output)
+        output = self.c2_2(output)
+
+        output += x
+
+        output = self.c3(output)
+        output = output.view(img.size(0), -1)
+        output = self.f4(output)
+        output = self.f5(output)
+        return output
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

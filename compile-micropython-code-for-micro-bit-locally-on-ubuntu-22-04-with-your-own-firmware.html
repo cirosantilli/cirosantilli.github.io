@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware - Ciro Santilli</title>
+<meta property="og:title" content="Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/compile-micropython-code-for-micro-bit-locally-on-ubuntu-22-04-with-your-own-firmware">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/compile-micropython-code-for-micro-bit-locally-on-ubuntu-22-04-with-your-own-firmware">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="compile-micropython-code-for-micro-bit-locally-on-ubuntu-22-04-with-your-own-firmware"><div class="notnav"><h1><a href="">Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="electronics#microprocessor-development-board"> Microprocessor development board</a><a href="electronics#microcontroller-devboard"> Microcontroller devboard</a><a href="electronics#micro-bit"> Micro Bit</a><a href="electronics#program-the-micro-bit-with-x"> Program the Micro Bit with X</a><a href="electronics#run-micropython-on-micro-bit"> Run MicroPython on Micro Bit</a><a href="electronics#compile-micropython-code-for-micro-bit-locally"> Compile MicroPython code for Micro Bit locally</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/compile-micropython-code-for-micro-bit-locally-on-ubuntu-22-04-with-your-own-firmware"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="electronics#compile-micropython-code-for-micro-bit-locally-on-ubuntu-22-04-with-your-own-firmware"></a><span class="metrics"><span class="wcntr"> Words: 345</span></span></div></nav></div><div class="p" id="_295">TODO didn't manage from source <a href="systems-programming#ubuntu-22-04">Ubuntu 22.04</a>, their setup bitrotted way too fast... it's shameful even. Until I gave up and went for the magic <a href="systems-programming#docker-software">Docker</a> of + <a href="https://github.com/bbcmicrobit/micropython">github.com/bbcmicrobit/micropython</a>, and it bloody worked:<div class="code" id="_296"><div><pre><code>git clone https://github.com/bbcmicrobit/micropython
+cd micropython
+git checkout 7fc33d13b31a915cbe90dc5d515c6337b5fa1660
+docker pull ghcr.io/carlosperate/microbit-toolchain:latest
+docker run -v $(pwd):/home --rm ghcr.io/carlosperate/microbit-toolchain:latest yt target bbc-microbit-classic-gcc-nosd@https://github.com/lancaster-university/yotta-target-bbc-microbit-classic-gcc-nosd
+docker run -v $(pwd):/home --rm ghcr.io/carlosperate/microbit-toolchain:latest make all
+
+# Build one.
+tools/makecombinedhex.py build/firmware.hex examples/counter.py -o build/counter.hex
+cp build/counter.hex "/media/$USER/MICROBIT/"
+
+# Build all.
+for f in examples/*; do b="$(basename "$f")"; echo $b; tools/makecombinedhex.py build/firmware.hex "$f" -o "build/${b%.py}.hex"; done</code></pre></div></div></div><div class="p" id="_297">The pre-Docker attempts:<div class="code" id="_298"><div><pre><code>sudo add-apt-repository -y ppa:team-gcc-arm-embedded
+sudo apt update
+sudo apt install gcc-arm-embedded
+sudo apt install cmake ninja-build srecord libssl-dev
+
+# Rust required for some Yotta component, OMG.
+sudo snap install rustup
+rustup default 1.64.0
+
+python3 -m pip install yotta</code></pre></div></div></div><div class="p" id="_299">The line:<div class="code" id="_300"><div><pre><code>sudo add-apt-repository -y ppa:team-gcc-arm-embedded</code></pre></div></div>warns:<div class="code" id="_301"><div><pre><code>E: The repository 'https://ppa.launchpadcontent.net/team-gcc-arm-embedded/ppa/ubuntu jammy Release' does not have a Release file.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.</code></pre></div></div>and then the update/<code>sudo apt-get install gcc-arm-embedded</code> fails, bibliography:<div class="list"><ul id="_302"><li id="_303"><a href="https://askubuntu.com/questions/732985/force-update-from-unsigned-repository">askubuntu.com/questions/732985/force-update-from-unsigned-repository</a></li><li id="_304"><a href="https://askubuntu.com/questions/1243252/how-to-install-arm-none-eabi-gdb-on-ubuntu-20-04-lts-focal-fossa">askubuntu.com/questions/1243252/how-to-install-arm-none-eabi-gdb-on-ubuntu-20-04-lts-focal-fossa</a></li></ul></div></div><div class="p" id="_305">Attempting to install <a href="electronics#yotta-build-system">Yotta</a>:<div class="code" id="_306"><div><pre><code>sudo -H pip3 install yotta</code></pre></div></div>or:<div class="code" id="_307"><div><pre><code>python3 -m pip install --user yotta</code></pre></div></div>was failing with:<div class="code" id="_308"><div><pre><code>Exception: Version mismatch: this is the 'cffi' package version 1.15.1, located in '/tmp/pip-build-env-dinhie_9/overlay/local/lib/python3.10/dist-packages/cffi/api.py'.  When we import the top-level '_cffi_backend' extension module, we get version 1.15.0, located in '/usr/lib/python3/dist-packages/_cffi_backend.cpython-310-x86_64-linux-gnu.so'.  The two versions should be equal; check your installation.</code></pre></div></div>Running:<div class="code" id="_309"><div><pre><code>python3 -m pip install --user cffi==1.15.1</code></pre></div></div>did not help. Bibliography:<div class="list"><ul id="_310"><li id="_311"><a href="https://stackoverflow.com/questions/58552666/exception-version-mismatch-this-is-the-cffi-package-version-1-13-1">stackoverflow.com/questions/58552666/exception-version-mismatch-this-is-the-cffi-package-version-1-13-1</a></li><li id="_312"><a href="https://github.com/ARMmbed/yotta/issues/289">github.com/ARMmbed/yotta/issues/289</a></li><li id="_313"><a href="https://github.com/pyocd/pyOCD/issues/163">github.com/pyocd/pyOCD/issues/163</a></li><li id="_314"><a href="http://docs.yottabuild.org/#installing-on-linux">docs.yottabuild.org/#installing-on-linux</a></li></ul></div></div><div class="p" id="_315">From a clean <a href="programming-language#virtualenv">virtualenv</a>, it appears to move further, and then fails at:<div class="code" id="_316"><div><pre><code>Building wheel for cmsis-pack-manager (pyproject.toml) ... error
+error: [Errno 2] No such file or directory: 'cargo'</code></pre></div></div>So we install <a href="programming-language#rust-programming-language">Rust</a> and try again, OMG:<div class="code" id="_317"><div><pre><code>sudo snap install rustup
+rustup default stable</code></pre></div></div>which at the time of writing was <code>rustc 1.64.0</code>, and then OMG, it worked!! We have the <code>yt</code> command.</div><div class="p" id="_318">However, it is still broken, e.g.:<div class="code" id="_319"><div><pre><code>git clone https://github.com/lancaster-university/microbit-samples
+cd microbit-samples
+git checkout 285f9acfb54fce2381339164b6fe5c1a7ebd39d5
+cp source/examples/invaders/* source
+yt clean
+yt build</code></pre></div></div>blows up:<div class="code" id="_320"><div><pre><code>annot import name 'soft_unicode' from 'markupsafe'</code></pre></div></div>bibliography:<div class="list"><ul id="_321"><li id="_322"><a href="https://github.com/aws/aws-sam-cli/issues/3661">github.com/aws/aws-sam-cli/issues/3661</a></li><li id="_323"><a href="https://stackoverflow.com/questions/72191560/importerror-cannot-import-name-soft-unicode-from-markupsafe">stackoverflow.com/questions/72191560/importerror-cannot-import-name-soft-unicode-from-markupsafe</a></li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="electronics#compile-micropython-code-for-micro-bit-locally">Compile MicroPython code for Micro Bit locally</a></li><li><a href="electronics#run-micropython-on-micro-bit">Run MicroPython on Micro Bit</a></li><li><a href="electronics#program-the-micro-bit-with-x">Program the Micro Bit with X</a></li><li><a href="electronics#micro-bit">Micro Bit</a></li><li><a href="electronics#microcontroller-devboard">Microcontroller devboard</a></li><li><a href="electronics#microprocessor-development-board">Microprocessor development board</a></li><li><a href="electronics#printed-circuit-board">Printed circuit board</a></li><li><a href="electronics#circuit-board">Circuit board</a></li><li><a href="electronics#electronic-circuit">Electronic circuit</a></li><li><a href="electronics">Electronics</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(2)</span></a></h2><div class="list"><ul><li><a href="electronics#compile-micropython-code-for-micro-bit-locally">Compile MicroPython code for Micro Bit locally</a></li><li><a href="electronics#program-the-micro-bit-in-c">Program the Micro Bit in C</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/electronics.bigb">Source code for this page: electronics.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/electronics.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

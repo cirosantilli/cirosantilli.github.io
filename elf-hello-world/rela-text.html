@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>ELF Hello World Tutorial / .rela.text - Ciro Santilli</title>
+<meta property="og:title" content="ELF Hello World Tutorial / .rela.text - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/elf-hello-world/rela-text">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/elf-hello-world/rela-text">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="rela-text"><div class="notnav"><h1><a href="../elf-hello-world">ELF Hello World Tutorial</a><span class="meta"> / </span><a href=""><code>.rela.text</code></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../software"> Software</a><a href="../systems-programming"> Systems programming</a><a href="../systems-programming#executable-file-format"> Executable file format</a><a href="../systems-programming#executable-and-linkable-format"> Executable and Linkable Format</a><a href="../elf-hello-world"> ELF Hello World Tutorial</a><a href="../elf-hello-world#sections"> Sections</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/elf-hello-world/rela-text"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../elf-hello-world#rela-text"></a><span class="metrics"><span class="wcntr"> Words: 429</span><span class="dcnt"> Articles: 1</span></span></div></nav></div><div class="p" id="_321">Section type: <code>sh_type == SHT_RELA</code>.</div><div class="p" id="_322">Common name: "relocation section".</div><div class="p" id="_323"><code>.rela.text</code> holds relocation data which says how the address should be modified when the final executable is linked. This points to bytes of the text area that must be modified when linking happens to point to the correct memory locations.</div><div class="p" id="_324">Basically, it translates the object text containing the placeholder 0x0 address:<div class="code" id="_325"><div><pre><code>   a:       48 be 00 00 00 00 00    movabs $0x0,%rsi
+  11:       00 00 00</code></pre></div></div>to the actual executable code containing the final 0x6000d8:<div class="code" id="_326"><div><pre><code>4000ba: 48 be d8 00 60 00 00    movabs $0x6000d8,%rsi
+4000c1: 00 00 00</code></pre></div></div></div><div class="p" id="_327">It was pointed to by <code>sh_info</code> = <code>6</code> of the <code>.symtab</code> section.</div><div class="p" id="_328"><code>readelf -r hello_world.o</code> outputs:<div class="code" id="_329"><div><pre><code>Relocation section '.rela.text' at offset 0x3b0 contains 1 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+00000000000c  000200000001 R_X86_64_64       0000000000000000 .data + 0</code></pre></div></div></div><div class="p" id="_330">The section does not exist in the executable.</div><div class="p" id="_331">The actual bytes are:<div class="code" id="_332"><div><pre><code>00000370  0c 00 00 00 00 00 00 00  01 00 00 00 02 00 00 00  |................|
+00000380  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|</code></pre></div></div></div><div class="p" id="_333">The <code>struct</code> represented is:<div class="code" id="_334"><div><pre><code>typedef struct {
+    Elf64_Addr  r_offset;
+    Elf64_Xword r_info;
+    Elf64_Sxword    r_addend;
+} Elf64_Rela;</code></pre></div></div></div><div class="p" id="_335">So:<div class="list"><ul id="_336"><li id="_337">370 0: <code>r_offset</code> = 0xC: address into the <code>.text</code> whose address this relocation will modify</li><li id="_338"><div class="p" id="_339">370 8: <code>r_info</code> = 0x200000001. Contains 2 fields:<div class="list"><ul id="_340"><li id="_341"><code>ELF64_R_TYPE</code> = 0x1: meaning depends on the exact architecture.</li><li id="_342"><code>ELF64_R_SYM</code> = 0x2: index of the section to which the address points, so <code>.data</code> which is at index 2.</li></ul></div></div><div class="p" id="_343">The AMD64 ABI says that type <code>1</code> is called <code>R_X86_64_64</code> and that it represents the operation <code>S + A</code> where:<div class="list"><ul id="_344"><li id="_345"><code>S</code>: the value of the symbol on the object file, here <code>0</code> because we point to the <code>00 00 00 00 00 00 00 00</code> of <code>movabs $0x0,%rsi</code></li><li id="_346"><code>A</code>: the addend, present in field <code>r_added</code></li></ul></div></div><div class="p" id="_347">This address is added to the section on which the relocation operates.</div><div class="p" id="_348">This relocation operation acts on a total 8 bytes.</div></li><li id="_349">380 0: <code>r_addend</code> = 0</li></ul></div></div><div class="p" id="_350">So in our example we conclude that the new address will be: <code>S + A</code> = <code>.data + 0</code>, and thus the first thing in the data section.</div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 429</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/rel-text"><div class="arrow"><div></div></div><span class="not-arrow"><a href="../elf-hello-world#rel-text"><i class="n">1. </i><code>.rel.text</code></a><span class="hover-metadata"><a href="#_toc" class="u"> <code>.rela.text</code></a><span class="metrics"><span class="wcntr"> 63</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="../elf-hello-world#sections">Sections</a></li><li><a href="../elf-hello-world">ELF Hello World Tutorial</a></li><li><a href="../systems-programming#executable-and-linkable-format">Executable and Linkable Format</a></li><li><a href="../systems-programming#executable-file-format">Executable file format</a></li><li><a href="../systems-programming">Systems programming</a></li><li><a href="../software">Software</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/elf-hello-world.bigb">Source code for this page: elf-hello-world.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/elf-hello-world.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "elf-hello-world/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

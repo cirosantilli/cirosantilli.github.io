@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/raw/parallel_create_delete_empty_tag.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/raw/parallel_create_delete_empty_tag.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js">
+<style>@import "../../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/raw/parallel_create_delete_empty_tag.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../../../../sql"> SQL</a><a href="../../../../sql#sql-feature"> SQL feature</a><a href="../../../../sql#sql-transaction"> SQL transaction</a><a href="../../../../sql#sql-transaction-isolation-level"> SQL transaction isolation level</a><a href="../../../../sql#sql-isolation-level-example"> SQL isolation level example</a><a href="../../../../sql#sql-parallel-update-example"> SQL parallel update example</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js"><img src="../../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../../../../sql#_file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js"></a><span class="metrics"><span class="wcntr"> Words: 758</span></span></div><div class="nav file"><b> <a href="../../../../_dir">(root)</a> / <a href="../../../../_dir/nodejs">nodejs</a> / <a href="../../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../../_dir/nodejs/sequelize/raw">raw</a> / <a href="../../../../_raw/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js">parallel_create_delete_empty_tag.js</a></b></div></nav></div><div class="p" id="_565">In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.</div><div class="p" id="_566">If we are creating and deleting posts concurrently, a naive implementation might wrongly delete the tags of a newly created post.</div><div class="p" id="_567">This could be due to a concurrency issue of the following types.</div><div class="p" id="_568">Failure case 1:<div class="list"><ul id="_569"><li id="_570">thread 2: delete old post</li><li id="_571">thread 2: find all tags with 0 posts. Finds <code>tag0</code> from the deleted old post which is now empty.</li><li id="_572">thread 1: create new post, which we want to have tag <code>tag0</code></li><li id="_573">thread 1: try to create a new tag <code>tag0</code>, but don't because it already exists, this is done using <a href="../../../../sql#sqlite">SQLite</a>'s <code>INSERT OR IGNORE INTO</code> or <a href="../../../../sql#postgresql">PostgreSQL</a>'s <code>INSERT ... ON CONFLICT DO NOTHING</code></li><li id="_574">thread 1: assign <code>tag0</code> to the new post by adding an entry to the join table</li><li id="_575">thread 2: delete all tags with 0 posts. It still sees from its previous search that <code>tag0</code> is empty, and deletes it, which then cascades into the join table</li></ul></div>which would result in the new post incorrectly not having the <code>tag0</code>.</div><div class="p" id="_576">Failure case 2:<div class="list"><ul id="_577"><li id="_578">thread 2: delete old post</li><li id="_579">thread 2: find all tags with 0 posts</li><li id="_580">thread 1: create new post</li><li id="_581">thread 1: try to create a new tag <code>tag0</code>, but don't because it already exists</li><li id="_582">thread 2: delete all tags with 0 posts. It still sees from its previous search that <code>tag0</code> is empty, and deletes it</li><li id="_583">thread 1: assign <code>tag0</code> to the new post</li></ul></div>which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.</div><div class="p" id="_584">Failure case 3:<div class="list"><ul id="_585"><li id="_586">thread 2: delete old post</li><li id="_587">thread 1: create new post, which we want to have tag <code>tag0</code></li><li id="_588">thread 1: try to create a new tag <code>tag0</code>, and succeed because it wasn't present</li><li id="_589">thread 2: find all tags with 0 posts, finds the tag that was just created</li><li id="_590">thread 2: delete all tags with 0 posts, deleting the new tag</li><li id="_591">thread 1: assign <code>tag0</code> to the new post</li></ul></div>which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.</div><div class="p" id="_592">Sample executions:<div class="list"><ul id="_593"><li id="_594"><div class="p" id="_595"><code>node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'</code>: <a href="../../../../sql#postgresql">PostgreSQL</a>, 9 tags, DELETE/CREATE the <code>tag0</code> test tag 1000 times, use <code>READ COMMITTED</code></div><div class="p" id="_596">Execution often fails, although not always. The failure is always:<div class="code" id="_597"><div><pre><code>error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"</code></pre></div></div>because the:<div class="code" id="_598"><div><pre><code>INSERT INTO "PostTag"</code></pre></div></div>tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.</div><div class="p" id="_599">TODO: we've never managed to observe the failure case in which <code>tag0</code> is deleted. Is it truly possible? And if not, by which guarantee?</div></li><li id="_600"><div class="p" id="_601"><code>node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED' 'FOR UPDATE'</code>: do a <code>SELECT ... FOR UPDATE</code> before trying to <code>INSERT</code>.</div><div class="p" id="_602">This is likely correct and the fastest correct method according to our quick benchmarking, about 20% faster than <code>REPEATABLE READ</code>.</div><div class="p" id="_603">We are just now 100% sure it is corret becase we can't find out if the <code>SELECT</code> in the <code>DELETE</code> subquery could first select some rows, which are then locked by the tag creator, and only then locked by <code>DELETE</code> after selection. Or does it re-evaludate the <code>SELECT</code> even though it is in a subquery?</div></li><li id="_604"><div class="p" id="_605"><code>node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'REPEATABLE READ'</code>: repeatable read</div><div class="p" id="_606">We've never observed any failures with this level. This should likely fix the foreign key issue according to the PostgreSQL docs, since:<div class="list"><ul id="_607"><li id="_608">the <code>DELETE "Post"</code> commit cannot start to be seen only in the middle of the thread 1 transaction</li><li id="_609">and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: <a href="../../../../sql#postgresql-serialization-failure">postgreSQL serialization failure</a>.</li></ul></div></div></li><li id="_610"><code>node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'</code>: serializable</li><li id="_611"><code>node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'</code>: magic value, don't use any transaction. Can blow up of course, since even less restrictions than <code>READ COMMITTED</code></li></ul></div>All executions use 2 threads.</div><div class="p" id="_612">Some theoretical notes:<div class="list"><ul id="_613"><li id="_614">Failure case 3 is averted by a <code>READ COMMITTED</code> transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it</li></ul></div></div><div class="p" id="_615"><a href="https://stackoverflow.com/questions/10935850/when-to-use-select-for-update">stackoverflow.com/questions/10935850/when-to-use-select-for-update</a> from <a href="../../../../sql#select-for-update">SELECT FOR UPDATE</a> also talks about a similar example, and has relevant answers.</div><div class="p"><b>nodejs/sequelize/raw/parallel_create_delete_empty_tag.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+// https://cirosantilli.com/file/sequelize/raw/parallel_create_delete_empty_tag.js
+
+const assert = require('assert')
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads')
+const { DataTypes, Op } = require('sequelize')
+const common = require('../common')
+const sequelizes = common.sequelizes(2, __filename, process.argv[2])
+const sequelize = sequelizes[0]
+const sequelize2 = sequelizes[1]
+
+let n
+if (process.argv.length &gt; 3) {
+  n = parseInt(process.argv[3], 10)
+} else {
+  n = 10
+}
+let iters
+if (process.argv.length &gt; 4) {
+  iters = parseInt(process.argv[4], 10)
+} else {
+  iters = 10
+}
+const isolation = process.argv[5]
+const for_update = process.argv[6]
+
+;(async () =&gt; {
+try {
+await common.drop(sequelize, 'PostTag')
+await common.drop(sequelize, 'Tag')
+await common.drop(sequelize, 'Post')
+await Promise.all([
+  `CREATE TABLE "Post" (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)`,
+  `CREATE TABLE "Tag" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
+].map(s =&gt; sequelize.query(s)))
+await sequelize.query(`
+CREATE TABLE "PostTag" (
+  "postId" INTEGER NOT NULL,
+  "tagId" INTEGER NOT NULL,
+  PRIMARY KEY ("postId", "tagId"),
+  FOREIGN KEY ("postId") REFERENCES "Post"(id) ON DELETE CASCADE,
+  FOREIGN KEY ("tagId") REFERENCES "Tag"(id) ON DELETE CASCADE
+)
+`)
+
+// Initialize database with post0 &lt;-&gt; tag0, so exactly one tag per post.
+// Except for tag0, which has no posts to start with.
+let arr = []
+for (let i = 0; i &lt; n; i++) {
+  arr.push(sequelize.query(`INSERT INTO "Post" VALUES (${i}, 'post${i}')`))
+  arr.push(sequelize.query(`INSERT INTO "Tag" VALUES (${i}, 'tag${i}')`))
+}
+await Promise.all(arr)
+arr = []
+for (let i = 1; i &lt; n; i++) {
+  arr.push(sequelize.query(`INSERT INTO "PostTag" VALUES (${i}, ${i})`))
+}
+await Promise.all(arr)
+
+// This thread will create a bunch of new posts with tag0
+let rows, meta, done = false
+;(async () =&gt; {
+  for (let i = 0; i &lt; iters; i++) {
+    const postId = i + n
+    const newTagId = postId
+    const tagName = `tag0`
+    const postTitle = `post${postId}`
+    await sequelize.query(`INSERT INTO "Post" VALUES (${postId}, '${postTitle}')`)
+    await common.transaction(sequelize, isolation, async sequelize =&gt; {
+      let tagId;
+      if (for_update !== undefined) {
+        // If the tag is present, this SELECT will prevent it from being deleted in another thread.
+        ;[rows, meta] = await sequelize.query(`SELECT id FROM "Tag" WHERE name = '${tagName}' ${for_update}`)
+        if (rows.length === 0) {
+          // If we insert a new tag, it cannot be seen from the DELETE thread until COMMIT,
+          // so it cannot be deleted either, and we are fine.
+          await sequelize.query(`INSERT INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
+          tagId = newTagId
+        } else {
+          tagId = rows[0].id
+        }
+      } else {
+        if (sequelize.options.dialect === 'sqlite') {
+          await sequelize.query(`INSERT OR IGNORE INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
+        } else {
+          await sequelize.query(`INSERT INTO "Tag" VALUES (${newTagId}, '${tagName}') ON CONFLICT DO NOTHING`)
+        }
+        // Now we need to get the tag id, because we don't know if a new one was inserted or not, and there's no
+        // way to get it back with the INSERT yet:
+        // https://stackoverflow.com/questions/13244393/sqlite-insert-or-ignore-and-return-original-rowid
+        ;[rows, meta] = await sequelize.query(`SELECT id FROM "Tag" WHERE name = '${tagName}'`)
+        tagId = rows[0].id
+      }
+      await sequelize.query(`INSERT INTO "PostTag" VALUES (${postId}, ${tagId})`)
+    })
+
+    // Now check that the tag wasn't deleted by the other thread.
+    ;[rows, meta] = await sequelize.query(`
+SELECT
+  "Post".id AS id,
+  "Post".title AS title
+FROM "Post"
+INNER JOIN "PostTag"
+  ON "Post"."id" = "PostTag"."postId"
+INNER JOIN "Tag"
+  ON "PostTag"."tagId" = "Tag".id
+  AND "Tag".name = '${tagName}'
+ORDER BY "Post".id ASC
+`)
+    assert.strictEqual(rows[0].title, postTitle)
+
+    // DELETE this new post just to keep its count at 0. This would be done from the other thread in the real example,
+    // but then it would be harder to synchronize things to get a large number of such conflict cases happening.
+    // We could do it by DELETEing all posts with a given tag from that thread however.
+    await sequelize.query(`DELETE FROM "Post" WHERE id = ${postId}`)
+  }
+})().finally(() =&gt; { done = true })
+
+// This thread will repeatedly delete all tags with 0 posts.
+while (!done) {
+  await common.transaction(sequelize2, isolation, async sequelize2 =&gt; {
+    // PostgreSQL says that this acquires the SELECT FOR UPDATE lock.
+    // But it is hard to decide if this is part of the SQL standard or not.
+    await sequelize2.query(`
+DELETE FROM "Tag"
+WHERE "Tag".id IN (
+  SELECT
+    "Tag".id
+  FROM "Tag"
+  LEFT OUTER JOIN "PostTag"
+    ON "Tag".id = "PostTag"."tagId"
+  LEFT OUTER JOIN "Post"
+    ON "PostTag"."postId" = "Post".id
+  GROUP BY "Tag".id
+  HAVING COUNT("Post".id) = 0
+)
+`)
+  })
+}
+} catch (e) {
+  console.error(e)
+}
+await Promise.all(sequelizes.map(s =&gt; s.close()))
+})();
+</code></pre></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(16)</span></a></h2><div class="list"><ol><li><a href="../../../../sql#sql-parallel-update-example">SQL parallel update example</a></li><li><a href="../../../../sql#sql-isolation-level-example">SQL isolation level example</a></li><li><a href="../../../../sql#sql-transaction-isolation-level">SQL transaction isolation level</a></li><li><a href="../../../../sql#sql-transaction">SQL transaction</a></li><li><a href="../../../../sql#sql-feature">SQL feature</a></li><li><a href="../../../../sql">SQL</a></li><li><a href="../../../../software#relational-database-management-system">Relational database management system</a></li><li><a href="../../../../software#relational-database">Relational database</a></li><li><a href="../../../../software#type-of-database">Type of database</a></li><li><a href="../../../../software#database">Database</a></li><li><a href="../../../../software">Software</a></li><li><a href="../../../../computer">Computer</a></li><li><a href="../../../../technology#information-technology">Information technology</a></li><li><a href="../../../../technology#area-of-technology">Area of technology</a></li><li><a href="../../../../technology">Technology</a></li><li><a href="../../../.."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(2)</span></a></h2><div class="list"><ul><li><a href="../../../../sql#_file/nodejs/sequelize/raw/parallel_update_async.js">nodejs/sequelize/raw/parallel_update_async.js</a></li><li><a href="../../../../sql#sql-repeatable-read-isolation-level">SQL REPEATABLE READ isolation level</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../../../../_file/sql.bigb">Source code for this page: sql.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/sql.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

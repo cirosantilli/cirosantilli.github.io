@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>picotool - Ciro Santilli</title>
+<meta property="og:title" content="picotool - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/picotool">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/picotool">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="picotool"><div class="notnav"><h1><a href="">picotool</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="computer-hardware#raspberry-pi-foundation"> Raspberry Pi Foundation</a><a href="computer-hardware#raspberry-pi-foundation-project"> Raspberry Pi Foundation project</a><a href="computer-hardware#raspberry-pi"> Raspberry Pi</a><a href="computer-hardware#raspberry-pi-pico"> Raspberry Pi Pico</a><a href="computer-hardware#raspberry-pi-pico-getting-started"> Raspberry Pi Pico getting started</a><a href="computer-hardware#flash-the-raspberry-pi-pico"> Flash the Raspberry Pi Pico</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/picotool"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="computer-hardware#picotool"></a><span class="metrics"><span class="wcntr"> Words: 151</span></span></div></nav></div><div class="p" id="_676"><a href="https://github.com/raspberrypi/picotool">github.com/raspberrypi/picotool</a></div><div class="p" id="_677">Tested on <a href="systems-programming#ubuntu-25-04">Ubuntu 25.04</a>, </div><div class="p" id="_678"><div class="code" id="_679"><div><pre><code>sudo apt install libusb-1.0-0-dev
+git clone https://github.com/raspberrypi/pico-sdk
+git clone https://github.com/raspberrypi/picotool
+cd picotool
+git checkout de8ae5ac334e1126993f72a5c67949712fd1e1a4
+export PICO_SDK_PATH="$(pwd)/../pico-sdk"
+mkdir build
+cd build
+cmake ..
+cmake --build . -- -j"$(npro)" VERBOSE=1</code></pre></div></div>and the executable is there under <code>build/picotool</code> so copy it somewhere in your <code>PATH</code> like:<div class="code" id="_680"><div><pre><code>cp picotool ~/bin</code></pre></div></div>and then trying to use a <a href="systems-programming#zephyr-operating-system">Zephyr</a> example:<div class="code" id="_681"><div><pre><code>sudo ~/bin/picotool load -f build/zephyr/zephyr.uf2</code></pre></div></div>fails with:<div class="code" id="_682"><div><pre><code>No accessible RP2040 devices in BOOTSEL mode were found</code></pre></div></div>TODO: how to avoid that? <a href="https://youtu.be/tRXLxrtfU_s?t=207">youtu.be/tRXLxrtfU_s?t=207</a> gives a workaround if you are using the Pico SDK by adding to CMakeLists.txt:<div class="code" id="_683"><div><pre><code>pico_enable_stdio_usb(blink 1)</code></pre></div></div>but how to do it in <a href="systems-programming#zephyr-operating-system">Zephyr</a>? Video description says:<div><blockquote id="_684">make sure that your program initializes the USB code via a call to "stdio_init_all()".</blockquote></div>but again how to do that from <a href="systems-programming#zephyr-operating-system">Zephyr</a>? It appears that this only works if the code currently running has support for the feature:<div class="list"><ul id="_685"><li id="_686"><a href="https://forums.raspberrypi.com/viewtopic.php?t=361359">forums.raspberrypi.com/viewtopic.php?t=361359</a></li></ul></div></div><div class="figure"><figure id="video-never-unplug-your-raspberry-pi-pico-again-by-deltocode"><div class="float-wrap"><iframe width="560" height="315" loading="lazy" src="https://www.youtube.com/embed/tRXLxrtfU_s" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><figcaption><a href="#video-never-unplug-your-raspberry-pi-pico-again-by-deltocode"><span class="caption-prefix">Video 22. </span></a><div class="title">Never unplug your Raspberry Pi Pico again by deltocode</div>. <a href="https://www.youtube.com/watch?v=tRXLxrtfU_s">Source</a>. </figcaption></figure></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="computer-hardware#flash-the-raspberry-pi-pico">Flash the Raspberry Pi Pico</a></li><li><a href="computer-hardware#raspberry-pi-pico-getting-started">Raspberry Pi Pico getting started</a></li><li><a href="computer-hardware#raspberry-pi-pico">Raspberry Pi Pico</a></li><li><a href="computer-hardware#raspberry-pi">Raspberry Pi</a></li><li><a href="computer-hardware#raspberry-pi-foundation-project">Raspberry Pi Foundation project</a></li><li><a href="computer-hardware#raspberry-pi-foundation">Raspberry Pi Foundation</a></li><li><a href="computer-hardware#computer-manufacturer">Computer manufacturer</a></li><li><a href="computer-hardware">Computer hardware</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/computer-hardware.bigb">Source code for this page: computer-hardware.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/computer-hardware.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

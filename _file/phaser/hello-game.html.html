@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>phaser/hello-game.html - Ciro Santilli</title>
+<meta property="og:title" content="phaser/hello-game.html - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/phaser/hello-game.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/phaser/hello-game.html">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/phaser/hello-game.html"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">phaser/hello-game.html</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/phaser/hello-game.html"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/phaser">phaser</a> / <a href="../../_raw/phaser/hello-game.html">hello-game.html</a></b></div></nav></div><div class="p"><b>phaser/hello-game.html</b></div><div class="code"><div><pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8" /&gt;
+&lt;title&gt;Phaser hello world game&lt;/title&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"&gt;&lt;/script&gt;
+&lt;style type="text/css"&gt;
+body { margin: 0 }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Phaser hello world game&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://cirosantilli.com/phaser-hello-world"&gt;More information here&lt;/a&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;
+var config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: false
+    }
+  },
+  scene: {
+    preload: preload,
+    create: create,
+    update: update
+  }
+}
+var player
+var stars
+var bombs
+var platforms
+var cursors
+var score = 0
+var gameOver = false
+var scoreText
+var game = new Phaser.Game(config)
+
+function preload() {
+  this.load.setBaseURL('https://labs.phaser.io/src/games/firstgame/assets')
+  this.load.image('sky',        'sky.png')
+  this.load.image('ground',     'platform.png')
+  this.load.image('star',       'star.png')
+  this.load.image('bomb',       'bomb.png')
+  this.load.spritesheet('dude', 'dude.png', { frameWidth: 32, frameHeight: 48 })
+}
+
+function create() {
+  //  A simple background for our game
+  this.add.image(400, 300, 'sky')
+
+  //  The platforms group contains the ground and the 2 ledges we can jump on
+  platforms = this.physics.add.staticGroup()
+
+  //  Here we create the ground.
+  //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+  platforms.create(400, 568, 'ground').setScale(2).refreshBody()
+
+  //  Now let's create some ledges
+  platforms.create(600, 400, 'ground')
+  platforms.create(50, 250, 'ground')
+  platforms.create(750, 220, 'ground')
+
+  // The player and its settings
+  player = this.physics.add.sprite(100, 450, 'dude')
+
+  //  Player physics properties. Give the little guy a slight bounce.
+  player.setBounce(0.2)
+  player.setCollideWorldBounds(true)
+
+  //  Our player animations, turning, walking left and walking right.
+  this.anims.create({
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+  })
+
+  this.anims.create({
+    key: 'turn',
+    frames: [ { key: 'dude', frame: 4 } ],
+    frameRate: 20
+  })
+  this.anims.create({
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    frameRate: 10,
+    repeat: -1
+  })
+
+  //  Input Events
+  cursors = this.input.keyboard.createCursorKeys()
+
+  //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+  stars = this.physics.add.group({
+    key: 'star',
+    repeat: 11,
+    setXY: { x: 12, y: 0, stepX: 70 }
+  })
+
+  stars.children.iterate(function (child) {
+
+    //  Give each star a slightly different bounce
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8))
+
+  })
+
+  bombs = this.physics.add.group()
+
+  //  The score
+  scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
+
+  //  Collide the player and the stars with the platforms
+  this.physics.add.collider(player, platforms)
+  this.physics.add.collider(stars, platforms)
+  this.physics.add.collider(bombs, platforms)
+
+  //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+  this.physics.add.overlap(player, stars, collectStar, null, this)
+
+  this.physics.add.collider(player, bombs, hitBomb, null, this)
+}
+
+function update() {
+  if (gameOver) {
+    return
+  }
+  if (cursors.left.isDown) {
+    player.setVelocityX(-160)
+    player.anims.play('left', true)
+  } else if (cursors.right.isDown) {
+    player.setVelocityX(160)
+    player.anims.play('right', true)
+  } else {
+    player.setVelocityX(0)
+    player.anims.play('turn')
+  }
+  if (cursors.up.isDown &amp;&amp; player.body.touching.down) {
+    player.setVelocityY(-330)
+  }
+}
+
+function collectStar (player, star) {
+  star.disableBody(true, true)
+  //  Add and update the score
+  score += 10
+  scoreText.setText('Score: ' + score)
+  if (stars.countActive(true) === 0) {
+    //  A new batch of stars to collect
+    stars.children.iterate(function (child) {
+      child.enableBody(true, child.x, 0, true, true)
+    })
+    var x = (player.x &lt; 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400)
+    var bomb = bombs.create(x, 16, 'bomb')
+    bomb.setBounce(1)
+    bomb.setCollideWorldBounds(true)
+    bomb.setVelocity(Phaser.Math.Between(-200, 200), 20)
+  }
+}
+
+function hitBomb (player, bomb) {
+  this.physics.pause()
+  player.setTint(0xff0000)
+  player.anims.play('turn')
+  gameOver = true
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

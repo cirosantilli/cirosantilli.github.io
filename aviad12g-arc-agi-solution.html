@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>aviad12g/ARC-AGI-solution  - Ciro Santilli</title>
+<meta property="og:title" content="aviad12g/ARC-AGI-solution  - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/aviad12g-arc-agi-solution">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/aviad12g-arc-agi-solution">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="aviad12g-arc-agi-solution"><div class="notnav"><h1><a href="">aviad12g/ARC-AGI-solution </a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="artificial-intelligence#artificial-general-intelligence"> Artificial general intelligence</a><a href="artificial-intelligence#agi-test"> AGI test</a><a href="artificial-intelligence#arc-agi"> ARC-AGI</a><a href="artificial-intelligence#arc-agi-implementation"> ARC-AGI implementation</a><a href="artificial-intelligence#arc-agi-without-llm"> ARC-AGI without LLM</a><a href="artificial-intelligence#local-cpu-arc-agi-without-llm"> Local CPU ARC-AGI without LLM</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/aviad12g-arc-agi-solution"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="artificial-intelligence#aviad12g-arc-agi-solution"></a><span class="metrics"><span class="wcntr"> Words: 471</span></span></div></nav></div><div class="p" id="_206"><a href="https://github.com/aviad12g/ARC-AGI-solution">github.com/aviad12g/ARC-AGI-solution</a></div><div class="p" id="_207">Interesting looking repo with optional <a href="computer-hardware#graphics-processing-unit">GPU</a> and optional <a href="artificial-intelligence#large-language-model">LLM</a>.</div><div class="p" id="_208">It seems to have been tested on something older than <a href="systems-programming#ubuntu-24-04">Ubuntu 24.04</a>, as 24.04 install requires some porting, started process at: <a href="https://github.com/cirosantilli/ARC-AGI-solution/tree/ubuntu-24-04">github.com/cirosantilli/ARC-AGI-solution/tree/ubuntu-24-04</a> but gave up to try <a href="systems-programming#ubuntu-22-04">Ubuntu 22.04</a> instead.</div><div class="p" id="_209"><a href="systems-programming#ubuntu-22-04">Ubuntu 22.04</a> <a href="systems-programming#docker-software">Docker</a> install worked without patches, after installing <a href="programming-language#poetry-python-package-manager">Poetry</a> e.g. to try and solve <a href="artificial-intelligence#arc-agi-2-problem/list/1ae2feb7">1ae2feb7</a>:<div class="code" id="_210"><div><pre><code>git clone https://github.com/aviad12g/ARC-AGI-solution
+cd ARC-AGI-solution
+git checkout f3283f727488ad98fe575ea6a5ac981e4a188e49
+poetry install
+git clone https://github.com/arcprize/ARC-AGI-2
+`poetry env activate`
+export PYTHONPATH="$PWD/src:$PYTHONPATH"
+python3 -m arc_solver.cli.main solve ARC-AGI-2/data/evaluation/1ae2feb7.json</code></pre></div></div>but towards the end we have:<div class="code" id="_211"><div><pre><code>{
+  "success": false,
+  "error": "Search failed: no_multi_example_solution",
+  "search_stats": {
+    "nodes_expanded": 21,
+    "nodes_generated": 903,
+    "termination_reason": "no_multi_example_solution",
+    "candidates_generated": 25,
+    "examples_validated": 3,
+    "validation_success_rate": 0.0,
+    "multi_example_used": true
+  },
+  "predictions": [
+    null,
+    null,
+    null
+  ],
+  "computation_time": 30.234344280001096,
+  "task_id": "1ae2feb7",
+  "task_file": "ARC-AGI-2/data/evaluation/1ae2feb7.json",
+  "solver_version": "0.1.0",
+  "total_time": 30.24239572100123,
+  "timestamp": 1760353369.9701269
+}
+
+Task: 1ae2feb7.json
+Success: False
+Error: Search failed: no_multi_example_solution
+Multi-example validation: ENABLED
+Training examples validated: 3
+Candidates generated: 25
+Validation success rate: 0.0%
+Computation time: 30.23s
+Total time: 30.24s</code></pre></div></div>so it failed.</div><div class="p" id="_212">Let's see if any of them work at all as advertised:<div class="code" id="_213"><div><pre><code>ls ARC-AGI-2/data/evaluation/ | xargs -I'{}' python3 -m arc_solver.cli.main solve 'ARC-AGI-2/data/evaluation/{}' |&amp; tee tmp.txt</code></pre></div></div>and at the end:<div class="code" id="_214"><div><pre><code>grep 'Success: True' tmp.txt | wc</code></pre></div></div>has only 7 successes.</div><div class="p" id="_215">Also weirdly <div class="code" id="_216"><div><pre><code>grep 'Success: True' tmp.txt | wc</code></pre></div></div>only has 102 hits, but there were 120 JSON tasks in that folder. I search for the missing executions:<div class="code" id="_217"><div><pre><code>diff -u &lt;(grep Task: tmp.txt | cut -d' ' -f2) &lt;(ls ARC-AGI-2/data/evaluation)</code></pre></div></div>The first missing one is 135a2760, it blows up with:<div class="code" id="_218"><div><pre><code>ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable</code></pre></div></div>and grepping ERROR gives us:<div class="code" id="_219"><div><pre><code>ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type SizePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable</code></pre></div></div>Reported at: <a href="https://github.com/aviad12g/ARC-AGI-solution/issues/1">github.com/aviad12g/ARC-AGI-solution/issues/1</a></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(14)</span></a></h2><div class="list"><ol><li><a href="artificial-intelligence#local-cpu-arc-agi-without-llm">Local CPU ARC-AGI without LLM</a></li><li><a href="artificial-intelligence#arc-agi-without-llm">ARC-AGI without LLM</a></li><li><a href="artificial-intelligence#arc-agi-implementation">ARC-AGI implementation</a></li><li><a href="artificial-intelligence#arc-agi">ARC-AGI</a></li><li><a href="artificial-intelligence#agi-test">AGI test</a></li><li><a href="artificial-intelligence#artificial-general-intelligence">Artificial general intelligence</a></li><li><a href="artificial-intelligence#ai-by-capability">AI by capability</a></li><li><a href="artificial-intelligence">Artificial intelligence</a></li><li><a href="machine-learning">Machine learning</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/artificial-intelligence.bigb">Source code for this page: artificial-intelligence.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/artificial-intelligence.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

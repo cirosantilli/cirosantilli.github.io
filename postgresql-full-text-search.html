@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>PostgreSQL full-text search - Ciro Santilli</title>
+<meta property="og:title" content="PostgreSQL full-text search - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/postgresql-full-text-search">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/postgresql-full-text-search">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="postgresql-full-text-search"><div class="notnav"><h1><a href="">PostgreSQL full-text search</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software#relational-database-management-system"> Relational database management system</a><a href="sql"> SQL</a><a href="sql#sql-implementation"> SQL implementation</a><a href="sql#postgresql"> PostgreSQL</a><a href="sql#postgresql-getting-started"> PostgreSQL getting started</a><a href="sql#postgresql-howto"> PostgreSQL HOWTO</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/postgresql-full-text-search"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="software#full-text-search">Full-text search</a></span><a class="nosplit" href="sql#postgresql-full-text-search"></a><span class="metrics"><span class="wcntr"> Words: 2k</span></span></div></nav></div><div class="p" id="_157">This section was tested on <a href="systems-programming#ubuntu-24-10">Ubuntu 24.10</a>, <a href="sql#postgresql">PostgreSQL</a> 16.6.</div><div class="p" id="_158">Let's create some test data like this:<div class="code" id="_159"><div><pre><code>time psql tmp -c 'DROP TABLE IF EXISTS fts;'
+time psql tmp -c 'CREATE TABLE fts(s TEXT, i INTEGER);'
+time psql tmp &lt;&lt;'EOF'
+INSERT INTO fts SELECT
+  i::text || ' ' ||
+    (i * 2  )::text || ' ' ||
+    (i * 5  )::text || ' ' ||
+    (i * 7  )::text || ' ' ||
+    (i * 11 )::text || ' ' ||
+    (i * 13 )::text || ' ' ||
+    (i * 17 )::text || ' ' ||
+    (i * 23 )::text || ' ' ||
+    (i * 29 )::text || ' ' ||
+    (i * 31 )::text
+  ,
+  i % 100
+FROM generate_series(1::bigint, 100000000::bigint) AS s(i);
+EOF</code></pre></div></div></div><div class="p" id="_160">The creation time was 2m13s, and the final size was:<div class="code" id="_161"><div><pre><code>    table_name    | pg_size_pretty | pg_total_relation_size
+------------------+----------------+------------------------
+ fts              | 13 GB          |            14067326976</code></pre></div></div></div><div class="p" id="_162">This test data will be simple to predict what each line contains so we can make educated queries, while also posing some difficulty to the RDMS. As per:<div class="code" id="_163"><div><pre><code>time psql tmp -c 'SELECT * FROM fts LIMIT 10;'</code></pre></div></div>the first columns look like:<div class="code" id="_164"><div><pre><code>                  s                  | i
+-------------------------------------+----
+ 1 2 5 7 11 13 17 23 29 31           |  1
+ 2 4 10 14 22 26 34 46 58 62         |  2
+ 3 6 15 21 33 39 51 69 87 93         |  3
+ 4 8 20 28 44 52 68 92 116 124       |  4
+ 5 10 25 35 55 65 85 115 145 155     |  5
+ 6 12 30 42 66 78 102 138 174 186    |  6
+ 7 14 35 49 77 91 119 161 203 217    |  7
+ 8 16 40 56 88 104 136 184 232 248   |  8
+ 9 18 45 63 99 117 153 207 261 279   |  9
+ 10 20 50 70 110 130 170 230 290 310 | 10</code></pre></div></div></div><div class="p" id="_165">We aimed to create a test table of size around 10 GB, as in practice it is around that order of size that index speedups start to become very obvious on a <a href="computer-hardware#solid-state-storage">SSD</a>-based system.</div><div class="p" id="_166">Before we create the index, let's see if our non-indexed queries are slow enough for our tests:<div class="code" id="_167"><div><pre><code>time psql tmp -c "SELECT * FROM fts WHERE s LIKE '% 50000000 %';"</code></pre></div></div>which gives:<div class="code" id="_168"><div><pre><code>                                                 s                                                 | i
+---------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000   | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000 | 0
+(2 rows)
+
+
+real    0m11.758s
+user    0m0.017s
+sys     0m0.008s</code></pre></div></div>so it should be enough to observe the index speedup.</div><div class="p" id="_169">Now let's create the index. First we create a <a href="sql#generated-column">generated column</a> that splits the strings with <a href="sql#to-tsvector"><code>to_tsvector</code></a>, and then we index that split column:<div class="code" id="_170"><div><pre><code>time psql tmp &lt;&lt;'EOF'
+ALTER TABLE fts ADD COLUMN s_ts tsvector
+  GENERATED ALWAYS AS (to_tsvector('english', s)) STORED;
+EOF
+time psql tmp -c 'CREATE INDEX s_ts_gin_idx ON fts USING GIN (s_ts);'</code></pre></div></div>These commands took 8m51s and 40m8s and the DB size went up about 5x:<div class="code" id="_171"><div><pre><code>    table_name    | pg_size_pretty | pg_total_relation_size
+------------------+----------------+------------------------
+ fts              | 69 GB          |            74487758848</code></pre></div></div></div><div class="p" id="_172">And finally let's try out the index:<div class="code" id="_173"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000');"</code></pre></div></div>which "instantly" gives us in 0m0.129s:<div class="code" id="_174"><div><pre><code>                                                   s                                                   | i
+-------------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000       | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000 | 0</code></pre></div></div>so the index worked!</div><div class="p" id="_175">We understand from this that it only find exact word hits.</div><div class="p" id="_176">Another important use case is to search for prefixes of words, e.g. as you'd want in a simple autocompletion system. This can be achieved by adding <code>:*</code> at the end of the search term as in:<div class="code" id="_177"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000:*');"</code></pre></div></div>This finishes in the same amount of time, and gives:<div class="code" id="_178"><div><pre><code>                                                     s                                                     | i
+-----------------------------------------------------------------------------------------------------------+----
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000           |  0
+ 38461539 76923078 192307695 269230773 423076929 500000007 653846163 884615397 1115384631 1192307709       | 39
+ 45454546 90909092 227272730 318181822 500000006 590909098 772727282 1045454558 1318181834 1409090926      | 46
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000     |  0
+ 71428572 142857144 357142860 500000004 785714292 928571436 1214285724 1642857156 2071428588 2214285732    | 72
+ 100000000 200000000 500000000 700000000 1100000000 1300000000 1700000000 2300000000 2900000000 3100000000 |  0
+ 29411765 58823530 147058825 205882355 323529415 382352945 500000005 676470595 852941185 911764715         | 65
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000         |  0</code></pre></div></div>so now we have cool hits such as <code>500000000</code>, <code>500000004</code>, <code>500000005</code>, <code>500000007</code> and <code>500000006</code>. The syntax is also mentioned at:<div class="list"><ul id="_179"><li id="_180"><a href="https://www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES">www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES</a></li></ul></div></div><div class="p" id="_181">Next we can also try some other queries with multiple terms. Text must contain two words with <code>&amp;</code>:<div class="code" id="_182"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 &amp; 175000000');"</code></pre></div></div>gives:<div class="code" id="_183"><div><pre><code>                                                   s                                                   | i
+-------------------------------------------------------------------------------------------------------+---
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0</code></pre></div></div></div><div class="p" id="_184">Text can contain either word with <code>|</code>:<div class="code" id="_185"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 | 175000000');"</code></pre></div></div>gives:<div class="code" id="_186"><div><pre><code>                                                    s                                                    | i
+---------------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000         | 0
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000   | 0
+ 87500000 175000000 437500000 612500000 962500000 1137500000 1487500000 2012500000 2537500000 2712500000 | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000       | 0
+ 35000000 70000000 175000000 245000000 385000000 455000000 595000000 805000000 1015000000 1085000000     | 0</code></pre></div></div></div><div class="p" id="_187">Text can contain the given words sequentially:<div class="code" id="_188"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 &lt;-&gt; 125000000 &lt;-&gt; 175000000');"</code></pre></div></div>gives:<div class="code" id="_189"><div><pre><code>                                                   s                                                   | i
+-------------------------------------------------------------------------------------------------------+---
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0</code></pre></div></div></div><div class="p" id="_190">We can also inspect how words were split by simply doing a <code>SELECT *</code> again:<div class="code" id="_191"><div><pre><code>             s              | i |                                 s_ts
+----------------------------+---+----------------------------------------------------------------------
+1 2 5 7 11 13 17 23 29 31   | 1 | '1':1 '11':5 '13':6 '17':7 '2':2 '23':8 '29':9 '31':10 '5':3 '7':4
+2 4 10 14 22 26 34 46 58 62 | 2 | '10':3 '14':4 '2':1 '22':5 '26':6 '34':7 '4':2 '46':8 '58':9 '62':10
+3 6 15 21 33 39 51 69 87 93 | 3 | '15':3 '21':4 '3':1 '33':5 '39':6 '51':7 '6':2 '69':8 '87':9 '93':10</code></pre></div></div></div><div class="p" id="_192">Let's check if the index updates automatically when we do an insert and if insertion seems to have been significantly slowed down by the index:<div class="code" id="_193"><div><pre><code>time psql tmp -c "INSERT INTO fts VALUES ('abcd efgh', 99)"</code></pre></div></div>finishes in:<div class="code" id="_194"><div><pre><code>real    0m0.043s
+user    0m0.014s
+sys     0m0.010s</code></pre></div></div>so performance is OK. Presumably, the insertion time is proportional to the number of tokens, doing one logarithmic operation per token, so indexing short chunks of text like titles is easy. And then let's find it:<div class="code" id="_195"><div><pre><code>time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', 'efgh');"</code></pre></div></div>which finds it with:<div class="code" id="_196"><div><pre><code>     s     | i
+-----------+----
+ abcd efgh | 99</code></pre></div></div>so we are all good. Unfortunately, accurate performance benchmarking is a bit harder than that, as the index by default first collects a certain number of updates into memory into the "pending list", before actually inserting them all at once after a certain mass is reached, as documented at: <a href="https://www.postgresql.org/docs/17/gin.html#GIN-IMPLEMENTATION">www.postgresql.org/docs/17/gin.html#GIN-IMPLEMENTATION</a>. We are not going that deep today.</div><div class="p" id="_197">The next thing that we need to understand is how <a href="sql#to-tsvector"><code>to_tsvector</code></a> <a href="https://ourbigbook.com/go/topic/tokenize">tokenizes</a> strings for the <code>english</code> language. For example running:<div class="code" id="_198"><div><pre><code>psql -c "select to_tsvector('english', 'A Dog run runs fast faster two Cats: b c to from 1 é befhyph-afthyph.')"</code></pre></div></div>gives:<div class="code" id="_199"><div><pre><code>'1':13
+'afthyph':17
+'b':9
+'befhyph':16
+'befhyph-afthyph':15
+'c':10
+'cat':8
+'dog':2
+'fast':5
+'faster':6
+'run':3,4
+'two':7
+'é':14</code></pre></div></div>so we understand some of the heuristic normalizations:<div class="list"><ul id="_200"><li id="_201">prepositions like <code>to</code> and <code>from</code> are gone. These are called stopwords as documented at: <a href="https://www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-DOCUMENTS">www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-DOCUMENTS</a></li><li id="_202">words are lowercased and singularized, e.g. <code>Cats</code> becomes <code>cat</code></li><li id="_203">hyphenated words are stored both in separate components and in the full hyphenated form:<div class="list"><ul id="_204"><li id="_205"><code>'afthyph':17</code></li><li id="_206"><code>'befhyph':16</code></li><li id="_207"><code>'befhyph-afthyph':15</code></li></ul></div></li></ul></div></div><div class="p" id="_208">The full list of languages available can be obtained with:<div class="code" id="_209"><div><pre><code>psql -c '\dF'</code></pre></div></div>On <a href="systems-programming#ubuntu-24-10">Ubuntu 24.10</a>, the list contains major world languages, plus the special <code>simple</code> configuration such that:<div class="code" id="_210"><div><pre><code>psql -c "select to_tsvector('simple', 'A Dog run runs fast faster two Cats: b c to from 1 é befhyph-afthyph.')"</code></pre></div></div>gives:<div class="code" id="_211"><div><pre><code>'1':13
+'a':1
+'afthyph':17
+'b':9
+'befhyph':16
+'befhyph-afthyph':15
+'c':10
+'cats':8
+'dog':2
+'fast':5
+'faster':6
+'from':12
+'run':3
+'runs':4
+'to':11
+'two':7
+'é':14</code></pre></div></div>so we understand that it is similar to <code>english</code> but it does not:<div class="list"><ul id="_212"><li id="_213">seem to have any stopwords</li><li id="_214">do singularization normalization</li></ul></div></div><div class="p" id="_215">From the query side of things, if the query is going to be open to end users on a web interface, we need to understand <code>to_tsquery</code> better. The issue is that <code>to_tsquery</code> is quite brutal and happily throws errors for common things users might do e.g. spaces:<div class="code" id="_216"><div><pre><code>select to_tsquery('english', 'abc def');</code></pre></div></div>giving:<div class="code" id="_217"><div><pre><code>ERROR:  syntax error in tsquery: "abc def"</code></pre></div></div>To avoid such errors, we can use:<div class="list"><ul id="_218"><li id="_219"><code>plainto_tsquery</code>: ANDs everything</li><li id="_220"><code>websearch_to_tsquery</code>: supports <code>AND</code> with spaces, OR with <code>or</code>, word negation with <code>-word</code> and concatenation with <code>"my word"</code>. But it unfortunately does not support prefixing, which is what everyone and their mother wants for autocomplete: <a href="https://stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery#comment78452351_41804957">stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery#comment78452351_41804957</a></li></ul></div>Bibliography:<div class="list"><ul id="_221"><li id="_222"><a href="https://stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/16020565#16020565">stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/16020565#16020565</a></li><li id="_223"><a href="https://stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery">stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery</a></li><li id="_224"><a href="https://www.reddit.com/r/rails/comments/1cmloa6/sanitizing_a_search_phrase_when_using_to_tsvector/">www.reddit.com/r/rails/comments/1cmloa6/sanitizing_a_search_phrase_when_using_to_tsvector/</a></li><li id="_225"><a href="https://stackoverflow.com/questions/6735881/to-tsquery-validation">stackoverflow.com/questions/6735881/to-tsquery-validation</a></li><li id="_226"><a href="https://dba.stackexchange.com/questions/135030/filtering-special-characters-in-to-tsquery">dba.stackexchange.com/questions/135030/filtering-special-characters-in-to-tsquery</a></li></ul></div></div><div class="p" id="_227">Also posted at:<div class="list"><ul id="_228"><li id="_229"><a href="https://www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/">www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/</a> "Is it worth using Postgres' builtin full-text search or should I go straight to Elastic?", high top Google result for "PostgreSQL full text search" as of 2024. Random, but it's there.</li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(15)</span></a></h2><div class="list"><ol><li><a href="sql#postgresql-howto">PostgreSQL HOWTO</a></li><li><a href="sql#postgresql-getting-started">PostgreSQL getting started</a></li><li><a href="sql#postgresql">PostgreSQL</a></li><li><a href="sql#sql-implementation">SQL implementation</a></li><li><a href="sql">SQL</a></li><li><a href="software#relational-database-management-system">Relational database management system</a></li><li><a href="software#relational-database">Relational database</a></li><li><a href="software#type-of-database">Type of database</a></li><li><a href="software#database">Database</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="updates#generating-test-data-for-full-text-search-tests">Generating test data for full text search tests</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/sql.bigb">Source code for this page: sql.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/sql.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

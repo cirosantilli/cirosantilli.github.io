@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Common Crawl web graph official PageRank - Ciro Santilli</title>
+<meta property="og:title" content="Common Crawl web graph official PageRank - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/common-crawl-web-graph-official-pagerank">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/common-crawl-web-graph-official-pagerank">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="common-crawl-web-graph-official-pagerank"><div class="notnav"><h1><a href="">Common Crawl web graph official PageRank</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="computer#computer-network"> Computer network</a><a href="computer#internet"> Internet</a><a href="computer#internet-company"> Internet company</a><a href="google"> Google</a><a href="google#pagerank"> PageRank</a><a href="google#open-pagerank-implementation-and-data"> Open PageRank implementation and data</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://ourbigbook.com/cirosantilli/common-crawl-web-graph-official-pagerank"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="software#common-crawl-web-graph">Common Crawl web graph</a></span><a class="nosplit" href="google#common-crawl-web-graph-official-pagerank"></a><span class="metrics"><span class="wcntr"> Words: 433</span><span class="dcnt"> Articles: 1</span></span></div></nav></div><div class="p" id="_177">As of 2025 <a href="software#common-crawl-web-graph">Common Crawl web graph</a> also dumps its own <a href="google#pagerank">PageRank</a> for each release. See e.g. the file <code>cc-main-2024-25-dec-jan-feb-host-ranks.txt.gz</code> from at: <a href="https://data.commoncrawl.org/projects/hyperlinkgraph/cc-main-2024-25-dec-jan-feb/index.html">data.commoncrawl.org/projects/hyperlinkgraph/cc-main-2024-25-dec-jan-feb/index.html</a> The first 20 rows are:<div class="code" id="_178"><div><pre><code>#harmonicc_pos  #harmonicc_val  #pr_pos #pr_val #host_rev
+1       3.4626736E7     3       0.005384977821460953    com.facebook
+2       3.42356E7       2       0.007010813553170503    com.googleapis.fonts
+3       3.007577E7      1       0.008634952900502719    com.google
+4       3.0036014E7     4       0.004411782034463272    com.googletagmanager
+5       2.9900088E7     5       0.0036940035989790525   com.youtube
+6       2.9537252E7     6       0.0032959808223701      com.instagram
+7       2.9092556E7     9       0.0027616338842143423   com.twitter
+8       2.7346152E7     7       0.0032101332824200743   com.gstatic.fonts
+9       2.6818654E7     11      0.0017699438634060259   com.linkedin
+10      2.5383126E7     8       0.0027849243241515574   org.gmpg
+11      2.3747762E7     12      0.0016577826631867043   com.google.maps
+12      2.3514198E7     15      0.0013399414238881337   com.googleapis.ajax
+13      2.3504832E7     16      0.0012791339750445332   com.google.play
+14      2.337092E7      47      3.794876113587071E-4    be.youtu
+15      2.2925148E7     14      0.0013857916784687163   com.cloudflare.cdnjs
+16      2.2851038E7     18      0.0012066313543285154   com.google.plus
+17      2.2833728E7     13      0.0015745738381307273   org.wordpress
+18      2.2830926E7     36      6.02400471665468E-4     com.pinterest
+19      2.27056E7       45      4.001342924757244E-4    com.google.support
+20      2.2687704E7     24      9.381217848819624E-4    net.jsdelivr.cdn</code></pre></div></div>so quite plausible, except for <code>org.gmpg</code>. What the fuck is that and why is it ranked so high? Is it a quirk with the hosts inside subdomains?</div><div class="p" id="_179">Perhaps a more relevant dump might be the domain-only one <code>cc-main-2024-25-dec-jan-feb-domain-ranks.txt.gz</code>:<div class="code" id="_180"><div><pre><code>#harmonicc_pos  #harmonicc_val  #pr_pos #pr_val #host_rev       #n_hosts
+1       3.1238044E7     3       0.01110707704411023     com.facebook    3632
+2       3.0950192E7     2       0.016650558868491434    com.googleapis  3470
+3       3.000803E7      1       0.01749148008448444     com.google      14053
+4       2.7319046E7     5       0.00670112168785935     com.instagram   789
+5       2.7020862E7     7       0.005464885844102939    com.youtube     1628
+6       2.6954494E7     4       0.007740808154448889    com.googletagmanager    42
+7       2.6344278E7     8       0.0052073382920908295   com.twitter     712
+8       2.5414934E7     6       0.0058790483755603844   com.gstatic     171
+9       2.4803688E7     11      0.0038589161241338816   com.linkedin    690
+10      2.4683842E7     10      0.004929923081722034    org.gmpg        2
+11      2.3575146E7     9       0.005111453489231459    com.cloudflare  951
+12      2.2735678E7     14      0.002131882799792225    com.gravatar    98
+13      2.2356142E7     12      0.002513741654851857    org.wordpress   1250
+14      2.2132868E7     15      0.0019991529719988496   com.apple       3261
+15      2.2095914E7     31      0.0010706467268355303   org.wikipedia   2099
+16      2.2057972E7     21      0.0015644264715267535   com.pinterest   360
+17      2.1941062E7     40      8.52391305373285E-4     be.youtu        15
+18      2.1826452E7     16      0.0018442726685905964   net.jsdelivr    40
+19      2.1764224E7     34      9.747994384099485E-4    gl.goo  951
+20      2.1690982E7     35      9.740295347556525E-4    com.vimeo </code></pre></div></div>But nope, <code>org.gmpg</code> is still there!</div><div class="p" id="_181"><a href="https://vigna.di.unimi.it/ftp/papers/GraphStructure.pdf">vigna.di.unimi.it/ftp/papers/GraphStructure.pdf</a> comments on it: <div><blockquote id="_182">for instance, gmpg.org is the reference for a vocabulary that describes relationships</blockquote></div>so it appears to be a computer-readable <a href="machine-learning#ontology">ontology</a> mechanism in the lines of <a href="machine-learning#resource-description-framework">Resource Description Framework</a> which interlinks many websites. The article also mentions another interesting noise in <code>miibeian.gov.cn</code> which every Chinese website is required to link to for their <a href="https://ourbigbook.com/go/topic/icp-license">ICP license</a>.</div><div class="p" id="_183">The source code for it seem to be at: <a href="https://github.com/commoncrawl/cc-webgraph">github.com/commoncrawl/cc-webgraph</a> and seems to use the <a href="programming-language#java-programming-language">Java</a> version of the <a href="mathematics#webgraph-software">WebGraph</a> quite directly on their <a href="mathematics#bvgraph">BVGraph</a> dump. There is apparently no <a href="software#command-line-interface">CLI</a> for <a href="google#pagerank">PageRank</a> however unfortunately, they have to use a bit of <a href="programming-language#java-programming-language">Java</a> code. That would be so awesome!</div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 433</span><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/common-crawl-www-ranking"><div class="arrow"><div></div></div><span class="not-arrow"><a href="google#common-crawl-www-ranking">Common Crawl WWW Ranking</a><span class="hover-metadata"><a href="#_toc" class="u"> Common Crawl web graph official PageRank</a><span class="metrics"><span class="wcntr"> 41</span></span></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="google#open-pagerank-implementation-and-data">Open PageRank implementation and data</a></li><li><a href="google#pagerank">PageRank</a></li><li><a href="google">Google</a></li><li><a href="computer#internet-company">Internet company</a></li><li><a href="computer#internet">Internet</a></li><li><a href="computer#computer-network">Computer network</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(4)</span></a></h2><div class="list"><ul><li><a href="software#common-crawl-web-graph">Common Crawl web graph</a></li><li><a href="google#common-crawl-www-ranking">Common Crawl WWW Ranking</a></li><li><a href="google#open-pagerank-implementation-and-data">Open PageRank implementation and data</a></li><li><a href="updates#quick-fun-with-the-common-crawl-web-graph">Quick fun with the Common Crawl web graph</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/google.bigb">Source code for this page: google.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/google.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

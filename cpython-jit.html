@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>CPython JIT - Ciro Santilli</title>
+<meta property="og:title" content="CPython JIT - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/cpython-jit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/cpython-jit">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="cpython-jit"><div class="notnav"><h1><a href="">CPython JIT</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software"> Software</a><a href="programming-language"> Programming language</a><a href="programming-language#list-of-programming-languages"> List of programming languages</a><a href="programming-language#python-programming-language"> Python (programming language)</a><a href="programming-language#python-implementation"> Python implementation</a><a href="programming-language#cpython"> CPython</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/cpython-jit"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="programming-language#cpython-jit"></a><span class="metrics"><span class="wcntr"> Words: 191</span></span></div></nav></div><div class="p" id="_217">Added in <a href="programming-language#cpython-3-13">CPython 3.13</a>.</div><div class="p" id="_218">To enable tested on <a href="systems-programming#ubuntu-25-04">Ubuntu 25.04</a>:<div class="code" id="_219"><div><pre><code>git clone https://github.com/python/cpython
+cd cpython
+git checkout v3.13.7
+./configure --enable-experimental-jit
+make -j</code></pre></div></div></div><div class="p" id="_220">However, the JIT appears to be useless tested as of this Python version, lol:<div class="list"><ul id="_221"><li id="_222"><a href="https://news.ycombinator.com/item?id=44476023">news.ycombinator.com/item?id=44476023</a></li><li id="_223"><a href="https://devclass.com/2025/07/09/despite-30-months-work-core-developer-says-pythons-jit-compiler-is-often-slower-than-the-interpreter/">devclass.com/2025/07/09/despite-30-months-work-core-developer-says-pythons-jit-compiler-is-often-slower-than-the-interpreter/</a></li><li id="_224"><a href="https://fidget-spinner.github.io/posts/jit-reflections.html">fidget-spinner.github.io/posts/jit-reflections.html</a></li></ul></div></div><div class="p" id="_225">We can try to test it with <a href="_raw/python/inc_loop.py">python/inc_loop.py</a>:<div class="code" id="_226"><div><pre><code>time ./python python/inc_loop.py 10000000</code></pre></div></div>but the result is just as pathetic as without JIT currently, taking about 1 second for only 10m loops.</div><div class="p" id="_227">This can be compared with the optimal assembly from <a href="_raw/c/inc_loop_asm.c">c/inc_loop_asm.c</a>:<div class="code" id="_228"><div><pre><code>time ./inc_loop_asm.out 1000000000</code></pre></div></div>which does 1 billion loops in about half a second on <a href="ciro-santilli-s-hardware#lenovo-thinkpad-p14s-gen4-amd">P14s</a>.</div><div class="p" id="_229">For comparison, <a href="programming-language#pypy">PyPy</a> actually speeds things up and does 1 billion loops in about a second, so only 2x worse than native.</div><div class="p" id="_230">TODO triple check that JIT is enabled. Many threads say the command is:<div class="code" id="_231"><div><pre><code>./python -c 'import sysconfig; sysconfig.get_config_var("JIT_DEPS")'</code></pre></div></div>but that fails with:<div class="code" id="_232"><div><pre><code>ModuleNotFoundError: No module named '_sysconfigdata__linux_x86_64-linux-gnu'</code></pre></div></div></div><div class="p" id="_233">For comparison with a properly implemented dynamic language JIT running <a href="_raw/nodejs/inc_loop.js">nodejs/inc_loop.js</a> does 1 billion loops in 0.6s on v22.14.0, close to native.</div><div class="p" id="_234"><a href="https://tonybaloney.github.io/posts/python-gets-a-jit.html">tonybaloney.github.io/posts/python-gets-a-jit.html</a> documents what the initial "JIT" implementation does. It is just an extremely naive concatenation of instructions that avoids a for + switch. No wonder it doesn't speed things up much at all.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="programming-language#cpython">CPython</a></li><li><a href="programming-language#python-implementation">Python implementation</a></li><li><a href="programming-language#python-programming-language">Python (programming language)</a></li><li><a href="programming-language#list-of-programming-languages">List of programming languages</a></li><li><a href="programming-language">Programming language</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/programming-language.bigb">Source code for this page: programming-language.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/programming-language.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

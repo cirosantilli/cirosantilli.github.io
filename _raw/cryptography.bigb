@@ -1,0 +1,540 @@
+= Cryptography
+{wiki}
+
+= Cryptosystem
+{parent=Cryptography}
+{wiki}
+
+= Encryption algorithm
+{synonym}
+{title2}
+
+= Random number generation
+{parent=Cryptography}
+{title2=RNG}
+{wiki}
+
+= Random number generator
+{synonym}
+
+= Hardware random number generation
+{parent=Random number generation}
+{wiki}
+
+= Symmetric and public-key cryptography
+{parent=Cryptography}
+
+= Symmetric encryption
+{parent=Symmetric and public-key cryptography}
+
+Symmetric encryption is a type of <encryption> where you use a password (also known as a "key") to encrypt your data, and then the same password to decrypt the data.
+
+For example, this is the type of encryption that is used for encrypting the data in our <smartphones> and <laptops> with <disk encryption>.
+
+This way, if your laptop gets stolen, the thief is not able to see your private photos without knowing your password, even though they are able to read every byte of your disk.
+
+The downside is that that you have to type your password every time you want to login. This leads people to want to use shorter passwords, which in turn are more prone to <password cracking>.
+
+The other main type of encryption is <public-key cryptography>.
+
+The advantage of <public-key cryptography> is that it allows you to send secret messages to other people even an the attacker is able to capture the encrypted messages. This is for example what you want to do when sending a personal message to a friend over the <Internet>. Such <encryption> is especially crucial when using <wireless communication> such as <Wi-Fi>, where anyone nearby can capture the signals you send and receive, and would be able to read all your data if it weren't encrypted.
+
+Easily sending encrypted messages over the <Internet> is not possible with <symmetric encryption> because for your friend to decrypt the message in that system, you'd need to send them the password, which the attacker would also be able to eavesdrop and then decrypt the message that follows using it. The problem of sharing a password with another person online is called <key exchange>.
+
+<Advanced Encryption Standard> (AES) is one of the most popular families of <symmetric encryption> algorithms.
+
+<OpenSSL> is a popular <open source> implementation of <symmetric and public-key cryptography>. A simple example of using <OpenSSL> for <symmetric encryption> from the <command-line> is:
+``
+echo 'Hello World!' > message.txt
+openssl aes-256-cbc -a -salt -pbkdf2 -in message.txt -out message.txt.enc
+``
+This asks for a password, which we set as `asdfqwer`, and then produces a file `message.txt.enc` containing garbled text such that:
+``
+hd message.txt.enc
+``
+contains:
+``
+00000000  55 32 46 73 64 47 56 6b  58 31 38 58 48 65 2f 30  |U2FsdGVkX18XHe/0|
+00000010  70 56 42 2b 70 45 6c 55  59 38 2b 54 38 7a 4e 34  |pVB+pElUY8+T8zN4|
+00000020  4e 37 6d 52 2f 73 6d 4d  62 64 30 3d 0a           |N7mR/smMbd0=.|
+0000002d
+``
+Then to decrypt:
+``
+openssl aes-256-cbc -d -a -pbkdf2 -in message.txt.enc -out message.new.txt
+``
+once again asks for your password and given the correct password produces a file `message.new.txt` containing the original message:
+``
+Hello World!
+``
+This was tested on <Ubuntu 24.04>, OpenSSL 3.0.13. See also: https://stackoverflow.com/questions/16056135/how-to-use-openssl-to-encrypt-decrypt-files[How to use OpenSSL to encrypt/decrypt files? on Stack Overflow].
+
+There is no <provably secure symmetric-key algorithm> besides the <one-time pad>, which has the serious drawback of requiring the key to be as long as the message. This means that we believe that most encryption algorithms are secure because it is a hugely valuable target and no one has managed to crack them yet. But we don't have a mathematical proof that they are actually secure, so they could in theory be broken by new algorithms one day.
+
+= Provably secure symmetric-key algorithm
+{parent=Symmetric encryption}
+{wiki}
+
+There aren't any 2020, except in the trivial <one-time pad> case where the key is as large as the message: https://crypto.stackexchange.com/questions/10815/how-do-we-prove-that-aes-des-etc-are-secure
+
+= One-time pad
+{parent=Symmetric encryption}
+{wiki}
+
+The only perfect cryptosystem!
+
+The problem is that you need a shared <key (cryptography)> as large as the message.
+
+Systems like <advanced Encryption Standard> allow us to encrypt things larger than the key, but the tradeoff is that they could be possibly broken, as don't have any <provably secure symmetric-key algorithms> as of 2020.
+
+= Symmetric-key algorithm
+{parent=Symmetric encryption}
+
+Symmetric-key algorithm is al algorithm implementing <symmetric encryption>.
+
+= Advanced Encryption Standard
+{parent=Symmetric-key algorithm}
+{title2=AES}
+{wiki}
+
+= Is AES quantum resistant?
+{parent=Advanced Encryption Standard}
+{tag=Quantum resistant cryptosystem}
+
+2020-so-far yes, <Grover's algorithm> would only effectively reduce key sizes by half:
+* https://crypto.stackexchange.com/questions/6712/is-aes-256-a-post-quantum-secure-cipher-or-not
+* https://qvault.io/cryptography/is-aes-256-quantum-resistant/
+but there isn't a mathematical proof either.
+
+= Public-key cryptography
+{parent=Symmetric and public-key cryptography}
+{wiki}
+
+= Public key
+{synonym}
+
+= Private key
+{synonym}
+
+It allows you to do two things:
+* <encryption>
+* <digital signature>
+
+= Digital signature
+{parent=Public-key cryptography}
+{wiki}
+
+One notable application: <cryptocurrency>, see e.g. <how Bitcoin works>.
+
+= Ring signature
+{parent=Public-key cryptography}
+{wiki}
+
+Used for example:
+* by <Monero> to hide the input of a transaction
+* anonymous <electronic voting>
+
+= Public-key cryptosystem
+{parent=Public-key cryptography}
+{tag=Cryptosystem}
+
+= RSA
+{disambiguate=cryptosystem}
+{c}
+{parent=Public-key cryptosystem}
+{wiki}
+
+Based on the fact that we don't have a <P (complexity)> algorithm for <integer factorization> as of 2020. But nor proof that one does not exist!
+
+The private key is made of two randomly generated prime numbers: $p$ and $q$. How such large primes are found: <how large primes are found for RSA>.
+
+The public key is made of:
+* `n = p*q`
+* a randomly chosen integer exponent $e$ between `1` and `e_max = lcm(p -1, q -1)`, where `lcm` is the <Least common multiple>
+
+Given a plaintext message `m`, the encrypted <ciphertext> version is:
+``
+c = m^e mod n
+``
+This operation is called <modular exponentiation> can be calculated efficiently with the <Extended Euclidean algorithm>.
+
+The inverse operation of finding the private `m` from the public `c`, `e` and $n$ is however believed to be a hard problem without knowing the factors of `n`.
+
+However, if we know the private `p` and `q`, we can solve the problem. As follows.
+
+First we calculate the <modular multiplicative inverse>. TODO continue.
+
+Bibliography:
+* https://www.comparitech.com/blog/information-security/rsa-encryption/ has a numeric example
+
+= How large primes are found for RSA
+{parent=RSA (cryptosystem)}
+
+* https://crypto.stackexchange.com/questions/1970/how-are-primes-generated-for-rsa
+* https://crypto.stackexchange.com/questions/690/can-i-select-a-large-random-prime-using-this-procedure/693#693
+
+Answers suggest hat you basically pick a random large odd number, and add 2 to it until your selected <primality test> passes.
+
+The <prime number theorem> tells us that the probability that a number between 1 and $N$ is a prime number is $1/log(N)$.
+
+Therefore, for an N-bit integer, we only have to run the test N times on average to find a prime.
+
+Since say, A 512-bit integer is already humongous and sufficiently large, we would only need to search 512 times on average even for such sizes, and therefore the procedure scales well.
+
+= RSA vs Diffie-Hellman
+{c}
+{parent=RSA (cryptosystem)}
+
+<RSA (cryptosystem)> vs <Diffie-Hellman key exchange> are the dominant <public-key cryptography> systems as of 2020, so it is natural to ask how they compare:
+* https://security.stackexchange.com/questions/35471/is-there-any-particular-reason-to-use-diffie-hellman-over-rsa-for-key-exchange
+* https://crypto.stackexchange.com/questions/2867/whats-the-fundamental-difference-between-diffie-hellman-and-rsa
+* https://crypto.stackexchange.com/questions/797/is-diffie-hellman-mathematically-the-same-as-rsa
+
+As its name indicates, <Diffie-Hellman key exchange> is a <key exchange> algorithm. TODO verify: this means that in order to transmit a message, both parties must first send data to one another to reach a shared secret key. For RSA on the other hand, you can just take the public key of the other party and send encrypted data to them, the receiver does not need to send you any data at any point.
+
+= Diffie-Hellman key exchange
+{c}
+{parent=Public-key cryptography}
+{wiki=Diffie–Hellman_key_exchange}
+
+= DHKE
+{c}
+{synonym}
+{title2}
+
+Based on the fact that we don't have a <P (complexity)> algorithm for the <discrete logarithm of the cyclic group> as of 2020, but we do have an efficient algorithm for <modular exponentiation>. But nor do we have proof that one does not exist! Living on the edge as usual for <public-key cryptography>.
+
+= Key exchange
+{parent=Diffie-Hellman key exchange}
+
+= Elliptic curve cryptography
+{parent=Public-key cryptography}
+{tag=Elliptic curve}
+{tag=Discrete logarithm}
+{wiki}
+
+= Elliptic-curve Diffie-Hellman
+{c}
+{parent=Elliptic curve cryptography}
+{tag=Diffie-Hellman key exchange}
+{wiki}
+
+= ECDH
+{c}
+{synonym}
+{title2}
+
+The algorithm is completely analogous to <Diffie-Hellman key exchange> in that you efficiently raise a number to a power $n$ times and send the result over while keeping $n$ as private key.
+
+The only difference is that a different group is used: instead of using the <cyclic group>, we use the <elliptic curve group> of an <elliptic curve over a finite field>.
+
+\Video[https://www.youtube.com/watch?v=NF1pwjL9-DE]
+{title=<Elliptic curves> by <Computerphile> (2018)}
+{description=https://youtu.be/NF1pwjL9-DE?t=143 shows the continuous group well, but then fails to explain the discrete part.}
+
+Variant of <Diffie-Hellman key exchange> based on <elliptic curve cryptography>.
+
+= Diffie-Hellman vs ECDH
+{c}
+{parent=Elliptic-curve Diffie-Hellman}
+
+https://crypto.stackexchange.com/questions/29906/how-does-diffie-hellman-differ-from-elliptic-curve-diffie-hellman
+
+<ECDH> has smaller keys. https://youtu.be/gAtBM06xwaw?t=634 mentions some interesting downsides:
+* bad curves exist, while in modular, any number seems to work well. TODO why?
+* TODO can't find this mentioned anywher else: <Diffie-Hellman key exchange> has a proof that there is no algorithm, <ECDH> doesn't. Which proof?
+
+= Encryption
+{parent=Cryptography}
+{wiki}
+
+= Encrypted
+{synonym}
+
+= Encryption software
+{parent=Encryption}
+{wiki}
+
+= OpenSSL
+{c}
+{parent=Encryption software}
+{wiki}
+
+= Steganography
+{parent=Encryption}
+{wiki}
+
+= Steganographically
+{synonym}
+
+= Deniable authentication
+{parent=Encryption}
+{wiki}
+
+= End-to-end encryption
+{parent=Encryption}
+{tag=Good}
+{wiki}
+
+= E2EE
+{c}
+{synonym}
+{title2}
+
+= End-to-end encrypted
+{synonym}
+
+= Forward secrecy
+{parent=Encryption}
+{wiki}
+
+= Perfect forward secrecy
+{synonym}
+
+https://stackoverflow.com/questions/20505942/how-does-perfect-forward-secrecy-pfs-work/66118134#66118134
+
+= Disk encryption
+{parent=Encryption}
+{wiki}
+
+= Can a smartphone's PIN or password be brute-forced in an offline attack?
+{parent=Disk encryption}
+
+https://security.stackexchange.com/questions/202174/can-a-smartphones-pin-or-password-be-brute-forced-in-an-offline-attack
+
+<Ciro Santilli> has a hard time understanding why this is possible, e.g. many people use short 4 digit pins, or a short swipe pattern. Why can't this be cracked easily offline?
+
+= Linux Unified Key Setup
+{c}
+{parent=Disk encryption}
+{wiki}
+
+= LUKS
+{c}
+{synonym}
+{title2}
+
+= Disk encryption password handover plausible deniability
+{parent=Disk encryption}
+{wiki}
+
+* https://security.stackexchange.com/questions/135846/is-plausible-deniability-actually-feasible-for-encrypted-volumes-disks
+* https://security.stackexchange.com/questions/87153/linux-plausibly-deniable-file-system
+
+Can we do better than "wrong password implies random bytes"?
+
+Can the last disk access times be checked via forensic methods?
+
+= GNU Privacy Guard
+{c}
+{parent=Cryptography}
+{tag=GNU package}
+{title2=GnuPG}
+{title2=GPG}
+{wiki}
+
+Generate public private key, test encrypt and test decrypt:
+``
+# Create your pubkey.
+gpg --gen-key
+gpg --armor --output pubkey.gpg --export <myemail>
+
+# Encrypt using someone's pubkey.
+gpg --import pubkey2.gpg
+echo 'hello world' > hello.txt
+gpg --output hello.txt.gpg --encrypt --recipient <other-email> hello.txt
+
+# Double check it is not plaintext in the encrypted message.
+grep hello hello.txt.gpg
+
+# Decrypt.
+gpg --output hello.decrypt.txt --decrypt --recipient <myemail> hello.txt.gpg
+diff -u hello.decrypt.txt hello.txt
+``
+
+= Internet privacy
+{c}
+{parent=Cryptography}
+{wiki}
+
+= Anonymity
+{parent=Internet privacy}
+{wiki}
+
+= Anonymous
+{synonym}
+
+= Anonymously
+{synonym}
+
+= Receiving an anonymous donation
+{parent=Anonymity}
+
+Closely related:
+* <De-banking>
+
+Bibliography:
+* https://www.quora.com/Is-it-legal-for-billionaires-to-make-anonymous-charitable-donations-How-can-it-be-determined-if-a-large-sum-of-money-was-donated-anonymously-or-not
+
+= Receiving an anonymous donation in the UK
+{parent=Receiving an anonymous donation}
+
+<Ciro Santilli>'s experience: https://www.quora.com/Is-it-legal-for-billionaires-to-make-anonymous-charitable-donations-How-can-it-be-determined-if-a-large-sum-of-money-was-donated-anonymously-or-not/answer/Ciro-Santilli
+
+= Internet privacy organizations
+{parent=Internet privacy}
+
+= Riseup
+{c}
+{parent=Internet privacy organizations}
+{wiki}
+
+= Operations security
+{parent=Internet privacy}
+{wiki}
+
+= Operational security
+{synonym}
+
+= OPSEC
+{c}
+{synonym}
+{title2}
+
+= Tor
+{disambiguate=anonymity network}
+{c}
+{parent=Internet privacy}
+{wiki}
+
+= Tor
+{synonym}
+
+= Tor Browser
+{c}
+{parent=Tor (anonymity network)}
+{wiki}
+
+= Onion service
+{c}
+{parent=Tor (anonymity network)}
+{wiki=https://en.wikipedia.org/wiki/Tor_(network)#Onion_services}
+
+= Tor Onion service
+{c}
+{synonym}
+
+= Tor hidden service
+{c}
+{synonym}
+
+= Onion hidden service
+{c}
+{synonym}
+
+This is a way to host a server that actually hide the <IP> of the server from the client, just like <Tor (anonymity network)> hides the <IP> of the client from the server. Amazing tecnology!
+
+This is why it enables hosting <illegal> things like the <Silk Road (marketplace)>: <law enforcement> is not able find where the server is hosted, and take it down or identify the owner.
+
+Bibliography:
+* https://security.stackexchange.com/questions/38194/how-can-i-get-the-ip-address-for-a-tor-hidden-service-hs-with-a-onion-address
+
+= Dark web
+{parent=Onion service}
+{wiki}
+
+= Hidden Answers
+{parent=Onion service}
+{wiki}
+
+https://www.reddit.com/r/onions/comments/sfquss/hidden_answers_is_back/ gives pbqttnffb5sh6ckgnz4f5by55w25gd6tuw5f5qcctmnyk62eyhgx6rad.onion which is Dead Janary 2024
+
+= Onion service search engine
+{parent=Onion service}
+
+= Uncensored Onion service search engine
+{parent=Onion service search engine}
+
+This is where "fun" stuff is likely to be.
+
+= Tor.link
+{parent=Uncensored Onion service search engine}
+
+https://tor.link/
+
+Live January 2024.
+
+= The Hidden Wiki
+{c}
+{parent=Tor (anonymity network)}
+{wiki}
+
+= Can ISPs deanonymize Tor users based on timestamps of public posts?
+{parent=Tor (anonymity network)}
+{wiki}
+
+https://security.stackexchange.com/questions/237632/can-isp-deanonymize-telegram-public-channel-creators
+
+= Ciphertext, plaintext, key and salt
+{parent=Cryptography}
+
+= Ciphertext
+{parent=Ciphertext, plaintext, key and salt}
+{wiki}
+
+= Key
+{disambiguate=cryptography}
+{parent=Ciphertext, plaintext, key and salt}
+{wiki}
+
+= Pre-shared key
+{parent=Key (cryptography)}
+{wiki}
+
+An overview of what you can do with a pre-shared key with tradeoffs can be found at: https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 The options are:
+* <one-time pad>
+* <symmetric encryption>
+* authentication with some <message authentication code> protocol
+
+= Message authentication code
+{parent=Pre-shared key}
+{wiki}
+
+Bibliography:
+* https://crypto.stackexchange.com/questions/59958/is-it-safe-to-hash-a-packet-with-a-shared-secret-to-prove-authenticity
+
+= Man-in-the-middle attack
+{parent=Cryptography}
+{wiki}
+
+= Man-in-the-middle
+{synonym}
+
+= MITM
+{c}
+{synonym}
+{title2}
+
+= Authentication
+{disambiguate=cryptography}
+{parent=Man-in-the-middle attack}
+
+In the context of cryptography, authentication means "ensuring that the message you got comes from who you think it did".
+
+Authentication is how we prevent the <man-in-the-middle attack>.
+
+Authentication is one of the hardest parts of cryptography, because the only truly secure way to do it is by driving to the other party yourself to establish a <pre-shared key> so you can do <message authentication code>. Or to share your <public key> with them if you are satisfied with the safety of <post-quantum cryptography>.
+
+= Zero-knowledge proof
+{parent=Cryptography}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Otvcbw6k4eo]
+{title=I can prove I've solved this Sudoku without revealing it by Polylog}
+
+= Zero-knowledge proof vs digital signature
+{parent=Zero-knowledge proof}
+{tag=Digital signature}
+
+* https://crypto.stackexchange.com/questions/35177/is-using-digital-signatures-to-prove-identity-a-zero-knowledge-proof
+* https://www.reddit.com/r/crypto/comments/stspyl/is_digital_signature_a_form_of_zero_knowledge/

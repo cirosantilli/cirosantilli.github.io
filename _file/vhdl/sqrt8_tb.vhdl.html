@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>vhdl/sqrt8_tb.vhdl - Ciro Santilli</title>
+<meta property="og:title" content="vhdl/sqrt8_tb.vhdl - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/vhdl/sqrt8_tb.vhdl">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/vhdl/sqrt8_tb.vhdl">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/vhdl/sqrt8_tb.vhdl"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">vhdl/sqrt8_tb.vhdl</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/vhdl/sqrt8_tb.vhdl"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/vhdl">vhdl</a> / <a href="../../_raw/vhdl/sqrt8_tb.vhdl">sqrt8_tb.vhdl</a></b></div></nav></div><div class="p"><b>vhdl/sqrt8_tb.vhdl</b></div><div class="code"><div><pre><code>-- Adapted from.
+-- Input: 8-bit unsigned
+-- Output: 4-bit unsigned int floor(sqrt(x))
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+-- Subtractor Multiplexor
+entity sm is
+    port (
+        x  : in  std_logic;
+        y  : in  std_logic;
+        b  : in  std_logic;
+        u  : in  std_logic;
+        d  : out std_logic;
+        bo : out std_logic
+    );
+end sm;
+
+architecture rtl of sm is
+    signal t011, t111, t010, t001, t100, td : std_logic;
+begin
+    t011 &lt;= (not x) and y and b;
+    t111 &lt;= x and y and b;
+    t010 &lt;= (not x) and y and (not b);
+    t001 &lt;= (not x) and (not y) and b;
+    t100 &lt;= x and (not y) and (not b);
+    bo   &lt;= t011 or t111 or t010 or t001;
+    td   &lt;= t100 or t001 or t010 or t111;
+    d    &lt;= td when u='1' else x;
+end architecture rtl;
+
+--
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity sqrt8 is
+    port (
+        p : in  std_logic_vector(7 downto 0);
+        u : out std_logic_vector(3 downto 0)
+    );
+end sqrt8;
+
+architecture rtl of sqrt8 is
+    signal zer : std_logic := '0';
+    signal one : std_logic := '1';
+    signal x00, x01, x02, x03, x04, x05, u_0 : std_logic;
+    signal b00, b01, b02, b03, b04, b05 : std_logic;
+    signal x12, x13, x14, x15, x16, u_1 : std_logic;
+    signal b12, b13, b14, b15, b16 : std_logic;
+    signal x24, x25, x26, x27, u_2 : std_logic;
+    signal b24, b25, b26, b27 : std_logic;
+    signal x36, x37, u_3 : std_logic;
+    signal b36, b37 : std_logic;
+begin
+    --                           x     y    b    u    d    bo
+    s36: entity work.sm port map(p(6), one, zer, u_3, x36, b36);
+    s37: entity work.sm port map(p(7), zer, b36, u_3, x37, b37);
+
+    s24: entity work.sm port map(p(4), one, zer, u_2, x24, b24);
+    s25: entity work.sm port map(p(5), zer, b24, u_2, x25, b25);
+    s26: entity work.sm port map(x36 , u_3, b25, u_2, x26, b26);
+    s27: entity work.sm port map(x37 , zer, b26, zer, x27, b27);
+
+    s12: entity work.sm port map(p(2), one, zer, u_1, x12, b12);
+    s13: entity work.sm port map(p(3), zer, b12, u_1, x13, b13);
+    s14: entity work.sm port map(x24 , u_2, b13, u_1, x14, b14);
+    s15: entity work.sm port map(x25 , u_3, b14, u_1, x15, b15);
+    s16: entity work.sm port map(x26 , zer, b15, zer, x16, b16);
+
+    s00: entity work.sm port map(p(0), one, zer, zer, x00, b00);
+    s01: entity work.sm port map(p(1), zer, b00, zer, x01, b01);
+    s02: entity work.sm port map(x12 , u_1, b01, zer, x02, b02);
+    s03: entity work.sm port map(x13 , u_2, b02, zer, x03, b03);
+    s04: entity work.sm port map(x14 , u_3, b03, zer, x04, b04);
+    s05: entity work.sm port map(x15 , zer, b04, zer, x05, b05);
+
+    u_0  &lt;= not b05;
+    u_1  &lt;= not b16;
+    u_2  &lt;= not b27;
+    u_3  &lt;= not b37;
+
+    u(0) &lt;= u_0;
+    u(1) &lt;= u_1;
+    u(2) &lt;= u_2;
+    u(3) &lt;= u_3;
+
+end architecture rtl;
+
+--
+
+library std;
+use std.textio.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_textio.all;
+use ieee.numeric_std.all;
+
+entity sqrt8_tb is
+end sqrt8_tb;
+
+architecture behav of sqrt8_tb is
+    signal p : std_logic_vector(7 downto 0);
+    signal u : std_logic_vector(3 downto 0);
+    procedure print(
+        p : std_logic_vector(7 downto 0);
+        u : std_logic_vector(3 downto 0)
+    ) is
+        variable my_line : line;
+        alias swrite is write [line, string, side, width];
+    begin
+        write(my_line, p);
+        swrite(my_line, " = ");
+        write(my_line, u);
+        writeline(output, my_line);
+    end print;
+begin
+    sqrt8_0: entity work.sqrt8 port map(p, u);
+    process
+    begin
+        for i in 0 to 255 loop
+            p &lt;= std_logic_vector(to_unsigned(i, 8));
+            wait for 2 ns;
+            print(p, u);
+        end loop;
+        wait;
+    end process;
+end architecture behav;
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

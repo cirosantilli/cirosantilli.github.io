@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>c/inc_loop_asm_n.sh - Ciro Santilli</title>
+<meta property="og:title" content="c/inc_loop_asm_n.sh - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/refs/heads/master/c/inc_loop_asm_n_manual.png">
+<meta property="og:url" content="https://cirosantilli.com/_file/c/inc_loop_asm_n.sh">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/c/inc_loop_asm_n.sh">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/c/inc_loop_asm_n.sh"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">c/inc_loop_asm_n.sh</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../../technology#information-technology"> Information technology</a><a href="../../computer"> Computer</a><a href="../../computer-hardware"> Computer hardware</a><a href="../../computer-hardware#microarchitecture"> Microarchitecture</a><a href="../../computer-hardware#microarchitectural-benchmark"> Microarchitectural benchmark</a><a href="../../computer-hardware#cpu-microbenchmark"> CPU microbenchmark</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/c/inc_loop_asm_n.sh"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../../computer-hardware#_file/c/inc_loop_asm_n.sh"></a><span class="metrics"><span class="wcntr"> Words: 115</span></span></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/c">c</a> / <a href="../../_raw/c/inc_loop_asm_n.sh">inc_loop_asm_n.sh</a></b></div></nav></div><div class="p" id="_242">This is a quick <a href="../../computer-hardware#microarchitectural-benchmark">Microarchitectural benchmark</a> to try and determine how many <a href="../../computer-hardware#cpu-functional-unit">functional units</a> our CPU has that can do an <code>inc</code> instruction at the same time due to <a href="../../computer-hardware#superscalar-processor">superscalar architecture</a>.</div><div class="p" id="_243">The generated programs do loops like:<div class="code" id="_244"><div><pre><code>loop:
+  inc %[i0];
+  inc %[i1];
+  inc %[i2];
+  ...
+  inc %[i_n];
+  cmp %[max], %[i0];
+  jb loop;</code></pre></div></div>with different numbers of inc instructions.</div><div class="figure"><figure id="image-c-inc-loop-asm-n-sh-results-for-a-few-cpus" class="multiline"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/refs/heads/master/c/inc_loop_asm_n_manual.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/refs/heads/master/c/inc_loop_asm_n_manual.png" loading="lazy" height="480"></a></div><figcaption><a href="#image-c-inc-loop-asm-n-sh-results-for-a-few-cpus"><span class="caption-prefix">Figure 2. </span></a><div class="title">c/inc_loop_asm_n.sh results for a few CPUs</div>. <div class="p" id="_245">Quite clearly:<div class="list"><ul id="_246"><li id="_247"><a href="../../computer-hardware#amd-7840u">AMD 7840U</a> can run INC on 4 functional units</li><li id="_248"><a href="../../computer-hardware#intel-i7-7820hq">Intel i7-7820HQ</a> can run INC on 2 functional units</li></ul></div>and both have low instruction count effects that destroy performance, AMD at 3 and Intel at 3 and 5. TODO it would be cool to understand those better.</div><div class="p" id="_249">Data from multiple CPUs manually collated and plotted manually with <a href="../../_raw/c/inc_loop_asm_n_manual.sh">c/inc_loop_asm_n_manual.sh</a>.</div></figcaption></figure></div><div class="p" id="_250">Announced at:<div class="list"><ul id="_251"><li id="_252"><a href="https://mastodon.social/@cirosantilli/114698665154298332">mastodon.social/@cirosantilli/114698665154298332</a></li><li id="_253"><a href="https://x.com/cirosantilli/status/1934950348663214211">x.com/cirosantilli/status/1934950348663214211</a></li><li id="_254"><a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7340716961170898944/">www.linkedin.com/feed/update/urn:li:ugcPost:7340716961170898944/</a></li></ul></div></div><div class="p"><b>c/inc_loop_asm_n.sh</b></div><div class="code"><div><pre><code>#!/usr/bin/env bash
+
+set -eu
+
+ninsts_max="${1:-13}"
+nloops="${2:-5000000000}"
+ninsts=0
+f=inc_loop_asm_n.c
+b=${f%.*}
+exec="${b}.out"
+dat="${b}.txt"
+
+rm -f "$dat"
+while [ "$ninsts" -le "$ninsts_max" ]; do
+printf "$ninsts " &gt;&gt; "$dat"
+for inst in inc; do
+echo "$ninsts $inst"
+
+# Stuff derived from inst only.
+clobbers=
+# Limits because we don't have enough registers of a given type.
+ninsts_inst_max=13
+case "$inst" in
+  add) ;;
+  imul) ;;
+  inc) ;;
+  mul)
+    # This builds, but it won't show anything fun because x86 MUL is insane
+    # and takes rax as both input and output, so it's not possible to expose
+    # instruction level parallelism with it. To see it we need to actually
+    # move the values around a bit. I could likely patch that in this example, but
+    # I'll just make a separate one instead I think, it will be simpler.
+    clobbers='"rax", "rdx"'
+    ninsts_inst_max=9
+  ;;
+  *) exit 1;;
+esac
+
+if [ "$ninsts" -le "$ninsts_inst_max" ]; then
+cat &lt;&lt;EOF &gt;"$f"
+#include &lt;stdlib.h&gt;
+#include &lt;stdint.h&gt;
+
+int main(int argc, char **argv) {
+    uint64_t nloops;
+EOF
+i=0
+while [ "$i" -le "$ninsts" ]; do
+cat &lt;&lt;EOF &gt;&gt;"$f"
+    uint64_t i${i} = 0;
+EOF
+  i="$((i + 1))"
+done
+cat &lt;&lt;EOF &gt;&gt;"$f"
+    if (argc &gt; 1 ) {
+        nloops = strtoll(argv[1], NULL, 0);
+    } else {
+        nloops = 1;
+    }
+#if defined(__x86_64__) || defined(__i386__)
+    __asm__ (
+        ".align 64;"
+        "loop:"
+EOF
+
+i=1
+while [ "$i" -le "$ninsts" ]; do
+  case "$inst" in
+    add) s="${inst} \$1, %[i${i}]";;
+    imul) s="${inst} \$3, %[i${i}], %[i${i}]";;
+    inc) s="${inst} %[i${i}]";;
+    mul) s="${inst} %[i${i}]";;
+    *) exit 1;;
+  esac
+  cat &lt;&lt;EOF &gt;&gt;"$f"
+        "$s;"
+EOF
+  i="$((i + 1))"
+done
+
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        "dec %[i0];"
+        "jne loop;"
+EOF
+
+if [ "$ninsts" -eq 0 ]; then
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        : [i0] "+r" (nloops)
+EOF
+else
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        : [i0] "+r" (nloops),
+EOF
+fi
+i=1
+while [ "$i" -lt "$ninsts" ]; do
+cat &lt;&lt;EOF &gt;&gt;"$f"
+          [i${i}] "+r" (i${i}),
+EOF
+  i="$((i + 1))"
+done
+if [ "$ninsts" -gt 0 ]; then
+cat &lt;&lt;EOF &gt;&gt;"$f"
+          [i${i}] "+r" (i${i})
+EOF
+fi
+
+# End.
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        :
+        : ${clobbers}
+    );
+#endif
+    return
+EOF
+
+i=0
+while [ "$i" -lt "$((ninsts - 1))" ]; do
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        i${i} +
+EOF
+  i="$((i + 1))"
+done
+cat &lt;&lt;EOF &gt;&gt;"$f"
+        i${i}
+EOF
+
+cat &lt;&lt;EOF &gt;&gt;"$f"
+    ;
+}
+EOF
+
+#nl -ba "$f"
+make --silent
+printf "$(command time -f '%U' -q ./"$exec" "$nloops" 2&gt;&amp;1) " &gt;&gt; "$dat"
+else # [ "$nists" -le "$ninsts_inst_max" ]
+# Placeholder for when we can't do that many registers.
+printf "0 " &gt;&gt; "$dat"
+fi  # [ "$nists" -le "$ninsts_inst_max" ]
+done # for inst in
+sed -i '$ s/.$//' "$dat"
+ninsts="$((ninsts + 1))"
+printf "\n" &gt;&gt; "$dat"
+done # [ "$ninsts" -le "$ninsts_max" ]
+
+gnuplot &lt;&lt;EOF
+set term png
+set output "${b}.png"
+set title "Time to run 5B loops of N parallelizable instructions on AMD 7840U"
+set xlabel "{/*1.25N instructions per loop}\n{/*0.75 *0 means just one INC for loop variable}"
+set ylabel 'time (s)'
+set xtics 1
+set yrange [0:]
+plot '$dat' using 1:2 with linespoints title 'INC'
+EOF
+</code></pre></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(9)</span></a></h2><div class="list"><ol><li><a href="../../computer-hardware#cpu-microbenchmark">CPU microbenchmark</a></li><li><a href="../../computer-hardware#microarchitectural-benchmark">Microarchitectural benchmark</a></li><li><a href="../../computer-hardware#microarchitecture">Microarchitecture</a></li><li><a href="../../computer-hardware">Computer hardware</a></li><li><a href="../../computer">Computer</a></li><li><a href="../../technology#information-technology">Information technology</a></li><li><a href="../../technology#area-of-technology">Area of technology</a></li><li><a href="../../technology">Technology</a></li><li><a href="../.."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="../../computer-hardware#_file/c/inc_loop_asm_n.sh">c/inc_loop_asm_n.sh</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../../_file/computer-hardware.bigb">Source code for this page: computer-hardware.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/computer-hardware.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

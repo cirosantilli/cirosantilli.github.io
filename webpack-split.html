@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>webpack - Ciro Santilli</title>
+<meta property="og:title" content="webpack - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/webpack-split">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/webpack">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="webpack"><div class="notnav"><h1><a href="">webpack</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="technology#area-of-technology"> Area of technology</a><a href="technology#information-technology"> Information technology</a><a href="computer"> Computer</a><a href="software"> Software</a><a href="web-technology"> Web technology</a><a href="web-technology#asset-bundler"> Asset bundler</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://en.wikipedia.org/wiki/webpack" class="wiki"></a><a href="https://ourbigbook.com/cirosantilli/webpack"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="webpack"></a><span class="metrics"><span class="wcntr"> Words: 500</span><span class="dcnt"> Articles: 5</span></span></div></nav></div><div class="p" id="_1">Webpack is like a magic hydra that can <a href="biology#eating">eat</a> any type of file and bundle it into a single output: .js, <a href="typescript">.ts</a>, .ccs, .scss, .jsx, .tsx, <code>require</code>, <code>import</code>, <code>import</code> css from <code>.js</code>, it doesn't matter at all, it just digests all into the same <a href="molecular-biology#feces">dump</a>.</div><div class="p" id="_2">When it works, you are just left in awe and with a single Js file. When it doesn't, you're fucked and have to debug for several hours.</div><div class="p" id="_3">Demos under: <a href="_dir/webpack">webpack/</a>. To run all of them by default:<div class="code" id="_4"><div><pre><code>cd webpack/min
+npm install
+npm run build
+xdg-open index.html</code></pre></div></div>To easily make changes and reload the .js output live let this run on a terminal:<div class="code" id="_5"><div><pre><code>npx webpack watch</code></pre></div></div></div><div class="p" id="_6">Examples:<div class="list"><ul id="_7"><li id="_8"><a href="_dir/webpack/min">webpack/min</a>: minimal hello world. Doesn't do much, just copies <code>index.js</code> to <code>dist/index.js</code>.</li><li id="_9"><a href="_dir/webpack/require">webpack/require</a>: <code>require</code> and <code>import</code> demo. Both work from the same file. <code>dist/index.js</code> now contains all of:<div class="list"><ul id="_10"><li id="_11"><code>notindex.js</code></li><li id="_12"><code>notindex2.js</code></li><li id="_13"><a href="https://ourbigbook.com/go/topic/lodash">Lodash</a>, a common third-party helper library specified in the <a href="node-js#package-json">package.json</a> and installed with <a href="node-js#npm">npm</a></li></ul></div></li><li id="_14"><a href="_dir/webpack/node">webpack/node</a>: produce <a href="node-js">Node.js</a> output, as opposed to the default web output. To test it run:<div class="code" id="_15"><div><pre><code>npm run build
+node dist/index.js</code></pre></div></div>Achieved simply with:<div class="code" id="_16"><div><pre><code>target: 'node'Fatman in Robin,</code></pre></div></div>as documented at: <a href="https://webpack.js.org/concepts/targets/">webpack.js.org/concepts/targets/</a></li><li id="_17"><a href="_dir/webpack/sequelize">webpack/sequelize</a>: attempts at getting <a href="sequelize">Sequelize</a> to work with webpack. It's just not supported by <a href="sequelize">Sequelize</a>:<div class="list"><ul id="_18"><li id="_19"><a href="https://github.com/sequelize/sequelize/issues/9489#issuecomment-486047783">github.com/sequelize/sequelize/issues/9489#issuecomment-486047783</a></li><li id="_20"><a href="https://github.com/sequelize/sequelize/issues/13169">github.com/sequelize/sequelize/issues/13169</a></li></ul></div></li></ul></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 500</span><span class="dcnt"> 5</span></span></span></span></div><ul><li><div id="_toc/_file/webpack/template"><div class="arrow"><div></div></div><span class="not-arrow"><a href="webpack#_file/webpack/template">webpack/template</a><span class="hover-metadata"><a href="#_toc" class="u"> webpack</a><span class="metrics"><span class="wcntr"> 105</span></span></span></span></div></li><li><div id="_toc/_file/webpack/sass"><div class="arrow"><div></div></div><span class="not-arrow"><a href="webpack#_file/webpack/sass">webpack/sass</a><span class="hover-metadata"><a href="#_toc" class="u"> webpack</a><span class="metrics"><span class="wcntr"> 42</span></span></span></span></div></li><li><div id="_toc/_file/webpack/no-js-inject"><div class="arrow"><div></div></div><span class="not-arrow"><a href="webpack#_file/webpack/no-js-inject">webpack/no-js-inject</a><span class="hover-metadata"><a href="#_toc" class="u"> webpack</a><span class="metrics"><span class="wcntr"> 104</span></span></span></span></div></li><li><div id="_toc/webpack-sass-import"><div class="arrow"><div></div></div><span class="not-arrow"><a href="webpack#webpack-sass-import">webpack Sass import</a><span class="hover-metadata"><a href="#_toc" class="u"> webpack</a><span class="metrics"><span class="wcntr"> 48</span></span></span></span></div></li><li><div id="_toc/webpack-css-ignore-font-format"><div class="arrow"><div></div></div><span class="not-arrow"><a href="webpack#webpack-css-ignore-font-format">webpack CSS ignore font format</a><span class="hover-metadata"><a href="#_toc" class="u"> webpack</a></span></span></div></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(8)</span></a></h2><div class="list"><ol><li><a href="web-technology#asset-bundler">Asset bundler</a></li><li><a href="web-technology">Web technology</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(4)</span></a></h2><div class="list"><ul><li><a href="node-js#codaisseur-feathersjs-react-redux-ssr">Codaisseur/feathersjs-react-redux-ssr</a></li><li><a href="node-js#feathers-chat-react">feathers-chat-react</a></li><li><a href="react#next-js">Next.js</a></li><li><a href="programming-language#ruby-on-rails-react-integration">Ruby on Rails React integration</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/webpack.bigb">Source code for this page: webpack.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/webpack.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

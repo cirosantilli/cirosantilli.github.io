@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Git tips / diff3 - Ciro Santilli</title>
+<meta property="og:title" content="Git tips / diff3 - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/git-tips/diff3">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/git-tips/diff3">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="diff3"><div class="notnav"><h1><a href="../git-tips">Git tips</a><span class="meta"> / </span><a href=""><code>diff3</code></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../software#version-control"> Version control</a><a href="../software#list-of-version-control-systems"> List of version control systems</a><a href="../software#git"> Git</a><a href="../git-tips"> Git tips</a><a href="../git-tips#merge-conflicts"> Merge conflicts</a><a href="../git-tips#conflict-resolution-tool"> Conflict resolution tool</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/git-tips/diff3"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../git-tips#diff3"></a><span class="metrics"><span class="wcntr"> Words: 314</span></span></div></nav></div><div class="p" id="_108"><code>diff3</code> conflict is basically what you always want to see, either by setting it as the default as per <a href="https://stackoverflow.com/questions/27417656/should-diff3-be-default-conflictstyle-on-git">stackoverflow.com/questions/27417656/should-diff3-be-default-conflictstyle-on-git</a>:<div class="code" id="_109"><div><pre><code>git config --global merge.conflictstyle diff3</code></pre></div></div>or as a one off:<div class="code" id="_110"><div><pre><code>git checkout --conflict=diff3</code></pre></div></div></div><div class="p" id="_111">With this, conflicts now show up as:<div class="code" id="_112"><div><pre><code>++&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+ +5
+++||||||| parent of 7b0f59d (6)
+++3
+++=======
++ 6
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; 7b0f59d (6)</code></pre></div></div><code>7b0f59d</code> is the <a href="../computer-science#sha-2">SHA-2</a> of commit 6.</div><div class="p" id="_113">instead of the inferior default:<div class="code" id="_114"><div><pre><code>++&lt;&lt;&lt;&lt;&lt;&lt;&lt; ours
+ +5
+++=======
++ 6
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs</code></pre></div></div></div><div class="p" id="_115">We can also observe the current tree state during resolution:<div class="code" id="_116"><div><pre><code>* b4ec057 (HEAD, master) 5
+* 0b37c1b 4
+| * fbfbfe8 (my-feature) 7
+| * 7b0f59d 6
+|/
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1</code></pre></div></div>so we understand that we are now at 5 and that we are trying to apply our commit <code>6</code></div><div class="p" id="_117">So it is much clearer what is happening:<div class="list"><ul id="_118"><li id="_119">master changed the code from <code>3</code> to <code>5</code></li><li id="_120">our feature changed the code from <code>3</code> to <code>6</code></li></ul></div>and so now we have to decide what the new code is that will put both of these together.</div><div class="p" id="_121">Let's say we decide it is <code>5 + 6 = 11</code> and continue rebasing:<div class="code" id="_122"><div><pre><code>git add .
+git rebase --continue</code></pre></div></div></div><div class="p" id="_123">We now reach:<div class="code" id="_124"><div><pre><code>++&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+ +11
+++||||||| parent of fbfbfe8 (7)
+++6
+++=======
++ 7
+++&gt;&gt;&gt;&gt;&gt;&gt;&gt; fbfbfe8 (7)</code></pre></div></div>and the tree looks like:<div class="code" id="_125"><div><pre><code>* ca7f7ff (HEAD) 6
+* b4ec057 (master) 5
+* 0b37c1b 4
+| * fbfbfe8 (my-feature) 7
+| * 7b0f59d 6
+|/
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1</code></pre></div></div>So we understand that:<div class="list"><ul id="_126"><li id="_127">after the previous step we added commit 6 on top of 5</li><li id="_128">now we are adding 7 on top of the new 6 (which we decided would contain <code>11</code>)</li></ul></div>and after resolving that one we now reach:<div class="code" id="_129"><div><pre><code>* e1aaf20 (HEAD -&gt; my-feature) 7
+* ca7f7ff 6
+* b4ec057 (master) 5
+* 0b37c1b 4
+* 661cfab 3
+* 6d748a9 2
+* c5f8a2c 1</code></pre></div></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(12)</span></a></h2><div class="list"><ol><li><a href="../git-tips#conflict-resolution-tool">Conflict resolution tool</a></li><li><a href="../git-tips#merge-conflicts">Merge conflicts</a></li><li><a href="../git-tips">Git tips</a></li><li><a href="../software#git">Git</a></li><li><a href="../software#list-of-version-control-systems">List of version control systems</a></li><li><a href="../software#version-control">Version control</a></li><li><a href="../software">Software</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/git-tips.bigb">Source code for this page: git-tips.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/git-tips.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "git-tips/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

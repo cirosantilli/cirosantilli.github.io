@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>gfx_v11_0_priv_reg_irq: register access in command stream - Ciro Santilli</title>
+<meta property="og:title" content="gfx_v11_0_priv_reg_irq: register access in command stream - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/gfx-v11-0-priv-reg-irq-register-access-in-command-stream">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/gfx-v11-0-priv-reg-irq-register-access-in-command-stream">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="gfx-v11-0-priv-reg-irq-register-access-in-command-stream"><div class="notnav"><h1><a href="">gfx_v11_0_priv_reg_irq: register access in command stream</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="systems-programming#list-of-operating-systems"> List of operating systems</a><a href="systems-programming#linux"> Linux</a><a href="systems-programming#list-of-linux-distributions"> List of Linux distributions</a><a href="systems-programming#ubuntu"> Ubuntu</a><a href="systems-programming#ubuntu-release"> Ubuntu release</a><a href="systems-programming#ubuntu-23-10"> Ubuntu 23.10</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/gfx-v11-0-priv-reg-irq-register-access-in-command-stream"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="systems-programming#gfx-v11-0-priv-reg-irq-register-access-in-command-stream"></a><span class="metrics"><span class="wcntr"> Words: 356</span></span></div></nav></div><div class="p" id="_192">Had this happen on <a href="ciro-santilli-s-hardware#lenovo-thinkpad-p14s-gen4-amd">P14s</a> on <a href="systems-programming#ubuntu-23-10">Ubuntu 23.10</a> while causally using <a href="web-technology#chromium-web-browser">Chromium</a>. The screen went blank for a few seconds, but it apparently managed to reboot itself, and things started working again, except that and most windows were killed:<div class="code" id="_193"><div><pre><code>[drm:gfx_v11_0_priv_reg_irq [amdgpu]] *ERROR* Illegal register access in command stream
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_0.0.0 timeout, signaled seq=5774109, emitted seq=5774111
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process chrome pid 14023 thread chrome:cs0 pid 14087
+amdgpu 0000:64:00.0: amdgpu: GPU reset begin!
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:gfx_v11_0_cp_gfx_enable.isra.0 [amdgpu]] *ERROR* failed to halt cp gfx
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: MODE2 reset
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: GPU reset succeeded, trying to resume
+Dec 27 15:03:38 ciro-p14s kernel: [drm] PCIE GART of 512M enabled (table at 0x0000008000900</code></pre></div></div>It appears to be a bug in the <a href="computer-hardware#amdgpu">AMDGPU</a> open source driver.</div><div class="p" id="_194">Related reports:<div class="list"><ul id="_195"><li id="_196"><a href="https://gitlab.freedesktop.org/drm/amd/-/issues/2451">gitlab.freedesktop.org/drm/amd/-/issues/2451</a></li><li id="_197"><a href="https://gitlab.freedesktop.org/drm/amd/-/issues/475">gitlab.freedesktop.org/drm/amd/-/issues/475</a></li><li id="_198"><a href="https://github.com/ValveSoftware/csgo-osx-linux/issues/3386">github.com/ValveSoftware/csgo-osx-linux/issues/3386</a></li></ul></div></div><div class="p" id="_199">I think this was on <a href="technology#wayland">Wayland</a>. Possibly relatd but on <a href="technology#x-window-system">X Window System</a>, crashed the UI, showed message "oh no! Something has gone wrong."<div class="code" id="_200"><div><pre><code>2024-01-13_21-55-07@ciro@ciro-p14s$ cat /var/log/apport.log
+ERROR: apport (pid 975172) 2024-01-13 21:41:02,087: host pid 3528 crashed in a separate mount namespace, ignoring
+INFO: apport (pid 975227) 2024-01-13 21:41:02,398: called for pid 2728, signal 5, core limit 0, dump mode 1
+INFO: apport (pid 975227) 2024-01-13 21:41:02,401: executable: /usr/bin/gnome-shell (command line "/usr/bin/gnome-shell")
+INFO: apport (pid 975227) 2024-01-13 21:41:12,667: wrote report /var/crash/_usr_bin_gnome-shell.1000.crash</code></pre></div></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(14)</span></a></h2><div class="list"><ol><li><a href="systems-programming#ubuntu-23-10">Ubuntu 23.10</a></li><li><a href="systems-programming#ubuntu-release">Ubuntu release</a></li><li><a href="systems-programming#ubuntu">Ubuntu</a></li><li><a href="systems-programming#list-of-linux-distributions">List of Linux distributions</a></li><li><a href="systems-programming#linux">Linux</a></li><li><a href="systems-programming#list-of-operating-systems">List of operating systems</a></li><li><a href="systems-programming#operating-system">Operating system</a></li><li><a href="systems-programming">Systems programming</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/systems-programming.bigb">Source code for this page: systems-programming.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/systems-programming.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>runwayml/stable-diffusion - Ciro Santilli</title>
+<meta property="og:title" content="runwayml/stable-diffusion - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png">
+<meta property="og:url" content="https://cirosantilli.com/runwayml-stable-diffusion">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/runwayml-stable-diffusion">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="runwayml-stable-diffusion"><div class="notnav"><h1><a href="">runwayml/stable-diffusion</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="artificial-intelligence#generative-ai"> Generative AI</a><a href="artificial-intelligence#generative-ai-by-modality"> Generative AI by modality</a><a href="artificial-intelligence#image-generation"> Image generation</a><a href="artificial-intelligence#text-to-image-generation"> Text-to-image generation</a><a href="artificial-intelligence#text-to-image-model"> Text-to-image model</a><a href="artificial-intelligence#open-source-text-to-image-model"> Open source text-to-image model</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/runwayml-stable-diffusion"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="artificial-intelligence#runwayml-stable-diffusion"></a><span class="metrics"><span class="wcntr"> Words: 294</span></span></div></nav></div><div class="p" id="_592"><a href="https://github.com/runwayml/stable-diffusion">github.com/runwayml/stable-diffusion</a></div><div class="p" id="_593"><a href="programming-language#conda">Conda</a> install is a bit annoying, but gets the job done. The generation quality is very good.</div><div class="p" id="_594">Someone should package this better for end user "just works after Conda install" image generation, it is currently much more of a library setup.</div><div class="p" id="_595">Tested on <a href="computer-hardware#amazon-elastic-compute-cloud">Amazon EC2</a> on a <a href="computer-hardware#g5-xlarge">g5.xlarge</a> machine, which has an <a href="computer-hardware#nvidia-a10g">Nvidia A10G</a>, using the <a href="computer-hardware#aws-deep-learning-base-gpu-ami-ubuntu-20-04">AWS Deep Learning Base GPU AMI (Ubuntu 20.04)</a> image.</div><div class="p" id="_596">First install <a href="programming-language#conda">Conda</a> as per <a href="programming-language#install-conda-on-ubuntu">Section "Install Conda on Ubuntu"</a>, and then just follow the instructions from the README, notably the <a href="https://github.com/runwayml/stable-diffusion/tree/08ab4d326c96854026c4eb3454cd3b02109ee982#reference-sampling-script">Reference sampling script</a> section.<div class="code" id="_597"><div><pre><code>git clone https://github.com/runwayml/stable-diffusion
+cd stable-diffusion/
+git checkout 08ab4d326c96854026c4eb3454cd3b02109ee982
+conda env create -f environment.yaml
+conda activate ldm
+mkdir -p models/ldm/stable-diffusion-v1/
+wget -O models/ldm/stable-diffusion-v1/model.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+python scripts/txt2img.py --prompt "a photograph of an astronaut riding a horse" --plms</code></pre></div></div>This took about 2 minutes and generated 6 images under <code>outputs/txt2img-samples/samples</code>, includining an image <code>outputs/txt2img-samples/grid-0000.png</code> which is a grid montage containing all the six images in one:</div><div class="figure"><figure id="_598"><div class="float-wrap"><a href="https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png" loading="lazy" height="315" alt="https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png"></a></div></figure></div><div class="p" id="_599">TODO how to change the number of images?</div><div class="p" id="_600">A quick attempt at removing their useless safety features (watermark and <a href="art#not-safe-for-work">NSFW</a> text filter) is:<div class="code" id="_601"><div><pre><code>diff --git a/scripts/txt2img.py b/scripts/txt2img.py
+index 59c16a1..0b8ef25 100644
+--- a/scripts/txt2img.py
++++ b/scripts/txt2img.py
+@@ -87,10 +87,10 @@ def load_replacement(x):
+ def check_safety(x_image):
+     safety_checker_input = safety_feature_extractor(numpy_to_pil(x_image), return_tensors="pt")
+     x_checked_image, has_nsfw_concept = safety_checker(images=x_image, clip_input=safety_checker_input.pixel_values)
+-    assert x_checked_image.shape[0] == len(has_nsfw_concept)
+-    for i in range(len(has_nsfw_concept)):
+-        if has_nsfw_concept[i]:
+-            x_checked_image[i] = load_replacement(x_checked_image[i])
++    #assert x_checked_image.shape[0] == len(has_nsfw_concept)
++    #for i in range(len(has_nsfw_concept)):
++    #    if has_nsfw_concept[i]:
++    #        x_checked_image[i] = load_replacement(x_checked_image[i])
+     return x_checked_image, has_nsfw_concept
+
+
+@@ -314,7 +314,7 @@ def main():
+                             for x_sample in x_checked_image_torch:
+                                 x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -&gt; h w c')
+                                 img = Image.fromarray(x_sample.astype(np.uint8))
+-                                img = put_watermark(img, wm_encoder)
++                                # img = put_watermark(img, wm_encoder)
+                                 img.save(os.path.join(sample_path, f"{base_count:05}.png"))
+                                 base_count += 1</code></pre></div></div>but that produced 4 black images and only two unfiltered ones. Also likely the lack of sexual training data makes its porn suck, and not in the good way.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(14)</span></a></h2><div class="list"><ol><li><a href="artificial-intelligence#open-source-text-to-image-model">Open source text-to-image model</a></li><li><a href="artificial-intelligence#text-to-image-model">Text-to-image model</a></li><li><a href="artificial-intelligence#text-to-image-generation">Text-to-image generation</a></li><li><a href="artificial-intelligence#image-generation">Image generation</a></li><li><a href="artificial-intelligence#generative-ai-by-modality">Generative AI by modality</a></li><li><a href="artificial-intelligence#generative-ai">Generative AI</a></li><li><a href="artificial-intelligence#ai-by-capability">AI by capability</a></li><li><a href="artificial-intelligence">Artificial intelligence</a></li><li><a href="machine-learning">Machine learning</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/artificial-intelligence.bigb">Source code for this page: artificial-intelligence.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/artificial-intelligence.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/raw/parallel_select_and_update.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/raw/parallel_select_and_update.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/raw/parallel_select_and_update.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/parallel_select_and_update.js">
+<style>@import "../../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/nodejs/sequelize/raw/parallel_select_and_update.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/raw/parallel_select_and_update.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../../../../sql"> SQL</a><a href="../../../../sql#sql-feature"> SQL feature</a><a href="../../../../sql#sql-transaction"> SQL transaction</a><a href="../../../../sql#sql-transaction-isolation-level"> SQL transaction isolation level</a><a href="../../../../sql#sql-isolation-level-example"> SQL isolation level example</a><a href="../../../../sql#sql-parallel-update-example"> SQL parallel update example</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/raw/parallel_select_and_update.js"><img src="../../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../../../../sql#_file/nodejs/sequelize/raw/parallel_select_and_update.js"></a><span class="metrics"><span class="wcntr"> Words: 422</span></span></div><div class="nav file"><b> <a href="../../../../_dir">(root)</a> / <a href="../../../../_dir/nodejs">nodejs</a> / <a href="../../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../../_dir/nodejs/sequelize/raw">raw</a> / <a href="../../../../_raw/nodejs/sequelize/raw/parallel_select_and_update.js">parallel_select_and_update.js</a></b></div></nav></div><div class="p" id="_533">This example is similar to <a href="../../../../sql#_file/nodejs/sequelize/raw/parallel_update_async.js">nodejs/sequelize/raw/parallel_update_async.js</a>, but now we are doing a separate SELECT, later followed by an update:<div class="list"><ul id="_534"><li id="_535"><code>SELECT FROM</code> to get i</li><li id="_536">update on Js code <code>newI = i + 1</code></li><li id="_537"><code>UPDATE SET</code> the <code>newI</code></li></ul></div></div><div class="p" id="_538">Although this specific example is useless in itself, as we could just use <code>UPDATE "MyInt" SET i = i + 1</code> as in <a href="../../../../sql#_file/nodejs/sequelize/raw/parallel_update_async.js">nodejs/sequelize/raw/parallel_update_async.js</a>, which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.</div><div class="p" id="_539">Sample execution:<div class="code" id="_540"><div><pre><code>node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED'</code></pre></div></div>which does:<div class="list"><ul id="_541"><li id="_542"><a href="../../../../sql#postgresql">PostgreSQL</a>, see other databases options at <a href="../../../../sql#sql-example">SQL example</a></li><li id="_543">2 threads</li><li id="_544">10 increments on each thread</li></ul></div></div><div class="p" id="_545">Another one:<div class="code" id="_546"><div><pre><code>node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED' 'FOR UPDATE'</code></pre></div></div>this will run <a href="../../../../sql#select-for-update">SELECT FOR UPDATE</a> rather than just <a href="../../../../sql#select-sql">SELECT</a></div><div class="p" id="_547">Observed behaviour under different <a href="../../../../sql#sql-transaction-isolation-level">SQL transaction isolation levels</a>:<div class="list"><ul id="_548"><li id="_549"><code>READ COMMITTED</code>: fails. Nothing in this case prevents:<div class="list"><ul id="_550"><li id="_551">thread 1: SELECT, obtains i = 0</li><li id="_552">thread 2: SELECT, obtains i = 0</li><li id="_553">thread 2: newI = 1</li><li id="_554">thread 2: UPDATE i = 1</li><li id="_555">thread 1: newI = 1</li><li id="_556">thread 1: UPDATE i = 1</li></ul></div></li><li id="_557"><code>REPEATABLE READ</code>: works. the manual mentions that if multiple concurrent updates would happen, only the first commit succeeds, and the following ones fail and rollback and retry, therefore preventing the loss of an update.</li><li id="_558"><div class="p" id="_559"><code>READ COMMITTED</code> + <code>SELECT FOR UPDATE</code>: works. And does not do rollbacks, which probably makes it faster. With <code>p 10 100</code>, <code>REPEATABLE READ</code> was about 4.2s and <code>READ COMMITTED</code> + <code>SELECT FOR UPDATE</code> 3.2s on <a href="../../../../ciro-santilli-s-hardware#lenovo-thinkpad-p51-2017">Lenovo ThinkPad P51 (2017)</a>.</div><div class="p" id="_560"><code>SELECT FOR UPDATE</code> should be enough as mentioned at: <a href="https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS">www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS</a><div><blockquote id="_561">FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.</blockquote></div></div></li></ul></div></div><div class="p" id="_562">A non-raw version of this example can be seen at: <a href="../../../../sequelize#_file/nodejs/sequelize/parallel_select_and_update.js">nodejs/sequelize/parallel_select_and_update.js</a>.</div><div class="p"><b>nodejs/sequelize/raw/parallel_select_and_update.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+// https://cirosantilli.com/file/sequelize/raw/parallel_select_and_update.js
+
+const assert = require('assert');
+const common = require('../common');
+
+async function inc(sequelize, n, isolation, for_update) {
+  for (let i = 0; i &lt; n; i++) {
+    await common.transaction(sequelize, isolation, async sequelize =&gt; {
+      ;[rows, meta] = await sequelize.query(`SELECT * FROM "MyInt" ${for_update}`)
+      const newI = rows[0].i + 1
+      await sequelize.query(`UPDATE "MyInt" SET i = ${newI}`)
+    })
+  }
+}
+
+// CLI arguments.
+let nthreads;
+if (process.argv.length &gt; 3) {
+  nthreads = parseInt(process.argv[3], 10)
+} else {
+  nthreads = 2;
+}
+let n;
+if (process.argv.length &gt; 4) {
+  n = parseInt(process.argv[4], 10)
+} else {
+  n = 10;
+}
+const isolation = process.argv[5]
+let for_update = process.argv[6]
+if (for_update === undefined) {
+  for_update = ''
+}
+
+const sequelizes = common.sequelizes(nthreads, __filename, process.argv[2])
+const sequelize = sequelizes[0]
+;(async () =&gt; {
+await common.drop(sequelize, 'MyInt')
+await sequelize.query(`CREATE TABLE "MyInt" ( i INTEGER NOT NULL )`)
+await sequelize.query(`INSERT INTO "MyInt" VALUES (0)`)
+const arr = []
+for (let i = 0; i &lt; nthreads; i++) {
+  arr.push(inc(sequelizes[i], n, isolation, for_update))
+}
+await Promise.all(arr)
+let [rows, meta] = await sequelize.query(`SELECT * FROM "MyInt"`)
+assert.strictEqual(rows[0].i, nthreads * n)
+})().finally(() =&gt; {
+  return Promise.all(sequelizes.map(s =&gt; s.close()))
+});
+</code></pre></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(16)</span></a></h2><div class="list"><ol><li><a href="../../../../sql#sql-parallel-update-example">SQL parallel update example</a></li><li><a href="../../../../sql#sql-isolation-level-example">SQL isolation level example</a></li><li><a href="../../../../sql#sql-transaction-isolation-level">SQL transaction isolation level</a></li><li><a href="../../../../sql#sql-transaction">SQL transaction</a></li><li><a href="../../../../sql#sql-feature">SQL feature</a></li><li><a href="../../../../sql">SQL</a></li><li><a href="../../../../software#relational-database-management-system">Relational database management system</a></li><li><a href="../../../../software#relational-database">Relational database</a></li><li><a href="../../../../software#type-of-database">Type of database</a></li><li><a href="../../../../software#database">Database</a></li><li><a href="../../../../software">Software</a></li><li><a href="../../../../computer">Computer</a></li><li><a href="../../../../technology#information-technology">Information technology</a></li><li><a href="../../../../technology#area-of-technology">Area of technology</a></li><li><a href="../../../../technology">Technology</a></li><li><a href="../../../.."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(2)</span></a></h2><div class="list"><ul><li><a href="../../../../sequelize#_file/nodejs/sequelize/parallel_select_and_update.js">Nodejs/sequelize/parallel_select_and_update.js</a></li><li><a href="../../../../sql#select-for-update">SELECT FOR UPDATE</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../../../../_file/sql.bigb">Source code for this page: sql.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/sql.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

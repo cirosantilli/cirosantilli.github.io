@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>x86 Paging Tutorial / Application - Ciro Santilli</title>
+<meta property="og:title" content="x86 Paging Tutorial / Application - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png">
+<meta property="og:url" content="https://cirosantilli.com/x86-paging/application">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/x86-paging/application">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="application"><div class="notnav"><h1><a href="../x86-paging">x86 Paging Tutorial</a><span class="meta"> / </span><a href="">Application</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../computer-hardware#computer-hardware-component-type"> Computer hardware component type</a><a href="../computer-hardware#processor-computing"> Processor (computing)</a><a href="../computer-hardware#instruction-set-architecture"> Instruction set architecture</a><a href="../computer-hardware#list-of-instruction-set-architectures"> List of instruction set architectures</a><a href="../computer-hardware#x86"> x86</a><a href="../x86-paging"> x86 Paging Tutorial</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/x86-paging/application"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../x86-paging#application"></a><span class="metrics"><span class="wcntr"> Words: 341</span></span></div></nav></div><div class="p" id="_14">Paging makes it easier to compile and run two programs or threads at the same time on a single computer.</div><div class="p" id="_15">For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.</div><div class="p" id="_16">So nothing prevents it from using the same <a href="../computer-hardware#random-access-memory">RAM</a> address, say, <code>0x1234</code>, to store a global variable.</div><div class="p" id="_17">And thread <a href="https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134">stacks</a>, that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!</div><div class="p" id="_18">But if two programs use the same address and run at the same time, this is obviously going to break them!</div><div class="p" id="_19">Paging solves this problem beautifully by adding one degree of indirection:</div><div class="code" id="_20"><div><pre><code>(logical) ------------&gt; (physical)
+             paging</code></pre></div></div><div class="p" id="_21">Where:<div class="list"><ul id="_22"><li id="_23"><div class="p" id="_24">logical addresses are what userland programs see, e.g. the contents of <code>rsi</code> in <code>mov eax, [rsi]</code>.</div><div class="p" id="_25">They are often called "virtual" addresses as well.</div></li><li id="_26"><div class="p" id="_27">physical addresses can be though of the values that go to physical RAM index wires.</div><div class="p" id="_28">But keep in mind that this is not 100% true because of further indirections such as:</div><div class="list"><ul id="_29"><li id="_30"><a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">memory-mapped I/O regions</a></li><li id="_31"><a href="https://en.wikipedia.org/wiki/Multi-channel_memory_architecture">multi channel memory</a></li></ul></div></li></ul></div></div><div class="p" id="_32"><a href="../software#compiler">Compilers</a> don't need to worry about other programs: they just use simple logical addresses.</div><div class="p" id="_33">As far as programs are concerned, they think they can use any address between 0 and 4 GiB (2^32, <code>FFFFFFFF</code>) on 32-bit systems.</div><div class="p" id="_34">The OS then sets up paging so that identical logical addresses will go into different physical addresses and not overwrite each other.</div><div class="p" id="_35">This makes it much simpler to compile programs and run them at the same time.</div><div class="p" id="_36">Paging achieves that goal, and in addition:<div class="list"><ul id="_37"><li id="_38">the switch between programs is very fast, because it is implemented by hardware</li><li id="_39">the memory of both programs can grow and shrink as needed without too much fragmentation</li><li id="_40"><div class="p" id="_41">one program can never access the memory of another program, even if it wanted to.</div><div class="p" id="_42">This is good both for security, and to prevent bugs in one program from crashing other programs.</div></li></ul></div></div><div class="p" id="_43">Or if you like non-funny jokes:</div><div class="figure"><figure id="image-comparison-between-the-linux-kernel-userland-memory-virtualization-and-the-matrix"><div class="float-wrap"><a href="https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png"><img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png" loading="lazy" height="315"></a></div><figcaption><a href="#image-comparison-between-the-linux-kernel-userland-memory-virtualization-and-the-matrix"><span class="caption-prefix">Figure 1. </span></a><div class="title">Comparison between the Linux kernel userland memory virtualization and The Matrix</div>. <a href="https://commons.wikimedia.org/wiki/File:Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png">Source</a>. Is this RAM real?</figcaption></figure></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(12)</span></a></h2><div class="list"><ol><li><a href="../x86-paging">x86 Paging Tutorial</a></li><li><a href="../computer-hardware#x86">x86</a></li><li><a href="../computer-hardware#list-of-instruction-set-architectures">List of instruction set architectures</a></li><li><a href="../computer-hardware#instruction-set-architecture">Instruction set architecture</a></li><li><a href="../computer-hardware#processor-computing">Processor (computing)</a></li><li><a href="../computer-hardware#computer-hardware-component-type">Computer hardware component type</a></li><li><a href="../computer-hardware">Computer hardware</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/x86-paging.bigb">Source code for this page: x86-paging.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/x86-paging.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "x86-paging/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>test_executables.js - Ciro Santilli</title>
+<meta property="og:title" content="test_executables.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/test_executables.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/test_executables.js">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="_file/test_executables.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">test_executables.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../technology#area-of-technology"> Area of technology</a><a href="../technology#information-technology"> Information technology</a><a href="../computer"> Computer</a><a href="../software"> Software</a><a href="../software#software-quality-assurance"> Software quality assurance</a><a href="../software#software-testing"> Software testing</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/test_executables.js"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../software#_file/test_executables.js"></a><span class="metrics"><span class="wcntr"> Words: 86</span></span></div><div class="nav file"><b> <a href="../_dir">(root)</a> / <a href="../_raw/test_executables.js">test_executables.js</a></b></div></nav></div><div class="p" id="_1115">This script tests all executables under a selected directory.</div><div class="p" id="_1116"><a href="../ciro-santilli">Ciro Santilli</a> has been writing scripts of that type for a long time in order to test his <a href="../ciro-santilli#ciro-santilli-s-documentation-superpowers">programming self-learning setups with asserts</a>.</div><div class="p" id="_1117">The most advanced of those being the <a href="https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/test">test system</a> of <a href="../the-most-important-projects-done-by-ciro-santilli#linux-kernel-module-cheat">Linux Kernel Module Cheat</a>.</div><div class="p" id="_1118">But had too much stuff that would be specific to that project, so Ciro decided to start this new one in <a href="../node-js">Node.js</a>, hopefully it will also be the last he ever writes.</div><div class="p" id="_1119">A sample usage of the test library can be seen at: <a href="../_raw/nodejs/sequelize/test">nodejs/sequelize/test</a>.</div><div class="p"><b>test_executables.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+const child_process = require("child_process")
+const fs = require("fs")
+const path = require("path")
+
+function testLoop(topdir, fileOrDir, opts) {
+  let dirents;
+  let dir
+  if (fs.lstatSync(fileOrDir).isDirectory()) {
+    dir = fileOrDir
+    dirents = fs.readdirSync(fileOrDir, { withFileTypes: true })
+  } else {
+    dirents = [{
+      name: path.basename(fileOrDir),
+      isDirectory: () =&gt; false,
+    }]
+    dir = path.dirname(fileOrDir)
+  }
+  for (let dirent of dirents.sort((a, b) =&gt; a.name.localeCompare(b.name))) {
+    const curPath = path.join(dir, dirent.name)
+    const relpath = path.relative(process.cwd(), curPath)
+    if (!opts.skip.has(relpath)) {
+      if (dirent.isDirectory()) {
+        if (
+          dirent.name !== 'node_modules' &amp;&amp;
+          !testLoop(topdir, curPath, opts)
+        ) {
+          return false
+        }
+      } else {
+        if (dirent.name !== 'test') {
+          let isExec = true
+          try {
+            fs.accessSync(curPath, fs.constants.X_OK)
+          } catch(e) {
+            isExec = false
+          }
+          if (isExec) {
+            let relpathArgsSkip = opts.argsSkip[relpath]
+            if (relpathArgsSkip === undefined) {
+              relpathArgsSkip = new Set()
+            }
+            let argsList;
+            if (relpath in opts.args) {
+              argsList = opts.args[relpath]
+            } else if (opts.argsCommon !== undefined) {
+              argsList = opts.argsCommon
+            } else {
+              argsList = [[]]
+            }
+            for (let i = 0; i &lt; argsList.length; i++) {
+              let args = argsList[i]
+              if (!relpathArgsSkip.has(JSON.stringify(args))) {
+                let cmd;
+                let cmdPrint
+                if (opts.pref) {
+                  cmd = opts.pref[0]
+                  args = opts.pref.slice(1).concat([relpath]).concat(args)
+                  cmdPrint = cmd
+                } else {
+                  cmd = curPath
+                  cmdPrint = relpath
+                }
+                console.log(([cmdPrint].concat(args)).join(' '))
+                const out = child_process.spawnSync(cmd, args);
+                if (out.status !== 0) {
+                  let msg = `error:\n`;
+                  if (out.stdout !== null) {
+                    msg += `stdout: \n${out.stdout.toString('utf8')}\n`;
+                  }
+                  if (out.stderr !== null) {
+                    msg += `stderr: \n${out.stderr.toString('utf8')}\n`;
+                  }
+                  console.log(msg)
+                  return false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return true
+}
+
+// Test all executables under a given directory recursively.
+//
+// opts:
+//
+// * argsCommon: string[][]. List of common command line arguments passed to all executables
+//                     Each executable runs once with every given set of arguments.
+// * args: {string: string[][]}. List of command line arguments passed to the chosen executable.
+//                     That executable runs once with every given set of arguments given.
+//                     This option overrides argsCommon for the selected paths.
+// * argsSkip: {strig: string[][]}: don't run given executables with the given arg lists
+//                     This can be used to skip certain argsCommon choices on certain executables.
+// * argv: string[][]. process.argv of the ./test command. Elements:
+//                     - 0: toplevel file or directory. If not given, use cwd.
+// * pref: string[]. Prefix added to each command to run.
+// * skip: string[]. List of paths to skip tests for, usually because they are failing,
+//                   or because they are slow.
+function test(opts = {}) {
+  if (!('argsCommon' in opts)) {
+    opts.argsCommon = [[]]
+  }
+  if (!('argsSkip' in opts)) {
+    opts.argsSkip = {}
+  }
+  for (let relpath in opts.argsSkip) {
+    const argsSkip = new Set()
+    const argsSkipRelpath = opts.argsSkip[relpath]
+    for (let args of argsSkipRelpath) {
+      argsSkip.add(JSON.stringify(args))
+    }
+    opts.argsSkip[relpath] = argsSkip
+  }
+  if (!('argv' in opts)) {
+    opts.argv = []
+  }
+  let toplevel;
+  if (opts.argv.length &gt; 2) {
+    toplevel = path.resolve(opts.argv[2])
+  } else {
+    toplevel = process.cwd()
+  }
+  const ret = testLoop(toplevel, toplevel, opts) ? 0 : 1
+  process.exit(ret);
+}
+exports.test = test
+
+if (require.main === module) {
+  test()
+}
+</code></pre></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(8)</span></a></h2><div class="list"><ol><li><a href="../software#software-testing">Software testing</a></li><li><a href="../software#software-quality-assurance">Software quality assurance</a></li><li><a href="../software">Software</a></li><li><a href="../computer">Computer</a></li><li><a href="../technology#information-technology">Information technology</a></li><li><a href="../technology#area-of-technology">Area of technology</a></li><li><a href="../technology">Technology</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/software.bigb">Source code for this page: software.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/software.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

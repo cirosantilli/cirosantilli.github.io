@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Program Raspberry Pi Pico W with C - Ciro Santilli</title>
+<meta property="og:title" content="Program Raspberry Pi Pico W with C - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/program-raspberry-pi-pico-w-with-c">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/program-raspberry-pi-pico-w-with-c">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="program-raspberry-pi-pico-w-with-c"><div class="notnav"><h1><a href="">Program Raspberry Pi Pico W with C</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="computer-hardware#raspberry-pi-foundation-project"> Raspberry Pi Foundation project</a><a href="computer-hardware#raspberry-pi"> Raspberry Pi</a><a href="computer-hardware#raspberry-pi-pico"> Raspberry Pi Pico</a><a href="computer-hardware#raspberry-pi-pico-variant"> Raspberry Pi Pico variant</a><a href="computer-hardware#raspberry-pi-pico-w"> Raspberry Pi Pico W</a><a href="computer-hardware#program-raspberry-pi-pico-w-with-x"> Program Raspberry Pi Pico W with X</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/program-raspberry-pi-pico-w-with-c"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="systems-programming#micropython">MicroPython</a></span><a class="nosplit" href="computer-hardware#program-raspberry-pi-pico-w-with-c"></a><span class="metrics"><span class="wcntr"> Words: 197</span></span></div></nav></div><div class="list"><ul id="_773"><li id="_774"><a href="https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html">www.raspberrypi.com/documentation/microcontrollers/c_sdk.html</a></li><li id="_775"><a href="https://github.com/raspberrypi/pico-sdk">github.com/raspberrypi/pico-sdk</a></li><li id="_776"><a href="https://github.com/raspberrypi/pico-examples">github.com/raspberrypi/pico-examples</a> The key hello world examples are:<div class="list"><ul id="_777"><li id="_778"><a href="https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/hello_world/usb">github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/hello_world/usb</a></li><li id="_779"><a href="https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/blink">github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/blink</a></li></ul></div></li></ul></div><div class="p" id="_780"><a href="systems-programming#ubuntu-22-04">Ubuntu 22.04</a> build just worked, nice! Much feels much cleaner than the <a href="electronics#micro-bit">Micro Bit</a> C setup:<div class="code" id="_781"><div><pre><code>sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+git clone https://github.com/raspberrypi/pico-sdk
+cd pico-sdk
+git checkout 2e6142b15b8a75c1227dd3edbe839193b2bf9041
+cd ..
+
+git clone https://github.com/raspberrypi/pico-examples
+cd pico-examples
+git checkout a7ad17156bf60842ee55c8f86cd39e9cd7427c1d
+cd ..
+
+export PICO_SDK_PATH="$(pwd)/pico-sdk"
+cd pico-exampes
+mkdir build
+cd build
+# Board selection.
+# https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html also says you can give wifi ID and password here for W.
+cmake -DPICO_BOARD=pico_w ..
+make -j</code></pre></div></div></div><div class="p" id="_782">Then we install the programs just like any other <a href="computer#uf2">UF2</a> but plugging it in with BOOTSEL pressed and copying the UF2 over, e.g.:<div class="code" id="_783"><div><pre><code>cp pico_w/blink/picow_blink.uf2 /media/$USER/RPI-RP2/</code></pre></div></div>Note that there is a separate example for the W and non W LED, for non-W it is:<div class="code" id="_784"><div><pre><code>cp blink/blink.uf2 /media/$USER/RPI-RP2/</code></pre></div></div></div><div class="p" id="_785">Also tested the UART over USB example:<div class="code" id="_786"><div><pre><code>cp hello_world/usb/hello_usb.uf2 /media/$USER/RPI-RP2/</code></pre></div></div>You can then see the UART messages with:<div class="code" id="_787"><div><pre><code>screen /dev/ttyACM0 115200</code></pre></div></div></div><div class="p" id="_788">TODO understand the proper debug setup, and a flash setup that doesn't require us to plug out and replug the thing every two seconds. <a href="https://www.electronicshub.org/programming-raspberry-pi-pico-with-swd/">www.electronicshub.org/programming-raspberry-pi-pico-with-swd/</a> appears to describe it, with SWD to do both debug and flash. To do it, you seem need another board with <a href="electronics#general-purpose-input-output">GPIO</a>, e.g. a <a href="computer-hardware#raspberry-pi">Raspberry Pi</a>, the laptop alone is not enough.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(14)</span></a></h2><div class="list"><ol><li><a href="computer-hardware#program-raspberry-pi-pico-w-with-x">Program Raspberry Pi Pico W with X</a></li><li><a href="computer-hardware#raspberry-pi-pico-w">Raspberry Pi Pico W</a></li><li><a href="computer-hardware#raspberry-pi-pico-variant">Raspberry Pi Pico variant</a></li><li><a href="computer-hardware#raspberry-pi-pico">Raspberry Pi Pico</a></li><li><a href="computer-hardware#raspberry-pi">Raspberry Pi</a></li><li><a href="computer-hardware#raspberry-pi-foundation-project">Raspberry Pi Foundation project</a></li><li><a href="computer-hardware#raspberry-pi-foundation">Raspberry Pi Foundation</a></li><li><a href="computer-hardware#computer-manufacturer">Computer manufacturer</a></li><li><a href="computer-hardware">Computer hardware</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/computer-hardware.bigb">Source code for this page: computer-hardware.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/computer-hardware.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

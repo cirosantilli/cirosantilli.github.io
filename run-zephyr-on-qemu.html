@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Run Zephyr on QEMU - Ciro Santilli</title>
+<meta property="og:title" content="Run Zephyr on QEMU - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/run-zephyr-on-qemu">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/run-zephyr-on-qemu">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="run-zephyr-on-qemu"><div class="notnav"><h1><a href="">Run Zephyr on QEMU</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software"> Software</a><a href="systems-programming"> Systems programming</a><a href="systems-programming#operating-system"> Operating system</a><a href="systems-programming#embedded-operating-system"> Embedded operating system</a><a href="systems-programming#zephyr-operating-system"> Zephyr (operating system)</a><a href="systems-programming#run-zephyr-on-x"> Run Zephyr on X</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/run-zephyr-on-qemu"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><span class="tags"> Tags: <a href="systems-programming#qemu">QEMU</a></span><a class="nosplit" href="systems-programming#run-zephyr-on-qemu"></a><span class="metrics"><span class="wcntr"> Words: 344</span></span></div></nav></div><div class="p" id="_38">Real hardware is for newbs. Real hardware is for newbs.</div><div class="p" id="_39">Tested on <a href="systems-programming#ubuntu-23-10">Ubuntu 23.10</a> we approximately follow instructions from: <a href="https://docs.zephyrproject.org/3.4.0/develop/getting_started/index.html">docs.zephyrproject.org/3.4.0/develop/getting_started/index.html</a> stopping before the "Flash the sample" section, as we don't flash <a href="systems-programming#qemu">QEMU</a>. We just run it.</div><div class="code" id="_40"><div><pre><code>sudo apt install --no-install-recommends git cmake ninja-build gperf \
+  ccache dfu-util device-tree-compiler wget \
+  python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
+  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 python3-pyelftools
+python3 -m venv ~/zephyrproject/.venv
+source ~/zephyrproject/.venv/bin/activate
+pip install west
+west init ~/zephyrproject
+cd ~/zephyrproject
+west update
+west zephyr-export
+cd ~
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+tar xvf zephyr-sdk-0.16.1_linux-x86_64.tar.xz
+cd zephyr-sdk-0.16.1
+./setup.sh</code></pre></div></div><div class="p" id="_41">The installation procedure install all <a href="software#compiler-toolchain">compiler toolchains</a> for us, so we can then basically compile for any target. It also fetches the latest Git source code of Zephyr under:<div class="code" id="_42"><div><pre><code>~/zephyrproject/zephyr</code></pre></div></div></div><div class="p" id="_43">The "most default" blinky hello world example which blinks an LED is a bit useless for us because QEMU doesn't have LEDs, so instead we are going to use one of the <a href="computer#universal-asynchronous-receiver-transmitter">UART</a> examples which will print characters we can see on QEMU stdout.</div><div class="p" id="_44">Let's start with the <a href="software#hello-world-program">hello world</a> example on an x86 target:<div class="code" id="_45"><div><pre><code>cd ~/zephyrproject/zephyr
+west build -b qemu_x86 samples/hello_world -t run</code></pre></div></div>and it outputs:<div class="code" id="_46"><div><pre><code>Hello World! qemu_x86</code></pre></div></div>The <code>qemu_x64</code> on the output comes from the <code>CONFIG_BOARD</code> macro <a href="https://github.com/zephyrproject-rtos/zephyr/blob/c15ff103001899ba0321b2c38013d1008584edc0/samples/hello_world/src/main.c#L11">github.com/zephyrproject-rtos/zephyr/blob/c15ff103001899ba0321b2c38013d1008584edc0/samples/hello_world/src/main.c#L11</a><div class="code" id="_47"><div><pre><code>#include &lt;zephyr/kernel.h&gt;
+
+int main(void)
+{
+	printk("Hello World! %s\n", CONFIG_BOARD);
+	return 0;
+}</code></pre></div></div></div><div class="p" id="_48">The <code>qemu_x86</code> board is documented at: <a href="https://docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html">docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html</a></div><div class="p" id="_49">You can also first <code>cd</code> into the directory that you want to build in to avoid typing <code>samples/hello_world</code> all the time:<div class="code" id="_50"><div><pre><code>cd ~/zephyrproject/zephyr/samples/hello_world
+zephyr west build -b qemu_x86 -t run</code></pre></div></div></div><div class="p" id="_51">You can also build and run separately with:<div class="code" id="_52"><div><pre><code>west build -b qemu_x86
+west build -t run</code></pre></div></div></div><div class="p" id="_53">Another important option is:<div class="code" id="_54"><div><pre><code>west build -t menuconfig</code></pre></div></div>But note that it does not modify your <code>prj.conf</code> automatically for you.</div><div class="p" id="_55">Let's try on another target:<div class="code" id="_56"><div><pre><code>rm -rf build
+zephyr west build -b qemu_cortex_a53 -t run</code></pre></div></div>and same output, but on a completely different board! The <code>qemu_cortex_a53</code> board is documented at: <a href="https://docs.zephyrproject.org/3.4.0/boards/arm64/qemu_cortex_a53/doc/index.html">docs.zephyrproject.org/3.4.0/boards/arm64/qemu_cortex_a53/doc/index.html</a></div><div class="p" id="_57">The list of all examples can be seen under:<div class="code" id="_58"><div><pre><code>ls ~/zephyrproject/zephyr/samples</code></pre></div></div>which for example contains:<div class="code" id="_59"><div><pre><code>zephyrproject/zephyr/samples/hello_world</code></pre></div></div></div><div class="p" id="_60">So run another sample simply select it, e.g. to run <code>zephyrproject/zephyr/samples/synchronization</code>:<div class="code" id="_61"><div><pre><code>west build -b qemu_cortex_a53 samples/synchronization -t run</code></pre></div></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="systems-programming#run-zephyr-on-x">Run Zephyr on X</a></li><li><a href="systems-programming#zephyr-operating-system">Zephyr (operating system)</a></li><li><a href="systems-programming#embedded-operating-system">Embedded operating system</a></li><li><a href="systems-programming#operating-system">Operating system</a></li><li><a href="systems-programming">Systems programming</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/systems-programming.bigb">Source code for this page: systems-programming.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/systems-programming.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>project-euler.bigb - Ciro Santilli</title>
+<meta property="og:title" content="project-euler.bigb - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/project-euler.bigb">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/project-euler.bigb">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/project-euler.bigb"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">project-euler.bigb</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/project-euler.bigb"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../_dir">(root)</a> / <a href="../_raw/project-euler.bigb">project-euler.bigb</a></b></div></nav></div><div class="p"><b>project-euler.bigb</b></div><div class="code"><div><pre><code>= Project Euler
+{c}
+{wiki}
+
+https://projecteuler.net
+
+They don't have an actual online judge system, all problems simply have an integer or floating point solution and they just check that you've found the value.
+
+The only metric that matters is who solved the problem first after publication, e.g.: https://projecteuler.net/fastest=454[]. The "language" in which problems were solved is just whatever the user put in their profile, they can't actually confirm that.
+
+&lt;Project Euler&gt; problems typically involve finding or proving and then using a &lt;lemma (mathematics)&gt; that makes computation of the solution feasible without brute force. As such, they live in the intersection of mathematics and computer science.
+
+Repositories of numerical solutions:
+* https://github.com/lucky-bai/projecteuler-solutions
+* https://www.kaggle.com/datasets/dheerajmpai/projecteuler
+
+Repositories of code solutions:
+* https://euler.stephan-brumme.com/ large number of solutions in &lt;C++&gt;, stopped around 600. Informal permissive license, e.g. at: https://euler.stephan-brumme.com/243/
+  &gt; I hope you enjoy my code and learn something - or give me feedback how I can improve my solutions.
+
+    All of my solutions can be used for any purpose and I am in no way liable for any damages caused.
+
+    You can even remove my name and claim it's yours. But then you shall burn in hell.
+  Asked for a more formal open license at: https://github.com/stbrumme/euler/issues/7
+* https://www.ivl-projecteuler.com/home 330+ solutions in &lt;Python&gt; as of 2025. Random looking problem selection. On GitHub: https://github.com/igorvanloo/Project-Euler-Explained[] under &lt;Unlicense&gt; license, a &lt;public domain&gt; license.
+* https://www.nayuki.io/page/project-euler-solutions[]. Large number of solutions, mostly in &lt;Java&gt; and	&lt;Python&gt; primarily but also &lt;Mathematica&gt; and &lt;Haskell&gt; sometimes. Proprietary license.
+Basically no one ever had the patience to solve them all. What we need is a collaborative solution.
+
+Problems are under &lt;CC BY-NC-SA&gt;: https://projecteuler.net/copyright
+
+Once you solve a problem, you can then access its "private" forum thread: https://projecteuler.net/thread=950 and people will post a bunch of code solutions in there.
+
+How problems are chosen:
+* https://matheducators.stackexchange.com/questions/12087/how-does-project-euler-come-up-with-such-good-problems-so-rapidly
+
+https://projecteuler.net says it started as a subsection in mathschallenge.net, and in 2006 moved to its own domain. &lt;WhoisXMLAPI&gt; WHOIS history says it was registered by domainmonster.com but details are anonymous. TODO: sample problem on mathschallenge.net on &lt;Wayback Machine&gt;? Likely wouldn't reveal much anyways though as there is no attribution to problem authors on that site.
+
+https://www.hackerrank.com/contests/projecteuler/challenges holds challenges with an actual judge and sometimes multiple test cases so just printing the final solution number is not enough.
+
+= Project Euler as an AI benchmark
+{parent=Project Euler}
+
+The beauty of &lt;Project Euler&gt; is that it would serve both as a &lt;AI code generation benchmark&gt; and as an &lt;AI math benchmark&gt;!
+
+Bibliography:
+* https://github.com/Orbiter/project-euler-llm-benchmark
+* &lt;MathArena&gt; at: https://matharena.ai/?comp=euler--euler&amp;task=6&amp;model=GPT-5+%28high%29&amp;run=1
+* https://www.artfish.ai/p/gpt4-project-euler-many-languages
+* https://manifold.markets/MatthewBarnett/will-openais-next-major-llm-after-g-58f667810b11?play=true
+
+= How I Failed, Failed, and Finally Succeeded at Learning How to Code
+{parent=Project Euler}
+{tag=Article by James Somers}
+{title2=2011}
+
+https://www.theatlantic.com/technology/archive/2011/06/how-i-failed-failed-and-finally-succeeded-at-learning-how-to-code/239855/ 
+
+= Colin Hughes
+{c}
+{parent=Project Euler}
+
+TODO: real name? Occupation?
+
+Claude says he's from the UK and has a background in mathematics. &lt;Oxbridge&gt; feels likely. &lt;How I Failed, Failed, and Finally Succeeded at Learning How to Code&gt; says he started off on the ORIC computer, which is British-made, so he is likely British.
+
+= Project Euler problem
+{c}
+{parent=Project Euler}
+
+= Project Euler problem zero
+{c}
+{parent=Project Euler problem}
+
+= Project Euler problem 0
+{synonym}
+{title2}
+
+This was a registration &lt;CAPTCHA&gt; problem as of 2025:
+&gt; Among the first 510 thousand square numbers, what is the sum of all the odd squares?
+&lt;Python&gt; solution:
+``
+s = 0
+for i in range(1, 510001, 2):
+    s += i*i
+print(s)
+``
+At: \a[euler/0.py]
+
+= Project Euler problem 1
+{c}
+{parent=Project Euler problem}
+{title2=2009}
+
+https://projecteuler.net/problem=1
+
+Solution:
+``
+233168
+``
+
+Solutions to the &lt;ProjectEuler+&gt; version:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/1.py]
+
+The original can be found with:
+``
+printf '1\n1000\n' | euler/1.py
+``
+
+= Project Euler problem 254
+{c}
+{parent=Project Euler problem}
+{title2=2009}
+
+https://projecteuler.net/problem=254
+
+= Project Euler problem 910
+{c}
+{parent=Project Euler problem}
+
+https://projecteuler.net/problem=910
+
+Numerical solution from https://github.com/lucky-bai/projecteuler-solutions/issues/102[]:
+``
+547480666
+``
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/910.py]
+
+``
+A(x) = x + 1
+Z(u)(v) = v
+S(u)(v)(w) = v(u(v)(w))
+``
+
+Let's resolve the second example ourselves:
+
+``
+S
+  (S)
+  (S(S))
+  (S(Z))
+(A)
+(0)
+
+S
+(S)
+(
+  S
+  (S(S))
+  (S(Z))
+)
+(A)
+(0)
+
+S
+(S(S))
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(0)
+
+S
+(Z)
+(
+  S(S)
+  (S(Z))
+  (
+    S
+    (
+      S
+      (S(S))
+      (S(Z))
+    )
+    (A)
+  )
+)
+(0)
+
+S(S)
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(
+  Z
+  (
+    S(S)
+    (S(Z))
+    (
+      S
+      (
+        S
+        (S(S))
+        (S(Z))
+      )
+      (A)
+    )
+  )
+  (0)
+)
+
+S
+(S)
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(0)
+``
+TODO: how long would this be?
+
+So we see that all of these rules resolve quite quickly and do not go into each other. `S` however offers some problems, in that:
+
+``
+C_0 = Z
+C_i = S(C_{i-1})
+D_i = C_i(S)(S)
+``
+
+So we see that `D_i` goes somewhat simply into `C_i`, and `C_i` is recursive giving:
+``
+S^i(Z)
+``
+
+Calculate the nine first digits of:
+``
+D_a(D_b)(D_c)(C_d)(A)(e)
+``
+
+Removing `D_a`:
+``
+S^i(Z)S)(S)(D_b)(D_c)(C_d)(A)(e)
+``
+
+= Project Euler problem 943
+{c}
+{parent=Project Euler problem}
+{title2=May 2025}
+
+https://projecteuler.net/problem=943
+
+Numerical solution:
+``
+1038733707
+``
+
+Programs:
+* \a[euler/943.cpp]
+
+A naive `T` in Python is:
+
+``
+from collections import deque
+
+def T(a: int, b: int, N: int) -&gt; int:
+    total = a
+    q = deque([a] * (a - 1))
+    is_a = False
+    for i in range(N - 1):
+        cur = q.popleft()
+        total += cur
+        q.extend([a if is_a else b] * cur)
+        is_a = not is_a
+    return total
+
+assert T(2, 3, 10) == 25
+assert T(4, 2, 10**4) == 30004
+assert T(5, 8, 10**6) == 6499871
+``
+which passes the tests, but takes half a second on &lt;pypy&gt;. So clearly it is not going to work for `22332223332233`  which has 14 digits.
+
+Maybe if `T` is optimized enough, then we can just bruteforce over the ~40k possible sum ranges 2 to 223. 1 second would mean 14 hours to do them all, so bruteforce but doable. Otherwise another optimization step may be needed at that level as well: one wonders if multiple sums can be factored out, or if the modularity can of the answer can help in a meaningful way. The first solver was &lt;ecnerwala&gt; using C/C++ in 1 hour, so there must be another insight missing, unless they have access to a supercomputer.
+
+The first idea that comes to mind to try and optimize `T` is that this is a &lt;dynamic programming&gt;, but then the question is what is the recurrence relation.
+
+The sequence appears to be a generalization of the &lt;Kolakoski sequence&gt; but to numbers other than 1 and 2, also known as the &lt;Generalized Kolakoski sequence&gt;.
+
+https://maths-people.anu.edu.au/~brent/pd/Kolakoski-ACCMCC.pdf "A fast algorithm for the Kolakoski sequence" might provide the solution, the paper says:
+&gt; It is conjectured that the algorithm runs in time $O(n^α)$ and space $O(n^α)$, where $α = log(2)/ log(3) \approx 0.631$
+and provides exactly a recurrence relation and a &lt;dynamic programming&gt; approach.
+
+https://www.reddit.com/r/dailyprogrammer/comments/8df7sm/20180419_challenge_357_intermediate_kolakoski/ might offer some reference implementations. It references a longer slide by Brent: https://maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf
+
+https://www.reddit.com/r/algorithms/comments/8cv3se/kolakoski_sequence/ asks for an implementation but no one gave anything. Dupe question: https://math.stackexchange.com/questions/2740997/kolakoski-sequence contains an answer with Python and Rust code but just for the original 1,2 case.
+
+https://github.com/runbobby/Kolakoski has some C++ code but it is not well documented so it's not immediately easy to understand what it actually does. It does appear to consider the m n case however.
+
+Bibligraphy:
+* https://pubs.sciepub.com/tjant/5/4/4/index.html Some Formulas for the Generalized Kolakoski Sequence Kol(a, b) by Abdallah Hammam. Maybe these identities could be useful.
+
+Announcements:
+* https://mastodon.social/@cirosantilli/115446059895647190
+* https://x.com/cirosantilli/status/1982782344135107043
+* https://www.linkedin.com/feed/update/urn:li:activity:7386417197440454658/
+
+= Project Euler problem 948
+{c}
+{parent=Project Euler problem}
+{title2=June 2025}
+
+https://projecteuler.net/problem=948
+
+Numerical solution:
+``
+1033654680825334184
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/87
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/948.py]
+
+= Project Euler problem 949
+{c}
+{parent=Project Euler problem}
+{title2=June 2025}
+
+https://projecteuler.net/problem=949
+
+Numerical solution:
+``
+726010935
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/105
+
+This problem took several months to get publicly leaked, one of the longest by far on https://github.com/lucky-bai/projecteuler-solutions
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/949.py]
+
+= Project Euler problem 953
+{c}
+{parent=Project Euler problem}
+{title2=July 2025}
+
+https://projecteuler.net/problem=953
+
+Numerical solution:
+``
+176907658
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/88
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/953.py]
+
+= Project Euler problem 954
+{c}
+{parent=Project Euler problem}
+{title2=July 2025}
+
+https://projecteuler.net/problem=954
+
+Numerical solution:
+``
+736463823
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/88
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/954.py]
+
+= Project Euler problem 955
+{c}
+{parent=Project Euler problem}
+{title2=July 2025}
+
+https://projecteuler.net/problem=955
+
+Numerical solution:
+``
+6795261671274
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/89
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/955.py]
+
+= Project Euler problem 956
+{c}
+{parent=Project Euler problem}
+{title2=August 2025}
+
+https://projecteuler.net/problem=956
+
+Numerical solution:
+``
+882086212
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/commit/a6ff5a562e32d17b044638b72f831d7bcba96ef2
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/956.py]
+
+= Project Euler problem 957
+{c}
+{parent=Project Euler problem}
+{title2=August 2025}
+
+https://projecteuler.net/problem=957
+
+Numerical solution:
+``
+367554579311
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/commit/f7d538c7fa68d4a502da6705fd7ec3afc89e0cf9#diff-37cf8442cb9ce8d4c7401df424ea9362634a8a8733caa930c07346ea624be24fR961
+
+Programs: TODO!
+
+https://matharena.ai/euler/ mentions that &lt;MathArena&gt; guys managed to solve it with &lt;GPT-5&gt; and an agent.
+
+= Project Euler problem 958
+{c}
+{parent=Project Euler problem}
+{title2=August 2025}
+
+https://projecteuler.net/problem=958
+
+Numerical solution:
+``
+367554579311
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/93
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/958.py]
+
+= Project Euler problem 960
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
+
+https://projecteuler.net/problem=961
+
+Numerical solution:
+``
+243559751
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/93
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/960.py]
+
+= Project Euler problem 961
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
+
+https://projecteuler.net/problem=961
+
+Numerical solution:
+``
+166666666689036288
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/94
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/961.py]
+
+= Project Euler problem 962
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
+
+https://projecteuler.net/problem=962
+
+Numerical solution:
+``
+7259046
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/95
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/962.py]
+
+= Project Euler problem 963
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
+
+https://projecteuler.net/problem=963
+
+Numerical solution:
+``
+55129975871328418
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/98
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/963.py]
+
+= Project Euler problem 966
+{c}
+{parent=Project Euler problem}
+{title2=October 2025}
+
+https://projecteuler.net/problem=966
+
+Numerical solution:
+``
+29337152.09
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/97
+
+Programs:
+* \a[euler/966.cpp]. &lt;GPT-5&gt; produced some &lt;C++&gt; code, we told it it was wrong and second try worked.
+
+= Project Euler problem 967
+{c}
+{parent=Project Euler problem}
+{title2=November 2025}
+
+https://projecteuler.net/problem=967
+
+Numerical solution:
+``
+357591131712034236
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/pull/97
+
+Programs:
+* \a[euler/967.cpp]
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/967.py]
+
+= Project Euler problem 968
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
+
+https://projecteuler.net/problem=963
+
+Numerical solution:
+``
+885362394
+``
+
+Earliest known public leak: https://github.com/lucky-bai/projecteuler-solutions/issues/98
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/968.py]
+
+= Project Euler problem 970
+{c}
+{parent=Project Euler problem}
+{title2=November 2025}
+
+https://projecteuler.net/problem=970
+
+Numerical solution:
+``
+44754029
+``
+
+Earliest known public leak: https://x.com/cirosantilli/status/1990363555309490585
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/970.py]
+
+= Project Euler problem 971
+{c}
+{parent=Project Euler problem}
+{title2=November 2025}
+
+https://projecteuler.net/problem=971
+
+Numerical solution:
+``
+33626723890930
+``
+
+Earliest known public leak:
+* https://mastodon.social/@cirosantilli/115597792373503509
+* https://x.com/cirosantilli/status/1992492965143703606
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/971.py]
+
+= Project Euler problem 972
+{c}
+{parent=Project Euler problem}
+{title2=November 2025}
+
+https://projecteuler.net/problem=972
+
+Numerical solution:
+``
+3575508
+``
+
+Earliest known public leak:
+* https://mastodon.social/@cirosantilli/115638140482692367
+* https://x.com/cirosantilli/status/1995075208143884440
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/972.py]
+
+= Project Euler problem 973
+{c}
+{parent=Project Euler problem}
+{title2=December 2025}
+
+https://projecteuler.net/problem=973
+
+Numerical solution:
+``
+427278142
+``
+
+Earliest known public leak:
+* https://github.com/lucky-bai/projecteuler-solutions/issues/104
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/973.py]
+
+Notes:
+* https://matharena.ai/?comp=euler--euler from &lt;MathArena&gt; claims &lt;Gemini 3&gt; solved it
+* https://x.com/roanoke_gal/status/1997322744594125081 claims &lt;GPT 5.1 Pro&gt; solved it.
+
+= Project Euler problem 974
+{c}
+{parent=Project Euler problem}
+{title2=December 2025}
+
+https://projecteuler.net/problem=974
+
+Numerical solution:
+``
+13313751171933973557517973175
+``
+
+Earliest known public leak:
+* https://mastodon.social/@cirosantilli/115714472037975831
+* https://x.com/cirosantilli/status/1999918979893334512
+
+Programs:
+* \a[https://github.com/cirosantilli/project-euler-solvers/blob/master/solvers/974.py]
+
+= ProjectEuler+
+{c}
+{parent=Project Euler}
+{tag=HackerRank contest}
+
+https://www.hackerrank.com/contests/projecteuler/challenges
+
+As mentioned at https://euler.stephan-brumme.com these tend to be harder, as they have their own judge system that actually runs programs, and therefore can test input multiple test cases against their reference implementation rather than just hard testing the result for a single input.
+
+Goes only up to &lt;Project Euler problem 254&gt; as of 2025, which had been published much much earlier, in 2009, so presumably they've stopped there.
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

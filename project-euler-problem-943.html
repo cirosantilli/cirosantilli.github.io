@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Project Euler problem 943 - Ciro Santilli</title>
+<meta property="og:title" content="Project Euler problem 943 - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/project-euler-problem-943">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/project-euler-problem-943">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="project-euler-problem-943"><div class="notnav"><h1><a href="">Project Euler problem 943 <span class="meta">(May 2025)</span></a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="social-technology#knowledge-olympiad-by-domain-of-knowledge"> Knowledge olympiad by domain of knowledge</a><a href="social-technology#competitive-programming"> Competitive programming</a><a href="social-technology#competitive-programming-website"> Competitive programming website</a><a href="social-technology#exercism"> Exercism</a><a href="project-euler"> Project Euler</a><a href="project-euler#project-euler-problem"> Project Euler problem</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/project-euler-problem-943"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="project-euler#project-euler-problem-943"></a><span class="metrics"><span class="wcntr"> Words: 379</span></span></div></nav></div><div class="p" id="_71"><a href="https://projecteuler.net/problem=943">projecteuler.net/problem=943</a></div><div class="p" id="_72">Numerical solution:<div class="code" id="_73"><div><pre><code>1038733707</code></pre></div></div></div><div class="p" id="_74">Programs:<div class="list"><ul id="_75"><li id="_76"><a href="_raw/euler/943.cpp">euler/943.cpp</a></li></ul></div></div><div class="p" id="_77">A naive <code>T</code> in Python is:</div><div class="p" id="_78"><div class="code" id="_79"><div><pre><code>from collections import deque
+
+def T(a: int, b: int, N: int) -&gt; int:
+    total = a
+    q = deque([a] * (a - 1))
+    is_a = False
+    for i in range(N - 1):
+        cur = q.popleft()
+        total += cur
+        q.extend([a if is_a else b] * cur)
+        is_a = not is_a
+    return total
+
+assert T(2, 3, 10) == 25
+assert T(4, 2, 10**4) == 30004
+assert T(5, 8, 10**6) == 6499871</code></pre></div></div>which passes the tests, but takes half a second on <a href="programming-language#pypy">PyPy</a>. So clearly it is not going to work for <code>22332223332233</code>  which has 14 digits.</div><div class="p" id="_80">Maybe if <code>T</code> is optimized enough, then we can just bruteforce over the ~40k possible sum ranges 2 to 223. 1 second would mean 14 hours to do them all, so bruteforce but doable. Otherwise another optimization step may be needed at that level as well: one wonders if multiple sums can be factored out, or if the modularity can of the answer can help in a meaningful way. The first solver was <a href="social-technology#andrew-he">ecnerwala</a> using C/C++ in 1 hour, so there must be another insight missing, unless they have access to a supercomputer.</div><div class="p" id="_81">The first idea that comes to mind to try and optimize <code>T</code> is that this is a <a href="computer-science#dynamic-programming">dynamic programming</a>, but then the question is what is the recurrence relation.</div><div class="p" id="_82">The sequence appears to be a generalization of the <a href="formalization-of-mathematics#kolakoski-sequence">Kolakoski sequence</a> but to numbers other than 1 and 2, also known as the <a href="formalization-of-mathematics#generalized-kolakoski-sequence">Generalized Kolakoski sequence</a>.</div><div class="p" id="_83"><a href="https://maths-people.anu.edu.au/~brent/pd/Kolakoski-ACCMCC.pdf">maths-people.anu.edu.au/~brent/pd/Kolakoski-ACCMCC.pdf</a> "A fast algorithm for the Kolakoski sequence" might provide the solution, the paper says:<div><blockquote id="_84">It is conjectured that the algorithm runs in time <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> and space <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord">3</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.631</span></span></span></span></blockquote></div>and provides exactly a recurrence relation and a <a href="computer-science#dynamic-programming">dynamic programming</a> approach.</div><div class="p" id="_85"><a href="https://www.reddit.com/r/dailyprogrammer/comments/8df7sm/20180419_challenge_357_intermediate_kolakoski/">www.reddit.com/r/dailyprogrammer/comments/8df7sm/20180419_challenge_357_intermediate_kolakoski/</a> might offer some reference implementations. It references a longer slide by Brent: <a href="https://maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf">maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf</a></div><div class="p" id="_86"><a href="https://www.reddit.com/r/algorithms/comments/8cv3se/kolakoski_sequence/">www.reddit.com/r/algorithms/comments/8cv3se/kolakoski_sequence/</a> asks for an implementation but no one gave anything. Dupe question: <a href="https://math.stackexchange.com/questions/2740997/kolakoski-sequence">math.stackexchange.com/questions/2740997/kolakoski-sequence</a> contains an answer with Python and Rust code but just for the original 1,2 case.</div><div class="p" id="_87"><a href="https://github.com/runbobby/Kolakoski">github.com/runbobby/Kolakoski</a> has some C++ code but it is not well documented so it's not immediately easy to understand what it actually does. It does appear to consider the m n case however.</div><div class="p" id="_88">Bibligraphy:<div class="list"><ul id="_89"><li id="_90"><a href="https://pubs.sciepub.com/tjant/5/4/4/index.html">pubs.sciepub.com/tjant/5/4/4/index.html</a> Some Formulas for the Generalized Kolakoski Sequence Kol(a, b) by Abdallah Hammam. Maybe these identities could be useful.</li></ul></div></div><div class="p" id="_91">Announcements:<div class="list"><ul id="_92"><li id="_93"><a href="https://mastodon.social/@cirosantilli/115446059895647190">mastodon.social/@cirosantilli/115446059895647190</a></li><li id="_94"><a href="https://x.com/cirosantilli/status/1982782344135107043">x.com/cirosantilli/status/1982782344135107043</a></li><li id="_95"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7386417197440454658/">www.linkedin.com/feed/update/urn:li:activity:7386417197440454658/</a></li></ul></div></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(13)</span></a></h2><div class="list"><ol><li><a href="project-euler#project-euler-problem">Project Euler problem</a></li><li><a href="project-euler">Project Euler</a></li><li><a href="social-technology#exercism">Exercism</a></li><li><a href="social-technology#competitive-programming-website">Competitive programming website</a></li><li><a href="social-technology#competitive-programming">Competitive programming</a></li><li><a href="social-technology#knowledge-olympiad-by-domain-of-knowledge">Knowledge olympiad by domain of knowledge</a></li><li><a href="social-technology#knowledge-olympiad">Knowledge olympiad</a></li><li><a href="social-technology#stem-prize">STEM prize</a></li><li><a href="social-technology#prize">Prize</a></li><li><a href="social-technology">Social technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/project-euler.bigb">Source code for this page: project-euler.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/project-euler.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

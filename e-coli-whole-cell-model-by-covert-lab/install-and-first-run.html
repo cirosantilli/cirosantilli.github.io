@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>E. Coli Whole Cell Model by Covert Lab / Install and first run - Ciro Santilli</title>
+<meta property="og:title" content="E. Coli Whole Cell Model by Covert Lab / Install and first run - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/e-coli-whole-cell-model-by-covert-lab/install-and-first-run">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/install-and-first-run">
+<style>@import "../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="install-and-first-run"><div class="notnav"><h1><a href="../e-coli-whole-cell-model-by-covert-lab">E. Coli Whole Cell Model by Covert Lab</a><span class="meta"> / </span><a href="">Install and first run</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="../taxonomy#species"> Species</a><a href="../taxonomy#bacteria"> Bacteria</a><a href="../taxonomy#list-of-bacteria"> List of bacteria</a><a href="../taxonomy#escherichia-coli"> Escherichia coli</a><a href="../taxonomy#e-coli-whole-cell-simulation"> E. Coli whole cell simulation</a><a href="../e-coli-whole-cell-model-by-covert-lab"> E. Coli Whole Cell Model by Covert Lab</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/e-coli-whole-cell-model-by-covert-lab/install-and-first-run"><img src="../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="../e-coli-whole-cell-model-by-covert-lab#install-and-first-run"></a><span class="metrics"><span class="wcntr"> Words: 327</span></span></div></nav></div><div class="p" id="_14">At <a href="https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4">7e4cc9e57de76752df0f4e32eca95fb653ea64e4</a> you basically need to use the <a href="../systems-programming#docker-software">Docker</a> image on <a href="../systems-programming#ubuntu">Ubuntu</a> 21.04 due to <a href="../programming-language#pip-package-manager">pip</a> breaking changes... (not their fault). Perhaps <a href="../programming-language#pyenv">pyenv</a> would solve things, but who has the patience for that?!?!</div><div class="p" id="_15">The Docker setup from README does just work. The image download is a bit tedius, as it requires you to create a GitHub API key as described in the README, but there must be reasons for that.</div><div class="p" id="_16">Once the image is downloaded, you really want to run is from the root of the source tree:<div class="code" id="_17"><div><pre><code>sudo docker run --name=wcm -it -v "$(pwd):/wcEcoli" docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full</code></pre></div></div>This mounts the host source under <code>/wcEcoli</code>, so you can easily edit and view output images from your host. Once inside Docker we can compile, run the simulation, and analyze results with:<div class="code" id="_18"><div><pre><code>make clean compile &amp;&amp;
+python runscripts/manual/runFitter.py &amp;&amp;
+python runscripts/manual/runSim.py &amp;&amp;
+python runscripts/manual/analysisVariant.py &amp;&amp;
+python runscripts/manual/analysisCohort.py &amp;&amp;
+python runscripts/manual/analysisMultigen.py &amp;&amp;
+python runscripts/manual/analysisSingle.py</code></pre></div></div>The meaning of each of the analysis commands is described at <a href="../e-coli-whole-cell-model-by-covert-lab#output-overview">Section "Output overview"</a>.</div><div class="p" id="_19">As a <a href="../systems-programming#docker-software">Docker</a> refresher, after you stop the container, e.g. by restarting your computer or running <code>sudo docker stop wcm</code>, you can get back into it with:<div class="code" id="_20"><div><pre><code>sudo docker start wcm
+sudo docker run -it wcm bash</code></pre></div></div></div><div class="p" id="_21"><code>runscripts/manual/runFitter.py</code> takes about 15 minutes, and it generates files such as <code>reconstruction/ecoli/dataclasses/process/two_component_system.py</code> (<a href="https://github.com/CovertLab/WholeCellEcoliRelease/issues/20">related</a>) which is required to run the simulation, it is basically a part of the build.</div><div class="p" id="_22"><code>runSim.py</code> does the main simulation, progress output contains lines of type:<div class="code" id="_23"><div><pre><code>Time (s)  Dry mass     Dry mass      Protein          RNA    Small mol     Expected
+              (fg)  fold change  fold change  fold change  fold change  fold change
+========  ========  ===========  ===========  ===========  ===========  ===========
+    0.00    403.09        1.000        1.000        1.000        1.000        1.000
+    0.20    403.18        1.000        1.000        1.000        1.000        1.000</code></pre></div></div>and then it ended on the <a href="../ciro-santilli-s-hardware#lenovo-thinkpad-p51-2017">Lenovo ThinkPad P51 (2017)</a> at:<div class="code" id="_24"><div><pre><code> 2569.18    783.09        1.943        1.910        2.005        1.950        1.963
+
+Simulation finished:
+ - Length: 0:42:49
+ - Runtime: 0:09:13</code></pre></div></div>when the cell had almost doubled, and presumably divided in 42 minutes of simulated time, which could make sense compared to the 20 under optimal conditions.</div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="../e-coli-whole-cell-model-by-covert-lab">E. Coli Whole Cell Model by Covert Lab</a></li><li><a href="../taxonomy#e-coli-whole-cell-simulation">E. Coli whole cell simulation</a></li><li><a href="../taxonomy#escherichia-coli">Escherichia coli</a></li><li><a href="../taxonomy#list-of-bacteria">List of bacteria</a></li><li><a href="../taxonomy#bacteria">Bacteria</a></li><li><a href="../taxonomy#species">Species</a></li><li><a href="../taxonomy">Taxonomy</a></li><li><a href="../biology">Biology</a></li><li><a href="../science#natural-science">Natural science</a></li><li><a href="../science">Science</a></li><li><a href=".."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(1)</span></a></h2><div class="list"><ul><li><a href="../e-coli-whole-cell-model-by-covert-lab#time-series-run-variant">Time series run variant</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../contact">Contact Ciro Santilli</a></div>
+<div><a href="../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="../_file/e-coli-whole-cell-model-by-covert-lab.bigb">Source code for this page: e-coli-whole-cell-model-by-covert-lab.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/e-coli-whole-cell-model-by-covert-lab.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "e-coli-whole-cell-model-by-covert-lab/";
+</script>
+<script src="../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

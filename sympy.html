@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>SymPy - Ciro Santilli</title>
+<meta property="og:title" content="SymPy - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/sympy">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/sympy">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="sympy"><div class="notnav"><h1><a href="">SymPy</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors">&nbsp;...</a><a href="software"> Software</a><a href="software#scientific-computing"> Scientific computing</a><a href="software#scientific-software"> Scientific software</a><a href="software#numerical-software"> Numerical software</a><a href="software#computer-algebra"> Computer algebra</a><a href="software#computer-algebra-system"> Computer algebra system</a></div><div class="nav"><a href="#_toc" class="toc"></a><a href="https://en.wikipedia.org/wiki/SymPy" class="wiki"></a><a href="https://ourbigbook.com/cirosantilli/sympy"><img src="_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a><a class="nosplit" href="software#sympy"></a><span class="metrics"><span class="wcntr"> Words: 529</span><span class="dcnt"> Articles: 2</span></span></div></nav></div><div class="p" id="_703">This is the dream <a href="education#exam">cheating</a> software every student should know about.</div><div class="p" id="_704">It also has serious applications obviously. <a href="https://www.sympy.org/scipy-2017-codegen-tutorial/">www.sympy.org/scipy-2017-codegen-tutorial/</a> mentions <a href="software#automatic-programming">code generation</a> capabilities, which sounds super cool!</div><div class="p" id="_705">The code in this section was tested on <code>sympy==1.8</code> and <a href="programming-language#python-programming-language">Python</a> 3.9.5.</div><div class="p" id="_706">Let's start with some basics. <a href="formalization-of-mathematics#fraction">fractions</a>:<div class="code" id="_707"><div><pre><code>from sympy import *
+sympify(2)/3 + sympify(1)/2</code></pre></div></div>outputs:<div class="code" id="_708"><div><pre><code>7/6</code></pre></div></div>Note that this is an exact value, it does not get converted to <a href="mathematics#floating-point-number">floating-point numbers</a> where precision could be lost!</div><div class="p" id="_709">We can also do everything with symbols:<div class="code" id="_710"><div><pre><code>from sympy import *
+x, y = symbols('x y')
+expr = x/3 + y/2
+print(expr)</code></pre></div></div>outputs:<div class="code" id="_711"><div><pre><code>x/3 + y/2</code></pre></div></div>We can now evaluate that expression object at any time:<div class="code" id="_712"><div><pre><code>expr.subs({x: 1, y: 2})</code></pre></div></div>outputs:<div class="code" id="_713"><div><pre><code>4/3</code></pre></div></div></div><div class="p" id="_714">How about a square root?<div class="code" id="_715"><div><pre><code>x = sqrt(2)
+print(x)</code></pre></div></div>outputs:<div class="code" id="_716"><div><pre><code>sqrt(2)</code></pre></div></div>so we understand that the value was kept without simplification. And of course:<div class="code" id="_717"><div><pre><code>sqrt(2)**2</code></pre></div></div>outputs <code>2</code>. Also:<div class="code" id="_718"><div><pre><code>sqrt(-1)</code></pre></div></div>outputs:<div class="code" id="_719"><div><pre><code>I</code></pre></div></div><code>I</code> is the <a href="formalization-of-mathematics#imaginary-unit">imaginary unit</a>. We can use that symbol directly as well, e.g.:<div class="code" id="_720"><div><pre><code>I*I</code></pre></div></div>gives:<div class="code" id="_721"><div><pre><code>-1</code></pre></div></div></div><div class="p" id="_722">Let's do some trigonometry:<div class="code" id="_723"><div><pre><code>cos(pi)</code></pre></div></div>gives:<div class="code" id="_724"><div><pre><code>-1</code></pre></div></div>and:<div class="code" id="_725"><div><pre><code>cos(pi/4)</code></pre></div></div>gives:<div class="code" id="_726"><div><pre><code>sqrt(2)/2</code></pre></div></div>The exponential also works:<div class="code" id="_727"><div><pre><code>exp(I*pi)</code></pre></div></div>gives;<div class="code" id="_728"><div><pre><code>-1</code></pre></div></div></div><div class="p" id="_729">Now for some <a href="calculus">calculus</a>. To find the <a href="calculus#derivative">derivative</a> of the <a href="calculus#natural-logarithm">natural logarithm</a>:<div class="code" id="_730"><div><pre><code>from sympy import *
+x = symbols('x')
+print(diff(ln(x), x))</code></pre></div></div>outputs:<div class="code" id="_731"><div><pre><code>1/x</code></pre></div></div>Just read that. One over x. Beauty. And now for some integration:<div class="code" id="_732"><div><pre><code>print(integrate(1/x, x))</code></pre></div></div>outputs:<div class="code" id="_733"><div><pre><code>log(x)</code></pre></div></div>OK.</div><div class="p" id="_734">Let's do some more. Let's solve a simple <a href="calculus#differential-equation">differential equation</a>:<div class="code" id="_735"><div><pre><code>y''(t) - 2y'(t) + y(t) = sin(t)</code></pre></div></div>Doing:<div class="code" id="_736"><div><pre><code>from sympy import *
+x = symbols('x')
+f, g = symbols('f g', cls=Function)
+diffeq = Eq(f(x).diff(x, x) - 2*f(x).diff(x) + f(x), sin(x)**4)
+print(dsolve(diffeq, f(x)))</code></pre></div></div>outputs:<div class="code" id="_737"><div><pre><code>Eq(f(x), (C1 + C2*x)*exp(x) + cos(x)/2)</code></pre></div></div>which means:<div class="math" id="_738"><div><div class="equation"><div><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">x</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">/2</span></span></span></span></div><div class="number"><a href="#_738">(1)</a></div></div></div></div>To be fair though, it can't do anything crazy, it likely just goes over known patterns that it has solvers for, e.g. if we change it to:<div class="code" id="_739"><div><pre><code>diffeq = Eq(f(x).diff(x, x)**2 + f(x), 0)</code></pre></div></div>it just blows up:<div class="code" id="_740"><div><pre><code>NotImplementedError: solve: Cannot solve f(x) + Derivative(f(x), (x, 2))**2</code></pre></div></div>Sad.</div><div class="p" id="_741">Let's try some <a href="formalization-of-mathematics#algebraic-equation">polynomial equations</a>:<div class="code" id="_742"><div><pre><code>from sympy import *
+x, a, b, c = symbols('x a b c d e f')
+eq = Eq(a*x**2 + b*x + c, 0)
+sol = solveset(eq, x)
+print(sol)</code></pre></div></div>which outputs:<div class="code" id="_743"><div><pre><code>FiniteSet(-b/(2*a) - sqrt(-4*a*c + b**2)/(2*a), -b/(2*a) + sqrt(-4*a*c + b**2)/(2*a))</code></pre></div></div>which is a not amazingly nice version of the <a href="formalization-of-mathematics#quadratic-formula">quadratic formula</a>. Let's evaluate with some specific constants after the fact:<div class="code" id="_744"><div><pre><code>sol.subs({a: 1, b: 2, c: 3})</code></pre></div></div>which outputs<div class="code" id="_745"><div><pre><code>FiniteSet(-1 + sqrt(2)*I, -1 - sqrt(2)*I)</code></pre></div></div>Let's see if it handles the <a href="formalization-of-mathematics#quartic-equation">quartic equation</a>:<div class="code" id="_746"><div><pre><code>x, a, b, c, d, e, f = symbols('x a b c d e f')
+eq = Eq(e*x**4 + d*x**3 + c*x**2 + b*x + a, 0)
+solveset(eq, x)</code></pre></div></div>Something comes out. It takes up the entire terminal. Naughty. And now let's try to <a href="formalization-of-mathematics#abel-ruffini-theorem">mess with it</a>:<div class="code" id="_747"><div><pre><code>x, a, b, c, d, e, f = symbols('x a b c d e f')
+eq = Eq(f*x**5 + e*x**4 + d*x**3 + c*x**2 + b*x + a, 0)
+solveset(eq, x)</code></pre></div></div>and this time it spits out something more magic:<div class="code" id="_748"><div><pre><code>ConditionSet(x, Eq(a + b*x + c*x**2 + d*x**3 + e*x**4 + f*x**5, 0), Complexes)</code></pre></div></div>Oh well.</div><div class="p" id="_749">Let's try some <a href="linear-algebra">linear algebra</a>.<div class="code" id="_750"><div><pre><code>m = Matrix([[1, 2], [3, 4]])</code></pre></div></div>Let's invert it:<div class="code" id="_751"><div><pre><code>m**-1</code></pre></div></div>outputs:<div class="code" id="_752"><div><pre><code>Matrix([
+[ -2,    1],
+[3/2, -1/2]])</code></pre></div></div></div><div class="toc-container" id="_toc"><ul><li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><span class="not-arrow"><a class="title toc" href="#_toc"> Table of contents</a><input class="search" placeholder="🔍 Search. Shortcut: / (slash)"><span class="hover-metadata"><span class="metrics"><span class="wcntr"> 529</span><span class="dcnt"> 2</span></span></span></span></div><ul><li class="has-child"><div id="_toc/sympy-special-function"><div class="arrow"><div></div></div><span class="not-arrow"><a href="software#sympy-special-function">SymPy special function</a><span class="hover-metadata"><a href="#_toc" class="u"> SymPy</a><span class="metrics"><span class="dcnt"> 1</span></span></span></span></div><ul><li><div id="_toc/_file/python/sympy_cheat/logarithm_integral.py"><div class="arrow"><div></div></div><span class="not-arrow"><a href="software#_file/python/sympy_cheat/logarithm_integral.py">python/sympy_cheat/logarithm_integral.py</a><span class="hover-metadata"><a href="#_toc/sympy-special-function" class="u"> SymPy special function</a></span></span></div></li></ul></li></ul></li></ul></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(11)</span></a></h2><div class="list"><ol><li><a href="software#computer-algebra-system">Computer algebra system</a></li><li><a href="software#computer-algebra">Computer algebra</a></li><li><a href="software#numerical-software">Numerical software</a></li><li><a href="software#scientific-software">Scientific software</a></li><li><a href="software#scientific-computing">Scientific computing</a></li><li><a href="software">Software</a></li><li><a href="computer">Computer</a></li><li><a href="technology#information-technology">Information technology</a></li><li><a href="technology#area-of-technology">Area of technology</a></li><li><a href="technology">Technology</a></li><li><a href="."><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div><h2 id="_incoming-links"><a href="#_incoming-links"><span title="Incoming links" class="fa-solid-900 icon"></span> Incoming links <span class="meta">(2)</span></a></h2><div class="list"><ul><li><a href="calculus#logarithmic-integral-function">Logarithmic integral function</a></li><li><a href="linear-algebra#sylvester-s-law-of-inertia">Sylvester's law of inertia</a></li></ul></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div><a href="_file/software.bigb">Source code for this page: software.bigb</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/a4d833d32a963800b7b90b69207f6802c6bb72d2/software.bigb">Source code for this page on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>
