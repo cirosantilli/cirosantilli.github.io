@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Ollama - Ciro Santilli</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>@import "_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="." class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="ollama"><div class="notnav"><h1><a href="">Ollama</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav ancestors"><a  href="#_ancestors"}>&nbsp;...</a><a href="https://ourbigbook.com/cirosantilli/generative-ai"> Generative AI</a><a href="https://ourbigbook.com/cirosantilli/generative-ai-by-modality"> Generative AI by modality</a><a href="https://ourbigbook.com/cirosantilli/ai-text-generation"> AI text generation</a><a href="https://ourbigbook.com/cirosantilli/text-to-text-model"> Text-to-text model</a><a href="https://ourbigbook.com/cirosantilli/large-language-model"> Large language model</a><a href="https://ourbigbook.com/cirosantilli/open-source-llm"> Open source LLM</a></div><div class="nav"><a href="https://ourbigbook.com/cirosantilli/ollama"><img src="_obb/logo.svg" class="logo" /> OurBigBook.com</a><span class="metrics"><span class="wcntr"> words: 187</span></span></div></nav></div><div class="p" id="_176"><a href="https://github.com/jmorganca/ollama">github.com/jmorganca/ollama</a></div><div class="p" id="_177">Highly automated wrapper for various <a href="https://ourbigbook.com/cirosantilli/open-source-software">open source</a> <a href="https://ourbigbook.com/cirosantilli/large-language-model">LLMs</a>.</div><div class="code" id="_178"><div><pre><code>curl https://ollama.ai/install.sh | sh
+ollama run llama2</code></pre></div></div><div class="p" id="_179">And bang, a download later, you get a prompt. On <a href="https://ourbigbook.com/cirosantilli/ciro-santilli-s-hardware/lenovo-thinkpad-p14s-gen4-amd">P14s</a> it runs on <a href="https://ourbigbook.com/cirosantilli/central-processing-unit">CPU</a> and generates a few tokens at a time, which is quite usable for a quick interactive play.</div><div class="p" id="_180">As mentioned at <a href="https://github.com/jmorganca/ollama/blob/0174665d0e7dcdd8c60390ab2dd07155ef84eb3f/docs/faq.md">github.com/jmorganca/ollama/blob/0174665d0e7dcdd8c60390ab2dd07155ef84eb3f/docs/faq.md</a> the downloads to under <code>/usr/share/ollama/.ollama/models/</code> and <a href="https://ourbigbook.com/cirosantilli/ncdu">ncdu</a> tells me:
+<div class="code" id="_181"><div><pre><code>--- /usr/share/ollama ----------------------------------
+    3.6 GiB [###########################] /.ollama
+    4.0 KiB [                           ]  .bashrc
+    4.0 KiB [                           ]  .profile
+    4.0 KiB [                           ]  .bash_logout</code></pre></div></div></div><div class="p" id="_182">We can also do it non-interactively with:
+<div class="code" id="_183"><div><pre><code>/bin/time ollama run llama2 'What is quantum field theory?'</code></pre></div></div>
+which gave me:
+<div class="code" id="_184"><div><pre><code>0.13user 0.17system 2:06.32elapsed 0%CPU (0avgtext+0avgdata 17280maxresident)k
+0inputs+0outputs (0major+2203minor)pagefaults 0swaps</code></pre></div></div>
+but note that there is a random seed that affects each run by default.</div><div class="p" id="_185">Some other quick benchmarks from <a href="https://ourbigbook.com/cirosantilli/amazon-ec2-gpu">Amazon EC2 GPU</a>, on <a href="https://ourbigbook.com/cirosantilli/nvidia-t4">Nvidia T4</a>:
+<div class="code" id="_186"><div><pre><code>0.07user 0.05system 0:16.91elapsed 0%CPU (0avgtext+0avgdata 16896maxresident)k
+0inputs+0outputs (0major+1960minor)pagefaults 0swaps</code></pre></div></div>
+On <a href="https://ourbigbook.com/cirosantilli/nvidia-a10g">Nvidia A10G</a>:
+<div class="code" id="_187"><div><pre><code>
+0.03user 0.05system 0:09.59elapsed 0%CPU (0avgtext+0avgdata 17312maxresident)k
+8inputs+0outputs (1major+1934minor)pagefaults 0swaps</code></pre></div></div></div><div class="p" id="_188">So it's not too bad, a small article in 10s.</div><div class="p" id="_189">It tends to babble quite a lot by default, but eventually decides to stop.</div><div class="p" id="_190">TODO is it possible to make it deterministic on the CLI? There is a "seed" parameter somewhere: <a href="https://github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter">github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter</a></div><h2 id="_ancestors"><a href="#_ancestors"><span class="fa-solid-900 icon"></span> Ancestors <span class="meta">(14)</span></a></h2><div class="list"><ol><li><a href="https://ourbigbook.com/cirosantilli/open-source-llm">Open source LLM</a></li><li><a href="https://ourbigbook.com/cirosantilli/large-language-model">Large language model</a></li><li><a href="https://ourbigbook.com/cirosantilli/text-to-text-model">Text-to-text model</a></li><li><a href="https://ourbigbook.com/cirosantilli/ai-text-generation">AI text generation</a></li><li><a href="https://ourbigbook.com/cirosantilli/generative-ai-by-modality">Generative AI by modality</a></li><li><a href="https://ourbigbook.com/cirosantilli/generative-ai">Generative AI</a></li><li><a href="https://ourbigbook.com/cirosantilli/ai-by-capability">AI by capability</a></li><li><a href="https://ourbigbook.com/cirosantilli/artificial-intelligence">Artificial intelligence</a></li><li><a href="https://ourbigbook.com/cirosantilli/machine-learning">Machine learning</a></li><li><a href="https://ourbigbook.com/cirosantilli/computer">Computer</a></li><li><a href="https://ourbigbook.com/cirosantilli/information-technology">Information technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/area-of-technology">Area of technology</a></li><li><a href="https://ourbigbook.com/cirosantilli/technology">Technology</a></li><li><a href=""><span title="Home" class="fa-solid-900 icon"></span> Home</a></li></ol></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div><a href="contact">Contact Ciro Santilli</a></div>
+<div><a href="_dir">Website source code</a></div>
+<div>Source code for this page: <a href="_file/artificial-intelligence.bigb">artificial-intelligence.bigb</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = true;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

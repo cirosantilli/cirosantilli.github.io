@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Confirm close</title>
+</head>
+<body>
+<p>If you edit the textarea below, we will ask you for confirmation before leaving the page.</p>
+<textarea id="textarea"></textarea>
+<script>
+const textarea = document.getElementById('textarea')
+let modified = null
+textarea.addEventListener('input', function(e) {
+  modified = true
+})
+window.addEventListener('beforeunload', function (e) {
+  // Ignored according to specs to prevent popup spam.
+  // Chrome actually shows a warning for it, but you can't barely see it
+  // as the tab is closing.
+  //alert('alert in unload')
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+  //
+  // Extremely weird and inconsistently implemented API! This appears to be the most portable way.
+  //
+  // > The HTML specification states that authors should use the Event.preventDefault() method instead of using Event.returnValue to prompt the user.
+  // > However, this is not yet supported by all browsers.
+  // >
+  // > When this event returns (or sets the returnValue property to) a value other than null or undefined, the user will be prompted to confirm the page unload.
+  // > In older browsers, the return value of the event is displayed in this dialog. Starting with Firefox 44, Chrome 51, Opera 38, and Safari 9.1,
+  // > a generic string not under the control of the webpage will be shown instead of the returned string. For example:
+  if (modified) {
+    e.preventDefault()
+    // Both set e.returnValue and return it for greater compatibility.
+    // Even returning null triggers the dialog.
+    return e.returnValue = modified;
+  }
+})
+</script>
+</body>
+</html>

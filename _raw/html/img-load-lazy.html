@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>js-image-load-viewport</title>
+<style>
+  .separator {
+      height: 1000px;
+      width: 100px;
+      border: 5px solid red;
+  }
+  img {
+      height: 340px;
+      border: 5px solid black;
+  }
+  #load-now {
+      border: 5px solid black;
+  }
+</style>
+</head>
+<body>
+<p><a href="https://cirosantilli.com/html">https://cirosantilli.com/html</a></p>
+<div id="load-now">Click me to load all images now!</div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Donald_Trump_official_portrait.jpg"></div>
+<div class="separator"></div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/President_Barack_Obama.jpg"></div>
+<div class="separator"></div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/George-W-Bush.jpeg"></div>
+<div class="separator"></div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Bill_Clinton.jpg"></div>
+<div class="separator"></div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/9/90/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait_%28cropped%29.jpg"></div>
+<div class="separator"></div>
+<div><img loading="lazy" height="340" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Official_Portrait_of_President_Reagan_1981.jpg"></div>
+</body>
+<script>
+document.getElementById('load-now').addEventListener('click', function(){
+  for (const img of document.getElementsByTagName('img')) {
+    img.loading = 'eager';
+    console.log(img.getAttribute("src"));
+  }
+});
+</script>
+</html>

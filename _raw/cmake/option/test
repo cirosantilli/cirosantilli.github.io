@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -eux
+. ../.bashrc
+setup
+
+# set
+
+# Defaults.
+cmake .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'hello\nworld')" ]
+cmake -DMSG=bye .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'bye\nworld')" ]
+# Using the cache.
+cmake .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'bye\nworld')" ]
+# Remove from cache.
+cmake -UMSG .. && make -B VERBOSE=1 &&  [ "$(./main)" = "$(printf 'hello\nworld')" ]
+
+# option
+
+cmake -DWORLD=off .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'hello')" ]
+# From cache.
+cmake .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'hello')" ]
+# Remove from cache
+cmake -UWORLD .. && make -B VERBOSE=1 && [ "$(./main)" = "$(printf 'hello\nworld')" ]

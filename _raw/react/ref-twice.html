@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+<body>
+<p><a href="https://cirosantilli.com/_file/react/ref-twice.html">https://cirosantilli.com/_file/react/ref-twice.html</a></p>
+<div id="root"></div>
+<script type="text/babel">
+const { StrictMode, useState, useEffect, useRef } = React
+
+function complexExternalLibraryFunctionWithoutCleanup(elem, cb) {
+  elem.addEventListener('click', () => {
+    cb()
+  })
+}
+
+function Main(props) {
+  const [text, setText] = useState('')
+  const [myint, setMyint] = useState(0)
+  const ref = useRef(null)
+  function incIt() {
+    setMyint(i => i+1)
+  }
+  useEffect(() => {
+    if (ref.current) {
+      complexExternalLibraryFunctionWithoutCleanup(ref.current, incIt)
+    }
+  }, [])
+  return <div>
+    <div><input value={text} onChange={e => setText(e.target.value)} placeholder='Type here' /></div>
+    <div>You typed: {text}</div>
+    <div><button ref={ref}>Click me after typing something! If unfixed, it will increment twice!</button></div>
+    <div><button onClick={incIt}>Click me to increment!</button></div>
+    <div>{myint}</div>
+  </div>
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<StrictMode><Main /></StrictMode>)
+</script>
+</body>
+</html>

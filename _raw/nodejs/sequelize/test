@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const path = require('path')
+
+const test = require('../test_executables.js')
+
+test.test({
+  argv: process.argv,
+  args: {
+    [path.join('raw', 'parallel_select_and_update_deterministic.js')]: [
+      // This example is very PostgreSQL specific.
+      ['p'],
+    ],
+  },
+  argsCommon: [
+    ['l'],
+    ['p'],
+  ],
+  argsSkip: {
+    [path.join('raw', 'parallel_select_and_update.js')]: [
+      // Not sure why, but no time for this.
+      ['l'],
+    ],
+    'parallel_select_and_update.js': [
+      // Not sure why, but no time for this.
+      ['l'],
+    ],
+  },
+  pref: ['node', '--unhandled-rejections=strict'],
+  skip: new Set([
+    path.join('raw', 'parallel_update_worker_threads.js'),
+  ]),
+})
