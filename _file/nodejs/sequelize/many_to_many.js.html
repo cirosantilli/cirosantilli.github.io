@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/sequelize/many_to_many.js - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/sequelize/many_to_many.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/sequelize/many_to_many.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many.js">
+<style>@import "../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/sequelize/many_to_many.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/sequelize/many_to_many.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/sequelize/many_to_many.js"><img src="../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../_dir">(root)</a> / <a href="../../../_dir/nodejs">nodejs</a> / <a href="../../../_dir/nodejs/sequelize">sequelize</a> / <a href="../../../_raw/nodejs/sequelize/many_to_many.js">many_to_many.js</a></b></div></nav></div><div class="p"><b>nodejs/sequelize/many_to_many.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
+const assert = require('assert');
+const path = require('path');
+const { DataTypes, Op } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2])
+;(async () =&gt; {
+// Create the tables.
+const Animal = sequelize.define('Animal', {
+  species: { type: DataTypes.STRING },
+});
+const Tag = sequelize.define('Tag', {
+  name: { type: DataTypes.STRING },
+});
+// AnimalTag is the species of the relation table.
+// Sequelize creates it automatically for us.
+// On SQLite that table looks like this:
+// CREATE TABLE `AnimalTag` (
+//   `createdAt` DATETIME NOT NULL,
+//   `updatedAt` DATETIME NOT NULL,
+//   `AnimalId` INTEGER NOT NULL REFERENCES `Animals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+//   `TagId` INTEGER NOT NULL REFERENCES `Tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+//   PRIMARY KEY (`AnimalId`, `TagId`)
+// );
+Animal.belongsToMany(Tag, { through: 'AnimalTag' });
+Tag.belongsToMany(Animal, { through: 'AnimalTag' });
+await sequelize.sync({force: true});
+
+let bat, frog, dog, flying, mammal, reptile
+async function reset() {
+  // The cascade: true is needed here otherwise `await Animal.truncate()` fails with:
+  // ``
+  // cannot truncate a table referenced in a foreign key constraint
+  // ``
+  // on PostgreSQL 13.4.
+  // https://github.com/sequelize/sequelize/issues/11289
+  // https://stackoverflow.com/questions/56700466/postgresql-truncate-table-with-foreign-key-constraint
+  await sequelize.truncate({ cascade: true })
+
+  // Create some animals and tags.
+
+  bat = await Animal.create({ species: 'bat' })
+  dog = await Animal.create({ species: 'dog' })
+  // Frogs aren't reptiles BTW.
+  frog = await Animal.create({ species: 'frog' })
+  flying = await Tag.create({ name: 'flying' })
+  mammal = await Tag.create({ name: 'mammal' })
+  reptile = await Tag.create({ name: 'reptile' })
+
+  // Autogenerated add* methods
+
+  // Make bat have flying tag
+  await bat.addTag(flying)
+
+  // Also works.
+  //await bat.addTag(flying.id)
+  // Make bat and dog be mammal
+  await mammal.addAnimals([bat, dog])
+}
+await reset()
+let rows;
+
+// Autogenerated get* methods
+
+// Get tags that a animal has.
+
+const batTags = await bat.getTags({ order: [['name', 'ASC']] })
+assert.strictEqual(batTags[0].name, 'flying');
+assert.strictEqual(batTags[1].name, 'mammal');
+assert.strictEqual(batTags.length, 2);
+assert.strictEqual(await bat.countTags(), 2)
+
+const frogTags = await frog.getTags({ order: [['name', 'ASC']] })
+assert.strictEqual(frogTags.length, 0);
+
+const dogTags = await dog.getTags({ order: [['name', 'ASC']] })
+assert.strictEqual(dogTags[0].name, 'mammal');
+assert.strictEqual(dogTags.length, 1);
+
+// Don't SELECT any attributes of the JOIN table with joinTableAttributes
+// to be a bit more efficient. when we don't need that data.
+//
+// TODO I don't even know to how access that data when joinTableAttributes
+// is not given. At many_to_many_custom_table.js, we are able to do that,
+// but it doesn't seem to be populated when the implicit table is used.
+const batTagsNoJoin = await bat.getTags({ order: [['name', 'ASC']], joinTableAttributes: [] })
+assert.strictEqual(batTagsNoJoin[0].name, 'flying');
+assert.strictEqual(batTagsNoJoin[1].name, 'mammal');
+assert.strictEqual(batTagsNoJoin.length, 2);
+assert.strictEqual(await bat.countTags(), 2)
+
+// Same as get but with the animal name instead of the model object.
+// This is almost always what you want to use in a website query,
+// where the input is usually some unique name.
+{
+  async function getTags(species, opts={}) {
+    return Tag.findAll(
+      Object.assign({
+        include: [{
+          model: Animal,
+          where: { species },
+        }],
+        order: [['name', 'ASC']],
+      }, opts)
+    )
+  }
+  rows = await getTags('bat')
+  common.assertEqual(rows, [
+    { name: 'flying' },
+    { name: 'mammal' },
+  ])
+  // We can also access bat data here.
+  // But note that dog, who also has tag mammal, is missing
+  // because the where selects it out. So we generally never want to do that.
+  // like this.
+  assert.strictEqual(rows[0].Animals[0].species, 'bat');
+  assert.strictEqual(rows[0].Animals.length, 1);
+  assert.strictEqual(rows[1].Animals[0].species, 'bat');
+  assert.strictEqual(rows[1].Animals.length, 1);
+
+  // TODO is subQuery: false ever needed in the following cases? It was in some other related cases with limit.
+  // Would need to understand the subQuery break a bit better to decide.
+  rows = await getTags('bat', { limit: 1 })
+  common.assertEqual(rows, [
+    { name: 'flying' },
+  ])
+  rows = await getTags('bat', { order: [['name', 'DESC']] })
+  common.assertEqual(rows, [
+    { name: 'mammal' },
+    { name: 'flying' },
+  ])
+  rows = await getTags('dog', { limit: 1 })
+  common.assertEqual(rows, [
+    { name: 'mammal' },
+  ])
+}
+
+// Yet another way that can be useful in nested includes.
+{
+  const batTags = (await Animal.findOne({
+    where: { id: bat.id },
+    include: [{
+      model: Tag,
+    }],
+    order: [[Tag, 'name', 'ASC']],
+  })).Tags
+  assert.strictEqual(batTags[0].name, 'flying');
+  assert.strictEqual(batTags[1].name, 'mammal');
+  assert.strictEqual(batTags.length, 2);
+}
+
+// TODO Find all tags that bat has, and for each tag include
+// data about all animals that has that tag. Doesn't seem possible.
+// in Sequelize, as we would need to include the same model twice
+// under different aliases, which does not seem supported:
+// * https://github.com/sequelize/sequelize/issues/8013
+// * https://github.com/sequelize/sequelize/issues/7754
+if (false) {
+rows = await Tag.findAll({
+  include: [
+    {
+      model: Animal,
+      where: { id: bat.id },
+    },
+    {
+      model: Animal,
+      where: { id: frog.id },
+    }
+  ],
+  order: [['name', 'ASC']],
+})
+console.error(rows);
+assert.strictEqual(rows[0].name, 'flying');
+assert.strictEqual(rows[0].Animals[0].species, 'bat');
+assert.strictEqual(rows[0].Animals.length, 1);
+assert.strictEqual(rows[1].name, 'mammal');
+assert.strictEqual(rows[1].Animals[0].species, 'bat');
+assert.strictEqual(rows[1].Animals[1].species, 'dog');
+assert.strictEqual(rows[1].Animals.length, 2);
+assert.strictEqual(batTags.length, 2);
+}
+
+// TODO Get all tags, and also determine if dog has each of of them or not.
+// by doing LEFT OUTER JOIN. Managed only with super many to many.
+// https://stackoverflow.com/questions/31091420/nodejs-sequelize-include-where-required-false
+// https://stackoverflow.com/questions/39658204/sequelize-how-to-do-a-where-condition-on-joined-table-with-left-outer-join
+//
+// PostgreSQL used to work with the desired, stopped at 6.14.0:
+//
+// SELECT
+//   "Tag"."id",
+//   "Tag"."name",
+//   "Tag"."createdAt",
+//   "Tag"."updatedAt",
+//   "Animals"."id" AS "Animals.id"
+// FROM
+//   "Tags" AS "Tag"
+//   LEFT OUTER JOIN (
+//     "AnimalTag" AS "Animals-&gt;AnimalTag"
+//     INNER JOIN "Animals" AS "Animals" ON "Animals"."id" = "Animals-&gt;AnimalTag"."AnimalId"
+//   ) ON "Tag"."id" = "Animals-&gt;AnimalTag"."TagId"
+//   AND "Animals"."id" = 3
+// ORDER BY
+//   "Tag"."name" ASC;
+//
+// but SQLite fails with:
+//
+// SELECT
+//   `Tag`.`id`,
+//   `Tag`.`name`,
+//   `Tag`.`createdAt`,
+//   `Tag`.`updatedAt`,
+//   `Animals`.`id` AS `Animals.id`
+// FROM
+//   `Tags` AS `Tag`
+// LEFT OUTER JOIN `AnimalTag` AS `Animals-&gt;AnimalTag`
+//   ON `Tag`.`id` = `Animals-&gt;AnimalTag`.`TagId`
+// LEFT OUTER JOIN `Animals` AS `Animals`
+//   ON `Animals`.`id` = `Animals-&gt;AnimalTag`.`AnimalId`
+//   AND `Animals`.`id` = 3
+// ORDER BY `Tag`.`name` ASC;
+//
+// Running that manually gives:
+//
+// 1|flying|
+// 2|mammal|
+// 2|mammal|3
+// 3|reptile|
+//
+// The correct query would have been:
+//
+// SELECT
+//   `Tag`.`id`,
+//   `Tag`.`name`,
+//   `Tag`.`createdAt`,
+//   `Tag`.`updatedAt`,
+//   `Animals`.`id` AS `Animals.id`
+// FROM
+//   `Tags` AS `Tag`
+// LEFT OUTER JOIN `AnimalTag` AS `Animals-&gt;AnimalTag`
+//   ON `Tag`.`id` = `Animals-&gt;AnimalTag`.`TagId`
+//   AND `Animals-&gt;AnimalTag`.`AnimalId` = 3
+// LEFT OUTER JOIN `Animals` AS `Animals`
+//   ON `Animals`.`id` = `Animals-&gt;AnimalTag`.`AnimalId`
+// ORDER BY `Tag`.`name` ASC;
+//
+// which gives the desired:
+//
+// 1|flying|
+// 2|mammal|3
+// 3|reptile|
+if (false) {
+  rows = await Tag.findAll({
+    include: [{
+      model: Animal,
+      where: { id: bat.id },
+      // No effect.
+      //on: { id: dog.id },
+      through: {
+        //attributes: [],
+        // Same as putting the where outside of through.
+        //where: { AnimalId: dog.id },
+      },
+      required: false,
+      //attributes: ['id'],
+    }],
+    order: [['name', 'ASC']],
+  })
+  console.error(rows.map(row =&gt; row.Animals.map(animal =&gt; animal.id)));
+  assert.strictEqual(rows[0].name, 'flying');
+  assert.strictEqual(rows[0].Animals.length, 0);
+  assert.strictEqual(rows[1].name, 'mammal');
+  assert.strictEqual(rows[1].Animals.length, 1);
+  assert.strictEqual(rows[2].name, 'reptile');
+  assert.strictEqual(rows[2].Animals.length, 0);
+  assert.strictEqual(rows.length, 3);
+}
+
+// Get animals that have a given tag.
+
+const flyingTagged = await flying.getAnimals({order: [['species', 'ASC']]})
+assert.strictEqual(flyingTagged[0].species, 'bat');
+assert.strictEqual(flyingTagged.length, 1);
+
+const mammalTagged = await mammal.getAnimals({order: [['species', 'ASC']]})
+assert.strictEqual(mammalTagged[0].species, 'bat');
+assert.strictEqual(mammalTagged[1].species, 'dog');
+assert.strictEqual(mammalTagged.length, 2);
+
+const reptileTagged = await reptile.getAnimals({order: [['species', 'ASC']]})
+assert.strictEqual(reptileTagged.length, 0);
+
+// Autogenerated has* methods
+
+// Check if animal has tag.
+assert( await bat.hasTag(flying))
+assert( await bat.hasTag(flying.id)) // same
+assert( await bat.hasTag(mammal))
+assert(!await bat.hasTag(reptile))
+
+// Check if tag has animal.
+assert( await flying.hasAnimal(bat))
+assert(!await flying.hasAnimal(frog))
+assert(!await flying.hasAnimal(dog))
+
+// AND of multiple has checks at once.
+assert( await bat.hasTags([flying, mammal]))
+assert(!await bat.hasTags([flying, mammal, reptile]))
+
+// Autogenerated count* methods
+assert.strictEqual(await bat.countTags(), 2)
+assert.strictEqual(await flying.countAnimals(), 1)
+
+// Count how many tags each animal has: GROUP BY + COUNT aggregate.
+// Order return by animals with most tags first.
+// INNER JOIN due to `required: true`, so 0 counts are not present.
+// https://stackoverflow.com/questions/29869077/how-to-count-a-group-by-query-in-nodejs-sequelize
+rows = await Animal.findAll({
+  attributes: [
+    'species',
+    [sequelize.fn('COUNT', '*'), 'count'],
+  ],
+
+  // Workaround for: https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
+  raw: true,
+  includeIgnoreAttributes: false,
+
+  include: [
+    {
+      model: Tag,
+      required: true,
+    },
+  ],
+  group: ['Animal.species'],
+  order: [[sequelize.col('count'), 'DESC']],
+})
+assert.strictEqual(rows[0].species, 'bat')
+assert.strictEqual(parseInt(rows[0].count, 10), 2)
+assert.strictEqual(rows[1].species, 'dog')
+assert.strictEqual(parseInt(rows[1].count, 10), 1)
+assert.strictEqual(rows.length, 2)
+
+// Same but grouping by PK id as a generally better workaround.
+rows = await Animal.findAll({
+  attributes: [
+    'species',
+    [sequelize.fn('COUNT', '*'), 'count'],
+  ],
+  include: [
+    {
+      model: Tag,
+      required: true,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  group: ['Animal.id'],
+  order: [[sequelize.col('count'), 'DESC']],
+})
+assert.strictEqual(rows[0].species, 'bat')
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 2)
+assert.strictEqual(rows[1].species, 'dog')
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 1)
+assert.strictEqual(rows.length, 2)
+
+// Count how many tags each animal has but use
+// LEFT OUTER JOIN + COUNT(column), so 0 counts will be present.
+rows = await Animal.findAll({
+  attributes: [
+    'species',
+    [sequelize.fn('COUNT', sequelize.col('Tags.id')), 'count'],
+  ],
+  include: [
+    {
+      model: Tag,
+      required: false,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  group: ['Animal.id'],
+  order: [[sequelize.col('count'), 'DESC']],
+})
+assert.strictEqual(rows[0].species, 'bat')
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 2)
+assert.strictEqual(rows[1].species, 'dog')
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 1)
+assert.strictEqual(rows[2].species, 'frog')
+assert.strictEqual(parseInt(rows[2].get('count'), 10), 0)
+assert.strictEqual(rows.length, 3)
+
+// Count how many tags each animal has but
+// only consider animals with less than 2 tags.
+rows = await Animal.findAll({
+  attributes: [
+    'species',
+    [sequelize.fn('COUNT', sequelize.col('Tags.id')), 'count'],
+  ],
+  include: [
+    {
+      model: Tag,
+      required: false,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  group: ['Animal.id'],
+  order: [[sequelize.col('count'), 'DESC']],
+  having: sequelize.where(sequelize.fn('COUNT', sequelize.col('Tags.id')), Op.lt, 2)
+})
+assert.strictEqual(rows[0].species, 'dog')
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 1)
+assert.strictEqual(rows[1].species, 'frog')
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 0)
+assert.strictEqual(rows.length, 2)
+
+// Get all animals without any tags.
+//
+// We could do this by modifying the above query that returns
+// all animals with less than two tags to select only those with
+// zero tags, but for the zero case we can do it more cleanly by
+// selecting NULLs on the OUTER JOIN.
+rows = await Animal.findAll({
+  attributes: ['species'],
+  include: [
+    {
+      model: Tag,
+      required: false,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  // https://stackoverflow.com/questions/36262912/where-condition-for-joined-table-in-sequelize-orm
+  where: { '$Tags.id$': null },
+  // Same.
+  //where: sequelize.where(sequelize.col('Tags.id'), null),
+  order: [['species', 'ASC']],
+})
+assert.strictEqual(rows[0].species, 'frog')
+assert.strictEqual(rows.length, 1)
+
+// Count how many tags each animal that has a given tag has.
+async function getTagCountForAnimalsThatAreTagged(tagId) {
+  return Tag.findAll({
+    attributes: [
+      sequelize.col('Animals.id'),
+      [sequelize.fn('COUNT', 'Tag.id'), 'count'],
+    ],
+    raw: true,
+    includeIgnoreAttributes: false,
+    include: [
+      {
+        model: Animal,
+        where: { '$Tag.id$': tagId },
+        include: [
+          {
+            model: Tag,
+            required: false
+          }
+        ]
+      },
+    ],
+    group: ['Animals.id'],
+    order: [[sequelize.col('count'), 'DESC']],
+  })
+}
+rows = await getTagCountForAnimalsThatAreTagged(flying.id)
+assert.strictEqual(rows[0].id, bat.id)
+assert.strictEqual(parseInt(rows[0].count, 10), 2)
+assert.strictEqual(rows.length, 1)
+rows = await getTagCountForAnimalsThatAreTagged(mammal.id)
+assert.strictEqual(rows[0].id, bat.id)
+assert.strictEqual(parseInt(rows[0].count, 10), 2)
+assert.strictEqual(rows[1].id, dog.id)
+assert.strictEqual(parseInt(rows[1].count, 10), 1)
+assert.strictEqual(rows.length, 2)
+rows = await getTagCountForAnimalsThatAreTagged(reptile.id)
+assert.strictEqual(rows.length, 0)
+
+// Autogenerated add* methods
+// Trying to add multiple times does not raise due to unique constraint validation
+// it always does SELECT check before the INSERT.
+await bat.addTag(flying)
+await bat.addTag(flying)
+await reset()
+
+// Autogenerated remove* methods
+
+// bat doesn't fly anymore.
+await bat.removeTag(flying)
+// bat and dog aren't mammals anymore.
+await mammal.removeAnimals([bat, dog])
+// Check that no-one is anything anymore.
+assert.strictEqual(await bat.countTags(), 0)
+assert.strictEqual(await flying.countAnimals(), 0)
+await reset()
+
+// Autogenerated create* method
+// Create a new tag and automatically make bat have it.
+const tag3 = await bat.createTag({ name: 'tag3' })
+assert(await bat.hasTag(tag3))
+assert(await tag3.hasAnimal(bat))
+await reset()
+
+// Autogenerated set* method
+// Make bat have exactly these tags. Remove all others.
+await bat.setTags([mammal, reptile])
+assert(!await bat.hasTag(flying))
+assert( await bat.hasTag(mammal))
+assert( await bat.hasTag(reptile))
+assert(!await bat.hasTag(tag3))
+await reset()
+
+// DELETE all animals with tag mammal.
+// https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
+await Animal.findAll({
+  attributes: ['id'],
+  raw: true,
+  include: [
+    {
+      model: Tag,
+      where: { name: 'mammal' },
+      attributes: [],
+      through: { attributes: [] },
+    }
+  ],
+}).then(ids =&gt; Animal.destroy({ where: { id: ids.map(id =&gt; id.id) } }))
+rows = await sequelize.models.Animal.findAll({ order: [['species', 'ASC']] })
+common.assertEqual(rows, [
+  { species: 'frog' },
+])
+await reset()
+
+// Access join table.
+rows = await sequelize.models.AnimalTag.findAll({order: [
+  ['AnimalId', 'ASC'], ['TagId', 'ASC'],
+]})
+assert.strictEqual(rows[0].AnimalId, bat.id)
+assert.strictEqual(rows[0].TagId, flying.id)
+assert.strictEqual(rows[1].AnimalId, bat.id)
+assert.strictEqual(rows[1].TagId, mammal.id)
+assert.strictEqual(rows[2].AnimalId, dog.id)
+assert.strictEqual(rows[2].TagId, mammal.id)
+assert.strictEqual(rows.length, 3)
+
+// Modify join table.
+await sequelize.models.AnimalTag.truncate({})
+rows = await sequelize.models.AnimalTag.findAll()
+assert.strictEqual(rows.length, 0)
+await reset()
+
+})().finally(() =&gt; { return sequelize.close() });
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

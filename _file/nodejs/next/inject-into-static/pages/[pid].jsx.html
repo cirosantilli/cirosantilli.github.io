@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>nodejs/next/inject-into-static/pages/[pid].jsx - Ciro Santilli</title>
+<meta property="og:title" content="nodejs/next/inject-into-static/pages/[pid].jsx - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/nodejs/next/inject-into-static/pages/[pid].jsx">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/nodejs/next/inject-into-static/pages/[pid].jsx">
+<style>@import "../../../../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../_raw/main.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../../../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../../../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/nodejs/next/inject-into-static/pages/[pid].jsx"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">nodejs/next/inject-into-static/pages/[pid].jsx</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/nodejs/next/inject-into-static/pages/[pid].jsx"><img src="../../../../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../../../../_dir">(root)</a> / <a href="../../../../../_dir/nodejs">nodejs</a> / <a href="../../../../../_dir/nodejs/next">next</a> / <a href="../../../../../_dir/nodejs/next/inject-into-static">inject-into-static</a> / <a href="../../../../../_dir/nodejs/next/inject-into-static/pages">pages</a> / <a href="../../../../../_raw/nodejs/next/inject-into-static/pages/%5Bpid%5D.jsx">[pid].jsx</a></b></div></nav></div><div class="p"><b>nodejs/next/inject-into-static/pages/[pid].jsx</b></div><div class="code"><div><pre><code>import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { renderToString } from 'react-dom/server'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom'
+import { useRouter } from 'next/router'
+
+import { parse } from 'node-html-parser'
+
+function Counter({ initialCount }) {
+  const [count, setCount] = useState(initialCount)
+  return &lt;button
+    onClick={() =&gt; setCount(i =&gt; i+1)}&gt;Click me! {count}&lt;/button&gt;
+}
+
+const SERVER_HTML_SELECTOR = '.second'
+
+export default function IndexPage({ initialCount, serverHtml }) {
+  const router = useRouter()
+  const routeAsPath = useRouter().asPath
+  const clientHtmlElem = useRef(null)
+  const serverHtmlElem = parse(serverHtml)
+  serverHtmlElem.querySelector(SERVER_HTML_SELECTOR).innerHTML = renderToString(&lt;Counter {...{ initialCount }} /&gt;)
+  useEffect(() =&gt; {
+    if (clientHtmlElem.current) {
+      const secondElem = clientHtmlElem.current.querySelector(SERVER_HTML_SELECTOR)
+      const div = document.createElement('div')
+      const root = createRoot(div)
+      root.render(&lt;Counter {...{ initialCount }} /&gt;)
+      secondElem.replaceChildren(div)
+      // Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+      //root.hydrateRoot(
+      //  secondElem,
+      //  &lt;Counter {...{ initialCount }} /&gt;
+      //)
+      // Hide hack.
+      //secondElem.firstChild.style.display = 'none'
+      return () =&gt; {
+        // Hide hack.
+        //secondElem.firstChild.style.display = 'visible'
+        // Warning: Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition
+        //root.unmount()
+        // Doesn't seem to make a difference. But why not? React tends to like when we leave DOM nodes unchanged.
+        secondElem.replaceChildren()
+      }
+    }
+  }, [initialCount])
+  return &lt;div&gt;
+    &lt;div&gt;Direct from React&lt;/div&gt;
+    &lt;div
+      dangerouslySetInnerHTML={{ __html: serverHtmlElem.outerHTML }}
+      ref={clientHtmlElem}
+    /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;Link href="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;Link href="/1"&gt;1&lt;/Link&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;Link href="/2"&gt;2&lt;/Link&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;Link href="/3"&gt;3&lt;/Link&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+}
+
+export const getServerSideProps = async ({ params = {}, req, res }) =&gt; {
+  return {
+    props: {
+      // This would be dynamically fetched from the database in the actual usage.
+      initialCount: Number(params.pid) * 10,
+      serverHtml: `&lt;div&gt;
+&lt;div class="first"&gt;I'm filled&lt;/div&gt;
+&lt;div class="second"&gt;&lt;/div&gt;
+&lt;div class="third"&gt;I'm also filled&lt;/div&gt;
+&lt;/div&gt;
+`,
+    }
+  }
+}
+</code></pre></div></div>
+</main>
+<footer>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../../../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../../../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../../../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../../../../_raw/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_high_contrast"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>
