@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+set prompt ">>> "
+log_user 0
+spawn ollama run [lindex $argv 0]
+expect $prompt
+send "/set parameter temperature 0\r"
+expect $prompt
+send "/set parameter num_predict 100\r"
+expect $prompt
+send "[lindex $argv 1]\r"
+expect -re "\n(.*?)$prompt"
+puts -nonewline $expect_out(1,string)
+send -- "/bye"
