@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>github/close-user-issues.js - Ciro Santilli</title>
+<meta property="og:title" content="github/close-user-issues.js - Ciro Santilli">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+<meta property="og:url" content="https://cirosantilli.com/_file/github/close-user-issues.js">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/_file/github/close-user-issues.js">
+<style>@import "../../_obb/dist/ourbigbook.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../../_raw/main.css">
+<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
+</head>
+<body>
+<header>
+<div class="brand-group">
+<a href="../../" class="brand"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_right_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye">Ciro Santilli</a>
+<a href="https://ourbigbook.com/cirosantilli"><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ourbigbook-logo-v1.svg" loading="lazy" alt="OurBigBook logo">OurBigBook.com</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw icon"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw icon"></i></a>
+<a href="../../sponsor"><span class="icon">$£</span>&nbsp;Sponsor</a>
+<a href="https://github.com/cirosantilli/china-dictatorship"><span class="icon">中国</span>独裁统治&nbsp;China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
+</div>
+</header>
+<main class="ourbigbook">
+<div class="h top" id="file/github/close-user-issues.js"><div class="notnav"><span class="file" title="This article is about a file." /><h1><a href="">github/close-user-issues.js</a></h1></div><nav class="h-nav h-nav-toplevel"><div class="nav"><a href="https://ourbigbook.com/cirosantilli/_file/github/close-user-issues.js"><img src="../../_obb/logo.svg" class="logo" alt=""> OurBigBook.com</a></div><div class="nav file"><b> <a href="../../_dir">(root)</a> / <a href="../../_dir/github">github</a> / <a href="../../_raw/github/close-user-issues.js">close-user-issues.js</a></b></div></nav></div><div class="p"><b>github/close-user-issues.js</b></div><div class="code"><div><pre><code>#!/usr/bin/env node
+
+'use strict';
+
+const API_BASE = `${(process.env.GITHUB_API_URL || 'https://api.github.com').replace(/\/+$/, '')}/`;
+const DEFAULT_PER_PAGE = 100;
+
+function usage() {
+  return `Usage:
+  GITHUB_TOKEN=... node close-user-issues.js --repo OWNER/REPO --user USERNAME [--label LABEL] --yes
+
+Options:
+  --repo OWNER/REPO     Repository whose issues should be closed.
+  --user USERNAME       GitHub username that created the issues.
+  --label LABEL         Optional existing label to add before closing each issue.
+  --token TOKEN         GitHub token. Defaults to GITHUB_TOKEN.
+  --dry-run             Print matching issues without changing them.
+  --yes                 Required to make changes.
+  --delay-ms N          Optional delay between issue updates.
+  --help                Show this help.
+
+The token needs permission to read and write issues in the target repository.`;
+}
+
+function parseArgs(argv) {
+  const options = {
+    delayMs: 0,
+    dryRun: false,
+    yes: false,
+  };
+
+  for (let i = 0; i &lt; argv.length; i += 1) {
+    const arg = argv[i];
+    const [key, inlineValue] = arg.includes('=') ? arg.split(/=(.*)/s, 2) : [arg, undefined];
+
+    if (key === '--help') {
+      options.help = true;
+    } else if (key === '--dry-run') {
+      options.dryRun = true;
+    } else if (key === '--yes') {
+      options.yes = true;
+    } else if (['--repo', '--user', '--label', '--token', '--delay-ms'].includes(key)) {
+      const value = inlineValue ?? argv[i + 1];
+      if (!value || value.startsWith('--')) {
+        throw new Error(`Missing value for ${key}`);
+      }
+      if (inlineValue === undefined) {
+        i += 1;
+      }
+
+      if (key === '--repo') {
+        options.repo = value;
+      } else if (key === '--user') {
+        options.user = value;
+      } else if (key === '--label') {
+        options.label = value;
+      } else if (key === '--token') {
+        options.token = value;
+      } else if (key === '--delay-ms') {
+        options.delayMs = Number(value);
+      }
+    } else {
+      throw new Error(`Unknown option: ${arg}`);
+    }
+  }
+
+  return options;
+}
+
+function splitRepo(repo) {
+  if (!repo || !repo.includes('/')) {
+    throw new Error('--repo must be in OWNER/REPO format');
+  }
+
+  const parts = repo.split('/');
+  if (parts.length !== 2 || !parts[0] || !parts[1]) {
+    throw new Error('--repo must be in OWNER/REPO format');
+  }
+
+  return { owner: parts[0], repo: parts[1] };
+}
+
+function validateOptions(options) {
+  if (options.help) {
+    return;
+  }
+  if (!options.repo) {
+    throw new Error('Missing required option: --repo');
+  }
+  if (!options.user) {
+    throw new Error('Missing required option: --user');
+  }
+  if (!Number.isInteger(options.delayMs) || options.delayMs &lt; 0) {
+    throw new Error('--delay-ms must be a non-negative integer');
+  }
+  if (!options.dryRun &amp;&amp; !options.yes) {
+    throw new Error('Refusing to make changes without --yes. Use --dry-run to inspect matches first.');
+  }
+}
+
+function buildUrl(path, query = {}) {
+  const url = new URL(path.replace(/^\/+/, ''), API_BASE);
+  for (const [key, value] of Object.entries(query)) {
+    if (value !== undefined &amp;&amp; value !== null) {
+      url.searchParams.set(key, String(value));
+    }
+  }
+  return url;
+}
+
+function encodePathSegment(segment) {
+  return encodeURIComponent(segment);
+}
+
+async function request(token, path, options = {}) {
+  const method = options.method || 'GET';
+  const response = await fetch(path, {
+    method,
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'User-Agent': 'close-user-issues-script',
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...options.headers,
+    },
+    body: options.body === undefined ? undefined : JSON.stringify(options.body),
+  });
+
+  const text = await response.text();
+  let data = null;
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { message: text };
+    }
+  }
+
+  if (!response.ok) {
+    const limit = response.headers.get('x-ratelimit-remaining');
+    const reset = response.headers.get('x-ratelimit-reset');
+    const resetAt = reset ? new Date(Number(reset) * 1000).toISOString() : null;
+    const detail = data &amp;&amp; data.message ? `: ${data.message}` : '';
+    const rate = limit === '0' &amp;&amp; resetAt ? ` Rate limit resets at ${resetAt}.` : '';
+    throw new Error(`${method} ${response.url} failed with ${response.status}${detail}.${rate}`);
+  }
+
+  return data;
+}
+
+async function listOpenIssuesByCreator(token, owner, repo, user) {
+  const issues = [];
+
+  for (let page = 1; ; page += 1) {
+    const url = buildUrl(`/repos/${encodePathSegment(owner)}/${encodePathSegment(repo)}/issues`, {
+      state: 'open',
+      creator: user,
+      per_page: DEFAULT_PER_PAGE,
+      page,
+    });
+
+    const pageItems = await request(token, url);
+    const issueItems = pageItems.filter((issue) =&gt; !issue.pull_request);
+    issues.push(...issueItems);
+
+    if (pageItems.length &lt; DEFAULT_PER_PAGE) {
+      break;
+    }
+  }
+
+  return issues;
+}
+
+async function ensureLabelExists(token, owner, repo, label) {
+  const url = buildUrl(`/repos/${encodePathSegment(owner)}/${encodePathSegment(repo)}/labels/${encodePathSegment(label)}`);
+  await request(token, url);
+}
+
+async function addLabel(token, owner, repo, issueNumber, label) {
+  const url = buildUrl(`/repos/${encodePathSegment(owner)}/${encodePathSegment(repo)}/issues/${issueNumber}/labels`);
+  await request(token, url, {
+    method: 'POST',
+    body: { labels: [label] },
+  });
+}
+
+async function closeIssue(token, owner, repo, issueNumber) {
+  const url = buildUrl(`/repos/${encodePathSegment(owner)}/${encodePathSegment(repo)}/issues/${issueNumber}`);
+  await request(token, url, {
+    method: 'PATCH',
+    body: { state: 'closed' },
+  });
+}
+
+function formatIssue(issue) {
+  return `#${issue.number} ${issue.title}`;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}
+
+async function main() {
+  const options = parseArgs(process.argv.slice(2));
+  validateOptions(options);
+
+  if (options.help) {
+    console.log(usage());
+    return;
+  }
+
+  const token = options.token || process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error('Missing GitHub token. Set GITHUB_TOKEN or pass --token.');
+  }
+
+  const { owner, repo } = splitRepo(options.repo);
+
+  if (options.label) {
+    await ensureLabelExists(token, owner, repo, options.label);
+  }
+
+  const issues = await listOpenIssuesByCreator(token, owner, repo, options.user);
+  console.log(`Found ${issues.length} open issue(s) created by @${options.user} in ${owner}/${repo}.`);
+
+  for (const issue of issues) {
+    console.log(formatIssue(issue));
+  }
+
+  if (options.dryRun || issues.length === 0) {
+    return;
+  }
+
+  const failures = [];
+  for (const issue of issues) {
+    try {
+      if (options.label) {
+        await addLabel(token, owner, repo, issue.number, options.label);
+      }
+      await closeIssue(token, owner, repo, issue.number);
+      console.log(`Closed ${formatIssue(issue)}`);
+    } catch (error) {
+      failures.push({ issue, error });
+      console.error(`Failed ${formatIssue(issue)}: ${error.message}`);
+    }
+
+    if (options.delayMs &gt; 0) {
+      await sleep(options.delayMs);
+    }
+  }
+
+  if (failures.length &gt; 0) {
+    throw new Error(`Finished with ${failures.length} failure(s).`);
+  }
+}
+
+main().catch((error) =&gt; {
+  console.error(error.message);
+  process.exitCode = 1;
+});
+</code></pre></div></div>
+</main>
+<footer>
+<div><button type="button" class="ourbigbook-theme-toggle" onclick="ourbigbook_runtime.toggleTheme()"><span class="fas fa-solid-900 ourbigbook-theme-toggle-icon" aria-hidden="true">&#xf186;</span> <span class="ourbigbook-theme-toggle-label">Dark theme</span></button></div>
+<div>Powered by <a href="https://docs.ourbigbook.com">OurBigBook</a></div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">Suggestions and corrections</a></div>
+<div><a href="../../contact">Contact Ciro Santilli</a></div>
+<div><a href="../../_dir">Website source code</a></div>
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+<div><img src="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
+</footer>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DEE2HEJW9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DEE2HEJW9X');
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="cirosantilli/cirosantilli.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkxNjQ1MzI2MQ=="
+        data-category="giscus"
+        data-category-id="DIC_kwDOAPsOjc4CZ6zZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+<script>
+window.ourbigbook_split_headers = false;
+window.ourbigbook_html_x_extension = false;
+window.ourbigbook_redirect_prefix = "";
+</script>
+<script src="../../_obb/dist/ourbigbook_runtime.js"></script><script>ourbigbook_runtime.ourbigbook_runtime()</script><script src="../../_raw/main.js"></script>
+</body>
+</html>
