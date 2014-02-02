@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ site.name }}</title>
+    <link rel="stylesheet" href="{{ site.url }}/assets/syntax.css"/>
+    <!--mathjax-->
+      <script
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      >
+      </script>
+      <script>
+        MathJax.Hub.Config({
+            jax: ["input/TeX","output/HTML-CSS"],
+            displayAlign: "left",
+            displayIndent: "20px"
+        });
+      </script>
+    <!--toc-->
+      <script src="http://code.jquery.com/jquery-1.10.2.min.js" ></script>
+      <script src="{{ site.url }}assets/jquery.toc.js"></script>
+      <script>
+        $("#toc").toc({
+          headings: "h1,h2,h3,h4,h5,h6"
+        });
+      </script>
+  </head>
+  <body>
+    <div id="nav">
+      <h1 style="display:inline;"><a href="{{ site.url }}">{{ site.name }}</a></h1>
+      <a href="https://github.com/cirosantilli/cirosantilli">Ciro Santilli's Home Page</a>
+    </div>
+    {{ content }}
+  </body>
+</html>
