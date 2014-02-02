@@ -5,6 +5,8 @@ layout: default
 
 List of open source contributions.
 
+<ul data-toc></ul>
+
 # Gained push permission
 
 This lists repositories to which I gained push permission because of contributions I made previously.

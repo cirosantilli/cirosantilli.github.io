@@ -13,6 +13,8 @@ Grading scale:
 - 3, 4 = comfortable working with this, have to check manual on some things.
 - 1, 2 = have worked with it previously but either not much, or rusty
 
+<ul data-toc></ul>
+
 # Programming languages
 
 - **C / C++**
