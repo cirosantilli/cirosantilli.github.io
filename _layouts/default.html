@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>{{ site.name }}</title>
-    <link rel="stylesheet" href="{{ site.url }}/assets/syntax.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/syntax.css"/>
     <!--mathjax-->
       <script
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -18,7 +18,7 @@
       </script>
     <!--toc-->
       <script src="http://code.jquery.com/jquery-1.10.2.min.js" ></script>
-      <script src="{{ site.url }}assets/jquery.toc.js"></script>
+      <script src="{{ site.baseurl }}assets/jquery.toc.js"></script>
       <script>
         $("#toc").toc({
           headings: "h1,h2,h3,h4,h5,h6"
@@ -26,7 +26,12 @@
       </script>
   </head>
   <body>
-    <h1 style="display:inline;"><a href="{{ site.url }}">{{ site.name }}</a></h1>
+    <h1>
+      <a href="{{ site.baseurl }}">
+        <img src="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png"
+          width="100px" style="margin-right:10px; vertical-align:middle;">{{ site.name }}
+      </a>
+    </h1>
     {{ content }}
   </body>
 </html>
