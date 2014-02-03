@@ -55,7 +55,7 @@ Count: 7
 
     2014-01
 
-    Gitlab Cookbook improved docs
+    Gitlab Cookbook improved docs.
 
 - <https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/23>
 
