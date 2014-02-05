@@ -8,10 +8,10 @@ This explains what interests me and why.
 I am interested in:
 
 - elearning
-- user gamification / analytics like Stackoverflow uses
-- source control and interfaces like Git, svn, GitHub)
-- CMSs
+- user gamification / analytics like Stack Overflow uses
 - lightweight markup languages
+- source control and interfaces like Git, Subversion, GitHub
+- CMSs
 - companies that rely on open source software
 - companies that offer amazing free products like Google or GitHub.
 
