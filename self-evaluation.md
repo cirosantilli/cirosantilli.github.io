@@ -83,6 +83,7 @@ Written a [tutorial](https://github.com/cirosantilli/mysql-tutorial/blob/master/
 Grade: 2
 
 [Cheatsheet](https://github.com/cirosantilli/assembler/blob/7b91be5601e2ea03eac7bf7b7aad83591655dd05/nasm/cheat/main.asm).
+[Paging tutorial](http://cirosantilli.github.io/x86-paging).
 
 # Other technologies
 
