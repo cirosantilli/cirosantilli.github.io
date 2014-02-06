@@ -15,7 +15,7 @@ I am interested in:
 - companies that rely on open source software
 - companies that offer amazing free products like Google or GitHub.
 
-Why I am interested in those things:
+#Why I am interested in those things
 
 I am bewildered by the beauty of mathematics, science and egineering.
 
