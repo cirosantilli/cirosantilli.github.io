@@ -1,9 +1,7 @@
 ---
-title: Interests
+title: Professional Interests
 layout: default
 ---
-
-I am interested in:
 
 - elearning
 - user gamification / analytics like Stack Overflow uses
