@@ -45,12 +45,15 @@
                 // Generate a valid ID: must start with a letter, and contain only letters and
                 // numbers. All other characters are replaced with underscores.
                 return attr ||
-                    $(this).text().replace(/^[^A-Za-z]*/, "").replace(/[^A-Za-z0-9]+/g, "_");
+                    $(this).text().toLowerCase().replace(/^[^a-z]*/, "").replace(/[^a-z0-9]+/g, "-")
+                    .replace(/-+/, "-").replace(/^-/, "").replace(/-$/, "");
             }).each(function () {
                 // What level is the current heading?
                 var elem = $(this), level = $.map(headingSelectors, function (selector, index) {
                     return elem.is(selector) ? index : undefined;
                 })[0];
+
+                elem.html(elem.html() + ' <a href="#' + elem.attr("id") + '" class="toc-header-link"></a>')
 
                 if (level > currentLevel) {
                     // If the heading is at a deeper level than where we are, start a new nested
