@@ -5,6 +5,12 @@
     <title>{{ site.name }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/syntax.css"/>
+    <style>
+      .header .title {
+        font-size: 30px;
+        font-weight: bold;
+      }
+    </style>
     <!--mathjax-->
       <script
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -22,17 +28,22 @@
       <script src="{{ site.baseurl }}assets/jquery.toc.js"></script>
       <script>
         $("#toc").toc({
+          content: "div.content",
           headings: "h1,h2,h3,h4,h5,h6"
         });
       </script>
   </head>
   <body>
-    <h1>
-      <a href="{{ site.baseurl }}">
-        <img src="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png"
-          width="100px" style="margin-right:10px; vertical-align:middle;">{{ site.name }}
-      </a>
-    </h1>
-    {{ content }}
+    <div class="header">
+      <span class="title">
+        <a href="{{ site.baseurl }}">
+          <img src="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png"
+            width="100px" style="margin-right:10px; vertical-align:middle;">{{ site.name }}
+        </a>
+      </span>
+    </div>
+    <div class="content">
+      {{ content }}
+    </div>
   </body>
 </html>
