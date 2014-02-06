@@ -2,21 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ site.name }}</title>
+    <title>{{ page.title }} - {{site.name}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/syntax.css"/>
     <style>
       body {
+        margin: 0px;
         /*
           font-family:"Courier New",Courier,monospace;"Times New Roman",Georgia,Serif;
           color: #00BB00;
           background-color: black;
         */
       }
-      .header .title {
-        font-size: 30px;
+      div.header {
+        font-size: 40px;
         font-weight: bold;
+        margin: 0px 0px 10px;
+        padding: 5px 10px;
+        background-color: #000000;
+        text-align: center;
       }
+      div.header a:link,
+      div.header a:hover,
+      div.header a:visited {
+        color: #FFFFFF;
+        text-decoration: none;
+      }
+      div.content {
+        width: 700px;
+        margin: 0 auto;
+        padding: 15px;
+        border: 1px solid black;
+      }
+      div.content h1, h2, h3, h4, h5, h6 {
+        border-bottom: 1px solid black;
+        width: 700px;
+      }
+      div.content pre {
+        margin-left: 30px;
+      }
+      div.page-title {
+        font-size: 40px;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+      }
+      div.content h1 { font-size: 35px; }
+      div.content h2 { font-size: 30px; }
+      div.content h3 { font-size: 25px; }
+      div.content h4 { font-size: 20px; }
+      div.content h5 { font-size: 15px; }
+      div.content h6 { font-size: 10px; }
     </style>
     <!--mathjax-->
       <script
@@ -41,7 +76,7 @@
       </script>
       <style>
         *:hover > a.toc-header-link {
-          padding-left: 10px;
+          margin-left: 10px;
           display: inline-block;
           width: 16px;
           height: 16px;
@@ -55,11 +90,12 @@
     <div class="header">
       <a href="{{ site.baseurl }}" class="title">
         <img src="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png"
-          width="100" style="margin-right:10px; vertical-align:middle;" alt="photo of me"
+          height="50" style="margin-right:10px; vertical-align:middle;" alt="photo of me"
         >{{ site.name }}
       </a>
     </div>
     <div class="content">
+      <div class="page-title">{{ page.title }}</div>
       {{ content }}
     </div>
   </body>

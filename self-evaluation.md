@@ -3,8 +3,6 @@ title: Self Evaluation
 layout: default
 ---
 
-An attempt to honestly self evaluate what I know.
-
 Grading scale:
 
 - 10 = you literally have written a book
@@ -12,6 +10,8 @@ Grading scale:
 - 5, 6 = solid daily working knowledge. Highly proficient.
 - 3, 4 = comfortable working with this, have to check manual on some things.
 - 1, 2 = have worked with it previously but either not much, or rusty
+
+TOC:
 
 <ul data-toc></ul>
 
@@ -46,7 +46,7 @@ Sometimes, there is no better alternative.
 Experience with the most useful POSIX utilities and others.
 
 [Main cheatsheet](https://github.com/cirosantilli/linux/blob/2c7d501b28a67b3c464ddfb3a415c6d39c032cda/utils.sh)
-and more on [this repo](https://github.com/cirosantilli/linux/tree/2c7d501b28a67b3c464ddfb3a415c6d39c032cda).
+and more on [this repo](https://github.com/cirosantilli/linux).
 
 ##Ruby and Rails
 
@@ -86,7 +86,7 @@ Grade: 2
 
 # Other technologies
 
-##algorithms
+##Algorithms
 
 Grade: 3
 
@@ -140,7 +140,7 @@ Very good in all skills.
 
 Cambridge CPE grade B in 2004.
 
-##French:
+##French
 
 Very good in all skills.
 

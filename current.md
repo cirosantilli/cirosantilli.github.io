@@ -3,9 +3,6 @@ title: Current Activity
 layout: default
 
 ---
-This explains what I'm current doing with my time.
-
-I am currently taking a gap year.
 
 I am investing full time on what I believe will be the future of education by:
 
@@ -15,7 +12,7 @@ I am investing full time on what I believe will be the future of education by:
 
 - hacking open source tools that Github uses for [GitHub Pages](http://pages.github.com) such as [Jekyll](https://github.com/jekyll/jekyll/) and its supported markup engines like [Kramdown](https://github.com/gettalong/kramdown).
 
-I intend on persuing those projects either by:
+I intend to pursue those projects either by:
 
 - joining a company which does similar things
 - creating my own company if none is up to it

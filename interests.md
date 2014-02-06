@@ -3,8 +3,6 @@ title: Interests
 layout: default
 ---
 
-This explains what interests me and why.
-
 I am interested in:
 
 - elearning

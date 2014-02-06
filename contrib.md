@@ -3,21 +3,17 @@ title: Open Source Contributions
 layout: default
 ---
 
-List of open source contributions.
-
 <ul data-toc></ul>
 
 # Gained push permission
 
-This lists repositories to which I gained push permission because of contributions I made previously.
+Repositories to which I gained push permission because of my contributions:
 
 - <https://github.com/plasticboy/vim-markdown>
 
 # Merged patches
 
-This lists patches merged to projects to which I do not have push permission.
-
-I subjectively self evaluate the patch based on:
+I subjectively self evaluate patches based on:
 
 - how many significant lines changed (excluding indentation changes, mass refactoring, etc.)
 
@@ -28,8 +24,6 @@ I subjectively self evaluate the patch based on:
     - large: > 100 lines
 
 - how hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation ones.
-
-Patches made before I obtained push permission shall still be noted here.
 
 ## Medium
 
@@ -138,4 +132,6 @@ Count: 6
 
 # Other
 
-Stack overflow: <http://stackoverflow.com/users/895245/cirosantilli>
+## Stack overflow
+
+[![stack](http://stackoverflow.com/users/flair/895245.png?theme=dark)](http://stackoverflow.com/users/895245/cirosantilli) [x86 tutorial answer](x86-paging).
