@@ -1,7 +1,7 @@
 ---
 title: Current Activity
 layout: default
-
+permalink: current/
 ---
 
 I am investing full time on what I believe will be the future of education by:

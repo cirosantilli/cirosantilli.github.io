@@ -5,7 +5,7 @@ layout: default
 
 CV and other things to convince you to employ me:
 
-- [Classic fit-into-one-page PDF CV](http://cirosantilli.uphero.com/cv/latest/pdf/cv.pdf)
+- [One page PDF CV](http://cirosantilli.uphero.com/cv/latest/pdf/cv.pdf)
 - [Self evaluation of what I know](self-evaluation)
 - [Open-source contributions](contrib)
 - [Professional interests](interests)

@@ -4,64 +4,8 @@
     <meta charset="utf-8">
     <title>{{ page.title }} - {{site.name}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/syntax.css"/>
-    <style>
-      body {
-        margin: 0px;
-        /*
-          font-family:"Courier New",Courier,monospace;"Times New Roman",Georgia,Serif;
-          color: #00BB00;
-          background-color: black;
-        */
-      }
-      div.header {
-        font-size: 40px;
-        font-weight: bold;
-        margin: 0px 0px 10px;
-        padding: 5px 10px;
-        background-color: #000000;
-        text-align: center;
-      }
-      div.header a:link,
-      div.header a:hover,
-      div.header a:visited {
-        color: #FFFFFF;
-        text-decoration: none;
-      }
-      div.header *.tagline {
-        font-size: 20px;
-      }
-      div.content {
-        width: 700px;
-        margin: 10px auto 10px auto;
-        padding: 15px;
-        border: 1px solid black;
-      }
-      div.content h1, h2, h3, h4, h5, h6 {
-        border-bottom: 1px solid black;
-        width: 700px;
-      }
-      div.content pre {
-        margin-left: 30px;
-      }
-      div.page-title {
-        font-size: 40px;
-        font-weight: bold;
-        border-bottom: 1px solid black;
-      }
-      div.content h1 { font-size: 35px; }
-      div.content h2 { font-size: 30px; }
-      div.content h3 { font-size: 25px; }
-      div.content h4 { font-size: 20px; }
-      div.content h5 { font-size: 15px; }
-      div.content h6 { font-size: 10px; }
-      /*
-      div#disqus_thread {
-        border-top: 1px solid black;
-        padding-top: 20px;
-      }
-      */
-    </style>
+    <link rel="stylesheet" href="{{ site.baseurl }}assets/main.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}assets/syntax.css"/>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js" ></script>
     <!--toc-->
       <script src="{{ site.baseurl }}assets/jquery.toc.js"></script>
@@ -77,10 +21,22 @@
           display: inline-block;
           width: 16px;
           height: 16px;
-          background-image: url("assets/icon-link.png");
+          background-image: url("{{ site.baseurl }}assets/icon-link.png");
           background-size: contain;
           background-repeat: no-repeat;
         }
+      </style>
+    <!--data table-->
+      <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
+      <style>
+        table.dataTable tr.odd { background-color: white; }
+        table.dataTable tr.even { background-color: white; }
+        table.dataTable tr.odd td.sorting_1 { background-color: white; }
+        table.dataTable tr.odd td.sorting_2 { background-color: white; }
+        table.dataTable tr.odd td.sorting_3 { background-color: white; }
+        table.dataTable tr.even td.sorting_1 { background-color: white; }
+        table.dataTable tr.even td.sorting_2 { background-color: white; }
+        table.dataTable tr.even td.sorting_3 { background-color: white; }
       </style>
   </head>
   <body>
@@ -113,11 +69,23 @@
             <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       {% endif %}
     </div>
+    <!--data table-->
+      <script
+        src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"
+      ></script>
+      <script>
+        $('.data-table').dataTable({
+          //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
+          "aaSorting": [],
+          "bFilter": false,
+          "bInfo": false,
+          "bPaginate": false
+        });
+      </script>
     <!--mathjax-->
       <script
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-      >
-      </script>
+      ></script>
       <script>
         MathJax.Hub.Config({
             jax: ["input/TeX","output/HTML-CSS"],
@@ -131,10 +99,8 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
         ga('create', 'UA-47867706-1', 'cirosantilli.github.io');
         ga('send', 'pageview');
-
       </script>
   </body>
 </html>

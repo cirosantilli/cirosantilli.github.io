@@ -53,7 +53,7 @@
                     return elem.is(selector) ? index : undefined;
                 })[0];
 
-                elem.html(elem.html() + ' <a href="#' + elem.attr("id") + '" class="toc-header-link"></a>')
+                elem.html(elem.html() + '<a href="#' + elem.attr("id") + '" class="toc-header-link"></a>')
 
                 if (level > currentLevel) {
                     // If the heading is at a deeper level than where we are, start a new nested

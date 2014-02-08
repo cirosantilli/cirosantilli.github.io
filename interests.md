@@ -1,6 +1,7 @@
 ---
 title: Professional Interests
 layout: default
+permalink: interests/
 ---
 
 - elearning
