@@ -57,4 +57,4 @@ This shall not list bugs solved by my accepted pull requests.
 
 # Stack overflow
 
-[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)](http://stackoverflow.com/users/895245/cirosantilli) [x86 tutorial answer](x86-paging).
+[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)](http://stackoverflow.com/users/895245/cirosantilli) [x86 tutorial answer](/x86-paging).
