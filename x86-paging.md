@@ -1,6 +1,7 @@
 ---
 title: x86 Paging Tutorial
 layout: default
+permalink: x86-paging/
 ---
 
 This is an x86 tutorial extracted from [my StackOverflow answer](http://stackoverflow.com/questions/18431261/how-does-x86-paging-work/18431262#18431262).
