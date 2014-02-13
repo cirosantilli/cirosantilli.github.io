@@ -16,7 +16,7 @@ Repositories to which I gained push permission because of my contributions:
 
 Subjectively self evaluated based on:
 
-- how many significant lines changed (no indentation changes, moves, mass refactoring, etc.):
+- how many significant lines changed (no indentation changes, moves, mass refactoring, tests, etc.):
 
     - **1**: < 20  lines
     - **2**: < 150 lines
@@ -26,6 +26,7 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-02 | GitLab | 2 | [User can leave group from group page.](https://github.com/gitlabhq/gitlabhq/pull/6274) |
 | 2014-02 | GitLab | 2 | [Add anchors to markdown rendered headers.](https://github.com/gitlabhq/gitlabhq/pull/6219) |
 | 2014-02 | GitLab | 2 | [User profile pages are publicly visible.](https://github.com/gitlabhq/gitlabhq/pull/6177) |
 | 2014-01 | GitLab Cookbook | 2 | [Create metal development install documentation.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/29) |
