@@ -14,6 +14,8 @@ Grading scale:
 - 3, 4 = comfortable working with this, have to check manual on some things.
 - 1, 2 = have worked with it previously but either not much, or rusty
 
+If your project does something that [I believe in](/interests), I will learn *whichever* technology it takes to contribute.
+
 #Languages
 
 | Grade | Name | Notes |

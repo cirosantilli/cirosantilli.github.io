@@ -5,18 +5,23 @@ permalink: interests/
 ---
 
 - elearning
-- user gamification / analytics like Stack Overflow uses
+- user and content analytics
+- publishing and developer tools
 - lightweight markup languages
 - source control and interfaces like Git, Subversion, GitHub
-- CMSs
-- companies that rely on open source software
 - companies that offer amazing free products like Google or GitHub.
+- companies that rely on open source software
+
+I don't care about money or fame: they are just tools to help me to:
+
+- improve the world
+- care for my loved ones
 
 #Why I am interested in those things
 
-I am bewildered by the beauty of mathematics, science and egineering.
+I am bewildered by the beauty of mathematics, science and engineering.
 
-I almost went into theorethical mathematics or physics just for the beauty of it, but then:
+I almost went into theoretical mathematics or physics just for the beauty of it, but then:
 
 - I got tired of seeing people begging on the streets every day and not doing anything about it
 - it was so hard to find good and free sources to learn maths and physics, even if you wanted to learn

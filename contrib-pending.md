@@ -6,8 +6,6 @@
 
 ## Medium
 
-| 2014-01 | GitLab | 2 | [User can leave group from group page.](https://github.com/gitlabhq/gitlabhq/pull/6274) |
-
 ## Minor
 
 | 2014-01 | GitLab Cookbook | 1 | [Development install documentation correction.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/33) |
