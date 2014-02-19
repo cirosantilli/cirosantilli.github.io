@@ -2,13 +2,13 @@
 
 ## Large
 
+| 2014-02 | GitLab | 3 | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 | 2014-01 | Counter Culture | 3 | [Add `:delta` option. Hairsplitting mathematical detail.](https://github.com/magnusvk/counter_culture/pull/43) |
 
 ## Medium
 
 ## Minor
 
-| 2014-01 | GitLab Cookbook | 1 | [Development install documentation correction.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/33) |
 | 2013-12 | Vim Session | 1 | [Add a Vim session option.](https://github.com/xolox/vim-session/pull/81) |
 
 # Declined

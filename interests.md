@@ -15,7 +15,7 @@ permalink: interests/
 I don't care about money or fame: they are just tools to help me to:
 
 - improve the world
-- care for my loved ones
+- provide for my loved ones
 
 #Why I am interested in those things
 

@@ -10,3 +10,5 @@ CV and other things to convince you to employ me:
 - [Open-source contributions](contrib)
 - [Professional interests](interests)
 - [What I'm currently up to](current)
+
+Email: [ciro.$FAMILY_NAME@gmail.com](mailto:ciro.$FAMILY_NAME@gmail.com) `FAMILY_NAME=santilli`
