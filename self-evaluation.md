@@ -42,7 +42,7 @@ If your project does something that [I believe in](/interests), I will learn *wh
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |
 {: .data-table}
 
-# Natural languages
+#Natural languages
 
 | Grade | Name | Notes |
 |-

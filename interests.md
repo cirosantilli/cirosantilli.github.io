@@ -17,6 +17,8 @@ I don't care about money or fame: they are just tools to help me to:
 - improve the world
 - provide for my loved ones
 
+While I can speak [a few languages](/self-evaluation#natural-languages), I strongly prefer to produce content (code, documentation) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+
 #Why I am interested in those things
 
 I am bewildered by the beauty of mathematics, science and engineering.

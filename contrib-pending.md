@@ -4,6 +4,9 @@ layout: default
 permalink: contrib-pending/
 ---
 
+| 2014-02 | GitLab | 1 | [Issue and MR descriptions have white background.](https://github.com/gitlabhq/gitlabhq/pull/6389) |
+| 2014-02 | GitLab | 1 | [Remove dir prefix from filename of tests under dir.](https://github.com/gitlabhq/gitlabhq/pull/6386) |
+| 2014-02 | GitLab | 1 | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385) |
 | 2014-02 | GitLab | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | GitLab | 3 | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 | 2014-01 | Counter Culture | 3 | [Add `:delta` option. Hairsplitting mathematical detail.](https://github.com/magnusvk/counter_culture/pull/43) |
