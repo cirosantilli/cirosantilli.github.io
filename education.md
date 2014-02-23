@@ -22,6 +22,6 @@ I participated in a double degree program, so I have engineering degrees in both
 
 Despite studying in great institutions with great teachers, I feel that:
 
-- most of [what I know](/self-evaluation) came from books, the Internet and my parents.
+- most of [what I know](/self-evaluation) came from books, man pages, forums and my parents.
 - [what I really love to do](/interests) is slightly different, but related, to my official degrees.
 - [actual contributions](/contrib) matter much more than pieces of paper.
