@@ -10,7 +10,7 @@ permalink: contrib/
 
 Subjectively self evaluated based on:
 
-- how many significant lines changed (no indentation changes, moves, mass refactoring, tests, etc.):
+- how many significant lines changed (no indentation changes, moves, mass refactoring, trivial tests, etc.):
 
     - **1**: < 20  lines
     - **2**: < 150 lines
@@ -34,21 +34,29 @@ Subjectively self evaluated based on:
 | 2012-11 | [DataTables] | 1 | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli) |
 {: .data-[table]}
 
+[Patches waiting for review](/contrib-pending).
+
 # Gained push permission
 
 Repositories to which I gained push permission because of my contributions:
 
 - <https://github.com/plasticboy/vim-markdown>
 
-# Bug reports
+# Bug reports and Feature requests
 
-- I made and confirmed by others
+- I opened and confirmed by others
 - I wrote comments pointing out a non obvious cause/fix/duplicate.
 
 This shall not list bugs solved by my accepted pull requests.
 
+Abbreviations:
+
+- **PR**: pull request, merge request, request for review
+- **FR**: feature request, enhancement
+
 | Date | Project | Description |
 |-
+| 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
 | 2013-10 | [Yakuake] | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2) |
 | 2013-10 | [Okular] | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641) |
 | 2013-06 | [Krusader] | [Ubuntu crashes.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679) |

@@ -36,7 +36,7 @@ If your project does something that [I believe in](/interests), I will learn *wh
 |-
 | 3 | Algorithms | Big-O analysis, basic algorithms and data structures, P vs NP. |
 | 3 | Linux internals | [Kernel cheat](https://github.com/cirosantilli/linux/blob/fa40968a3476650a075a0ccafaf279bfad7d7024/kernel/main.c). |
-| 3 | Git | [Tutorial](https://github.com/cirosantilli/git-tutorial/blob/113993421fc4b1a8a7c51925f44ddd9a9a7426f1/tutorial.md). |
+| 4 | Git | [Tutorial](https://github.com/cirosantilli/git-tutorial/blob/113993421fc4b1a8a7c51925f44ddd9a9a7426f1/tutorial.md). |
 | 3 | Vim | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/homefiles/blob/1f6f1086e5ab2fcf35846a9ebd4e9f48900f2708/files/.vimrc). |
 | 2 | Django | [Cheatsheet and miniproject](https://github.com/cirosantilli/django-cheat). |
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |

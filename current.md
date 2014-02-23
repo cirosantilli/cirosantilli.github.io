@@ -12,11 +12,11 @@ I am investing full time on what I believe will be the future of education by:
 
 I am also considering:
 
-- hacking open source tools that Github uses for [GitHub Pages](http://pages.github.com) such as [Jekyll](https://github.com/jekyll/jekyll/) and its supported markup engines like [Kramdown](https://github.com/gettalong/kramdown).
+- hacking open source tools that GitHub uses for [GitHub Pages](http://pages.github.com) such as [Jekyll](https://github.com/jekyll/jekyll/) and its supported markup engines like [Kramdown](https://github.com/gettalong/kramdown).
 
 I intend to pursue those projects either by:
 
 - joining a company which does similar things or [other things that interest me](/interests)
 - creating my own company if none is up to it
 
-I can relocate anywhere and work for any wage that allows me to survive.
+If you do something that interests me, I will relocate anywhere (double Brazillian and Italian citizenship) and work for any wage that allows me to survive. I am currently Paris based.
