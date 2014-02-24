@@ -8,13 +8,13 @@ I participated in a double degree program, so I have engineering degrees in both
 
 - [Ecole Polytechnique (Lozere, France)](http://www.shanghairanking.com/World-University-Rankings/Ecole-Polytechnique.html).
 
-    Amongst French engineering schools: [best Times Ranking 2013](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/subject-ranking/subject/engineering-and-IT), [3rd Shanghai ranking 2013](http://www.shanghairanking.com/FieldENG2013.html).
+    Amongst French engineering schools: [1st on Times Ranking 2013](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/subject-ranking/subject/engineering-and-IT), [3rd on Shanghai ranking 2013](http://www.shanghairanking.com/FieldENG2013.html).
 
     Master 2 degree in Applied Mathematics (2014).
 
 - [University of Sao Paulo (Sao Paulo, Brazil)](http://www.shanghairanking.com/World-University-Rankings/University-of-Sao-Paulo.html).
 
-    In South America: [2nd Shanghai ranking 2013 engineering](http://www.shanghairanking.com/FieldENG2013.html), [best Times Ranking 2013 all subjects](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/world-ranking/region/south-america).
+    In South America: [1st on Times Ranking 2013 all subjects](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/world-ranking/region/south-america), [2nd on Shanghai ranking 2013 engineering](http://www.shanghairanking.com/FieldENG2013.html)
 
     Automation and Control Engineer (2013).
 

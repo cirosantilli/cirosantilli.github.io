@@ -65,7 +65,7 @@ Abbreviations:
 | 2012-05 | [AutoKey] | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197) |
 {: .data-table}
 
-# Stack overflow
+# Stack Overflow
 
 [![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)](http://stackoverflow.com/users/895245/cirosantilli) [x86 tutorial answer](/x86-paging).
 

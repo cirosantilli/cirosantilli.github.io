@@ -4,20 +4,23 @@ layout: default
 permalink: interests/
 ---
 
-- elearning
-- user and content analytics
-- publishing and developer tools
-- lightweight markup languages
-- source control and interfaces like Git, Subversion, GitHub
-- companies that offer amazing free products like Google or GitHub.
-- companies that rely on open source software
+| Interest | Examples |
+|-
+| Elearning, tools that help people learn | Google, Stack Overflow, Wikipedia |
+| Version control and web interfaces | Git, Subversion, GitHub |
+| User and content analytics / metrics | Google rank, Stack Overflow gamification |
+| Lightweight markup languages | Markdown, LaTeX |
+| Publishing tools | CMSs, GitHub Pages, Wikipedia |
+| Companies that offer **amazing** free(mium) products | Google, GitHub, Stack Overflow, Wikipedia |
 
-I don't care about money or fame: they are just tools to help me to:
+I **don't** care about money or fame: they are just tools to help me to:
 
 - improve the world
 - provide for my loved ones
 
-While I can speak [a few languages](/self-evaluation#natural-languages), I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+I can speak [a few languages](/self-evaluation#natural-languages) but I **strongly** prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+
+I like open source and companies that use it, but if you do something I believe in, I don't care which license or tools you use.
 
 #Why I am interested in those things
 
