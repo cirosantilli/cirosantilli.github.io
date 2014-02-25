@@ -20,6 +20,10 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-02 | [ShareLaTeX] | 1 | [Remove latexmk install instructions from README.](https://github.com/sharelatex/sharelatex/pull/57) |
+| 2014-02 | [ShareLaTeX] | 1 | [Remove dollars from readme bash code.](https://github.com/sharelatex/sharelatex/pull/56) |
+| 2014-02 | [ShareLaTeX] | 1 | [Add dummy version to package.json to fix install.](https://github.com/sharelatex/sharelatex/pull/53) |
+| 2014-02 | [ShareLaTeX] | 1 | [Add .nvmrc](https://github.com/sharelatex/sharelatex/pull/52) |
 | 2014-02 | [GitLab] | 2 | [User can leave group from group page.](https://github.com/gitlabhq/gitlabhq/pull/6274) |
 | 2014-02 | [GitLab] | 2 | [Add anchors to markdown rendered headers.](https://github.com/gitlabhq/gitlabhq/pull/6219) |
 | 2014-02 | [GitLab] | 2 | [User profile pages are publicly visible.](https://github.com/gitlabhq/gitlabhq/pull/6177) |
@@ -56,6 +60,7 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+| 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
 | 2013-10 | [Yakuake] | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2) |
 | 2013-10 | [Okular] | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641) |
@@ -78,4 +83,5 @@ Abbreviations:
 [NumPy]: http://www.numpy.org
 [Okular]: http://okular.kde.org
 [SciPy]: http://www.scipy.org
+[ShareLaTeX]: https://github.com/sharelatex/sharelatex
 [Yakuake]: http://extragear.kde.org/apps/yakuake
