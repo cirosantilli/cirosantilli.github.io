@@ -20,6 +20,8 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
+| 2014-02 | [git-browse-remote] | 1 | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10) |
 | 2014-02 | [ShareLaTeX] | 1 | [Remove latexmk install instructions from README.](https://github.com/sharelatex/sharelatex/pull/57) |
 | 2014-02 | [ShareLaTeX] | 1 | [Remove dollars from readme bash code.](https://github.com/sharelatex/sharelatex/pull/56) |
 | 2014-02 | [ShareLaTeX] | 1 | [Add dummy version to package.json to fix install.](https://github.com/sharelatex/sharelatex/pull/53) |
@@ -36,7 +38,7 @@ Subjectively self evaluated based on:
 | 2013-02 | [SciPy] | 1 | [Improve documentation.](https://github.com/scipy/scipy/pull/365) |
 | 2013-01 | [Django Userena] | 1 | [Add new configuration option.](https://github.com/bread-and-pepper/django-userena/commit/6a0bc1575a1816a130644efde411fbed131720be) |
 | 2012-11 | [DataTables] | 1 | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli) |
-{: .data-[table]}
+{: .data-table}
 
 [Patches waiting for review](/contrib-pending).
 
@@ -60,7 +62,6 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
-| 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
 | 2013-10 | [Yakuake] | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2) |
 | 2013-10 | [Okular] | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641) |
@@ -77,6 +78,7 @@ Abbreviations:
 [AutoKey]: http://code.google.com/p/autokey
 [DataTables]: https://datatables.net
 [Django Userena]: https://github.com/bread-and-pepper/django-userena
+[git-browse-remote]: https://github.com/motemen/git-browse-remote
 [GitLab]: https://github.com/gitlabhq/gitlabhq
 [GitLab Cookbook]: https://gitlab.com/gitlab-org/cookbook-gitlab
 [Krusader]: http://www.krusader.org
