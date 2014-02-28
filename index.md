@@ -11,8 +11,7 @@ CV and other things to convince you to employ me:
 - [Open source contributions](contrib)
 - [Professional interests](interests)
 
-Email: [ciro.santilli.contact@gmail.com](mailto:ciro.santilli.contact@gmail.com)
-
+Email: [ciro.santilli.contact@gmail.com](mailto:ciro.santilli.contact@gmail.com)  
 Skype: [ciro.santilli](skype:ciro.santilli)
 
 # Current Activity
