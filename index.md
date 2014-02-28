@@ -12,4 +12,4 @@ CV and other things to convince you to employ me:
 - [Professional interests](interests)
 - [What I'm currently up to](current)
 
-Email: [ciro.FAMILY_NAME@gmail.com](mailto:ciro.FAMILY_NAME@gmail.com) `FAMILY_NAME=santilli`
+Email: [ciro.santilli.contact@gmail.com](mailto:ciro.santilli.contact@gmail.com)
