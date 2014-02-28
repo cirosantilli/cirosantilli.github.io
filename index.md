@@ -31,7 +31,7 @@ I intend to pursue this or a related project either by:
 
     I will:
 
-    - relocate anywhere (double Brazillian and Italian citizenship)
+    - relocate anywhere (double Brazilian and Italian citizenship)
     - work for any wage that allows me to survive
 
 - creating my own company if none is up to it
