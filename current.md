@@ -16,7 +16,7 @@ I am also considering:
 
 I intend to pursue those projects either by:
 
-- joining a company which does [something that interest me](/interests)
+- joining a company which does [something that interests me](/interests)
 - creating my own company if none is up to it
 
 If you do something that interests me, I will relocate anywhere (double Brazillian and Italian citizenship) and work for any wage that allows me to survive. I am currently Paris based.

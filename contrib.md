@@ -20,6 +20,7 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-02 | [Markdown Test Suite] | 1 | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8) |
 | 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | [git-browse-remote] | 1 | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10) |
 | 2014-02 | [ShareLaTeX] | 1 | [Remove latexmk install instructions from README.](https://github.com/sharelatex/sharelatex/pull/57) |
@@ -50,7 +51,7 @@ Repositories to which I gained push permission because of my contributions:
 
 # Bug reports and Feature requests
 
-- I opened and confirmed by others
+- I opened and was confirmed or generated considerable interest
 - I wrote comments pointing out a non obvious cause/fix/duplicate.
 
 This shall not list bugs solved by my accepted pull requests.
@@ -62,6 +63,11 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+
+https://github.com/karlcow/markdown-testsuite/pull/8
+
+| 2014-02 | [ShareLaTeX] | [FR: Give one liner install.](https://github.com/sharelatex/sharelatex/issues/51) |
+| 2014-02 | [GitLab] | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis) |
 | 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
 | 2013-10 | [Yakuake] | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2) |
 | 2013-10 | [Okular] | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641) |
@@ -82,6 +88,7 @@ Abbreviations:
 [GitLab]: https://github.com/gitlabhq/gitlabhq
 [GitLab Cookbook]: https://gitlab.com/gitlab-org/cookbook-gitlab
 [Krusader]: http://www.krusader.org
+[Markdown Test Suite]: https://github.com/karlcow/markdown-testsuite
 [NumPy]: http://www.numpy.org
 [Okular]: http://okular.kde.org
 [SciPy]: http://www.scipy.org
