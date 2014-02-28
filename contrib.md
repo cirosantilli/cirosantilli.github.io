@@ -63,9 +63,7 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
-
-https://github.com/karlcow/markdown-testsuite/pull/8
-
+| 2014-02 | [GitLab] | [PR kickstarted commit.](https://github.com/gitlabhq/gitlabhq/pull/6389) |
 | 2014-02 | [ShareLaTeX] | [FR: Give one liner install.](https://github.com/sharelatex/sharelatex/issues/51) |
 | 2014-02 | [GitLab] | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis) |
 | 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |

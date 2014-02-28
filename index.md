@@ -28,11 +28,12 @@ Summary:
 I intend to pursue this or a related project either by:
 
 - joining a company which does [something that interests me](/interests)
+
+    I will:
+
+    - relocate anywhere (double Brazillian and Italian citizenship)
+    - work for any wage that allows me to survive
+
 - creating my own company if none is up to it
-
-If you do something that interests me, I will:
-
-- relocate anywhere (double Brazillian and Italian citizenship)
-- work for any wage that allows me to survive
 
 I am currently Paris based.
