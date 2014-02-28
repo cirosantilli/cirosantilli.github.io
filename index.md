@@ -13,6 +13,8 @@ CV and other things to convince you to employ me:
 
 Email: [ciro.santilli.contact@gmail.com](mailto:ciro.santilli.contact@gmail.com)
 
+Skype: [ciro.santilli](skype:ciro.santilli)
+
 # Current Activity
 
 I am investing full time on the future of education: <https://github.com/cirosantilli/gitlab-elearn>
