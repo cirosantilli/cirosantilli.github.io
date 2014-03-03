@@ -20,6 +20,8 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-02 | [Markdown Test Suite] | 1 | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10) |
+| 2014-02 | [Markdown Test Suite] | 1 | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9) |
 | 2014-02 | [Markdown Test Suite] | 1 | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8) |
 | 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | [git-browse-remote] | 1 | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10) |
@@ -63,6 +65,7 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+| 2014-02 | [GitLab] | [Implemented FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5507877-convert-all-help-files-to-markdown-files-in-doc-di) inspired by comment on [my PR](https://github.com/gitlabhq/gitlabhq/pull/6219) "What should I do about ..." |
 | 2014-02 | [GitLab] | [PR kickstarted commit.](https://github.com/gitlabhq/gitlabhq/pull/6389) |
 | 2014-02 | [ShareLaTeX] | [FR: Give one liner install.](https://github.com/sharelatex/sharelatex/issues/51) |
 | 2014-02 | [GitLab] | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis) |
