@@ -74,6 +74,7 @@ Abbreviations:
 | 2013-10 | [Okular] | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641) |
 | 2013-06 | [Krusader] | [Ubuntu crashes.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679) |
 | 2013-05 | [NumPy] | [SVG output issue. Spotted exact cause of bug, and proposed solution.](https://github.com/matplotlib/matplotlib/pull/1967) |
+| 2012-05 | [Krusader] | [FR: clearly tell users about missing binary dependency.](https://bugs.kde.org/show_bug.cgi?id=300068) |
 | 2012-05 | [Krusader] | [Reported dependency problems for package on Ubuntu.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695) |
 | 2012-05 | [AutoKey] | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197) |
 {: .data-table}

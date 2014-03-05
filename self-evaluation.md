@@ -40,9 +40,9 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 3 | Vim | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/homefiles/blob/1f6f1086e5ab2fcf35846a9ebd4e9f48900f2708/files/.vimrc). |
 | 2 | Django | [Cheatsheet and miniproject](https://github.com/cirosantilli/django-cheat). |
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |
-{: .data-table}
 | 1 | [Chef](http://www.getchef.com/chef/) | For [GitLab Contributions](/contrib). |
 | 1 | AWS | EC2, SES |
+{: .data-table}
 
 #Natural languages
 
