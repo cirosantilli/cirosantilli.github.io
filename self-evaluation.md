@@ -41,6 +41,8 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 2 | Django | [Cheatsheet and miniproject](https://github.com/cirosantilli/django-cheat). |
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |
 {: .data-table}
+| 1 | [Chef](http://www.getchef.com/chef/) | For [GitLab Contributions](/contrib). |
+| 1 | AWS | EC2, SES |
 
 #Natural languages
 
