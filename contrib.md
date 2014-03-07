@@ -12,16 +12,18 @@ Subjectively self evaluated based on:
 
 - how many significant lines changed (no indentation changes, moves, mass refactoring, trivial tests, etc.):
 
-    - **1**: < 20  lines
-    - **2**: < 150 lines
-    - **3**: > 150 lines
+    - **0**: only trivial changes
+    - **1**: < 20
+    - **2**: < 150
+    - **3**: > 150
 
 - how hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation lines.
 
 | Date | Project | Size | Description |
 |-
-| 2014-02 | [Markdown Test Suite] | 1 | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10) |
-| 2014-02 | [Markdown Test Suite] | 1 | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9) |
+| 2014-03 | [GitLab] | 0 | [Documentation Typos](https://github.com/gitlabhq/gitlabhq/pull/6489) |
+| 2014-02 | [Markdown Test Suite] | 0 | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10) |
+| 2014-02 | [Markdown Test Suite] | 0 | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9) |
 | 2014-02 | [Markdown Test Suite] | 1 | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8) |
 | 2014-02 | [GitLab] | 2 | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375) |
 | 2014-02 | [git-browse-remote] | 1 | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10) |
