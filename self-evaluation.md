@@ -26,8 +26,8 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 3 | Ruby and Rails | [GitLab contributions](/contrib), cheatsheets: [Ruby](https://github.com/cirosantilli/ruby), [Rails](https://github.com/cirosantilli/rails-cheat). |
 | 3 | HTML, CSS, Javascript | [Cheatsheets](https://github.com/cirosantilli/web). |
 | 2 | Java | Several school projects. |
-| 2 | MySQL | [Tutorial](http://cirosantilli.github.io/db/mysql). |
-| 2 | x86 assembly | [Cheatsheet](https://github.com/cirosantilli/assembler/blob/7b91be5601e2ea03eac7bf7b7aad83591655dd05/nasm/cheat/main.asm), [Paging tutorial](http://cirosantilli.github.io/x86-paging). |
+| 2 | MySQL | [Tutorial](/db/mysql). |
+| 2 | x86 assembly | [Cheatsheet](https://github.com/cirosantilli/assembler/blob/7b91be5601e2ea03eac7bf7b7aad83591655dd05/nasm/cheat/main.asm), [Paging tutorial](/x86-paging). |
 {: .data-table}
 
 #Other technologies
@@ -36,7 +36,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 |-
 | 3 | Algorithms | Big-O analysis, basic algorithms and data structures, P vs NP. |
 | 3 | Linux internals | [Kernel cheatsheet](https://github.com/cirosantilli/linux/blob/fa40968a3476650a075a0ccafaf279bfad7d7024/kernel/main.c). |
-| 4 | Git | [Tutorial](http://cirosantilli.github.io/git-tutorial). |
+| 4 | Git | [Tutorial](/git-tutorial). |
 | 3 | Vim | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/homefiles/blob/1f6f1086e5ab2fcf35846a9ebd4e9f48900f2708/files/.vimrc). |
 | 2 | Django | [Cheatsheet and miniproject](https://github.com/cirosantilli/django-cheat). |
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |
