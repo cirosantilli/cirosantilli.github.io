@@ -6,7 +6,7 @@ permalink: interests/
 
 | Interest | Examples |
 |-
-| Elearning, tools that help people learn | Google, Stack Overflow, Wikipedia |
+| Elearning, [open education](http://en.wikipedia.org/wiki/Open_education), tools that help people learn | Google, Stack Overflow, Wikipedia |
 | Version control and web interfaces | Git, Subversion, GitHub |
 | User and content analytics / metrics | Google rank, Stack Overflow gamification |
 | Lightweight markup languages | Markdown, LaTeX |
