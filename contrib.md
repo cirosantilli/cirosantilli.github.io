@@ -21,6 +21,8 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [GitLab Cookbook] | 0 | [Uniform markdown headers](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/53) |
+| 2014-03 | [GitLab Cookbook] | 0 | [Typo ommited -> omitted.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/54) |
 | 2014-03 | [GitLab] | 0 | [Documentation Typos](https://github.com/gitlabhq/gitlabhq/pull/6489) |
 | 2014-02 | [Markdown Test Suite] | 0 | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10) |
 | 2014-02 | [Markdown Test Suite] | 0 | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9) |
@@ -67,6 +69,8 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+| 2014-03 | [GitLab] | [FR accepted by Admins](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form) |
+| 2014-02 | [GitLab] | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen) (only possible to see the original now) |
 | 2014-02 | [GitLab] | [Implemented FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5507877-convert-all-help-files-to-markdown-files-in-doc-di) inspired by comment on [my PR](https://github.com/gitlabhq/gitlabhq/pull/6219) "What should I do about ..." |
 | 2014-02 | [GitLab] | [PR kickstarted commit.](https://github.com/gitlabhq/gitlabhq/pull/6389) |
 | 2014-02 | [ShareLaTeX] | [FR: Give one liner install.](https://github.com/sharelatex/sharelatex/issues/51) |
@@ -97,4 +101,5 @@ Abbreviations:
 [Okular]: http://okular.kde.org
 [SciPy]: http://www.scipy.org
 [ShareLaTeX]: https://github.com/sharelatex/sharelatex
+[Softcover]: https://github.com/softcover/softcover
 [Yakuake]: http://extragear.kde.org/apps/yakuake
