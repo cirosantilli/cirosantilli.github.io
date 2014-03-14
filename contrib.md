@@ -21,9 +21,13 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [GitLab] | 1 | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs) |
+| 2014-03 | [GitLab] | 0 | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391) |
+| 2014-03 | [GitLab Cookbook] | 1 | [Correct metal install home share technique.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/55) |
 | 2014-03 | [GitLab Cookbook] | 0 | [Uniform markdown headers](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/53) |
 | 2014-03 | [GitLab Cookbook] | 0 | [Typo ommited -> omitted.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/54) |
 | 2014-03 | [GitLab] | 0 | [Documentation Typos](https://github.com/gitlabhq/gitlabhq/pull/6489) |
+| 2014-02 | [GitLab] | 1 | [Remove dir prefix from filename of tests under dir.](https://github.com/gitlabhq/gitlabhq/pull/6386) |
 | 2014-02 | [Markdown Test Suite] | 0 | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10) |
 | 2014-02 | [Markdown Test Suite] | 0 | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9) |
 | 2014-02 | [Markdown Test Suite] | 1 | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8) |
@@ -69,11 +73,15 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
-| 2014-03 | [GitLab] | [FR accepted by Admins](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form) |
-| 2014-02 | [GitLab] | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen) (only possible to see the original now) |
+http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other
+
+| 2014-03 | [GitLab] | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin. |
+| 2014-03 | [GitLab] | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original. |
+| 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form) |
+| 2014-02 | [GitLab] | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen), only possible to see original. |
 | 2014-02 | [GitLab] | [Implemented FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5507877-convert-all-help-files-to-markdown-files-in-doc-di) inspired by comment on [my PR](https://github.com/gitlabhq/gitlabhq/pull/6219) "What should I do about ..." |
 | 2014-02 | [GitLab] | [PR kickstarted commit.](https://github.com/gitlabhq/gitlabhq/pull/6389) |
-| 2014-02 | [ShareLaTeX] | [FR: Give one liner install.](https://github.com/sharelatex/sharelatex/issues/51) |
+| 2014-02 | [ShareLaTeX] | [FR generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51) |
 | 2014-02 | [GitLab] | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis) |
 | 2014-02 | [GitLab] | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
 | 2013-10 | [Yakuake] | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2) |

@@ -22,7 +22,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 |-
 | 4 | C / C++ | Cheatsheets: [C](https://github.com/cirosantilli/cpp/blob/dd230c618732ab2fe4327e623a950bbe308fc6dd/c/c.c), [C++](https://github.com/cirosantilli/cpp/blob/dd230c618732ab2fe4327e623a950bbe308fc6dd/c/cpp.cpp), [POSIX C API](https://github.com/cirosantilli/linux/blob/def67db42a328de4e8f006ff79f1dbf9b1b5663c/posix/main.c). |
 | 4 | Python | [Cheatsheet](https://github.com/cirosantilli/python/tree/0dea141c2518ab467b8e0af0e80d4a9a32a9650e/cheat). |
-| 4 | Bash | Cheatsheets: [language](https://github.com/cirosantilli/bash/blob/master/cheat), [POSIX / GNU utils](https://github.com/cirosantilli/linux/blob/master/utils.sh). |
+| 4 | Bash | Cheatsheets: [language](https://github.com/cirosantilli/bash), [POSIX / GNU utils](https://github.com/cirosantilli/linux/blob/master/utils.sh). |
 | 3 | Ruby and Rails | [GitLab contributions](/contrib), cheatsheets: [Ruby](https://github.com/cirosantilli/ruby), [Rails](https://github.com/cirosantilli/rails-cheat). |
 | 3 | HTML, CSS, Javascript | [Cheatsheets](https://github.com/cirosantilli/web). |
 | 2 | Java | Several school projects. |
@@ -40,6 +40,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 3 | Vim | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/homefiles/blob/1f6f1086e5ab2fcf35846a9ebd4e9f48900f2708/files/.vimrc). |
 | 2 | Django | [Cheatsheet and miniproject](https://github.com/cirosantilli/django-cheat). |
 | 2 | OpenGL | Mini projects: [Bouncing balls](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/bouncing_balls), [Textures](https://github.com/cirosantilli/cpp/tree/aa4847db2dec0d7f08b8b36aed88044f07d18220/opengl/texture_mini_project). |
+| 2 | [Vagrant](http://www.vagrantup.com/), [VirtualBox](https://www.virtualbox.org/) | [Cheatsheet](https://github.com/cirosantilli/linux/tree/fa4b4e169d82a3479b88dfc1c23be26dfa714081/vm), [Softcover VM](https://github.com/cirosantilli/softcover_vagrant) |
 | 1 | [Chef](http://www.getchef.com/chef/) | For [GitLab Contributions](/contrib). |
 | 1 | AWS | EC2, SES |
 {: .data-table}
