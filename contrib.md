@@ -21,8 +21,8 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
-| 2014-03 | [GitLab] | 1 | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs) |
-| 2014-03 | [GitLab] | 0 | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391) |
+| 2014-03 | [GitLab Cookbook] | 1 | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs) |
+| 2014-03 | [GitLab CI] | 0 | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391) |
 | 2014-03 | [GitLab Cookbook] | 1 | [Correct metal install home share technique.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/55) |
 | 2014-03 | [GitLab Cookbook] | 0 | [Uniform markdown headers](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/53) |
 | 2014-03 | [GitLab Cookbook] | 0 | [Typo ommited -> omitted.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/54) |
@@ -73,8 +73,6 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
-http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other
-
 | 2014-03 | [GitLab] | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin. |
 | 2014-03 | [GitLab] | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original. |
 | 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form) |
@@ -102,6 +100,7 @@ http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administrat
 [Django Userena]: https://github.com/bread-and-pepper/django-userena
 [git-browse-remote]: https://github.com/motemen/git-browse-remote
 [GitLab]: https://github.com/gitlabhq/gitlabhq
+[GitLab CI]: https://github.com/gitlabhq/gitlab-ci
 [GitLab Cookbook]: https://gitlab.com/gitlab-org/cookbook-gitlab
 [Krusader]: http://www.krusader.org
 [Markdown Test Suite]: https://github.com/karlcow/markdown-testsuite
