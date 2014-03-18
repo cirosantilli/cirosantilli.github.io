@@ -16,21 +16,13 @@ CV and other things to convince you to employ me:
 Email: [{{ site.email }}](mailto:{{ site.email }})  
 Skype: [{{ site.skype }}](skype:{{ site.skype }})
 
-# Current Activity
+# Occupation
 
-I am investing full time on the future of education: <https://github.com/cirosantilli/gitlab-elearn>
+I am investing full time on: <https://github.com/cirosantilli/booktree>
 
-Summary:
+I intend to pursue this or another [project that interests me](/interests) either by:
 
-- GitHub clone
-- specialized in **book development**:
-    - compiles books for you
-    - lets you give or sell the output
-- based on **[GitLab](https://github.com/gitlabhq/gitlabhq)**, the best open source GitHub clone ([GitHub top 30 by stars](https://github.com/search?p=3&q=stars%3A%3E10000&ref=searchresults&type=Repositories), [6 people working full time with service revenue](https://www.gitlab.com/about/) as of 2014-02).
-
-I intend to pursue this or a related project either by:
-
-- joining a company which does [something that interests me](/interests)
+- joining a company that does similar things
 
     I will:
 
