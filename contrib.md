@@ -21,6 +21,10 @@ Subjectively self evaluated based on:
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [Markdown Test Suite] | 1 | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13) |
+| 2014-03 | [Markdown Test Suite] | 0 | [Remove newline from empty files.](https://github.com/karlcow/markdown-testsuite/pull/12) |
+| 2014-03 | [GitLab] | 1 | [Start development Key seed id from 1.](https://github.com/gitlabhq/gitlabhq/pull/6601) |
+| 2014-03 | [GitLab] | 1 | [Show link to public projects for new users.](https://github.com/gitlabhq/gitlabhq/pull/6544) |
 | 2014-03 | [GitLab Cookbook] | 1 | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs) |
 | 2014-03 | [GitLab CI] | 0 | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391) |
 | 2014-03 | [GitLab Cookbook] | 1 | [Correct metal install home share technique.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/55) |
@@ -73,6 +77,9 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+| 2014-03 | [Softcover] | [Suggest that tralics repo be moved under the softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin. |
+| 2014-03 | [GitLab] | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |
+| 2014-03 | [GitLab] | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin. |
 | 2014-03 | [GitLab] | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin. |
 | 2014-03 | [GitLab] | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original. |
 | 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form) |
