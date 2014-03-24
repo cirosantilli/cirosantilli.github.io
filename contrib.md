@@ -19,6 +19,8 @@ Subjectively self evaluated based on:
 
 - how hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation lines.
 
+Only patches which were reviewed by at least one person with push permission will be listed here.
+
 | Date | Project | Size | Description |
 |-
 | 2014-03 | [Markdown Test Suite] | 1 | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13) |
