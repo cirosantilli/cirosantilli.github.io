@@ -10,7 +10,7 @@ CV and other things to convince you to employ me:
 - [PDF CV]({{ site.files_path }}cv.pdf)
 - [Education](education)
 - [Self evaluation of what I know](self-evaluation)
-- [Open source contributions: code and tutorials](contrib)
+- [Open source contributions](contrib)
 - [Professional interests](interests)
 
 Email: [{{ site.email }}](mailto:{{ site.email }})  
