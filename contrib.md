@@ -23,6 +23,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [Markdown Test Suite] | 0 | [Remove space from simple list, specify asterisk.](https://github.com/karlcow/markdown-testsuite/pull/14) |
 | 2014-03 | [Markdown Test Suite] | 1 | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13) |
 | 2014-03 | [Markdown Test Suite] | 0 | [Remove newline from empty files.](https://github.com/karlcow/markdown-testsuite/pull/12) |
 | 2014-03 | [GitLab] | 1 | [Start development Key seed id from 1.](https://github.com/gitlabhq/gitlabhq/pull/6601) |
