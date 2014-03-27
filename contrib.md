@@ -23,6 +23,10 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [GitLab CI] | 0 | [Remove config/puma.rb from gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/405) |
+| 2014-03 | [GitLab CI] | 0 | [Ignore config/unicorn.rb.](https://github.com/gitlabhq/gitlab-ci/pull/404) |
+| 2014-03 | [GitLab CI] | 0 | [Tell users to install bundle locally without sudo.](https://github.com/gitlabhq/gitlab-ci-runner/pull/79) |
+| 2014-03 | [GitLab CI] | 0 | [Document where to find the registration token.](https://github.com/gitlabhq/gitlab-ci-runner/pull/78) |
 | 2014-03 | [Markdown Test Suite] | 0 | [Remove space from simple list, specify asterisk.](https://github.com/karlcow/markdown-testsuite/pull/14) |
 | 2014-03 | [Markdown Test Suite] | 1 | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13) |
 | 2014-03 | [Markdown Test Suite] | 0 | [Remove newline from empty files.](https://github.com/karlcow/markdown-testsuite/pull/12) |
