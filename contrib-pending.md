@@ -6,7 +6,6 @@ permalink: contrib-pending/
 
 | Date | Project | Size | Description |
 |-
-| 2014-03 | [Markdown Test Suite] | 2 | [Automated tests.](https://github.com/karlcow/markdown-testsuite/pull/15) |
 | 2014-03 | [Softcover] | 1 | [Check for zip dependency.](https://github.com/softcover/softcover/pull/94) |
 | 2014-02 | [GitLab] | 1 | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385) |
 | 2014-02 | [GitLab] | 3 | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |

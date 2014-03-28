@@ -23,6 +23,10 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [Markdown Test Suite] | 0 | [One disable per line commented out on conf.](https://github.com/karlcow/markdown-testsuite/pull/21) |
+| 2014-03 | [Markdown Test Suite] | 0 | [Add multimarkdown support.](https://github.com/karlcow/markdown-testsuite/pull/20) |
+| 2014-03 | [Markdown Test Suite] | 0 | [Typo conten -> content.](https://github.com/karlcow/markdown-testsuite/pull/18) |
+| 2014-03 | [Markdown Test Suite] | 2 | [Automated tests.](https://github.com/karlcow/markdown-testsuite/pull/15) |
 | 2014-03 | [GitLab CI] | 0 | [Remove config/puma.rb from gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/405) |
 | 2014-03 | [GitLab CI] | 0 | [Ignore config/unicorn.rb.](https://github.com/gitlabhq/gitlab-ci/pull/404) |
 | 2014-03 | [GitLab CI] | 0 | [Tell users to install bundle locally without sudo.](https://github.com/gitlabhq/gitlab-ci-runner/pull/79) |
@@ -79,11 +83,12 @@ This shall not list bugs solved by my accepted pull requests.
 
 Abbreviations:
 
-- **PR**: pull request, merge request, request for review
-- **FR**: feature request, enhancement
+- **PR**: Pull Request, merge request, request for review
+- **FR**: Feature Request, enhancement
 
 | Date | Project | Description |
 |-
+| 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-) |
 | 2014-03 | [Softcover] | [Suggest that tralics repo be moved under the softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin. |
 | 2014-03 | [GitLab] | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |
 | 2014-03 | [GitLab] | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin. |
