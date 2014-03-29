@@ -4,8 +4,14 @@ layout: default
 permalink: contrib-pending/
 ---
 
+<!--
+| 2014-03 | [] |  | []() |
+-->
+
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
+| 2014-03 | [Vim Markdown] | 1 | [Add Toc commands.](https://github.com/plasticboy/vim-markdown/pull/71) |
 | 2014-03 | [Softcover] | 1 | [Check for zip dependency.](https://github.com/softcover/softcover/pull/94) |
 | 2014-02 | [GitLab] | 1 | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385) |
 | 2014-02 | [GitLab] | 3 | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |
@@ -19,3 +25,5 @@ I try to learn from my mistakes, and accept the opinion of others.
 | Date | Project | Size | Description |
 |-
 | 2014-01 | GitLab | 3 | [GitLab add user visibility level. Split into 2 MRs.](https://github.com/gitlabhq/gitlabhq/pull/6028) |
+
+{% include links.md %}
