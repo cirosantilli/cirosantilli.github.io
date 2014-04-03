@@ -4,21 +4,21 @@ layout: default
 permalink: interests/
 ---
 
-| Interest | Examples |
-|-
-| Elearning, [open education](http://en.wikipedia.org/wiki/Open_education), tools that help people learn | Google, Stack Overflow, Wikipedia |
-| Version control and web interfaces | Git, Subversion, GitHub |
-| User and content analytics / metrics | Google rank, Stack Overflow gamification |
-| Lightweight markup languages | Markdown, LaTeX |
-| Publishing tools | CMSs, GitHub Pages, Wikipedia |
-| Companies that offer **amazing** free(mium) products | Google, GitHub, Stack Overflow, Wikipedia |
+I am interested in tools that help people **produce** and **use** both **textual learning material** and **code** efficiently.
+
+| Interest                           | Examples                                     |
+|------------------------------------|----------------------------------------------|
+| Version control and web interfaces | Git, Subversion, GitHub                      |
+| Author and content analytics       | Google PageRank, Stack Overflow gamification |
+| Lightweight markup languages       | Markdown, LaTeX                              |
+| Publishing and developer tools     | GitHub Pages, Vim, IDEs, CMSs, Wikipedia     |
 
 I **don't care** about money or fame: they are just tools to help me to:
 
 - improve the world
 - provide for my loved ones
 
-I can speak [a few languages](/self-evaluation#natural-languages) but I **strongly** prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+I can speak [a few languages](/self-evaluation#natural-languages) but I **strongly** prefer to produce content (code, documentation, reports) in **English**, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
 
 I prefer **textual** learning sources (e.g. Wikipedia) to videos (e.g. Kahn Academy), because they are cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
