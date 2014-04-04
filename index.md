@@ -20,7 +20,7 @@ Skype: [{{ site.skype }}](skype:{{ site.skype }})
 
 I am investing full time on: <https://github.com/cirosantilli/booktree>. [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 
-I intend to pursue this or another [project that interests me](/interests) by:
+I intend to pursue this or another [**project that interests me**](/interests) by:
 
 - joining a company that does *similar things*. I will:
     - relocate anywhere (double Brazilian and Italian citizenship)
