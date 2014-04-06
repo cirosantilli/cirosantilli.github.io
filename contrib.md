@@ -23,6 +23,10 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-03 | [Markdown Test Suite] | 1 | [Document config_local.py on README.](https://github.com/karlcow/markdown-testsuite/pull/23) |
+| 2014-03 | [Markdown Test Suite] | 1 | [Factor out engines that are commands on PATH.](https://github.com/karlcow/markdown-testsuite/pull/24) |
+| 2014-03 | [Markdown Test Suite] | 1 | [Add sample run-tests.py output to README.](https://github.com/karlcow/markdown-testsuite/pull/25) |
+| 2014-03 | [Markdown Test Suite] | 1 | [Check if are no engines enabled to avoid exception.](https://github.com/karlcow/markdown-testsuite/pull/26) |
 | 2014-03 | [Vim Markdown] | 1 | [Add Toc commands.](https://github.com/plasticboy/vim-markdown/pull/71) |
 | 2014-03 | [Markdown Test Suite] | 0 | [One disable per line commented out on conf.](https://github.com/karlcow/markdown-testsuite/pull/21) |
 | 2014-03 | [Markdown Test Suite] | 0 | [Add multimarkdown support.](https://github.com/karlcow/markdown-testsuite/pull/20) |
