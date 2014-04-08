@@ -74,7 +74,7 @@ Only patches which were reviewed by at least one person with push permission wil
 | 2013-02 | [SciPy] | 1 | [Improve documentation.](https://github.com/scipy/scipy/pull/365) |
 | 2013-01 | [Django Userena] | 1 | [Add new configuration option.](https://github.com/bread-and-pepper/django-userena/commit/6a0bc1575a1816a130644efde411fbed131720be) |
 | 2012-11 | [DataTables] | 1 | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli) |
-{: .data-table}
+{: #patches-table .data-table}
 
 [Patches waiting for review](/contrib-pending).
 
@@ -118,7 +118,7 @@ Abbreviations:
 | 2012-05 | [Krusader] | [FR: clearly tell users about missing binary dependency.](https://bugs.kde.org/show_bug.cgi?id=300068) |
 | 2012-05 | [Krusader] | [Reported dependency problems for package on Ubuntu.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695) |
 | 2012-05 | [AutoKey] | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197) |
-{: .data-table}
+{: #bugs-table .data-table}
 
 # Stack Overflow
 

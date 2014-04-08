@@ -28,7 +28,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 2 | Java | Several school projects. |
 | 2 | MySQL | [Tutorial](/db/mysql). |
 | 2 | x86 assembly | [Cheatsheet](https://github.com/cirosantilli/assembler/blob/master/nasm/cheat/main.asm), [Paging tutorial](/x86-paging). |
-{: .data-table}
+{: #languages-table .data-table}
 
 #Other technologies
 
@@ -43,7 +43,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 2 | [Vagrant](http://www.vagrantup.com/), [VirtualBox](https://www.virtualbox.org/) | [Cheatsheet](https://github.com/cirosantilli/linux/tree/master/vm), [Softcover VM](https://github.com/cirosantilli/softcover_vagrant) |
 | 1 | [Chef](http://www.getchef.com/chef/) | For [GitLab Contributions](/contrib). |
 | 1 | AWS | EC2, SES |
-{: .data-table}
+{: #other-tech-table .data-table}
 
 #Natural languages
 
@@ -53,3 +53,4 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 6 | French | TCF grade C2 in 2011 |
 | 9 | Brazilian Portuguese | Native speaker |
 | 2 | Chinese | Beginner |
+{: #natural-languages-table}
