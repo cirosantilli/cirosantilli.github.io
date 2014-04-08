@@ -34,7 +34,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 
 | Grade | Name | Notes |
 |-
-| 3 | Algorithms | Big-O analysis, basic algorithms and data structures, P vs NP. |
+| 3 | Algorithms | Big-O analysis, basic algorithms and data structures, P vs NP. [Implementations](https://github.com/cirosantilli/algorithms). |
 | 3 | Linux internals | [Kernel cheatsheet](https://github.com/cirosantilli/linux/blob/master/kernel/main.c). |
 | 4 | Git | [Tutorial](/git-tutorial). |
 | 3 | Vim | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/dotfiles/blob/master/files/.vimrc). |
