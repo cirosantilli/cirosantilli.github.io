@@ -8,11 +8,12 @@ permalink: self-evaluation/
 
 Grading scale:
 
-- 10 = you literally have written a book
-- 7, 8, 9 = expert, go-to person on this technology
-- 5, 6 = solid daily working knowledge. Highly proficient.
-- 3, 4 = comfortable working with this, have to check manual on some things.
-- 1, 2 = have worked with it previously but either not much, or rusty
+| 10    | You literally have written a book.                                  |
+| 7 - 9 | Expert, go-to person on this technology.                            |
+| 5 - 6 | Solid daily working knowledge. Highly proficient.                   |
+| 3 - 4 | Comfortable working with this, have to check manual on some things. |
+| 1 - 2 | Have worked with it previously but either not much, or rusty.       |
+{: #grading-table}
 
 If your project does something that [I believe in](/interests), I will learn **whatever** it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
 

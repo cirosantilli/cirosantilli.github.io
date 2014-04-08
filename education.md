@@ -4,7 +4,7 @@ layout: default
 permalink: education/
 ---
 
-I participated in a double degree program, so I have engineering degrees in both:
+I participated in a **double degree program**, so I have engineering degrees in both:
 
 - [**École Polytechnique (Lozère, France)**](http://www.shanghairanking.com/World-University-Rankings/Ecole-Polytechnique.html)
 

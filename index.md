@@ -5,13 +5,14 @@ layout: default
 
 ![me]({{ site.baseurl }}assets/me.jpg){: style="height:200px; float:right; border:1px solid black; border-radius:2px;"}
 
-CV and other things to convince you to employ me:
+CV and other things to convince you to employ me.
 
 - [PDF CV]({{ site.files_path }}cv.pdf)
 - [Education](education)
 - [Self evaluation of what I know](self-evaluation)
 - [Open source contributions](contrib)
 - [Professional interests](interests)
+{: .toc}
 
 **Email**: [{{ site.email }}](mailto:{{ site.email }})  
 **Skype**: [{{ site.skype }}](skype:{{ site.skype }})

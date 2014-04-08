@@ -12,10 +12,11 @@ Subjectively self evaluated based on:
 
 - how many significant lines changed (no indentation changes, moves, mass refactoring, trivial tests, etc.):
 
-    - **0**: only trivial changes
-    - **1**: < 20
-    - **2**: < 150
-    - **3**: > 150
+    | 0 | only trivial changes |
+    | 1 | < 20                 |
+    | 2 | < 150                |
+    | 3 | > 150                |
+    {: #grading-table}
 
 - how hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation lines.
 
