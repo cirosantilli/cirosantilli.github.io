@@ -1,3 +1,17 @@
+---
+navigation:
+- text: CV
+  url: /files/cv.pdf
+- text: Education
+  url: /education/
+- text: Self Evalutaion
+  url: /self-evaluation/
+- text: Open Source
+  url: /contrib/
+- text: Interests
+  url: /interests/
+---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,6 +61,29 @@
             alt="photo of me">{{ site.name }} <span class="tagline">Programming, Web Dev, Elearning</span>
       </div>
     </a>
+      <div class="container navbar-container">
+        <div class="navbar" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <ul class="nav navbar-nav">
+                <li {% if page.url == '/index.html' %}class="active"{% endif %}>
+                  <a class="navbar-brand" href="/">Home</a>
+                </li>
+              </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                {% for link in page.navigation %}
+                <li {% if page.url == link.url %}class="active"{% endif %}>
+                  <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="content">
       <div class="sidebar">
         <div>
