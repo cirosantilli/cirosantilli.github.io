@@ -8,8 +8,8 @@ layout: default
 CV and other things to convince you to employ me.
 
 - [PDF CV]({{ site.files_path }}cv.pdf)
-- [Education](education)
-- [Self evaluation of what I know](self-evaluation)
+- [Education: École Polytechnique and University of São Paulo](education)
+- [Self evaluation of what I know with links to code and tutorials](self-evaluation)
 - [Open source contributions](contrib)
 - [Professional interests](interests)
 {: .toc}
@@ -19,7 +19,7 @@ CV and other things to convince you to employ me.
 
 # Occupation
 
-I am investing full time on [Booktree: Book Development with Version Control](https://github.com/cirosantilli/booktree). [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
+I am investing full time on [**Booktree: Book Development with Version Control**](https://github.com/cirosantilli/booktree). [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 
 I intend to pursue this or other [**projects that interest me**](/interests) by:
 
