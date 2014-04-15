@@ -5,11 +5,12 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2014-03 | [] |  | []() |
+| 2014-04 | [] |  | []() |
 -->
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [GitLab] | 1 | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775) |
 | 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
 | 2014-03 | [Softcover] | 1 | [Check for zip dependency.](https://github.com/softcover/softcover/pull/94) |
 | 2014-02 | [GitLab] | 1 | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385) |
