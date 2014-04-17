@@ -12,5 +12,6 @@
 [SciPy]: http://www.scipy.org
 [ShareLaTeX]: https://github.com/sharelatex/sharelatex
 [Softcover]: https://github.com/softcover/softcover
+[Tig]: https://github.com/jonas/tig
 [Vim Markdown]: https://github.com/plasticboy/vim-markdown
 [Yakuake]: http://extragear.kde.org/apps/yakuake
