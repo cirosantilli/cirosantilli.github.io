@@ -24,6 +24,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [Tig] | 1 | [Add refs bind `!` to delete branch.](https://github.com/jonas/tig/pull/270) |
 | 2014-04 | [GitLab] | 1 | [Rename issue form tags to match MR and params.](https://github.com/gitlabhq/gitlabhq/pull/6774) |
 | 2014-04 | [GitLab] | 1 | [Say issues are accepted at both GitLab and GitHub.](https://github.com/gitlabhq/gitlabhq/pull/6749) |
 | 2014-03 | [Markdown Test Suite] | 1 | [Document config_local.py on README.](https://github.com/karlcow/markdown-testsuite/pull/23) |

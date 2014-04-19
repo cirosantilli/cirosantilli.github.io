@@ -10,7 +10,6 @@ permalink: contrib-pending/
 
 | Date | Project | Size | Description |
 |-
-| 2014-04 | [Tig] | 1 | [Add refs bind `!` to delete branch.](https://github.com/jonas/tig/pull/270) |
 | 2014-04 | [GitLab] | 1 | [Add markdown styleguide.](https://github.com/gitlabhq/gitlabhq/pull/6795) |
 | 2014-04 | [GitLab] | 1 | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/6786) |
 | 2014-04 | [GitLab] | 1 | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775) |
