@@ -21,12 +21,11 @@ CV and other things to convince you to employ me.
 
 I am investing full time on [**Booktree: Book Development with Version Control**](https://github.com/cirosantilli/booktree). [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 
-I intend to pursue this or other [**projects that interest me**](/interests) by:
+I will pursue this or other projects [**that interest me**](/interests) by:
 
-- joining a company that does *similar things*. I will:
-    - relocate anywhere (double Brazilian and Italian citizenship)
+- joining a company. I will:
+    - relocate anywhere (double Italian and Brazilian citizenship)
     - work for any wage that allows me to survive
-
 - creating my own company if none is up to it
 
 I am currently Paris based.
