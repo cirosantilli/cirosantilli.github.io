@@ -5,7 +5,7 @@ layout: default
 
 ![me]({{ site.baseurl }}assets/me.jpg){: style="height:200px; float:right; border:1px solid black; border-radius:2px;"}
 
-CV and other things to convince you to employ me.
+Things to convince you to work with me.
 
 - [PDF CV]({{ site.files_path }}cv.pdf)
 - [Education: École Polytechnique and University of São Paulo](education)
