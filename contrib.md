@@ -102,6 +102,7 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
+| 2014-03 | [Tig] | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275) |
 | 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-) |
 | 2014-03 | [Softcover] | [Suggest that TRALICS repo be moved under the Softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin. |
 | 2014-03 | [GitLab] | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |

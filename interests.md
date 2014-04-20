@@ -20,9 +20,19 @@ I **don't care** about money or fame: they are just tools to help me to:
 
 I can speak [a few languages](/self-evaluation#natural-languages) but I **strongly** prefer to produce content (code, documentation, reports) in **English**, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
 
+I like open source and companies that use it, but if you do something I believe in, I will use **whichever** license or tool you use.
+
 I prefer **textual** learning sources (e.g. Wikipedia) to videos (e.g. Kahn Academy), because they are cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
-I like open source and companies that use it, but if you do something I believe in, I will use **whichever** license or tool you use.
+I **don't** like tools like Coursera that focus on:
+
+- teaching at fixed time intervals
+- evaluating students through tests
+
+because:
+
+- people must learn whatever they want whenever they want
+- the only meaningful measures of success are citation metrics (e.g. Google Rank, Stack Overflow rep) and net worth
 
 #Why I am interested in those things
 
