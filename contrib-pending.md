@@ -10,6 +10,7 @@ permalink: contrib-pending/
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [Markdown Test Suite] | 1 | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29) |
 | 2014-04 | [GitLab] | 1 | [Add markdown styleguide.](https://github.com/gitlabhq/gitlabhq/pull/6795) |
 | 2014-04 | [GitLab] | 1 | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/6786) |
 | 2014-04 | [GitLab] | 1 | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775) |

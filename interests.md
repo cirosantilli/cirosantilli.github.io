@@ -24,7 +24,7 @@ I like open source and companies that use it, but if you do something I believe 
 
 I prefer **textual** learning sources (e.g. Wikipedia) to videos (e.g. Kahn Academy), because they are cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
-I **don't** like tools like Coursera that focus on:
+I **don't** like MOOC tools that focus on:
 
 - teaching at fixed time intervals
 - evaluating students through tests
