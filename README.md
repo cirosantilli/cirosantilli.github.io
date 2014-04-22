@@ -1,1 +1,1 @@
-CV and other things to convince you to employ me: <http://www.cirosantilli.com>
+CV and other things to convince you to work with me: <http://www.cirosantilli.com>
