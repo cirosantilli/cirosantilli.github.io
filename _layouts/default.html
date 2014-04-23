@@ -135,7 +135,14 @@ navigation:
           <a class="nav" href="mailto:{{ site.email }}"><i class="fa fa-envelope-o fa-fw"></i>Email</a>
           <a class="nav" href="skype:{{ site.skype }}"><i class="fa fa-skype fa-fw"></i>Skype</a>
           <a class="nav" href="https://twitter.com/cirosantilli"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
-          <a class="nav" href="https://github.com/cirosantilli/cirosantilli.github.io/issues/new?title={{ page.title | cgi_escape }}%20-%20">
+          {% assign repo = page.url | split:'/' %}
+          {% assign size = repo | size %}
+          {% if size < 3 %}
+            {% assign repo = 'cirosantilli.github.io' %}
+          {% else 3 %}
+            {% assign repo = repo[1] %}
+          {% endif %}
+          <a class="nav" href="{{ site.github }}/{{ repo }}/issues/new?title={{ page.title | cgi_escape }}%20-%20">
             <i class="fa fa-exclamation-circle fa-fw"></i>Issue
           </a>
           <!--
@@ -152,7 +159,7 @@ navigation:
         </div>
         <div>
           <div class="title">Accounts</div>
-          <a class="nav" href="https://github.com/cirosantilli"><i class="fa fa-github fa-fw"></i>GitHub</a>
+          <a class="nav" href="{{ site.github }}"><i class="fa fa-github fa-fw"></i>GitHub</a>
           <a class="nav" href="http://stackoverflow.com/users/895245/cirosantilli"><i class="fa fa-stack-overflow fa-fw"></i>SO</a>
         </div>
       </div>
