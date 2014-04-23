@@ -10,6 +10,11 @@ permalink: contrib-pending/
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [Markdown Test Suite] | 1 | [Add list-code-1-space test.](https://github.com/karlcow/markdown-testsuite/pull/34) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Add md2html engine.](https://github.com/karlcow/markdown-testsuite/pull/33) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Remove email tests because output is random.](https://github.com/karlcow/markdown-testsuite/pull/32) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Improve output normalization with custom parser.](https://github.com/karlcow/markdown-testsuite/pull/31) |
+| 2014-04 | [Markdown Test Suite] | 2 | [Run only tests that contain string in title.](https://github.com/karlcow/markdown-testsuite/pull/30) |
 | 2014-04 | [Markdown Test Suite] | 1 | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29) |
 | 2014-04 | [GitLab] | 1 | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/6786) |
 | 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
