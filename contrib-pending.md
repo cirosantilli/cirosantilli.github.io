@@ -6,6 +6,7 @@ permalink: contrib-pending/
 
 <!--
 | 2014-04 | [] |  | []() |
+https://github.com/gitlabhq/gitlab-ci/pull/422
 -->
 
 | Date | Project | Size | Description |
