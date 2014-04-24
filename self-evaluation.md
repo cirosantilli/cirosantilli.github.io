@@ -29,6 +29,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 2 | Java | Several school projects. |
 | 2 | MySQL | [Tutorial](/db/mysql). |
 | 2 | x86 assembly | [Cheatsheet](https://github.com/cirosantilli/assembler/blob/master/nasm/cheat/main.asm), [Paging tutorial](/x86-paging). |
+| 3 | LaTeX, Markdown | [LaTeX cheatsheet](https://github.com/cirosantilli/latex-cheat), [Markdown style guide](/markdown-styleguide), [Markdown Testsuite contributions](https://github.com/karlcow/markdown-testsuite/graphs/contributors). |
 {: #languages-table .data-table}
 
 #Other technologies
