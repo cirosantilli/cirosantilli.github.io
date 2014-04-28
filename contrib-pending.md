@@ -6,7 +6,10 @@ permalink: contrib-pending/
 
 <!--
 | 2014-04 | [] |  | []() |
-https://github.com/gitlabhq/gitlab-ci/pull/422
+1 Add application.yml.example.development. https://github.com/gitlabhq/gitlab-ci/pull/422
+1 Set dummy merge driver merge ours .gitattributes. https://github.com/progit/progit/pull/751
+0 Rename color header to more precise title. https://github.com/boostorg/graph/pull/7
+1 Explicitly use vertex type on quick tour example. https://github.com/boostorg/graph/pull/8
 -->
 
 | Date | Project | Size | Description |
