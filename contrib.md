@@ -24,6 +24,13 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [GitLab CI] | 1 | [Add application.yml.example.development.](https://github.com/gitlabhq/gitlab-ci/pull/422) |
+| 2014-04 | [Boost Graph] | 1 | [Explicitly use vertex type on quick tour example.](https://github.com/boostorg/graph/pull/8) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Add list-code-1-space test.](https://github.com/karlcow/markdown-testsuite/pull/34) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Add md2html engine.](https://github.com/karlcow/markdown-testsuite/pull/33) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Remove email tests because output is random.](https://github.com/karlcow/markdown-testsuite/pull/32) |
+| 2014-04 | [Markdown Test Suite] | 2 | [Run only tests that contain string in title.](https://github.com/karlcow/markdown-testsuite/pull/30) |
+| 2014-04 | [Markdown Test Suite] | 1 | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29) |
 | 2014-04 | [GitLab] | 1 | [Add markdown styleguide.](https://github.com/gitlabhq/gitlabhq/pull/6795) |
 | 2014-04 | [GitLab] | 1 | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775) |
 | 2014-04 | [Tig] | 1 | [Add refs bind `!` to delete branch.](https://github.com/jonas/tig/pull/270) |
@@ -104,12 +111,7 @@ Abbreviations:
 
 | Date | Project | Description |
 |-
-| 2014-04 | [Markdown Test Suite] | 1 | [Add list-code-1-space test.](https://github.com/karlcow/markdown-testsuite/pull/34) |
-| 2014-04 | [Markdown Test Suite] | 1 | [Add md2html engine.](https://github.com/karlcow/markdown-testsuite/pull/33) |
-| 2014-04 | [Markdown Test Suite] | 1 | [Remove email tests because output is random.](https://github.com/karlcow/markdown-testsuite/pull/32) |
-| 2014-04 | [Markdown Test Suite] | 2 | [Run only tests that contain string in title.](https://github.com/karlcow/markdown-testsuite/pull/30) |
-| 2014-04 | [Markdown Test Suite] | 1 | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29) |
-| 2014-04 | [Markdown Test Suite] | 1 | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3) |
+| 2014-04 | [Markdown Test Suite] | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3) |
 | 2014-03 | [Tig] | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275) |
 | 2014-03 | [GitLab] | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-) |
 | 2014-03 | [Softcover] | [Suggest that TRALICS repo be moved under the Softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin. |
