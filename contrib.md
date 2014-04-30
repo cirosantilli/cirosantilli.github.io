@@ -24,6 +24,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date | Project | Size | Description |
 |-
+| 2014-04 | [Markdown Test Suite] | 1 | [Improve output normalization with custom parser.](https://github.com/karlcow/markdown-testsuite/pull/31) |
 | 2014-04 | [Markdown Test Suite] | 1 | [Add ordered-list-inner-par-list test.](https://github.com/karlcow/markdown-testsuite/pull/40) |
 | 2014-04 | [GitLab CI] | 1 | [Add application.yml.example.development.](https://github.com/gitlabhq/gitlab-ci/pull/422) |
 | 2014-04 | [Boost Graph] | 1 | [Explicitly use vertex type on quick tour example.](https://github.com/boostorg/graph/pull/8) |
