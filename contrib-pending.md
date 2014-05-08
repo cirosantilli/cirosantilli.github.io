@@ -10,6 +10,7 @@ permalink: contrib-pending/
 
 | Date | Project | Size | Description |
 |-
+| 2014-05 | [Marked] | 1 | [Add browser usage to README.](https://github.com/chjj/marked/pull/414) |
 | 2014-05 | [Marked] | 0 | [Typo benchmarks are below reference in README.](https://github.com/chjj/marked/pull/412) |
 | 2014-05 | [Marked] | 0 | [Move CLI usage up on README.](https://github.com/chjj/marked/pull/411) |
 | 2014-04 | [Pro Git book] | 1 | [Set dummy merge driver merge ours](.gitattributes. https://github.com/progit/progit/pull/751) |
