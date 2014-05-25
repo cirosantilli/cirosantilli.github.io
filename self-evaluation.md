@@ -20,7 +20,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 # Languages
 
 | Grade | Name                  | Notes                                                                                                                                                                                                                 |
-|-------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 4     | C / C++               | Cheatsheets: [C](https://github.com/cirosantilli/cpp/blob/master/c.c), [C++](https://github.com/cirosantilli/cpp/blob/master/cpp.cpp), [POSIX C API](https://github.com/cirosantilli/linux/blob/master/posix/main.c). |
 | 4     | Python                | [Cheatsheet](https://github.com/cirosantilli/python-cheat).                                                                                                                                                           |
 | 4     | Bash                  | Cheatsheets: [language](https://github.com/cirosantilli/bash), [POSIX / GNU utils](https://github.com/cirosantilli/linux/blob/master/utils.sh).                                                                       |
@@ -34,23 +34,23 @@ If your project does something that [I believe in](/interests), I will learn **w
 
 # Other technologies
 
-| Grade | Name                                                                            | Notes                                                                                                                                 |
-|-------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| 3     | Algorithms                                                                      | Big-O analysis, basic algorithms and data structures, P vs NP. [Implementations](https://github.com/cirosantilli/algorithms).         |
-| 3     | Linux internals                                                                 | [Kernel cheatsheet](https://github.com/cirosantilli/linux/blob/master/kernel/main.c).                                                 |
-| 4     | Git                                                                             | [Tutorial](/git-tutorial).                                                                                                            |
-| 3     | Vim                                                                             | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/dotfiles/blob/master/files/.vimrc).                                      |
-| 2     | Django                                                                          | [Cheatsheet and mini project](https://github.com/cirosantilli/django-cheat).                                                          |
-| 2     | OpenGL                                                                          | [Cheatsheet and mini projects](https://github.com/cirosantilli/cpp/tree/master/opengl).                                               |
-| 2     | [Vagrant](http://www.vagrantup.com/), [VirtualBox](https://www.virtualbox.org/) | [Cheatsheet](https://github.com/cirosantilli/linux/tree/master/vm), [Softcover VM](https://github.com/cirosantilli/softcover_vagrant) |
-| 1     | [Chef](http://www.getchef.com/chef/)                                            | For [GitLab Contributions](/contrib).                                                                                                 |
-| 1     | AWS                                                                             | EC2, SES                                                                                                                              |
+| Grade | Name                                                                                                                          | Notes                                                                                                                                      |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 3     | Algorithms                                                                                                                    | Big-O analysis, basic algorithms and data structures, P vs NP. [Implementations](https://github.com/cirosantilli/algorithms).              |
+| 3     | Linux internals                                                                                                               | [Kernel cheatsheet](https://github.com/cirosantilli/linux/blob/master/kernel/main.c).                                                      |
+| 4     | Git                                                                                                                           | [Tutorial](/git-tutorial).                                                                                                                 |
+| 3     | Vim                                                                                                                           | [.vimrc + cheatsheet at end](https://github.com/cirosantilli/dotfiles/blob/master/files/.vimrc).                                           |
+| 2     | Django                                                                                                                        | [Cheatsheet and mini project](https://github.com/cirosantilli/django-cheat).                                                               |
+| 2     | OpenGL                                                                                                                        | [Cheatsheet and mini projects](https://github.com/cirosantilli/cpp/tree/master/opengl).                                                    |
+| 2     | [Vagrant](http://www.vagrantup.com/), [VirtualBox](https://www.virtualbox.org/), [Docker](https://github.com/dotcloud/docker) | [Cheatsheet](https://github.com/cirosantilli/linux/tree/master/vm), [Softcover Vagrant](https://github.com/cirosantilli/softcover_vagrant) |
+| 1     | [Chef](http://www.getchef.com/chef/)                                                                                          | For [GitLab Contributions](/contrib).                                                                                                      |
+| 1     | AWS                                                                                                                           | EC2, SES                                                                                                                                   |
 {: #other-tech-table .data-table}
 
 # Natural languages
 
 | Grade | Name                 | Notes                         |
-|-------|----------------------|-------------------------------|
+| ----- | -------------------- | ----------------------------- |
 | 6     | English              | Cambridge CPE grade B in 2004 |
 | 6     | French               | TCF grade C2 in 2011          |
 | 9     | Brazilian Portuguese | Native speaker                |
