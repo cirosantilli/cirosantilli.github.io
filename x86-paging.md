@@ -53,7 +53,7 @@ and to tell the hardware where to find them ( via `cr3` ).
 Paging could be implemented in software but is hardware implemented because paging operations
 are done at every single memory access and therefore need to be very fast.
 
-#Example: simplified paging scheme
+#Example: simplified single-level paging scheme
 
 This an example of how paging operates on a *simplified* version of a x86 architecture
 to implement a virtual memory space.
@@ -148,10 +148,6 @@ The actual value for `L` on x86 is 32 bits.
 
 Once the page tables have been set up by the OS, the address translation between linear
 and physical addresses is done *by the hardware*.
-
-The reason for this is that memory access is a very frequent operation,
-and memory translation has to be done on every memory accesses,
-so it would be too slow to do it via software.
 
 When the OS wants to activate process 1, it sets the `cr3` to `P1T`,
 the start of the table for process one.
