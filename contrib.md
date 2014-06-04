@@ -24,6 +24,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date        | Project                   | Size     | Description                                                                                                                             |
 | ----------- | ------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 2014-06     | [GitLab][]                | 2        | [Update docs to match new markdown style guide.](https://github.com/gitlabhq/gitlabhq/pull/6863)                                        |
 | 2014-05     | [Markdown Test Suite][]   | 1        | [Add blackfriday, lunamark, maruku and rdiscount.](https://github.com/karlcow/markdown-testsuite/pull/51)                               |
 | 2014-05     | [Markdown Test Suite][]   | 1        | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                        |
 | 2014-05     | [Markdown Test Suite][]   | 0        | [Add showdown engine.](https://github.com/karlcow/markdown-testsuite/pull/45)                                                           |
