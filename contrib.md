@@ -6,6 +6,13 @@ permalink: contrib/
 
 <ul data-toc></ul>
 
+# Summary
+
+- [GitLab][]: very important to me because of [Booktree][]. Implemented some large features that are important, and several minor fixes.
+- [Markdown Test Suite][]: I implemented the test runner. We need *one* Markdown standard for interoperability.
+- [Vim Markdown][]: I sometimes contribute with features that I really need, and help on issues. A good language needs a good editor.
+- [Stack Overflow][stack-overflow-ciro]: I like to answer important questions, for which none of the answers satisfied me, and close duplicates. `Necromancer` is my favorite badge.
+
 # Merged patches
 
 Subjectively self evaluated based on:
@@ -155,6 +162,6 @@ Abbreviations:
 
 # Stack Overflow
 
-[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)](http://stackoverflow.com/users/895245/cirosantilli) [x86 tutorial answer](/x86-paging).
+[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro] [x86 tutorial answer](/x86-paging).
 
 {% include links.md %}

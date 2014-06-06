@@ -1,4 +1,5 @@
 [autokey]:             http://code.google.com/p/autokey
+[booktree]:            https://github.com/booktree/booktree
 [boost graph]:         https://github.com/boostorg/graph
 [datatables]:          https://datatables.net
 [django userena]:      https://github.com/bread-and-pepper/django-userena
@@ -14,6 +15,7 @@
 [scipy]:               http://www.scipy.org
 [sharelatex]:          https://github.com/sharelatex/sharelatex
 [softcover]:           https://github.com/softcover/softcover
+[stack-overflow-ciro]: http://stackoverflow.com/users/895245/cirosantilli
 [tig]:                 https://github.com/jonas/tig
 [vim markdown]:        https://github.com/plasticboy/vim-markdown
 [yakuake]:             http://extragear.kde.org/apps/yakuake

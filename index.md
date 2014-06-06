@@ -19,7 +19,7 @@ Things to convince you to work with me.
 
 # Occupation
 
-I am investing full time on [**Booktree: Book Development with Version Control**](https://github.com/booktree/booktree). [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
+I am investing full time on [**Booktree: Book Development with Version Control**][booktree]. [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 
 I will pursue this or other projects [**that interest me**](/interests) by:
 
@@ -29,3 +29,5 @@ I will pursue this or other projects [**that interest me**](/interests) by:
 - creating my own company if none is up to it
 
 I am currently Paris based.
+
+{% include links.md %}
