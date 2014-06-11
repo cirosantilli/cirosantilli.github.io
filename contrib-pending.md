@@ -5,11 +5,8 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2014-05 | [][] |  | []() |
+| 2014-06 | [][] |  | []() |
 -->
-
-
-https://github.com/softcover/softcover/pull/103
 
 | Date | Project | Size | Description |
 |-
@@ -18,7 +15,6 @@ https://github.com/softcover/softcover/pull/103
 | 2014-05 | [Marked][] | 0 | [Move CLI usage up on README.](https://github.com/chjj/marked/pull/411) |
 | 2014-04 | [Pro Git book][] | 1 | [Set dummy merge driver merge ours](.gitattributes. https://github.com/progit/progit/pull/751) |
 | 2014-04 | [Boost Graph][] | 0 | [Rename color header to more precise title.](https://github.com/boostorg/graph/pull/7) |
-| 2014-04 | [GitLab][] | 1 | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/6786) |
 | 2014-02 | [GitLab] | 3 | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 | 2014-01 | Counter Culture | 3 | [Add `:delta` option. Hairsplitting mathematical detail.](https://github.com/magnusvk/counter_culture/pull/43) |
 | 2013-12 | Vim Session | 1 | [Add a Vim session option.](https://github.com/xolox/vim-session/pull/81) |

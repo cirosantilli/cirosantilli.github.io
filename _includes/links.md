@@ -12,6 +12,7 @@
 [marked]:              https://github.com/chjj/marked
 [numpy]:               http://www.numpy.org
 [okular]:              http://okular.kde.org
+[rvm]:                 https://github.com/wayneeseguin/rvm
 [scipy]:               http://www.scipy.org
 [sharelatex]:          https://github.com/sharelatex/sharelatex
 [softcover]:           https://github.com/softcover/softcover

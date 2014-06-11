@@ -30,7 +30,9 @@ Subjectively self evaluated based on:
 Only patches which were reviewed by at least one person with push permission will be listed here.
 
 | Date        | Project                   | Size     | Description                                                                                                                             |
-| ----------- | ------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------|---------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-06     | [RVM][]                   | 0        | [Correct some doc typos.](https://github.com/wayneeseguin/rvm/pull/2900)                                                                |
+| 2014-06     | [GitLab][]                | 1        | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/7107)                                        |
 | 2014-06     | [GitLab][]                | 2        | [Update docs to match new markdown style guide.](https://github.com/gitlabhq/gitlabhq/pull/6863)                                        |
 | 2014-05     | [Markdown Test Suite][]   | 1        | [Add blackfriday, lunamark, maruku and rdiscount.](https://github.com/karlcow/markdown-testsuite/pull/51)                               |
 | 2014-05     | [Markdown Test Suite][]   | 1        | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                        |
@@ -135,7 +137,7 @@ Abbreviations:
 - **FR**: Feature Request, enhancement
 
 | Date    | Project                 | Description                                                                                                                                                                                        |
-| ------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2014-05 | [Softcover][]           | [PR implemented by owner separately.](https://github.com/softcover/softcover/pull/94)                                                                                                              |
 | 2014-04 | [Markdown Test Suite][] | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                                                          |
 | 2014-03 | [Tig][]                 | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275)                                                                                                                                  |
