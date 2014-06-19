@@ -12,6 +12,8 @@
 [marked]:              https://github.com/chjj/marked
 [numpy]:               http://www.numpy.org
 [okular]:              http://okular.kde.org
+[octokat.js]:          https://github.com/philschatz/octokat.js
+[octokit.js]:          https://github.com/philschatz/octokit.js
 [rvm]:                 https://github.com/wayneeseguin/rvm
 [scipy]:               http://www.scipy.org
 [sharelatex]:          https://github.com/sharelatex/sharelatex
@@ -19,4 +21,5 @@
 [stack-overflow-ciro]: http://stackoverflow.com/users/895245/cirosantilli
 [tig]:                 https://github.com/jonas/tig
 [vim markdown]:        https://github.com/plasticboy/vim-markdown
+[vim-snippets]:        https://github.com/honza/vim-snippets
 [yakuake]:             http://extragear.kde.org/apps/yakuake
