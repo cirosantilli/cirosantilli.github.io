@@ -39,10 +39,12 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                 | Size | Description                                                                                                                         |
 |---------|-------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-06 | [Octokat.js][]          | 1    | [Fix `repo` to `repos` in README examples.](https://github.com/philschatz/octokat.js/pull/5)                                        |
+| 2014-06 | [Octokat.js][]          | 1    | [Fix typos and style on README.](https://github.com/philschatz/octokat.js/pull/6)                                                   |
 | 2014-06 | [octokit.js][]          | 0    | [Remove trailing whitespace.](https://github.com/philschatz/octokit.js/pull/57)                                                     |
 | 2014-06 | [octokit.js][]          | 1    | [Add grunt watch.](https://github.com/philschatz/octokit.js/pull/56)                                                                |
-| 2014-06 | [octokat.js][]          | 0    | [Remove unneeded semicolon.](https://github.com/philschatz/octokat.js/pull/3)                                                       |
-| 2014-06 | [octokat.js][]          | 1    | [Add grunt watch.](https://github.com/philschatz/octokat.js/pull/2)                                                                 |
+| 2014-06 | [Octokat.js][]          | 0    | [Remove unneeded semicolon.](https://github.com/philschatz/octokat.js/pull/3)                                                       |
+| 2014-06 | [Octokat.js][]          | 1    | [Add grunt watch.](https://github.com/philschatz/octokat.js/pull/2)                                                                 |
 | 2014-06 | [Markdown Test Suite][] | 2    | [Add Vagrantfile.](https://github.com/karlcow/markdown-testsuite/pull/55)                                                           |
 | 2014-06 | [Markdown Test Suite][] | 1    | [Remove hoedown options.](https://github.com/karlcow/markdown-testsuite/pull/54)                                                    |
 | 2014-06 | [vim-snippets][]        | 1    | [Add HTML `ac` Anchor from Clipboard.](https://github.com/honza/vim-snippets/pull/386)                                              |
@@ -163,6 +165,7 @@ Abbreviations:
 
 | Date    | Project                   | Description                                                                                                                                                                                        |
 |---------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-06 | [Markdown Test Suite][]   | [Issue builds for PR.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                                    |
 | 2014-06 | [Vim Markdown][]          | [Close issue as invalid.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                              |
 | 2014-06 | [Vim Markdown][]          | [Review and merge PR](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                                                          |
 | 2014-06 | [Vim Markdown][]          | [Review, patch and merge PR](https://github.com/plasticboy/vim-markdown/pull/80)                                                                                                                   |
