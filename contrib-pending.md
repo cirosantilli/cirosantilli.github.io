@@ -19,12 +19,6 @@ permalink: contrib-pending/
 | 2014-01 | Counter Culture | 3 | [Add `:delta` option. Hairsplitting mathematical detail.](https://github.com/magnusvk/counter_culture/pull/43) |
 | 2013-12 | Vim Session | 1 | [Add a Vim session option.](https://github.com/xolox/vim-session/pull/81) |
 
-# Merged without review
-
-The following patches have been merged without explicit review on projects in which many users contribute to and I have push rights. They haven't been reverted to my knowledge.
-
-| 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
-
 # Declined
 
 I try to learn from my mistakes, and accept the opinion of others.

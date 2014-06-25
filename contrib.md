@@ -37,100 +37,103 @@ Contributions are subjectively self evaluated based on:
 
 Only patches which were reviewed by at least one person with push permission will be listed here.
 
-| Date    | Project                 | Size | Description                                                                                                                         |
-|---------|-------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
-| 2014-06 | [Octokat.js][]          | 1    | [Fix `repo` to `repos` in README examples.](https://github.com/philschatz/octokat.js/pull/5)                                        |
-| 2014-06 | [Octokat.js][]          | 1    | [Fix typos and style on README.](https://github.com/philschatz/octokat.js/pull/6)                                                   |
-| 2014-06 | [octokit.js][]          | 0    | [Remove trailing whitespace.](https://github.com/philschatz/octokit.js/pull/57)                                                     |
-| 2014-06 | [octokit.js][]          | 1    | [Add grunt watch.](https://github.com/philschatz/octokit.js/pull/56)                                                                |
-| 2014-06 | [Octokat.js][]          | 0    | [Remove unneeded semicolon.](https://github.com/philschatz/octokat.js/pull/3)                                                       |
-| 2014-06 | [Octokat.js][]          | 1    | [Add grunt watch.](https://github.com/philschatz/octokat.js/pull/2)                                                                 |
-| 2014-06 | [Markdown Test Suite][] | 2    | [Add Vagrantfile.](https://github.com/karlcow/markdown-testsuite/pull/55)                                                           |
-| 2014-06 | [Markdown Test Suite][] | 1    | [Remove hoedown options.](https://github.com/karlcow/markdown-testsuite/pull/54)                                                    |
-| 2014-06 | [vim-snippets][]        | 1    | [Add HTML `ac` Anchor from Clipboard.](https://github.com/honza/vim-snippets/pull/386)                                              |
-| 2014-06 | [RVM][]                 | 0    | [Correct some doc typos.](https://github.com/wayneeseguin/rvm/pull/2900)                                                            |
-| 2014-06 | [GitLab][]              | 1    | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/7107)                                    |
-| 2014-06 | [GitLab][]              | 2    | [Update docs to match new markdown style guide.](https://github.com/gitlabhq/gitlabhq/pull/6863)                                    |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add blackfriday, lunamark, maruku and rdiscount.](https://github.com/karlcow/markdown-testsuite/pull/51)                           |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                    |
-| 2014-05 | [Markdown Test Suite][] | 0    | [Add showdown engine.](https://github.com/karlcow/markdown-testsuite/pull/45)                                                       |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Title attribute is significant at normalization.](https://github.com/karlcow/markdown-testsuite/pull/47)                           |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add design goals.](https://github.com/karlcow/markdown-testsuite/pull/48)                                                          |
-| 2014-05 | [Markdown Test Suite][] | 0    | [Add Python Markdown 2 engine.](https://github.com/karlcow/markdown-testsuite/pull/49)                                              |
-| 2014-05 | [Markdown Test Suite][] | 0    | [Add peg-markdown engine.](https://github.com/karlcow/markdown-testsuite/pull/50)                                                   |
-| 2014-05 | [GitLab][]              | 1    | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385)                                  |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                    |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add link-idref-implicit-no-bracket test.](https://github.com/karlcow/markdown-testsuite/pull/43)                                   |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Minor fixes to addition of hoedown.](https://github.com/karlcow/markdown-testsuite/pull/42)                                        |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Remove no-auto-id argument for kramdown.](https://github.com/karlcow/markdown-testsuite/pull/41)                                   |
-| 2014-05 | [Markdown Test Suite][] | 1    | [Add markdown_pl Markdown.pl engine.](https://github.com/karlcow/markdown-testsuite/pull/36)                                        |
-| 2014-04 | [GitLab][]              | 0    | [Remove redundant signin link from signin page.](https://github.com/gitlabhq/gitlabhq/pull/6892)                                    |
-| 2014-04 | [GitLab][]              | 1    | [Add help link to header.](https://github.com/gitlabhq/gitlabhq/pull/6897)                                                          |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Improve output normalization with custom parser.](https://github.com/karlcow/markdown-testsuite/pull/31)                           |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Add ordered-list-inner-par-list test.](https://github.com/karlcow/markdown-testsuite/pull/40)                                      |
-| 2014-04 | [GitLab CI][]           | 1    | [Add application.yml.example.development.](https://github.com/gitlabhq/gitlab-ci/pull/422)                                          |
-| 2014-04 | [Boost Graph][]         | 1    | [Explicitly use vertex type on quick tour example.](https://github.com/boostorg/graph/pull/8)                                       |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Add list-code-1-space test.](https://github.com/karlcow/markdown-testsuite/pull/34)                                                |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Add md2html engine.](https://github.com/karlcow/markdown-testsuite/pull/33)                                                        |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Remove email tests because output is random.](https://github.com/karlcow/markdown-testsuite/pull/32)                               |
-| 2014-04 | [Markdown Test Suite][] | 2    | [Run only tests that contain string in title.](https://github.com/karlcow/markdown-testsuite/pull/30)                               |
-| 2014-04 | [Markdown Test Suite][] | 1    | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29)                                                         |
-| 2014-04 | [GitLab][]              | 1    | [Add markdown styleguide.](https://github.com/gitlabhq/gitlabhq/pull/6795)                                                          |
-| 2014-04 | [GitLab][]              | 1    | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775)                                         |
-| 2014-04 | [Tig][]                 | 1    | [Add refs bind `!` to delete branch.](https://github.com/jonas/tig/pull/270)                                                        |
-| 2014-04 | [GitLab][]              | 1    | [Rename issue form tags to match MR and params.](https://github.com/gitlabhq/gitlabhq/pull/6774)                                    |
-| 2014-04 | [GitLab][]              | 1    | [Say issues are accepted at both GitLab and GitHub.](https://github.com/gitlabhq/gitlabhq/pull/6749)                                |
-| 2014-03 | [Markdown Test Suite][] | 1    | [Document config_local.py on README.](https://github.com/karlcow/markdown-testsuite/pull/23)                                        |
-| 2014-03 | [Markdown Test Suite][] | 1    | [Factor out engines that are commands on PATH.](https://github.com/karlcow/markdown-testsuite/pull/24)                              |
-| 2014-03 | [Markdown Test Suite][] | 1    | [Add sample run-tests.py output to README.](https://github.com/karlcow/markdown-testsuite/pull/25)                                  |
-| 2014-03 | [Markdown Test Suite][] | 1    | [Check if are no engines enabled to avoid exception.](https://github.com/karlcow/markdown-testsuite/pull/26)                        |
-| 2014-03 | [Vim Markdown][]        | 1    | [Add Toc commands.](https://github.com/plasticboy/vim-markdown/pull/71)                                                             |
-| 2014-03 | [Markdown Test Suite][] | 0    | [One disable per line commented out on conf.](https://github.com/karlcow/markdown-testsuite/pull/21)                                |
-| 2014-03 | [Markdown Test Suite][] | 0    | [Add multimarkdown support.](https://github.com/karlcow/markdown-testsuite/pull/20)                                                 |
-| 2014-03 | [Markdown Test Suite][] | 0    | [Typo conten -> content.](https://github.com/karlcow/markdown-testsuite/pull/18)                                                    |
-| 2014-03 | [Markdown Test Suite][] | 2    | [Automated tests.](https://github.com/karlcow/markdown-testsuite/pull/15)                                                           |
-| 2014-03 | [GitLab CI][]           | 0    | [Remove config/puma.rb from gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/405)                                             |
-| 2014-03 | [GitLab CI][]           | 0    | [Ignore config/unicorn.rb.](https://github.com/gitlabhq/gitlab-ci/pull/404)                                                         |
-| 2014-03 | [GitLab CI][]           | 0    | [Tell users to install bundle locally without sudo.](https://github.com/gitlabhq/gitlab-ci-runner/pull/79)                          |
-| 2014-03 | [GitLab CI][]           | 0    | [Document where to find the registration token.](https://github.com/gitlabhq/gitlab-ci-runner/pull/78)                              |
-| 2014-03 | [Markdown Test Suite][] | 0    | [Remove space from simple list, specify asterisk.](https://github.com/karlcow/markdown-testsuite/pull/14)                           |
-| 2014-03 | [Markdown Test Suite][] | 1    | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13)                                         |
-| 2014-03 | [Markdown Test Suite][] | 0    | [Remove newline from empty files.](https://github.com/karlcow/markdown-testsuite/pull/12)                                           |
-| 2014-03 | [GitLab][]              | 1    | [Start development Key seed id from 1.](https://github.com/gitlabhq/gitlabhq/pull/6601)                                             |
-| 2014-03 | [GitLab][]              | 1    | [Show link to public projects for new users.](https://github.com/gitlabhq/gitlabhq/pull/6544)                                       |
-| 2014-03 | [GitLab Cookbook][]     | 1    | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs)                      |
-| 2014-03 | [GitLab CI][]           | 0    | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391)                                                               |
-| 2014-03 | [GitLab Cookbook][]     | 1    | [Correct metal install home share technique.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/55)                      |
-| 2014-03 | [GitLab Cookbook][]     | 0    | [Uniform markdown headers](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/53)                                         |
-| 2014-03 | [GitLab Cookbook][]     | 0    | [Typo ommited -> omitted.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/54)                                         |
-| 2014-03 | [GitLab][]              | 0    | [Documentation Typos](https://github.com/gitlabhq/gitlabhq/pull/6489)                                                               |
-| 2014-02 | [Vim Markdown][]        | 1    | [Add contributing guidelines and started tests as required by them.](https://github.com/plasticboy/vim-markdown/pull/60)            |
-| 2014-02 | [Vim Markdown][]        | 0    | [Add Vundle install to README, updated pathogen URL to GitHub.](https://github.com/plasticboy/vim-markdown/pull/61)                 |
-| 2014-02 | [Vim Markdown][]        | 0    | [Create credits section, remove link to old homepage.](https://github.com/plasticboy/vim-markdown/pull/62)                          |
-| 2014-02 | [GitLab][]              | 1    | [Remove dir prefix from filename of tests under dir.](https://github.com/gitlabhq/gitlabhq/pull/6386)                               |
-| 2014-02 | [Markdown Test Suite][] | 0    | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10)                                                  |
-| 2014-02 | [Markdown Test Suite][] | 0    | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9)                                              |
-| 2014-02 | [Markdown Test Suite][] | 1    | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8)                                                             |
-| 2014-02 | [GitLab][]              | 2    | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375)                                     |
-| 2014-02 | [git-browse-remote][]   | 0    | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10)                                                   |
-| 2014-02 | [ShareLaTeX][]          | 1    | [Remove latexmk install instructions from README.](https://github.com/sharelatex/sharelatex/pull/57)                                |
-| 2014-02 | [ShareLaTeX][]          | 1    | [Remove dollars from readme bash code.](https://github.com/sharelatex/sharelatex/pull/56)                                           |
-| 2014-02 | [ShareLaTeX][]          | 1    | [Add dummy version to package.json to fix install.](https://github.com/sharelatex/sharelatex/pull/53)                               |
-| 2014-02 | [ShareLaTeX][]          | 1    | [Add .nvmrc](https://github.com/sharelatex/sharelatex/pull/52)                                                                      |
-| 2014-02 | [GitLab][]              | 2    | [User can leave group from group page.](https://github.com/gitlabhq/gitlabhq/pull/6274)                                             |
-| 2014-02 | [GitLab][]              | 2    | [Add anchors to markdown rendered headers.](https://github.com/gitlabhq/gitlabhq/pull/6219)                                         |
-| 2014-02 | [GitLab][]              | 2    | [User profile pages are publicly visible.](https://github.com/gitlabhq/gitlabhq/pull/6177)                                          |
-| 2014-01 | [GitLab Cookbook][]     | 1    | [Development install documentation correction.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/33)                    |
-| 2014-01 | [GitLab Cookbook][]     | 2    | [Create metal development install documentation.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/29)                  |
-| 2014-01 | [GitLab Cookbook][]     | 0    | [Improve docs.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/30)                                                    |
-| 2014-01 | [GitLab Cookbook][]     | 1    | [Add option to control the SSH port used.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/23)                         |
-| 2013-12 | [GitLab Cookbook][]     | 1    | [Improve production install docs.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/11)                                 |
-| 2013-11 | [Vim Markdown][]        | 1    | [Header navigation mappings work for Setext headers.](https://github.com/plasticboy/vim-markdown/pull/52)                           |
-| 2013-10 | [Okular][]              | 1    | [Add shortcut to Change Colors on a page.](https://git.reviewboard.kde.org/r/113434/)                                               |
-| 2013-09 | [Vim Markdown][]        | 2    | [Add mappings to navigate across headers.](https://github.com/plasticboy/vim-markdown/pull/37)                                      |
-| 2013-02 | [SciPy][]               | 1    | [Improve documentation.](https://github.com/scipy/scipy/pull/365)                                                                   |
-| 2013-01 | [Django Userena][]      | 1    | [Add new configuration option.](https://github.com/bread-and-pepper/django-userena/commit/6a0bc1575a1816a130644efde411fbed131720be) |
-| 2012-11 | [DataTables][]          | 1    | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli)                                     |
+| Date    | Project                   | Size | Description                                                                                                                         |
+|---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-06 | [GitLab][]                | 1    | [Replace HTML5 obsolete center element with CSS.](https://github.com/gitlabhq/gitlabhq/pull/7169)                                   |
+| 2014-06 | [developper.github.com][] | 1    | [Explain :user is username not ID.](https://github.com/github/developer.github.com/pull/543)                                        |
+| 2014-06 | [Prose][]                 | 0    | [Correct CONTRIBUTING typos.](https://github.com/prose/prose/pull/724)                                                              |
+| 2014-06 | [Octokat.js][]            | 1    | [Fix `repo` to `repos` in README examples.](https://github.com/philschatz/octokat.js/pull/5)                                        |
+| 2014-06 | [Octokat.js][]            | 1    | [Fix typos and style on README.](https://github.com/philschatz/octokat.js/pull/6)                                                   |
+| 2014-06 | [octokit.js][]            | 0    | [Remove trailing whitespace.](https://github.com/philschatz/octokit.js/pull/57)                                                     |
+| 2014-06 | [octokit.js][]            | 1    | [Add grunt watch.](https://github.com/philschatz/octokit.js/pull/56)                                                                |
+| 2014-06 | [Octokat.js][]            | 0    | [Remove unneeded semicolon.](https://github.com/philschatz/octokat.js/pull/3)                                                       |
+| 2014-06 | [Octokat.js][]            | 1    | [Add grunt watch.](https://github.com/philschatz/octokat.js/pull/2)                                                                 |
+| 2014-06 | [Markdown Test Suite][]   | 2    | [Add Vagrantfile.](https://github.com/karlcow/markdown-testsuite/pull/55)                                                           |
+| 2014-06 | [Markdown Test Suite][]   | 1    | [Remove hoedown options.](https://github.com/karlcow/markdown-testsuite/pull/54)                                                    |
+| 2014-06 | [vim-snippets][]          | 1    | [Add HTML `ac` Anchor from Clipboard.](https://github.com/honza/vim-snippets/pull/386)                                              |
+| 2014-06 | [RVM][]                   | 0    | [Correct some doc typos.](https://github.com/wayneeseguin/rvm/pull/2900)                                                            |
+| 2014-06 | [GitLab][]                | 1    | [Clarify that bbastov is the style of Hound CI.](https://github.com/gitlabhq/gitlabhq/pull/7107)                                    |
+| 2014-06 | [GitLab][]                | 2    | [Update docs to match new markdown style guide.](https://github.com/gitlabhq/gitlabhq/pull/6863)                                    |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add blackfriday, lunamark, maruku and rdiscount.](https://github.com/karlcow/markdown-testsuite/pull/51)                           |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                    |
+| 2014-05 | [Markdown Test Suite][]   | 0    | [Add showdown engine.](https://github.com/karlcow/markdown-testsuite/pull/45)                                                       |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Title attribute is significant at normalization.](https://github.com/karlcow/markdown-testsuite/pull/47)                           |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add design goals.](https://github.com/karlcow/markdown-testsuite/pull/48)                                                          |
+| 2014-05 | [Markdown Test Suite][]   | 0    | [Add Python Markdown 2 engine.](https://github.com/karlcow/markdown-testsuite/pull/49)                                              |
+| 2014-05 | [Markdown Test Suite][]   | 0    | [Add peg-markdown engine.](https://github.com/karlcow/markdown-testsuite/pull/50)                                                   |
+| 2014-05 | [GitLab][]                | 1    | [Commit message textareas have 72 char mark line.](https://github.com/gitlabhq/gitlabhq/pull/6385)                                  |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add autolink-no-bracket extension test.](https://github.com/karlcow/markdown-testsuite/pull/44)                                    |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add link-idref-implicit-no-bracket test.](https://github.com/karlcow/markdown-testsuite/pull/43)                                   |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Minor fixes to addition of hoedown.](https://github.com/karlcow/markdown-testsuite/pull/42)                                        |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Remove no-auto-id argument for kramdown.](https://github.com/karlcow/markdown-testsuite/pull/41)                                   |
+| 2014-05 | [Markdown Test Suite][]   | 1    | [Add markdown_pl Markdown.pl engine.](https://github.com/karlcow/markdown-testsuite/pull/36)                                        |
+| 2014-04 | [GitLab][]                | 0    | [Remove redundant signin link from signin page.](https://github.com/gitlabhq/gitlabhq/pull/6892)                                    |
+| 2014-04 | [GitLab][]                | 1    | [Add help link to header.](https://github.com/gitlabhq/gitlabhq/pull/6897)                                                          |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Improve output normalization with custom parser.](https://github.com/karlcow/markdown-testsuite/pull/31)                           |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Add ordered-list-inner-par-list test.](https://github.com/karlcow/markdown-testsuite/pull/40)                                      |
+| 2014-04 | [GitLab CI][]             | 1    | [Add application.yml.example.development.](https://github.com/gitlabhq/gitlab-ci/pull/422)                                          |
+| 2014-04 | [Boost Graph][]           | 1    | [Explicitly use vertex type on quick tour example.](https://github.com/boostorg/graph/pull/8)                                       |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Add list-code-1-space test.](https://github.com/karlcow/markdown-testsuite/pull/34)                                                |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Add md2html engine.](https://github.com/karlcow/markdown-testsuite/pull/33)                                                        |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Remove email tests because output is random.](https://github.com/karlcow/markdown-testsuite/pull/32)                               |
+| 2014-04 | [Markdown Test Suite][]   | 2    | [Run only tests that contain string in title.](https://github.com/karlcow/markdown-testsuite/pull/30)                               |
+| 2014-04 | [Markdown Test Suite][]   | 1    | [Add marked engine.](https://github.com/karlcow/markdown-testsuite/pull/29)                                                         |
+| 2014-04 | [GitLab][]                | 1    | [Add markdown styleguide.](https://github.com/gitlabhq/gitlabhq/pull/6795)                                                          |
+| 2014-04 | [GitLab][]                | 1    | [Include SASS in subdirectories with glob.](https://github.com/gitlabhq/gitlabhq/pull/6775)                                         |
+| 2014-04 | [Tig][]                   | 1    | [Add refs bind `!` to delete branch.](https://github.com/jonas/tig/pull/270)                                                        |
+| 2014-04 | [GitLab][]                | 1    | [Rename issue form tags to match MR and params.](https://github.com/gitlabhq/gitlabhq/pull/6774)                                    |
+| 2014-04 | [GitLab][]                | 1    | [Say issues are accepted at both GitLab and GitHub.](https://github.com/gitlabhq/gitlabhq/pull/6749)                                |
+| 2014-03 | [Markdown Test Suite][]   | 1    | [Document config_local.py on README.](https://github.com/karlcow/markdown-testsuite/pull/23)                                        |
+| 2014-03 | [Markdown Test Suite][]   | 1    | [Factor out engines that are commands on PATH.](https://github.com/karlcow/markdown-testsuite/pull/24)                              |
+| 2014-03 | [Markdown Test Suite][]   | 1    | [Add sample run-tests.py output to README.](https://github.com/karlcow/markdown-testsuite/pull/25)                                  |
+| 2014-03 | [Markdown Test Suite][]   | 1    | [Check if are no engines enabled to avoid exception.](https://github.com/karlcow/markdown-testsuite/pull/26)                        |
+| 2014-03 | [Vim Markdown][]          | 1    | [Add Toc commands.](https://github.com/plasticboy/vim-markdown/pull/71)                                                             |
+| 2014-03 | [Markdown Test Suite][]   | 0    | [One disable per line commented out on conf.](https://github.com/karlcow/markdown-testsuite/pull/21)                                |
+| 2014-03 | [Markdown Test Suite][]   | 0    | [Add multimarkdown support.](https://github.com/karlcow/markdown-testsuite/pull/20)                                                 |
+| 2014-03 | [Markdown Test Suite][]   | 0    | [Typo conten -> content.](https://github.com/karlcow/markdown-testsuite/pull/18)                                                    |
+| 2014-03 | [Markdown Test Suite][]   | 2    | [Automated tests.](https://github.com/karlcow/markdown-testsuite/pull/15)                                                           |
+| 2014-03 | [GitLab CI][]             | 0    | [Remove config/puma.rb from gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/405)                                             |
+| 2014-03 | [GitLab CI][]             | 0    | [Ignore config/unicorn.rb.](https://github.com/gitlabhq/gitlab-ci/pull/404)                                                         |
+| 2014-03 | [GitLab CI][]             | 0    | [Tell users to install bundle locally without sudo.](https://github.com/gitlabhq/gitlab-ci-runner/pull/79)                          |
+| 2014-03 | [GitLab CI][]             | 0    | [Document where to find the registration token.](https://github.com/gitlabhq/gitlab-ci-runner/pull/78)                              |
+| 2014-03 | [Markdown Test Suite][]   | 0    | [Remove space from simple list, specify asterisk.](https://github.com/karlcow/markdown-testsuite/pull/14)                           |
+| 2014-03 | [Markdown Test Suite][]   | 1    | [Add script to cat all input files.](https://github.com/karlcow/markdown-testsuite/pull/13)                                         |
+| 2014-03 | [Markdown Test Suite][]   | 0    | [Remove newline from empty files.](https://github.com/karlcow/markdown-testsuite/pull/12)                                           |
+| 2014-03 | [GitLab][]                | 1    | [Start development Key seed id from 1.](https://github.com/gitlabhq/gitlabhq/pull/6601)                                             |
+| 2014-03 | [GitLab][]                | 1    | [Show link to public projects for new users.](https://github.com/gitlabhq/gitlabhq/pull/6544)                                       |
+| 2014-03 | [GitLab Cookbook][]       | 1    | [Correct bindfs metal dev init script.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/57/diffs)                      |
+| 2014-03 | [GitLab CI][]             | 0    | [Organize gitignore.](https://github.com/gitlabhq/gitlab-ci/pull/391)                                                               |
+| 2014-03 | [GitLab Cookbook][]       | 1    | [Correct metal install home share technique.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/55)                      |
+| 2014-03 | [GitLab Cookbook][]       | 0    | [Uniform markdown headers](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/53)                                         |
+| 2014-03 | [GitLab Cookbook][]       | 0    | [Typo ommited -> omitted.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/54)                                         |
+| 2014-03 | [GitLab][]                | 0    | [Documentation Typos](https://github.com/gitlabhq/gitlabhq/pull/6489)                                                               |
+| 2014-02 | [Vim Markdown][]          | 1    | [Add contributing guidelines and started tests as required by them.](https://github.com/plasticboy/vim-markdown/pull/60)            |
+| 2014-02 | [Vim Markdown][]          | 0    | [Add Vundle install to README, updated pathogen URL to GitHub.](https://github.com/plasticboy/vim-markdown/pull/61)                 |
+| 2014-02 | [Vim Markdown][]          | 0    | [Create credits section, remove link to old homepage.](https://github.com/plasticboy/vim-markdown/pull/62)                          |
+| 2014-02 | [GitLab][]                | 1    | [Remove dir prefix from filename of tests under dir.](https://github.com/gitlabhq/gitlabhq/pull/6386)                               |
+| 2014-02 | [Markdown Test Suite][]   | 0    | [Make title more readable.](https://github.com/karlcow/markdown-testsuite/pull/10)                                                  |
+| 2014-02 | [Markdown Test Suite][]   | 0    | [Make readme intro more direct.](https://github.com/karlcow/markdown-testsuite/pull/9)                                              |
+| 2014-02 | [Markdown Test Suite][]   | 1    | [Add extensions.](https://github.com/karlcow/markdown-testsuite/pull/8)                                                             |
+| 2014-02 | [GitLab][]                | 2    | [Blob and tree markdown links to anchors work.](https://github.com/gitlabhq/gitlabhq/pull/6375)                                     |
+| 2014-02 | [git-browse-remote][]     | 0    | [Add install instructions.](https://github.com/motemen/git-browse-remote/pull/10)                                                   |
+| 2014-02 | [ShareLaTeX][]            | 1    | [Remove latexmk install instructions from README.](https://github.com/sharelatex/sharelatex/pull/57)                                |
+| 2014-02 | [ShareLaTeX][]            | 1    | [Remove dollars from readme bash code.](https://github.com/sharelatex/sharelatex/pull/56)                                           |
+| 2014-02 | [ShareLaTeX][]            | 1    | [Add dummy version to package.json to fix install.](https://github.com/sharelatex/sharelatex/pull/53)                               |
+| 2014-02 | [ShareLaTeX][]            | 1    | [Add .nvmrc](https://github.com/sharelatex/sharelatex/pull/52)                                                                      |
+| 2014-02 | [GitLab][]                | 2    | [User can leave group from group page.](https://github.com/gitlabhq/gitlabhq/pull/6274)                                             |
+| 2014-02 | [GitLab][]                | 2    | [Add anchors to markdown rendered headers.](https://github.com/gitlabhq/gitlabhq/pull/6219)                                         |
+| 2014-02 | [GitLab][]                | 2    | [User profile pages are publicly visible.](https://github.com/gitlabhq/gitlabhq/pull/6177)                                          |
+| 2014-01 | [GitLab Cookbook][]       | 1    | [Development install documentation correction.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/33)                    |
+| 2014-01 | [GitLab Cookbook][]       | 2    | [Create metal development install documentation.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/29)                  |
+| 2014-01 | [GitLab Cookbook][]       | 0    | [Improve docs.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/30)                                                    |
+| 2014-01 | [GitLab Cookbook][]       | 1    | [Add option to control the SSH port used.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/23)                         |
+| 2013-12 | [GitLab Cookbook][]       | 1    | [Improve production install docs.](https://gitlab.com/gitlab-org/cookbook-gitlab/merge_requests/11)                                 |
+| 2013-11 | [Vim Markdown][]          | 1    | [Header navigation mappings work for Setext headers.](https://github.com/plasticboy/vim-markdown/pull/52)                           |
+| 2013-10 | [Okular][]                | 1    | [Add shortcut to Change Colors on a page.](https://git.reviewboard.kde.org/r/113434/)                                               |
+| 2013-09 | [Vim Markdown][]          | 2    | [Add mappings to navigate across headers.](https://github.com/plasticboy/vim-markdown/pull/37)                                      |
+| 2013-02 | [SciPy][]                 | 1    | [Improve documentation.](https://github.com/scipy/scipy/pull/365)                                                                   |
+| 2013-01 | [Django Userena][]        | 1    | [Add new configuration option.](https://github.com/bread-and-pepper/django-userena/commit/6a0bc1575a1816a130644efde411fbed131720be) |
+| 2012-11 | [DataTables][]            | 1    | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli)                                     |
 {: .patches-table .data-table}
 
 [Patches waiting for review](/contrib-pending).
@@ -143,6 +146,7 @@ e.g. those to which I have been given push permission.
 | Date              | Project                         | Size           | Description                                                                                                |
 |-------------------|---------------------------------|----------------|------------------------------------------------------------------------------------------------------------|
 | 2014-06           | [Vim Markdown][]                | 1              | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88) |
+| 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
 {: .patches-table .data-table}
 
 # Gained push permission
@@ -165,6 +169,7 @@ Abbreviations:
 
 | Date    | Project                   | Description                                                                                                                                                                                        |
 |---------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-06 | [GitLab][]                | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                                                                |
 | 2014-06 | [Markdown Test Suite][]   | [Issue builds for PR.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                                    |
 | 2014-06 | [Vim Markdown][]          | [Close issue as invalid.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                              |
 | 2014-06 | [Vim Markdown][]          | [Review and merge PR](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                                                          |
