@@ -8,13 +8,19 @@ permalink: contrib/
 
 # Summary
 
-- [GitLab][]: very important to me because of [Booktree][].
+-   [GitLab][]: very important to me because of [Booktree][].
     Implemented some large features that are important, and several minor fixes.
-- [Markdown Test Suite][]: I implemented the test runner.
+
+    Merged patches there can be considered as professional work, since they are
+    reviewed by an startup in which it is the primary project.
+
+-   [Markdown Test Suite][]: I have implemented the test runner.
     We need *one* Markdown standard for interoperability.
-- [Vim Markdown][]: I sometimes contribute with features that I really need,
+
+-   [Vim Markdown][]: I sometimes contribute with features that I really need,
     and help on issues. A good language needs a good editor.
-- [Stack Overflow][stack-overflow-ciro]: I like to answer important questions,
+
+-   [Stack Overflow][stack-overflow-ciro]: I like to answer important questions,
     for which none of the answers satisfied me, and close duplicates.
     `Necromancer` is my favorite badge.
     [![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
@@ -39,6 +45,11 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-07 | [GitLab][]                | 1    | [Fix username validation message to match regexp.](https://github.com/gitlabhq/gitlabhq/pull/7204)                                  |
+| 2014-06 | [GitLab][]                | 1    | [Add trailing newline to all text files.](https://github.com/gitlabhq/gitlabhq/pull/7170)                                           |
+| 2014-06 | [GitLab][]                | 0    | [Typo.](https://github.com/gitlabhq/gitlabhq/pull/7195)                                                                             |
+| 2014-06 | [Markdown Lint][]         | 0    | [Typo.](https://github.com/mivok/markdownlint/pull/1)                                                                                |
+| 2014-06 | [Rails][]                 | 0    | [Typo.](https://github.com/rails/rails/pull/15997)                                                                                   |
 | 2014-06 | [GitLab][]                | 1    | [Replace HTML5 obsolete center element with CSS.](https://github.com/gitlabhq/gitlabhq/pull/7169)                                   |
 | 2014-06 | [developper.github.com][] | 1    | [Explain :user is username not ID.](https://github.com/github/developer.github.com/pull/543)                                        |
 | 2014-06 | [Prose][]                 | 0    | [Correct CONTRIBUTING typos.](https://github.com/prose/prose/pull/724)                                                              |
@@ -143,10 +154,10 @@ Only patches which were reviewed by at least one person with push permission wil
 Patches which were merged by myself on repositories which I feel have large public visibility,
 e.g. those to which I have been given push permission.
 
-| Date              | Project                         | Size           | Description                                                                                                |
-|-------------------|---------------------------------|----------------|------------------------------------------------------------------------------------------------------------|
-| 2014-06           | [Vim Markdown][]                | 1              | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88) |
-| 2014-03 | [Vim Markdown] | 1 | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
+| Date    | Project          | Size | Description                                                                                                    |
+|---------|------------------|------|----------------------------------------------------------------------------------------------------------------|
+| 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)     |
+| 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
 {: .patches-table .data-table}
 
 # Gained push permission
@@ -167,35 +178,39 @@ Abbreviations:
 - **PR**: Pull Request, merge request, request for review
 - **FR**: Feature Request, enhancement
 
-| Date    | Project                   | Description                                                                                                                                                                                        |
-|---------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2014-06 | [GitLab][]                | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                                                                |
-| 2014-06 | [Markdown Test Suite][]   | [Issue builds for PR.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                                    |
-| 2014-06 | [Vim Markdown][]          | [Close issue as invalid.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                              |
-| 2014-06 | [Vim Markdown][]          | [Review and merge PR](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                                                          |
-| 2014-06 | [Vim Markdown][]          | [Review, patch and merge PR](https://github.com/plasticboy/vim-markdown/pull/80)                                                                                                                   |
-| 2014-05 | [Softcover][]             | [PR implemented by owner separately.](https://github.com/softcover/softcover/pull/94)                                                                                                              |
-| 2014-04 | [Markdown Test Suite][]   | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                                                          |
-| 2014-03 | [Tig][]                   | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275)                                                                                                                                  |
-| 2014-03 | [GitLab][]                | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)                                                    |
-| 2014-03 | [Softcover][]             | [Suggest that TRALICS repo be moved under the Softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin.                                    |
-| 2014-03 | [GitLab][]                | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |
-| 2014-03 | [GitLab][]                | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
-| 2014-03 | [GitLab][]                | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
-| 2014-03 | [GitLab][]                | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original.    |
-| 2014-03 | [GitLab][]                | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                                                                |
-| 2014-02 | [GitLab][]                | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen), only possible to see original.                      |
-| 2014-02 | [GitLab][]                | [PR kick-started commit.](https://github.com/gitlabhq/gitlabhq/pull/6389)                                                                                                                          |
-| 2014-02 | [ShareLaTeX][]            | [FR generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                                                                          |
-| 2014-02 | [GitLab][]                | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                                                         |
-| 2014-02 | [GitLab][]                | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in)                                                  |
-| 2013-10 | [Yakuake][]               | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                              |
-| 2013-10 | [Okular][]                | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                                              |
-| 2013-06 | [Krusader][]              | [Ubuntu crashes.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                                                                 |
-| 2013-05 | [NumPy][]                 | [SVG output issue. Spotted exact cause of bug, and proposed solution.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                         |
-| 2012-05 | [Krusader][]              | [FR: clearly tell users about missing binary dependency.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                             |
-| 2012-05 | [Krusader][]              | [Reported dependency problems for package on Ubuntu.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                              |
-| 2012-05 | [AutoKey][]               | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                                   |
+| Date    | Project                 | Description                                                                                                                                                                                        |
+|---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                                                       |
+| 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                                                            |
+| 2014-06 | [isaacs/github][]       | [Duplicate](https://github.com/isaacs/github/issues/218)                                                                                                                                           |
+| 2014-06 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)                                                            |
+| 2014-06 | [GitLab][]              | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                                                                |
+| 2014-06 | [Markdown Test Suite][] | [Issue builds for PR.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                                    |
+| 2014-06 | [Vim Markdown][]        | [Close issue as invalid.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                              |
+| 2014-06 | [Vim Markdown][]        | [Review and merge PR](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                                                          |
+| 2014-06 | [Vim Markdown][]        | [Review, patch and merge PR](https://github.com/plasticboy/vim-markdown/pull/80)                                                                                                                   |
+| 2014-05 | [Softcover][]           | [PR implemented by owner separately.](https://github.com/softcover/softcover/pull/94)                                                                                                              |
+| 2014-04 | [Markdown Test Suite][] | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                                                          |
+| 2014-03 | [Tig][]                 | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275)                                                                                                                                  |
+| 2014-03 | [GitLab][]              | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)                                                    |
+| 2014-03 | [Softcover][]           | [Suggest that TRALICS repo be moved under the Softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin.                                    |
+| 2014-03 | [GitLab][]              | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |
+| 2014-03 | [GitLab][]              | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
+| 2014-03 | [GitLab][]              | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
+| 2014-03 | [GitLab][]              | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original.    |
+| 2014-03 | [GitLab][]              | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                                                                |
+| 2014-02 | [GitLab][]              | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen), only possible to see original.                      |
+| 2014-02 | [GitLab][]              | [PR kick-started commit.](https://github.com/gitlabhq/gitlabhq/pull/6389)                                                                                                                          |
+| 2014-02 | [ShareLaTeX][]          | [FR generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                                                                          |
+| 2014-02 | [GitLab][]              | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                                                         |
+| 2014-02 | [GitLab][]              | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in)                                                  |
+| 2013-10 | [Yakuake][]             | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                              |
+| 2013-10 | [Okular][]              | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                                              |
+| 2013-06 | [Krusader][]            | [Ubuntu crashes.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                                                                 |
+| 2013-05 | [NumPy][]               | [SVG output issue. Spotted exact cause of bug, and proposed solution.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                         |
+| 2012-05 | [Krusader][]            | [FR: clearly tell users about missing binary dependency.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                             |
+| 2012-05 | [Krusader][]            | [Reported dependency problems for package on Ubuntu.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                              |
+| 2012-05 | [AutoKey][]             | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                                   |
 {: #bugs-table .data-table}
 
 {% include links.md %}

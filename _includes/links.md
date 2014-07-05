@@ -8,14 +8,17 @@
 [gitlab]:                https://github.com/gitlabhq/gitlabhq
 [gitlab ci]:             https://github.com/gitlabhq/gitlab-ci
 [gitlab cookbook]:       https://gitlab.com/gitlab-org/cookbook-gitlab
+[isaacs/github]:         https://github.com/isaacs/github
 [krusader]:              http://www.krusader.org
 [markdown test suite]:   https://github.com/karlcow/markdown-testsuite
+[markdown lint]:         https://github.com/mivok/markdownlint
 [marked]:                https://github.com/chjj/marked
 [numpy]:                 http://www.numpy.org
 [okular]:                http://okular.kde.org
 [octokat.js]:            https://github.com/philschatz/octokat.js
 [octokit.js]:            https://github.com/philschatz/octokit.js
 [prose]:                 https://github.com/prose/prose
+[rails]:                 https://github.com/rails/rails
 [rvm]:                   https://github.com/wayneeseguin/rvm
 [scipy]:                 http://www.scipy.org
 [sharelatex]:            https://github.com/sharelatex/sharelatex
