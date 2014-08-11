@@ -1,6 +1,5 @@
 ---
 title: Open Source Contributions
-layout: default
 permalink: contrib/
 ---
 

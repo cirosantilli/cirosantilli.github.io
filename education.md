@@ -1,6 +1,5 @@
 ---
 title: Education
-layout: default
 permalink: education/
 ---
 

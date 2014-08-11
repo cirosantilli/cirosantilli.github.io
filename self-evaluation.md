@@ -1,6 +1,5 @@
 ---
 title: Self Evaluation
-layout: default
 permalink: self-evaluation/
 ---
 

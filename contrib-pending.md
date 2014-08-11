@@ -1,6 +1,5 @@
 ---
 title: Open Source Contributions Waiting for Review
-layout: default
 permalink: contrib-pending/
 ---
 

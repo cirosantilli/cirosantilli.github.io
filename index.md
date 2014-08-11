@@ -1,6 +1,5 @@
 ---
 title: "Home"
-layout: default
 ---
 
 ![me]({{ site.baseurl }}assets/me.jpg){: style="height:200px; float:right; border:1px solid black; border-radius:2px;"}

@@ -1,6 +1,5 @@
 ---
 title: x86 Paging Tutorial
-layout: default
 permalink: x86-paging/
 ---
 
