@@ -5,8 +5,11 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2014-06 | [][] |  | []() |
-| 2014-07 | [GitLab][] | 2 | [Add project stars.](https://github.com/gitlabhq/gitlabhq/pull/7233) |
+| 2014-07 | [][] |  | []() |
+
+confirmed issue: https://github.com/gitlabhq/gitlabhq/issues/6351
+duplicate: http://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio
+mark as fixed: http://feedback.gitlab.com/forums/176466-general/suggestions/5567051-delete-branch-after-accepting-or-closing-a-merge-r
 -->
 
 | Date    | Project          | Size | Description                                                                                                     |
@@ -14,7 +17,6 @@ permalink: contrib-pending/
 | 2014-05 | [Marked][]       | 1    | [Add browser usage to README.](https://github.com/chjj/marked/pull/414)                                         |
 | 2014-05 | [Marked][]       | 0    | [Typo benchmarks are below reference in README.](https://github.com/chjj/marked/pull/412)                       |
 | 2014-05 | [Marked][]       | 0    | [Move CLI usage up on README.](https://github.com/chjj/marked/pull/411)                                         |
-| 2014-04 | [Pro Git book][] | 1    | [Set dummy merge driver merge ours](.gitattributes. https://github.com/progit/progit/pull/751)                  |
 | 2014-04 | [Boost Graph][]  | 0    | [Rename color header to more precise title.](https://github.com/boostorg/graph/pull/7)                          |
 | 2014-02 | [GitLab][]       | 3    | [Add markdown preview to issue, MR and milestone descriptions.](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 | 2014-01 | Counter Culture  | 3    | [Add `:delta` option. Hairsplitting mathematical detail.](https://github.com/magnusvk/counter_culture/pull/43)  |

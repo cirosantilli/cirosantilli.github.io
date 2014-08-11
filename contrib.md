@@ -45,11 +45,17 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-07 | [Pro Git book][]          | 1    | [Set dummy merge driver merge ours .gitattributes.](https://github.com/progit/progit/pull/751)                                      |
+| 2014-07 | [GitLab][]                | 2    | [Add project stars.](https://github.com/gitlabhq/gitlabhq/pull/7233)                                                                |
+| 2014-07 | [GitLab][]                | 1    | [Increase diff byte highlight contrast.](https://github.com/gitlabhq/gitlabhq/pull/7340)                                            |
+| 2014-07 | [GitLab][]                | 0    | [Clarify squash comes after review.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                |
+| 2014-07 | [GitLab][]                | 0    | [Enforce Markdown style.](https://github.com/gitlabhq/gitlabhq/pull/7196)                                                           |
+| 2014-07 | [Octokat.js][]            | 1    | [Gitignore fixtures and dist/commonjs.](https://github.com/philschatz/octokat.js/pull/7/files)                                      |
 | 2014-07 | [GitLab][]                | 1    | [Fix username validation message to match regexp.](https://github.com/gitlabhq/gitlabhq/pull/7204)                                  |
 | 2014-06 | [GitLab][]                | 1    | [Add trailing newline to all text files.](https://github.com/gitlabhq/gitlabhq/pull/7170)                                           |
 | 2014-06 | [GitLab][]                | 0    | [Typo.](https://github.com/gitlabhq/gitlabhq/pull/7195)                                                                             |
-| 2014-06 | [Markdown Lint][]         | 0    | [Typo.](https://github.com/mivok/markdownlint/pull/1)                                                                                |
-| 2014-06 | [Rails][]                 | 0    | [Typo.](https://github.com/rails/rails/pull/15997)                                                                                   |
+| 2014-06 | [Markdown Lint][]         | 0    | [Typo.](https://github.com/mivok/markdownlint/pull/1)                                                                               |
+| 2014-06 | [Rails][]                 | 0    | [Typo.](https://github.com/rails/rails/pull/15997)                                                                                  |
 | 2014-06 | [GitLab][]                | 1    | [Replace HTML5 obsolete center element with CSS.](https://github.com/gitlabhq/gitlabhq/pull/7169)                                   |
 | 2014-06 | [developper.github.com][] | 1    | [Explain :user is username not ID.](https://github.com/github/developer.github.com/pull/543)                                        |
 | 2014-06 | [Prose][]                 | 0    | [Correct CONTRIBUTING typos.](https://github.com/prose/prose/pull/724)                                                              |
@@ -180,6 +186,7 @@ Abbreviations:
 
 | Date    | Project                 | Description                                                                                                                                                                                        |
 |---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                                                                   |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                                                       |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                                                            |
 | 2014-06 | [isaacs/github][]       | [Duplicate](https://github.com/isaacs/github/issues/218)                                                                                                                                           |

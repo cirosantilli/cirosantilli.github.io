@@ -17,6 +17,7 @@
 [okular]:                http://okular.kde.org
 [octokat.js]:            https://github.com/philschatz/octokat.js
 [octokit.js]:            https://github.com/philschatz/octokit.js
+[pro git book]:          https://github.com/progit/progit
 [prose]:                 https://github.com/prose/prose
 [rails]:                 https://github.com/rails/rails
 [rvm]:                   https://github.com/wayneeseguin/rvm
