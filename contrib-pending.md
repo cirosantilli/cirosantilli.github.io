@@ -6,7 +6,6 @@ permalink: contrib-pending/
 <!--
 | 2014-08 | [][] |  | []() |
 
-| 2014-08 | [Markdown lint][] | [Proposed and implemented by others.](https://github.com/mivok/markdownlint/issues/49) |
 confirmed and fixed by others: https://github.com/gitlabhq/gitlabhq/pull/7242
 confirmed issue: https://github.com/gitlabhq/gitlabhq/issues/6351
 duplicate: http://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio

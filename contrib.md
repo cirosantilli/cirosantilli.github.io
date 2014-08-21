@@ -191,6 +191,8 @@ Abbreviations:
 
 | Date    | Project                 | Description                                                                                                                                                                                        |
 |---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-08 | [Softcover][]           | [FR accepted: \url autolink in PolyTeX.](https://groups.google.com/forum/?hl=en#!topic/softcover-publishing/zFrDngqlYbY)                                                                           |
+| 2014-08 | [Markdown lint][]       | [Proposed and implemented by others.](https://github.com/mivok/markdownlint/issues/49)                                                                                                             |
 | 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                                                                   |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                                                       |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                                                            |
