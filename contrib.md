@@ -44,6 +44,11 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-08 | [vim-snippets][]          | 1    | [Add tex listings snippets.](https://github.com/honza/vim-snippets/pull/422)                                                        |
+| 2014-08 | [GitLab][]                | 0    | [Fix Md style for API docs.](https://github.com/gitlabhq/gitlabhq/pull/7509)                                                        |
+| 2014-08 | [GitLab][]                | 0    | [Fix Md style for projects API doc.](https://github.com/gitlabhq/gitlabhq/pull/7508)                                                |
+| 2014-08 | [GitLab][]                | 1    | [Restrict commit area resize to vertical.](https://github.com/gitlabhq/gitlabhq/pull/7483)                                          |
+| 2014-08 | [GitLab][]                | 0    | [Update README Markdown style to match CONTRIBUTING](https://github.com/gitlabhq/gitlab-shell/pull/169)                             |
 | 2014-07 | [Pro Git book][]          | 1    | [Set dummy merge driver merge ours .gitattributes.](https://github.com/progit/progit/pull/751)                                      |
 | 2014-07 | [GitLab][]                | 2    | [Add project stars.](https://github.com/gitlabhq/gitlabhq/pull/7233)                                                                |
 | 2014-07 | [GitLab][]                | 1    | [Increase diff byte highlight contrast.](https://github.com/gitlabhq/gitlabhq/pull/7340)                                            |
@@ -185,6 +190,7 @@ Abbreviations:
 
 | Date    | Project                 | Description                                                                                                                                                                                        |
 |---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-08 | [Softcover][]           | 1                                                                                                                                                                                                  | [Fix failing PDF fontsize verbatim test.](https://github.com/softcover/softcover/pull/103) |
 | 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                                                                   |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                                                       |
 | 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                                                            |
