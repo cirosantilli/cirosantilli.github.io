@@ -44,6 +44,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-08 | [Softcover][]             | 1    | [Ignore template top level tex file.](https://github.com/softcover/softcover/pull/116)                                              |
 | 2014-08 | [Softcover][]             | 1    | [Fix failing PDF fontsize verbatim test.](https://github.com/softcover/softcover/pull/103)                                          |
 | 2014-08 | [vim-snippets][]          | 1    | [Add tex listings snippets.](https://github.com/honza/vim-snippets/pull/422)                                                        |
 | 2014-08 | [GitLab][]                | 0    | [Fix Md style for API docs.](https://github.com/gitlabhq/gitlabhq/pull/7509)                                                        |
