@@ -44,6 +44,23 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-09 | [Rugged][]                | 0    | [Remove trailing whitespace.](https://github.com/libgit2/rugged/pull/417)                                                            |
+| 2014-09 | [Rugged][]                | 0    | [Gitignore rdoc/.](https://github.com/libgit2/rugged/pull/416)                                                                       |
+| 2014-09 | [Rugged][]                | 0    | [Factor File.join in test sandbox_init.](https://github.com/libgit2/rugged/pull/415)                                                 |
+| 2014-09 | [Pro Git book][]          | 1    | [Mention packed-refs.](https://github.com/progit/progit/pull/878)                                                                   |
+| 2014-09 | [GitLab][]                | 1    | [Add link to fixed SHA version on blob.](https://github.com/gitlabhq/gitlabhq/pull/7472)                                            |
+| 2014-09 | [GitLab][]                | 1    | [Factor new issue and edit MR forms.](https://github.com/gitlabhq/gitlabhq/pull/7678)                                               |
+| 2014-09 | [GitLab][]                | 1    | [Fix missing to on reassign Merge Request text email to unassigned.](https://github.com/gitlabhq/gitlabhq/pull/7677)                |
+| 2014-09 | [GitLab][]                | 1    | [Fix missing to on reassign Merge Request email to unassigned.](https://github.com/gitlabhq/gitlabhq/pull/7661)                     |
+| 2014-09 | [Markdown Test Suite][]   | 1    | [Run multimarkdown in compatibility mode.](https://github.com/karlcow/markdown-testsuite/pull/60)                                   |
+| 2014-09 | [Markdown Test Suite][]   | 1    | [Link to stmd.](https://github.com/karlcow/markdown-testsuite/pull/69)                                                              |
+| 2014-09 | [GitLab][]                | 1    | [Add users with deterministic username and password to development seed.](https://github.com/gitlabhq/gitlabhq/pull/7211)           |
+| 2014-09 | [Rails][]                 | 0    | [Shorten ActionView::Base doc summary line.](https://github.com/rails/rails/pull/16774)                                             |
+| 2014-09 | [Rails][]                 | 1    | [Clarify Rails uses erubis not stdlin ERB.](https://github.com/rails/rails/pull/16773)                                              |
+| 2014-08 | [GitLab][]                | 0    | [Typo.](https://github.com/gitlabhq/gitlabhq/pull/7641)                                                                             |
+| 2014-08 | [vim-snippets][]          | 1    | [README improvements: md style, typos, fix links.](https://github.com/honza/vim-snippets/pull/431)                                  |
+| 2014-08 | [vim-snippets][]          | 1    | [Add tex hyperlink snippets.](https://github.com/honza/vim-snippets/pull/429)                                                       |
+| 2014-08 | [GitLab][]                | 1    | [Remove HAML eval for const strings.](https://github.com/gitlabhq/gitlabhq/pull/7609)                                               |
 | 2014-08 | [Softcover][]             | 1    | [Ignore template top level tex file.](https://github.com/softcover/softcover/pull/116)                                              |
 | 2014-08 | [Softcover][]             | 1    | [Fix failing PDF fontsize verbatim test.](https://github.com/softcover/softcover/pull/103)                                          |
 | 2014-08 | [vim-snippets][]          | 1    | [Add tex listings snippets.](https://github.com/honza/vim-snippets/pull/422)                                                        |
@@ -185,47 +202,48 @@ Repositories to which I gained push permission because of my contributions:
 
 This shall not list bugs solved by my accepted pull requests.
 
-Abbreviations:
-
-- **PR**: Pull Request, merge request, request for review
-- **FR**: Feature Request, enhancement
-
-| Date    | Project                 | Description                                                                                                                                                                                        |
-|---------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2014-08 | [Softcover][]           | [FR accepted: \url autolink in PolyTeX.](https://groups.google.com/forum/?hl=en#!topic/softcover-publishing/zFrDngqlYbY)                                                                           |
-| 2014-08 | [Markdown lint][]       | [Proposed and implemented by others.](https://github.com/mivok/markdownlint/issues/49)                                                                                                             |
-| 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                                                                   |
-| 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                                                       |
-| 2014-07 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                                                            |
-| 2014-06 | [isaacs/github][]       | [Duplicate](https://github.com/isaacs/github/issues/218)                                                                                                                                           |
-| 2014-06 | [GitLab][]              | [FR accepted.](http://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)                                                            |
-| 2014-06 | [GitLab][]              | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                                                                |
-| 2014-06 | [Markdown Test Suite][] | [Issue builds for PR.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                                    |
-| 2014-06 | [Vim Markdown][]        | [Close issue as invalid.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                              |
-| 2014-06 | [Vim Markdown][]        | [Review and merge PR](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                                                          |
-| 2014-06 | [Vim Markdown][]        | [Review, patch and merge PR](https://github.com/plasticboy/vim-markdown/pull/80)                                                                                                                   |
-| 2014-05 | [Softcover][]           | [PR implemented by owner separately.](https://github.com/softcover/softcover/pull/94)                                                                                                              |
-| 2014-04 | [Markdown Test Suite][] | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                                                          |
-| 2014-03 | [Tig][]                 | [Bug confirmed by admin](https://github.com/jonas/tig/issues/275)                                                                                                                                  |
-| 2014-03 | [GitLab][]              | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)                                                    |
-| 2014-03 | [Softcover][]           | [Suggest that TRALICS repo be moved under the Softcover organization.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903) Done by admin.                                    |
-| 2014-03 | [GitLab][]              | [Point to admin that his bug is not reproducible on production or master.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct) |
-| 2014-03 | [GitLab][]              | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
-| 2014-03 | [GitLab][]              | [Point superset FR](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other), thanked by admin.                                     |
-| 2014-03 | [GitLab][]              | [Point duplicate FR, one of them Accepted](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly), only possible to see original.    |
-| 2014-03 | [GitLab][]              | [FR accepted by admin](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                                                                |
-| 2014-02 | [GitLab][]              | [Point duplicate FR](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen), only possible to see original.                      |
-| 2014-02 | [GitLab][]              | [PR kick-started commit.](https://github.com/gitlabhq/gitlabhq/pull/6389)                                                                                                                          |
-| 2014-02 | [ShareLaTeX][]          | [FR generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                                                                          |
-| 2014-02 | [GitLab][]              | [Close implemented FR.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                                                         |
-| 2014-02 | [GitLab][]              | [Link FR to existing PR](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in)                                                  |
-| 2013-10 | [Yakuake][]             | [Pointed out the cause of a shortcut conflict with the Konsole part.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                              |
-| 2013-10 | [Okular][]              | [Sidebar configuration loading problem.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                                              |
-| 2013-06 | [Krusader][]            | [Ubuntu crashes.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                                                                 |
-| 2013-05 | [NumPy][]               | [SVG output issue. Spotted exact cause of bug, and proposed solution.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                         |
-| 2012-05 | [Krusader][]            | [FR: clearly tell users about missing binary dependency.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                             |
-| 2012-05 | [Krusader][]            | [Reported dependency problems for package on Ubuntu.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                              |
-| 2012-05 | [AutoKey][]             | [clipboard.get_selection crashes AutoKey](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                                   |
+| Date    | Project                 | Description                                                                                                                                               |
+|---------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
+| 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/14)                                                                                      |
+| 2014-09 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/pull/7242)                                                                                        |
+| 2014-09 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/issues/6351)                                                                                      |
+| 2014-09 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio)                 |
+| 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5567051-delete-branch-after-accepting-or-closing-a-merge-r)           |
+| 2014-08 | [Markdown lint][]       | [Accepted feature.](https://github.com/mivok/markdownlint/issues/47)                                                                                      |
+| 2014-08 | [Softcover][]           | [Accepted feature.](https://groups.google.com/forum/?hl=en#!topic/softcover-publishing/zFrDngqlYbY)                                                       |
+| 2014-08 | [Markdown lint][]       | [Accepted feature.](https://github.com/mivok/markdownlint/issues/49)                                                                                      |
+| 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                          |
+| 2014-07 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                         |
+| 2014-07 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)              |
+| 2014-06 | [isaacs/github][]       | [Duplicate](https://github.com/isaacs/github/issues/218)                                                                                                  |
+| 2014-06 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)              |
+| 2014-06 | [GitLab][]              | [Point duplicate.](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                |
+| 2014-06 | [Markdown Test Suite][] | [Confirmed issue.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                               |
+| 2014-06 | [Vim Markdown][]        | [Close issue.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                |
+| 2014-06 | [Vim Markdown][]        | [Review patch.](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                       |
+| 2014-06 | [Vim Markdown][]        | [Review and patch patch.](https://github.com/plasticboy/vim-markdown/pull/80)                                                                             |
+| 2014-05 | [Softcover][]           | [Accepted feature.](https://github.com/softcover/softcover/pull/94)                                                                                       |
+| 2014-04 | [Markdown Test Suite][] | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                 |
+| 2014-03 | [Tig][]                 | [Accepted feature.](https://github.com/jonas/tig/issues/275)                                                                                              |
+| 2014-03 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)              |
+| 2014-03 | [Softcover][]           | [Accepted feature.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903)                                                             |
+| 2014-03 | [GitLab][]              | [Add useful information.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct)         |
+| 2014-03 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other)                |
+| 2014-03 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly)                   |
+| 2014-03 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                          |
+| 2014-02 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen)               |
+| 2014-02 | [GitLab][]              | [Accepted feature.](https://github.com/gitlabhq/gitlabhq/pull/6389)                                                                                       |
+| 2014-02 | [ShareLaTeX][]          | [Feature generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                            |
+| 2014-02 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                 |
+| 2014-02 | [GitLab][]              | [Link feature request to patch.](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
+| 2013-10 | [Yakuake][]             | [Confirmed issue.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                                        |
+| 2013-10 | [Okular][]              | [Confirmed issue.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                           |
+| 2013-06 | [Krusader][]            | [Confirmed issue.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                       |
+| 2013-05 | [NumPy][]               | [Confirmed issue + inner cause.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                      |
+| 2012-05 | [Krusader][]            | [Accepted feature.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                          |
+| 2012-05 | [Krusader][]            | [Confirmed issue.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                        |
+| 2012-05 | [AutoKey][]             | [Confirmed issue.](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                 |
 {: #bugs-table .data-table}
 
 {% include links.md %}

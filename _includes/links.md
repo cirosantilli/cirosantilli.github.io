@@ -20,12 +20,14 @@
 [pro git book]:          https://github.com/progit/progit
 [prose]:                 https://github.com/prose/prose
 [rails]:                 https://github.com/rails/rails
+[rugged]:                https://github.com/libgit2/rugged
 [rvm]:                   https://github.com/wayneeseguin/rvm
 [scipy]:                 http://www.scipy.org
 [sharelatex]:            https://github.com/sharelatex/sharelatex
 [softcover]:             https://github.com/softcover/softcover
 [stack-overflow-ciro]:   http://stackoverflow.com/users/895245/cirosantilli
 [tig]:                   https://github.com/jonas/tig
+[vader.vim]:             https://github.com/junegunn/vader.vim
 [vim markdown]:          https://github.com/plasticboy/vim-markdown
 [vim-snippets]:          https://github.com/honza/vim-snippets
 [yakuake]:               http://extragear.kde.org/apps/yakuake
