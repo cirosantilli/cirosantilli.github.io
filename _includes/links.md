@@ -10,6 +10,7 @@
 [gitlab cookbook]:       https://gitlab.com/gitlab-org/cookbook-gitlab
 [isaacs/github]:         https://github.com/isaacs/github
 [krusader]:              http://www.krusader.org
+[libgit2]:               https://github.com/libgit2/libgit2
 [markdown test suite]:   https://github.com/karlcow/markdown-testsuite
 [markdown lint]:         https://github.com/mivok/markdownlint
 [marked]:                https://github.com/chjj/marked

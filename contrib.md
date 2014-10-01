@@ -44,9 +44,57 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
-| 2014-09 | [Rugged][]                | 0    | [Remove trailing whitespace.](https://github.com/libgit2/rugged/pull/417)                                                            |
-| 2014-09 | [Rugged][]                | 0    | [Gitignore rdoc/.](https://github.com/libgit2/rugged/pull/416)                                                                       |
-| 2014-09 | [Rugged][]                | 0    | [Factor File.join in test sandbox_init.](https://github.com/libgit2/rugged/pull/415)                                                 |
+| 2014-09 | [GitLab][]                | 0    | [Remove statement without effect.](https://github.com/gitlabhq/gitlabhq/pull/7914)                                                  |
+| 2014-09 | [GitLab][]                | 0    | [Fix dev merge seed: update testme to gitlab-test.](https://github.com/gitlabhq/gitlabhq/pull/7913)                                 |
+| 2014-09 | [GitLab][]                | 0    | [Remove trailing whitespace from views.](https://github.com/gitlabhq/gitlabhq/pull/7911)                                            |
+| 2014-09 | [GitLab][]                | 1    | [Remove def project from tests that inherit it.](https://github.com/gitlabhq/gitlabhq/pull/7889)                                    |
+| 2014-09 | [GitLab][]                | 1    | [Replace testme with gitlab-test.](https://github.com/gitlabhq/gitlabhq/pull/7873)                                                  |
+| 2014-09 | [GitLab][]                | 1    | [Add predictable merge requests on dev seed.](https://github.com/gitlabhq/gitlabhq/pull/7897)                                       |
+| 2014-09 | [GitLab][]                | 1    | [Prevent email sending on admin dev seed.](https://github.com/gitlabhq/gitlabhq/pull/7895)                                          |
+| 2014-09 | [GitLab][]                | 1    | [Only show text wrap and diff notes for text in merge requests.](https://github.com/gitlabhq/gitlabhq/pull/7898)                    |
+| 2014-09 | [GitLab][]                | 1    | [Add web UI file CRUD tests.](https://github.com/gitlabhq/gitlabhq/pull/7862)                                                       |
+| 2014-09 | [GitLab][]                | 1    | [Remove type submit from button_tag since default.](https://github.com/gitlabhq/gitlabhq/pull/7864)                                 |
+| 2014-09 | [GitLab][]                | 1    | [Replace empty? nil? with blank?.](https://github.com/gitlabhq/gitlabhq/pull/7877)                                                  |
+| 2014-09 | [GitLab][]                | 0    | [Typo indiciated -> indicated.](https://github.com/gitlabhq/gitlabhq/pull/7875)                                                     |
+| 2014-09 | [GitLab][]                | 1    | [Remove unnecessary page. from tests.](https://github.com/gitlabhq/gitlabhq/pull/7835)                                              |
+| 2014-09 | [GitLab][]                | 1    | [Remove ununsed CONTRIBUTING link on edit MR form.](https://github.com/gitlabhq/gitlabhq/pull/7803)                                 |
+| 2014-09 | [GitLab][]                | 1    | [Add g++ dependency to ubuntu install.](https://gitlab.com/gitlab-org/gitlab-development-kit/merge_requests/22)                     |
+| 2014-09 | [GitLab][]                | 0    | [Hound prefer single quotes.](https://github.com/gitlabhq/gitlab_git/pull/44)                                                       |
+| 2014-09 | [libgit2][]               | 0    | [Remove unused buf variable from path/core test.](https://github.com/libgit2/libgit2/pull/2570)                                     |
+| 2014-09 | [GitLab][]                | 1    | [Only clone GitLab Shell on tests if necessary.](https://github.com/gitlabhq/gitlabhq/pull/7823)                                    |
+| 2014-09 | [GitLab][]                | 1    | [Factor fork button view.](https://github.com/gitlabhq/gitlabhq/pull/7816)                                                          |
+| 2014-09 | [GitLab][]                | 1    | [evaluate -> execute_script when return not needed.](https://github.com/gitlabhq/gitlabhq/pull/7838)                                |
+| 2014-09 | [GitLab][]                | 1    | [evaluate_script history -> go_back and go_forward.](https://github.com/gitlabhq/gitlabhq/pull/7837)                                |
+| 2014-09 | [GitLab][]                | 1    | [Factor current_url + URI.path into current_path.](https://github.com/gitlabhq/gitlabhq/pull/7833)                                  |
+| 2014-09 | [GitLab][]                | 1    | [Replace javascript:; links with buttons.](https://github.com/gitlabhq/gitlabhq/pull/7793)                                          |
+| 2014-09 | [GitLab][]                | 1    | [Factor .add-diff-note active state.](https://github.com/gitlabhq/gitlabhq/pull/7795)                                               |
+| 2014-09 | [GitLab][]                | 1    | [Fix link_to_reply_diff.](https://github.com/gitlabhq/gitlabhq/pull/7792)                                                           |
+| 2014-09 | [GitLab][]                | 1    | [Factor issue and MR edit form error list.](https://github.com/gitlabhq/gitlabhq/pull/7804)                                         |
+| 2014-09 | [GitLab][]                | 1    | [Factor error and success methods from services.](https://github.com/gitlabhq/gitlabhq/pull/7807)                                   |
+| 2014-09 | [GitLab][]                | 1    | [Set textarea resize:vertical by default.](https://github.com/gitlabhq/gitlabhq/pull/7772)                                          |
+| 2014-09 | [GitLab][]                | 1    | [Factor out commit list from compare and new MR.](https://github.com/gitlabhq/gitlabhq/pull/7657)                                   |
+| 2014-09 | [GitLab][]                | 1    | [Prefix Spinach features with Spinach::Features::.](https://github.com/gitlabhq/gitlabhq/pull/7821)                                 |
+| 2014-09 | [GitLab][]                | 0    | [Typo it -> its.](https://github.com/gitlabhq/gitlabhq/pull/7814)                                                                   |
+| 2014-09 | [GitLab][]                | 1    | [Factor zen mode.](https://github.com/gitlabhq/gitlabhq/pull/7801)                                                                  |
+| 2014-09 | [GitLab][]                | 0    | [Ignore tags file.](https://github.com/gitlabhq/gitlabhq/pull/7771)                                                                 |
+| 2014-09 | [GitLab][]                | 1    | [Improve zen mode internals.](https://github.com/gitlabhq/gitlabhq/pull/7797)                                                       |
+| 2014-09 | [GitLab][]                | 0    | [CONTRIBUTING typos.](https://github.com/gitlabhq/gitlabhq/pull/7791)                                                               |
+| 2014-09 | [Marked][]                | 1    | [Add browser usage to README](https://github.com/chjj/marked/pull/414)                                                              |
+| 2014-09 | [GitLab][]                | 0    | [Typo herlper -> helper.](https://github.com/gitlabhq/gitlab_git/pull/43)                                                           |
+| 2014-09 | [libgit2][]               | 1    | [Factor 40 and 41 constants from source.](https://github.com/libgit2/libgit2/pull/2567)                                             |
+| 2014-09 | [libgit2][]               | 1    | [Replace void casts with GIT_UNUSED.](https://github.com/libgit2/libgit2/pull/2572)                                                 |
+| 2014-09 | [Rugged][]                | 0    | [Typo "di ff" -> diff.](https://github.com/libgit2/rugged/pull/419)                                                                 |
+| 2014-09 | [Rugged][]                | 0    | [Remove trailing whitespace.](https://github.com/libgit2/rugged/pull/417)                                                           |
+| 2014-09 | [Rugged][]                | 0    | [Gitignore rdoc/.](https://github.com/libgit2/rugged/pull/416)                                                                      |
+| 2014-09 | [Rugged][]                | 0    | [Factor File.join in test sandbox_init.](https://github.com/libgit2/rugged/pull/415)                                                |
+| 2014-09 | [Rails][]                 | 1    | [Explain ERB space removal.](https://github.com/rails/rails/pull/16790)                                                             |
+| 2014-09 | [GitLab][]                | 0    | [Update README to match Md style in CONTRIBUTING.](https://github.com/gitlabhq/gitlab_git/pull/39)                                  |
+| 2014-09 | [GitLab][]                | 0    | [Typo localy -> locally](https://github.com/gitlabhq/gitlabhq/pull/7726)                                                            |
+| 2014-09 | [vader.vim][]             | 1    | [Add run-tests script.](https://github.com/junegunn/vader.vim/pull/16)                                                              |
+| 2014-09 | [vader.vim][]             | 2    | [Add SyntaxAt and SyntaxOf helpers.](https://github.com/junegunn/vader.vim/pull/22)                                                 |
+| 2014-09 | [Rugged][]                | 0    | [Remove trailing whitespace.](https://github.com/libgit2/rugged/pull/417)                                                           |
+| 2014-09 | [Rugged][]                | 0    | [Gitignore rdoc/.](https://github.com/libgit2/rugged/pull/416)                                                                      |
+| 2014-09 | [Rugged][]                | 0    | [Factor File.join in test sandbox_init.](https://github.com/libgit2/rugged/pull/415)                                                |
 | 2014-09 | [Pro Git book][]          | 1    | [Mention packed-refs.](https://github.com/progit/progit/pull/878)                                                                   |
 | 2014-09 | [GitLab][]                | 1    | [Add link to fixed SHA version on blob.](https://github.com/gitlabhq/gitlabhq/pull/7472)                                            |
 | 2014-09 | [GitLab][]                | 1    | [Factor new issue and edit MR forms.](https://github.com/gitlabhq/gitlabhq/pull/7678)                                               |
@@ -183,10 +231,14 @@ Only patches which were reviewed by at least one person with push permission wil
 Patches which were merged by myself on repositories which I feel have large public visibility,
 e.g. those to which I have been given push permission.
 
-| Date    | Project          | Size | Description                                                                                                    |
-|---------|------------------|------|----------------------------------------------------------------------------------------------------------------|
-| 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)     |
-| 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69) |
+| Date    | Project          | Size | Description                                                                                                                              |
+|---------|------------------|------|------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-09 | [Vim Markdown][] | 1    | [Support YAML frontmatter headers v2.](https://github.com/plasticboy/vim-markdown/pull/124)                                              |
+| 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX $ and $$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                  |
+| 2014-09 | [Vim Markdown][] | 1    | [Add unit tests and travis support.](https://github.com/plasticboy/vim-markdown/pull/128)                                                |
+| 2014-09 | [Vim Markdown][] | 1    | [Fix parenthesis and square brackets that were rendered as links when not in link.](https://github.com/plasticboy/vim-markdown/pull/122) |
+| 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)                               |
+| 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69)                           |
 {: .patches-table .data-table}
 
 # Gained push permission
@@ -204,6 +256,7 @@ This shall not list bugs solved by my accepted pull requests.
 
 | Date    | Project                 | Description                                                                                                                                               |
 |---------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                      |
 | 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
 | 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/14)                                                                                      |
 | 2014-09 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/pull/7242)                                                                                        |

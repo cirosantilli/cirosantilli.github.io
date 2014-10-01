@@ -6,18 +6,33 @@ permalink: contrib-pending/
 <!--
 | 2014-09 | [][] |  | []() |
 
+Accepted:
 
-| 2014-09 | [GitLab][] | 0 | [Typo localy -> locally](https://github.com/gitlabhq/gitlabhq/pull/7726) |
+| 2014-10 | [GitLab][] |  | []() |
+| 2014-10 | [GitLab][] |  | []() |
+| 2014-10 | [GitLab][] |  | []() |
+| 2014-10 | [GitLab][] |  | []() |
+| 2014-10 | [GitLab][] | 1 | []() |
+| 2014-10 | [GitLab][] | 1 | []() |
+| 2014-10 | [GitLab][] | 1 | []() |
+| 2014-10 | [GitLab][] | 1 | []() |
+| 2014-10 | [GitLab][] | 1 | [Titleize blob action buttons.](https://github.com/gitlabhq/gitlabhq/pull/7904) |
+
+Merged not evaluated:
+
+| 2014-10 | [Vim Markdown][] | 1 | []() |
+
+Waiting:
+
 | 2014-08 | [vim-snippets][] | 1 | [Rename node p to pipe](https://github.com/honza/vim-snippets/pull/432) |
+| 2014-02 | [GitLab][]       | 3 | [Add markdown preview to issue, MR and milestone descriptions](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 -->
 
 | Date    | Project          | Size | Description                                                                                                     |
 |---------|------------------|------|-----------------------------------------------------------------------------------------------------------------|
-| 2014-05 | [Marked][]       | 1    | [Add browser usage to README](https://github.com/chjj/marked/pull/414)                                         |
 | 2014-05 | [Marked][]       | 0    | [Typo benchmarks are below reference in README](https://github.com/chjj/marked/pull/412)                       |
 | 2014-05 | [Marked][]       | 0    | [Move CLI usage up on README](https://github.com/chjj/marked/pull/411)                                         |
 | 2014-04 | [Boost Graph][]  | 0    | [Rename color header to more precise title](https://github.com/boostorg/graph/pull/7)                          |
-| 2014-02 | [GitLab][]       | 3    | [Add markdown preview to issue, MR and milestone descriptions](https://github.com/gitlabhq/gitlabhq/pull/6356) |
 | 2014-01 | Counter Culture  | 3    | [Add `:delta` option. Hairsplitting mathematical detail](https://github.com/magnusvk/counter_culture/pull/43)  |
 | 2013-12 | Vim Session      | 1    | [Add a Vim session option](https://github.com/xolox/vim-session/pull/81)                                       |
 
