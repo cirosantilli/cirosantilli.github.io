@@ -44,6 +44,62 @@ Only patches which were reviewed by at least one person with push permission wil
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-10 | [GitLab][]                | 1    | [Run user select Js only where needed](https://github.com/gitlabhq/gitlabhq/pull/8127)                                              |
+| 2014-10 | [GitLab][]                | 1    | [Factor abilities methods](https://github.com/gitlabhq/gitlabhq/pull/8091)                                                          |
+| 2014-10 | [GitLab][]                | 1    | [Use button type=submit instead of input](https://github.com/gitlabhq/gitlabhq/pull/7866)                                           |
+| 2014-10 | [GitLab][]                | 1    | [Only run profile js on pages that need it](https://github.com/gitlabhq/gitlabhq/pull/8120)                                         |
+| 2014-10 | [GitLab][]                | 1    | [Better js -> URL projects map to reduce unneeded execution](https://github.com/gitlabhq/gitlabhq/pull/8123)                        |
+| 2014-10 | [GitLab][]                | 1    | [Use Gitlab.config instead of Settings everywhere](https://github.com/gitlabhq/gitlabhq/pull/8005)                                  |
+| 2014-10 | [GitLab][]                | 1    | [Show nothing instead of unassigned on issues](https://github.com/gitlabhq/gitlabhq/pull/8155)                                      |
+| 2014-10 | [GitLab][]                | 1    | [Only run namespace select js when needed](https://github.com/gitlabhq/gitlabhq/pull/8125)                                          |
+| 2014-10 | [GitLab][]                | 0    | [Merge File basename and dirname into split](https://github.com/gitlabhq/gitlabhq/pull/8158)                                        |
+| 2014-10 | [GitLab][]                | 1    | [Fix import.rake failed import if project name is also an existing namespace](https://github.com/gitlabhq/gitlabhq/pull/8159)       |
+| 2014-10 | [GitLab][]                | 0    | [Remove unused variable user at lib/gitlab/markdown](https://github.com/gitlabhq/gitlabhq/pull/8150)                                |
+| 2014-10 | [GitLab][]                | 1    | [Use argument list for sh instead of string](https://github.com/gitlabhq/gitlabhq/pull/8088)                                        |
+| 2014-10 | [GitLab][]                | 1    | [Only run avatar chooser Js on pages that need it](https://github.com/gitlabhq/gitlabhq/pull/8114)                                  |
+| 2014-10 | [GitLab][]                | 1    | [Remove whitespace link between user group avatars](https://github.com/gitlabhq/gitlabhq/pull/8118)                                 |
+| 2014-10 | [GitLab][]                | 0    | [Fix doc raketasts import md style](https://github.com/gitlabhq/gitlabhq/pull/8139)                                                 |
+| 2014-10 | [GitLab][]                | 1    | [Remove unneeded app/finders config.autoload path](https://github.com/gitlabhq/gitlabhq/pull/7994)                                  |
+| 2014-10 | [GitLab][]                | 0    | [Improve grack auth hooks comment.](https://github.com/gitlabhq/gitlabhq/pull/8117)                                                 |
+| 2014-10 | [GitLab][]                | 1    | [Remove unused admin/projects#repository method](https://github.com/gitlabhq/gitlabhq/pull/8093)                                    |
+| 2014-10 | [GitLab][]                | 1    | [Factor admin logs](https://github.com/gitlabhq/gitlabhq/pull/7961)                                                                 |
+| 2014-10 | [GitLab][]                | 1    | [Remove unused filter from ProjectsController](https://github.com/gitlabhq/gitlabhq/pull/8029)                                      |
+| 2014-10 | [GitLab][]                | 1    | [Remove unused dev_tools helper.](https://github.com/gitlabhq/gitlabhq/pull/8028)                                                   |
+| 2014-10 | [GitLab][]                | 1    | [Factor authorize_push! and authorize_code_access!](https://github.com/gitlabhq/gitlabhq/pull/8030)                                 |
+| 2014-10 | [GitLab][]                | 1    | [Replace match with end_with: more readable, faster](https://github.com/gitlabhq/gitlabhq/pull/8087)                                |
+| 2014-10 | [GitLab][]                | 1    | [Use @project on controllers, don't call method](https://github.com/gitlabhq/gitlabhq/pull/8102)                                    |
+| 2014-10 | [GitLab][]                | 1    | [Remove param[:project_id] at admin controller](https://github.com/gitlabhq/gitlabhq/pull/8101)                                     |
+| 2014-10 | [GitLab][]                | 1    | [DRY mentioned in magic note constant](https://github.com/gitlabhq/gitlabhq/pull/8097)                                              |
+| 2014-10 | [GitLab][]                | 1    | [Factor group forms](https://github.com/gitlabhq/gitlabhq/pull/8113)                                                                |
+| 2014-10 | [GitLab][]                | 1    | [State on CONTRIBUTING that people should fix line style of touched lines](https://github.com/gitlabhq/gitlabhq/pull/8109)          |
+| 2014-10 | [GitLab][]                | 1    | [Export all coffee classes with @](https://github.com/gitlabhq/gitlabhq/pull/8110)                                                  |
+| 2014-10 | [GitLab][]                | 1    | [Fix missing flash on file edit error from web UI.](https://github.com/gitlabhq/gitlabhq/pull/7856)                                 |
+| 2014-10 | [Capybara][]              | 0    | [Fix History typo.](https://github.com/jnicklas/capybara/pull/1424)                                                                 |
+| 2014-10 | [GitLab][]                | 1    | [Make new and edit file submit more uniform](https://github.com/gitlabhq/gitlabhq/pull/7942)                                        |
+| 2014-10 | [libgit2][]               | 1    | [Join typedef and struct definitions in single file](https://github.com/libgit2/libgit2)                                            |
+| 2014-10 | [GitLab][]                | 1    | [Factor dashboard helper methods](https://github.com/gitlabhq/gitlabhq/pull/7938)                                                   |
+| 2014-10 | [GitLab][]                | 1    | [Factor issue and merge request services](https://github.com/gitlabhq/gitlabhq/pull/7983)                                           |
+| 2014-10 | [GitLab][]                | 1    | [Replace www.gitlab.com with about.gitlab.com](https://github.com/gitlabhq/gitlabhq/pull/7981)                                      |
+| 2014-10 | [GitLab][]                | 0    | [Improve formatting of app/finders/README.md](https://github.com/gitlabhq/gitlabhq/pull/7991)                                       |
+| 2014-10 | [GitLab][]                | 0    | [Remove outdated comment from commits_controller](https://github.com/gitlabhq/gitlabhq/pull/7985)                                   |
+| 2014-10 | [GitLab][]                | 1    | [Factor markup? gitlab_markdown? into new method](https://github.com/gitlabhq/gitlabhq/pull/7963)                                   |
+| 2014-10 | [GitLab][]                | 1    | [Remove unused title parameter](https://github.com/gitlabhq/gitlabhq/pull/7379)                                                     |
+| 2014-10 | [GitLab][]                | 1    | [Make Spinach test names consistent](https://github.com/gitlabhq/gitlabhq/pull/7940)                                                |
+| 2014-10 | [GitLab][]                | 0    | [Ignore .bundle](https://github.com/gitlabhq/gitlab-shell/pull/184)                                                                 |
+| 2014-10 | [GitLab][]                | 0    | [Ignore tags file](https://github.com/gitlabhq/gitlab-shell/pull/183)                                                               |
+| 2014-10 | [GitLab][]                | 0    | [Split one instance variable per line](https://github.com/gitlabhq/gitlab-shell/pull/182)                                           |
+| 2014-10 | [GitLab][]                | 1    | [Factor commit message textareas](https://github.com/gitlabhq/gitlabhq/pull/7919)                                                   |
+| 2014-10 | [GitLab][]                | 1    | [Remove outdated comment on the project test seed](https://github.com/gitlabhq/gitlabhq/pull/7948)                                  |
+| 2014-10 | [GitLab][]                | 0    | [Remove assignment without effect.](https://github.com/gitlabhq/gitlabhq/pull/7947)                                                 |
+| 2014-10 | [GitLab][]                | 1    | [Add parenthesis to function def with arguments.](https://github.com/gitlabhq/gitlabhq/pull/7858)                                   |
+| 2014-10 | [GitLab][]                | 1    | [Remove test line without effect because no should.](https://github.com/gitlabhq/gitlabhq/pull/7834)                                |
+| 2014-10 | [GitLab][]                | 1    | [Improve remove file commit message textarea placeholder](https://github.com/gitlabhq/gitlabhq/pull/7922)                           |
+| 2014-10 | [GitLab][]                | 1    | [Replace :erb filter with plain HAML](https://github.com/gitlabhq/gitlabhq/pull/7880)                                               |
+| 2014-10 | [GitLab][]                | 1    | [Remove blame lines added leading whitespace](https://github.com/gitlabhq/gitlabhq/pull/7881)                                       |
+| 2014-10 | [GitLab][]                | 1    | [Improve new file commit message textarea placeholder.](https://github.com/gitlabhq/gitlabhq/pull/7921)                             |
+| 2014-10 | [GitLab][]                | 1    | [Simplify custom MR good commit message hint](https://github.com/gitlabhq/gitlabhq/pull/7920)                                       |
+| 2014-10 | [GitLab][]                | 1    | [Move group feature step to match test location](https://github.com/gitlabhq/gitlabhq/pull/7930)                                    |
+| 2014-10 | [GitLab][]                | 1    | [Titleize blob action buttons.](https://github.com/gitlabhq/gitlabhq/pull/7904)                                                     |
 | 2014-09 | [GitLab][]                | 0    | [Remove statement without effect.](https://github.com/gitlabhq/gitlabhq/pull/7914)                                                  |
 | 2014-09 | [GitLab][]                | 0    | [Fix dev merge seed: update testme to gitlab-test.](https://github.com/gitlabhq/gitlabhq/pull/7913)                                 |
 | 2014-09 | [GitLab][]                | 0    | [Remove trailing whitespace from views.](https://github.com/gitlabhq/gitlabhq/pull/7911)                                            |
@@ -256,6 +312,13 @@ This shall not list bugs solved by my accepted pull requests.
 
 | Date    | Project                 | Description                                                                                                                                               |
 |---------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-10 | [GitLab][]              | [Point duplicate.](https://github.com/gitlabhq/gitlabhq/issues/8206)                                                                                      |
+| 2014-10 | [GitLab][]              | [Confirmed issue.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/170)                                                                               |
+| 2014-10 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/issues/8090)                                                                                      |
+| 2014-10 | [Semaphore CI][]        | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                        |
+| 2014-10 | [libgit2][]             | [Confirmed issue.](https://github.com/libgit2/libgit2/issues/2562)                                                                                        |
+| 2014-10 | [GitLab][]              | [Explain solution.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                     |
+| 2014-10 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)               |
 | 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                      |
 | 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
 | 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/14)                                                                                      |

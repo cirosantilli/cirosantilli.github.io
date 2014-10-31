@@ -30,6 +30,8 @@ I **don't** like tools that:
 
 because people must learn and test themselves whenever they want.
 
+I am also generally interested in all low-level, performance critical applications such as: systems programming, network programming, HPC, scientific computing, compilers, databases...
+
 #Why I am interested in those things
 
 I am bewildered by the beauty of mathematics, science and engineering.

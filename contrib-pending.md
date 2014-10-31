@@ -4,23 +4,39 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2014-09 | [][] |  | []() |
+| 2014-11 | [][] |  | []() |
 
 Accepted:
 
-| 2014-10 | [GitLab][] |  | []() |
-| 2014-10 | [GitLab][] |  | []() |
-| 2014-10 | [GitLab][] |  | []() |
-| 2014-10 | [GitLab][] |  | []() |
-| 2014-10 | [GitLab][] | 1 | []() |
-| 2014-10 | [GitLab][] | 1 | []() |
-| 2014-10 | [GitLab][] | 1 | []() |
-| 2014-10 | [GitLab][] | 1 | []() |
-| 2014-10 | [GitLab][] | 1 | [Titleize blob action buttons.](https://github.com/gitlabhq/gitlabhq/pull/7904) |
+| 2014-11 | [GitLab][] |  | []() |
+| 2014-11 | [GitLab][] |  | []() |
+| 2014-11 | [GitLab][] |  | []() |
+| 2014-11 | [GitLab][] |  | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+
+
+| 2014-11 | [GitLab][] | 1 | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+| 2014-11 | [GitLab][] | 1 | []() |
+
+
+| 2014-11 | [GitLab][] | 0 | [Fix doc rake import md style](https://github.com/gitlabhq/gitlabhq/pull/8211) |
+| 2014-11 | [GitLab][] | 1 | [Factor lib backend gitlab shell path](https://github.com/gitlabhq/gitlabhq/pull/8213) |
+
 
 Merged not evaluated:
 
 | 2014-10 | [Vim Markdown][] | 1 | []() |
+
+2 https://github.com/plasticboy/vim-markdown/pull/121
+1 https://github.com/plasticboy/vim-markdown/pull/134
+1 https://github.com/plasticboy/vim-markdown/pull/133
+0 https://github.com/plasticboy/vim-markdown/pull/132
+
+Issues:
 
 Waiting:
 

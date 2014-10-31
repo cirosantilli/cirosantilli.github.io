@@ -1,6 +1,7 @@
 [autokey]:               http://code.google.com/p/autokey
 [booktree]:              https://github.com/booktree/booktree
 [boost graph]:           https://github.com/boostorg/graph
+[capybara]:              https://github.com/jnicklas/capybara
 [datatables]:            https://datatables.net
 [developper.github.com]: https://github.com/github/developer.github.com
 [django userena]:        https://github.com/bread-and-pepper/django-userena
@@ -24,6 +25,7 @@
 [rugged]:                https://github.com/libgit2/rugged
 [rvm]:                   https://github.com/wayneeseguin/rvm
 [scipy]:                 http://www.scipy.org
+[semaphore ci]:          https://semaphoreapp.com
 [sharelatex]:            https://github.com/sharelatex/sharelatex
 [softcover]:             https://github.com/softcover/softcover
 [stack-overflow-ciro]:   http://stackoverflow.com/users/895245/cirosantilli
