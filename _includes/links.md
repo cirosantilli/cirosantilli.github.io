@@ -24,6 +24,7 @@
 [rails]:                 https://github.com/rails/rails
 [rugged]:                https://github.com/libgit2/rugged
 [rvm]:                   https://github.com/wayneeseguin/rvm
+[sass]:                  https://github.com/sass/sass
 [scipy]:                 http://www.scipy.org
 [semaphore ci]:          https://semaphoreapp.com
 [sharelatex]:            https://github.com/sharelatex/sharelatex

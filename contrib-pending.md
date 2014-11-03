@@ -9,23 +9,15 @@ permalink: contrib-pending/
 Accepted:
 
 | 2014-11 | [GitLab][] |  | []() |
-| 2014-11 | [GitLab][] |  | []() |
-| 2014-11 | [GitLab][] |  | []() |
-| 2014-11 | [GitLab][] |  | []() |
-| 2014-11 | [GitLab][] | 1 | []() |
-| 2014-11 | [GitLab][] | 1 | []() |
-| 2014-11 | [GitLab][] | 1 | []() |
-| 2014-11 | [GitLab][] | 1 | []() |
-
 
 | 2014-11 | [GitLab][] | 1 | []() |
 | 2014-11 | [GitLab][] | 1 | []() |
 | 2014-11 | [GitLab][] | 1 | []() |
 
 
+| 2014-11 | [GitLab][] | 1 | [Use require spec_helper instead of relative path](https://github.com/gitlabhq/gitlabhq/pull/8223) |
 | 2014-11 | [GitLab][] | 0 | [Fix doc rake import md style](https://github.com/gitlabhq/gitlabhq/pull/8211) |
 | 2014-11 | [GitLab][] | 1 | [Factor lib backend gitlab shell path](https://github.com/gitlabhq/gitlabhq/pull/8213) |
-
 
 Merged not evaluated:
 
@@ -37,6 +29,11 @@ Merged not evaluated:
 0 https://github.com/plasticboy/vim-markdown/pull/132
 
 Issues:
+
+| 2014-11 | [Sass][] | [Confirmed issue.](https://github.com/sass/sass/issues/1493) |
+
+| 2014-11 | [GitLab][] | []() |
+
 
 Waiting:
 
