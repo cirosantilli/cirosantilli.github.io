@@ -313,17 +313,17 @@ This shall not list bugs solved by my accepted pull requests.
 | Date    | Project                 | Description                                                                                                                                               |
 |---------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2014-10 | [GitLab][]              | [Point duplicate.](https://github.com/gitlabhq/gitlabhq/issues/8206)                                                                                      |
-| 2014-10 | [GitLab][]              | [Confirmed issue.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/170)                                                                               |
-| 2014-10 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/issues/8090)                                                                                      |
-| 2014-10 | [Semaphore CI][]        | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                        |
-| 2014-10 | [libgit2][]             | [Confirmed issue.](https://github.com/libgit2/libgit2/issues/2562)                                                                                        |
-| 2014-10 | [GitLab][]              | [Explain solution.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                     |
+| 2014-10 | [GitLab][]              | [Bug confirmed.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/170)                                                                               |
+| 2014-10 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/8090)                                                                                      |
+| 2014-10 | [Semaphore CI][]        | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                        |
+| 2014-10 | [libgit2][]             | [Bug confirmed.](https://github.com/libgit2/libgit2/issues/2562)                                                                                        |
+| 2014-10 | [GitLab][]              | [Solve issue.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                     |
 | 2014-10 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)               |
 | 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                      |
 | 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
 | 2014-09 | [vader.vim][]           | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/14)                                                                                      |
-| 2014-09 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/pull/7242)                                                                                        |
-| 2014-09 | [GitLab][]              | [Confirmed issue.](https://github.com/gitlabhq/gitlabhq/issues/6351)                                                                                      |
+| 2014-09 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7242)                                                                                        |
+| 2014-09 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/6351)                                                                                      |
 | 2014-09 | [GitLab][]              | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio)                 |
 | 2014-09 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5567051-delete-branch-after-accepting-or-closing-a-merge-r)           |
 | 2014-08 | [Markdown lint][]       | [Accepted feature.](https://github.com/mivok/markdownlint/issues/47)                                                                                      |
@@ -332,10 +332,10 @@ This shall not list bugs solved by my accepted pull requests.
 | 2014-07 | [GitLab][]              | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                          |
 | 2014-07 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                         |
 | 2014-07 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)              |
-| 2014-06 | [isaacs/github][]       | [Duplicate](https://github.com/isaacs/github/issues/218)                                                                                                  |
+| 2014-06 | [isaacs/github][]       | [Point duplicate.](https://github.com/isaacs/github/issues/218)                                                                                                  |
 | 2014-06 | [GitLab][]              | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)              |
 | 2014-06 | [GitLab][]              | [Point duplicate.](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                |
-| 2014-06 | [Markdown Test Suite][] | [Confirmed issue.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                               |
+| 2014-06 | [Markdown Test Suite][] | [Bug confirmed.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                               |
 | 2014-06 | [Vim Markdown][]        | [Close issue.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                |
 | 2014-06 | [Vim Markdown][]        | [Review patch.](https://github.com/plasticboy/vim-markdown/pull/92)                                                                                       |
 | 2014-06 | [Vim Markdown][]        | [Review and patch patch.](https://github.com/plasticboy/vim-markdown/pull/80)                                                                             |
@@ -353,13 +353,17 @@ This shall not list bugs solved by my accepted pull requests.
 | 2014-02 | [ShareLaTeX][]          | [Feature generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                            |
 | 2014-02 | [GitLab][]              | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                 |
 | 2014-02 | [GitLab][]              | [Link feature request to patch.](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in) |
-| 2013-10 | [Yakuake][]             | [Confirmed issue.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                                        |
-| 2013-10 | [Okular][]              | [Confirmed issue.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                           |
-| 2013-06 | [Krusader][]            | [Confirmed issue.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                       |
-| 2013-05 | [NumPy][]               | [Confirmed issue + inner cause.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                      |
+| 2013-10 | [Yakuake][]             | [Bug confirmed.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                                        |
+| 2013-10 | [Okular][]              | [Bug confirmed.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                           |
+| 2013-06 | [Krusader][]            | [Bug confirmed.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                       |
+| 2013-05 | [NumPy][]               | [Bug confirmed + inner cause.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                      |
 | 2012-05 | [Krusader][]            | [Accepted feature.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                          |
-| 2012-05 | [Krusader][]            | [Confirmed issue.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                        |
-| 2012-05 | [AutoKey][]             | [Confirmed issue.](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                 |
+| 2012-05 | [Krusader][]            | [Bug confirmed.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                        |
+| 2012-05 | [AutoKey][]             | [Bug confirmed.](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                 |
 {: #bugs-table .data-table}
+
+`*`: DISCLAIMER: GitHub is closed source and highly secretive,
+solving small issues without any notification,
+so I use my best jugement given the lack of feedback.
 
 {% include links.md %}
