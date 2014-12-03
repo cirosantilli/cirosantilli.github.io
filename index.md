@@ -16,16 +16,27 @@ Things to convince you to work with me.
 **Email**: [{{ site.email }}](mailto:{{ site.email }})  
 **Skype**: [{{ site.skype }}](skype:{{ site.skype }})
 
-## Occupation
+## Writings
+
+Writings you may find interesting:
+
+- [Markdown Style Guide](markdown-style-guide)
+- [x86 Paging Tutorial](x86-paging)
+
+I also have several comprehensive cheatsheets listed at [my self evaluation section](self-evaluation).
+
+## Current occupation
 
 I am investing full time on [**Booktree: Book Development with Version Control**][booktree]. [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 
 I will pursue this or other projects [**that interest me**](/interests) by:
 
-- joining a company. I will:
+-   joining a company. I will:
+
     - relocate anywhere (double Italian and Brazilian citizenship)
     - work for any wage that allows me to survive
-- creating my own company if none is up to it
+
+-   creating my own company if none is up to it
 
 I am currently Paris based.
 

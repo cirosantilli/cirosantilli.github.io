@@ -2,3 +2,4 @@
 - Home nav menu is misaligned with the others
 - Test on mobile.
 - Convert CSS to SCSS
+- Use HTML sectioning elements for sidebar, title and main content
