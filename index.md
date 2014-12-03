@@ -16,7 +16,7 @@ Things to convince you to work with me.
 **Email**: [{{ site.email }}](mailto:{{ site.email }})  
 **Skype**: [{{ site.skype }}](skype:{{ site.skype }})
 
-# Occupation
+## Occupation
 
 I am investing full time on [**Booktree: Book Development with Version Control**][booktree]. [Presentation video](https://www.youtube.com/watch?v=jTrZ6Zb39K8).
 

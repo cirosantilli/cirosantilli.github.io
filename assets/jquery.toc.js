@@ -34,7 +34,7 @@
 
             // Defaults: plugin parameters override data attributes, which override our defaults
             thisOptions = $.extend(
-                {content: "body", headings: "h1,h2,h3,h4,h5,h6"},
+                {content: "body", headings: "h2,h3,h4,h5,h6"},
                 {content: data.toc || undefined, headings: data.tocHeadings || undefined},
                 options
             );

@@ -9,7 +9,7 @@ I will correct any error reported. If you want to make large modifications or ad
 
 <ul data-toc></ul>
 
-#General facts
+## General facts
 
 Paging translates linear addresses ( what is left after segmentation translated logical addresses ) into physical addresses ( what actually goes go to RAM wires ):
 
@@ -25,7 +25,7 @@ One major difference between paging and segmentation is that:
 
 This is the main advantage of paging, since equal sized chunks make things more manageable.
 
-#Application
+## Application
 
 Paging is used to implement processes virtual address spaces on modern OS.
 With virtual addresses the OS can fit two or more concurrent processes on a single RAM in a way that:
@@ -40,7 +40,7 @@ and largely replaced it for the implementation of virtual memory in modern OSs s
 since it is easier to manage the fixed sized chunks of memory of pages instead
 of variable length segments.
 
-#Hardware implementation
+## Hardware implementation
 
 Just like for segmentation, paging hardware uses RAM data structures
 ( page tables, page directories, etc. ) to do its job.
@@ -52,12 +52,12 @@ and to tell the hardware where to find them ( via `cr3` ).
 Paging could be implemented in software but is hardware implemented because paging operations
 are done at every single memory access and therefore need to be very fast.
 
-#Example: simplified single-level paging scheme
+## Example: simplified single-level paging scheme
 
 This an example of how paging operates on a *simplified* version of a x86 architecture
 to implement a virtual memory space.
 
-##Page tables
+### Page tables
 
 The OS could give them the following page tables:
 
@@ -121,7 +121,7 @@ only 20 bits ( 20 + 12 = 32, thus 5 characters in hexadecimal notation )
 are required to identify each page.
 This value is fixed by the hardware.
 
-##Page table entries
+### Page table entries
 
 A page table is... a table of pages table entries!
 
@@ -143,7 +143,7 @@ Therefore, even in only 21 bits are needed in this case, hardware designers woul
 to make access faster, and just reserve bits the remaining bits for later usage.
 The actual value for `L` on x86 is 32 bits.
 
-##Address translation
+### Address translation
 
 Once the page tables have been set up by the OS, the address translation between linear
 and physical addresses is done *by the hardware*.
@@ -225,7 +225,7 @@ depending only on the value inside `cr3`.
 In this way every program can expect its data to start at `0` and end at `FFFFFFFF`,
 without worrying about exact physical addresses.
 
-##Page fault
+### Page fault
 
 What if Process 1 tries to access an address inside a page that is no present?
 
@@ -264,7 +264,7 @@ In any case, the OS needs to know which address generated the Page Fault to be a
 This is why the nice IA32 developers set the value of `cr2` to that address whenever a Page Fault occurs.
 The exception handler can then just look into `cr2` to get the address.
 
-##Simplifications
+### Simplifications
 
 Simplifications to reality that make this example easier to understand:
 
@@ -275,7 +275,7 @@ Simplifications to reality that make this example easier to understand:
 
     Real page tables contain a total of 12 fields, and therefore other features which have been omitted.
 
-#Example: multi level paging scheme
+## Example: multi level paging scheme
 
 The problem with a single level paging scheme is that it would take up too much RAM:
 4G / 4K = 1M entries *per* process. If each entry is 4 bytes long, that would make 4M *per process*,
@@ -319,7 +319,7 @@ is that each Page Table entry is 4 bytes long.
 Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages.
 This means that it faster and simpler to allocate and dellocate pages for that purpose.
 
-##Address translation
+### Address translation
 
 Page directory given to process 1 by the OS:
 
@@ -427,7 +427,7 @@ Page faults occur if either a page directory entry or a page table entry is not 
 If the OS wants to run another process concurrently, it would give the second process
 a separate page directory, and link that directory to separate page tables.
 
-#64 bit architectures
+## 64 bit architectures
 
 64 bits is still too much address for current RAM sizes, so most architectures will only use
 less bits. x86_64 uses 48 bits in total for the actual addressing.
@@ -444,7 +444,7 @@ Therefore, 64 bit architectures create even further page levels, commonly 3 or 4
 For example, x86_64 uses: 4 levels in a 9 9 9 12 scheme, so that the upper level only takes up
 only `2^9` higher level entries.
 
-#PAE
+## PAE
 
 Physical address extension.
 
@@ -465,7 +465,7 @@ Even if the total addressable memory is 64GB,
 individual process are still only able to use up to 4GB.
 The OS can however put different processes on different 4GB chunks.
 
-#PSE
+## PSE
 
 Page size extension.
 
@@ -473,7 +473,7 @@ Allows for pages to be 4M ( or 2M if PAE is on ) in length instead of 4K.
 
 PSE is turned on and off via the `PAE` bit of `cr4`.
 
-#PAE and PSE page table schemes
+## PAE and PSE page table schemes
 
 If either PAE and PSE are active, different paging level schemes are used:
 
@@ -509,7 +509,7 @@ If either PAE and PSE are active, different paging level schemes are used:
     This leaves 23 bits. Leaving 2 for the PDPT to keep things uniform with the PAE case without PSE leaves 21 for offset,
     meaning that pages are 2M wide instead of 4M.
 
-#TLB
+## TLB
 
 The Translation Lookahead Buffer (TLB) is a cache for paging addresses.
 
@@ -519,7 +519,7 @@ such as associativity level.
 This section shall describe a simplified fully associative TLB with 4 single address entries.
 Note that like other caches, real TLBs are not usually fully associative.
 
-##Basic operation
+### Basic operation
 
 After a translation between linear and physical address happens,
 it is stored on the TLB. For example, a 4 entry TLB starts in the following state:
@@ -557,7 +557,7 @@ and finds out its address with a single RAM access `00003 --> 00005`.
 
 Of course, `00000` is not on the TLB since on valid entries contain `00000` as key.
 
-##Replacement policy
+### Replacement policy
 
 When TLB is filled up, older addresses are overwritten.
 Just like for CPU cache, the replacement policy is a potentially complex operation,
@@ -581,7 +581,7 @@ adding `0000D -> 0000A` would give:
       1       00009    00001
       1       0000B    00003
 
-##CAM
+### CAM
 
 Using the TLB makes translation faster, because the initial translation takes one access
 *per TLB level*, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.
@@ -619,7 +619,7 @@ However, to implement this with RAM, *it would be necessary to have 2^20 address
 
 which would be even more expensive than using a TLB.
 
-##Invalidating entries
+### Invalidating entries
 
 When `cr3` changes, all TLB entries are invalidated,
 because a new page table for a new process is going to be used, so it is unlikely
@@ -629,7 +629,7 @@ The x86 also offers the `invlpg` instruction which explicitly invalidates a sing
 Other architectures offer even more instructions to invalidated TLB entries,
 such as invalidating all entries on a given range.
 
-#Bibliography
+## Bibliography
 
 Free:
 

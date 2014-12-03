@@ -16,7 +16,7 @@ Grading scale:
 
 If your project does something that [I believe in](/interests), I will learn **whatever** it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
 
-# Languages
+## Languages
 
 | Grade | Name                  | Notes                                                                                                                                                                                                                                 |
 |-------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -31,7 +31,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 3     | LaTeX, Markdown       | [LaTeX cheatsheet](https://github.com/cirosantilli/latex-cheat), [Markdown style guide](/markdown-style-guide), [Markdown Testsuite contributions](https://github.com/karlcow/markdown-testsuite/graphs/contributors).                |
 {: #languages-table .data-table}
 
-# Other technologies
+## Other technologies
 
 | Grade | Name                                                                                                                          | Notes                                                                                                                                            |
 |-------|-------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -46,7 +46,7 @@ If your project does something that [I believe in](/interests), I will learn **w
 | 1     | AWS                                                                                                                           | EC2, SES                                                                                                                                         |
 {: #other-tech-table .data-table}
 
-# Natural languages
+## Natural languages
 
 | Grade | Name                 | Notes                         |
 |-------|----------------------|-------------------------------|

@@ -5,7 +5,7 @@ permalink: contrib/
 
 <ul data-toc></ul>
 
-# Summary
+## Summary
 
 -   [GitLab][]: very important to me because of [Booktree][].
     Implemented some large features that are important, and several minor fixes.
@@ -24,7 +24,7 @@ permalink: contrib/
     [Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge.
     [![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
 
-# Size scale
+## Size scale
 
 Contributions are subjectively self evaluated based on:
 
@@ -38,7 +38,7 @@ Contributions are subjectively self evaluated based on:
 
 -   How hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation lines.
 
-# Merged by others
+## Merged by others
 
 Only patches which were reviewed by at least one person with push permission will be listed here.
 
@@ -309,7 +309,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 [Patches waiting for review](/contrib-pending).
 
-# Merged by me
+## Merged by me
 
 Patches which were merged by myself on repositories which I feel have large public visibility,
 e.g. those to which I have been given push permission.
@@ -324,20 +324,20 @@ e.g. those to which I have been given push permission.
 | 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69)                           |
 {: .patches-table .data-table}
 
-# Gained push permission
+## Gained push permission
 
 Repositories to which I gained push permission because of my contributions:
 
 - <https://github.com/plasticboy/vim-markdown>
 
-# Bug reports and Feature requests
+## Bug reports and feature requests
 
 - I opened and was confirmed or generated considerable interest
 - I wrote comments pointing out a non obvious cause/fix/duplicate.
 
 This shall not list bugs solved by my accepted pull requests.
 
-## Closed source
+### Closed source
 
 Disclaimer: closed source vendors tend to be highly secretive, solving small issues without any reply, so I use my best judgement given the lack of feedback.
 
@@ -351,7 +351,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-11 | [GitHub][] | Duplicate | [Allow following of groups similar to following users](https://github.com/isaacs/github/issues/218#issuecomment-47030350)                                                     |
 {: .patches-table .data-table}
 
-## Open source
+### Open source
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
