@@ -10,7 +10,9 @@ Accepted:
 
 | 2014-12 | [GitLab][] | 1 | []() |
 | 2014-12 | [GitLab][] | 1 | []() |
-| 2014-12 | [GitLab][] | 1 | []() |
+
+
+| 2014-12 | [Ruby][] | 0 | [Typo close -> closes.](https://github.com/ruby/ruby/commit/512705e62d4929753845e449397cedeff0433f05) |
 
 Merged not evaluated:
 
@@ -23,10 +25,13 @@ Merged not evaluated:
 
 Issues:
 
-| 2014-11 | [GitLab][] | []() |
-| 2014-11 | [GitLab][] | []() |
+| 2014-12 | [GitLab][] | []() |
+| 2014-12 | [GitLab][] | []() |
 
 Closed source:
+
+| 2014-11 | [GitBook][] | Bug | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access) |
+
 
 | 2014-11 | [GitHub][] | Feature   | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                                                           |
 

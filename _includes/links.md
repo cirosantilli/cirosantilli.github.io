@@ -11,6 +11,7 @@
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
 [gitlab ci]:                https://github.com/gitlabhq/gitlab-ci
 [gitlab cookbook]:          https://gitlab.com/gitlab-org/cookbook-gitlab
+[gitbook]:                  https://www.gitbook.com
 [github]:                   https://github.com
 [isaacs/github]:            https://github.com/isaacs/github
 [krusader]:                 http://www.krusader.org
