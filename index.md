@@ -23,7 +23,12 @@ Writings you may find interesting:
 - [Markdown Style Guide](markdown-style-guide)
 - [x86 Paging Tutorial](x86-paging)
 
-I also have several comprehensive cheatsheets listed at [my self evaluation section](self-evaluation).
+or if I may interest you in some Stack Overflow answers:
+
+- [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
+- [What is the difference between old style and new style classes in Python?](http://stackoverflow.com/a/19950198/895245)
+
+I also have several comprehensive cheatsheets listed at [my self evaluation section](self-evaluation), but those won't make for good casual reading unless you are a robot.
 
 ## Current occupation
 
