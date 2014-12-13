@@ -3,34 +3,30 @@ title: Professional Interests
 permalink: interests/
 ---
 
-I am interested in tools that help people **produce** and **use** both **textual learning material** and **code** efficiently.
+I am interested in:
 
-| Interest                           | Examples                                     |
-|------------------------------------|----------------------------------------------|
-| Version control and web interfaces | Git, Subversion, GitHub                      |
-| Author and content analytics       | Google PageRank, Stack Overflow gamification |
-| Lightweight markup languages       | Markdown, LaTeX                              |
-| Publishing and developer tools     | GitHub Pages, Vim, IDEs, CMSs, Wikipedia     |
+-   tools that help people produce and use both textual learning material and code efficiently:
 
-I **don't care** about money or fame: they are just tools to help me to:
+    | Interest                       | Examples                 |
+    |--------------------------------|--------------------------|
+    | Version control                | Git, GitHub              |
+    | Lightweight markup languages   | Markdown, LaTeX          |
+    | Publishing and developer tools | Text editors, IDEs, CMSs |
+
+    Applications that interest me include: B2B training, ECM, college education and academic publishing.
+
+-   low-level, performance critical applications: systems programming, network programming, HPC, scientific computing, compilers, databases...
+
+I can speak [a few languages](/self-evaluation#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+
+I prefer textual learning sources (e.g. Wikipedia) over videos (e.g. Kahn Academy), because they are: cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
+
+I like open source, but I will use whichever license achieves the goals better.
+
+I don't care about money or fame: they are just tools to help me to:
 
 - improve the world
 - provide for my loved ones
-
-I can speak [a few languages](/self-evaluation#natural-languages) but I **strongly** prefer to produce content (code, documentation, reports) in **English**, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
-
-I like open source and companies that use it, but if you do something I believe in, I will use **whichever** license or tool you use.
-
-I prefer **textual** learning sources (e.g. Wikipedia) to videos (e.g. Kahn Academy), because they are cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
-
-I **don't** like tools that:
-
-- offer information only at fixed time intervals
-- require users to do lots of small tasks before taking a knowledge test
-
-because people must learn and test themselves whenever they want.
-
-I am also generally interested in all low-level, performance critical applications such as: systems programming, network programming, HPC, scientific computing, compilers, databases...
 
 ## Why I am interested in those things
 

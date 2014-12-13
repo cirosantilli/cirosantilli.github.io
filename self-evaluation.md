@@ -14,7 +14,9 @@ Grading scale:
 | 1 - 2 | Have worked with it previously but either not much, or rusty.       |
 {: #grading-table}
 
-If your project does something that [I believe in](/interests), I will learn **whatever** it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
+If your project does something that [I interests me](/interests), I will learn whatever it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
+
+I write down almost everything I learn as it helps me learn better, find it later faster if I forget it, and may be useful to others.
 
 ## Languages
 
