@@ -1,5 +1,2 @@
-- on header hover, the link that appears increases the vertical size and does a small scroll. Stop that.
-- Home nav menu is misaligned with the others
-- Test on mobile.
-- Convert CSS to SCSS
-- Use HTML sectioning elements for sidebar, title and main content
+- Home nav menu is misaligned with the others.
+- Make work on small screens.
