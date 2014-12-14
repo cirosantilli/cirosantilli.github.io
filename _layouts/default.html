@@ -25,12 +25,6 @@ navigation:
       <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <!-- #toc -->
       <script src="{{ site.baseurl }}assets/jquery.toc.js"></script>
-      <script>
-        $("#toc").toc({
-          content: "div.content",
-          headings: "h1,h2,h3,h4,h5,h6"
-        });
-      </script>
       <link rel="stylesheet" href="{{ site.baseurl }}assets/fa.toc.css"/>
     <!-- #data table -->
       <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
@@ -61,25 +55,24 @@ navigation:
             alt="">{{ site.name }} <span class="tagline">Programming, Web Dev, Elearning</span>
       </div>
     </a>
-      <div class="container navbar-container">
-        <div class="navbar" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <ul class="nav navbar-nav">
-                <li {% if page.url == '/index.html' %}class="active"{% endif %}>
-                  <a class="navbar-brand" href="/">Home</a>
-                </li>
-              </ul>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                {% for link in page.navigation %}
-                <li {% if page.url == link.url %}class="active"{% endif %}>
-                  <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
+    <div class="container navbar-container">
+      <div class="navbar" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <ul class="nav navbar-nav">
+              <li {% if page.url == '/index.html' %}class="active"{% endif %}>
+                <a class="navbar-brand" href="/">Home</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              {% for link in page.navigation %}
+              <li {% if page.url == link.url %}class="active"{% endif %}>
+                <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
+              </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </div>
@@ -169,8 +162,10 @@ navigation:
           <a class="nav" href="http://stackoverflow.com/users/895245/cirosantilli"><i class="fa fa-stack-overflow fa-fw"></i>SO</a>
         </div>
       </div>
-      <h1 class="page-title">{{ page.title }}</h1>
-      {{ content }}
+      <main>
+        <h1 class="page-title">{{ page.title }}</h1>
+        {{ content }}
+      </main>
     </div>
     <!--disqus: http://USERNAME.disqus.com/admin/universalcode/-->
       {% if site.comments or page.comments %}

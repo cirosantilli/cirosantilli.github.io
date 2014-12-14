@@ -3,7 +3,7 @@ title: Self Evaluation
 permalink: self-evaluation/
 ---
 
-<ul data-toc></ul>
+{{ site.toc }}
 
 Grading scale:
 

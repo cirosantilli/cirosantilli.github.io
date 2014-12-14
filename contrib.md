@@ -3,7 +3,7 @@ title: Open Source Contributions
 permalink: contrib/
 ---
 
-<ul data-toc></ul>
+{{ site.toc }}
 
 ## Summary
 
