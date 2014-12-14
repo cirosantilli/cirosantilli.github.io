@@ -1,0 +1,291 @@
+---
+---
+
+$link_color: #28F;
+$link_hover_color: red;
+
+/* Parts */
+
+body {
+  background-color: #222;
+  margin: 0px;
+}
+
+a.nav {
+  font-weight: bold;
+  &:link,
+  &:hover,
+  &:visited {
+    text-decoration: none;
+  }
+  &:link,
+  &:visited {
+    color: $link_color;
+  }
+  &:hover {
+    color: $link_hover_color;
+  }
+}
+
+.navbar a {
+  font-weight: bold;
+  &:visited,
+  &:link {
+    color: $link_color;
+  }
+  &:hover {
+    color: $link_hover_color;
+  }
+}
+
+a.header {
+  background-color: #000;
+  border-bottom: 1px solid #000; /* Make color toggle users happy. https://addons.mozilla.org/en-US/firefox/addon/color-toggle/ */
+  display: block;
+  font-size: 45px;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  margin: 0px 0px 10px;
+  text-align: center;
+  &:link, a.header:visited {
+    color: $link_color;
+  }
+  &:hover {
+    color: $link_hover_color;
+  }
+  > div {
+    margin: 0px auto;
+    padding: 0px;
+    text-align: left;
+    width: 800px;
+  }
+  img {
+    height: 59px;
+    margin-right: 10px;
+    position: relative;
+    top: 0px;
+    vertical-align: top;
+    /* Also specify width in case loading lags. */
+    width: 59px;
+  }
+  .tagline {
+    font-size: 25px;
+  }
+}
+
+.navbar-container {
+  background-color: white;
+  border-radius: 3px;
+  height: 30px;
+  margin: 0px auto 10px;
+  width: 800px;
+  .navbar-brand {
+    height: 28px;
+    padding-bottom: 0px;
+  }
+  .navbar {
+    margin-bottom: 0px;
+    a {
+      padding: 5px 15px 0px;
+    }
+    .nav > li > a:hover {
+      background-color: white;
+    }
+
+    li.active > a {
+      color: $link_hover_color;
+    }
+    a.active:link,
+    a.active:visited {
+      color: $link_hover_color;
+    }
+  }
+}
+
+@mixin content {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 0px auto 10px;
+  max-width: 800px;
+  padding: 5px 15px 10px;
+  position: relative;
+}
+
+.content {
+  @include content;
+  h1, h2, h3, h4, h5, h6 {
+    border-bottom: 1px solid black;
+    padding-bottom: 2px;
+    margin-bottom: 16px;
+  }
+  p {
+    /* Otherwise paragraphs after *nested* lists are too close. TODO why? */
+    margin-top: 5px;
+  }
+  ul, ol {
+    /*list-style-position:inside;*/
+    margin-left: 14px;
+    padding-left: 14px;
+  }
+  a:visited {
+    color: purple;
+  }
+  /* Override the above */
+  .sidebar a:visited {
+    color: $link_color;
+  }
+  .sidebar a:hover {
+    color: $link_hover_color;
+  }
+  table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  table tr > :not(:last-child) {
+    white-space: nowrap;
+    width: 1px;
+  }
+  td, th {
+    border: 1px solid black;
+    padding: 2px 4px;
+  }
+  th {
+    font-weight: bold;
+  }
+  pre {
+    margin-left: 0px;
+    /*padding-left: 0px;*/
+  }
+  h1.page-title, .comments .title {
+    border-bottom: 1px solid black;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 5px;
+  }
+
+  ul[data-toc],
+  ol[data-toc],
+  ul.toc
+  {
+    font-weight: bold;
+    margin-left: 30px;
+    padding-left: 0px;
+  }
+}
+
+.comments {
+  @include content;
+}
+
+.sidebar {
+  float: right;
+  left: 100%;
+  margin: 0px 10px;
+  position: absolute;
+  top: 0%;
+  vertical-align: top;
+  width: 120px;
+  > div {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-bottom: 5px;
+  }
+  .title {
+    border-bottom: 1px solid black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .title, .nav {
+    padding-left: 10px;
+  }
+  .nav {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 5px;
+  }
+  .nav > :first-child {
+    font-size: 20px;
+    margin-right: 2px;
+    vertical-align: top;
+  }
+  i {
+    &.fa-code-fork {
+      color: black;
+    }
+    &.fa-exclamation-circle {
+      color: red;
+    }
+    &.fa-envelope-o {
+      color: black;
+    }
+    &.fa-github {
+      color: black;
+    }
+    &.fa-skype {
+      color: green;
+    }
+    &.fa-stack-overflow {
+      color: DarkOrange;
+    }
+    &.fa-twitter {
+      color: $link_color;
+    }
+  }
+}
+
+/*#disqus*/
+/*div#disqus_thread {*/
+  /*border-top: 1px solid black;*/
+  /*padding-top: 20px;*/
+/*}*/
+
+#sharethis {
+  height: 84px;
+  margin-top: 7px;
+  padding-right: 5px;
+  text-align: right;
+  > div:not(:last-child) {
+    margin: 0px 0px 5px;
+  }
+  /* Breaks with bootstrap without this: http://stackoverflow.com/questions/18165901/twitters-bootstrap-3-with-sharethis-widget*/
+  span {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+}
+
+/* Section */
+
+.patches-table tr {
+  > :nth-child(1),
+  > :nth-child(3) {
+    text-align: center;
+  }
+}
+#bugs-table tr > :nth-child(1) {
+  text-align: center;
+}
+#grading-table tr > :nth-child(1) {
+  font-weight: bold;
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+#languages-table tr > :nth-child(1) {
+  text-align: center;
+}
+#other-tech-table tr > :nth-child(1) {
+  text-align: center;
+}
+#natural-languages-table tr > :nth-child(1) {
+  text-align: center;
+}

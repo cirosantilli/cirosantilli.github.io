@@ -4,25 +4,27 @@ title: "Home"
 
 ![me]({{ site.baseurl }}assets/me.jpg){: style="height:200px; float:right; border:1px solid black; border-radius:2px;"}
 
-- [PDF CV]({{ site.files_path }}cv.pdf)
-- [Education: École Polytechnique and University of São Paulo](education)
-- [Self evaluation of what I know, with links to code and tutorials](self-evaluation)
-- [Open source contributions](contrib)
-- [Professional interests](interests)
+- [**PDF CV**]({{ site.files_path }}cv.pdf)
+- [**Education**](education): École Polytechnique and University of São Paulo
+- [**Self evaluation**](self-evaluation) of what I know, with links to code and tutorials
+- [**Open source**](contrib) contributions and projects
+- [**Professional interests**](interests)
 
-**Email**: [{{ site.email }}](mailto:{{ site.email }})  
-**Skype**: [{{ site.skype }}](skype:{{ site.skype }})
+Quick facts:
+
+- **Job status**: not actively looking, but open to new contacts.
+- **Residence**: Paris, France
+- **Email**: [{{ site.email }}](mailto:{{ site.email }})
+- **Skype**: [{{ site.skype }}](skype:{{ site.skype }})
 
 ## Writings
-
-Writings you may find interesting:
 
 - [Markdown Style Guide](markdown-style-guide)
 - [x86 Paging Tutorial](x86-paging)
 
 [Selected Stack Overflow answers](/contrib#stack-overflow).
 
-[Comprehensive cheatsheets](self-evaluation) on my self evaluation section. But those won't make for good casual reading unless you are a robot.
+[Comprehensive cheatsheets](self-evaluation). But those won't make for good casual reading unless you are a robot.
 
 ## Current occupation
 
@@ -36,7 +38,5 @@ I will pursue this or other projects [**that interest me**](/interests) by:
     - work for any wage that allows me to survive
 
 -   creating my own company if none is up to it
-
-I am currently Paris based.
 
 {% include links.md %}

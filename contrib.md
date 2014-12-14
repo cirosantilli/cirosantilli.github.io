@@ -7,21 +7,32 @@ permalink: contrib/
 
 ## Summary
 
--   [GitLab][]: very important to me because of [Booktree][].
-    Implemented some large features that are important, and several minor fixes.
+-   [GitLab][]: very important to me because I want to base [Booktree][] on it.
 
-    Merged patches there can be considered as professional work, since they are
-    reviewed by an startup in which it is the primary project.
+    I have implemented some large features and several smaller improvements.
 
--   [Markdown Test Suite][]: I have implemented the test runner.
-    We need *one* Markdown standard for interoperability.
+    I consider merged patches there as professional work,
+    since it is the primary product of a profitable startup.
 
--   [Vim Markdown][]: I sometimes contribute with features that I really need,
-    and help on issues. A good language needs a good editor.
+-   [Vim Markdown][]: The owner `plasticboy` was really nice
+    and made me a collaborator for my contributions.
+
+    I have started the automated test suite of the project,
+    and coded major features like the `Toc` outline and the header mappings.
+
+    I check it from time to time, and make patches when I really need something.
+
+    A good language needs a good editor.
+
+-   [Markdown Test Suite][]: I have implemented the test runner
+    a few months before CommonMark left stealth mode...
+    but some of it could still be reused.
 
 ## Stack Overflow
 
 I like to answer important questions, for which none of the answers satisfied me, and close duplicates.
+
+I don't like to refresh the homepage looking for easy rep :)
 
 [Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge.
 
@@ -32,6 +43,7 @@ Selected answers:
 - [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
 - [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
 - [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
+- [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
 
 Python:
 
@@ -43,13 +55,7 @@ Web:
 - [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
 - [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
 
-Rails:
-
-- [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
-- [Bundler: What does :require => false in a Gemfile mean?](http://stackoverflow.com/a/21045964/895245)
-- [Passing ruby variables to javascript function in rails view](http://stackoverflow.com/a/24456817/895245)
-
-Those answers contain hard to find information, which I produced through lots of synthesis and experimentation effort. They are not necessarily my most upvoted ones.
+Those answers contain hard to find information, which I produced through a lot of synthesis and experimentation effort. They are not necessarily the most upvoted ones.
 
 ## Size scale
 

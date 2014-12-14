@@ -16,9 +16,9 @@ Grading scale:
 
 If your project does something that [I interests me](/interests), I will learn whatever it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
 
-I write down almost everything I learn as it helps me learn better, find it later faster if I forget it, and may be useful to others.
+I write down almost everything I learn as it helps me learn better, find it later faster if I forget it, and may be useful to others. The sections bellow contain links to those write-ups.
 
-## Languages
+## Programming languages
 
 | Grade | Name                  | Notes                                                                                                                                                                                                                                 |
 |-------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
