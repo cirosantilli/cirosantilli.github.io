@@ -4,12 +4,14 @@ navigation:
   url: /files/cv.pdf
 - text: Education
   url: /education/
-- text: Self Evalutaion
-  url: /self-evaluation/
+- text: Skills
+  url: /skills/
 - text: Open Source
   url: /contrib/
 - text: Interests
   url: /interests/
+- text: Articles
+  url: /articles/
 ---
 
 <!DOCTYPE html>
@@ -21,11 +23,8 @@ navigation:
     <!-- #jquery. Must come *before* all its many dependencies. -->
       <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- #bootstrap -->
-      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
-      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <!-- #toc -->
-      <script src="{{ site.baseurl }}assets/jquery.toc.js"></script>
-      <link rel="stylesheet" href="{{ site.baseurl }}assets/fa.toc.css"/>
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <!-- #data table -->
       <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
       <style>
@@ -40,7 +39,8 @@ navigation:
       </style>
     <!-- #font awesome font icons -->
       <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
-    <!-- # Custom styles. Come at end to override libraries. -->
+    <!-- Custom styles and scripts. Come at end to use and override libraries. -->
+      <script src="{{ site.baseurl }}assets/main.js"></script>
       <link rel="stylesheet" href="{{ site.baseurl }}assets/main.css"/>
       <link rel="stylesheet" href="{{ site.baseurl }}assets/syntax.css"/>
     <!-- #sharethis -->
@@ -50,40 +50,35 @@ navigation:
   </head>
   <body>
     <header>
-      <a href="{{ site.baseurl }}" class="header nav">
-        <div>
-          <img src="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png"
-              alt="">{{ site.name }} <span class="tagline">Programming, Web Dev, Elearning</span>
-        </div>
-      </a>
-      <nav>
-        <div class="container navbar-container">
-          <div class="navbar" role="navigation">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <ul class="nav navbar-nav">
-                  <li {% if page.url == '/index.html' %}class="active"{% endif %}>
-                    <a class="navbar-brand" href="/">Home</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                  {% for link in page.navigation %}
-                  <li {% if page.url == link.url %}class="active"{% endif %}>
-                    <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header {% if page.url == '/index.html' %}active{% endif %}">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">{{ site.name }}</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+              {% for link in page.navigation %}
+              <li {% if page.url == link.url %}class="active"{% endif %}>
+                <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
+              </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </nav>
     </header>
-    <div class="content">
-      <aside>
-        <div class="sidebar">
+    <div class="article-and-sidebar">
+      <div class="content">
+        <aside>
+          <div>
+            <img style="width:100%;" src="{{ site.baseurl }}assets/me.jpg" alt="">
+          </div>
           <div>
             <div class="title">Share</div>
             <div id="sharethis">
@@ -166,66 +161,67 @@ navigation:
             <a class="nav" href="{{ site.github }}"><i class="fa fa-github fa-fw"></i>GitHub</a>
             <a class="nav" href="http://stackoverflow.com/users/895245/cirosantilli"><i class="fa fa-stack-overflow fa-fw"></i>SO</a>
           </div>
-        </div>
-      </aside>
-      <main>
-        <h1 class="page-title">{{ page.title }}</h1>
-        {{ content }}
-      </main>
+        </aside>
+        <main>
+          <h1 class="page-title">{{ page.title }}</h1>
+          {{ content }}
+        </main>
+      </div>
+      <!--disqus: http://USERNAME.disqus.com/admin/universalcode/-->
+        {% if site.comments or page.comments %}
+          <div class="comments">
+            <div class="title">Comments</div>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'cirosantilli'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+        {% endif %}
     </div>
-    <!--disqus: http://USERNAME.disqus.com/admin/universalcode/-->
-      {% if site.comments or page.comments %}
-        <div class="comments">
-          <div class="title">Comments</div>
-          <div id="disqus_thread"></div>
-          <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'cirosantilli'; // required: replace example with your forum shortname
+    <!-- Scripts -->
+      <!--data table-->
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ></script>
+        <script>
+          $('.data-table').dataTable({
+            //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
+            "aaSorting": [],
+            "bFilter": false,
+            "bInfo": false,
+            "bPaginate": false
+          });
+        </script>
+      <!--mathjax-->
+        <script
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+        ></script>
+        <script>
+          MathJax.Hub.Config({
+              jax: ["input/TeX","output/HTML-CSS"],
+              displayAlign: "left",
+              displayIndent: "20px"
+          });
+        </script>
+      <!--google analytics-->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-      {% endif %}
-    <!--data table-->
-      <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ></script>
-      <script>
-        $('.data-table').dataTable({
-          //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
-          "aaSorting": [],
-          "bFilter": false,
-          "bInfo": false,
-          "bPaginate": false
-        });
-      </script>
-    <!--mathjax-->
-      <script
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-      ></script>
-      <script>
-        MathJax.Hub.Config({
-            jax: ["input/TeX","output/HTML-CSS"],
-            displayAlign: "left",
-            displayIndent: "20px"
-        });
-      </script>
-    <!--google analytics-->
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-47867706-1', 'auto');
+          ga('require', 'displayfeatures');
+          ga('send', 'pageview');
 
-        ga('create', 'UA-47867706-1', 'auto');
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
-
-      </script>
+        </script>
   </body>
 </html>

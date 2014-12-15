@@ -3,110 +3,25 @@
 
 body {
 
+  $border: 1px solid black;
+  $content_width: 800px;
+  $content_separator_width: 5px;
+  $sidebar_width: 120px;
+    $content_and_sidebar_width: $content_width + $content_separator_width + $sidebar_width;
+  $content_background_color: white;
   $link_color: #28F;
   $link_hover_color: red;
-
-  background-color: #222;
-  margin: 0px;
-
-  a.nav {
-    font-weight: bold;
-    &:link,
-    &:hover,
-    &:visited {
-      text-decoration: none;
-    }
-    &:link,
-    &:visited {
-      color: $link_color;
-    }
-    &:hover {
-      color: $link_hover_color;
-    }
-  }
-
-  .navbar a {
-    font-weight: bold;
-    &:visited,
-    &:link {
-      color: $link_color;
-    }
-    &:hover {
-      color: $link_hover_color;
-    }
-  }
-
-  a.header {
-    background-color: #000;
-    border-bottom: 1px solid #000; /* Make color toggle users happy. https://addons.mozilla.org/en-US/firefox/addon/color-toggle/ */
-    display: block;
-    font-size: 45px;
-    font-weight: bold;
-    height: 60px;
-    line-height: 60px;
-    margin: 0px 0px 10px;
-    text-align: center;
-    &:link, a.header:visited {
-      color: $link_color;
-    }
-    &:hover {
-      color: $link_hover_color;
-    }
-    > div {
-      margin: 0px auto;
-      padding: 0px;
-      text-align: left;
-      width: 800px;
-    }
-    img {
-      height: 59px;
-      margin-right: 10px;
-      position: relative;
-      top: 0px;
-      vertical-align: top;
-      /* Also specify width in case loading lags. */
-      width: 59px;
-    }
-    .tagline {
-      font-size: 25px;
-    }
-  }
-
-  .navbar-container {
-    background-color: white;
-    border-radius: 3px;
-    height: 30px;
-    margin: 0px auto 10px;
-    width: 800px;
-    .navbar-brand {
-      height: 28px;
-      padding-bottom: 0px;
-    }
-    .navbar {
-      margin-bottom: 0px;
-      a {
-        padding: 5px 15px 0px;
-      }
-      .nav > li > a:hover {
-        background-color: white;
-      }
-
-      li.active > a {
-        color: $link_hover_color;
-      }
-      a.active:link,
-      a.active:visited {
-        color: $link_hover_color;
-      }
-    }
-  }
+  $mobile_width: 500px;
 
   @mixin content {
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 3px;
-    margin: 0px auto 10px;
-    max-width: 800px;
+    background-color: $content_background_color;
+    border: $border;
+    @media (max-width: $content_width) {
+      border-left-width: 0;
+      border-right-width: 0;
+    }
+    margin: 0 0 $content_separator_width;
+    max-width: $content_width;
     padding: 5px 15px 10px;
     position: relative;
   }
@@ -114,161 +29,235 @@ body {
   @mixin content_h1 {
     font-size: 3em;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     margin-top: 5px;
   }
 
-  .content {
-    @include content;
-    h1, h2, h3, h4, h5, h6 {
-      padding-bottom: 0.15em;
-      margin-bottom: 0.5em;
+  @mixin media_medium_content_width {
+    @media (max-width: $content_and_sidebar_width) {
+      max-width: $content_width;
     }
-    h2, h3, h4, h5, h6 {
-      border-bottom: 1px solid black;
-      .header-link {
-        opacity: 0;
+  }
+
+  background-color: #252525;
+  margin: 0px;
+  overflow-wrap: break-word;
+
+  nav.navbar {
+    background-color: black;
+    border-width: 0;
+    margin: 0;
+    font-size: 1.3em;
+    a.navbar-brand {
+      font-size: 1.3em;
+    }
+    div.container-fluid {
+      @include media_medium_content_width;
+      margin: 0px auto;
+      max-width: $content_and_sidebar_width;
+      padding: 0px 15px;
+      text-align: left;
+      ul.nav a,
+      a.navbar-brand{
+        color: $link_color;
+        &:hover {
+          background-color: gray;
+          color: black;
+        }
+      }
+      ul.nav li.active a {
+        background-color: gray;
+        color: black;
+      }
+      a.navbar-brand{
+        font-weight: bold;
+      }
+    }
+  }
+
+  .article-and-sidebar {
+    margin: 0 auto;
+    max-width: $content_and_sidebar_width;
+    @include media_medium_content_width;
+    .content {
+      @include content;
+      a:visited {
+        color: purple;
+      }
+      blockquote {
+        font-size: 1.2em;
+      }
+      code {
+        color: black;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        padding-bottom: 0.15em;
+        margin-bottom: 0.25em 0;
+      }
+      h2, h3, h4, h5, h6 {
+        border-bottom: $border;
+        /*
+        To prevent an empty line on headings. This is too likely to happen on small screens,
+        and the user usually does not have a mouse to hover in that case.
+        */
+        @media (max-width: $mobile_width) {
+          .header-link {
+            display: none;
+          }
+        }
+        .header-link {
+          opacity: 0;
+          font-size: 0.8em;
+        }
+        &:hover .header-link {
+          opacity: 1;
+        }
+      }
+      h1 {
+        @include content_h1;
+      }
+      h2 {
+        font-size: 2.8em;
+      }
+      h3 {
+        font-size: 2.0em;
+      }
+      h4 {
+        font-size: 1.4em;
+      }
+      h5 {
+        font-size: 1em;
+      }
+      h6 {
         font-size: 0.8em;
       }
-      &:hover .header-link {
-        opacity: 1;
+      p {
+        /* Otherwise paragraphs after *nested* lists are too close. TODO why? */
+        margin-top: 5px;
       }
-    }
-    h1 {
-      @include content_h1;
-    }
-    h2 {
-      font-size: 3.0em;
-    }
-    h3 {
-      font-size: 2.2em;
-    }
-    h4 {
-      font-size: 1.6em;
-    }
-    h5 {
-      font-size: 1.2em;
-    }
-    h6 {
-      font-size: 1em;
-    }
-    p {
-      /* Otherwise paragraphs after *nested* lists are too close. TODO why? */
-      margin-top: 5px;
-    }
-    ul, ol {
-      /*list-style-position:inside;*/
-      margin-left: 14px;
-      padding-left: 14px;
-    }
-    a:visited {
-      color: purple;
-    }
-    /* Override the above */
-    .sidebar a:visited {
-      color: $link_color;
-    }
-    .sidebar a:hover {
-      color: $link_hover_color;
-    }
-    table {
-      border-collapse: collapse;
-      border: 1px solid black;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    table tr > :not(:last-child) {
-      white-space: nowrap;
-      width: 1px;
-    }
-    td, th {
-      border: 1px solid black;
-      padding: 2px 4px;
-    }
-    th {
-      font-weight: bold;
-    }
-    pre {
-      margin-left: 0px;
-      /*padding-left: 0px;*/
-    }
+      ul, ol {
+        /*list-style-position:inside;*/
+        margin-left: 14px;
+        padding-left: 14px;
+      }
+      table {
+        border-collapse: collapse;
+        border: $border;
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      table tr > :not(:last-child) {
+        white-space: nowrap;
+        width: 1px;
+      }
+      td, th {
+        border: $border;
+        padding: 2px 4px;
+      }
+      th {
+        font-weight: bold;
+      }
+      pre {
+        margin-left: 0px;
+        white-space: pre;
+      }
 
-    #markdown-toc {
-      font-weight: bold;
-      margin-left: 30px;
-      padding-left: 0px;
+      #markdown-toc {
+        font-weight: bold;
+        margin-left: 30px;
+        padding-left: 0px;
+      }
+
+      aside {
+        background-color: $content_background_color;
+        border-left: $border;
+        border-right: $border;
+        border-bottom: $border;
+        float: right;
+        left: 100%;
+        margin: 0px $content_separator_width;
+        position: absolute;
+        top: 0%;
+        vertical-align: top;
+        width: $sidebar_width;
+        > div:not(:last-child) {
+          border-bottom: $border;
+        }
+        .title {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+        .title, .nav {
+          padding-left: 10px;
+        }
+        .nav {
+          display: block;
+          font-weight: bold;
+          text-align: left;
+          padding-bottom: 5px;
+        }
+        .nav > :first-child {
+          font-size: 20px;
+          margin-right: 2px;
+          vertical-align: top;
+        }
+        a.nav {
+          font-weight: bold;
+          &:link,
+          &:hover,
+          &:visited {
+            text-decoration: none;
+          }
+          &:link,
+          &:visited {
+            color: $link_color;
+          }
+          &:hover {
+            color: $link_hover_color;
+          }
+          i {
+            &.fa-code-fork {
+              color: black;
+            }
+            &.fa-exclamation-circle {
+              color: red;
+            }
+            &.fa-envelope-o {
+              color: black;
+            }
+            &.fa-github {
+              color: black;
+            }
+            &.fa-skype {
+              color: green;
+            }
+            &.fa-stack-overflow {
+              color: DarkOrange;
+            }
+            &.fa-twitter {
+              color: $link_color;
+            }
+          }
+        }
+        @media (max-width: $content_and_sidebar_width) {
+          display: none;
+        }
+      }
     }
   }
 
   .comments {
     @include content;
+    margin-bottom: 0px;
     .title {
       @include content_h1;
     }
   }
 
-  .sidebar {
-    float: right;
-    left: 100%;
-    margin: 0px 10px;
-    position: absolute;
-    top: 0%;
-    vertical-align: top;
-    width: 120px;
-    > div {
-      background-color: white;
-      border: 1px solid black;
-      border-radius: 3px;
-      margin-bottom: 5px;
-    }
-    .title {
-      border-bottom: 1px solid black;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .title, .nav {
-      padding-left: 10px;
-    }
-    .nav {
-      display: block;
-      font-weight: bold;
-      text-align: left;
-      padding-bottom: 5px;
-    }
-    .nav > :first-child {
-      font-size: 20px;
-      margin-right: 2px;
-      vertical-align: top;
-    }
-    i {
-      &.fa-code-fork {
-        color: black;
-      }
-      &.fa-exclamation-circle {
-        color: red;
-      }
-      &.fa-envelope-o {
-        color: black;
-      }
-      &.fa-github {
-        color: black;
-      }
-      &.fa-skype {
-        color: green;
-      }
-      &.fa-stack-overflow {
-        color: DarkOrange;
-      }
-      &.fa-twitter {
-        color: $link_color;
-      }
-    }
-  }
-
   /*#disqus*/
   /*div#disqus_thread {*/
-    /*border-top: 1px solid black;*/
+    /*border-top: $border;*/
     /*padding-top: 20px;*/
   /*}*/
 

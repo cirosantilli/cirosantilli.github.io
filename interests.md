@@ -17,16 +17,11 @@ I am interested in:
 
 -   low-level, performance critical applications: systems programming, network programming, HPC, scientific computing, compilers, databases...
 
-I can speak [a few languages](/self-evaluation#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
+I can speak [a few languages](/skills#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
 
 I prefer textual learning sources (e.g. Wikipedia) over videos (e.g. Kahn Academy), because they are: cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
 I like open source, but I will use whichever license achieves the goals better.
-
-I don't care about money or fame: they are just tools to help me to:
-
-- improve the world
-- provide for my loved ones
 
 ## Why I am interested in those things
 

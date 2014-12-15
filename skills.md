@@ -1,6 +1,8 @@
 ---
-title: Self Evaluation
-permalink: self-evaluation/
+title: Skills
+permalink: skills/
+redirect_from:
+  - /self-evaluation/
 ---
 
 {{ site.toc }}

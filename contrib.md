@@ -11,51 +11,17 @@ permalink: contrib/
 
     I have implemented some large features and several smaller improvements.
 
-    I consider merged patches there as professional work,
-    since it is the primary product of a profitable startup.
+    I consider merged patches there as professional work, since it is the primary product of a profitable startup.
 
--   [Vim Markdown][]: The owner `plasticboy` was really nice
-    and made me a collaborator for my contributions.
+-   [Vim Markdown][]: The owner `plasticboy` was really nice and made me a collaborator for my contributions.
 
-    I have started the automated test suite of the project,
-    and coded major features like the `Toc` outline and the header mappings.
+    I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
 
     I check it from time to time, and make patches when I really need something.
 
     A good language needs a good editor.
 
--   [Markdown Test Suite][]: I have implemented the test runner
-    a few months before CommonMark left stealth mode...
-    but some of it could still be reused.
-
-## Stack Overflow
-
-I like to answer important questions, for which none of the answers satisfied me, and close duplicates.
-
-I don't like to refresh the homepage looking for easy rep :)
-
-[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge.
-
-[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
-
-Selected answers:
-
-- [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
-- [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
-- [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
-- [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
-
-Python:
-
-- [What is the difference between old style and new style classes in Python?](http://stackoverflow.com/a/19950198/895245)
-- [What is a mixin [in Python], and why are they useful?](http://stackoverflow.com/a/20022860/895245)
-
-Web:
-
-- [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
-- [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
-
-Those answers contain hard to find information, which I produced through a lot of synthesis and experimentation effort. They are not necessarily the most upvoted ones.
+-   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode... but some of it could still be reused.
 
 ## Size scale
 
@@ -79,7 +45,7 @@ Only patches which were reviewed by at least one person with push permission wil
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
 | 2014-11 | [vim-snippets][]          | 1    | [Markdown bold and italic](https://github.com/honza/vim-snippets/pull/488)                                                          |
 | 2014-11 | [vim-snippets][]          | 1    | [Markdown links URLs from the clipboard](https://github.com/honza/vim-snippets/pull/484)                                            |
-| 2014-11 | [vim-snippets][]          | 1    | [Markdown autolinks <url>](https://github.com/honza/vim-snippets/pull/483)                                                          |
+| 2014-11 | [vim-snippets][]          | 1    | [Markdown autolinks](https://github.com/honza/vim-snippets/pull/483)                                                          |
 | 2014-11 | [vim-snippets][]          | 1    | [Let the short version of links not have title.](https://github.com/honza/vim-snippets/pull/486)                                    |
 | 2014-11 | [vim-snippets][]          | 1    | [Fix markdown fenced code blocks.](https://github.com/honza/vim-snippets/pull/487)                                                  |
 | 2014-11 | [GitLab][]                | 1    | [Delete tags and branches that start with hyphen](https://github.com/gitlabhq/gitlab-shell/pull/193)                                |
@@ -344,8 +310,7 @@ Only patches which were reviewed by at least one person with push permission wil
 
 ## Merged by me
 
-Patches which were merged by myself on repositories which I feel have large public visibility,
-e.g. those to which I have been given push permission.
+Patches which were merged by myself on repositories which I feel have large public visibility, e.g. those to which I have been given push permission.
 
 | Date    | Project          | Size | Description                                                                                                                              |
 |---------|------------------|------|------------------------------------------------------------------------------------------------------------------------------------------|
