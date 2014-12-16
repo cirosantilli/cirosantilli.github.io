@@ -17,7 +17,7 @@ permalink: contrib/
 
     I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
 
-    I check it from time to time, and make patches when I really need something.
+    I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
 
     A good language needs a good editor.
 

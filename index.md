@@ -1,5 +1,7 @@
 ---
 title: Ciro Santilli
+meta_title: false
+description: Software engineer. Passion for infrastructure technologies and educational applications.
 ---
 
 - [**PDF CV**]({{ site.files_path }}cv.pdf)
@@ -14,7 +16,6 @@ Quick facts:
 - **Job status**: not actively looking, but open to new contacts.
 - **Residence**: Paris, France
 - **Email**: [{{ site.email }}](mailto:{{ site.email }})
-- **Skype**: [{{ site.skype }}](skype:{{ site.skype }})
 
 ## Current occupation
 

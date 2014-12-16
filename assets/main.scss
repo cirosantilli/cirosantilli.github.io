@@ -6,7 +6,7 @@ body {
   $border: 1px solid black;
   $content_width: 800px;
   $content_separator_width: 5px;
-  $sidebar_width: 120px;
+  $sidebar_width: 160px;
     $content_and_sidebar_width: $content_width + $content_separator_width + $sidebar_width;
   $content_background_color: white;
   $link_color: #28F;
@@ -29,7 +29,7 @@ body {
   @mixin content_h1 {
     font-size: 3em;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     margin-top: 5px;
   }
 
@@ -46,8 +46,9 @@ body {
   nav.navbar {
     background-color: black;
     border-width: 0;
-    margin: 0;
     font-size: 1.3em;
+    margin: 0;
+    border-radius: 0;
     a.navbar-brand {
       font-size: 1.3em;
     }
@@ -57,9 +58,25 @@ body {
       max-width: $content_and_sidebar_width;
       padding: 0px 15px;
       text-align: left;
-      ul.nav a,
-      a.navbar-brand{
+      .navbar-toggle {
+        border-color: $link_color;
+        .icon-bar {
+          background-color: $link_color;
+        }
+        &:hover {
+        border-color: $link_color;
+          background-color: gray;
+          border-color: black;
+          .icon-bar {
+            background-color: black;
+          }
+        }
+      }
+      ul.nav a {
         color: $link_color;
+      }
+      ul.nav a,
+      a.navbar-brand {
         &:hover {
           background-color: gray;
           color: black;
@@ -70,6 +87,7 @@ body {
         color: black;
       }
       a.navbar-brand{
+        color: #AAA;
         font-weight: bold;
       }
     }
@@ -81,6 +99,9 @@ body {
     @include media_medium_content_width;
     .content {
       @include content;
+      a:link {
+        color: $link_color;
+      }
       a:visited {
         color: purple;
       }
@@ -91,11 +112,11 @@ body {
         color: black;
       }
       h1, h2, h3, h4, h5, h6 {
-        padding-bottom: 0.15em;
+        border-bottom: $border;
         margin-bottom: 0.25em 0;
+        padding-bottom: 0.15em;
       }
       h2, h3, h4, h5, h6 {
-        border-bottom: $border;
         /*
         To prevent an empty line on headings. This is too likely to happen on small screens,
         and the user usually does not have a mouse to hover in that case.
@@ -183,19 +204,11 @@ body {
         > div:not(:last-child) {
           border-bottom: $border;
         }
-        .title {
-          font-size: 20px;
-          font-weight: bold;
-          margin-bottom: 5px;
-        }
-        .title, .nav {
-          padding-left: 10px;
-        }
         .nav {
           display: block;
           font-weight: bold;
           text-align: left;
-          padding-bottom: 5px;
+          padding: 5px 0 5px 10px;
         }
         .nav > :first-child {
           font-size: 20px;
@@ -205,16 +218,8 @@ body {
         a.nav {
           font-weight: bold;
           &:link,
-          &:hover,
-          &:visited {
-            text-decoration: none;
-          }
-          &:link,
           &:visited {
             color: $link_color;
-          }
-          &:hover {
-            color: $link_hover_color;
           }
           i {
             &.fa-code-fork {
@@ -249,25 +254,21 @@ body {
 
   .comments {
     @include content;
+    border-bottom: none;
     margin-bottom: 0px;
     .title {
       @include content_h1;
     }
   }
 
-  /*#disqus*/
-  /*div#disqus_thread {*/
-    /*border-top: $border;*/
-    /*padding-top: 20px;*/
-  /*}*/
-
   #sharethis {
-    height: 84px;
-    margin-top: 7px;
-    padding-right: 5px;
-    text-align: right;
-    > div:not(:last-child) {
-      margin: 0px 0px 5px;
+    margin-bottom: 1em;
+    & > {
+      div, iframe {
+        height: 25px;
+        display: inline-block;
+        vertical-align: top;
+      }
     }
     /* Breaks with bootstrap without this: http://stackoverflow.com/questions/18165901/twitters-bootstrap-3-with-sharethis-widget*/
     span {

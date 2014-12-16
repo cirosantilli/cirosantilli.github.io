@@ -30,6 +30,9 @@ Issues:
 
 Closed source:
 
+| 2014-12 | [My Science Work][] | 0 | Typos on settings page |
+
+
 | 2014-11 | [GitBook][] | Bug | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access) |
 
 

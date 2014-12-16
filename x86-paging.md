@@ -1,6 +1,8 @@
 ---
 title: x86 Paging Tutorial
 permalink: x86-paging/
+description: With simple examples and applications.
+social_media: true
 ---
 
 Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/895245).

@@ -18,7 +18,15 @@ navigation:
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ page.title }} - {{site.name}}</title>
+    <title>
+      {% if page.meta_title %}
+        {{ page.title }} -
+      {% endif %}
+      {{ site.name }}
+    </title>
+    {% if page.description %}
+      <meta name="description" content="{{ page.description }}">
+    {% endif %}
     <link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
     <!-- #jquery. Must come *before* all its many dependencies. -->
       <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -43,10 +51,6 @@ navigation:
       <script src="{{ site.baseurl }}assets/main.js"></script>
       <link rel="stylesheet" href="{{ site.baseurl }}assets/main.css"/>
       <link rel="stylesheet" href="{{ site.baseurl }}assets/syntax.css"/>
-    <!-- #sharethis -->
-      <!--<style>-->
-        <!--.stButton_gradient { height: 20px; }-->
-      <!--</style>-->
   </head>
   <body>
     <header>
@@ -77,23 +81,11 @@ navigation:
       <div class="content">
         <aside>
           <div>
-            <img style="width:100%;" src="{{ site.baseurl }}assets/me.jpg" alt="">
+            <a href="/">
+              <img style="width:100%;" src="{{ site.baseurl }}assets/me.jpg" alt="">
+            </a>
           </div>
           <div>
-            <div class="title">Share</div>
-            <div id="sharethis">
-              <!--Github star count: https://github.com/mdo/github-buttons-->
-                <!--<iframe src="http://ghbtns.com/github-btn.html?user=cirosantilli&amp;repo=cirosantilli.github.io&amp;type=watch&amp;count=true"-->
-                <!--style="background-color:transparent; border:none;" width="110" height="20"></iframe>-->
-              <!-- #ShareThis share -->
-                <!-- #INVALID HTML5: https://getsatisfaction.com/sharethis/topics/attribute_displaytext_is_not_valid_xhtml -->
-                <div class='st_googleplus_hcount' displayText='Google +'></div>
-                <div class='st_twitter_hcount' displayText='Tweet'></div>
-                <div class='st_facebook_hcount' displayText='Facebook'></div>
-                <!--<span class='st_linkedin_hcount' displayText='LinkedIn'></span>-->
-                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-                <script type="text/javascript">stLight.options({publisher: "b6a81f16-5bb1-46de-83c8-6b4c3e94ec99", doNotHash:false, doNotCopy:true, hashAddressBar:false});</script>
-            </div>
               <!-- #AddThis share -->
                 <!-- #AddThis share -->
                   <!--<div class="addthis_toolbox addthis_default_style addthis_32x32_style">-->
@@ -124,7 +116,12 @@ navigation:
                   <!--<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52fa75284b95ab82"></script>-->
           </div>
           <div>
-            <div class="title">Contribute</div>
+            <a class="nav" href="mailto:{{ site.email }}"><i class="fa fa-envelope-o fa-fw"></i>Email</a>
+            <a class="nav" href="https://twitter.com/cirosantilli"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
+            <a class="nav" href="{{ site.github }}"><i class="fa fa-github fa-fw"></i>GitHub</a>
+            <a class="nav" href="http://stackoverflow.com/users/895245/cirosantilli"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
+          </div>
+          <div>
             {% assign repo = page.url | split:'/' %}
             {% assign size = repo | size %}
             {% if size < 3 %}
@@ -133,10 +130,7 @@ navigation:
               {% assign repo = repo[1] %}
             {% endif %}
             <a class="nav" href="{{ site.github }}/{{ repo }}/issues/new?title={{ page.title | cgi_escape }}%20-%20">
-              <i class="fa fa-exclamation-circle fa-fw"></i>Issue
-            </a>
-            <a class="nav" href="{{ site.github }}/{{ repo }}">
-              <i class="fa fa-code-fork fa-fw"></i>Fork me
+              <i class="fa fa-exclamation-circle fa-fw"></i>Report Issue
             </a>
             <!--
               Same as GitHub, but has formatting problems.
@@ -150,20 +144,23 @@ navigation:
                 <!--</span>Issue-->
               <!--</a>-->
           </div>
-          <div>
-            <div class="title">Contact</div>
-            <a class="nav" href="mailto:{{ site.email }}"><i class="fa fa-envelope-o fa-fw"></i>Email</a>
-            <a class="nav" href="skype:{{ site.skype }}"><i class="fa fa-skype fa-fw"></i>Skype</a>
-            <a class="nav" href="https://twitter.com/cirosantilli"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
-          </div>
-          <div>
-            <div class="title">Accounts</div>
-            <a class="nav" href="{{ site.github }}"><i class="fa fa-github fa-fw"></i>GitHub</a>
-            <a class="nav" href="http://stackoverflow.com/users/895245/cirosantilli"><i class="fa fa-stack-overflow fa-fw"></i>SO</a>
-          </div>
         </aside>
         <main>
           <h1 class="page-title">{{ page.title }}</h1>
+          {% if page.social_media %}
+          <div id="sharethis">
+            <!-- #ShareThis share -->
+              <!-- #INVALID HTML5: https://getsatisfaction.com/sharethis/topics/attribute_displaytext_is_not_valid_xhtml -->
+              <div class='st_twitter_hcount' displayText='Tweet'></div>
+              <div class='st_facebook_hcount' displayText='Facebook'></div>
+              <div class='st_googleplus_hcount' displayText='Google +'></div>
+              <div class='st_linkedin_hcount' displayText='LinkedIn'></div>
+              <!--<span class='st_linkedin_hcount' displayText='LinkedIn'></span>-->
+              <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+              <script type="text/javascript">stLight.options({publisher: "b6a81f16-5bb1-46de-83c8-6b4c3e94ec99", doNotHash:false, doNotCopy:true, hashAddressBar:false});</script>
+          </div>
+          {% endif %}
+          {% if page.description %}<p>{{ page.description }}</p>{% endif %}
           {{ content }}
         </main>
       </div>
