@@ -57,7 +57,7 @@ are done at every single memory access and therefore need to be very fast.
 
 ## Example: simplified single-level paging scheme
 
-This an example of how paging operates on a *simplified* version of a x86 architecture
+This is an example of how paging operates on a *simplified* version of a x86 architecture
 to implement a virtual memory space.
 
 ### Page tables

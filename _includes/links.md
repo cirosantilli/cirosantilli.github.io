@@ -3,6 +3,7 @@
 [boost graph]:              https://github.com/boostorg/graph
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [capybara]:                 https://github.com/jnicklas/capybara
+[commonmark]:               https://github.com/jgm/CommonMark
 [datatables]:               https://datatables.net
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena

@@ -21,7 +21,9 @@ permalink: contrib/
 
     A good language needs a good editor.
 
--   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode... but some of it could still be reused.
+-   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode...
+
+    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py).
 
 ## Size scale
 

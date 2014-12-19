@@ -13,6 +13,9 @@ Accepted:
 
 
 | 2014-12 | [Ruby][] | 0 | [Typo close -> closes.](https://github.com/ruby/ruby/commit/512705e62d4929753845e449397cedeff0433f05) |
+| 2014-12 | [CommonMark][] | 0 | [Ignore pyc files](https://github.com/jgm/CommonMark/pull/240). It was [later started](https://github.com/jgm/CommonMark/commits/bbaf30eafa5530dc9a9b6d2c476403eadfb20423/changelog.spec.txt) |
+
+
 
 Merged not evaluated:
 
@@ -27,6 +30,11 @@ Issues:
 
 | 2014-12 | [GitLab][] | []() |
 | 2014-12 | [GitLab][] | []() |
+
+| 2014-12 | [GitLab][] | [Point issue already solved](https://github.com/gitlabhq/gitlab-shell/issues/14#issuecomment-67288657) |
+
+| 2014-12 | [CommonMark][] | Feature | [CHANGELOG or History.txt](http://talk.commonmark.org/t/style-guide-for-commonmark/935). It was [later started](https://github.com/jgm/CommonMark/commits/bbaf30eafa5530dc9a9b6d2c476403eadfb20423/changelog.spec.txt) |
+| 2014-12 | [CommonMark][] | Bug | [Don't modify man/man3/cmark.3 with date on make](https://github.com/jgm/CommonMark/issues/241) |
 
 Closed source:
 
