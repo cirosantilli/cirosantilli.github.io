@@ -43,6 +43,8 @@ Some of the contributions are subjectively self evaluated based on:
 
 Only patches which were reviewed by at least one person with push permission will be listed here.
 
+This may also include patches which were rejected in favor of another patch, but strongly influenced the merged patch.
+
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
 | 2014-11 | [vim-snippets][]          | 1    | [Markdown bold and italic](https://github.com/honza/vim-snippets/pull/488)                                                          |
@@ -357,7 +359,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2014-11 | [GitLab][]                   | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/8293#issuecomment-62858344)                                                                       |
 | 2014-11 | [GitLab][]                   | [Bug.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/180)                                                                                           |
-| 2014-11 | [GitLab][]                   | [Solve issue.](https://github.com/gitlabhq/gitlabhq/issues/8384)                                                                                          |
+| 2014-11 | [GitLab][]                   | [Technical support.](https://github.com/gitlabhq/gitlabhq/issues/8384)                                                                                          |
 | 2014-11 | [Bootstrap Hover Dropdown][] | [Bug confirmed.](https://github.com/CWSpear/bootstrap-hover-dropdown/issues/92)                                                                           |
 | 2014-11 | [GitLab][]                   | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/8267)                                                                                        |
 | 2014-11 | [GitLab][]                   | [Triaging.](https://github.com/gitlabhq/gitlabhq/issues/8357)                                                                                             |
@@ -368,7 +370,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-10 | [GitLab][]                   | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/8090)                                                                                        |
 | 2014-10 | [Semaphore CI][]             | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                          |
 | 2014-10 | [libgit2][]                  | [Bug confirmed.](https://github.com/libgit2/libgit2/issues/2562)                                                                                          |
-| 2014-10 | [GitLab][]                   | [Solve issue.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                          |
+| 2014-10 | [GitLab][]                   | [Technical support.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                          |
 | 2014-10 | [GitLab][]                   | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)               |
 | 2014-09 | [vader.vim][]                | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                      |
 | 2014-09 | [GitLab][]                   | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
