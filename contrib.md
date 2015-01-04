@@ -79,7 +79,7 @@ This may also include patches which were rejected in favor of another patch, but
 | 2014-11 | [GitLab][]                | 1    | [Delete tags and branches that start with hyphen](https://github.com/gitlabhq/gitlab-shell/pull/193)                                |
 | 2014-11 | [GitLab][]                | 3    | [Restore hooks PATH before calling ruby](https://github.com/gitlabhq/gitlab-shell/pull/186)                                         |
 | 2014-11 | [GitLab][]                | 1    | [Factor regex error messages with spec API tests](https://github.com/gitlabhq/gitlabhq/pull/8251)                                   |
-| 2014-11 | [GitLab][]                | 1    | [Move new blob commit message textarea below editor](https://github.com/gitlabhq/gitlabhq/pull/794)                                 |
+| 2014-11 | [GitLab][]                | 1    | [Move new blob commit message textarea below editor](https://github.com/gitlabhq/gitlabhq/pull/7944)                                 |
 | 2014-11 | [gitbrute][]              | 0    | [Usage](https://github.com/bradfitz/gitbrute/pull/4)                                                                                |
 | 2014-11 | [GitLab][]                | 1    | [Factor GITLAB_SHELL_VERSION get method](https://github.com/gitlabhq/gitlabhq/pull/8254)                                            |
 | 2014-11 | [GitLab][]                | 1    | [Create dev fixture projects with fixed visibility](https://github.com/gitlabhq/gitlabhq/pull/8168)                                 |
@@ -458,7 +458,6 @@ The following contributions where not immediately verified by others, but they w
 | Date    | Project          | Type         | Description                                                                         |
 |---------|------------------|--------------|-------------------------------------------------------------------------------------|
 | 2014-12 | [Vim Markdown][] | Review patch | [Add tilde-fenced code blocks](https://github.com/plasticboy/vim-markdown/pull/158) |
-
-https://github.com/plasticboy/vim-markdown/pull/158
+{: .patches-table .data-table}
 
 {% include links.md %}
