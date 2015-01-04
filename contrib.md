@@ -39,7 +39,9 @@ Some of the contributions are subjectively self evaluated based on:
 
 -   How hard it was to make it. 4 algorithmic lines are harder than 100 web development / documentation lines.
 
-## Merged by others
+## Patches
+
+### Merged by others
 
 Only patches which were reviewed by at least one person with push permission will be listed here.
 
@@ -47,9 +49,31 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                   | Size | Description                                                                                                                         |
 |---------|---------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-01 | [GitLab][]                | 1    | [Add tests for disabled blob edit button cases v2](https://github.com/gitlabhq/gitlabhq/pull/8520)                                  |
+| 2014-12 | [GitLab][]                | 0    | [permission.md align table, rm double empty line](https://github.com/gitlabhq/gitlabhq/pull/8504)                                   |
+| 2014-12 | [GitLab][]                | 0    | [Remove commit indicator from path on Commits tab](https://github.com/gitlabhq/gitlabhq/pull/8324)                                  |
+| 2014-12 | [GitLab][]                | 0    | [Make protected branch perms explicit in doc](https://github.com/gitlabhq/gitlabhq/pull/8230)                                       |
+| 2014-12 | [GitLab][]                | 0    | [doc workflow markdown style](https://github.com/gitlabhq/gitlabhq/pull/8497)                                                       |
+| 2014-12 | [GitLab][]                | 1    | [Disallow POST to compare as it does not create objects](https://github.com/gitlabhq/gitlabhq/pull/7989)                            |
+| 2014-12 | [GitLab][]                | 0    | [Sort .gitignore](https://github.com/gitlabhq/gitlabhq/pull/7782)                                                                   |
+| 2014-12 | [GitLab][]                | 1    | [Remove unused Project#code function](https://github.com/gitlabhq/gitlabhq/pull/7957)                                               |
+| 2014-12 | [GitLab][]                | 0    | [Remove unused has_gitlab_shell3? method](https://github.com/gitlabhq/gitlabhq/pull/8256)                                           |
+| 2014-12 | [GitLab][]                | 1    | [Add tests for tree edit routes](https://github.com/gitlabhq/gitlabhq/pull/7978)                                                    |
+| 2014-12 | [GitLab][]                | 1    | [Disable / hide MR edit blob button if cannot edit](https://github.com/gitlabhq/gitlabhq/pull/7886)                                 |
+| 2014-12 | [GitLab][]                | 0    | [Use blob local instead of instance](https://github.com/gitlabhq/gitlabhq/pull/7882)                                                |
+| 2014-12 | [GitLab][]                | 1    | [Fix dev user seed: ID was used twice](https://github.com/gitlabhq/gitlabhq/pull/7894)                                              |
+| 2014-12 | [GitLab][]                | 0    | [Fix Rake tasks doc README: add top level h1](https://github.com/gitlabhq/gitlabhq/pull/8466)                                       |
+| 2014-12 | [Ruby][]                  | 0    | [Typo close -> closes.](https://github.com/ruby/ruby/commit/512705e62d4929753845e449397cedeff0433f05)                               |
+| 2014-12 | [CommonMark][]            | 1    | [Add tests for normalize outer whitespace removal](https://github.com/jgm/CommonMark/pull/246)                                      |
+| 2014-12 | [CommonMark][]            | 1    | [spec_tests make --pattern affect --dump-tests](https://github.com/jgm/CommonMark/pull/249)                                         |
+| 2014-12 | [CommonMark][]            | 1    | [Add --number option to run a single test by its id](https://github.com/jgm/CommonMark/pull/247)                                    |
+| 2014-12 | [CommonMark][]            | 1    | [Don't raise exception on invalid UTF-8 output](https://github.com/jgm/CommonMark/pull/250)                                         |
+| 2014-12 | [CommonMark][]            | 1    | [spec_tests add short options for common parameters](https://github.com/jgm/CommonMark/pull/248)                                    |
+| 2014-12 | [CommonMark][]            | 0    | [Ignore pyc files](https://github.com/jgm/CommonMark/pull/240)                                                                      |
+| 2014-12 | [CommonMark][]            | 1    | [Expose failure to normalize whitespaces](https://github.com/jgm/CommonMark/pull/240)                                               |
 | 2014-11 | [vim-snippets][]          | 1    | [Markdown bold and italic](https://github.com/honza/vim-snippets/pull/488)                                                          |
 | 2014-11 | [vim-snippets][]          | 1    | [Markdown links URLs from the clipboard](https://github.com/honza/vim-snippets/pull/484)                                            |
-| 2014-11 | [vim-snippets][]          | 1    | [Markdown autolinks](https://github.com/honza/vim-snippets/pull/483)                                                          |
+| 2014-11 | [vim-snippets][]          | 1    | [Markdown autolinks](https://github.com/honza/vim-snippets/pull/483)                                                                |
 | 2014-11 | [vim-snippets][]          | 1    | [Let the short version of links not have title.](https://github.com/honza/vim-snippets/pull/486)                                    |
 | 2014-11 | [vim-snippets][]          | 1    | [Fix markdown fenced code blocks.](https://github.com/honza/vim-snippets/pull/487)                                                  |
 | 2014-11 | [GitLab][]                | 1    | [Delete tags and branches that start with hyphen](https://github.com/gitlabhq/gitlab-shell/pull/193)                                |
@@ -312,12 +336,20 @@ This may also include patches which were rejected in favor of another patch, but
 
 [Patches waiting for review](/contrib-pending).
 
-## Merged by me
+### Merged by me
 
 Patches which were merged by myself on repositories which I feel have large public visibility, e.g. those to which I have been given push permission.
 
+Repositories to which I gained push permission because of my contributions:
+
+- <https://github.com/plasticboy/vim-markdown>
+
 | Date    | Project          | Size | Description                                                                                                                              |
 |---------|------------------|------|------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-10 | [Vim Markdown][] | 2    | [Highlight angle braced hyperlinks](https://github.com/plasticboy/vim-markdown/pull/121)                                                 |
+| 2014-10 | [Vim Markdown][] | 0    | [Use a single code block style on README](https://github.com/plasticboy/vim-markdown/pull/134)                                           |
+| 2014-10 | [Vim Markdown][] | 1    | [Improve bold and italic tests](https://github.com/plasticboy/vim-markdown/pull/133)                                                     |
+| 2014-10 | [Vim Markdown][] | 0    | [Remove outdated fields from syntax header](https://github.com/plasticboy/vim-markdown/pull/132)                                         |
 | 2014-09 | [Vim Markdown][] | 1    | [Support YAML frontmatter headers v2.](https://github.com/plasticboy/vim-markdown/pull/124)                                              |
 | 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX $ and $$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                  |
 | 2014-09 | [Vim Markdown][] | 1    | [Add unit tests and travis support.](https://github.com/plasticboy/vim-markdown/pull/128)                                                |
@@ -326,16 +358,11 @@ Patches which were merged by myself on repositories which I feel have large publ
 | 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69)                           |
 {: .patches-table .data-table}
 
-## Gained push permission
-
-Repositories to which I gained push permission because of my contributions:
-
-- <https://github.com/plasticboy/vim-markdown>
-
 ## Bug reports and feature requests
 
 - I opened and was confirmed or generated considerable interest
 - I wrote comments pointing out a non obvious cause/fix/duplicate.
+- I reviewed the patch
 
 This shall not list bugs solved by my accepted pull requests.
 
@@ -343,14 +370,23 @@ This shall not list bugs solved by my accepted pull requests.
 
 Disclaimer: closed source vendors tend to be highly secretive, solving small issues without any reply, so I use my best judgement given the lack of feedback.
 
-| Date    | Project    | Type      | Description                                                                                                               |
-|---------|------------|-----------|---------------------------------------------------------------------------------------------------------------------------|
-| 2014-11 | [GitHub][] | Bug       | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303) |
-| 2014-11 | [GitHub][] | Bug       | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)                                                     |
-| 2014-11 | [GitHub][] | Bug       | [Glitches for filenames that contain only spaces](https://github.com/isaacs/github/issues/286)                                                                           |
-| 2014-11 | [GitHub][] | Bug       | [500 on raw and 414 on blob show of long file name with 1024 characters](https://github.com/isaacs/github/issues/290)                                                                           |
-| 2014-11 | [GitHub][] | Feature   | [Highlight bytes / words in diffs on adjacent multi-line modifications](https://github.com/isaacs/github/issues/235)                                                                           |
-| 2014-11 | [GitHub][] | Duplicate | [Allow following of groups similar to following users](https://github.com/isaacs/github/issues/218#issuecomment-47030350)                                                     |
+| Date    | Project             | Type              | Description                                                                                                                                                |
+|---------|---------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2014-12 | [My Science Work][] | Typo              | Typos on settings page                                                                                                                                     |
+| 2014-12 | [GitHub][]          | Bug               | [Merge pull request window appears after rebase even if I don't have permission](https://github.com/isaacs/github/issues/321)                              |
+| 2014-12 | [GitHub][]          | Feature           | [Repository Traffic Analytics API](https://github.com/isaacs/github/issues/320)                                                                            |
+| 2014-12 | [GitHub][]          | Technical support | [Pin issues or add header text to issues page](https://github.com/isaacs/github/issues/315)                                                                |
+| 2014-12 | [GitHub][]          | Bug               | [Tree show links blobs to the last commit that contained the blob instead of commit that introduced the file](https://github.com/isaacs/github/issues/319) |
+| 2014-12 | [GitHub][]          | Duplicate         | [Deal properly with uppercase .GIT file basenames on web editor like for lowercase .git](https://github.com/isaacs/github/issues/318)                      |
+| 2014-12 | [GitHub][]          | Duplicate         | [Add a "I have this issue too" button](https://github.com/isaacs/github/issues/314)                                                                        |
+| 2014-11 | [GitBook][]         | Bug               | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                             |
+| 2014-11 | [GitHub][]          | Feature           | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                            |
+| 2014-11 | [GitHub][]          | Bug               | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303)                                  |
+| 2014-11 | [GitHub][]          | Bug               | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)      |
+| 2014-11 | [GitHub][]          | Bug               | [Glitches for filenames that contain only spaces](https://github.com/isaacs/github/issues/286)                                                             |
+| 2014-11 | [GitHub][]          | Bug               | [500 on raw and 414 on blob show of long file name with 1024 characters](https://github.com/isaacs/github/issues/290)                                      |
+| 2014-11 | [GitHub][]          | Feature           | [Highlight bytes / words in diffs on adjacent multi-line modifications](https://github.com/isaacs/github/issues/235)                                       |
+| 2014-11 | [GitHub][]          | Duplicate         | [Allow following of groups similar to following users](https://github.com/isaacs/github/issues/218#issuecomment-47030350)                                  |
 {: .patches-table .data-table}
 
 ### Open source
@@ -414,5 +450,15 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2012-05 | [Krusader][]                 | [Bug confirmed.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                          |
 | 2012-05 | [AutoKey][]                  | [Bug confirmed.](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                   |
 {: #bugs-table .data-table}
+
+### Not verified
+
+The following contributions where not immediately verified by others, but they were not reverted either and I think they are good.
+
+| Date    | Project          | Type         | Description                                                                         |
+|---------|------------------|--------------|-------------------------------------------------------------------------------------|
+| 2014-12 | [Vim Markdown][] | Review patch | [Add tilde-fenced code blocks](https://github.com/plasticboy/vim-markdown/pull/158) |
+
+https://github.com/plasticboy/vim-markdown/pull/158
 
 {% include links.md %}
