@@ -14,7 +14,7 @@ description: Software engineer. Passion for infrastructure technologies and educ
 Quick facts:
 
 - **Email**: [{{ site.email }}](mailto:{{ site.email }})
-- **Job status**: not actively looking, but open to new contacts.
+- **Job status**: happily employed at [Quartet FS](https://quartetfs.com), but always open to new contacts.
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
