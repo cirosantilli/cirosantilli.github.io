@@ -4,6 +4,7 @@
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [capybara]:                 https://github.com/jnicklas/capybara
 [commonmark]:               https://github.com/jgm/CommonMark
+[confluence]:               https://www.atlassian.com/software/confluence
 [datatables]:               https://datatables.net
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
@@ -15,6 +16,8 @@
 [gitbook]:                  https://www.gitbook.com
 [github]:                   https://github.com
 [isaacs/github]:            https://github.com/isaacs/github
+[jekyll]:                   https://github.com/jekyll/jekyll
+[jira]:                     https://www.atlassian.com/software/jira
 [krusader]:                 http://www.krusader.org
 [libgit2]:                  https://github.com/libgit2/libgit2
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite

@@ -10,15 +10,25 @@ permalink: contrib-pending/
 
 | 2015-01 | [GitLab][] | 1 | []() |
 
+| 2015-01 | [GitLab][] | 1 | [Replace match via get with get on routes](https://github.com/gitlabhq/gitlabhq/pull/7987) |
+| 2015-01 | [GitLab][] | 0 | [Remove or prepend underscore _ to unused method arguments](https://github.com/gitlabhq/gitlabhq/pull/7925) |
+| 2015-01 | [GitLab][] | 1 | [Change always passing visible false tests](https://github.com/gitlabhq/gitlabhq/pull/7905) |
+| 2015-01 | [GitLab][] | 1 | [Make blob new and edit file editors more uniform](https://github.com/gitlabhq/gitlabhq/pull/7951) |
+| 2015-01 | [GitLab][] | 1 | [Replace regex methods by string ones](https://github.com/gitlabhq/gitlabhq/pull/8096) |
+| 2015-01 | [GitLab][] | 1 | [Simplify SSH fingerprint regexp extraction](https://github.com/gitlabhq/gitlabhq/pull/8430) |
+
+
 ## Merged not evaluated:
 
 | 2014-10 | [Vim Markdown][] | 1 | []() |
 
 ## Issues
 
-| 2014-10 | [GitLab][] | []() |
+| 2015-01 | [GitLab][] | []() |
 
-| 2014-12 | [GitLab][] | [Point issue already solved](https://github.com/gitlabhq/gitlab-shell/issues/14#issuecomment-67288657) |
+| 2015-01 | [GitLab][] | 1 | [Rationale: Username profile -> "is reserved" ?](https://github.com/gitlabhq/gitlabhq/issues/8294) |
+| 2015-01 | [Jekyll][] | 1 | [Add a tag to link to a post / page with it's title shown](https://github.com/jekyll/jekyll/issues/3182) |
+| 2014-12 | [GitLab][] | 0 | [Point duplicate](https://github.com/gitlabhq/gitlab-shell/issues/14#issuecomment-67288657) |
 | 2014-12 | [GitLab][] | Bug | [404 instead of 500 on inexistent paths for tree edit and blame show](https://github.com/gitlabhq/gitlabhq/pull/7984) |
 | 2014-12 | [GitLab][] | Feature | [Allow filtering on issue/merge request author/creator](http://feedback.gitlab.com/forums/176466-general/suggestions/6512184-show-issue-author-on-index-view-and-allow-filterin) |
 | 2014-12 | [CommonMark][] | Ping | [Tagging spec versions in GitHub repo](http://talk.commonmark.org/t/tagging-spec-versions-in-github-repo/888/5?u=cirosantilli) |
@@ -27,7 +37,11 @@ permalink: contrib-pending/
 
 ### Closed source
 
-Waiting:
+| 2015-01 | [JIRA][] | Feature | [Allow non-admins to choose only to receive email notifications on at mention, watched issues or assignment](https://jira.atlassian.com/browse/JRA-41640) |
+| 2015-01 | [Clonfluence][] | Feature | [Show like count on the tree page hierarchy outline on left sidebar](https://jira.atlassian.com/browse/CONF-36090) |
+| 2015-01 | [Clonfluence][] | Bug | [Profile picture area selection does nothing unless the resize drag stops on the picture itself](https://jira.atlassian.com/browse/CONF-36051) |
+
+### Waiting
 
 -->
 
