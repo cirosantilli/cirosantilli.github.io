@@ -10,6 +10,9 @@ permalink: contrib-pending/
 
 | 2015-01 | [GitLab][] | 1 | []() |
 
+| 2015-01 | [GitLab][] | 1 | [Append in place for strings and arrays](https://github.com/gitlabhq/gitlabhq/pull/7999) |
+| 2015-01 | [GitLab][] | 1 | [Remove unneeded password_confirmation from seed](https://github.com/gitlabhq/gitlabhq/pull/7878) |
+| 2015-01 | [GitLab][] | 0 | [Typo in project API events comment](https://github.com/gitlabhq/gitlabhq/pull/8307) |
 | 2015-01 | [GitLab][] | 1 | [Replace match via get with get on routes](https://github.com/gitlabhq/gitlabhq/pull/7987) |
 | 2015-01 | [GitLab][] | 0 | [Remove or prepend underscore _ to unused method arguments](https://github.com/gitlabhq/gitlabhq/pull/7925) |
 | 2015-01 | [GitLab][] | 1 | [Change always passing visible false tests](https://github.com/gitlabhq/gitlabhq/pull/7905) |
@@ -17,8 +20,7 @@ permalink: contrib-pending/
 | 2015-01 | [GitLab][] | 1 | [Replace regex methods by string ones](https://github.com/gitlabhq/gitlabhq/pull/8096) |
 | 2015-01 | [GitLab][] | 1 | [Simplify SSH fingerprint regexp extraction](https://github.com/gitlabhq/gitlabhq/pull/8430) |
 
-
-## Merged not evaluated:
+## Merged not evaluated
 
 | 2014-10 | [Vim Markdown][] | 1 | []() |
 
@@ -26,6 +28,7 @@ permalink: contrib-pending/
 
 | 2015-01 | [GitLab][] | []() |
 
+| 2015-01 | [GitLab][] | 1 | [](https://github.com/plasticboy/vim-markdown/pull/165) |
 | 2015-01 | [GitLab][] | 1 | [Rationale: Username profile -> "is reserved" ?](https://github.com/gitlabhq/gitlabhq/issues/8294) |
 | 2015-01 | [Jekyll][] | 1 | [Add a tag to link to a post / page with it's title shown](https://github.com/jekyll/jekyll/issues/3182) |
 | 2014-12 | [GitLab][] | 0 | [Point duplicate](https://github.com/gitlabhq/gitlab-shell/issues/14#issuecomment-67288657) |

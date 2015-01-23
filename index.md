@@ -18,10 +18,11 @@ Quick facts:
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
+- **Relationship status**: in a serious relation, not open to new contacts :)
 
 ## Current occupation
 
-I have started working at [Quartet FS](https://quartetfs.com) in Jan 2015 to help build their super fast OLAP database engine.
+I have started working at [Quartet FS](https://quartetfs.com) in Jan 2015 to help build their super fast OLAP database engine and surrounding products.
 
 I am very lucky to have to have been accepted at this enterprise, as it was the first I seriously tried to join, and since they match [my interests](interests) by producing an useful, performance critical product.
 
