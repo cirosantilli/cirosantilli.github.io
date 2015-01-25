@@ -24,8 +24,10 @@ Quick facts:
 
 I have started working at [Quartet FS](https://quartetfs.com) in Jan 2015 to help build their super fast OLAP database engine and surrounding products.
 
-I am very lucky to have to have been accepted at this enterprise, as it was the first I seriously tried to join, and since they match [my interests](interests) by producing an useful, performance critical product.
+I am very lucky to have to have been accepted at this enterprise, as it was the first I seriously tried to join, and since they match [my interests](interests) by producing an useful, performance-critical product.
 
 Furthermore, the working conditions are very good, with smart, friendly co-workers and an amazing localization at the heart of Paris.
+
+I have decided to put my previous [Booktree project](https://github.com/booktree/booktree) on hold for [the these reasons](https://github.com/booktree/booktree/blob/master/blog/2015-01-why-ciro-stopped-working-on-booktree.md).
 
 [Old current occupations](old-current).

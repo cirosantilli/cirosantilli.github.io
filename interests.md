@@ -5,21 +5,17 @@ permalink: interests/
 
 I am interested in:
 
--   tools that help people produce and use both textual learning material and code efficiently:
+-   tools that help people produce and use both textual learning material and code efficiently.
 
-    | Interest                       | Examples                 |
-    |--------------------------------|--------------------------|
-    | Version control                | Git, GitHub              |
-    | Lightweight markup languages   | Markdown, LaTeX          |
-    | Publishing and developer tools | Text editors, IDEs, CMSs |
+    Tools: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs.
 
-    Applications that interest me include: B2B training, ECM, college education and academic publishing.
+    Applications: B2B training, ECM, college education and academic publishing.
 
 -   low-level, performance critical applications: systems programming, network programming, HPC, scientific computing, compilers, databases...
 
 I can speak [a few languages](/skills#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
 
-I prefer textual learning sources (e.g. Wikipedia) over videos (e.g. Kahn Academy), because they are: cheaper to make, modify, searchable and take less disk space and bandwidth. A sequence of well chosen images is better than any video.
+I prefer textual information (e.g. wikis, issue trackers) over non-textual (e.g. videos, meetings), because it is cheaper to make, modify, searchable, often more precise, and takes less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
 I like open source, but I will use whichever license achieves the goals better.
 
