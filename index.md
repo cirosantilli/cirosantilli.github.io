@@ -28,6 +28,6 @@ I am very lucky to have to have been accepted at this enterprise, as it was the 
 
 Furthermore, the working conditions are very good, with smart, friendly co-workers and an amazing localization at the heart of Paris.
 
-I have decided to put my previous [Booktree project](https://github.com/booktree/booktree) on hold for [the these reasons](https://github.com/booktree/booktree/blob/master/blog/2015-01-why-ciro-stopped-working-on-booktree.md).
+I have decided to put my previous [Booktree project](https://github.com/booktree/booktree) on hold for [these reasons](https://github.com/booktree/booktree/blob/master/blog/2015-01-why-ciro-stopped-working-on-booktree.md).
 
 [Old current occupations](old-current).
