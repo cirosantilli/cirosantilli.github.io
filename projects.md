@@ -1,6 +1,8 @@
 ---
-title: Open Source Contributions
-permalink: contrib/
+title: Projects
+permalink: projects/
+redirect_from:
+  - contrib/
 ---
 
 {{ site.toc }}
@@ -23,7 +25,7 @@ permalink: contrib/
 
 -   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode...
 
-    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I was extracted the multi-engine comparison to: []()
+    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I was extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
 
 ## Size scale
 
@@ -334,7 +336,7 @@ This may also include patches which were rejected in favor of another patch, but
 | 2012-11 | [DataTables][]            | 1    | [Improved a doc example.](https://github.com/DataTables/DataTables/commits?author=cirosantilli)                                     |
 {: .patches-table .data-table}
 
-[Patches waiting for review](/contrib-pending).
+[Patches waiting for review](/projects-pending).
 
 ### Merged by me
 

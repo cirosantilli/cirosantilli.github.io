@@ -1,5 +1,5 @@
 ---
-title: Open Source Contributions Waiting for Review
+title: Projects pending for Review
 permalink: contrib-pending/
 ---
 
@@ -10,6 +10,7 @@ permalink: contrib-pending/
 
 | 2015-01 | [GitLab][] | 1 | []() |
 
+| 2015-01 | [vim-snippets][] | 1 | [Fix false positive hyphen list item expansion](https://github.com/honza/vim-snippets/pull/511) |
 | 2015-01 | [GitLab][] | 1 | [Append in place for strings and arrays](https://github.com/gitlabhq/gitlabhq/pull/7999) |
 | 2015-01 | [GitLab][] | 1 | [Remove unneeded password_confirmation from seed](https://github.com/gitlabhq/gitlabhq/pull/7878) |
 | 2015-01 | [GitLab][] | 0 | [Typo in project API events comment](https://github.com/gitlabhq/gitlabhq/pull/8307) |
@@ -28,6 +29,7 @@ permalink: contrib-pending/
 
 | 2015-01 | [GitLab][] | []() |
 
+| 2015-01 | [Vim Markdown][] | [Triaging](https://github.com/plasticboy/vim-markdown/pull/154) |
 | 2015-01 | [GitLab][] | 1 | [](https://github.com/plasticboy/vim-markdown/pull/165) |
 | 2015-01 | [GitLab][] | 1 | [Rationale: Username profile -> "is reserved" ?](https://github.com/gitlabhq/gitlabhq/issues/8294) |
 | 2015-01 | [Jekyll][] | 1 | [Add a tag to link to a post / page with it's title shown](https://github.com/jekyll/jekyll/issues/3182) |

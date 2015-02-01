@@ -23,4 +23,4 @@ Despite studying in great institutions with great teachers, I feel that:
 
 - most of [what I know](/skills) came from books, man pages, forums and my parents.
 - [what I really love to do](/interests) is slightly different, but related, to my official degrees.
-- [actual contributions](/contrib) matter much more than pieces of paper.
+- [actual contributions](/projects) matter much more than pieces of paper.
