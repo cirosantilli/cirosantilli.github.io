@@ -8,6 +8,7 @@
 [datatables]:               https://datatables.net
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
+[free programming books]:   https://github.com/vhf/free-programming-books
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbrute]:                 https://github.com/bradfitz/gitbrute
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
@@ -18,11 +19,13 @@
 [isaacs/github]:            https://github.com/isaacs/github
 [jekyll]:                   https://github.com/jekyll/jekyll
 [jira]:                     https://www.atlassian.com/software/jira
+[kramdown]:                 https://github.com/gettalong/kramdown
 [krusader]:                 http://www.krusader.org
 [libgit2]:                  https://github.com/libgit2/libgit2
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite
 [markdown lint]:            https://github.com/mivok/markdownlint
 [marked]:                   https://github.com/chjj/marked
+[my science work]:          https://www.mysciencework.com
 [numpy]:                    http://www.numpy.org
 [okular]:                   http://okular.kde.org
 [octokat.js]:               https://github.com/philschatz/octokat.js
@@ -30,6 +33,7 @@
 [pro git book]:             https://github.com/progit/progit
 [prose]:                    https://github.com/prose/prose
 [rails]:                    https://github.com/rails/rails
+[ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm
 [sass]:                     https://github.com/sass/sass
