@@ -12,6 +12,9 @@ permalink: contrib-pending/
 
 ## Issues
 
+| 2015-02 | [Vim Markdown][] | Review | [Prevent setting other buffers to nomodifiable](https://github.com/plasticboy/vim-markdown/pull/170) |
+| 2015-02 | [Vim Markdown][] | Duplicate | [Treat *.md files as markdown, out of the box](https://github.com/plasticboy/vim-markdown/pull174/) |
+| 2015-02 | [Vim Markdown][] | Duplicate | [vim-instant-markdown compatibility](https://github.com/plasticboy/vim-markdown/issues/167) |
 | 2015-02 | [GitLab][] | Feature | [Stop blacklisting project path](https://github.com/gitlabhq/gitlabhq/pull/8172) |
 | 2015-02 | [GitLab][] | Duplicate | [Could not push to own server with https.](https://github.com/gitlabhq/gitlabhq/issues/8268#issuecomment-62117907) |
 | 2015-02 | [GitLab][] | Support | [No more protect / unprotect branch](https://github.com/gitlabhq/gitlabhq/issues/8351#issuecomment-63652824) |

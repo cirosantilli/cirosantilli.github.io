@@ -27,6 +27,8 @@ redirect_from:
 
     At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I was extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
 
+    Playing with this project has led me to find and report many Markdown bugs / bad behavior on other software, e.g. [GitHub](https://github.com/isaacs/github/issues/297) and [MultiMarkdown-4](https://github.com/fletcher/MultiMarkdown-4/issues/68).
+
 ## Size scale
 
 Some of the contributions are subjectively self evaluated based on:
