@@ -4,9 +4,11 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2014-11 | [][] |  | []() |
+| 2015-02 | [][] |  | []() |
 
 ## Merged by others
+
+| 2015-02 | [linux-insides][] | 0 | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides) |
 
 ## Merged not evaluated
 

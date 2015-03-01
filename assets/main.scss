@@ -1,6 +1,8 @@
 ---
 ---
 
+@import "share";
+
 body {
 
   $border: 1px solid black;
@@ -11,7 +13,6 @@ body {
   $content_background_color: white;
   $link_color: #28F;
   $link_hover_color: red;
-  $mobile_width: 500px;
 
   @mixin content {
     background-color: $content_background_color;
@@ -121,24 +122,6 @@ body {
         border-bottom: $border;
         margin-bottom: 0.25em 0;
         padding-bottom: 0.15em;
-      }
-      h2, h3, h4, h5, h6 {
-        /*
-        To prevent an empty line on headings. This is too likely to happen on small screens,
-        and the user usually does not have a mouse to hover in that case.
-        */
-        @media (max-width: $mobile_width) {
-          .header-link {
-            display: none;
-          }
-        }
-        .header-link {
-          opacity: 0;
-          font-size: 0.8em;
-        }
-        &:hover .header-link {
-          opacity: 1;
-        }
       }
       h1 {
         @include content_h1;

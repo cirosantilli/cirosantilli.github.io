@@ -17,6 +17,7 @@
 [gitbook]:                  https://www.gitbook.com
 [github]:                   https://github.com
 [isaacs/github]:            https://github.com/isaacs/github
+[linux-insides]:            https://github.com/0xAX/linux-insides
 [jekyll]:                   https://github.com/jekyll/jekyll
 [jira]:                     https://www.atlassian.com/software/jira
 [kramdown]:                 https://github.com/gettalong/kramdown
