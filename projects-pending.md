@@ -12,6 +12,7 @@ permalink: contrib-pending/
 
 ## Issues
 
+| 2015-02 | [isaacs/github][] | Triaging | [can't build qt3d project](https://github.com/isaacs/github/issues/362) |
 | 2015-02 | [Vim Markdown][] | Review | [Prevent setting other buffers to nomodifiable](https://github.com/plasticboy/vim-markdown/pull/170) |
 | 2015-02 | [Vim Markdown][] | Duplicate | [Treat *.md files as markdown, out of the box](https://github.com/plasticboy/vim-markdown/pull174/) |
 | 2015-02 | [Vim Markdown][] | Duplicate | [vim-instant-markdown compatibility](https://github.com/plasticboy/vim-markdown/issues/167) |
@@ -30,6 +31,9 @@ permalink: contrib-pending/
 | 2014-12 | [CommonMark][] | Bug       | [Don't modify man/man3/cmark.3 with date on make](https://github.com/jgm/CommonMark/issues/241)                                                                                                                        |
 
 ### Closed source
+
+| 2015-02 | [GitHub][] | Feature | [Allow to reopen pull requests after a force push](https://github.com/isaacs/github/issues/361) |
+| 2015-02 | [GitHub][] | Bug | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348) |
 
 ### Waiting
 
