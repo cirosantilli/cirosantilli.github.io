@@ -6,6 +6,9 @@ permalink: contrib-pending/
 <!--
 | 2015-02 | [][] |  | []() |
 
+| 2015-03 | [GitLab][] | 1 | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912) |
+| 2015-03 | [GitLab][] | 1 | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092) |
+
 ## Merged by others
 
 | 2015-02 | [linux-insides][] | 0 | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides) |
@@ -14,6 +17,7 @@ permalink: contrib-pending/
 
 ## Issues
 
+| 2014-11 | [GitLab][]      | UI Bug   | [Address almost touches purple footer](https://gitlab.com/gitlab-com/www-gitlab-com/issues/169)                           |
 | 2015-02 | [isaacs/github][] | Triaging | [can't build qt3d project](https://github.com/isaacs/github/issues/362) |
 | 2015-02 | [Vim Markdown][] | Review | [Prevent setting other buffers to nomodifiable](https://github.com/plasticboy/vim-markdown/pull/170) |
 | 2015-02 | [Vim Markdown][] | Duplicate | [Treat *.md files as markdown, out of the box](https://github.com/plasticboy/vim-markdown/pull174/) |
