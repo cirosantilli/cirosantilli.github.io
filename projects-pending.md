@@ -4,7 +4,7 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2015-02 | [][] |  | []() |
+| 2015-03 | [][] |  | []() |
 
 | 2015-03 | [GitLab][] | 1 | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912) |
 | 2015-03 | [GitLab][] | 1 | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092) |
@@ -15,7 +15,16 @@ permalink: contrib-pending/
 
 ## Merged not evaluated
 
+0 https://github.com/plasticboy/vim-markdown/pull/177
+0 https://github.com/plasticboy/vim-markdown/pull/178
+
 ## Issues
+
+| 2015-03 | [Vim Markdown][] | Support | [Can this syntax highlighter work with Vimdeck?](https://github.com/plasticboy/vim-markdown/issues/180) |
+| 2015-03 | [Vim Markdown][] | Support | [Underline in list](https://github.com/plasticboy/vim-markdown/issues/181) |
+| 2015-03 | [Vim Markdown][] |  | [after installation with vundle commands like :Toc not available](https://github.com/plasticboy/vim-markdown/issues/182) |
+
+
 
 | 2014-11 | [GitLab][]      | UI Bug   | [Address almost touches purple footer](https://gitlab.com/gitlab-com/www-gitlab-com/issues/169)                           |
 | 2015-02 | [isaacs/github][] | Triaging | [can't build qt3d project](https://github.com/isaacs/github/issues/362) |

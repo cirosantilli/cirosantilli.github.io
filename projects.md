@@ -409,6 +409,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-03 | [Tig][]                      | [Accepted feature.](https://github.com/jonas/tig/issues/273)                                                                                              |
 | 2014-11 | [GitLab][]                   | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/8293#issuecomment-62858344)                                                                       |
 | 2014-11 | [GitLab][]                   | [Bug.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/180)                                                                                           |
 | 2014-11 | [GitLab][]                   | [Technical support.](https://github.com/gitlabhq/gitlabhq/issues/8384)                                                                                          |
