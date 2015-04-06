@@ -11,6 +11,7 @@ permalink: contrib-pending/
 
 ## Merged by others
 
+| 2015-03 | [Spring][] | 0 | [Typo Gardle -> Gradle](https://github.com/spring-projects/spring-integration-samples/pull/130) |
 | 2015-02 | [linux-insides][] | 0 | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides) |
 
 ## Merged not evaluated
@@ -23,9 +24,6 @@ permalink: contrib-pending/
 | 2015-03 | [Vim Markdown][] | Support | [Can this syntax highlighter work with Vimdeck?](https://github.com/plasticboy/vim-markdown/issues/180) |
 | 2015-03 | [Vim Markdown][] | Support | [Underline in list](https://github.com/plasticboy/vim-markdown/issues/181) |
 | 2015-03 | [Vim Markdown][] |  | [after installation with vundle commands like :Toc not available](https://github.com/plasticboy/vim-markdown/issues/182) |
-
-
-
 | 2014-11 | [GitLab][]      | UI Bug   | [Address almost touches purple footer](https://gitlab.com/gitlab-com/www-gitlab-com/issues/169)                           |
 | 2015-02 | [isaacs/github][] | Triaging | [can't build qt3d project](https://github.com/isaacs/github/issues/362) |
 | 2015-02 | [Vim Markdown][] | Review | [Prevent setting other buffers to nomodifiable](https://github.com/plasticboy/vim-markdown/pull/170) |
@@ -46,9 +44,6 @@ permalink: contrib-pending/
 | 2014-12 | [CommonMark][] | Bug       | [Don't modify man/man3/cmark.3 with date on make](https://github.com/jgm/CommonMark/issues/241)                                                                                                                        |
 
 ### Closed source
-
-| 2015-02 | [GitHub][] | Feature | [Allow to reopen pull requests after a force push](https://github.com/isaacs/github/issues/361) |
-| 2015-02 | [GitHub][] | Bug | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348) |
 
 ### Waiting
 

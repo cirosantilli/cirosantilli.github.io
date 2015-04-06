@@ -9,6 +9,7 @@
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
 [free programming books]:   https://github.com/vhf/free-programming-books
+[free software foundation]: http://www.fsf.org
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbrute]:                 https://github.com/bradfitz/gitbrute
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
@@ -19,6 +20,7 @@
 [isaacs/github]:            https://github.com/isaacs/github
 [linux-insides]:            https://github.com/0xAX/linux-insides
 [jekyll]:                   https://github.com/jekyll/jekyll
+[jenkov tutorials]:         http://tutorials.jenkov.com
 [jira]:                     https://www.atlassian.com/software/jira
 [kramdown]:                 https://github.com/gettalong/kramdown
 [krusader]:                 http://www.krusader.org
