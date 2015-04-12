@@ -4,13 +4,14 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2015-03 | [][] |  | []() |
+| 2015-04 | [][] |  | []() |
 
 | 2015-03 | [GitLab][] | 1 | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912) |
 | 2015-03 | [GitLab][] | 1 | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092) |
 
 ## Merged by others
 
+| 2015-04 | [Free Programming Books][] | 0 | [PEG Judge](http://wcipeg.com) |
 | 2015-03 | [Spring][] | 0 | [Typo Gardle -> Gradle](https://github.com/spring-projects/spring-integration-samples/pull/130) |
 | 2015-02 | [linux-insides][] | 0 | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides) |
 
@@ -18,6 +19,10 @@ permalink: contrib-pending/
 
 0 https://github.com/plasticboy/vim-markdown/pull/177
 0 https://github.com/plasticboy/vim-markdown/pull/178
+
+### Wikipedia
+
+Considering changes which were not reversed after one month.
 
 ## Issues
 
