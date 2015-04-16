@@ -53,6 +53,12 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                         |
 |---------|----------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-04 | [vim-snippets][]           | 0    | [java: prinlna to print array](https://github.com/honza/vim-snippets/pull/561)                                                      |
+| 2015-04 | [Free Programming Books][] | 0    | [PEG Judge](http://wcipeg.com)                                                                                                      |
+| 2015-03 | [GitLab][]                 | 1    | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912)                                        |
+| 2015-03 | [GitLab][]                 | 1    | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092)                                        |
+| 2015-03 | [Spring][]                 | 0    | [Typo Gardle -> Gradle](https://github.com/spring-projects/spring-integration-samples/pull/130)                                     |
+| 2015-02 | [linux-insides][]          | 0    | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides)                                                    |
 | 2015-02 | [GitLab][]                 | 1    | [Ignore .bundle](https://github.com/gitlabhq/gitlab-shell/pull/184)                                                                 |
 | 2015-02 | [Free programming books][] | 0    | [Problem sets: CareerCup](https://github.com/vhf/free-programming-books/pull/1329)                                                  |
 | 2015-01 | [vim-snippets][]           | 1    | [Fix false positive hyphen list item expansion](https://github.com/honza/vim-snippets/pull/511)                                     |

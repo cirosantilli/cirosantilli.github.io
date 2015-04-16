@@ -1,7 +1,7 @@
 ---
 title: Ciro Santilli
 meta_title: false
-description: Software engineer. Passion for infrastructure technologies and educational applications.
+description: Software engineer. Passion for low-level technologies and educational applications.
 ---
 
 - [**PDF CV**]({{ site.files_path }}cv.pdf)

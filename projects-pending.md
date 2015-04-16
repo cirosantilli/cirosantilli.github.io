@@ -6,26 +6,24 @@ permalink: contrib-pending/
 <!--
 | 2015-04 | [][] |  | []() |
 
-| 2015-03 | [GitLab][] | 1 | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912) |
-| 2015-03 | [GitLab][] | 1 | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092) |
-
 ## Merged by others
-
-| 2015-04 | [Free Programming Books][] | 0 | [PEG Judge](http://wcipeg.com) |
-| 2015-03 | [Spring][] | 0 | [Typo Gardle -> Gradle](https://github.com/spring-projects/spring-integration-samples/pull/130) |
-| 2015-02 | [linux-insides][] | 0 | [Make x86 paging reference title clearer](https://github.com/0xAX/linux-insides) |
 
 ## Merged not evaluated
 
-0 https://github.com/plasticboy/vim-markdown/pull/177
-0 https://github.com/plasticboy/vim-markdown/pull/178
+| 2015-04 | [Vim Markdown][] | 2 | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183) |
+| 2015-04 | [Vim Markdown][] | 0 | [Change the README h1 to "Vim Markdown"](https://github.com/plasticboy/vim-markdown/pull/177) |
+| 2015-04 | [Vim Markdown][] | 0 | [Improve README formatting](https://github.com/plasticboy/vim-markdown/pull/178) |
 
 ### Wikipedia
 
 Considering changes which were not reversed after one month.
 
+| 2015-04 | [Wikipedia Algorithms][] | 1 | [Insert average is O(1), as already mentioned on the body of the article](https://en.wikipedia.org/w/index.php?title=Binary_heap&diff=prev&oldid=655638722) |
+| 2015-04 | [Wikipedia Assembly][] | 1 | [Link to LSB ELF specification.](https://en.wikipedia.org/w/index.php?title=Executable_and_Linkable_Format&diff=prev&oldid=656580818) |
+
 ## Issues
 
+| 2015-04 | [Vim Markdown][] | Triaging | [YAML code blocks confuse syntax highlighting](https://github.com/plasticboy/vim-markdown/issues/187) |
 | 2015-03 | [Vim Markdown][] | Support | [Can this syntax highlighter work with Vimdeck?](https://github.com/plasticboy/vim-markdown/issues/180) |
 | 2015-03 | [Vim Markdown][] | Support | [Underline in list](https://github.com/plasticboy/vim-markdown/issues/181) |
 | 2015-03 | [Vim Markdown][] |  | [after installation with vundle commands like :Toc not available](https://github.com/plasticboy/vim-markdown/issues/182) |
