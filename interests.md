@@ -3,9 +3,7 @@ title: Professional Interests
 permalink: interests/
 ---
 
-I am interested in:
-
--   low-level, performance critical technologies: operating systems, compilers, databases, filesystems, network programming, HPC, scientific computing,...
+-   low-level, performance critical technologies: operating systems, compilers, databases, file systems, network programming, cryptography, virtualization, GPUs, HPC, numerical analysis, ...
 
 -   tools that help people produce and use both textual learning material and code efficiently.
 

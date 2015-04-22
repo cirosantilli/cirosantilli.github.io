@@ -8,6 +8,9 @@ permalink: contrib-pending/
 
 ## Merged by others
 
+| 2015-04 | [Free Programming Books][] | 0 | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443) | 
+| 2015-04 | [Free Programming Books][] | 0 | [LSB](https://github.com/vhf/free-programming-books/pull/1442) | 
+
 ## Merged not evaluated
 
 | 2015-04 | [Vim Markdown][] | 2 | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183) |

@@ -4,12 +4,12 @@ meta_title: false
 description: Software engineer. Passion for low-level technologies and educational applications.
 ---
 
-- [**PDF CV**]({{ site.files_path }}cv.pdf)
-- [**Education**](education): École Polytechnique and University of São Paulo
-- [**Skills**](skills), with links to code and tutorials
-- [**Open source**](contrib) contributions and projects
-- [**Professional interests**](interests)
 - [**Articles**](articles)
+- [**Projects**](projects) contributions and projects
+- [**PDF CV**]({{ site.files_path }}cv.pdf)
+- [**Skills**](skills), with links to code and tutorials
+- [**Professional interests**](interests)
+- [**Education**](education): École Polytechnique and University of São Paulo
 
 Quick facts:
 
