@@ -59,5 +59,5 @@
 [vader.vim]:                https://github.com/junegunn/vader.vim
 [vim markdown]:             https://github.com/plasticboy/vim-markdown
 [vim-snippets]:             https://github.com/honza/vim-snippets
-[web-cheat]:                https://github.com/cirosantilli/web-cheat
+[web-cheat]:                /web
 [yakuake]:                  http://extragear.kde.org/apps/yakuake

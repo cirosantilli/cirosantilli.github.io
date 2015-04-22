@@ -33,7 +33,7 @@ Web:
 - [Ubuntu][ubuntu-cheat]
 - [Web][web-cheat]
 
-## Stack Overflow style
+## Stack Overflow
 
 [![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
 
