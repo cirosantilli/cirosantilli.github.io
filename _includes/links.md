@@ -46,6 +46,7 @@
 [python-cheat]:             https://github.com/cirosantilli/python-cheat
 [rails]:                    https://github.com/rails/rails
 [ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
+[rails-cheat]:               https://github.com/cirosantilli/rails-cheat
 [ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm

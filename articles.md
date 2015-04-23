@@ -29,6 +29,7 @@ Web:
 - [Linux][linux-cheat]
 - [Networking][networking-cheat]
 - [Python][python-cheat]
+- [Rails][rails-cheat]
 - [Ruby][ruby-cheat]
 - [Ubuntu][ubuntu-cheat]
 - [Web][web-cheat]
