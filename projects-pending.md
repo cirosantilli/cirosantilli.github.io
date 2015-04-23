@@ -8,6 +8,7 @@ permalink: contrib-pending/
 
 ## Merged by others
 
+| 2015-04 | [alternativeTo][] | 0 | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/) |
 | 2015-04 | [Free Programming Books][] | 0 | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443) | 
 | 2015-04 | [Free Programming Books][] | 0 | [LSB](https://github.com/vhf/free-programming-books/pull/1442) | 
 

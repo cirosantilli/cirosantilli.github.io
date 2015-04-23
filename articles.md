@@ -33,14 +33,4 @@ Web:
 - [Ubuntu][ubuntu-cheat]
 - [Web][web-cheat]
 
-## Stack Overflow
-
-[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
-
-I like to answer important questions, for which none of the answers satisfied me, and close duplicates.
-
-I don't like to refresh the homepage looking for easy rep :-)
-
-[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 20 users](http://data.stackexchange.com/stackoverflow/query/edit/300737) as of April 2015.
-
 {% include links.md %}

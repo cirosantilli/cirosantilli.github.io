@@ -1,4 +1,5 @@
 [algorithm-cheat]:          https://github.com/cirosantilli/algorithm-cheat
+[alternativeTo]:            http://alternativeto.net
 [assembly-cheat]:           https://github.com/cirosantilli/assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey
 [bash-cheat]:               https://github.com/cirosantilli/bash-cheat
