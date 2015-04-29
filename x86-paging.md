@@ -276,7 +276,7 @@ Page tables change from a single level scheme because:
 - each process may have up to 1K page tables, one per page directory entry.
 - each page table contains exactly 1K entries instead of 1M entries.
 
-The reason for using 10 bits on the first two levels (and not, say, 12 | 8 | 12 ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
+The reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
 
 ### Address translation
 
@@ -361,14 +361,14 @@ So the hardware looks for entry 2 of the page directory.
 
 The page directory table says that the page table is located at `0x80000 * 4K = 0x80000000`. This is the first RAM access of the process.
 
-Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`. which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second RAM access of the process.
+Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`, which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second RAM access of the process.
 
 Finally, the paging hardware adds the offset, and the final address is `0x0000C004`.
 
 Other examples of translated addresses are:
 
     linear    10 10 12 split  physical
-    -------   --------------- ---------
+    --------  --------------  ----------
     00000001  000 000 001     00001001
     00001001  000 001 001     page fault
     003FF001  000 3FF 001     00005001
@@ -384,17 +384,19 @@ If the OS wants to run another process concurrently, it would give the second pr
 
 ## 64 bit architectures
 
-64 bits is still too much address for current RAM sizes, so most architectures will only use less bits. x86_64 uses 48 bits in total for the actual addressing.
+64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
+
+x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addresses (4 PiB).
 
 12 of those 48 bits are already reserved for the offset, which leaves 36 bits.
 
 If a 2 level approach is taken, the best split would be two 18 bit levels.
 
-But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much RAM ( close to a single level paging for 32 bit architectures! )
+But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much RAM: close to a single level paging for 32 bit architectures!
 
 Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.
 
-For example, x86_64 uses: 4 levels in a 9 9 9 12 scheme, so that the upper level only takes up only `2^9` higher level entries.
+x86_64 uses 4 levels in a `9 | 9 | 9 | 12` scheme, so that the upper level only takes up only `2^9` higher level entries.
 
 ## PAE
 
