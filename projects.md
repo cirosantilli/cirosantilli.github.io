@@ -9,11 +9,7 @@ redirect_from:
 
 ## Summary
 
--   [GitLab][]: very important to me because I want to base [Booktree][] on it.
-
-    I have implemented some large features and several smaller improvements.
-
-    I consider merged patches there as professional work, since it is the primary product of a profitable startup.
+-   [Markdown Style Guide](/markdown-style-guide)
 
 -   [Vim Markdown][]: The owner `plasticboy` was really nice and made me a collaborator for my contributions.
 
@@ -23,11 +19,15 @@ redirect_from:
 
     A good language needs a good editor.
 
--   [Markdown Style Guide](/markdown-style-guide)
+-   [GitLab][]: very important to me because I wanted to base [Booktree][] on it.
 
--   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode...
+    I have implemented some large features and several smaller improvements.
 
-    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I was extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
+    I consider merged patches there as professional work, since it is the primary product of a profitable startup.
+
+-   [Markdown Test Suite][]: I have implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
+
+    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
 
     Playing with this project has led me to find and report many Markdown bugs / bad behavior on other software, e.g. [GitHub](https://github.com/isaacs/github/issues/297) and [MultiMarkdown-4](https://github.com/fletcher/MultiMarkdown-4/issues/68).
 
