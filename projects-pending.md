@@ -8,12 +8,16 @@ permalink: contrib-pending/
 
 ## Merged by others
 
+| 2015-05 | [Free Programming Books][] | 0 | [Papers we love](https://github.com/vhf/free-programming-books/pull/1459) |
 | 2015-04 | [alternativeTo][] | 0 | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/) |
 | 2015-04 | [Free Programming Books][] | 0 | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443) | 
 | 2015-04 | [Free Programming Books][] | 0 | [LSB](https://github.com/vhf/free-programming-books/pull/1442) | 
 
 ## Merged not evaluated
 
+| 2015-05 | [Vim Markdown][] | 0 | [Document <Plug>Markdown_OpenUrlUnderCursor](https://github.com/plasticboy/vim-markdown/pull/205) |
+| 2015-05 | [Vim Markdown][] | 0 | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193) |
+| 2015-05 | [Vim Markdown][] | 1 | [Allow users to disable individual maps with hasmapto checks](https://github.com/plasticboy/vim-markdown/pull/207) |
 | 2015-04 | [Vim Markdown][] | 2 | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183) |
 | 2015-04 | [Vim Markdown][] | 0 | [Change the README h1 to "Vim Markdown"](https://github.com/plasticboy/vim-markdown/pull/177) |
 | 2015-04 | [Vim Markdown][] | 0 | [Improve README formatting](https://github.com/plasticboy/vim-markdown/pull/178) |
@@ -27,6 +31,7 @@ Considering changes which were not reversed after one month.
 
 ## Issues
 
+| 2015-05 | [Vim Markdown][] | Review | [Version aware netrw browseX call](https://github.com/plasticboy/vim-markdown/pull/209) |
 | 2015-04 | [Vim Markdown][] | Triaging | [YAML code blocks confuse syntax highlighting](https://github.com/plasticboy/vim-markdown/issues/187) |
 | 2015-03 | [Vim Markdown][] | Support | [Can this syntax highlighter work with Vimdeck?](https://github.com/plasticboy/vim-markdown/issues/180) |
 | 2015-03 | [Vim Markdown][] | Support | [Underline in list](https://github.com/plasticboy/vim-markdown/issues/181) |

@@ -19,6 +19,7 @@ Quick facts:
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
 - **Relationship status**: in a serious relation, not open to new contacts :)
+- **Why does your [GitHub home](https://github.com/cirosantilli) 502?** I [found a bug](http://stackoverflow.com/a/27742165/895245) on GitHub. [Search](https://github.com/search?utf8=%E2%9C%93&q=user%3Acirosantilli+&type=Repositories&ref=searchresults) and [my list](/projects) see are more relevant.
 
 ## Current occupation
 
@@ -34,9 +35,11 @@ I learned a lot about programing and group work, people treated me well, and I d
 
     -   this is the first time I worked seriously with Java, Eclipse, OLAP and finance, so I tried to learn the basics to avoid making mistakes and do learn how to work efficiently. Learning takes time.
 
+        For example, I once thought a 3-year old programmer of the enterprise (who is *very* competent, and whom I respect very much), that [local classes](https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html) exist in Java. I RTFM :-).
+
     -   I have made small suggestions of new ideas to the team, that took up 2% of my working time, but which my boss though were the only think I was doing instead of my obligations.
 
-        This perception was amplified by bike-shedding effect: those were simple suggestions, so everyone had an opinion, and in the end they all had to go through the boss. And of course, it was I who had to go talk to him, even though I though them trivial and didn't merit his attention.
+        This perception was amplified by [bike-shedding](https://en.wikipedia.org/wiki/Parkinson%27s_law_of_triviality) effect: those were simple suggestions, so everyone had an opinion, and in the end they all had to go through the boss. And of course, it was I who had to go talk to him, even though I though them trivial and didn't merit his attention.
 
         I humbly advise by boss to watch for this effect, as it leads to people being afraid and proposing fewer new ideas.
 
@@ -57,5 +60,7 @@ I learned a lot about programing and group work, people treated me well, and I d
     - during my break time, I need silence. I must get away from everyone, and not talk or listen to anything. So I went to the garden. I think my bosses interpreted that as anti-social behaviour, even though smokers did the same. I timed my breaks methodically and rested no more than others.
 
     - once, boss number 2 was discussing something on the desk in front of me for half an hour. This was one of the few moments where noise bothered me in this work, so I politely asked him to either speak less loud, find a room to talk, or that I could find a room to work while they were discussing. But boss number 2 was relatively young, and I didn't know that he was the boss number 2 at the time! Ouch.
+
+I hold no grudges against my bosses. They are very competent, and I see that business decisions are difficult to make. I keep learning to do better next time.
 
 [Old current occupations](old-current).

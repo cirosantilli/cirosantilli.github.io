@@ -18,20 +18,18 @@ Grading scale:
 
 If your project does something that [interests me](/interests), I will learn whatever it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
 
-I write down almost everything I learn as it helps me learn better, find it later faster if I forget it, and may be useful to others. The sections bellow contain links to those write-ups.
-
 ## Programming languages
 
 | Grade | Name                  | Notes                                                                                                                                                                                                                                                     |
 |-------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4     | C / C++               | Cheatsheets: [C](https://github.com/cirosantilli/cpp-cheat/blob/master/c.c), [C++](https://github.com/cirosantilli/cpp-cheat/blob/master/cpp.cpp), [POSIX C API](https://github.com/cirosantilli/cpp-cheat/blob/master/posix/main.c)                      |
+| 3     | x86 assembly          | [Cheatsheet][assembly-cheat], [Paging tutorial](/x86-paging)                                                                                                                                                                                              |
 | 4     | Python                | [Cheatsheet][python-cheat]                                                                                                                                                                                                                                |
 | 4     | Bash                  | Cheatsheets: [language](https://github.com/cirosantilli/bash-cheat), [POSIX / GNU utils][linux-cheat]                                                                                                                                                     |
 | 4     | HTML, CSS, JavaScript | [Cheatsheets][web-cheat], [Node.js](https://github.com/cirosantilli/nodejs-cheat), [CoffeScript](https://github.com/cirosantilli/nodejs-cheat/tree/master/coffee)                                                                                         |
-| 3     | Java                  | [Cheatsheet][java-cheat], school projects                                                                                                                                                                                                                 |
+| 4     | Java                  | [Cheatsheet][java-cheat], school projects                                                                                                                                                                                                                 |
 | 3     | Ruby, Rails           | [GitLab contributions](/projects), cheatsheets: [Ruby][ruby-cheat], [Rails][rails-cheat]
 | 2     | MySQL                 | [Tutorial](/db/mysql)                                                                                                                                                                                                                                     |
-| 2     | x86 assembly          | [Cheatsheet][assembly-cheat], [Paging tutorial](/x86-paging)                                                                                                                                                                                              |
 | 3     | LaTeX, Markdown       | [LaTeX cheatsheet](https://github.com/cirosantilli/latex-cheat), [Markdown style guide](/markdown-style-guide), [Markdown Testsuite contributions](https://github.com/karlcow/markdown-testsuite/graphs/contributors), [Jekyll cheatsheet](/jekyll-cheat) |
 {: #languages-table .data-table}
 
@@ -49,6 +47,11 @@ I write down almost everything I learn as it helps me learn better, find it late
 | 1     | [Chef](http://www.getchef.com/chef/)                                                                                          | For [GitLab Contributions](/projects)                                                             |
 | 1     | AWS                                                                                                                           | EC2, SES                                                                                          |
 {: #other-tech-table .data-table}
+
+## Soft skills
+
+1. **Power to teach**: I love to document things I learn so that the next person can pick them optimally, see [my articles](/articles).
+1. **Desire to learn deeply**: I have to constantly stop myself from understanding every software I touch down to the assembly level. On weekends however, I make a concession to this rule. I have sworn not to go into the electronics level, but I want to break that promise some day.
 
 ## Natural languages
 
