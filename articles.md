@@ -4,7 +4,7 @@ permalink: articles/
 ---
 
 -   Featured
-    - [x86 Paging Tutorial](/x86-paging)
+    - [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
 -   Git
     - [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
 -   Python
