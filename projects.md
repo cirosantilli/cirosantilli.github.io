@@ -406,6 +406,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Type              | Description                                                                                                                                                |
 |---------|------------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-05 | [GitHub][]                   | Bug               | [500 when listing GCC mirror branches](https://github.com/isaacs/github/issues/398)                                                                                                            |
 | 2015-04 | [Free Software Foundation][] | Bug               | [Duplicated paragraph at Octave at description of high priority projects](https://github.com/cirosantilli/issues/issues/3)                                 |
 | 2015-03 | [GitHub][]                   | Bug               | [@about and @pricing generate at mentions even though they are reserved](https://github.com/isaacs/github/issues/375)                                      |
 | 2015-03 | [Jenkov tutorials][]         | Typo              | [typo boolean -> long](http://tutorials.jenkov.com/java-util-concurrent/atomiclong.html)                                                                   |

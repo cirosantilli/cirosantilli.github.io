@@ -35,7 +35,7 @@ I learned a lot about programing and group work, people treated me well, and I d
 
     -   this is the first time I worked seriously with Java, Eclipse, OLAP and finance, so I tried to learn the basics to avoid making mistakes and do learn how to work efficiently. Learning takes time.
 
-        For example, I once thought a 3-year old programmer of the enterprise (who is *very* competent, and whom I respect very much), that [local classes](https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html) exist in Java. I RTFM :-).
+        For example, I once taught a 3-year old programmer of the enterprise (who is *very* competent, and whom I respect very much), that [local classes](https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html) exist in Java. I RTFM :-).
 
     -   I have made small suggestions of new ideas to the team, that took up 2% of my working time, but which my boss though were the only think I was doing instead of my obligations.
 

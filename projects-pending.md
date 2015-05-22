@@ -8,7 +8,7 @@ permalink: contrib-pending/
 
 ## Merged by others
 
-
+| 2015-05 | [Free Programming Books][] | 0 | [Computer Science from the Bottom Up](https://github.com/vhf/free-programming-books/pull/1468) |
 | 2015-05 | [Free Programming Books][] | 0 | [problem-sets: leetcode](https://github.com/vhf/free-programming-books/pull/1461) |
 | 2015-05 | [Free Programming Books][] | 0 | [Papers we love](https://github.com/vhf/free-programming-books/pull/1459) |
 | 2015-04 | [alternativeTo][] | 0 | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/) |
@@ -33,6 +33,7 @@ Considering changes which were not reversed after one month.
 
 ## Issues
 
+| 2015-05 | [Vim Markdown][] | Review | [Build latest vim quickly from git mirror](https://github.com/plasticboy/vim-markdown/pull/211) |
 | 2015-05 | [GitLab][]      | Bug   | [Markdown inside link like code or emphasis gets escaped instead of rendered](https://github.com/gitlabhq/gitlabhq/issues/8263)                           |
 | 2015-05 | [Vim Markdown][] | Review | [Version aware netrw browseX call](https://github.com/plasticboy/vim-markdown/pull/209) |
 | 2015-04 | [Vim Markdown][] | Triaging | [YAML code blocks confuse syntax highlighting](https://github.com/plasticboy/vim-markdown/issues/187) |
