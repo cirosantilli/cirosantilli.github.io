@@ -36,6 +36,7 @@
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite
 [marked]:                   https://github.com/chjj/marked
 [my science work]:          https://www.mysciencework.com
+[nasm]:                     http://nasm.us
 [networking-cheat]:         https://github.com/cirosantilli/networking-cheat
 [numpy]:                    http://www.numpy.org
 [octokat.js]:               https://github.com/philschatz/octokat.js
@@ -46,7 +47,7 @@
 [python-cheat]:             https://github.com/cirosantilli/python-cheat
 [rails]:                    https://github.com/rails/rails
 [ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
-[rails-cheat]:               https://github.com/cirosantilli/rails-cheat
+[rails-cheat]:              https://github.com/cirosantilli/rails-cheat
 [ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm
@@ -55,6 +56,7 @@
 [semaphore ci]:             https://semaphoreapp.com
 [sharelatex]:               https://github.com/sharelatex/sharelatex
 [softcover]:                https://github.com/softcover/softcover
+[spring]:                   https://github.com/spring-projects
 [stack-overflow-ciro]:      http://stackoverflow.com/users/895245/cirosantilli
 [tig]:                      https://github.com/jonas/tig
 [ubuntu-cheat]:             https://github.com/cirosantilli/ubuntu-cheat

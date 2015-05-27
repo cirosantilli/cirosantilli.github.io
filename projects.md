@@ -65,6 +65,13 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                         |
 |---------|----------------------------|------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-05 | [NASM][]                   | 0    | [doc: typo occationally](http://bugzilla.nasm.us/show_bug.cgi?id=3392310)                                                           |
+| 2015-05 | [Free Programming Books][] | 0    | [Computer Science from the Bottom Up](https://github.com/vhf/free-programming-books/pull/1468)                                      |
+| 2015-05 | [Free Programming Books][] | 0    | [problem-sets: leetcode](https://github.com/vhf/free-programming-books/pull/1461)                                                   |
+| 2015-05 | [Free Programming Books][] | 0    | [Papers we love](https://github.com/vhf/free-programming-books/pull/1459)                                                           |
+| 2015-04 | [alternativeTo][]          | 0    | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/)                                                                  |
+| 2015-04 | [Free Programming Books][] | 0    | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443)                                                        |
+| 2015-04 | [Free Programming Books][] | 0    | [LSB](https://github.com/vhf/free-programming-books/pull/1442)                                                                      |
 | 2015-04 | [vim-snippets][]           | 0    | [java: prinlna to print array](https://github.com/honza/vim-snippets/pull/561)                                                      |
 | 2015-04 | [Free Programming Books][] | 0    | [PEG Judge](http://wcipeg.com)                                                                                                      |
 | 2015-03 | [GitLab][]                 | 1    | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912)                                        |

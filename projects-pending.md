@@ -8,13 +8,6 @@ permalink: contrib-pending/
 
 ## Merged by others
 
-| 2015-05 | [Free Programming Books][] | 0 | [Computer Science from the Bottom Up](https://github.com/vhf/free-programming-books/pull/1468) |
-| 2015-05 | [Free Programming Books][] | 0 | [problem-sets: leetcode](https://github.com/vhf/free-programming-books/pull/1461) |
-| 2015-05 | [Free Programming Books][] | 0 | [Papers we love](https://github.com/vhf/free-programming-books/pull/1459) |
-| 2015-04 | [alternativeTo][] | 0 | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/) |
-| 2015-04 | [Free Programming Books][] | 0 | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443) | 
-| 2015-04 | [Free Programming Books][] | 0 | [LSB](https://github.com/vhf/free-programming-books/pull/1442) | 
-
 ## Merged not evaluated
 
 | 2015-05 | [Vim Markdown][] | 0 | [Document <Plug>Markdown_OpenUrlUnderCursor](https://github.com/plasticboy/vim-markdown/pull/205) |

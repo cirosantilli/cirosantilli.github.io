@@ -3,7 +3,7 @@ title: Professional Interests
 permalink: interests/
 ---
 
--   low-level, performance critical technologies: operating systems, compilers, databases, file systems, network programming, cryptography, virtualization, GPUs, HPC, numerical analysis, ...
+-   low-level, performance critical technologies: operating systems, compilers, databases, file systems, cryptography, virtualization, GPUs, optimization, network programming, numerical analysis, ...
 
 -   tools that help people produce and use both textual learning material and code efficiently.
 
