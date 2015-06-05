@@ -10,6 +10,7 @@ permalink: contrib-pending/
 
 ## Merged not evaluated
 
+| 2015-06 | [libgit2][] | 0 | [Expose core dump on index.diff from merge](https://github.com/libgit2/rugged/pull/420) |
 | 2015-05 | [Vim Markdown][] | 0 | [Document <Plug>Markdown_OpenUrlUnderCursor](https://github.com/plasticboy/vim-markdown/pull/205) |
 | 2015-05 | [Vim Markdown][] | 0 | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193) |
 | 2015-05 | [Vim Markdown][] | 1 | [Allow users to disable individual maps with hasmapto checks](https://github.com/plasticboy/vim-markdown/pull/207) |

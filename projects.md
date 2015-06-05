@@ -21,6 +21,8 @@ redirect_from:
 
 -   **[GitLab][]**: very important to me because I wanted to base [Booktree][] on it.
 
+    I was [the number 2 contributor from 2013 to 2015](https://github.com/gitlabhq/gitlabhq/graphs/contributors?from=2013-01-01&to=2015-01-01&type=a).
+
     I have implemented some large features and several smaller improvements.
 
     I consider merged patches there as professional work, since it is the primary product of a profitable startup.
