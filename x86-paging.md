@@ -185,7 +185,7 @@ In the same way, the following translations would happen for process 1:
     00002 000  00002 000
     FFFFF 000  00005 000
 
-For example, when accessing address `0000100`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `P1T + 1 * L` (`1` because of the page part), and that is where it will look for it.
+For example, when accessing address `00001000`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `P1T + 1 * L` (`1` because of the page part), and that is where it will look for it.
 
 When the OS wants to switch to process 2, all it needs to do is to make `cr3` point to page 2. It is that simple!
 
