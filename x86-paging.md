@@ -60,28 +60,28 @@ The OS could give them the following page tables:
 Page table given to process 1 by the OS:
 
     RAM location        physical address   present
-    -------------       -----------------  --------
-    P1T + 0       * L   0x00001            1
-    P1T + 1       * L   0x00000            1
-    P1T + 2       * L   0x00003            1
-    P1T + 3       * L                      0
+    -----------------   -----------------  --------
+    PT1 + 0       * L   0x00001            1
+    PT1 + 1       * L   0x00000            1
+    PT1 + 2       * L   0x00003            1
+    PT1 + 3       * L                      0
     ...                                    ...
-    P1T + 0xFFFFF * L   0x00005            1
+    PT1 + 0xFFFFF * L   0x00005            1
 
 Page table given to process 2 by the OS:
 
     RAM location       physical address   present
-    -------------      -----------------  --------
-    P2T + 0       * L  0x0000A            1
-    P2T + 1       * L  0x0000B            1
-    P2T + 2       * L                     0
-    P2T + 3       * L  0x00003            1
+    -----------------  -----------------  --------
+    PT2 + 0       * L  0x0000A            1
+    PT2 + 1       * L  0x0000B            1
+    PT2 + 2       * L                     0
+    PT2 + 3       * L  0x00003            1
     ...                ...                ...
-    P2T + 0xFFFFF * L  0x00004            1
+    PT2 + 0xFFFFF * L  0x00004            1
 
 Where:
 
--   `P1T` and `P2T`: initial position of table 1 and 2 on RAM.
+-   `PT1` and `PT2`: initial position of table 1 and 2 on RAM.
 
     Sample values: `0x00000000`, `0x12345678`, etc.
 
@@ -96,16 +96,16 @@ Page tables are located on RAM. They could for example be located as:
     --------------> 0xFFFFFFFF
 
 
-    --------------> P1T + 0xFFFFF * L
+    --------------> PT1 + 0xFFFFF * L
     Page Table 1
-    --------------> P1T
+    --------------> PT1
 
 
-    --------------> P2T + 0xFFFFF * L
+    --------------> PT2 + 0xFFFFF * L
     Page Table 2
-    --------------> P2T
+    --------------> PT2
 
-    --------------> 0x00000000
+    --------------> 0x0
 
 The initial locations on RAM for both page tables are arbitrary and controlled by the OS. It is up to the OS to ensure that they don't overlap!
 
@@ -122,8 +122,8 @@ The exact format of table entries is fixed *by the hardware*.
 On this simplified example, the page table entries contain only two fields:
 
     bits   function
-    -----  ---------
-    20     physical address of the start of the page.
+    -----  -----------------------------------------
+    20     physical address of the start of the page
     1      present flag
 
 so in this example the hardware designers could have chosen `L = 21`.
@@ -132,11 +132,11 @@ Most real page table entries have other fields.
 
 It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose `L = 32` to make access faster, and just reserve bits the remaining bits for later usage. The actual value for `L` on x86 is 32 bits.
 
-### Address translation
+### Address translation in single level scheme
 
 Once the page tables have been set up by the OS, the address translation between linear and physical addresses is done *by the hardware*.
 
-When the OS wants to activate process 1, it sets the `cr3` to `P1T`, the start of the table for process one.
+When the OS wants to activate process 1, it sets the `cr3` to `PT1`, the start of the table for process one.
 
 If Process 1 wants to access linear address `0x00000001`, the paging *hardware* circuit automatically does the following for the OS:
 
@@ -153,7 +153,7 @@ If Process 1 wants to access linear address `0x00000001`, the paging *hardware* 
 
 -   look entry `0x00000` because that is the page part.
 
-    The hardware knows that this entry is located at RAM address `P1T + 0 * L = P1T`.
+    The hardware knows that this entry is located at RAM address `PT1 + 0 * L = PT1`.
 
 -   since it is present, the access is valid
 
@@ -175,7 +175,7 @@ If Process 1 wants to access linear address `0x00000001`, the paging *hardware* 
 In the same way, the following translations would happen for process 1:
 
     linear     physical
-    -------    ---------
+    ---------  ---------
     00000 002  00001 002
     00000 003  00001 003
     00000 FFF  00001 FFF
@@ -185,14 +185,14 @@ In the same way, the following translations would happen for process 1:
     00002 000  00002 000
     FFFFF 000  00005 000
 
-For example, when accessing address `00001000`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `P1T + 1 * L` (`1` because of the page part), and that is where it will look for it.
+For example, when accessing address `00001000`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `PT1 + 1 * L` (`1` because of the page part), and that is where it will look for it.
 
 When the OS wants to switch to process 2, all it needs to do is to make `cr3` point to page 2. It is that simple!
 
 Now the following translations would happen for process 2:
 
     linear     physical
-    -------    ---------
+    ---------  ---------
     00000 002  00001 002
     00000 003  00001 003
     00000 FFF  00001 FFF
@@ -278,68 +278,67 @@ Page tables change from a single level scheme because:
 
 The reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
 
-### Address translation
+### Address translation in multi-level scheme
 
 Page directory given to process 1 by the OS:
 
     RAM location     physical address   present
-    -------------    -----------------  --------
-    P1D + 0     * L  0x10000            1
-    P1D + 1     * L                     0
-    P1D + 2     * L  0x80000            1
-    P1D + 3     * L                     0
+    ---------------  -----------------  --------
+    PD1 + 0     * L  0x10000            1
+    PD1 + 1     * L                     0
+    PD1 + 2     * L  0x80000            1
+    PD1 + 3     * L                     0
     ...                                 ...
-    P1D + 0x3FF * L                     0
+    PD1 + 0x3FF * L                     0
 
-Page tables given to process 1 by the OS at `P1T1 = 0x10000000` (`0x10000` * 4K):
+Page tables given to process 1 by the OS at `PT1 = 0x10000000` (`0x10000` * 4K):
 
-    RAM location       physical address   present
-    -------------      -----------------  --------
-    P1T1 + 0     * L   0x00001            1
-    P1T1 + 1     * L                      0
-    P1T1 + 2     * L   0x0000D            1
-    ...                                   ...
-    P1T1 + 0x3FF * L   0x00005            1
+    RAM location      physical address   present
+    ---------------   -----------------  --------
+    PT1 + 0     * L   0x00001            1
+    PT1 + 1     * L                      0
+    PT1 + 2     * L   0x0000D            1
+    ...                                  ...
+    PT1 + 0x3FF * L   0x00005            1
 
-Page tables given to process 1 by the OS at `P1T2 = 0x80000000` (`0x80000` * 4K):
+Page tables given to process 1 by the OS at `PT2  = 0x80000000` (`0x80000` * 4K):
 
-    RAM location       physical address   present
-    -------------      -----------------  --------
-    P1T2 + 0     * L   0x0000A            1
-    P1T2 + 1     * L   0x0000C            1
-    P1T2 + 2     * L                      0
-    ...                                   ...
-    P1T2 + 0x3FF * L   0x00003            1
+    RAM location      physical address   present
+    ---------------   -----------------  --------
+    PT2 + 0     * L   0x0000A            1
+    PT2 + 1     * L   0x0000C            1
+    PT2 + 2     * L                      0
+    ...                                  ...
+    PT2 + 0x3FF * L   0x00003            1
 
 where:
 
-- `P1D`: initial position of page directory of process 1 on RAM.
-- `P1T1` and `P1T2`: initial position of page table 1 and page table 2 for process 1 on RAM.
+- `PD1`: initial position of page directory of process 1 on RAM.
+- `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on RAM.
 
-So in this example the page directory and the page table could
-be stored in RAM something like:
+So in this example the page directory and the page table could be stored in RAM something like:
 
     ----------------> 0xFFFFFFFF
 
 
-    ----------------> P1T2 + 0x3FF * L
+    ----------------> PT2 + 0x3FF * L
     Page Table 1
-    ----------------> P1T2
+    ----------------> PT2
 
-    ----------------> P1D + 0x3FF * L
+    ----------------> PD1 + 0x3FF * L
     Page Directory 1
-    ----------------> P1D
+    ----------------> PD1
 
 
-    ----------------> P1T1 + 0x3FF * L
+    ----------------> PT1 + 0x3FF * L
     Page Table 2
-    ----------------> P1T1
+    ----------------> PT1
 
-    ----------------> 0x00000000
+    ----------------> 0x0
 
-Lets translate the linear address `0x00801004` step by step.
+Let's translate the linear address `0x00801004` step by step.
 
-We suppose that `cr3 = P1D`, that is, it points to the page directory just described.
+We suppose that `cr3 = PD1`, that is, it points to the page directory just described.
 
 In binary the linear address is:
 
@@ -367,22 +366,22 @@ Finally, the paging hardware adds the offset, and the final address is `0x0000C0
 
 Other examples of translated addresses are:
 
-    linear    10 10 12 split  physical
-    --------  --------------  ----------
-    00000001  000 000 001     00001001
-    00001001  000 001 001     page fault
-    003FF001  000 3FF 001     00005001
-    00400000  001 000 000     page fault
-    00800001  002 000 001     0000A001
-    00801008  002 001 008     0000C008
-    00802008  002 002 008     page fault
-    00B00001  003 000 000     page fault
+    linear    10 10 12 split   physical
+    --------  ---------------  ----------
+    00000001  000 000 001      00001001
+    00001001  000 001 001      page fault
+    003FF001  000 3FF 001      00005001
+    00400000  001 000 000      page fault
+    00800001  002 000 001      0000A001
+    00801008  002 001 008      0000C008
+    00802008  002 002 008      page fault
+    00B00001  003 000 000      page fault
 
 Page faults occur if either a page directory entry or a page table entry is not present.
 
 If the OS wants to run another process concurrently, it would give the second process a separate page directory, and link that directory to separate page tables.
 
-## 64 bit architectures
+## 64-bit architectures
 
 64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
 
@@ -491,7 +490,7 @@ and after a second translation of `00007` to `00009` it becomes:
 
 Now if `00003` needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access `00003 --> 00005`.
 
-Of course, `00000` is not on the TLB since no valid entry contain `00000` as a key.
+Of course, `00000` is not on the TLB since no valid entry contains `00000` as a key.
 
 ### Replacement policy
 
