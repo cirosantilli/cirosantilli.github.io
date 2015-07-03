@@ -25,8 +25,14 @@ Considering changes which were not reversed after one month.
 | 2015-04 | [Wikipedia Algorithms][] | 1 | [Insert average is O(1), as already mentioned on the body of the article](https://en.wikipedia.org/w/index.php?title=Binary_heap&diff=prev&oldid=655638722) |
 | 2015-04 | [Wikipedia Assembly][] | 1 | [Link to LSB ELF specification.](https://en.wikipedia.org/w/index.php?title=Executable_and_Linkable_Format&diff=prev&oldid=656580818) |
 
+Non-programming:
+
+| 2015-06 | [Wikipedia][] | 1 | [Yitang Zhang if for Chinese democracy](https://en.wikipedia.org/w/index.php?title=Yitang_Zhang&diff=prev&oldid=669382696) |
+| 2015-06 | [Wikipedia][] | 1 | [Joel Spolsky is gay](https://en.wikipedia.org/w/index.php?title=Joel_Spolsky&diff=prev&oldid=668867071) |
+
 ## Issues
 
+| 2015-06 | [GitLab][] | Bug   | [Edit on web interface adds carriage returns to file](https://github.com/gitlabhq/gitlabhq/issues/7950)                           |
 | 2015-05 | [Vim Markdown][] | Review | [Build latest vim quickly from git mirror](https://github.com/plasticboy/vim-markdown/pull/211) |
 | 2015-05 | [GitLab][]      | Bug   | [Markdown inside link like code or emphasis gets escaped instead of rendered](https://github.com/gitlabhq/gitlabhq/issues/8263)                           |
 | 2015-05 | [Vim Markdown][] | Review | [Version aware netrw browseX call](https://github.com/plasticboy/vim-markdown/pull/209) |

@@ -8,6 +8,8 @@ permalink: articles/
 -   GCC internals
     - [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
     - [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
+-   Algorithms
+    - [Heap vs Binary Search Tree (BST)](http://stackoverflow.com/a/29548834/895245)
 -   Git internals
     - [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
 -   Python
