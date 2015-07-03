@@ -491,7 +491,7 @@ and after a second translation of `00007` to `00009` it becomes:
 
 Now if `00003` needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access `00003 --> 00005`.
 
-Of course, `00000` is not on the TLB since on valid entries contain `00000` as key.
+Of course, `00000` is not on the TLB since no valid entry contain `00000` as a key.
 
 ### Replacement policy
 
