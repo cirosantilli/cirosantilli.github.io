@@ -132,7 +132,7 @@ Most real page table entries have other fields.
 
 It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose `L = 32` to make access faster, and just reserve bits the remaining bits for later usage. The actual value for `L` on x86 is 32 bits.
 
-### Address translation in single level scheme
+### Address translation in single-level scheme
 
 Once the page tables have been set up by the OS, the address translation between linear and physical addresses is done *by the hardware*.
 
@@ -243,17 +243,17 @@ In any case, the OS needs to know which address generated the Page Fault to be a
 
 Simplifications to reality that make this example easier to understand:
 
--   all real paging circuits use multi-level paging to save space, but this showed a simple single level scheme.
+-   all real paging circuits use multi-level paging to save space, but this showed a simple single-level scheme.
 
 -   page tables contained only two fields: a 20 bit address and a 1 bit present flag.
 
     Real page tables contain a total of 12 fields, and therefore other features which have been omitted.
 
-## Example: multi level paging scheme
+## Example: multi-level paging scheme
 
-The problem with a single level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries *per* process. If each entry is 4 bytes long, that would make 4M *per process*, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
+The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries *per* process. If each entry is 4 bytes long, that would make 4M *per process*, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
 
-For this reason, x86 developers decided to use a multi level scheme that reduces RAM usage.
+For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.
 
 The downside of this system is that is has a slightly higher access time.
 
@@ -261,7 +261,7 @@ In the simple 3 level paging scheme used for 32 bit processors without PAE, the 
 
     | directory (10 bits) | table (10 bits) | offset (12 bits) |
 
-Each process must have one and only one page directory associated to it, so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M required on a single level scheme.
+Each process must have one and only one page directory associated to it, so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M required on a single-level scheme.
 
 Page tables are only allocated as needed by the OS. Each page table has `2^10 = 1K` page directory entries
 
@@ -269,9 +269,9 @@ Page directories contain... page directory entries! Page directory entries are t
 
 `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
 
-Page tables entries don't change at all from a single level scheme.
+Page tables entries don't change at all from a single-level scheme.
 
-Page tables change from a single level scheme because:
+Page tables change from a single-level scheme because:
 
 - each process may have up to 1K page tables, one per page directory entry.
 - each page table contains exactly 1K entries instead of 1M entries.
@@ -391,7 +391,7 @@ x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addre
 
 If a 2 level approach is taken, the best split would be two 18 bit levels.
 
-But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much RAM: close to a single level paging for 32 bit architectures!
+But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much RAM: close to a single-level paging for 32 bit architectures!
 
 Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.
 
