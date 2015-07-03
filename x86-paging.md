@@ -337,7 +337,7 @@ be stored in RAM something like:
 
     ----------------> 0x00000000
 
-Lets translate the linear address `0x00401004` step by step.
+Lets translate the linear address `0x00801004` step by step.
 
 We suppose that `cr3 = P1D`, that is, it points to the page directory just described.
 
