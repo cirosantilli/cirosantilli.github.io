@@ -3,10 +3,12 @@
 [assembly-cheat]:           https://github.com/cirosantilli/assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey
 [bash-cheat]:               https://github.com/cirosantilli/bash-cheat
+[binutils]:                 https://sourceware.org/binutils
 [booktree]:                 https://github.com/booktree/booktree
 [boost graph]:              https://github.com/boostorg/graph
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [capybara]:                 https://github.com/jnicklas/capybara
+[capstone]:                 https://github.com/aquynh/capstone
 [commonmark]:               https://github.com/jgm/CommonMark
 [confluence]:               https://www.atlassian.com/software/confluence
 [cpp-cheat]:                https://github.com/cirosantilli/cpp-cheat
@@ -15,6 +17,7 @@
 [django userena]:           https://github.com/bread-and-pepper/django-userena
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
+[gdb]:                      https://sourceware.org/gdb
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
 [gitbrute]:                 https://github.com/bradfitz/gitbrute
@@ -55,6 +58,7 @@
 [scipy]:                    http://www.scipy.org
 [semaphore ci]:             https://semaphoreapp.com
 [sharelatex]:               https://github.com/sharelatex/sharelatex
+[showdown]:                 https://github.com/showdownjs/showdown
 [softcover]:                https://github.com/softcover/softcover
 [spring]:                   https://github.com/spring-projects
 [stack-overflow-ciro]:      http://stackoverflow.com/users/895245/cirosantilli
@@ -62,6 +66,7 @@
 [ubuntu-cheat]:             https://github.com/cirosantilli/ubuntu-cheat
 [vader.vim]:                https://github.com/junegunn/vader.vim
 [vim markdown]:             https://github.com/plasticboy/vim-markdown
+[vim session]:              https://github.com/xolox/vim-session
 [vim-snippets]:             https://github.com/honza/vim-snippets
 [web-cheat]:                /web
 [yakuake]:                  http://extragear.kde.org/apps/yakuake

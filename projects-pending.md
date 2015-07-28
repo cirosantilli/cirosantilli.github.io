@@ -4,19 +4,11 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2015-04 | [][] |  | []() |
+| 2015-07 | [][] |  | []() |
 
 ## Merged by others
 
 ## Merged not evaluated
-
-| 2015-06 | [libgit2][] | 0 | [Expose core dump on index.diff from merge](https://github.com/libgit2/rugged/pull/420) |
-| 2015-05 | [Vim Markdown][] | 0 | [Document <Plug>Markdown_OpenUrlUnderCursor](https://github.com/plasticboy/vim-markdown/pull/205) |
-| 2015-05 | [Vim Markdown][] | 0 | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193) |
-| 2015-05 | [Vim Markdown][] | 1 | [Allow users to disable individual maps with hasmapto checks](https://github.com/plasticboy/vim-markdown/pull/207) |
-| 2015-04 | [Vim Markdown][] | 2 | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183) |
-| 2015-04 | [Vim Markdown][] | 0 | [Change the README h1 to "Vim Markdown"](https://github.com/plasticboy/vim-markdown/pull/177) |
-| 2015-04 | [Vim Markdown][] | 0 | [Improve README formatting](https://github.com/plasticboy/vim-markdown/pull/178) |
 
 ### Wikipedia
 
@@ -30,8 +22,15 @@ Non-programming:
 | 2015-06 | [Wikipedia][] | 1 | [Yitang Zhang if for Chinese democracy](https://en.wikipedia.org/w/index.php?title=Yitang_Zhang&diff=prev&oldid=669382696) |
 | 2015-06 | [Wikipedia][] | 1 | [Joel Spolsky is gay](https://en.wikipedia.org/w/index.php?title=Joel_Spolsky&diff=prev&oldid=668867071) |
 
+### Non-programming
+
+[Typo Internal -> internals](https://github.com/arsane/arsane.github.io/pull/1)
+
 ## Issues
 
+| 2015-07 | [isaacs/github][] | Duplicate | [allow voting on issues and merge requests without comment](https://github.com/isaacs/github/issues/429)                           |
+| 2015-07 | [Showdown][] | Feature | [Command line interface usage](https://github.com/showdownjs/showdown/issues/101)                           |
+| 2015-06 | [libgit2][] | Bug | [Expose core dump on index.diff from merge](https://github.com/libgit2/rugged/pull/420) |
 | 2015-06 | [GitLab][] | Bug   | [Edit on web interface adds carriage returns to file](https://github.com/gitlabhq/gitlabhq/issues/7950)                           |
 | 2015-05 | [Vim Markdown][] | Review | [Build latest vim quickly from git mirror](https://github.com/plasticboy/vim-markdown/pull/211) |
 | 2015-05 | [GitLab][]      | Bug   | [Markdown inside link like code or emphasis gets escaped instead of rendered](https://github.com/gitlabhq/gitlabhq/issues/8263)                           |
@@ -78,7 +77,6 @@ Non-programming:
 | 2014-05 | [Marked][]       | 0    | [Move CLI usage up on README](https://github.com/chjj/marked/pull/411)                                         |
 | 2014-04 | [Boost Graph][]  | 0    | [Rename color header to more precise title](https://github.com/boostorg/graph/pull/7)                          |
 | 2014-01 | Counter Culture  | 3    | [Add `:delta` option. Hairsplitting mathematical detail](https://github.com/magnusvk/counter_culture/pull/43)  |
-| 2013-12 | Vim Session      | 1    | [Add a Vim session option](https://github.com/xolox/vim-session/pull/81)                                       |
 
 ## Close
 
