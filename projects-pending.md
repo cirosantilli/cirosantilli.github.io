@@ -4,9 +4,13 @@ permalink: contrib-pending/
 ---
 
 <!--
-| 2015-07 | [][] |  | []() |
+| 2015-08 | [][] |  | []() |
 
 ## Merged by others
+
+| 2015-08 | [GDB][] | 0 | [python: fix Linetable case to LineTable in docstrings and comments](https://sourceware.org/ml/gdb-patches/2015-07/msg00744.html) |
+| 2015-07 | [GDB][] | 0 | [Remove outdated comment from call-rt-st.exp](https://sourceware.org/ml/gdb-patches/2015-08/msg00013.html) |
+| 2015-07 | [GDB][] | 0 | [Fix broken CONTRIBUTE link to GNU insignificant changes](https://sourceware.org/ml/gdb-patches/2015-08/msg00015.html) |
 
 ## Merged not evaluated
 
@@ -27,6 +31,11 @@ Non-programming:
 [Typo Internal -> internals](https://github.com/arsane/arsane.github.io/pull/1)
 
 ## Issues
+
+
+| 2015-08 | [Stack Overflow][] | Legal | [Report http://stackoverflow.cluat.com scraper without attribution](TODO)                           |
+| 2015-08 | [Stack Overflow][] | Legal | [Report http://databasefaq.com/ scraper without attribution](TODO)                           |
+
 
 | 2015-07 | [isaacs/github][] | Duplicate | [allow voting on issues and merge requests without comment](https://github.com/isaacs/github/issues/429)                           |
 | 2015-07 | [Showdown][] | Feature | [Command line interface usage](https://github.com/showdownjs/showdown/issues/101)                           |
@@ -57,6 +66,13 @@ Non-programming:
 | 2014-12 | [CommonMark][] | Feature   | [Tagging spec versions in GitHub repo](http://talk.commonmark.org/t/tagging-spec-versions-in-github-repo/888/5?u=cirosantilli)                                                                                         |
 | 2014-12 | [CommonMark][] | Feature   | [CHANGELOG or History.txt](http://talk.commonmark.org/t/style-guide-for-commonmark/935). [Later started](https://github.com/jgm/CommonMark/commits/bbaf30eafa5530dc9a9b6d2c476403eadfb20423/changelog.spec.txt) |
 | 2014-12 | [CommonMark][] | Bug       | [Don't modify man/man3/cmark.3 with date on make](https://github.com/jgm/CommonMark/issues/241)                                                                                                                        |
+
+GitHub remove directory https://github.com/isaacs/github/issues/225
+
+### Unconfirmed
+
+| 2015-07 | [Gmail][] | Comment | [Webmail strips hard tabs from plain text emails](https://productforums.google.com/d/msg/gmail/HasB4x0gdz8/H-bgyJit8IkJ) |
+| 2015-07 | [Firefox][] | Bug | [contenteditable without white-space:pre converts tab characters to four spaces when pasting](https://bugzilla.mozilla.org/show_bug.cgi?id=1189701) |
 
 ### Closed source
 

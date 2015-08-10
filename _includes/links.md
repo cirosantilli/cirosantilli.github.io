@@ -17,6 +17,7 @@
 [django userena]:           https://github.com/bread-and-pepper/django-userena
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
+[firefox]:                  https://bugzilla.mozilla.org
 [gdb]:                      https://sourceware.org/gdb
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
@@ -25,6 +26,7 @@
 [gitlab ci]:                https://github.com/gitlabhq/gitlab-ci
 [gitlab cookbook]:          https://gitlab.com/gitlab-org/cookbook-gitlab
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
+[gmail]:                    https://productforums.google.com/forum/#!forum/gmail
 [isaacs/github]:            https://github.com/isaacs/github
 [java-cheat]:               https://github.com/cirosantilli/java-cheat
 [jekyll]:                   https://github.com/jekyll/jekyll
@@ -62,6 +64,7 @@
 [softcover]:                https://github.com/softcover/softcover
 [spring]:                   https://github.com/spring-projects
 [stack-overflow-ciro]:      http://stackoverflow.com/users/895245/cirosantilli
+[stack-overflow]:           http://stackoverflow.com
 [tig]:                      https://github.com/jonas/tig
 [ubuntu-cheat]:             https://github.com/cirosantilli/ubuntu-cheat
 [vader.vim]:                https://github.com/junegunn/vader.vim

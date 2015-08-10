@@ -5,6 +5,9 @@ permalink: articles/
 
 -   Featured
     - [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
+-   Linux kernel
+    - [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/questions/43539/what-do-the-flags-in-proc-cpuinfo-mean/219674#219674)
+    - [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861)
 -   GCC internals
     - [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
     - [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
@@ -16,9 +19,9 @@ permalink: articles/
     - [What is the difference between old style and new style classes in Python?](http://stackoverflow.com/a/19950198/895245)
     - [What is a mixin [in Python], and why are they useful?](http://stackoverflow.com/a/20022860/895245)
 -   Web
+    - [What does enctype='multipart/form-data' mean?](http://stackoverflow.com/a/28380690/895245)
     - [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
     - [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
-    - [What does enctype='multipart/form-data' mean?](http://stackoverflow.com/a/28380690/895245)
 -   OpenGL
     - [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
 -   Node.js
