@@ -29,6 +29,7 @@ If your project does something that [interests me](/interests), I will learn wha
 | 4     | HTML, CSS, JavaScript | [Cheatsheets][web-cheat], [Node.js](https://github.com/cirosantilli/nodejs-cheat), [CoffeScript](https://github.com/cirosantilli/nodejs-cheat/tree/master/coffee)                                                                                         |
 | 4     | Java                  | [Cheatsheet][java-cheat], school projects                                                                                                                                                                                                                 |
 | 3     | Ruby, Rails           | [GitLab contributions](/projects), cheatsheets: [Ruby][ruby-cheat], [Rails][rails-cheat]
+| 3     | GDB                   | [Cheatsheet](https://github.com/cirosantilli/cpp-cheat/tree/f034893788f2fe372c94942e1e35590ec05ab361/gdb)
 | 2     | MySQL                 | [Tutorial](/db/mysql)                                                                                                                                                                                                                                     |
 | 3     | LaTeX, Markdown       | [LaTeX cheatsheet](https://github.com/cirosantilli/latex-cheat), [Markdown style guide](/markdown-style-guide), [Markdown Testsuite contributions](https://github.com/karlcow/markdown-testsuite/graphs/contributors), [Jekyll cheatsheet](/jekyll-cheat) |
 {: #languages-table .data-table}

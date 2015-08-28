@@ -3,6 +3,7 @@
 [assembly-cheat]:           https://github.com/cirosantilli/assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey
 [bash-cheat]:               https://github.com/cirosantilli/bash-cheat
+[bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
 [binutils]:                 https://sourceware.org/binutils
 [booktree]:                 https://github.com/booktree/booktree
 [boost graph]:              https://github.com/boostorg/graph
@@ -15,6 +16,7 @@
 [datatables]:               https://datatables.net
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
+[eduos]:                    https://github.com/RWTH-OS/eduOS
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
 [firefox]:                  https://bugzilla.mozilla.org

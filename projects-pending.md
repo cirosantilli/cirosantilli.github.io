@@ -8,6 +8,9 @@ permalink: contrib-pending/
 
 ## Merged by others
 
+| 2015-08 | [bare-metal-tetris][] | 0 | [make clean also removes tetris.iso](https://github.com/programble/bare-metal-tetris/pull/2) |
+
+| 2015-08 | [eduOS][] | 0 | [README typos Binutils and NASM](https://github.com/RWTH-OS/eduOS/pull/7) |
 | 2015-08 | [GDB][] | 0 | [python: fix Linetable case to LineTable in docstrings and comments](https://sourceware.org/ml/gdb-patches/2015-07/msg00744.html) |
 | 2015-07 | [GDB][] | 0 | [Remove outdated comment from call-rt-st.exp](https://sourceware.org/ml/gdb-patches/2015-08/msg00013.html) |
 | 2015-07 | [GDB][] | 0 | [Fix broken CONTRIBUTE link to GNU insignificant changes](https://sourceware.org/ml/gdb-patches/2015-08/msg00015.html) |
