@@ -31,10 +31,10 @@ Non-programming:
 
 ### Non-programming
 
+| 2015-08 | [HoTT](https://github.com/HoTT) | 0 | [Link to PDF output from the GitHub project description or README.md](https://github.com/HoTT/book/issues/857) |
 [Typo Internal -> internals](https://github.com/arsane/arsane.github.io/pull/1)
 
 ## Issues
-
 
 | 2015-08 | [Stack Overflow][] | Legal | [Report http://stackoverflow.cluat.com scraper without attribution](TODO)                           |
 | 2015-08 | [Stack Overflow][] | Legal | [Report http://databasefaq.com/ scraper without attribution](TODO)                           |

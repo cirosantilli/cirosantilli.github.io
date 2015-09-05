@@ -432,31 +432,32 @@ This shall not list bugs solved by my accepted pull requests.
 
 Disclaimer: closed source vendors tend to be highly secretive, solving small issues without any reply, so I use my best judgement given the lack of feedback.
 
-| Date    | Project                      | Type              | Description                                                                                                                                                |
-|---------|------------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2015-05 | [GitHub][]                   | Bug               | [500 when listing GCC mirror branches](https://github.com/isaacs/github/issues/398)                                                                                                            |
-| 2015-04 | [Free Software Foundation][] | Bug               | [Duplicated paragraph at Octave at description of high priority projects](https://github.com/cirosantilli/issues/issues/3)                                 |
-| 2015-03 | [GitHub][]                   | Bug               | [@about and @pricing generate at mentions even though they are reserved](https://github.com/isaacs/github/issues/375)                                      |
-| 2015-03 | [Jenkov tutorials][]         | Typo              | [typo boolean -> long](http://tutorials.jenkov.com/java-util-concurrent/atomiclong.html)                                                                   |
-| 2015-03 | [GitHub][]                   | Bug               | [502 on homepage on long streak](https://github.com/isaacs/github/issues/370)                                                                              |
-| 2015-02 | [GitHub][]                   | Bug               | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348)        |
-| 2015-02 | [GitHub][]                   | Feature           | [Allow to reopen pull requests after a force push](https://github.com/isaacs/github/issues/361)                                                            |
-| 2015-02 | [GitHub][]                   | Bug               | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348)        |
-| 2014-12 | [My Science Work][]          | Typo              | Typos on settings page                                                                                                                                     |
-| 2014-12 | [GitHub][]                   | Bug               | [Merge pull request window appears after rebase even if I don't have permission](https://github.com/isaacs/github/issues/321)                              |
-| 2014-12 | [GitHub][]                   | Feature           | [Repository Traffic Analytics API](https://github.com/isaacs/github/issues/320)                                                                            |
-| 2014-12 | [GitHub][]                   | Technical support | [Pin issues or add header text to issues page](https://github.com/isaacs/github/issues/315)                                                                |
-| 2014-12 | [GitHub][]                   | Bug               | [Tree show links blobs to the last commit that contained the blob instead of commit that introduced the file](https://github.com/isaacs/github/issues/319) |
-| 2014-12 | [GitHub][]                   | Duplicate         | [Deal properly with uppercase .GIT file basenames on web editor like for lowercase .git](https://github.com/isaacs/github/issues/318)                      |
-| 2014-12 | [GitHub][]                   | Duplicate         | [Add a "I have this issue too" button](https://github.com/isaacs/github/issues/314)                                                                        |
-| 2014-11 | [GitBook][]                  | Bug               | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                             |
-| 2014-11 | [GitHub][]                   | Feature           | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                            |
-| 2014-11 | [GitHub][]                   | Bug               | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303)                                  |
-| 2014-11 | [GitHub][]                   | Bug               | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)      |
-| 2014-11 | [GitHub][]                   | Bug               | [Glitches for filenames that contain only spaces](https://github.com/isaacs/github/issues/286)                                                             |
-| 2014-11 | [GitHub][]                   | Bug               | [500 on raw and 414 on blob show of long file name with 1024 characters](https://github.com/isaacs/github/issues/290)                                      |
-| 2014-11 | [GitHub][]                   | Feature           | [Highlight bytes / words in diffs on adjacent multi-line modifications](https://github.com/isaacs/github/issues/235)                                       |
-| 2014-11 | [GitHub][]                   | Duplicate         | [Allow following of groups similar to following users](https://github.com/isaacs/github/issues/218#issuecomment-47030350)                                  |
+| Date    | Project                      | Type      | Description                                                                                                                                                |
+|---------|------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-09 | [GitHub][]                   | Support   | [Add ability to fork and edit files from external URL](https://github.com/isaacs/github/issues/460)                                                        |
+| 2015-05 | [GitHub][]                   | Bug       | [500 when listing GCC mirror branches](https://github.com/isaacs/github/issues/398)                                                                        |
+| 2015-04 | [Free Software Foundation][] | Bug       | [Duplicated paragraph at Octave at description of high priority projects](https://github.com/cirosantilli/issues/issues/3)                                 |
+| 2015-03 | [GitHub][]                   | Bug       | [@about and @pricing generate at mentions even though they are reserved](https://github.com/isaacs/github/issues/375)                                      |
+| 2015-03 | [Jenkov tutorials][]         | Typo      | [typo boolean -> long](http://tutorials.jenkov.com/java-util-concurrent/atomiclong.html)                                                                   |
+| 2015-03 | [GitHub][]                   | Bug       | [502 on homepage on long streak](https://github.com/isaacs/github/issues/370)                                                                              |
+| 2015-02 | [GitHub][]                   | Bug       | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348)        |
+| 2015-02 | [GitHub][]                   | Feature   | [Allow to reopen pull requests after a force push](https://github.com/isaacs/github/issues/361)                                                            |
+| 2015-02 | [GitHub][]                   | Bug       | [If a CONTRIBUTING.md that is a symlink is present, the link to it should not show on new issue forms](https://github.com/isaacs/github/issues/348)        |
+| 2014-12 | [My Science Work][]          | Typo      | Typos on settings page                                                                                                                                     |
+| 2014-12 | [GitHub][]                   | Bug       | [Merge pull request window appears after rebase even if I don't have permission](https://github.com/isaacs/github/issues/321)                              |
+| 2014-12 | [GitHub][]                   | Feature   | [Repository Traffic Analytics API](https://github.com/isaacs/github/issues/320)                                                                            |
+| 2014-12 | [GitHub][]                   | Support   | [Pin issues or add header text to issues page](https://github.com/isaacs/github/issues/315)                                                                |
+| 2014-12 | [GitHub][]                   | Bug       | [Tree show links blobs to the last commit that contained the blob instead of commit that introduced the file](https://github.com/isaacs/github/issues/319) |
+| 2014-12 | [GitHub][]                   | Duplicate | [Deal properly with uppercase .GIT file basenames on web editor like for lowercase .git](https://github.com/isaacs/github/issues/318)                      |
+| 2014-12 | [GitHub][]                   | Duplicate | [Add a "I have this issue too" button](https://github.com/isaacs/github/issues/314)                                                                        |
+| 2014-11 | [GitBook][]                  | Bug       | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                             |
+| 2014-11 | [GitHub][]                   | Feature   | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                            |
+| 2014-11 | [GitHub][]                   | Bug       | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303)                                  |
+| 2014-11 | [GitHub][]                   | Bug       | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)      |
+| 2014-11 | [GitHub][]                   | Bug       | [Glitches for filenames that contain only spaces](https://github.com/isaacs/github/issues/286)                                                             |
+| 2014-11 | [GitHub][]                   | Bug       | [500 on raw and 414 on blob show of long file name with 1024 characters](https://github.com/isaacs/github/issues/290)                                      |
+| 2014-11 | [GitHub][]                   | Feature   | [Highlight bytes / words in diffs on adjacent multi-line modifications](https://github.com/isaacs/github/issues/235)                                       |
+| 2014-11 | [GitHub][]                   | Duplicate | [Allow following of groups similar to following users](https://github.com/isaacs/github/issues/218#issuecomment-47030350)                                  |
 {: .patches-table .data-table}
 
 ### Open source
@@ -466,7 +467,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2015-03 | [Tig][]                      | [Accepted feature.](https://github.com/jonas/tig/issues/273)                                                                                              |
 | 2014-11 | [GitLab][]                   | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/8293#issuecomment-62858344)                                                                       |
 | 2014-11 | [GitLab][]                   | [Bug.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/180)                                                                                           |
-| 2014-11 | [GitLab][]                   | [Technical support.](https://github.com/gitlabhq/gitlabhq/issues/8384)                                                                                          |
+| 2014-11 | [GitLab][]                   | [Support.](https://github.com/gitlabhq/gitlabhq/issues/8384)                                                                                              |
 | 2014-11 | [Bootstrap Hover Dropdown][] | [Bug confirmed.](https://github.com/CWSpear/bootstrap-hover-dropdown/issues/92)                                                                           |
 | 2014-11 | [GitLab][]                   | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/8267)                                                                                        |
 | 2014-11 | [GitLab][]                   | [Triaging.](https://github.com/gitlabhq/gitlabhq/issues/8357)                                                                                             |
@@ -477,7 +478,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-10 | [GitLab][]                   | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/8090)                                                                                        |
 | 2014-10 | [Semaphore CI][]             | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                          |
 | 2014-10 | [libgit2][]                  | [Bug confirmed.](https://github.com/libgit2/libgit2/issues/2562)                                                                                          |
-| 2014-10 | [GitLab][]                   | [Technical support.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                          |
+| 2014-10 | [GitLab][]                   | [Support.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                              |
 | 2014-10 | [GitLab][]                   | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)               |
 | 2014-09 | [vader.vim][]                | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                      |
 | 2014-09 | [GitLab][]                   | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                       |
