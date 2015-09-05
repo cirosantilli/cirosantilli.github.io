@@ -37,10 +37,9 @@ redirect_from:
 
 -   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
 
-<!--
-https://github.com/cirosantilli/runlinux
-https://github.com/cirosantilli/vundle-plugin-tester
--->
+-   **[runlinux](https://github.com/cirosantilli/runlinux)**
+
+-   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
 
 ## Stack Overflow
 
