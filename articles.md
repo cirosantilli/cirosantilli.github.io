@@ -32,6 +32,8 @@ Short focused articles
     -  [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
 -   Rails
     -  [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
+-   POSIX
+    -   [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
 
 ## Cheatsheets
 

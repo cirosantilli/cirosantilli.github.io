@@ -11,6 +11,8 @@ redirect_from:
 
 -   **[Markdown Style Guide](/markdown-style-guide)**
 
+-   **[runlinux](https://github.com/cirosantilli/runlinux)**
+
 -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
 
     I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
@@ -36,8 +38,6 @@ redirect_from:
 -   **[isaacs/github][]**: I have commented there so often that I [was made a collaborator](https://github.com/isaacs/github/issues/430#issuecomment-123851480).
 
 -   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
-
--   **[runlinux](https://github.com/cirosantilli/runlinux)**
 
 -   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
 

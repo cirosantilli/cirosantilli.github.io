@@ -7,9 +7,7 @@ permalink: interests/
 
 -   tools that help people produce and use both textual learning material and code efficiently.
 
-    Tools: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, reputation systems / user rankings gamification.
-
-    Applications: B2B training, ECM, college education and academic publishing.
+    Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
 
 I like open source, but I will use whichever license better serves society.
 
@@ -18,6 +16,8 @@ I can speak [a few languages](/skills#natural-languages) but I strongly prefer t
 I prefer textual information (e.g. wikis, issue trackers) over non-textual (e.g. videos, meetings), because it is cheaper to make, modify, searchable, often more precise, and takes less disk space and bandwidth. A sequence of well chosen images is better than any video.
 
 I am also interested in academia. I like to teach (people who want to learn) and produce optimal learning material.
+
+I like working remotely.
 
 If our interests coincide, ping me even if you don't have an specific proposal immediately. I want to know that you exist :-)
 
