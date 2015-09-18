@@ -9,6 +9,7 @@ Short focused articles
     -  [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
 -   Assembly
     -  [How to run a program without an operating system?](http://stackoverflow.com/a/32483545/895245)
+    -  [ELF Hello World Tutorial](/elf-hello-world)
 -   Linux kernel
     -  [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
     -  [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
