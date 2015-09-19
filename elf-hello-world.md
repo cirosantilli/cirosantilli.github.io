@@ -26,7 +26,7 @@ The LSB basically links to other standards with minor extensions, in particular:
 
 -   generic (both by SCO):
 
-    - System V ABI 4.1 (1997) <http://www.sco.com/developers/devspecs/gabi41.pdf>, no 64 bit, although a magic number is reserved for it. Same for core files.
+    - System V ABI 4.1 (1997) <http://www.sco.com/developers/devspecs/gabi41.pdf>, no 64 bit, although a magic number is reserved for it. Same for core files. *This* is the first document you should look at when searching for information.
     - System V ABI Update DRAFT 17 (2003) <http://www.sco.com/developers/gabi/2003-12-17/contents.html>, adds 64 bit. Only updates chapters 4 and 5 of the previous document: the others remain valid and are still referenced.
 
 -   architecture specific:
@@ -225,17 +225,61 @@ Gives:
 
 ## Global file structure
 
--   ELF header
+An ELF file contains the following parts:
 
--   `e_phnum` program headers
+-   ELF header. Points to the position of the section header table and the program header table.
 
--   `e_shnum` section headers
+-   Section header table (optional on executable). Each has `e_shnum` section headers, each pointing to the position of a section.
 
--   N sections, with `N <= e_shnum` (TODO check)
+-   N sections, with `N <= e_shnum` (optional on executable)
 
--   Section header table.
+-   Program header table (only on executable). Each has `e_phnum` program headers, each pointing to the position of a segment.
 
-    TODO: why do the [Wikipedia image](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format#/media/File:Elf-layout--en.svg) and the System V ABI Introduction section show section header table at the end? It can come either before of after depending on chosen offsets, and before makes more sense as it is more likely to be buffered. Binutils 2.24 puts it before.
+-   N segments, with `N <= e_phnum` (optional on executable)
+
+The order of those parts is *not* fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
+
+> Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.
+
+In pictures: sample object file with three sections:
+
+                +-------------------+
+                | ELF header        |---+
+    +---------> +-------------------+   | e_shoff
+    |           |                   |<--+
+    | Section   | Section header 0  |
+    |           |                   |---+ sh_offset
+    | Header    +-------------------+   |
+    |           | Section header 1  |---|--+ sh_offset
+    | Table     +-------------------+   |  |
+    |           | Section header 2  |---|--|--+
+    +---------> +-------------------+   |  |  |
+                | Section 0         |<--+  |  |
+                +-------------------+      |  | sh_offset
+                | Section 1         |<-----+  |
+                +-------------------+         |
+                | Section 2         |<--------+
+                +-------------------+
+
+But nothing (except sanity) prevents the following topology:
+
+                +-------------------+
+                | ELF header        |---+ e_shoff
+                +-------------------+   |
+                | Section 1         |<--|--+
+    +---------> +-------------------+   |  |
+    |           |                   |<--+  | sh_offset
+    | Section   | Section header 0  |      |
+    |           |                   |------|---------+
+    | Header    +-------------------+      |         |
+    |           | Section header 1  |------+         |
+    | Table     +-------------------+                |
+    |           | Section header 2  |---+            | sh_offset
+    +---------> +-------------------+   | sh_offset  |
+                | Section 2         |<--+            |
+                +-------------------+                |
+                | Section 0         |<---------------+
+                +-------------------+
 
 ## ELF header
 
@@ -308,6 +352,8 @@ Executable:
 
 Structure represented:
 
+    # define EI_NIDENT 16
+
     typedef struct {
         unsigned char   e_ident[EI_NIDENT];
         Elf64_Half      e_type;
@@ -349,7 +395,7 @@ Manual breakdown:
 
 -   1 8: `e_entry` = 8x `00`: execution address entry point, or 0 if not applicable like for the object file since there is no entry point.
 
-    On the executable, it is `b0 00 40 00 00 00 00 00`. TODO: what else can we set this to? The kernel seems to put the IP directly on that value, it is not hardcoded.
+    On the executable, it is `b0 00 40 00 00 00 00 00`. The kernel puts the RIP directly on that value when executing. It can be configured by the linker script or `-e`. But it will segfault if you set it too low: <http://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n>
 
 -   2 0: `e_phoff` = 8x `00`: program header table offset, 0 if not present.
 
@@ -357,9 +403,11 @@ Manual breakdown:
 
 -   2 8: `e_shoff` = `40` 7x `00` = `0x40`: section header table file offset, 0 if not present.
 
--   3 0: `e_flags` =  `00 00 00 00` TODO. Arch specific.
+-   3 0: `e_flags` =  `00 00 00 00` Arch specific. `i386` docs say:
 
--   3 4: `e_ehsize` =  `40 00 `: size of this elf header. TODO why this field? How can it vary?
+    > The Intel386 architecture defines no flags; so this member contains zero.
+
+-   3 4: `e_ehsize` =  `40 00 `: size of this elf header. TODO why this field needed? Isn't the size fixed?
 
 -   3 6: `e_phentsize` =  `00 00 `: size of each program header, 0 if not present.
 
@@ -552,10 +600,12 @@ Such sections are used by other sections when string names are to be used. The u
 - which string table they are using
 - what is the index on the target string table where the string starts
 
-So for example, we could have a string table containing: TODO: does it have to start with `\0`?
+So for example, we could have a string table containing:
 
     Data: \0 a b c \0 d e f \0
     Index: 0 1 2 3  4 5 6 7  8
+
+The first byte must be a 0. TODO rationale?
 
 And if another section wants to use the string `d e f`, they have to point to index `5` of this section (letter `d`).
 
@@ -680,7 +730,21 @@ Byte analysis:
 
 -   10 8: `st_name` = `01000000` = character 1 in the `.strtab`, which until the following `\0` makes `hello_world.asm`
 
-    This piece of information file may be used by the linker to decide on which segment sections go.
+    This piece of information file may be used by the linker to decide on which segment sections go: e.g. in `ld` linker script we write:
+
+        segment_name :
+        {
+            file(section)
+        }
+
+    to pick a section from a given file.
+
+    Most of the time however, we will just dump all sections with a given name together with:
+
+        segment_name :
+        {
+            *(section)
+        }
 
 -   10 12: `st_info` = `04`
 
@@ -840,7 +904,7 @@ The executable is generated from object files by the linker. The main jobs that 
 
     You can get the linker script used with `ld --verbose`, and set a custom one with `ld -T`.
 
--   do relocation on text sections. This depends on how the multiple sections are put into memory.
+-   do relocation according to the `.rela.text` section. This depends on how the multiple sections are put into memory.
 
 `readelf -l hello_world.out` gives:
 
@@ -890,16 +954,31 @@ Structure represented <http://www.sco.com/developers/gabi/2003-12-17/ch5.pheader
 
 Breakdown of the first one:
 
-- 40 0: `p_type` = `01 00 00 00` = `PT_LOAD`: TODO. I think it means it will be actually loaded into memory. Other types may not necessarily be.
-- 40 4: `p_flags` = `05 00 00 00` = execute and read permissions, no write TODO 
-- 40 8: `p_offset` = 8x `00` TODO: what is this? Looks like offsets from the beginning of segments. But this would mean that some segments are intertwined? It is possible to play with it a bit with: `gcc -Wl,-Ttext-segment=0x400030 hello_world.c`
-- 50 0: `p_vaddr` = `00 00 40 00 00 00 00 00`: initial virtual memory address to load this segment to
-- 50 8: `p_paddr` = `00 00 40 00 00 00 00 00`: initial physical address to load in memory. Only matters for systems in which the program can set it's physical address. Otherwise, as in System V like systems, can be anything. NASM seems to just copy `p_vaddrr`
-- 60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: TODO vs `p_memsz`
-- 60 8: `p_memsz` = `d7 00 00 00 00 00 00 00`: TODO
-- 70 0: `p_align` =  `00 00 20 00 00 00 00 00`: 0 or 1 mean no alignment required TODO what does that mean? otherwise redundant with other fields
+-   40 0: `p_type` = `01 00 00 00` = `PT_LOAD`: this is a regular segment that will get loaded in memory.
 
-The second is analogous.
+-   40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text section. A classic way to do this in C is with string literals: <http://stackoverflow.com/a/30662565/895245> This allows kernels to do certain optimizations, like sharing the segment amongst processes.
+
+-   40 8: `p_offset` = 8x `00` TODO: what is this? Standard says:
+
+    > This member gives the offset from the beginning of the file at which the first byte of the segment resides.
+
+    But it looks like offsets from the beginning of *segments*, not file?
+
+-   50 0: `p_vaddr` = `00 00 40 00 00 00 00 00`: initial virtual memory address to load this segment to
+
+-   50 8: `p_paddr` = `00 00 40 00 00 00 00 00`: unspecified effect. Intended for systems in which physical addressing matters. TODO example?
+
+-   60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: size that the section occupies in memory. If smaller than `p_memsz`, the OS fills it with zeroes to fit when loading the program. This is how BSS data is implemented to save space on executable files. i368 ABI says on `PT_LOAD`:
+
+    > The bytes from the file are mapped to the beginning of the memory segment. If the segment’s memory size (p_memsz) is larger than the file size (p_filesz), the ‘‘extra’’ bytes are defined to hold the value 0 and to follow the segment’s initialized area. The file size may not be larger than the memory size.
+
+-   60 8: `p_memsz` = `d7 00 00 00 00 00 00 00`: size that the section occupies in memory
+
+-   70 0: `p_align` =  `00 00 20 00 00 00 00 00`: 0 or 1 mean no alignment required. TODO why is this required? Why not just use `p_addr` directly, and get that right? Docs also say:
+
+    > p_vaddr should equal p_offset, modulo p_align
+
+The second segment (`.data`) is analogous. TODO: why use offset `0x0000d8` and address `0x00000000006000d8`? Why not just use `0` and `0x00000000006000d8`?
 
 Then the:
 
