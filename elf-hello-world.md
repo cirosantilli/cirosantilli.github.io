@@ -158,6 +158,8 @@ Compiled with:
     nasm -w+all -f elf64 -o 'hello_world.o' 'hello_world.asm'
     ld -o 'hello_world.out' 'hello_world.o'
 
+TODO: use a minimal linker script with `-T` to be more precise and minimal.
+
 Versions:
 
 - NASM 2.10.09

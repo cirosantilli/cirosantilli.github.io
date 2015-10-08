@@ -3,7 +3,7 @@ title: Articles
 permalink: articles/
 ---
 
-Short focused articles
+Short focused articles.
 
 -   Featured
     -  [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
@@ -40,19 +40,26 @@ Short focused articles
 
 Larger cross-breeds of tutorials, unit tests and cheatsheets.
 
--   [Algorithm][algorithm-cheat]
+Best ones:
+
 -   [Assembly][assembly-cheat]
     -  [x86 Instruction Encoding Tutorial](https://github.com/cirosantilli/x86-instruction-encoding-tutorial)
-    -  [x86 Bare Metal Examples](https://github.com/cirosantilli/x86-bare-metal-examples)
--   [Bash][bash-cheat]
+    -  [x86 Bare Metal Examples][bare-metal]
 -   [C++][cpp-cheat]
--   [Java][java-cheat]
 -   [Linux][linux-cheat]
+
+Not bad either:
+
+-   [Algorithm][algorithm-cheat]
+-   [Bash][bash-cheat]
+-   [Gnuplot](https://github.com/cirosantilli/gnuplot-cheat)
+-   [Java][java-cheat]
+-   [LaTeX](https://github.com/cirosantilli/latex-cheat)
 -   [Networking][networking-cheat]
 -   [Python][python-cheat]
 -   [Rails][rails-cheat]
 -   [Ruby][ruby-cheat]
 -   [Ubuntu][ubuntu-cheat]
--   [Web][web-cheat]
+-   [HTML, CSS, JavaScript][web-cheat]
 
 {% include links.md %}

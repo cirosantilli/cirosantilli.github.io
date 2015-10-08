@@ -37,6 +37,8 @@ redirect_from:
 
 -   **[isaacs/github][]**: I have commented there so often that I [was made a collaborator](https://github.com/isaacs/github/issues/430#issuecomment-123851480).
 
+-   **[Breakthrough Message](https://github.com/cirosantilli/breakthrough-message)**: aliens!!! Creative / media project, powered by some Python scripts.
+
 -   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
 
 -   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
@@ -75,6 +77,12 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                                                                    |
 |---------|----------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2015-10 | [linux-insides][]          | 0    | [Recommend ivandaviov/minimal to generate initrd](https://github.com/0xAX/linux-insides/pull/227)                                                                              |
+| 2015-08 | [bare-metal-tetris][]      | 0    | [make clean also removes tetris.iso](https://github.com/programble/bare-metal-tetris/pull/2)                                                                                   |
+| 2015-08 | [eduOS][]                  | 0    | [README typos Binutils and NASM](https://github.com/RWTH-OS/eduOS/pull/7)                                                                                                      |
+| 2015-08 | [GDB][]                    | 0    | [python: fix Linetable case to LineTable in docstrings and comments](https://sourceware.org/ml/gdb-patches/2015-07/msg00744.html)                                              |
+| 2015-07 | [GDB][]                    | 0    | [Remove outdated comment from call-rt-st.exp](https://sourceware.org/ml/gdb-patches/2015-08/msg00013.html)                                                                     |
+| 2015-07 | [GDB][]                    | 0    | [Fix broken CONTRIBUTE link to GNU insignificant changes](https://sourceware.org/ml/gdb-patches/2015-08/msg00015.html)                                                         |
 | 2015-07 | [GDB][]                    | 1    | [py-linetable.c: Fix doc of LineTable.source_lines' return type](https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=commit;h=7b849db4f213d6734b4121ca5e5cab3341a5140c) |
 | 2015-07 | [Binutils][]               | 1    | [Clarify case requirements for gas pseudo-ops](https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=commit;h=7e3023528162de7760a0e7e487aa81bbf44cb6a9)                   |
 | 2015-07 | [Capstone][]               | 0    | [Website typos at beyond_llvm](https://github.com/aquynh/capstone/issues/419)                                                                                                  |

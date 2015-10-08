@@ -3,6 +3,7 @@
 [assembly-cheat]:           https://github.com/cirosantilli/assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey
 [bash-cheat]:               https://github.com/cirosantilli/bash-cheat
+[bare-metal]:               https://github.com/cirosantilli/x86-bare-metal-examples
 [bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
 [binutils]:                 https://sourceware.org/binutils
 [booktree]:                 https://github.com/booktree/booktree
