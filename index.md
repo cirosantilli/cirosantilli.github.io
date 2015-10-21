@@ -19,7 +19,6 @@ Quick facts:
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
 - **Relationship status**: in a serious relation, not open to new contacts :)
-- **Why does your [GitHub home](https://github.com/cirosantilli) 502?** I [found a bug](http://stackoverflow.com/a/27742165/895245) on GitHub. [GitHub search](https://github.com/search?utf8=%E2%9C%93&q=user%3Acirosantilli+&type=Repositories&ref=searchresults) and [my list](/projects) are more relevant.
 
 ## Current occupation
 

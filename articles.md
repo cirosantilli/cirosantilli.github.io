@@ -52,7 +52,7 @@ Not bad either:
 
 -   [Algorithm][algorithm-cheat]
 -   [Bash][bash-cheat]
--   [Gnuplot](https://github.com/cirosantilli/gnuplot-cheat)
+-   [Gnuplot](https://github.com/cirosantilli/gnuplot-examples)
 -   [Java][java-cheat]
 -   [LaTeX](https://github.com/cirosantilli/latex-cheat)
 -   [Networking][networking-cheat]
