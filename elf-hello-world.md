@@ -967,14 +967,29 @@ So:
 
     The AMD64 ABI says that type `1` is called `R_X86_64_64` and that it represents the operation `S + A` where:
 
-    - `S`: the address of the section pointed to by `ELF64_R_SYM`, thus `.data`
+    - `S`: the value of the symbol on the object file, here `0` because we point to the `00 00 00 00 00 00 00 00` of `movabs $0x0,%rsi`
     - `A`: the addend, present in field `r_added`
+
+    This address is added to the section on which the relocation operates.
 
     This relocation operation acts on a total 8 bytes.
 
 -   380 0: `r_addend` = 0
 
 So in our example we conclude that the new address will be: `S + A` = `.data + 0`, and thus the first thing in the data section.
+
+#### .rel.text
+
+Besides `sh_type == SHT_RELA`, there also exists `SHT_REL`, which would have section name `.text.rel` (not present in this object file).
+
+Those represent the same `struct`, but without the addend, e.g.:
+
+    typedef struct {
+        Elf64_Addr  r_offset;
+        Elf64_Xword r_info;
+    } Elf64_Rela;
+
+The ELF standard says that in many cases the both can be used, and it is just a matter of convenience.
 
 ## Program header table
 

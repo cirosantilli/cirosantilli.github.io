@@ -9,6 +9,22 @@ Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/89
 
 {{ site.toc }}
 
+## Sample code
+
+Minimal example: <https://github.com/cirosantilli/x86-bare-metal-examples/blob/24988411adf10cf9f6afd1566e35472eb8ae771a/paging.S>
+
+Like everything else in programming, the only way to really understand this is to play with minimal examples.
+
+What makes this a difficult subject, is that the minimal example is a bit complicated and requires some previous assembly knowledge.
+
+## Intel manual
+
+Although it is impossible to understand without examples in mind, try to get familiar with the manuals as soon as possible.
+
+Intel describes paging in the [Intel Manual Volume 3 System Programming Guide - 325384-056US September 2015](https://web.archive.org/web/20151025081259/http://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-system-programming-manual-325384.pdf) Chapter 4 "Paging".
+
+Specially interesting is Figure 4-4 "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging", which gives the key data structures.
+
 ## General facts
 
 Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes go to RAM wires:
@@ -17,6 +33,10 @@ Paging translates linear addresses, what is left after segmentation translated l
                  segmentation                 paging
 
 Paging is only available on protected mode. The use of paging protected mode is optional. Paging is on iff the `PG` bit of the `cr0` register is set.
+
+### MMU
+
+Paging is done by the [Memory Management Unit](https://en.wikipedia.org/wiki/Memory_management_unit) (MMU) part of the CPU. Like many others (e.g. [x87 co-processor](https://en.wikipedia.org/wiki/X87), [APIC](https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller)), this used to be by separate chip on early days, which was later integrated into the CPU. But the term is still used.
 
 ## Paging vs segmentation
 
@@ -265,7 +285,7 @@ Each process must have one and only one page directory associated to it, so it w
 
 Page tables are only allocated as needed by the OS. Each page table has `2^10 = 1K` page directory entries
 
-Page directories contain... page directory entries! Page directory entries are the same as page table entries except that *they point to RAM addresses of page tables instead of physical addresses of tables*. Since those addresses are only 20 bits wide, page tables must be on the beginning of 4KB pages.
+Page directories contain... page directory entries! Page directory entries are the same as page table entries except that *they point to RAM addresses of page tables instead of physical addresses of tables*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
 
 `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
 
@@ -553,6 +573,28 @@ which would be even more expensive than using a TLB.
 When `cr3` changes, all TLB entries are invalidated, because a new page table for a new process is going to be used, so it is unlikely that any of the old entries have any meaning.
 
 The x86 also offers the `invlpg` instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.
+
+## Linux kernel usage
+
+The Linux kernel makes extensive usage of the paging features of x86 to allow fast process switches with small data fragmentation.
+
+In `v4.2`, look under `arch/x86/`:
+
+- `include/asm/pgtable*`
+- `include/asm/page*`
+- `mm/pgtable*`
+- `mm/page*`
+
+There seems to be no structs defined to represent the pages, only macros: `include/asm/page_types.h` is specially interesting. Excerpt:
+
+    #define _PAGE_BIT_PRESENT   0   /* is present */
+    #define _PAGE_BIT_RW        1   /* writeable */
+    #define _PAGE_BIT_USER      2   /* userspace addressable */
+    #define _PAGE_BIT_PWT       3   /* page write through */
+
+`arch/x86/include/uapi/asm/processor-flags.h` defines `CR0`, and in particular the `PG` bit position:
+
+    #define X86_CR0_PG_BIT      31 /* Paging */
 
 ## Bibliography
 
