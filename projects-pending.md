@@ -72,6 +72,8 @@ GitHub remove directory https://github.com/isaacs/github/issues/225
 
 ### Closed source
 
+Autolinks with angle brackets whose URLs contain single or double quotes don't show in rendered markdown files and issues <https://github.com/isaacs/github/issues/507>
+
 ### Waiting
 
 | 2015-01 | [JIRA][] | Feature | [Allow non-admins to choose only to receive email notifications on at mention, watched issues or assignment](https://jira.atlassian.com/browse/JRA-41640) |

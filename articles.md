@@ -10,12 +10,14 @@ Short focused articles.
 -   Assembly
     -  [How to run a program without an operating system?](http://stackoverflow.com/a/32483545/895245)
     -  [ELF Hello World Tutorial](/elf-hello-world)
--   Linux kernel
     -  [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
     -  [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
 -   GCC internals
     -  [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
     -  [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
+-   C / C++
+    -  [What does “static” mean in a C program?](http://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047)
+    -  [In C++ source, what is the effect of extern “C”?](http://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795)
 -   Algorithms
     -  [Heap vs Binary Search Tree (BST)](http://stackoverflow.com/a/29548834/895245)
 -   Git internals
