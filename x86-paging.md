@@ -68,6 +68,8 @@ The format of those data structures is fixed *by the hardware*, but it is up to 
 
 Paging could be implemented in software but is hardware implemented because paging operations are done at every single memory access and therefore need to be very fast.
 
+Another notable example of RAM data structure used by the CPU is the [IDT](https://en.wikipedia.org/wiki/Interrupt_descriptor_table) which sets up interrupt handlers. This is a common technique when lots of data must be transmitted to the CPU.
+
 ## Example: simplified single-level paging scheme
 
 This is an example of how paging operates on a *simplified* version of a x86 architecture
