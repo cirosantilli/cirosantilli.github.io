@@ -11,11 +11,11 @@ Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/89
 
 ## Sample code
 
-Minimal example: <https://github.com/cirosantilli/x86-bare-metal-examples/blob/24988411adf10cf9f6afd1566e35472eb8ae771a/paging.S>
+Minimal example: <https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S>
 
 Like everything else in programming, the only way to really understand this is to play with minimal examples.
 
-What makes this a difficult subject, is that the minimal example is a bit complicated and requires some previous assembly knowledge.
+What makes this a "hard" subject is that the minimal example is large because you need to make your own small OS.
 
 ## Intel manual
 
