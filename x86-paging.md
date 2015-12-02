@@ -25,55 +25,83 @@ Intel describes paging in the [Intel Manual Volume 3 System Programming Guide - 
 
 Specially interesting is Figure 4-4 "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging", which gives the key data structures.
 
-## General facts
+## Application
 
-Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes go to RAM wires:
+Paging makes it easier to compile and run two programs at the same time on a single computer.
+
+For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.
+
+So nothing prevents it from using the same RAM address, say, `0x1234`, to store a global variable.
+
+But if two programs use the same address and run at the same time, this is obviously going to break them!
+
+Paging solves this problem beautifully by adding one degree of indirection:
+
+    (logical) ------------> (physical)
+                 paging
+
+Compilers don't need to worry about other programs: they just use simple logical addresses.
+
+As far as programs are concerned, they think they can use any address between 0 and 4GB (2^32) on 32-bit systems.
+
+Paging is then setup by the OS so that identical logical addresses will go into different physical addresses.
+
+This makes it much simpler to compile programs and run them at the same time.
+
+Paging achieves that goal, and in addition:
+
+-   the switch between programs is very fast, because it is implemented by hardware
+
+-   the memory of both programs can grow and shrink as needed without too much fragmentation
+
+-   one program can never access the memory of another program, even if it wanted to.
+
+    This is good both for security, and to prevent bugs in one program from crashing other programs.
+
+## Hardware implementation
+
+Paging is implemented by the CPU itself.
+
+Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!
+
+The operating system must tell the CPU how paging is to be done.
+
+This is done by writing bytes to specific RAM addresses, not through registers directly. In x86, the RAM location is given by the CR3 register.
+
+Using RAM is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
+
+The format of the configuration data structures is fixed *by the hardware*, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
+
+Another notable example of RAM data structure used by the CPU is the [IDT](https://en.wikipedia.org/wiki/Interrupt_descriptor_table) which sets up interrupt handlers.
+
+## Paging vs segmentation
+
+In x86 systems, there may actually be 2 address translation steps:
+
+- first segmentation
+- then paging
+
+As such:
 
     (logical) ------------------> (linear) ------------> (physical)
                  segmentation                 paging
 
-Paging is only available on protected mode. The use of paging protected mode is optional. Paging is on iff the `PG` bit of the `cr0` register is set.
+Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes go to RAM wires:
 
-### MMU
-
-Paging is done by the [Memory Management Unit](https://en.wikipedia.org/wiki/Memory_management_unit) (MMU) part of the CPU. Like many others (e.g. [x87 co-processor](https://en.wikipedia.org/wiki/X87), [APIC](https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller)), this used to be by separate chip on early days, which was later integrated into the CPU. But the term is still used.
-
-## Paging vs segmentation
-
-One major difference between paging and segmentation is that:
+The major difference between paging and segmentation is that:
 
 - paging splits RAM into equal sized chunks called pages
 - segmentation splits memory into chunks of arbitrary sizes
 
-This is the main advantage of paging, since equal sized chunks make things more manageable.
+This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems.
 
-Paging has become so much more popular that support for segmentation was dropped in x86-64 in 64-bit mode, the main mode of operation for new software, where it only exists in compatibility mode, which emulates IA32.
+Paging came after segmentation historically, and largely replaced it for the implementation of virtual memory in modern OSs.
 
-## Application
-
-Paging is used to implement processes virtual address spaces on modern OS. With virtual addresses the OS can fit two or more concurrent processes on a single RAM in a way that:
-
-- both programs need to know nothing about the other
-- the memory of both programs can grow and shrink as needed
-- the switch between programs is very fast
-- one program can never access the memory of another process
-
-Paging historically came after segmentation, and largely replaced it for the implementation of virtual memory in modern OSs such as Linux since it is easier to manage the fixed sized chunks of memory of pages instead of variable length segments.
-
-## Hardware implementation
-
-Just like for segmentation, paging hardware uses RAM data structures (page tables, page directories, etc.) to do its job.
-
-The format of those data structures is fixed *by the hardware*, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
-
-Paging could be implemented in software but is hardware implemented because paging operations are done at every single memory access and therefore need to be very fast.
-
-Another notable example of RAM data structure used by the CPU is the [IDT](https://en.wikipedia.org/wiki/Interrupt_descriptor_table) which sets up interrupt handlers. This is a common technique when lots of data must be transmitted to the CPU.
+Paging has become so much more popular that support for segmentation was dropped in x86-64 in 64-bit mode, the main mode of operation for new software, where it only exists in compatibility mode, which emulates IA-32.
 
 ## Example: simplified single-level paging scheme
 
-This is an example of how paging operates on a *simplified* version of a x86 architecture
-to implement a virtual memory space.
+This is an example of how paging operates on a *simplified* version of a x86 architecture to implement a virtual memory space.
 
 ### Page tables
 
@@ -597,6 +625,14 @@ There seems to be no structs defined to represent the pages, only macros: `inclu
 `arch/x86/include/uapi/asm/processor-flags.h` defines `CR0`, and in particular the `PG` bit position:
 
     #define X86_CR0_PG_BIT      31 /* Paging */
+
+## Memory management unit
+
+Paging is done by the [Memory Management Unit](https://en.wikipedia.org/wiki/Memory_management_unit) (MMU) part of the CPU.
+
+Like many others (e.g. [x87 co-processor](https://en.wikipedia.org/wiki/X87), [APIC](https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller)), this used to be by separate chip on early days.
+
+It was later integrated into the CPU, but the term MMU still used.
 
 ## Bibliography
 
