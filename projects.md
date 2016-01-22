@@ -11,6 +11,8 @@ redirect_from:
 
 -   **[Markdown Style Guide](/markdown-style-guide)**
 
+-   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**
+
 -   **[runlinux](https://github.com/cirosantilli/runlinux)**
 
 -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
@@ -77,6 +79,8 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                                                                    |
 |---------|----------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2016-01 | [leetcode][]               | 1    | [java LRUCache with LinkedHashMap](https://github.com/haoel/leetcode/pull/90)                                                                                                  |
+| 2015-12 | [Free Programming Books][] | 0    | [Add InterviewBit to problem sets](https://github.com/vhf/free-programming-books/pull/1727)                                                                                    |
 | 2015-10 | [linux-insides][]          | 0    | [Recommend ivandaviov/minimal to generate initrd](https://github.com/0xAX/linux-insides/pull/227)                                                                              |
 | 2015-08 | [bare-metal-tetris][]      | 0    | [make clean also removes tetris.iso](https://github.com/programble/bare-metal-tetris/pull/2)                                                                                   |
 | 2015-08 | [eduOS][]                  | 0    | [README typos Binutils and NASM](https://github.com/RWTH-OS/eduOS/pull/7)                                                                                                      |

@@ -40,7 +40,9 @@ Short focused articles.
 -   Rails
     -  [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
 -   POSIX
-    -   [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
+    -  [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
+-   Security
+    -  [Why is the same origin policy so important?](http://security.stackexchange.com/a/72569/53321)
 
 ## Cheatsheets
 

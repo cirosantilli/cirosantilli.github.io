@@ -86,7 +86,7 @@ As such:
     (logical) ------------------> (linear) ------------> (physical)
                  segmentation                 paging
 
-Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes go to RAM wires:
+Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes to RAM wires:
 
 The major difference between paging and segmentation is that:
 
@@ -544,7 +544,7 @@ Of course, `00000` is not on the TLB since no valid entry contains `00000` as a 
 
 ### Replacement policy
 
-When TLB is filled up, older addresses are overwritten. Just like for CPU cache, the replacement policy is a potentially complex operation, but a simple and reasonable heuristic is to remove the least recently used entry (LRU).
+When TLB is filled up, older addresses are overwritten. Just like CPU cache, the replacement policy is a potentially complex operation, but a simple and reasonable heuristic is to remove the least recently used entry (LRU).
 
 With LRU, starting from state:
 

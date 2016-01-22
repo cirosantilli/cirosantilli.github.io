@@ -37,6 +37,7 @@
 [jira]:                     https://www.atlassian.com/software/jira
 [kramdown]:                 https://github.com/gettalong/kramdown
 [krusader]:                 http://www.krusader.org
+[leetcode]:                 https://github.com/haoel/leetcode
 [libgit2]:                  https://github.com/libgit2/libgit2
 [linux-cheat]:              https://github.com/cirosantilli/linux-cheat
 [linux-insides]:            https://github.com/0xAX/linux-insides
