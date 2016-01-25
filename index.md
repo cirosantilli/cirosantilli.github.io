@@ -5,7 +5,7 @@ description: Software engineer. Passion for low-level technologies and education
 ---
 
 - [**Articles**](articles)
-- [**Projects**](projects) contributions and projects
+- [**Projects**](projects) and contributions
 - [**PDF CV**]({{ site.files_path }}cv.pdf)
 - [**Skills**](skills), with links to code and tutorials
 - [**Professional interests**](interests)
@@ -13,15 +13,14 @@ description: Software engineer. Passion for low-level technologies and education
 
 Quick facts:
 
-- **Email**: [{{ site.email }}](mailto:{{ site.email }})
-- **Job status**: actively looking
+- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/), open to networking
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
-- **Relationship status**: in a serious relation, not open to new contacts :)
+- **Relationship status**: in a serious relation
 
 ## Current occupation
 
-Looking for an [interesting job](interests), studying for interviews and for pleasure, and sending out CVs.
+Helping to build: <https://ring.cx/>
 
 [Old current occupations](old-current).

@@ -11,6 +11,7 @@ permalink: accounts/
 - <http://www.bibsonomy.org/user/cirosantilli>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
+- <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
 - <https://gitlab.com/u/cirosantilli>
 - <https://peerj.com/cirosantilli/>
 - <https://www.plurk.com/cirosantilli>
