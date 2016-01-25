@@ -1,5 +1,5 @@
 ---
-title: Ciro Santilli
+title: Home
 meta_title: false
 description: Software engineer. Passion for low-level technologies and educational applications.
 ---

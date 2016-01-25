@@ -13,6 +13,7 @@ permalink: accounts/
 - <http://www.metacritic.com/user/cirosantilli>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
 - <https://gitlab.com/u/cirosantilli>
+- <https://launchpad.net/~cirosantilli>
 - <https://peerj.com/cirosantilli/>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.transifex.com/user/profile/cirosantilli>
