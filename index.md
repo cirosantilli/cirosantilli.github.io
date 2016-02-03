@@ -10,17 +10,13 @@ description: Software engineer. Passion for low-level technologies and education
 - [**Skills**](skills), with links to code and tutorials
 - [**Professional interests**](interests)
 - [**Education**](education): École Polytechnique and University of São Paulo
+- [**Not work**](not-work/)
 
 Quick facts:
 
-- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/), open to networking
+- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/) on <https://ring.cx>, open to networking
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
 - **Relationship status**: in a serious relation
-
-## Current occupation
-
-Helping to build: <https://ring.cx/>
-
-[Old current occupations](old-current).
+- **Chinese name**: 三西猴, means "three westerns monkeys". Phonetic approximation to SANtilli CIRO.

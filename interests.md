@@ -3,11 +3,15 @@ title: Professional Interests
 permalink: interests/
 ---
 
+Crazy projects yet without prototypes that could change the world:
+
+-   <https://github.com/cirosantilli/write-free-science-books-to-get-famous-website>
+-   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>
+
+General interests areas:
+
 -   low-level, performance critical technologies: operating systems, compilers, databases, file systems, cryptography, virtualization, GPUs, optimization, network programming, numerical analysis, ...
-
--   tools that help people produce and use both textual learning material and code efficiently.
-
-    Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
+-   tools that help people produce and use both textual learning material and code efficiently: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
 
 I like open source, but I will use whichever license better serves society.
 
