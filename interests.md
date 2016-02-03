@@ -3,7 +3,7 @@ title: Professional Interests
 permalink: interests/
 ---
 
-Crazy projects yet without prototypes that could change the world:
+Crazy projects yet without prototypes that I really want to do and which could change the world:
 
 -   <https://github.com/cirosantilli/write-free-science-books-to-get-famous-website>
 -   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>
