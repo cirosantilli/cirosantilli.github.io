@@ -14,7 +14,7 @@ description: Software engineer. Passion for low-level technologies and education
 
 Quick facts:
 
-- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/) on <https://ring.cx>, open to networking
+- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/) on [ring.cx](https://ring.cx), open to networking
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Can relocate to**: anywhere for an interesting job
