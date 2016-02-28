@@ -20,13 +20,17 @@ I control the following accounts:
 - <https://gitlab.com/u/cirosantilli>
 - <https://launchpad.net/~cirosantilli>
 - <https://peerj.com/cirosantilli/>
+- <https://software.intel.com/en-us/user/1090688>
+- <https://tuleap.net/users/cirosantilli>
+- <https://tuleap.ring.cx/users/cirosantilli>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.reddit.com/user/cirosantilli/>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
 China:
 
-- <http://v2ex.com/member/cirosantilli>
 - <http://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
+- <http://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
+- <http://www.tianya.cn/109285544> (can't post, no cell phone)
 - <http://www.zhihu.com/people/ciro-santilli>
