@@ -53,7 +53,7 @@ I like to answer important questions, for which none of the answers satisfied me
 
 I don't like to refresh the homepage looking for easy rep :-)
 
-[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 10 users](http://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2015-09-06) as of July 2015.
+[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 5 users](http://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-03-01) as of March 2016.
 
 ## Size scale
 

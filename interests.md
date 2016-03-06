@@ -40,5 +40,5 @@ So I decided to devote myself to applied stuff in order to:
 
 - make society richer, so that people will have more free time to do fun stuff!
 - better organize information and information generation methods so information can be free
-- destroy the current educational system and replace it by one that lets people chose what they want to learn
+- destroy the current educational system and replace it by one that lets people choose what they want to learn
 - still have some fun myself!

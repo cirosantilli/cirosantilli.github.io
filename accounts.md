@@ -5,25 +5,34 @@ permalink: accounts/
 
 I control the following accounts:
 
+- <http://9gag.com/u/cirosantilli>
 - <http://androidforums.com/members/ciro-santilli.1918307>
 - <http://cirosantilli.imgur.com>
 - <http://f.osdev.org/memberlist.php?mode=viewprofile&u=16372>
 - <http://forum.xda-developers.com/member.php?u=7116837>
 - <http://forums.androidcentral.com/members/cirosantilli-2734491>
+- <http://steamcommunity.com/id/cirosantilli/>
+- <http://tabmixplus.org/forum/memberlist.php?mode=viewprofile&u=59846>
+- <http://talk.commonmark.org/users/cirosantilli>
 - <http://www.bibsonomy.org/user/cirosantilli>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
+- <http://www.tripadvisor.com/members/cirosantilli>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
 - <https://community.zimbra.com/members/cirosantilli>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
+- <https://jsfiddle.net/user/cirosantilli/>
 - <https://launchpad.net/~cirosantilli>
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
+- <https://www.gitbook.com/@cirosantilli>
+- <https://www.instagram.com/cirosantilli/>
 - <https://www.plurk.com/cirosantilli>
+- <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
