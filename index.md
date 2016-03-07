@@ -14,9 +14,8 @@ description: Software engineer. Passion for low-level technologies and education
 
 Quick facts:
 
-- **Job status**: happily working at [Savoir-faire Linux](https://www.savoirfairelinux.com/) on [ring.cx](https://ring.cx), open to networking
+- **Job status**: looking for cool job
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
-- **Can relocate to**: anywhere for an interesting job
 - **Relationship status**: in a serious relation
 - **Chinese name**: 三西猴, means "three westerns monkeys". Phonetic approximation to SANtilli CIRO.
