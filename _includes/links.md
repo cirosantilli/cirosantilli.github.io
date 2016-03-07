@@ -1,4 +1,5 @@
 [algorithm-cheat]:          https://github.com/cirosantilli/algorithm-cheat
+[android-cheat]:            https://github.com/cirosantilli/android-cheat
 [alternativeTo]:            http://alternativeto.net
 [assembly-cheat]:           https://github.com/cirosantilli/x86-assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey

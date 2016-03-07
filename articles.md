@@ -59,6 +59,7 @@ Best ones:
 Not bad either:
 
 -   [Algorithm][algorithm-cheat]
+-   [Android][android-cheat]
 -   [Bash][bash-cheat]
 -   [Gnuplot](https://github.com/cirosantilli/gnuplot-examples)
 -   [Java][java-cheat]
