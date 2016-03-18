@@ -8,6 +8,7 @@ I control the following accounts:
 - <http://9gag.com/u/cirosantilli>
 - <http://androidforums.com/members/ciro-santilli.1918307>
 - <http://cirosantilli.imgur.com>
+- <http://droit-finances.commentcamarche.net/profile/user/cirosantilli>
 - <http://f.osdev.org/memberlist.php?mode=viewprofile&u=16372>
 - <http://forum.xda-developers.com/member.php?u=7116837>
 - <http://forums.androidcentral.com/members/cirosantilli-2734491>
@@ -19,6 +20,7 @@ I control the following accounts:
 - <http://www.metacritic.com/user/cirosantilli>
 - <http://www.tripadvisor.com/members/cirosantilli>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
+- <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
 - <https://community.zimbra.com/members/cirosantilli>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>

@@ -10,7 +10,7 @@ Crazy projects yet without prototypes that I really want to do and which could c
 
 General interests areas:
 
--   low-level, performance critical technologies: operating systems, compilers, databases, file systems, cryptography, virtualization, GPUs, optimization, network programming, numerical analysis, ...
+-   low-level, performance critical technologies: operating systems, GPUs, compilers, network programming, RISC-V, databases, file systems, cryptography, virtualization, optimization, numerical analysis, ...
 -   tools that help people produce and use both textual learning material and code efficiently: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
 
 I like open source, but I will use whichever license better serves society.
