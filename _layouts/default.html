@@ -87,7 +87,8 @@ navigation:
               <img style="width:100%;" src="{{ site.baseurl }}assets/me.jpg" alt="">
             </a>
           </div>
-          <div>
+          {% comment %}
+            <!--<div>-->
               <!-- #AddThis share -->
                 <!-- #AddThis share -->
                   <!--<div class="addthis_toolbox addthis_default_style addthis_32x32_style">-->
@@ -116,7 +117,8 @@ navigation:
                     <!--<a class="addthis_button_google_follow" addthis:userid="106598607405640635523"></a>-->
                   <!--</div>-->
                   <!--<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52fa75284b95ab82"></script>-->
-          </div>
+            <!--</div>-->
+          {% endcomment %}
           <div>
             <a class="nav" href="mailto:{{ site.email }}"><i class="fa fa-envelope-o fa-fw"></i>Email</a>
             <a class="nav" href="https://twitter.com/cirosantilli"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
@@ -136,20 +138,27 @@ navigation:
             {% else 3 %}
               {% assign repo = repo[1] %}
             {% endif %}
-            <a class="nav" href="{{ site.github }}/{{ repo }}/issues/new?title={{ page.title | cgi_escape }}%20-%20">
+            {% comment %}
+              Use that `default:` or else;
+              http://stackoverflow.com/questions/31571150/jekyll-error-liquid-exception-undefined-method-encoding-for-nilnilclass-in
+              http://stackoverflow.com/questions/32791512/jekyll-liquid-filter-cgi-escape-returns-error-for-some-variables
+            {% endcomment %}
+            <a class="nav" href="{{ site.github }}/{{ repo }}/issues/new?title={{ page.title | default: "" | cgi_escape }}%20-%20">
               <i class="fa fa-exclamation-circle fa-fw"></i>Report Issue
             </a>
+            {% comment %}
             <!--
               Same as GitHub, but has formatting problems.
               - http://stackoverflow.com/questions/22118397/how-to-make-a-stacked-icon-have-the-same-width-as-a-fixed-width-non-stacked-one
               - https://github.com/FortAwesome/Font-Awesome/issues/2815
             -->
-              <!--<a class="nav" href="https://github.com/cirosantilli/cirosantilli.github.io/issues/new?title={{ page.title | cgi_escape }}%20-%20">-->
+              <!--<a class="nav" href="https://github.com/cirosantilli/cirosantilli.github.io/issues/new?title={{ issue_title }}%20-%20">-->
                 <!--<span class="fa-stack fa-fw">-->
                   <!--<i class="fa fa-circle-o fa-stack-2x"></i>-->
                   <!--<i class="fa fa-exclamation fa-stack-1x"></i>-->
                 <!--</span>Issue-->
               <!--</a>-->
+            {% endcomment %}
           </div>
         </aside>
         <main>

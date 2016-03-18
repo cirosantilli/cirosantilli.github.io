@@ -29,6 +29,7 @@ I control the following accounts:
 - <https://launchpad.net/~cirosantilli>
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
+- <https://talk.jekyllrb.com/users/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://www.gitbook.com/@cirosantilli>
