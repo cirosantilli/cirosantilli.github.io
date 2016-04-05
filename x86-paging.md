@@ -466,8 +466,6 @@ The 48 bits are split equally into two disjoint parts:
     Bottom half
     ----------------- 00000000 00000000
 
-The Linux kernel just separates kernel and userspace virtual memory on [top and bottom halves](http://stackoverflow.com/questions/18310485/which-address-space-is-occupied-by-the-kernel-in-64-bit-linux).
-
 ## PAE
 
 Physical address extension.
@@ -628,6 +626,124 @@ The x86 also offers the `invlpg` instruction which explicitly invalidates a sing
 ## Linux kernel usage
 
 The Linux kernel makes extensive usage of the paging features of x86 to allow fast process switches with small data fragmentation.
+
+### Kernel vs process memory layout
+
+The Linux Kernel reserves two zones of virtual memory:
+
+- one for kernel memory
+- one for programs
+
+The exact split is configured by `CONFIG_VMSPLIT_...`. By default:
+
+-   on 32-bit:
+
+    - the bottom 3/4 is program space: `00000000` to `BFFFFFFF`
+    - the top 1/4 is kernel memory: `C0000000` to `FFFFFFFF`
+
+    Like this:
+
+        ------------------ FFFFFFFF
+        Kernel
+        ------------------ C0000000
+        ------------------ BFFFFFFF
+
+
+        Process
+
+
+        ------------------ 00000000
+
+-   on 64-bit: currently only 48-bits are actually used, split into two equally sized disjoint spaces. The Linux kernel just assigns:
+
+    - the bottom part to processes `00000000 00000000` to `008FFFFF FFFFFFFF`
+    - the top part to the kernel: `FFFF8000 00000000` to `FFFFFFFF FFFFFFFF`
+
+    Like this:
+
+        ------------------ FFFFFFFF
+        Kernel
+        ------------------ C0000000
+
+
+        (not addressable)
+
+
+        ------------------ BFFFFFFF
+        Process
+        ------------------ 00000000
+
+Kernel memory [is also paged](http://stackoverflow.com/questions/18953598/is-it-true-that-whole-system-space-address-space-in-linux-does-not-use-demand-pa).
+
+In previous versions, [the paging was continuous, but with HIGHMEM this changed](http://stackoverflow.com/questions/1658757/linux-3-1-virtual-address-split).
+
+There is no clear physical memory split: <http://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64>
+
+### Process memory layout
+
+For each process, the virtual address space looks like this:
+
+    ------------------ <--- Top of process accress space.
+    Stack (grows down)
+    v v v v v v v v v
+    ------------------
+
+    (unmapped)
+
+    ------------------ <--- Maximum stack size.
+
+
+    (unmapped)
+
+
+    -------------------
+    mmap
+    -------------------
+
+
+    (unmapped)
+
+
+    -------------------
+    ^^^^^^^^^^^^^^^^^^^
+    brk (grows up)
+    -------------------
+    BSS
+    -------------------
+    Data
+    -------------------
+    Text
+    -------------------
+
+    ------------------- <--- Bottom of process address space.
+
+The kernel maintains a list of pages that belong to each process, and synchronizes that with the paging.
+
+If the program accesses memory that does not belong to it, the kernel handles a page-fault, and decides what to do:
+
+- if it is above the maximum stack size, allocate those pages to the process
+- otherwise, send a SIGSEGV to the process, which usually kills it
+
+When an ELF file is loaded by the kernel to start a program with the `exec` system call, the kernel automatically registers text, data, BSS and stack for the program.
+
+The `brk` and `mmap` areas can be modified by request of the program through the [`brk`](http://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353) and `mmap` system calls. But the kernel can also deny the program those areas if there is not enough memory.
+
+`brk` and `mmap` can be used to implement `malloc`, or the so called "heap".
+
+`mmap` is also used to load dynamically loaded libraries into the program's memory so that it can access and run it.
+
+Stack allocation: <http://stackoverflow.com/questions/17671423/stack-allocation-for-process>
+
+Calculating exact addresses Things are complicated by:
+
+- [Address Space Layout Randomization](https://en.wikipedia.org/wiki/Address_space_layout_randomization).
+- the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <http://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323>
+
+Why the text does not start at 0:
+
+- http://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0
+
+### Source tree
 
 In `v4.2`, look under `arch/x86/`:
 
