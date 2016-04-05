@@ -19,9 +19,12 @@ I control the following accounts:
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
 - <http://www.tripadvisor.com/members/cirosantilli>
+- <https://addons.mozilla.org/en-US/firefox/user/cirosantilli/>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
+- <https://brilliant.org/profile/ciro-il1uxz/>
 - <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
 - <https://community.zimbra.com/members/cirosantilli>
+- <https://devtalk.nvidia.com/member/2118846/>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
@@ -37,6 +40,7 @@ I control the following accounts:
 - <https://www.plurk.com/cirosantilli>
 - <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/>
+- <https://www.shadertoy.com/user/cirosantilli>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
 China:

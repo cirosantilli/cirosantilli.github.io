@@ -86,7 +86,12 @@ As such:
     (logical) ------------------> (linear) ------------> (physical)
                  segmentation                 paging
 
-Paging translates linear addresses, what is left after segmentation translated logical addresses, into physical addresses, what actually goes to RAM wires:
+Logical addresses are the memory addresses used in "regular" user-land code, e.g. the contents of `rsi` in `mov eax, [rsi]`.
+
+We can think of physical addresses as indexing actual RAM hardware memory cells, but this is not 100% true because of:
+
+- [memory-mapped I/O regions](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
+- [multi channel memory](https://en.wikipedia.org/wiki/Multi-channel_memory_architecture)
 
 The major difference between paging and segmentation is that:
 
@@ -435,7 +440,7 @@ If the OS wants to run another process concurrently, it would give the second pr
 
 64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
 
-x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addresses (4 PiB).
+x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addresses (4 PiB). 56-bits is a likely future candidate.
 
 12 of those 48 bits are already reserved for the offset, which leaves 36 bits.
 
@@ -446,6 +451,22 @@ But that would mean that the page directory would have `2^18 = 256K` entries, wh
 Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.
 
 x86_64 uses 4 levels in a `9 | 9 | 9 | 12` scheme, so that the upper level only takes up only `2^9` higher level entries.
+
+The 48 bits are split equally into two disjoint parts:
+
+    ----------------- FFFFFFFF FFFFFFFF
+    Top half
+    ----------------- FFFF8000 00000000
+
+
+    Not addressable
+
+
+    ----------------- 008FFFFF FFFFFFFF
+    Bottom half
+    ----------------- 00000000 00000000
+
+The Linux kernel just separates kernel and userspace virtual memory on [top and bottom halves](http://stackoverflow.com/questions/18310485/which-address-space-is-occupied-by-the-kernel-in-64-bit-linux).
 
 ## PAE
 
@@ -633,6 +654,10 @@ Paging is done by the [Memory Management Unit](https://en.wikipedia.org/wiki/Mem
 Like many others (e.g. [x87 co-processor](https://en.wikipedia.org/wiki/X87), [APIC](https://en.wikipedia.org/wiki/Advanced_Programmable_Interrupt_Controller)), this used to be by separate chip on early days.
 
 It was later integrated into the CPU, but the term MMU still used.
+
+## Other architectures
+
+[Peter Cordes mentions](http://stackoverflow.com/a/32258855/895245) that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.
 
 ## Bibliography
 
