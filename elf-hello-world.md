@@ -130,7 +130,11 @@ In this tutorial, we consider only object and executable files.
 
 It is non-trivial to determine what is the smallest legal ELF file, or the smaller one that will do something trivial in Linux.
 
-Have a look at for some cool attempts: <http://www.muppetlabs.com/~breadbox/software/tiny/> The guy managed a hello world in 0xA0 bytes, pretty impressive.
+Some impressive attempts:
+
+- <http://codegolf.stackexchange.com/questions/5696/shortest-elf-for-hello-world-n>
+- <http://www.muppetlabs.com/~breadbox/software/tiny/>
+- <http://timelessname.com/elfbin/>
 
 In this example we will consider a saner `hello world` example that will better capture real life cases.
 

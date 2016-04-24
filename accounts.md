@@ -16,8 +16,10 @@ I control the following accounts:
 - <http://tabmixplus.org/forum/memberlist.php?mode=viewprofile&u=59846>
 - <http://talk.commonmark.org/users/cirosantilli>
 - <http://www.bibsonomy.org/user/cirosantilli>
+- <http://www.dailymotion.com/ciro-santilli>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
+- <http://www.myopportunity.com/profile/ciro-santilli>
 - <http://www.tripadvisor.com/members/cirosantilli>
 - <https://addons.mozilla.org/en-US/firefox/user/cirosantilli/>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
@@ -41,6 +43,7 @@ I control the following accounts:
 - <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/>
 - <https://www.shadertoy.com/user/cirosantilli>
+- <https://www.ted.com/profiles/5822760>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
 China:

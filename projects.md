@@ -414,24 +414,25 @@ Repositories to which I gained push permission because of my contributions:
 
 - <https://github.com/plasticboy/vim-markdown>
 
-| Date    | Project          | Size | Description                                                                                                                              |
-|---------|------------------|------|------------------------------------------------------------------------------------------------------------------------------------------|
-| 2015-05 | [Vim Markdown][] | 0    | [Document <Plug>Markdown_OpenUrlUnderCursor](https://github.com/plasticboy/vim-markdown/pull/205)                                        |
-| 2015-05 | [Vim Markdown][] | 0    | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193)                                                                 |
-| 2015-05 | [Vim Markdown][] | 1    | [Allow users to disable individual maps with hasmapto checks](https://github.com/plasticboy/vim-markdown/pull/207)                       |
-| 2015-04 | [Vim Markdown][] | 2    | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183)                                      |
-| 2015-04 | [Vim Markdown][] | 0    | [Change the README h1 to "Vim Markdown"](https://github.com/plasticboy/vim-markdown/pull/177)                                            |
-| 2015-04 | [Vim Markdown][] | 0    | [Improve README formatting](https://github.com/plasticboy/vim-markdown/pull/178)                                                         |
-| 2014-10 | [Vim Markdown][] | 2    | [Highlight angle braced hyperlinks](https://github.com/plasticboy/vim-markdown/pull/121)                                                 |
-| 2014-10 | [Vim Markdown][] | 0    | [Use a single code block style on README](https://github.com/plasticboy/vim-markdown/pull/134)                                           |
-| 2014-10 | [Vim Markdown][] | 1    | [Improve bold and italic tests](https://github.com/plasticboy/vim-markdown/pull/133)                                                     |
-| 2014-10 | [Vim Markdown][] | 0    | [Remove outdated fields from syntax header](https://github.com/plasticboy/vim-markdown/pull/132)                                         |
-| 2014-09 | [Vim Markdown][] | 1    | [Support YAML frontmatter headers v2.](https://github.com/plasticboy/vim-markdown/pull/124)                                              |
-| 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX $ and $$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                  |
-| 2014-09 | [Vim Markdown][] | 1    | [Add unit tests and travis support.](https://github.com/plasticboy/vim-markdown/pull/128)                                                |
-| 2014-09 | [Vim Markdown][] | 1    | [Fix parenthesis and square brackets that were rendered as links when not in link.](https://github.com/plasticboy/vim-markdown/pull/122) |
-| 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)                               |
-| 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69)                           |
+| Date    | Project          | Size | Description                                                                                                                                  |
+|---------|------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 2016-04 | [ranger][]       | 0    | [Make the :source command from actions.py part of the public API and document it in the man pages](https://github.com/hut/ranger/issues/510) |
+| 2015-05 | [Vim Markdown][] | 0    | [Document `<Plug>Markdown_OpenUrlUnderCursor`](https://github.com/plasticboy/vim-markdown/pull/205)                                          |
+| 2015-05 | [Vim Markdown][] | 0    | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193)                                                                     |
+| 2015-05 | [Vim Markdown][] | 1    | [Allow users to disable individual maps with hasmapto checks](https://github.com/plasticboy/vim-markdown/pull/207)                           |
+| 2015-04 | [Vim Markdown][] | 2    | [gx works from anywhere inside Markdown links](https://github.com/plasticboy/vim-markdown/pull/183)                                          |
+| 2015-04 | [Vim Markdown][] | 0    | [Change the README h1 to "Vim Markdown"](https://github.com/plasticboy/vim-markdown/pull/177)                                                |
+| 2015-04 | [Vim Markdown][] | 0    | [Improve README formatting](https://github.com/plasticboy/vim-markdown/pull/178)                                                             |
+| 2014-10 | [Vim Markdown][] | 2    | [Highlight angle braced hyperlinks](https://github.com/plasticboy/vim-markdown/pull/121)                                                     |
+| 2014-10 | [Vim Markdown][] | 0    | [Use a single code block style on README](https://github.com/plasticboy/vim-markdown/pull/134)                                               |
+| 2014-10 | [Vim Markdown][] | 1    | [Improve bold and italic tests](https://github.com/plasticboy/vim-markdown/pull/133)                                                         |
+| 2014-10 | [Vim Markdown][] | 0    | [Remove outdated fields from syntax header](https://github.com/plasticboy/vim-markdown/pull/132)                                             |
+| 2014-09 | [Vim Markdown][] | 1    | [Support YAML frontmatter headers v2.](https://github.com/plasticboy/vim-markdown/pull/124)                                                  |
+| 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX $ and $$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                      |
+| 2014-09 | [Vim Markdown][] | 1    | [Add unit tests and travis support.](https://github.com/plasticboy/vim-markdown/pull/128)                                                    |
+| 2014-09 | [Vim Markdown][] | 1    | [Fix parenthesis and square brackets that were rendered as links when not in link.](https://github.com/plasticboy/vim-markdown/pull/122)     |
+| 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)                                   |
+| 2014-03 | [Vim Markdown][] | 1    | [Use Markdown Test Suite for the tests wherever possible.](https://github.com/plasticboy/vim-markdown/pull/69)                               |
 {: .patches-table .data-table}
 
 ## Bug reports and feature requests
