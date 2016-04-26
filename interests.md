@@ -1,6 +1,5 @@
 ---
 title: Professional Interests
-permalink: interests/
 ---
 
 Crazy projects yet without prototypes that I really want to do and which could change the world:

@@ -1,6 +1,5 @@
 ---
 title: Articles
-permalink: articles/
 ---
 
 Short focused articles.

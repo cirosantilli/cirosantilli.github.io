@@ -1,6 +1,5 @@
 ---
 title: Not work
-permalink: not-work/
 ---
 
 What I do when not working. Not much :-)

@@ -1,6 +1,5 @@
 ---
 title: Old Current Occupations
-permalink: old-current/
 ---
 
 {{ site.toc }}

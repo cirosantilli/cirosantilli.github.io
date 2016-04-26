@@ -1,6 +1,5 @@
 ---
 title: Elf Hello World Tutorial
-permalink: elf-hello-world/
 description: Introductory analysis of a simple example of the Executable and Linkable File format.
 social_media: true
 ---

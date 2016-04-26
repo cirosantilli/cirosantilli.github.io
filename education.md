@@ -1,6 +1,5 @@
 ---
 title: Education
-permalink: education/
 ---
 
 I participated in a **double degree program**, so I have engineering degrees in both:

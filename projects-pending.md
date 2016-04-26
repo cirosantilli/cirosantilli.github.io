@@ -1,6 +1,5 @@
 ---
 title: Projects pending for Review
-permalink: contrib-pending/
 ---
 
 <!--

@@ -1,6 +1,5 @@
 ---
 title: Skills
-permalink: skills/
 redirect_from:
   - /self-evaluation/
 ---

@@ -1,6 +1,5 @@
 ---
 title: Accounts
-permalink: accounts/
 ---
 
 I control the following accounts:
