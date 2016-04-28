@@ -37,6 +37,7 @@ I control the following accounts:
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://www.gitbook.com/@cirosantilli>
+- <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.quora.com/profile/Ciro-Santilli>
