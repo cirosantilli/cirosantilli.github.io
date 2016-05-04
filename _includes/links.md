@@ -10,6 +10,7 @@
 [booktree]:                 https://github.com/booktree/booktree
 [boost graph]:              https://github.com/boostorg/graph
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
+[bullet physics]:           https://github.com/bulletphysics/bullet3
 [capybara]:                 https://github.com/jnicklas/capybara
 [capstone]:                 https://github.com/aquynh/capstone
 [commonmark]:               https://github.com/jgm/CommonMark
@@ -19,9 +20,10 @@
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
 [eduos]:                    https://github.com/RWTH-OS/eduOS
+[firefox]:                  https://bugzilla.mozilla.org
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
-[firefox]:                  https://bugzilla.mozilla.org
+[freetype-gl]:              https://github.com/rougier/freetype-gl
 [gdb]:                      https://sourceware.org/gdb
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
@@ -31,6 +33,7 @@
 [gitlab cookbook]:          https://gitlab.com/gitlab-org/cookbook-gitlab
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
 [gmail]:                    https://productforums.google.com/forum/#!forum/gmail
+[google drive]:             https://productforums.google.com/forum/#!topic/drive
 [isaacs/github]:            https://github.com/isaacs/github
 [java-cheat]:               https://github.com/cirosantilli/java-cheat
 [jekyll]:                   https://github.com/jekyll/jekyll
@@ -56,6 +59,7 @@
 [prose]:                    https://github.com/prose/prose
 [python-cheat]:             https://github.com/cirosantilli/python-cheat
 [rails]:                    https://github.com/rails/rails
+[ring.cx]:                  https://github.com/savoirfairelinux/ring-project
 [ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
 [ranger]:                   https://github.com/hut/ranger
 [rails-cheat]:              https://github.com/cirosantilli/rails-cheat

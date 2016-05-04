@@ -69,10 +69,6 @@ GitHub remove directory https://github.com/isaacs/github/issues/225
 | 2015-07 | [Gmail][] | Comment | [Webmail strips hard tabs from plain text emails](https://productforums.google.com/d/msg/gmail/HasB4x0gdz8/H-bgyJit8IkJ) |
 | 2015-07 | [Firefox][] | Bug | [contenteditable without white-space:pre converts tab characters to four spaces when pasting](https://bugzilla.mozilla.org/show_bug.cgi?id=1189701) |
 
-### Closed source
-
-Autolinks with angle brackets whose URLs contain single or double quotes don't show in rendered markdown files and issues <https://github.com/isaacs/github/issues/507>
-
 ### Waiting
 
 | 2015-01 | [JIRA][] | Feature | [Allow non-admins to choose only to receive email notifications on at mention, watched issues or assignment](https://jira.atlassian.com/browse/JRA-41640) |
@@ -84,6 +80,8 @@ Autolinks with angle brackets whose URLs contain single or double quotes don't s
 
 -->
 
+## Pending
+
 | Date    | Project          | Size | Description                                                                                                     |
 |---------|------------------|------|-----------------------------------------------------------------------------------------------------------------|
 | 2014-05 | [Marked][]       | 0    | [Typo benchmarks are below reference in README](https://github.com/chjj/marked/pull/412)                       |
@@ -91,7 +89,7 @@ Autolinks with angle brackets whose URLs contain single or double quotes don't s
 | 2014-04 | [Boost Graph][]  | 0    | [Rename color header to more precise title](https://github.com/boostorg/graph/pull/7)                          |
 | 2014-01 | Counter Culture  | 3    | [Add `:delta` option. Hairsplitting mathematical detail](https://github.com/magnusvk/counter_culture/pull/43)  |
 
-## Close
+## Declined
 
 I try to learn from my mistakes, and accept the opinion of others. And sometimes someone else just makes a better PR or rebases faster :)
 
@@ -101,5 +99,13 @@ I try to learn from my mistakes, and accept the opinion of others. And sometimes
 | 2014-01 | [GitLab][]    | 1    | [Add optional test fixtures that generate predictable data](https://github.com/gitlabhq/gitlabhq/pull/5896)                                 |
 | 2014-03 | [Softcover][] | 1    | [Check for zip dependency](https://github.com/softcover/softcover/pull/94). Implemented by admin in parallel.                               |
 | 2014-01 | [GitLab][]    | 3    | [GitLab add user visibility level. Split into 2 MRs](https://github.com/gitlabhq/gitlabhq/pull/6028)                                        |
+
+## Issues
+
+### Closed source
+
+Autolinks with angle brackets whose URLs contain single or double quotes don't show in rendered markdown files and issues <https://github.com/isaacs/github/issues/507>
+
+| 2016-05 | [Google Drive][] | 1 | ["Can't scan file for viruses" popup dialog for a renamed large file uses old file name](https://productforums.google.com/forum/#!topic/drive/-ULHZsB5lrQ) |
 
 {% include links.md %}
