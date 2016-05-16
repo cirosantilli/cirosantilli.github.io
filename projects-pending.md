@@ -29,6 +29,8 @@ Non-programming:
 
 ## Issues
 
+| 2016-10 | Ubuntu | 1 | [Fullscreen window that is not focused shows behind the menu of a focused maximized window](https://bugs.launchpad.net/ubuntu/+source/gallery-app/+bug/1578546) |
+
 | 2015-10 | [Vim Markdown][] | 0 | [Add the indent part of the plugin to the registry](https://github.com/plasticboy/vim-markdown/pull/229) |
 | 2015-08 | [Stack Overflow][] | Legal | [Report http://stackoverflow.cluat.com scraper without attribution](TODO)                           |
 | 2015-08 | [Stack Overflow][] | Legal | [Report http://databasefaq.com/ scraper without attribution](TODO)                           |

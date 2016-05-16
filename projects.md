@@ -14,13 +14,7 @@ redirect_from:
 
 -   **[runlinux](https://github.com/cirosantilli/runlinux)**
 
--   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
-
-    I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
-
-    I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
-
-    A good language needs a good editor.
+-   **[All GitHub Commit Emails](https://github.com/cirosantilli/all-github-commit-emails)**. Google BigQuery naughty fun.
 
 -   **[GitLab][]**: very important to me because I wanted to base [Booktree][] on it.
 
@@ -29,6 +23,14 @@ redirect_from:
     I have implemented some large features and several smaller improvements.
 
     I consider merged patches there as professional work, since it is the primary product of a profitable startup.
+
+-   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
+
+    I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
+
+    I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
+
+    A good language needs a good editor.
 
 -   **[Markdown Test Suite][]**: I have implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
 

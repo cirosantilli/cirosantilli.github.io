@@ -15,6 +15,7 @@ I control the following accounts:
 - <http://tabmixplus.org/forum/memberlist.php?mode=viewprofile&u=59846>
 - <http://talk.commonmark.org/users/cirosantilli>
 - <http://www.bibsonomy.org/user/cirosantilli>
+- <http://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704>
 - <http://www.dailymotion.com/ciro-santilli>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
@@ -33,6 +34,7 @@ I control the following accounts:
 - <https://launchpad.net/~cirosantilli>
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
+- <https://soundcloud.com/cirosantilli>
 - <https://talk.jekyllrb.com/users/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
@@ -43,6 +45,7 @@ I control the following accounts:
 - <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/>
 - <https://www.shadertoy.com/user/cirosantilli>
+- <https://www.tastekid.com/ciro.santilli>
 - <https://www.ted.com/profiles/5822760>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
