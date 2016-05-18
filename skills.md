@@ -48,6 +48,8 @@ If your project does something that [interests me](/interests), I will learn wha
 | 1     | [Chef](http://www.getchef.com/chef/)                                                   | For [GitLab Contributions](/projects)                                                                                                                                             |
 | 1     | AWS, Heroku                                                                            | EC2, SES                                                                                                                                                                          |
 | 1     | Media formats                                                                          | Video, Images, FFmpeg                                                                                                                                                             |
+| 1     | OpenCL                                                                                 | [Cheatsheet](https://github.com/cirosantilli/cpp-cheat/tree/d14107f7c0b5e03e85d3f01b16f61271c260ae03/opencl)                                                                      |
+| 1     | Networking                                                                             | [Cheatsheet][networking-cheat], [basic POSIX networking](https://github.com/cirosantilli/cpp-cheat/tree/d14107f7c0b5e03e85d3f01b16f61271c260ae03/posix)                           |
 {: #other-tech-table .data-table}
 
 ## Soft skills
