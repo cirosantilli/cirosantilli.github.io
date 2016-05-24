@@ -41,3 +41,31 @@ So I decided to devote myself to applied stuff in order to:
 - better organize information and information generation methods so information can be free
 - destroy the current educational system and replace it by one that lets people choose what they want to learn
 - still have some fun myself!
+
+## Sci-fi
+
+[Unconditional basic income](https://en.wikipedia.org/wiki/Basic_income) is my ultimate [non-transhumanist](https://en.wikipedia.org/wiki/Transhumanism) dream: to reach a state of technological advancement and distribution of resources so high that everyone gets money for doing nothing, enough for:
+
+- basic survival needs: food, housing, clothes, hygiene, etc.
+- two children to keep the world going. Or immortality tech, but I think that is harder :-)
+- high speed computer and Internet
+
+Once a person has that, he can learn, teach and create whatever he wants. Or play video games all day long if he so wishes.
+
+I don't think I will live to see this, so I content myself with helping it happen faster by increasing the efficiency of the world as I can.
+
+Technologies which would help a lot towards unconditional basic income and might be required but which I don't think I will live to see:
+
+-   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence)
+
+-   affordable [humanoid robots](https://en.wikipedia.org/wiki/Humanoid_robot) with human-like energy efficiency and [power-to-weight ratio](https://en.wikipedia.org/wiki/Power-to-weight_ratio)
+
+-   [Brain in a vat](https://en.wikipedia.org/wiki/Brain_in_a_vat). Might imply trans-humanism.
+
+    Might require humanoid robots or a very interesting [simulated reality](https://en.wikipedia.org/wiki/Simulated_reality) to become popular. Or maybe just video-games + non-physical jobs would suffice for many people?
+
+AGI is the most likely of the above.
+
+AGI + humanoid robots likely implies [AI takeover](https://en.wikipedia.org/wiki/AI_takeover).
+
+But AGI alone would be very dangerous, in case it can get control of our nuclear arsenals through software zero days or [social engineering](https://en.wikipedia.org/wiki/Social_engineering_%28security%29). Although some [claim that is unlikely](https://www.quora.com/Could-a-group-of-hackers-break-into-military-networks-and-launch-or-detonate-nuclear-missiles).

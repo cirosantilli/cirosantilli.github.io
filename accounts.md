@@ -38,6 +38,7 @@ I control the following accounts:
 - <https://talk.jekyllrb.com/users/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
+- <https://twittercommunity.com/users/cirosantilli/activity>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
