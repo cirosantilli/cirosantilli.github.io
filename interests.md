@@ -54,6 +54,8 @@ Once a person has that, he can learn, teach and create whatever he wants. Or pla
 
 I don't think I will live to see this, so I content myself with helping it happen faster by increasing the efficiency of the world as I can.
 
+[Wikipedia list](https://en.wikipedia.org/wiki/Basic_income_pilots).
+
 Technologies which would help a lot towards unconditional basic income and might be required but which I don't think I will live to see:
 
 -   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence)

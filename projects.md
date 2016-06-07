@@ -24,6 +24,8 @@ redirect_from:
 
     I consider merged patches there as professional work, since it is the primary product of a profitable startup.
 
+    I was made a moderator of [/r/gitlab](https://www.reddit.com/r/gitlab) in [2016-05](https://web.archive.org/web/20160524164714/https://www.reddit.com/r/gitlab/about/moderators).
+
 -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
 
     I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
@@ -80,6 +82,8 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                                                                    |
 |---------|----------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2016-05 | [facedetect][]             | 1    | [Add example to extract faces with imagemagick](https://github.com/wavexx/facedetect/pull/7#event-675223551)                                                                   |
+| 2016-05 | [Free Programming Books][] | 0    | [Create data science section and add Kaggle to it](https://github.com/vhf/free-programming-books/pull/1940)                                                                    |
 | 2016-05 | [opengl-tutorial][]        | 0    | [Add empty line before triple quotes](https://github.com/opengl-tutorials/ogl/pull/18)                                                                                         |
 | 2016-05 | [Bullet Physics][]         | 1    | [Improve HelloWorld](https://github.com/bulletphysics/bullet3/pull/612)                                                                                                        |
 | 2016-04 | [freetype-gl][]            | 1    | [Find out how to compile on Ubuntu and document it](https://github.com/rougier/freetype-gl/pull/114)                                                                           |

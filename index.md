@@ -19,3 +19,7 @@ Quick facts:
 - **Nationalities**: Italian and Brazilian
 - **Relationship status**: in a serious relation
 - **Chinese name**: 三西猴, means "three westerns monkeys". Phonetic approximation to SANtilli CIRO.
+- **Laptop**: ThinkPad T or W
+- **Distro**: latest Ubuntu release
+- **Vim or Emacs**: Vim
+- **Tabs or spaces**: spaces

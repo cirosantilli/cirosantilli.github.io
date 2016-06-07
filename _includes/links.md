@@ -21,6 +21,7 @@
 [developper.github.com]:    https://github.com/github/developer.github.com
 [django userena]:           https://github.com/bread-and-pepper/django-userena
 [eduos]:                    https://github.com/RWTH-OS/eduOS
+[facedetect]:               https://github.com/wavexx/facedetect
 [firefox]:                  https://bugzilla.mozilla.org
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
