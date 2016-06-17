@@ -17,6 +17,7 @@ Quick facts:
 - **Job status**: looking for cool job
 - **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
+- **Grew up in**: Brazil
 - **Relationship status**: in a serious relation
 - **Chinese name**: 三西猴, means "three westerns monkeys". Phonetic approximation to SANtilli CIRO.
 - **Laptop**: ThinkPad T or W

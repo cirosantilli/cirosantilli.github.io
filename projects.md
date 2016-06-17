@@ -56,7 +56,7 @@ I like to answer important questions, for which none of the answers satisfied me
 
 I don't like to refresh the homepage looking for easy rep :-)
 
-[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 5 users](http://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-03-01) as of March 2016.
+[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 2 users](http://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-06-17) as of June 2016.
 
 ## Size scale
 
@@ -82,6 +82,10 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                    | Size | Description                                                                                                                                                                    |
 |---------|----------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2016-06 | [ghdl][]                   | 0    | [Typo severals -> several in Invoking doc](https://github.com/tgingold/ghdl/pull/81)                                                                                         |
+| 2016-06 | [ghdl][]                   | 1    | [Document GCC backend needed to generate executables](https://github.com/tgingold/ghdl/pull/80)                                                                                         |
+| 2016-06 | [ghdl][]                   | 0    | [Typo debugger -> debugged in BUILD.txt](https://github.com/tgingold/ghdl/pull/79)                                                                                         |
+| 2016-06 | [ghdl][]                   | 0    | [Typo carray -> carry in full adder example](https://github.com/tgingold/ghdl/pull/77)                                                                                         |
 | 2016-05 | [facedetect][]             | 1    | [Add example to extract faces with imagemagick](https://github.com/wavexx/facedetect/pull/7#event-675223551)                                                                   |
 | 2016-05 | [Free Programming Books][] | 0    | [Create data science section and add Kaggle to it](https://github.com/vhf/free-programming-books/pull/1940)                                                                    |
 | 2016-05 | [opengl-tutorial][]        | 0    | [Add empty line before triple quotes](https://github.com/opengl-tutorials/ogl/pull/18)                                                                                         |

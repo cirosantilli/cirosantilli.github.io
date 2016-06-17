@@ -27,6 +27,7 @@
 [free software foundation]: http://www.fsf.org
 [freetype-gl]:              https://github.com/rougier/freetype-gl
 [gdb]:                      https://sourceware.org/gdb
+[ghdl]:                     https://github.com/tgingold/ghdl
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
 [gitbrute]:                 https://github.com/bradfitz/gitbrute
