@@ -27,6 +27,7 @@ I control the following accounts:
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
 - <https://brilliant.org/profile/ciro-il1uxz/>
 - <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
+- <https://community.arm.com/people/cirosantilli>
 - <https://community.plos.org/people/cirosantilli>
 - <https://community.skype.com/t5/user/viewprofilepage/user-id/2646858>
 - <https://community.zimbra.com/members/cirosantilli>
@@ -46,6 +47,7 @@ I control the following accounts:
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://twittercommunity.com/users/cirosantilli/activity>
 - <https://www.airbnb.com/users/show/45794827>
+- <https://www.codingame.com/profile/cddd0a711c22d97e8264361f7c8205567563841>
 - <https://www.flickr.com/photos/141515492@N02/>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>

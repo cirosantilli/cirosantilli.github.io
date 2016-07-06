@@ -69,6 +69,7 @@ Not bad either:
 -   [Rails][rails-cheat]
 -   [Ruby][ruby-cheat]
 -   [Ubuntu][ubuntu-cheat]
+-   [VHDL](https://github.com/cirosantilli/vhdl-cheat)
 -   [HTML, CSS, JavaScript][web-cheat]
 
 {% include links.md %}

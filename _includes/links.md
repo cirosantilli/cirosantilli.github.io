@@ -48,6 +48,7 @@
 [libgit2]:                  https://github.com/libgit2/libgit2
 [linux-cheat]:              https://github.com/cirosantilli/linux-cheat
 [linux-insides]:            https://github.com/0xAX/linux-insides
+[lowrisc]:                  https://github.com/lowRISC
 [markdown lint]:            https://github.com/mivok/markdownlint
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite
 [marked]:                   https://github.com/chjj/marked

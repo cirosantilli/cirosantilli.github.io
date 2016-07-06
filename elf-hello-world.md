@@ -370,6 +370,27 @@ But nothing (except sanity) prevents the following topology:
                 | Section 0         |<---------------+
                 +-------------------+
 
+## Section vs segment
+
+We will get into more detail later, but it is good to have it in mind now:
+
+-   section: exists before linking, in object files.
+
+    One ore more sections will be put inside a single segment by the linker.
+
+    Major information sections contain for the linker:
+
+    -   is this section
+        - raw data to be loaded into memory, e.g. `.data`, `.text`, etc.
+        - or metadata about other sections, that will be used by the linker, but disappear at runtime e.g. `.symtab`, `.srttab`, `.rela.text`
+
+-   segment: exists after linking, in the executable file.
+
+    Contains information about how each segment should be loaded into memory by the OS, notably location and permissions.
+
+<http://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format>
+<http://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
+
 ## ELF header
 
 <!-- SO
@@ -602,7 +623,11 @@ In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: <http://st
 
 -   80 8: `sh_flags` = `03` 7x `00`: `SHF_ALLOC` and `SHF_EXECINSTR`: <http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags>, as required from a `.data` section
 
--   90 0: `sh_addr` = 8x `00`: in what virtual address the section will be placed during execution, `0` if not placed
+-   90 0: `sh_addr` = 8x `00`: TODO: standard says:
+
+    > If the section will appear in the memory image of a process, this member gives the address at which the section's first byte should reside. Otherwise, the member contains 0.
+
+    but I don't understand it very well yet.
 
 -   90 8: `sh_offset` = `00 02 00 00 00 00 00 00` = `0x200`: number of bytes from the start of the program to the first byte in this section
 
@@ -1060,7 +1085,7 @@ Breakdown of the first one:
 
 -   40 0: `p_type` = `01 00 00 00` = `PT_LOAD`: this is a regular segment that will get loaded in memory.
 
--   40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text section. A classic way to do this in C is with string literals: <http://stackoverflow.com/a/30662565/895245> This allows kernels to do certain optimizations, like sharing the segment amongst processes.
+-   40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text segment. A classic way to do this in C is with string literals: <http://stackoverflow.com/a/30662565/895245> This allows kernels to do certain optimizations, like sharing the segment amongst processes.
 
 -   40 8: `p_offset` = 8x `00` TODO: what is this? Standard says:
 
@@ -1072,11 +1097,11 @@ Breakdown of the first one:
 
 -   50 8: `p_paddr` = `00 00 40 00 00 00 00 00`: unspecified effect. Intended for systems in which physical addressing matters. TODO example?
 
--   60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: size that the section occupies in memory. If smaller than `p_memsz`, the OS fills it with zeroes to fit when loading the program. This is how BSS data is implemented to save space on executable files. i368 ABI says on `PT_LOAD`:
+-   60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: size that the segment occupies in memory. If smaller than `p_memsz`, the OS fills it with zeroes to fit when loading the program. This is how BSS data is implemented to save space on executable files. i368 ABI says on `PT_LOAD`:
 
     > The bytes from the file are mapped to the beginning of the memory segment. If the segment’s memory size (p_memsz) is larger than the file size (p_filesz), the ‘‘extra’’ bytes are defined to hold the value 0 and to follow the segment’s initialized area. The file size may not be larger than the memory size.
 
--   60 8: `p_memsz` = `d7 00 00 00 00 00 00 00`: size that the section occupies in memory
+-   60 8: `p_memsz` = `d7 00 00 00 00 00 00 00`: size that the segment occupies in memory
 
 -   70 0: `p_align` =  `00 00 20 00 00 00 00 00`: 0 or 1 mean no alignment required. TODO why is this required? Why not just use `p_addr` directly, and get that right? Docs also say:
 
@@ -1092,6 +1117,8 @@ section of the `readelf` tells us that:
 
 - 0 is the `.text` segment. Aha, so this is why it is executable, and not writable
 - 1 is the `.data` segment.
+
+TODO where does this information come from? <http://stackoverflow.com/questions/23018496/section-to-segment-mapping-in-elf-files>
 
 <!-- SO remove section -->
 
