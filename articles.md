@@ -12,6 +12,7 @@ Short focused articles.
 -   Linux kernel
     -  [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
     -  [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
+    -  [Is it possible to install the linux kernel alone?](http://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572)
 -   ELF
     -  [ELF Hello World Tutorial](/elf-hello-world)
 -   GCC
@@ -69,7 +70,7 @@ Not bad either:
 -   [Rails][rails-cheat]
 -   [Ruby][ruby-cheat]
 -   [Ubuntu][ubuntu-cheat]
--   [VHDL](https://github.com/cirosantilli/vhdl-cheat)
+-   [RTL: VHDL and Verilog](https://github.com/cirosantilli/rtl-cheat)
 -   [HTML, CSS, JavaScript][web-cheat]
 
 {% include links.md %}

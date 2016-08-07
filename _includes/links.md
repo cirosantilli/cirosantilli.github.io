@@ -1,4 +1,5 @@
 [algorithm-cheat]:          https://github.com/cirosantilli/algorithm-cheat
+[android vulkan tutorials]: https://github.com/googlesamples/android-vulkan-tutorials/pull/12
 [all github commit emails]: https://github.com/cirosantilli/all-github-commit-emails
 [android-cheat]:            https://github.com/cirosantilli/android-cheat
 [alternativeTo]:            http://alternativeto.net
@@ -52,6 +53,7 @@
 [markdown lint]:            https://github.com/mivok/markdownlint
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite
 [marked]:                   https://github.com/chjj/marked
+[minimal linux live]:       https://github.com/ivandavidov/minimal
 [my science work]:          https://www.mysciencework.com
 [nasm]:                     http://nasm.us
 [networking-cheat]:         https://github.com/cirosantilli/networking-cheat
