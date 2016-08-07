@@ -51,9 +51,8 @@ Larger cross-breeds of tutorials, unit tests and cheatsheets.
 
 Best ones:
 
--   [Assembly][assembly-cheat]
-    -  [x86 Instruction Encoding Tutorial](https://github.com/cirosantilli/x86-instruction-encoding-tutorial)
-    -  [x86 Bare Metal Examples][bare-metal]
+-   [x86 Assembly Cheat][assembly-cheat]
+-   [x86 Bare Metal Examples][bare-metal]
 -   [C++][cpp-cheat]
 -   [Linux][linux-cheat]
 
@@ -63,6 +62,7 @@ Not bad either:
 -   [Android][android-cheat]
 -   [Bash][bash-cheat]
 -   [Gnuplot](https://github.com/cirosantilli/gnuplot-examples)
+-   [HTML, CSS, JavaScript][web-cheat]
 -   [Java][java-cheat]
 -   [LaTeX](https://github.com/cirosantilli/latex-cheat)
 -   [Networking][networking-cheat]
@@ -70,7 +70,14 @@ Not bad either:
 -   [Rails][rails-cheat]
 -   [Ruby][ruby-cheat]
 -   [Ubuntu][ubuntu-cheat]
--   [RTL: VHDL and Verilog](https://github.com/cirosantilli/rtl-cheat)
 -   [HTML, CSS, JavaScript][web-cheat]
+-   [x86 Instruction Encoding Tutorial](https://github.com/cirosantilli/x86-instruction-encoding-tutorial)
+
+Embryos:
+
+-   [ARM Assembly](https://github.com/cirosantilli/arm-assembly-cheat)
+-   [RTL: VHDL + Verilog](https://github.com/cirosantilli/rtl-cheat)
+
+Are you still here? <https://github.com/search?o=desc&q=user%3Acirosantilli+-cheat&s=stars&type=Repositories>
 
 {% include links.md %}
