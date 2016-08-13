@@ -14,7 +14,6 @@ description: Software engineer. Passion for low-level technologies and education
 
 Quick facts:
 
-- **Residence**: Paris, France
 - **Nationalities**: Italian and Brazilian
 - **Grew up in**: Brazil
 - **Relationship status**: in a serious relation
