@@ -61,7 +61,7 @@ Not bad either:
 -   [Algorithm][algorithm-cheat]
 -   [Android][android-cheat]
 -   [Bash][bash-cheat]
--   [Gnuplot](https://github.com/cirosantilli/gnuplot-examples)
+-   [Gnuplot](https://github.com/cirosantilli/gnuplot-cheat)
 -   [HTML, CSS, JavaScript][web-cheat]
 -   [Java][java-cheat]
 -   [LaTeX](https://github.com/cirosantilli/latex-cheat)
