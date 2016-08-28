@@ -19,6 +19,7 @@ I control the following accounts:
 - <http://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704>
 - <http://www.citeulike.org/user/cirosantilli>
 - <http://www.dailymotion.com/ciro-santilli>
+- <http://www.ebay.co.uk/usr/cirosantilli>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
 - <http://www.myopportunity.com/profile/ciro-santilli>
