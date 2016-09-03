@@ -61,8 +61,10 @@ Not bad either:
 -   [Algorithm][algorithm-cheat]
 -   [Android][android-cheat]
 -   [Bash][bash-cheat]
+-   [Databases: MySQL, SQLite](/db)
+-   [Git](/git-tutorial)
 -   [Gnuplot](https://github.com/cirosantilli/gnuplot-cheat)
--   [HTML, CSS, JavaScript][web-cheat]
+-   [Web: HTML, CSS, JavaScript][web-cheat]
 -   [Java][java-cheat]
 -   [LaTeX](https://github.com/cirosantilli/latex-cheat)
 -   [Networking][networking-cheat]
@@ -70,7 +72,6 @@ Not bad either:
 -   [Rails][rails-cheat]
 -   [Ruby][ruby-cheat]
 -   [Ubuntu][ubuntu-cheat]
--   [HTML, CSS, JavaScript][web-cheat]
 -   [x86 Instruction Encoding Tutorial](https://github.com/cirosantilli/x86-instruction-encoding-tutorial)
 
 Embryos:

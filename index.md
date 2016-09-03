@@ -17,7 +17,7 @@ Quick facts:
 - **Nationalities**: Italian and Brazilian
 - **Grew up in**: Brazil
 - **Relationship status**: in a serious relation
-- **Chinese name**: 三西猴, means "three westerns monkeys". Phonetic approximation to SANtilli CIRO.
+- **Chinese name**: 三西猴, means "three western monkeys". Phonetic approximation to SANtilli CIRO.
 - **Laptop**: ThinkPad T or W
 - **Distro**: latest Ubuntu release
 - **Vim or Emacs**: Vim
