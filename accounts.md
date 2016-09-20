@@ -70,7 +70,7 @@ China:
 - <http://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
 - <http://www.tianya.cn/109285544> (can't post, no cell phone)
-- <http://www.zhihu.com/people/ciro-santilli>
+- <https://www.zhihu.com/people/cirosantilli>
 
 A younger unrelated Argentinian homonym I've found on Google:
 
