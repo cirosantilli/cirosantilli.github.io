@@ -82,6 +82,8 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2016-11 | [vim-snippets][]             | 1    | [Add C variable printf debug snippets](https://github.com/honza/vim-snippets/pull/816)                                                                                         |
+| 2016-09 | [Android Vulkan Tutorials][] | 1    | [Add a world to the gui_overlay_plugin_time example](https://bitbucket.org/osrf/gazebo/pull-requests/2460/add-a-world-to-the-gui_overlay_plugin_time/diff)                     |
 | 2016-07 | [Android Vulkan Tutorials][] | 1    | [Use android API 24](https://github.com/googlesamples/android-vulkan-tutorials/pull/12)                                                                                        |
 | 2016-07 | [minimal linux live][]       | 0    | [Fix time sh instead of sh time](https://github.com/ivandavidov/minimal/pull/30)                                                                                               |
 | 2016-06 | [lowRISC][]                  | 0    | [Replace `[ == "" ]` with `[ -z ]` set_riscv_env.sh](https://github.com/lowRISC/lowrisc-chip/pull/6)                                                                           |

@@ -6,6 +6,7 @@ I control the following accounts:
 
 - <http://9gag.com/u/cirosantilli>
 - <http://androidforums.com/members/ciro-santilli.1918307>
+- <http://answers.gazebosim.org/users/2289/cirosantilli/>
 - <http://cirosantilli.imgur.com>
 - <http://del.icio.us/cirosantilli>
 - <http://droit-finances.commentcamarche.net/profile/user/cirosantilli>
@@ -19,7 +20,8 @@ I control the following accounts:
 - <http://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704>
 - <http://www.citeulike.org/user/cirosantilli>
 - <http://www.dailymotion.com/ciro-santilli>
-- <http://www.ebay.co.uk/usr/cirosantilli>
+- <http://www.ebay.com/usr/cirosantilli>
+- <http://www.edaboard.com/member587087.html>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
 - <http://www.myopportunity.com/profile/ciro-santilli>
@@ -51,10 +53,12 @@ I control the following accounts:
 - <https://twittercommunity.com/users/cirosantilli/activity>
 - <https://www.airbnb.com/users/show/45794827>
 - <https://www.codingame.com/profile/cddd0a711c22d97e8264361f7c8205567563841>
+- <https://www.digitalocean.com/community/users/cirosantilli>
 - <https://www.flickr.com/photos/141515492@N02/>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
+- <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/>

@@ -36,6 +36,7 @@ Short focused articles.
 -   OpenGL
     -  [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
     -  [How to draw text using only opengl methods?](http://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835)
+    -  [Is it possible to build a heatmap from point data at 60 times per second?](http://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788)
 -   Node.js
     -  [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
 -   Rails

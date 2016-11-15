@@ -20,7 +20,7 @@ I prefer textual information (e.g. wikis, issue trackers) over non-textual (e.g.
 
 I am also interested in academia. I like to teach (people who want to learn) and produce optimal learning material.
 
-I like working remotely.
+I like working remotely. Update: but it is only doable if the majority of the team also does it, otherwise you will get excluded. And you don't feel people's love as strongly on remote. Maybe after VR...
 
 If our interests coincide, ping me even if you don't have an specific proposal immediately. I want to know that you exist :-)
 
@@ -47,24 +47,22 @@ So I decided to devote myself to applied stuff in order to:
 [Unconditional basic income](https://en.wikipedia.org/wiki/Basic_income) is my ultimate [non-transhumanist](https://en.wikipedia.org/wiki/Transhumanism) dream: to reach a state of technological advancement and distribution of resources so high that everyone gets money for doing nothing, enough for:
 
 - basic survival needs: food, housing, clothes, hygiene, etc.
-- two children to keep the world going. Or immortality tech, but I think that is harder :-)
+- two children to keep the world going. Or immortality tech, but I think that is harder and borderline transhumanist :-)
 - high speed computer and Internet
 
 Once a person has that, he can learn, teach and create whatever he wants. Or play video games all day long if he so wishes.
 
 I don't think I will live to see this, so I content myself with helping it happen faster by increasing the efficiency of the world as I can.
 
-[Wikipedia list](https://en.wikipedia.org/wiki/Basic_income_pilots).
+[Wikipedia list of pilot projects](https://en.wikipedia.org/wiki/Basic_income_pilots).
 
 Technologies which would help a lot towards unconditional basic income and might be required but which I don't think I will live to see:
 
--   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence)
+-   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence) (AGI)
 
 -   affordable [humanoid robots](https://en.wikipedia.org/wiki/Humanoid_robot) with human-like energy efficiency and [power-to-weight ratio](https://en.wikipedia.org/wiki/Power-to-weight_ratio)
 
--   [Brain in a vat](https://en.wikipedia.org/wiki/Brain_in_a_vat). Might imply trans-humanism.
-
-    Might require humanoid robots or a very interesting [simulated reality](https://en.wikipedia.org/wiki/Simulated_reality) to become popular. Or maybe just video-games + non-physical jobs would suffice for many people?
+-   [Brain in a vat](https://en.wikipedia.org/wiki/Brain_in_a_vat) so some people can waste less money with food. Might imply trans-humanism.
 
 AGI is the most likely of the above.
 
