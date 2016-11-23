@@ -61,7 +61,7 @@ I control the following accounts:
 - <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.quora.com/profile/Ciro-Santilli>
-- <https://www.reddit.com/user/cirosantilli/>
+- <https://www.reddit.com/user/cirosantilli/> <https://www.reddit.com/r/CirosantilliTest0/comments/5ek3di/i_own_this_website/>
 - <https://www.shadertoy.com/user/cirosantilli>
 - <https://www.tastekid.com/ciro.santilli>
 - <https://www.ted.com/profiles/5822760>
