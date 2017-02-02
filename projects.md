@@ -82,6 +82,8 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-01 | [Boost Geometry][]           | 1    | [What is "QPoint::double" in doc/example_adapting_a_legacy_geometry_object_model.qbk ?](https://github.com/boostorg/geometry/issues/376)                                                                                  |
+| 2016-12 | [freetype-gl][]              | 1    | [GLFW Ubuntu package works on 16.10](https://github.com/rougier/freetype-gl/pull/144#event-905730810)                                                                          |
 | 2016-11 | [vim-snippets][]             | 1    | [Add C variable printf debug snippets](https://github.com/honza/vim-snippets/pull/816)                                                                                         |
 | 2016-09 | [Android Vulkan Tutorials][] | 1    | [Add a world to the gui_overlay_plugin_time example](https://bitbucket.org/osrf/gazebo/pull-requests/2460/add-a-world-to-the-gui_overlay_plugin_time/diff)                     |
 | 2016-07 | [Android Vulkan Tutorials][] | 1    | [Use android API 24](https://github.com/googlesamples/android-vulkan-tutorials/pull/12)                                                                                        |
@@ -500,6 +502,8 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-01 | [OpenAI Gym][]               | [examples/agents/keyboard_agent.py fails with "AttributeError: 'TimeLimit' object has no attribute 'viewer'"](https://github.com/openai/gym/issues/483)   |
+| 2016-12 | [SDL][]                      | [Add C variable printf debug snippets](https://hg.libsdl.org/SDL/rev/a458fc3377dc)                                                                        |
 | 2015-03 | [Tig][]                      | [Accepted feature.](https://github.com/jonas/tig/issues/273)                                                                                              |
 | 2014-11 | [GitLab][]                   | [Duplicate](https://github.com/gitlabhq/gitlabhq/issues/8293#issuecomment-62858344)                                                                       |
 | 2014-11 | [GitLab][]                   | [Bug.](https://gitlab.com/gitlab-com/www-gitlab-com/issues/180)                                                                                           |

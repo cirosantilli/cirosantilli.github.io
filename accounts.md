@@ -41,6 +41,7 @@ I control the following accounts:
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
 - <https://hackaday.io/cirosantilli>
+- <https://identity.kde.org/index.php?r=people/view&uid=cirosantilli>
 - <https://jsfiddle.net/user/cirosantilli/>
 - <https://launchpad.net/~cirosantilli>
 - <https://nanohub.org/members/146301/>
@@ -69,6 +70,7 @@ I control the following accounts:
 
 China:
 
+- <http://bbs.nibaedu.com/index.php?m=space&uid=70>
 - <http://bbs.t-firefly.com/?73374>
 - <http://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
 - <http://v2ex.com/member/cirosantilli>

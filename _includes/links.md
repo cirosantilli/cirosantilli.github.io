@@ -10,6 +10,7 @@
 [bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
 [binutils]:                 https://sourceware.org/binutils
 [booktree]:                 https://github.com/booktree/booktree
+[boost geometry]:           https://github.com/boostorg/geometry
 [boost graph]:              https://github.com/boostorg/graph
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [bullet physics]:           https://github.com/bulletphysics/bullet3
@@ -62,6 +63,7 @@
 [octokat.js]:               https://github.com/philschatz/octokat.js
 [octokit.js]:               https://github.com/philschatz/octokit.js
 [okular]:                   http://okular.kde.org
+[openai gym]:               https://github.com/openai/gym
 [opengl-tutorial]:          https://github.com/opengl-tutorials/ogl/
 [pro git book]:             https://github.com/progit/progit
 [prose]:                    https://github.com/prose/prose
@@ -76,6 +78,7 @@
 [rvm]:                      https://github.com/wayneeseguin/rvm
 [sass]:                     https://github.com/sass/sass
 [scipy]:                    http://www.scipy.org
+[sdl]:                      https://www.libsdl.org
 [semaphore ci]:             https://semaphoreapp.com
 [sharelatex]:               https://github.com/sharelatex/sharelatex
 [showdown]:                 https://github.com/showdownjs/showdown
