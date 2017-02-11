@@ -73,6 +73,7 @@
 [ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
 [ranger]:                   https://github.com/hut/ranger
 [rails-cheat]:              https://github.com/cirosantilli/rails-cheat
+[risc-v tools]:             https://github.com/riscv/riscv-tools
 [ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm

@@ -49,6 +49,7 @@ I control the following accounts:
 - <https://software.intel.com/en-us/user/1090688>
 - <https://soundcloud.com/cirosantilli>
 - <https://talk.jekyllrb.com/users/cirosantilli>
+- <https://telegram.me/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://twittercommunity.com/users/cirosantilli/activity>
