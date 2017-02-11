@@ -28,9 +28,10 @@
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free software foundation]: http://www.fsf.org
 [freetype-gl]:              https://github.com/rougier/freetype-gl
+[game icons]:               https://github.com/game-icons/icons
+[gazebo]:                   http://gazebosim.org
 [gdb]:                      https://sourceware.org/gdb
 [ghdl]:                     https://github.com/tgingold/ghdl
-[gazebo]:                   http://gazebosim.org
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
 [gitbrute]:                 https://github.com/bradfitz/gitbrute

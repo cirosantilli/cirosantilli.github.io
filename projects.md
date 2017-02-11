@@ -503,6 +503,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-01 | [Game Icons][]               | [delapouite/originals/svg/brick-wall.svg has some whitespace on top](https://github.com/game-icons/icons/issues/302)                                      |
 | 2017-01 | [OpenAI Gym][]               | [examples/agents/keyboard_agent.py fails with "AttributeError: 'TimeLimit' object has no attribute 'viewer'"](https://github.com/openai/gym/issues/483)   |
 | 2016-12 | [SDL][]                      | [Add C variable printf debug snippets](https://hg.libsdl.org/SDL/rev/a458fc3377dc)                                                                        |
 | 2015-03 | [Tig][]                      | [Accepted feature.](https://github.com/jonas/tig/issues/273)                                                                                              |
