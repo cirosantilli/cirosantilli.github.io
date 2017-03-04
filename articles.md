@@ -13,6 +13,8 @@ Short focused articles.
     -  [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
     -  [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
     -  [Is it possible to install the linux kernel alone?](http://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572)
+    -  [How to debug the Linux kernel with GDB and QEMU?](http://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642)
+    -   [Can the sys_execve() system call in the Linux kernel receive both absolute or relative paths?](http://stackoverflow.com/questions/33852690/can-the-sys-execve-system-call-in-the-linux-kernel-receive-both-absolute-or-re/42290593#42290593)
 -   ELF
     -  [ELF Hello World Tutorial](/elf-hello-world)
 -   GCC

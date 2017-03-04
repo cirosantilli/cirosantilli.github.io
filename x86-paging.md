@@ -169,7 +169,7 @@ A page is a chunk of 4KB (12 bits), and since addresses have 32 bits, only 20 bi
 
 ### Page table entries
 
-A page table is... a table of pages table entries!
+A page table is... a table of page table entries!
 
 The exact format of table entries is fixed *by the hardware*.
 
@@ -319,7 +319,7 @@ Each process must have one and only one page directory associated to it, so it w
 
 Page tables are only allocated as needed by the OS. Each page table has `2^10 = 1K` page directory entries
 
-Page directories contain... page directory entries! Page directory entries are the same as page table entries except that *they point to RAM addresses of page tables instead of physical addresses of tables*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
+Page directories contain... page directory entries! Page directory entries are the same as page table entries except that *they point to the physical addresses of page tables instead of physical addresses of pages*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
 
 `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
 
