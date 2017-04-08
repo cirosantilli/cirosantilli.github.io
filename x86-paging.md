@@ -131,7 +131,7 @@ Page table given to process 2 by the OS:
     PT2 + 2       * L                     0
     PT2 + 3       * L  0x00003            1
     ...                ...                ...
-    PT2 + 0xFFFFF * L  0x00004            1
+    PT2 + 0xFFFFF * L  0xFFFFF            1
 
 Where:
 
@@ -182,7 +182,7 @@ On this simplified example, the page table entries contain only two fields:
 
 so in this example the hardware designers could have chosen `L = 21`.
 
-Most real page table entries have other fields.
+Most real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.
 
 It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose `L = 32` to make access faster, and just reserve bits the remaining bits for later usage. The actual value for `L` on x86 is 32 bits.
 
@@ -236,7 +236,7 @@ In the same way, the following translations would happen for process 1:
     00001 000  00000 000
     00001 001  00000 001
     00001 FFF  00000 FFF
-    00002 000  00002 000
+    00002 000  00003 000
     FFFFF 000  00005 000
 
 For example, when accessing address `00001000`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `PT1 + 1 * L` (`1` because of the page part), and that is where it will look for it.
@@ -247,18 +247,22 @@ Now the following translations would happen for process 2:
 
     linear     physical
     ---------  ---------
-    00000 002  00001 002
-    00000 003  00001 003
-    00000 FFF  00001 FFF
-    00001 000  00000 000
-    00001 001  00000 001
-    00001 FFF  00000 FFF
-    00003 000  00003 000
-    FFFFF 000  00004 000
+    00000 002  0000A 002
+    00000 003  0000A 003
+    00000 FFF  0000A FFF
+    00001 000  0000B 000
+    00001 001  0000B 001
+    00001 FFF  0000B FFF
+    00004 000  00003 000
+    FFFFF 000  FFFFF 000
 
-*The same linear address translates to different physical addresses for different processes*, depending only on the value inside `cr3`.
+The same linear address can translate to different physical addresses for different processes, depending only on the value inside `cr3`.
 
 In this way every program can expect its data to start at `0` and end at `FFFFFFFF`, without worrying about exact physical addresses.
+
+Both linear addresses `00002 000` from process 1 and `00004 000` from process 2 point to the same physical address `00003 000`. This is completely allowed by the hardware, and it is up to the operating system to handle such cases. This often in normal operation because of Copy-on-write (COW), which be explained elsewhere.
+
+`FFFFF 000` points to its own physical address `FFFFF 000`. This kind of translation is called an "identity mapping", and can be very convenient for OS-level debugging.
 
 ### Page fault
 
@@ -621,6 +625,24 @@ which would be even more expensive than using a TLB.
 When `cr3` changes, all TLB entries are invalidated, because a new page table for a new process is going to be used, so it is unlikely that any of the old entries have any meaning.
 
 The x86 also offers the `invlpg` instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.
+
+## Read-only flag
+
+## Copy-on-write
+
+<https://en.wikipedia.org/wiki/Copy-on-write>
+
+Besides a missing page, a very common source of page faults is copy-on-write.
+
+Page tables have extra flags that allow the OS to mark a page a read-only.
+
+Those page faults only happen when a process tries to write to the page, and not read from it.
+
+When Linux forks a process:
+
+- instead of copying all the pages, which is unnecessarily costly, it makes the page tables of the two process point to the same physical address.
+- it marks those linear addresses as read-only
+- whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses
 
 ## Linux kernel usage
 

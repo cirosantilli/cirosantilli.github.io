@@ -82,6 +82,8 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-04 | [Tiny Renderer][]            | 0    | [Add gitignore](https://github.com/ssloy/tinyrenderer/pull/10)                                                                                                                 |
+| 2017-02 | [Vulkan-Loader][]            | 0    | [Use nproc instead of ncpu](https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/pull/1536)                                                                        |
 | 2017-02 | [RISC-V Rocket][]            | 0    | [syn_config -> plsi_config and scenerio -> scenario](https://github.com/ucb-bar/plsi/pull/20)                                                                                  |
 | 2017-01 | [Boost Geometry][]           | 1    | [What is "QPoint::double" in doc/example_adapting_a_legacy_geometry_object_model.qbk ?](https://github.com/boostorg/geometry/issues/376)                                       |
 | 2016-12 | [freetype-gl][]              | 1    | [GLFW Ubuntu package works on 16.10](https://github.com/rougier/freetype-gl/pull/144#event-905730810)                                                                          |
@@ -503,6 +505,9 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                        |
+| 2017-03 | [clBLAS][]                   | [`.s[0]` + CL_DEVICE_TYPE_ALL](https://github.com/clMathLibraries/clBLAS/pull/313)                                                                        |
+| 2017-01 | [Game Icons][]               | [Use multiple separate paths, allow customizing the color of each component, and give a default color](https://github.com/game-icons/icons/issues/301)    |
 | 2017-01 | [Game Icons][]               | [delapouite/originals/svg/brick-wall.svg has some whitespace on top](https://github.com/game-icons/icons/issues/302)                                      |
 | 2017-01 | [OpenAI Gym][]               | [examples/agents/keyboard_agent.py fails with "AttributeError: 'TimeLimit' object has no attribute 'viewer'"](https://github.com/openai/gym/issues/483)   |
 | 2016-12 | [SDL][]                      | [Add C variable printf debug snippets](https://hg.libsdl.org/SDL/rev/a458fc3377dc)                                                                        |

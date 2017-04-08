@@ -16,6 +16,7 @@
 [bullet physics]:           https://github.com/bulletphysics/bullet3
 [capybara]:                 https://github.com/jnicklas/capybara
 [capstone]:                 https://github.com/aquynh/capstone
+[clblas]:                   https://github.com/clMathLibraries/clBLAS
 [commonmark]:               https://github.com/jgm/CommonMark
 [confluence]:               https://www.atlassian.com/software/confluence
 [cpp-cheat]:                https://github.com/cirosantilli/cpp-cheat
@@ -31,6 +32,7 @@
 [game icons]:               https://github.com/game-icons/icons
 [gazebo]:                   http://gazebosim.org
 [gdb]:                      https://sourceware.org/gdb
+[gdb dashboard]:            https://github.com/cyrus-and/gdb-dashboard
 [ghdl]:                     https://github.com/tgingold/ghdl
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
@@ -90,6 +92,7 @@
 [stack-overflow-ciro]:      http://stackoverflow.com/users/895245/cirosantilli
 [stack-overflow]:           http://stackoverflow.com
 [tig]:                      https://github.com/jonas/tig
+[tiny renderer]:            https://github.com/ssloy/tinyrenderer
 [ubuntu-cheat]:             https://github.com/cirosantilli/ubuntu-cheat
 [vader.vim]:                https://github.com/junegunn/vader.vim
 [vim markdown]:             https://github.com/plasticboy/vim-markdown
@@ -97,3 +100,4 @@
 [vim-snippets]:             https://github.com/honza/vim-snippets
 [web-cheat]:                /web
 [yakuake]:                  http://extragear.kde.org/apps/yakuake
+[Vulkan-Loader]:            https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
