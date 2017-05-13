@@ -81,6 +81,7 @@ Embryos:
 
 -   [ARM Assembly](https://github.com/cirosantilli/arm-assembly-cheat)
 -   [RTL: VHDL + Verilog](https://github.com/cirosantilli/rtl-cheat)
+-   [Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)
 
 Are you still here? <https://github.com/search?o=desc&q=user%3Acirosantilli+-cheat&s=stars&type=Repositories>
 

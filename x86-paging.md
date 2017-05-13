@@ -4,7 +4,7 @@ description: With simple examples and applications.
 social_media: true
 ---
 
-Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/895245).
+Extracted and expanded from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/895245).
 
 {{ site.toc }}
 
@@ -792,9 +792,22 @@ Like many others (e.g. [x87 co-processor](https://en.wikipedia.org/wiki/X87), [A
 
 It was later integrated into the CPU, but the term MMU still used.
 
+## Second Level Address Translation
+
+<https://en.wikipedia.org/wiki/Second_Level_Address_Translation>
+
+Two level address translation to make OS emulation more efficient.
+
 ## Other architectures
 
 [Peter Cordes mentions](http://stackoverflow.com/a/32258855/895245) that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.
+
+### ARM
+
+Some interesting features and characteristics of ARMv8 page tables:
+
+- 9 9 9 9 address split
+- pages other than the last level (3 if you count from 0) can be leaves. When this happens, the page is larger than 4k (since more bits are left for the offset)
 
 ## Bibliography
 
