@@ -51,12 +51,14 @@ Its structure can be examined in a human readable way via utilities like `readel
 
 ### How to learn
 
-Like any other file format, we have to spin between:
+Spin like mad between:
 
 - standards
-- file generators. We use the assembler `as` and linker `ld`.
+- high level generators. We use the assembler `as` and linker `ld`.
 - hexdumps
 - file decompilers. We use `readelf`. It makes it faster to read the ELF file by turning it into human readable output. But you must have seen one byte-by-byte example first, and think how `readelf` output maps to the standard.
+- low-level generators: stand-alone libraries that let you control every field of the ELF files you generated. <https://github.com/BR903/ELFkickers>, <https://github.com/sqall01/ZwoELF> and many more on GitHub.
+- consumer: Linux kernel: <https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c>, <http://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861>
 
 ### Specified file formats
 
@@ -1127,3 +1129,7 @@ TODO where does this information come from? <http://stackoverflow.com/questions/
 - put full hexdumps and `readelf -h` on separate Gist: <https://gist.github.com/cirosantilli/7b03f6df2d404c0862c6> to avoid blowing the Stack Overflow 30k char limit.
 
 - remove the minimal ELF file section as it was already mentioned on another answer: <http://stackoverflow.com/a/26296684/895245>
+
+## Backlinks
+
+- 2017-05: <https://news.ycombinator.com/item?id=14359159> <https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news>
