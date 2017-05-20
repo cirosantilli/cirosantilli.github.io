@@ -13,6 +13,7 @@
 [boost geometry]:           https://github.com/boostorg/geometry
 [boost graph]:              https://github.com/boostorg/graph
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
+[buildroot]:                https://buildroot.org
 [bullet physics]:           https://github.com/bulletphysics/bullet3
 [capybara]:                 https://github.com/jnicklas/capybara
 [capstone]:                 https://github.com/aquynh/capstone

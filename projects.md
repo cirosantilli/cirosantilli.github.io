@@ -510,6 +510,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-05 | [Buildroot][]                | [Build fails with "unexpected EOF while looking for matching "'" if PATH contains a newline](https://bugs.busybox.net/show_bug.cgi?id=9886)               |
 | 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                        |
 | 2017-03 | [clBLAS][]                   | [`.s[0]` + CL_DEVICE_TYPE_ALL](https://github.com/clMathLibraries/clBLAS/pull/313)                                                                        |
 | 2017-01 | [Game Icons][]               | [Use multiple separate paths, allow customizing the color of each component, and give a default color](https://github.com/game-icons/icons/issues/301)    |
