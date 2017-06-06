@@ -87,6 +87,7 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-06 | [opengl-tutorial][]          | 0    | [Use existing empty layout on feed.xml](https://github.com/opengl-tutorials/ogl/pull/17)                                                                                       |
 | 2017-04 | [Tiny Renderer][]            | 0    | [Add gitignore](https://github.com/ssloy/tinyrenderer/pull/10)                                                                                                                 |
 | 2017-02 | [Vulkan-Loader][]            | 0    | [Use nproc instead of ncpu](https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/pull/1536)                                                                        |
 | 2017-02 | [RISC-V Rocket][]            | 0    | [syn_config -> plsi_config and scenerio -> scenario](https://github.com/ucb-bar/plsi/pull/20)                                                                                  |
