@@ -370,6 +370,12 @@ But nothing (except sanity) prevents the following topology:
                 | Section 0         |<---------------+
                 +-------------------+
 
+But some newbies may prefer PNGs :-)
+
+[![](/elf101.png){:width="512px"}](/elf101.png)
+
+[Image source](https://github.com/corkami/pics/blob/28cb0226093ed57b348723bc473cea0162dad366/binary/elf101/elf101.pdf).
+
 ## Section vs segment
 
 We will get into more detail later, but it is good to have it in mind now:
@@ -388,8 +394,10 @@ We will get into more detail later, but it is good to have it in mind now:
 
     Contains information about how each segment should be loaded into memory by the OS, notably location and permissions.
 
-<http://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format>
-<http://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
+See also:
+
+- <http://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format>
+- <http://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
 
 ## ELF header
 
