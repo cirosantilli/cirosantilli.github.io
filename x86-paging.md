@@ -59,7 +59,7 @@ Paging achieves that goal, and in addition:
 
 ## Hardware implementation
 
-Paging is implemented by the CPU itself.
+Paging is implemented by the CPU hardware itself.
 
 Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!
 
@@ -185,6 +185,12 @@ so in this example the hardware designers could have chosen `L = 21`.
 Most real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.
 
 It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose `L = 32` to make access faster, and just reserve bits the remaining bits for later usage. The actual value for `L` on x86 is 32 bits.
+
+Here is a screenshot from the Intel manual showing the structure of a page table in all its glory:
+
+[![](/x86-page-entry.png)](/x86-page-entry.png)
+
+The fields are explained in the manual just after it.
 
 ### Address translation in single-level scheme
 
@@ -439,6 +445,10 @@ Page faults occur if either a page directory entry or a page table entry is not 
 
 If the OS wants to run another process concurrently, it would give the second process a separate page directory, and link that directory to separate page tables.
 
+The Intel manual gives a picture of the translation process:
+
+[![](/x86-page-translation.png)](x86-page-translation.png)
+
 ## 64-bit architectures
 
 64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
@@ -629,6 +639,8 @@ The x86 also offers the `invlpg` instruction which explicitly invalidates a sing
 ## Read-only flag
 
 ## Copy-on-write
+
+## COW
 
 <https://en.wikipedia.org/wiki/Copy-on-write>
 

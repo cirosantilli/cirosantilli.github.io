@@ -372,7 +372,7 @@ But nothing (except sanity) prevents the following topology:
 
 But some newbies may prefer PNGs :-)
 
-[![](/elf101.png){:width="512px"}](/elf101.png)
+[![](/elf101.png)](/elf101.png)
 
 [Image source](https://github.com/corkami/pics/blob/28cb0226093ed57b348723bc473cea0162dad366/binary/elf101/elf101.pdf).
 
