@@ -47,8 +47,6 @@ A handy summary can be found at:
 
     man elf
 
-Its structure can be examined in a human readable way via utilities like `readelf` and `objdump`.
-
 ### How to learn
 
 Spin like mad between:
@@ -489,7 +487,7 @@ Manual breakdown:
 
 -   0 4: `EI_CLASS` = `02` = `ELFCLASS64`: 64 bit elf
 
--   0 5: `EI_DATA` = `01` = `ELFDATA2LSB`: big endian data
+-   0 5: `EI_DATA` = `01` = `ELFDATA2LSB`: little endian data
 
 -   0 6: `EI_VERSION` = `01`: format version
 
