@@ -199,7 +199,7 @@ Suppose that the OS has setup the following page tables for process 1:
     2             CR3_1 + 2      * 4  0x00003        1
     3             CR3_1 + 3      * 4                 0
     ...
-    2^32-1        CR3_1 + 2^32-1 * 4  0x00005        1
+    2^20-1        CR3_1 + 2^20-1 * 4  0x00005        1
 
 And for process 2:
 
@@ -210,7 +210,7 @@ And for process 2:
     2             CR3_2 + 2      * 4                 0
     3             CR3_2 + 3      * 4  0x00003        1
     ...
-    2^32-1        CR3_2 + 2^32-1 * 4  0xFFFFF        1
+    2^20-1        CR3_2 + 2^20-1 * 4  0xFFFFF        1
 
 Before process 1 starts running, the OS sets its `cr3` to point to the page table 1 at `CR3_1`.
 
@@ -228,7 +228,7 @@ When process 1 tries to access a linear address, this is the physical addresses 
     00002 000  00003 000
     FFFFF 000  00005 000
 
-For process 2, the OS sets `cr3` to `CR3_2`, and the following translations would happen:
+To switch to process 2, the OS simply sets `cr3` to `CR3_2`, and now the following translations would happen:
 
     linear     physical
     ---------  ---------
@@ -280,12 +280,10 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 
 Another example: for logical address `0x00001001`:
 
-- the page part is `0x00001`, and the offset part is `0x001`
+- the page part is `00001`, and the offset part is `001`
 - the hardware knows that its page table entry is located at RAM address: `CR3 + 1 * 32` (`1` because of the page part), and that is where it will look for it
 - it finds the page address `0x00000` there
 - so the final address is `0x00000 * 4k + 0x001 = 0x00000001`
-
-When the OS wants to switch to process 2, all it needs to do is to make `cr3` point to page 2. It is that simple!
 
 ### Multiple addresses translate to a single physical address
 
@@ -303,22 +301,22 @@ Such mappings are sometime called "aliases".
 
 ### Page faults
 
-What if Process 1 tries to access an address inside a page that is no present?
+What if Process 1 tries to access `0x00003000`, which is not present?
 
 The hardware notifies the software via a Page Fault Exception.
 
-It is then usually up to the OS to register an exception handler to decide what has to be done.
+When an exception happens, the CPU jumps to an address that the OS had previously registered as the fault handler. This is usually done at boot time by the OS.
 
-It is possible that accessing a page that is not on the table is a programming error:
+This could happen for example due to a programming error:
 
-    int is[1];
+    int *is = malloc(1);
     is[2] = 1;
 
-but there may be cases in which it is acceptable, for example in Linux when:
+but there are cases where it is not a bug, for example in Linux when:
 
 -   the program wants to increase its stack.
 
-    It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space.
+    It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space, otherwise, it sends a signal to the process.
 
 -   the page was swapped to disk.
 
@@ -381,17 +379,9 @@ This can be seen with the extreme cases:
 
 x86 designers have found that 4KiB pages are a good middle ground.
 
-### Simplifications
-
-Simplifications to reality that make this example easier to understand:
-
--   all real paging circuits use multi-level paging to save space, but this showed a simple single-level scheme.
-
--   page tables contained only two fields: a 20 bit address and a 1 bit present flag.
-
-    Real page tables contain a total of 12 fields, and therefore other features which have been omitted.
-
 ## Example: multi-level paging scheme
+
+### The problem with single-level paging
 
 The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries *per* process.
 
@@ -401,28 +391,113 @@ For this reason, x86 developers decided to use a multi-level scheme that reduces
 
 The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.
 
-In the simple 3 level paging scheme used for 32 bit processors without PAE, the 32 address bits are divided as follows:
+### K-ary trees to the rescue
+
+The algorithmically minded will have noticed that paging requires [associative array](https://en.wikipedia.org/wiki/Associative_array) (like Java `Map` of Python `dict()`) abstract data structure where:
+
+- the keys are linear pages addresses, thus of integer type
+- the values are physical page addresses, also of integer type
+
+The single level paging scheme uses a simple array implementation of the associative array:
+
+- the keys are the array index
+- this implementation is very fast in time
+- but it is too inefficient in memory
+
+and in C pseudo-code it looks like this:
+
+    linear_address[0]      = physical_address_0
+    linear_address[1]      = physical_address_1
+    linear_address[2]      = physical_address_2
+    ...
+    linear_address[2^20-1] = physical_address_N
+
+But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) [K-ary tree](https://en.wikipedia.org/wiki/K-ary_tree).
+
+A K-ary tree, is just like a [binary tree](https://en.wikipedia.org/wiki/Binary_tree), but with K children instead of 2.
+
+Using a K-ary tree instead of an array implementation has the following trade-offs:
+
+- it uses way less memory
+- it is slower since we have to de-reference extra pointers
+
+In C-pseudo code, a 2-level K-ary tree with `K = 2^10` looks like this:
+
+    level0[0] = &level1_0[0]
+        level1_0[0]      = physical_address_0_0
+        level1_0[1]      = physical_address_0_1
+        ...
+        level1_0[2^10-1] = physical_address_0_N
+    level0[1] = &level1_1[0]
+        level1_1[0]      = physical_address_1_0
+        level1_1[1]      = physical_address_1_1
+        ...
+        level1_1[2^10-1] = physical_address_1_N
+    ...
+    level0[N] = &level1_N[0]
+        level1_N[0]      = physical_address_N_0
+        level1_N[1]      = physical_address_N_1
+        ...
+        level1_N[2^10-1] = physical_address_N_N
+
+and we have the following arrays:
+
+- one `directory`, which has `2^10` elements. Each element contains a pointer to a page table array.
+- up to 2^10 `pagetable` arrays. Each one has `2^10` 4 byte page entries.
+
+and it still contains `2^10 * 2^10 = 2^20` possible keys.
+
+K-ary trees can save up a lot of space, because if we only have one key, then we only need the following arrays:
+
+- one `directory` with 2^10 entries
+- one `pagetable` at `directory[0]` with 2^10 entries
+- all other `directory[i]` are marked as invalid, don't point to anything, and we don't allocate `pagetable` for them at all
+
+### Why not a balanced tree
+
+Learned readers will ask themselves: so why use an unbalanced tree instead of balanced one, which offers better asymptotic times <https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree>?
+
+Likely:
+
+- the maximum number of entries is small enough due to memory size limitations, that we won't waste too much memory with the root directory entry
+- different entries would have different levels, and thus different access times
+- tree rotations would likely make caching more complicated
+
+### How the K-ary tree is used in x86
+
+x86's multi-level paging scheme uses a 2 level K-ary tree with 2^10 bits on each level.
+
+Addresses are now split as:
 
     | directory (10 bits) | table (10 bits) | offset (12 bits) |
 
-The directory is a "directory of page tables".
+Then:
 
-`cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
+-   the top 10 bits are used to walk the top level of the K-ary tree (`level0`)
 
-The directory contains an array of directory entries. Page directory entries are very similar to page table entries except that *they point to the physical addresses of page tables instead of physical addresses of pages*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
+    The top table is called a "directory of page tables".
 
-Each process must have one and only one page directory associated to it, so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M entries required on a single-level scheme.
+    `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
 
-Each directory entry up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.
+    Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.
 
-Page tables are only allocated only as needed by the OS. Each page table has only `2^10 = 1K` page table entries instead of `2^20` for the single paging scheme.
+    Each directory entry also takes up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.
 
-Page tables entries don't change at all from a single-level scheme.
+    Page directory entries also contain a valid flag: if invalid, the OS does not allocate a page table for that entry, and saves memory.
 
-Page tables change from a single-level scheme because:
+    Each process has one and only one page directory associated to it (and pointed to by `cr3`), so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M entries required on a single-level scheme.
 
-- each process may have up to 1K page tables, one per page directory entry.
-- each page table contains exactly 1K entries instead of 1M entries.
+-   the next 10 bits are used to walk the second level of the K-ary tree (`level1`)
+
+    Second level entries are also called page tables like the single level scheme.
+
+    Page tables are only allocated only as needed by the OS.
+
+    Each page table has only `2^10 = 1K` page table entries instead of `2^20` for the single paging scheme.
+
+    Each process can now have up to `2^10` page tables instead of `2^20` for the single paging scheme.
+
+-   the offset is again not used for translation, it only gives the offset within a page
 
 One reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
 
@@ -430,34 +505,34 @@ One reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12
 
 Page directory given to process by the OS:
 
-    RAM location     physical address   present
-    ---------------  -----------------  --------
-    CR3 + 0     * 4  0x10000            1
-    CR3 + 1     * 4                     0
-    CR3 + 2     * 4  0x80000            1
-    CR3 + 3     * 4                     0
-    ...                                 ...
-    CR3 + 0x3FF * 4                     0
+    entry index   entry address      page table address present
+    -----------   ----------------   ------------------ --------
+    0             CR3 + 0      * 4   0x10000            1
+    1             CR3 + 1      * 4                      0
+    2             CR3 + 2      * 4   0x80000            1
+    3             CR3 + 3      * 4                      0
+    ...
+    2^10-1        CR3 + 2^10-1 * 4                      0
 
 Page tables given to process by the OS at `PT1 = 0x10000000` (`0x10000` * 4K):
 
-    RAM location      physical address   present
-    ---------------   -----------------  --------
-    PT1 + 0     * 4   0x00001            1
-    PT1 + 1     * 4                      0
-    PT1 + 2     * 4   0x0000D            1
+    entry index   entry address      page address  present
+    -----------   ----------------   ------------  -------
+    0             PT1 + 0      * 4   0x00001       1
+    1             PT1 + 1      * 4                 0
+    2             PT1 + 2      * 4   0x0000D       1
     ...                                  ...
-    PT1 + 0x3FF * 4   0x00005            1
+    2^10-1        PT1 + 2^10-1 * 4   0x00005       1
 
 Page tables given to process by the OS at `PT2  = 0x80000000` (`0x80000` * 4K):
 
-    RAM location      physical address   present
-    ---------------   -----------------  --------
-    PT2 + 0     * 4   0x0000A            1
-    PT2 + 1     * 4   0x0000C            1
-    PT2 + 2     * 4                      0
-    ...                                  ...
-    PT2 + 0x3FF * 4   0x00003            1
+    entry index   entry address     page address  present
+    -----------   ---------------   ------------  ------------
+    0             PT2 + 0     * 4   0x0000A       1
+    1             PT2 + 1     * 4   0x0000C       1
+    2             PT2 + 2     * 4                 0
+    ...
+    2^10-1        PT2 + 0x3FF * 4   0x00003       1
 
 where `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on RAM.
 
@@ -504,53 +579,7 @@ Page faults occur if either a page directory entry or a page table entry is not 
 
 The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging":
 
-[![](/x86-page-translation.png)](x86-page-translation.png)
-
-{% comment %}
-
-TODO.
-
-### Data structures
-
-The algorithmically minded will have noticed that paging uses an [associative array](https://en.wikipedia.org/wiki/Associative_array) abstract data structure where:
-
-- the keys are linear pages addresses, thus of integer type
-- the values are physical page addresses, also of integer type
-
-The single level paging scheme uses a simple array implementation of the associative array:
-
-- the keys are the array index
-- this implementation is very fast in time
-- but it is too inefficient in memory
-
-<!-- -->
-
-    linear_address[0]      = physical_address_0
-    linear_address[1]      = physical_address_1
-    linear_address[2]      = physical_address_2
-    ...
-    linear_address[2^20-1] = physical_address_N
-
-The multi-level paging scheme uses an unbalanced tree implementation of the associative array:
-
-- it is slower than the array implementation, but it uses way less memory
-- unbalanced is fine as it is simpler, and the number of entries is small enough due to memory size limitations
-- it is a type of [K-ary tree](https://en.wikipedia.org/wiki/K-ary_tree), with possibly different K per level
-
-<!-- -->
-
-    level0[0] = &level1[0]
-        level1_0[0]      = physical_address_0_0
-        level1_0[1]      = physical_address_0_1
-        ...
-        level1[2^10-1] = physical_address_0_1
-    level0[1]
-        level1_1[0]      = physical_address_0_0
-        level1_1[1]      = physical_address_0_1
-        ...
-        level1_1[2^10-1] = physical_address_0_1
-
-{% endcomment %}
+[![](/x86-page-translation.png)](/x86-page-translation.png)
 
 ## 64-bit architectures
 
@@ -873,7 +902,7 @@ When Linux forks a process:
 - it marks those linear addresses as read-only
 - whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses
 
-### Source tree
+### Linux source tree
 
 In `v4.2`, look under `arch/x86/`:
 
