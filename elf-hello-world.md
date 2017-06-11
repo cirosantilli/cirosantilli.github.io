@@ -8,21 +8,11 @@ Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/30648229/89
 
 {{ site.toc }}
 
-<!-- SO
-Let's decompile a NASM hello world and understand every byte in it.
-
-Version of this answer with a nice TOC: <http://www.cirosantilli.com/elf-hello-world>
--->
-
-<!-- SO remove section -->
-
 ## Introduction
 
 ELF is the dominating file format for Linux. It competes with Mach-O for OS X and PE for Windows.
 
 ELF supersedes `.coff`, which supersedes `a.out`.
-
-<!-- SO remove section -->
 
 ### Standards
 
@@ -56,7 +46,7 @@ Spin like mad between:
 - hexdumps
 - file decompilers. We use `readelf`. It makes it faster to read the ELF file by turning it into human readable output. But you must have seen one byte-by-byte example first, and think how `readelf` output maps to the standard.
 - low-level generators: stand-alone libraries that let you control every field of the ELF files you generated. <https://github.com/BR903/ELFkickers>, <https://github.com/sqall01/ZwoELF> and many more on GitHub.
-- consumer: Linux kernel: <https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c>, <http://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861>
+- consumer: the `exec` system call of the Linux kernel can parse ELF files to starts processes: <https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c>, <http://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861>
 
 ### Specified file formats
 
@@ -123,8 +113,6 @@ In this tutorial, we consider only object and executable files.
     - <https://github.com/eliben/pyelftools>. By a hardcore Googler: <https://plus.google.com/+EliBenderskyGplus/posts>
     - <https://sourceforge.net/projects/elftoolchain>
 
-<!-- SO remove section -->
-
 ## Minimal ELF file
 
 It is non-trivial to determine what is the smallest legal ELF file, or the smaller one that will do something trivial in Linux.
@@ -170,15 +158,6 @@ Versions:
 - Ubuntu 14.04
 
 We don't use a C program as that would complicate the analysis, that will be level 2 :-)
-
-<!-- SO
-## Hexdumps
-
-    hd hello_world.o
-    hd hello_world.out
-
-Output at: <https://gist.github.com/cirosantilli/7b03f6df2d404c0862c6>
--->
 
 ## Object hd
 
@@ -324,7 +303,7 @@ An ELF file contains the following parts:
 
 -   Program header table (only on executable). Each has `e_phnum` program headers, each pointing to the position of a segment.
 
--   N segments, with `N <= e_phnum` (optional on executable)
+-   N segments, with `N <= e_phnum` (only on executable)
 
 The order of those parts is *not* fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
 
@@ -400,15 +379,6 @@ See also:
 - <http://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
 
 ## ELF header
-
-<!-- SO
-The easiest way to observe the header is:
-
-    readelf -h hello_world.o
-    readelf -h hello_world.out
-
-Output at: <https://gist.github.com/cirosantilli/7b03f6df2d404c0862c6>
--->
 
 `readelf -h hello_world.o`:
 
@@ -1127,14 +1097,6 @@ section of the `readelf` tells us that:
 - 1 is the `.data` segment.
 
 TODO where does this information come from? <http://stackoverflow.com/questions/23018496/section-to-segment-mapping-in-elf-files>
-
-<!-- SO remove section -->
-
-## Changes from Stack Overflow version
-
-- put full hexdumps and `readelf -h` on separate Gist: <https://gist.github.com/cirosantilli/7b03f6df2d404c0862c6> to avoid blowing the Stack Overflow 30k char limit.
-
-- remove the minimal ELF file section as it was already mentioned on another answer: <http://stackoverflow.com/a/26296684/895245>
 
 ## Backlinks
 
