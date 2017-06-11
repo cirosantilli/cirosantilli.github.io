@@ -39,11 +39,24 @@ Paging solves this problem beautifully by adding one degree of indirection:
     (logical) ------------> (physical)
                  paging
 
+Where:
+
+-   logical addresses are what userland programs see, e.g. the contents of `rsi` in `mov eax, [rsi]`.
+
+    They are often called "virtual" addresses as well.
+
+-   physical addresses can be though of the values that go to physical RAM index wires.
+
+    But keep in mind that this is not 100% true because of further indirections such as:
+
+    - [memory-mapped I/O regions](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
+    - [multi channel memory](https://en.wikipedia.org/wiki/Multi-channel_memory_architecture)
+
 Compilers don't need to worry about other programs: they just use simple logical addresses.
 
-As far as programs are concerned, they think they can use any address between 0 and 4GB (2^32) on 32-bit systems.
+As far as programs are concerned, they think they can use any address between 0 and 4GiB (2^32, `FFFFFFFF`) on 32-bit systems.
 
-Paging is then setup by the OS so that identical logical addresses will go into different physical addresses.
+The OS then sets up paging so that identical logical addresses will go into different physical addresses and not overwrite each other.
 
 This makes it much simpler to compile programs and run them at the same time.
 
@@ -63,17 +76,35 @@ Paging is implemented by the CPU hardware itself.
 
 Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!
 
-The operating system must tell the CPU how paging is to be done.
+Operating systems must setup and control paging by communicating to the CPU hardware. This is done mostly via:
 
-This is done by writing bytes to specific RAM addresses, not through registers directly. In x86, the RAM location is given by the CR3 register.
+-   the CR3 register, which tells the CPU where the page table is in RAM memory
 
-Using RAM is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
+-   writing the correct paging data structures to the RAM pointed to the CR3 register.
 
-The format of the configuration data structures is fixed *by the hardware*, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
+    Using RAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
 
-Another notable example of RAM data structure used by the CPU is the [IDT](https://en.wikipedia.org/wiki/Interrupt_descriptor_table) which sets up interrupt handlers.
+    The format of the configuration data structures is fixed *by the hardware*, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
 
-## Paging vs segmentation
+    Then some heavy caching is done to ensure that the RAM access will be fast, in particular using the TLB.
+
+    Another notable example of RAM data structure used by the CPU is the [IDT](https://en.wikipedia.org/wiki/Interrupt_descriptor_table) which sets up interrupt handlers.
+
+The OS makes it impossible for programs to change the paging setup directly without going through the OS:
+
+-   CR3 cannot be modified in ring 3. The OS runs in ring 0. See also:
+    - <https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809>
+    - <https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os>
+-   the page table structures are made invisible to the process using paging itself!
+
+Processes can however make requests to the OS that cause the page tables to be modified, notably:
+
+- stack size changes
+- `brk` and `mmap` calls, see also: <https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353>
+
+The kernel then decides if the request will be granted or not in a controlled manner.
+
+## Segmentation
 
 In x86 systems, there may actually be 2 address translation steps:
 
@@ -85,19 +116,16 @@ As such:
     (logical) ------------------> (linear) ------------> (physical)
                  segmentation                 paging
 
-Logical addresses are the memory addresses used in "regular" user-land code, e.g. the contents of `rsi` in `mov eax, [rsi]`.
-
-We can think of physical addresses as indexing actual RAM hardware memory cells, but this is not 100% true because of:
-
-- [memory-mapped I/O regions](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
-- [multi channel memory](https://en.wikipedia.org/wiki/Multi-channel_memory_architecture)
-
 The major difference between paging and segmentation is that:
 
 - paging splits RAM into equal sized chunks called pages
 - segmentation splits memory into chunks of arbitrary sizes
 
-This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems.
+This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems. See also:
+
+- <https://stackoverflow.com/questions/16643180/differences-or-similarities-between-segmented-paging-and-paged-segmentation>
+- <https://softwareengineering.stackexchange.com/questions/100047/why-not-segmentation>
+- <https://www.quora.com/What-is-the-difference-between-paging-and-segment-in-memory-management>
 
 Paging came after segmentation historically, and largely replaced it for the implementation of virtual memory in modern OSs.
 
@@ -105,137 +133,92 @@ Paging has become so much more popular that support for segmentation was dropped
 
 ## Example: simplified single-level paging scheme
 
-This is an example of how paging operates on a *simplified* version of a x86 architecture to implement a virtual memory space.
+This is an example of how paging operates on a *simplified* version of a x86 architecture to implement a virtual memory space with a `20 | 12` address split (4 KiB page size).
 
-### Page tables
+### Single level paging scheme visualization
 
-The OS could give them the following page tables:
+This is how the memory could look like in a single level paging scheme:
 
-Page table given to process 1 by the OS:
+    Links   Data                    Physical address
 
-    RAM location        physical address   present
-    -----------------   -----------------  --------
-    PT1 + 0       * L   0x00001            1
-    PT1 + 1       * L   0x00000            1
-    PT1 + 2       * L   0x00003            1
-    PT1 + 3       * L                      0
-    ...                                    ...
-    PT1 + 0xFFFFF * L   0x00005            1
+          +-----------------------+ 2^32 - 1
+          |                       |
+          .                       .
+          |                       |
+          +-----------------------+ page0 + 4k
+          | data of page 0        |
+    +---->+-----------------------+ page0
+    |     |                       |
+    |     .                       .
+    |     |                       |
+    |     +-----------------------+ pageN + 4k
+    |     | data of page N        |
+    |  +->+-----------------------+ pageN
+    |  |  |                       |
+    |  |  .                       .
+    |  |  |                       |
+    |  |  +-----------------------+ CR3 + 2^20 * 4
+    |  +--| entry[2^20-1] = pageN |
+    |     +-----------------------+ CR3 + 2^20 - 1 * 4
+    |     |                       |
+    |     .    many entires       .
+    |     |                       |
+    |     +-----------------------+ CR3 + 2 * 4
+    |  +--| entry[1] = page1      |
+    |  |  +-----------------------+ CR3 + 1 * 4
+    +-----| entry[0] = page0      |
+       |  +-----------------------+ <--- CR3
+       |  |                       |
+       |  .                       .
+       |  |                       |
+       |  +-----------------------+ page1 + 4k
+       |  | data of page 1        |
+       +->+-----------------------+ page1
+          |                       |
+          .                       .
+          |                       |
+          +-----------------------+  0
 
-Page table given to process 2 by the OS:
+Notice that:
 
-    RAM location       physical address   present
-    -----------------  -----------------  --------
-    PT2 + 0       * L  0x0000A            1
-    PT2 + 1       * L  0x0000B            1
-    PT2 + 2       * L                     0
-    PT2 + 3       * L  0x00003            1
-    ...                ...                ...
-    PT2 + 0xFFFFF * L  0xFFFFF            1
+- the CR3 register points to the first entry of the page table
+- the page table is just a large array with 2^20 page table entries
+- each entry is 4 bytes big, so the array takes up 4 MiB
+- each page table contains the physical address a page
+- each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use
+- we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory
 
-Where:
+### Single level paging scheme numerical translation example
 
--   `PT1` and `PT2`: initial position of table 1 and 2 on RAM.
+Suppose that the OS has setup the following page tables for process 1:
 
-    Sample values: `0x00000000`, `0x12345678`, etc.
+    entry index   entry address       page address   present
+    -----------   ------------------  ------------   -------
+    0             CR3_1 + 0      * 4  0x00001        1
+    1             CR3_1 + 1      * 4  0x00000        1
+    2             CR3_1 + 2      * 4  0x00003        1
+    3             CR3_1 + 3      * 4                 0
+    ...
+    2^32-1        CR3_1 + 2^32-1 * 4  0x00005        1
 
-    It is the OS that decides those values.
+And for process 2:
 
--   `L`: length of a page table entry.
+    entry index   entry address       page address   present
+    -----------   -----------------   ------------   -------
+    0             CR3_2 + 0      * 4  0x0000A        1
+    1             CR3_2 + 1      * 4  0x12345        1
+    2             CR3_2 + 2      * 4                 0
+    3             CR3_2 + 3      * 4  0x00003        1
+    ...
+    2^32-1        CR3_2 + 2^32-1 * 4  0xFFFFF        1
 
--   `present`: indicates that the page is present in memory.
+Before process 1 starts running, the OS sets its `cr3` to point to the page table 1 at `CR3_1`.
 
-Page tables are located on RAM. They could for example be located as:
-
-    --------------> 0xFFFFFFFF
-
-
-    --------------> PT1 + 0xFFFFF * L
-    Page Table 1
-    --------------> PT1
-
-
-    --------------> PT2 + 0xFFFFF * L
-    Page Table 2
-    --------------> PT2
-
-    --------------> 0x0
-
-The initial locations on RAM for both page tables are arbitrary and controlled by the OS. It is up to the OS to ensure that they don't overlap!
-
-Each process cannot touch any page tables directly, although it can make requests to the OS that cause the page tables to be modified, for example asking for larger stack or heap segments.
-
-A page is a chunk of 4KB (12 bits), and since addresses have 32 bits, only 20 bits (20 + 12 = 32, thus 5 characters in hexadecimal notation) are required to identify each page. This value is fixed by the hardware.
-
-### Page table entries
-
-A page table is... a table of page table entries!
-
-The exact format of table entries is fixed *by the hardware*.
-
-On this simplified example, the page table entries contain only two fields:
-
-    bits   function
-    -----  -----------------------------------------
-    20     physical address of the start of the page
-    1      present flag
-
-so in this example the hardware designers could have chosen `L = 21`.
-
-Most real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.
-
-It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose `L = 32` to make access faster, and just reserve bits the remaining bits for later usage. The actual value for `L` on x86 is 32 bits.
-
-Here is a screenshot from the Intel manual showing the structure of a page table in all its glory:
-
-[![](/x86-page-entry.png)](/x86-page-entry.png)
-
-The fields are explained in the manual just after it.
-
-### Address translation in single-level scheme
-
-Once the page tables have been set up by the OS, the address translation between linear and physical addresses is done *by the hardware*.
-
-When the OS wants to activate process 1, it sets the `cr3` to `PT1`, the start of the table for process one.
-
-If Process 1 wants to access linear address `0x00000001`, the paging *hardware* circuit automatically does the following for the OS:
-
--   split the linear address into two parts:
-
-        | page (20 bits) | offset (12 bits) |
-
-    So in this case we would have:
-
-    - page = 0x00000
-    - offset = 0x001
-
--   look into Page table 1 because `cr3` points to it.
-
--   look entry `0x00000` because that is the page part.
-
-    The hardware knows that this entry is located at RAM address `PT1 + 0 * L = PT1`.
-
--   since it is present, the access is valid
-
--   by the page table, the location of page number `0x00000` is at `0x00001 * 4K = 0x00001000`.
-
--   to find the final physical address we just need to add the offset:
-
-          00001 000
-        + 00000 001
-          -----------
-          00001 001
-
-    because `00001` is the physical address of the page looked up on the table and `001` is the offset.
-
-    As the name indicates, the offset is always simply added the physical address of the page.
-
--   the hardware then gets the memory at that physical location.
-
-In the same way, the following translations would happen for process 1:
+When process 1 tries to access a linear address, this is the physical addresses that will be actually accessed:
 
     linear     physical
     ---------  ---------
+    00000 001  00001 001
     00000 002  00001 002
     00000 003  00001 003
     00000 FFF  00001 FFF
@@ -245,32 +228,80 @@ In the same way, the following translations would happen for process 1:
     00002 000  00003 000
     FFFFF 000  00005 000
 
-For example, when accessing address `00001000`, the page part is `00001` the hardware knows that its page table entry is located at RAM address: `PT1 + 1 * L` (`1` because of the page part), and that is where it will look for it.
-
-When the OS wants to switch to process 2, all it needs to do is to make `cr3` point to page 2. It is that simple!
-
-Now the following translations would happen for process 2:
+For process 2, the OS sets `cr3` to `CR3_2`, and the following translations would happen:
 
     linear     physical
     ---------  ---------
     00000 002  0000A 002
     00000 003  0000A 003
     00000 FFF  0000A FFF
-    00001 000  0000B 000
-    00001 001  0000B 001
-    00001 FFF  0000B FFF
+    00001 000  12345 000
+    00001 001  12345 001
+    00001 FFF  12345 FFF
     00004 000  00003 000
     FFFFF 000  FFFFF 000
 
+Step-by-step translation for process 1 of logical address `0x00000001` to physical address `0x00001001`:
+
+-   split the linear address into two parts:
+
+        | page (20 bits) | offset (12 bits) |
+
+    So in this case we would have:
+
+    - page = 0x00000. This part must be translated to a physical location.
+    - offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position *within* the page.
+
+-   look into Page table 1 because `cr3` points to it.
+
+-   The hardware knows that this entry is located at RAM address `CR3 + 0x00000 * 32 = CR3`:
+
+    - `0x00000` because the page part of the logical address is `0x00000`
+    - `32` because that is the fixed size of every page table entry
+
+-   since it is present, the access is valid
+
+-   by the page table, the location of page number `0x00000` is at `0x00001 * 4K = 0x00001000`.
+
+-   to find the final physical address we just need to add the offset:
+
+          00001 000
+        + 00000 001
+          ---------
+          00001 001
+
+    because `00001` is the physical address of the page looked up on the table and `001` is the offset.
+
+    We shift `00001` by 12 bits because the pages are always aligned to 4KiB.
+
+    The offset is always simply added the physical address of the page.
+
+-   the hardware then gets the memory at that physical location and puts it in a register.
+
+Another example: for logical address `0x00001001`:
+
+- the page part is `0x00001`, and the offset part is `0x001`
+- the hardware knows that its page table entry is located at RAM address: `CR3 + 1 * 32` (`1` because of the page part), and that is where it will look for it
+- it finds the page address `0x00000` there
+- so the final address is `0x00000 * 4k + 0x001 = 0x00000001`
+
+When the OS wants to switch to process 2, all it needs to do is to make `cr3` point to page 2. It is that simple!
+
+### Multiple addresses translate to a single physical address
+
 The same linear address can translate to different physical addresses for different processes, depending only on the value inside `cr3`.
 
-In this way every program can expect its data to start at `0` and end at `FFFFFFFF`, without worrying about exact physical addresses.
+Both linear addresses `00002 000` from process 1 and `00004 000` from process 2 point to the same physical address `00003 000`. This is completely allowed by the hardware, and it is up to the operating system to handle such cases.
 
-Both linear addresses `00002 000` from process 1 and `00004 000` from process 2 point to the same physical address `00003 000`. This is completely allowed by the hardware, and it is up to the operating system to handle such cases. This often in normal operation because of Copy-on-write (COW), which be explained elsewhere.
+This often in normal operation because of Copy-on-write (COW), which be explained elsewhere.
+
+Such mappings are sometime called "aliases".
+
+### Identity mapping
 
 `FFFFF 000` points to its own physical address `FFFFF 000`. This kind of translation is called an "identity mapping", and can be very convenient for OS-level debugging.
 
-### Page fault
+### Page faults
 
 What if Process 1 tries to access an address inside a page that is no present?
 
@@ -303,6 +334,53 @@ but there may be cases in which it is acceptable, for example in Linux when:
 
 In any case, the OS needs to know which address generated the Page Fault to be able to deal with the problem. This is why the nice IA32 developers set the value of `cr2` to that address whenever a Page Fault occurs. The exception handler can then just look into `cr2` to get the address.
 
+### Page table entries
+
+The exact format of table entries is fixed *by the hardware*.
+
+Each page entry can be seen as a `struct` with many fields.
+
+The page table is then an array of `struct`.
+
+On this simplified example, the page table entries contain only two fields:
+
+    bits   function
+    -----  -----------------------------------------
+    20     physical address of the start of the page
+    1      present flag
+
+so in this example the hardware designers could have chosen the size of the page table to b `21` instead of `32` as we've used so far.
+
+All real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.
+
+It would be impractical to align things at 21 bytes since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose 32 to make access faster, and just reserve bits the remaining bits for later usage. The actual value on x86 is 32 bits.
+
+Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory:
+
+[![](/x86-page-entry.png)](/x86-page-entry.png)
+
+The fields are explained in the manual just after.
+
+### Page size choice
+
+Why are pages 4KiB anyways?
+
+There is a trade-off between memory wasted in:
+
+- page tables
+- extra padding memory within pages
+
+This can be seen with the extreme cases:
+
+-   if the page size were 1 byte:
+    - granularity would be great, and the OS would never have to allocate unneeded padding memory
+    - but the page table would have 2^32 entries, and take up the entire memory!
+-   if the page size were 4GiB:
+    - we would need to swap 4GiB to disk every time a new process becomes active
+    - the page size would be a single entry, so it would take almost no memory at all
+
+x86 designers have found that 4KiB pages are a good middle ground.
+
 ### Simplifications
 
 Simplifications to reality that make this example easier to understand:
@@ -315,23 +393,29 @@ Simplifications to reality that make this example easier to understand:
 
 ## Example: multi-level paging scheme
 
-The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries *per* process. If each entry is 4 bytes long, that would make 4M *per process*, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
+The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries *per* process.
+
+If each entry is 4 bytes long, that would make 4M *per process*, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
 
 For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.
 
-The downside of this system is that is has a slightly higher access time.
+The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.
 
 In the simple 3 level paging scheme used for 32 bit processors without PAE, the 32 address bits are divided as follows:
 
     | directory (10 bits) | table (10 bits) | offset (12 bits) |
 
-Each process must have one and only one page directory associated to it, so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M required on a single-level scheme.
-
-Page tables are only allocated as needed by the OS. Each page table has `2^10 = 1K` page directory entries
-
-Page directories contain... page directory entries! Page directory entries are the same as page table entries except that *they point to the physical addresses of page tables instead of physical addresses of pages*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
+The directory is a "directory of page tables".
 
 `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
+
+The directory contains an array of directory entries. Page directory entries are very similar to page table entries except that *they point to the physical addresses of page tables instead of physical addresses of pages*. Since those addresses are only 20 bits wide, page tables aligned to 4KB (the lower bits are zeroed out).
+
+Each process must have one and only one page directory associated to it, so it will contain at least `2^10 = 1K` page directory entries, much better than the minimum 1M entries required on a single-level scheme.
+
+Each directory entry up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.
+
+Page tables are only allocated only as needed by the OS. Each page table has only `2^10 = 1K` page table entries instead of `2^20` for the single paging scheme.
 
 Page tables entries don't change at all from a single-level scheme.
 
@@ -340,114 +424,133 @@ Page tables change from a single-level scheme because:
 - each process may have up to 1K page tables, one per page directory entry.
 - each page table contains exactly 1K entries instead of 1M entries.
 
-The reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
+One reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
 
-### Address translation in multi-level scheme
+### Multi-level paging scheme numerical translation example
 
-Page directory given to process 1 by the OS:
+Page directory given to process by the OS:
 
     RAM location     physical address   present
     ---------------  -----------------  --------
-    PD1 + 0     * L  0x10000            1
-    PD1 + 1     * L                     0
-    PD1 + 2     * L  0x80000            1
-    PD1 + 3     * L                     0
+    CR3 + 0     * 4  0x10000            1
+    CR3 + 1     * 4                     0
+    CR3 + 2     * 4  0x80000            1
+    CR3 + 3     * 4                     0
     ...                                 ...
-    PD1 + 0x3FF * L                     0
+    CR3 + 0x3FF * 4                     0
 
-Page tables given to process 1 by the OS at `PT1 = 0x10000000` (`0x10000` * 4K):
-
-    RAM location      physical address   present
-    ---------------   -----------------  --------
-    PT1 + 0     * L   0x00001            1
-    PT1 + 1     * L                      0
-    PT1 + 2     * L   0x0000D            1
-    ...                                  ...
-    PT1 + 0x3FF * L   0x00005            1
-
-Page tables given to process 1 by the OS at `PT2  = 0x80000000` (`0x80000` * 4K):
+Page tables given to process by the OS at `PT1 = 0x10000000` (`0x10000` * 4K):
 
     RAM location      physical address   present
     ---------------   -----------------  --------
-    PT2 + 0     * L   0x0000A            1
-    PT2 + 1     * L   0x0000C            1
-    PT2 + 2     * L                      0
+    PT1 + 0     * 4   0x00001            1
+    PT1 + 1     * 4                      0
+    PT1 + 2     * 4   0x0000D            1
     ...                                  ...
-    PT2 + 0x3FF * L   0x00003            1
+    PT1 + 0x3FF * 4   0x00005            1
 
-where:
+Page tables given to process by the OS at `PT2  = 0x80000000` (`0x80000` * 4K):
 
-- `PD1`: initial position of page directory of process 1 on RAM.
-- `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on RAM.
+    RAM location      physical address   present
+    ---------------   -----------------  --------
+    PT2 + 0     * 4   0x0000A            1
+    PT2 + 1     * 4   0x0000C            1
+    PT2 + 2     * 4                      0
+    ...                                  ...
+    PT2 + 0x3FF * 4   0x00003            1
 
-So in this example the page directory and the page table could be stored in RAM something like:
+where `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on RAM.
 
-    ----------------> 0xFFFFFFFF
+With that setup, the following translations would happen:
 
+    linear    10 10 12 split  physical
+    --------  --------------  ----------
+    00000001  000 000 001     00001001
+    00001001  000 001 001     page fault
+    003FF001  000 3FF 001     00005001
+    00400000  001 000 000     page fault
+    00800001  002 000 001     0000A001
+    00801004  002 001 004     0000C004
+    00802004  002 002 004     page fault
+    00B00001  003 000 000     page fault
 
-    ----------------> PT2 + 0x3FF * L
-    Page Table 1
-    ----------------> PT2
+Let's translate the linear address `0x00801004` step by step:
 
-    ----------------> PD1 + 0x3FF * L
-    Page Directory 1
-    ----------------> PD1
+-   In binary the linear address is:
 
+        0    0    8    0    1    0    0    4
+        0000 0000 1000 0000 0001 0000 0000 0100
 
-    ----------------> PT1 + 0x3FF * L
-    Page Table 2
-    ----------------> PT1
+-   Grouping as `10 | 10 | 12` gives:
 
-    ----------------> 0x0
+        0000000010 0000000001 000000000100
+        0x2        0x1        0x4
 
-Let's translate the linear address `0x00801004` step by step.
+    which gives:
 
-We suppose that `cr3 = PD1`, that is, it points to the page directory just described.
+        page directory entry = 0x2
+        page table     entry = 0x1
+        offset               = 0x4
 
-In binary the linear address is:
+    So the hardware looks for entry 2 of the page directory.
 
-    0    0    8    0    1    0    0    4
-    0000 0000 1000 0000 0001 0000 0000 0100
+-   The page directory table says that the page table is located at `0x80000 * 4K = 0x80000000`. This is the first RAM access of the process.
 
-Grouping as `10 | 10 | 12` gives:
+    Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`, which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second RAM access of the process.
 
-    0000000010 0000000001 000000000100
-    0x2        0x1        0x4
-
-which gives:
-
-- page directory entry = 0x2
-- page table     entry = 0x1
-- offset               = 0x4
-
-So the hardware looks for entry 2 of the page directory.
-
-The page directory table says that the page table is located at `0x80000 * 4K = 0x80000000`. This is the first RAM access of the process.
-
-Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`, which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second RAM access of the process.
-
-Finally, the paging hardware adds the offset, and the final address is `0x0000C004`.
-
-Other examples of translated addresses are:
-
-    linear    10 10 12 split   physical
-    --------  ---------------  ----------
-    00000001  000 000 001      00001001
-    00001001  000 001 001      page fault
-    003FF001  000 3FF 001      00005001
-    00400000  001 000 000      page fault
-    00800001  002 000 001      0000A001
-    00801008  002 001 008      0000C008
-    00802008  002 002 008      page fault
-    00B00001  003 000 000      page fault
+-   Finally, the paging hardware adds the offset, and the final address is `0x0000C004`.
 
 Page faults occur if either a page directory entry or a page table entry is not present.
 
-If the OS wants to run another process concurrently, it would give the second process a separate page directory, and link that directory to separate page tables.
-
-The Intel manual gives a picture of the translation process:
+The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging":
 
 [![](/x86-page-translation.png)](x86-page-translation.png)
+
+{% comment %}
+
+TODO.
+
+### Data structures
+
+The algorithmically minded will have noticed that paging uses an [associative array](https://en.wikipedia.org/wiki/Associative_array) abstract data structure where:
+
+- the keys are linear pages addresses, thus of integer type
+- the values are physical page addresses, also of integer type
+
+The single level paging scheme uses a simple array implementation of the associative array:
+
+- the keys are the array index
+- this implementation is very fast in time
+- but it is too inefficient in memory
+
+<!-- -->
+
+    linear_address[0]      = physical_address_0
+    linear_address[1]      = physical_address_1
+    linear_address[2]      = physical_address_2
+    ...
+    linear_address[2^20-1] = physical_address_N
+
+The multi-level paging scheme uses an unbalanced tree implementation of the associative array:
+
+- it is slower than the array implementation, but it uses way less memory
+- unbalanced is fine as it is simpler, and the number of entries is small enough due to memory size limitations
+- it is a type of [K-ary tree](https://en.wikipedia.org/wiki/K-ary_tree), with possibly different K per level
+
+<!-- -->
+
+    level0[0] = &level1[0]
+        level1_0[0]      = physical_address_0_0
+        level1_0[1]      = physical_address_0_1
+        ...
+        level1[2^10-1] = physical_address_0_1
+    level0[1]
+        level1_1[0]      = physical_address_0_0
+        level1_1[1]      = physical_address_0_1
+        ...
+        level1_1[2^10-1] = physical_address_0_1
+
+{% endcomment %}
 
 ## 64-bit architectures
 
@@ -543,32 +646,32 @@ This section shall describe a simplified fully associative TLB with 4 single add
 
 After a translation between linear and physical address happens, it is stored on the TLB. For example, a 4 entry TLB starts in the following state:
 
-      valid   linear   physical
-      ------  -------  ---------
-    > 0       00000    00000
-      0       00000    00000
-      0       00000    00000
-      0       00000    00000
+      valid  linear  physical
+      -----  ------  --------
+    > 0      00000   00000
+      0      00000   00000
+      0      00000   00000
+      0      00000   00000
 
 The `>` indicates the current entry to be replaced.
 
 and after a page linear address `00003` is translated to a physical address `00005`, the TLB becomes:
 
-      valid   linear   physical
-      ------  -------  ---------
-      1       00003    00005
-    > 0       00000    00000
-      0       00000    00000
-      0       00000    00000
+      valid  linear  physical
+      -----  ------  --------
+      1      00003   00005
+    > 0      00000   00000
+      0      00000   00000
+      0      00000   00000
 
 and after a second translation of `00007` to `00009` it becomes:
 
-      valid   linear   physical
-      ------  -------  ---------
-      1       00003    00005
-      1       00007    00009
-    > 0       00000    00000
-      0       00000    00000
+      valid  linear  physical
+      -----  ------  --------
+      1      00003   00005
+      1      00007   00009
+    > 0      00000   00000
+      0      00000   00000
 
 Now if `00003` needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access `00003 --> 00005`.
 
@@ -580,21 +683,21 @@ When TLB is filled up, older addresses are overwritten. Just like CPU cache, the
 
 With LRU, starting from state:
 
-      valid   linear   physical
-      ------  -------  ---------
-    > 1       00003    00005
-      1       00007    00009
-      1       00009    00001
-      1       0000B    00003
+      valid  linear  physical
+      -----  ------  --------
+    > 1      00003   00005
+      1      00007   00009
+      1      00009   00001
+      1      0000B   00003
 
 adding `0000D -> 0000A` would give:
 
-      valid   linear   physical
-      ------  -------  ---------
-      1       0000D    0000A
-    > 1       00007    00009
-      1       00009    00001
-      1       0000B    00003
+      valid  linear  physical
+      -----  ------  --------
+      1      0000D   0000A
+    > 1      00007   00009
+      1      00009   00001
+      1      0000B   00003
 
 ### CAM
 
@@ -611,22 +714,22 @@ For example, a map in which:
 
 could be stored in a TLB with 4 entries:
 
-    linear   physical
-    -------  ---------
-    00000    00001
-    00001    00010
-    00010    00011
-    FFFFF    00000
+    linear  physical
+    ------  --------
+    00000   00001
+    00001   00010
+    00010   00011
+    FFFFF   00000
 
 However, to implement this with RAM, *it would be necessary to have 2^20 addresses*:
 
-    linear   physical
-    -------  ---------
-    00000    00001
-    00001    00010
-    00010    00011
+    linear  physical
+    ------  --------
+    00000   00001
+    00001   00010
+    00010   00011
     ... (from 00011 to FFFFE)
-    FFFFF    00000
+    FFFFF   00000
 
 which would be even more expensive than using a TLB.
 
@@ -635,26 +738,6 @@ which would be even more expensive than using a TLB.
 When `cr3` changes, all TLB entries are invalidated, because a new page table for a new process is going to be used, so it is unlikely that any of the old entries have any meaning.
 
 The x86 also offers the `invlpg` instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.
-
-## Read-only flag
-
-## Copy-on-write
-
-## COW
-
-<https://en.wikipedia.org/wiki/Copy-on-write>
-
-Besides a missing page, a very common source of page faults is copy-on-write.
-
-Page tables have extra flags that allow the OS to mark a page a read-only.
-
-Those page faults only happen when a process tries to write to the page, and not read from it.
-
-When Linux forks a process:
-
-- instead of copying all the pages, which is unnecessarily costly, it makes the page tables of the two process point to the same physical address.
-- it marks those linear addresses as read-only
-- whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses
 
 ## Linux kernel usage
 
@@ -716,14 +799,14 @@ There is no clear physical memory split: <http://stackoverflow.com/questions/304
 
 For each process, the virtual address space looks like this:
 
-    ------------------ <--- Top of process accress space.
+    ------------------ 2^32 - 1
     Stack (grows down)
     v v v v v v v v v
     ------------------
 
     (unmapped)
 
-    ------------------ <--- Maximum stack size.
+    ------------------ Maximum stack size.
 
 
     (unmapped)
@@ -748,7 +831,7 @@ For each process, the virtual address space looks like this:
     Text
     -------------------
 
-    ------------------- <--- Bottom of process address space.
+    ------------------- 0
 
 The kernel maintains a list of pages that belong to each process, and synchronizes that with the paging.
 
@@ -772,9 +855,23 @@ Calculating exact addresses Things are complicated by:
 - [Address Space Layout Randomization](https://en.wikipedia.org/wiki/Address_space_layout_randomization).
 - the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <http://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323>
 
-Why the text does not start at 0:
+Why the text does not start at 0: <http://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0>
 
-- http://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0
+### Copy-on-write
+
+<https://en.wikipedia.org/wiki/Copy-on-write>
+
+Besides a missing page, a very common source of page faults is copy-on-write (COW).
+
+Page tables have extra flags that allow the OS to mark a page a read-only.
+
+Those page faults only happen when a process tries to write to the page, and not read from it.
+
+When Linux forks a process:
+
+- instead of copying all the pages, which is unnecessarily costly, it makes the page tables of the two process point to the same physical address.
+- it marks those linear addresses as read-only
+- whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses
 
 ### Source tree
 
