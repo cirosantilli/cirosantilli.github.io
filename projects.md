@@ -87,6 +87,7 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-06 | [linux-insides][]            | 0    | [Mention Buildroot in addition to ivandaviov/minimal](https://github.com/0xAX/linux-insides/pull/489)                                                                          |
 | 2017-06 | [opengl-tutorial][]          | 0    | [Use existing empty layout on feed.xml](https://github.com/opengl-tutorials/ogl/pull/17)                                                                                       |
 | 2017-04 | [Tiny Renderer][]            | 0    | [Add gitignore](https://github.com/ssloy/tinyrenderer/pull/10)                                                                                                                 |
 | 2017-02 | [Vulkan-Loader][]            | 0    | [Use nproc instead of ncpu](https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/pull/1536)                                                                        |
@@ -511,6 +512,8 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                               |
 |---------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-06 | [Buildroot][]                | [Don't print mutiline struct function arguments on stack when set pretty print on](https://github.com/cyrus-and/gdb-dashboard/issues/65)                  |
+| 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                        |
 | 2017-05 | [Buildroot][]                | [Build fails with "unexpected EOF while looking for matching "'" if PATH contains a newline](https://bugs.busybox.net/show_bug.cgi?id=9886)               |
 | 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                        |
 | 2017-03 | [clBLAS][]                   | [`.s[0]` + CL_DEVICE_TYPE_ALL](https://github.com/clMathLibraries/clBLAS/pull/313)                                                                        |

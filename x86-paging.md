@@ -595,7 +595,7 @@ But that would mean that the page directory would have `2^18 = 256K` entries, wh
 
 Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.
 
-x86_64 uses 4 levels in a `9 | 9 | 9 | 12` scheme, so that the upper level only takes up only `2^9` higher level entries.
+x86_64 uses 4 levels in a `9 | 9 | 9 | 9` scheme, so that the upper level only takes up only `2^9` higher level entries.
 
 The 48 bits are split equally into two disjoint parts:
 
@@ -610,6 +610,8 @@ The 48 bits are split equally into two disjoint parts:
     ----------------- 008FFFFF FFFFFFFF
     Bottom half
     ----------------- 00000000 00000000
+
+A 5-level scheme is emerging in 2016: <https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf> which allows 52-bit addresses with 4k pagetables.
 
 ## PAE
 
