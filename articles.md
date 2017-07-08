@@ -5,48 +5,50 @@ title: Articles
 Short focused articles.
 
 -   Featured
-    -  [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
+    -   [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
 -   x86 Assembly
-    -  [How to run a program without an operating system?](http://stackoverflow.com/a/32483545/895245)
-    -  [What does “multicore” assembly language look like?](http://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438)
+    -   [How to run a program without an operating system?](http://stackoverflow.com/a/32483545/895245)
+    -   [What does “multicore” assembly language look like?](http://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438)
 -   Linux kernel
-    -  [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
-    -  [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
-    -  [Is it possible to install the linux kernel alone?](http://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572)
-    -  [How to debug the Linux kernel with GDB and QEMU?](http://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642)
+    -   [What do the flags in /proc/cpuinfo mean?](http://unix.stackexchange.com/a/219674/32558)
+    -   [How does kernel get an executable binary file running under linux?](http://stackoverflow.com/a/31394861/895245)
+    -   [Is it possible to install the linux kernel alone?](http://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572)
+    -   [How to debug the Linux kernel with GDB and QEMU?](http://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642)
     -   [Can the sys_execve() system call in the Linux kernel receive both absolute or relative paths?](http://stackoverflow.com/questions/33852690/can-the-sys-execve-system-call-in-the-linux-kernel-receive-both-absolute-or-re/42290593#42290593)
 -   ELF
-    -  [ELF Hello World Tutorial](/elf-hello-world)
+    -   [ELF Hello World Tutorial](/elf-hello-world)
+-   QEMU
+    -   [How to add a new device in QEMU source code?](https://stackoverflow.com/questions/28315265/how-to-add-a-new-device-in-qemu-source-code/44612957#44612957)
 -   GCC
-    -  [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
-    -  [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
+    -   [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
+    -   [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
 -   C / C++
-    -  [What does “static” mean in a C program?](http://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047)
-    -  [In C++ source, what is the effect of extern “C”?](http://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795)
-    -  [Char array vs Char Pointer in C](http://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c/30661089#30661089)
+    -   [What does “static” mean in a C program?](http://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047)
+    -   [In C++ source, what is the effect of extern “C”?](http://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795)
+    -   [Char array vs Char Pointer in C](http://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c/30661089#30661089)
 -   Algorithms
-    -  [Heap vs Binary Search Tree (BST)](http://stackoverflow.com/a/29548834/895245)
+    -   [Heap vs Binary Search Tree (BST)](http://stackoverflow.com/a/29548834/895245)
 -   Git internals
-    -  [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
+    -   [What does the git index contain EXACTLY?](http://stackoverflow.com/a/25806452/895245)
 -   Python
-    -  [What is the difference between old style and new style classes in Python?](http://stackoverflow.com/a/19950198/895245)
-    -  [What is a mixin [in Python], and why are they useful?](http://stackoverflow.com/a/20022860/895245)
+    -   [What is the difference between old style and new style classes in Python?](http://stackoverflow.com/a/19950198/895245)
+    -   [What is a mixin [in Python], and why are they useful?](http://stackoverflow.com/a/20022860/895245)
 -   Web
-    -  [What does enctype='multipart/form-data' mean?](http://stackoverflow.com/a/28380690/895245)
-    -  [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
-    -  [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
+    -   [What does enctype='multipart/form-data' mean?](http://stackoverflow.com/a/28380690/895245)
+    -   [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
+    -   [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
 -   OpenGL
-    -  [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
-    -  [How to draw text using only opengl methods?](http://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835)
-    -  [Is it possible to build a heatmap from point data at 60 times per second?](http://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788)
+    -   [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
+    -   [How to draw text using only opengl methods?](http://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835)
+    -   [Is it possible to build a heatmap from point data at 60 times per second?](http://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788)
 -   Node.js
-    -  [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
+    -   [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
 -   Rails
-    -  [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
+    -   [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](http://stackoverflow.com/a/25626629/895245)
 -   POSIX
-    -  [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
+    -   [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
 -   Security
-    -  [Why is the same origin policy so important?](http://security.stackexchange.com/a/72569/53321)
+    -   [Why is the same origin policy so important?](http://security.stackexchange.com/a/72569/53321)
 
 ## Cheatsheets
 
