@@ -15,6 +15,7 @@ Short focused articles.
     -   [Is it possible to install the linux kernel alone?](http://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572)
     -   [How to debug the Linux kernel with GDB and QEMU?](http://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642)
     -   [Can the sys_execve() system call in the Linux kernel receive both absolute or relative paths?](http://stackoverflow.com/questions/33852690/can-the-sys-execve-system-call-in-the-linux-kernel-receive-both-absolute-or-re/42290593#42290593)
+    -   [What is the difference between the kernel space and the user space?](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809)
 -   ELF
     -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
@@ -59,6 +60,7 @@ Best ones:
 -   [x86 Assembly Cheat][assembly-cheat]
 -   [x86 Bare Metal Examples][bare-metal]
 -   [C++][cpp-cheat]
+-   [Linux Kernel Module Cheat][lkmc]
 -   [Linux][linux-cheat]
 
 Not bad either:
@@ -83,7 +85,6 @@ Embryos:
 
 -   [ARM Assembly](https://github.com/cirosantilli/arm-assembly-cheat)
 -   [RTL: VHDL + Verilog](https://github.com/cirosantilli/rtl-cheat)
--   [Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)
 
 Are you still here? <https://github.com/search?o=desc&q=user%3Acirosantilli+-cheat&s=stars&type=Repositories>
 

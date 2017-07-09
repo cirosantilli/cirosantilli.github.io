@@ -1,13 +1,13 @@
 [algorithm-cheat]:          https://github.com/cirosantilli/algorithm-cheat
-[android vulkan tutorials]: https://github.com/googlesamples/android-vulkan-tutorials/pull/12
 [all github commit emails]: https://github.com/cirosantilli/all-github-commit-emails
+[alternativeto]:            http://alternativeto.net
+[android vulkan tutorials]: https://github.com/googlesamples/android-vulkan-tutorials/pull/12
 [android-cheat]:            https://github.com/cirosantilli/android-cheat
-[alternativeTo]:            http://alternativeto.net
 [assembly-cheat]:           https://github.com/cirosantilli/x86-assembly-cheat
 [autokey]:                  http://code.google.com/p/autokey
-[bash-cheat]:               https://github.com/cirosantilli/bash-cheat
-[bare-metal]:               https://github.com/cirosantilli/x86-bare-metal-examples
 [bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
+[bare-metal]:               https://github.com/cirosantilli/x86-bare-metal-examples
+[bash-cheat]:               https://github.com/cirosantilli/bash-cheat
 [binutils]:                 https://sourceware.org/binutils
 [booktree]:                 https://github.com/booktree/booktree
 [boost geometry]:           https://github.com/boostorg/geometry
@@ -15,8 +15,8 @@
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [buildroot]:                https://buildroot.org
 [bullet physics]:           https://github.com/bulletphysics/bullet3
-[capybara]:                 https://github.com/jnicklas/capybara
 [capstone]:                 https://github.com/aquynh/capstone
+[capybara]:                 https://github.com/jnicklas/capybara
 [clblas]:                   https://github.com/clMathLibraries/clBLAS
 [commonmark]:               https://github.com/jgm/CommonMark
 [confluence]:               https://www.atlassian.com/software/confluence
@@ -32,8 +32,8 @@
 [freetype-gl]:              https://github.com/rougier/freetype-gl
 [game icons]:               https://github.com/game-icons/icons
 [gazebo]:                   http://gazebosim.org
-[gdb]:                      https://sourceware.org/gdb
 [gdb dashboard]:            https://github.com/cyrus-and/gdb-dashboard
+[gdb]:                      https://sourceware.org/gdb
 [ghdl]:                     https://github.com/tgingold/ghdl
 [git-browse-remote]:        https://github.com/motemen/git-browse-remote
 [gitbook]:                  https://www.gitbook.com
@@ -55,6 +55,7 @@
 [libgit2]:                  https://github.com/libgit2/libgit2
 [linux-cheat]:              https://github.com/cirosantilli/linux-cheat
 [linux-insides]:            https://github.com/0xAX/linux-insides
+[lkmc]:                     https://github.com/cirosantilli/linux-kernel-module-cheat
 [lowrisc]:                  https://github.com/lowRISC
 [markdown lint]:            https://github.com/mivok/markdownlint
 [markdown test suite]:      https://github.com/karlcow/markdown-testsuite
@@ -72,13 +73,13 @@
 [pro git book]:             https://github.com/progit/progit
 [prose]:                    https://github.com/prose/prose
 [python-cheat]:             https://github.com/cirosantilli/python-cheat
-[rails]:                    https://github.com/rails/rails
-[ring.cx]:                  https://github.com/savoirfairelinux/ring-project
-[ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
-[ranger]:                   https://github.com/hut/ranger
 [rails-cheat]:              https://github.com/cirosantilli/rails-cheat
+[rails]:                    https://github.com/rails/rails
+[ranger]:                   https://github.com/hut/ranger
+[ring.cx]:                  https://github.com/savoirfairelinux/ring-project
 [risc-v rocket]:            https://github.com/ucb-bar/rocket-chip
 [risc-v tools]:             https://github.com/riscv/riscv-tools
+[ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
 [ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm
@@ -99,6 +100,6 @@
 [vim markdown]:             https://github.com/plasticboy/vim-markdown
 [vim session]:              https://github.com/xolox/vim-session
 [vim-snippets]:             https://github.com/honza/vim-snippets
+[vulkan-loader]:            https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
 [web-cheat]:                /web
 [yakuake]:                  http://extragear.kde.org/apps/yakuake
-[Vulkan-Loader]:            https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
