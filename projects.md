@@ -87,20 +87,17 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-07 | [OpenCL headers][]           | 0    | [C11 anonymous structs / unions should allow xyz notation for vector types](https://github.com/KhronosGroup/OpenCL-Headers/issues/18)                                          |
 | 2017-06 | [linux-insides][]            | 0    | [Mention Buildroot in addition to ivandaviov/minimal](https://github.com/0xAX/linux-insides/pull/489)                                                                          |
 | 2017-06 | [opengl-tutorial][]          | 0    | [Use existing empty layout on feed.xml](https://github.com/opengl-tutorials/ogl/pull/17)                                                                                       |
 | 2017-04 | [Tiny Renderer][]            | 0    | [Add gitignore](https://github.com/ssloy/tinyrenderer/pull/10)                                                                                                                 |
 | 2017-02 | [Vulkan-Loader][]            | 0    | [Use nproc instead of ncpu](https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/pull/1536)                                                                        |
-| 2017-02 | [RISC-V Rocket][]            | 0    | [syn_config -> plsi_config and scenerio -> scenario](https://github.com/ucb-bar/plsi/pull/20)                                                                                  |
 | 2017-01 | [Boost Geometry][]           | 1    | [What is "QPoint::double" in doc/example_adapting_a_legacy_geometry_object_model.qbk ?](https://github.com/boostorg/geometry/issues/376)                                       |
 | 2016-12 | [freetype-gl][]              | 1    | [GLFW Ubuntu package works on 16.10](https://github.com/rougier/freetype-gl/pull/144#event-905730810)                                                                          |
 | 2016-11 | [vim-snippets][]             | 1    | [Add C variable printf debug snippets](https://github.com/honza/vim-snippets/pull/816)                                                                                         |
 | 2016-09 | [Android Vulkan Tutorials][] | 1    | [Add a world to the gui_overlay_plugin_time example](https://bitbucket.org/osrf/gazebo/pull-requests/2460/add-a-world-to-the-gui_overlay_plugin_time/diff)                     |
 | 2016-07 | [Android Vulkan Tutorials][] | 1    | [Use android API 24](https://github.com/googlesamples/android-vulkan-tutorials/pull/12)                                                                                        |
 | 2016-07 | [minimal linux live][]       | 0    | [Fix time sh instead of sh time](https://github.com/ivandavidov/minimal/pull/30)                                                                                               |
-| 2016-06 | [lowRISC][]                  | 0    | [Replace `[ == "" ]` with `[ -z ]` set_riscv_env.sh](https://github.com/lowRISC/lowrisc-chip/pull/6)                                                                           |
-| 2016-06 | [RISC-V tools][]             | 0    | [Use `$*` instead of `$2` `$3` `$4` `$5` `$6` in build.common](https://github.com/riscv/riscv-tools/pull/31)                                                                   |
-| 2016-06 | [lowRISC][]                  | 0    | [Give an argument for make -j](https://github.com/lowRISC/lowrisc-site/pull/8)                                                                                                 |
 | 2016-06 | [ghdl][]                     | 0    | [Typo severals -> several in Invoking doc](https://github.com/tgingold/ghdl/pull/81)                                                                                           |
 | 2016-06 | [ghdl][]                     | 1    | [Document GCC backend needed to generate executables](https://github.com/tgingold/ghdl/pull/80)                                                                                |
 | 2016-06 | [ghdl][]                     | 0    | [Typo debugger -> debugged in BUILD.txt](https://github.com/tgingold/ghdl/pull/79)                                                                                             |
@@ -449,6 +446,7 @@ Repositories to which I gained push permission because of my contributions:
 
 | Date    | Project          | Size | Description                                                                                                                                  |
 |---------|------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-07 | [BusyBox][]      | 1    | [dd status=none does nothing and still prints status](https://bugs.busybox.net/show_bug.cgi?id=10066)                                        |
 | 2016-04 | [ranger][]       | 0    | [Make the :source command from actions.py part of the public API and document it in the man pages](https://github.com/hut/ranger/issues/510) |
 | 2015-05 | [Vim Markdown][] | 0    | [Document `<Plug>Markdown_OpenUrlUnderCursor`](https://github.com/plasticboy/vim-markdown/pull/205)                                          |
 | 2015-05 | [Vim Markdown][] | 0    | [Add TOC to README](https://github.com/plasticboy/vim-markdown/pull/193)                                                                     |
@@ -461,7 +459,7 @@ Repositories to which I gained push permission because of my contributions:
 | 2014-10 | [Vim Markdown][] | 1    | [Improve bold and italic tests](https://github.com/plasticboy/vim-markdown/pull/133)                                                         |
 | 2014-10 | [Vim Markdown][] | 0    | [Remove outdated fields from syntax header](https://github.com/plasticboy/vim-markdown/pull/132)                                             |
 | 2014-09 | [Vim Markdown][] | 1    | [Support YAML frontmatter headers v2.](https://github.com/plasticboy/vim-markdown/pull/124)                                                  |
-| 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX \$ and \$\$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                      |
+| 2014-09 | [Vim Markdown][] | 1    | [Add LaTeX \$ and \$\$ math support.](https://github.com/plasticboy/vim-markdown/pull/123)                                                   |
 | 2014-09 | [Vim Markdown][] | 1    | [Add unit tests and travis support.](https://github.com/plasticboy/vim-markdown/pull/128)                                                    |
 | 2014-09 | [Vim Markdown][] | 1    | [Fix parenthesis and square brackets that were rendered as links when not in link.](https://github.com/plasticboy/vim-markdown/pull/122)     |
 | 2014-06 | [Vim Markdown][] | 1    | [Add commands to increase and decrease header levels.](https://github.com/plasticboy/vim-markdown/pull/88)                                   |

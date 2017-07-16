@@ -15,6 +15,7 @@
 [bootstrap hover dropdown]: https://github.com/CWSpear/bootstrap-hover-dropdown
 [buildroot]:                https://buildroot.org
 [bullet physics]:           https://github.com/bulletphysics/bullet3
+[busybox]:                  https://www.busybox.net/
 [capstone]:                 https://github.com/aquynh/capstone
 [capybara]:                 https://github.com/jnicklas/capybara
 [clblas]:                   https://github.com/clMathLibraries/clBLAS
@@ -69,6 +70,7 @@
 [octokit.js]:               https://github.com/philschatz/octokit.js
 [okular]:                   http://okular.kde.org
 [openai gym]:               https://github.com/openai/gym
+[opencl headers]:           https://github.com/KhronosGroup/OpenCL-Headers/issues/18
 [opengl-tutorial]:          https://github.com/opengl-tutorials/ogl/
 [pro git book]:             https://github.com/progit/progit
 [prose]:                    https://github.com/prose/prose
