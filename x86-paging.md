@@ -505,14 +505,14 @@ One reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12
 
 Page directory given to process by the OS:
 
-    entry index   entry address      page table address present
-    -----------   ----------------   ------------------ --------
-    0             CR3 + 0      * 4   0x10000            1
-    1             CR3 + 1      * 4                      0
-    2             CR3 + 2      * 4   0x80000            1
-    3             CR3 + 3      * 4                      0
+    entry index   entry address      page table address  present
+    -----------   ----------------   ------------------  --------
+    0             CR3 + 0      * 4   0x10000             1
+    1             CR3 + 1      * 4                       0
+    2             CR3 + 2      * 4   0x80000             1
+    3             CR3 + 3      * 4                       0
     ...
-    2^10-1        CR3 + 2^10-1 * 4                      0
+    2^10-1        CR3 + 2^10-1 * 4                       0
 
 Page tables given to process by the OS at `PT1 = 0x10000000` (`0x10000` * 4K):
 
@@ -607,7 +607,7 @@ The 48 bits are split equally into two disjoint parts:
     Not addressable
 
 
-    ----------------- 008FFFFF FFFFFFFF
+    ----------------- 00007FFF FFFFFFFF
     Bottom half
     ----------------- 00000000 00000000
 
