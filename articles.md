@@ -16,6 +16,7 @@ Short focused articles.
     -   [How to debug the Linux kernel with GDB and QEMU?](http://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642)
     -   [Can the sys_execve() system call in the Linux kernel receive both absolute or relative paths?](http://stackoverflow.com/questions/33852690/can-the-sys-execve-system-call-in-the-linux-kernel-receive-both-absolute-or-re/42290593#42290593)
     -   [What is the difference between the kernel space and the user space?](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809)
+    -   [Is there any API for determining the physical address from virtual address in Linux?](https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487)
 -   ELF
     -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
