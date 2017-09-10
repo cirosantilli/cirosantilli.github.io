@@ -33,6 +33,7 @@ I control the following accounts:
 - <https://brilliant.org/profile/ciro-il1uxz/>
 - <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
 - <https://community.arm.com/people/cirosantilli>
+- <https://community.atlassian.com/t5/user/viewprofilepage/user-id/680821>
 - <https://community.plos.org/people/cirosantilli>
 - <https://community.skype.com/t5/user/viewprofilepage/user-id/2646858>
 - <https://community.zimbra.com/members/cirosantilli>

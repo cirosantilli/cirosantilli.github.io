@@ -10,6 +10,7 @@ Find new Chinese restaurants: <https://github.com/cirosantilli/chinese-restauran
 
 Visit ancient East Asian collections of museums:
 
+- Victoria and Albert Museum, London, United Kingdom, 2017-08 <https://goo.gl/photos/rH31KmsetjZefBgR9>
 - British Museum, United Kingdom, 2016-08 <https://goo.gl/photos/brGPsCmLCD2cJsWb7>
 - Guimet Museum, Paris, France, 2016-10-30, Chinese Jade Temporary Exposition <https://goo.gl/photos/6F3nMNqtPrGASuMv5>
 
