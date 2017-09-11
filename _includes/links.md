@@ -81,6 +81,7 @@
 [ring.cx]:                  https://github.com/savoirfairelinux/ring-project
 [risc-v rocket]:            https://github.com/ucb-bar/rocket-chip
 [risc-v tools]:             https://github.com/riscv/riscv-tools
+[rr]:                       https://github.com/mozilla/rr
 [ruby-cheat]:               https://github.com/cirosantilli/ruby-cheat
 [ruby]:                     https://github.com/ruby/ruby
 [rugged]:                   https://github.com/libgit2/rugged
