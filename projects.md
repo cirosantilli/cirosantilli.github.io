@@ -510,6 +510,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                                          |
 |---------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-09 | [rr][]                       | [How to automatically start replay and go directly to main instead of `_start`?](https://github.com/mozilla/rr/issues/2098)                                          |
 | 2017-09 | [rr][]                       | [Reverse step over time(NULL) enters rr/src/preload/syscall_hook.S and leads to "Cannot find bounds of current function"](https://github.com/mozilla/rr/issues/2088) |
 | 2017-06 | [Buildroot][]                | [Don't print mutiline struct function arguments on stack when set pretty print on](https://github.com/cyrus-and/gdb-dashboard/issues/65)                             |
 | 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                                   |
