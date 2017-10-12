@@ -5,7 +5,7 @@ title: Articles
 Short focused articles.
 
 -   Featured
-    -   [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging Tutorial" [in 2015-05](https://archive.is/cOH8M)
+    -   [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging" [in 2017-08](http://archive.is/VUSNt)
 -   x86 Assembly
     -   [How to run a program without an operating system?](http://stackoverflow.com/a/32483545/895245)
     -   [What does “multicore” assembly language look like?](http://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438)

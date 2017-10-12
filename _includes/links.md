@@ -105,4 +105,5 @@
 [vim-snippets]:             https://github.com/honza/vim-snippets
 [vulkan-loader]:            https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
 [web-cheat]:                /web
+[xsel]:                     https://github.com/kfish/xsel
 [yakuake]:                  http://extragear.kde.org/apps/yakuake

@@ -26,6 +26,8 @@ redirect_from:
 
     I was made a moderator of [/r/gitlab](https://www.reddit.com/r/gitlab) in [2016-05](https://web.archive.org/web/20160524164714/https://www.reddit.com/r/gitlab/about/moderators).
 
+-   **[Top down discrete tile based game with C++ SDL and Boost R-Tree for General Game AI](https://www.youtube.com/watch?v=TQ5k2u25eI8)**
+
 -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
 
     I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
@@ -512,6 +514,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 |---------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2017-09 | [rr][]                       | [How to automatically start replay and go directly to main instead of `_start`?](https://github.com/mozilla/rr/issues/2098)                                          |
 | 2017-09 | [rr][]                       | [Reverse step over time(NULL) enters rr/src/preload/syscall_hook.S and leads to "Cannot find bounds of current function"](https://github.com/mozilla/rr/issues/2088) |
+| 2017-08 | [xsel][]                     | [Why maximum 4000 characters output with xsel -b ?](https://github.com/kfish/xsel/issues/13) |
 | 2017-06 | [Buildroot][]                | [Don't print mutiline struct function arguments on stack when set pretty print on](https://github.com/cyrus-and/gdb-dashboard/issues/65)                             |
 | 2017-04 | [GDB dashboard][]            | [Add style option to print stack arguments on a single line](https://github.com/cyrus-and/gdb-dashboard/issues/60)                                                   |
 | 2017-05 | [Buildroot][]                | [Build fails with "unexpected EOF while looking for matching "'" if PATH contains a newline](https://bugs.busybox.net/show_bug.cgi?id=9886)                          |
