@@ -89,6 +89,7 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2017-10 | [Cocos2d-x][]                | 1    | [Make bullet use -fPIC](https://github.com/cocos2d/cocos2d-x-3rd-party-libs-src/pull/155#issuecomment-336760545)                                                               |
 | 2017-07 | [OpenCL headers][]           | 0    | [C11 anonymous structs / unions should allow xyz notation for vector types](https://github.com/KhronosGroup/OpenCL-Headers/issues/18)                                          |
 | 2017-06 | [linux-insides][]            | 0    | [Mention Buildroot in addition to ivandaviov/minimal](https://github.com/0xAX/linux-insides/pull/489)                                                                          |
 | 2017-06 | [opengl-tutorial][]          | 0    | [Use existing empty layout on feed.xml](https://github.com/opengl-tutorials/ogl/pull/17)                                                                                       |

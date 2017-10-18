@@ -19,6 +19,7 @@
 [capstone]:                 https://github.com/aquynh/capstone
 [capybara]:                 https://github.com/jnicklas/capybara
 [clblas]:                   https://github.com/clMathLibraries/clBLAS
+[cocos2d-x]:                https://github.com/cocos2d/cocos2d-x
 [commonmark]:               https://github.com/jgm/CommonMark
 [confluence]:               https://www.atlassian.com/software/confluence
 [cpp-cheat]:                https://github.com/cirosantilli/cpp-cheat
