@@ -40,7 +40,8 @@ I control the following accounts:
 - <https://community.zimbra.com/members/cirosantilli>
 - <https://developer.mbed.org/users/cirosantilli/>
 - <https://devtalk.nvidia.com/member/2118846/>
-- <https://en.wikipedia.org/wiki/User:Ciro.santilli>
+- <https://en.wikipedia.org/wiki/User:Cirosantilli2>
+    - <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://forum.videolan.org/memberlist.php?mode=viewprofile&u=173503>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
@@ -49,7 +50,7 @@ I control the following accounts:
 - <https://jsfiddle.net/user/cirosantilli/>
 - <https://launchpad.net/~cirosantilli>
 - <https://nanohub.org/members/146301/>
-- <https://next-episode.net/user/cirosantilli/>v
+- <https://next-episode.net/user/cirosantilli/>
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
 - <https://soundcloud.com/cirosantilli>
