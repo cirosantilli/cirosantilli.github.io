@@ -4,6 +4,7 @@
 [android vulkan tutorials]: https://github.com/googlesamples/android-vulkan-tutorials/pull/12
 [android-cheat]:            https://github.com/cirosantilli/android-cheat
 [assembly-cheat]:           https://github.com/cirosantilli/x86-assembly-cheat
+[aosp]:                     https://source.android.com/
 [autokey]:                  http://code.google.com/p/autokey
 [bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
 [bare-metal]:               https://github.com/cirosantilli/x86-bare-metal-examples
