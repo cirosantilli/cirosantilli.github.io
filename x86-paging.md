@@ -254,10 +254,10 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 
 -   look into Page table 1 because `cr3` points to it.
 
--   The hardware knows that this entry is located at RAM address `CR3 + 0x00000 * 32 = CR3`:
+-   The hardware knows that this entry is located at RAM address `CR3 + 0x00000 * 4 = CR3`:
 
     - `0x00000` because the page part of the logical address is `0x00000`
-    - `32` because that is the fixed size of every page table entry
+    - `4` because that is the fixed size in bytes of every page table entry
 
 -   since it is present, the access is valid
 
@@ -281,7 +281,7 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 Another example: for logical address `0x00001001`:
 
 - the page part is `00001`, and the offset part is `001`
-- the hardware knows that its page table entry is located at RAM address: `CR3 + 1 * 32` (`1` because of the page part), and that is where it will look for it
+- the hardware knows that its page table entry is located at RAM address: `CR3 + 1 * 4` (`1` because of the page part), and that is where it will look for it
 - it finds the page address `0x00000` there
 - so the final address is `0x00000 * 4k + 0x001 = 0x00000001`
 
