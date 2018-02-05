@@ -67,6 +67,7 @@ I control the following accounts:
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
 - <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
+- <https://www.patreon.com/cirosantilli>
 - <https://www.plurk.com/cirosantilli>
 - <https://www.quora.com/profile/Ciro-Santilli>
 - <https://www.reddit.com/user/cirosantilli/> <https://www.reddit.com/r/CirosantilliTest0/comments/5ek3di/i_own_this_website/>
