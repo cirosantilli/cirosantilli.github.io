@@ -54,6 +54,7 @@ I control the following accounts:
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
 - <https://soundcloud.com/cirosantilli>
+- <https://support.mozilla.org/en-US/user/cirosantilli>
 - <https://talk.jekyllrb.com/users/cirosantilli>
 - <https://telegram.me/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
@@ -72,6 +73,7 @@ I control the following accounts:
 - <https://www.reddit.com/user/cirosantilli/> <https://www.reddit.com/r/CirosantilliTest0/comments/5ek3di/i_own_this_website/>
 - <https://www.shadertoy.com/user/cirosantilli>
 - <https://www.tastekid.com/ciro.santilli>
+- <https://tatoeba.org/eng/user/profile/cirosantilli>
 - <https://www.ted.com/profiles/5822760>
 - <https://www.transifex.com/user/profile/cirosantilli>
 
