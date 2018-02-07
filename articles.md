@@ -51,6 +51,8 @@ Short focused articles.
     -   [What is POSIX?](http://stackoverflow.com/a/31865755/895245)
 -   Security
     -   [Why is the same origin policy so important?](http://security.stackexchange.com/a/72569/53321)
+-   Non technical
+    -   [How to teach efficiently](https://github.com/cirosantilli/how-to-teach-efficiently)
 
 ## Cheatsheets
 
