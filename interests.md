@@ -2,14 +2,15 @@
 title: Professional Interests
 ---
 
-Crazy projects yet without prototypes that I really want to do and which could change the world:
+Crazy projects that I really want to do and which could change the world:
 
--   <https://github.com/cirosantilli/write-free-science-books-to-get-famous-website>
+-   [free books website][]
 -   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>
 
 General interests areas:
 
--   low-level, performance critical technologies: operating systems, GPUs, compilers, network programming, RISC-V, databases, file systems, cryptography, virtualization, optimization, numerical analysis, ...
+-   low-level, performance critical technologies that increase humanity's computational capacity: operating systems, GPUs, integrated circuit design, compilers, network programming,  databases, file systems, cryptography, virtualization, optimization, numerical analysis, ...
+-   games / simplified robotics simulations that provide interesting testbeds for reinforcement learning, e.g.: [rl-game-2d-grid][].
 -   tools that help people produce and use both textual learning material and code efficiently: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
 
 I like open source, but I will use whichever license better serves society.
@@ -69,3 +70,5 @@ AGI is the most likely of the above.
 AGI + humanoid robots likely implies [AI takeover](https://en.wikipedia.org/wiki/AI_takeover).
 
 But AGI alone would be very dangerous, in case it can get control of our nuclear arsenals through software zero days or [social engineering](https://en.wikipedia.org/wiki/Social_engineering_%28security%29). Although some [claim that is unlikely](https://www.quora.com/Could-a-group-of-hackers-break-into-military-networks-and-launch-or-detonate-nuclear-missiles).
+
+{% include links.md %}

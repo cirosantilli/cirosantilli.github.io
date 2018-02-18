@@ -8,47 +8,50 @@ redirect_from:
 
 ## Summary
 
--   **[Markdown Style Guide](/markdown-style-guide)**
+-   **[Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)**
 
--   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**
+-   **[Top-down 2D discrete grid game to develop reinforcement learning for robot / animal like General Game AI agents][rl-game-2d-grid]**
 
--   **[runlinux](https://github.com/cirosantilli/runlinux)**
+-   Naughty stuff. I like being naughty.
 
--   **[All GitHub Commit Emails][]**. Google BigQuery naughty fun.
+    -   **[All GitHub Commit Emails][]**. Google BigQuery naughty fun.
+    -   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**. How do you think I got my rep? Just kidding.
+    -   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
 
--   **[GitLab][]**: very important to me because I wanted to base [Booktree][] on it.
+-   Education: a cause I care about. Looked into markup languages and version control for books, before I noticed that this approach was useless and that ranking algorithms are all that matter: [free books website][].
 
-    I was [the number 2 contributor from 2013 to 2015](https://github.com/gitlabhq/gitlabhq/graphs/contributors?from=2013-01-01&to=2015-01-01&type=a).
+    -   **[GitLab][]**: very important to me because I wanted to base [Booktree][] on it.
 
-    I have implemented some large features and several smaller improvements.
+        I was [the number 2 contributor from 2013 to 2015](https://github.com/gitlabhq/gitlabhq/graphs/contributors?from=2013-01-01&to=2015-01-01&type=a).
 
-    I consider merged patches there as professional work, since it is the primary product of a profitable startup.
+        I have implemented some large features and several smaller improvements.
 
-    I was made a moderator of [/r/gitlab](https://www.reddit.com/r/gitlab) in [2016-05](https://web.archive.org/web/20160524164714/https://www.reddit.com/r/gitlab/about/moderators).
+        I consider merged patches there as professional work, since it is the primary product of a profitable startup.
 
--   **[Top down discrete tile based game with C++ SDL and Boost R-Tree for General Game AI](https://www.youtube.com/watch?v=TQ5k2u25eI8)**
+        I was made a moderator of [/r/gitlab](https://www.reddit.com/r/gitlab) in [2016-05](https://web.archive.org/web/20160524164714/https://www.reddit.com/r/gitlab/about/moderators).
 
--   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
+        I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
 
-    I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
+        I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
 
-    I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
+        A good language needs a good editor.
 
-    A good language needs a good editor.
+    -   **[Markdown Style Guide](/markdown-style-guide)**
 
--   **[Markdown Test Suite][]**: I have implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
+    -   **[Markdown Test Suite][]**: I have implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
 
-    At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
+        At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
 
-    Playing with this project has led me to find and report many Markdown bugs / bad behavior on other software, e.g. [GitHub](https://github.com/isaacs/github/issues/297) and [MultiMarkdown-4](https://github.com/fletcher/MultiMarkdown-4/issues/68).
+        Playing with this project has led me to find and report many Markdown bugs / bad behavior on other software, e.g. [GitHub](https://github.com/isaacs/github/issues/297) and [MultiMarkdown-4](https://github.com/fletcher/MultiMarkdown-4/issues/68).
 
--   **[isaacs/github][]**: I have commented there so often that I [was made a collaborator](https://github.com/isaacs/github/issues/430#issuecomment-123851480).
+    -   **[isaacs/github][]**: I have commented there so often that I [was made a collaborator](https://github.com/isaacs/github/issues/430#issuecomment-123851480).
+
+-   Vim: sometimes I got crazy and wasted my time with Vimscript:
+
+    -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
+    -   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
 
 -   **[Breakthrough Message](https://github.com/cirosantilli/breakthrough-message)**: aliens!!! Creative / media project, powered by some Python scripts.
-
--   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
-
--   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
 
 ## Stack Overflow
 
@@ -514,6 +517,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Description                                                                                                                                                               |
 |---------|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2018-02 | [pandoc][]                   | [Add option to produce asciidoc output without explicit heading ids](https://github.com/jgm/pandoc/issues/4363)                                                           |
 | 2017-10 | [AOSP][]                     | [GLES3 content gles3jni from ndk examples fails with "java.lang.RuntimeException: createContext failed: EGL_BAD_CONFIG"](https://issuetracker.google.com/issues/68496715) |
 | 2017-09 | [rr][]                       | [How to automatically start replay and go directly to main instead of `_start`?](https://github.com/mozilla/rr/issues/2098)                                               |
 | 2017-09 | [rr][]                       | [Reverse step over time(NULL) enters rr/src/preload/syscall_hook.S and leads to "Cannot find bounds of current function"](https://github.com/mozilla/rr/issues/2088)      |

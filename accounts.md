@@ -23,6 +23,7 @@ I control the following accounts:
 - <http://www.dailymotion.com/ciro-santilli>
 - <http://www.ebay.com/usr/cirosantilli>
 - <http://www.edaboard.com/member587087.html>
+- <http://www.html5gamedevs.com/profile/30103-cirosantilli/>
 - <http://www.imdb.com/user/ur59802249>
 - <http://www.metacritic.com/user/cirosantilli>
 - <http://www.mudhut.com/user/1995000>
@@ -40,8 +41,8 @@ I control the following accounts:
 - <https://community.zimbra.com/members/cirosantilli>
 - <https://developer.mbed.org/users/cirosantilli/>
 - <https://devtalk.nvidia.com/member/2118846/>
+- <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://en.wikipedia.org/wiki/User:Cirosantilli2>
-    - <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://forum.videolan.org/memberlist.php?mode=viewprofile&u=173503>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
@@ -56,6 +57,7 @@ I control the following accounts:
 - <https://soundcloud.com/cirosantilli>
 - <https://support.mozilla.org/en-US/user/cirosantilli>
 - <https://talk.jekyllrb.com/users/cirosantilli>
+- <https://tatoeba.org/eng/user/profile/cirosantilli>
 - <https://telegram.me/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
@@ -74,7 +76,6 @@ I control the following accounts:
 - <https://www.reddit.com/user/cirosantilli/> <https://www.reddit.com/r/CirosantilliTest0/comments/5ek3di/i_own_this_website/>
 - <https://www.shadertoy.com/user/cirosantilli>
 - <https://www.tastekid.com/ciro.santilli>
-- <https://tatoeba.org/eng/user/profile/cirosantilli>
 - <https://www.ted.com/profiles/5822760>
 - <https://www.transifex.com/user/profile/cirosantilli>
 

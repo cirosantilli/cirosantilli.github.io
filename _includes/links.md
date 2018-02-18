@@ -31,6 +31,7 @@
 [facedetect]:               https://github.com/wavexx/facedetect
 [firefox]:                  https://bugzilla.mozilla.org
 [free programming books]:   https://github.com/vhf/free-programming-books
+[free books website]:       https://github.com/cirosantilli/write-free-science-books-to-get-famous-website
 [free software foundation]: http://www.fsf.org
 [freetype-gl]:              https://github.com/rougier/freetype-gl
 [game icons]:               https://github.com/game-icons/icons
@@ -80,6 +81,7 @@
 [rails-cheat]:              https://github.com/cirosantilli/rails-cheat
 [rails]:                    https://github.com/rails/rails
 [ranger]:                   https://github.com/hut/ranger
+[rl-game-2d-grid]:          https://github.com/cirosantilli/rl-game-2d-grid
 [ring.cx]:                  https://github.com/savoirfairelinux/ring-project
 [risc-v rocket]:            https://github.com/ucb-bar/rocket-chip
 [risc-v tools]:             https://github.com/riscv/riscv-tools
