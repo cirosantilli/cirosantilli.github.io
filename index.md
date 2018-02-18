@@ -18,7 +18,7 @@ Quick facts:
 - **Grew up in**: Brazil
 - **Relationship status**: married
 - **Chinese name**: 三西猴, means "three western monkeys". Phonetic approximation to SANtilli CIRO.
-- **Laptop**: ThinkPad T or W
+- **Laptop**: high end ThinkPad
 - **Distro**: latest Ubuntu release
 - **Vim or Emacs**: Vim
 - **Tabs or spaces**: spaces
