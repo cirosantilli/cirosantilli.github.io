@@ -22,3 +22,4 @@ Quick facts:
 - **Distro**: latest Ubuntu release
 - **Vim or Emacs**: Vim
 - **Tabs or spaces**: spaces
+- **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion

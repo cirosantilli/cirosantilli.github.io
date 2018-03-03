@@ -92,6 +92,7 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2018-03 | [Buildroot][]                | 1    | [qemu_x86_64_defconfig: fix kernel header version after bump to 4.15](https://github.com/buildroot/buildroot/commit/8a6e30efdeb9f31d51a92ed465373f4128f55e8a)                  |
 | 2017-11 | [Cocos2d-x][]                | 1    | [Recreate libfmod.so.6 symlinks](https://github.com/cocos2d/cocos2d-x-3rd-party-libs-bin/pull/304)                                                                             |
 | 2017-10 | [Cocos2d-x][]                | 1    | [Make bullet use -fPIC](https://github.com/cocos2d/cocos2d-x-3rd-party-libs-src/pull/155#issuecomment-336760545)                                                               |
 | 2017-07 | [OpenCL headers][]           | 0    | [C11 anonymous structs / unions should allow xyz notation for vector types](https://github.com/KhronosGroup/OpenCL-Headers/issues/18)                                          |
