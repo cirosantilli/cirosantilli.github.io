@@ -13,7 +13,11 @@ General interests areas:
 -   games / simplified robotics simulations that provide interesting testbeds for reinforcement learning, e.g.: [rl-game-2d-grid][].
 -   tools that help people produce and use both textual learning material and code efficiently: Git, GitHub, Markdown, LaTeX, text editors, IDEs, CMSs, Stack Overflow, reputation systems / user rankings gamification.
 
-I like open source, but I will use whichever license better serves society.
+Things I'll try to get my kids into because I don't have enough time in this life:
+
+-   <https://en.wikipedia.org/wiki/Cellular_model>
+
+I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 
 I can speak [a few languages](/skills#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
 
