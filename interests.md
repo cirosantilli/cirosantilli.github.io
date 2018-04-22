@@ -15,7 +15,7 @@ General interests areas:
 
 Things I'll try to get my kids into because I don't have enough time in this life:
 
--   <https://en.wikipedia.org/wiki/Cellular_model>
+-   <https://github.com/cirosantilli/awesome-whole-cell-simulation>
 
 I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 

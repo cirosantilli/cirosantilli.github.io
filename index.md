@@ -23,3 +23,4 @@ Quick facts:
 - **Vim or Emacs**: Vim
 - **Tabs or spaces**: spaces
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
+- **System or unit tests**: system
