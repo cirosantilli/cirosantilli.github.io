@@ -69,6 +69,7 @@ I control the following accounts:
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
+- <https://www.meetup.com/members/252568305/>
 - <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
 - <https://www.patreon.com/cirosantilli>
 - <https://www.plurk.com/cirosantilli>
