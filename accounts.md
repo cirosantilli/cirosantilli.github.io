@@ -43,6 +43,7 @@ I control the following accounts:
 - <https://devtalk.nvidia.com/member/2118846/>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://en.wikipedia.org/wiki/User:Cirosantilli2>
+- <https://figshare.com/authors/Ciro_Santilli/656781>
 - <https://forum.videolan.org/memberlist.php?mode=viewprofile&u=173503>
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
@@ -52,6 +53,7 @@ I control the following accounts:
 - <https://launchpad.net/~cirosantilli>
 - <https://nanohub.org/members/146301/>
 - <https://next-episode.net/user/cirosantilli/>
+- <https://orcid.org/0000-0003-2895-7763>
 - <https://peerj.com/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
 - <https://soundcloud.com/cirosantilli>
@@ -62,6 +64,7 @@ I control the following accounts:
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://twittercommunity.com/users/cirosantilli/activity>
+- <https://wiki.qemu.org/User:Cirosantilli>
 - <https://www.airbnb.com/users/show/45794827>
 - <https://www.codingame.com/profile/cddd0a711c22d97e8264361f7c8205567563841>
 - <https://www.digitalocean.com/community/users/cirosantilli>
