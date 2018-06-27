@@ -56,6 +56,8 @@ Short focused articles.
     -   [How to resize a picture using ffmpeg's sws_scale()?](https://stackoverflow.com/questions/12831761/how-to-resize-a-picture-using-ffmpegs-sws-scale/36487785#36487785)
 -   Non technical
     -   [How to teach efficiently](https://github.com/cirosantilli/how-to-teach-efficiently)
+-   Eclipse
+    -   [How to set up the Eclipse for remote C debugging with gdbserver?](https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937)
 
 ## Cheatsheets
 

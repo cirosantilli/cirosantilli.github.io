@@ -32,6 +32,7 @@ I control the following accounts:
 - <https://4programmers.net/Profile/86786>
 - <https://addons.mozilla.org/en-US/firefox/user/cirosantilli/>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
+- <https://bbs.archlinux.org/profile.php?id=116270>
 - <https://brilliant.org/profile/ciro-il1uxz/>
 - <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
 - <https://community.arm.com/people/cirosantilli>
@@ -91,7 +92,7 @@ China:
 - <http://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
 - <http://www.tianya.cn/109285544> (can't post, no cell phone)
-- <https://www.zhihu.com/people/cirosantilli>
+- <https://www.zhihu.com/people/cirosantilli>. [Banned 2018-06-25](https://github.com/cirosantilli/china-dictatorship/blob/76dd3ee011d421e037bf58b2795528ef3b839256/zhihu-ban.md).
 
 A younger unrelated Argentinian homonym I've found on Google:
 
