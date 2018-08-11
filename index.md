@@ -6,7 +6,6 @@ description: Software engineer. Passion for low-level technologies and education
 
 - [**Articles**](articles)
 - [**Projects**](projects) and contributions
-- [**PDF CV**]({{ site.files_path }}cv.pdf)
 - [**Skills**](skills), with links to code and tutorials
 - [**Professional interests**](interests)
 - [**Education**](education): École Polytechnique and University of São Paulo
