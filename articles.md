@@ -17,6 +17,7 @@ Short focused articles.
     -   [Can the sys_execve() system call in the Linux kernel receive both absolute or relative paths?](http://stackoverflow.com/questions/33852690/can-the-sys-execve-system-call-in-the-linux-kernel-receive-both-absolute-or-re/42290593#42290593)
     -   [What is the difference between the kernel space and the user space?](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809)
     -   [Is there any API for determining the physical address from virtual address in Linux?](https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487)
+    -   [Why do people write the `#!/usr/bin/env` python shebang on the first line of a Python script?](https://stackoverflow.com/questions/2429511/why-do-people-write-the-usr-bin-env-python-shebang-on-the-first-line-of-a-pyt/40938801#40938801)
 -   ELF
     -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
@@ -58,6 +59,8 @@ Short focused articles.
     -   [How to teach efficiently](https://github.com/cirosantilli/how-to-teach-efficiently)
 -   Eclipse
     -   [How to set up the Eclipse for remote C debugging with gdbserver?](https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937)
+-   Hardware
+    -   [Are there good open source standard cell libraries to learn IC synthesis with EDA tools?](https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli)
 
 ## Cheatsheets
 
