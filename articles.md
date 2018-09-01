@@ -53,7 +53,7 @@ Short focused articles.
 -   Security
     -   [Why is the same origin policy so important?](http://security.stackexchange.com/a/72569/53321)
 -   Media
-    -   [How is audio represented with numbers?](https://stackoverflow.com/questions/732699/how-is-audio-represented-with-numbers/36510894#36510894)
+    -   [How to programmatically synthesize music?](ttps://stackoverflow.com/questions/2205070/programmatically-synthesizing-programming-music/52126471#52126471)
     -   [How to resize a picture using ffmpeg's sws_scale()?](https://stackoverflow.com/questions/12831761/how-to-resize-a-picture-using-ffmpegs-sws-scale/36487785#36487785)
 -   Non technical
     -   [How to teach efficiently](https://github.com/cirosantilli/how-to-teach-efficiently)
