@@ -8,15 +8,19 @@ redirect_from:
 
 ## Summary
 
--   **[Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)**
+-   **[Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)**: the perfect setup to learn about the Linux kernel, QEMU and gem5
 
--   **[Top-down 2D discrete grid game to develop reinforcement learning for robot / animal like General Game AI agents][rl-game-2d-grid]**
+-   **[x86 bare metal examples][bare-metal]**: the best set of x86 bare metal programming examples available on the net
+
+-   **[Top-down 2D discrete grid game][rl-game-2d-grid]** to develop reinforcement learning for robot / animal like General Game AI agents
 
 -   Naughty stuff. I like being naughty.
 
-    -   **[All GitHub Commit Emails][]**. Google BigQuery naughty fun.
     -   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**. How do you think I got my rep? Just kidding.
-    -   **[test-git-web-interface](https://github.com/cirosantilli/test-git-web-interface)**
+    -   GitHub makes me feel especially naughty:
+        -   **[All GitHub Commit Emails][]**: I extracted (almost) all Git commit emails from GitHub with Google BigQuery
+        -   **[A repository with 1 million commits](https://github.com/cirosantilli/test-many-commits-1m/)** likely the [live repo with the most commits as of 2017](https://www.quora.com/Which-GitHub-repo-has-the-most-commits/answer/Ciro-SantilliI)
+        -   **[An 100 year GitHub streak](https://stackoverflow.com/questions/20099235/who-is-the-user-with-the-longest-streak-on-github/27742165#27742165)**, likely longest ever when that existed. It was consuming too much server resources however, which led to GitHub admins manually [turning off my contribution history](https://web.archive.org/web/20151021135921/https://github.com/cirosantilli/).
 
 -   Education: a cause I care about. Looked into markup languages and version control for books, before I noticed that this approach was useless and that ranking algorithms are all that matter: [free books website][].
 
