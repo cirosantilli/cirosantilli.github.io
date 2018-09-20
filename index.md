@@ -23,3 +23,4 @@ Quick facts:
 - **Tabs or spaces**: spaces
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
 - **System or unit tests**: system
+- **Default programming languages**: Python and C++. I'll learn Rust and Haskell once I'm rich.
