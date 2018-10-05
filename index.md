@@ -19,7 +19,7 @@ Quick facts:
 - **Chinese name**: 三西猴, means "three western monkeys". Phonetic approximation to SANtilli CIRO. Semi-unintentionally reminds Chinese people of [Sun Wukong](https://en.wikipedia.org/wiki/Sun_Wukong).
 - **Laptop**: high end ThinkPad
 - **Distro**: latest Ubuntu release
-- **Vim or Emacs**: Vim
+- **Vim or Emacs**: Vim. But for the Love, will someone please make an open source C++ IDE that actually works?
 - **Tabs or spaces**: spaces
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
 - **System or unit tests**: system
