@@ -18,10 +18,12 @@ Short focused articles.
     -   [What is the difference between the kernel space and the user space?](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809)
     -   [Is there any API for determining the physical address from virtual address in Linux?](https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487)
     -   [Why do people write the `#!/usr/bin/env` python shebang on the first line of a Python script?](https://stackoverflow.com/questions/2429511/why-do-people-write-the-usr-bin-env-python-shebang-on-the-first-line-of-a-pyt/40938801#40938801)
+    -   [How to create a custom Linux distro that runs just one program and nothing else?](https://unix.stackexchange.com/questions/122717/how-to-create-a-custom-linux-distro-that-runs-just-one-program-and-nothing-else/238579#238579)
 -   ELF
     -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
     -   [How to add a new device in QEMU source code?](https://stackoverflow.com/questions/28315265/how-to-add-a-new-device-in-qemu-source-code/44612957#44612957)
+    -   [How to generate Ubuntu `debootstrap` disk images for QEMU?](https://askubuntu.com/questions/281763/is-there-any-prebuilt-qemu-ubuntu-image32bit-online/1081171#1081171)
 -   GCC
     -   [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
     -   [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)
