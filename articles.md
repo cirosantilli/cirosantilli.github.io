@@ -44,9 +44,10 @@ Short focused articles.
     -   [How does JavaScript .prototype work?](http://stackoverflow.com/a/23877420/895245)
     -   [.prop() vs .attr()](http://stackoverflow.com/a/24595458/895245)
 -   OpenGL
-    -   [How to use GLUT/OpenGL to render to a file?](http://stackoverflow.com/a/14324292/895245)
+    -   [How to use GLUT/OpenGL to render to a file?](https://stackoverflow.com/questions/3191978/how-to-use-glut-opengl-to-render-to-a-file/14324292#14324292)
     -   [How to draw text using only opengl methods?](http://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835)
     -   [Is it possible to build a heatmap from point data at 60 times per second?](http://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788)
+    -   [How to use `glOrtho()` in OpenGL?](https://stackoverflow.com/questions/2571402/how-to-use-glortho-in-opengl/36046924#36046924)
 -   Node.js
     -   [What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?](http://stackoverflow.com/a/22004559/895245)
 -   Rails
