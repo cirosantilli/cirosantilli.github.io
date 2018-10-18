@@ -24,6 +24,7 @@ Short focused articles.
 -   QEMU
     -   [How to add a new device in QEMU source code?](https://stackoverflow.com/questions/28315265/how-to-add-a-new-device-in-qemu-source-code/44612957#44612957)
     -   [How to generate Ubuntu `debootstrap` disk images for QEMU?](https://askubuntu.com/questions/281763/is-there-any-prebuilt-qemu-ubuntu-image32bit-online/1081171#1081171)
+    -   [How to create a multi partition SD disk image without root privileges?](https://stackoverflow.com/questions/10949169/how-to-create-a-multi-partition-sd-image-without-root-privileges/52850819#52850819)
 -   GCC
     -   [How address relocation works?](http://stackoverflow.com/a/30507725/895245)
     -   [How many GCC optimization levels are there?](http://stackoverflow.com/a/30308151/895245)

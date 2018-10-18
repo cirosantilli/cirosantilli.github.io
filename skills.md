@@ -72,6 +72,7 @@ I back those setups with:
 - a detailed description of what is expected to happen when you take an action, including known bugs with links to bug reports
 - theory and rationale on the sections after the initial getting started, but always finely interspersed with concrete examples
 - all docs contained in a Git-tracked repo, with the ability to render to a single HTML with one TOC
+- short sentences and paragraphs, interspersed with many headers, lists and code blocks
 
 While I create this setup, I inevitably start to notice and fix:
 
