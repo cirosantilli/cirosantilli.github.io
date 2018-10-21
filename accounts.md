@@ -73,6 +73,7 @@ I control the following accounts:
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.instagram.com/cirosantilli/>
+- <https://www.kaggle.com/cirosantilli>
 - <https://www.linux.org/members/ciro-santilli.62540/>
 - <https://www.meetup.com/members/252568305/>
 - <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
