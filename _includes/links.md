@@ -1,11 +1,11 @@
 [algorithm-cheat]:          https://github.com/cirosantilli/algorithm-cheat
 [all github commit emails]: https://github.com/cirosantilli/all-github-commit-emails
-[alternativeto]:            http://alternativeto.net
+[alternativeto]:            https://alternativeto.net
 [android vulkan tutorials]: https://github.com/googlesamples/android-vulkan-tutorials/pull/12
 [android-cheat]:            https://github.com/cirosantilli/android-cheat
 [assembly-cheat]:           https://github.com/cirosantilli/x86-assembly-cheat
 [aosp]:                     https://source.android.com/
-[autokey]:                  http://code.google.com/p/autokey
+[autokey]:                  https://code.google.com/p/autokey
 [bare-metal-tetris]:        https://github.com/programble/bare-metal-tetris
 [bare-metal]:               https://github.com/cirosantilli/x86-bare-metal-examples
 [bash-cheat]:               https://github.com/cirosantilli/bash-cheat
@@ -32,7 +32,7 @@
 [firefox]:                  https://bugzilla.mozilla.org
 [free programming books]:   https://github.com/vhf/free-programming-books
 [free books website]:       https://github.com/cirosantilli/write-free-science-books-to-get-famous-website
-[free software foundation]: http://www.fsf.org
+[free software foundation]: https://www.fsf.org
 [freetype-gl]:              https://github.com/rougier/freetype-gl
 [game icons]:               https://github.com/game-icons/icons
 [gazebo]:                   http://gazebosim.org
@@ -54,7 +54,7 @@
 [jenkov tutorials]:         http://tutorials.jenkov.com
 [jira]:                     https://www.atlassian.com/software/jira
 [kramdown]:                 https://github.com/gettalong/kramdown
-[krusader]:                 http://www.krusader.org
+[krusader]:                 https://www.krusader.org
 [leetcode]:                 https://github.com/haoel/leetcode
 [libgit2]:                  https://github.com/libgit2/libgit2
 [linux-cheat]:              https://github.com/cirosantilli/linux-cheat
@@ -66,12 +66,12 @@
 [marked]:                   https://github.com/chjj/marked
 [minimal linux live]:       https://github.com/ivandavidov/minimal
 [my science work]:          https://www.mysciencework.com
-[nasm]:                     http://nasm.us
+[nasm]:                     https://nasm.us
 [networking-cheat]:         https://github.com/cirosantilli/networking-cheat
-[numpy]:                    http://www.numpy.org
+[numpy]:                    https://www.numpy.org
 [octokat.js]:               https://github.com/philschatz/octokat.js
 [octokit.js]:               https://github.com/philschatz/octokit.js
-[okular]:                   http://okular.kde.org
+[okular]:                   https://okular.kde.org
 [openai gym]:               https://github.com/openai/gym
 [opencl headers]:           https://github.com/KhronosGroup/OpenCL-Headers/issues/18
 [opengl-tutorial]:          https://github.com/opengl-tutorials/ogl/
@@ -91,15 +91,15 @@
 [rugged]:                   https://github.com/libgit2/rugged
 [rvm]:                      https://github.com/wayneeseguin/rvm
 [sass]:                     https://github.com/sass/sass
-[scipy]:                    http://www.scipy.org
+[scipy]:                    https://www.scipy.org
 [sdl]:                      https://www.libsdl.org
 [semaphore ci]:             https://semaphoreapp.com
 [sharelatex]:               https://github.com/sharelatex/sharelatex
 [showdown]:                 https://github.com/showdownjs/showdown
 [softcover]:                https://github.com/softcover/softcover
 [spring]:                   https://github.com/spring-projects
-[stack-overflow-ciro]:      http://stackoverflow.com/users/895245/cirosantilli
-[stack-overflow]:           http://stackoverflow.com
+[stack-overflow-ciro]:      https://stackoverflow.com/users/895245/cirosantilli
+[stack-overflow]:           https://stackoverflow.com
 [tig]:                      https://github.com/jonas/tig
 [tiny renderer]:            https://github.com/ssloy/tinyrenderer
 [ubuntu-cheat]:             https://github.com/cirosantilli/ubuntu-cheat
@@ -110,4 +110,4 @@
 [vulkan-loader]:            https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
 [web-cheat]:                /web
 [xsel]:                     https://github.com/kfish/xsel
-[yakuake]:                  http://extragear.kde.org/apps/yakuake
+[yakuake]:                  https://extragear.kde.org/apps/yakuake

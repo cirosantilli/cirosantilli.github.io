@@ -4,7 +4,7 @@ description: With simple examples and applications.
 social_media: true
 ---
 
-Extracted and expanded from [my Stack Overflow answer](http://stackoverflow.com/a/18431262/895245).
+Extracted and expanded from [my Stack Overflow answer](https://stackoverflow.com/a/18431262/895245).
 
 {{ site.toc }}
 
@@ -792,7 +792,7 @@ Dump all page tables from userspace with `/proc/<pid>/maps` and `/proc/<pid>/pag
 Read and write physical addresses from userspace with `/dev/mem`:
 
 - <https://stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890>
-- <http://free-electrons.com/pub/mirror/devmem2.c>
+- <https://free-electrons.com/pub/mirror/devmem2.c>
 
 ### Kernel vs process memory layout
 
@@ -840,11 +840,11 @@ The exact split is configured by `CONFIG_VMSPLIT_...`. By default:
         Process
         ------------------ 00000000
 
-Kernel memory [is also paged](http://stackoverflow.com/questions/18953598/is-it-true-that-whole-system-space-address-space-in-linux-does-not-use-demand-pa).
+Kernel memory [is also paged](https://stackoverflow.com/questions/18953598/is-it-true-that-whole-system-space-address-space-in-linux-does-not-use-demand-pa).
 
-In previous versions, [the paging was continuous, but with HIGHMEM this changed](http://stackoverflow.com/questions/1658757/linux-3-1-virtual-address-split).
+In previous versions, [the paging was continuous, but with HIGHMEM this changed](https://stackoverflow.com/questions/1658757/linux-3-1-virtual-address-split).
 
-There is no clear physical memory split: <http://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64>
+There is no clear physical memory split: <https://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64>
 
 ### Process memory layout
 
@@ -893,20 +893,20 @@ If the program accesses memory that does not belong to it, the kernel handles a 
 
 When an ELF file is loaded by the kernel to start a program with the `exec` system call, the kernel automatically registers text, data, BSS and stack for the program.
 
-The `brk` and `mmap` areas can be modified by request of the program through the [`brk`](http://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353) and `mmap` system calls. But the kernel can also deny the program those areas if there is not enough memory.
+The `brk` and `mmap` areas can be modified by request of the program through the [`brk`](https://stackoverflow.com/questions/6988487/what-does-brk-system-call-do/31082353#31082353) and `mmap` system calls. But the kernel can also deny the program those areas if there is not enough memory.
 
 `brk` and `mmap` can be used to implement `malloc`, or the so called "heap".
 
 `mmap` is also used to load dynamically loaded libraries into the program's memory so that it can access and run it.
 
-Stack allocation: <http://stackoverflow.com/questions/17671423/stack-allocation-for-process>
+Stack allocation: <https://stackoverflow.com/questions/17671423/stack-allocation-for-process>
 
 Calculating exact addresses Things are complicated by:
 
 - [Address Space Layout Randomization](https://en.wikipedia.org/wiki/Address_space_layout_randomization).
-- the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <http://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323>
+- the fact that environment variables, CLI arguments, and some ELF header data take up initial stack space: <https://unix.stackexchange.com/questions/145557/how-does-stack-allocation-work-in-linux/239323#239323>
 
-Why the text does not start at 0: <http://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0>
+Why the text does not start at 0: <https://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0>
 
 ### Copy-on-write
 
@@ -960,7 +960,7 @@ Two level address translation to make OS emulation more efficient.
 
 ## Other architectures
 
-[Peter Cordes mentions](http://stackoverflow.com/a/32258855/895245) that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.
+[Peter Cordes mentions](https://stackoverflow.com/a/32258855/895245) that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.
 
 ### ARM
 
@@ -983,5 +983,5 @@ Non-free:
 
     Reasonable intro to x86 memory addressing. Missing some good and simple examples.
 
-[bovet05]: http://www.amazon.com/books/dp/0596005652
-[rutgers-pxk-416]: http://www.cs.rutgers.edu/~pxk/416/notes/
+[bovet05]: https://www.amazon.com/books/dp/0596005652
+[rutgers-pxk-416]: https://www.cs.rutgers.edu/~pxk/416/notes/

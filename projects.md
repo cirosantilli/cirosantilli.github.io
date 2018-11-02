@@ -59,13 +59,13 @@ redirect_from:
 
 ## Stack Overflow
 
-[![Stack overflow flare](http://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
+[![Stack overflow flare](https://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
 
 I like to answer important questions, for which none of the answers satisfied me, and close duplicates.
 
 I don't like to refresh the homepage looking for easy rep :-)
 
-[Necromancer](http://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 2 users](http://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-06-17) as of June 2016.
+[Necromancer](https://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 2 users](https://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-06-17) as of June 2016.
 
 I'm also very proud of my Hacker News trends (which lead to Reddit and Twitter outbursts soon after):
 
@@ -138,15 +138,15 @@ This may also include patches which were rejected in favor of another patch, but
 | 2015-07 | [Binutils][]                 | 1    | [Clarify case requirements for gas pseudo-ops](https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;a=commit;h=7e3023528162de7760a0e7e487aa81bbf44cb6a9)                   |
 | 2015-07 | [Capstone][]                 | 0    | [Website typos at beyond_llvm](https://github.com/aquynh/capstone/issues/419)                                                                                                  |
 | 2015-07 | [Vim Session][]              | 1    | [auto_save_to option added](https://github.com/xolox/vim-session/pull/81)                                                                                                      |
-| 2015-05 | [NASM][]                     | 0    | [doc: typo occationally](http://bugzilla.nasm.us/show_bug.cgi?id=3392310)                                                                                                      |
+| 2015-05 | [NASM][]                     | 0    | [doc: typo occationally](https://bugzilla.nasm.us/show_bug.cgi?id=3392310)                                                                                                      |
 | 2015-05 | [Free Programming Books][]   | 0    | [Computer Science from the Bottom Up](https://github.com/vhf/free-programming-books/pull/1468)                                                                                 |
 | 2015-05 | [Free Programming Books][]   | 0    | [problem-sets: leetcode](https://github.com/vhf/free-programming-books/pull/1461)                                                                                              |
 | 2015-05 | [Free Programming Books][]   | 0    | [Papers we love](https://github.com/vhf/free-programming-books/pull/1459)                                                                                                      |
-| 2015-04 | [alternativeTo][]            | 0    | [icanprove.com](http://alternativeto.net/user/cirosantilli/added/)                                                                                                             |
+| 2015-04 | [alternativeTo][]            | 0    | [icanprove.com](https://alternativeto.net/user/cirosantilli/added/)                                                                                                             |
 | 2015-04 | [Free Programming Books][]   | 0    | [Knapsack Problems](https://github.com/vhf/free-programming-books/pull/1443)                                                                                                   |
 | 2015-04 | [Free Programming Books][]   | 0    | [LSB](https://github.com/vhf/free-programming-books/pull/1442)                                                                                                                 |
 | 2015-04 | [vim-snippets][]             | 0    | [java: prinlna to print array](https://github.com/honza/vim-snippets/pull/561)                                                                                                 |
-| 2015-04 | [Free Programming Books][]   | 0    | [PEG Judge](http://wcipeg.com)                                                                                                                                                 |
+| 2015-04 | [Free Programming Books][]   | 0    | [PEG Judge](https://wcipeg.com)                                                                                                                                                 |
 | 2015-03 | [GitLab][]                   | 1    | [Convert many JavaScript # links to buttons](https://github.com/gitlabhq/gitlabhq/pull/7912)                                                                                   |
 | 2015-03 | [GitLab][]                   | 1    | [Factor permission check in issuable finder](https://github.com/gitlabhq/gitlabhq/pull/8092)                                                                                   |
 | 2015-03 | [Spring][]                   | 0    | [Typo Gardle -> Gradle](https://github.com/spring-projects/spring-integration-samples/pull/130)                                                                                |
@@ -510,7 +510,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-12 | [GitHub][]                   | Bug       | [Tree show links blobs to the last commit that contained the blob instead of commit that introduced the file](https://github.com/isaacs/github/issues/319)           |
 | 2014-12 | [GitHub][]                   | Duplicate | [Deal properly with uppercase .GIT file basenames on web editor like for lowercase .git](https://github.com/isaacs/github/issues/318)                                |
 | 2014-12 | [GitHub][]                   | Duplicate | [Add a "I have this issue too" button](https://github.com/isaacs/github/issues/314)                                                                                  |
-| 2014-11 | [GitBook][]                  | Bug       | [500 on /edit without access](http://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                                       |
+| 2014-11 | [GitBook][]                  | Bug       | [500 on /edit without access](https://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                                       |
 | 2014-11 | [GitHub][]                   | Feature   | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                                      |
 | 2014-11 | [GitHub][]                   | Bug       | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303)                                            |
 | 2014-11 | [GitHub][]                   | Bug       | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)                |
@@ -524,7 +524,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Size | Description                                                                                                                                                               |
 |---------|------------------------------|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2018-03 | [QEMU][]                     | 2    | [Test record and replay feature](http://lists.nongnu.org/archive/html/qemu-devel/2018-02/msg01681.html). Also [here](https://bugs.launchpad.net/qemu/+bug/1762179)        |
+| 2018-03 | [QEMU][]                     | 2    | [Test record and replay feature](https://lists.nongnu.org/archive/html/qemu-devel/2018-02/msg01681.html). Also [here](https://bugs.launchpad.net/qemu/+bug/1762179)        |
 | 2018-02 | [pandoc][]                   |      | [Add option to produce asciidoc output without explicit heading ids](https://github.com/jgm/pandoc/issues/4363)                                                           |
 | 2017-10 | [AOSP][]                     |      | [GLES3 content gles3jni from ndk examples fails with "java.lang.RuntimeException: createContext failed: EGL_BAD_CONFIG"](https://issuetracker.google.com/issues/68496715) |
 | 2017-09 | [rr][]                       |      | [How to automatically start replay and go directly to main instead of `_start`?](https://github.com/mozilla/rr/issues/2098)                                               |
@@ -554,22 +554,22 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-10 | [Semaphore CI][]             |      | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/8081)                                                                                                          |
 | 2014-10 | [libgit2][]                  |      | [Bug confirmed.](https://github.com/libgit2/libgit2/issues/2562)                                                                                                          |
 | 2014-10 | [GitLab][]                   |      | [Support.](https://github.com/gitlabhq/gitlabhq/issues/8038)                                                                                                              |
-| 2014-10 | [GitLab][]                   |      | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)                               |
+| 2014-10 | [GitLab][]                   |      | [Point duplicate.](https://feedback.gitlab.com/forums/176466-general/suggestions/3922228-opt-into-and-out-of-notifications-for-specific-iss)                               |
 | 2014-09 | [vader.vim][]                |      | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/15)                                                                                                      |
-| 2014-09 | [GitLab][]                   |      | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                                       |
+| 2014-09 | [GitLab][]                   |      | [Point already fixed.](https://feedback.gitlab.com/forums/176466-general/suggestions/5004385-wrap-lines-option-in-the-merge-request)                                       |
 | 2014-09 | [vader.vim][]                |      | [Accepted feature.](https://github.com/junegunn/vader.vim/issues/14)                                                                                                      |
 | 2014-09 | [GitLab][]                   |      | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7242)                                                                                                          |
 | 2014-09 | [GitLab][]                   |      | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/issues/6351)                                                                                                        |
-| 2014-09 | [GitLab][]                   |      | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio)                                 |
-| 2014-09 | [GitLab][]                   |      | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/5567051-delete-branch-after-accepting-or-closing-a-merge-r)                           |
+| 2014-09 | [GitLab][]                   |      | [Point duplicate.](https://feedback.gitlab.com/forums/176466-general/suggestions/4077791-login-gitlab-as-another-user-impersonate-functio)                                 |
+| 2014-09 | [GitLab][]                   |      | [Point already fixed.](https://feedback.gitlab.com/forums/176466-general/suggestions/5567051-delete-branch-after-accepting-or-closing-a-merge-r)                           |
 | 2014-08 | [Markdown lint][]            |      | [Accepted feature.](https://github.com/mivok/markdownlint/issues/47)                                                                                                      |
 | 2014-08 | [Softcover][]                |      | [Accepted feature.](https://groups.google.com/forum/?hl=en#!topic/softcover-publishing/zFrDngqlYbY)                                                                       |
 | 2014-08 | [Markdown lint][]            |      | [Accepted feature.](https://github.com/mivok/markdownlint/issues/49)                                                                                                      |
 | 2014-07 | [GitLab][]                   |      | [Bug confirmed.](https://github.com/gitlabhq/gitlabhq/pull/7257)                                                                                                          |
-| 2014-07 | [GitLab][]                   |      | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                         |
-| 2014-07 | [GitLab][]                   |      | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                              |
+| 2014-07 | [GitLab][]                   |      | [Accepted feature.](https://feedback.gitlab.com/forums/176466-general/suggestions/5863024-ability-to-dismiss-a-broadcast-messages)                                         |
+| 2014-07 | [GitLab][]                   |      | [Accepted feature.](https://feedback.gitlab.com/forums/176466-general/suggestions/5590496-resolve-any-merge-request-conflict-from-the-web-in)                              |
 | 2014-06 | [isaacs/github][]            |      | [Point duplicate.](https://github.com/isaacs/github/issues/218)                                                                                                           |
-| 2014-06 | [GitLab][]                   |      | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)                              |
+| 2014-06 | [GitLab][]                   |      | [Accepted feature.](https://feedback.gitlab.com/forums/176466-general/suggestions/5578188-use-something-more-meaningful-than-www-to-differen)                              |
 | 2014-06 | [GitLab][]                   |      | [Point duplicate.](https://github.com/gitlabhq/gitlabhq/issues/6655#issuecomment-47034956)                                                                                |
 | 2014-06 | [Markdown Test Suite][]      |      | [Bug confirmed.](https://github.com/karlcow/markdown-testsuite/issues/37)                                                                                                 |
 | 2014-06 | [Vim Markdown][]             |      | [Close issue.](https://github.com/plasticboy/vim-markdown/issues/74#issuecomment-46292801)                                                                                |
@@ -578,24 +578,24 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-05 | [Softcover][]                |      | [Accepted feature.](https://github.com/softcover/softcover/pull/94)                                                                                                       |
 | 2014-04 | [Markdown Test Suite][]      |      | [Close issue with better issues.](https://github.com/karlcow/markdown-testsuite/issues/3)                                                                                 |
 | 2014-03 | [Tig][]                      |      | [Accepted feature.](https://github.com/jonas/tig/issues/275)                                                                                                              |
-| 2014-03 | [GitLab][]                   |      | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)                              |
+| 2014-03 | [GitLab][]                   |      | [Accepted feature.](https://feedback.gitlab.com/forums/176466-general/suggestions/5518180-smarter-merge-request-target-repo-and-branch-form-)                              |
 | 2014-03 | [Softcover][]                |      | [Accepted feature.](https://github.com/softcover/polytexnic/issues/100#issuecomment-37228903)                                                                             |
-| 2014-03 | [GitLab][]                   |      | [Add useful information.](http://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct)                         |
-| 2014-03 | [GitLab][]                   |      | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other)                                |
-| 2014-03 | [GitLab][]                   |      | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly)                                   |
-| 2014-03 | [GitLab][]                   |      | [Accepted feature.](http://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                                          |
-| 2014-02 | [GitLab][]                   |      | [Point duplicate.](http://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen)                               |
+| 2014-03 | [GitLab][]                   |      | [Add useful information.](https://feedback.gitlab.com/forums/176466-general/suggestions/5603753-gitlab-markdown-should-display-username-s-correct)                         |
+| 2014-03 | [GitLab][]                   |      | [Point duplicate.](https://feedback.gitlab.com/forums/176466-general/suggestions/5628857-administratively-create-issues-on-behalf-of-other)                                |
+| 2014-03 | [GitLab][]                   |      | [Point duplicate.](https://feedback.gitlab.com/forums/176466-general/suggestions/3957367-allowing-the-build-pages-to-be-viewed-publicly)                                   |
+| 2014-03 | [GitLab][]                   |      | [Accepted feature.](https://feedback.gitlab.com/forums/176466-general/suggestions/5607934-view-diff-on-submit-merge-request-form)                                          |
+| 2014-02 | [GitLab][]                   |      | [Point duplicate.](https://feedback.gitlab.com/forums/176466-general/suggestions/4255282-task-lists-like-github-done-or-some-other-implemen)                               |
 | 2014-02 | [GitLab][]                   |      | [Accepted feature.](https://github.com/gitlabhq/gitlabhq/pull/6389)                                                                                                       |
 | 2014-02 | [ShareLaTeX][]               |      | [Feature generated considerable interest.](https://github.com/sharelatex/sharelatex/issues/51)                                                                            |
-| 2014-02 | [GitLab][]                   |      | [Point already fixed.](http://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                                 |
-| 2014-02 | [GitLab][]                   |      | [Link feature request to patch.](http://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in)                 |
+| 2014-02 | [GitLab][]                   |      | [Point already fixed.](https://feedback.gitlab.com/forums/176466-general/suggestions/3941049-allow-public-read-only-wikis)                                                 |
+| 2014-02 | [GitLab][]                   |      | [Link feature request to patch.](https://feedback.gitlab.com/forums/176466-general/suggestions/4000912-add-a-diff-view-when-editing-a-file-via-the-web-in)                 |
 | 2013-10 | [Yakuake][]                  |      | [Bug confirmed.](https://bugs.kde.org/show_bug.cgi?id=319172#c2)                                                                                                          |
 | 2013-10 | [Okular][]                   |      | [Bug confirmed.](https://bugs.kde.org/show_bug.cgi?id=327641)                                                                                                             |
 | 2013-06 | [Krusader][]                 |      | [Bug confirmed.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/1197679)                                                                                         |
 | 2013-05 | [NumPy][]                    |      | [Bug confirmed + inner cause.](https://github.com/matplotlib/matplotlib/pull/1967)                                                                                        |
 | 2012-05 | [Krusader][]                 |      | [Accepted feature.](https://bugs.kde.org/show_bug.cgi?id=300068)                                                                                                          |
 | 2012-05 | [Krusader][]                 |      | [Bug confirmed.](https://bugs.launchpad.net/ubuntu/+source/krusader/+bug/999695)                                                                                          |
-| 2012-05 | [AutoKey][]                  |      | [Bug confirmed.](http://code.google.com/p/autokey/issues/detail?id=197)                                                                                                   |
+| 2012-05 | [AutoKey][]                  |      | [Bug confirmed.](https://code.google.com/p/autokey/issues/detail?id=197)                                                                                                   |
 {: #bugs-table .data-table}
 
 ### Not verified

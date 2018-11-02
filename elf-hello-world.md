@@ -4,7 +4,7 @@ description: Introductory analysis of a simple example of the Executable and Lin
 social_media: true
 ---
 
-Extracted from [my Stack Overflow answer](http://stackoverflow.com/a/30648229/895245).
+Extracted from [my Stack Overflow answer](http//stackoverflow.com/a/30648229/895245).
 
 {{ site.toc }}
 
@@ -18,8 +18,8 @@ ELF supersedes `.coff`, which supersedes `a.out`.
 
 ELF is specified by the [LSB](https://en.wikipedia.org/wiki/Linux_Standard_Base):
 
-- core generic: <http://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/elf-generic.html>
-- core AMD64: <http://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-AMD64/LSB-Core-AMD64/book1.html>
+- core generic: <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/elf-generic.html>
+- core AMD64: <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-AMD64/LSB-Core-AMD64/book1.html>
 
 The LSB basically links to other standards with minor extensions, in particular:
 
@@ -30,8 +30,8 @@ The LSB basically links to other standards with minor extensions, in particular:
 
 -   Architecture specific (by the processor vendor):
 
-    - IA-32:  <http://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html>, points mostly to <http://www.sco.com/developers/devspecs/abi386-4.pdf>
-    - AMD64: <http://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-AMD64/LSB-Core-AMD64/elf-amd64.html>, points mostly to <http://www.x86-64.org/documentation/abi.pdf>
+    - IA-32:  <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html>, points mostly to <http://www.sco.com/developers/devspecs/abi386-4.pdf>
+    - AMD64: <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-AMD64/LSB-Core-AMD64/elf-amd64.html>, points mostly to <http://www.x86-64.org/documentation/abi.pdf>
 
 A handy summary can be found at:
 
@@ -46,7 +46,7 @@ Spin like mad between:
 - hexdumps
 - file decompilers. We use `readelf`. It makes it faster to read the ELF file by turning it into human readable output. But you must have seen one byte-by-byte example first, and think how `readelf` output maps to the standard.
 - low-level generators: stand-alone libraries that let you control every field of the ELF files you generated. <https://github.com/BR903/ELFkickers>, <https://github.com/sqall01/ZwoELF> and many more on GitHub.
-- consumer: the `exec` system call of the Linux kernel can parse ELF files to starts processes: <https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c>, <http://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861>
+- consumer: the `exec` system call of the Linux kernel can parse ELF files to starts processes: <https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c>, <https://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861>
 
 ### Specified file formats
 
@@ -119,8 +119,8 @@ It is non-trivial to determine what is the smallest legal ELF file, or the small
 
 Some impressive attempts:
 
-- <http://codegolf.stackexchange.com/questions/5696/shortest-elf-for-hello-world-n>
-- <http://www.muppetlabs.com/~breadbox/software/tiny/>
+- <https://codegolf.stackexchange.com/questions/5696/shortest-elf-for-hello-world-n>
+- <https://www.muppetlabs.com/~breadbox/software/tiny/>
 - <http://timelessname.com/elfbin/>
 
 In this example we will consider a saner `hello world` example that will better capture real life cases.
@@ -375,8 +375,8 @@ We will get into more detail later, but it is good to have it in mind now:
 
 See also:
 
-- <http://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format>
-- <http://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
+- <https://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format>
+- <https://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf>
 
 ## ELF header
 
@@ -483,7 +483,7 @@ Manual breakdown:
 
 -   1 8: `e_entry` = 8x `00`: execution address entry point, or 0 if not applicable like for the object file since there is no entry point.
 
-    On the executable, it is `b0 00 40 00 00 00 00 00`. The kernel puts the RIP directly on that value when executing. It can be configured by the linker script or `-e`. But it will segfault if you set it too low: <http://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n>
+    On the executable, it is `b0 00 40 00 00 00 00 00`. The kernel puts the RIP directly on that value when executing. It can be configured by the linker script or `-e`. But it will segfault if you set it too low: <https://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n>
 
 -   2 0: `e_phoff` = 8x `00`: program header table offset, 0 if not present.
 
@@ -578,7 +578,7 @@ There are also other magic sections detailed in `Figure 4-7: Special Section Ind
 
 #### SHT_NULL
 
-In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: <http://stackoverflow.com/questions/26812142/what-is-the-use-of-the-sht-null-section-in-elf> ?
+In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: <https://stackoverflow.com/questions/26812142/what-is-the-use-of-the-sht-null-section-in-elf> ?
 
 ### .data section
 
@@ -626,7 +626,7 @@ In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: <http://st
         Hex dump of section '.data':
           0x00000000 48656c6c 6f20776f 726c6421 0a       Hello world!.
 
-    NASM sets decent properties for that section because it treats `.data` magically: <http://www.nasm.us/doc/nasmdoc7.html#section-7.9.2>
+    NASM sets decent properties for that section because it treats `.data` magically: <https://www.nasm.us/doc/nasmdoc7.html#section-7.9.2>
 
     Also note that this was a bad section choice: a good C compiler would put the string in `.rodata` instead, because it is read-only and it would allow for further OS optimizations.
 
@@ -1063,7 +1063,7 @@ Breakdown of the first one:
 
 -   40 0: `p_type` = `01 00 00 00` = `PT_LOAD`: this is a regular segment that will get loaded in memory.
 
--   40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text segment. A classic way to do this in C is with string literals: <http://stackoverflow.com/a/30662565/895245> This allows kernels to do certain optimizations, like sharing the segment amongst processes.
+-   40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text segment. A classic way to do this in C is with string literals: <https://stackoverflow.com/a/30662565/895245> This allows kernels to do certain optimizations, like sharing the segment amongst processes.
 
 -   40 8: `p_offset` = 8x `00` TODO: what is this? Standard says:
 
@@ -1096,7 +1096,7 @@ section of the `readelf` tells us that:
 - 0 is the `.text` segment. Aha, so this is why it is executable, and not writable
 - 1 is the `.data` segment.
 
-TODO where does this information come from? <http://stackoverflow.com/questions/23018496/section-to-segment-mapping-in-elf-files>
+TODO where does this information come from? <https://stackoverflow.com/questions/23018496/section-to-segment-mapping-in-elf-files>
 
 ## Backlinks
 

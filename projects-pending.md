@@ -33,7 +33,7 @@ Non-programming:
 
 | 2015-10 | [Vim Markdown][] | 0 | [Add the indent part of the plugin to the registry](https://github.com/plasticboy/vim-markdown/pull/229) |
 | 2015-08 | [Stack Overflow][] | Legal | [Report http://stackoverflow.cluat.com scraper without attribution](TODO)                           |
-| 2015-08 | [Stack Overflow][] | Legal | [Report http://databasefaq.com/ scraper without attribution](TODO)                           |
+| 2015-08 | [Stack Overflow][] | Legal | [Report https://databasefaq.com/ scraper without attribution](TODO)                           |
 | 2015-07 | [isaacs/github][] | Duplicate | [allow voting on issues and merge requests without comment](https://github.com/isaacs/github/issues/429)                           |
 | 2015-07 | [Showdown][] | Feature | [Command line interface usage](https://github.com/showdownjs/showdown/issues/101)                           |
 | 2015-06 | [libgit2][] | Bug | [Expose core dump on index.diff from merge](https://github.com/libgit2/rugged/pull/420) |
@@ -59,9 +59,9 @@ Non-programming:
 | 2015-01 | [Jekyll][]     | Feature   | [Add a tag to link to a post / page with it's title shown](https://github.com/jekyll/jekyll/issues/3182)                                                                                                               |
 | 2014-12 | [GitLab][]     | Duplicate | [](https://github.com/gitlabhq/gitlab-shell/issues/14#issuecomment-67288657)                                                                                                                                           |
 | 2014-12 | [GitLab][]     | Bug       | [404 instead of 500 on inexistent paths for tree edit and blame show](https://github.com/gitlabhq/gitlabhq/pull/7984)                                                                                                  |
-| 2014-12 | [GitLab][]     | Feature   | [Allow filtering on issue/merge request author/creator](http://feedback.gitlab.com/forums/176466-general/suggestions/6512184-show-issue-author-on-index-view-and-allow-filterin)                                       |
-| 2014-12 | [CommonMark][] | Feature   | [Tagging spec versions in GitHub repo](http://talk.commonmark.org/t/tagging-spec-versions-in-github-repo/888/5?u=cirosantilli)                                                                                         |
-| 2014-12 | [CommonMark][] | Feature   | [CHANGELOG or History.txt](http://talk.commonmark.org/t/style-guide-for-commonmark/935). [Later started](https://github.com/jgm/CommonMark/commits/bbaf30eafa5530dc9a9b6d2c476403eadfb20423/changelog.spec.txt) |
+| 2014-12 | [GitLab][]     | Feature   | [Allow filtering on issue/merge request author/creator](https://feedback.gitlab.com/forums/176466-general/suggestions/6512184-show-issue-author-on-index-view-and-allow-filterin)                                       |
+| 2014-12 | [CommonMark][] | Feature   | [Tagging spec versions in GitHub repo](https://talk.commonmark.org/t/tagging-spec-versions-in-github-repo/888/5?u=cirosantilli)                                                                                         |
+| 2014-12 | [CommonMark][] | Feature   | [CHANGELOG or History.txt](https://talk.commonmark.org/t/style-guide-for-commonmark/935). [Later started](https://github.com/jgm/CommonMark/commits/bbaf30eafa5530dc9a9b6d2c476403eadfb20423/changelog.spec.txt) |
 | 2014-12 | [CommonMark][] | Bug       | [Don't modify man/man3/cmark.3 with date on make](https://github.com/jgm/CommonMark/issues/241)                                                                                                                        |
 
 GitHub remove directory https://github.com/isaacs/github/issues/225

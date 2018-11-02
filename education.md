@@ -8,13 +8,13 @@ I participated in a **double degree program**, so I have engineering degrees in 
 
     Master 2 degree in Applied Mathematics.
 
-    Amongst French engineering schools: [**best** on Times Ranking 2013](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/subject-ranking/subject/engineering-and-IT), [3rd on Shanghai ranking 2013](http://www.shanghairanking.com/FieldENG2013.html).
+    Amongst French engineering schools: [**best** on Times Ranking 2013](https://www.timeshighereducation.co.uk/world-university-rankings/2013-14/subject-ranking/subject/engineering-and-IT), [3rd on Shanghai ranking 2013](http://www.shanghairanking.com/FieldENG2013.html).
 
 -   **2007 - 2010**: [**University of São Paulo (Brazil)**](http://www.shanghairanking.com/World-University-Rankings/University-of-Sao-Paulo.html)
 
     Automation and Control Engineer.
 
-    In South America: [**best** on Times Ranking 2013 all subjects](http://www.timeshighereducation.co.uk/world-university-rankings/2013-14/world-ranking/region/south-america), [2nd on Shanghai ranking 2013 engineering](http://www.shanghairanking.com/FieldENG2013.html)
+    In South America: [**best** on Times Ranking 2013 all subjects](https://www.timeshighereducation.co.uk/world-university-rankings/2013-14/world-ranking/region/south-america), [2nd on Shanghai ranking 2013 engineering](http://www.shanghairanking.com/FieldENG2013.html)
 
     Honors: **"Best Student in Automation and Control of the year 2013"**.
 
