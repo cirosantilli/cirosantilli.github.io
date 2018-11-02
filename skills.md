@@ -47,9 +47,9 @@ If your project does something that [interests me](/interests), I will learn wha
 | 2     | Android                              | [Cheatsheet][android-cheat]                                                                                                                                                     |
 | 2     | OpenCL                               | [Cheatsheet](https://github.com/cirosantilli/cpp-cheat/tree/d14107f7c0b5e03e85d3f01b16f61271c260ae03/opencl)                                                                    |
 | 3     | QEMU                                 | [QEMU recipes](https://github.com/cirosantilli/linux-cheat/blob/492dbf28213c0c92fc4e034181a36734a50a7a24/qemu.md), [basic devices](https://stackoverflow.com/a/44612957/895245) |
-| 1     | [Chef](http://www.getchef.com/chef/) | For [GitLab Contributions](/projects)                                                                                                                                           |
+| 1     | [Chef](https://www.getchef.com/chef/) | For [GitLab Contributions](/projects)                                                                                                                                           |
 | 1     | AWS, Heroku                          | EC2, SES                                                                                                                                                                        |
-| 1     | Media formats                        | Video, Images, [FFmpeg](http://stackoverflow.com/search?tab=votes&q=user%3a895245%20[ffmpeg])                                                                                   |
+| 1     | Media formats                        | Video, Images, [FFmpeg](https://stackoverflow.com/search?tab=votes&q=user%3a895245%20[ffmpeg])                                                                                   |
 | 1     | Networking                           | [Cheatsheet][networking-cheat], [basic POSIX networking](https://github.com/cirosantilli/cpp-cheat/tree/d14107f7c0b5e03e85d3f01b16f61271c260ae03/posix)                         |
 {: #other-tech-table .data-table}
 
