@@ -33,6 +33,7 @@ Short focused articles.
     -   [In C++ source, what is the effect of extern “C”?](https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795)
     -   [Char array vs Char Pointer in C](https://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c/30661089#30661089)
     -   [How to compile glibc from source and use it?](https://stackoverflow.com/questions/847179/multiple-glibc-libraries-on-a-single-host/52454603#52454603)
+    -   [What is a subnormal floating point number?](https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number/53203428#53203428)
 -   Algorithms
     -   [Heap vs Binary Search Tree (BST)](https://stackoverflow.com/a/29548834/895245)
 -   Git internals
