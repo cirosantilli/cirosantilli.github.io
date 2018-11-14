@@ -2,7 +2,7 @@
 title: Articles
 ---
 
-Short focused articles.
+Short focused articles. Updates on Twitter: <{{site.twitter}}>
 
 -   Featured
     -   [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging" [in 2017-08](https://archive.is/VUSNt)
