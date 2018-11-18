@@ -5,7 +5,7 @@ Run local server:
     gem install bundle
     bundle install
     xdg-open http://localhost:4000
-    bundle exec jekyll serve -tw
+    ./run
 
 Update gems:
 
