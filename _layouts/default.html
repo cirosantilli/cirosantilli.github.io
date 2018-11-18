@@ -126,16 +126,17 @@
             {% assign repo = page.url | split:'/' %}
             {% assign size = repo | size %}
             {% if size < 3 %}
-              {% assign repo = 'cirosantilli.github.io' %}
+              {% assign repo_id = 'cirosantilli.github.io' %}
             {% else 3 %}
-              {% assign repo = repo[1] %}
+              {% assign repo_id = repo[1] %}
             {% endif %}
+            {% assign repo_url = site.github | append: '/' | append: repo_id %}
             {% comment %}
               Use that `default:` or else;
               https://stackoverflow.com/questions/31571150/jekyll-error-liquid-exception-undefined-method-encoding-for-nilnilclass-in
               https://stackoverflow.com/questions/32791512/jekyll-liquid-filter-cgi-escape-returns-error-for-some-variables
             {% endcomment %}
-            <a class="nav" href="{{ site.github }}/{{ repo }}/issues/new?title={{ page.title | default: "" | cgi_escape }}%20-%20">
+            <a class="nav" href="{{ repo_url }}/issues/new?title={{ page.title | default: "" | cgi_escape }}%20-%20">
               <i class="fa fa-exclamation-circle fa-fw"></i>Report Issue
             </a>
             {% comment %}
@@ -176,6 +177,10 @@
           {{ content }}
         </main>
       </div>
+      <footer>
+        <p>Content licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless otherwise noted on the article.</p>
+        <p>Website powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> and <a href="https://pages.github.com/">GitHub Pages</a>. Source at: <a href="{{ repo_url }}">{{ repo_url }}</a></p>
+      </footer>
       <!--disqus: https://USERNAME.disqus.com/admin/universalcode/-->
         {% if site.comments or page.comments %}
           <div class="comments">
