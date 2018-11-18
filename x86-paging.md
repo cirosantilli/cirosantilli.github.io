@@ -355,7 +355,7 @@ It would be impractical to align things at 21 bytes since memory is addressable 
 
 Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory:
 
-[![](/x86-page-entry.png)](/x86-page-entry.png)
+[![](/x86-page-entry.png){:style="width:700px;"}](/x86-page-entry.png)
 
 The fields are explained in the manual just after.
 

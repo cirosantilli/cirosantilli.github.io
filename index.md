@@ -19,8 +19,10 @@ Quick facts:
 - **Chinese name**: 三西猴, means "three western monkeys". Phonetic approximation to SANtilli CIRO. Semi-unintentionally reminds Chinese people of [Sun Wukong](https://en.wikipedia.org/wiki/Sun_Wukong).
 - **Laptop**: high end ThinkPad
 - **Distro**: latest Ubuntu release
-- **Vim or Emacs**: Vim. But for the Love, will someone please make an open source C++ IDE that actually works?
+- **Vim or Emacs**: Vim. But for The Love, will someone please make an open source C++ IDE that actually works?
 - **Tabs or spaces**: spaces
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
 - **System or unit tests**: system
-- **Default programming languages**: Python and C++. I'll learn Rust and Haskell once I'm rich.
+- **Default programming languages**: Python and C++. [I'll learn Rust and Haskell once I'm rich](https://github.com/cirosantilli/essays/blob/4ff47540c6678e0058a17da18d055fb516ecd1e6/programming-languages.adoc)
+
+[![](logo.png){:style="width:300px;"}](logo.png)
