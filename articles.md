@@ -19,6 +19,7 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
     -   [Is there any API for determining the physical address from virtual address in Linux?](https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487)
     -   [Why do people write the `#!/usr/bin/env` python shebang on the first line of a Python script?](https://stackoverflow.com/questions/2429511/why-do-people-write-the-usr-bin-env-python-shebang-on-the-first-line-of-a-pyt/40938801#40938801)
     -   [How to create a custom Linux distro that runs just one program and nothing else?](https://unix.stackexchange.com/questions/122717/how-to-create-a-custom-linux-distro-that-runs-just-one-program-and-nothing-else/238579#238579)
+    -   [What is the difference between the following kernel Makefile terms: vmLinux, vmlinuz, vmlinux.bin, zimage & bzimage?](https://unix.stackexchange.com/questions/5518/what-is-the-difference-between-the-following-kernel-makefile-terms-vmlinux-vml/482978#482978)
 -   ELF
     -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
