@@ -4,16 +4,16 @@ title: Professional Interests
 
 Crazy projects that I really want to do and which could change the world:
 
--   [free books website][] Innovative creator and content metrics to make people write good free science books.
--   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>. Games / simplified robotics simulations that provide interesting testbeds for reinforcement learning.
+-   [free books website][] Innovative creator and content metrics to make people write good free science books. So that people can have more fun, and reach [unconditional basic income faster](#sci-fi).
+-   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>. Games / simplified robotics simulations that provide interesting testbeds for reinforcement learning. To serve as a testing ground for [AGI](#sci-fi).
 
 Other general interests areas:
 
--   low-level, performance critical technologies that increase humanity's computational capacity: operating systems, GPUs, integrated circuit design, compilers, network programming,  databases, file systems, cryptography, virtualization, optimization, numerical analysis, ...
+-   low-level, performance critical technologies that increase humanity's computational capacity: operating systems, GPUs, integrated circuit design, compilers, network programming,  databases, file systems, cryptography, virtualization, optimization, numerical analysis, ... The final goal of all of those for me is [silicon AGI](#sci-fi).
 
 Things I'll try to get my kids into because I don't have enough time in this life:
 
--   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound.
+-   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi).
 
 I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 
@@ -63,16 +63,32 @@ I don't think I will live to see this, so I content myself with helping it happe
 
 Technologies which would help a lot towards unconditional basic income and might be required but which I don't think I will live to see:
 
--   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence) (AGI)
+-   [Artificial general intelligence](https://en.wikipedia.org/wiki/Artificial_general_intelligence) (AGI).
 
--   affordable [humanoid robots](https://en.wikipedia.org/wiki/Humanoid_robot) with human-like energy efficiency and [power-to-weight ratio](https://en.wikipedia.org/wiki/Power-to-weight_ratio)
+    Given enough computational power per dollar, I believe AGI is inevitable.
 
--   [Brain in a vat](https://en.wikipedia.org/wiki/Brain_in_a_vat) so some people can waste less money with food. Might imply trans-humanism.
+    Either:
 
-AGI is the most likely of the above.
+    -   silicon based. Would be faster to achieve, but I'm not sure will ever happen given the end of Moore's Law
 
-AGI + humanoid robots likely implies [AI takeover](https://en.wikipedia.org/wiki/AI_takeover).
+    -   genetically modified biological brains + [brain in a vat](https://en.wikipedia.org/wiki/Brain_in_a_vat).
 
-But AGI alone would be very dangerous, in case it can get control of our nuclear arsenals through software zero days or [social engineering](https://en.wikipedia.org/wiki/Social_engineering_%28security%29). Although some [claim that is unlikely](https://www.quora.com/Could-a-group-of-hackers-break-into-military-networks-and-launch-or-detonate-nuclear-missiles).
+        Imagine a brain the size of a building, perfectly engineered to solve certain engineering problems, and giving hints to human operators + taking feedback from cameras and audio attached to the operators.
+
+        This likely implies transhumanism, and [mind uploading](https://en.wikipedia.org/wiki/Mind_uploading).
+
+-   affordable [humanoid robots](https://en.wikipedia.org/wiki/Humanoid_robot) with human-like energy efficiency and [power-to-weight ratio](https://en.wikipedia.org/wiki/Power-to-weight_ratio).
+
+    But I feel that this is even less likely than AGI, since I'm alive at the end of silicon Moore's law and at the start of the Genome's Moore's law: information doubles, small sizes halve, but macroscopic mechanical artifacts stay the same.
+
+    I'm pretty certain about [brain–computer interfaces](https://en.wikipedia.org/wiki/Brain%E2%80%93computer_interface), in particular [full BCI as defined here](https://github.com/cirosantilli/essays/blob/7e1147daeb941a95b96b099d0db0474db25116ea/questions-for-my-future-self.md). Post my life time however.
+
+    So in the worst case we can just grow brainless bodies and replace the cavity hole with a computer that controls the body, possibly with high level decisions coming from a remote building-sized genetically engineered biological AGI brain.
+
+Of course, it is all about costs. A human costs about [130k 2010 USD / year](http://content.time.com/time/health/article/0,8599,1808049,00.html). So how cheap can we make the AGI / robot human equivalent / year for a given task?
+
+AGI + humanoid robots likely implies [AI takeover](https://en.wikipedia.org/wiki/AI_takeover) though. It would then come down to human loving bots vs human hating bots fighting it out. It will be both terrifying and fun to watch.
+
+AGI alone would be very dangerous, in case it can get control of our nuclear arsenals through software zero days or [social engineering](https://en.wikipedia.org/wiki/Social_engineering_%28security%29). Although some [claim that is unlikely](https://www.quora.com/Could-a-group-of-hackers-break-into-military-networks-and-launch-or-detonate-nuclear-missiles).
 
 {% include links.md %}
