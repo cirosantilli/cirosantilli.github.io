@@ -599,7 +599,7 @@ In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: <http://st
 
 -   80 4: `sh_type` = `01 00 00 00`: `SHT_PROGBITS`: the section content is not specified by ELF, only by how the program interprets it. Normal since a `.data` section.
 
--   80 8: `sh_flags` = `03` 7x `00`: `SHF_ALLOC` and `SHF_EXECINSTR`: <http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags>, as required from a `.data` section
+-   80 8: `sh_flags` = `03` 7x `00`: `SHF_WRITE` and `SHF_ALLOC`: <http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags>, as required from a `.data` section
 
 -   90 0: `sh_addr` = 8x `00`: TODO: standard says:
 
