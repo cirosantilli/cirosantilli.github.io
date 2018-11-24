@@ -4,7 +4,7 @@ description: Introductory analysis of a simple example of the Executable and Lin
 social_media: true
 ---
 
-Extracted from [my Stack Overflow answer](http//stackoverflow.com/a/30648229/895245).
+Extracted from [my Stack Overflow answer](https://stackoverflow.com/a/30648229/895245).
 
 {{ site.toc }}
 
@@ -30,7 +30,7 @@ The LSB basically links to other standards with minor extensions, in particular:
 
 -   Architecture specific (by the processor vendor):
 
-    - IA-32:  <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html>, points mostly to <http://www.sco.com/developers/devspecs/abi386-4.pdf>
+    - IA-32: <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html>, points mostly to <http://www.sco.com/developers/devspecs/abi386-4.pdf>
     - AMD64: <https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-AMD64/LSB-Core-AMD64/elf-amd64.html>, points mostly to <http://www.x86-64.org/documentation/abi.pdf>
 
 A handy summary can be found at:

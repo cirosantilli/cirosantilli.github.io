@@ -4,31 +4,27 @@ title: Accounts
 
 I control the following accounts:
 
+- <http://answers.gazebosim.org/users/2289/cirosantilli/>
+- <http://www.citeulike.org/user/cirosantilli>
+- <http://www.html5gamedevs.com/profile/30103-cirosantilli/>
 - <https://4programmers.net/Profile/86786>
 - <https://9gag.com/u/cirosantilli>
 - <https://addons.mozilla.org/en-US/firefox/user/cirosantilli/>
 - <https://androidforums.com/members/ciro-santilli.1918307>
-- <http://answers.gazebosim.org/users/2289/cirosantilli/>
 - <https://ask.libreoffice.org/en/users/2352/cirosantilli/>
 - <https://bbs.archlinux.org/profile.php?id=116270>
-- <https://www.bibsonomy.org/user/cirosantilli>
 - <https://brilliant.org/profile/ciro-il1uxz/>
 - <https://bugzilla.gnome.org/page.cgi?id=describeuser.html&login=ciro.santilli@gmail.com>
-- <https://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704>
 - <https://cirosantilli.imgur.com>
-- <http://www.citeulike.org/user/cirosantilli>
 - <https://community.arm.com/people/cirosantilli>
 - <https://community.atlassian.com/t5/user/viewprofilepage/user-id/680821>
 - <https://community.plos.org/people/cirosantilli>
 - <https://community.skype.com/t5/user/viewprofilepage/user-id/2646858>
 - <https://community.zimbra.com/members/cirosantilli>
-- <https://www.dailymotion.com/ciro-santilli>
 - <https://del.icio.us/cirosantilli>
 - <https://developer.mbed.org/users/cirosantilli/>
 - <https://devtalk.nvidia.com/member/2118846/>
 - <https://droit-finances.commentcamarche.net/profile/user/cirosantilli>
-- <https://www.ebay.com/usr/cirosantilli>
-- <https://www.edaboard.com/member587087.html>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://en.wikipedia.org/wiki/User:Cirosantilli2>
 - <https://figshare.com/authors/Ciro_Santilli/656781>
@@ -39,14 +35,9 @@ I control the following accounts:
 - <https://framasphere.org/people/78a975c0b6c40133a3032a0000053625> <https://framasphere.org/posts/1519871>
 - <https://gitlab.com/u/cirosantilli>
 - <https://hackaday.io/cirosantilli>
-- <http://www.html5gamedevs.com/profile/30103-cirosantilli/>
 - <https://identity.kde.org/index.php?r=people/view&uid=cirosantilli>
-- <https://www.imdb.com/user/ur59802249>
 - <https://jsfiddle.net/user/cirosantilli/>
 - <https://launchpad.net/~cirosantilli>
-- <https://www.metacritic.com/user/cirosantilli>
-- <https://www.mudhut.com/user/1995000>
-- <https://www.myopportunity.com/profile/ciro-santilli>
 - <https://nanohub.org/members/146301/>
 - <https://next-episode.net/user/cirosantilli/>
 - <https://orcid.org/0000-0003-2895-7763>
@@ -61,22 +52,30 @@ I control the following accounts:
 - <https://talk.jekyllrb.com/users/cirosantilli>
 - <https://tatoeba.org/eng/user/profile/cirosantilli>
 - <https://telegram.me/cirosantilli>
-- <https://www.tripadvisor.com/members/cirosantilli>
 - <https://tuleap.net/users/cirosantilli>
 - <https://tuleap.ring.cx/users/cirosantilli>
 - <https://twittercommunity.com/users/cirosantilli/activity>
 - <https://wiki.qemu.org/User:Cirosantilli>
 - <https://www.airbnb.com/users/show/45794827>
+- <https://www.bibsonomy.org/user/cirosantilli>
 - <https://www.biostars.org/u/50170/>
+- <https://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704>
 - <https://www.codingame.com/profile/cddd0a711c22d97e8264361f7c8205567563841>
+- <https://www.dailymotion.com/ciro-santilli>
 - <https://www.digitalocean.com/community/users/cirosantilli>
+- <https://www.ebay.com/usr/cirosantilli>
+- <https://www.edaboard.com/member587087.html>
 - <https://www.flickr.com/photos/141515492@N02/>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
+- <https://www.imdb.com/user/ur59802249>
 - <https://www.instagram.com/cirosantilli/>
 - <https://www.kaggle.com/cirosantilli>
 - <https://www.linux.org/members/ciro-santilli.62540/>
 - <https://www.meetup.com/members/252568305/>
+- <https://www.metacritic.com/user/cirosantilli>
+- <https://www.mudhut.com/user/1995000>
+- <https://www.myopportunity.com/en/profile/ciro-santilli>
 - <https://www.opengl.org/discussion_boards/member.php/40269-cirosantilli>
 - <https://www.patreon.com/cirosantilli>
 - <https://www.plurk.com/cirosantilli>
@@ -87,11 +86,11 @@ I control the following accounts:
 - <https://www.tastekid.com/ciro.santilli>
 - <https://www.ted.com/profiles/5822760>
 - <https://www.transifex.com/user/profile/cirosantilli>
+- <https://www.tripadvisor.com/members/cirosantilli>
 
 China:
 
 - <http://bbs.nibaedu.com/index.php?m=space&uid=70>
-- <https://bbs.t-firefly.com/?73374>
 - <https://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
 - <https://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
