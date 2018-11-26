@@ -4,10 +4,11 @@ title: Articles
 
 Short focused articles. Updates on Twitter: <{{site.twitter}}>
 
--   Featured
-    -   [x86 Paging Tutorial](/x86-paging). Number 1 Google search result for "x86 Paging" [in 2017-08](https://archive.is/VUSNt)
+-   Trended on [Hacker News](https://news.ycombinator.com/)
+    -   [How to run a program without an operating system?](https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545) on [2018-11-26](https://web.archive.org/web/20181126123625/https://news.ycombinator.com). Covers x86 and ARM.
+    -   [ELF Hello World Tutorial](/elf-hello-world) on [2017-05-17](https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news)
+    -   [x86 Paging Tutorial](/x86-paging) on [2017-03-02](https://news.ycombinator.com/item?id=13773219). Number 1 Google search result for "x86 Paging" [in 2017-08](https://archive.is/VUSNt).
 -   x86 Assembly
-    -   [How to run a program without an operating system?](https://stackoverflow.com/a/32483545/895245)
     -   [What does “multicore” assembly language look like?](https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438)
 -   Linux kernel
     -   [What do the flags in /proc/cpuinfo mean?](https://unix.stackexchange.com/a/219674/32558)
@@ -20,8 +21,6 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
     -   [Why do people write the `#!/usr/bin/env` python shebang on the first line of a Python script?](https://stackoverflow.com/questions/2429511/why-do-people-write-the-usr-bin-env-python-shebang-on-the-first-line-of-a-pyt/40938801#40938801)
     -   [How to create a custom Linux distro that runs just one program and nothing else?](https://unix.stackexchange.com/questions/122717/how-to-create-a-custom-linux-distro-that-runs-just-one-program-and-nothing-else/238579#238579)
     -   [What is the difference between the following kernel Makefile terms: vmLinux, vmlinuz, vmlinux.bin, zimage & bzimage?](https://unix.stackexchange.com/questions/5518/what-is-the-difference-between-the-following-kernel-makefile-terms-vmlinux-vml/482978#482978)
--   ELF
-    -   [ELF Hello World Tutorial](/elf-hello-world)
 -   QEMU
     -   [How to add a new device in QEMU source code?](https://stackoverflow.com/questions/28315265/how-to-add-a-new-device-in-qemu-source-code/44612957#44612957)
     -   [How to generate Ubuntu `debootstrap` disk images for QEMU?](https://askubuntu.com/questions/281763/is-there-any-prebuilt-qemu-ubuntu-image32bit-online/1081171#1081171)

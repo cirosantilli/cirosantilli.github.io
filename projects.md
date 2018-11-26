@@ -67,11 +67,6 @@ I don't like to refresh the homepage looking for easy rep :-)
 
 [Necromancer](https://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 2 users](https://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-06-17) as of June 2016.
 
-I'm also very proud of my Hacker News trends (which lead to Reddit and Twitter outbursts soon after):
-
-- <https://news.ycombinator.com/item?id=14359159> <https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news>
-- <https://news.ycombinator.com/item?id=13773219>
-
 ## Size scale
 
 Some of the contributions are subjectively self evaluated based on:
