@@ -13,7 +13,7 @@ Other general interests areas:
 
 Things I'll try to get my kids into because I don't have enough time in this life:
 
--   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi).
+-   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi). Especially excited about: microscopy, analytical chemistry (mass spectroscopy), DNA sequencing, DNA synthesis, synthetic biology and cell simulations.
 
 I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 
@@ -55,7 +55,7 @@ So I decided to devote myself to applied stuff in order to:
 - two children to keep the world going. Or immortality tech, but I think that is harder and borderline transhumanist :-)
 - high speed computer and Internet
 
-Once a person has that, he can learn, teach and create whatever he wants. Or play video games all day long if he so wishes.
+Once a person has that, they can learn, teach and create whatever they want. Or play video games all day long if they wish.
 
 I don't think I will live to see this, so I content myself with helping it happen faster by increasing the efficiency of the world as I can.
 
