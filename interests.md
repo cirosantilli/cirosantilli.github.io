@@ -15,6 +15,8 @@ Things I'll try to get my kids into because I don't have enough time in this lif
 
 -   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi). Especially excited about: microscopy, analytical chemistry (mass spectroscopy), DNA sequencing, DNA synthesis, synthetic biology and cell simulations.
 
+    It saddens me that I'll die and humanity won't have understood the brain, maybe not even a measly E. Coli...
+
 I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 
 I can speak [a few languages](/skills#natural-languages) but I strongly prefer to produce content (code, documentation, reports) in English, since it is more productive to the world as a whole. I don't mind speaking other languages at the office however.
