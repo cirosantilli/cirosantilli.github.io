@@ -56,6 +56,9 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
     -   [What is the difference between <%, <%=, <%# and -%> in ERB in Rails?](https://stackoverflow.com/a/25626629/895245)
 -   POSIX
     -   [What is POSIX?](https://stackoverflow.com/a/31865755/895245)
+-   Systems programming
+    -   [What do the terms “CPU bound” and “I/O bound” mean?](https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean/33510470#33510470)
+    -   [What do 'real', 'user' and 'sys' mean in the output of time?](https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376)
 -   Security
     -   [Why is the same origin policy so important?](https://security.stackexchange.com/a/72569/53321)
 -   Media
