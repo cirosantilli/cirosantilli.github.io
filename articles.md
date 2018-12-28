@@ -26,8 +26,10 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
     -   [How to generate Ubuntu `debootstrap` disk images for QEMU?](https://askubuntu.com/questions/281763/is-there-any-prebuilt-qemu-ubuntu-image32bit-online/1081171#1081171)
     -   [How to create a multi partition SD disk image without root privileges?](https://stackoverflow.com/questions/10949169/how-to-create-a-multi-partition-sd-image-without-root-privileges/52850819#52850819)
 -   GCC
-    -   [How address relocation works?](https://stackoverflow.com/a/30507725/895245)
+    -   [How do linkers and address relocation works?](https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144)
     -   [How many GCC optimization levels are there?](https://stackoverflow.com/a/30308151/895245)
+    -   [What is incremental linking or partial linking?](https://stackoverflow.com/questions/3349521/what-is-incremental-linking/53959661#53959661)
+    -   [GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld](https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263)
 -   C / C++
     -   [What does “static” mean in a C program?](https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047)
     -   [In C++ source, what is the effect of extern “C”?](https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795)
