@@ -44,6 +44,7 @@ I control the following accounts:
 - <https://orcid.org/0000-0003-2895-7763>
 - <https://peerj.com/cirosantilli/>
 - <https://profiles.3dgames.com.ar/profiles/1002278>
+- <https://pypi.org/user/cirosantilli/>
 - <https://software.intel.com/en-us/user/1090688>
 - <https://soundcloud.com/cirosantilli>
 - <https://steamcommunity.com/id/cirosantilli/>
@@ -67,6 +68,7 @@ I control the following accounts:
 - <https://www.ebay.com/usr/cirosantilli>
 - <https://www.edaboard.com/member587087.html>
 - <https://www.flickr.com/photos/141515492@N02/>
+- <https://www.freecodecamp.org/fcc8f660b91-167c-4b04-a8da-5d50cdb46def>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.imdb.com/user/ur59802249>
@@ -96,7 +98,7 @@ China:
 - <https://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
 - <http://www.tianya.cn/109285544> (can't post, no cell phone)
-- <https://www.zhihu.com/people/cirosantilli>. [Banned 2018-06-25](https://github.com/cirosantilli/china-dictatorship/blob/76dd3ee011d421e037bf58b2795528ef3b839256/zhihu-ban.md).
+- <https://www.zhihu.com/people/cirosantilli>. [Banned 2018-06-25](https://github.com/cirosantilli/china-dictatorship/tree/746d7e851097bfacfb03149138f0e16c8da9d8db#zhihu-ban).
 
 A younger unrelated Argentinian homonym I've found on Google:
 

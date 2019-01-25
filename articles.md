@@ -28,7 +28,7 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
 -   GCC
     -   [How do linkers and address relocation works?](https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144)
     -   [How many GCC optimization levels are there?](https://stackoverflow.com/a/30308151/895245)
-    -   [What is incremental linking or partial linking?](https://stackoverflow.com/questions/3349521/what-is-incremental-linking/53959661#53959661)
+    -   [What is incremental linking or partial linking?](https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624)
     -   [GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld](https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263)
 -   C / C++
     -   [What does “static” mean in a C program?](https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047)
