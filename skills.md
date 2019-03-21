@@ -101,12 +101,9 @@ See also [my articles](/articles) for further examples.
 
 ## Natural languages
 
-| Grade | Name                 | Notes                         |
-|-------|----------------------|-------------------------------|
-| 6     | English              | Cambridge CPE grade B in 2004 |
-| 6     | French               | TCF grade C2 in 2011          |
-| 9     | Brazilian Portuguese | Native speaker                |
-| 2     | Chinese              | Beginner                      |
-{: #natural-languages-table}
+- English: Cambridge CPE grade B in 2004. Proficient, with minor defects in collocation / pronunciation.
+- French: TCF grade C2 in 2011. Proficient, with a bit more defects than English.
+- Brazilian Portuguese: Native speaker
+- Chinese: learning oral informally, estimated HSK 3
 
 {% include links.md %}
