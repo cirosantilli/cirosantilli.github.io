@@ -6,7 +6,7 @@ What I do when not working. Not much, if you consider useful programming side-pr
 
 Learn interesting stuff on Wikipedia: <https://github.com/cirosantilli/art>
 
-Find new Chinese restaurants: <https://github.com/cirosantilli/chinese-restaurants-paris>
+Find new Chinese restaurants: <https://github.com/cirosantilli/chinese-restaurants>
 
 Visit ancient East Asian collections of museums:
 

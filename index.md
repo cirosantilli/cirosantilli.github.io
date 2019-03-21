@@ -23,6 +23,6 @@ Quick facts:
 - **Tabs or spaces**: spaces
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
 - **System or unit tests**: system
-- **Default programming languages**: Python and C++. [I'll learn Rust and Haskell once I'm rich](https://github.com/cirosantilli/essays/blob/4ff47540c6678e0058a17da18d055fb516ecd1e6/programming-languages.adoc)
+- **Default programming languages**: Python and C++. [I'll learn Rust and Haskell once I'm rich](https://github.com/cirosantilli/essays/tree/59adcc6dcd0b16430fe97495aa5b98707abc53d8#programming-language-choice)
 
 [![](logo.png){:style="width:300px;"}](logo.png)
