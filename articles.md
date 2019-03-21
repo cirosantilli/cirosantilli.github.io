@@ -5,6 +5,7 @@ title: Articles
 Short focused articles. Updates on Twitter: <{{site.twitter}}>
 
 -   Trended on [Hacker News](https://news.ycombinator.com/)
+    -   [x86 Bare Metal Examples][bare-metal] on [2019-03-19](https://news.ycombinator.com/item?id=19428700). The third time something related to that repo trends. Hacker news people really like that repo!
     -   [How to run a program without an operating system?](https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545) on [2018-11-26](https://web.archive.org/web/20181126123625/https://news.ycombinator.com). Covers x86 and ARM.
     -   [ELF Hello World Tutorial](/elf-hello-world) on [2017-05-17](https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news)
     -   [x86 Paging Tutorial](/x86-paging) on [2017-03-02](https://news.ycombinator.com/item?id=13773219). Number 1 Google search result for "x86 Paging" [in 2017-08](https://archive.is/VUSNt).
