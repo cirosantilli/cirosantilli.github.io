@@ -13,7 +13,7 @@ Other general interests areas:
 
 Things I'll try to get my kids into because I don't have enough time in this life:
 
--   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi). Especially excited about: microscopy, analytical chemistry (mass spectroscopy), DNA sequencing, DNA synthesis, synthetic biology and cell simulations.
+-   <https://github.com/cirosantilli/awesome-whole-cell-simulation>. It's weird, cells feel a lot like embedded systems: small, complex and profound. To reach both [biological AGI](#sci-fi) and [immortality](#sci-fi). Especially excited about: cell biology and simulations, cell metabolism, microscopy, analytical chemistry (mass spectroscopy), DNA sequencing, DNA synthesis, synthetic biology, protein and small molecule simulation.
 
     It saddens me that I'll die and humanity won't have understood the brain, maybe not even a measly E. Coli...
 
