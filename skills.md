@@ -15,7 +15,15 @@ Grading scale:
 | 1 - 2 | Have worked with it previously but either not much, or rusty.       |
 {: #grading-table}
 
-If your project does something that [interests me](/interests), I will learn whatever it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
+I copied this grading scale mechanism from a failed Google interview ;-)
+
+One problem with it is that I am always very hesitant to put a 5 on anything, who can not look at the documentation?
+
+It is also hard to scope things right. Who can claim to be a C++ or Linux kernel expert, even if you wrote a book about it, since those are such humongous topics?
+
+As a result, I haven't updated this in a while, and things may be out of date.
+
+If your project does something that [interests me](/interests), I can what it takes to contribute. Tell me what I must know, how long I have to learn it, and I'll call you back when I've mastered it.
 
 ## Programming languages
 
