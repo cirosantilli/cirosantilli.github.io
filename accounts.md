@@ -96,10 +96,11 @@ I control the following accounts:
 China:
 
 - <http://bbs.nibaedu.com/index.php?m=space&uid=70>
-- <https://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
-- <https://v2ex.com/member/cirosantilli>
 - <http://www.renren.com/338003848/profile>
 - <http://www.tianya.cn/109285544> (can't post, no cell phone)
+- <https://pincong.rocks/people/cirosantilli>
+- <https://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
+- <https://v2ex.com/member/cirosantilli>
 - <https://www.zhihu.com/people/cirosantilli>. [Banned 2018-06-25](https://github.com/cirosantilli/china-dictatorship/tree/746d7e851097bfacfb03149138f0e16c8da9d8db#zhihu-ban).
 
 A younger unrelated Argentinian homonym I've found on Google:
