@@ -129,6 +129,8 @@ In this example we will consider a saner `hello world` example that will better 
 
 Let's break down a minimal runnable Linux x86-64 example:
 
+hello_world.asm
+
     section .data
         hello_world db "Hello world!", 10
         hello_world_len  equ $ - hello_world
@@ -476,6 +478,15 @@ Manual breakdown:
 -   1 0: `e_type` = `01 00` = 1 (big endian) = `ET_REl`: relocatable format
 
     On the executable it is `02 00` for `ET_EXEC`.
+
+    Another important possibility for the executable is `ET_DYN` for PIE executables and shared libraries.
+
+    `ET_DYN` tells the Linux kernel that the code is position independent, and can loaded at a random memory location with ASLR.
+
+    This is explained further at:
+
+    - https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031
+    - https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865
 
 -   1 2: `e_machine` = `3e 00` = `62` = `EM_X86_64`: AMD64 architecture
 
@@ -996,6 +1007,36 @@ Those represent the same `struct`, but without the addend, e.g.:
     } Elf64_Rela;
 
 The ELF standard says that in many cases the both can be used, and it is just a matter of convenience.
+
+### Dynamic linking sections
+
+This program did not have certain dynamic linking related sections because we linked it minimally with `ld`.
+
+However, if you compile a C hello world with GCC 8.2:
+
+    gcc -o main.out main.c
+
+some other interesting sections would appear.
+
+#### PT_INTERP
+
+Contains the path to the dynamic loader, i.e. `/lib64/ld-linux-x86-64.so.2` in Ubuntu 18.10. Explained at: https://stackoverflow.com/questions/8040631/checking-if-a-binary-compiled-with-static/55664341#55664341
+
+#### Dynamic section
+
+Contains a lot of different flag masks.
+
+##### DT_FLAGS_1
+
+Seems to be a GNU Binutils extension
+
+###### DF_1_PIE
+
+Determines if an executable is a position independent executable (PIE).
+
+Seems to be informational only, since not used by Linux kernel 5.0 or glibc 2.29.
+
+`file` 5.36 however does use it to display file type as explained at: https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865
 
 ## Program header table
 
