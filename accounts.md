@@ -24,6 +24,7 @@ I control the following accounts:
 - <https://community.skype.com/t5/user/viewprofilepage/user-id/2646858>
 - <https://community.zimbra.com/members/cirosantilli>
 - <https://del.icio.us/cirosantilli>
+- <https://dev.to/cirosantilli>
 - <https://developer.mbed.org/users/cirosantilli/>
 - <https://devtalk.nvidia.com/member/2118846/>
 - <https://droit-finances.commentcamarche.net/profile/user/cirosantilli>
