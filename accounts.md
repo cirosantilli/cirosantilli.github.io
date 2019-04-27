@@ -75,10 +75,12 @@ I control the following accounts:
 - <https://www.freecodecamp.org/fcc8f660b91-167c-4b04-a8da-5d50cdb46def>
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
+- <https://www.hackster.io/cirosantilli>
 - <https://www.imdb.com/user/ur59802249>
 - <https://www.instagram.com/cirosantilli/>
 - <https://www.kaggle.com/cirosantilli>
 - <https://www.linux.org/members/ciro-santilli.62540/>
+- <https://www.linuxquestions.org/questions/user/cirosantilli-688439/>
 - <https://www.meetup.com/members/252568305/>
 - <https://www.metacritic.com/user/cirosantilli>
 - <https://www.mudhut.com/user/1995000>

@@ -505,7 +505,7 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 | 2014-12 | [GitHub][]                   | Bug       | [Tree show links blobs to the last commit that contained the blob instead of commit that introduced the file](https://github.com/isaacs/github/issues/319)           |
 | 2014-12 | [GitHub][]                   | Duplicate | [Deal properly with uppercase .GIT file basenames on web editor like for lowercase .git](https://github.com/isaacs/github/issues/318)                                |
 | 2014-12 | [GitHub][]                   | Duplicate | [Add a "I have this issue too" button](https://github.com/isaacs/github/issues/314)                                                                                  |
-| 2014-11 | [GitBook][]                  | Bug       | [500 on /edit without access](https://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                                       |
+| 2014-11 | [GitBook][]                  | Bug       | [500 on /edit without access](https://support.gitbook.com/hc/communities/public/questions/200628582-500-on-edit-without-access)                                      |
 | 2014-11 | [GitHub][]                   | Feature   | [View non-rendered markdown source with line numbers on blob show](https://github.com/isaacs/github/issues/297)                                                      |
 | 2014-11 | [GitHub][]                   | Bug       | [500 on branch index for long branch name pushed together with other branch](https://github.com/isaacs/github/issues/303)                                            |
 | 2014-11 | [GitHub][]                   | Bug       | [GFM ordered list with inner unordered paragraph list generates two ordered lists](https://github.com/isaacs/github/issues/181#issuecomment-43488854)                |
@@ -519,7 +519,8 @@ Disclaimer: closed source vendors tend to be highly secretive, solving small iss
 
 | Date    | Project                      | Size | Description                                                                                                                                                               |
 |---------|------------------------------|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2018-03 | [QEMU][]                     | 2    | [Test record and replay feature](https://lists.nongnu.org/archive/html/qemu-devel/2018-02/msg01681.html). Also [here](https://bugs.launchpad.net/qemu/+bug/1762179)        |
+| 2019-04 | [GDB dashboard][]            |      | [Limit the size of shown arguments in the Stack display](https://github.com/cyrus-and/gdb-dashboard/issues/142)                                                           |
+| 2018-03 | [QEMU][]                     | 2    | [Test record and replay feature](https://lists.nongnu.org/archive/html/qemu-devel/2018-02/msg01681.html). Also [here](https://bugs.launchpad.net/qemu/+bug/1762179)       |
 | 2018-02 | [pandoc][]                   |      | [Add option to produce asciidoc output without explicit heading ids](https://github.com/jgm/pandoc/issues/4363)                                                           |
 | 2017-10 | [AOSP][]                     |      | [GLES3 content gles3jni from ndk examples fails with "java.lang.RuntimeException: createContext failed: EGL_BAD_CONFIG"](https://issuetracker.google.com/issues/68496715) |
 | 2017-09 | [rr][]                       |      | [How to automatically start replay and go directly to main instead of `_start`?](https://github.com/mozilla/rr/issues/2098)                                               |
