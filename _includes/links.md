@@ -47,6 +47,7 @@
 [gitlab cookbook]:          https://gitlab.com/gitlab-org/cookbook-gitlab
 [gitlab]:                   https://github.com/gitlabhq/gitlabhq
 [gmail]:                    https://productforums.google.com/forum/#!forum/gmail
+[gnuplot]:                  http://www.gnuplot.info
 [google drive]:             https://productforums.google.com/forum/#!topic/drive
 [isaacs/github]:            https://github.com/isaacs/github
 [java-cheat]:               https://github.com/cirosantilli/java-cheat
