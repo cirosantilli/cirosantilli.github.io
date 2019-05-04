@@ -76,6 +76,8 @@ Short focused articles. Updates on Twitter: <{{site.twitter}}>
     -   [How to set up the Eclipse for remote C debugging with gdbserver?](https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937)
 -   Hardware
     -   [Are there good open source standard cell libraries to learn IC synthesis with EDA tools?](https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli)
+-   Scientific software
+    -   [A survey of open source interactive plotting software with a 10 million point scatter plot benchmark on Ubuntu 18.10](https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461)
 
 ## Cheatsheets
 
