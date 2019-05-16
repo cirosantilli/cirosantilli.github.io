@@ -24,5 +24,6 @@ Quick facts:
 - **Mailing list or Git(Hub\|Lab)**: Git(Hub\|Lab), with passion
 - **System or unit tests**: system
 - **Default programming languages**: Python and C++. [I'll learn Rust and Haskell once I'm rich](https://github.com/cirosantilli/essays/tree/59adcc6dcd0b16430fe97495aa5b98707abc53d8#programming-language-choice)
+- **Favorite musical instruments to listen**: [Chinese Guqin](https://en.wikipedia.org/wiki/Guqin) and electric Jazz-fusion guitar
 
 [![](logo.png){:style="width:300px;"}](logo.png)
