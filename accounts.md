@@ -4,10 +4,8 @@ title: Accounts
 
 I control the following accounts:
 
-- <http://answers.gazebosim.org/users/2289/cirosantilli/>
 - <http://seqanswers.com/forums/member.php?u=90053>
-- <http://www.citeulike.org/user/cirosantilli>
-- <http://www.html5gamedevs.com/profile/30103-cirosantilli/>
+- <http://answers.gazebosim.org/users/2289/cirosantilli/>
 - <https://4programmers.net/Profile/86786>
 - <https://9gag.com/u/cirosantilli>
 - <https://addons.mozilla.org/en-US/firefox/user/cirosantilli/>
@@ -76,6 +74,7 @@ I control the following accounts:
 - <https://www.gitbook.com/@cirosantilli>
 - <https://www.hackerrank.com/cirosantilli>
 - <https://www.hackster.io/cirosantilli>
+- <https://www.html5gamedevs.com/profile/30103-cirosantilli/>
 - <https://www.imdb.com/user/ur59802249>
 - <https://www.instagram.com/cirosantilli/>
 - <https://www.kaggle.com/cirosantilli>
@@ -106,6 +105,10 @@ China:
 - <https://tieba.baidu.com/home/main?id=5cd56369726f73616e74696c6c69c944>
 - <https://v2ex.com/member/cirosantilli>
 - <https://www.zhihu.com/people/cirosantilli>. [Banned 2018-06-25](https://github.com/cirosantilli/china-dictatorship/tree/746d7e851097bfacfb03149138f0e16c8da9d8db#zhihu-ban).
+
+Dead websites:
+
+- <http://www.citeulike.org/user/cirosantilli> (2019-05)
 
 A younger unrelated Argentinian homonym I've found on Google:
 
