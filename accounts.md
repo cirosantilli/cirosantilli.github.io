@@ -81,6 +81,7 @@ I control the following accounts:
 - <https://www.linux.org/members/ciro-santilli.62540/>
 - <https://www.linuxquestions.org/questions/user/cirosantilli-688439/>
 - <https://www.meetup.com/members/252568305/>
+- <https://www.mentebinaria.com.br/profile/1987-ciro-santilli/>
 - <https://www.metacritic.com/user/cirosantilli>
 - <https://www.mudhut.com/user/1995000>
 - <https://www.myopportunity.com/en/profile/ciro-santilli>
