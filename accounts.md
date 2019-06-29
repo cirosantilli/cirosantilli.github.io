@@ -28,6 +28,7 @@ I control the following accounts:
 - <https://droit-finances.commentcamarche.net/profile/user/cirosantilli>
 - <https://en.wikipedia.org/wiki/User:Ciro.santilli> is also mine, but I lost the password
 - <https://en.wikipedia.org/wiki/User:Cirosantilli2>
+- <https://eternagame.org/web/player/260828/>
 - <https://figshare.com/authors/Ciro_Santilli/656781>
 - <https://forum.osdev.org/memberlist.php?mode=viewprofile&u=16372>
 - <https://forum.videolan.org/memberlist.php?mode=viewprofile&u=173503>
