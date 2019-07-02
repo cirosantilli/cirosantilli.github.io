@@ -8,10 +8,6 @@ redirect_from:
 
 ## Summary
 
--   **[Linux Kernel Module Cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)**: the perfect setup to learn about the Linux kernel, QEMU and gem5
-
--   **[x86 bare metal examples][bare-metal]**: the best set of x86 bare metal programming examples available on the net
-
 -   **[Top-down 2D discrete grid game][rl-game-2d-grid]** to develop reinforcement learning for robot / animal like General Game AI agents
 
 -   Naughty stuff. I like being naughty.
@@ -56,16 +52,6 @@ redirect_from:
     -   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
 
 -   **[Breakthrough Message](https://github.com/cirosantilli/breakthrough-message)**: aliens!!! Creative / media project, powered by some Python scripts.
-
-## Stack Overflow
-
-[![Stack overflow flare](https://stackoverflow.com/users/flair/895245.png?theme=dark)][stack-overflow-ciro]
-
-I like to answer important questions, for which none of the answers satisfied me, and close duplicates.
-
-I don't like to refresh the homepage looking for easy rep :-)
-
-[Necromancer](https://stackoverflow.com/help/badges/17/necromancer) is my favorite badge. If you consider that a meaningful metric, which implies that you are insane, then [I was one of the top 2 users](https://data.stackexchange.com/stackoverflow/query/300735/users-with-most-necromancer-badges-at-a-given-date?Date=2016-06-17) as of June 2016.
 
 ## Size scale
 
