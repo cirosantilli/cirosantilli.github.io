@@ -8,8 +8,6 @@ redirect_from:
 
 ## Summary
 
--   **[Top-down 2D discrete grid game][rl-game-2d-grid]** to develop reinforcement learning for robot / animal like General Game AI agents
-
 -   Naughty stuff. I like being naughty.
 
     -   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**. How do you think I got my rep? Just kidding.
