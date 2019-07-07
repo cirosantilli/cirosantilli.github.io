@@ -1,7 +1,6 @@
 ---
 title: x86 Paging Tutorial
 description: With simple examples and applications.
-social_media: true
 ---
 
 Extracted and expanded from [my Stack Overflow answer](https://stackoverflow.com/a/18431262/895245).
