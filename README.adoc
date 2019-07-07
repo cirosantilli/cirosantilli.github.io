@@ -85,7 +85,7 @@ Other major things that could be added there as well in the future are:
 
 {cirosantilli-stack-overflow}[image:https://stackoverflow.com/users/flair/895245.png?theme=dark[Stack overflow flare]]
 
-My contributions have, unsurprisingly, centered around the subjects I have worked with: systems programming and web development, and necessary tooling to get those done, such a Git and Python.
+My contributions have, unsurprisingly, centered around the subjects I have worked with: systems programming and web development, and necessary tooling to get those done, such a Git, Python, Bash and Ubuntu.
 
 My self-selected best answers are listed at: <<articles>>
 
@@ -657,6 +657,34 @@ Downsides:
 My stance towards China hasn't changed, and China comments and corrections about this website are still welcome as always.
 
 Related issue: https://github.com/cirosantilli/cirosantilli.github.io/issues/37
+
+=== DNS configuration
+
+AKA how I serve this {cirosantilli-repo-url}[GitHub page] in my own domain.
+
+I only touch this very rarely, and always forget and go into great pain whenever a change needs to done, so I really need to document what I did.
+
+The last change was of 2019-07-07, when I moved from the www subdomain https://www.cirosantilli.com to the APEX https://cirosantilli.com[]. A redirect is setup from the www to APEX.
+
+GoDaddy DNS entries:
+
+....
+Type    Name    Value                   TTL
+A       @       185.199.108.153         1 Hour
+A       @       185.199.109.153         1 Hour
+A       @       185.199.110.153         1 Hour
+A       @       185.199.111.153         1 Hour
+CNAME   www     cirosantilli.github.io  1 Hour
+....
+
+where the IPs are obtained from: https://help.github.com/en/articles/setting-up-an-apex-domain#configuring-a-records-with-your-dns-provider (link:http://web.archive.org/web/20190707085154/https://help.github.com/en/articles/setting-up-an-apex-domain#configuring-a-records-with-your-dns-provider[archive]).
+
+Under https://github.com/cirosantilli/cirosantilli.github.io/settings
+
+* Custom domain: `cirosantilli.com`
+* Enforce HTTPS: checked
+
+And the CNAME file is tracked in this repository: link:CNAME[].
 
 == Stack Overflow
 
