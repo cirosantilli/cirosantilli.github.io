@@ -7,10 +7,6 @@ The key content previously on this page was moved to the following sections:
 - [/#ideology](/#ideology)
 - [/#projects-todo](/#projects-todo)
 
-Crazy projects that I really want to do and which could change the world:
-
--   <https://github.com/cirosantilli/gpu-robot-vision-simulation-full-ai>. Games / simplified robotics simulations that provide interesting testbeds for reinforcement learning. To serve as a testing ground for [AGI](#sci-fi).
-
 Other general interests areas:
 
 -   low-level, performance critical technologies that increase humanity's computational capacity: operating systems, GPUs, integrated circuit design, compilers, network programming,  databases, file systems, cryptography, virtualization, optimization, numerical analysis, ... The final goal of all of those for me is [silicon AGI](#sci-fi).

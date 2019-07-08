@@ -4,6 +4,8 @@ redirect_from:
   - /self-evaluation/
 ---
 
+I'm not keeping this up-to-date for now as it is too hard to put a number on any skill, and because I haven't for a job in a while ;-) What really matters are [my projects](/#projects-done).
+
 {{ site.toc }}
 
 Grading scale:
