@@ -2,9 +2,16 @@
 set -eux
 ./build
 git push
+cp \
+  Gemfile \
+  Gemfile.lock \
+  _config.yml \
+  _site/ \
+;
 cd _site
+rm -rf .git
 git init
-git remote add origin git@github.com:cirosantilli/cirosantilli.github.io.git
 git add .
 git commit -m "$(git -C .. log -n1 --pretty='%H' master)"
+git remote add origin git@github.com:cirosantilli/cirosantilli.github.io.git
 git push -f origin master:master
