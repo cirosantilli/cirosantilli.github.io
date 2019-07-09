@@ -4,52 +4,11 @@ redirect_from:
   - contrib/
 ---
 
+The key content previously on this page was moved to the following sections:
+
+- [/#projects-done](/#projects-done)
+
 {{ site.toc }}
-
-## Summary
-
--   Naughty stuff. I like being naughty.
-
-    -   **[Stack Overflow Vote Fraud Script](https://github.com/cirosantilli/stack-overflow-vote-fraud-script)**. How do you think I got my rep? Just kidding.
-    -   GitHub makes me feel especially naughty:
-        -   **[All GitHub Commit Emails][]**: I extracted (almost) all Git commit emails from GitHub with Google BigQuery
-        -   **[A repository with 1 million commits](https://github.com/cirosantilli/test-many-commits-1m/)** likely the [live repo with the most commits as of 2017](https://www.quora.com/Which-GitHub-repo-has-the-most-commits/answer/Ciro-SantilliI)
-        -   **[An 100 year GitHub streak](https://stackoverflow.com/questions/20099235/who-is-the-user-with-the-longest-streak-on-github/27742165#27742165)**, likely longest ever when that existed. It was consuming too much server resources however, which led to GitHub admins manually [turning off my contribution history](https://web.archive.org/web/20151021135921/https://github.com/cirosantilli/).
-
--   Education: a cause I care about. Looked into markup languages and version control for books, before I noticed that this approach was useless and that ranking algorithms are all that matter: [free books website][].
-
-    -   **[GitLab][]**: very important to me because I wanted to base [Booktree][] on it.
-
-        I was [the number 2 contributor from 2013 to 2015](https://github.com/gitlabhq/gitlabhq/graphs/contributors?from=2013-01-01&to=2015-01-01&type=a).
-
-        I have implemented some large features and several smaller improvements.
-
-        I consider merged patches there as professional work, since it is the primary product of a profitable startup.
-
-        I was made a moderator of [/r/gitlab](https://www.reddit.com/r/gitlab) in [2016-05](https://web.archive.org/web/20160524164714/https://www.reddit.com/r/gitlab/about/moderators).
-
-        I have started the automated test suite of the project, and coded major features like the `Toc` outline and the header mappings.
-
-        I check it from time to time, and make patches when I really need something, because I write in Markdown *a lot*.
-
-        A good language needs a good editor.
-
-    -   **[Markdown Style Guide](/markdown-style-guide)**
-
-    -   **[Markdown Test Suite][]**: I have implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
-
-        At least MacFarlane was able to [reuse](https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8) part of the HTML normalizer [I wrote](https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py), and I extracted the multi-engine comparison to: [CommonMark Implementation Compare](https://github.com/cirosantilli/commonmark-implementation-compare).
-
-        Playing with this project has led me to find and report many Markdown bugs / bad behavior on other software, e.g. [GitHub](https://github.com/isaacs/github/issues/297) and [MultiMarkdown-4](https://github.com/fletcher/MultiMarkdown-4/issues/68).
-
-    -   **[isaacs/github][]**: I have commented there so often that I [was made a collaborator](https://github.com/isaacs/github/issues/430#issuecomment-123851480).
-
--   Vim: sometimes I got crazy and wasted my time with Vimscript:
-
-    -   **[Vim Markdown][]**: the owner `plasticboy` was really nice and made me a collaborator for my contributions.
-    -   **[Vundle Plugin Tester](https://github.com/cirosantilli/vundle-plugin-tester)**
-
--   **[Breakthrough Message](https://github.com/cirosantilli/breakthrough-message)**: aliens!!! Creative / media project, powered by some Python scripts.
 
 ## Size scale
 
