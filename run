@@ -24,7 +24,11 @@ while true; do
   atime="$(stat -c %Z "$file")"
   if [ "$atime" != "$ltime" ]; then
     echo "rebuild: ${atime}"
-    time ./build-adoc
+    exit_status=0
+    time ./build-adoc || exit_status="$?"
+    if [ "$exit_status" -ne 0 ]; then
+      echo "BUILD ERROR!"
+    fi
     ltime="$atime"
   fi
   sleep 1
