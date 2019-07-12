@@ -4,6 +4,8 @@ redirect_from:
   - /self-evaluation/
 ---
 
+Non-technical skills were moved to: [/#ciro-santillis-skills](/#ciro-santillis-skills)
+
 I'm not keeping this up-to-date for now as it is too hard to put a number on any skill, and because I haven't for a job in a while ;-) What really matters are [my projects](/#projects-done).
 
 {{ site.toc }}
@@ -62,58 +64,5 @@ If your project does something that [interests me](/interests), I can what it ta
 | 1     | Media formats                        | Video, Images, [FFmpeg](https://stackoverflow.com/search?tab=votes&q=user%3a895245%20[ffmpeg])                                                                                   |
 | 1     | Networking                           | [Cheatsheet][networking-cheat], [basic POSIX networking](https://github.com/cirosantilli/cpp-cheat/tree/d14107f7c0b5e03e85d3f01b16f61271c260ae03/posix)                         |
 {: #other-tech-table .data-table}
-
-## Documentation superpowers
-
-I have the power to document stuff in a way that makes using them awesome.
-
-If your project does something awesome, hiring me means that more people will be able to notice that it is actually awesome, and use it.
-
-I like to do this in parallel to contributing new features, quickly switching between my "developer" and "technical documentor" hats.
-
-This means of course that I will develop new features a bit slower than others, but I feel it is more valuable if end users can actually use your project in the first place. 
-
-My technique is to provide upfront extremely interactive and reproducible getting started setups that immediately show the key value of the project to users.
-
-I back those setups with:
-
-- scripts that automate the setup much as possible to make things enjoyable and reproducible
-- a detailed description of the environment in which I tested: which OS, version of key software, etc.
-- a detailed description of what is expected to happen when you take an action, including known bugs with links to bug reports
-- theory and rationale on the sections after the initial getting started, but always finely interspersed with concrete examples
-- all docs contained in a Git-tracked repo, with the ability to render to a single HTML with one TOC
-- short sentences and paragraphs, interspersed with many headers, lists and code blocks
-
-While I create this setup, I inevitably start to notice and fix:
-
-- bugs
-- annoyances on the public interface of the project
-- the devs were using 50 different local scripts to do similar things, all of them semi-broken and limited. Every new hire was copying one of those local scripts, and hacking it up further.
-- your crappy build / test / version control setup
-
-Exploiting this skill, however, requires you to trust me.
-
-When I tell to managers that I'm good at documenting, they always say: great, we need better documentation! But then, one of the following may happen:
-
--   managers forget that they wanted good documentation and just tell me to code new features as fast as possible
-
--   they don't let me own the getting started page, but rather and expect me to try and fix the existing crappy unfixable existing getting started, without stepping on anyone's pride in the process >:-)
-
-    This makes me tired, and less likely to do a good job.
-
-    Good documentation requires a large number of small iterative reviews, and detailed review of every line is not always feasible.
-
-    Too many cooks.
-
-A prime example of this ability is my [Linux Kernel Module Cheat][lkmc].
-
-See also [my articles](/articles) for further examples.
-
-## Natural languages
-
-- English: Cambridge CPE grade B in 2004. Proficient, with minor defects in collocation / pronunciation.
-- French: TCF grade C2 in 2011. Proficient, with a bit more defects than English.
-- Brazilian Portuguese: Native speaker
-- Chinese: learning oral informally, estimated HSK 3
 
 {% include links.md %}
