@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # https://www.cirosantilli.com#how-to-develop-this-website
 set -eux
+mkdir -p out
+# We maintain a safety clone in this directory,
+# to avoid leaking .gitignored files through Jekyll.
+cd out
+if [ ! -d .git ]; then
+  git clone --recursive .. .
+else
+  git pull
+  git submodule update --init
+fi
 ./build
 git push
 cp \
