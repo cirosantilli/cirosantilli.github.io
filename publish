@@ -10,9 +10,10 @@ cp \
   _site/ \
 ;
 cd _site
-rm -rf .git
-git init
+if [ ! -d .git ]; then
+  git init
+  git remote add origin git@github.com:cirosantilli/cirosantilli.github.io.git
+fi
 git add .
 git commit -m "$(git -C .. log -n1 --pretty='%H' master)"
-git remote add origin git@github.com:cirosantilli/cirosantilli.github.io.git
-git push -f origin master:master
+git push origin master:master
