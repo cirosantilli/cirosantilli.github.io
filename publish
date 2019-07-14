@@ -13,7 +13,9 @@ cd _site
 if [ ! -d .git ]; then
   git init
   git remote add origin git@github.com:cirosantilli/cirosantilli.github.io.git
+  git fetch origin
+  git reset origin/master
 fi
 git add .
-git commit -m "$(git -C .. log -n1 --pretty='%H' master)"
+git commit -m "$(git -C .. log -n1 --pretty='%H' dev)"
 git push origin master:master
