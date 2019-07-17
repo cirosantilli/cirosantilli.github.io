@@ -6,7 +6,7 @@ redirect_from:
 
 Non-technical skills were moved to: [/#ciro-santillis-skills](/#ciro-santillis-skills)
 
-I'm not keeping this up-to-date for now as it is too hard to put a number on any skill, and because I haven't for a job in a while ;-) What really matters are [my projects](/#projects-done).
+I'm not keeping this up-to-date for now as it is too hard to put a number on any skill, and because I haven't for a job in a while ;-) What really matters are [my projects](/#the-most-important-projects-done-by-ciro-santilli).
 
 {{ site.toc }}
 
