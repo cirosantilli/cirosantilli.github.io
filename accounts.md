@@ -1,4 +1,4 @@
 ---
 layout: redirect
-redir_to: /#accounts
+redir_to: /#accounts-controlled-by-ciro-santilli
 ---

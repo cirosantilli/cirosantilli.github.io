@@ -4,8 +4,8 @@ title: Professional Interests
 
 The key content previously on this page was moved to the following sections:
 
-- [/#ideology](/#ideology)
-- [/#projects-todo](/#projects-todo)
+- [/#ciro-santillis-ideology](/#ciro-santillis-ideology)
+- [/#the-most-important-projects-ciro-santilli-wants-to-do](/#the-most-important-projects-ciro-santilli-wants-to-do)
 
 I really like open source. It gives more opportunities to the poor countries, and reduces lock-in to my current employer. Shame it is not always economically feasible...
 

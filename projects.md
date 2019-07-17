@@ -6,7 +6,7 @@ redirect_from:
 
 The key content previously on this page was moved to the following sections:
 
-- [/#projects-done](/#projects-done)
+- [/#the-most-important-projects-done-by-ciro-santilli](/#the-most-important-projects-done-by-ciro-santilli)
 
 {{ site.toc }}
 

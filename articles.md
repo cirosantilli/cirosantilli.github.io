@@ -1,4 +1,4 @@
 ---
 layout: redirect
-redir_to: /#articles
+redir_to: /#the-best-articles-by-ciro-santilli
 ---
