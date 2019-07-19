@@ -963,10 +963,7 @@ Two level address translation to make OS emulation more efficient.
 
 ### ARM
 
-Some interesting features and characteristics of ARMv8 page tables:
-
-- 9 9 9 9 address split
-- pages other than the last level (3 if you count from 0) can be leaves. When this happens, the page is larger than 4k (since more bits are left for the offset)
+Information about ARM paging can be found at: https://github.com/cirosantilli/linux-kernel-module-cheat#arm-paging
 
 ## Bibliography
 
