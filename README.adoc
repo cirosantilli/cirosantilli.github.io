@@ -27,6 +27,39 @@
 :cirosantilli-wiki-oracle-v-google: https://en.wikipedia.org/wiki/Oracle_America,_Inc._v._Google,_Inc.
 :cirosantilli-youtube-heat-equation: https://www.youtube.com/watch?v=FOwYDlay8rI "Real-time heat equation OpenGL visualization with interactive mouse cursor using relaxation method" by "Ciro Santilli" published on 2016-12-10.
 
+////
+Pass through block here otherwise a space is generated on the output.
+////
+++++
+<div style="display:none;">
+\[
+%% physics package
+% Partial derivative.
+\newcommand{\curl}[1]{\nabla \times #1}
+\newcommand{\dv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divergence}[1]{\nabla \cdot #1}
+% Vector Arrow.
+\newcommand{\va}[1]{\overrightarrow{#1}}
+
+%% Real analysis
+\newcommand{\RThree}[0]{\mathbb{R}^{3}}
+\newcommand{\RTwo}[0]{\mathbb{R}^{2}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\functionDomain}[3]{#1 : #2 \to #3}
+
+%% Electromagnetism
+% Magnetic field vector
+\newcommand{\B}[0]{\va{\mathbf{B}}}
+% Electric field vector
+\newcommand{\E}[0]{\va{\mathbf{E}}}
+% Electric current vector.
+\newcommand{\J}[0]{\va{\mathbf{J}}}
+\newcommand{\vacuumPermittivity}[0]{\varepsilon_0}
+\newcommand{\vacuumPermeability}[0]{\mu_0}
+\]
+</div>
+++++
+
 {description}
 
 link:{cirosantilli-github}[GitHub] |
@@ -1250,9 +1283,9 @@ Classic theory predicts that the output frequency must be the same as the input 
 
 But the output waves are longer: https://www.youtube.com/watch?v=WR88_Vzfcx4 "L3.3 Compton Scattering" by "MIT OpenCourseWare", because xref:planck-einstein-relation[photons are discrete and energy is proportional to frequency].
 
-The formula is exactly that of two relativistic billard balls colliding, which further suggests that photons are real.
+The formula is exactly that of two xref:special-relativity[relativistic] billiard balls colliding, which further suggests that photons are real.
 
-Therefore this is evidence that xref:photon[photons exist] and have momemtum.
+Therefore this is evidence that xref:photon[photons exist] and have momentum.
 
 ==== Photoelectric effect
 
@@ -1276,7 +1309,8 @@ Currently an informal name for the https://en.wikipedia.org/wiki/Standard_Model[
 
 Chronologic outline of the key theories:
 
-* https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation[Schrodinger equation]
+* xref:maxwells-equations[]
+* xref:schrodinger-equation[]
 ** Date: 1926
 ** Numerical predictions:
 *** Hydrogen spectra energies, excluding finer structure such as 2p up and down split: https://en.wikipedia.org/wiki/Fine-structure_constant
@@ -1295,7 +1329,113 @@ Chronologic outline of the key theories:
 *** Antimatter
 *** xref:spin[] as part of the equation
 
+==== Maxwell's equations
+
+https://en.wikipedia.org/wiki/Maxwell%27s_equations
+
+Unified all previous electro-magnetism theories into one equation.
+
+Explains the propagation of light as a wave, and matches the previously known relationship between the xref:speed-of-light-experiments[speed of light] and electromagnetic constants.
+
+The equations are a limit case of the more complete xref:quantum-electrodynamics[], and unlike that more general theory account for the quantization of xref:photon[].
+
+TODO: what does it mean that it is coherent with xref:special-relativity[]?
+
+The equations are a system of xref:partial-differential-equations[].
+
+The system consists of 6 unknown functions that map three variables (x, y and z positions in space) to a real number:
+
+* latexmath:[E_x(x,y,z)], latexmath:[E_y(x,y,z)], latexmath:[E_z(x,y,z)]: directions of the electric field latexmath:[\functionDomain{\E}{\RThree}{\RThree}]
+* latexmath:[B_x(x,y,z)], latexmath:[B_y(x,y,z)], latexmath:[B_z(x,y,z)]: directions of the magnetic field latexmath:[\functionDomain{\B}{\RThree}{\RThree}]
+
+and two known input functions:
+
+* latexmath:[\functionDomain{\rho}{\RThree}{\R}]: density of charges in space
+* latexmath:[\functionDomain{\J}{\RThree}{\RThree}]: current vector in space
+
+The equations can be written in short form as the following four equations:
+
+[latexmath,id=equation-gauss-law]
+.Gauss' law
+++++
+\divergence{\E} = \frac{\rho}{\vacuumPermittivity}
+++++
+
+[latexmath,id=equation-gauss-law-for-magnetism]
+.Gauss's law for magnetism
+++++
+\divergence{\B} = 0
+++++
+
+[latexmath,id=equation-faradays-law]
+.Faraday's law of induction
+++++
+\curl{\E} = -\dv{\B}{t}
+++++
+
+[latexmath,id=equation-amperes-circuital-law]
+.Ampère's circuital law
+++++
+\curl{\B} = \vacuumPermeability \left(\J + \vacuumPermittivity \dv{E}{t} \right)
+++++
+
+and you should review the interpretation of divergence latexmath:[\divergence{}] and curl latexmath:[\curl{}]:
+
+* divergence: how much fluid goes out or into a point
+* curl: points in the direction in which a wind spinner spins fastest
+
+For numerical algorithms and to get a more low level understanding of the equations, we can expand them all and simpler explicit:
+
+[latexmath,id=equation-maxwells-equation-explicit-form]
+++++
+\dv{E_x}{x} + \dv{E_y}{x} +
+\dv{E_z}{x} =
+\frac{\rho}{\vacuumPermittivity}
+\\
+
+\dv{B_x}{x} +
+\dv{B_y}{x} +
+\dv{B_z}{x} =
+0
+\\
+
+\dv{E_z}{y} - \dv{E_y}{z} = -\dv{B_x}{t} \\
+\dv{E_x}{z} - \dv{E_z}{x} = -\dv{B_y}{t} \\
+\dv{E_y}{x} - \dv{E_x}{y} = -\dv{B_z}{t} \\
+
+\dv{B_z}{y} - \dv{B_y}{z} = \vacuumPermeability \left(J_x + \vacuumPermittivity \dv{E_x}{t} \right) \\
+\dv{B_x}{z} - \dv{B_z}{x} = \vacuumPermeability \left(J_y + \vacuumPermittivity \dv{E_y}{t} \right) \\
+\dv{B_y}{x} - \dv{B_x}{y} = \vacuumPermeability \left(J_z + \vacuumPermittivity \dv{E_z}{t} \right) \\
+++++
+
+As you can see, this expands to 8 equations, so the question arises if the system is over-determined because it only has 6 variables. As explained at: https://en.wikipedia.org/wiki/Maxwell%27s_equations#Overdetermination_of_Maxwell's_equations however, this is not the case, because if the first two equations hold for the initial condition, then they also hold for all time, so they can be essentially omitted.
+
+===== Maxwell's equations in 2D
+
+TODO it would be awesome if we could de-generalize the equations in 2D and do a JavaScript demo of it!
+
+* https://physics.stackexchange.com/questions/104008/maxwells-equations-of-electromagnetism-in-21-spacetime-dimensions
+* https://www.reed.edu/physics/faculty/wheeler/documents/Electrodynamics/Miscellaneous%20Essays/E&M%20in%202%20Dimensions.pdf
+
+===== Existence and uniqueness of solutions to Maxwell's equations
+
+TODO: I'm surprised that the Wiki page barely talks about it, and there are few Google hits too! A sample one: https://www.researchgate.net/publication/228928756_On_the_existence_and_uniqueness_of_Maxwell's_equations_in_bounded_domains_with_application_to_magnetotellurics
+
+==== Special relativity
+
+https://en.wikipedia.org/wiki/Special_relativity
+
+TODO.
+
 ==== Quantum mechanics
+
+===== Schrodinger equation
+
+https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation
+
+The xref:partial-differential-equations[] of xref:special-relativity[non-relativistic] xref:quantum-mechanics[].
+
+TODO show some sample numerical solutions in JavaScript and applications such as deriving hydrogen energy levels.
 
 ===== Planck's law
 
@@ -1490,6 +1630,26 @@ The fact that Mathematics happens to be the best way to describe xref:physics[] 
 
 The one true definition of xref:mathematics[].
 
+=== Partial differential equations
+
+https://en.wikipedia.org/wiki/Partial_differential_equation
+
+Some of the most important examples include:
+
+* xref:maxwells-equations[]
+* xref:schrodinger-equation[]
+
+The xref:finite-element-method[] is one of the most common ways to solve PDEs in practice.
+
+==== Existence and uniqueness of solutions of partial differential equations
+
+If you have a PDE that models xref:physics[physical phenomena], it is fundamental that:
+
+* there must exist a solution for every physically valid initial condition, otherwise it means that the equation does not describe certain cases of reality
+* the solution must be unique, otherwise how are we to choose between the multiple solutions?
+
+Unlike for ordinary differential equations which have the https://en.wikipedia.org/wiki/Picard%E2%80%93Lindel%C3%B6f_theorem[Picard–Lindelöf theorem], the existence and uniqueness of solution is not well solved for PDEs. For example, https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness[Navier–Stokes existence and smoothness] was one of the https://en.wikipedia.org/wiki/Millennium_Prize_Problems[Millennium Prize Problems].
+
 === Numerical analysis
 
 https://en.wikipedia.org/wiki/Numerical_analysis
@@ -1497,6 +1657,12 @@ https://en.wikipedia.org/wiki/Numerical_analysis
 Not the most beautiful xref:mathematics[], but fundamentally useful since we can't solve almost any xref:computational-physics[useful equation] without computers!
 
 The entire field comes down to estimating the true values with a known error bound, and creating algorithms that make those error bounds asymptotically smaller.
+
+==== Finite element method
+
+https://en.wikipedia.org/wiki/Finite_element_method
+
+TODO understand, give intuition, justification of bounds and JavaScript demo.
 
 == Countries
 
@@ -1545,7 +1711,7 @@ An xref:united-states-of-america[American] company that:
 
 https://en.wikipedia.org/wiki/Oracle_Corporation
 
-xref:evil[] company that desecrated the beauty created by https://en.wikipedia.org/wiki/Sun_Microsystems[Sun], and is now {cirosantilli-wiki-oracle-v-google}[trying to bury Java once and or all]
+xref:evil[] company that desecrated the beauty created by https://en.wikipedia.org/wiki/Sun_Microsystems[Sun], and was link:{cirosantilli-wiki-oracle-v-google}[trying to bury Java once and or all in the 2010's].
 
 Their database has already been surpassed by open source, and https://en.wikipedia.org/wiki/Enterprise_resource_planning[ERP] and https://en.wikipedia.org/wiki/Customer_relationship_management[CRM] is boring.
 

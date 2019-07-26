@@ -15,7 +15,7 @@ class KatexInline < Asciidoctor::Extensions::InlineMacroProcessor
   named :latexmath
 
   def process parent, target, attrs
-    # TODO never gets called.
+    # TODO never gets called on latexmath: but gets called on latexmath::. TODO what is the difference?
     asdf
     text = attrs[1]
     if text.nil? || text.empty?
