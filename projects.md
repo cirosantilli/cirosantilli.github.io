@@ -1,7 +1,5 @@
 ---
 title: Projects
-redirect_from:
-  - contrib/
 ---
 
 The key content previously on this page was moved to the following sections:

@@ -1,7 +1,5 @@
 ---
 title: Skills
-redirect_from:
-  - /self-evaluation/
 ---
 
 Non-technical skills were moved to: [/#ciro-santillis-skills](/#ciro-santillis-skills)
