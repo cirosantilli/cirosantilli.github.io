@@ -1,8 +1,6 @@
 ---
 title: Markdown Style Guide
 description: Readable and portable Markdown style guide.
-redirect_from:
-  - /markdown-styleguide/
 ---
 
 - a
