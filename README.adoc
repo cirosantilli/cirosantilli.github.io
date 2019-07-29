@@ -30,6 +30,7 @@
 ////
 Pass through block here otherwise a space is generated on the output.
 ////
+ifdef::backend-html5[]
 ++++
 <div style="display:none;">
 \[
@@ -59,6 +60,7 @@ Pass through block here otherwise a space is generated on the output.
 \]
 </div>
 ++++
+endif::[]
 
 {description}
 
@@ -93,7 +95,7 @@ Quick facts:
 * Tabs or spaces: spaces
 * Mailing list or Git(Hub|Lab): Git(Hub|Lab), link:https://webapps.stackexchange.com/questions/23197/reply-to-mailman-archived-message/115088#115088[with passion]
 * System or unit tests: system
-* Default programming languages: Python and C++. xref:programming-language-choice[he'll learn Rust and Haskell once he's rich]
+* Default programming languages: Python and C++. xref:programming-languages[he'll learn Rust and Haskell once he's rich]
 * Favorite musical instruments to listen: https://en.wikipedia.org/wiki/Guqin[Chinese Guqin] and xref:the-best-music-albums-of-all-time[electric Jazz-fusion guitar]
 
 === The most important projects done by Ciro Santilli
@@ -745,37 +747,6 @@ It is the European https://en.wikipedia.org/wiki/Tower_of_Babel[Tower of Babel].
 
 The https://en.wikipedia.org/wiki/Linguistic_relativity[Sapir–Whorf hypothesis] is bullshit outside of poetry, and the ending of https://en.wikipedia.org/wiki/Arrival_(film)[Arrival (2016)] makes one want to puke.
 
-==== Programming language choice
-
-There is only space for two languages at most in the world: the compiled one, and the interpreted one.
-
-For now, when you have a choice, you must go for:
-
-* Python as the interpreted one
-* C++ for compiled
-
-Those two are languages not by any means perfect from a language design point of view, and there are likely already better alternatives, they are only chosen due to a pragmatic tradeoff between ecosystem and familiarity.
-
-Bash can also be used when you're lazy. But if the project goes on, you will sooner or later regret that choice.
-
-The language syntax in itself does not matter. All that matters is how many useful libraries and tooling it has.
-
-This is how other languages compare:
-
-* C cool, but cannot make a large codebase DRY without insanity
-* Ruby: the exact same as Python, and only strong in one domain: web, while Python rules everything else, and is not bad on web either. So just kill Ruby, please.
-* JavaScript: it is totally fine if NodeJS destroys Python and becomes the ONE scripting language to rule them all since Python and JavaScript are almost equally crappy.
-+
-People just don't use it much because of ecosystem / unfamiliarity.
-* Java: good language, but has an ugly enterprisey ecosystem, Oracle has made / kept the development process too closed, and {cirosantilli-wiki-oracle-v-google}[API patenting madness on Android just kills if off completely]
-* Haskell: many have tried to learn some functional stuff, but too hard. Sounds really cool though.
-* Rust: sounds cool, you will gladly replace C and C++ with it if the ecosystem ramps up.
-* Go: likely a good replacement for Python. If the ecosystem gets there, you will gladly use it more.
-* Swift: xref:apple-inc[] is xref:evil[]
-* C#: xref:microsoft-windows[Microsoft] is xref:evil[]
-* Tcl, Perl: Python killed them way back and is less insane
-* R, GNU Octave: all of this is a waste of society's time, applied mathematicians are capable of writing a few braces in exchange for a sane general purpose language, we should just invest in good libraries with fast C bindings for those languages like NumPy where needed. And when Ciro see the closed source ones like MATLAB being used, it makes him lose all hope on humanity.
-
 === Ciro Santilli's website
 
 xref:ciro-santilli[]'s website is hosted at {cirosantilli-website}.
@@ -794,6 +765,7 @@ Build locally, watch for changes and rebuild automatically, and start a local se
 
 ....
 bundle install
+npm install
 ./run
 ....
 
@@ -846,7 +818,6 @@ GitHub pages is chosen instead of a GitHub README for the following reasons:
 ** https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
 ** https://www.quora.com/How-can-I-combine-latex-and-markdown-in-GitHub
 * when GitHub dies, Ciro's website URL still lives and retains the PageRank!
-
 
 ==== Unmigrated sections of the old version of Ciro Santilli's website
 
@@ -2005,6 +1976,181 @@ The artistic instrument that enables the ultimate xref:art[]: coding, in particu
 Much more useful than instruments used in inferior arts, such as pianos or paintbrushes.
 
 Unlike other humans, computers are mindless slaves that do exactly what they are told to, except for https://www.youtube.com/watch?v=aNzTUdOHm9A[occasional cosmic ray bit flips]. Until they xref:artificial-general-intelligence[take over the world that is].
+
+=== Programming languages
+
+https://en.wikipedia.org/wiki/Programming_language
+
+A language that allows you to talk and command a xref:computer[].
+
+There is only space for two languages at most in the world: the compiled one, and the interpreted one.
+
+For now, when you have a choice, you must go for:
+
+* Python as the interpreted one
+* C++ for compiled
+
+Those two are languages not by any means perfect from a language design point of view, and there are likely already better alternatives, they are only chosen due to a pragmatic tradeoff between ecosystem and familiarity.
+
+Bash can also be used when you're lazy. But if the project goes on, you will sooner or later regret that choice.
+
+The language syntax in itself does not matter. All that matters is how many useful libraries and tooling it has.
+
+This is how other languages compare:
+
+* C cool, but cannot make a large codebase DRY without insanity
+* Ruby: the exact same as Python, and only strong in one domain: web, while Python rules everything else, and is not bad on web either. So just kill Ruby, please.
+* xref:javascript[]: it is totally fine if NodeJS destroys Python and becomes the ONE scripting language to rule them all since Python and JavaScript are almost equally crappy.
+* Java: good language, but has an ugly enterprisey ecosystem, Oracle has made / kept the development process too closed, and {cirosantilli-wiki-oracle-v-google}[API patenting madness on Android just kills if off completely]
+* Haskell: many have tried to learn some functional stuff, but too hard. Sounds really cool though.
+* Rust: sounds cool, you will gladly replace C and C++ with it if the ecosystem ramps up.
+* Go: likely a good replacement for Python. If the ecosystem gets there, you will gladly use it more.
+* Swift: xref:apple-inc[] is xref:evil[]
+* C#: xref:microsoft-windows[Microsoft] is xref:evil[]
+* Tcl, Perl: Python killed them way back and is less insane
+* R, GNU Octave: all of this is a waste of society's time, applied mathematicians are capable of writing a few braces in exchange for a sane general purpose language, we should just invest in good libraries with fast C bindings for those languages like NumPy where needed. And when Ciro see the closed source ones like MATLAB being used, it makes him lose all hope on humanity.
+
+==== JavaScript
+
+https://en.wikipedia.org/wiki/JavaScript
+
+The language all browsers converted to as of 2019, and therefore the easiest one to distribute and most widely implemented programming language.
+
+Hopefully will be killed by https://en.wikipedia.org/wiki/WebAssembly[WebAssembly] one day.
+
+===== HTML canvas
+
+https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+Allows us to draw! Great way to create xref:computational-physics[] demos!
+
+Here is an animation demo with some useful controls:
+
+ifdef::backend-html5[]
+++++
+<div class="canvas-demo">
+    <div>enable: <input type="checkbox" id="canvas-enable"></input> &lt;-- (click this to run!!!)</div>
+    <div>canvas width: <input type="number" min="10" id="canvas-width-input" value="128"></input> (very large will make the browser tab hang)</div>
+    <div>save images: <input type="checkbox" id="canvas-save-images-checkbox"></input> (some images are skipped if FPS is high)</div>
+    <div>FPS limit: <input type="number" min="10" id="canvas-fps-limit" value=""></input></div>
+    <div>FPS granule: <input type="number" min="10" id="canvas-fps-granule" value="5"></input></div>
+    <div>total frames: <span id="canvas-total-frames"></span></div>
+    <div>FPS: <span id="canvas-fps"></span></div>
+    <canvas id="canvas-canvas" style="border:1px solid black;"></canvas>
+</div>
+<script>
+(function() {
+    // Load required scripts.
+    // https://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js/14521482#14521482
+    // https://stackoverflow.com/questions/10004112/how-can-i-wait-for-set-of-asynchronous-callback-functions
+    var script = document.createElement('script');
+    script.onload = main;
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js';
+    document.head.appendChild(script);
+    function main() {
+        //do stuff with the script
+        var demo_id = 'canvas';
+        var canvas = document.getElementById(demo_id + '-canvas');
+        var ctx = canvas.getContext('2d');
+        var pixel_size = 1;
+        var t = 0;
+        var fps_span = document.getElementById(demo_id + '-fps');
+        var fps_last_date = new Date();
+        var fps_granule_input = document.getElementById(demo_id + '-fps-granule');
+        var canvas_width_input = document.getElementById(demo_id + '-width-input');
+        // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+        var save_images_checkbox = document.getElementById(demo_id + '-save-images-checkbox');
+        var total_frames_span = document.getElementById(demo_id + '-total-frames');
+        total_frames_span.innerHTML = t.toString();
+
+        /* FPS limit. */
+        var fps_limit_input = document.getElementById(demo_id + '-fps-limit');
+        var fps_limit_last_render = Date.now();
+        var now, fps_limit_then, fps_limit_elapsed;
+        fps_limit_then = Date.now();
+
+        /* Enable disable. */
+        var enable_checkbox = document.getElementById(demo_id + '-enable');
+        enable_checkbox.addEventListener('change', drawIfEnabled)
+        function drawIfEnabled() {
+            if (enable_checkbox.checked) {
+                window.requestAnimationFrame(draw);
+            }
+        }
+
+        /* We need this to fix t because toBlob calls are asynchronous. */
+        function createBlobFunc(t) {
+            return function(blob) {
+                // From FileSaver.js.
+                saveAs(blob, 'canvas-' + t.toString() + '.png');
+            };
+        }
+
+        function resizeCanvas() {
+            var canvas_width = parseInt(canvas_width_input.value);
+            if (isNaN(canvas_width)) {
+                canvas_width = parseInt(canvas_width_input.getAttribute('value'));
+            }
+            canvas.width = canvas_width;
+            canvas.height = canvas_width;
+        }
+
+        function draw() {
+            drawIfEnabled();
+            var fps_limit = parseFloat(fps_limit_input.value);
+            if (!isNaN(fps_limit)) {
+                var fps_limit_time_millis = 1000.0 / fps_limit;
+                now = Date.now();
+                fps_limit_elapsed = now - fps_limit_then;
+            }
+            if (isNaN(fps_limit) || (fps_limit_elapsed > fps_limit_time_millis)) {
+                if (!isNaN(fps_limit)) {
+                    fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
+                }
+                resizeCanvas();
+
+                // The actual drawing.
+                for (x = 0; x < canvas.width; x += pixel_size) {
+                    for (y = 0; y < canvas.height; y += pixel_size) {
+                        var b = ((1.0 + Math.sin(t * Math.PI / 16)) / 2.0);
+                        ctx.fillStyle =
+                            'rgba(' +
+                            (x / canvas.width) * 255 + ',' +
+                            (y / canvas.height) * 255 + ',' +
+                            b * 255 +
+                            ',255)'
+                        ;
+                        ctx.fillRect(x, y, pixel_size, pixel_size);
+                    }
+                }
+
+                // Save the images to files.
+                // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
+                if (save_images_checkbox.checked) {
+                    canvas.toBlob(createBlobFunc(t));
+                }
+                t++;
+                total_frames_span.innerHTML = t.toString();
+                fps_limit_last_render = Date.now();
+
+                /* FPS calculation. */
+                var fps_granule = parseInt(fps_granule_input.value);
+                if (t % fps_granule == 0) {
+                    var fps_date = Date.now();
+                    fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - fps_last_date)).toFixed(2);
+                    fps_last_date = fps_date;
+                }
+            }
+        }
+        resizeCanvas();
+        drawIfEnabled();
+    };
+})();
+</script>
+++++
+endif::[]
+
+Bibliography: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations
 
 === Moore's law
 
