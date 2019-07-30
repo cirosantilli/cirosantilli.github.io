@@ -7,10 +7,16 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-47867706-1', 'auto');
 ga('send', 'pageview');
 
-// Load required scripts.
-// https://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js/14521482#14521482
-// https://stackoverflow.com/questions/10004112/how-can-i-wait-for-set-of-asynchronous-callback-functions
-// https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script
+// Load required scripts dynamically:
+//
+// * https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script/57267538#57267538
+// * https://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js/14521482#14521482
+// * https://stackoverflow.com/questions/10004112/how-can-i-wait-for-set-of-asynchronous-callback-functions
+//
+// We use to reduce the initial load time.
+//
+// Each script is loaded only once after it has finished loading for the first time,
+// even if this function is called multiple times.
 async function cirosantilli_load_scripts(script_urls) {
     function load(script_url) {
         return new Promise(function(resolve, reject) {
@@ -35,6 +41,128 @@ async function cirosantilli_load_scripts(script_urls) {
 }
 cirosantilli_load_scripts.loaded = new Set();
 
+// Create some nice controls for a canvas demo!
+//
+// `draw_func(ctx, width, height, time)`:
+//
+// * ctx: canvas context
+// * width, height: integers
+// * time: integer time step
+function cirosantilli_create_canvas_demo(demo_id, draw_func) {
+    (async () => {
+    var canvas_demo_prefix = 'canvas-demo';
+    var this_demo_prefix = '${canvas_demo_prefix}_${demo_id}';
+
+    // HTML.
+    var html = `
+    <div class="${canvas_demo_prefix}" id="${this_demo_prefix}_wrapper">
+        <div><label>enable: <input type="checkbox" id="${this_demo_prefix}_enable"></input> &lt;-- (click this to run!!!)</label></div>
+        <div>canvas width: <input type="number" min="10" id="${this_demo_prefix}_width-input" value="128"></input> (very large will make the browser tab hang)</div>
+        <div><label>save images: <input type="checkbox" id="${this_demo_prefix}_save-images-checkbox"></input> (some images are skipped if FPS is high)</label></div>
+        <div>FPS limit: <input type="number" min="10" id="${this_demo_prefix}_fps-limit" value=""></input></div>
+        <div>FPS granule: <input type="number" min="10" id="${this_demo_prefix}_fps-granule" value="5"></input></div>
+        <div>total frames: <span id="${this_demo_prefix}_total-frames"></span></div>
+        <div>FPS: <span id="${this_demo_prefix}_fps"></span></div>
+        <canvas id="${this_demo_prefix}_canvas" style="border:1px solid black;"></canvas>
+    </div>
+    `;
+    document.currentScript.insertAdjacentHTML('beforebegin', html);
+
+    //do stuff with the script
+    var canvas = document.getElementById(`${this_demo_prefix}_canvas`);
+    var ctx = canvas.getContext('2d');
+    var time = 0;
+    var fps_span = document.getElementById(`${this_demo_prefix}_fps`);
+    var fps_last_date = new Date();
+    var fps_granule_input = document.getElementById(`${this_demo_prefix}_fps-granule`);
+    var canvas_width_input = document.getElementById(`${this_demo_prefix}_width-input`);
+    // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+    var save_images_checkbox = document.getElementById(`${this_demo_prefix}_save-images-checkbox`);
+    var total_frames_span = document.getElementById(`${this_demo_prefix}_total-frames`);
+    total_frames_span.innerHTML = time.toString();
+
+    // FPS limit.
+    var fps_limit_input = document.getElementById(`${this_demo_prefix}_fps-limit`);
+    var fps_limit_last_render = Date.now();
+    var now, fps_limit_then, fps_limit_elapsed;
+    fps_limit_then = Date.now();
+
+    // Enable disable.
+    var enable_checkbox = document.getElementById(`${this_demo_prefix}_enable`);
+    enable_checkbox.addEventListener('change', async () => {
+        init();
+    });
+
+    // We need this to fix time because toBlob calls are asynchronous.
+    function createBlobFunc(time) {
+        return (blob) => {
+            // From FileSaver.js.
+            saveAs(blob, 'canvas-' + time.toString() + '.png');
+        };
+    }
+
+    function resizeCanvas() {
+        var canvas_width = parseInt(canvas_width_input.value);
+        if (isNaN(canvas_width)) {
+            canvas_width = parseInt(canvas_width_input.getAttribute('value'));
+        }
+        canvas.width = canvas_width;
+        canvas.height = canvas_width;
+    }
+
+    function animate() {
+        var fps_limit = parseFloat(fps_limit_input.value);
+        if (!isNaN(fps_limit)) {
+            var fps_limit_time_millis = 1000.0 / fps_limit;
+            now = Date.now();
+            fps_limit_elapsed = now - fps_limit_then;
+        }
+        if (isNaN(fps_limit) || (fps_limit_elapsed > fps_limit_time_millis)) {
+            if (!isNaN(fps_limit)) {
+                fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
+            }
+            resizeCanvas();
+
+            // The actual drawing.
+            draw_func(ctx, canvas.width, canvas.height, time);
+
+            // Save the images to files.
+            // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
+            if (save_images_checkbox.checked) {
+                canvas.toBlob(createBlobFunc(time));
+            }
+            time++;
+            total_frames_span.innerHTML = time.toString();
+            fps_limit_last_render = Date.now();
+
+            /* FPS calculation. */
+            var fps_granule = parseInt(fps_granule_input.value);
+            if (time % fps_granule == 0) {
+                var fps_date = Date.now();
+                fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - fps_last_date)).toFixed(2);
+                fps_last_date = fps_date;
+            }
+        }
+        if (enable_checkbox.checked) {
+            window.requestAnimationFrame(animate);
+        }
+    }
+
+    async function init() {
+        if (enable_checkbox.checked) {
+            if (!init.init) {
+                await cirosantilli_load_scripts(['https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js']);
+                init.init = true;
+            }
+            window.requestAnimationFrame(animate);
+        };
+    }
+    init.init = false;
+
+    resizeCanvas();
+    await init();
+    })();
+}
 </script>
 <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
@@ -47,6 +175,9 @@ cirosantilli_load_scripts.loaded = new Set();
 <style>
 body {
   padding-left: 10px;
+}
+label {
+    font-weight: normal !important;
 }
 .imageblock {
   margin-bottom: 10px;
