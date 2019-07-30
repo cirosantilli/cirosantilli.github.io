@@ -132,7 +132,7 @@ Other major things that could be added there as well in the future are:
 
 [link={cirosantilli-stack-overflow}]
 .Ciro Santilli's amazing Stack Overflow profile
-image::https://stackoverflow.com/users/flair/895245.png?theme=dark[Stack overflow flare]
+image::https://stackoverflow.com/users/flair/895245.png?theme=dark[Stack overflow flare,height=58]
 
 xref:ciro-santilli[]'s xref:stack-overflow[] contributions have, unsurprisingly, centered around the subjects he has worked with: systems programming and web development, and necessary tooling to get those done, such a Git, Python, Bash and Ubuntu.
 
@@ -172,7 +172,7 @@ The campaign has centered around {cirosantilli-china-dictatorship}/tree/714d8104
 [[image-xi-jinping-chrysanthemum-230-liusi]]
 [link=#image-xi-jinping-chrysanthemum-230-liusi]
 .https://www.independent.co.uk/news/world/asia/chinese-artist-who-posted-funny-image-of-president-xi-jinping-facing-five-years-in-prison-as-10282630.html[Chrysanthemum Xi Jinping] with https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests[六四] spice added by Ciro Santilli
-image::xi-jinping-chrysanthemum-230-liusi.jpeg[]
+image::xi-jinping-chrysanthemum-230-liusi.jpeg[height=230]
 
 Like most people in the West, Ciro has always been for political freedom of speech, and therefore against the Chinese government's policies.
 
@@ -191,7 +191,7 @@ This campaign has led him to have an insane profile view / reputation ratio, sin
 [[image-stack-overflow-reputation-profile-views-ciro-santilli]]
 .Stack Overflow reputation vs Profile Views as of 2019 with Ciro Santilli marked as "A"
 [link=#image-stack-overflow-reputation-profile-views-ciro-santilli]
-image::stack-overflow-reputation-profile-views-ciro-santilli.png[]
+image::stack-overflow-reputation-profile-views-ciro-santilli.png[height=473]
 
 Further analysis has been done at: https://stats.stackexchange.com/questions/376361/how-to-find-the-sample-points-that-have-statistically-meaningful-large-outlier-r
 
@@ -220,7 +220,7 @@ GitLab sent Ciro a free swag bottle later after they got funding on to thank him
 [[image-gitlab-bottle-beach]]
 [link=#image-gitlab-bottle-beach]
 .Ciro Santilli at the beach with his GitLab bottle
-image::gitlab-bottle-beach.jpg[]
+image::gitlab-bottle-beach.jpg[height=225]
 ** link:/markdown-style-guide[Markdown Style Guide]
 ** https://github.com/karlcow/markdown-testsuite[Markdown Testsuite improvements]: Ciro has implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
 +
@@ -320,7 +320,7 @@ Prior art research: https://github.com/cirosantilli/awesome-reinforcement-learni
 [[image-ai-game-2d-continuous-basketball]]
 [link=#image-ai-game-2d-continuous-basketball]
 .Screenshot of the "Basketrock" stage
-image::ai-game-2d-continuous-basketball.png[]
+image::ai-game-2d-continuous-basketball.png[height=531]
 
 The goal of this project is to reach xref:artificial-general-intelligence[artificial general intelligence].
 
@@ -417,7 +417,7 @@ First, during the 2000's, the cost of sequencing fell to about 1000 USD per geno
 [[image-human-genome-sequencing-cost-evolution]]
 [link=#image-human-genome-sequencing-cost-evolution]
 .Cost per genome vs Moore's law from 2000 to 2019, image https://www.genome.gov/sites/default/files/inline-images/Sequencing_Cost_Per_Genome_Feb%202019.png[by the NIH]
-image::human-genome-sequencing-cost-evolution.png[]
+image::human-genome-sequencing-cost-evolution.png[height=338]
 
 Then, in the 2010's, https://en.wikipedia.org/wiki/CRISPR_gene_editing[CRISPR/Cas9 gene editing] started opening up the way to actually modifying the genome that we could now see.
 
@@ -2005,7 +2005,7 @@ This is how other languages compare:
 * Haskell: many have tried to learn some functional stuff, but too hard. Sounds really cool though.
 * Rust: sounds cool, you will gladly replace C and C++ with it if the ecosystem ramps up.
 * Go: likely a good replacement for Python. If the ecosystem gets there, you will gladly use it more.
-* Swift: xref:apple-inc[] is xref:evil[]
+* Swift: xref:apple-inc[Apple] is xref:evil[]
 * C#: xref:microsoft-windows[Microsoft] is xref:evil[]
 * Tcl, Perl: Python killed them way back and is less insane
 * R, GNU Octave: all of this is a waste of society's time, applied mathematicians are capable of writing a few braces in exchange for a sane general purpose language, we should just invest in good libraries with fast C bindings for those languages like NumPy where needed. And when Ciro see the closed source ones like MATLAB being used, it makes him lose all hope on humanity.
@@ -2028,123 +2028,136 @@ Here is an animation demo with some useful controls:
 
 ifdef::backend-html5[]
 ++++
-<div class="canvas-demo">
-    <div>enable: <input type="checkbox" id="canvas-enable"></input> &lt;-- (click this to run!!!)</div>
-    <div>canvas width: <input type="number" min="10" id="canvas-width-input" value="128"></input> (very large will make the browser tab hang)</div>
-    <div>save images: <input type="checkbox" id="canvas-save-images-checkbox"></input> (some images are skipped if FPS is high)</div>
-    <div>FPS limit: <input type="number" min="10" id="canvas-fps-limit" value=""></input></div>
-    <div>FPS granule: <input type="number" min="10" id="canvas-fps-granule" value="5"></input></div>
-    <div>total frames: <span id="canvas-total-frames"></span></div>
-    <div>FPS: <span id="canvas-fps"></span></div>
-    <canvas id="canvas-canvas" style="border:1px solid black;"></canvas>
-</div>
 <script>
-(function() {
-    // Load required scripts.
-    // https://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js/14521482#14521482
-    // https://stackoverflow.com/questions/10004112/how-can-i-wait-for-set-of-asynchronous-callback-functions
-    var script = document.createElement('script');
-    script.onload = main;
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js';
-    document.head.appendChild(script);
-    function main() {
-        //do stuff with the script
-        var demo_id = 'canvas';
-        var canvas = document.getElementById(demo_id + '-canvas');
-        var ctx = canvas.getContext('2d');
-        var pixel_size = 1;
-        var t = 0;
-        var fps_span = document.getElementById(demo_id + '-fps');
-        var fps_last_date = new Date();
-        var fps_granule_input = document.getElementById(demo_id + '-fps-granule');
-        var canvas_width_input = document.getElementById(demo_id + '-width-input');
-        // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
-        var save_images_checkbox = document.getElementById(demo_id + '-save-images-checkbox');
-        var total_frames_span = document.getElementById(demo_id + '-total-frames');
-        total_frames_span.innerHTML = t.toString();
+// Tested in Chromium 75.
 
-        /* FPS limit. */
-        var fps_limit_input = document.getElementById(demo_id + '-fps-limit');
-        var fps_limit_last_render = Date.now();
-        var now, fps_limit_then, fps_limit_elapsed;
-        fps_limit_then = Date.now();
+(async () => {
 
-        /* Enable disable. */
-        var enable_checkbox = document.getElementById(demo_id + '-enable');
-        enable_checkbox.addEventListener('change', drawIfEnabled)
-        function drawIfEnabled() {
-            if (enable_checkbox.checked) {
-                window.requestAnimationFrame(draw);
-            }
-        }
+var demo_id = 'canvas';
+var canvas_demo_prefix = 'canvas-demo';
+var this_demo_prefix = '${canvas_demo_prefix}_${demo_id}';
 
-        /* We need this to fix t because toBlob calls are asynchronous. */
-        function createBlobFunc(t) {
-            return function(blob) {
-                // From FileSaver.js.
-                saveAs(blob, 'canvas-' + t.toString() + '.png');
-            };
-        }
+// HTML.
+var html = `
+<div class="${canvas_demo_prefix}" id="${this_demo_prefix}_wrapper">
+    <div>enable: <input type="checkbox" id="${this_demo_prefix}_enable"></input> &lt;-- (click this to run!!!)</div>
+    <div>canvas width: <input type="number" min="10" id="${this_demo_prefix}_width-input" value="128"></input> (very large will make the browser tab hang)</div>
+    <div>save images: <input type="checkbox" id="${this_demo_prefix}_save-images-checkbox"></input> (some images are skipped if FPS is high)</div>
+    <div>FPS limit: <input type="number" min="10" id="${this_demo_prefix}_fps-limit" value=""></input></div>
+    <div>FPS granule: <input type="number" min="10" id="${this_demo_prefix}_fps-granule" value="5"></input></div>
+    <div>total frames: <span id="${this_demo_prefix}_total-frames"></span></div>
+    <div>FPS: <span id="${this_demo_prefix}_fps"></span></div>
+    <canvas id="${this_demo_prefix}_canvas" style="border:1px solid black;"></canvas>
+</div>
+`;
+document.currentScript.insertAdjacentHTML('beforebegin', html);
 
-        function resizeCanvas() {
-            var canvas_width = parseInt(canvas_width_input.value);
-            if (isNaN(canvas_width)) {
-                canvas_width = parseInt(canvas_width_input.getAttribute('value'));
-            }
-            canvas.width = canvas_width;
-            canvas.height = canvas_width;
-        }
+//do stuff with the script
+var canvas = document.getElementById(this_demo_prefix + '_canvas');
+var ctx = canvas.getContext('2d');
+var pixel_size = 1;
+var t = 0;
+var fps_span = document.getElementById(this_demo_prefix + '_fps');
+var fps_last_date = new Date();
+var fps_granule_input = document.getElementById(this_demo_prefix + '_fps-granule');
+var canvas_width_input = document.getElementById(this_demo_prefix + '_width-input');
+// https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+var save_images_checkbox = document.getElementById(this_demo_prefix + '_save-images-checkbox');
+var total_frames_span = document.getElementById(this_demo_prefix + '_total-frames');
+total_frames_span.innerHTML = t.toString();
 
-        function draw() {
-            drawIfEnabled();
-            var fps_limit = parseFloat(fps_limit_input.value);
-            if (!isNaN(fps_limit)) {
-                var fps_limit_time_millis = 1000.0 / fps_limit;
-                now = Date.now();
-                fps_limit_elapsed = now - fps_limit_then;
-            }
-            if (isNaN(fps_limit) || (fps_limit_elapsed > fps_limit_time_millis)) {
-                if (!isNaN(fps_limit)) {
-                    fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
-                }
-                resizeCanvas();
+// FPS limit.
+var fps_limit_input = document.getElementById(this_demo_prefix + '_fps-limit');
+var fps_limit_last_render = Date.now();
+var now, fps_limit_then, fps_limit_elapsed;
+fps_limit_then = Date.now();
 
-                // The actual drawing.
-                for (x = 0; x < canvas.width; x += pixel_size) {
-                    for (y = 0; y < canvas.height; y += pixel_size) {
-                        var b = ((1.0 + Math.sin(t * Math.PI / 16)) / 2.0);
-                        ctx.fillStyle =
-                            'rgba(' +
-                            (x / canvas.width) * 255 + ',' +
-                            (y / canvas.height) * 255 + ',' +
-                            b * 255 +
-                            ',255)'
-                        ;
-                        ctx.fillRect(x, y, pixel_size, pixel_size);
-                    }
-                }
+// Enable disable.
+var enable_checkbox = document.getElementById(this_demo_prefix + '_enable');
+enable_checkbox.addEventListener('change', async () => {
+    init();
+});
 
-                // Save the images to files.
-                // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
-                if (save_images_checkbox.checked) {
-                    canvas.toBlob(createBlobFunc(t));
-                }
-                t++;
-                total_frames_span.innerHTML = t.toString();
-                fps_limit_last_render = Date.now();
+function requestDraw() {
+    if (enable_checkbox.checked) {
+        window.requestAnimationFrame(draw);
+    }
+}
 
-                /* FPS calculation. */
-                var fps_granule = parseInt(fps_granule_input.value);
-                if (t % fps_granule == 0) {
-                    var fps_date = Date.now();
-                    fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - fps_last_date)).toFixed(2);
-                    fps_last_date = fps_date;
-                }
-            }
+// We need this to fix t because toBlob calls are asynchronous.
+function createBlobFunc(t) {
+    return (blob) => {
+        // From FileSaver.js.
+        saveAs(blob, 'canvas-' + t.toString() + '.png');
+    };
+}
+
+function resizeCanvas() {
+    var canvas_width = parseInt(canvas_width_input.value);
+    if (isNaN(canvas_width)) {
+        canvas_width = parseInt(canvas_width_input.getAttribute('value'));
+    }
+    canvas.width = canvas_width;
+    canvas.height = canvas_width;
+}
+
+function draw() {
+    var fps_limit = parseFloat(fps_limit_input.value);
+    if (!isNaN(fps_limit)) {
+        var fps_limit_time_millis = 1000.0 / fps_limit;
+        now = Date.now();
+        fps_limit_elapsed = now - fps_limit_then;
+    }
+    if (isNaN(fps_limit) || (fps_limit_elapsed > fps_limit_time_millis)) {
+        if (!isNaN(fps_limit)) {
+            fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
         }
         resizeCanvas();
-        drawIfEnabled();
+
+        // The actual drawing.
+        for (x = 0; x < canvas.width; x += pixel_size) {
+            for (y = 0; y < canvas.height; y += pixel_size) {
+                var b = ((1.0 + Math.sin(t * Math.PI / 16)) / 2.0);
+                ctx.fillStyle =
+                    'rgba(' +
+                    (x / canvas.width) * 255 + ',' +
+                    (y / canvas.height) * 255 + ',' +
+                    b * 255 +
+                    ',255)'
+                ;
+                ctx.fillRect(x, y, pixel_size, pixel_size);
+            }
+        }
+
+        // Save the images to files.
+        // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
+        if (save_images_checkbox.checked) {
+            canvas.toBlob(createBlobFunc(t));
+        }
+        t++;
+        total_frames_span.innerHTML = t.toString();
+        fps_limit_last_render = Date.now();
+
+        /* FPS calculation. */
+        var fps_granule = parseInt(fps_granule_input.value);
+        if (t % fps_granule == 0) {
+            var fps_date = Date.now();
+            fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - fps_last_date)).toFixed(2);
+            fps_last_date = fps_date;
+        }
+    }
+    requestDraw();
+}
+
+async function init() {
+    if (enable_checkbox.checked) {
+        await cirosantilli_load_scripts(['https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js']);
     };
+    requestDraw();
+}
+
+resizeCanvas();
+await init();
 })();
 </script>
 ++++
@@ -2178,13 +2191,15 @@ https://en.wikipedia.org/wiki/Linux
 
 It ain't perfect, but it's decent enough.
 
-I only wish they would track glibc and POSIX CLI utilities in-tree like, otherwise people have xref:linux-kernel-module-cheat[no way to get the thing running in the first place without blobs or large out-of-tree scripts]!
+Linux should track glibc and POSIX CLI utilities in-tree like xref:bsd-operating-systems[FreeBSD], otherwise people have xref:linux-kernel-module-cheat[no way to get the thing running in the first place without blobs or large out-of-tree scripts]!
 
 ==== BSD Operating Systems
 
 https://en.wikipedia.org/wiki/List_of_BSD_operating_systems
 
 Legal issues stalled them at the turning point of the internet, and xref:linux[] won. Can't change history.
+
+xref:apple-inc[] stole their work and made Mac OS X without giving anything back for free as usual.
 
 ==== Android
 

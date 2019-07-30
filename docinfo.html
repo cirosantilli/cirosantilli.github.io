@@ -6,6 +6,35 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-47867706-1', 'auto');
 ga('send', 'pageview');
+
+// Load required scripts.
+// https://stackoverflow.com/questions/14521108/dynamically-load-js-inside-js/14521482#14521482
+// https://stackoverflow.com/questions/10004112/how-can-i-wait-for-set-of-asynchronous-callback-functions
+// https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script
+async function cirosantilli_load_scripts(script_urls) {
+    function load(script_url) {
+        return new Promise(function(resolve, reject) {
+            if (cirosantilli_load_scripts.loaded.has(script_url)) {
+                resolve();
+            } else {
+                var script = document.createElement('script');
+                script.onload = resolve;
+                script.src = script_url
+                document.head.appendChild(script);
+            }
+        });
+    }
+    var promises = [];
+    for (const script_url of script_urls) {
+        promises.push(load(script_url));
+    }
+    await Promise.all(promises);
+    for (const script_url of script_urls) {
+        cirosantilli_load_scripts.loaded.add(script_url);
+    }
+}
+cirosantilli_load_scripts.loaded = new Set();
+
 </script>
 <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
