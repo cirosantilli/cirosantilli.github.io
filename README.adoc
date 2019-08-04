@@ -1,5 +1,5 @@
 = Ciro Santilli (三西猴)
-:description: Software engineer. Passion for low-level technologies and educational applications. Opinions are my own.
+:description: Software engineer. Passion for computers, natural sciences and education. Opinions are my own.
 :docinfo: shared
 :eqnums: all
 :idprefix:
@@ -1579,6 +1579,7 @@ Even if they don't, other people will still see your answer anyways, and this wi
 * If you haven't answered a question, link to related questions you've answered on question comments, so more people will come to your answers.
 +
 If you have answered the question, only link to other questions at the bottom of your answer, so that people won't go away before they reach your answer, and so as to strengthen your answer.
+* if a question has 50 million answers and you answer it (often due to a new feature), make a comment on the question pointing to your answer
 
 === Stack Overflow Vote Fraud Script
 
@@ -1857,7 +1858,7 @@ If they don't know what to do, give suggestions of interesting things they could
 
 Once they have a goal, just help them learn everything that is needed to achieve that goal
 
-This approach is called https://en.wikipedia.org/wiki/Backward_design[backward design].
+This approach is called xref:steve-jobs-backward-design-reply[backward design].
 
 [[how-to-teach--become-famous-through-teaching]]
 === Become famous through teaching
@@ -1932,7 +1933,22 @@ An xref:united-states-of-america[American] company that:
 * owns the entire stack and creates high quality highly optimized systems
 * uses way more open source than it gives back
 * creates closed lock-in systems without inter-operability and actively fights users from owning their devices
-* was founded by an xref:evil[] man who link:https://www.folklore.org/ProjectView.py?project=Macintosh&characters=Steve%20Jobs[had interesting thoughts and behaviours]
+
+==== Steve Jobs
+
+xref:evil[Evil] and interesting co-founder of xref:apple-inc[]
+
+* https://www.folklore.org/ProjectView.py?project=Macintosh&characters=Steve%20Jobs[]: some good anecdotes
+* https://www.youtube.com/watch?v=kYfNvmF0Bqw "The Steve Jobs: Secrets of Life film" by "Silicon Valley Historical Association" published on 2011-10-06
+* https://www.youtube.com/watch?v=FF-tKLISfPE&t=2s Steve Jobs Insult Response
+
+===== Steve Jobs backward design reply
+
+He's right. Goal first, then how to reach it.
+
+https://www.youtube.com/watch?v=FF-tKLISfPE "Steve Jobs Insult Response" by "Mike Cane" published in 2011-06-08
+
+https://en.wikipedia.org/wiki/Backward_design
 
 === Oracle Corporation
 
@@ -2029,10 +2045,12 @@ Here is an animation demo with some useful controls:
 ifdef::backend-html5[]
 ++++
 <script>
+(() => {
+// TODO also make controllable!
+var pixel_size = 1;
 cirosantilli_create_canvas_demo(
     'hello',
     (ctx, width, height, time) => {
-        var pixel_size = 1;
         for (x = 0; x < width; x += pixel_size) {
             for (y = 0; y < height; y += pixel_size) {
                 var b = ((1.0 + Math.sin(time * Math.PI / 16)) / 2.0);
@@ -2047,8 +2065,10 @@ cirosantilli_create_canvas_demo(
             }
         }
 
-    }
+    },
+    {'pixel_size': {'label': 'Pixel size', 'attributes': {'default': 1, 'type': 'number'}}}
 );
+})();
 </script>
 ++++
 endif::[]
@@ -2141,9 +2161,22 @@ xref:ciro-santilli[] joined the silicon industry at one point to help increase o
 
 == War
 
-=== Atomic weapons
+=== Nuclear weapon
+
+https://en.wikipedia.org/wiki/Nuclear_weapon
 
 https://youtu.be/hTRVlUT665U?t=2881 "Los Alamos From Below -- Richard Feynman". Feynman describing his experience at Los Alamos. This timestamp describes the computing aspects, but the entire talk is amazing. Transcript: http://calteches.library.caltech.edu/34/3/FeynmanLosAlamos.htm
+
+link:ciro-santilli[] is midly obsessed by nuclear reactions, because they are so quirky. How can a little ball destroy a city? How can putting too much of it togehter produce criticality and kill people like in the https://en.wikipedia.org/wiki/Demon_core[Slotin accident] or the https://www.youtube.com/watch?v=ZWomuWd7-to[Tokaimura criticality accident]. It is mind blowing really.
+
+Uranium vs plutonium: https://www.quora.com/What-is-the-difference-between-plutonium-and-uranium/answer/Ciro-Santilli
+
+More fun nuclear stuff to watch:
+
+* https://en.wikipedia.org/wiki/Dr._Strangelove
+* https://en.wikipedia.org/wiki/Chernobyl_(miniseries)
+* https://www.youtube.com/watch?v=g3SKBwzTtv0 "The World Of Enrico Fermi (1970)" produced by "Harvard Project Physics"
+* https://en.wikipedia.org/wiki/Fat_Man_and_Little_Boy
 
 == Chemistry
 

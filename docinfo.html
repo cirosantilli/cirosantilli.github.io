@@ -48,50 +48,115 @@ cirosantilli_load_scripts.loaded = new Set();
 // * ctx: canvas context
 // * width, height: integers
 // * time: integer time step
-function cirosantilli_create_canvas_demo(demo_id, draw_func) {
+// * inputs: map of custom GUI inputs for this demo, to be shown
+// next to generic demo parameters like enable and max FPS.
+// E.g. {"one_param_id": {"default": 1, "type": "number"}}
+// +
+// ....
+// {'pixel_size': {'label': 'Pixel size', 'attributes': {'default': 1, 'type': 'number'}}}
+// ....
+// * init_func: if undefined, called once when the script first loads
+function cirosantilli_create_canvas_demo(demo_id, draw_func, inputs, init_func) {
     (async () => {
+    // Random variables.
     var canvas_demo_prefix = 'canvas-demo';
     var this_demo_prefix = '${canvas_demo_prefix}_${demo_id}';
-
-    // HTML.
-    var html = `
-    <div class="${canvas_demo_prefix}" id="${this_demo_prefix}_wrapper">
-        <div><label>enable: <input type="checkbox" id="${this_demo_prefix}_enable"></input> &lt;-- (click this to run!!!)</label></div>
-        <div>canvas width: <input type="number" min="10" id="${this_demo_prefix}_width-input" value="128"></input> (very large will make the browser tab hang)</div>
-        <div><label>save images: <input type="checkbox" id="${this_demo_prefix}_save-images-checkbox"></input> (some images are skipped if FPS is high)</label></div>
-        <div>FPS limit: <input type="number" min="10" id="${this_demo_prefix}_fps-limit" value=""></input></div>
-        <div>FPS granule: <input type="number" min="10" id="${this_demo_prefix}_fps-granule" value="5"></input></div>
-        <div>total frames: <span id="${this_demo_prefix}_total-frames"></span></div>
-        <div>FPS: <span id="${this_demo_prefix}_fps"></span></div>
-        <canvas id="${this_demo_prefix}_canvas" style="border:1px solid black;"></canvas>
-    </div>
-    `;
-    document.currentScript.insertAdjacentHTML('beforebegin', html);
-
-    //do stuff with the script
-    var canvas = document.getElementById(`${this_demo_prefix}_canvas`);
-    var ctx = canvas.getContext('2d');
     var time = 0;
-    var fps_span = document.getElementById(`${this_demo_prefix}_fps`);
-    var fps_last_date = new Date();
-    var fps_granule_input = document.getElementById(`${this_demo_prefix}_fps-granule`);
-    var canvas_width_input = document.getElementById(`${this_demo_prefix}_width-input`);
-    // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
-    var save_images_checkbox = document.getElementById(`${this_demo_prefix}_save-images-checkbox`);
-    var total_frames_span = document.getElementById(`${this_demo_prefix}_total-frames`);
-    total_frames_span.innerHTML = time.toString();
-
-    // FPS limit.
-    var fps_limit_input = document.getElementById(`${this_demo_prefix}_fps-limit`);
     var fps_limit_last_render = Date.now();
+    // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
     var now, fps_limit_then, fps_limit_elapsed;
     fps_limit_then = Date.now();
+    var fps_last_date = new Date();
+    var canvas_width_input = document.getElementById(`${this_demo_prefix}_width-input`);
+
+    // HTML.
+    var canvas_wrapper = document.createElement('div');
+    canvas_wrapper.setAttribute('class', canvas_demo_prefix);
+    document.currentScript.parentNode.insertBefore(canvas_wrapper, document.currentScript);
 
     // Enable disable.
-    var enable_checkbox = document.getElementById(`${this_demo_prefix}_enable`);
-    enable_checkbox.addEventListener('change', async () => {
+    var enable_input = document.createElement('input');
+    enable_input.setAttribute('type', 'checkbox');
+    enable_input.setAttribute('value', '5');
+    enable_input.setAttribute('min', '1');
+    enable_input.addEventListener('change', async () => {
         init();
     });
+    var enable_label = document.createElement('label');
+    enable_label.appendChild(document.createTextNode('Enable: '));
+    enable_label.appendChild(enable_input);
+    enable_label.appendChild(document.createTextNode('<-- (click this to run!!!)'));
+    var enable_div = document.createElement('div');
+    enable_div.appendChild(enable_label);
+    canvas_wrapper.appendChild(enable_div);
+
+    //function add_input_after_enable(input_attributes) {
+    //    var input = 
+    //    for 
+    //}
+
+    //var canvas_width_input = add_input_after_enable();
+
+    // Canvas width.
+    var canvas_width_input = document.createElement('input');
+    canvas_width_input.setAttribute('type', 'number');
+    canvas_width_input.setAttribute('value', '128');
+    canvas_width_input.setAttribute('min', '1');
+    var canvas_width_div = document.createElement('div');
+    canvas_width_div.appendChild(document.createTextNode('canvas width: '));
+    canvas_width_div.appendChild(canvas_width_input);
+
+    canvas_wrapper.appendChild(canvas_width_div);
+
+    // Save images.
+    var save_images_input = document.createElement('input');
+    save_images_input.setAttribute('type', 'checkbox');
+    save_images_input.setAttribute('value', '5');
+    save_images_input.setAttribute('min', '1');
+    var save_images_div = document.createElement('div');
+    save_images_div.appendChild(document.createTextNode('Save images: '));
+    save_images_div.appendChild(save_images_input);
+    canvas_wrapper.appendChild(save_images_div);
+
+    // FPS limit
+    var fps_limit_input = document.createElement('input');
+    fps_limit_input.setAttribute('type', 'number');
+    fps_limit_input.setAttribute('min', '1');
+    var fps_limit_div = document.createElement('div');
+    fps_limit_div.appendChild(document.createTextNode('FPS limit: '));
+    fps_limit_div.appendChild(fps_limit_input);
+    canvas_wrapper.appendChild(fps_limit_div);
+
+    // FPS granule
+    var fps_granule_input = document.createElement('input');
+    fps_granule_input.setAttribute('type', 'number');
+    fps_granule_input.setAttribute('value', '5');
+    fps_granule_input.setAttribute('min', '0');
+    var fps_granule_div = document.createElement('div');
+    fps_granule_div.appendChild(document.createTextNode('FPS granule: '));
+    fps_granule_div.appendChild(fps_granule_input);
+    canvas_wrapper.appendChild(fps_granule_div);
+
+    // Total frames
+    var total_frames_span = document.createElement('span');
+    total_frames_span.innerHTML = time.toString();
+    var total_frames_div = document.createElement('div');
+    total_frames_div.appendChild(document.createTextNode('Total frames: '));
+    total_frames_div.appendChild(total_frames_span);
+    canvas_wrapper.appendChild(total_frames_div);
+
+    // FPS
+    var fps_span = document.createElement('span');
+    var fps_div = document.createElement('div');
+    fps_div.appendChild(document.createTextNode('FPS: '));
+    fps_div.appendChild(fps_span);
+    canvas_wrapper.appendChild(fps_div);
+
+    // Canvas.
+    var canvas = document.createElement('canvas');
+    canvas.setAttribute('style', 'border:1px solid black;');
+    canvas_wrapper.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
 
     // We need this to fix time because toBlob calls are asynchronous.
     function createBlobFunc(time) {
@@ -128,7 +193,7 @@ function cirosantilli_create_canvas_demo(demo_id, draw_func) {
 
             // Save the images to files.
             // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
-            if (save_images_checkbox.checked) {
+            if (save_images_input.checked) {
                 canvas.toBlob(createBlobFunc(time));
             }
             time++;
@@ -143,13 +208,13 @@ function cirosantilli_create_canvas_demo(demo_id, draw_func) {
                 fps_last_date = fps_date;
             }
         }
-        if (enable_checkbox.checked) {
+        if (enable_input.checked) {
             window.requestAnimationFrame(animate);
         }
     }
 
     async function init() {
-        if (enable_checkbox.checked) {
+        if (enable_input.checked) {
             if (!init.init) {
                 await cirosantilli_load_scripts(['https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js']);
                 init.init = true;
@@ -161,8 +226,14 @@ function cirosantilli_create_canvas_demo(demo_id, draw_func) {
 
     resizeCanvas();
     await init();
+    if (inputs !== undefined) {
+    }
+    if (init_func !== undefined) {
+        init_func(canvas_wrapper);
+    }
     })();
 }
+
 </script>
 <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
