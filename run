@@ -16,20 +16,18 @@ cd _site
 python -m SimpleHTTPServer &
 cd -
 
-# Auto rebuild.
-file=README.adoc
-atime="$(stat -c %Z "$file")"
-ltime="$atime"
-while true; do
-  atime="$(stat -c %Z "$file")"
-  if [ "$atime" != "$ltime" ]; then
-    echo "rebuild: ${atime}"
-    exit_status=0
-    time ./build-adoc || exit_status="$?"
-    if [ "$exit_status" -ne 0 ]; then
-      echo "BUILD ERROR!"
+# Rebuild if any git tracked file changes.
+# https://stackoverflow.com/questions/50902264/inotify-watch-files-changes-except-for-files-in-gitignore/57345781#57345781
+# https://superuser.com/questions/181517/how-to-execute-a-command-whenever-a-file-changes
+inotifywait --event close_write --monitor --recursive . |
+  while read -r directory events filename; do
+    if ! echo "$directory" | grep -Eq '^\.\/\.git' &&
+        ! git check-ignore --non-matching --verbose "${directory}/${filename}" >/dev/null 2>&1; then
+      echo "directory events filename: \"${directory}\" \"${events}\" \"${filename}\""
+      exit_status=0
+      env time -f 'build time: %E' ./build-adoc || exit_status="$?"
+      if [ "$exit_status" -ne 0 ]; then
+        echo "BUILD ERROR!"
+      fi
     fi
-    ltime="$atime"
-  fi
-  sleep 1
-done
+  done
