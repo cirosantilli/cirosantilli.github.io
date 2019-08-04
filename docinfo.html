@@ -42,198 +42,176 @@ async function cirosantilli_load_scripts(script_urls) {
 cirosantilli_load_scripts.loaded = new Set();
 
 // Create some nice controls for a canvas demo!
-//
-// `draw_func(ctx, width, height, time)`:
-//
-// * ctx: canvas context
-// * width, height: integers
-// * time: integer time step
-// * inputs: map of custom GUI inputs for this demo, to be shown
-// next to generic demo parameters like enable and max FPS.
-// E.g. {"one_param_id": {"default": 1, "type": "number"}}
-// +
-// ....
-// {'pixel_size': {'label': 'Pixel size', 'attributes': {'default': 1, 'type': 'number'}}}
-// ....
-// * init_func: if undefined, called once when the script first loads
-function cirosantilli_create_canvas_demo(demo_id, draw_func, inputs, init_func) {
-    (async () => {
-    // Random variables.
-    var canvas_demo_prefix = 'canvas-demo';
-    var this_demo_prefix = '${canvas_demo_prefix}_${demo_id}';
-    var time = 0;
-    var fps_limit_last_render = Date.now();
-    // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
-    var now, fps_limit_then, fps_limit_elapsed;
-    fps_limit_then = Date.now();
-    var fps_last_date = new Date();
-    var canvas_width_input = document.getElementById(`${this_demo_prefix}_width-input`);
+class CirosantilliCanvasDemo {
+    constructor(demo_id, enabled = false) {(async () => {
+        // Members.
+        this.time = 0;
+        this.demo_id = demo_id;
 
-    // HTML.
-    var canvas_wrapper = document.createElement('div');
-    canvas_wrapper.setAttribute('class', canvas_demo_prefix);
-    document.currentScript.parentNode.insertBefore(canvas_wrapper, document.currentScript);
+        // Random variables.
+        // https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+        this.fps_limit_then = Date.now();
+        this.fps_last_date = new Date();
 
-    // Enable disable.
-    var enable_input = document.createElement('input');
-    enable_input.setAttribute('type', 'checkbox');
-    enable_input.setAttribute('value', '5');
-    enable_input.setAttribute('min', '1');
-    enable_input.addEventListener('change', async () => {
-        init();
-    });
-    var enable_label = document.createElement('label');
-    enable_label.appendChild(document.createTextNode('Enable: '));
-    enable_label.appendChild(enable_input);
-    enable_label.appendChild(document.createTextNode('<-- (click this to run!!!)'));
-    var enable_div = document.createElement('div');
-    enable_div.appendChild(enable_label);
-    canvas_wrapper.appendChild(enable_div);
+        // HTML.
+        var canvas_wrapper = document.createElement('div');
+        canvas_wrapper.setAttribute('class', 'canvas-demo');
+        document.currentScript.parentNode.insertBefore(canvas_wrapper, document.currentScript);
 
-    //function add_input_after_enable(input_attributes) {
-    //    var input = 
-    //    for 
-    //}
-
-    //var canvas_width_input = add_input_after_enable();
-
-    // Canvas width.
-    var canvas_width_input = document.createElement('input');
-    canvas_width_input.setAttribute('type', 'number');
-    canvas_width_input.setAttribute('value', '128');
-    canvas_width_input.setAttribute('min', '1');
-    var canvas_width_div = document.createElement('div');
-    canvas_width_div.appendChild(document.createTextNode('canvas width: '));
-    canvas_width_div.appendChild(canvas_width_input);
-
-    canvas_wrapper.appendChild(canvas_width_div);
-
-    // Save images.
-    var save_images_input = document.createElement('input');
-    save_images_input.setAttribute('type', 'checkbox');
-    save_images_input.setAttribute('value', '5');
-    save_images_input.setAttribute('min', '1');
-    var save_images_div = document.createElement('div');
-    save_images_div.appendChild(document.createTextNode('Save images: '));
-    save_images_div.appendChild(save_images_input);
-    canvas_wrapper.appendChild(save_images_div);
-
-    // FPS limit
-    var fps_limit_input = document.createElement('input');
-    fps_limit_input.setAttribute('type', 'number');
-    fps_limit_input.setAttribute('min', '1');
-    var fps_limit_div = document.createElement('div');
-    fps_limit_div.appendChild(document.createTextNode('FPS limit: '));
-    fps_limit_div.appendChild(fps_limit_input);
-    canvas_wrapper.appendChild(fps_limit_div);
-
-    // FPS granule
-    var fps_granule_input = document.createElement('input');
-    fps_granule_input.setAttribute('type', 'number');
-    fps_granule_input.setAttribute('value', '5');
-    fps_granule_input.setAttribute('min', '0');
-    var fps_granule_div = document.createElement('div');
-    fps_granule_div.appendChild(document.createTextNode('FPS granule: '));
-    fps_granule_div.appendChild(fps_granule_input);
-    canvas_wrapper.appendChild(fps_granule_div);
-
-    // Total frames
-    var total_frames_span = document.createElement('span');
-    total_frames_span.innerHTML = time.toString();
-    var total_frames_div = document.createElement('div');
-    total_frames_div.appendChild(document.createTextNode('Total frames: '));
-    total_frames_div.appendChild(total_frames_span);
-    canvas_wrapper.appendChild(total_frames_div);
-
-    // FPS
-    var fps_span = document.createElement('span');
-    var fps_div = document.createElement('div');
-    fps_div.appendChild(document.createTextNode('FPS: '));
-    fps_div.appendChild(fps_span);
-    canvas_wrapper.appendChild(fps_div);
-
-    // Canvas.
-    var canvas = document.createElement('canvas');
-    canvas.setAttribute('style', 'border:1px solid black;');
-    canvas_wrapper.appendChild(canvas);
-    var ctx = canvas.getContext('2d');
-
-    // We need this to fix time because toBlob calls are asynchronous.
-    function createBlobFunc(time) {
-        return (blob) => {
-            // From FileSaver.js.
-            saveAs(blob, 'canvas-' + time.toString() + '.png');
-        };
-    }
-
-    function resizeCanvas() {
-        var canvas_width = parseInt(canvas_width_input.value);
-        if (isNaN(canvas_width)) {
-            canvas_width = parseInt(canvas_width_input.getAttribute('value'));
+        // Enable disable.
+        this.enable_input = document.createElement('input');
+        this.enable_input.setAttribute('type', 'checkbox');
+        this.enable_input.setAttribute('value', '5');
+        this.enable_input.setAttribute('min', '1');
+        if (enabled) {
+            this.enable_input.setAttribute('checked', '');
         }
-        canvas.width = canvas_width;
-        canvas.height = canvas_width;
+        this.enable_input.addEventListener('change', async () => {
+            await this.init();
+        });
+        var enable_label = document.createElement('label');
+        enable_label.appendChild(document.createTextNode('Enable: '));
+        enable_label.appendChild(this.enable_input);
+        enable_label.appendChild(document.createTextNode('<-- (click this to run!!!)'));
+        this.enable_div = document.createElement('div');
+        this.enable_div.appendChild(enable_label);
+        canvas_wrapper.appendChild(this.enable_div);
+
+        // All inputs and info entries.
+        this.fps_span = this.addInfoSpanAfterEnable('FPS');
+        this.total_frames_span = this.addInfoSpanAfterEnable('Total frames');
+        this.fps_granule_input = this.addInputAfterEnable(
+            'FPS granule',
+            {
+                'min': '1',
+                'type': 'number',
+                'value': '5'
+            }
+        );
+        this.fps_limit_input = this.addInputAfterEnable(
+            'FPS limit',
+            {
+                'min': '1',
+                'type': 'number'
+            }
+        );
+        this.save_images_input = this.addInputAfterEnable(
+            'Save images',
+            {
+                'type': 'checkbox',
+            }
+        );
+        this.canvas_width_input = this.addInputAfterEnable(
+            'canvas width',
+            {
+                'min': '1',
+                'type': 'number',
+                'value': '128'
+            }
+        );
+
+        // Canvas.
+        this.canvas = document.createElement('canvas');
+        this.canvas.setAttribute('style', 'border:1px solid black;');
+        canvas_wrapper.appendChild(this.canvas);
+        this.ctx = this.canvas.getContext('2d');
+        this.init_done = false;
+        this.resizeCanvas();
+        await this.init();
+    })()}
+
+    addInputAfterEnable(label, attributes) {
+        var input = document.createElement('input');
+        for (var key in attributes) {
+            input.setAttribute(key, attributes[key]);
+        }
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(label + ': '));
+        div.appendChild(input);
+        this.enable_div.parentNode.insertBefore(div, this.enable_div.nextSibling);
+        return input;
     }
 
-    function animate() {
-        var fps_limit = parseFloat(fps_limit_input.value);
+    addInfoSpanAfterEnable(label) {
+        var span = document.createElement('span');
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(label + ': '));
+        div.appendChild(span);
+        this.enable_div.parentNode.insertBefore(div, this.enable_div.nextSibling);
+        return span;
+
+    }
+
+    animate() {
+        var fps_limit = parseFloat(this.fps_limit_input.value);
         if (!isNaN(fps_limit)) {
             var fps_limit_time_millis = 1000.0 / fps_limit;
-            now = Date.now();
-            fps_limit_elapsed = now - fps_limit_then;
+            var now = Date.now();
+            var fps_limit_elapsed = now - this.fps_limit_then;
         }
         if (isNaN(fps_limit) || (fps_limit_elapsed > fps_limit_time_millis)) {
             if (!isNaN(fps_limit)) {
-                fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
+                this.fps_limit_then = now - (fps_limit_elapsed % fps_limit_time_millis);
             }
-            resizeCanvas();
+            this.resizeCanvas();
 
             // The actual drawing.
-            draw_func(ctx, canvas.width, canvas.height, time);
+            this.draw();
 
             // Save the images to files.
             // https://stackoverflow.com/questions/19235286/convert-html5-canvas-sequence-to-a-video-file/57153718#57153718
-            if (save_images_input.checked) {
-                canvas.toBlob(createBlobFunc(time));
+            if (this.save_images_input.checked) {
+                this.canvas.toBlob(this.constructor.createBlobFunc(this.demo_id, this.time));
             }
-            time++;
-            total_frames_span.innerHTML = time.toString();
-            fps_limit_last_render = Date.now();
+            this.time++;
+            this.total_frames_span.innerHTML = this.time.toString();
 
             /* FPS calculation. */
-            var fps_granule = parseInt(fps_granule_input.value);
-            if (time % fps_granule == 0) {
+            var fps_granule = parseInt(this.fps_granule_input.value);
+            if (this.time % fps_granule == 0) {
                 var fps_date = Date.now();
-                fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - fps_last_date)).toFixed(2);
-                fps_last_date = fps_date;
+                this.fps_span.innerHTML = (1000.0 * fps_granule / (fps_date - this.fps_last_date)).toFixed(2);
+                this.fps_last_date = fps_date;
             }
         }
-        if (enable_input.checked) {
-            window.requestAnimationFrame(animate);
+        if (this.enable_input.checked) {
+            window.requestAnimationFrame(this.animate.bind(this));
         }
     }
 
-    async function init() {
-        if (enable_input.checked) {
-            if (!init.init) {
-                await cirosantilli_load_scripts(['https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js']);
-                init.init = true;
-            }
-            window.requestAnimationFrame(animate);
+    // We need this to fix time because toBlob calls are asynchronous.
+    static createBlobFunc(demo_id, time) {
+        return (blob) => {
+            // From FileSaver.js.
+            saveAs(blob, `canvas-${demo_id}-${time}.png`);
         };
     }
-    init.init = false;
 
-    resizeCanvas();
-    await init();
-    if (inputs !== undefined) {
+    draw() {
+        throw new Error('unimplemented');
     }
-    if (init_func !== undefined) {
-        init_func(canvas_wrapper);
+
+    async init() {
+        if (this.enable_input.checked) {
+            if (!this.init_done) {
+                await cirosantilli_load_scripts(['https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js']);
+                this.init_done = true;
+            }
+            window.requestAnimationFrame(this.animate.bind(this));
+        };
     }
-    })();
+
+    resizeCanvas() {
+        var canvas_width = parseInt(this.canvas_width_input.value);
+        if (isNaN(canvas_width)) {
+            canvas_width = parseInt(this.canvas_width_input.getAttribute('value'));
+        }
+        this.canvas.width = canvas_width;
+        this.canvas.height = canvas_width;
+        this.width = canvas_width
+        this.height = canvas_width
+    }
 }
-
 </script>
 <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
