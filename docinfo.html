@@ -43,7 +43,7 @@ cirosantilli_load_scripts.loaded = new Set();
 
 // Create some nice controls for a canvas demo!
 class CirosantilliCanvasDemo {
-    constructor(demo_id, enabled = false) {(async () => {
+    constructor(demo_id, enabled = false, context_type = '2d') {(async () => {
         // Members.
         this.time = 0;
         this.demo_id = demo_id;
@@ -114,7 +114,7 @@ class CirosantilliCanvasDemo {
         this.canvas = document.createElement('canvas');
         this.canvas.setAttribute('style', 'border:1px solid black;');
         canvas_wrapper.appendChild(this.canvas);
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext(context_type);
         this.init_done = false;
         this.resizeCanvas();
         await this.init();

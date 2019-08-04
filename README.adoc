@@ -2046,8 +2046,8 @@ ifdef::backend-html5[]
 ++++
 <script>
 new class extends CirosantilliCanvasDemo {
-    constructor(demo_id, enabled) {
-        super(demo_id, enabled);
+    constructor() {
+        super('hello');
         this.pixel_size_input = this.addInputAfterEnable(
             'Pixel size',
             {
@@ -2072,14 +2072,76 @@ new class extends CirosantilliCanvasDemo {
                 this.ctx.fillRect(x, y, pixel_size, pixel_size);
             }
         }
-
     }
-}('hello');
+}();
 </script>
 ++++
 endif::[]
 
 Bibliography: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations
+
+===== WebGL
+
+https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example
+
+ifdef::backend-html5[]
+++++
+<script>
+new class extends CirosantilliCanvasDemo {
+    constructor() {
+        super('hello', undefined, 'webgl');
+        this.ctx.viewport(0, 0, this.ctx.drawingBufferWidth, this.ctx.drawingBufferHeight);
+        this.ctx.clearColor(0.0, 0.0, 0.0, 1.0);
+        this.vertexShaderSource = `
+#version 100
+precision highp float;
+attribute float position;
+void main() {
+    gl_Position = vec4(position, 0.0, 0.0, 1.0);
+    gl_PointSize = 64.0;
+}
+`;
+
+        this.fragmentShaderSource = `
+#version 100
+precision mediump float;
+void main() {
+    gl_FragColor = vec4(0.18, 0.0, 0.34, 1.0);
+}
+`;
+        this.vertexShader = this.ctx.createShader(this.ctx.VERTEX_SHADER);
+        this.ctx.shaderSource(this.vertexShader, this.vertexShaderSource);
+        this.ctx.compileShader(this.vertexShader);
+        this.fragmentShader = this.ctx.createShader(this.ctx.FRAGMENT_SHADER);
+        this.ctx.shaderSource(this.fragmentShader, this.fragmentShaderSource);
+        this.ctx.compileShader(this.fragmentShader);
+        this.program = this.ctx.createProgram();
+        this.ctx.attachShader(this.program, this.vertexShader);
+        this.ctx.attachShader(this.program, this.fragmentShader);
+        this.ctx.linkProgram(this.program);
+        this.ctx.detachShader(this.program, this.vertexShader);
+        this.ctx.detachShader(this.program, this.fragmentShader);
+        this.ctx.deleteShader(this.vertexShader);
+        this.ctx.deleteShader(this.fragmentShader);
+        if (!this.ctx.getProgramParameter(this.program, this.ctx.LINK_STATUS)) {
+            console.log('error ' + this.ctx.getProgramInfoLog(this.program));
+            return;
+        }
+        this.ctx.enableVertexAttribArray(0);
+        var buffer = this.ctx.createBuffer();
+        this.ctx.bindBuffer(this.ctx.ARRAY_BUFFER, buffer);
+        this.ctx.vertexAttribPointer(0, 1, this.ctx.FLOAT, false, 0, 0);
+        this.ctx.useProgram(this.program);
+    }
+    draw() {
+        this.ctx.clear(this.ctx.COLOR_BUFFER_BIT);
+        this.ctx.bufferData(this.ctx.ARRAY_BUFFER, new Float32Array([Math.sin(this.time / 60.0)]), this.ctx.STATIC_DRAW);
+        this.ctx.drawArrays(this.ctx.POINTS, 0, 1);
+    }
+}('webgl', undefined, 'webgl');
+</script>
+++++
+endif::[]
 
 === Moore's law
 
