@@ -17,7 +17,7 @@ consider using [AsciiDoc](https://en.wikipedia.org/wiki/AsciiDoc) instead of Mar
 
 The [Asciidoctor implementation](https://github.com/asciidoctor/asciidoctor) is likely the best choice as of 2019.
 
-AsciiDoc It takes markdown, and adds just enough to write serious books, while reducing some markdown annoyances at the same time.
+AsciiDoc takes Markdown, and adds just enough to write serious books, while reducing some markdown annoyances at the same time.
 
 Here is one example of what you can achieve on GitHub with a `README.adoc`: <https://github.com/cirosantilli/linux-kernel-module-cheat/tree/v3.0#linux-kernel-module-cheat>
 
