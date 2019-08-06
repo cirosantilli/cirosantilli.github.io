@@ -5,52 +5,25 @@ Asciidoctor extension to render Katex mathematics server side to HTML fast with 
 
 Usage:
 
-README.adoc
-
-....
-:docinfo: shared
-
-Inline katex:[\sqrt{1+1}] katex
-
-Block one-liner:
-
-katex::[\sqrt{1+1}]
-
-Block multi-liner: xref:math-test-math[]
-
-[katex,id=math-test-math]
-.A test block equation
-[katex]
-....
-\sqrt{1+1} \\
-\sqrt{1+1}
-....
-
-docinfo.html
-
-....
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
-  crossorigin="anonymous"
-  integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j"
->
-<style>
-.katex { font-size: 1.5em; }
-</style>
-....
+Sample document: link:katex.adoc[]
 
 Istall katex:
 
 ....
 npm install -g katex@0.10.2
+.....
+
+Use this extension:
+
+....
+asciidoctor --require "$(pwd)/katex.rb" katex.adoc
+xdg-open katex.html
 ....
 
-Use the extension:
+TODO:
 
-....
-asciidoctor -r katex.rb README.adoc
-....
+* make Katex macro definitions work across blocks
+* Equation #num prefix to descriptions and xrefs.
 HEREDOC
 
 require 'asciidoctor'
@@ -112,8 +85,24 @@ class KatexInlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   end
 end
 
+class KatexDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
+  use_dsl
+  def process doc
+    %{<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@#{doc.attributes.fetch('katex-version', '0.10.2')}/dist/katex.min.css"
+  crossorigin="anonymous"
+>
+<style>
+.katex { font-size: #{doc.attributes.fetch('katex-font-size', '1.5em')}; }
+</style>
+}
+  end
+end
+
 Asciidoctor::Extensions.register do
   block KatexBlockProcessor
   block_macro KatexBlockMacroProcessor
+  docinfo_processor KatexDocinfoProcessor
   inline_macro KatexInlineMacroProcessor
 end
