@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>js-image-load-viewport</title>
+    <style>
+        .separator {
+            height: 1000px;
+            width: 100px;
+            border: 5px solid red;
+        }
+        img {
+            height: 340px;
+            border: 5px solid black;
+        }
+    </style>
+    </head>
+<body>
+    <div><img></div>
+    <div class="separator"></div>
+    <div><img></div>
+    <div class="separator"></div>
+    <div><img></div>
+    <div class="separator"></div>
+    <div><img></div>
+    <div class="separator"></div>
+    <div><img></div>
+    <div class="separator"></div>
+    <div><img></div>
+</body>
+<script>
+var observer = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > 0.0) {
+                img = entry.target;
+                if (!img.hasAttribute('src')) {
+                    console.log('loading image');
+                    img.setAttribute('src', '../ciro-santilli-logo.png');
+                }
+            }
+        });
+    },
+    {}
+)
+for (let img of document.getElementsByTagName('img')) {
+    observer.observe(img);
+}
+</script>
+</html>
