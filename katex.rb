@@ -34,12 +34,8 @@ xdg-open katex.html
 
 TODO:
 
-* make KaTeX \global\def \newcommand work across math blocks
-** both blocked on the fact that `macros` is a circular structure, so Schmooze won't return it.
-+
-See failed workaround attempt on the code.
-** \newcommand across blocks not supported on KaTeX 0.10.2 upstream at all: https://github.com/KaTeX/KaTeX/issues/2070
-* Equation #num prefix to caption descriptions and xrefs
+* make KaTeX \newcommand work across math blocks, not supported on KaTeX 0.10.2 upstream: https://github.com/KaTeX/KaTeX/issues/2070
+* Equation #num prefix to caption descriptions and xrefs. Upstream issue: https://github.com/asciidoctor/asciidoctor/issues/3378
 
 Bibliography:
 
@@ -53,46 +49,29 @@ require 'schmooze'
 class KatexSchmoozer < Schmooze::Base
   dependencies katex: 'katex'
 
-  method :renderToString, 'function(latex, macros) {
+  # We need this because Schmooze cannot serialize macros
+  # due to circular reference at: macros['key'].token[0].loc
+  # which is a complex class.
+  #
+  # Also keeping it in the JavaScript is the most efficient thing we can do.
+  #
+  # Setting a property of katex because I don't know how to create globals from
+  # a function in Node: but we already have this katex global lying around.
+  method :init, 'function() { katex.cirosantilli_macros = {}; }'
+  method :renderToString, 'function(latex) {
   return katex.renderToString(
     latex,
     {
+      macros: katex.cirosantilli_macros,
       throwOnError: true
     }
   )
 }
 '
 
-#  # Failed attempt at persisting macros across calls.
-#  #
-#  # Schmooze does not modify input arguments back on Ruby,
-#  # that's why we try to return it.
-#  method :renderToString, 'function(latex, macros) {
-#  html = katex.renderToString(
-#    latex,
-#    {
-#      macros: macros,
-#      throwOnError: true
-#    }
-#  )
-#  // Try to make the macros object non-circular. TODO: this
-#  // works on raw Node.js, but here it makes the program hang forever.
-#  for (let key in macros) {
-#    macro = macros[key]
-#    for (let token of macro.tokens) {
-#      // This is the line that makes the program hang.
-#      delete token.loc
-#    }
-#  }
-#  return [html, macros]
-#}
-#'
-
 end
 $katex = KatexSchmoozer.new(__dir__)
-$macros = {
-  '\\magicMacro', ''
-}
+$katex.init
 
 class KatexBlockProcessor < Asciidoctor::Extensions::BlockProcessor
   use_dsl
@@ -100,7 +79,7 @@ class KatexBlockProcessor < Asciidoctor::Extensions::BlockProcessor
   on_context :literal
   parse_content_as :raw
   def process parent, reader, attrs
-    html, $macros = $katex.renderToString(reader.lines.join("\n"), $macros)
+    html = $katex.renderToString(reader.lines.join("\n"))
     create_paragraph parent, html, attrs, subs: nil
   end
 end
@@ -109,7 +88,7 @@ class KatexBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
   use_dsl
   named :katex
   def process parent, target, attrs
-    html, $macros = $katex.renderToString(attrs[1], $macros)
+    html = $katex.renderToString(attrs[1])
     create_paragraph parent, html, attrs, subs: nil
   end
 end
@@ -119,7 +98,7 @@ class KatexInlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   named :katex
   using_format :short
   def process parent, target, attrs
-    html, $macros = $katex.renderToString(attrs[1], $macros)
+    html = $katex.renderToString(attrs[1])
     create_inline parent, :quoted, html
   end
 end
