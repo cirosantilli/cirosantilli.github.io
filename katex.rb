@@ -57,8 +57,15 @@ class KatexSchmoozer < Schmooze::Base
   #
   # Setting a property of katex because I don't know how to create globals from
   # a function in Node: but we already have this katex global lying around.
-  method :init, 'function() { katex.cirosantilli_macros = {}; }'
-  method :renderToString, 'function(latex) {
+  method :init, <<-'EOS'
+function() {
+  katex.cirosantilli_macros = {
+    "\\cirosantilliApiMacro": "cirosantilli \\ #1 \\ api \\ #2 \\ macro",
+  };
+}
+EOS
+  method :renderToString, <<-'EOS'
+function(latex) {
   return katex.renderToString(
     latex,
     {
@@ -67,8 +74,7 @@ class KatexSchmoozer < Schmooze::Base
     }
   )
 }
-'
-
+EOS
 end
 $katex = KatexSchmoozer.new(__dir__)
 $katex.init

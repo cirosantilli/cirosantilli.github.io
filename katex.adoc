@@ -19,20 +19,33 @@ Block multi-liner: xref:math-test-math[]
 
 Define and use `\gdef` in another block:
 
-katex::[\gdef\foo{myfoo}]
+[katex]
+....
+\gdef\myGdefMacro#1#2{my \ #1 \ gdef \ #2 \ macro}
+....
 
-katex::[\foo]
+[katex]
+....
+\myGdefMacro{asdf}{qwer}
+....
 
 Define and use `\newcommand` in another block (TODO not working):
 
+.....
+[katex]
 ....
-katex::[\newcommand\{baz}[0]{mybaz}]
-
-katex::[\baz]
+\newcommand\{myNewcommandmacro}[2]{my \ #1 \ newcommand \ #2 \ macro}
 ....
 
-Defined with macro from JavaScrip API (TODO not working and if it were would be an inferior workaround for global `\newcommand`):
-
+[katex]
 ....
-katex::[\magicMacro]
+\myNewcommandmacro{asdf}{qwer}
+....
+.....
+
+Macro defined with JavaScript API:
+
+[katex]
+....
+\cirosantilliApiMacro{asdf}{qwer}
 ....
