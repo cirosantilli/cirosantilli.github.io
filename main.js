@@ -1,4 +1,3 @@
-<script>
 <!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -257,24 +256,15 @@ class CirosantilliCanvasDemo {
         this.height = canvas_width
     }
 }
-</script>
-<link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-<style>
-body {
-  padding-left: 10px;
-}
-label {
-    font-weight: normal !important;
-}
-.imageblock {
-  margin-bottom: 10px;
-}
-.canvas-demo {
-  border: 1px solid black;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-bottom: 10px;
-}
-/* Custom style. */
-</style>
+
+/* TODO coffesscript on old website. Still needed? */
+/*
+$ ->
+  $('h2, h3, h4, h5, h6').each (i, el) ->
+    el = $(el)
+    id = el.attr('id')
+    icon = '<i class="fa fa-link"></i>'
+    if id
+      el.append(' ', $('<a>').addClass('header-link').
+        attr('href', '#' + id).html(icon))
+*/

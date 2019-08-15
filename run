@@ -1,34 +1,7 @@
 #!/usr/bin/env bash
+# https://www.cirosantilli.com#how-to-develop-ciro-santillis-website
 set -eu
-
-# https://stackoverflow.com/questions/360201/how-do-i-kill-background-processes-jobs-when-my-shell-script-exits
-trap 'kill $(jobs -p)' EXIT
-
-# Do the initial Jekyll + Asciidoctor build.
-./build
-
-# We used to do:
-#     bundle exec jekyll serve -tw
-# but this fails because Jekyll would remove your generated index.html
-# Having a server is needed to automatically view index.html and to know
-# where the root directory is for / links.
-cd _site
-python -m SimpleHTTPServer &
-cd -
-
-# Rebuild if any git tracked file changes.
-# https://stackoverflow.com/questions/50902264/inotify-watch-files-changes-except-for-files-in-gitignore/57345781#57345781
-# https://superuser.com/questions/181517/how-to-execute-a-command-whenever-a-file-changes
-inotifywait --event close_write --monitor --recursive . |
-  while read -r directory events filename; do
-    if ! echo "$directory" | grep -Eq '^\.\/\.git' &&
-        ! git check-ignore --non-matching --verbose "${directory}/${filename}" >/dev/null 2>&1; then
-      echo "directory events filename: \"${directory}\" \"${events}\" \"${filename}\""
-      exit_status=0
-      env time -f 'build time: %E' ./build-adoc || exit_status="$?"
-      if [ "$exit_status" -ne 0 ]; then
-        echo "BUILD ERROR!"
-      fi
-      echo
-    fi
-  done
+# Because _config.yml does not get updated unless we do this... TODO upstream bug?
+bundle exec jekyll clean
+xdg-open http://localhost:4000
+bundle exec jekyll serve -Itw

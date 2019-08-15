@@ -354,7 +354,7 @@ It would be impractical to align things at 21 bytes since memory is addressable 
 
 Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory:
 
-[![](/x86-page-entry.png){:style="width:700px;"}](/x86-page-entry.png)
+[![](x86-page-entry.png){:height="300px"}](x86-page-entry.png)
 
 The fields are explained in the manual just after.
 
@@ -578,7 +578,7 @@ Page faults occur if either a page directory entry or a page table entry is not 
 
 The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging":
 
-[![](/x86-page-translation.png)](/x86-page-translation.png)
+[![](x86-page-translation.png){:height="300px"}](x86-page-translation.png)
 
 ## 64-bit architectures
 

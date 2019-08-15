@@ -1,18 +1,6 @@
-= Ciro Santilli (三西猴)
-:description: Software engineer. Passion for computers, natural sciences and education. Opinions are my own.
-:docinfo: shared
-:eqnums: all
-:idprefix:
-:idseparator: -
-:nofooter:
-:sectanchors:
-:sectlinks:
-:sectnumlevels: 6
-:sectnums:
-:stem:
-:toc-title:
-:toc: macro
-:toclevels: 6
+= Ciro Santilli's Homepage
+:page-permalink: /
+:page-description: Software engineer. Passion for computers, natural sciences and education. Opinions are my own.
 :cirosantilli-booktree: https://github.com/booktree/booktree
 :cirosantilli-china-dictatorship: https://github.com/cirosantilli/china-dictatorship
 :cirosantilli-github: https://github.com/cirosantilli
@@ -61,8 +49,6 @@ ifdef::backend-html5[]
 </div>
 ++++
 endif::[]
-
-{description}
 
 link:{cirosantilli-github}[GitHub] |
 link:{cirosantilli-stack-overflow}[Stack Overflow ] |
@@ -221,7 +207,7 @@ GitLab sent Ciro a free swag bottle later after they got funding on to thank him
 [link=#image-gitlab-bottle-beach]
 .Ciro Santilli at the beach with his GitLab bottle
 image::gitlab-bottle-beach.jpg[height=225]
-** link:/markdown-style-guide[Markdown Style Guide]
+** link:markdown-style-guide[Markdown Style Guide]
 ** https://github.com/karlcow/markdown-testsuite[Markdown Testsuite improvements]: Ciro has implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
 +
 At least MacFarlane was able to https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8[reuse] part of the HTML normalizer https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py[he wrote], and he extracted the multi-engine comparison to: https://github.com/cirosantilli/commonmark-implementation-compare[CommonMark Implementation Compare].
@@ -463,8 +449,8 @@ Ciro posts updates on Twitter when new considerably cool ones are published: {ci
 * Trended on https://news.ycombinator.com/[Hacker News]
 ** {cirosantilli-x86-bare-metal-examples}[x86 Bare Metal Examples] on https://news.ycombinator.com/item?id=19428700[2019-03-19]. The third time something related to that repo trends. Hacker news people really like that repo!
 ** https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545[How to run a program without an operating system?] on https://web.archive.org/web/20181126123625/https://news.ycombinator.com[2018-11-26]. Covers x86 and ARM.
-** link:/elf-hello-world[ELF Hello World Tutorial] on https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news[2017-05-17]
-** link:/x86-paging[x86 Paging Tutorial] on https://news.ycombinator.com/item?id=13773219[2017-03-02]. Number 1 xref:google[] search result for "x86 Paging" https://archive.is/VUSNt[in 2017-08].
+** link:elf-hello-world[ELF Hello World Tutorial] on https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news[2017-05-17]
+** link:x86-paging[x86 Paging Tutorial] on https://news.ycombinator.com/item?id=13773219[2017-03-02]. Number 1 xref:google[] search result for "x86 Paging" https://archive.is/VUSNt[in 2017-08].
 * x86 Assembly
 ** https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438[What does “multicore” assembly language look like?]
 * Linux kernel
@@ -554,7 +540,7 @@ and then create a GitHub issue at: https://github.com/cirosantilli/china-dictato
 
 If you need private contact, extract his email from on of his GitHub repos or use LinkedIn.
 
-link:https://en.wikipedia.org/wiki/Disqus[Disqus comments] were removed from his website in 2019-05-04, a manual dump is link:/disqus-archive/[available here], removal rationale at: xref:why-ciro-santilli-removed-disqus-comments-from-his-website-in-2019-05-04[].
+link:https://en.wikipedia.org/wiki/Disqus[Disqus comments] were removed from his website in 2019-05-04, a manual dump is link:disqus-archive/[available here], removal rationale at: xref:why-ciro-santilli-removed-disqus-comments-from-his-website-in-2019-05-04[].
 
 === Accounts controlled by Ciro Santilli
 
@@ -758,7 +744,7 @@ xref:ciro-santilli[]'s website is licensed as: link:https://creativecommons.org/
 
 ==== How to develop Ciro Santilli's website
 
-His website is powered by link:https://pages.github.com[GitHub Pages].
+Ciro's website is powered by link:https://pages.github.com[GitHub Pages] and https://github.com/asciidoctor/jekyll-asciidoc[Jekyll Asciidoc].
 
 The source code is located at: {cirosantilli-repo-url}
 
@@ -770,23 +756,13 @@ npm install
 ./run
 ....
 
-and then visit the website at:
+Source: link:run[]
 
-....
-xdg-open http://localhost:8000
-....
+The website will be visible at: http://localhost:4000[].
 
-After making any changes to the README.adoc, simply refresh the page to view the updates.
+Tested on the latest Ubuntu.
 
-If you make changes to other files however, e.g. image, you must also do the full rebuild with:
-
-....
-./build
-....
-
-Source: link:build[]
-
-Publish changes:
+Publish changes to GitHub pages:
 
 ....
 git add -u
@@ -806,11 +782,9 @@ git add Gemfile.lock
 git commit -m 'update gems'
 ....
 
-His website was originally written in Markdown and link:https://github.com/jekyll/jekyll[Jekyll], however those were deprecated in favour of Asciidoctor when Ciro saw the light, rationale shown at: link:/markdown-style-guide#use-asciidoc[]
+His website was originally written in Markdown, however those were deprecated in favour of Asciidoctor when Ciro saw the light, rationale shown at: link:markdown-style-guide#use-asciidoc[]
 
-Jekyll is only used now for backwards compatibility to not break some key content with high PageRank, Ciro might kill it entirely at some point.
-
-GitHub pages is chosen instead of a GitHub README for the following reasons:
+GitHub pages is chosen instead of a single page GitHub README.adoc for the following reasons:
 
 * Ciro will want some unsupported extensions, notably mathematics, likely with <<mathematics-typesetting-setup-of-ciro-santillis-website,Katex server side>>:
 ** https://github.com/asciidoctor/asciidoctor/pull/3338

@@ -12,138 +12,59 @@
     {% if page.description %}
       <meta name="description" content="{{ page.description }}">
     {% endif %}
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.gravatar.com/avatar/c979bd881b6755f84947a5a8ecc7c6f7.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
+
     <!-- #jquery. Must come *before* all its many dependencies. -->
-      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
     <!-- #bootstrap -->
-      <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
     <!-- #data table -->
-      <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
-      <style>
-        table.dataTable tr.odd { background-color: white; }
-        table.dataTable tr.even { background-color: white; }
-        table.dataTable tr.odd td.sorting_1 { background-color: white; }
-        table.dataTable tr.odd td.sorting_2 { background-color: white; }
-        table.dataTable tr.odd td.sorting_3 { background-color: white; }
-        table.dataTable tr.even td.sorting_1 { background-color: white; }
-        table.dataTable tr.even td.sorting_2 { background-color: white; }
-        table.dataTable tr.even td.sorting_3 { background-color: white; }
-      </style>
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
+    <style>
+      table.dataTable tr.odd { background-color: white; }
+      table.dataTable tr.even { background-color: white; }
+      table.dataTable tr.odd td.sorting_1 { background-color: white; }
+      table.dataTable tr.odd td.sorting_2 { background-color: white; }
+      table.dataTable tr.odd td.sorting_3 { background-color: white; }
+      table.dataTable tr.even td.sorting_1 { background-color: white; }
+      table.dataTable tr.even td.sorting_2 { background-color: white; }
+      table.dataTable tr.even td.sorting_3 { background-color: white; }
+    </style>
+
     <!-- #font awesome font icons -->
-      <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+
     <!-- Custom styles and scripts. Come at end to use and override libraries. -->
-      <!--<script src="/assets/main.js"></script>-->
-      <link rel="stylesheet" href="/assets/main.css"/>
-      <link rel="stylesheet" href="/assets/header-link.css"/>
-      <link rel="stylesheet" href="/assets/syntax.css"/>
+    <script src="/main.js"></script>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/header-link.css"/>
+    <link rel="stylesheet" href="/syntax.css"/>
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header {% if page.url == '/index.html' %}active{% endif %}">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">{{ site.name }}</a>
-          </div>
-          <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-              {% for link in site.navigation %}
-              <li {% if page.url == link.url %}class="active"{% endif %}>
-                <a href="{{link.url}}" title="{{link.title}}">{{link.text}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <a class="home" href="/">{{ site.name }}</a>
+      <span class="social">
+        <a href="https://stackoverflow.com/users/895245"><i class="fa fa-stack-overflow fa-fw"></i></a>
+        <a href="{{ site.github }}"><i class="fa fa-github fa-fw"></i></a>
+        <a href="https://www.linkedin.com/in/cirosantilli"><i class="fa fa-linkedin-square fa-fw"></i></a>
+        <a href="https://www.youtube.com/channel/UCBrJjpKMpdrkA1VsAiR2wEg"><i class="fa fa-youtube fa-fw"></i></a>
+        <a href="{{site.twitter}}"><i class="fa fa-twitter fa-fw"></i></a>
+        {% comment %}
+        Was added recently https://github.com/FortAwesome/Font-Awesome/issues/11562 but I tried to update the CSS
+        and it obviously broke everything. I'm going to do just a single page with a huge TOC one day.
+        {% endcomment %}
+        <a href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fa fa-question-circle fa-fw"></i></a>
+        <a href="https://www.weibo.com/p/1005055601627311"><i class="fa fa-weibo fa-fw"></i></a>
+      </span>
     </header>
-    <div class="article-and-sidebar">
-      <div class="content">
-        <aside>
-          <div>
-            <a href="/">
-              <img style="width:100%;" src="/ciro-santilli-id-photo-2013.jpg" alt="">
-            </a>
-          </div>
-          <div>
-            <a class="nav" href="https://stackoverflow.com/users/895245"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
-            <a class="nav" href="{{ site.github }}"><i class="fa fa-github fa-fw"></i>GitHub</a>
-            <a class="nav" href="https://www.linkedin.com/in/cirosantilli"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
-            <a class="nav" href="https://www.youtube.com/channel/UCBrJjpKMpdrkA1VsAiR2wEg"><i class="fa fa-youtube fa-fw"></i>YouTube</a>
-            <a class="nav" href="{{site.twitter}}"><i class="fa fa-twitter fa-fw"></i>Twitter</a>
-            {% comment %}
-            Was added recently https://github.com/FortAwesome/Font-Awesome/issues/11562 but I tried to update the CSS
-            and it obviously broke everything. I'm going to do just a single page with a huge TOC one day.
-            {% endcomment %}
-            <a class="nav" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fa fa-question-circle fa-fw"></i>Zhihu 知乎</a>
-            <a class="nav" href="https://www.weibo.com/p/1005055601627311"><i class="fa fa-weibo fa-fw"></i>Weibo 微博</a>
-            {% comment %}
-            I don't use this often enough, it likely won't work :-)
-            <a class="nav" href="/key.asc"><i class="fa fa-key fa-fw"></i>Public key</a>
-            {% endcomment %}
-            <a class="nav" href="/accounts"><i class="fa fa-ellipsis-h fa-fw"></i>Other accounts</a>
-          </div>
-          <div>
-            {% assign repo = page.url | split:'/' %}
-            {% assign size = repo | size %}
-            {% if size < 3 %}
-              {% assign repo_id = 'cirosantilli.github.io' %}
-            {% else 3 %}
-              {% assign repo_id = repo[1] %}
-            {% endif %}
-            {% assign repo_url = site.github | append: '/' | append: repo_id %}
-            {% comment %}
-              Use that `default:` or else;
-              https://stackoverflow.com/questions/31571150/jekyll-error-liquid-exception-undefined-method-encoding-for-nilnilclass-in
-              https://stackoverflow.com/questions/32791512/jekyll-liquid-filter-cgi-escape-returns-error-for-some-variables
-            {% endcomment %}
-            <a class="nav" href="{{ repo_url }}/issues/new?title={{ page.title | default: "" | cgi_escape }}%20-%20">
-              <i class="fa fa-exclamation-circle fa-fw"></i>Report Issue
-            </a>
-          </div>
-        </aside>
-        <main>
-          <h1 class="page-title">{{ page.title }}</h1>
-          {% if page.description %}<p>{{ page.description }}</p>{% endif %}
-          {{ content }}
-        </main>
-      </div>
-        {% if site.comments or page.comments %}
-          <!--disqus: https://USERNAME.disqus.com/admin/universalcode/-->
-          <div class="comments">
-            <div class="title">Comments</div>
-            {% if page.url == '/' %}
-            <p>
-              If you have a comment about China, please first read
-              <a href="https://github.com/cirosantilli/china-dictatorship#faq">the FAQ</a> and
-              <a href="https://github.com/cirosantilli/china-dictatorship/blob/master/CONTRIBUTING.md">contributing guidelines</a> and then
-              <a href="https://github.com/cirosantilli/china-dictatorship/issues/new">create a GitHub issue here</a>.
-              Your comments are still welcome!
-            </p>
-            {% endif %}
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'cirosantilli'; // required: replace example with your forum shortname
-
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-          </div>
-        {% endif %}
-    </div>
+    <main>
+        <h1 class="page-title">{{ page.title }}</h1>
+        {% if page.description %}<p>{{ page.description }}</p>{% endif %}
+        {{ content }}
+    </main>
     <!-- Scripts -->
       <!--data table-->
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ></script>
