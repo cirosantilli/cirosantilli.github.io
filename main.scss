@@ -18,6 +18,7 @@ body {
       color: black;
     }
     a {
+      // Otherwise the black background shows around the links for some reason.
       padding-bottom: 10px;
       padding-top: 10px;
       margin: 0;
@@ -47,9 +48,10 @@ body {
   }
 
   main {
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
+    /* Don't stay too close to the edge of the screen. */
+    padding-bottom: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
 
     /* asciidoctor output. */
     .imageblock {
@@ -59,38 +61,6 @@ body {
     /* kramdown output. */
     #markdown-toc {
       font-weight: bold;
-    }
-
-    /* Custom classes. */
-    .canvas-demo {
-      border: 1px solid black;
-      padding-left: 5px;
-      padding-right: 5px;
-      margin-bottom: 10px;
-    }
-    .patches-table tr {
-      > :nth-child(1),
-      > :nth-child(3) {
-        text-align: center;
-      }
-    }
-    #bugs-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #grading-table tr > :nth-child(1) {
-      font-weight: bold;
-      text-align: center;
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-    #languages-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #other-tech-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #natural-languages-table tr > :nth-child(1) {
-      text-align: center;
     }
 
     /* Generic elements. */
@@ -135,6 +105,59 @@ body {
     pre {
       margin-left: 0px;
       white-space: pre;
+    }
+
+    /* Custom classes. */
+    .canvas-demo {
+      border: 1px solid black;
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-bottom: 10px;
+    }
+    .patches-table tr {
+      > :nth-child(1),
+      > :nth-child(3) {
+        text-align: center;
+      }
+    }
+    #bugs-table tr > :nth-child(1) {
+      text-align: center;
+    }
+    #grading-table tr > :nth-child(1) {
+      font-weight: bold;
+      text-align: center;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    #languages-table tr > :nth-child(1) {
+      text-align: center;
+    }
+    #other-tech-table tr > :nth-child(1) {
+      text-align: center;
+    }
+    #natural-languages-table tr > :nth-child(1) {
+      text-align: center;
+    }
+
+    // DataTables
+    $data_table_color: white;
+    table.dataTable tr {
+      &.odd {
+        background-color: $data_table_color;
+        td {
+          &.sorting_1 { background-color: $data_table_color; }
+          &.sorting_2 { background-color: $data_table_color; }
+          &.sorting_3 { background-color: $data_table_color; }
+        }
+      }
+      &.even {
+        background-color: $data_table_color;
+        td {
+          &.sorting_1 { background-color: $data_table_color; }
+          &.sorting_2 { background-color: $data_table_color; }
+          &.sorting_3 { background-color: $data_table_color; }
+        }
+      }
     }
   }
 }

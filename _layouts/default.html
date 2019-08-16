@@ -14,30 +14,30 @@
     {% endif %}
     <link rel="shortcut icon" type="image/x-icon" href="/ciro-santilli-id-photo-2013.jpg" />
 
-    <!-- #jquery. Must come *before* all its many dependencies. -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-
-    <!-- #bootstrap -->
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-    <!-- #data table -->
+    {% comment %}
+      DataTables JavaScript sortable tables.
+      https://github.com/DataTables/DataTables
+    {% endcomment %}
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
-    <style>
-      table.dataTable tr.odd { background-color: white; }
-      table.dataTable tr.even { background-color: white; }
-      table.dataTable tr.odd td.sorting_1 { background-color: white; }
-      table.dataTable tr.odd td.sorting_2 { background-color: white; }
-      table.dataTable tr.odd td.sorting_3 { background-color: white; }
-      table.dataTable tr.even td.sorting_1 { background-color: white; }
-      table.dataTable tr.even td.sorting_2 { background-color: white; }
-      table.dataTable tr.even td.sorting_3 { background-color: white; }
-    </style>
 
-    <!-- #font awesome font icons -->
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+    {% comment %}
+      bootstrap has good basic font settings tha make browsers uniform.
+      https://github.com/twbs/bootstrap
+      Not using the JS if we can avoid it:
+      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    {% endcomment %}
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 
-    <!-- Custom styles and scripts. Come at end to use and override libraries. -->
+    {% comment %}
+      font awesome for font icons like the Stack Overflow icon for the navbar.
+      https://github.com/FortAwesome/Font-Awesome
+    {% endcomment %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+
+    {% comment %}
+      Custom styles and scripts. Come at end to use and override libraries.
+      TODO: move main.js to bottom of page.
+    {% endcomment %}
     <script src="/main.js"></script>
     <link rel="stylesheet" href="/main.css"/>
     <link rel="stylesheet" href="/header-link.css"/>
@@ -47,17 +47,17 @@
     <header>
       <a class="home" href="/">{{ site.name }}</a>
       <span class="social">
-        <a href="https://stackoverflow.com/users/895245"><i class="fa fa-stack-overflow fa-fw"></i></a>
-        <a href="{{ site.github }}"><i class="fa fa-github fa-fw"></i></a>
-        <a href="https://www.linkedin.com/in/cirosantilli"><i class="fa fa-linkedin-square fa-fw"></i></a>
-        <a href="https://www.youtube.com/channel/UCBrJjpKMpdrkA1VsAiR2wEg"><i class="fa fa-youtube fa-fw"></i></a>
-        <a href="{{site.twitter}}"><i class="fa fa-twitter fa-fw"></i></a>
+        <a href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+        <a href="{{ site.github }}"><i class="fab fa-github fa-fw"></i></a>
+        <a href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+        <a href="https://www.youtube.com/channel/UCBrJjpKMpdrkA1VsAiR2wEg"><i class="fab fa-youtube fa-fw"></i></a>
+        <a href="{{site.twitter}}"><i class="fab fa-twitter fa-fw"></i></a>
         {% comment %}
         Was added recently https://github.com/FortAwesome/Font-Awesome/issues/11562 but I tried to update the CSS
         and it obviously broke everything. I'm going to do just a single page with a huge TOC one day.
         {% endcomment %}
-        <a href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fa fa-question-circle fa-fw"></i></a>
-        <a href="https://www.weibo.com/p/1005055601627311"><i class="fa fa-weibo fa-fw"></i></a>
+        <a href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+        <a href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
       </span>
     </header>
     <main>
@@ -65,40 +65,35 @@
         {% if page.description %}<p>{{ page.description }}</p>{% endif %}
         {{ content }}
     </main>
-    <!-- Scripts -->
-      <!--data table-->
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ></script>
-        <script>
-          $('.data-table').dataTable({
-            //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
-            "aaSorting": [],
-            "bFilter": false,
-            "bInfo": false,
-            "bPaginate": false
-          });
-        </script>
-      <!--mathjax-->
-        <script
-          src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        ></script>
-        <script>
-          MathJax.Hub.Config({
-              jax: ["input/TeX","output/HTML-CSS"],
-              displayAlign: "left",
-              displayIndent: "20px"
-          });
-        </script>
-      <!--google analytics-->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    {% comment %}Scripts.{% endcomment %}
 
-          ga('create', 'UA-47867706-1', 'auto');
-          ga('require', 'displayfeatures');
-          ga('send', 'pageview');
+    {% comment %}
+      jQuery
+      Must come *before* all its many dependencies. We should try to get rid of it.
+      https://github.com/jquery/jquery
+    {% endcomment %}
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
-        </script>
+    {% comment %}DataTables.{% endcomment %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+      $('.data-table').dataTable({
+        //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
+        "aaSorting": [],
+        "bFilter": false,
+        "bInfo": false,
+        "bPaginate": false
+      });
+    </script>
+
+    {% comment %}MathJax.{% endcomment %}
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      MathJax.Hub.Config({
+          jax: ["input/TeX","output/HTML-CSS"],
+          displayAlign: "left",
+          displayIndent: "20px"
+      });
+    </script>
   </body>
 </html>
