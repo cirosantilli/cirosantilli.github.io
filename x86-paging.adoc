@@ -22,11 +22,13 @@ Specially interesting is Figure 4-4 "Formats of CR3 and Paging-Structure Entries
 
 == Application
 
-Paging makes it easier to compile and run two programs at the same time on a single computer.
+Paging makes it easier to compile and run two programs or threads at the same time on a single computer.
 
 For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.
 
 So nothing prevents it from using the same RAM address, say, `0x1234`, to store a global variable.
+
+And thread https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[stacks], that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!
 
 But if two programs use the same address and run at the same time, this is obviously going to break them!
 
