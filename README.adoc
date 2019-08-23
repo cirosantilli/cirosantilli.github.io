@@ -526,6 +526,8 @@ Ciro posts updates on Twitter when new considerably cool ones are published: {ci
 ** https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
 * xref:android[]
 ** {cirosantilli-stack-overflow-android-build-and-emulate}[How to compile the Android AOSP kernel and test it with the Android Emulator?]
+* Home DIY
+** link:window-blackout[How to blackout your window without drilling]
 
 === How to contact Ciro Santilli
 
@@ -879,6 +881,47 @@ Block: xref:math-test-math[]
 ++++
 
 TODO: move to https://github.com/cirosantilli/asciidoctor-katex-2 once major TODOs there are done.
+
+==== Media rationale of Ciro Santilli's website
+
+[[media-rationale-of-ciro-santillis-website--keeping-pages-light]]
+===== Keeping pages light
+
+It is true that one image is worth a thousand words, but unfortunately it is also true that one image takes up at least as much bytes as a thousand words!
+
+Having one single page to rule them all is of course the ideal setup for a website, as you can Ctrl + F one ToC and quickly find what you want.
+
+And, with <<linux-kernel-module-cheat>> Ciro noticed that it is very hard to write intelligent prose that becomes larger than reasonable to load on a single webpage.
+
+However, if there are too many images on the page, the loading of the last images would take forever in case users want to view the last sections.
+
+There are two solutions to that:
+
+* be traditional and create separate web pages
+* be bold and load images as they appear on the viewport: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-only-when-they-are-in-the-viewport/57389607#57389607
+
+Ciro is still deciding between those two. The traditional approach works for sure but loses the one page to rule them all benefits.
+
+The innovative approach will work for interactive viewing, but archive.org will fail to load the images for example, and there may be other unforseen consequences.
+
+[[media-rationale-of-ciro-santillis-website--where-to-store-images]]
+===== Media rationale of Ciro Santilli's website: where to store images
+
+Since images are large, they bring the following challenges:
+
+* keeping images in Git repositories makes the repos huge and slow to clone, and should not be done
+* storing and serving images could cost us, which we want to avoid
+
+To solve those problems, the following alternatives appear to be stable enough and should be used decreasing preference:
+
+* https://commons.wikimedia.org/wiki/Main_Page[Wikimedia Commons] if the format (no ZIPs) and License (CC BY SA, no fair use) are accepted there. This will be done for all own work images.
+* use a separate GitHub repository such as: https://github.com/cirosantilli/media But then we are at the mercy of GitHub's size policy: https://help.github.com/en/articles/what-is-my-disk-quota
+* https://archive.org for random images from the web, which are therefore not own work, and may not have clear licenses and be eligible for Wikimedia Commons. Never trust a website that is not on GitHub pages, for-profit companies will take down everything immediately as soon as it stops making them money. By the way, every external link to non-GitHub pages must be archived.
+
+The following alternatives seem impossible because Ciro could not find if they expose direct links to the images:
+
+* Google Photos https://webapps.stackexchange.com/questions/92777/how-to-get-the-direct-link-to-an-image-in-my-google-photos
+* Imgur https://webapps.stackexchange.com/questions/84535/has-imgur-stopped-giving-direct-links
 
 === Ciro Santilli's skills
 
