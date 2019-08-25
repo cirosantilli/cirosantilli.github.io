@@ -27,7 +27,9 @@ is good enough to allow me to sleep properly, which is priceless.
 
 <img src="https://web.archive.org/web/20190823083205if_/https://images-na.ssl-images-amazon.com/images/I/41kiYRgIhtL.jpg" height="200">
 
-Demonstration if everything goes exceptionally well: <https://www.youtube.com/watch?v=cTVVe7codw4>
+Demonstration if everything goes exceptionally well: [How to fit a Total Blackout Cassette Roller Blind](https://www.youtube.com/watch?v=sGLq9OuF9Yg) by "Order Blinds Online" published on Jan 27, 2016:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cTVVe7codw4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 However, not all will necessarily be fun and games as in that YouTube video, especially if you are doing it for the first time, and the main point of this article is to make you aware of that.
 
@@ -39,7 +41,7 @@ Then you will notice that, like in the video at <https://youtu.be/cTVVe7codw4?t=
 
 The top part requires hammering nails as shown on the video: <https://youtu.be/cTVVe7codw4?t=24> but this is generally rental acceptable, and you can fill the holes afterwards.
 
-Once you have the setup in place, it is likely that there will be some light gaps still, because it is basically impossible to make such large objects fit perfectly. This was especially true for the top o the window, but also for the sides, so I just used some black tape
+Once you have the setup in place, it is likely that there will be some light gaps still, because it is basically impossible to make such large objects fit perfectly. This was especially true for the top of the window, but also for the sides, so I just used some black tape
 
 So I added some wide (50mm) [Diall PVC repairing black tape](https://www.diy.com/departments/diall-black-repair-tape-l-25m-w-50mm/1638456_BQ.prd) ([archive](http://web.archive.org/web/20190823073702/https://www.diy.com/departments/diall-black-repair-tape-l-25m-w-50mm/1638456_BQ.prd)) between the blind and the wall to completely seal off the light:
 
@@ -47,7 +49,7 @@ So I added some wide (50mm) [Diall PVC repairing black tape](https://www.diy.com
 
 <img src="http://web.archive.org/web/20190823073053if_/https://media.diy.com/is/image/Kingfisher/3663602932345_01c" height="500">
 
-There is still some leakage at the bottom however, which cannot be taped. I mitigated that a bit by putting some black T-shirts on the bottom window sill.
+There is still some leakage at the bottom however, which cannot be taped. I mitigated that a bit by putting some black T-shirts on the bottom window sill, and together with the pre-existing rental curtain, it was enough.
 
 ## Previous failed attempts
 
