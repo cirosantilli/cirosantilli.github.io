@@ -57,5 +57,7 @@ Thick cardboard paper and [Gorilla Tape](https://www.amazon.co.uk/Gorilla-304401
 
 I have tried a few sleeping masks, but none of them were enough on their own. There is always some light leakage around the nose, especially as you turn around in the night. And some of them are too hot. I have tried:
 
-- [Sleep Master](https://web.archive.org/web/20190823083205if_/https://images-na.ssl-images-amazon.com/images/I/41kiYRgIhtL.jpg): <https://www.amazon.co.uk/gp/product/B0015NZ6FK> Also too hot.
-- 
+- [Sleep Master](https://www.sleepmastereurope.com/) ([archive](https://web.archive.org/web/20190629010859/https://www.sleepmastereurope.com/)): <https://www.amazon.co.uk/gp/product/B0015NZ6FK> ([archive](https://web.archive.org/web/20190823082519/https://www.amazon.co.uk/gp/product/B0015NZ6FK)). Also too hot.
+- [Muji Eye Mask](https://www.muji.eu/pages/online.asp?Sec=18&Sub=76&PID=9469&qclr=4549738743972)
+
+I also considered getting one of those "Perfect Fit Blinds" <https://www.blindsdirect.co.uk/perfect-fit-roller-blinds> ([archive](http://web.archive.org/save/https://www.blindsdirect.co.uk/perfect-fit-roller-blinds)) which fit between the glass and the insulation. This looks like it could work. But I didn't go for it in the end because my window has 3 glass panels, so I would have to get three of those blinds separately.
