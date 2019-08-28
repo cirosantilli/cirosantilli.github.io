@@ -19,7 +19,7 @@ My window faces East, and in summer the sun rises at around 5AM here, and I am a
 This setup, together with:
 
 - the existing sliding curtains which were not enough on their own
-- a cheap and comfortable [https://www.amazon.co.uk/Go-Travel-sleep-silky-Mask/dp/B00VGAH0N8]("Go Travel") sleeping mask from the Pharmacy
+- a cheap and comfortable ["Go Travel"](https://www.amazon.co.uk/Go-Travel-sleep-silky-Mask/dp/B00VGAH0N8)sleeping mask from the Pharmacy
 
 is good enough to allow me to sleep properly, which is priceless.
 
@@ -50,6 +50,8 @@ So I added some wide (50mm) [Diall PVC repairing black tape](https://www.diy.com
 <img src="http://web.archive.org/web/20190823073053if_/https://media.diy.com/is/image/Kingfisher/3663602932345_01c" height="500">
 
 There is still some leakage at the bottom however, which cannot be taped. I mitigated that a bit by putting some black T-shirts on the bottom window sill, and together with the pre-existing rental curtain, it was enough.
+
+Another minor annoyance is that parts of the blind cloth sometimes slip out of the conduit holes in the aluminium side bars. For this reason, I have to always open and close slowly and carefully. But if it does happen, fully opening and closing carefully has solved the problem.
 
 ## Previous failed attempts
 
