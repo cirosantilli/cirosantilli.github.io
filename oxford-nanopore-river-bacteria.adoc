@@ -1,0 +1,98 @@
+= How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it
+
+The aim of this article is to give a feeling of how this kind of biological experiment feels like to a person who has never done any biology like Ciro. Parent node: link:/#articles[].
+
+toc::[]
+
+== Setting
+
+https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few https://en.wikipedia.org/wiki/University_of_Cambridge[Cambridge University] PhDs that aims to determine which bacteria are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
+
+In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
+
+link:/#ciro-santilli[Ciro Santilli] knows nothing about link:/#biology[biology], but since he is link:#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area[very curious about it], in particular he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
+
+All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!
+
+== Overview of the experiment
+
+The PuntSeq team uses an https://nanoporetech.com/products/minion[MinION] (https://web.archive.org/web/20190825022606/https://nanoporetech.com/products/minion[archive]) sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
+
+Here is how the MinION looks like in the field:
+
+
+
+The 16S region codes for one of the RNA pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome]. https://en.wikipedia.org/wiki/Eukaryote[Eukaryotes] don't have an analogous ribosome part.
+
+Before sequencing the DNA, we will do a https://en.wikipedia.org/wiki/Polymerase_chain_reaction[PCR] with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.
+
+This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding prokaryotes entirely.
+
+Despite coding such a fundamental piece of RNA, there is still surprisingly variability in the 16S region across different bacteria, and it is those differences will allow us to identify which bacteria are present in the river.
+
+The variability exists because certain base pairs are not fundamental for the function of the 16S region. This variability happens mostly on https://en.wikipedia.org/wiki/Stem-loop[RNA loops as opposed to stems], i.e. parts of the RNA that don't base pair with other RNA in the https://en.wikipedia.org/wiki/Nucleic_acid_secondary_structure[RNA secondary structure]: xref:code-rna-stem-loop[xrefstyle=full].
+
+[[code-rna-stem-loop]]
+.RNA stem-loop structure
+....
+                A-U
+               /   \
+A-U-C-G-A-U-C-G     C
+| | | | | | | |     |
+U-A-G-C-U-A-G-C     G
+               \   /
+                U-A
+|             ||    |
++-------------++----+
+    stem        loop
+....
+
+This is how the 16S RNA secondary structure looks like in its full glory xref:image-16s-secondary[xrefstyle=full].
+
+[[image-16s-secondary]]
+[link=#image-16s-secondary]
+.16S RNA secondary structure. https://en.wikipedia.org/wiki/File:16S.svg[Source].
+image::https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg[height=800]
+
+Since loops don't base pair, they are less crucial in the determination of the secondary structure of the RNA.
+
+The variability may however not be large enough to allow us to differentiate between related species which might have the same sequence, but we should at least be able to obtain at least a reasonable https://en.wikipedia.org/wiki/Phylum[phylum] breakdown.
+
+=== Why Oxford Nanopore was used instead of Illumina for the sequencing
+
+https://en.wikipedia.org/wiki/Illumina,_Inc.[Illumina equipment] is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment
+
+The Nanopore costs just about 500 pounds for the reusable machine, and 500 pounds for the one usage flow cell which can decode up to 30 billion base pairs, which is about 10 human genomes!
+
+Other advantages of the MinION over Illumina which didn't really matter to this particular experiment are:
+
+* portability for e.g. to do analysis on the field near infections outbreaks
+* long reads which can be necessary for long repetitive regions
+
+One disadvantage of the Oxford Nanopore is that its error rate per base pair read is higher than Illumina.
+
+=== Metagenomics
+
+https://en.wikipedia.org/wiki/Metagenomics
+
+This kind of "sequence some random DNA to determine what is present in the sample" analysis is called metagenomics.
+
+Besides river sample, other types of samples where of metagenomics is used include:
+
+* food, including searching for desirable microorganisms such as in cheese or bread yeast
+* poo, e.g. to study how the human microbiome influences health https://www.microbiotica.com/
+* blood, e.g. to search for https://en.wikipedia.org/wiki/Circulating_tumor_DNA[Circulating tumor DNA]
+
+== Sample collection
+
+As you would expect, not much secret here, we just dumped a 1L glass bottle with a rope attached around the neck in the river, and pulled it out with the rope.
+
+The temperature and PH of the water were measured to potentially help explain observations.
+
+== DNA extraction
+
+The first thing we had to do with the sample was to extract the DNA present in the water in a pure form for the PCR.
+
+The exact protocols used were:
+
+* 

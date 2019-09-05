@@ -31,6 +31,7 @@ ifdef::backend-html5[]
 \newcommand{\va}[1]{\overrightarrow{#1}}
 
 %% Real analysis
+\newcommand{\RFour}[0]{\mathbb{R}^{4}}
 \newcommand{\RThree}[0]{\mathbb{R}^{3}}
 \newcommand{\RTwo}[0]{\mathbb{R}^{2}}
 \newcommand{\R}[0]{\mathbb{R}}
@@ -122,7 +123,7 @@ image::https://stackoverflow.com/users/flair/895245.png?theme=dark[Stack overflo
 
 xref:ciro-santilli[]'s xref:stack-overflow[] contributions have, unsurprisingly, centered around the subjects he has worked with: systems programming and web development, and necessary tooling to get those done, such a Git, Python, Bash and Ubuntu.
 
-His best answers are listed at: xref:the-best-articles-by-ciro-santilli[xrefstyle=full]
+His best answers are listed at: xref:articles[xrefstyle=full]
 
 In Stack Overflow Ciro likes to:
 
@@ -440,6 +441,7 @@ Furthermore, it is also desirable to reproduce the original setups whenever poss
 
 Lists of good experiments to cover be found at: xref:the-most-important-physics-experiments[].
 
+[[articles]]
 === The best articles by Ciro Santilli
 
 These are the articles ever authored by xref:ciro-santilli[], most of them in the format of xref:stack-overflow[] answers.
@@ -498,6 +500,7 @@ Ciro posts updates on Twitter when new considerably cool ones are published: {ci
 ** https://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835[How to draw text using only opengl methods?]
 ** https://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788[Is it possible to build a heatmap from point data at 60 times per second?]
 ** https://stackoverflow.com/questions/2571402/how-to-use-glortho-in-opengl/36046924#36046924[How to use `glOrtho()` in OpenGL?]
+** https://stackoverflow.com/questions/17789575/what-are-shaders-in-opengl-and-what-do-we-need-them-for/36211337#36211337[What are shaders in OpenGL?]
 * Node.js
 ** https://stackoverflow.com/a/22004559/895245[What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?]
 * Rails
@@ -507,6 +510,7 @@ Ciro posts updates on Twitter when new considerably cool ones are published: {ci
 * Systems programming
 ** https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean/33510470#33510470[What do the terms “CPU bound” and “I/O bound” mean?]
 ** https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376[What do 'real', 'user' and 'sys' mean in the output of time?]
+** https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management/57453334#57453334[What are RSS and VSZ in Linux memory management?]
 * Security
 ** https://security.stackexchange.com/a/72569/53321[Why is the same origin policy so important?]
 * Media
@@ -969,7 +973,7 @@ Too many cooks.
 
 A prime example of this ability is his xref:linux-kernel-module-cheat[]
 
-See also: xref:the-best-articles-by-ciro-santilli[].
+See also: xref:articles[].
 
 ==== Ciro Santilli's natural languages skills
 
@@ -1040,6 +1044,12 @@ Videos should be found / made for all of those: xref:videos-of-all-key-physics-e
 * Fast cameras. OK, this takes it to the next level:
 ** https://www.youtube.com/watch?v=EtsXgODHMWk "Visualizing video at the speed of light — one trillion frames per second" by "Massachusetts Institute of Technology (MIT)" published on Dec 12, 2011
 
+==== Michelson-Morley experiment
+
+https://en.wikipedia.org/wiki/Michelson%E2%80%93Morley_experiment
+
+* https://www.youtube.com/watch?v=lzBKlY4f1XA "Michelson Interferometer - Amrita University" Published on Jan 30, 2013
+
 ==== Double slit experiment
 
 https://en.wikipedia.org/wiki/Double-slit_experiment
@@ -1095,7 +1105,7 @@ https://en.wikipedia.org/wiki/Particle_physics
 
 Currently an informal name for the xref:standard-model[]
 
-Chronologic outline of the key theories:
+Chronological outline of the key theories:
 
 * xref:maxwells-equations[]
 * xref:schrodinger-equation[]
@@ -1137,17 +1147,42 @@ TODO: what does it mean that it is coherent with xref:special-relativity[]?
 
 The equations are a system of xref:partial-differential-equations[].
 
-The system consists of 6 unknown functions that map three variables (x, y and z positions in space) to a real number:
+The system consists of 6 unknown functions that map 4 variables: time t and the x, y and z positions in space, to a real number:
 
-* latexmath:[E_x(x,y,z)], latexmath:[E_y(x,y,z)], latexmath:[E_z(x,y,z)]: directions of the electric field latexmath:[\functionDomain{\E}{\RThree}{\RThree}]
-* latexmath:[B_x(x,y,z)], latexmath:[B_y(x,y,z)], latexmath:[B_z(x,y,z)]: directions of the magnetic field latexmath:[\functionDomain{\B}{\RThree}{\RThree}]
+* latexmath:[E_x(t, x,y,z)], latexmath:[E_y(t, x,y,z)], latexmath:[E_z(t, x,y,z)]: directions of the electric field latexmath:[\functionDomain{\E}{\RFour}{\RThree}]
+* latexmath:[B_x(t, x,y,z)], latexmath:[B_y(t, x,y,z)], latexmath:[B_z(t, x,y,z)]: directions of the magnetic field latexmath:[\functionDomain{\B}{\RFour}{\RThree}]
 
 and two known input functions:
 
 * latexmath:[\functionDomain{\rho}{\RThree}{\R}]: density of charges in space
-* latexmath:[\functionDomain{\J}{\RThree}{\RThree}]: current vector in space
+* latexmath:[\functionDomain{\J}{\RThree}{\RThree}]: current vector in space. This represents the strength of moving charges in space.
 
-The equations can be written in short form as the following four equations:
+Due to the https://en.wikipedia.org/wiki/Charge_conservation[conservation of charge] however, those input functions have the following restriction:
+
+[latexmath,id=equation-charge-conservation]
+.Charge conservation
+++++
+\dv{\rho}{t} + \divergence{\mathbf{\J}} = 0
+++++
+
+Also consider the following cases:
+
+* if a spherical charge is moving, then this of course means that latexmath:[\rho] is changing with time, and at the same time that a current exists
+* in an ideal infinite cylindrical wire however, we can have constant latexmath:[\rho] in the wire, but there can still be a current because those charges are moving
++
+Such infinite cylindrical wire is of course an ideal case, but one which is a good approximation to the huge number of electrons that travel in a actual wire.
+
+The goal of finding latexmath:[\E] and latexmath:[\B] is that those fields allow us to determine the force that gets applied to a charge via the https://en.wikipedia.org/wiki/Lorentz_force[Lorentz force equation]:
+
+[latexmath,id=equation-lorentz-force]
+.Lorentz force equation
+++++
+\text{force_density} = \rho \E + \J \times \B
+++++
+
+and then to find the force we just need to integrate over the entire body.
+
+Finally, now that we have defined all terms involved in the Maxwell equations, let's see the equations:
 
 [latexmath,id=equation-gauss-law]
 .Gauss' law
@@ -1204,9 +1239,21 @@ For numerical algorithms and to get a more low level understanding of the equati
 
 As you can see, this expands to 8 equations, so the question arises if the system is over-determined because it only has 6 variables. As explained at: https://en.wikipedia.org/wiki/Maxwell%27s_equations#Overdetermination_of_Maxwell's_equations however, this is not the case, because if the first two equations hold for the initial condition, then they also hold for all time, so they can be essentially omitted.
 
+It is also worth noting that the first two equations don't involve time derivatives. Therefore, they can be seen as spacial constraints.
+
+===== Coulomb's law
+
+https://en.wikipedia.org/wiki/Coulomb%27s_law
+
+Static case of Maxwell's law for electricity only.
+
+Is implied by Gauss' law: https://physics.stackexchange.com/questions/44418/are-the-maxwells-equations-enough-to-derive-the-law-of-coulomb
+
 ===== Maxwell's equations in 2D
 
 TODO it would be awesome if we could de-generalize the equations in 2D and do a JavaScript demo of it!
+
+Not sure it is possible though because the curl appears in the equations:
 
 * https://physics.stackexchange.com/questions/104008/maxwells-equations-of-electromagnetism-in-21-spacetime-dimensions
 * https://www.reed.edu/physics/faculty/wheeler/documents/Electrodynamics/Miscellaneous%20Essays/E&M%20in%202%20Dimensions.pdf
@@ -1215,11 +1262,9 @@ TODO it would be awesome if we could de-generalize the equations in 2D and do a 
 
 TODO: I'm surprised that the Wiki page barely talks about it, and there are few xref:google[] hits too! A sample one: https://www.researchgate.net/publication/228928756_On_the_existence_and_uniqueness_of_Maxwell's_equations_in_bounded_domains_with_application_to_magnetotellurics
 
-==== Special relativity
+==== Special relativity symlink from particle physics
 
-https://en.wikipedia.org/wiki/Special_relativity
-
-TODO.
+xref:special-relativity[]
 
 ==== General relativity
 
@@ -1511,6 +1556,31 @@ One of the most elaborate explained videos: https://www.youtube.com/watch?v=kpk2
 * Zelda Majora's Mask debug menu
 ** https://www.youtube.com/watch?v=2wdchm5Uwp4&t=2086s first video
 ** https://www.youtube.com/watch?v=CCubcEgnD6A overview
+
+==== Magic the Gathering
+
+https://en.wikipedia.org/wiki/Magic:_The_Gathering
+
+Magic is the best card game of all time. xref:ciro-santilli[] agrees with this fact, and this has nothing to do with the nostalgia factor of having played it when he was a teenager.
+
+However, Magic has one flaw: the cards of old formats (Legacy and Modern), which are the really interesting ones, are fucking expensive. Ciro thinks this is idiotic, and that Wizards should sell all cards individually with unlimited supply and all with the same prices, especially online where there are no printing costs.
+
+There however one good solution to that: watch people who have nothing better to do in their lives play on YouTube.
+
+Like in xref:mathematics[], the most beautiful decks are those that do crazy things:
+
+* infinite combos
+* semi-infinite combos that allow you to likely draw your entire deck or deal 20 damage
+* all-in decks that either win or lose on turn two
+* and lands
+
+Here are some good ones:
+
+* Cheerios, Modern. https://www.youtube.com/watch?v=WkjY7VWZC3o[Meryn MTG, 2019]
+* Lands, Legacy. https://www.youtube.com/watch?v=a9Pxen2CZlg[Channel Mengucci, 2019]
+* Belcher, Legacy, https://www.youtube.com/watch?v=ajJG11AI88o[Jeff Hoogland, 2019], https://www.youtube.com/watch?v=egGw0aWYsdc[Channel Mengucci, 2017]
+
+Competitive commander is also amazing, see for example this channel; https://www.youtube.com/channel/UCum8N4KUUC0l_NK_mybvilg[Playing With Power MTG channel].
 
 === The best YouTube channels
 
@@ -2075,6 +2145,10 @@ For now, when you have a choice, you must go for:
 
 Those two are languages not by any means perfect from a language design point of view, and there are likely already better alternatives, they are only chosen due to a pragmatic tradeoff between ecosystem and familiarity.
 
+Python in particular has a lot of annoying stuff, which other languages do better. Ciro predicts that Python will become like Fortran in the future: a legacy hated by most who have moved to JavScript long ago, but with too much dominance in certain applications like machine learning to be worth replacing, like Fortran dominates certain HPC applications.
+
+C++ however is decent, and is evolving in very good directions in the 2010's, and will remain relavant in the forseable future.
+
 Bash can also be used when you're lazy. But if the project goes on, you will sooner or later regret that choice.
 
 The language syntax in itself does not matter. All that matters is how many useful libraries and tooling it has.
@@ -2337,3 +2411,150 @@ https://en.wikipedia.org/wiki/Chemistry
 == Biology
 
 https://en.wikipedia.org/wiki/Biology
+
+== Special relativity
+
+https://en.wikipedia.org/wiki/Special_relativity
+
+Explains how it is possible that everyone observes the same speed of light, even if they are moving towards or opposite to the light!
+
+This was observed in in the href:michelson-morley-experiment[] which uses the movement of the Earth to try and detect differences in the speed of light.
+
+This leads leads to the following conclusions:
+
+* to space contraction and time dilation
+* the speed of light is the maximum speed anything can reach
+
+All of this goes of course completely against our daily Physics intuition.
+
+The "special" in the name refers to the fact that it is a superset of xref:general-relativity[], which also explains gravity in a single framework.
+
+=== Lorentz transform
+
+The equation that allows us to calculate stuff.
+
+Take two observers with identical rules and stopwatch, and aligned axes, but one is on a car moving at towards the latexmath:[+x] direction at speed latexmath:[v].
+
+TODO image.
+
+When both observe an event, if we denote:
+
+* latexmath:[(t, x, y, z)] the observation of the standing observer
+* latexmath:[(t', x', y', z')] the observation of the ending observer on a car
+
+It is of course arbitrary who is standing and who is moving, we will just use the term "standing" for the one without primes.
+
+then the coordinates of the event observed by the observer on the car are:
+
+[latexmath]
+++++
+\begin{align}
+t' & = \gamma \left( t - \frac{v x}{c^2} \right) \\
+x' & = \gamma \left( x - v t \right) \\
+y' & = y \\
+z' & = z
+\end{align}
+++++
+
+where:
+
+[latexmath]
+++++
+\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
+++++
+
+Note that if latexmath:[\frac{v}{c}] tends towards zero, then this reduces to the usual https://en.wikipedia.org/wiki/Galilean_transformation[Gallilean transforms] which our intuition expects:
+
+[latexmath]
+++++
+\begin{align}
+t' & = t
+x' & = x - v t \\
+y' & = y \\
+z' & = z
+\end{align}
+++++
+
+This explains why we don't observe special relativity in our daily lives: macroscopic objects move too slowly compared to light, and latexmath:[\frac{v}{c}] is almost zero.
+
+=== Lorentz transform consequence: everyone sees the same speed of light
+
+OK, so let's verify the main desired consequence of the xref:lorentz-transform[]: that everyone observes the same speed of light.
+
+Observers will measure the speed of light by calculating how long it takes the light going towards latexmath:[+x] cross a rod of length latexmath:[L = x_2 - x_1] laid in the x axis at position latexmath:[X1].
+
+TODO image.
+
+Each observer will observe two events:
+
+* latexmath:[(t_1, x_1, y_1, z_1)]: the light touches the left side of the rod
+* latexmath:[(t_2, x_2, y_2, z_2)]: the light touches the right side of the rod
+
+Supposing that the standing observer measures the speed of light as latexmath:[c] and that light hits the left side of the rod at time latexmath:[T1], then he observes the coordinates:
+
+[latexmath]
+++++
+\begin{align}
+t_1 & = T1 \\
+x_1 & = X1 \\
+t_2 & = \frac{L}{c} \\
+x_2 & = X1 + L \\
+\end{align}
+++++
+
+Now, if we transform for the moving observer:
+
+[latexmath]
+++++
+\begin{align}
+t_1' & = \gamma \left( t_1 - \frac{v x_1}{c^2} \right) \\
+x_1' & = \gamma \left( x_1 - v t_1             \right) \\
+t_2' & = \gamma \left( t_2 - \frac{v x_2}{c^2} \right) \\
+x_2' & = \gamma \left( x_2 - v t_2             \right) \\
+\end{align}
+++++
+
+and so the moving observer measures the speed of light as:
+
+[latexmath]
+++++
+\begin{align}
+c' & = \frac{x_2' - x_1'}{t_2' - t_1'} \\
+   & = \frac{(x_2 - v t_2) - (x_1 - v t_1)}{(t_2 - \frac{v x_2}{c^2}) - (t_1 - \frac{v x_1}{c^2})} \\
+   & = \frac{(x_2 - x_1) - v (t_2 - t_1)}{(t_2 - t_1) - \frac{v}{c^2} (x_2 - x_1)} \\
+   & = \frac{\frac{x_2 - x_1}{t_2 - t_1} - v}{1 - \frac{v}{c^2} \frac{x_2 -x_1}{t_2 - t_1}} \\
+   & = \frac{c - v}{1 - \frac{v}{c^2} c} \\
+   & = \frac{c - v}{\frac{c - v}{c}} \\
+   & = c \\
+\end{align}
+++++
+
+=== Maxwell's equations are consistent with the Lorentz transform
+
+https://en.wikipedia.org/w/index.php?title=Lorentz_transformation&oldid=909991141#Transformation_of_the_electromagnetic_field
+
+Note that two observers moving relative to each other see different electromagnetic fields.
+
+For example, suppose that there is a stationary charge for the stationary observer. Because the charge is not moving, the magnetic field is zero for that observer according to xref:maxwells-equations[].
+
+However, the moving observer sees that charge moving, and therefore a current, and therefore a magnetic field.
+
+TODO mathematical detail. Is all we need to prove that if a given latexmath:[E(t, x, y, z)] and latexmath:[B(t, x, y, z)] are a solution to the maxwell equations in one frame, then latexmath:[E'(t', x', y', z')] and latexmath:[B'(t', x', y', z')] are also a solution in the other frame?
+
+This appears awesome: http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf (https://web.archive.org/web/20180920161243/http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf:[archive]) "David Tong: Lectures on Electromagnetism - 5. Electromagnetism and Relativity"
+
+* "5.2.1 Magnetism and Relativity" shows how space contraction makes the charges of a wire unbalanced, and that directly causes magnetic force!!!
++
+The same document mentions further on more explicitly that observers in different frames mix up the Electric and Magnetic fields, but that the same Maxwell laws are still valid in that frame.
++
+It appears that Maxwell's equations can be derived directly from Coulomb's law + special relativity: https://physics.stackexchange.com/questions/3618/can-maxwells-equations-be-derived-from-coulombs-law-and-special-relativity
++
+This is linked in a comment and also appears to be of interest: http://richardhaskell.com/files/Special%20Relativity%20and%20Maxwells%20Equations.pdf
+
+This page also talks about it, but does not explain anything properly, although it does give closed source references: https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity
+
+=== Minkowski space
+
+https://en.wikipedia.org/wiki/Minkowski_space
+
+TODO why should I care when I can calculate new x and new time with xref:lorentz-transform[]?
