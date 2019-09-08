@@ -1,6 +1,6 @@
 = How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it
 
-The aim of this article is to give a feeling of how this kind of biological experiment feels like to a person who has never done any biology like Ciro. Parent node: link:/#articles[].
+The aim of this article is to give a feeling of how this kind of biological experiment feels like to a person who has never done any link:/#biology[biology] like link:/#ciro-santilli[Ciro]. Parent node: link:/#articles[].
 
 toc::[]
 
@@ -10,17 +10,41 @@ https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few https://en.wi
 
 In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
 
-link:/#ciro-santilli[Ciro Santilli] knows nothing about link:/#biology[biology], but since he is link:#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area[very curious about it], in particular he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
+Ciro knows nothing about biology, but since he is link:#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area[very curious about it], in particular he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
 
 All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!
+
+The impressions you get from the experiment as a software engineer will be:
+
+* OMG, this is so labour intensive, why haven't they automated this
+* OMG, this is frightening, all the 8 hours of work I've just done are present in that tiny plastic tube
+* Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster you piece of junk!
 
 == Overview of the experiment
 
 The PuntSeq team uses an https://nanoporetech.com/products/minion[MinION] (https://web.archive.org/web/20190825022606/https://nanoporetech.com/products/minion[archive]) sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
 
-Here is how the MinION looks like in the field:
+Here is how the MinION looks like in the field: xref:image-oxford-nanopore-minion-top[xrefstyle=full].
 
+[[image-oxford-nanopore-minion-top]]
+.Oxford Nanopore MinION top
+[link=#image-oxford-nanopore-minion-top]
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg[height=400]
 
+[[image-oxford-nanopore-minion-side]]
+.Oxford Nanopore MinION side
+[link=#image-oxford-nanopore-minion-side]
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Oxford_Nanopore_MinION_side_cropped.jpg/191px-Oxford_Nanopore_MinION_side_cropped.jpg[height=400]
+
+[[image-oxford-nanopore-minion-top-open]]
+.Oxford Nanopore MinION top open
+[link=#image-oxford-nanopore-minion-top-open]
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Oxford_Nanopore_MinION_top_open_cropped.jpg/110px-Oxford_Nanopore_MinION_top_open_cropped.jpg[height=400]
+
+[[image-oxford-nanopore-minion-side-usb]]
+.Oxford Nanopore MinION side USB
+[link=#image-oxford-nanopore-minion-side-usb]
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg[height=400]
 
 The 16S region codes for one of the RNA pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome]. https://en.wikipedia.org/wiki/Eukaryote[Eukaryotes] don't have an analogous ribosome part.
 
@@ -60,7 +84,7 @@ The variability may however not be large enough to allow us to differentiate bet
 
 === Why Oxford Nanopore was used instead of Illumina for the sequencing
 
-https://en.wikipedia.org/wiki/Illumina,_Inc.[Illumina equipment] is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment
+link:++https://en.wikipedia.org/wiki/Illumina,_Inc.++[Illumina equipment] is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment
 
 The Nanopore costs just about 500 pounds for the reusable machine, and 500 pounds for the one usage flow cell which can decode up to 30 billion base pairs, which is about 10 human genomes!
 
@@ -87,12 +111,72 @@ Besides river sample, other types of samples where of metagenomics is used inclu
 
 As you would expect, not much secret here, we just dumped a 1L glass bottle with a rope attached around the neck in the river, and pulled it out with the rope.
 
-The temperature and PH of the water were measured to potentially help explain observations.
+The temperature of the water was measured with a mercury thermometer, and the PH with pH strips and a cell phone app to compare the color of the strip.
+
+There were some swans in the river, so... swan poo bacteria I guess?
+
+And, in the name of science, we even wore gloves to not contaminate the samples!
+
+[[image-river-water-sample-collection-swans]]
+[link=#image-river-water-sample-collection-swans]
+.River water sample collection swans
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Rive_water_sample_collection_swans.jpg/640px-Rive_water_sample_collection_swans.jpg[height=480]
+
+[[image-river-water-sample-collection-tie-rope-to-bottle]]
+[link=#image-river-water-sample-collection-tie-rope-to-bottle]
+.River water sample collection tie rope to bottle
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg[height=400]
+
+[[image-river-water-sample-collection-get-sample]]
+[link=#image-river-water-sample-collection-get-sample]
+.River water sample collection get sample
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/River_water_sample_collection_get_sample.jpg/360px-River_water_sample_collection_get_sample.jpg[height=400]
+
+[[image-river-water-sample-collection-measure-temperature]]
+[link=#image-river-water-sample-collection-measure-temperature]
+.River water sample collection measure temperature
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River_water_sample_collection_measure_temperature.jpg/360px-River_water_sample_collection_measure_temperature.jpg[height=400]
+
+[[image-river-water-sample-collection-read-ph-strip]]
+[link=#image-river-water-sample-collection-read-ph-strip]
+.River water sample collection read pH strip
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg[height=400]
+
+[[image-river-water-sample-collection-identify-bottle]]
+[link=#image-river-water-sample-collection-identify-bottle]
+.River water sample collection identify bottle
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg[height=400]
+
+Who said you can't have fun with science? xref:video-river-water-sample-collection-with-a-bottle-and-string[xrefstyle=full]
+
+[[video-river-water-sample-collection-with-a-bottle-and-string]]
+[link=#image-river-water-sample-collection-with-a-bottle-and-string]
+.River water sample collection with a bottle and string
+video::https://upload.wikimedia.org/wikipedia/commons/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv[height=400]
 
 == DNA extraction
 
 The first thing we had to do with the sample was to extract the DNA present in the water in a pure form for the PCR.
 
-The exact protocols used were:
+The protocol used was the https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit["QIAGEN DNeasy PowerWater Kit"] (http://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/[archive]) Here is its documentation: https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en (http://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en[archive]).
 
-* 
+As you would expect, this consists of a purification procedure with several steps.
+
+In each step we take a physical or chemical action on the sample, which splits it into two parts: the one with the DNA and the one without.
+
+We then take the part with the DNA, and throw away the one without the DNA.
+
+The first steps are coarser, and finer and finer splits are done as we move forward.
+
+The first thing we did was to filter the water samples with a filter that is so fine that not even DNA can pass through, but water can.
+
+This will reduce the 1 liter volumes to more manageable amounts. Reagents are expensive, and centrifuges are small!
+
+Since the filter is so fine, filtering by gravity alone would take forever, and so we used a vacuum pump to speed thing up!
+
+For this, we used the following equipment:
+
+* a "Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters" https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781 (http://web.archive.org/web/20190907131756/https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781[archive]). This is where we poured the water. It was not large enough for the entire 1L sample, so we had to do it a few times.
+* KNF Laboport series laboratory vacuum pump https://www.knfusa.com/en/laboport/ (http://web.archive.org/web/20190907132036/https://www.knfusa.com/en/laboport/[archive])
+* "Scientific Industries Inc. Vortex-Genie 2" https://www.scientificindustries.com/vortex-genie-2.html (http://web.archive.org/web/20190908034549/https://www.scientificindustries.com/vortex-genie-2.html[archive])
+* "KWR Micro Star 17 microcentrifuge" https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r (http://web.archive.org/web/20190908040119/https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r[archive])
