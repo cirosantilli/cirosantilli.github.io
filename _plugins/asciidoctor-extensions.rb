@@ -13,27 +13,39 @@ require 'asciidoctor/extensions'
 # The ID and title are derived in a way that plays nicely with Wikimedia images,
 # which during upload convert underscores to spaces:
 #
-# * ID: 'Asdf_qwer_zx-cv -> 'image-asdf-qwer-zx-cv'
-# * title: 'Asdf qwer_zx-cv -> 'asdf-qwer-zx-cv'
+# * title: derived from image basename, e.g.: 'Asdf qwer_zx-cv -> 'asdf-qwer-zx-cv'
+# * ID: derived from title e.g.: 'Asdf qwer zx-cv -> 'image-asdf-qwer-zx-cv'
+# * link: points to its own id
+#
+# Extra optional attributes:
+#
+# * `source`: a link to the source of the image as a form of attribution and to allow
+#   downloading possibly higher resolution versions of the image on Wikimedia
 class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroProcessor
   use_dsl
 
   def process parent, target, attrs
-    #html = $katex.renderToString(reader.lines.join("\n"))
-    #create_paragraph parent, 'asdf', attrs, subs: nil
-    #require 'pry'; binding.pry
     attrs['target'] = target
     basename_noext = remove_pixels(File.basename(target, File.extname(target)))
-    id = id_prefix + '-' + basename_noext.gsub(/_+/, '-').downcase
-    if !attrs.has_key? 'id'
-      attrs['id'] = id
+    if attrs.has_key? 'title'
+      title = attrs['title']
+    else
+      title = basename_noext.gsub(/_+/, ' ')
+    end
+    title_nosource = title
+    if attrs.has_key? 'source'
+      title += ". link:++#{attrs['source']}++[Source]."
+    end
+    if attrs.has_key? 'id'
+      id = attrs['id']
+    else
+      id = id_prefix + '-' + title_nosource.gsub(/ +/, '-').downcase
     end
     if !attrs.has_key? 'link'
       attrs['link'] = '#' + id
     end
-    if !attrs.has_key? 'title'
-      attrs['title'] = basename_noext.gsub(/_+/, ' ')
-    end
+    attrs['id'] = id
+    attrs['title'] = title
     cirosantilli_create_block parent, attrs
   end
 
