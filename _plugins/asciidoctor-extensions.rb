@@ -1,5 +1,15 @@
 require 'asciidoctor/extensions'
 
+$WIKIMEDIA_FILE_URL = 'https://commons.wikimedia.org/wiki/File:'
+
+def wikimedia_automatic_source basename_no_pixels
+  $WIKIMEDIA_FILE_URL + basename_no_pixels
+end
+
+def wikimedia_remove_pixels basename_noext
+  basename_noext.gsub(/^\d+px-/, '')
+end
+
 # Create an image with ID and title derived from the basename of the figure.
 #
 # Usage:
@@ -26,20 +36,33 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
 
   def process parent, target, attrs
     attrs['target'] = target
-    basename_noext = remove_pixels(File.basename(target, File.extname(target)))
+    basename_no_pixels = remove_pixels(File.basename(target))
+    basename_noext = File.basename(basename_no_pixels, File.extname(target))
     if attrs.has_key? 'title'
       title = attrs['title']
     else
       title = basename_noext.gsub(/_+/, ' ')
     end
     title_nosource = title
+
+    # Add source to title.
+    source = nil
     if attrs.has_key? 'source'
-      title += ". link:++#{attrs['source']}++[Source]."
+      source = attrs['source']
+    else
+      automatic_source = automatic_source basename_no_pixels
+      if automatic_source
+        source = automatic_source
+      end
     end
+    if source
+      title += ". link:++#{source}++[Source]."
+    end
+
     if attrs.has_key? 'id'
       id = attrs['id']
     else
-      id = id_prefix + '-' + title_nosource.gsub(/ +/, '-').downcase
+      id = id_prefix + '-' + title_nosource.gsub(/[^a-zA-Z0-9]+/, '-').downcase
     end
     if !attrs.has_key? 'link'
       attrs['link'] = '#' + id
@@ -47,6 +70,10 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     attrs['id'] = id
     attrs['title'] = title
     cirosantilli_create_block parent, attrs
+  end
+
+  def automatic_source basename_no_pixels
+    nil
   end
 
   def cirosantilli_create_block parent, attrs
@@ -75,10 +102,12 @@ class Image2BlockProcessor < MetadataFromBasenameBlockProcessor
   end
 end
 
-# An Image2 that also removes pixel size prefixes from basenames, e.g.:
+# An Image2 that also parses wikimedia URLS to add the following automation.
+#
+# Pixel size prefixes are removed from basenames, e.g.:
 #
 # ....
-# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Rive_water_sample_collection_swans.jpg/640px-Rive_water_sample_collection_swans.jpg
+# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-Rive_water_sample_collection_swans.jpg
 # ....
 #
 # becomes:
@@ -87,13 +116,30 @@ end
 # some-file-name
 # ....
 #
+# The image source is automatically derived from the image URL, e.g.:
+#
+# ....
+# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-River_water_sample_collection_swans.jpg
+# ....
+#
+# has source:
+#
+# ....
+# https://commons.wikimedia.org/wiki/File:River_water_sample_collection_swans.jpg
+# ....
+#
 # This is especially important because we want to use the smallest image
 # possible to reduce page load times.
 class WikimediaImage2BlockProcessor < Image2BlockProcessor
   use_dsl
   named :wikimedia_image
+
+  def automatic_source basename_no_pixels
+    wikimedia_automatic_source basename_no_pixels
+  end
+
   def remove_pixels basename_noext
-    basename_noext.gsub(/^\d+px-/, '')
+    wikimedia_remove_pixels basename_noext
   end
 end
 
@@ -111,8 +157,22 @@ class Video2BlockProcessor < MetadataFromBasenameBlockProcessor
   end
 end
 
+class WikimediaVideo2BlockProcessor < Video2BlockProcessor
+  use_dsl
+  named :wikimedia_video
+
+  def automatic_source basename_no_pixels
+    wikimedia_automatic_source basename_no_pixels
+  end
+
+  def remove_pixels basename_noext
+    wikimedia_remove_pixels basename_noext
+  end
+end
+
 Asciidoctor::Extensions.register do
   block_macro Image2BlockProcessor
   block_macro Video2BlockProcessor
   block_macro WikimediaImage2BlockProcessor
+  block_macro WikimediaVideo2BlockProcessor
 end
