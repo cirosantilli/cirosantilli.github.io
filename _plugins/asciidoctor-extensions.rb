@@ -38,6 +38,7 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     attrs['target'] = target
     basename_no_pixels = remove_pixels(File.basename(target))
     basename_noext = File.basename(basename_no_pixels, File.extname(target))
+
     if attrs.has_key? 'title'
       title = attrs['title']
     else
@@ -64,9 +65,15 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     else
       id = id_prefix + '-' + title_nosource.gsub(/[^a-zA-Z0-9]+/, '-').downcase
     end
+
     if !attrs.has_key? 'link'
       attrs['link'] = '#' + id
     end
+
+    if !attrs.has_key? 'height'
+      attrs['height'] = '400'
+    end
+
     attrs['id'] = id
     attrs['title'] = title
     cirosantilli_create_block parent, attrs
