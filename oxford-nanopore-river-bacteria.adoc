@@ -1,6 +1,6 @@
 = How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it
 
-The aim of this article is to give a feeling of how this kind of biological experiment feels like to a person who has never done any link:/#biology[biology] like link:/#ciro-santilli[Ciro]. Parent node: link:/#articles[].
+This article gives an idea of how this kind of biological experiment feels like to a software engineer who has never done any link:/#biology[biology] like link:/#ciro-santilli[Ciro]. Parent node: link:/#articles[].
 
 toc::[]
 
@@ -10,7 +10,7 @@ https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few https://en.wi
 
 In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
 
-Ciro knows nothing about biology, but since he is link:#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area[very curious about it], in particular he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
+Ciro knows nothing about biology, but since he is link:/#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area[very curious about it], in particular he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
 
 All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!
 
@@ -18,9 +18,11 @@ The impressions you get from the experiment as a software engineer will be:
 
 * OMG, this is so labour intensive, why haven't they automated this
 * OMG, this is frightening, all the 8 hours of work I've just done are present in that tiny plastic tube
-* Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster you piece of junk!
+* Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster and don't break you piece of junk!
 
 == Overview of the experiment
+
+For those that know biology and just want to do the thing, see: xref:protocols-used[xrefstyle=full].
 
 The PuntSeq team uses an xref:oxford-nanopore-minion[] sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
 
@@ -80,7 +82,7 @@ This kind of "sequence some random DNA to determine what is present in the sampl
 Besides river sample, other types of samples where of metagenomics is used include:
 
 * food, including searching for desirable microorganisms such as in cheese or bread yeast
-* poo, e.g. to study how the human microbiome influences health https://www.microbiotica.com/
+* poo, e.g. to study how the human microbiome influences health. There are companies actively working on this, e.g.: https://www.microbiotica.com/
 * blood, e.g. to search for https://en.wikipedia.org/wiki/Circulating_tumor_DNA[Circulating tumor DNA]
 
 == Sample collection
@@ -93,6 +95,8 @@ There were some swans in the river, so... swan poo bacteria I guess?
 
 And, in the name of science, we even wore gloves to not contaminate the samples!
 
+Who said you can't have fun with science? xref:video-river-water-sample-collection-with-a-bottle-and-string[xrefstyle=full].
+
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/River_water_sample_collection_swans.jpg/800px-River_water_sample_collection_swans.jpg[]
 
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg[]
@@ -104,8 +108,6 @@ wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg[]
 
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg[]
-
-Who said you can't have fun with science? xref:video-river-water-sample-collection-with-a-bottle-and-string[xrefstyle=full]
 
 wikimedia_video::https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv/River_water_sample_collection_with_a_bottle_and_string.ogv.480p.vp9.webm[]
 
@@ -226,11 +228,94 @@ First we had to remove PCR byproducts with the xref:qiagen-qiaquick-pcr-purifica
 
 Then we prepared the DNA for sequencing with the xref:oxford-nanopore-sqk-lsk109-ligation-sequencing-kit[]
 
+After all was said and done, the DNA of the several 1l water bottles and hours of hard purification labour were contained in one single Eppendorf!
+
+Once the sample was fully prepared, we opened the Nanopore flow cell, which is the 500 dollar consumable piece that goes in the sequencer.
+
+We then had to pipette the final golden Eppendorf into the flow cell. My anxiety levels were going through the roof: xref:image-oxford-nanopore-minion-flow-cell-pipette-loading[xrefstyle=full].
+
+wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oxford_nanopore_MinION_flow_cell_package.jpg/304px-Oxford_nanopore_MinION_flow_cell_package.jpg[]
+
+wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Oxford_nanopore_MinION_flow_cell_front.jpg/640px-Oxford_nanopore_MinION_flow_cell_front.jpg[]
+
+wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Oxford_nanopore_MinION_flow_cell_back.jpg/1024px-Oxford_nanopore_MinION_flow_cell_back.jpg[]
+
+wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg/278px-Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg[]
+
+At this point bio people start telling lab horror stories of expensive solutions being spilled and people having to recover them from fridge walls, or of how people threw away golden Eppendorfs and had to pick them out of trash bins with hundreds of others looking exactly the same etc. (but also how some discoveries were made like this) This reminded me of: https://youtu.be/89UNPdNtOoE?t=919 https://en.wikipedia.org/wiki/Alfred_Maddock[Alfred Maddock's plutonium horror story].
+
+Luckily this time, it worked out!
+
+We then just had to connect the MinION to the computer, and wait for 2 days.
+
+During this time, the DNA would be sucked through the pores.
+
+As can be seen from xref:video-oxford-nanopore-minion-software-channels-pannel-on-mac[] the software tells us which pores are still working.
+
+wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg/360px-Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg[]
+
+wikimedia_video::https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm[]
+
+Pores go bad sooner or later randomly, until there are none left, at which point we can stop the process and throw the flow cell away.
+
+48 hours was expected to be a reasonable time until all pores went bad, and so we called it a day, and waited for an email from the PuntSeq team telling us how things went.
+
+The nominal maximum base pairs sequenced is 30 billion, so about 10 entire human genomes, which is not bad! We reached a yield of 16Gbp which the bio people said was not bad.
+
 == Bioinformatics
 
-After the sequencing was done, we analyzed the data using computer programs that match the sequenced 16S sequences to a database of known sequenced species.
+To be honest, because I'm a software engineer, and I've done enough staring in computers for a lifetime already, and I believe in the power of https://en.wikipedia.org/wiki/Git[Git], I didn't pay much attention to this ;-)
+
+I can however see that it does however present interesting problems!
+
+Because we had to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year.
+
+First there is some signal processing / machine learning required to do the https://en.wikipedia.org/wiki/Base_calling[base calling], which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.
+
+After the base calling was done, we analyzed the data using computer programs that match the sequenced 16S sequences to a database of known sequenced species.
 
 This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.
+
+The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! TODO link.
+
+== Conclusions
+
+* against all odds, the experiment worked and we got DNA out of the water, despite a bunch of non-bio newbs actively messing with random parts of the experiment
+* PuntSeq and Biomakespace people, and all those tho do scientific outreach, are awesome!
+* biology is hard
+* creating insanely media rich articles like this is also hard, but the following helped enormously:
+** link:/#media-rationale-of-ciro-santillis-website[Wikimedia Commons] to store large media files out of Git
+** link:/markdown-style-guide[Asciidoctor] extensions to easily include those media files
+** https://unix.stackexchange.com/questions/25978/image-viewer-for-multiple-images/539333#539333[Nomacs] to give Google Photos photos meaningful names and to edit people's faces out of pictures ;-)
+* some scientific Wikipedia pages may or may not have been edited with better pictures during the course of writing this article
+
+== Protocols used
+
+Protocols are the biologist term for "recipe".
+
+I found that a lot of biology comes down to this: get the right recipe, follow it well even though you don't understand all the proprietary details, and pray.
+
+=== Qiagen DNeasy PowerWater Kit
+
+https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit (http://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/[archive]) Here is its documentation: https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en (http://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en[archive]).
+
+Manual archive: http://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en
+
+Kit to extract clean DNA from water.
+
+=== Qiagen QIAquick PCR Purification Kit
+
+https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation (http://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/[archive])
+
+Manual archive: http://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&lang=en
+
+Removes PCR byproducts from purified DNA.
+
+=== Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit
+
+https://store.nanoporetech.com/ligation-sequencing-kit.html (http://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html[archive])
+
+Repairs the ends of DNA, and also attaches an adapter protein to the DNA that makes them go through the pores of e.g. an xref:oxford-nanopore-minion[].
 
 == Equipment used
 
@@ -331,27 +416,3 @@ Manual: https://biochromspectros.com/media/wysiwyg/support_page/support-simplina
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg[]
 
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg[]
-
-== Protocols used
-
-=== Qiagen DNeasy PowerWater Kit
-
-https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit (http://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/[archive]) Here is its documentation: https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en (http://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en[archive]).
-
-Manual archive: http://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en
-
-Kit to extract clean DNA from water.
-
-=== Qiagen QIAquick PCR Purification Kit
-
-https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation (http://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/[archive])
-
-Manual archive: http://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&lang=en
-
-Removes PCR byproducts from purified DNA.
-
-=== Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit
-
-https://store.nanoporetech.com/ligation-sequencing-kit.html (http://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html[archive])
-
-Repairs the ends of DNA, and also attaches an adapter protein to the DNA that makes them go through the pores of e.g. an xref:oxford-nanopore-minion[].
