@@ -6,10 +6,6 @@ def wikimedia_automatic_source basename_no_pixels
   $WIKIMEDIA_FILE_URL + basename_no_pixels
 end
 
-def wikimedia_remove_pixels basename_noext
-  basename_noext.gsub(/^\d+px-/, '')
-end
-
 # Create an image with ID and title derived from the basename of the figure.
 #
 # Usage:
@@ -146,7 +142,7 @@ class WikimediaImage2BlockProcessor < Image2BlockProcessor
   end
 
   def remove_pixels basename_noext
-    wikimedia_remove_pixels basename_noext
+    basename_noext.gsub(/^\d+px-/, '')
   end
 end
 
@@ -164,6 +160,13 @@ class Video2BlockProcessor < MetadataFromBasenameBlockProcessor
   end
 end
 
+# Like WikimediaImage2BlockProcessor but for videos.
+# Smaller video URLs are of form:
+# https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
+# https://upload.wikimedia.org/wikipedia/commons/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
+# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
+# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
+# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.vp9.webm
 class WikimediaVideo2BlockProcessor < Video2BlockProcessor
   use_dsl
   named :wikimedia_video
@@ -173,7 +176,7 @@ class WikimediaVideo2BlockProcessor < Video2BlockProcessor
   end
 
   def remove_pixels basename_noext
-    wikimedia_remove_pixels basename_noext
+    basename_noext.gsub(/\.[^.]+\.\d+p(\.[^.]+)?(\.[^.]+)$/, '\2')
   end
 end
 
