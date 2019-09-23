@@ -54,6 +54,7 @@
 [jekyll]:                   https://github.com/jekyll/jekyll
 [jenkov tutorials]:         http://tutorials.jenkov.com
 [jira]:                     https://www.atlassian.com/software/jira
+[katex]:                    https://github.com/KaTeX/KaTeX
 [kramdown]:                 https://github.com/gettalong/kramdown
 [krusader]:                 https://www.krusader.org
 [leetcode]:                 https://github.com/haoel/leetcode
