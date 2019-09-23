@@ -32,7 +32,7 @@ This may also include patches which were rejected in favor of another patch, but
 
 | Date    | Project                      | Size | Description                                                                                                                                                                    |
 |---------|------------------------------|------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 2019-09 | [KaTeX][]                    | 1    | [Create globalGroup option to place definitions in global scope](https://github.com/KaTeX/KaTeX/pull/2091)                                                                                                  |
+| 2019-09 | [KaTeX][]                    | 1    | [Create globalGroup option to place definitions in global scope](https://github.com/KaTeX/KaTeX/pull/2091)                                                                     |
 | 2018-06 | raspi3-tutorial              | 0    | [Explain how to see UART1](https://github.com/bztsrc/raspi3-tutorial/pull/34)                                                                                                  |
 | 2018-05 | [Buildroot][]                | 1    | [ltp-testsuite: add --with-open-posix-testsuite](https://github.com/buildroot/buildroot/commit/45719594d08024df97db55333f8ab3ba2b4fc23e)                                       |
 | 2018-03 | [Buildroot][]                | 1    | [qemu_x86_64_defconfig: fix kernel header version after bump to 4.15](https://github.com/buildroot/buildroot/commit/8a6e30efdeb9f31d51a92ed465373f4128f55e8a)                  |
