@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # https://www.cirosantilli.com#how-to-develop-ciro-santillis-website
 set -eux
+root="$(pwd)"
 mkdir -p out
 # We maintain a safety clone in this directory,
 # to avoid leaking .gitignored files through Jekyll.
@@ -12,7 +13,7 @@ else
   git submodule update --init
 fi
 ./build
-git push
+git -C "$root" push
 cp \
   Gemfile \
   Gemfile.lock \
