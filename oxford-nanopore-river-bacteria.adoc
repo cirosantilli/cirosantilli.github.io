@@ -26,11 +26,13 @@ For those that know biology and just want to do the thing, see: xref:protocols-u
 
 The PuntSeq team uses an xref:oxford-nanopore-minion[] sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
 
-The 16S region codes for one of the RNA pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome]. https://en.wikipedia.org/wiki/Eukaryote[Eukaryotes] don't have an analogous ribosome part.
+The 16S region codes for one of the RNA pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome].
 
 Before sequencing the DNA, we will do a xref:pcr[] with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.
 
-This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding prokaryotes entirely.
+https://en.wikipedia.org/wiki/Eukaryote[Eukaryotes] also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.
+
+This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding eukaryotes entirely.
 
 Despite coding such a fundamental piece of RNA, there is still surprisingly variability in the 16S region across different bacteria, and it is those differences will allow us to identify which bacteria are present in the river.
 
@@ -58,13 +60,17 @@ wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg[hei
 
 Since loops don't base pair, they are less crucial in the determination of the secondary structure of the RNA.
 
-The variability may however not be large enough to allow us to differentiate between related species which might have the same sequence, but we should at least be able to obtain at least a reasonable https://en.wikipedia.org/wiki/Phylum[phylum] breakdown.
+The variability is such that it is possible to identify individual species apart if full sequences are known with certainty.
+
+With the experimental limitations of experiment however, we would only be able to obtain https://en.wikipedia.org/wiki/Family_(biology)[family] or https://en.wikipedia.org/wiki/Genus[genus] level breakdowns.
 
 === Why Oxford Nanopore was used instead of Illumina for the sequencing
 
 link:++https://en.wikipedia.org/wiki/Illumina,_Inc.++[Illumina equipment] is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment
 
-The Nanopore costs just about 500 dollars for the reusable machine, and 500 dollars for the one usage flow cell which can decode up to 30 billion base pairs, which is about 10 human genomes!
+The reusable Nanopore device costs just https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/[about 500 dollars], and https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html[about 500 dollars (50 unit volume)] for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 https://en.wikipedia.org/wiki/Human_genome[human genomes] 1x!
+
+Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).
 
 Other advantages of the MinION over Illumina which didn't really matter to this particular experiment are:
 
@@ -85,9 +91,11 @@ This kind of "sequence some random DNA to determine what is present in the sampl
 
 Besides river sample, other types of samples where of metagenomics is used include:
 
+* sea water biodiversity: http://ocean-microbiome.embl.de/companion.html
 * food, including searching for desirable microorganisms such as in cheese or bread yeast
 * poo, e.g. to study how the human microbiome influences health. There are companies actively working on this, e.g.: https://www.microbiotica.com/
-* blood, e.g. to search for https://en.wikipedia.org/wiki/Circulating_tumor_DNA[Circulating tumor DNA]
+
+One related application which most people would not consider metagenomics, is that of finding https://en.wikipedia.org/wiki/Circulating_tumor_DNA[circulating tumor DNA] in blood to detect tumors.
 
 == Sample collection
 
@@ -131,11 +139,13 @@ The first steps are coarser, and finer and finer splits are done as we move forw
 
 === Filtration with vacuum pump
 
-The first thing we did was to filter the water samples with a filter that is so fine that not even DNA can pass through, but water can.
+The first thing we did was to filter the water samples with a membrane filter that is so fine that not even bacteria can pass through, but water can.
 
-Therefore, after filtration, we would have all particles in the filter, including DNA pieces, entire bacteria and dirt.
+Therefore, after filtration, we would have all particles such as bacteria and larger dirt pieces in the filter.
 
-We only needed 400 ml from the 1 liter in each bottle, and this step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: xref:image-an-eppendorf-tube-is-small-and-convenient[xrefstyle=full]. Reagents are expensive, and centrifuges are small!
+From the 1 liter in each bottle, we only used 400 ml because previous experiments showed that filtering the remaining 600 ml is very time consuming because the membrane filter gets clogged up.
+
+Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: xref:image-an-eppendorf-tube-is-small-and-convenient[xrefstyle=full]. Reagents are expensive, and centrifuges are small!
 
 .An Eppendorf tube is small and convenient
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg[]
@@ -193,7 +203,9 @@ wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Minus
 
 == PCR
 
-https://en.wikipedia.org/wiki/Polymerase_chain_reaction
+https://en.wikipedia.org/wiki/Polymerase_chain_reaction["Polymerase chain reaction" on Wikipediajjj]
+
+Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so I did not get to take many photos.
 
 PCR protocols are very standard it seems, all that biologists need to know to reproduce is the time and temperature of each step.
 
@@ -202,8 +214,6 @@ We did 35 cycles of:
 * 94˚C for 30 seconds
 * 60˚C for 30 seconds
 * 72˚C for 45 seconds
-
-Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so I did not get to take many photos.
 
 This process used a xref:marshal-scientific-mj-research-ptc-200-thermal-cycler[]:
 
@@ -269,11 +279,9 @@ Once we had the amplified 16S DNA, we were almost ready to start sequencing!
 
 === Pre-sequencing preparation
 
-First we had to remove PCR byproducts with the xref:qiagen-qiaquick-pcr-purification-kit[].
+One cool thing we did in this procedure was to use https://en.wikipedia.org/wiki/Magnetic_separation[magnetic separation] with magnetic beads to further concentrate the DNA: xref:image-ge-magrack-6-pipetting[xrefstyle=full].
 
-One cool thing we did in this procedure was to use https://en.wikipedia.org/wiki/Magnetic_separation[magnetic separation] with magnetic beads to purify the DNA: xref:image-ge-magrack-6-pipetting[xrefstyle=full].
-
-The are coated to stick to the DNA, which allows us to easily extract the DNA from the rest of the solution. This is cool, but bio people are borderline obsessed by those beads! Go figure!
+The beads are coated to stick to the DNA, which allows us to easily extract the DNA from the rest of the solution. This is cool, but bio people are borderline obsessed by those beads! Go figure!
 
 wikimedia_image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg[]
 
@@ -337,7 +345,7 @@ After the base calling was done, we analyzed the data using computer programs th
 
 This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.
 
-The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! TODO link.
+The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data will be uploaded to: https://www.puntseq.co.uk/data
 
 == Conclusions
 
