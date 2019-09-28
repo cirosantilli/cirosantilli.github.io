@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 # https://www.cirosantilli.com#how-to-develop-ciro-santillis-website
 set -eux
-root="$(pwd)"
-mkdir -p out
+rootdir="$(pwd)"
+outdir="${rootdir}/publish"
+mkdir -p "$outdir"
 # We maintain a safety clone in this directory,
 # to avoid leaking .gitignored files through Jekyll.
-cd out
+cd "$outdir"
 if [ ! -d .git ]; then
-  git clone --recursive .. .
+  git clone --recursive "$rootdir" .
 else
   git pull
   git submodule update --init
 fi
 ./build
-git -C "$root" push
+git -C "$rootdir" push
 cp \
   Gemfile \
   Gemfile.lock \
@@ -28,5 +29,5 @@ if [ ! -d .git ]; then
   git reset origin/master
 fi
 git add .
-git commit -m "$(git -C .. log -n1 --pretty='%H' dev)"
+git commit -m "$(git -C "$rootdir" log -n1 --pretty='%H' dev)"
 git push origin master:master

@@ -1,5 +1,11 @@
 require 'asciidoctor/extensions'
 
+require 'sqlite3'
+
+$PROJECT_ROOT = File.dirname(File.dirname(__FILE__))
+
+## Wikimedia stuff.
+
 $WIKIMEDIA_FILE_URL = 'https://commons.wikimedia.org/wiki/File:'
 
 def wikimedia_automatic_source basename_no_pixels
@@ -180,9 +186,47 @@ class WikimediaVideo2BlockProcessor < Video2BlockProcessor
   end
 end
 
+class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
+  def initialize(*args, &block)
+    super(*args, &block)
+    @db = SQLite3::Database.new File.join($PROJECT_ROOT, 'out', 'db.sqlite')
+    @table_name = 'sections'
+    # Check if table exists and create it if it doesn't.
+    if @db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{@table_name}';").empty?
+      @db.execute <<-SQL
+        create table '#{@table_name}' (
+          path TEXT,
+          level INT,
+          id TEXT,
+          title TEXT
+        );
+      SQL
+    end
+  end
+
+  def process document
+    return unless document.blocks?
+    (document.find_by context: :section).each do |section|
+      #puts "#{document.attributes['docfile']} #{section.level} #{id} #{section.title}"
+      # The toplevel header does not have an ID.
+      if section.level == 0
+        id = Asciidoctor::Section.generate_id(document.attributes['docname'], document)
+      else
+        id = section.id
+      end
+      relpath = Pathname.new(document.attributes['docfile']).relative_path_from $PROJECT_ROOT
+      @db.execute "INSERT INTO #{@table_name} VALUES (?, ?, ?, ?)",
+        [relpath.to_s, section.level, id, section.title]
+    end
+    nil
+  end
+end
+
+
 Asciidoctor::Extensions.register do
   block_macro Image2BlockProcessor
   block_macro Video2BlockProcessor
   block_macro WikimediaImage2BlockProcessor
   block_macro WikimediaVideo2BlockProcessor
+  treeprocessor ExtractHeaderIds
 end
