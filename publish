@@ -10,6 +10,8 @@ cd "$outdir"
 if [ ! -d .git ]; then
   git clone --recursive "$rootdir" .
 else
+  git checkout -- .
+  git clean -xdf
   git pull
   git submodule update --init
 fi
