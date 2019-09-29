@@ -189,7 +189,9 @@ end
 class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
   def initialize(*args, &block)
     super(*args, &block)
-    @db = SQLite3::Database.new File.join($PROJECT_ROOT, 'out', 'db.sqlite')
+    db_dir = File.join($PROJECT_ROOT, 'out')
+    FileUtils.mkdir_p db_dir
+    @db = SQLite3::Database.new File.join(db_dir, 'db.sqlite')
     @table_name = 'sections'
     # Check if table exists and create it if it doesn't.
     if @db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{@table_name}';").empty?
