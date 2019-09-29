@@ -3,11 +3,12 @@
 
 body {
   $border: 1px solid black;
+  $header_link_color: #CC0;
   $link_color: #28F;
+  $main_padding: 15px;
 
   overflow-wrap: break-word;
   header {
-    $header_link_color: #CC0;
     background-color: black;
     border-radius: 0;
     border-width: 0;
@@ -49,9 +50,9 @@ body {
 
   main {
     /* Don't stay too close to the edge of the screen. */
-    padding-bottom: 15px;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-bottom: $main_padding;
+    padding-right: $main_padding;
+    padding-left: $main_padding;
 
     /* asciidoctor output. */
     .imageblock {
@@ -165,6 +166,27 @@ body {
           &.sorting_2 { background-color: $data_table_color; }
           &.sorting_3 { background-color: $data_table_color; }
         }
+      }
+    }
+  }
+
+  footer {
+    background-color: black;
+    color: white;
+    padding: $main_padding;
+    @mixin footer_link_hover {
+      color: $header_link_color;
+    }
+    a {
+      color: $header_link_color;
+      &:hover {
+        @include footer_link_hover;
+      }
+      &:visited {
+        &:hover {
+          @include footer_link_hover;
+        }
+        color: $header_link_color;
       }
     }
   }

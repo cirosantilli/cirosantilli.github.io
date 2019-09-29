@@ -222,7 +222,6 @@ class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
   end
 end
 
-
 Asciidoctor::Extensions.register do
   block_macro Image2BlockProcessor
   block_macro Video2BlockProcessor

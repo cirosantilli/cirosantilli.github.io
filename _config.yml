@@ -24,8 +24,25 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
 
+# Define attributes that will be visible in both Liquid templates and Asciidoctor.
+asciidoc_and_liquid_attributes: &asciidoc_and_liquid_attributes
+  cirosantilli-github: 'https://github.com/cirosantilli'
+  cirosantilli-linkedin: 'https://www.linkedin.com/in/cirosantilli'
+  cirosantilli-stack-overflow: 'https://stackoverflow.com/users/895245'
+  cirosantilli-twitter: 'https://twitter.com/cirosantilli'
+  cirosantilli-weibo: 'https://www.weibo.com/p/1005055601627311'
+  cirosantilli-youtube: 'https://www.youtube.com/c/CiroSantilli'
+  cirosantilli-zhihu: 'https://www.zhihu.com/people/cirosantilli/activities'
+  cirosantilli-repo-url: 'https://github.com/cirosantilli/cirosantilli.github.io'
+  name: 'Ciro Santilli'
+
+# Make those attributes visible to liquid.
+<< : *asciidoc_and_liquid_attributes
+
 asciidoctor:
   attributes:
+    # Make the attributes visible to Asciidoctor.
+    << : *asciidoc_and_liquid_attributes
     listing-caption: 'Listing '
     sectanchors: true
     sectlinks: true
@@ -36,10 +53,7 @@ asciidoctor:
     toc: macro
     toclevels: 6
 
-# Data.
-github: https://github.com/cirosantilli
-twitter: https://twitter.com/cirosantilli
-name: Ciro Santilli
+# Markdown helpers.
 toc: |
   1. a
   {:toc}

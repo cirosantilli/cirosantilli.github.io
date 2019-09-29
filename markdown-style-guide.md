@@ -89,14 +89,14 @@ One good command is:
 
 ## About
 
-The [source code is available on GitHub]({{ site.github }}).
+The [source code is available on GitHub]({{ site.cirosantilli-github }}).
 
 Considers [original specification](http://daringfireball.net/projects/markdown/syntax),
 [CommonMark](http://commonmark.org) and other extensions.
 
 This project is community driven, and tries to reach consensus.
 Maintainers will only step in if the community cannot reach a decision.
-Discussion will take place [on the issue tracker]({{ site.github }}/issues).
+Discussion will take place [on the issue tracker]({{ site.cirosantilli-github }}/issues).
 
 A Chinese translation can be found at: <http://einverne.github.io/markdown-style-guide/zh.html>
 
@@ -104,8 +104,6 @@ A Chinese translation can be found at: <http://einverne.github.io/markdown-style
 
 - [GitLab](https://github.com/gitlabhq/gitlabhq/blob/master/CONTRIBUTING.md#style-guides)
 - [Vim Markdown](https://github.com/plasticboy/vim-markdown/blob/master/CONTRIBUTING.md#style)
-
-Do you use this style guide? Add your name to [our wiki]({{ site.github }}/wiki/Users).
 
 Are you notable? Send a pull request.
 
