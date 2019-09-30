@@ -3,6 +3,8 @@ require 'asciidoctor/extensions'
 require 'sqlite3'
 
 $PROJECT_ROOT = File.dirname(File.dirname(__FILE__))
+$DB_DIR = File.join($PROJECT_ROOT, 'out')
+$DB_PATH = File.join(db_dir, 'db.sqlite')
 
 ## Wikimedia stuff.
 
@@ -186,17 +188,17 @@ class WikimediaVideo2BlockProcessor < Video2BlockProcessor
   end
 end
 
+# Dump IDs into a database so we can xref2 to it across files.
 class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
   def initialize(*args, &block)
     super(*args, &block)
-    db_dir = File.join($PROJECT_ROOT, 'out')
-    FileUtils.mkdir_p db_dir
-    @db = SQLite3::Database.new File.join(db_dir, 'db.sqlite')
+    FileUtils.mkdir_p $DB_DIR
+    @db = SQLite3::Database.new $DB_PATH
     @table_name = 'sections'
     # Check if table exists and create it if it doesn't.
     if @db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{@table_name}';").empty?
       @db.execute <<-SQL
-        create table '#{@table_name}' (
+        CREATE TABLE '#{@table_name}' (
           path TEXT,
           level INT,
           id TEXT,
@@ -207,7 +209,10 @@ class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
   end
 
   def process document
-    return unless document.blocks?
+    path = Pathname.new(document.attributes['docfile']).relative_path_from $PROJECT_ROOT
+    # Drop all entries from the current file. We are going to reprocess the file,
+    # so we want to catch entries that have been removed.
+    @db.execute "DELETE FROM '#{@table_name}' WHERE path = '#{path}'"
     (document.find_by context: :section).each do |section|
       #puts "#{document.attributes['docfile']} #{section.level} #{id} #{section.title}"
       # The toplevel header does not have an ID.
@@ -216,11 +221,27 @@ class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
       else
         id = section.id
       end
-      relpath = Pathname.new(document.attributes['docfile']).relative_path_from $PROJECT_ROOT
       @db.execute "INSERT INTO #{@table_name} VALUES (?, ?, ?, ?)",
-        [relpath.to_s, section.level, id, section.title]
+        [path.to_s, section.level, id, section.title]
     end
     nil
+  end
+end
+
+class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
+  use_dsl
+  named :xref2
+  using_format :short
+
+  db = SQLite3::Database.new "test.db"
+
+  def process parent, target, attrs
+    db.execute("select * from numbers WHERE" ) do |row|
+      p row
+    end
+    html = $katex.renderToString(attrs[1])
+    create_inline parent, :quoted, html
+    create_block parent, :video, nil, attrs
   end
 end
 
@@ -230,4 +251,5 @@ Asciidoctor::Extensions.register do
   block_macro WikimediaImage2BlockProcessor
   block_macro WikimediaVideo2BlockProcessor
   treeprocessor ExtractHeaderIds
+  inline_macro Xref2InlineMacroProcessor
 end
