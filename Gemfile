@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
-gem 'asciidoctor', '2.0.10'
-#gem 'asciidoctor', :path => 'submodules/asciidoctor'
+# Upstream.
+#gem 'asciidoctor', '2.0.10'
+# Our fork.
+gem 'asciidoctor', :path => 'submodules/asciidoctor'
 gem 'jekyll', '3.8.6'
 gem 'sqlite3', '1.4.1'
 gem 'pry', '0.12.2'
