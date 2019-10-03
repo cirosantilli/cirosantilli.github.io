@@ -1,25 +1,44 @@
 = Asciidoctor test
 :idprefix:
 :idseparator: -
+:sectnums:
+:toc: macro
+:toclevels: 6
+
+toc::[]
+
+== Header h2
+
+=== Header h3 1
+
+=== Header h3 2
 
 == xref2
 
 Raw test command for a single file:
 
 ----
-rm out/db.sqlite && \
-asciidoctor --trace -r `pwd`/_plugins/asciidoctor-extensions.rb adoc2.adoc && \
-asciidoctor --trace -r `pwd`/_plugins/asciidoctor-extensions.rb adoc.adoc && \
+rm -f out/db.sqlite && \
+CIROSANTILLI_COM_XREF2_LOCAL=1 asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc2.adoc && \
+CIROSANTILLI_COM_XREF2_LOCAL=1 asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc.adoc && \
 sqlite3 out/db.sqlite .dump
 ----
 
-xref2:adoc2[]
+Like to toplevel file: xref2:adoc2[]
 
-xref2:adoc2/asciidoctor-test-2-h3[]
+Link to header in another file: xref2:adoc2/asciidoctor-test-2-h3[]
 
-xref2:adoc2/asciidoctor-test-2-h3[Now with text]
+Same but with xrefstyle full: xref2:adoc2/asciidoctor-test-2-h3[xrefstyle=full]
 
-xref2:xref2-in-this-file[]
+Same but with explicit text: xref2:adoc2/asciidoctor-test-2-h3[Now with text]
+
+Link to a header in this file: xref2:xref2-in-this-file[]
+
+Link to a listing in another file: xref2:adoc2/my-listing[]
+
+Link to an image: xref2:adoc2/my-image[]
+
+Commented out test of a broken reference:
 
 ////
 xref2:[]
