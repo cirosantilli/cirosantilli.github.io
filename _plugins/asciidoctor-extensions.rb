@@ -30,7 +30,8 @@ if $XREF2_DB.execute("SELECT name FROM sqlite_master WHERE type='table' AND name
     CREATE TABLE '#{$XREF2_DB_TABLE_NAME}' (
       path TEXT,
       id TEXT,
-      title TEXT
+      title TEXT,
+      xrefstyle_full TEXT
     );
   SQL
 end
@@ -237,18 +238,18 @@ class Xref2ExtractIdsToSqlite < Asciidoctor::Extensions::TreeProcessor
       # so we want to catch entries that have been removed.
       $XREF2_DB.execute "DELETE FROM '#{$XREF2_DB_TABLE_NAME}' WHERE path = '#{path}'"
       # Add an entry for the toplevel.
-      insert_into_db path.to_s, path.to_s, document.title
+      insert_into_db path.to_s, path.to_s, document.title, %(Section "#{document.title}")
       # And now add entries for every document element.
       document.catalog[:refs].each do |key, ref|
-        insert_into_db path.to_s, ref.id, ref.title
+        insert_into_db path.to_s, ref.id, ref.title, ref.xreftext('full')
       end
     end
     nil
   end
 
-  def insert_into_db path, id, title
-    $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?)",
-                [path, id, title]
+  def insert_into_db path, id, title, xrefstyle_full
+    $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?, ?)",
+                [path, id, title, xrefstyle_full]
   end
 end
 
@@ -259,6 +260,7 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
 
   def process parent, target, attrs
     target_split = target.split($XREF2_PATH_SEPARATOR)
+    current_file = db_root_relpath(parent.document.attributes['docfile'])
     if target_split.length > 1
       # In another file.
       target_file = target_split[0, target_split.length - 1].join($XREF2_PATH_SEPARATOR)
@@ -281,7 +283,6 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
         href = "#{target}#{$XREF2_LOCAL_EXT}"
       else
         # Header in current file.
-        current_file = db_root_relpath(parent.document.attributes['docfile'])
         rows = $XREF2_DB.execute(
           "SELECT * FROM #{$XREF2_DB_TABLE_NAME} " \
           "WHERE path = '#{current_file}' " \
@@ -291,22 +292,20 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
       end
     end
     if rows.length > 0
-      path, id, target_text = rows[0]
+      path, id, target_text, xrefstyle_full = rows[0]
       if attrs.key? 1
         text = attrs[1]
       else
-        text = target_text
-        if attrs.key? 'xrefstyle'
-          if attrs['xrefstyle'] == 'full'
-            # TODO duplicates AbstractBlock::xreftext a bit, any way to factor out?
-            # Add number and type here.
-          end
+        if attrs.key? 'xrefstyle' and attrs['xrefstyle'] == 'full'
+          text = xrefstyle_full
+        else
+          text = target_text
         end
       end
     else
-      warn = "reference not found: #{target}"
+      warn = "reference not found in file #{current_file}: #{target}"
       text = warn
-      if $DB_FAIL_ON_MISSING_REF
+      if $XREF2_FAIL_ON_MISSING_REF
         raise warn
       else
         puts(warn)
