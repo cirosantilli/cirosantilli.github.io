@@ -1,2 +1,28 @@
 = Asciidoctor test
-:page-description: Asciidoctor test page
+:idprefix:
+:idseparator: -
+
+== xref2
+
+Raw test command for a single file:
+
+----
+rm out/db.sqlite && \
+asciidoctor --trace -r `pwd`/_plugins/asciidoctor-extensions.rb adoc2.adoc && \
+asciidoctor --trace -r `pwd`/_plugins/asciidoctor-extensions.rb adoc.adoc && \
+sqlite3 out/db.sqlite .dump
+----
+
+xref2:adoc2[]
+
+xref2:adoc2/asciidoctor-test-2-h3[]
+
+xref2:adoc2/asciidoctor-test-2-h3[Now with text]
+
+xref2:xref2-in-this-file[]
+
+////
+xref2:[]
+////
+
+=== xref2 in this file

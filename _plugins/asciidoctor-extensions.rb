@@ -2,9 +2,32 @@ require 'asciidoctor/extensions'
 
 require 'sqlite3'
 
+# Cross reference database.
 $PROJECT_ROOT = File.dirname(File.dirname(__FILE__))
 $DB_DIR = File.join($PROJECT_ROOT, 'out')
-$DB_PATH = File.join(db_dir, 'db.sqlite')
+$DB_PATH = File.join($DB_DIR, 'db.sqlite')
+FileUtils.mkdir_p $DB_DIR
+$DB = SQLite3::Database.new $DB_PATH
+$DB_TABLE_NAME = 'sections'
+# The extension this character for for all OSes.
+$PATH_SEPARATOR = '/'
+# Check if table exists and create it if it doesn't.
+if $DB.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{$DB_TABLE_NAME}';").empty?
+  $DB.execute <<-SQL
+    CREATE TABLE '#{$DB_TABLE_NAME}' (
+      path TEXT,
+      level INT,
+      id TEXT,
+      title TEXT
+    );
+  SQL
+end
+$DB_FAIL_ON_MISSING_REF = ENV['CIROSANTILLI_COM_DB_FAIL_ON_MISSING_REF'] == '1'
+
+def db_root_relpath path
+  f = Pathname.new(path).relative_path_from($PROJECT_ROOT)
+  File.basename(f,File.extname(f))
+end
 
 ## Wikimedia stuff.
 
@@ -169,7 +192,9 @@ class Video2BlockProcessor < MetadataFromBasenameBlockProcessor
 end
 
 # Like WikimediaImage2BlockProcessor but for videos.
+#
 # Smaller video URLs are of form:
+#
 # https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
 # https://upload.wikimedia.org/wikipedia/commons/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
 # https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
@@ -189,59 +214,87 @@ class WikimediaVideo2BlockProcessor < Video2BlockProcessor
 end
 
 # Dump IDs into a database so we can xref2 to it across files.
+#
+# For debugging, debug the database with: `sqlite3 out/db.sqlite .dump`
 class ExtractHeaderIds < Asciidoctor::Extensions::TreeProcessor
-  def initialize(*args, &block)
-    super(*args, &block)
-    FileUtils.mkdir_p $DB_DIR
-    @db = SQLite3::Database.new $DB_PATH
-    @table_name = 'sections'
-    # Check if table exists and create it if it doesn't.
-    if @db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{@table_name}';").empty?
-      @db.execute <<-SQL
-        CREATE TABLE '#{@table_name}' (
-          path TEXT,
-          level INT,
-          id TEXT,
-          title TEXT
-        );
-      SQL
-    end
-  end
-
   def process document
-    path = Pathname.new(document.attributes['docfile']).relative_path_from $PROJECT_ROOT
-    # Drop all entries from the current file. We are going to reprocess the file,
-    # so we want to catch entries that have been removed.
-    @db.execute "DELETE FROM '#{@table_name}' WHERE path = '#{path}'"
-    (document.find_by context: :section).each do |section|
-      #puts "#{document.attributes['docfile']} #{section.level} #{id} #{section.title}"
-      # The toplevel header does not have an ID.
-      if section.level == 0
-        id = Asciidoctor::Section.generate_id(document.attributes['docname'], document)
-      else
-        id = section.id
+    if not document.options[:parse_header_only]
+      # Drop all entries from the current file. We are going to reprocess the file,
+      # so we want to catch entries that have been removed.
+      #
+      # jekyll-asciidoctor does a header only pass which invokes this though,
+      # so we have to skip that one or else it resets the DB to contain the top header only.
+      path = db_root_relpath document.attributes['docfile']
+      $DB.execute "DELETE FROM '#{$DB_TABLE_NAME}' WHERE path = '#{path}'"
+      (document.find_by context: :section).each do |section|
+        # The toplevel header does not have an ID.
+        if section.level == 0
+          id = Asciidoctor::Section.generate_id(document.attributes['docname'], document)
+        else
+          id = section.id
+        end
+        $DB.execute "INSERT INTO #{$DB_TABLE_NAME} VALUES (?, ?, ?, ?)",
+          [path.to_s, section.level, id, section.title]
       end
-      @db.execute "INSERT INTO #{@table_name} VALUES (?, ?, ?, ?)",
-        [path.to_s, section.level, id, section.title]
     end
     nil
   end
 end
 
+# xref that works across files.
 class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   use_dsl
   named :xref2
-  using_format :short
-
-  db = SQLite3::Database.new "test.db"
 
   def process parent, target, attrs
-    db.execute("select * from numbers WHERE" ) do |row|
-      p row
+    target_split = target.split($PATH_SEPARATOR)
+    if target_split.length > 1
+      # In another file.
+      target_file = target_split[0, target_split.length - 1].join($PATH_SEPARATOR)
+      target_id = target_split[-1]
+      href = "#{target_file}##{target_id}"
+      rows = $DB.execute(
+        "SELECT * FROM #{$DB_TABLE_NAME} " \
+        "WHERE path = '#{target_file}' " \
+        "AND id = '#{target_id}';"
+      )
+    else
+      # In the current file or a toplevel header in another file?
+      # First try toplevel header in another file.
+      rows = $DB.execute(
+        "SELECT * FROM #{$DB_TABLE_NAME} " \
+        "WHERE path = '#{target}' " \
+        "AND level = 0;"
+      )
+      href = target
+      if rows.length == 0
+        # If not found, then try a header in the current file.
+        current_file = db_root_relpath parent.document.attributes['docfile']
+        rows = $DB.execute(
+          "SELECT * FROM #{$DB_TABLE_NAME} " \
+          "WHERE path = '#{current_file}' " \
+          "AND id = '#{target}';"
+        )
+        href = "##{target}"
+      end
     end
-    html = $katex.renderToString(attrs[1])
-    create_inline parent, :quoted, html
-    create_block parent, :video, nil, attrs
+    if rows.length > 0
+      path, level, id, target_text = rows[0]
+      if attrs.key?(1)
+        text = attrs[1]
+      else
+        text = target_text
+      end
+    else
+      warn = "reference not found: #{target}"
+      text = warn
+      if $DB_FAIL_ON_MISSING_REF
+        raise warn
+      else
+        puts(warn)
+      end
+    end
+    return create_anchor parent, text, type: :link, target: href
   end
 end
 
