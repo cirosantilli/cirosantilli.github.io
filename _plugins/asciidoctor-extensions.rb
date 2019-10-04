@@ -11,11 +11,12 @@ end
 
 # xref2 cross reference database.
 $XREF2_FAIL_ON_MISSING_REF = ENV['CIROSANTILLI_COM_XREF2_FAIL_ON_MISSING_REF'] == '1'
-$XREF2_LOCAL = ENV['CIROSANTILLI_COM_XREF2_LOCAL'] == '1'
-if $XREF2_LOCAL
-  $XREF2_LOCAL_EXT = '.html'
+$XREF2_SERVERLESS = ENV['CIROSANTILLI_COM_XREF2_SERVERLESS'] == '1'
+$XREF2_SINGLE_FILE_OUTPUT = ENV['CIROSANTILLI_COM_SINFLE_FILE'] == '1'
+if $XREF2_SERVERLESS
+  $XREF2_SERVERLESS_EXT = '.html'
 else
-  $XREF2_LOCAL_EXT = ''
+  $XREF2_SERVERLESS_EXT = ''
 end
 $XREF2_DB_DIR = File.join($PROJECT_ROOT, 'out')
 $XREF2_DB_PATH = File.join($XREF2_DB_DIR, 'db.sqlite')
@@ -25,13 +26,22 @@ $XREF2_DB_TABLE_NAME = 'sections'
 # The extension this character for for all OSes.
 $XREF2_PATH_SEPARATOR = '/'
 # Check if table exists and create it if it doesn't.
-if $XREF2_DB.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='#{$XREF2_DB_TABLE_NAME}';").empty?
-  $XREF2_DB.execute <<-SQL
+# TODO also check if DB schema changed and also delete if yes.
+if $XREF2_DB.execute(<<~SQL
+  SELECT name
+  FROM sqlite_master
+  WHERE type='table'
+  AND name='#{$XREF2_DB_TABLE_NAME}'
+  SQL
+).empty?
+  $XREF2_DB.execute <<~SQL
     CREATE TABLE '#{$XREF2_DB_TABLE_NAME}' (
       path TEXT,
       id TEXT,
       title TEXT,
-      xrefstyle_full TEXT
+      xrefstyle_full TEXT,
+      context TEXT,
+      level INT
     );
   SQL
 end
@@ -238,18 +248,20 @@ class Xref2ExtractIdsToSqlite < Asciidoctor::Extensions::TreeProcessor
       # so we want to catch entries that have been removed.
       $XREF2_DB.execute "DELETE FROM '#{$XREF2_DB_TABLE_NAME}' WHERE path = '#{path}'"
       # Add an entry for the toplevel.
-      insert_into_db path.to_s, path.to_s, document.title, %(Section "#{document.title}")
+      insert_into_db path.to_s, path.to_s, document.title, %(Section "#{document.title}"),
+                     'section', 0
       # And now add entries for every document element.
       document.catalog[:refs].each do |key, ref|
-        insert_into_db path.to_s, ref.id, ref.title, ref.xreftext('full')
+        insert_into_db path.to_s, ref.id, ref.title, ref.xreftext('full'),
+                       ref.context.to_s, ref.level
       end
     end
     nil
   end
 
-  def insert_into_db path, id, title, xrefstyle_full
-    $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?, ?)",
-                [path, id, title, xrefstyle_full]
+  def insert_into_db path, id, title, xrefstyle_full, context, level
+    $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?, ?, ?, ?)",
+                [path, id, title, xrefstyle_full, context, level]
   end
 end
 
@@ -265,34 +277,37 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
       # In another file.
       target_file = target_split[0, target_split.length - 1].join($XREF2_PATH_SEPARATOR)
       target_id = target_split[-1]
-      href = "#{target_file}#{$XREF2_LOCAL_EXT}##{target_id}"
-      rows = $XREF2_DB.execute(
-        "SELECT * FROM #{$XREF2_DB_TABLE_NAME} " \
-        "WHERE path = '#{target_file}' " \
-        "AND id = '#{target_id}';"
+      href = "#{target_file}#{$XREF2_SERVERLESS_EXT}##{target_id}"
+      rows = $XREF2_DB.execute(<<~SQL
+        SELECT * FROM #{$XREF2_DB_TABLE_NAME}
+        WHERE path = '#{target_file}'
+        AND id = '#{target_id}'
+        SQL
       )
     else
       # In the current file or a toplevel header in another file?
       # First try toplevel header in another file.
-      rows = $XREF2_DB.execute(
-        "SELECT * FROM #{$XREF2_DB_TABLE_NAME} " \
-        "WHERE path = '#{target}' "
+      rows = $XREF2_DB.execute(<<~SQL
+        SELECT * FROM #{$XREF2_DB_TABLE_NAME}
+        WHERE path = '#{target}'
+        SQL
       )
       if rows.length > 0
         # Yup, toplevel header of another file.
-        href = "#{target}#{$XREF2_LOCAL_EXT}"
+        href = "#{target}#{$XREF2_SERVERLESS_EXT}"
       else
         # Header in current file.
-        rows = $XREF2_DB.execute(
-          "SELECT * FROM #{$XREF2_DB_TABLE_NAME} " \
-          "WHERE path = '#{current_file}' " \
-          "AND id = '#{target}' "
+        rows = $XREF2_DB.execute(<<~SQL
+          SELECT * FROM #{$XREF2_DB_TABLE_NAME}
+          WHERE path = '#{current_file}'
+          AND id = '#{target}'
+          SQL
         )
         href = "##{target}"
       end
     end
     if rows.length > 0
-      path, id, target_text, xrefstyle_full = rows[0]
+      path, id, target_text, xrefstyle_full, context, level = rows[0]
       if attrs.key? 1
         text = attrs[1]
       else
@@ -315,11 +330,23 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   end
 end
 
+class Include2BlockProcessor < Asciidoctor::Extensions::BlockMacroProcessor
+  use_dsl
+  named :include2
+
+  def process parent, target, attrs
+  end
+end
+
 Asciidoctor::Extensions.register do
+  # External media processors.
   block_macro Image2BlockProcessor
   block_macro Video2BlockProcessor
   block_macro WikimediaImage2BlockProcessor
   block_macro WikimediaVideo2BlockProcessor
+
+  # Cross file processors.
+  block_macro Include2BlockProcessor
   treeprocessor Xref2ExtractIdsToSqlite
   inline_macro Xref2InlineMacroProcessor
 end

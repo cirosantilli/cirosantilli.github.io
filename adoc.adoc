@@ -19,8 +19,8 @@ Raw test command for a single file:
 
 ----
 rm -f out/db.sqlite && \
-CIROSANTILLI_COM_XREF2_LOCAL=1 bundle exec asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc2.adoc && \
-CIROSANTILLI_COM_XREF2_LOCAL=1 bundle exec asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc.adoc && \
+CIROSANTILLI_COM_XREF2_SERVERLESS=1 bundle exec asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc2.adoc && \
+CIROSANTILLI_COM_XREF2_SERVERLESS=1 bundle exec asciidoctor --trace -r "$(pwd)/_plugins/asciidoctor-extensions.rb" adoc.adoc && \
 sqlite3 out/db.sqlite .dump
 ----
 
@@ -47,3 +47,9 @@ xref2:[]
 ////
 
 === xref2 in this file
+
+////
+== include2
+
+include2::adoc2[]
+////
