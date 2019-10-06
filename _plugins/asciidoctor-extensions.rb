@@ -75,13 +75,48 @@ end
 #
 # * `source`: a link to the source of the image as a form of attribution and to allow
 #   downloading possibly higher resolution versions of the image on Wikimedia
+#
+# Certain domains are automatically recognized, e.g. Wikimedia Commons, and extra magic
+# is done for them, e.t.:
+#
+# The image source is automatically derived from the image URL, e.g.:
+#
+# ....
+# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-River_water_sample_collection_swans.jpg
+# ....
+#
+# has source:
+#
+# ....
+# https://commons.wikimedia.org/wiki/File:River_water_sample_collection_swans.jpg
+# ....
+#
+# And pixel size prefixes are removed from basenames, e.g.:
+#
+# ....
+# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-Rive_water_sample_collection_swans.jpg
+# ....
+#
+# becomes:
+#
+# ....
+# some-file-name
+# ....
 class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroProcessor
   use_dsl
 
   def process parent, target, attrs
+    known_domain_type = nil
+    if target =~ /^https?:\/\//
+      if target.start_with?('https://upload.wikimedia.org/wikipedia/commons/')
+        known_domain_type = :wikimedia_commons
+      end
+    else
+      target = parent.document.attributes['cirosantilli-media-prefix'] + target
+    end
     attrs['target'] = target
-    basename_no_pixels = remove_pixels(File.basename(target))
-    basename_noext = File.basename(basename_no_pixels, File.extname(target))
+    basename_no_pixels = remove_pixels(File.basename(target), known_domain_type)
+    basename_noext = File.basename(basename_no_pixels, File.extname(basename_no_pixels))
 
     if attrs.has_key? 'title'
       title = attrs['title']
@@ -95,9 +130,8 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     if attrs.has_key? 'source'
       source = attrs['source']
     else
-      automatic_source = automatic_source basename_no_pixels
-      if automatic_source
-        source = automatic_source
+      if known_domain_type == :wikimedia_commons
+        source = wikimedia_automatic_source basename_no_pixels
       end
     end
     if source
@@ -123,10 +157,6 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     cirosantilli_create_block parent, attrs
   end
 
-  def automatic_source basename_no_pixels
-    nil
-  end
-
   def cirosantilli_create_block parent, attrs
     raise 'unimplemented'
   end
@@ -135,8 +165,8 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     raise 'unimplemented'
   end
 
-  def remove_pixels basename_noext
-    basename_noext
+  def remove_pixels basename, known_domain_type
+    basename
   end
 end
 
@@ -151,46 +181,13 @@ class Image2BlockProcessor < MetadataFromBasenameBlockProcessor
   def id_prefix
     'image'
   end
-end
 
-# An Image2 that also parses wikimedia URLS to add the following automation.
-#
-# Pixel size prefixes are removed from basenames, e.g.:
-#
-# ....
-# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-Rive_water_sample_collection_swans.jpg
-# ....
-#
-# becomes:
-#
-# ....
-# some-file-name
-# ....
-#
-# The image source is automatically derived from the image URL, e.g.:
-#
-# ....
-# https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/River_water_sample_collection_swans.jpg/640px-River_water_sample_collection_swans.jpg
-# ....
-#
-# has source:
-#
-# ....
-# https://commons.wikimedia.org/wiki/File:River_water_sample_collection_swans.jpg
-# ....
-#
-# This is especially important because we want to use the smallest image
-# possible to reduce page load times.
-class WikimediaImage2BlockProcessor < Image2BlockProcessor
-  use_dsl
-  named :wikimedia_image
-
-  def automatic_source basename_no_pixels
-    wikimedia_automatic_source basename_no_pixels
-  end
-
-  def remove_pixels basename_noext
-    basename_noext.gsub(/^\d+px-/, '')
+  def remove_pixels basename, known_domain_type
+    if known_domain_type == :wikimedia_commons
+      basename.gsub(/^\d+px-/, '')
+    else
+      basename
+    end
   end
 end
 
@@ -206,27 +203,25 @@ class Video2BlockProcessor < MetadataFromBasenameBlockProcessor
   def id_prefix
     'video'
   end
-end
 
-# Like WikimediaImage2BlockProcessor but for videos.
-#
-# Smaller video URLs are of form:
-#
-# https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
-# https://upload.wikimedia.org/wikipedia/commons/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
-# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
-# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
-# https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.vp9.webm
-class WikimediaVideo2BlockProcessor < Video2BlockProcessor
-  use_dsl
-  named :wikimedia_video
-
-  def automatic_source basename_no_pixels
-    wikimedia_automatic_source basename_no_pixels
-  end
-
-  def remove_pixels basename_noext
-    basename_noext.gsub(/\.[^.]+\.\d+p(\.[^.]+)?(\.[^.]+)$/, '\2')
+  def remove_pixels basename, known_domain_type
+    if known_domain_type == :wikimedia_commons
+      # Smaller video URLs are of form:
+      #
+      # https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
+      # https://upload.wikimedia.org/wikipedia/commons/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm
+      # https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
+      # https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm
+      # https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.vp9.webm
+      #
+      # And for a transcode:
+      #
+      # https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv/River_water_sample_collection_with_a_bottle_and_string.ogv.480p.vp9.webm
+      # https://commons.wikimedia.org/wiki/File:River_water_sample_collection_with_a_bottle_and_string.ogv
+      basename.gsub(/([^.]+\.[^.]+).*/, '\1')
+    else
+      basename
+    end
   end
 end
 
@@ -330,23 +325,12 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   end
 end
 
-class Include2BlockProcessor < Asciidoctor::Extensions::BlockMacroProcessor
-  use_dsl
-  named :include2
-
-  def process parent, target, attrs
-  end
-end
-
 Asciidoctor::Extensions.register do
   # External media processors.
   block_macro Image2BlockProcessor
   block_macro Video2BlockProcessor
-  block_macro WikimediaImage2BlockProcessor
-  block_macro WikimediaVideo2BlockProcessor
 
   # Cross file processors.
-  block_macro Include2BlockProcessor
   treeprocessor Xref2ExtractIdsToSqlite
   inline_macro Xref2InlineMacroProcessor
 end
