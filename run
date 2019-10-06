@@ -4,4 +4,9 @@ set -eu
 # Because _config.yml does not get updated unless we do this... TODO upstream bug?
 bundle exec jekyll clean
 xdg-open http://localhost:4000
-bundle exec jekyll serve -Itw
+bundle exec jekyll serve \
+  --incremental \
+  --trace \
+  --livereload \
+  --watch \
+;

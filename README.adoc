@@ -1023,6 +1023,37 @@ https://stackoverflow.com/questions/26778329/running-jekyll-generated-files-with
 
 TODO: download all resources. Images are already half way because basically all already go through `image2`. But not sure I can mark external CSS and JavaScript easily on the HTML.
 
+Download all images download for development is already possible with;
+
+....
+CIROSANTILLI_COM_OFFLINE_DOWNLOAD=1 ./build
+....
+
+And after the download was done once before, generate output that uses the downloaded files instead of remote ones:
+
+....
+CIROSANTILLI_COM_OFFLINE_USE=1 ./build
+xdg-open _site/index.html
+....
+
+or when running the development server:
+
+....
+CIROSANTILLI_COM_OFFLINE_USE=1 ./run
+xdg-open http://localhost:4000
+....
+
+TODO: for some reason when I access xref2:oxford-nanopore-river-bacteria[] in offline mode on the browser at 7c119de0dcf263f5cd24ceb5e171a4bfd433c7e7 + 1 I get a few messages:
+
+....
+[2019-10-06 23:23:28] ERROR Errno::ECONNRESET: Connection reset by peer @ io_fillbuf - fd:17
+     /home/ciro/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/webrick/httpserver.rb:82:in `eof?'
+     /home/ciro/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/webrick/httpserver.rb:82:in `run'
+     /home/ciro/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0/webrick/server.rb:307:in `block in start_thread'
+....
+
+Related: https://github.com/jekyll/jekyll/issues/6899
+
 === Ciro Santilli's skills
 
 ==== Ciro Santilli's documentation superpowers

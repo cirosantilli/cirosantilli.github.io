@@ -1,10 +1,17 @@
+require 'net/http'
+require 'time'
+
 require 'asciidoctor/extensions'
 
 require 'sqlite3'
 
 $PROJECT_ROOT = File.dirname(File.dirname(__FILE__))
+$PROJECT_OUT_DIR = File.join $PROJECT_ROOT, 'out'
+FileUtils.mkdir_p $PROJECT_OUT_DIR
+$PROJECT_AUTOGEN_DIR = File.join $PROJECT_ROOT, 'generated'
+FileUtils.mkdir_p $PROJECT_AUTOGEN_DIR
 
-def db_root_relpath path
+def root_relpath path
   f = Pathname.new(path).relative_path_from($PROJECT_ROOT)
   File.basename(f,File.extname(f))
 end
@@ -18,9 +25,7 @@ if $XREF2_SERVERLESS
 else
   $XREF2_SERVERLESS_EXT = ''
 end
-$XREF2_DB_DIR = File.join($PROJECT_ROOT, 'out')
-$XREF2_DB_PATH = File.join($XREF2_DB_DIR, 'db.sqlite')
-FileUtils.mkdir_p $XREF2_DB_DIR
+$XREF2_DB_PATH = File.join($PROJECT_OUT_DIR, 'db.sqlite')
 $XREF2_DB = SQLite3::Database.new $XREF2_DB_PATH
 $XREF2_DB_TABLE_NAME = 'sections'
 # The extension this character for for all OSes.
@@ -44,6 +49,25 @@ if $XREF2_DB.execute(<<~SQL
       level INT
     );
   SQL
+end
+
+$OFFLINE_DOWNLOAD = ENV['CIROSANTILLI_COM_OFFLINE_DOWNLOAD']
+$OFFLINE_USE = ENV['CIROSANTILLI_COM_OFFLINE_USE']
+def offline_download_if_new target, basename
+  uri = URI(target)
+  file_path = File.join $OFFLINE_DIR, basename
+  req = Net::HTTP::Get.new(uri)
+  if File.file?(file_path)
+    req['If-Modified-Since'] = File.stat(file_path).mtime.rfc2822
+  end
+  res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') {|http|
+    http.request(req)
+  }
+  if res.is_a? Net::HTTPSuccess
+    File.open(file_path, 'w') {|io|
+      io.write res.body
+    }
+  end
 end
 
 ## Wikimedia stuff.
@@ -114,9 +138,15 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
     else
       target = parent.document.attributes['cirosantilli-media-prefix'] + target
     end
-    attrs['target'] = target
     basename_no_pixels = remove_pixels(File.basename(target), known_domain_type)
     basename_noext = File.basename(basename_no_pixels, File.extname(basename_no_pixels))
+    if $OFFLINE_USE
+      target_abspath = URI.escape(File.join($PROJECT_AUTOGEN_DIR, basename_no_pixels), '?')
+      current_path = parent.document.attributes['docfile']
+      attrs['target'] = Pathname.new(target_abspath).relative_path_from(current_path).to_s
+    else
+      attrs['target'] = target
+    end
 
     if attrs.has_key? 'title'
       title = attrs['title']
@@ -154,6 +184,13 @@ class MetadataFromBasenameBlockProcessor < Asciidoctor::Extensions::BlockMacroPr
 
     attrs['id'] = id
     attrs['title'] = title
+
+    # Download resources for offline usage if requested.
+    # https://stackoverflow.com/questions/1509063/how-to-get-a-remote-files-mtime-before-downloading-it-in-ruby/58254786#58254786
+    if $OFFLINE_DOWNLOAD
+      offline_download_if_new target, basename_no_pixels
+    end
+
     cirosantilli_create_block parent, attrs
   end
 
@@ -238,7 +275,7 @@ class Xref2ExtractIdsToSqlite < Asciidoctor::Extensions::TreeProcessor
     # jekyll-asciidoctor does a header only pass which invokes this though,
     # so we have to skip that one or else it resets the XREF2_DB to contain the top header only.
     if not document.options[:parse_header_only]
-      path = db_root_relpath document.attributes['docfile']
+      path = root_relpath document.attributes['docfile']
       # First drop all entries from the current file. We are going to reprocess the file,
       # so we want to catch entries that have been removed.
       $XREF2_DB.execute "DELETE FROM '#{$XREF2_DB_TABLE_NAME}' WHERE path = '#{path}'"
@@ -267,7 +304,7 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
 
   def process parent, target, attrs
     target_split = target.split($XREF2_PATH_SEPARATOR)
-    current_file = db_root_relpath(parent.document.attributes['docfile'])
+    current_file = root_relpath(parent.document.attributes['docfile'])
     if target_split.length > 1
       # In another file.
       target_file = target_split[0, target_split.length - 1].join($XREF2_PATH_SEPARATOR)
