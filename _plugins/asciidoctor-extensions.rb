@@ -16,6 +16,16 @@ def root_relpath path
   File.basename(f,File.extname(f))
 end
 
+def sqlite3_table_exists db, table
+  not db.execute(<<~SQL
+    SELECT name
+    FROM sqlite_master
+    WHERE type='table'
+    AND name='#{table}'
+    SQL
+  ).empty?
+end
+
 # xref2 cross reference database.
 $XREF2_FAIL_ON_MISSING_REF = ENV['CIROSANTILLI_COM_XREF2_FAIL_ON_MISSING_REF'] == '1'
 $XREF2_SERVERLESS = ENV['CIROSANTILLI_COM_XREF2_SERVERLESS'] == '1'
@@ -28,17 +38,14 @@ end
 $XREF2_DB_PATH = File.join($PROJECT_OUT_DIR, 'db.sqlite')
 $XREF2_DB = SQLite3::Database.new $XREF2_DB_PATH
 $XREF2_DB_TABLE_NAME = 'sections'
+$XREF2_DB_INCLUDE_TABLE_NAME = 'includes'
 # The extension this character for for all OSes.
 $XREF2_PATH_SEPARATOR = '/'
 # Check if table exists and create it if it doesn't.
 # TODO also check if DB schema changed and also delete if yes.
-if $XREF2_DB.execute(<<~SQL
-  SELECT name
-  FROM sqlite_master
-  WHERE type='table'
-  AND name='#{$XREF2_DB_TABLE_NAME}'
-  SQL
-).empty?
+if not sqlite3_table_exists $XREF2_DB, $XREF2_DB_TABLE_NAME
+  # global_index: for each element type (section, image, etc.)
+  # this is the Nth occurence of that element in the entire document
   $XREF2_DB.execute <<~SQL
     CREATE TABLE '#{$XREF2_DB_TABLE_NAME}' (
       path TEXT,
@@ -46,9 +53,24 @@ if $XREF2_DB.execute(<<~SQL
       title TEXT,
       xrefstyle_full TEXT,
       context TEXT,
+      global_index INT,
       level INT
     );
   SQL
+end
+if not sqlite3_table_exists $XREF2_DB, $XREF2_DB_INCLUDE_TABLE_NAME
+  $XREF2_DB.execute <<~SQL
+    CREATE TABLE '#{$XREF2_DB_INCLUDE_TABLE_NAME}' (
+      path TEXT,
+      id TEXT,
+      global_index INT
+    );
+  SQL
+end
+
+def xref2_insert_into_db path, id, title, xrefstyle_full, context, global_index, level
+  $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?, ?, ?, ?, ?)",
+              [path, id, title, xrefstyle_full, context, global_index, level]
 end
 
 $OFFLINE_DOWNLOAD = ENV['CIROSANTILLI_COM_OFFLINE_DOWNLOAD']
@@ -280,20 +302,25 @@ class Xref2ExtractIdsToSqlite < Asciidoctor::Extensions::TreeProcessor
       # so we want to catch entries that have been removed.
       $XREF2_DB.execute "DELETE FROM '#{$XREF2_DB_TABLE_NAME}' WHERE path = '#{path}'"
       # Add an entry for the toplevel.
-      insert_into_db path.to_s, path.to_s, document.title, %(Section "#{document.title}"),
-                     'section', 0
+      xref2_insert_into_db path.to_s, path.to_s, document.title, %(Section "#{document.title}"),
+                     'section', 0, 0
       # And now add entries for every document element.
+      global_index = {
+        # 0 to consider the document title section.
+        section: 0
+      }
       document.catalog[:refs].each do |key, ref|
-        insert_into_db path.to_s, ref.id, ref.title, ref.xreftext('full'),
-                       ref.context.to_s, ref.level
+        context = ref.context
+        if global_index.has_key? context
+          global_index[context] += 1
+        else
+          global_index[context] = 0
+        end
+        xref2_insert_into_db path.to_s, ref.id, ref.title, ref.xreftext('full'),
+                       context.to_s, global_index[context], ref.level
       end
     end
     nil
-  end
-
-  def insert_into_db path, id, title, xrefstyle_full, context, level
-    $XREF2_DB.execute "INSERT INTO #{$XREF2_DB_TABLE_NAME} VALUES (?, ?, ?, ?, ?, ?)",
-                [path, id, title, xrefstyle_full, context, level]
   end
 end
 
@@ -339,7 +366,7 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
       end
     end
     if rows.length > 0
-      path, id, target_text, xrefstyle_full, context, level = rows[0]
+      path, id, target_text, xrefstyle_full, context, global_index, level = rows[0]
       if attrs.key? 1
         text = attrs[1]
       else
@@ -362,6 +389,23 @@ class Xref2InlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
   end
 end
 
+# TODO not working yet.
+class Xref2BlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
+  use_dsl
+  named :xref2
+  @@global_index = 0
+
+  def process parent, target, attrs
+    puts 'myxref2block'
+    path = root_relpath parent.document.attributes['docfile']
+    $XREF2_DB.execute \
+        "INSERT INTO #{$XREF2_DB_INCLUDE_TABLE_NAME} VALUES (?, ?, ?)",
+        [path, parent.id, @@global_index]
+    @@global_index += 1
+    nil
+  end
+end
+
 Asciidoctor::Extensions.register do
   # External media processors.
   block_macro Image2BlockProcessor
@@ -370,4 +414,5 @@ Asciidoctor::Extensions.register do
   # Cross file processors.
   treeprocessor Xref2ExtractIdsToSqlite
   inline_macro Xref2InlineMacroProcessor
+  block_macro Xref2BlockMacroProcessor
 end
