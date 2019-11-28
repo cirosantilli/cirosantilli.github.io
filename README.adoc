@@ -120,6 +120,49 @@ ____
 
 which made Ciro smile, although "Linux kernel documetor God" would have been more precise.
 
+.Terminal dump of a LKMC session with two tmux panes with QEMU on left and GDB on right showing a backtrace of the Linux kernel code currently being under QEMU
+----
+[    1.451857] input: AT Translated Set 2 keyboard as /devices/platform/i8042/s1│loading @0xffffffffc0000000: ../kernel_modules-1.0//timer.ko
+[    1.454310] ledtrig-cpu: registered to indicate activity on CPUs             │(gdb) b lkmc_timer_callback
+[    1.455621] usbcore: registered new interface driver usbhid                  │Breakpoint 1 at 0xffffffffc0000000: file /home/ciro/bak/git/linux-kernel-module
+[    1.455811] usbhid: USB HID core driver                                      │-cheat/out/x86_64/buildroot/build/kernel_modules-1.0/./timer.c, line 28.
+[    1.462044] NET: Registered protocol family 10                               │(gdb) c
+[    1.467911] Segment Routing with IPv6                                        │Continuing.
+[    1.468407] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver              │
+[    1.470859] NET: Registered protocol family 17                               │Breakpoint 1, lkmc_timer_callback (data=0xffffffffc0002000 <mytimer>)
+[    1.472017] 9pnet: Installing 9P2000 support                                 │    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    1.475461] sched_clock: Marking stable (1473574872, 0)->(1554017593, -80442)│kernel_modules-1.0/./timer.c:28
+[    1.479419] ALSA device list:                                                │28      {
+[    1.479567]   No soundcards found.                                           │(gdb) c
+[    1.619187] ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100                 │Continuing.
+[    1.622954] ata2.00: configured for MWDMA2                                   │
+[    1.644048] scsi 1:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ P5│Breakpoint 1, lkmc_timer_callback (data=0xffffffffc0002000 <mytimer>)
+[    1.741966] tsc: Refined TSC clocksource calibration: 2904.010 MHz           │    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    1.742796] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x29dc0f4s│kernel_modules-1.0/./timer.c:28
+[    1.743648] clocksource: Switched to clocksource tsc                         │28      {
+[    2.072945] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8043│(gdb) bt
+[    2.078641] EXT4-fs (vda): couldn't mount as ext3 due to feature incompatibis│#0  lkmc_timer_callback (data=0xffffffffc0002000 <mytimer>)
+[    2.080350] EXT4-fs (vda): mounting ext2 file system using the ext4 subsystem│    at /linux-kernel-module-cheat//out/x86_64/buildroot/build/
+[    2.088978] EXT4-fs (vda): mounted filesystem without journal. Opts: (null)  │kernel_modules-1.0/./timer.c:28
+[    2.089872] VFS: Mounted root (ext2 filesystem) readonly on device 254:0.    │#1  0xffffffff810ab494 in call_timer_fn (timer=0xffffffffc0002000 <mytimer>,
+[    2.097168] devtmpfs: mounted                                                │    fn=0xffffffffc0000000 <lkmc_timer_callback>) at kernel/time/timer.c:1326
+[    2.126472] Freeing unused kernel memory: 1264K                              │#2  0xffffffff810ab71f in expire_timers (head=<optimized out>,
+[    2.126706] Write protecting the kernel read-only data: 16384k               │    base=<optimized out>) at kernel/time/timer.c:1363
+[    2.129388] Freeing unused kernel memory: 2024K                              │#3  __run_timers (base=<optimized out>) at kernel/time/timer.c:1666
+[    2.139370] Freeing unused kernel memory: 1284K                              │#4  run_timer_softirq (h=<optimized out>) at kernel/time/timer.c:1692
+[    2.246231] EXT4-fs (vda): warning: mounting unchecked fs, running e2fsck isd│#5  0xffffffff81a000cc in __do_softirq () at kernel/softirq.c:285
+[    2.259574] EXT4-fs (vda): re-mounted. Opts: block_validity,barrier,user_xatr│#6  0xffffffff810577cc in invoke_softirq () at kernel/softirq.c:365
+hello S98                                                                       │#7  irq_exit () at kernel/softirq.c:405
+                                                                                │#8  0xffffffff818021ba in exiting_irq () at ./arch/x86/include/asm/apic.h:541
+Apr 15 23:59:23 login[49]: root login on 'console'                              │#9  smp_apic_timer_interrupt (regs=<optimized out>)
+hello /root/.profile                                                            │    at arch/x86/kernel/apic/apic.c:1052
+# insmod /timer.ko                                                              │#10 0xffffffff8180190f in apic_timer_interrupt ()
+[    6.791945] timer: loading out-of-tree module taints kernel.                 │    at arch/x86/entry/entry_64.S:857
+# [    7.821621] 4294894248                                                     │#11 0xffffffff82003df8 in init_thread_union ()
+[    8.851385] 4294894504                                                       │#12 0x0000000000000000 in ?? ()
+                                                                                │(gdb)
+----
+
 ==== Ciro Santilli's Stack Overflow contributions
 
 {cirosantilli-stack-overflow}
@@ -184,7 +227,7 @@ Ciro's first upvote was for his question: https://stackoverflow.com/questions/10
 
 When he started contributing, Ciro was still a newbie. One early event he will never forget was when someone mentioned a "man page", and Ciro commented saying that there was a typo!
 
-When Ciro reached 15 points and gained the ability to upvote, it felt like a major milestone, He even took a screenshot of the browser! 1k, 10k and 100k were also particularly exciting. When the https://meta.stackoverflow.com/questions/291791/what-do-i-get-with-100k-reputation[100k cup] (https://web.archive.org/web/20160528230715/https://meta.stackoverflow.com/questions/291791/what-do-i-get-with-100k-reputation[archive]) arrived in 2018, Ciro made a https://www.facebook.com/photo.php?fbid=1879889632030375[show-off Facebook post] (https://web.archive.org/web/20191020194239/https://www.facebook.com/photo.php?fbid=1879889632030375[archive]). At some point though, your brain stops caring, and automatically filters out any upvotes you get except on the answers that you are really proud of and which don't yet have lots of upvotes. The last remaining gamed achieved that Ciro looks forward to is https://stackoverflow.com/help/badges/146/legendary[legendary] (https://web.archive.org/web/20191014113759/https://stackoverflow.com/help/badges/146/legendary[archive]).
+When Ciro reached 15 points and gained the ability to upvote, it felt like a major milestone, he even took a screenshot of the browser! 1k, 10k and 100k were also particularly exciting. When the https://meta.stackoverflow.com/questions/291791/what-do-i-get-with-100k-reputation[100k cup] (https://web.archive.org/web/20160528230715/https://meta.stackoverflow.com/questions/291791/what-do-i-get-with-100k-reputation[archive]) arrived in 2018, Ciro made a https://www.facebook.com/photo.php?fbid=1879889632030375[show-off Facebook post] (https://web.archive.org/web/20191020194239/https://www.facebook.com/photo.php?fbid=1879889632030375[archive]). At some point though, your brain stops caring, and automatically filters out any upvotes you get except on the answers that you are really proud of and which don't yet have lots of upvotes. The last remaining gamed achieved that Ciro looks forward to is https://stackoverflow.com/help/badges/146/legendary[legendary] (https://web.archive.org/web/20191014113759/https://stackoverflow.com/help/badges/146/legendary[archive]).
 
 image2::Ciro_Santilli_with_his_Stack_Overflow_100k_reputation_cup.jpg[]
 
@@ -222,6 +265,9 @@ This campaign has led him to have an insane profile view / reputation ratio, sin
 image2::Scatter_plot_of_Stack_Overflow_user_reputation_vs_profile_views_in_March_2019_with_Ciro_Santilli_marked_as_A.png[height=500]
 
 Further analysis has been done at: https://stats.stackexchange.com/questions/376361/how-to-find-the-sample-points-that-have-statistically-meaningful-large-outlier-r
+
+.Ciro Santilli with a stone carved https://en.wikipedia.org/wiki/Budai[Budai] in the https://en.wikipedia.org/wiki/File:Maitreya_and_disciples_carving_in_Feilai_Feng_Caves.jpg[Feilai Feng caves] near the https://en.wikipedia.org/wiki/Lingyin_Temple[Lingyin Temple] in Hangzhou taken during his legendary 2012 touristic trip to China. Will he ever be able to go to China again to re-experience such marvelous locations?
+image2::Ciro_Santilli_with_a_stone_carved_Budai_in_the_Feilai_Feng_caves_near_the_Lingyin_Temple_in_Hangzhou_in_2012.jpg[]
 
 ==== Ciro Santilli's minor projects
 
@@ -500,9 +546,11 @@ Ciro posts updates on Twitter when new considerably cool ones are published: {ci
 
 * Trended on https://news.ycombinator.com/[Hacker News]
 ** {cirosantilli-x86-bare-metal-examples}[x86 Bare Metal Examples] on https://news.ycombinator.com/item?id=19428700[2019-03-19]. The third time something related to that repo trends. Hacker news people really like that repo!
-** https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545[How to run a program without an operating system?] on https://web.archive.org/web/20181126123625/https://news.ycombinator.com[2018-11-26]. Covers x86 and ARM.
 ** link:elf-hello-world[ELF Hello World Tutorial] on https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news[2017-05-17]
 ** link:x86-paging[x86 Paging Tutorial] on https://news.ycombinator.com/item?id=13773219[2017-03-02]. Number 1 xref2:google[] search result for "x86 Paging" https://archive.is/VUSNt[in 2017-08].
+** https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545[How to run a program without an operating system?] on https://web.archive.org/web/20181126123625/https://news.ycombinator.com[2018-11-26]. Covers x86 and ARM.
++
+image2::BIOS_bare_metal_hello_world_running_on_a_Lenovo_ThinkPad_T430.jpg[]
 * x86 Assembly
 ** https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438[What does “multicore” assembly language look like?]
 ** https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[What is the function of the push / pop instructions used on registers in x86 assembly?] Going down to memory spills, register allocation and graph coloring.
@@ -532,6 +580,7 @@ image2::End_of_Linux_boot_log_with_minimal_init_that_prints_FOOBAR.png[]
 ** https://stackoverflow.com/a/30308151/895245[How many GCC optimization levels are there?]
 ** https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624[What is incremental linking or partial linking?]
 ** https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263[GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld]
+** https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]. Concrete examples by running program through GDB twice, and an assembly hello world with absolute vs PC relative load.
 * C / C++
 ** https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047[What does “static” mean in a C program?]
 ** https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795[In C++ source, what is the effect of extern “C”?]
@@ -561,6 +610,8 @@ image2::C++_Heap_vs_BST_vs_hash_map_insert_time.png[height=800]
 image2::opengl-rotating-triangle-image-magick.gif[]
 ** https://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835[How to draw text using only OpenGL methods?]
 ** https://stackoverflow.com/questions/2571402/how-to-use-glortho-in-opengl/36046924#36046924[How to use `glOrtho()` in OpenGL?]
++
+image2::OpenGL_glFrustrum_on_left_vs_glOrtho_on_right.png[]
 ** https://stackoverflow.com/questions/17789575/what-are-shaders-in-opengl-and-what-do-we-need-them-for/36211337#36211337[What are shaders in OpenGL?]
 ** https://gamedev.stackexchange.com/questions/72044/why-do-we-use-4x4-matrices-to-transform-things-in-3d/118848#118848[Why do we use 4x4 matrices to transform things in 3D?]
 ** https://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788[Is it possible to build a heatmap from point data at 60 times per second?] Compared CPU vs GPU shaders.
@@ -2083,18 +2134,21 @@ English:
 * 1967 https://www.youtube.com/watch?v=EtYS3EYjVyk[Red Telephone] track from the https://en.wikipedia.org/wiki/Forever_Changes[Forever Changes (1967)] album by link:++https://en.wikipedia.org/wiki/Love_(band)++[Love]
 * 1967 https://www.youtube.com/watch?v=EUY2kJE0AZE[White Rabbit] track from the https://en.wikipedia.org/wiki/Surrealistic_Pillow[Surrealistic Pillow (1967)] album by https://en.wikipedia.org/wiki/Jefferson_Airplane[Jefferson Airplane]
 
-Portuguese:
+===== The best Popular Brazilian Music songs of all time
+
+https://en.wikipedia.org/wiki/M%C3%BAsica_popular_brasileira
 
 * 1968 https://www.youtube.com/watch?v=v67hqRm1qFw[Panis et Circenses] track from the https://en.wikipedia.org/wiki/Tropic%C3%A1lia:_ou_Panis_et_Circencis[Tropicália: ou Panis et Circencis (1968)] album composed by Gilberto Gil, Caetano Veloso and performed by https://en.wikipedia.org/wiki/Os_Mutantes[Os Mutantes]
 * 1972 https://www.youtube.com/watch?v=WWfseMcAUZY[Mistério do Planeta] track from the https://en.wikipedia.org/wiki/Acabou_Chorare[Acabou Chorare] album by https://en.wikipedia.org/wiki/Novos_Baianos[Novos Baianos]
 * 1977 https://www.youtube.com/watch?v=sQU7iQDiZvA[Marimbondo] track from the "Pirão de Peixe com Pimenta (1977)" album https://en.wikipedia.org/wiki/S%C3%A1_%26_Guarabyra[Sá & Guarabyra]
 * https://en.wikipedia.org/wiki/Caetano_Veloso[Caetano Veloso] is arguably xref2:ciro-santilli[]'s favorite https://en.wikipedia.org/wiki/M%C3%BAsica_popular_brasileira[MPB] artist
+** 1968 https://www.youtube.com/watch?v=hmK9GylXRh0[Alegria, Alegria] from the epynomous album link:++https://en.wikipedia.org/wiki/Caetano_Veloso_(1968_album)++[Caetano Veloso (1968)]. Critique of https://en.wikipedia.org/wiki/Military_dictatorship_in_Brazil[the Dictatorship].
 ** 1972 https://www.youtube.com/watch?v=cs2L70ZfVTI[Triste Bahia] from the link:++https://en.wikipedia.org/wiki/Transa_(album)++[Transa (1972)] album (literally: "The Fuck")
 ** 1972 https://www.youtube.com/watch?v=MlmZIazQLJw[Você Não Entende Nada] performed by Caetano Veloso in album https://en.wikipedia.org/wiki/Caetano_e_Chico:_Juntos_e_Ao_Vivo[Caetano e Chico: Juntos e Ao Vivo (1972)], originally by (TODO album, https://www.discogs.com/Gal-Costa-Legal-Voc%C3%AA-N%C3%A3o-Entende-Nada/release/5872459[Discogs] says Legal (1970), but https://en.wikipedia.org/wiki/Legal_(Gal_Costa_album)[wiki page] and photos of back disagree)
 ** 1976 https://www.youtube.com/watch?v=9HpqgwC30Zg[Um Índio] from the https://en.wikipedia.org/wiki/Doces_B%C3%A1rbaros[Doces Bárbaros] album
-** Terra
-** Alegria, Alegria
-** Sampa
+** 1978 album link:++https://en.wikipedia.org/wiki/Muito_(Dentro_da_Estrela_Azulada)++[Muito (Dentro da Estrela Azulada)]
+*** https://www.youtube.com/watch?v=Ii2CKWHJQI8[Sampa] from the . Slang for São Paulo. Perfectly captures the city, and reminds Ciro so badly of xref2:university-of-sao-paulo-brazil[his University days there].
+*** https://www.youtube.com/watch?v=gMsSrxGwW8U[Terra]. Ciro used to watch a television show about nature in the legendary https://en.wikipedia.org/wiki/TV_Cultura[TV Cultura] with his parents in the couch when he was young, Those days were the best. TODO what was the show exactly? Here is a sample: https://www.youtube.com/watch?v=vNwfYEMdrRU Very likely just a translation of some British nature series with a custom Brazilian intro and presenter. Credits at end mention English narrator: Eugene Fraser, and Thirteen WNET Nature production, which produced link:++https://en.wikipedia.org/wiki/Nature_(TV_program)++[Nature (1982)] that ran since 1982.
 
 French:
 
@@ -2718,7 +2772,7 @@ Applications:
 
 https://en.wikipedia.org/wiki/Open-source_software
 
-What happens when https://en.wikipedia.org/wiki/OpenCL[[the underdogs] get https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755[together] and try to factor out their efforts to beat some https://en.wikipedia.org/wiki/CUDA[evil] dominant xref2:microsoft-windows[power].
+What happens when https://en.wikipedia.org/wiki/OpenCL[the underdogs] get https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755[together] and try to factor out their efforts to beat some https://en.wikipedia.org/wiki/CUDA[evil] dominant xref2:microsoft-windows[power], sometimes xref2:linux[victoriously].
 
 Or when https://github.com/facebook[startups] use the cheapest stuff available and become the https://github.com/google[next big thing], and decide to keep maintaining the open stuff to get features for free from other companies, or because they are xref2:linux[forced by the Holy GPL].
 
@@ -3048,7 +3102,7 @@ xref2:ciro-santilli[]'s Linux distro of choice as of 2019.
 
 It ain't perfect, but it's decent enough.
 
-The greatest advantage of it being that it has the likely largest desktop user base, and therefore the highest likelihood that your problems are solved on https://askubuntu.com/users/52975[Ask Ubuntu], and goes together with Ciro's philosophy that xref2:having-more-than-one-natural-language-is-bad-for-the-world["people should do everything in the same way to factor stuff out"], especially the open source losers.
+The greatest advantage of it being that it has the likely largest desktop user base, and therefore the highest likelihood that your problems are solved on https://askubuntu.com/users/52975[Ask Ubuntu], and goes together with Ciro's philosophy that xref2:having-more-than-one-natural-language-is-bad-for-the-world["people should do everything in the same way to factor stuff out"], especially the xref2:open-source-software[open source losers].
 
 Ciro considers that the killer flaw of Ubuntu, and most desktop distros, is that no one under the Sun knows how to build them fully from source: https://askubuntu.com/questions/82302/how-to-compile-ubuntu-from-source-code Everything gets done in some complicated Canonical https://quoteinvestigator.com/2010/07/08/laws-sausages/[sausage factory] server with various layers of prebuilts. This is why Ciro based the xref2:linux-kernel-module-cheat[] on Buildroot.
 
@@ -3311,7 +3365,7 @@ TODO why should I care when I can calculate new x and new time with xref2:lorent
 
 https://en.wikipedia.org/wiki/%C3%89cole_Polytechnique[École Polytechnique].
 
-The "most prestigious French engineering school". Only https://en.wikipedia.org/wiki/List_of_%C3%89cole_Polytechnique_alumni#Nobel_laureates[3 Nobels] though as of 2019, https://en.wikipedia.org/wiki/List_of_%C3%89cole_normale_sup%C3%A9rieure_people#Nobel_laureates[the scientists are mostly at ENS].
+The "most prestigious French engineering school". Only https://en.wikipedia.org/wiki/List_of_%C3%89cole_Polytechnique_alumni#Nobel_laureates[3 Nobels] though as of 2019, https://en.wikipedia.org/wiki/List_of_%C3%89cole_normale_sup%C3%A9rieure_people#Nobel_laureates[the scientists are mostly at ENS]. A https://www.timeshighereducation.com/student/news/where-do-worlds-top-ceos-go-university[gazillion CEOs] however.
 
 xref2:ciro-santilli[] xref2:ciro-santillis-formal-education[studied there] for a few years starting in 2010.
 
@@ -3323,11 +3377,28 @@ Life quality was also amazing. Good free accommodation on campus and at the time
 
 During the time Ciro was at Polytechnique in early 2010's, the school was really isolated in the Palaiseau plateau, there were no shops in 10 minute walking distance! You either had to climb 300 steps to go down to the RER and the nearest town, or take a bus. The fact that https://www.timeshighereducation.com/student/best-universities/best-small-universities#survey-answer[Times Higher Education ranked it as the second best university in the world in 2019] (https://web.archive.org/web/20190918230605/https://www.timeshighereducation.com/student/best-universities/best-small-universities[archive]) makes it good justice, given the small 500 student body.
 
-Before that the school was in the center of Paris at the https://en.wikipedia.org/wiki/Latin_Quarter,_Paris[Latin Quarter], but students were in theory restricted to school grounds a lot of the time, although there are famous stories of the tree used to climb the fence to go to Parisian parties.
+Before that the school was in the center of Paris at the https://en.wikipedia.org/wiki/Latin_Quarter,_Paris[Latin Quarter], but students were in theory restricted to school grounds a lot of the time, although there are famous stories of the intentionally overlooked tree used to climb the fence to go to Parisian parties when they couldn't stand it anymore.
 
 This made for some good memories though. The isolation favored concentration, and gave the place a mystical feeling. And then when you went to eat https://github.com/cirosantilli/china-dictatorship#restaurants--france--paris[amazing Chinese food in Paris] it just felt even more special and magic since you were so limited during the week.
 
-Ciro spent some beautiful weekend days in his room learning Chinese and philosophising, and agonizing about passing courses to get useless grades! Polytechnique is hard for Brazilians, specially if you select the more mathematics oriented courses, because the French students were math brainwashed for two years before joining.
+Ciro also agonized about passing courses to get useless grades though! Polytechnique is hard for Brazilians, specially if you select the more mathematics oriented courses, because the French students were math brainwashed for two years before joining.
+
+Ciro's favorite spots/activities:
+
+* weekend days in his awesome room learning Chinese
+* hide in top corner desk of the library to learn some science
+* sit next to the lake in a warm day to relax
+* randomly go study in one of the small 20 person classrooms that were used in the day and left open at night
+
+The following promotional videos give an idea of how the school looks like, although they fundamentally miss the little corners that Ciro really loved in that the place and which made it magic:
+
+https://www.youtube.com/watch?v=qr_xQVyVj9U
+
+video::qr_xQVyVj9U[youtube,height=400,width=600]
+
+https://www.youtube.com/watch?v=9X1yZSQE-VM
+
+video::9X1yZSQE-VM[youtube,height=400,width=600]
 
 [[university-of-sao-paulo-brazil]]
 === University of São Paulo, Brazil
