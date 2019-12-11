@@ -19,7 +19,7 @@ My window faces East, and in summer the sun rises at around 5AM here, and I am a
 This setup, together with:
 
 - the existing sliding curtains which were not enough on their own
-- a cheap and comfortable ["Go Travel"](https://www.amazon.co.uk/Go-Travel-sleep-silky-Mask/dp/B00VGAH0N8)sleeping mask from the Pharmacy
+- a cheap and comfortable ["Go Travel"](https://www.amazon.co.uk/Go-Travel-sleep-silky-Mask/dp/B00VGAH0N8) sleeping mask from the Pharmacy
 
 is good enough to allow me to sleep properly, which is priceless.
 
