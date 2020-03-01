@@ -103,7 +103,7 @@ https://github.com/cirosantilli/linux-kernel-module-cheat
 
 This is the most important technical tutorial project that xref2:ciro-santilli[] has done in his life so far as of 2019.
 
-The scope is insane and unprecedented, and goes beyond Linux-kernel-land alone.
+The scope is insane and unprecedented, and goes beyond xref2:linux[Linux]-kernel-land alone.
 
 It ate up every system programming content he had previously written, including:
 
@@ -251,6 +251,14 @@ It feels especially amazing when people in the real world start taking note of y
 
 Ciro feels that his Stack Overflow https://stackoverflow.com/users/55075/kenorb[alter ego] is the user https://stackoverflow.com/users/55075/kenorb[kenorb], which has a surprisingly similar contribution pattern (one of the top necromancers) and subjects (Python, Bash). Ciro tried to contact him to say hi, but it was hard to find a contact. kenorb, feel free to send Ciro a hi one of those days.
 
+Another one is https://stackoverflow.com/users/541136/aaron-hall[Aaron Hall], who is also very high on the necromancer list, answers in Python which is a topic Ciro cares about, and https://web.archive.org/web/20200120043703/https://stackoverflow.com/users/541136/aaron-hall[states on his profile]:
+
+____
+Follow me on Twitter and tell me what canonical questions you would like me to respond to!
+____
+
+Way to go.
+
 ==== Ciro Santilli's campaign for freedom of speech in China
 
 {cirosantilli-china-dictatorship}
@@ -280,6 +288,8 @@ In the beginning, this {cirosantilli-china-dictatorship}/tree/236407528ab6424504
 This campaign has led him to have an insane profile view / reputation ratio, since many people pause to look at his profile. He is point "A" at the top right corner of xref2:image-scatter-plot-of-stack-overflow-user-reputation-vs-profile-views-in-march-2019-with-ciro-santilli-marked-as-a[xrefstyle=full]:
 
 image2::Scatter_plot_of_Stack_Overflow_user_reputation_vs_profile_views_in_March_2019_with_Ciro_Santilli_marked_as_A.png[height=500]
+
+Ciro feels that the view count started increasing more slowly since 2020 compared to his reputation, likely every single Chinese user has already viewed the profile.
 
 Further analysis has been done at: https://stats.stackexchange.com/questions/376361/how-to-find-the-sample-points-that-have-statistically-meaningful-large-outlier-r
 
@@ -606,7 +616,7 @@ image2::BIOS_bare_metal_hello_world_running_on_a_Lenovo_ThinkPad_T430.jpg[]
 * x86 Assembly
 ** https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438[What does “multicore” assembly language look like?]
 ** https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[What is the function of the push / pop instructions used on registers in x86 assembly?] Going down to memory spills, register allocation and graph coloring.
-* Linux kernel
+* xref2:linux-kernel-module-cheat[Linux kernel]
 ** https://unix.stackexchange.com/a/219674/32558[What do the flags in /proc/cpuinfo mean?]
 ** https://stackoverflow.com/a/31394861/895245[How does kernel get an executable binary file running under linux?]
 ** https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642[How to debug the Linux kernel with GDB and QEMU?]
@@ -633,13 +643,31 @@ image2::End_of_Linux_boot_log_with_minimal_init_that_prints_FOOBAR.png[]
 ** https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624[What is incremental linking or partial linking?]
 ** https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263[GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld]
 ** https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]. Concrete examples by running program through GDB twice, and an assembly hello world with absolute vs PC relative load.
-* C / C++
-** https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047[What does “static” mean in a C program?]
-** https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795[In C++ source, what is the effect of extern “C”?]
+* C / C++: almost all of those fall into "disassemble https://knowyourmeme.com/memes/all-the-things[all the things]" category. Ciro also does "standards dissection" and "a new version of the standard is out" answers, but those are boring.
+** https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047[What does "static" mean in a C program?]
+** https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795[In C++ source, what is the effect of `extern "C"`?]
 ** https://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c/30661089#30661089[Char array vs Char Pointer in C]
 ** https://stackoverflow.com/questions/847179/multiple-glibc-libraries-on-a-single-host/52454603#52454603[How to compile glibc from source and use it?]
+** https://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-const-cast-and-reinterpret-cast-be-used/60414256#60414256[When should `static_cast`, `dynamic_cast`, `const_cast` and `reinterpret_cast` be used?]
+** https://stackoverflow.com/questions/31978324/what-exactly-is-stdatomic/58904448#58904448[What exactly is `std::atomic` in C++?]. This answer was originally more appropriately entitled "Let's disassemble some stuff", and got three downvotes, so Ciro changed it to a more professional title, and it started getting upvotes. People judge books by their covers.
 * IEEE 754
 ** https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number/53203428#53203428[What is a subnormal floating point number?]
++
+----
+          +---+---+-------+---------------+-------------------------------+
+exponent  | ? | 0 |   1   |       2       |               3               |
+          +---+---+-------+---------------+-------------------------------+
+          |   |   |       |               |                               |
+          v   v   v       v               v                               v
+          -----------------------------------------------------------------
+floats    *    **** * * * *   *   *   *   *       *       *       *       *
+          -----------------------------------------------------------------
+          ^   ^   ^       ^               ^                               ^
+          |   |   |       |               |                               |
+          0   |   2^-126  2^-125          2^-124                          2^-123
+              |
+              2^-127
+----
 ** https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
 ** https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
 * Algorithms
@@ -648,9 +676,34 @@ image2::End_of_Linux_boot_log_with_minimal_init_that_prints_FOOBAR.png[]
 image2::C++_Heap_vs_BST_vs_hash_map_insert_time.png[height=800]
 * Git internals
 ** https://stackoverflow.com/a/25806452/895245[What does the git index contain EXACTLY?]
++
+----
+  | 0           | 4            | 8           | C              |
+  |-------------|--------------|-------------|----------------|
+0 | DIRC        | Version      | File count  | ctime       ...| 0
+  | ...         | mtime                      | device         |
+2 | inode       | mode         | UID         | GID            | 2
+  | File size   | Entry SHA-1                              ...|
+4 | ...                        | Flags       | Index SHA-1 ...| 4
+  | ...                                                       |
+----
+** https://stackoverflow.com/questions/22968856/what-is-the-file-format-of-a-git-commit-object-data-structure/37438460#37438460[What is the file format of a git commit object data structure?]
++
+----
+tree {tree_sha}
+{parents}
+author {author_name} <{author_email}> {author_date_seconds} {author_date_timezone}
+committer {committer_name} <{committer_email}> {committer_date_seconds} {committer_date_timezone}
+
+{commit message}
+----
 * Python
 ** https://stackoverflow.com/a/19950198/895245[What is the difference between old style and new style classes in Python?]
 ** https://stackoverflow.com/a/20022860/895245[What is a mixin in Python, and why are they useful?]
+** https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python/55319297#55319297[What are the differences between threads and processes in Python?]
++
+.Python Threads vs Processes with 8 hyperthreads
+image2::https://web.archive.org/web/20190607051221if_/https://i.stack.imgur.com/2x04m.png[height=600]
 * Web
 ** https://stackoverflow.com/a/28380690/895245[What does enctype='multipart/form-data' mean?]
 ** https://stackoverflow.com/a/23877420/895245[How does JavaScript .prototype work?]
@@ -713,8 +766,6 @@ video::FOwYDlay8rI[youtube,height=400,width=600]
 ** {cirosantilli-stack-overflow-android-build-and-emulate}[How to compile the Android AOSP kernel and test it with the Android Emulator?]
 +
 image2::Android_AOSP_8.1.0_built_from_source_running_in_QEMU.png[]
-* Home DIY
-** link:window-blackout[How to blackout your window without drilling]
 * Debugging
 ** https://stackoverflow.com/questions/1345670/stack-smashing-detected/51897264#51897264[What is the "Stack smashing detected" error in GCC and how to solve it?]
 ** https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management/57453334#57453334[What is RSS and VSZ in Linux memory management?]
@@ -722,10 +773,18 @@ image2::Android_AOSP_8.1.0_built_from_source_running_in_QEMU.png[]
 ** https://stackoverflow.com/questions/6261201/how-to-find-memory-leak-in-a-c-code-project/57877190#57877190[How to find memory leaks in C++ code?]
 * Optimization
 ** https://stackoverflow.com/questions/310974/what-is-tail-call-optimization/55230417#55230417[What is tail call optimization?]
+** https://stackoverflow.com/questions/375913/how-can-i-profile-c-code-running-on-linux/60265409#60265409[How can I profile C++ code running on Linux?] Compares gprof, valgrind callgrind, perf and gperftools on a simple executable.
++
+.gprof2dot image generated from the gprof data of a simple test program.
+image2::http://web.archive.org/web/20200229164327if_/https://i.stack.imgur.com/mM8NQ.png[]
 * Biology
 ** xref2:oxford-nanopore-river-bacteria[]
 +
 image2::https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg[]
+* Home DIY
+** link:window-blackout[How to blackout your window without drilling]
++
+image2::https://upload.wikimedia.org/wikipedia/commons/a/a6/Total_Blackout_Cassette_Roller_Blind_With_Curtains.jpg[]
 
 === How to contact Ciro Santilli
 
@@ -1043,6 +1102,8 @@ On how human perception of media is completely unrelated to the computer's trans
 ____
 Media for humans is not byte streams. It is magic.
 ____
+
+This is of course just another version of https://en.wikipedia.org/wiki/A_picture_is_worth_a_thousand_words[one picture is worth a thousand words].
 
 === Ciro Santilli's website
 
@@ -1386,6 +1447,8 @@ Ciro has https://en.wikipedia.org/wiki/Synesthesia[olfactory synesthesia] for ht
 Ciro is a reptilian-like being with cold hands and feet and low blood pressure. For this reason he believes that he will die of cancer or some respiratory problem. If the xref2:ciro-santillis-campaign-for-freedom-of-speech-in-china[Chinese government] doesn't get him first that is. This also partly explains why Ciro is not a big fan of swimming.
 
 Besides xref2:chinese-cuisine[Chinese food], Ciro really likes eating fruits and nuts, maybe partly because he was xref2:ciro-santillis-biography[born in Brazil], and partly because of monkey nature, see xref2:ciro-santilli[his Chinese name]. At home is is known as "水果大王" (the big king of the fruits).
+
+Like https://en.wikipedia.org/wiki/Word_of_Wisdom[LDS believers], Ciro does not drink coffee or smoke, and only drinks alcohol and tea sparingly, because they are all addictive drugs and bring no overall benefit to energy and concentration. Ciro prefers to only enjoy a glass of tea when going out cycling, and one half pint of beer when going out with friends to a pub.
 
 Ciro does not like receiving or giving gifts on expected social situations like birthdays or Christmas. Ciro believes that every day is equally precious, and can be a day to give, be it through awesome xref2:open-source-software[] contributions, or if you find something that your friend will like
 
@@ -2593,6 +2656,10 @@ Once we have mathematics formally modelled, one of the coolest results is https:
 
 Some famous theorems have even been proven to be independent of some famous axioms. One of the most notable is that the http://en.wikipedia.org/wiki/Continuum_hypothesis[Continuum Hypothesis] is independent from https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory[ZFC]! Such independence proofs rely on modelling the proof system inside another proof system, and link:++https://en.wikipedia.org/wiki/Forcing_(mathematics)++[forcing] is one of the main techniques used for this.
 
+[[the-landscape-of-modern-mathematics]]
+.The landscape of modern Mathematics comic by Abstruse Goose shows that Mathematics is one of the most diversified areas of useless human knowledge. https://abstrusegoose.com/211[Source].
+image2::https://web.archive.org/web/20190430151331im_/http://abstrusegoose.com/strips/i_dont_give_a_shit_about_your_mountain.png[]
+
 === Formalization of mathematics
 
 {cirosantilli-formal-mathematics-answer}
@@ -3491,13 +3558,15 @@ Text materials are generally superior to video because they:
 
 Only produce video material if:
 
-* it gives fundamental geometric insight
-* you are filming a human transmitting their passion about the subject
-* it shows natural phenomena or location that is of interest
+* it shows an experiment, physical technique, natural phenomena or location that is of interest. See also: xref2:videos-of-all-key-physics-experiments[xrefstyle=full]
+* it gives fundamental geometric insight on the subject
+* you are filming a human transmitting their passion about the subject, and the speaker is amazing, and does not speak for too long
 
-If you have to use videos, make them as short as possible.
+Never create videos of people just speaking hardcore content for long amounts of time.
 
-Also consider using sequences of photos or GIFs instead of videos, since those are cheaper.
+If you have to use videos, make them as short as possible, and index them with a textual table of contents.
+
+Also consider using sequences of images or GIFs instead of videos, since those are cheaper.
 
 [[how-to-teach--search-before-creating]]
 === Search before creating
@@ -3651,6 +3720,14 @@ Other people with similar philosophies:
 
 * http://settheory.net/academic-system
 
+== How to write technical help requests and bug reports
+
+xref2:ciro-santilli[] often sees all those genius who are much smarter than him making shitty forum/mailing list posts, they need to learn this:
+
+1. The apparently most important one liner error message must appear in the title, and fuller apparently relevant logs must appear on the body
+2. You must always give the version of the software that you are using as either a tag or git SHA
+3. For build errors, you must give your OS and compiler version and version of any relevant external library
+
 == Countries
 
 === China
@@ -3781,11 +3858,19 @@ It is incapable however of adding any obvious useful end user features to most o
 * https://en.wikipedia.org/wiki/Picasa
 * https://killedbygoogle.com/ | http://web.archive.org/web/20190726225042/https://killedbygoogle.com/
 
-One of Google's most interesting stories is their startup garage owner https://en.wikipedia.org/wiki/Susan_Wojcicki[became an important figure inside Google], and how Sergei https://en.wikipedia.org/wiki/Anne_Wojcicki[married her sister]. These were the best garage tenants ever!
+One of Google's most interesting stories is how their startup garage owner https://en.wikipedia.org/wiki/Susan_Wojcicki[became an important figure inside Google], and how Sergei https://en.wikipedia.org/wiki/Anne_Wojcicki[married her sister]. These were the best garage tenants ever!
+
+xref2:ciro-santilli[] actually attempted two interviews to work at Google in the early 2010's but very quickly failed both on the first phase, because you have to be a fast well trained code machine to pass that interview.
+
+Ciro later felt better about himself by fantasizing how he would actually do more important things outside of Google and that they would beg to buy him instead.
+
+He was also happy that he wouldn't have to use Google crazy internal tools: someone once said that Google's tools make easy tasks middle hard, and they also make impossible tasks middle hard. TODO source.
+
+But whatever the case: Ciro will not, ever, spend his time drilling programmer competition problems to join a company, life is too short for that. Companies must either notice that you can make amazing projects or contributions, and hire you for that, or they must fuck off.
 
 === Apple Inc.
 
-An xref2:united-states-of-america[American] company that:
+An xref2:evil[evil] xref2:united-states-of-america[American] company
 
 * owns the entire stack and creates high quality highly optimized systems
 * uses way more open source than it gives back
@@ -3795,10 +3880,23 @@ An xref2:united-states-of-america[American] company that:
 
 https://en.wikipedia.org/wiki/Macintosh
 
+Later evolved into: https://en.wikipedia.org/wiki/MacOS
+
 Nice looking and expensive operating system by xref2:apple-inc[]. xref2:ciro-santilli[] believes that:
 
 * if you want to be ripped off, just use xref2:microsoft-windows[] which has more software available
 * or if you want to attain xref2:write-free-books-to-get-famous-website-motivation[Enlightenment], just use xref2:linux[], which is free and open source
+
+The story of how OS X was ported to x86 from PowerPC with large initial work up to boot by a single man in the year 2000, John Kullmann, is really worth reading: https://www.quora.com/Apple-company/How-does-Apple-keep-secrets-so-well/answer/Kim-Scheinberg See also:
+
+* https://www.theregister.co.uk/2012/06/11/apple_project_marklar_secrets/
+* https://en.wikipedia.org/wiki/Apple%27s_transition_to_Intel_processors
+
+Equally awesome was Intel port initial 2005 demo by xref2:steve-jobs[]:
+
+video::ghdTqnYnFyg[youtube,width=600,height=400]
+
+After talking about it for several minutes with slides, he then reveals that the computer used for the slide presentation was an Intel CPU, and that OSX 10, then the last great update, was designed from the start for portability.
 
 ==== Steve Jobs
 
@@ -3816,6 +3914,8 @@ He's right. Goal first, then how to reach it.
 https://www.youtube.com/watch?v=FF-tKLISfPE "Steve Jobs Insult Response" by "Mike Cane" published in 2011-06-08
 
 https://en.wikipedia.org/wiki/Backward_design
+
+A Coding Horror coding specific take: https://blog.codinghorror.com/please-dont-learn-to-code/
 
 ====== How to become a good programmer?
 
@@ -3990,7 +4090,7 @@ ____
 
 And https://computergraphics.stackexchange.com/questions/7809/what-does-gpu-assembly-look-like["can reverse engineer the undocumented GPU hardware APIs"], xref2:ciro-santilli[Ciro] would add.
 
-While software is the most developed open source technology available in the 2010's, due to the "zero cost" of copying it over the Internet, Ciro also believes that the would would benefit enormously from open source technologies in all areas on engineering, for the same reasons as open source.
+While software is the most developed open source technology available in the 2010's, due to the https://www.vox.com/recode/2019/6/24/18715421/internet-free-data-ads-cost["zero cost"] of copying it over the Internet, Ciro also believes that the would would benefit enormously from open source technologies in all areas on engineering, for the same reasons as open source.
 
 === IDE
 
