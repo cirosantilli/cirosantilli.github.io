@@ -1122,6 +1122,43 @@ Of course, https://en.wikipedia.org/wiki/Survivorship_bias[survivorship bias] ap
 .xref:alan-watts[] "If Money Were No Object What Would You Do". https://www.youtube.com/watch?v=XTv50ELCBr4[Source].
 video::XTv50ELCBr4[youtube,height=400,width=600]
 
+==== Backward design
+
+https://en.wikipedia.org/wiki/Backward_design
+
+This is one of xref2:ciro-santilli[Ciro Santilli's] most important principles.
+
+xref2:steve-jobs[Steve Jobs] has a great quote about this. He's totally right on this one!
+
+____
+You've got to start with the customer experience and work backwards to the technology. You can't start with the technology and try to figure out where you're going to sell it.
+____
+
+."Steve Jobs Insult Response" excerpt from the https://en.wikipedia.org/wiki/Apple_Worldwide_Developers_Conference[1997 WWDC]
+video::FF-tKLISfPE[youtube,width=600,height=400]
+
+Decide your goal first, and then do whatever is needed to how to reach it.
+
+Don't start randomly learning tech, because that means you xref2:how-to-teach\--help-students-achieve-their-goal[will waste a lot of time learning useless stuff].
+
+There is of course some level chiken-and-egg paradox in this, as xref2:dilbert-nuclear-power-requirements[highlighted by Dilbert], since choosing an achievable goal in the first place requires some level of technical understanding.
+
+[[dilbert-nuclear-power-requirements]]
+.Dilbert Wednesday February 20, 2002: Designing a nuclear power plant from user requirements
+[source=https://dilbert.com/strip/2002-02-20]
+image2::http://web.archive.org/web/20200331090146im_/https://assets.amuniversal.com/1af002106d5c01301d80001dd8b71c47[height=300]
+
+However, it is much more common that people will get way too involved in learning useless stuff and lose sight of the xref2:art[useful end goals].
+
+Rather, take an iterative approach:
+
+* start with the end goal
+* learn a bit of tech to try and reach it
+* realize that you can't reach your end goal and pivot a bit to a related end goal that seems more realistic
+* loop
+
+A Coding Horror coding specific take: https://blog.codinghorror.com/please-dont-learn-to-code/
+
 ==== Ciro Santilli's best random thoughts
 
 These are "original" thoughts that Ciro had which at some point in the past amused him. Some would call them pieces of wisdom, others self delusion. All have likely been thought by others in the past, and some of them Ciro thinks to himself after a few years: "why did I like this back then??".
@@ -3307,6 +3344,13 @@ And things got even worse as Ciro attained his xref2:write-free-books-to-get-fam
 .Five year old Ciro Santilli playing https://en.wikipedia.org/wiki/Nintendo_Entertainment_System[NES] on a joystick. He would get really mad because he could not finish those https://en.wikipedia.org/wiki/Nintendo_hard[insanely hard games]. Desperate, his parents would have to call older kids from the neighbourhood to help out. Pro tip from the future: the classic controller would almost always have been a more efficient controller. Maybe this kind of crap shapes one's future?
 image2::link:{cirosantilli-media-prefix}Five_year_old_Ciro_Santilli_playing_NES_on_a_joystick.jpg[]
 
+==== Open source video games
+
+* tower defense
+** https://www.edopedia.com/demo/pixeldefense possible source https://github.com/jesseakt/PixelDefense 2020-03 desperatly lacks a fast forward button and enemy health bars
+* 3D Platformer
+** http://edelweiss.32x.io/
+
 ==== The best video game content of all time
 
 Adult enjoys two types of videos:
@@ -3865,7 +3909,7 @@ This is because the universe of potentially useful things that can be learnt is 
 
 The only solution, is to try and learn only what seems necessary to reach your goal, and just try to reach your goal instead.
 
-This approach is called xref2:steve-jobs-backward-design-reply[backward design].
+This approach is called xref2:backward-design[backward design].
 
 Also, setting overly ambitious goals, is a good idea: xref2:side-effects-of-ambitious-goals-are-often-the-most-valuable-thing-achieved[].
 
@@ -4341,19 +4385,10 @@ xref2:evil[Evil] and interesting co-founder of xref2:apple-inc[]
 
 * https://www.folklore.org/ProjectView.py?project=Macintosh&characters=Steve%20Jobs[]: some good anecdotes
 ** https://www.folklore.org/StoryView.py?story=Saving_Lives.txt Saving live with a faster boot
-* https://www.youtube.com/watch?v=FF-tKLISfPE&t=2s Steve Jobs Insult Response
-* there is a close link between disruptive tech, and the desire to find bugs / exploits in systems. Both of them destabilize enterprises. Woz and Jobs started like that: https://en.wikipedia.org/wiki/Blue_box
-* "Try to have a nice family life, have fun, save a little money." quote at: xref2:dont-be-a-pussy[xrefstyle=full].
-
-===== Steve Jobs backward design reply
-
-He's right. Goal first, then how to reach it.
-
-https://www.youtube.com/watch?v=FF-tKLISfPE "Steve Jobs Insult Response" by "Mike Cane" published in 2011-06-08
-
-https://en.wikipedia.org/wiki/Backward_design
-
-A Coding Horror coding specific take: https://blog.codinghorror.com/please-dont-learn-to-code/
+* there is a close link between disruptive tech, and the desire to find bugs/exploits in systems. Both of them destabilize enterprises. Woz and Jobs started like that: https://en.wikipedia.org/wiki/Blue_box
+* good quotes:
+** "Try to have a nice family life, have fun, save a little money." quote at: xref2:dont-be-a-pussy[xrefstyle=full].
+** "Steve Jobs Insult Response" on xref2:backward-design[]
 
 ====== How to become a good programmer?
 
@@ -4548,13 +4583,21 @@ While software is the most developed open source technology available in the 201
 
 Not everything is perfect.
 
-The main problem of many big open source projects is that they are contributed to by separate selfish organizations, that have private information.
+One big problem of many big open source projects is that they are contributed to by separate selfish organizations, that have private information.
 
 Then what happens is that:
 
 * people implement the same thing twice, or one change makes the other completely unmergeable
 * you get bugs but can't share your closed source test cases, and then you can't automate tests for them, or clearly demonstrate the problem
 * other contributors don't see your full semi secret important motivation, and may either nitpick too much or take too long to review your stuff
+
+Another common difficulty is that open source maintainers may simply not care enough about their own project (maybe they did in the past but lost interest) to review external patches by people they don't know.
+
+This is understandable: a new patch, is a new risk of things breaking.
+
+Therefore, if you ever submit patches and they get ignore, don't be too sad. It just comes down to a question of maintenance cost, and means that you will waste some extra time on the next rebase. You just have to decide your goals and be cold about it:
+
+* are you doing the right thing and going for a specific goal xref2:backward-design
 
 === IDE
 
@@ -4910,7 +4953,7 @@ xref2:ciro-santilli[] has summarized this hierarchy ironically in his infamous "
 
 video::_6D05gCWh_I[youtube,width=600,height=400]
 
-But as you climb down into the abyss of low level hardcoreness, don't forget that xref2:steve-jobs-backward-design-reply[making usefulness is more important than being hardcore]:
+But as you climb down into the abyss of low level hardcoreness, don't forget that xref2:backward-design[making usefulness is more important than being hardcore]:
 
 .XKCD Real Programmers Emacs Butterfly. https://xkcd.com/378/[Source]
 image::https://web.archive.org/web/20191222121520if_/http://imgs.xkcd.com/comics/real_programmers.png[]
