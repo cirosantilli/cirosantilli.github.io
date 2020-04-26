@@ -190,9 +190,12 @@ In Stack Overflow Ciro likes to:
 * answer important questions found through xref2:google[] which he needs to solve an actual problem he has right now, and for which none of the existing answers satisfied him, and close duplicates.
 * monitor less known tags which very few people know a lot about and where the knowledge sharing desperately lacking, but in which Ciro specializes and therefore has some uncommon knowledge to share
 
-When he gets an upvote on one of his more obscure answers, he often re-reads it, and often finds improvements to be made and makes them.
+In practice it It also happens that Ciro:
 
-It also happens that Ciro Googles for his own answers with slightly different terms that were closer to mind, and find other similar questions for which he has the perfect answer.
+* Googles for his own answers to remember some detail he wrote down but with slightly different terms that were closer to mind at the time, and find other similar questions for which he has the perfect answer.
+* learns something new by chance, e.g. https://stackoverflow.com/questions/39933567/deduce-stdarray-size/61371303#61371303[some new flashy feature of a new version of the C++ standard], thiks xref2:the-machiavellian-stack-overflow-contributor["this is awesome, there must be a Stack Overflow question for it"], and then there is a question and he answers it
+
+When he gets an upvote on one of his more obscure answers, Ciro often re-reads it, and often finds improvements to be made and makes them.
 
 He doesn't like to refresh the homepage looking for easy rep on widely known subjects.
 
@@ -449,6 +452,62 @@ video::WQR0gx0QBZ4[youtube,height=400,width=600]
 .Brewster Kahle's 2007 TED Talk about the Internet Archive.
 video::pXoHC2D15hM[youtube,height=400,width=600]
 
+.https://en.wikipedia.org/wiki/Sal_Khan[Sal Kahn] from https://en.wikipedia.org/wiki/Khan_Academy[Khan Academy] 2016 TED talk. Ciro is not a big fan of the "basis on top of basis focus" because of his obsession with xref2:backward-design[], but "learn to mastery at your own pace" and "everyone can be a world class innovator" are obviously good. https://www.youtube.com/watch?v=-MTRxRO5SRA[Source].
+video::MTRxRO5SRA[youtube,height=400,width=600]
+
+==== Large cohesive game world for robotic-like artificial intelligence development
+
+Prototype: https://github.com/cirosantilli/Urho3D-cheat
+
+Prior art research: https://github.com/cirosantilli/awesome-reinforcement-learning-games
+
+.Ciro's 2D continuous game. https://www.youtube.com/watch?v=j_fl4xoGTKU[Source]
+video::j_fl4xoGTKU[youtube,height=400,width=600]
+
+.Screenshot of Ciro's 2D continuous game.
+image2::Basketball_stage_of_Ciro_Santilli's_2D_continuous_AI_game.png[]
+
+Less good discrete prototype: https://github.com/cirosantilli/rl-game-2d-grid YouTube demo: https://www.youtube.com/watch?v=TQ5k2u25eI8
+
+.Ciro's 2D discrete game. https://www.youtube.com/watch?v=TQ5k2u25eI8[Source]
+video::TQ5k2u25eI8[youtube,height=400,width=600]
+
+.Two Minute Papers coverage of https://en.wikipedia.org/wiki/DeepMind[Google DeepMind]'s 2019 https://deepmind.com/blog/article/capture-the-flag-science[Capture the Flag paper]. DeepMind does some similar simulations to what Ciro wants, but TODO do they publish source code for all of them? If not Ciro calls bullshit on non-reproducible research. Does https://github.com/deepmind/lab[this repo] contain everything? https://www.youtube.com/watch?v=MvFABFWPBrw[Source].
+video::MvFABFWPBrw[youtube,height=400,width=600]
+
+.Two Minute Papers coverage of https://en.wikipedia.org/wiki/OpenAI[OpenAI]'s 2019 https://openai.com/blog/emergent-tool-use/[hide and seek] paper. OpenAI does some similar simulations to what Ciro wants, but TODO do they publish source code for all of them? If not Ciro calls bullshit on non-reproducible research, and even worse due to the fake "Open" in the name. Does https://github.com/openai/multi-agent-emergence-environments[this repo] contain everything? https://youtube.com/watch?v=Lu56xVlZ40M[Source].
+video::Lu56xVlZ40M[youtube,height=400,width=600]
+
+.The https://www.youtube.com/watch?v=YNMkADpvO4w[Primer YouTube channel] contains several 2D continuous simulations and explains AI techniques used. Notably, they have several interesting multiagent game ideas. TODO once again, are https://github.com/Helpsypoo/primer[all sources published]? Claims Unity based, so another downside, relying on non-FOSS engine. Ciro became mildly jealous of this channel when he found out about it, because at 800k subscribers at the time, the creator is likely able to make a living off of it, something which Ciro thought impossible. It hinges a large part of the amazing 3D game presentation, well done. https://www.youtube.com/watch?v=nsVD8VPh96w[Source].
+video::nsVD8VPh96w[youtube,height=400,width=600]
+
+The goal of this project is to reach xref2:artificial-general-intelligence[artificial general intelligence].
+
+A few initiatives have created reasonable sets of robotics-like games for the purposes of AI development, most notably: link:https://en.wikipedia.org/wiki/OpenAI[OpenAI] and link:https://en.wikipedia.org/wiki/DeepMind[Google DeepMind].
+
+However, all projects so far have only created sets of unrelated games, or worse: focused on closed games designed for humans!
+
+What is really needed is to create a single cohesive game world, designed specifically for this purpose, and with a very large number of game mechanics.
+
+Notably, by "game mechanic" is meant "a magic aspect of the game world, which cannot be explained by object's location and inertia alone". For example:
+
+* when you press a button here, a door opens somewhere far away
+* when you touch certain types of objects, a chemical reaction may happen, but not other types of objects
+
+Much in the spirit of link:http://www.gvgai.net/[], we have to do the following loop:
+
+* create an initial game
+* find an AI that beats it well
+* study the AI, and add a new mechanic that breaks the AI, but does not break a human!
+
+The question then becomes: do we have enough computational power to simulation a game worlds that is analogous enough to the real world, so that our AI algorithms will also apply to the real world?
+
+To reduce computation requirements, it is better to focus on a 2D world at first. Such world with the right mechanics can break any AI, while still being faster to simulate than a 3D world.
+
+The initial prototype uses the Urho3D open source game engine, and that is a reasonable project, but a raw SDL + Box2D + OpenGL solution from scratch would be faster to develop for this use case, since Urho3D has a lot of human-gaming features that are not needed, and because 2019 Urho3D lead developpers https://github.com/cirosantilli/china-dictatorship/blob/23c5bd936361f78a8dd6bd1f412286808714d2da/communities-that-censor-politics.md[disagree with the China censored keyword attack].
+
+Simulations such as these can be viewed as a form of https://en.wikipedia.org/wiki/Synthetic_data#Synthetic_data_in_machine_learning[synthetic data generation procedure], where the goal is to use computer worlds to reduce the costs of experiments and to improve reproducibility.
+
 ==== Molecular biology technologies
 
 https://github.com/cirosantilli/awesome-whole-cell-simulation
@@ -522,9 +581,9 @@ The videos must be completely reproducible, indicating the exact model of every 
 
 A bit like what xref2:ciro-santilli[] does in his xref2:ciro-santillis-stack-overflow-contributions[Stack Overflow contributions] but with computers, by indicating precise versions of his operating system, software stack, and hardware whenever they may matter.
 
-It is understandable that some experiments are just to complex and expensive to re-create, as an extreme example say, a precise description of the https://en.wikipedia.org/wiki/Large_Hadron_Collider[LHC], but up to the mid 20th century? We should have all of those nailed down.
+It is understandable that some experiments are just to complex and expensive to re-create. As an extreme example, say, a precise description of the https://en.wikipedia.org/wiki/Large_Hadron_Collider[LHC] anyone? But experiments up to the mid-20th century before "https://en.wikipedia.org/wiki/Big_Science[big science]"? We should have all of those nailed down.
 
-We should strive to achieve the cheapest most reproducible setup possible.
+We should strive to achieve the cheapest most reproducible setup possible with currently available materials: recreating the original historic setup is xref2:art[cute], but not a priority.
 
 Furthermore, it is also desirable to reproduce the original setups whenever possible in addition to having the most convenient modern setup.
 
@@ -534,52 +593,11 @@ This project is to a large extent a political endeavour.
 
 Someone with enough access to labs has to step up and make a name for themselves through the huge effort of creating a baseline of amazing content without yet being famous.
 
-Until it reaches a point that this person is actively sought to create new material for others, and things snowball out of control.
+Until it reaches a point that this person is actively sought to create new material for others, and things snowball out of control. Maybe, if the Gods allow it, that person could be Ciro.
 
 Tutorials with a gazillion photos and short videos are also equally good or even better than videos, see for example Ciro's xref2:oxford-nanopore-river-bacteria[] for an example that goes toward that level of perfection.
 
 The https://www.youtube.com/channel/UCivA7_KLKWo43tFcCkFvydw["Applied Science" YouTube channel] by Ben Krasnow does well in that direction: it deals with materials, chemistry, microscopy, electronics. Uber practical, well described setups deep science stuff, he is awesome and has been at Google since 2016: https://www.linkedin.com/in/ben-krasnow-6796a94/
-
-==== Large cohesive game world for robotic-like artificial intelligence development
-
-Prototype: https://github.com/cirosantilli/Urho3D-cheat
-
-Prior art research: https://github.com/cirosantilli/awesome-reinforcement-learning-games
-
-video::j_fl4xoGTKU[youtube,height=400,width=600]
-
-image2::Basketball_stage_of_Ciro_Santilli's_2D_continuous_AI_game.png[]
-
-Less good discrete prototype: https://github.com/cirosantilli/rl-game-2d-grid YouTube demo: https://www.youtube.com/watch?v=TQ5k2u25eI8
-
-video::TQ5k2u25eI8[youtube,height=400,width=600]
-
-The goal of this project is to reach xref2:artificial-general-intelligence[artificial general intelligence].
-
-A few initiatives have created reasonable sets of robotics-like games for the purposes of AI development, most notably: link:https://en.wikipedia.org/wiki/OpenAI[OpenAI] and link:https://en.wikipedia.org/wiki/DeepMind[Google DeepMind].
-
-However, all projects so far have only created sets of unrelated games, or worse: focused on closed games designed for humans!
-
-What is really needed is to create a single cohesive game world, designed specifically for this purpose, and with a very large number of game mechanics.
-
-Notably, by "game mechanic" is meant "a magic aspect of the game world, which cannot be explained by object's location and inertia alone". For example:
-
-* when you press a button here, a door opens somewhere far away
-* when you touch certain types of objects, a chemical reaction may happen, but not other types of objects
-
-Much in the spirit of link:http://www.gvgai.net/[], we have to do the following loop:
-
-* create an initial game
-* find an AI that beats it well
-* study the AI, and add a new mechanic that breaks the AI, but does not break a human!
-
-The question then becomes: do we have enough computational power to simulation a game worlds that is analogous enough to the real world, so that our AI algorithms will also apply to the real world?
-
-To reduce computation requirements, it is better to focus on a 2D world at first. Such world with the right mechanics can break any AI, while still being faster to simulate than a 3D world.
-
-The initial prototype uses the Urho3D open source game engine, and that is a reasonable project, but a raw SDL + Box2D + OpenGL solution from scratch would be faster to develop for this use case, since Urho3D has a lot of human-gaming features that are not needed, and because 2019 Urho3D lead developpers https://github.com/cirosantilli/china-dictatorship/blob/23c5bd936361f78a8dd6bd1f412286808714d2da/communities-that-censor-politics.md[disagree with the China censored keyword attack].
-
-Simulations such as these can be viewed as a form of https://en.wikipedia.org/wiki/Synthetic_data#Synthetic_data_in_machine_learning[synthetic data generation procedure], where the goal is to use computer worlds to reduce the costs of experiments and to improve reproducibility.
 
 ==== Website front-end for a mathematical formal proof system
 
@@ -880,6 +898,7 @@ Other accounts:
 * https://eternagame.org/web/player/260828/
 * https://figshare.com/authors/Ciro_Santilli/656781
 * https://forum.osdev.org/memberlist.php?mode=viewprofile&u=16372
+* https://forum.pine64.org/member.php?action=profile&uid=17386
 * https://forum.videolan.org/memberlist.php?mode=viewprofile&u=173503
 * https://forum.xda-developers.com/member.php?u=7116837
 * https://forums.androidcentral.com/members/cirosantilli-2734491
@@ -895,8 +914,10 @@ Other accounts:
 * https://opencollective.com/ciro-santilli
 * https://orcid.org/0000-0003-2895-7763
 * https://peerj.com/cirosantilli/
+* https://profile.edx.org/u/ciro_santilli
 * https://profiles.3dgames.com.ar/profiles/1002278
 * https://pypi.org/user/cirosantilli/
+* https://raidforums.com/User-cirosantilli
 * https://rubygems.org/profiles/cirosantilli
 * https://software.intel.com/en-us/user/1090688
 * https://soundcloud.com/cirosantilli
@@ -1150,6 +1171,68 @@ Of course, https://en.wikipedia.org/wiki/Survivorship_bias[survivorship bias] ap
 [[alan-watts-money]]
 .xref:alan-watts[] "If Money Were No Object What Would You Do". https://www.youtube.com/watch?v=XTv50ELCBr4[Source].
 video::XTv50ELCBr4[youtube,height=400,width=600]
+
+===== Steve Jobs 2005 Stanford Commencement Address
+
+Ciro feels that this resonates a lot with his xref2:write-free-books-to-get-famous-website[].
+
+Supercut:
+
+____
+The minute I dropped out I could stop taking the required classes that didn't interest me, and begin dropping in on the ones that looked far more interesting.
+
+And much of what I stumbled into by following my curiosity and intuition turned out to be priceless later on.
+
+Because I had dropped out and didn't have to take the normal classes, I decided to take a calligraphy class to learn how to do this.
+
+None of this had even a hope of any practical application in my life.
+
+If I had never dropped in on that single course in college, the Mac would have never had multiple typefaces or proportionally spaced fonts.
+
+Of course it was impossible to connect the dots looking forward when I was in college. But it was very, very clear looking backward 10 years later.
+
+Again, you can't connect the dots looking forward; you can only connect them looking backward. So you have to trust that the dots will somehow connect in your future. You have to trust in something — your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life.
+____
+
+Then:
+
+____
+
+You've got to find what you love.
+
+And that is as true for your work as it is for your lovers.
+
+Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.
+
+And the only way to do great work is to love what you do. If you haven't found it yet, keep looking.
+
+Don't settle. As with all matters of the heart, you'll know when you find it.
+
+And, like any great relationship, it just gets better and better as the years roll on.
+
+So keep looking until you find it.
+
+Don't settle.
+____
+
+And:
+
+____
+
+When I was 17, I read a quote that went something like: "If you live each day as if it was your last, someday you'll most certainly be right."
+
+It made an impression on me, and since then, for the past 33 years, I have looked in the mirror every morning and asked myself: "If today were the last day of my life, would I want to do what I am about to do today?"
+
+And whenever the answer has been "No" for too many days in a row, I know I need to change something.
+____
+
+And then he quotes form the https://en.wikipedia.org/wiki/Whole_Earth_Catalog[Whole Earth Catalog], a paper Atlas from the '70s he admired:
+
+____
+Stay Hungry. Stay Foolish
+____
+
+video::UF8uR6Z6KLc[youtube,height=400,width=600]
 
 ==== Backward design
 
@@ -1518,6 +1601,12 @@ There are two solutions to that:
 
 * be traditional and create separate web pages
 * be bold and load images as they appear on the viewport: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-only-when-they-are-in-the-viewport/57389607#57389607
++
+Edit: OK, it was standardized with `loading=lazy`, without need JavaScript!
++
+Now the last awesome thing would be a method that loads first images in viewport, then those below, and then those above, that would be the ultimate solution.
++
+This question comes close: https://stackoverflow.com/questions/7906348/change-loading-order-of-images-already-on-page
 
 Ciro is still deciding between those two. The traditional approach works for sure but loses the one page to rule them all benefits.
 
@@ -1636,6 +1725,8 @@ Related: https://github.com/jekyll/jekyll/issues/6899
 
 Because when this gets converted to a xref2:write-free-books-to-get-famous-website[] page, it will be easier for people to copy paragraphs/fork and write a canonical page about Ciro.
 
+Also, what do you do when creating a pull request? Do you say I, which is not true because Ciro did not say that, or do you say "John Doe thinks" bla bla?
+
 And because xref2:ciro-santillis-selfish-desires[his name is awesome]! :-) Just kidding.
 
 === Ciro Santilli's skills
@@ -1699,6 +1790,7 @@ When asked, Ciro likes to say that he speaks something between 1.5 and 3.5 langu
 Ciro Santilli's energy throughout the day varies as follows:
 
 * morning: highest
+* 11AM: peak exercise performance
 * after lunch: brain death. Possibly due to Ciro's partial https://en.wikipedia.org/wiki/Siesta[Spanish descent]?
 * late afternoon and evening: can do some stuff
 
@@ -1723,6 +1815,8 @@ Ciro has some respiratory allergies. When he was around 5, he had relatively ser
 Ciro is generally https://en.wikipedia.org/wiki/Democrat[Democrat] due to his high compassion level. He believes that politics is highly genetically determined, and that just like you enter a room full of people and immediately like some and dislike others, the same goes for politics. People just vote for whoever they want to see more of because their way of speaking makes them feel good. There is not rationality involved in it at all.
 
 In the field of Love and Friendship, Ciro is a big believer in the merciless application of https://en.wikipedia.org/wiki/Tit_for_tat[tit for tat]. Never desire someone's love, if you give and what comes back is not proportional. Cut your attempts to reach out immediately in such cases.
+
+Good employers must allow employees to do whichever the fuck "crazy projects", "needed refactorings or other efficiency gains" and "learn things deeply" at least 20% of their time if employees want that: https://en.wikipedia.org/wiki/20%25_Project[]. Employees must choose if they want to do it one day a week or two hours per day. One day per month initiatives are bullshit. Another related name: https://en.wikipedia.org/wiki/Genius_hour[genius hour].
 
 ==== Ciro Santilli's self perceived creative personality
 
@@ -1959,41 +2053,33 @@ It is amazing how you feel much less cold and hunger when cycling, to the point 
 
 As a friend of Ciro once said: you start to become like a wolf, who knows every cyclable little road in a 30km radius around your home.
 
-At the time of writing, Ciro is at that "should I buy a more reasonable road bike" moment. Let's see how it goes. If he does, cycling trips with the bike on a plane are likely.
-
-Sometimes you get annoyed to death with your bike not breaking or changing gears perfectly as you would like, and the people at the bike shop never do the job well enough.
-
-The problem with bike shops is that the employees are already swamped with work, and they don't get paid any extra for doing more work.
-
-Also, for the same reason, they don't have the time to go for a quick test ride after a fix to ensure that the xref2:software-engineer[bug] was actually fixed.
-
-So they ignore things that would obviously be huge ridability benefits (although they might not be obvious to newbie customers), for which customers would gladly pay more money for.
-
-But you start to learn how to do stuff yourself and it feel amazing when you finally get there (after infinite trial and error).
-
-Ciro dreams of a bike shop that actually calls you for the appointment and then teaches you how to fix the thing.
-
-So the best strategy is to have a backup bicycle, and when your main one breaks, you just try to to the fix yourself. That means: identifying the broken piece, watching YouTube videos of how to do the job, buying a replacement on Amazon, and giving it a shot.
-
-Then, if you fail to do the fix, that is OK, just take it to the bike shop, with the piece you've bought, and ask them to do it for you. At least this way you did not waste a golden opportunity to learn!
+As of 2020, Ciro is at that "should I buy a more reasonable road bike" moment. Let's see how it goes. If he does, cycling trips with the bike on a plane are likely.
 
 As a software engineer, trying to repair a mechanical system like his bike reminds Ciro very strongly of how the xref2:deep-tech[physical engineering is brutal]. Millimetric changes can make huge differences, it is mind blowing! Good lesson to have in mind.
 
 Another thought that often comes to Ciro's mind is that bicycles are not regular possessions because they break a lot. Rather, they must be seen as a kind of transportation tax that you have to pay to feel amazing riding them rather than feel crappy riding a bus or train.
 
-One interesting feeling that Ciro gets from cycling is that it is an intermediate between walking and riding a car. Ciro felt this especially strongly when he lived near work, at a distance that you could either walk or cycle. When you walk, you can just see so much more of the surroundings, it is astonishing. When you cycle, you just go much faster, and you attention is much more towards the front, so you feel surroundings much less. On the other side, cycling allows you to feel different things. E.g. in wider open areas, there isn't much detail to se anyways, so you can better feel those areas on the faster speed of the bike. A similar feeling applies to how pedestrians feel like flies when you are on a bike, just like you must feel like a fly to car drivers.
+One interesting feeling that Ciro gets from cycling is that it is an intermediate between walking and riding a car. Ciro felt this especially strongly when he lived near work, at a distance that you could either walk or cycle. When you walk, you can just see so much more of the surroundings, it is astonishing. When you cycle, you just go much faster, and you attention is much more towards the front, so you feel surroundings much less. On the other side, cycling allows you to feel different things. E.g. in wider open areas, there isn't much detail to see anyway, so you can better feel those areas on the faster speed of the bike. A similar feeling applies to how pedestrians feel like flies when you are on a bike, just like you must feel like a fly to car drivers.
 
 Although Ciro does not run because of his itchy legs issue, he finds it interest to contrast cycling with running, notably:
 
-* cycling has a much higher setup time or wearing appropriate clothes, unlocking your bike, and of course, xref2:ciro-santillis-bike-maintenance-tips-for-beginners[bike maintenance]
-* running allows you to go into many more small paths that are not accessible by bike, thus offering a different sense of freedom. You can't go as far however. So maybe the ultimate sport would be to cycle to a good cross-country running locaion and then run over there?
+* cycling has a much higher setup time or wearing appropriate clothes, unlocking your bike, and of course, xref2:ciro-santillis-bicycle-wisdom[bike maintenance]
+* running allows you to go into many more small paths that are not accessible by bike, thus offering a different sense of freedom. You can't go as far however. So maybe the ultimate sport would be to cycle to a good cross-country running location and then run over there?
 
 .GCN video about the interesting http://www.bingleyharriers.co.uk/events/harriers-vs-cyclists/[Bingley Harriers & AC "harriers vs cyclists"] race held annually in the UK, in which you can either run or cycle! The course attempts to balance rough uphill terrain where runners get an advantage, with less rough downhill where cyclists have an advantage. https://www.youtube.com/watch?v=fWYaClbNPYw[Source].
 video::fWYaClbNPYw[youtube,height=400,width=600]
 
-===== Ciro Santilli's bike maintenance tips for beginners
+===== Ciro Santilli's bicycle wisdom
 
 Sometimes, these are more than just mechanics, but also have deeper life analogues. The title of https://en.wikipedia.org/wiki/Zen_and_the_Art_of_Motorcycle_Maintenance[Zen and the Art of Motorcycle Maintenance] comes to mind. Sometimes they are just mechanics.
+
+With more philosophical metaphors:
+
+* when your bike breaks, that provides an unique opportunity to learn how to fix it: xref2:try-to-fix-your-own-bike-before-taking-it-to-the-shop[]
+* if the wind is blowing against you on the way out, it will likely blow behind you on the way back. But remember that the other way around also applies.
+* always take one extra clothing layer than what you think you will need in your back pocket or sport bag, especially when time is changing fast in Sprint and Autumn. The weather on the road outside of town can change very quickly!
+
+With less philosophical metaphors:
 
 * correct saddle hight is fundamental, your legs must be almost fully stretched at the bottom position
 * it is impossible to reach the correct tire pressure with (cheap?) hand pumps, their only purpose is to fill up a flat tire so you can get home after a long ride. But a track pump.
@@ -2007,10 +2093,37 @@ This is the most common bike maintenance mistake you see on the streets: people 
 video::KM6mzE5lQ0w[youtube,height=400,width=600]
 * when a piece on your bike breaks and has no clear name written on it, you can try to identify it Google images
 * the more you watch YouTube maintenance videos without haste, the more you end up learn random new stuff that unexpectedly saves you later
-* always take one extra clothing layer than what you think you will need in your back pocket or sport bag, especially when time is changing fast in Sprint and Autumn. The weather on the road outside of town can change very quickly!
 * if you took a turn, and it feels wrong, stop to check the map, and possibly backtrack to safety. When it feels wrong, it usually is a bad idea, e.g. roads where cars are too fast/too many
 * public place with lots of people are hell, because due to anonymity and the large number of distractions, it becomes exponentially more likely that someone will fuck you bike somehow, e.g. by dropping it on the ground. Always search a bit for a reasonable place to park, and avoid overcrowded parking spaces at all costs.
 * when you get on your bike to start riding, start riding slowly and gradually switch up pedal forces and gears. Things may have shifted in a weird position as it gets kicked around in parking. Ciro managed to bend his derailleur like that!
+* https://www.youtube.com/watch?v=43ci68I23hA[spin to win]
+* it is not shameful to ride on your lower gears on a hill. You can actually go surprisingly fast with them, and conserve energy for later. Learn when to use each gear ratio.
+* learn to identify your suppliers:
+** https://www.wiggle.co.uk/[]: in Europe, this is best place to buy clothing from, and also good for some bike parts. It is the most organized website, and contains non-generic shit which Amazon is full of.
++
+For bike parts Amazon is also worth looking into however. Bike parts a bit different from clothing because you have to make sure that stuff fits, so you hopefully know exactly the part name before before buying it, and therefore website organization is not as crucial.
++
+Wiggle is however guilty of shameless: xref2:discounts-that-happen-more-often-than-not[]
+
+===== Try to fix your own bike before taking it to the shop
+
+Sometimes you get annoyed to death with your bike not breaking or changing gears perfectly as you would like, and the people at the bike shop never do the job well enough.
+
+The problem with bike shops is that the employees are already swamped with work, and they don't get paid any extra for doing more work.
+
+As a result, paradoxically, they are often happier, and respect you more if you are trying to get them to help you to fix your own bike!
+
+Also, for the same reason, they don't have the time to go for a quick test ride after a fix to ensure that the xref2:software-engineer[bug] was actually fixed.
+
+So they ignore things that would obviously be huge ridability benefits (although they might not be obvious to newbie customers), for which customers would gladly pay more money for.
+
+But you start to learn how to do stuff yourself and it feel amazing when you finally get there (after infinite trial and error).
+
+Ciro dreams of a bike shop that actually calls you for the appointment and then teaches you how to fix the thing.
+
+So the best strategy is to have a backup bicycle, and when your main one breaks, you just try to to the fix yourself. That means: identifying the broken piece, watching YouTube videos of how to do the job, buying a replacement on Amazon, and giving it a shot.
+
+Then, if you fail to do the fix, that is OK, just take it to the bike shop, with the piece you've bought, and ask them to do it for you. At least this way you did not waste a golden opportunity to learn!
 
 === Ciro Santilli's biography
 
@@ -3420,6 +3533,25 @@ https://en.wikipedia.org/wiki/Lebesgue_integration
 
 Key motivation: xref2:lebesgue-integral-of-lp-is-complete-but-reimann-isnt[].
 
+https://youtu.be/PGPZ0P1PJfw?t=710 also mentions that one advantage is being able to switch the order of integrals and limits of function sequences on non-uniform convergence. TODO why do we care?
+
+https://youtu.be/PGPZ0P1PJfw?t=808 shows how Lebesgue can be visualized as a partition of the function range instead of domain, and then you just have to be able to measure the size of pre-images.
+
+One advantage of that is that the range is always one dimensional.
+
+But the main advantage is that having infinitely many discontinuities does not matter.
+
+Infinitely many discontinuities can make the Reimann partitioning diverge.
+
+But in Lebesgue, you are instead measuring the size of preimage, and to fit infinitely many discontinuities in a finite domain, the size of this preimage is going to be zero. 
+
+So then the question becomes more of "how to define the measure of a subset of the domain".
+
+Which is why we then fall into xref2:measure-theory[]
+
+.Riemann integral vs. Lebesgue integral by "The Bright Side Of Mathematics" published on Oct 31, 2018. https://www.youtube.com/watch?v=PGPZ0P1PJfw[Source].
+video::PGPZ0P1PJfw[youtube,height=400,width=600]
+
 [[lebesgue-integral-of-lp-is-complete-but-reimann-isnt]]
 ==== Lebesgue integral of latexmath:[\LP] is complete but Reimann isn't
 
@@ -3429,6 +3561,8 @@ latexmath:[\LP] is:
 * not complete under the xref2:reimann-integral[]: https://math.stackexchange.com/questions/397369/space-of-riemann-integrable-functions-not-complete
 
 And then this is why xref2:quantum-mechanics[] basically lives in xref2:l2[]: not being complete makes no sense physically, it would mean that you can get closer and closer to states that don't exist!
+
+TODO intuition
 
 ===== Riesz-Fischer theorem
 
@@ -3468,6 +3602,14 @@ xref2:l2[] has some crucially important properties that other latexmath:[\LP] do
 ** https://math.stackexchange.com/questions/2005632/l2-is-the-only-hilbert-space-parallelogram-law-and-particular-ft-gt
 ** https://www.quora.com/Why-is-L2-a-Hilbert-space-but-not-Lp-or-higher-where-p-2
 * xref2:fourier-basis-is-complete-for-l2[], which is great for solving xref2:differential-equations[]
+
+==== Measure theory
+
+https://en.wikipedia.org/wiki/Measure_(mathematics)
+
+Main motivation: xref2:lebesgue-integral[].
+
+The Bright Side Of Mathematics 2019 playlist: https://www.youtube.com/watch?v=xZ69KEg7ccU&list=PLBh2i93oe2qvMVqAzsX1Kuv6-4fjazZ8j
 
 ==== Fourier transform
 
@@ -3875,6 +4017,7 @@ Here are some cool decks:
 +
 .Ops All Spells - Legacy | Channel Mengucci.
 video::uFHtX4Agv4U[youtube,height=400,width=600]
+* Gyruda Cannon - Legacy - April 18th, 2020 https://www.youtube.com/watch?v=PefRTsRRi6w
 
 Competitive commander is also interesting, although matches tend to be much more random so the format is harder to digest, see for example this channel; https://www.youtube.com/channel/UCum8N4KUUC0l_NK_mybvilg[Playing With Power MTG channel].
 
@@ -3883,6 +4026,11 @@ https://mtg.gamepedia.com/Urza%27s_block[Urza's block] is the most epic of all. 
 In 2019, https://arxiv.org/pdf/1904.09828.pdf[a paper proved] that MTG is xref2:turing-complete[] with a legacy legal deck. Live demo with some hand waving: https://www.youtube.com/watch?v=pdmODVYPDLA "I Built a COMPUTER in Magic: The Gathering" by "Because Science" published in Oct 31, 2019. TODO: how is this reflected in the rules? https://github.com/cirosantilli/cirosantilli.github.io/issues/42
 
 video::pdmODVYPDLA[youtube,height=400,width=600]
+
+The following creators share many of Ciro's interests and output large quantities of interesting content covering all memes/overpowered combos of new sets:
+
+* https://www.youtube.com/channel/UChw6Y6UYf6fIipBEWg6iEaw[Squa Chief]
+* https://www.youtube.com/channel/UC0OFObRNMjSsnuEMGA-K29Q[Jeff Hoogland]
 
 === The best YouTube channels
 
@@ -4226,13 +4374,15 @@ What else would you expect from a naive algorithm system that has 10 million new
 * always upvote questions you care about, to increase the probability that they will get answered
 * never upvote other people's answers unless you might gain from it somehow, otherwise you are just giving other high reputation users more reputation relative to you
 * only mark something to close or as a duplicate if it will bring you some advantage, because closing things creates enemies, especially if the OP has a high profile
++
+One example advantage is if you have already answered the question (and the duplicate as well in case of duplicates), because this will prevent competitors from adding new better answers to overtake you.
 * protect questions you've answered whenever someone with less than 10 reputation answers it with a bad answer, to prevent other good contributors from coming along and beating you
 * when you find a duplicate pool answer every question with similar answers.
 +
 Alter each answer slightly to avoid the duplicate answer detector.
 +
 If one of the question closes, it is not too bad, as it continues netting you to upvotes, and prevents new answers from coming in.
-* follow on Twitter / RSS someone who comments on the top features of new software releases. E.g. for Git, follow GitHub on Twitter. Then run back to any question which has a new answer.
+* follow on Twitter/RSS someone who comments on the top features of new software releases. E.g. for Git, follow GitHub on Twitter, C++ on Reddit. Then run back to any question which has a new answer.
 * always upvote the question when you answer it:
 ** the more upvotes, more likely people are to click it.
 ** the OP is more likely to see your answer and feel good and upvote you
@@ -4240,7 +4390,7 @@ If one of the question closes, it is not too bad, as it continues netting you to
 +
 This may lead to them upvoting or liking you.
 +
-Even if they don't, other people will still see your answer anyways, and this will lead to people to upvoting you more just to make your great answer surpass the current ones, especially if the accepted one has less upvotes than yours. Being second is often an asset.
+Even if they don't, other people will still see your answer anyway, and this will lead to people to upvoting you more just to make your great answer surpass the current ones, especially if the accepted one has less upvotes than yours. Being second is often an asset.
 * always upvote comments that favor you:
 ** "I like this answer!" on your answers
 ** "also look at that question" when you have answered that question
@@ -4844,6 +4994,9 @@ xref2:evil[Evil] and interesting co-founder of xref2:apple-inc[]
 ** "Try to have a nice family life, have fun, save a little money." quote at: xref2:dont-be-a-pussy[xrefstyle=full].
 ** "Steve Jobs Insult Response" on xref2:backward-design[]
 ** Steve Jobs Pixar office design philosophy: great ideas happen from chance meetings on corridors, not in board rooms: https://officesnapshots.com/2012/07/16/pixar-headquarters-and-the-legacy-of-steve-jobs/
+* xref:steve-jobs-2005-stanford-commencement-address[]
+
+You must watch this: xref2:erbof-gates-jobs[Bill Gates vs Steve Jobs Epic Rap Battles of the History].
 
 ===== Steve Jobs saving lives with a faster boot
 
@@ -4882,19 +5035,28 @@ Things that are not nice such as:
 * https://en.wikipedia.org/wiki/Binary_large_object[BLOBs]
 * xref2:europe-cookie-law[]
 * adhesive inside mobile phones, see also: xref2:planned-obsolescence[]
-* xref2:excessive-encapsulation-is-the-root-of-much-evil[excessive encapsulation]
 * typographical characters that look like ASCII ones, but are not the ASCII ones, e.g. https://en.wikipedia.org/wiki/Quotation_mark[typographical quotes], https://en.wikipedia.org/wiki/Dash[em-dash]. Why not stick to ASCII when ASCII is good enough?
+* xref2:excessive-encapsulation-is-the-root-of-much-evil[excessive encapsulation]
+* Git projects that use `master` as a stable branch and `develop` as the actual `master`
 * blank lines in code added by people trying to increase clarity, especially when there is already indentation for that. Every blank line must be preceded by a line comment explaining what the following block is about, or removed.
 * chat programs that don't have a proper web-only operation and force you to have a mobile phone, e.g. https://en.wikipedia.org/wiki/WeChat[WeChat]. What is my phone breaks? What if I don't want to have a fucking phone? What if I move countries and have to change the fucking number? Also evil but less because done by all: chat programs that can't send you an email https://webapps.stackexchange.com/questions/41528/how-can-i-automatically-forward-facebook-messages-to-my-email-or-phone[if you don't see the message in X minutes]. xref2:europe[European Union], time to force those evil xref2:companies[] to use support open standards like https://en.wikipedia.org/wiki/XMPP[XMPP]? Yes, end-to-end encrypted peer-to-peer becomes harder impossible, but I'm fine with the xref2:nsa[] reading my messages until a working distributed technical solution is availble, maybe it already is and just needs more visibility.
 * ads by telephone/SMS
 * "state" such as global variables and object members, long live xref2:programming-languages[functional programming]? 
 * mosquitoes, the only intrinsically bad thing about xref2:brazil[tropical countries]
-* sale discounts which happen so often that they are obviously just a lie to make you want to buy at regular price. Similarly, recurrent Internet payments that give you one year's discount, and make you put up on your calendar to call them one year later threatening to give more discounts to be as cheap as competitors or I'm out.
 * projects with slow compilation times
 * xref2:ciro-santillis-sport-practice[degreaser]
 * xref2:microsoft-windows[]
 * the 2019 xref2:china[Chinese government]
 * online forums that lock threads after some time like https://www.reddit.com/[Reddit]. Ridiculous, so when new information comes out, we just duplicate all the old comments on a new thread again?
+* e-learning websites that only allows verified teachers to write content. xref2:write-free-books-to-get-famous-website[Cowards who can't handle ranking algorithms].
+
+==== Discounts that happen more often than not
+
+These are obviously just a manipulative lie sales practice to make you want to buy at regular price.
+
+Shame on you.
+
+Similarly, recurrent Internet payments that give you one year's discount, and make you put up on your calendar to call them one year later threatening to give more discounts to be as cheap as competitors or I'm out.
 
 ==== Languages without a decent dominating package system
 
@@ -4942,6 +5104,7 @@ On a related note, hackathons are also mostly useless. Instead of announcing a h
 * https://stackoverflow.com/questions/1019116/using-ls-to-list-directories-and-their-total-sizes/55519414#55519414[ncdu]
 * xref2:ide[IDEs]
 * xref2:ciro-santillis-sport-practice[degreaser]
+* https://en.wikipedia.org/wiki/Unified_Modeling_Language[UML]: while it might seem like a over-thinked thing and likely is, the basic idea that understanding "one to one vs one to many vs many to many" relationships between objects and which object can see which object, is a fantastic approach towards understanding complex object oriented code
 * xref2:open-source-software[]
 * xref2:computer[]
 * https://en.wikipedia.org/wiki/FOSDEM[FOSDEM]. xref2:ciro-santilli[] attended in 2016, and felt extremely good together with all those amazingly smart open source hackers: https://www.quora.com/What-are-the-best-open-source-conferences/answer/Ciro-Santilli
@@ -5160,7 +5323,25 @@ Other programmers are equally obsessed by koans:
 
 Some anecdotes.
 
-xref2:ciro-santilli[] has seen and had to deal with in his lifetime with two projects that had like 3 to 10 git separate Git repositories, all created and maintained by the same small group of developers of the same organization, even though one could not build without the other. Keeping everything in sync was Hell! Why not just have three directories inside a single repository with a single source of truth?
+xref2:ciro-santilli[] never splits up functions unless there is more than one calling point. If you split early, the chances that the interface will be wrong are huge, and a much larger refactoring follows.
+
+If you just want to separate variables, just use a scope e.g.:
+
+....
+int cross_block_var;
+
+// First step.
+{
+    int myvar;
+}
+
+// Second step.
+{
+    int myvar;
+}
+....
+
+Ciro has seen and had to deal with in his lifetime with two projects that had like 3 to 10 git separate Git repositories, all created and maintained by the same small group of developers of the same organization, even though one could not build without the other. Keeping everything in sync was Hell! Why not just have three directories inside a single repository with a single source of truth?
 
 Another important case: xref2:linux[Linux] should have at least a C standard library, init system, and shell in-tree, like xref2:bsd-operating-systems[], as mentioned at: xref2:linux[Linux,xrefstyle=full]
 
@@ -5261,6 +5442,7 @@ Index:
 * JavaScript
 ** link:web-cheat/js-image-load.html[]: load an image from JavaScript dynamically: https://stackoverflow.com/questions/226847/what-is-the-best-javascript-code-to-create-an-img-element
 ** link:web-cheat/js-image-load-viewport.html[]: load an image from JavaScript dynamically when it would become visible on the viewport: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-only-when-they-are-in-the-viewport
+** link:web-cheat/image-load-lazy.html[]: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-lazily-only-when-they-are-in-the-viewport/57389607#57389607
 
 ===== HTML canvas
 
@@ -5821,6 +6003,9 @@ https://en.wikipedia.org/wiki/Transmon
 
 Used in: https://en.wikipedia.org/wiki/Sycamore_processor
 
+."Control of transmon qubits using a cryogenic CMOS integrated circuit (QuantumCasts)" by TensorFlow (Google) published on Apr 14, 2020. https://youtube.com/watch?v=VA2HEUmkrKo[Source].
+video::VA2HEUmkrKo[youtube,height=400,width=600]
+
 ===== Trapped ion quantum computer
 
 https://en.wikipedia.org/wiki/Trapped_ion_quantum_computer
@@ -5926,6 +6111,8 @@ ____
 
 Also very worth reading is the San Francisco flat mate account: https://www.vice.com/en_us/article/ae3q8g/my-roommate-the-darknet-drug-lord (https://web.archive.org/web/20191201090353/https://www.vice.com/en_us/article/ae3q8g/my-roommate-the-darknet-drug-lord[archive]).
 
+The murder for hire allegations are also interesting: https://mashable.com/2013/10/03/silk-road-hits[], he paid 80k dollars to undercover DEA agents!
+
 Except for the fact that Ross was an 80 million dollar drug lord, those accounts sound exactly like what you would expect from any other nerdy startup founder! The:
 
 * "just do it" strategy effectively going to a minimal viable product (manual transaction management!), while making many mistakes along the way, including hiring mistakes and successes when scaling is needed
@@ -5956,6 +6143,7 @@ Ciro's modest nature can be seen as he likes to compare this event https://en.wi
 
 Linux should track glibc and POSIX CLI utilities in-tree like xref2:bsd-operating-systems[FreeBSD], otherwise people have xref2:linux-kernel-module-cheat[no way to get the thing running in the first place without blobs or large out-of-tree scripts]! https://blog.farhan.codes/2018/06/25/linux-maintains-bugs-the-real-reason-ifconfig-on-linux-is-deprecated/[Another enlightened soul] who agrees.
 
+[[erbof-gates-jobs]]
 .<<bill-gates>> vs <<steve-jobs>> Epic Rap Battles of History. Just stop whatever you are doing, and watch this right now. "I'm on Linux, bitch, I thought you GNU".
 video::njos57IJf-0[youtube,height=400,width=600]
 
@@ -6014,6 +6202,8 @@ The following anecdote illustrates Windows' pervasiveness. xref2:ciro-santilli[]
 https://en.wikipedia.org/wiki/Bill_Gates
 
 The enemy?
+
+You must watch this: xref2:erbof-gates-jobs[Bill Gates vs Steve Jobs Epic Rap Battles of the History].
 
 ==== POSIX
 
