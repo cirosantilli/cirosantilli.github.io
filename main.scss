@@ -1,196 +1,81 @@
----
----
-
+$color: black;
+$header-background-color: #AA0;
+$toplevel-padding: 20px;
 body {
-  $border: 1px solid black;
-  $header_link_color: #CC0;
-  $link_color: #28F;
-  $main_padding: 15px;
+background-color: $color;
 
-  overflow-wrap: break-word;
-  header {
-    background-color: black;
-    border-radius: 0;
-    border-width: 0;
-    font-size: 2.0em;
-    margin: 0;
-    @mixin header_link_hover {
-      background-color: white;
-      color: black;
-    }
-    a {
-      // Otherwise the black background shows around the links for some reason.
-      padding-bottom: 10px;
-      padding-top: 10px;
-      margin: 0;
-      &.home {
-        color: white;
-        font-weight: bold;
-        padding-left: 5px;
-        padding-right: 5px;
-        text-decoration: none;
-      }
-      &:hover {
-        @include header_link_hover;
-      }
-    }
-    span.social a {
-      color: $header_link_color;
-      &:hover {
-        @include header_link_hover;
-      }
-      &:visited {
-        &:hover {
-          @include header_link_hover;
-        }
-        color: $header_link_color;
-      }
-    }
-  }
+/* Scrollbar behaviour.
+ * We would like to get rid of the X scrollbar and keep only the Y one.
+ * The below would remove both on Chromium 81 and neither on Firefox 75.
+ * So for now we just keep both.
+ * https://stackoverflow.com/questions/3296644/hiding-the-scroll-bar-on-an-html-page
+ * https://stackoverflow.com/questions/20997183/how-to-hide-scrollbar-in-firefox
+ * https://stackoverflow.com/questions/20713769/horizontal-only-webkit-scrollbar-style-css
+ */
+/*
+overflow-x: visible;
+scrollbar-width: none;
+&::-webkit-scrollbar {
+    display: none;
+}
+*/
 
-  main {
-    /* Don't stay too close to the edge of the screen. */
-    padding-bottom: $main_padding;
-    padding-right: $main_padding;
-    padding-left: $main_padding;
+header, footer {
+  background-color: $header-background-color;
+}
+header {
+  /* https://stackoverflow.com/questions/5078239/how-do-i-remove-the-space-between-inline-block-elements */
+  font-size: 0;
+  align-items: center;
+  display: flex;
+  a {
+    /* Make buttons occupy the full height of the header bar.
+     * https://stackoverflow.com/questions/28254332/how-to-vertically-center-the-contents-of-a-flexbox-item/28254903#28254903 */
+    align-items: center;
+    align-self: stretch;
+    display: flex;
 
-    /* asciidoctor output. */
-    .imageblock {
-      margin-bottom: 15px;
+    color: $color;
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    &:first-child {
+      padding-left: $toplevel-padding;
     }
-
-    /* kramdown output. */
-    #markdown-toc {
-      font-weight: bold;
+    padding-right: 10px;
+    text-decoration: none;
+    &:visited {
+      color: $color;
     }
-
-    h1, h2, h3, h4, h5, h6 {
-      a {
-        &:link, &:visited {
-          color: black;
-        }
-      }
+    &:hover {
+      color: $header-background-color;
+      background-color: $color;
     }
-    h2, h3, h4, h5, h6 {
-      font-size: 24px;
-    }
-
-    /* Generic elements. */
-    a:link {
-      color: $link_color;
-    }
-    a:visited {
-      color: purple;
-    }
-    blockquote {
-      font-size: 1.2em;
-    }
-    code {
-      color: black;
-    }
-    p {
-      /* Otherwise paragraphs after *nested* lists are too close. TODO why? */
-      margin-top: 5px;
-    }
-    pre {
-      margin-left: 0px;
-      white-space: pre;
-    }
-    ul, ol {
-      /*list-style-position:inside;*/
-      margin-left: 14px;
-      padding-left: 14px;
-    }
-    table {
-      border-collapse: collapse;
-      border: $border;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    table tr > :not(:last-child) {
-      white-space: nowrap;
-      width: 1px;
-    }
-    td, th {
-      border: $border;
-      padding: 2px 4px;
-    }
-    th {
-      font-weight: bold;
-    }
-
-    /* Custom classes. */
-    .canvas-demo {
-      border: 1px solid black;
+    &.font-awesome-container {
+      font-size: 28px;
+      font-weight: normal;
       padding-left: 5px;
       padding-right: 5px;
-      margin-bottom: 10px;
-    }
-    .patches-table tr {
-      > :nth-child(1),
-      > :nth-child(3) {
-        text-align: center;
-      }
-    }
-    #bugs-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #grading-table tr > :nth-child(1) {
-      font-weight: bold;
-      text-align: center;
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-    #languages-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #other-tech-table tr > :nth-child(1) {
-      text-align: center;
-    }
-    #natural-languages-table tr > :nth-child(1) {
-      text-align: center;
-    }
-
-    // DataTables
-    $data_table_color: white;
-    table.dataTable tr {
-      &.odd {
-        background-color: $data_table_color;
-        td {
-          &.sorting_1 { background-color: $data_table_color; }
-          &.sorting_2 { background-color: $data_table_color; }
-          &.sorting_3 { background-color: $data_table_color; }
-        }
-      }
-      &.even {
-        background-color: $data_table_color;
-        td {
-          &.sorting_1 { background-color: $data_table_color; }
-          &.sorting_2 { background-color: $data_table_color; }
-          &.sorting_3 { background-color: $data_table_color; }
-        }
-      }
     }
   }
-
-  footer {
-    background-color: black;
-    color: white;
-    padding: $main_padding;
-    @mixin footer_link_hover {
-      color: $header_link_color;
+}
+footer {
+  a {
+    $color: #00C;
+    color: $color;
+    text-decoration: none;
+    &:visited {
+      color: $color;
     }
-    a {
-      color: $header_link_color;
-      &:hover {
-        @include footer_link_hover;
-      }
-      &:visited {
-        &:hover {
-          @include footer_link_hover;
-        }
-        color: $header_link_color;
-      }
+    &:hover {
+      text-decoration: underline;
     }
   }
+  padding: 10px $toplevel-padding;
+  div + div {
+    margin-top: 5px;
+  }
+}
 }
