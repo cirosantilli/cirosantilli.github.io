@@ -6,7 +6,7 @@ This article gives an idea of how this kind of biological experiment feels like 
 
 == Experiment background
 
-https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few https://en.wikipedia.org/wiki/University_of_Cambridge[Cambridge University] PhDs that aims to determine which bacteria are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
+https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few \x[university-of-cambridge] PhDs that aims to determine which bacteria are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
 
 In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
 
@@ -24,7 +24,11 @@ The impressions you get from the experiment as a software engineer will be:
 
 For those that know biology and just want to do the thing, see: \x[protocols-used]{full}.
 
-The PuntSeq team uses an \x[oxford-nanopore-minion] sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long. This is how the MinION looks like: \x[image-oxford-nanopore-minion-top]{full}.
+The PuntSeq team uses an \x[oxford-nanopore-minion] DNA sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
+
+This kind of "decode everything from the sample to see what species are present approach" is called "\x[metagenomics]".
+
+This is how the MinION looks like: \x[image-oxford-nanopore-minion-top]{full}.
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg]
 {title=Oxford Nanopore MinION top}
@@ -95,20 +99,6 @@ Other advantages of the MinION over Illumina which didn't really matter to this 
 * long reads which can be necessary for long repetitive regions. For further info see the: https://en.wikipedia.org/wiki/Sequence_alignment["Sequence alignment" page on Wikipedia].
 
 One disadvantage of the Oxford Nanopore is that its error rate per base pair read is higher than Illumina.
-
-=== Metagenomics
-
-https://en.wikipedia.org/wiki/Metagenomics
-
-This kind of "sequence some random DNA to determine what is present in the sample" analysis is called metagenomics.
-
-Besides river sample, other types of samples where of metagenomics is used include:
-
-* sea water biodiversity: http://ocean-microbiome.embl.de/companion.html
-* food, including searching for desirable microorganisms such as in cheese or bread yeast
-* poo, e.g. to study how the human microbiome influences health. There are companies actively working on this, e.g.: https://www.microbiotica.com/
-
-One related application which most people would not consider metagenomics, is that of finding https://en.wikipedia.org/wiki/Circulating_tumor_DNA[circulating tumor DNA] in blood to detect tumors.
 
 == Sample collection
 
@@ -231,14 +221,13 @@ And because the readings were good, we put it in our -20 C fridge to preserve it
 
 == PCR
 
-https://en.wikipedia.org/wiki/Polymerase_chain_reaction["Polymerase chain reaction" on Wikipediajjj]
+More generic PCR information at: \x[polymerase-chain-reaction].
 
-Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so I did not get to take many photos.
+Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so participants did not get to take many photos.
 
 PCR protocols are very standard it seems, all that biologists need to know to reproduce is the time and temperature of each step.
 
 We did 35 cycles of:
-
 * 94˚C for 30 seconds
 * 60˚C for 30 seconds
 * 72˚C for 45 seconds
@@ -250,7 +239,6 @@ This process used a \x[marshal-scientific-mj-research-ptc-200-thermal-cycler]:
 We added PCR primers for regions that surround the 16S DNA. The primers are just bought from a vendor, and we used well known regions are called 27F and 1492R. Here is a paper that analyzes other choices: https://academic.oup.com/femsle/article/221/2/299/630719 (\a[https://web.archive.org/web/20190911091818/https://academic.oup.com/femsle/article/221/2/299/630719][archive]) "Evaluation of primers and PCR conditions for the analysis of 16S rRNA genes from a natural environment" by "Yuichi Hongoh, Hiroe Yuzawa, Moriya Ohkuma, Toshiaki Kudo Published" published 01 April 2003.
 
 One cool thing about the PCR is that we can also add a known barcode at the end of each primer as shown at \x[code-pcr-diagram]{full}. This way, we were able to:
-
 * add a different barcode for samples collected from different locations
 * sequence them all in one go
 * then just from the sequencing output the barcode to determine where each sequence came from!
