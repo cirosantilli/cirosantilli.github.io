@@ -501,6 +501,111 @@ The initial prototype uses the Urho3D open source game engine, and that is a rea
 
 Simulations such as these can be viewed as a form of https://en.wikipedia.org/wiki/Synthetic_data#Synthetic_data_in_machine_learning[synthetic data generation procedure], where the goal is to use computer worlds to reduce the costs of experiments and to improve reproducibility.
 
+==== Videos of all key physics experiments
+
+It is unbelievable that you can't find easily on YouTube recreations of many of the key \x[physics]/\x[chemistry] experiments and of common laboratory techniques.
+
+Experiments, the techniques required to to them, and the history of how they were first achieved, are the heart of the natural sciences. Without them, there is no motivation, no beauty, no nothing.
+
+School gives too much emphasis on the formulas. This is bad. Much more important is to understand how the experiments are done in greater detail.
+
+The videos must be completely reproducible, indicating the exact model of every experimental element used, and how the experiment is setup.
+
+A bit like what \x[ciro-santilli] does in his \x[ciro-santilli-s-stack-overflow-contributions][Stack Overflow contributions] but with computers, by indicating precise versions of his operating system, software stack, and hardware whenever they may matter.
+
+It is understandable that some experiments are just to complex and expensive to re-create. As an extreme example, say, a precise description of the https://en.wikipedia.org/wiki/Large_Hadron_Collider[LHC] anyone? But experiments up to the mid-20th century before "\a[https://en.wikipedia.org/wiki/Big_Science][big science]"? We should have all of those nailed down.
+
+We should strive to achieve the cheapest most reproducible setup possible with currently available materials: recreating the original historic setup is \x[art][cute], but not a priority.
+
+Furthermore, it is also desirable to reproduce the original setups whenever possible in addition to having the most convenient modern setup.
+
+Lists of good experiments to cover be found at: \x[the-most-important-physics-experiments].
+
+This project is to a large extent a political endeavour.
+
+Someone with enough access to labs has to step up and make a name for themselves through the huge effort of creating a baseline of amazing content without yet being famous.
+
+Until it reaches a point that this person is actively sought to create new material for others, and things snowball out of control. Maybe, if the Gods allow it, that person could be Ciro.
+
+Tutorials with a gazillion photos and short videos are also equally good or even better than videos, see for example Ciro's \x[oxford-nanopore-river-bacteria]{c} for an example that goes toward that level of perfection.
+
+The https://www.youtube.com/channel/UCivA7_KLKWo43tFcCkFvydw["Applied Science" YouTube channel] by Ben Krasnow does well in that direction: it deals with materials, chemistry, microscopy, electronics. Uber practical, well described setups deep science stuff, he is awesome and has been at Google since 2016: https://www.linkedin.com/in/ben-krasnow-6796a94/
+
+TODO:
+
+* \x[quantum-hall-effect]
+
+==== Website front-end for a mathematical formal proof system
+
+When \x[ciro-santilli] first learnt the old \a[https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory][Zermelo–Fraenkel set theory] and the idea of \a[https://en.wikipedia.org/wiki/Formal_proof][Formal proofs], his mind was completely blown.
+
+Finally, there it was: a proper and precise definition of \x[mathematics], including https://en.wikipedia.org/wiki/Set-theoretic_definition_of_natural_numbers[a definition of integers], reals and limits!
+
+Theorems are strings, proofs are string manipulations, and axioms are the initial strings that you can use.
+
+Once proved, press a button on your computer, and the proof is automatically verified. No messy complicated "group of savants" reading it for 4 years and looking for flaws!
+
+There are a few formal proof systems with several theorems in their Git tracked standard library. The hottest ones are:
+
+* https://github.com/HOL-Theorem-Prover/HOL[]
+* https://github.com/seL4/isabelle[]. Rumours have it that this is "uncompilable" from source without \x[evil][blobs]. It does however offer a very rich IDE.
+* https://github.com/coq/coq[]
+* http://metamath.org/ this one is likely an older and less powerful system, but the web presentation and tutorial are very good! Source: https://github.com/metamath/metamath-exe Here is a proof that 2 + 2 equals 4: http://us.metamath.org/mpeuni/2p2e4.html
+
+And here are some more interesting links:
+
+* https://github.com/awesomo4000/awesome-provable an awesome list of formal stuff
+* https://devel.isa-afp.org/ Isabelle Archive of Formal Proofs. A curated list of Isabelle proofs, with minimal web UI. This is almost what we need, but without the manual curation, and with a better web UI.
+* http://www.cs.ru.nl/~freek/100/ list of how many of the http://web.archive.org/web/20080105074243/http://personal.stevens.edu/~nkahl/Top100Theorems.html["Top 100 theorems"] had been proved in several formal systems.
+
+However, it is unbelievable mind, that there isn't one awesome and dominating website, that hosts all those proofs, possibly an on the browser editor, and which all mathematicians in the world use as the one golden reference of mathematics to rule them all!
+
+Just imagine the impact.
+
+Standard library maintainers don't have to deal with the impossible question of what is "beautiful" or "useful" enough mathematics to deserve merged: users just push content to the online database, and star what they like!
+
+Interested in a conjecture? No problem: just subscribe to its formal statement + all known equivalents, and get an email on your inbox when it gets proved!
+
+Are you a garage mathematician and have managed to prove a hard theorem, but no will will read your proof? Fuck that, just publish it on the system and let it get auto verified. Overnight fame awaits.
+
+Notation incompatibility hell? A thing of the past, just automatically convert to your preferred representation.
+
+Such a system would be the perfect companion to \x[write-free-books-to-get-famous-website]. Just like computer code offers the backbone of \x[linux-kernel-module-cheat] Linux kernel tutorials, a formal proof system website would be the backbone of mathematics tutorials!
+
+Furthermore, it would not be too hard to achieve this system!
+
+All we would need would be something analogous to a package registry like https://pypi.org/[Python's PyPI] or https://www.npmjs.com/[NodeJS' registry].
+
+Then, each person can publish packages containing proofs.
+
+Packages can rely on other packages that contain pre-requisites definition or theorem.
+
+Packages are just regular git repos, with some metadata. One notable metadata would be a human readable description of the theorems the package provides.
+
+The package registry would then in addition to most package registries have a CI server in it, that checks the correctness of all proofs, generates a web-page showing each theorem.
+
+All proofs can be conditional: the package registry simply shows clearly what axiom set a theorem is based on.
+
+Bibliography:
+
+* https://math.stackexchange.com/questions/1767070/what-is-the-current-state-of-formalized-mathematics/3297536#3297536
+* https://stackoverflow.com/questions/19421234/how-do-i-generate-latex-from-isabelle-hol
+* https://stackoverflow.com/questions/30152139/what-are-the-strengths-and-weaknesses-of-the-isabelle-proof-assistant-compared-t
+
+=== The next big thing
+
+If you are going to live, you might as well chase one of them.
+
+You might not achieve them in your lifetime, but you never know. At some point, the pieces just "fall into place", and they happen.
+
+And they will all come from \x[deep-tech].
+
+\x[ciro-santilli] would like to contribute to them. but this is a bit less realistic \x[the-most-important-projects-ciro-santilli-wants-to-do][than software projects].
+
+But who knows? Maybe he can code some stuff in those areas.
+
+And one can at least have some fun by learning deeply about those subjects.
+
 ==== Molecular biology technologies
 
 https://github.com/cirosantilli/awesome-whole-cell-simulation
@@ -562,92 +667,11 @@ Interestingly and obviously, the initial advances in the area are happening for 
 
 Hearing is likely to be the first since it feels the simplest. Ciro heard there are even already clinical applications there. TODO source.
 
-==== Videos of all key physics experiments
+==== Fusion power could be the next big thing
 
-It is unbelievable that you can't find easily on YouTube recreations of many of the key \x[physics]/\x[chemistry] experiments and of common laboratory techniques.
+Main section: \x[fusion-power].
 
-Experiments, the techniques required to to them, and the history of how they were first achieved, are the heart of the natural sciences. Without them, there is no motivation, no beauty, no nothing.
-
-School gives too much emphasis on the formulas. This is bad. Much more important is to understand how the experiments are done in greater detail.
-
-The videos must be completely reproducible, indicating the exact model of every experimental element used, and how the experiment is setup.
-
-A bit like what \x[ciro-santilli] does in his \x[ciro-santilli-s-stack-overflow-contributions][Stack Overflow contributions] but with computers, by indicating precise versions of his operating system, software stack, and hardware whenever they may matter.
-
-It is understandable that some experiments are just to complex and expensive to re-create. As an extreme example, say, a precise description of the https://en.wikipedia.org/wiki/Large_Hadron_Collider[LHC] anyone? But experiments up to the mid-20th century before "\a[https://en.wikipedia.org/wiki/Big_Science][big science]"? We should have all of those nailed down.
-
-We should strive to achieve the cheapest most reproducible setup possible with currently available materials: recreating the original historic setup is \x[art][cute], but not a priority.
-
-Furthermore, it is also desirable to reproduce the original setups whenever possible in addition to having the most convenient modern setup.
-
-Lists of good experiments to cover be found at: \x[the-most-important-physics-experiments].
-
-This project is to a large extent a political endeavour.
-
-Someone with enough access to labs has to step up and make a name for themselves through the huge effort of creating a baseline of amazing content without yet being famous.
-
-Until it reaches a point that this person is actively sought to create new material for others, and things snowball out of control. Maybe, if the Gods allow it, that person could be Ciro.
-
-Tutorials with a gazillion photos and short videos are also equally good or even better than videos, see for example Ciro's \x[oxford-nanopore-river-bacteria] for an example that goes toward that level of perfection.
-
-The https://www.youtube.com/channel/UCivA7_KLKWo43tFcCkFvydw["Applied Science" YouTube channel] by Ben Krasnow does well in that direction: it deals with materials, chemistry, microscopy, electronics. Uber practical, well described setups deep science stuff, he is awesome and has been at Google since 2016: https://www.linkedin.com/in/ben-krasnow-6796a94/
-
-==== Website front-end for a mathematical formal proof system
-
-When \x[ciro-santilli] first learnt the old \a[https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory][Zermelo–Fraenkel set theory] and the idea of \a[https://en.wikipedia.org/wiki/Formal_proof][Formal proofs], his mind was completely blown.
-
-Finally, there it was: a proper and precise definition of \x[mathematics], including https://en.wikipedia.org/wiki/Set-theoretic_definition_of_natural_numbers[a definition of integers], reals and limits!
-
-Theorems are strings, proofs are string manipulations, and axioms are the initial strings that you can use.
-
-Once proved, press a button on your computer, and the proof is automatically verified. No messy complicated "group of savants" reading it for 4 years and looking for flaws!
-
-There are a few formal proof systems with several theorems in their Git tracked standard library. The hottest ones are:
-
-* https://github.com/HOL-Theorem-Prover/HOL[]
-* https://github.com/seL4/isabelle[]. Rumours have it that this is "uncompilable" from source without \x[evil][blobs]. It does however offer a very rich IDE.
-* https://github.com/coq/coq[]
-* http://metamath.org/ this one is likely an older and less powerful system, but the web presentation and tutorial are very good! Source: https://github.com/metamath/metamath-exe Here is a proof that 2 + 2 equals 4: http://us.metamath.org/mpeuni/2p2e4.html
-
-And here are some more interesting links:
-
-* https://github.com/awesomo4000/awesome-provable an awesome list of formal stuff
-* https://devel.isa-afp.org/ Isabelle Archive of Formal Proofs. A curated list of Isabelle proofs, with minimal web UI. This is almost what we need, but without the manual curation, and with a better web UI.
-* http://www.cs.ru.nl/~freek/100/ list of how many of the http://web.archive.org/web/20080105074243/http://personal.stevens.edu/~nkahl/Top100Theorems.html["Top 100 theorems"] had been proved in several formal systems.
-
-However, it is unbelievable mind, that there isn't one awesome and dominating website, that hosts all those proofs, possibly an on the browser editor, and which all mathematicians in the world use as the one golden reference of mathematics to rule them all!
-
-Just imagine the impact.
-
-Standard library maintainers don't have to deal with the impossible question of what is "beautiful" or "useful" enough mathematics to deserve merged: users just push content to the online database, and star what they like!
-
-Interested in a conjecture? No problem: just subscribe to its formal statement + all known equivalents, and get an email on your inbox when it gets proved!
-
-Are you a garage mathematician and have managed to prove a hard theorem, but no will will read your proof? Fuck that, just publish it on the system and let it get auto verified. Overnight fame awaits.
-
-Notation incompatibility hell? A thing of the past, just automatically convert to your preferred representation.
-
-Such a system would be the perfect companion to \x[write-free-books-to-get-famous-website]. Just like computer code offers the backbone of \x[linux-kernel-module-cheat] Linux kernel tutorials, a formal proof system website would be the backbone of mathematics tutorials!
-
-Furthermore, it would not be too hard to achieve this system!
-
-All we would need would be something analogous to a package registry like https://pypi.org/[Python's PyPI] or https://www.npmjs.com/[NodeJS' registry].
-
-Then, each person can publish packages containing proofs.
-
-Packages can rely on other packages that contain pre-requisites definition or theorem.
-
-Packages are just regular git repos, with some metadata. One notable metadata would be a human readable description of the theorems the package provides.
-
-The package registry would then in addition to most package registries have a CI server in it, that checks the correctness of all proofs, generates a web-page showing each theorem.
-
-All proofs can be conditional: the package registry simply shows clearly what axiom set a theorem is based on.
-
-Bibliography:
-
-* https://math.stackexchange.com/questions/1767070/what-is-the-current-state-of-formalized-mathematics/3297536#3297536
-* https://stackoverflow.com/questions/19421234/how-do-i-generate-latex-from-isabelle-hol
-* https://stackoverflow.com/questions/30152139/what-are-the-strengths-and-weaknesses-of-the-isabelle-proof-assistant-compared-t
+This is a long haul. But we have to give it a shot.
 
 === The best articles by Ciro Santilli
 {id=articles}
@@ -663,6 +687,7 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
   * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545[How to run a program without an operating system?] on https://web.archive.org/web/20181126123625/https://news.ycombinator.com[2018-11-26]. Covers x86 and ARM
 
     \Image[BIOS_bare_metal_hello_world_running_on_a_Lenovo_ThinkPad_T430.jpg]
+    {source=https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545}
 * x86 Assembly
   * https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438[What does “multicore” assembly language look like?]
   * https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[What is the function of the push / pop instructions used on registers in x86 assembly?] Going down to memory spills, register allocation and graph coloring.
@@ -678,22 +703,29 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
 
     \Image[Path_from_init_main.c_until_bzImage_in_the_Linux_kernel_4.19.jpg]
     {title=Path from init/main.c until bzImage in the Linux kernel 4.19.}
+    {source=https://unix.stackexchange.com/questions/5518/what-is-the-difference-between-the-following-kernel-makefile-terms-vmlinux-vml/482978#482978}
     {height=600}
   * Single program Linux distro
     * https://unix.stackexchange.com/questions/17122/is-it-possible-to-install-the-linux-kernel-alone/200572#200572[Is it possible to install the linux kernel alone?]
     * https://unix.stackexchange.com/questions/122717/how-to-create-a-custom-linux-distro-that-runs-just-one-program-and-nothing-else/238579#238579[How to create a custom Linux distro that runs just one program and nothing else?]
 
       \Image[End_of_Linux_boot_log_with_minimal_init_that_prints_FOOBAR.png]
+      {source=https://unix.stackexchange.com/questions/122717/how-to-create-a-custom-linux-distro-that-runs-just-one-program-and-nothing-else/238579#238579}
 * \x[qemu]
   * https://stackoverflow.com/questions/28315265/how-to-add-a-new-device-in-qemu-source-code/44612957#44612957[How to add a new device in QEMU source code?]
   * https://askubuntu.com/questions/281763/is-there-any-prebuilt-qemu-ubuntu-image32bit-online/1081171#1081171[How to generate Ubuntu `debootstrap` disk images for QEMU?]
   * https://stackoverflow.com/questions/10949169/how-to-create-a-multi-partition-sd-image-without-root-privileges/52850819#52850819[How to create a multi partition SD disk image without root privileges?]
+  * https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1046792#1046792[How to run Ubuntu desktop on QEMU?]
+
+    \Image[https://i.stack.imgur.com/IPUkA.png]{height=400}
+    {title=Ubuntu running inside QEMU.}
+    {source=https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1046792#1046792}
 * GCC
   * https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144[How do linkers and address relocation works?]
   * https://stackoverflow.com/a/30308151/895245[How many GCC optimization levels are there?]
   * https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624[What is incremental linking or partial linking?]
   * https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263[GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld]
-  * https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]. Concrete examples by running program through GDB twice, and an assembly hello world with absolute vs PC relative load.
+  * https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?] Concrete examples by running program through GDB twice, and an assembly hello world with absolute vs PC relative load.
 * C / C++: almost all of those fall into "disassemble https://knowyourmeme.com/memes/all-the-things[all the things]" category. Ciro also does "standards dissection" and "a new version of the standard is out" answers, but those are boring.
   * https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047[What does "static" mean in a C program?]
   * https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795[In C++ source, what is the effect of `extern "C"`?]
@@ -702,6 +734,8 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
   * https://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-const-cast-and-reinterpret-cast-be-used/60414256#60414256[When should `static_cast`, `dynamic_cast`, `const_cast` and `reinterpret_cast` be used?]
   * https://stackoverflow.com/questions/31978324/what-exactly-is-stdatomic/58904448#58904448[What exactly is `std::atomic` in C++?]. This answer was originally more appropriately entitled "Let's disassemble some stuff", and got three downvotes, so Ciro changed it to a more professional title, and it started getting upvotes. People judge books by their covers.
 * IEEE 754
+  * https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
+  * https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
   * https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number/53203428#53203428[What is a subnormal floating point number?]
 
     ``
@@ -718,13 +752,28 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
               0   |   2^-126  2^-125          2^-124                          2^-123
                   |
                   2^-127
+
+
+              +-------+-------+---------------+-------------------------------+
+    exponent  |   0   |   1   |       2       |               3               |
+              +-------+-------+---------------+-------------------------------+
+              |       |       |               |                               |
+              v       v       v               v                               v
+              -----------------------------------------------------------------
+    floats    * * * * * * * * *   *   *   *   *       *       *       *       *
+              -----------------------------------------------------------------
+              ^   ^   ^       ^               ^                               ^
+              |   |   |       |               |                               |
+              0   |   2^-126  2^-125          2^-124                          2^-123
+                  |
+                  2^-127
     ``
-  * https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
-  * https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
+    {title=Visualization of subnormal floating point numbers vs what IEEE 754 would look without them.}
 * Algorithms
-  * https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834[Heap vs Binary Search Tree (BST)]. Compared Heap vs BST vs Hash Maps:
+  * https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834[Heap vs Binary Search Tree (BST)]. Compared Heap vs BST vs Hash Maps.
 
     \Image[C++_Heap_vs_BST_vs_hash_map_insert_time.png]
+    {source=https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834}
     {height=800}
 * Git internals
   * https://stackoverflow.com/a/25806452/895245[What does the git index contain EXACTLY?]
@@ -756,6 +805,7 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
 
     \Image[https://web.archive.org/web/20190607051221if_/https://i.stack.imgur.com/2x04m.png]
     {title=Python Threads vs Processes with 8 hyperthreads.}
+    {source=https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python/55319297#55319297}
     {height=600}
 * Web
   * https://stackoverflow.com/a/28380690/895245[What does enctype='multipart/form-data' mean?]
@@ -766,27 +816,36 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
 
     \Image[opengl-rotating-triangle-image-magick.gif]
     {title=OpenGL image dumped to a file.}
+    {source=https://stackoverflow.com/questions/3191978/how-to-use-glut-opengl-to-render-to-a-file/14324292#14324292}
   * https://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835[How to draw text using only OpenGL methods?]
+
+    \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Texture_Atlas.png/600px-Texture_Atlas.png]
+    {title=Example of a texture atlas containing glyphs.}
+
   * https://stackoverflow.com/questions/2571402/how-to-use-glortho-in-opengl/36046924#36046924[How to use `glOrtho()` in OpenGL?]
 
     \Image[OpenGL_glFrustrum_on_left_vs_glOrtho_on_right.png]
+    {source=https://stackoverflow.com/questions/2571402/how-to-use-glortho-in-opengl/36046924#36046924}
   * https://stackoverflow.com/questions/17789575/what-are-shaders-in-opengl-and-what-do-we-need-them-for/36211337#36211337[What are shaders in OpenGL?]
   * https://gamedev.stackexchange.com/questions/72044/why-do-we-use-4x4-matrices-to-transform-things-in-3d/118848#118848[Why do we use 4x4 matrices to transform things in 3D?]
   * https://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788[Is it possible to build a heatmap from point data at 60 times per second?] Compared CPU vs GPU shaders.
 
     \Image[Sinusoidal_circular_wave_heatmap_generated_with_OpenGL_shader_at_60fps.gif]
+    {source=https://stackoverflow.com/questions/30864752/is-it-possible-to-build-a-heatmap-from-point-data-at-60-times-per-second/39839788#39839788}
   * https://stackoverflow.com/questions/13693946/image-processing-with-glsl-shaders/40641014#40641014[Image Processing with GLSL shaders?] Compared the CPU and GPU for a simple blur algorithm.
 
     \Image[Visualization_of_OpenGL_blur_algorithm_from_webcam_with_Ciro_Santilli_waving.gif]
+    {source=https://stackoverflow.com/questions/13693946/image-processing-with-glsl-shaders/40641014#40641014}
 
     \Video[http://youtube.com/watch?v=MRhAljmHq-o]
+    {title=OpenGL GPU GLSL fragment shader real time v4l2 Linux webcam computer vision box blur vs CPU}
 * Node.js
   * https://stackoverflow.com/a/22004559/895245[What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?]
 * Rails
   * https://stackoverflow.com/a/25626629/895245[What is the difference between +<%+, +<%=+, +<%#+ and +-%>+ in ERB in Rails?]
 * \x[posix]
   * https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755[What is POSIX?] Huge classified overview of the most important things that POSIX specifies.
-* \x[systems-programming]
+* \x[systems-programming]{c}
   * https://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean/33510470#33510470[What do the terms “CPU bound” and “I/O bound” mean?]
   * https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376[What do 'real', 'user' and 'sys' mean in the output of time?]
 
@@ -799,9 +858,10 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
   * https://stackoverflow.com/questions/2205070/programmatically-synthesizing-programming-music/52126471#52126471[How to programmatically synthesize music?] Question deleted, lol... so answer moved to: https://stackoverflow.com/questions/732699/how-is-audio-represented-with-numbers-in-computers/36510894#36510894[How is audio represented with numbers in computers?]
 
     \Video[http://youtube.com/watch?v=JISozfHATms]
+    {title=Canon in D in C}
   * https://stackoverflow.com/questions/12831761/how-to-resize-a-picture-using-ffmpegs-sws-scale/36487785#36487785[How to resize a picture using ffmpeg's sws_scale()?]
 * Non technical
-  * \x[how-to-teach]
+  * \x[how-to-teach]{c}
 * Eclipse
   * https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937[How to set up the Eclipse for remote C debugging with gdbserver?]
 * Hardware
@@ -810,10 +870,15 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
   * https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461[A survey of open source interactive plotting software with a 10 million point scatter plot benchmark on Ubuntu 18.10]
 
     \Image[VisIt_zoom_in_10_million_straight_line_plot_with_some_marked_points.png]
-* \x[numerical-analysis]
-  * https://www.youtube.com/watch?v=FOwYDlay8rI "Real-time heat equation OpenGL visualization with interactive mouse cursor using relaxation method" by "Ciro Santilli" published on 2016-12-10.
+* \x[numerical-analysis]{c}
+  * \Video[http://youtube.com/watch?v=FOwYDlay8rI]
+    {title="Real-time heat equation OpenGL visualization with interactive mouse cursor using relaxation method" by "Ciro Santilli" published on 2016-12-10.}
+* \x[computational-physics]{c}
+  * https://stackoverflow.com/questions/11175694/bullet-physics-simplest-collision-example/36987063#36987063[What is the simplest collision example possible in a Bullet Physics simulation?]
 
-    \Video[http://youtube.com/watch?v=FOwYDlay8rI]
+    \Image[https://i.stack.imgur.com/9eVe9.png]
+    {title=gnuplot plot of the y position of a sphere bouncing on a plane simulated in Bullet Physics.}
+    {source=https://stackoverflow.com/questions/11175694/bullet-physics-simplest-collision-example/36987063#36987063}
 * RTL, Verilog, VHDL
   * https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
 * \x[android]
@@ -832,11 +897,11 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
     \Image[http://web.archive.org/web/20200229164327if_/https://i.stack.imgur.com/mM8NQ.png]
     {title=gprof2dot image generated from the gprof data of a simple test program.}
 * Biology
-  * \x[oxford-nanopore-river-bacteria]
+  * \x[oxford-nanopore-river-bacteria]{c}
 
     \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg]
 * Home DIY
-  * \x[window-blackout]
+  * \x[window-blackout]{c}
 
     \Image[https://upload.wikimedia.org/wikipedia/commons/a/a6/Total_Blackout_Cassette_Roller_Blind_With_Curtains.jpg]
 
@@ -1155,6 +1220,7 @@ Of course, https://en.wikipedia.org/wiki/Survivorship_bias[survivorship bias] ap
 {id=alan-watts-money}
 
 ===== Steve Jobs 2005 Stanford Commencement Address
+{c}
 
 Ciro feels that this resonates a lot with his \x[write-free-books-to-get-famous-website].
 
@@ -1773,16 +1839,15 @@ This means of course that he will develop new features a bit slower than others,
 His technique is to provide upfront extremely interactive and reproducible getting started setups that immediately show the key value of the project to users.
 
 He backs those setups with:
-
 * scripts that automate the setup much as possible to make things enjoyable and reproducible
 * a detailed description of the environment in which he tested: which OS, version of key software, etc.
 * a detailed description of what is expected to happen when you take an action, including known bugs with links to bug reports
 * theory and rationale on the sections after the initial getting started, but always finely interspersed with concrete examples
 * all docs contained in a Git-tracked repo, with the ability to render to a single HTML with one TOC
 * short sentences and paragraphs, interspersed with many headers, lists and code blocks
+A prime example of kind of setup is Ciro's \x[linux-kernel-module-cheat].
 
 While he create this setup, he inevitably start to notice and fix:
-
 * bugs
 * annoyances on the public interface of the project
 * the devs were using 50 different local scripts to do similar things, all of them semi-broken and limited. Every new hire was copying one of those local scripts, and hacking it up further.
@@ -1791,7 +1856,6 @@ While he create this setup, he inevitably start to notice and fix:
 Exploiting this skill, however, requires you to trust him.
 
 When he tells to managers that he's good at documenting, they always say: great, we need better documentation! But then, one of the following may happen:
-
 * managers forget that they wanted good documentation and just tell him to code new features as fast as possible
 * they don't let him own the getting started page, but rather and expect him to try and fix the existing crappy unfixable existing getting started, without stepping on anyone's pride in the process >:-)
 
@@ -1801,7 +1865,7 @@ When he tells to managers that he's good at documenting, they always say: great,
 
   Too many cooks.
 
-A prime example of this ability is his \x[linux-kernel-module-cheat]
+Ciro's passion for documentation and tooling has the effect that if you have crappy documentation and tooling and don't want them to be fixed, Ciro will end up trying to fix those tools instead of doing what you tell him to do anyways, which might lead to him quitting because he can't stand the tools, or you firing him because he's not doing the job you think I should be doing. So please, don't bother hiring Ciro if you have crappy documentation and tooling.
 
 See also: \x[articles].
 
@@ -2302,12 +2366,13 @@ Ciro's main intellectual Physics fetishes are to learn \x[quantum-electrodynamic
 
 Physics is the \x[art] of predicting the future by modelling the world with \x[mathematics].
 
+One big pitfall of Physics education, especially the "modern physics" part, is the lack of importance given to experiments. Experiments are the key. Every formula exists as a generalization of a calculation made to explain a key experiment.
+
 Every science is Physics in disguise, but the number of objects in the real world is so large that we can't solve the real equations in practice.
 
 Luckily, due to https://en.wikipedia.org/wiki/Emergence[emergence], we can use uglier higher level approximations of the world to solve many problems, with the complex limits of applicability of those approximations.
 
 Therefore, such higher level approximations are highly specialized, and given different names such as:
-
 * \x[chemistry]
 * \x[biology]
 
@@ -2434,7 +2499,8 @@ Chronological outline of the key theories:
     * Antimatter
     * \x[spin] as part of the equation
 
-==== SI system of units
+==== International System of Units
+{c}
 
 https://en.wikipedia.org/wiki/International_System_of_Units
 
@@ -2442,17 +2508,35 @@ The key is to define only the minimum number of measures: if you define more def
 
 Learning the modern SI is also a great way to learn some interesting Physics.
 
-===== SI 2019
+===== Versions of the international System of Units
+
+====== 2019 redefinition of the SI base units
 
 https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units
 
+===== Kilogram
+
+https://en.wikipedia.org/wiki/Kilogram
+
+Defined in the \x[2019-redefinition-of-the-si-base-units] via the \x[planck-constant].
+
+This was possible due to the development of the \x[kibble-balance].
+
+====== Kibble balance
+
+https://en.wikipedia.org/wiki/Kibble_balance
+
+Measures weight from a voltage.
+
 ==== Standard model
+{c}
 
 https://en.wikipedia.org/wiki/Standard_Model
 
 As of 2019, the more formal name for \x[particle-physics], which is notably missing \x[general-relativity] to achieve the \x[theory-of-everything].
 
 ==== Maxwell's equations
+{c}
 
 https://en.wikipedia.org/wiki/Maxwell%27s_equations
 
@@ -2558,14 +2642,19 @@ As you can see, this expands to 8 equations, so the question arises if the syste
 It is also worth noting that the first two equations don't involve time derivatives. Therefore, they can be seen as spacial constraints.
 
 ===== Coulomb's law
+{c}
 
 https://en.wikipedia.org/wiki/Coulomb%27s_law
 
 Static case of Maxwell's law for electricity only.
 
-Is implied by Gauss' law: https://physics.stackexchange.com/questions/44418/are-the-maxwells-equations-enough-to-derive-the-law-of-coulomb
+Is implied by Gauss' law if \x[maxwell-s-equations]: https://physics.stackexchange.com/questions/44418/are-the-maxwells-equations-enough-to-derive-the-law-of-coulomb
+
+\Video[https://www.youtube.com/watch?v=B5LVoU_a08c]
+{title=Coulomb's Law experiment with torsion balance with a mirror on the balance to amplify rotations published by uclaphysics on Sep 30, 2010.}
 
 ===== Maxwell's equations in 2D
+{c}
 
 TODO it would be awesome if we could de-generalize the equations in 2D and do a JavaScript demo of it!
 
@@ -2578,9 +2667,197 @@ Not sure it is possible though because the curl appears in the equations:
 
 TODO: I'm surprised that the Wiki page barely talks about it, and there are few \x[google] hits too! A sample one: https://www.researchgate.net/publication/228928756_On_the_existence_and_uniqueness_of_Maxwell's_equations_in_bounded_domains_with_application_to_magnetotellurics
 
-==== Special relativity symlink from particle physics
+===== Magnetometer
 
-\x[special-relativity]
+https://en.wikipedia.org/wiki/Magnetometer
+
+Implementations:
+* \x[hall-effect] based
+* \x[squid-device]
+
+===== Hall effect
+{c}
+
+* https://en.wikipedia.org/wiki/Hall_effect
+* http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/Hall.html
+
+The voltage changes perpendicular to the current when magnetic field is applied, Just watch this:
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/7/77/Hall_Sensor.webm/Hall_Sensor.webm.480p.vp9.webm]
+
+Applications:
+* the direction of the effect proves that electric currents in common electrical conductors are made up of negative charged particles
+* \x[magnetometer][measure magnetic fields], TODO vs other methods
+
+Other more precise non-classical versions:
+* \x[quantum-hall-effect]
+
+==== Special relativity
+
+https://en.wikipedia.org/wiki/Special_relativity
+
+Explains how it is possible that everyone observes the same speed of light, even if they are moving towards or opposite to the light!
+
+This was observed in in the \x[michelson-morley-experiment] which uses the movement of the Earth to try and detect differences in the speed of light.
+
+This leads leads to the following conclusions:
+* to space contraction and time dilation
+* the speed of light is the maximum speed anything can reach
+
+All of this goes of course completely against our daily Physics intuition.
+
+The "special" in the name refers to the fact that it is a superset of \x[general-relativity], which also explains gravity in a single framework.
+
+===== Lorentz transformation
+{c}
+
+https://en.wikipedia.org/wiki/Lorentz_transformation
+
+The equation that allows us to calculate stuff.
+
+Take two observers with identical rules and stopwatch, and aligned axes, but one is on a car moving at towards the $+x$ direction at speed $v$.
+
+TODO image.
+
+When both observe an event, if we denote:
+* $(t, x, y, z)$ the observation of the standing observer
+* $(t', x', y', z')$ the observation of the ending observer on a car
+It is of course arbitrary who is standing and who is moving, we will just use the term "standing" for the one without primes.
+
+Then the coordinates of the event observed by the observer on the car are:
+$$
+\begin{aligned}
+t' & = \gamma \left( t - \frac{v x}{c^2} \right) \\
+x' & = \gamma \left( x - v t \right) \\
+y' & = y \\
+z' & = z
+\end{aligned}
+$$
+where:
+$$
+\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
+$$
+
+Note that if $\frac{v}{c}$ tends towards zero, then this reduces to the usual https://en.wikipedia.org/wiki/Galilean_transformation[Gallilean transforms] which our intuition expects:
+$$
+\begin{aligned}
+t' & = t
+x' & = x - v t \\
+y' & = y \\
+z' & = z
+\end{aligned}
+$$
+
+This explains why we don't observe special relativity in our daily lives: macroscopic objects move too slowly compared to light, and $\frac{v}{c}$ is almost zero.
+
+====== Lorentz transform consequence: everyone sees the same speed of light
+{c}
+
+OK, so let's verify the main desired consequence of the \x[lorentz-transformation]: that everyone observes the same speed of light.
+
+Observers will measure the speed of light by calculating how long it takes the light going towards $+x$ cross a rod of length $L = x_2 - x_1$ laid in the x axis at position $X1$.
+
+TODO image.
+
+Each observer will observe two events:
+* $(t_1, x_1, y_1, z_1)$: the light touches the left side of the rod
+* $(t_2, x_2, y_2, z_2)$: the light touches the right side of the rod
+
+Supposing that the standing observer measures the speed of light as $c$ and that light hits the left side of the rod at time $T1$, then he observes the coordinates:
+$$
+\begin{aligned}
+t_1 & = T1 \\
+x_1 & = X1 \\
+t_2 & = \frac{L}{c} \\
+x_2 & = X1 + L \\
+\end{aligned}
+$$
+
+Now, if we transform for the moving observer:
+$$
+\begin{aligned}
+t_1' & = \gamma \left( t_1 - \frac{v x_1}{c^2} \right) \\
+x_1' & = \gamma \left( x_1 - v t_1             \right) \\
+t_2' & = \gamma \left( t_2 - \frac{v x_2}{c^2} \right) \\
+x_2' & = \gamma \left( x_2 - v t_2             \right) \\
+\end{aligned}
+$$
+and so the moving observer measures the speed of light as:
+$$
+\begin{aligned}
+c' & = \frac{x_2' - x_1'}{t_2' - t_1'} \\
+   & = \frac{(x_2 - v t_2) - (x_1 - v t_1)}{(t_2 - \frac{v x_2}{c^2}) - (t_1 - \frac{v x_1}{c^2})} \\
+   & = \frac{(x_2 - x_1) - v (t_2 - t_1)}{(t_2 - t_1) - \frac{v}{c^2} (x_2 - x_1)} \\
+   & = \frac{\frac{x_2 - x_1}{t_2 - t_1} - v}{1 - \frac{v}{c^2} \frac{x_2 -x_1}{t_2 - t_1}} \\
+   & = \frac{c - v}{1 - \frac{v}{c^2} c} \\
+   & = \frac{c - v}{\frac{c - v}{c}} \\
+   & = c \\
+\end{aligned}
+$$
+
+====== Length contraction
+
+https://en.wikipedia.org/wiki/Length_contraction
+
+Suppose that a rod has is length $L$ measured on a rest frame $S$.
+
+Question: what is the length $L'$ than an observer in frame $S'$ moving relative to $S$ as speed $v$ observe the rod to be?
+
+There are two events to consider in each frame, which we call 1 and 2:
+* the left end of the rod is an observation event at a given position at a given time: $x_1$ and $t_1$ for $S$ or $x'_1$ and $t'_1$ for $S'$
+* the right end of the rod is an observation event at a given position at a given time : $x_2$ and $t_2$ for $S$ or $x'_2$ and $t'_2$ for $S'$
+
+Measuring a length means to measure the $x_2 - x_1$ difference for a single point in time in your frame ($t2 = t1$).
+
+So what we want to obtain is $x'_2 - x'_1$ for any given time $t'2 = t'1$.
+
+In summary, we have:
+$$
+\begin{aligned}
+L  &= x_2  &- x_1 \\
+L' &= x'_2 &- x'_1
+t'_2 = t'_1
+\end{aligned}
+$$
+
+By plugging those values into the \x[lorentz-transformation], we can eliminate $t_2 and t_1$, and conclude that for any $t'_2 = t'_1$, the length contraction relation holds:
+$$
+L' = \frac{L}{\gamma}
+$$
+
+====== Maxwell's equations are consistent with the Lorentz transformation
+{c}
+
+Several random sources say that \x[maxwell-s-equations] are consistent with the \x[lorentz-transformation] of \x[special-relativity], so let's try to understand what that means.
+
+https://en.wikipedia.org/w/index.php?title=Lorentz_transformation&oldid=909991141#Transformation_of_the_electromagnetic_field
+
+Note that two observers moving relative to each other see different electromagnetic fields.
+
+For example, suppose that there is a stationary charge for the stationary observer. Because the charge is not moving, the magnetic field is zero for that observer according to \x[maxwell-s-equations].
+
+However, the moving observer sees that charge moving, and therefore a current, and therefore a magnetic field.
+
+TODO mathematical detail. Is all we need to prove that if a given $E(t, x, y, z)$ and $B(t, x, y, z)$ are a solution to the maxwell equations in one frame, then $E'(t', x', y', z')$ and $B'(t', x', y', z')$ are also a solution in the other frame?
+
+This appears awesome: http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf (\a[https://web.archive.org/web/20180920161243/http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf][archive]) "David Tong: Lectures on Electromagnetism - 5. Electromagnetism and Relativity"
+
+* "5.2.1 Magnetism and Relativity" shows how space contraction makes the charges of a wire unbalanced, and that directly causes magnetic force!!!
+
+  The same document mentions further on more explicitly that observers in different frames mix up the Electric and Magnetic fields, but that the same Maxwell laws are still valid in that frame.
+
+  It appears that Maxwell's equations can be derived directly from Coulomb's law + special relativity: https://physics.stackexchange.com/questions/3618/can-maxwells-equations-be-derived-from-coulombs-law-and-special-relativity
+
+  This is linked in a comment and also appears to be of interest: http://richardhaskell.com/files/Special%20Relativity%20and%20Maxwells%20Equations.pdf
+
+This page also talks about it, but does not explain anything properly, although it does give closed source references: https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity
+
+===== Minkowski space
+{c}
+
+https://en.wikipedia.org/wiki/Minkowski_space
+
+TODO why should I care when I can calculate new x and new time with \x[lorentz-transformation]?
 
 ==== General relativity
 
@@ -2646,6 +2923,7 @@ Explanation:
 Anomalous: evidence of \x[spin].
 
 ===== Planck's law
+{c}
 
 https://en.wikipedia.org/wiki/Planck%27s_law
 
@@ -2666,7 +2944,11 @@ Free material from university courses:
 
 https://en.wikipedia.org/wiki/Quantum_Hall_effect
 
-Gotta understand this because the name sounds cool.
+Quantum version of the \x[hall-effect].
+
+Gotta understand this because the name sounds cool. Maybe also because it is used to define the fucking \x[kilogram].
+
+TODO \x[videos-of-all-key-physics-experiments][experiment video].
 
 ==== Why do symmetries such as SU(3)×SU(2)×U(1) matter in particle physics?
 
@@ -2696,7 +2978,6 @@ https://en.wikipedia.org/wiki/Dirac_equation
 Adds \x[special-relativity] to the \x[schrodinger-equation]. \x[spin] and antimatter comes out for free.
 
 Experiments explained:
-
 * \x[fine-structure]
 * \x[spontaneous-emission] coefficients
 
@@ -2708,6 +2989,25 @@ This tutorial is awesome:
 
 \Video[http://youtube.com/watch?v=OCuaBmAzqek]
 {title="Quantum Mechanics 12a - Dirac Equation I" by "viascience" published 2015-12-19.}
+
+===== The Dirac equation predicts antimatter
+
+TODO
+
+===== The Dirac equation is consistent with special relativity
+
+TODO, including why the Schrodinger equation is not.
+
+===== Derivation of the Dirac equation
+
+\Video[https://www.youtube.com/watch?v=jjG2Y_dMsbI]
+{title=Deriving The Dirac Equation published by Andrew Dotson on 2019-03-05}
+
+===== Klein-Gordon equation
+
+https://en.wikipedia.org/wiki/Klein–Gordon_equation
+
+TODO. Relativistic, but has some problems, which the \x[dirac-equation] solves.
 
 ==== Quantum Electrodynamics
 
@@ -2740,6 +3040,7 @@ https://en.wikipedia.org/wiki/Schwinger_effect
 ===== Quantum Electrodynamics bibliography
 
 ====== Richard Feynman Quantum Electrodynamics Lecture at University of Auckland in 1979
+{c}
 
 A bit too slow and high level for Ciro, but likely worth it.
 
@@ -2753,6 +3054,15 @@ https://en.wikipedia.org/wiki/Quantum_chromodynamics
 
 \Video[http://youtube.com/watch?v=FoR3hq5b5yE]
 {title="Quarks, Gluon flux tubes, Strong Nuclear Force, & Quantum Chromodynamics" by "Physics Videos by Eugene Khutoryansky" published on Jul 7, 2018. Some decent visualizations of the field lines.}
+
+==== Quantum Field Theory
+
+https://en.wikipedia.org/wiki/Quantum_field_theory
+
+Theoretical framework on which quantum field theories are based, theories based on framework include:
+* \x[quantum-electrodynamics]
+* \x[quantum-chromodynamics]
+so basically the entire \x[standard-model]
 
 ==== Photon
 
@@ -2891,12 +3201,13 @@ Experiments that suggest this:
 * \x[compton-scattering]
 
 ====== Planck constant
+{c}
 
 https://en.wikipedia.org/wiki/Planck_constant
 
 Proportionality factor in the \x[planck-einstein-relation].
 
-Because defined exactly in the 2019 revision of the \x[si-system-of-units].
+Because defined exactly in the 2019 revision of the \x[international-system-of-units].
 
 ==== Electron
 
@@ -2908,7 +3219,7 @@ Experiments to measure it:
 
 * \x[oil-drop-experiment]
 
-\x[si-2019] defines it precisely and uses it as a measure of charge: https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere
+The \x[2019-redefinition-of-the-si-base-units] defines it precisely and uses it as a measure of charge: https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere
 
 ===== Oil drop experiment
 
@@ -3192,6 +3503,26 @@ Media:
 
   Cool CNRS video showing the condensed wave function, and mentioning that "every pair moves at the same speed". To change the speed of one pair, you need to change the speed of all others. That's why there's not energy loss.
 
+===== Superconducting materials
+
+====== Yttrium barium copper oxide (YCBO)
+{id=yttrium-barium-copper-oxide}
+
+https://en.wikipedia.org/wiki/Yttrium_barium_copper_oxide
+
+Upside: superconducting above 92K, which is above the 77K of \x[liquid-nitrogen], and therefore much much cheaper to obtain and maintain than liquid helium.
+
+Downside: it is brittle, so how do you make wires out of it?
+
+===== Applications of superconductivity
+
+Superconductivity is one of the key advances of 21st century technology:
+* the \x[josephson-effect] can be used both for:
+** \x[squid-device]: precise \x[magnetometer]
+** basis for \x[superconducting-quantum-computer]
+* can be used to produce powerful magnetic fields, which in turn can be used to:
+** \x[magnetic-confinement-fusion]
+
 ===== What is the IV curve of superconductors?
 
 TODO, come on, Internet!
@@ -3222,6 +3553,46 @@ High level concepts:
 * the pairs form a \x[bose-einstein-condensate]
 * once this new state is reached, all pairs are somehow entangled into one big wave function, and you so individual lattice imperfections can't move just one single electron off trajectory and make it lose energy
 
+===== Josephson effect
+
+https://en.wikipedia.org/wiki/Josephson_effect
+
+Discrete quantum effect observed in superconductors with a small insulating layer.
+
+TODO: curves showing the effect.
+
+The effect is likely mentioned in Leitner's video at: https://www.youtube.com/watch?v=BFdq6IecUJc&t=2290s
+
+Bibliography:
+
+* https://www.youtube.com/watch?v=cnZ6exn2CkE "Superconductivity: Professor Brian Josephson". Several random excerpts from Cambridge people talking about the Josephson effect
+
+====== Applications of Josephson Junctions
+
+* the basis for the most promising 2019 \x[quantum-computing] implementation: \x[superconducting-quantum-computer]
+* offers https://en.wikipedia.org/wiki/Josephson_voltage_standard[the most practical/precise volt standard] although the 2019 SI Volt definition https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere[is still based on the electron charge]
+
+  Quick NIST article about it: https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world (\a[https://web.archive.org/web/20190410011041/https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world][archive])
+* \x[squid-device]
+
+======= SQUID device
+
+https://en.wikipedia.org/wiki/SQUID
+
+Can be used as a very precise \x[magnetometer].
+
+==== Superconducting tunnel junction
+
+https://en.wikipedia.org/wiki/Superconducting_tunnel_junction
+
+Specific type of Josephson Junction. Probably can be made tiny and in huge numbers through photolithography.
+
+\Image[https://upload.wikimedia.org/wikipedia/en/0/03/STJ_SVG_file.svg]
+{title=Illustration of a thin-film superconducting tunnel junction (STJ). The superconducting material is light blue, the insulating tunnel barrier is black, and the substrate is green.}
+
+\Video[http://youtube.com/watch?v=-HUVGWTfaSI]
+{title="Quantum Transport, Lecture 14: Josephson effects" by "Sergey Frolov". https://youtu.be/-HUVGWTfaSI?t=878 mentions https://en.wikipedia.org/wiki/Electron-beam_lithography[maskless electron beam litograpy] being used to produce STJs.}
+
 ==== Superfluidity
 
 Experiments:
@@ -3236,46 +3607,6 @@ Experiments:
 
 https://en.wikipedia.org/wiki/Bose–Einstein_condensate
 
-=== Josephson effect
-
-https://en.wikipedia.org/wiki/Josephson_effect
-
-Discrete quantum effect observed in superconductors with a small insulating layer.
-
-TODO: curves showing the effect.
-
-The effect is likely mentioned in Leitner's video at: https://www.youtube.com/watch?v=BFdq6IecUJc&t=2290s
-
-Bibliography:
-
-* https://www.youtube.com/watch?v=cnZ6exn2CkE "Superconductivity: Professor Brian Josephson". Several random excerpts from Cambridge people talking about the Josephson effect
-
-==== Applications of Josephson Junctions
-
-* the basis for the most promising 2019 \x[quantum-computing] implementation: \x[superconducting-quantum-computer]
-* offers https://en.wikipedia.org/wiki/Josephson_voltage_standard[the most practical/precise volt standard] although the 2019 SI Volt definition https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere[is still based on the electron charge]
-
-  Quick NIST article about it: https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world (\a[https://web.archive.org/web/20190410011041/https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world][archive])
-* \x[squid-device]
-
-===== SQUID device
-
-https://en.wikipedia.org/wiki/SQUID
-
-Can measure tiny magnetic fields.
-
-==== Superconducting tunnel junction
-
-https://en.wikipedia.org/wiki/Superconducting_tunnel_junction
-
-Specific type of Josephson Junction. Probably can be made tiny and in huge numbers through photolithography.
-
-\Image[https://upload.wikimedia.org/wikipedia/en/0/03/STJ_SVG_file.svg]
-{title=Illustration of a thin-film superconducting tunnel junction (STJ). The superconducting material is light blue, the insulating tunnel barrier is black, and the substrate is green.}
-
-\Video[http://youtube.com/watch?v=-HUVGWTfaSI]
-{title="Quantum Transport, Lecture 14: Josephson effects" by "Sergey Frolov". https://youtu.be/-HUVGWTfaSI?t=878 mentions https://en.wikipedia.org/wiki/Electron-beam_lithography[maskless electron beam litograpy] being used to produce STJs.}
-
 === Thermodynamics
 
 ==== Phase transition
@@ -3284,7 +3615,7 @@ https://en.wikipedia.org/wiki/Phase_transition
 
 TODO can anything interesting and deep be said about "why phase transition happens?" https://physics.stackexchange.com/questions/29128/what-causes-a-phase-transition
 
-=== Computational Physics
+=== Computational physics
 
 https://en.wikipedia.org/wiki/Computational_physics
 
@@ -5025,6 +5356,7 @@ Equally awesome was Intel port initial 2005 demo by \x[steve-jobs]:
 After talking about it for several minutes with slides, he then reveals that the computer used for the slide presentation was an Intel CPU, and that OSX 10, then the last great update, was designed from the start for portability.
 
 ==== Steve Jobs
+{c}
 
 \x[evil][Evil] and interesting co-founder of \x[apple-inc]
 
@@ -5039,6 +5371,7 @@ After talking about it for several minutes with slides, he then reveals that the
 You must watch this: \x[erbof-gates-jobs][Bill Gates vs Steve Jobs Epic Rap Battles of the History].
 
 ===== Steve Jobs saving lives with a faster boot
+{c}
 
 https://www.folklore.org/StoryView.py?story=Saving_Lives.txt
 
@@ -5048,6 +5381,7 @@ This idea also comes up in other sources of course.
 {title=https://en.wikipedia.org/wiki/Margin_Call[Margin Call (2011)] Bridge scene.}
 
 ===== Steve Jobs customers don't know what they want quote
+{c}
 
 TODO clear attribution source:
 
@@ -5427,7 +5761,17 @@ And what seemed hard takes a few hours.
 
 As "deadlines" approach, feature sets get cut down, then there are delays, and finally a feasible feature set is delivered some time after the deadline.
 
-The only deadlines that can be met are those of tasks which have alredy been done but not announced.
+The only deadlines that can be met are those of tasks which have already been done but not announced.
+
+===== Office space design and remote work
+
+Working remotely is hard if you don't already highly master the software and enterprise systems used.
+
+Also you don't feel people's love as strongly, and usefulness is built on love, see also \x[steve-jobs]'s Pixar office space design philosophy.
+
+But please, give workers a small silent office so that we can concentrate instead of a silly open space, and create an internal social network so people can see what others are doing.
+
+Remote working is much better if the majority of the team also does it, otherwise you will get excluded. Maybe after VR...
 
 === Programming languages
 
@@ -6411,6 +6755,26 @@ Original observation in 1827 by Brown, with further experiments and interpretati
 \Video[http://youtube.com/watch?v=UUSL0NqcY6k]
 {title="Observing Brownian motion of micro beads" by "Forrest Charnock" published on Aug 4, 2016.}
 
+=== Chemical element
+
+https://en.wikipedia.org/wiki/Chemical_element
+
+==== Nitrogen
+
+https://en.wikipedia.org/wiki/Nitrogen
+
+===== Liquid nitrogen
+
+https://en.wikipedia.org/wiki/Liquid_nitrogen
+
+\Video[https://www.youtube.com/watch?v=PEgm5NFXlFM]
+{title="Where Do You Get Liquid Nitrogen?" published by "The King of Random" on 2016-05-23.}
+{description=He just goes to a medical gases shop in a local industrial estate and buys 20L for 95 dollars and brings it back on his own Dewar marked 35LD.}
+
+\Video[https://www.youtube.com/watch?v=dCXkaQa53QQ]
+{title="Making Liquid Nitrogen From Scratch!" published by Veritasium on 2019-08-16.}
+{description="From scratch" is perhaps a bit clickbaity, but I'll take it.}
+
 == Microscopy
 
 === Scanning electron microscope
@@ -6727,139 +7091,6 @@ For now, \x[large-cohesive-game-world-for-robotic-like-artificial-intelligence-d
 * https://en.wikipedia.org/wiki/Protein
 * https://en.wikipedia.org/wiki/Protein_(nutrient)
 
-== Special relativity
-
-https://en.wikipedia.org/wiki/Special_relativity
-
-Explains how it is possible that everyone observes the same speed of light, even if they are moving towards or opposite to the light!
-
-This was observed in in the \x[michelson-morley-experiment] which uses the movement of the Earth to try and detect differences in the speed of light.
-
-This leads leads to the following conclusions:
-* to space contraction and time dilation
-* the speed of light is the maximum speed anything can reach
-
-All of this goes of course completely against our daily Physics intuition.
-
-The "special" in the name refers to the fact that it is a superset of \x[general-relativity], which also explains gravity in a single framework.
-
-=== Lorentz transform
-{c}
-
-The equation that allows us to calculate stuff.
-
-Take two observers with identical rules and stopwatch, and aligned axes, but one is on a car moving at towards the $+x$ direction at speed $v$.
-
-TODO image.
-
-When both observe an event, if we denote:
-* $(t, x, y, z)$ the observation of the standing observer
-* $(t', x', y', z')$ the observation of the ending observer on a car
-It is of course arbitrary who is standing and who is moving, we will just use the term "standing" for the one without primes.
-
-Then the coordinates of the event observed by the observer on the car are:
-$$
-\begin{aligned}
-t' & = \gamma \left( t - \frac{v x}{c^2} \right) \\
-x' & = \gamma \left( x - v t \right) \\
-y' & = y \\
-z' & = z
-\end{aligned}
-$$
-where:
-$$
-\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}
-$$
-
-Note that if $\frac{v}{c}$ tends towards zero, then this reduces to the usual https://en.wikipedia.org/wiki/Galilean_transformation[Gallilean transforms] which our intuition expects:
-$$
-\begin{aligned}
-t' & = t
-x' & = x - v t \\
-y' & = y \\
-z' & = z
-\end{aligned}
-$$
-
-This explains why we don't observe special relativity in our daily lives: macroscopic objects move too slowly compared to light, and $\frac{v}{c}$ is almost zero.
-
-=== Lorentz transform consequence: everyone sees the same speed of light
-{c}
-
-OK, so let's verify the main desired consequence of the \x[lorentz-transform]: that everyone observes the same speed of light.
-
-Observers will measure the speed of light by calculating how long it takes the light going towards $+x$ cross a rod of length $L = x_2 - x_1$ laid in the x axis at position $X1$.
-
-TODO image.
-
-Each observer will observe two events:
-* $(t_1, x_1, y_1, z_1)$: the light touches the left side of the rod
-* $(t_2, x_2, y_2, z_2)$: the light touches the right side of the rod
-
-Supposing that the standing observer measures the speed of light as $c$ and that light hits the left side of the rod at time $T1$, then he observes the coordinates:
-$$
-\begin{aligned}
-t_1 & = T1 \\
-x_1 & = X1 \\
-t_2 & = \frac{L}{c} \\
-x_2 & = X1 + L \\
-\end{aligned}
-$$
-
-Now, if we transform for the moving observer:
-$$
-\begin{aligned}
-t_1' & = \gamma \left( t_1 - \frac{v x_1}{c^2} \right) \\
-x_1' & = \gamma \left( x_1 - v t_1             \right) \\
-t_2' & = \gamma \left( t_2 - \frac{v x_2}{c^2} \right) \\
-x_2' & = \gamma \left( x_2 - v t_2             \right) \\
-\end{aligned}
-$$
-and so the moving observer measures the speed of light as:
-$$
-\begin{aligned}
-c' & = \frac{x_2' - x_1'}{t_2' - t_1'} \\
-   & = \frac{(x_2 - v t_2) - (x_1 - v t_1)}{(t_2 - \frac{v x_2}{c^2}) - (t_1 - \frac{v x_1}{c^2})} \\
-   & = \frac{(x_2 - x_1) - v (t_2 - t_1)}{(t_2 - t_1) - \frac{v}{c^2} (x_2 - x_1)} \\
-   & = \frac{\frac{x_2 - x_1}{t_2 - t_1} - v}{1 - \frac{v}{c^2} \frac{x_2 -x_1}{t_2 - t_1}} \\
-   & = \frac{c - v}{1 - \frac{v}{c^2} c} \\
-   & = \frac{c - v}{\frac{c - v}{c}} \\
-   & = c \\
-\end{aligned}
-$$
-
-=== Maxwell's equations are consistent with the Lorentz transform
-{c}
-
-https://en.wikipedia.org/w/index.php?title=Lorentz_transformation&oldid=909991141#Transformation_of_the_electromagnetic_field
-
-Note that two observers moving relative to each other see different electromagnetic fields.
-
-For example, suppose that there is a stationary charge for the stationary observer. Because the charge is not moving, the magnetic field is zero for that observer according to \x[maxwell-s-equations].
-
-However, the moving observer sees that charge moving, and therefore a current, and therefore a magnetic field.
-
-TODO mathematical detail. Is all we need to prove that if a given $E(t, x, y, z)$ and $B(t, x, y, z)$ are a solution to the maxwell equations in one frame, then $E'(t', x', y', z')$ and $B'(t', x', y', z')$ are also a solution in the other frame?
-
-This appears awesome: http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf (\a[https://web.archive.org/web/20180920161243/http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf][archive]) "David Tong: Lectures on Electromagnetism - 5. Electromagnetism and Relativity"
-
-* "5.2.1 Magnetism and Relativity" shows how space contraction makes the charges of a wire unbalanced, and that directly causes magnetic force!!!
-
-  The same document mentions further on more explicitly that observers in different frames mix up the Electric and Magnetic fields, but that the same Maxwell laws are still valid in that frame.
-
-  It appears that Maxwell's equations can be derived directly from Coulomb's law + special relativity: https://physics.stackexchange.com/questions/3618/can-maxwells-equations-be-derived-from-coulombs-law-and-special-relativity
-
-  This is linked in a comment and also appears to be of interest: http://richardhaskell.com/files/Special%20Relativity%20and%20Maxwells%20Equations.pdf
-
-This page also talks about it, but does not explain anything properly, although it does give closed source references: https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity
-
-=== Minkowski space
-{c}
-
-https://en.wikipedia.org/wiki/Minkowski_space
-
-TODO why should I care when I can calculate new x and new time with \x[lorentz-transform]?
-
 == Deep tech
 
 https://en.wikipedia.org/wiki/Deep_tech
@@ -6897,10 +7128,6 @@ It is for those reasons that deep tech is so exciting.
 The \x[the-next-big-thing][next big things] will come from deep tech. Failure is always a possibility, and you can't know before you try.
 
 But that's also why its so fun to dare.
-
-=== The next big thing
-
-If you are going to live, you might as well chase it. And it will come from \x[deep-tech].
 
 == Education
 
@@ -7074,6 +7301,20 @@ Other good talks:
 
 Days of the week where you don't do what you set out to do. And yet, it is in those days that you save your sanity, and possibly the world. Wait, this sounds exactly like a week day?
 
-== Miscelaneous
+== Fusion power
+
+https://en.wikipedia.org/wiki/Fusion_power
+
+\x[fusion-power-could-be-the-next-big-thing].
+
+Most promising approach as of 2020: \x[magnetic-confinement-fusion].
+
+=== Magnetic confinement fusion
+
+https://en.wikipedia.org/wiki/ITER
+
+Once again, relies on \x[superconductivity] to reach insane magnetic fields. Superconductivity is just so important.
+
+== Miscellaneous
 
 \include[window-blackout]
