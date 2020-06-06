@@ -1024,6 +1024,7 @@ Other accounts:
 * https://www.meetup.com/members/252568305/
 * https://www.mentebinaria.com.br/profile/1987-ciro-santilli/
 * https://www.metacritic.com/user/cirosantilli
+* https://www.mohu.rocks/people/cirosantilli
 * https://www.mudhut.com/user/1995000
 * https://www.myopportunity.com/en/profile/ciro-santilli
 * https://www.npmjs.com/~cirosantilli
@@ -2618,6 +2619,8 @@ and you should review the interpretation of divergence $\divergence{}$ and curl 
 * divergence: how much fluid goes out or into a point
 * curl: points in the direction in which a wind spinner spins fastest
 
+===== Explicit scalar form of the Maxwell's equations
+
 For numerical algorithms and to get a more low level understanding of the equations, we can expand all terms to the simpler and more explicit form:
 
 $$
@@ -2642,7 +2645,13 @@ $$
 $$
 {id=equation-maxwells-equation-explicit}
 
-As you can see, this expands to 8 equations, so the question arises if the system is over-determined because it only has 6 variables. As explained at: https://en.wikipedia.org/wiki/Maxwell%27s_equations#Overdetermination_of_Maxwell's_equations however, this is not the case, because if the first two equations hold for the initial condition, then they also hold for all time, so they can be essentially omitted.
+====== Overdetermination of Maxwell's equations
+
+https://en.wikipedia.org/wiki/Maxwell%27s_equations#Overdetermination_of_Maxwell's_equations
+
+As seen from \x[explicit-scalar-form-of-the-maxwell-s-equations], this expands to 8 equations, so the question arises if the system is over-determined because it only has 6 functions to be determined.
+
+As explained on the Wikipedia page  however, this is not the case, because if the first two equations hold for the initial condition, then the othe six equations imply that they also hold for all time, so they can be essentially omitted.
 
 It is also worth noting that the first two equations don't involve time derivatives. Therefore, they can be seen as spacial constraints.
 
@@ -2962,8 +2971,31 @@ TODO full equation derivation.
 
 Free material from university courses:
 
-* https://quantummechanics.ucsd.edu/ph130a/130_notes/130_notes.html Quantum Physics (UCSD Physics 130) April 2, 2003
 * https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf  (\a[https://web.archive.org/web/20191230193450/https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf][archive]) "Notes on Quantum Mechanics" by "Daniel V. Schroeder" from Weber State University published on January 6, 2019
+
+====== Quantum Mechanics for Engineers by Leon van Dommelen
+
+http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
+
+Looks very impressive! Last update marked 2011 as of 2020.
+
+Goes up to "A.15 \x[quantum-field-theory] in a Nanoshell", Ciro have to review it to see if there's anything worthwhile in that section.
+
+Personal page says he retired as of 2020: http://www.eng.fsu.edu/~dommelen/ But hopefully he has more time for these notes!
+
+And he appears to have his own lightweight markup language that transpiles to LaTeX called l2h: http://www.eng.fsu.edu/~dommelen/l2h/
+
+====== Quantum physics lecture notes by Jim Branson
+
+https://quantummechanics.ucsd.edu/ph130a/130_notes/130_notes.html
+
+For the UCSD Physics 130 course.
+
+Last updated: 2013.
+
+Very good! Goes up to the \x[dirac-equation].
+
+====== UCSD Physics 130 quantum physics lecture notes Jim Branson
 
 ==== Quantum Hall effect
 
@@ -3034,7 +3066,7 @@ TODO
 
 Where derivation == "intuitive routes", since a "law of physics" cannot be derived, only observed right or wrong.
 
-TODO why is there a \x[complex-number] in the equation? Intuitively and mathematically.
+TODO also comment on \x[why-are-complex-numbers-used-in-the-schrodinger-equation].
 
 ===== Solutions of the Schrodinger equation
 
@@ -3066,12 +3098,12 @@ Bibliography:
 * https://www.quora.com/Why-do-electrons-not-repel-each-other-on-their-orbits
 * https://physics.stackexchange.com/questions/224108/what-does-an-orbital-mean-in-atoms-with-multiple-electrons-what-do-the-orbitals
 
-===== Hartree-Fock method
+====== Hartree-Fock method
 {c}
 
 https://en.wikipedia.org/wiki/Hartree–Fock_method
 
-====== Hartree-Fock method for the helium atom
+======= Hartree-Fock method for the helium atom
 
 https://en.wikipedia.org/wiki/Helium_atom#Hartree–Fock_method
 
@@ -3109,11 +3141,35 @@ Bibliography:
 \Video[http://youtube.com/watch?v=ee4LqXRlQmE]
 {title="Quantum Mechanics 5b - Schrödinger Equation II" by ViaScience published on Feb 9, 2013. Could not find source or what they used.}
 
-==== Conservation laws in Schrodinger equations
+===== Why are complex numbers used in the Schrodinger equation?
+
+Why is there a \x[complex-number] in the equation? Intuitively and mathematically:
+
+* https://physics.stackexchange.com/questions/8062/about-the-complex-nature-of-the-wave-function
+* https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers
+* https://physics.stackexchange.com/questions/292947/is-it-possible-to-formulate-the-schr%C3%B6dinger-equation-in-a-manner-that-excludes-i
+
+Some ideas:
+
+* \x[explicit-scalar-form-of-the-maxwell-s-equations]
+
+====== Explicit scalar form of the Schrodinger equations
+
+https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers/557600#557600
+
+===== Conservation laws in Schrodinger equations
 
 https://physics.stackexchange.com/questions/229885/energy-equation-in-quantum-mechanics
 
 TODO is there any good intuitive argument or proof of conservation of energy, momentum, angular momentum?
+
+====== Conservation of the square amplitude in the Schrodinger equation
+
+Proof that the probability 1 is conserved by the time evolution:
+
+* https://quantummechanics.ucsd.edu/ph130a/130_notes/node127.html from \x[quantum-physics-lecture-notes-by-jim-branson].
+
+  That proof also mentions that if the potential `V` is not real, then there is no conservation of probability! Therefore the potential \i[must] be real valued!
 
 ==== Dirac equation
 {c}
@@ -3929,6 +3985,7 @@ https://en.wikipedia.org/wiki/Calculus
 Fancy name for it with the "more advanced" connotation: https://en.wikipedia.org/wiki/Real_analysis
 
 ==== Reimann integral
+{c}
 
 https://en.wikipedia.org/wiki/Riemann_integral
 
@@ -4081,12 +4138,6 @@ https://en.wikipedia.org/wiki/Complex_analysis
 
 The surprising thing is that a bunch of results are simpler in complex analysis!
 
-==== Hilbert space
-
-https://en.wikipedia.org/wiki/Hilbert_space
-
-Key for \x[quantum-mechanics], see: \x[mathematical-formulation-of-quantum-mechanics], the most important example by far being \x[l2].
-
 ===== Analytic continuation
 
 https://en.wikipedia.org/wiki/Analytic_continuation
@@ -4094,7 +4145,14 @@ https://en.wikipedia.org/wiki/Analytic_continuation
 \Video[http://youtube.com/watch?v=sD0NjbwqlYw]
 {title="Visualizing the Riemann hypothesis and analytic continuation" by "3Blue1Brown" published on Dec 9, 2016. Good visualization, no deep uniqueness intuition though.}
 
+==== Hilbert space
+
+https://en.wikipedia.org/wiki/Hilbert_space
+
+Key for \x[quantum-mechanics], see: \x[mathematical-formulation-of-quantum-mechanics], the most important example by far being \x[l2].
+
 ====== Reimann hypothesis
+{c}
 
 https://en.wikipedia.org/wiki/Riemann_hypothesis
 
@@ -6431,6 +6489,8 @@ It is hard to beat the lists present at: https://quantumcomputingreport.com (clo
 
 * https://quantumcomputingreport.com/scorecards/qubit-count/ lists what are the latest qbit counts and technologies that each player is using
 * https://quantumcomputingreport.com/players/public-companies/ summarizes what each player has been doing in a few paragraphs
+
+Alo of interest: https://quantumzeitgeist.com/interactive-map-of-quantum-computing-companies-from-around-the-globe/
 
 ==== Quantum computer physical implementations
 
