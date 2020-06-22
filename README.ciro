@@ -6,6 +6,8 @@ $$
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\curl}[1]{\nabla \times #1}
 % Partial derivative.
+% TODO maybe move to match the esdiff or physics packages:
+% https://tex.stackexchange.com/questions/412439/is-there-a-short-hand-command-to-write-derivatives
 \newcommand{\dv}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\divergence}[1]{\nabla \cdot #1}
 % Vector Arrow.
@@ -4179,7 +4181,9 @@ TODO intuition
 ===== Riesz-Fischer theorem
 {c}
 
-https://en.wikipedia.org/wiki/Riesz%E2%80%93Fischer_theorem
+https://en.wikipedia.org/wiki/Riesz–Fischer_theorem
+
+TODO vs \x[carleson-s-theorem]. Is this just a weaker result about norms, while Carleson is pointwise? Or i this just about Cauchy sequence and not Fourier at all?
 
 ====== $\LP$ is complete
 {id=lp-is-complete}
@@ -4194,7 +4198,16 @@ https://math.stackexchange.com/questions/316235/proving-that-the-fourier-basis-i
 
 Every converging \x[fourier-series] is in \x[l2] with a compact domain, and every \x[l2] function has a converging Fourier series.
 
-TODO how does it work for non-periodic functions? https://math.stackexchange.com/questions/1115240/can-a-non-periodic-function-have-a-fourier-series
+How does it work for non-periodic functions? Well, it just can't:
+* https://math.stackexchange.com/questions/1115240/can-a-non-periodic-function-have-a-fourier-series
+* https://math.stackexchange.com/questions/1378633/every-function-can-be-represented-as-a-fourier-series
+
+======= Carleson's theorem
+{c}
+
+https://en.wikipedia.org/wiki/Carleson%27s_theorem
+
+TODO vs \x[riesz-fischer-theorem]. Is this just a stronger pointwise result, while Riesz-Fischer is about norms only?
 
 ===== $\LP$
 {id=lp}
@@ -4237,7 +4250,7 @@ The continuous Fourier transform behaves especially nicely in \x[l2] (with the \
 
 ===== Applications of the Fourier series
 
-* https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series
+* https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366
 
 ==== History of the Fourier series
 
@@ -4405,7 +4418,7 @@ Like a \x[heat-equation] but without time.
 
 TODO confirm: does the solution of the heat equation always converge to the solution of the Laplace equation as time tends to infinity?
 
-TODO confirm: in one dimension, the Laplace equation is boring as it is just a straight line, which is the limit solution of the heat equation.
+In one dimension, the Laplace equation is boring as it is just a straight line since the second derivative must be 0. That also matches our intuition of the limit solution of the heat equation.
 
 Uniqueness: https://en.wikipedia.org/wiki/Uniqueness_theorem_for_Poisson%27s_equation
 
@@ -4673,6 +4686,10 @@ Does not have to be isomorphic to a subgroup:
 * https://math.stackexchange.com/questions/2498922/is-a-quotient-group-a-subgroup
 This is one of the reasons why the analogy between \x[simple-group]{p} of finite groups and \x[prime-number]{p} is limited.
 
+===== Relationship between the quotient group and direct products
+
+Although quotients look a bit real number division, there are some important differences with the "group analog of multiplication" of \x[direct-product-of-groups].
+
 If a group is isomorphic to the \x[direct-product-of-groups], we can take a quotient of the product to retrieve one of the groups, which is somewhat analogous to division: https://math.stackexchange.com/questions/723707/how-is-the-quotient-group-related-to-the-direct-product-group
 
 The "converse" is not always true however: a group does not need to be isomorphic to the product of one of its \x[normal-subgroup]{p} and the associated \x[quotient-group]. The wiki page provides an example:
@@ -4680,6 +4697,10 @@ The "converse" is not always true however: a group does not need to be isomorphi
 \q[
 Given G and a normal subgroup N, then G is a group extension of G/N by N. One could ask whether this extension is trivial or split; in other words, one could ask whether G is a direct product or semidirect product of N and G/N. This is a special case of the extension problem. An example where the extension is not split is as follows: Let $G = Z4 = {0, 1, 2, 3}$, and $ = {0, 2}$ which is isomorphic to Z2. Then G/N is also isomorphic to Z2. But Z2 has only the trivial automorphism, so the only semi-direct product of N and G/N is the direct product. Since Z4 is different from Z2 × Z2, we conclude that G is not a semi-direct product of N and G/N.
 ]
+
+This is also semi mentioned at: https://math.stackexchange.com/questions/1596500/when-is-a-group-isomorphic-to-the-product-of-normal-subgroup-and-quotient-group
+
+I think this might be equivalent to why the \x[group-extension-problem] is hard. If this relation were true, then taking the direct product would be the only way to make larger groups from normal subgroups/quotients. But it's not.
 
 ===== Normal subgroup
 
@@ -4736,10 +4757,16 @@ https://en.wikipedia.org/wiki/Composition_series
 
 https://en.wikipedia.org/wiki/Group_extension
 
-Given a finite group $F$ and a simple group $S$, find
+Besides the understandable Wikipedia definition, \x[video-simple-groups-socratica] gives an understandable one:
+
+\q[
+Given a finite group $F$ and a simple group $S$, find all groups $G$ such that $N$ is a \x[normal-subgroup] of $G$ and $G/N = S$.
+]
 
 We don't really know how to make up larger groups from smaller simple groups, which would complete the \x[classification-of-finite-groups]:
 * https://math.stackexchange.com/questions/25315/how-is-a-group-made-up-of-simple-groups
+
+In particular, this is hard because you can't just take the \x[direct-product-of-groups] to retrieve the original group: \x[relationship-between-the-quotient-group-and-direct-products]{full}.
 
 === Numerical analysis
 
@@ -6542,7 +6569,9 @@ Index:
   * \a[web-cheat/js-image-load-viewport.html]: load an image from JavaScript dynamically when it would become visible on the viewport: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-only-when-they-are-in-the-viewport
   * \a[web-cheat/image-load-lazy.html]: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-lazily-only-when-they-are-in-the-viewport/57389607#57389607
 * External libraries
-  * \a[web-cheat/tablesort.html] https://github.com/tristen/tablesort[]: https://github.com/tristen/tablesort
+  * Interactive HTML table sorting
+    * \a[web-cheat/tablesort.html]: https://github.com/tristen/tablesort
+    * \a[web-cheat/sortable.html]: https://github.com/HubSpot/sortable
 
 ===== HTML canvas
 
