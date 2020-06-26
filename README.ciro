@@ -13,12 +13,18 @@ $$
 % Vector Arrow.
 \newcommand{\va}[1]{\overrightarrow{#1}}
 
+%% Group theory
+\newcommand{\isomorphic}[0]{\cong}
+\newcommand{\alternatingGroup}[1]{A{#1}}
+\newcommand{\cyclicGroup}[1]{\Z_{#1}}
+
 %% Real and complex analysis
 \newcommand{\C}[0]{\mathbb{C}}
 \newcommand{\RFour}[0]{\mathbb{R}^{4}}
 \newcommand{\RThree}[0]{\mathbb{R}^{3}}
 \newcommand{\RTwo}[0]{\mathbb{R}^{2}}
 \renewcommand{\R}[0]{\mathbb{R}}
+\renewcommand{\Z}[0]{\mathbb{Z}}
 \newcommand{\functionDomain}[3]{#1 : #2 \to #3}
 
 %%% Lebesgue spaces.
@@ -908,6 +914,10 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
     \Image[http://web.archive.org/web/20200229164327if_/https://i.stack.imgur.com/mM8NQ.png]
     {title=gprof2dot image generated from the gprof data of a simple test program.}
     {source=https://stackoverflow.com/questions/375913/how-can-i-profile-c-code-running-on-linux/60265409#60265409}
+* Mathematics
+  * https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups/3732426#3732426[What is the intuition behind normal subgroups?]
+
+    \Image[Diagram_of_the_fundamental_theorem_on_homomorphisms.svg]
 * Biology
   * \x[oxford-nanopore-river-bacteria]{c}
 
@@ -1145,6 +1155,9 @@ Much more likely are https://en.wikipedia.org/wiki/To_Serve_Man_(The_Twilight_Zo
 Remember that those ideas come from a person who \x[ciro-santilli-s-natural-languages-skills][speaks 3.5 languages in 2019], and see absolutely no practical difference between them.
 
 One interesting anecdote is that Ciro met his wife in French, and talking to her primarily in English feels really weird, so language does matter in love.
+
+People with similar ideas:
+* https://wiki.dandascalescu.com/essays/english-universal-language
 
 ==== Don't be a pussy
 
@@ -5504,10 +5517,14 @@ https://en.wikipedia.org/wiki/Schrödinger_equation
 
 The \x[partial-differential-equation] of \x[special-relativity][non-relativistic] \x[quantum-mechanics].
 
-Predictions:
+Experiments explained:
 
 * via the \x[schrodinger-equation-solution-for-the-hydrogen-atom] it predicts:
   * \x[spectral-lines-of-atoms-and-molecules] basic lines, plus \x[zeeman-effect]
+
+Experiments not explained: those that the \x[dirac-equation] explains like:
+* \x[fine-structure]
+* \x[spontaneous-emission] coefficients
 
 Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-and-uniqueness-for-two-dimensional-time-dependent-schr%C3%B6dinger-equation
 
@@ -5557,6 +5574,10 @@ TODO.
 This is of course the easiest case, and should be understood well.
 
 https://en.wikipedia.org/wiki/Free_particle#Quantum_free_particle
+
+======= Solutions of the Schrodinger equation for two electrons
+
+TODO. Can't find it easily. Anyone?
 
 ====== Schrodinger equation solution for the hydrogen atom
 {c}
@@ -5617,11 +5638,19 @@ Bibliography:
 ===== Schrodinger equation simulations
 {c}
 
+* https://www.youtube.com/watch?v=1Z9wo2CzJO8 "Schrodinger equation solved numerically in 3D" by Tetsuya Matsuno. 3D hydrogen atom, code may be hidden in some paper, maybe
+
 \Video[http://youtube.com/watch?v=g4wuSgwLT9I]
 {title="Simulation of the time-dependent Schrödinger equation (JavaScript Animation)" by "Coding Physics" published on 2019-02-17. Source code: https://github.com/CodingPhysics/Schroedinger.}
+{description=One dimensional potentials, non-interacting particles.}
 
 \Video[http://youtube.com/watch?v=ee4LqXRlQmE]
 {title="Quantum Mechanics 5b - Schrödinger Equation II" by ViaScience published on Feb 9, 2013. Could not find source or what they used.}
+{description=2D non-interacting particle in a box, description says using \x[scilab][Scilab] and points to source. Has a double slit simulation.}
+
+\Video[https://www.youtube.com/watch?v=p7bzE1E5PMY]
+{title="Visualization of Quantum Physics (Quantum Mechanics)" published by udiprod on 2017-01-31.}
+{description=Closed source, but good visualization of a 1D free wave packet, including how measurement snaps it to a position.}
 
 ===== Why are complex numbers used in the Schrodinger equation?
 
@@ -5724,6 +5753,10 @@ Applications:
 
 * https://www.quora.com/What-are-some-engineering-applications-of-QED-or-QCD-quantum-field-theories
 
+\Video[https://www.youtube.com/watch?v=EzfFklLqDjA]
+{title="Lecture 01 | Overview of Quantum Field Theory" by Markus Luty published on 2013-04-12.}
+{description=This takes quite a direct approach, one cool thing he says is how we have to be careful with adding special relativity to the \x[schrodinger-equation] to avoid faster-than-light information.}
+
 ===== What does it mean that photons are force carriers for electromagnetism?
 
 https://physics.stackexchange.com/questions/61095/photon-as-the-carrier-of-the-electromagnetic-force
@@ -5735,7 +5768,7 @@ TODO find / create decent answer.
 
 https://en.wikipedia.org/wiki/Schwinger_effect
 
-===== Quantum Electrodynamics bibliography
+===== Quantum electrodynamics bibliography
 
 ====== Richard Feynman Quantum Electrodynamics Lecture at University of Auckland in 1979
 {c}
@@ -5751,7 +5784,7 @@ Can't find an official upload, so going with this one for now: https://youtube.c
 https://en.wikipedia.org/wiki/Quantum_chromodynamics
 
 \Video[http://youtube.com/watch?v=FoR3hq5b5yE]
-{title="Quarks, Gluon flux tubes, Strong Nuclear Force, & Quantum Chromodynamics" by "Physics Videos by Eugene Khutoryansky" published on Jul 7, 2018. Some decent visualizations of the field lines.}
+{title="Quarks, Gluon flux tubes, Strong Nuclear Force, & Quantum Chromodynamics" by \x[physics-videos-by-eugene-khutoryansky]["Physics Videos by Eugene Khutoryansky"] published on Jul 7, 2018. Some decent visualizations of the field lines.}
 
 ==== Quantum Field Theory
 
@@ -5981,8 +6014,18 @@ https://en.wikipedia.org/wiki/Interferometry
 Some light YouTube channels, good for the first view, but which don't go into enough detail to truly show the subject's beauty:
 
 * PBS Space Time: https://www.youtube.com/channel/UC7_gcs09iThXybpVgjHZ_7g A bit on the superficial side, but OK, 5-10 minute videos.
-* Physics Videos by Eugene Khutoryansky https://www.youtube.com/user/EugeneKhutoryansky Some insight, but too slow and not experiments, just "truth".
 * https://www.youtube.com/watch?v=vIJTwYOZrGU&list=PLCfRa7MXBEsoJuAM8s6D8oKDPyBepBosS[Fermilab - Videos by Don Lincoln]
+
+===== Physics Videos by Eugene Khutoryansky
+{c}
+
+https://www.youtube.com/user/EugeneKhutoryansky
+
+Some insight, but too slow and no experiments, just "truth".
+
+Very over the top, and has some classic aesthetic artistic value :-)
+
+https://www.quora.com/Who-is-Eugene-Khutoryansky/answer/Ciro-Santilli
 
 === Theory of everything (TOE)
 {id=theory-of-everything}
@@ -6240,6 +6283,23 @@ Experiments:
 
 https://en.wikipedia.org/wiki/Bose–Einstein_condensate
 
+==== Refrigerator
+
+https://en.wikipedia.org/wiki/Refrigerator
+
+===== Dilution refrigerator
+
+https://en.wikipedia.org/wiki/Dilution_refrigerator
+
+Reaches 2mK.
+
+Used for example in some times of \x[quantum-computing][quantum computers]:
+* \[d-wave-systems]: https://www.dwavesys.com/tutorials/background-reading-series/introduction-d-wave-quantum-hardware#h2-5 (15mK)
+
+Videos:
+
+* https://www.youtube.com/watch?v=j0s3uqqXZlc "This Is What A Helium Dilution Refrigerator Is" by "Dietterich Labs"
+
 === Thermodynamics
 
 ==== Phase transition
@@ -6466,6 +6526,7 @@ The most beautiful things in mathematics are results that are:
   * classification of potentially infinite sets like: compact manifolds, etc.
     * \x[classification-of-simple-finite-groups]
     * \x[classification-of-regular-polytopes]
+    * classification of \x[wallpaper-group]{p} and \x[space-group]{p}
   * problems that are more complicated in low dimensions than high like: classification of complex manifolds. It is also fun to see how in many cases complexity peaks out at 4 dimensions
     * \x[classification-of-regular-polytopes]
   * unpredictable magic constants. Why is the lowest dimension for an exotic sphere 7? Why is 4 the largest degree of an equation with explicit solution?
@@ -6684,9 +6745,15 @@ The key idea, is that we can't define a measure for the power set of R. Rather, 
 
 The continuous Fourier transform behaves especially nicely in \x[l2] (with the \x[lebesgue-integral]), where there are completeness guarantees (every function can be approximated as closely as desired), see: \x[fourier-basis-is-complete-for-l2].
 
+Fourier's original motivation, and a key application
+
 ===== Applications of the Fourier series
 
-* https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366
+====== Solving partial differential equations with the Fourier series
+
+See: https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366
+
+\x[separation-of-variables] of certain equations like the \x[heat-equation] and \x[wave-equation] are solved immediately by calculating the \x[fourier-series] of initial conditions.
 
 ==== History of the Fourier series
 
@@ -6824,7 +6891,15 @@ https://en.wikipedia.org/wiki/Ordinary_differential_equation
 
 https://en.wikipedia.org/wiki/Partial_differential_equation
 
-====== Mathematical methods to solve partial differential equation
+====== Theoretical methods to solve partial differential equation
+
+======= Separation of variables
+
+https://en.wikipedia.org/wiki/Separation_of_variables
+
+Naturally leads to the \x[fourier-series], see: \x[solving-partial-differential-equations-with-the-fourier-series].
+
+====== Numerical methods to solve partial differential equation
 
 The \x[finite-element-method] is one of the most common ways to solve PDEs in practice.
 
@@ -6863,6 +6938,12 @@ Uniqueness: https://en.wikipedia.org/wiki/Uniqueness_theorem_for_Poisson%27s_equ
 https://en.wikipedia.org/wiki/Harmonic_function
 
 A solution to \x[laplace-s-equation].
+
+========= Spherical harmonic
+
+https://en.wikipedia.org/wiki/Spherical_harmonics
+
+Correspond to the angular part of \x[laplace-s-equation] in spherical coordinates after using \x[separation-of-variables] as shown at: https://en.wikipedia.org/wiki/Spherical_harmonics#Laplace's_spherical_harmonics
 
 ======== Poisson's equation
 {c}
@@ -7043,7 +7124,51 @@ https://en.wikipedia.org/wiki/Generating_set_of_a_group
 
 ===== Important mathematical groups
 
-====== Orthogonal group
+====== Important discrete mathematical groups
+
+======= Cyclic group
+{title2=$\cyclicGroup{n}$}
+
+https://en.wikipedia.org/wiki/Cyclic_group
+
+======= Alternating group
+{title2=$\alternatingGroup{n}$}
+
+https://en.wikipedia.org/wiki/Alternating_group
+
+======= Wallpaper group
+
+https://en.wikipedia.org/wiki/Wallpaper_group
+
+17 of them.
+
+======= Space group
+
+https://en.wikipedia.org/wiki/Space_group
+
+All possible repetitive crystal structures!
+
+219 of them.
+
+====== Important continuous mathematical groups
+
+======= General linear group
+{title2=$GL(n)$}
+
+https://en.wikipedia.org/wiki/General_linear_group
+
+Invertible matrices.
+
+Non invertible are excluded "because" otherwise it would not form a \x[group-mathematics] (every element must have an inverse).
+
+======= Special linear group
+{title2=$SL(n)$}
+
+https://en.wikipedia.org/wiki/Special_linear_group
+
+Specials sub case of the \x[general-linear-group] when the determinant equals exactly 1.
+
+======= Orthogonal group
 {title2=$O(n)$}
 
 https://en.wikipedia.org/wiki/Orthogonal_group
@@ -7056,14 +7181,27 @@ Has 2 disconnected: pieces: one with determinant +1 (which is is a subgroup know
 
 If a reflection is done, the determinant is -1.
 
-======= Special orthogonal group
+Note however that having the determinant plus or minus 1 is not a definition however: there are non-orthogonal groups with determinant plus or minus 1. This is just a property.
+
+As a result it \x[group-isomorphism][isomorphic to] the \x[direct-product-of-groups][direct product] of the special orthogonal group by the \x[cyclic-group] of order 2:
+$$
+O(n) \isomorphic SO(n) \times \cyclicGroup{2}
+$$
+
+A low dimensional example:
+$$
+O(1) \isomorphic \cyclicGroup(2)
+$$
+because you can only do two things: to flip or not to filp the line around zero.
+
+======== Special orthogonal group
 {title2=$SO(n)$}
 
 Rotations.
 
 Like \x[orthogonal-group] but without reflections. So it is a "special" version of the orthogonal group.
 
-====== Unitary group
+======= Unitary group
 {title2=$U(n)$}
 
 https://en.wikipedia.org/wiki/Unitary_group
@@ -7074,25 +7212,25 @@ https://en.wikipedia.org/wiki/Unitary_group
 
 One notable difference from the orthogonal group however is that the unitary group is connected "because" its determinant is not fixed to two disconnected values 1/-1, but rather goes around in a continuous \x[unit-circle]. $U(1)$ \i[is] the unit circle.
 
-======= Unitary group of dimension 2
+======== Unitary group of dimension 2
 {title2=$U(2)$}
 
 Diffeomorphic to the 3 sphere.
 
-======= Unit circle
+======== Unit circle
 
 https://en.wikipedia.org/wiki/Unit_circle
 
 The $U(1)$ \x[unitary-group] is one very over-generalized way of looking at it :-)
 
-======= Special unitary group
+======== Special unitary group
 {title2=$SU(n)$}
 
 https://en.wikipedia.org/wiki/Special_unitary_group
 
 The complex analogue of the \x[special-orthogonal-group], i.e. the subgroup of the \x[unitary-group] with determinant equals exactly 1 instead of an arbitrary complex number with absolute value equal 1 as is the case for the unitary group.
 
-====== Lorentz group
+======= Lorentz group
 {title2=$SO(1,3)$}
 
 https://en.wikipedia.org/wiki/Lorentz_group
@@ -7109,6 +7247,22 @@ Like isomorphism, but does not have to be one-to-one: multiple different inputs 
 
 The image is as for any function smaller or equal in size as the domain of course.
 
+This brings us to the key intuition about group homomorphisms: they are a way to split out a larger group into smaller groups that retains a subset of the original structure.
+
+As shown by the \x[fundamental-theorem-on-homomorphisms], each group homomorphism is fully characterized by a \x[normal-subgroup] of the domain.
+
+====== Fundamental theorem on homomorphisms
+
+https://en.wikipedia.org/wiki/Fundamental_theorem_on_homomorphisms
+
+Ultimate explanation: https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups/3732426#3732426
+
+Links \x[group-homomorphism] and the \x[quotient-group] via \x[normal-subgroup]{p}.
+
+====== Kernel (algebra)
+
+https://en.wikipedia.org/wiki/Kernel_(algebra)
+
 ==== Direct product of groups
 
 https://en.wikipedia.org/wiki/Direct_product_of_groups
@@ -7122,6 +7276,16 @@ Does not have to be isomorphic to a subgroup:
 * https://math.stackexchange.com/questions/2498922/is-a-quotient-group-a-subgroup
 This is one of the reasons why the analogy between \x[simple-group]{p} of finite groups and \x[prime-number]{p} is limited.
 
+===== Subquotient group
+
+https://en.wikipedia.org/wiki/Subquotient
+
+Quotient of a subgroup H of G by a \x[normal-subgroup] of the subgroup H.
+
+That \x[normal-subgroup] does not have have to be a normal subgroup of G.
+
+As an overkill example, the happy family are subquotients of the \x[monster-group], but the monster group is simple.
+
 ===== Relationship between the quotient group and direct products
 
 Although quotients look a bit real number division, there are some important differences with the "group analog of multiplication" of \x[direct-product-of-groups].
@@ -7134,6 +7298,8 @@ The "converse" is not always true however: a group does not need to be isomorphi
 Given G and a normal subgroup N, then G is a group extension of G/N by N. One could ask whether this extension is trivial or split; in other words, one could ask whether G is a direct product or semidirect product of N and G/N. This is a special case of the extension problem. An example where the extension is not split is as follows: Let $G = Z4 = {0, 1, 2, 3}$, and $ = {0, 2}$ which is isomorphic to Z2. Then G/N is also isomorphic to Z2. But Z2 has only the trivial automorphism, so the only semi-direct product of N and G/N is the direct product. Since Z4 is different from Z2 × Z2, we conclude that G is not a semi-direct product of N and G/N.
 ]
 
+TODO find a less minimal but possibly more important example.
+
 This is also semi mentioned at: https://math.stackexchange.com/questions/1596500/when-is-a-group-isomorphic-to-the-product-of-normal-subgroup-and-quotient-group
 
 I think this might be equivalent to why the \x[group-extension-problem] is hard. If this relation were true, then taking the direct product would be the only way to make larger groups from normal subgroups/quotients. But it's not.
@@ -7142,13 +7308,27 @@ I think this might be equivalent to why the \x[group-extension-problem] is hard.
 
 https://en.wikipedia.org/wiki/Normal_subgroup
 
-Only normal subgroups can be used to form \x[quotient-group]{p}.
+Ultimate explanation: https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups/3732426#3732426
 
-===== Simple group
+Only normal subgroups can be used to form \x[quotient-group]{p}: their key definition is that they plus their cosets form a group.
+
+Intuition:
+* https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups
+* https://math.stackexchange.com/questions/1014535/is-there-any-intuitive-understanding-of-normal-subgroup/1014791
+
+One key intuition is that "a normal subgroup is the \x[kernel-algebra]" of a \x[group-homomorphism], and the normal subgroup plus cosets are isomorphic to the image of the isomorphism, which is what the \x[fundamental-theorem-on-homomorphisms] says.
+
+Therefore "there aren't that many \x[group-homomorphism]", and a normal subgroup it is a concrete and natural way to uniquely represent that homomorphism.
+
+The best way to think about the, is to always think first: what is the homomorphism? And then work out everything else from there.
+
+====== Simple group
 
 https://en.wikipedia.org/wiki/Simple_group
 
 Does not have any non-trivial \x[normal-subgroup].
+
+And therefore, going back to our intuition that due to the \x[fundamental-theorem-on-homomorphisms] there is one normal group per homomorphism, a simple group is one that has no non-trivial homomorphisms.
 
 ====== Classification of finite groups
 
@@ -7177,6 +7357,10 @@ And to top if all off, the awesomely named https://en.wikipedia.org/wiki/Monster
 {id=video-simple-groups-socratica}
 {title="Simple Groups - Abstract Algebra" by Socratica published on 2018-01-10}
 {description=Good quick overview.}
+
+======== Monster group
+
+https://en.wikipedia.org/wiki/Monster_group
 
 ======== Jordan-Hölder Theorem
 {id=jordan-holder-theorem}
@@ -7329,14 +7513,6 @@ https://en.wikipedia.org/wiki/Prime_number
 === Mathematics bibliography
 
 https://github.com/vEnhance/napkin Evan Chen's (陳誼廷) Infinite Napkin. 800+ page PDF with source on GitHub claiming to try and teach the beauty of modern maths for high schoolers. Fantastic project!!!
-
-==== Special function
-
-https://en.wikipedia.org/wiki/Special_functions
-
-===== Spherical harmonic
-
-https://en.wikipedia.org/wiki/Spherical_harmonics
 
 === Mathematician
 
@@ -9296,7 +9472,7 @@ This is how other languages compare:
 * Swift: \x[apple-inc][Apple] is \x[evil]
 * C#: \x[microsoft-windows][Microsoft] is \x[evil]
 * Tcl, Perl: Python killed them way back and is less insane
-* R, GNU Octave: all of this is a waste of society's time, applied mathematicians are capable of writing a few braces in exchange for a sane general purpose language, we should just invest in good libraries with fast C bindings for those languages like NumPy where needed. And when Ciro see the closed source ones like MATLAB being used, it makes him lose all hope on humanity.
+* R, GNU Octave and any other "\x[numerical-computing-language]": all of this is a waste of society's time as explained at: \x[numerical-computing-language]{full}
 
 ==== Python (programming language)
 
@@ -9367,6 +9543,24 @@ Index:
   * Interactive HTML table sorting
     * \a[web-cheat/tablesort.html]: https://github.com/tristen/tablesort
     * \a[web-cheat/sortable.html]: https://github.com/HubSpot/sortable
+
+===== Scalable Vector Graphics
+{title2=SVG}
+
+Examples:
+
+* \a[web-cheat/svg.html]
+* \a[web-cheat/background.svg]
+* \a[web-cheat/hole.svg]
+* \a[web-cheat/svg-billion-laughs.svg]
+* \a[web-cheat/svg-external-js.svg]
+* \a[web-cheat/svg-html.svg]
+* \a[web-cheat/svg-script.svg]
+* \a[web-cheat/svg-style-external.svg]
+* \a[web-cheat/svg-style.svg]
+* \a[web-cheat/svg.svg]
+* \a[web-cheat/triangle.svg]
+* \a[web-cheat/typography-line-terms.svg]
 
 ===== HTML canvas
 
@@ -9551,6 +9745,22 @@ CommonMark is a good project. But its initial release method was not very nice, 
 ===== markdownlint/markdownlint
 
 https://github.com/markdownlint/markdownlint
+
+==== Numerical computing language
+
+All those dedicated applied mathematicians languages are a waste of society's time, applied mathematicians are capable of writing a few braces in exchange for a sane general purpose language, we should instead just invest in good libraries with fast C bindings for those languages like NumPy where needed, and powerful mainlined \x[integrated-development-environment]{p}.
+
+And when Ciro see the closed source ones like \x[matlab] being used, it makes him lose all hope on humanity. Why. As of 2020. Why? In the 1980', maybe. But in the 2020'?
+
+===== Scilab
+{c}
+
+https://en.wikipedia.org/wiki/Scilab
+
+===== MATLAB
+{c}
+
+https://en.wikipedia.org/wiki/MATLAB
 
 === Book file formats
 
@@ -9971,21 +10181,28 @@ For example, when https://www.bloomberg.com/news/articles/2020-04-06/quantum-com
 
 https://youtu.be/7wCBkAQYBZA?t=2778 describes an error correction approach for \x[photonic-quantum-computer].
 
-==== The most important quantum computing players
+==== Quantum computing players
 
 It is hard to beat the lists present at: https://quantumcomputingreport.com (closed source unfortunately, no GitHub) in particular:
 
 * https://quantumcomputingreport.com/scorecards/qubit-count/ lists what are the latest qbit counts and technologies that each player is using
 * https://quantumcomputingreport.com/players/public-companies/ summarizes what each player has been doing in a few paragraphs
 
-Alo of interest: https://quantumzeitgeist.com/interactive-map-of-quantum-computing-companies-from-around-the-globe/
+Also of interest: https://quantumzeitgeist.com/interactive-map-of-quantum-computing-companies-from-around-the-globe/
+
+===== D-Wave Systems
+{c}
+
+https://en.wikipedia.org/wiki/D-Wave_Systems
+
+Vaporware?
 
 ==== Quantum computer physical implementations
 
 Lists of the most promising implementations:
 
 * https://en.wikipedia.org/wiki/Quantum_computing#Physical_realizations
-* https://quantumcomputingreport.com/scorecards/qubit-count/[], see also: \x[the-most-important-quantum-computing-players]
+* https://quantumcomputingreport.com/scorecards/qubit-count/[], see also: \x[quantum-computing-players]
 
 As of 2020, the hottest by far are:
 

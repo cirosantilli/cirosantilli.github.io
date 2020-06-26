@@ -4,51 +4,18 @@
 <meta charset=utf-8>
 <title>Tablesort</title>
 <style>
-/* Taken from: https://raw.githubusercontent.com/tristen/tablesort/5.2.1/tablesort.css
- * Not on CDNJS for some reason: https://github.com/tristen/tablesort/issues/196
- */
-th[role=columnheader]:not(.no-sort) {
-	cursor: pointer;
-}
-
-th[role=columnheader]:not(.no-sort):after {
-	content: '';
-	float: right;
-	margin-top: 7px;
-	border-width: 0 4px 4px;
-	border-style: solid;
-	border-color: #404040 transparent;
-	visibility: hidden;
-	opacity: 0;
-	-ms-user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-th[aria-sort=ascending]:not(.no-sort):after {
-	border-bottom: none;
-	border-width: 4px 4px 0;
-}
-
-th[aria-sort]:not(.no-sort):after {
-	visibility: visible;
-	opacity: 0.4;
-}
-
-th[role=columnheader]:not(.no-sort):hover:after {
-	visibility: visible;
-	opacity: 1;
-}
 </style>
 </head>
 <body>
 <table id='table-id' class='sort'>
+<thead>
 <tr>
 <th>String col</th>
 <th>Integer col</th>
 <th>Float col</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>ab</td>
 <td>2</td>
@@ -64,6 +31,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
 <td>2</td>
 <td>3.4</td>
 </tr>
+</tbody>
 </table>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
@@ -78,7 +46,7 @@ window.onload = function() {
     const table = tables[i];
     new Tablesort(table);
   }
-};
+}
 </script>
 </body>
 </html>
