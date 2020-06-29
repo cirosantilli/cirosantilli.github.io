@@ -33,6 +33,9 @@ async function cirosantilli_load_scripts(script_urls) {
 cirosantilli_load_scripts.loaded = new Set();
 
 // Create some nice controls for a canvas demo!
+// TODO currently disabled on HTML because it would cause reflows on lower IDs.
+// What we should do instead, is to only add the the new elements on hover, this
+// keeps thing simple, but still works.
 class CirosantilliCanvasDemo {
     constructor(demo_id, enabled = false, context_type = '2d') {
         // Members.
