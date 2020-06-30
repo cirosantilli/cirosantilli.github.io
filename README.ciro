@@ -881,8 +881,8 @@ Ciro posts updates on Twitter when new considerably cool ones are published: htt
   * https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937[How to set up the Eclipse for remote C debugging with gdbserver?]
 * Hardware
   * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli[Are there good open source standard cell libraries to learn IC synthesis with EDA tools?]
-* Scientific visualization
-  * https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461[A survey of open source interactive plotting software with a 10 million point scatter plot benchmark on Ubuntu 18.10]
+* \x[scientific-visualization-software]
+  * \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
 
     \Image[VisIt_zoom_in_10_million_straight_line_plot_with_some_marked_points.png]
     {source=https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461}
@@ -7005,6 +7005,7 @@ Oh, there is a low dimensional classification! Ciro is \x[high-flying-bird-vs-go
 https://en.wikipedia.org/wiki/Ordinary_differential_equation
 
 ===== Partial differential equation
+{title2=PDE}
 
 https://en.wikipedia.org/wiki/Partial_differential_equation
 
@@ -7020,7 +7021,17 @@ Naturally leads to the \x[fourier-series], see: \x[solving-partial-differential-
 
 The \x[finite-element-method] is one of the most common ways to solve PDEs in practice.
 
-======= Finite element method
+======== Variational formulation of a partial differential equation
+
+https://www.cis.upenn.edu/~cis515/cis515-12-sl11.pdf
+
+Used for example in \x[freefem] and \x[fenics-project] as the input description of the PDEs, TODO why.
+
+========= Weak solution
+
+https://en.wikipedia.org/wiki/Weak_solution
+
+======== Finite element method
 
 https://en.wikipedia.org/wiki/Finite_element_method
 
@@ -7100,6 +7111,7 @@ Uniqueness: https://math.stackexchange.com/questions/1113622/uniqueness-of-solut
 https://en.wikipedia.org/wiki/Navier–Stokes_equations
 
 ======== Navier-Stokes existence and smoothness
+{c}
 
 https://en.wikipedia.org/wiki/Navier–Stokes_existence_and_smoothness
 
@@ -7117,9 +7129,16 @@ Unlike for \x[ordinary-differential-equation]{p} which have the https://en.wikip
 
 For example, \x[navier-stokes-existence-and-smoothness] was one of the \x[millennium-prize-problems].
 
-====== Partial differential equation solvers
+===== System of partial differential equations
 
-======= FreeFem++
+In many important applications, what you have to solve is not just a single \x[partial differential equation], but multiple partial differential equations coupled to each other. This is the case for many key PDEs including:
+* \x[maxwell-s-equations], see: \x[explicit-scalar-form-of-the-maxwell-s-equations]{full}
+* \x[navier-stokes-equations]
+* \x[schrodinger-equation], see: \x[why-are-complex-numbers-used-in-the-schrodinger-equation]{full}
+
+===== Partial differential equation solvers
+
+====== FreeFem
 
 https://en.wikipedia.org/wiki/FreeFem%2B%2B
 
@@ -7132,6 +7151,14 @@ Started in 1987 and written in Pascal, by the French from \x[pierre-and-marie-cu
 Ciro wasn't expecting it to be as old. Ported to C++ in 1992.
 
 The fact that French wrote it can be seen in the documentation, for example https://doc.freefem.org/tutorials/index.html uses file extension `mycode.edp` instead of `mycode.pde` where `dep` stands for "\a[https://fr.wikipedia.org/wiki/Équation_aux_dérivées_partielles][Équation aux dérivées partielles]".
+
+Besides the painful build, using FreeFem is relatively simple, as can be seen from the examples on the website.
+
+They do use a \x[domain-specific-language] on the examples, which appears to be the main/only interface, which is a bad thing, Ciro would rather have a Python API as the "main API", which is more the approach taken by the \x[fenics-project], but so be it. This DSL business means that you always stumble upon basic stuff you want to do but can't, and then you have to think about how to share data between the simulation and the plotting. The plotting notably is super complex and they can't implement all of what people want, upstream examples often offload that to gnuplot. This is potentially a big advantage of \x[fenics-project].
+
+It nice though that they do have some graphics out of the box, as that allows to quickly debug common problems.
+
+Uses \x[variational-formulation-of-a-partial-differential-equation], which is not immediately obvious to beginners? The introduction https://doc.freefem.org/tutorials/poisson.html gives an ultra quick example, but your are mostly on your own with that.
 
 On Ubuntu 20.04, the `freefem` is a bit out-of-date (3.5.8, there isn't even a tag for that in the GitHub repo, and refs/tags/release_3_10 is from 2010!) and fails to run the examples from the website. It did work with the example package though, but the output does not have color, which makes me sad :-)
 ``
@@ -7194,17 +7221,21 @@ The main/only dependency appears to be https://en.wikipedia.org/wiki/Portable,_E
 
 The problem is that it compiling such a complex dependency opens up much more room for hard to solve compilation errors, and takes a lot more time.
 
-Besides the build, using FreeFem is shockingly simple, as can be seen from the examples on the website.
+Examples:
 
-They do use a DSL on the examples, which is a bad thing, I'd rather have a Python API as the "main API", which is more the approach taken by the \x[fenics-project], but so be it.
+* 1 dimensional heat equation example:
+** \a[freefem/heat1d.freefem]
+** \a[freefem/heat1d.freefem.gnuplot]
 
-It is also nice that graphics are well integrated, and you can just plot with single DSL commands right away.
-
-======= FEniCS Project
+====== FEniCS Project
 
 https://en.wikipedia.org/wiki/FEniCS_Project
 
 https://fenicsproject.org/
+
+Also uses \x[variational-formulation-of-a-partial-differential-equation] like \x[freefem].
+
+Systems of PDEs mentioned at: https://link.springer.com/content/pdf/10.1007%2F978-3-319-52462-7.pdf 3.5 "A system of advection–diffusion–reaction equations"
 
 On Ubuntu 20.04 as per https://fenicsproject.org/download/
 ``
@@ -7212,17 +7243,15 @@ sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:fenics-packages/fenics
 sudo apt-get update
 sudo apt-get install --no-install-recommends fenics
+sudo apt install fenics
 ``
-fails with:
+Before 2020-06, it was failing with:
 ``
 E: The repository 'http://ppa.launchpad.net/fenics-packages/fenics/ubuntu focal Release' does not have a Release file.
 ``
+but they seem to have created the Ubuntu 20.04 package as of 2020-06, so it now worked! https://askubuntu.com/questions/866901/what-can-i-do-if-a-repository-ppa-does-not-have-a-release-file
 
-So we do just:
-``
-sudo apt install fenics
-``
-which gives version 2019.1.0.3. It does not contain any binaries, but it appears to have installed the Python package. But then I can't run the website front-page hello world, maybe because version too old? Give up for now...
+TODO heat equation hello world.
 
 ==== Taylor series
 {c}
@@ -8916,6 +8945,7 @@ Things that are not nice such as:
 * the 2019 \x[china][Chinese government]
 * online forums that lock threads after some time like https://www.reddit.com/[Reddit] and https://support.google.com/[]. Ridiculous, so when new information comes out, we just duplicate all the old comments on a new thread again?
 * e-learning websites that only allows verified teachers to write content. \x[write-free-books-to-get-famous-website][Cowards who can't handle ranking algorithms].
+* \x[domain-specific-language]
 
 ==== Discounts that happen more often than not
 
@@ -9388,13 +9418,40 @@ A competitor to \x[linux-kernel-module-cheat]. More wordy and less automated.
 
 ==== Scientific visualization software
 
+https://en.wikipedia.org/wiki/Scientific_visualization
+
+\x[ciro-santilli][Ciro's] large dataset survey: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark]
+
+===== Survey of open source interactive plotting software with a 10 million point scatter plot benchmark by Ciro Santilli
+
+https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461
+
+By \x[ciro-santilli].
+
+\Image[VisIt_zoom_in_10_million_straight_line_plot_with_some_marked_points.png]
+{source=https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461}
+
+===== Matplotlib
+
+https://en.wikipedia.org/wiki/Matplotlib
+
+It does a huge percentage of what you want easily, and from \x[python-programming-language][the language that you want to use].
+
+Tends to be \x[ciro-santilli][Ciro]'s pick if \x[gnuplot] can't handle the use case, or if the project is really really serious.
+
+Couldn't handle exploration of large datasets though: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
+
 ===== gnuplot
 
 https://en.wikipedia.org/wiki/Gnuplot
 
-Domain specific language. When it get the jobs done, it is in 3 lines. When it doesn't, it doesn't.
+Tends to be \x[ciro-santilli]'s first attempt for quick and dirty graphing: https://github.com/cirosantilli/gnuplot-cheat[].
 
-Tends to be \x[ciro-santilli]'s first attempt for quick and dirty graphing.
+\x[domain-specific-language]. When it get the jobs done, it is in 3 lines and it feels great.
+
+When it doesn't, you Google for an hours, and then you give up in frustration, and fall back to \x[matplotlib].
+
+Couldn't handle exploration of large datasets though: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
 
 ==== OpenGL
 {c}
@@ -9593,7 +9650,7 @@ https://en.wikipedia.org/wiki/Python_(programming_language)
 
 https://en.wikipedia.org/wiki/NumPy
 
-The people who work on this will go straight to heaven, no questions asked.
+The people who work on this will \x[good][go straight to heaven], no questions asked.
 
 ==== JavaScript
 {c}
@@ -9886,6 +9943,13 @@ https://en.wikipedia.org/wiki/Scilab
 {c}
 
 https://en.wikipedia.org/wiki/MATLAB
+
+==== Domain-specific language
+{title2=DSL}
+
+https://en.wikipedia.org/wiki/Domain-specific_language
+
+\x[evil]{c}. Just use \x[python-programming-language] instead, please.
 
 === Book file formats
 
@@ -10581,6 +10645,8 @@ A monopolistic operating system that only exists in the 2010's because of the IB
 It offers no technical advantages over free \x[linux] distros in the late 2010's, and it is barely impossible to buy a non-Mac computer without paying for it, which should be illegal. \x[europe][European Union], time to use your \x[europe-cookie-law][regulatory powers].
 
 The following anecdote illustrates Windows' pervasiveness. \x[ciro-santilli] was once tutoring a high school student in Brazil, and decided to try and get her into programming. When the "Windows is not free" subject came up, the high school student was shocked: "I paid 100 dollars for this?". She never even knew it was there. To her, it was "just a computer".
+
+Laws should really be passed forcing OEMs to allow you to not buy Microsoft Windows when buying a computer, \x[europe-cookie-law][European Union], why have you failed me in 2016??? https://en.wikipedia.org/wiki/Bundling_of_Microsoft_Windows
 
 ===== Bill Gates
 {c}
