@@ -1,8 +1,5 @@
 #!/usr/bin/env gnuplot
 # Tested on gnuplot 5.2 patchlevel 8.
-set terminal gif animate delay 10
-set output 'heat1d-dirichlet.gif'
-f = 'heat1d-dirichlet.freefem.dat'
 stats f nooutput
 set yrange [STATS_min_y:STATS_max_y]
 set xlabel 'x'

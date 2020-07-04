@@ -1,8 +1,5 @@
 #!/usr/bin/env gnuplot
 # Tested on gnuplot 5.2 patchlevel 8.
-set terminal gif animate delay 10
-set output 'heat2d-dirichlet.gif'
-f = 'heat2d-dirichlet.freefem.dat'
 stats f using 3 nooutput
 set hidden3d
 set xyplane at 0
