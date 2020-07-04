@@ -1,3 +1,5 @@
+// https://cirosantilli.com#heat1d-dirichlet-freefem
+
 // https://doc.freefem.org/tutorials/thermalConduction.html
 // Tested on freefem 3df0e2370d9752801ac744b11307b14e16743a44
 // TODO: actually make it 1d, get rid of all y mentions.
@@ -8,7 +10,7 @@ real W = .2;
 int meshN = 20;
 real T = .05;
 real dt = .001;
-func u0 = sin(2*pi*x/L) * sin(pi*y/W);
+func u0 = sin(2*pi*x/L);
 func k = 0.2;
 
 // Mesh
@@ -27,23 +29,21 @@ problem thermic(u, v)
             + dy(u) * dy(v)
         )
     )
-    - int2d(Th)(
-          uold*v/dt
-    )
+    - int2d(Th)(uold*v/dt)
     + on(1, 2, 3, 4, u=0)
     ;
 
 // Time iterations
 ofstream ff(FILE + ".dat");
-for(real t = 0; t < T; t += dt){
+for (real t = 0; t < T; t += dt) {
     for (real i = 0; i <= meshN; i += 1) {
       real curx = i * L/meshN;
       ff << curx << " " << u(curx, W/2) << endl;
     }
-    uold = u;
-    thermic;
     if (t < T - dt) {
       ff << endl << endl;
     }
+    uold = u;
+    thermic;
     //plot(u,fill=true,wait=true);
 }

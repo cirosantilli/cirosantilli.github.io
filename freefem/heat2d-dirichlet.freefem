@@ -1,0 +1,52 @@
+// https://cirosantilli.com#heat2d-dirichlet-freefem
+
+// Parameters
+real W = 1.0;
+real H = 1.0;
+func u0 = x + y + 4.0*sin(2*pi*x/W)*sin(2*pi*y/H);
+func k = 0.05;
+real T = 0.75;
+real dt = 0.02;
+int meshX = 20;
+int meshY = meshX*H/W;
+
+// Mesh
+mesh Th = square(meshX, meshY, [W*x,H*y]);
+
+// Fespace
+fespace Vh(Th, P1);
+Vh u=u0, v, uold;
+
+// Problem
+problem thermic(u, v)
+    = int2d(Th)(
+          u*v/dt
+        + k*(
+              dx(u) * dx(v)
+            + dy(u) * dy(v)
+        )
+    )
+    - int2d(Th)(
+          uold*v/dt
+    )
+    + on(1, 2, 3, 4, u=u0)
+    ;
+
+// Time iterations
+ofstream ff(FILE + ".dat");
+for (real t = 0; t < T; t += dt) {
+    for (real i = 0; i <= meshX; i += 1) {
+      for (real j = 0; j <= meshY; j += 1) {
+        real curx = i * W/meshX;
+        real cury = j * H/meshY;
+        ff << curx << " " << cury << " " << u(curx, cury) << endl;
+      }
+      ff << endl;
+    }
+    if (t < T - dt) {
+      ff << endl << endl;
+    }
+    uold = u;
+    thermic;
+    //plot(u,dim=3);
+}

@@ -5,7 +5,11 @@ IN_EXT ?= .freefem
 OUT_EXT ?= .gif
 PLOT_EXT ?= .gnuplot
 
-OUTS := $(addsuffix $(OUT_EXT), $(basename $(wildcard *$(IN_EXT))))
+BASENAMES_NOEXT = $(basename $(wildcard *$(IN_EXT)))
+OUTS := $(addsuffix $(OUT_EXT), $(BASENAMES_NOEXT))
+DATAS := $(addsuffix $(DATA_EXT), $(BASENAMES_NOEXT))
+
+.PRECIOUS: $(DATAS)
 
 .PHONY: all clean
 
