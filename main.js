@@ -1,11 +1,3 @@
-<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-47867706-1', 'auto');
-ga('send', 'pageview');
-
 // Load required scripts dynamically:
 //
 // * https://stackoverflow.com/questions/7308908/waiting-for-dynamically-loaded-script/57267538#57267538
@@ -41,6 +33,9 @@ async function cirosantilli_load_scripts(script_urls) {
 cirosantilli_load_scripts.loaded = new Set();
 
 // Create some nice controls for a canvas demo!
+// TODO currently disabled on HTML because it would cause reflows on lower IDs.
+// What we should do instead, is to only add the the new elements on hover, this
+// keeps thing simple, but still works.
 class CirosantilliCanvasDemo {
     constructor(demo_id, enabled = false, context_type = '2d') {
         // Members.
@@ -256,15 +251,3 @@ class CirosantilliCanvasDemo {
         this.height = canvas_width
     }
 }
-
-/* TODO coffesscript on old website. Still needed? */
-/*
-$ ->
-  $('h2, h3, h4, h5, h6').each (i, el) ->
-    el = $(el)
-    id = el.attr('id')
-    icon = '<i class="fa fa-link"></i>'
-    if id
-      el.append(' ', $('<a>').addClass('header-link').
-        attr('href', '#' + id).html(icon))
-*/

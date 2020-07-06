@@ -1,192 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it - Ciro Santilli</title>
-    
-    <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
-
-    
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
-
-    
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
-
-    
-    <script src="/main.js"></script>
-    <link rel="stylesheet" href="/main.css"/>
-    <link rel="stylesheet" href="/header-link.css"/>
-    <link rel="stylesheet" href="/syntax.css"/>
-  </head>
-  <body>
-    <header>
-      <a class="home" href="/">Ciro Santilli</a>
-      <span class="social">
-        <a href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
-        <a href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
-        <a href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
-        <a href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
-        <a href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
-        
-        <a href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
-        <a href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
-      </span>
-    </header>
-    <main>
-        <h1 class="page-title">How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it</h1>
-        
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This article gives an idea of how this kind of biological experiment feels like to a software engineer who has never done any <a href="/#biology">biology</a> like <a href="/#ciro-santilli">Ciro</a>. Parent node: <a href="/#articles" class="bare">/#articles</a>.</p>
-</div>
-<div id="toc" class="toc">
-<div id="toctitle" class="title"></div>
-<ul class="sectlevel1">
-<li><a href="#setting">1. Setting</a></li>
-<li><a href="#overview-of-the-experiment">2. Overview of the experiment</a>
-<ul class="sectlevel2">
-<li><a href="#why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">2.1. Why Oxford Nanopore was used instead of Illumina for the sequencing</a></li>
-<li><a href="#metagenomics">2.2. Metagenomics</a></li>
-</ul>
-</li>
-<li><a href="#sample-collection">3. Sample collection</a></li>
-<li><a href="#dna-extraction">4. DNA extraction</a>
-<ul class="sectlevel2">
-<li><a href="#filtration-with-vacuum-pump">4.1. Filtration with vacuum pump</a></li>
-<li><a href="#post-filtration-purification">4.2. Post filtration purification</a></li>
-</ul>
-</li>
-<li><a href="#pcr">5. PCR</a>
-<ul class="sectlevel2">
-<li><a href="#pcr-verification-with-gel-electrophoresis">5.1. PCR verification with gel electrophoresis</a></li>
-</ul>
-</li>
-<li><a href="#sequencing">6. Sequencing</a>
-<ul class="sectlevel2">
-<li><a href="#pre-sequencing-preparation">6.1. Pre-sequencing preparation</a></li>
-<li><a href="#using-the-oxford-nanopore">6.2. Using the Oxford Nanopore</a></li>
-</ul>
-</li>
-<li><a href="#bioinformatics">7. Bioinformatics</a></li>
-<li><a href="#conclusions">8. Conclusions</a></li>
-<li><a href="#protocols-used">9. Protocols used</a>
-<ul class="sectlevel2">
-<li><a href="#qiagen-dneasy-powerwater-kit">9.1. Qiagen DNeasy PowerWater Kit</a></li>
-<li><a href="#qiagen-qiaquick-pcr-purification-kit">9.2. Qiagen QIAquick PCR Purification Kit</a></li>
-<li><a href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">9.3. Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a></li>
-</ul>
-</li>
-<li><a href="#equipment-used">10. Equipment used</a>
-<ul class="sectlevel2">
-<li><a href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">10.1. Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a></li>
-<li><a href="#knf-laboport-series-laboratory-vacuum-pump">10.2. KNF Laboport series laboratory vacuum pump</a></li>
-<li><a href="#scientific-industries-inc-vortex-genie-2">10.3. Scientific Industries Inc. Vortex-Genie 2</a></li>
-<li><a href="#vwr-micro-star-17-microcentrifuge">10.4. VWR Micro Star 17 microcentrifuge</a></li>
-<li><a href="#velp-scientifica-wizard-ir-infrared-vortex-mixer">10.5. VELP Scientifica WIZARD IR Infrared Vortex Mixer</a></li>
-<li><a href="#marshal-scientific-mj-research-ptc-200-thermal-cycler">10.6. Marshal Scientific MJ Research PTC-200 Thermal Cycler</a></li>
-<li><a href="#ge-magrack-6">10.7. GE MagRack 6</a></li>
-<li><a href="#btlab-systems-mini-centrifuge">10.8. BTLab Systems Mini Centrifuge</a></li>
-<li><a href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">10.9. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a></li>
-<li><a href="#biochrom-simplinano-spectrophotometer">10.10. Biochrom SimpliNano spectrophotometer</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="setting"><a class="anchor" href="#setting"></a><a class="link" href="#setting">1. Setting</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://www.puntseq.co.uk/">PuntSeq</a> is a side project led by a few <a href="https://en.wikipedia.org/wiki/University_of_Cambridge">Cambridge University</a> PhDs that aims to determine which bacteria are present in the <a href="https://en.wikipedia.org/wiki/River_Cam">River Cam</a>.</p>
-</div>
-<div class="paragraph">
-<p>In July 2019, the PuntSeq team got together with the awesome <a href="https://biomake.space">Cambridge Biomakespace</a>, an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.</p>
-</div>
-<div class="paragraph">
-<p>Ciro knows nothing about biology, but since he is <a href="/#molecular-biology-is-the-next-big-thing-so-do-anything-in-that-area">very curious about it</a>, he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.</p>
-</div>
-<div class="paragraph">
-<p>All participants chipped in some money to help cover the experiment&#8217;s costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!</p>
-</div>
-<div class="paragraph">
-<p>The impressions you get from the experiment as a software engineer will be:</p>
-</div>
-<div class="ulist">
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>
+@import "cirodown.min.css";
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria">🔗</a></span><h1 id="oxford-nanopore-river-bacteria"><a  href="#oxford-nanopore-river-bacteria" title="link to this element">How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it</a><span>  | <a href="index#oxford-nanopore-minion">↑ parent "Oxford Nanopore MinION"</a></span></h1>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-1">🔗</a></span><div class="p" id="p-1">This article gives an idea of how this kind of biological experiment feels like to a software engineer who has never done any <a href="index#biology">biology</a> like <a href="index#ciro-santilli">Ciro Santilli 三西猴</a>. Parent node: <a href="index#articles">the best articles by Ciro Santilli</a>.</div></div><div class="toc-container" id="toc-1">
 <ul>
-<li>
-<p>OMG, this is so labour intensive, why haven&#8217;t they automated this</p>
-</li>
-<li>
-<p>OMG, this is frightening, all the 8 hours of work I&#8217;ve just done are present in that tiny plastic tube</p>
-</li>
-<li>
-<p>Amazing! Look at that apparatus! And the bio people are like: I&#8217;ve used this a million times, it&#8217;s cheap and every lab has one, just work faster and don&#8217;t break you piece of junk!</p>
+<li><div id="toc-oxford-nanopore-river-bacteria/experiment-background"><a href="#oxford-nanopore-river-bacteria/experiment-background">1. Experiment background</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/experiment-background">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/overview-of-the-experiment"><a href="#oxford-nanopore-river-bacteria/overview-of-the-experiment">2. Overview of the experiment</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/overview-of-the-experiment">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing"><a href="#oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">2.1. Why Oxford Nanopore was used instead of Illumina for the sequencing</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/overview-of-the-experiment">↑ parent "Overview of the experiment"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/sample-collection"><a href="#oxford-nanopore-river-bacteria/sample-collection">3. Sample collection</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/sample-collection">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/dna-extraction"><a href="#oxford-nanopore-river-bacteria/dna-extraction">4. DNA extraction</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/filtration-with-vacuum-pump"><a href="#oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">4.1. Filtration with vacuum pump</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">↑ parent "DNA extraction"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/post-filtration-purification"><a href="#oxford-nanopore-river-bacteria/post-filtration-purification">4.2. Post filtration purification</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/post-filtration-purification">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">↑ parent "DNA extraction"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/pcr"><a href="#oxford-nanopore-river-bacteria/pcr">5. PCR</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/pcr">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis"><a href="#oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">5.1. PCR verification with gel electrophoresis</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/pcr">↑ parent "PCR"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/sequencing"><a href="#oxford-nanopore-river-bacteria/sequencing">6. Sequencing</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/pre-sequencing-preparation"><a href="#oxford-nanopore-river-bacteria/pre-sequencing-preparation">6.1. Pre-sequencing preparation</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/pre-sequencing-preparation">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">↑ parent "Sequencing"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/using-the-oxford-nanopore"><a href="#oxford-nanopore-river-bacteria/using-the-oxford-nanopore">6.2. Using the Oxford Nanopore</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/using-the-oxford-nanopore">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">↑ parent "Sequencing"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/bioinformatics"><a href="#oxford-nanopore-river-bacteria/bioinformatics">7. Bioinformatics</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/bioinformatics">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/conclusions"><a href="#oxford-nanopore-river-bacteria/conclusions">8. Conclusions</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/conclusions">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/protocols-used"><a href="#oxford-nanopore-river-bacteria/protocols-used">9. Protocols used</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit"><a href="#oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">9.1. Qiagen DNeasy PowerWater Kit</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit"><a href="#oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">9.2. Qiagen QIAquick PCR Purification Kit</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit"><a href="#oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">9.3. Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/equipment-used"><a href="#oxford-nanopore-river-bacteria/equipment-used">10. Equipment used</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters"><a href="#oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">10.1. Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump"><a href="#oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">10.2. KNF Laboport series laboratory vacuum pump</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2"><a href="#oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">10.3. Scientific Industries Inc. Vortex-Genie 2</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge"><a href="#oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">10.4. VWR Micro Star 17 microcentrifuge</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer"><a href="#oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">10.5. VELP Scientifica WIZARD IR Infrared Vortex Mixer</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler"><a href="#oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">10.6. Marshal Scientific MJ Research PTC-200 Thermal Cycler</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/ge-magrack-6"><a href="#oxford-nanopore-river-bacteria/ge-magrack-6">10.7. GE MagRack 6</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/ge-magrack-6">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge"><a href="#oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">10.8. BTLab Systems Mini Centrifuge</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><a href="#oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">10.9. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer"><a href="#oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">10.10. Biochrom SimpliNano spectrophotometer</a><span> | <a href="#toc-oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+</ul>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="overview-of-the-experiment"><a class="anchor" href="#overview-of-the-experiment"></a><a class="link" href="#overview-of-the-experiment">2. Overview of the experiment</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For those that know biology and just want to do the thing, see: <a href="#protocols-used">Section 9, &#8220;Protocols used&#8221;</a>.</p>
-</div>
-<div class="paragraph">
-<p>The PuntSeq team uses an <a href="oxford-nanopore-minion">Oxford Nanopore MinION</a> sequencer made by <a href="https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies">Oxford Nanopore Technologies</a> to sequence the <a href="https://en.wikipedia.org/wiki/16S_ribosomal_RNA">16S</a> region of bacterial DNA, which is about 1500 nucleotides long. This is how the MinION looks like: <a href="#image-oxford-nanopore-minion-top">Figure 1, &#8220;Oxford Nanopore MinION top. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_top_cropped.jpg">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="image-oxford-nanopore-minion-top" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-top"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg" alt="392px Oxford Nanopore MinION top cropped" height="400"></a>
-</div>
-<div class="title">Figure 1. Oxford Nanopore MinION top. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_top_cropped.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-side" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-side"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Oxford_Nanopore_MinION_side_cropped.jpg/191px-Oxford_Nanopore_MinION_side_cropped.jpg" alt="191px Oxford Nanopore MinION side cropped" height="400"></a>
-</div>
-<div class="title">Figure 2. Oxford Nanopore MinION side. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_side_cropped.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-top-open" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-top-open"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Oxford_Nanopore_MinION_top_open_cropped.jpg/110px-Oxford_Nanopore_MinION_top_open_cropped.jpg" alt="110px Oxford Nanopore MinION top open cropped" height="400"></a>
-</div>
-<div class="title">Figure 3. Oxford Nanopore MinION top open. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_top_open_cropped.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-side-usb" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-side-usb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg" alt="597px Oxford Nanopore MinION side USB cropped" height="400"></a>
-</div>
-<div class="title">Figure 4. Oxford Nanopore MinION side USB. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_side_USB_cropped.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>The 16S region codes for one of the RNA pieces that makes the <a href="https://en.wikipedia.org/w/index.php?title=Ribosome&amp;oldid=912600990#Bacterial_ribosomes">bacterial ribosome</a>.</p>
-</div>
-<div class="paragraph">
-<p>Before sequencing the DNA, we will do a <a href="#pcr">PCR</a> with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Eukaryote">Eukaryotes</a> also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.</p>
-</div>
-<div class="paragraph">
-<p>This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding eukaryotes entirely.</p>
-</div>
-<div class="paragraph">
-<p>Despite coding such a fundamental piece of RNA, there is still surprisingly variability in the 16S region across different bacteria, and it is those differences will allow us to identify which bacteria are present in the river.</p>
-</div>
-<div class="paragraph">
-<p>The variability exists because certain base pairs are not fundamental for the function of the 16S region. This variability happens mostly on <a href="https://en.wikipedia.org/wiki/Stem-loop">RNA loops as opposed to stems</a>, i.e. parts of the RNA that don&#8217;t base pair with other RNA in the <a href="https://en.wikipedia.org/wiki/Nucleic_acid_secondary_structure">RNA secondary structure</a> as shown at: <a href="#listing-rna-stem-loop">Listing  1, &#8220;RNA stem-loop structure&#8221;</a>.</p>
-</div>
-<div id="listing-rna-stem-loop" class="listingblock">
-<div class="title">Listing  1. RNA stem-loop structure</div>
-<div class="content">
-<pre>                A-U
+<div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/experiment-background">🔗</a></span><h2 id="experiment-background"><a  href="#experiment-background" title="link to this element">1. Experiment background</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/experiment-background">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-2">🔗</a></span><div class="p" id="p-2"><a href="https://www.puntseq.co.uk/">PuntSeq</a> is a side project led by a few <a href="index#university-of-cambridge">University of Cambridge</a> PhDs that aims to determine which bacteria are present in the <a href="https://en.wikipedia.org/wiki/River_Cam">River Cam</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-3">🔗</a></span><div class="p" id="p-3">In July 2019, the PuntSeq team got together with the awesome <a href="https://biomake.space">Cambridge Biomakespace</a>, an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-4">🔗</a></span><div class="p" id="p-4">Ciro knows nothing about biology, but since he is <a href="index#molecular-biology-technologies">very curious about it</a>, he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-5">🔗</a></span><div class="p" id="p-5">All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-6">🔗</a></span><div class="p" id="p-6">The impressions you get from the experiment as a software engineer will be:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/ul-1">🔗</a></span><div><ul id="ul-1">
+<li id="l-1">OMG, this is so labour intensive, why haven't they automated this</li>
+<li id="l-2">OMG, this is frightening, all the 8 hours of work I've just done are present in that tiny plastic tube</li>
+<li id="l-3">Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster and don't break you piece of junk!</li>
+</ul></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/overview-of-the-experiment">🔗</a></span><h2 id="overview-of-the-experiment"><a  href="#overview-of-the-experiment" title="link to this element">2. Overview of the experiment</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/overview-of-the-experiment">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-7">🔗</a></span><div class="p" id="p-7">For those that know biology and just want to do the thing, see: <a href="#protocols-used">Section 9. "Protocols used"</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-8">🔗</a></span><div class="p" id="p-8">The PuntSeq team uses an <a href="index#oxford-nanopore-minion">Oxford Nanopore MinION</a> DNA sequencer made by <a href="https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies">Oxford Nanopore Technologies</a> to sequence the <a href="https://en.wikipedia.org/wiki/16S_ribosomal_RNA">16S</a> region of bacterial DNA, which is about 1500 nucleotides long.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-9">🔗</a></span><div class="p" id="p-9">This kind of "decode everything from the sample to see what species are present approach" is called "<a href="index#metagenomics">metagenomics</a>".</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-10">🔗</a></span><div class="p" id="p-10">This is how the MinION looks like: <a href="#image-oxford-nanopore-minion-top">Figure 1. "Oxford Nanopore MinION top"</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-top">🔗</a></span><figure id="image-oxford-nanopore-minion-top">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-top"><span class="caption-prefix">Figure 1</span></a>. Oxford Nanopore MinION top <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_top_cropped.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-side">🔗</a></span><figure id="image-oxford-nanopore-minion-side">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Oxford_Nanopore_MinION_side_cropped.jpg/191px-Oxford_Nanopore_MinION_side_cropped.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Oxford_Nanopore_MinION_side_cropped.jpg/191px-Oxford_Nanopore_MinION_side_cropped.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-side"><span class="caption-prefix">Figure 2</span></a>. Oxford Nanopore MinION side <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_side_cropped.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-top-open">🔗</a></span><figure id="image-oxford-nanopore-minion-top-open">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Oxford_Nanopore_MinION_top_open_cropped.jpg/110px-Oxford_Nanopore_MinION_top_open_cropped.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Oxford_Nanopore_MinION_top_open_cropped.jpg/110px-Oxford_Nanopore_MinION_top_open_cropped.jpg" loading="lazy" height="500"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-top-open"><span class="caption-prefix">Figure 3</span></a>. Oxford Nanopore MinION top open <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_top_open_cropped.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-side-usb">🔗</a></span><figure id="image-oxford-nanopore-minion-side-usb">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-side-usb"><span class="caption-prefix">Figure 4</span></a>. Oxford Nanopore MinION side USB <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_side_USB_cropped.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-11">🔗</a></span><div class="p" id="p-11">The 16S region codes for one of the RNA pieces that makes the <a href="https://en.wikipedia.org/w/index.php?title=Ribosome&amp;oldid=912600990#Bacterial_ribosomes">bacterial ribosome</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-12">🔗</a></span><div class="p" id="p-12">Before sequencing the DNA, we will do a <a href="#pcr">pCR</a> with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-13">🔗</a></span><div class="p" id="p-13"><a href="https://en.wikipedia.org/wiki/Eukaryote">Eukaryotes</a> also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-14">🔗</a></span><div class="p" id="p-14">This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding eukaryotes entirely.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-15">🔗</a></span><div class="p" id="p-15">Despite coding such a fundamental piece of RNA, there is still surprisingly variability in the 16S region across different bacteria, and it is those differences will allow us to identify which bacteria are present in the river.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-16">🔗</a></span><div class="p" id="p-16">The variability exists because certain base pairs are not fundamental for the function of the 16S region. This variability happens mostly on <a href="https://en.wikipedia.org/wiki/Stem-loop">RNA loops as opposed to stems</a>, i.e. parts of the RNA that don't base pair with other RNA in the <a href="https://en.wikipedia.org/wiki/Nucleic_acid_secondary_structure">RNA secondary structure</a> as shown at: <a href="#code-rna-stem-loop-structure">Code 1. "RNA stem-loop structure"</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/code-rna-stem-loop-structure">🔗</a></span><div class="code-caption-container" id="code-rna-stem-loop-structure">
+
+<div class="caption"><a  href="#code-rna-stem-loop-structure"><span class="caption-prefix">Code 1</span></a>. RNA stem-loop structure</div>
+<pre><code>                A-U
                /   \
 A-U-C-G-A-U-C-G     C
 | | | | | | | |     |
@@ -195,391 +101,127 @@ U-A-G-C-U-A-G-C     G
                 U-A
 |             ||    |
 +-------------++----+
-    stem        loop</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This is how the 16S RNA secondary structure looks like in its full glory: <a href="#image-16s-rna-secondary-structure">Figure 5, &#8220;16S RNA secondary structure. <a href="https://commons.wikimedia.org/wiki/File:16S.svg">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="image-16s-rna-secondary-structure" class="imageblock">
-<div class="content">
-<a class="image" href="#image-16s-rna-secondary-structure"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg" alt="16S" height="800"></a>
-</div>
-<div class="title">Figure 5. 16S RNA secondary structure. <a href="https://commons.wikimedia.org/wiki/File:16S.svg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>Since loops don&#8217;t base pair, they are less crucial in the determination of the secondary structure of the RNA.</p>
-</div>
-<div class="paragraph">
-<p>The variability is such that it is possible to identify individual species apart if full sequences are known with certainty.</p>
-</div>
-<div class="paragraph">
-<p>With the experimental limitations of experiment however, we would only be able to obtain <a href="https://en.wikipedia.org/wiki/Family_(biology)">family</a> or <a href="https://en.wikipedia.org/wiki/Genus">genus</a> level breakdowns.</p>
-</div>
-<div class="sect2">
-<h3 id="why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing"><a class="anchor" href="#why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing"></a><a class="link" href="#why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">2.1. Why Oxford Nanopore was used instead of Illumina for the sequencing</a></h3>
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Illumina,_Inc.">Illumina equipment</a> is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment</p>
-</div>
-<div class="paragraph">
-<p>The reusable Nanopore device costs just <a href="https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/">about 500 dollars</a>, and <a href="https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html">about 500 dollars (50 unit volume)</a> for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 <a href="https://en.wikipedia.org/wiki/Human_genome">human genomes</a> 1x!</p>
-</div>
-<div class="paragraph">
-<p>Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).</p>
-</div>
-<div class="paragraph">
-<p>Other advantages of the MinION over Illumina which didn&#8217;t really matter to this particular experiment are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>portability for e.g. to do analysis on the field near infections outbreaks. Compare that to the smallest Illumina sequencer currently available in 2019, the iSeq 100: <a href="#image-illumina-iseq-100-dna-sequencer">Figure 6, &#8220;Illumina iSeq 100 DNA sequencer. <a href="https://www.illumina.com/systems/sequencing-platforms/iseq.html">Source</a>.&#8221;</a>.</p>
-<div id="image-illumina-iseq-100-dna-sequencer" class="imageblock">
-<div class="content">
-<a class="image" href="#image-illumina-iseq-100-dna-sequencer"><img src="http://web.archive.org/web/20190922113448if_/https://www.illumina.com/content/dam/illumina-marketing/images/systems/v2/web-graphic/iseq-100-demo-video-thumbnail-web-graphic.jpg" alt="iseq 100 demo video thumbnail web graphic" height="400"></a>
-</div>
-<div class="title">Figure 6. Illumina iSeq 100 DNA sequencer. <a href="https://www.illumina.com/systems/sequencing-platforms/iseq.html">Source</a>.</div>
-</div>
+    stem        loop
+</code></pre></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-17">🔗</a></span><div class="p" id="p-17">This is how the 16S RNA secondary structure looks like in its full glory: <a href="#image-16s-rna-secondary-structure">Figure 5. "16S RNA secondary structure"</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-16s-rna-secondary-structure">🔗</a></span><figure id="image-16s-rna-secondary-structure">
+<a href="https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/16S.svg" loading="lazy" height="500" alt="height=800"></a>
+<figcaption><a  href="#image-16s-rna-secondary-structure"><span class="caption-prefix">Figure 5</span></a>. 16S RNA secondary structure <a  href="https://commons.wikimedia.org/wiki/File:16S.svg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-18">🔗</a></span><div class="p" id="p-18">Since loops don't base pair, they are less crucial in the determination of the secondary structure of the RNA.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-19">🔗</a></span><div class="p" id="p-19">The variability is such that it is possible to identify individual species apart if full sequences are known with certainty.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-20">🔗</a></span><div class="p" id="p-20">With the experimental limitations of experiment however, we would only be able to obtain <a href="https://en.wikipedia.org/wiki/Family_(biology)">family</a> or <a href="https://en.wikipedia.org/wiki/Genus">genus</a> level breakdowns.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">🔗</a></span><h3 id="why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing"><a  href="#why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing" title="link to this element">2.1. Why Oxford Nanopore was used instead of Illumina for the sequencing</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">⇑ toc</a> | <a href="#overview-of-the-experiment">↑ parent "Overview of the experiment"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-21">🔗</a></span><div class="p" id="p-21"><a href="index#illumina">Illumina equipment</a> is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-22">🔗</a></span><div class="p" id="p-22">The reusable Nanopore device costs just <a href="https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/">about 500 dollars</a>, and <a href="https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html">about 500 dollars (50 unit volume)</a> for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 <a href="https://en.wikipedia.org/wiki/Human_genome">human genomes</a> 1x!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-23">🔗</a></span><div class="p" id="p-23">Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-24">🔗</a></span><div class="p" id="p-24">Other advantages of the MinION over Illumina which didn't really matter to this particular experiment are:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/ul-2">🔗</a></span><div><ul id="ul-2">
+<li id="l-4"><div class="p" id="p-25">portability for e.g. to do analysis on the field near infections outbreaks. Compare that to the smallest Illumina sequencer currently available in 2019, the iSeq 100: <a href="#image-illumina-iseq-100-dna-sequencer">Figure 6. "Illumina iSeq 100 DNA sequencer"</a>.</div><figure id="image-illumina-iseq-100-dna-sequencer">
+<a href="https://web.archive.org/web/20190922113448if_/https://www.illumina.com/content/dam/illumina-marketing/images/systems/v2/web-graphic/iseq-100-demo-video-thumbnail-web-graphic.jpg"><img src="https://web.archive.org/web/20190922113448if_/https://www.illumina.com/content/dam/illumina-marketing/images/systems/v2/web-graphic/iseq-100-demo-video-thumbnail-web-graphic.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-illumina-iseq-100-dna-sequencer"><span class="caption-prefix">Figure 6</span></a>. Illumina iSeq 100 DNA sequencer <a  href="https://www.illumina.com/systems/sequencing-platforms/iseq.html">Source</a>.</figcaption>
+</figure>
 </li>
-<li>
-<p>long reads which can be necessary for long repetitive regions. For further info see the: <a href="https://en.wikipedia.org/wiki/Sequence_alignment">"Sequence alignment" page on Wikipedia</a>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>One disadvantage of the Oxford Nanopore is that its error rate per base pair read is higher than Illumina.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="metagenomics"><a class="anchor" href="#metagenomics"></a><a class="link" href="#metagenomics">2.2. Metagenomics</a></h3>
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Metagenomics" class="bare">https://en.wikipedia.org/wiki/Metagenomics</a></p>
-</div>
-<div class="paragraph">
-<p>This kind of "sequence some random DNA to determine what is present in the sample" analysis is called metagenomics.</p>
-</div>
-<div class="paragraph">
-<p>Besides river sample, other types of samples where of metagenomics is used include:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>sea water biodiversity: <a href="http://ocean-microbiome.embl.de/companion.html" class="bare">http://ocean-microbiome.embl.de/companion.html</a></p>
-</li>
-<li>
-<p>food, including searching for desirable microorganisms such as in cheese or bread yeast</p>
-</li>
-<li>
-<p>poo, e.g. to study how the human microbiome influences health. There are companies actively working on this, e.g.: <a href="https://www.microbiotica.com/" class="bare">https://www.microbiotica.com/</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>One related application which most people would not consider metagenomics, is that of finding <a href="https://en.wikipedia.org/wiki/Circulating_tumor_DNA">circulating tumor DNA</a> in blood to detect tumors.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sample-collection"><a class="anchor" href="#sample-collection"></a><a class="link" href="#sample-collection">3. Sample collection</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As you would expect, not much secret here, we just dumped a 1 liter glass bottle with a rope attached around the neck in a few different locations of the river, and pulled it out with the rope.</p>
-</div>
-<div class="paragraph">
-<p>The temperature of the water was measured with a mercury thermometer, and the PH with pH strips and a cell phone app to compare the color of the strip.</p>
-</div>
-<div class="paragraph">
-<p>There were some swans in the river, so&#8230;&#8203; swan poo bacteria I guess?</p>
-</div>
-<div class="paragraph">
-<p>And, in the name of science, we even wore gloves to not contaminate the samples!</p>
-</div>
-<div class="paragraph">
-<p>Who said you can&#8217;t have fun with science? <a href="#video-river-water-sample-collection-with-a-bottle-and-string">Video  1, &#8220;River water sample collection with a bottle and string. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_with_a_bottle_and_string.ogv">Source</a>.&#8221;</a></p>
-</div>
-<div id="image-river-water-sample-collection-swans" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-swans"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/River_water_sample_collection_swans.jpg/800px-River_water_sample_collection_swans.jpg" alt="800px River water sample collection swans" height="400"></a>
-</div>
-<div class="title">Figure 7. River water sample collection swans. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_swans.jpg">Source</a>.</div>
-</div>
-<div id="image-river-water-sample-collection-tie-rope-to-bottle" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-tie-rope-to-bottle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg" alt="360px River water sample collection tie rope to bottle" height="400"></a>
-</div>
-<div class="title">Figure 8. River water sample collection tie rope to bottle. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_tie_rope_to_bottle.jpg">Source</a>.</div>
-</div>
-<div id="image-river-water-sample-collection-get-sample" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-get-sample"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/River_water_sample_collection_get_sample.jpg/360px-River_water_sample_collection_get_sample.jpg" alt="360px River water sample collection get sample" height="400"></a>
-</div>
-<div class="title">Figure 9. River water sample collection get sample. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_get_sample.jpg">Source</a>.</div>
-</div>
-<div id="image-river-water-sample-collection-measure-temperature" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-measure-temperature"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River_water_sample_collection_measure_temperature.jpg/360px-River_water_sample_collection_measure_temperature.jpg" alt="360px River water sample collection measure temperature" height="400"></a>
-</div>
-<div class="title">Figure 10. River water sample collection measure temperature. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_measure_temperature.jpg">Source</a>.</div>
-</div>
-<div id="image-river-water-sample-collection-read-ph-strip" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-read-ph-strip"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg" alt="360px River water sample collection read PH strip" height="400"></a>
-</div>
-<div class="title">Figure 11. River water sample collection read PH strip. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_read_PH_strip.jpg">Source</a>.</div>
-</div>
-<div id="image-river-water-sample-collection-identify-bottle" class="imageblock">
-<div class="content">
-<a class="image" href="#image-river-water-sample-collection-identify-bottle"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg" alt="360px River water sample collection identify bottle" height="400"></a>
-</div>
-<div class="title">Figure 12. River water sample collection identify bottle. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_identify_bottle.jpg">Source</a>.</div>
-</div>
-<div id="video-river-water-sample-collection-with-a-bottle-and-string" class="videoblock">
-<div class="title">Video  1. River water sample collection with a bottle and string. <a href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_with_a_bottle_and_string.ogv">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv/River_water_sample_collection_with_a_bottle_and_string.ogv.480p.vp9.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="dna-extraction"><a class="anchor" href="#dna-extraction"></a><a class="link" href="#dna-extraction">4. DNA extraction</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The first thing we had to do with the sample was to extract the DNA present in the water in a pure form for the PCR.</p>
-</div>
-<div class="paragraph">
-<p>We did that with a <a href="#qiagen-dneasy-powerwater-kit">Qiagen DNeasy PowerWater Kit</a>.</p>
-</div>
-<div class="paragraph">
-<p>As you would expect, this consists of a purification procedure with several steps.</p>
-</div>
-<div class="paragraph">
-<p>In each step we take a physical or chemical action on the sample, which splits it into two parts: the one with the DNA and the one without.</p>
-</div>
-<div class="paragraph">
-<p>We then take the part with the DNA, and throw away the one without the DNA.</p>
-</div>
-<div class="paragraph">
-<p>The first steps are coarser, and finer and finer splits are done as we move forward.</p>
-</div>
-<div class="sect2">
-<h3 id="filtration-with-vacuum-pump"><a class="anchor" href="#filtration-with-vacuum-pump"></a><a class="link" href="#filtration-with-vacuum-pump">4.1. Filtration with vacuum pump</a></h3>
-<div class="paragraph">
-<p>The first thing we did was to filter the water samples with a membrane filter that is so fine that not even bacteria can pass through, but water can.</p>
-</div>
-<div class="paragraph">
-<p>Therefore, after filtration, we would have all particles such as bacteria and larger dirt pieces in the filter.</p>
-</div>
-<div class="paragraph">
-<p>From the 1 liter in each bottle, we only used 400 ml because previous experiments showed that filtering the remaining 600 ml is very time consuming because the membrane filter gets clogged up.</p>
-</div>
-<div class="paragraph">
-<p>Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: <a href="#image-an-eppendorf-tube-is-small-and-convenient">Figure 13, &#8220;An Eppendorf tube is small and convenient. <a href="https://commons.wikimedia.org/wiki/File:Microcentrifuge_tube_in_hand.jpg">Source</a>.&#8221;</a>. Reagents are expensive, and centrifuges are small!</p>
-</div>
-<div id="image-an-eppendorf-tube-is-small-and-convenient" class="imageblock">
-<div class="content">
-<a class="image" href="#image-an-eppendorf-tube-is-small-and-convenient"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg" alt="640px Microcentrifuge tube in hand" height="400"></a>
-</div>
-<div class="title">Figure 13. An Eppendorf tube is small and convenient. <a href="https://commons.wikimedia.org/wiki/File:Microcentrifuge_tube_in_hand.jpg">Source</a>.</div>
-</div>
-<div id="image-labelled-eppendorf-microcentrifuge-tubes-on-rack" class="imageblock">
-<div class="content">
-<a class="image" href="#image-labelled-eppendorf-microcentrifuge-tubes-on-rack"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg/640px-Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg" alt="640px Labelled Eppendorf microcentrifuge tubes on rack" height="400"></a>
-</div>
-<div class="title">Figure 14. Labelled Eppendorf microcentrifuge tubes on rack. <a href="https://commons.wikimedia.org/wiki/File:Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>Since the filter is so fine, filtering by gravity alone would take forever, and so we used a vacuum pump to speed thing up!</p>
-</div>
-<div class="paragraph">
-<p>For that we used:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a></p>
-</li>
-<li>
-<p><a href="#knf-laboport-series-laboratory-vacuum-pump">KNF Laboport series laboratory vacuum pump</a></p>
-</li>
-</ul>
-</div>
-<div id="image-vacuum-pump-filter-peel-filter" class="imageblock">
-<div class="content">
-<a class="image" href="#image-vacuum-pump-filter-peel-filter"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Vacuum_pump_filter_peel_filter.png" alt="Vacuum pump filter peel filter" height="400"></a>
-</div>
-<div class="title">Figure 15. Vacuum pump filter peel filter. <a href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_peel_filter.png">Source</a>.</div>
-</div>
-<div id="image-vacuum-pump-filter-place-filter" class="imageblock">
-<div class="content">
-<a class="image" href="#image-vacuum-pump-filter-place-filter"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Vacuum_pump_filter_place_filter.png" alt="Vacuum pump filter place filter" height="400"></a>
-</div>
-<div class="title">Figure 16. Vacuum pump filter place filter. <a href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_place_filter.png">Source</a>.</div>
-</div>
-<div id="video-vacuum-pump-filter-pour-sample-and-turn-on" class="videoblock">
-<div class="title">Video  2. Vacuum pump filter pour sample and turn on. <a href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_pour_sample_and_turn_on.webm">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/Vacuum_pump_filter_pour_sample_and_turn_on.webm/Vacuum_pump_filter_pour_sample_and_turn_on.webm.480p.vp9.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="post-filtration-purification"><a class="anchor" href="#post-filtration-purification"></a><a class="link" href="#post-filtration-purification">4.2. Post filtration purification</a></h3>
-<div class="paragraph">
-<p>After filtration, all DNA should present in the filter, so we cut the paper up with scissors and put the pieces into an Eppendorf: <a href="#video-vacuum-pump-filter-cut-and-place-in-eppendorf">Video  3, &#8220;Vacuum pump filter cut and place in eppendorf. <a href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_cut_and_place_in_eppendorf.webm">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="video-vacuum-pump-filter-cut-and-place-in-eppendorf" class="videoblock">
-<div class="title">Video  3. Vacuum pump filter cut and place in eppendorf. <a href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_cut_and_place_in_eppendorf.webm">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/8/85/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm.480p.vp9.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-<div class="paragraph">
-<p>Now that we had the DNA in Eppendorfs, we were ready to continue the purification in a simpler and more standardized lab pipeline fashion.</p>
-</div>
-<div class="paragraph">
-<p>First we added some small specialized beads and chemicals to the water and shook them Eppendorfs hard in a <a href="#scientific-industries-inc-vortex-genie-2">Scientific Industries Inc. Vortex-Genie 2</a> machine to break the cells and free the DNA.</p>
-</div>
-<div id="video-scientific-industries-inc-vortex-genie-2-loading" class="videoblock">
-<div class="title">Video  4. Scientific Industries Inc Vortex-Genie 2 loading. <a href="https://commons.wikimedia.org/wiki/File:Scientific_Industries_Inc_Vortex-Genie_2_loading.webm">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e1/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm.480p.vp9.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-<div id="video-scientific-industries-inc-vortex-genie-2-running" class="videoblock">
-<div class="title">Video  5. Scientific Industries Inc Vortex-Genie 2 running. <a href="https://commons.wikimedia.org/wiki/File:Scientific_Industries_Inc_Vortex-Genie_2_running.ogv">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/1/19/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv.480p.vp9.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-<div class="paragraph">
-<p>Once that was done, we added several reagents which split the solution into two phases: one containing the DNA and the other not. We would then pipette the phase with the DNA out to the next Eppendorf, and continue the process.</p>
-</div>
-<div class="paragraph">
-<p>In one step for example, the DNA was present as a white precipitate at the bottom of the tube, and we threw away the supernatant liquid: <a href="#image-qiagen-dneasy-powerwater-kit-white-precipitate">Figure 17, &#8220;Qiagen DNeasy PowerWater Kit White Precipitate. <a href="https://commons.wikimedia.org/wiki/File:Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="image-qiagen-dneasy-powerwater-kit-white-precipitate" class="imageblock">
-<div class="content">
-<a class="image" href="#image-qiagen-dneasy-powerwater-kit-white-precipitate"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg/586px-Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg" alt="586px Qiagen DNeasy PowerWater Kit White Precipitate" height="400"></a>
-</div>
-<div class="title">Figure 17. Qiagen DNeasy PowerWater Kit White Precipitate. <a href="https://commons.wikimedia.org/wiki/File:Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>At various stages, centrifuging was also necessary. Much like the previous vacuum pump step, this adds extra gravity to speed up the separation of phases with different molecular masses.</p>
-</div>
-<div class="paragraph">
-<p>In our case, we used a <a href="#vwr-micro-star-17-microcentrifuge">VWR Micro Star 17 microcentrifuge</a> for those steps:</p>
-</div>
-<div id="image-vwr-micro-star-17-microcentrifuge" class="imageblock">
-<div class="content">
-<a class="image" href="#image-vwr-micro-star-17-microcentrifuge"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VWR_Micro_Star_17_microcentrifuge.jpg/360px-VWR_Micro_Star_17_microcentrifuge.jpg" alt="360px VWR Micro Star 17 microcentrifuge" height="400"></a>
-</div>
-<div class="title">Figure 18. VWR Micro Star 17 microcentrifuge. <a href="https://commons.wikimedia.org/wiki/File:VWR_Micro_Star_17_microcentrifuge.jpg">Source</a>.</div>
-</div>
-<div id="image-vwr-micro-star-17-microcentrifuge-loading" class="imageblock">
-<div class="content">
-<a class="image" href="#image-vwr-micro-star-17-microcentrifuge-loading"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/VWR_Micro_Star_17_microcentrifuge_loading.png/358px-VWR_Micro_Star_17_microcentrifuge_loading.png" alt="358px VWR Micro Star 17 microcentrifuge loading" height="400"></a>
-</div>
-<div class="title">Figure 19. VWR Micro Star 17 microcentrifuge loading. <a href="https://commons.wikimedia.org/wiki/File:VWR_Micro_Star_17_microcentrifuge_loading.png">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>Then, when we had finally finished all the purification steps, we measured the quantity of DNA with a <a href="#biochrom-simplinano-spectrophotometer">Biochrom SimpliNano spectrophotometer</a> to check that the purification went well:</p>
-</div>
-<div id="image-biochrom-simplinano-spectrophotometer-loading-sample" class="imageblock">
-<div class="content">
-<a class="image" href="#image-biochrom-simplinano-spectrophotometer-loading-sample"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg" alt="262px Biochrom SimpliNano spectrophotometer loading sample" height="400"></a>
-</div>
-<div class="title">Figure 20. Biochrom SimpliNano spectrophotometer loading sample. <a href="https://commons.wikimedia.org/wiki/File:Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg">Source</a>.</div>
-</div>
-<div id="image-biochrom-simplinano-spectrophotometer-result-readout" class="imageblock">
-<div class="content">
-<a class="image" href="#image-biochrom-simplinano-spectrophotometer-result-readout"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg" alt="360px Biochrom SimpliNano spectrophotometer result readout" height="400"></a>
-</div>
-<div class="title">Figure 21. Biochrom SimpliNano spectrophotometer result readout. <a href="https://commons.wikimedia.org/wiki/File:Biochrom_SimpliNano_spectrophotometer_result_readout.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>And because the readings were good, we put it in our -20 C fridge to preserve it until the second day of the workshop and called it a day:</p>
-</div>
-<div id="image-minus-20-fridge-storing-samples" class="imageblock">
-<div class="content">
-<a class="image" href="#image-minus-20-fridge-storing-samples"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Minus_20_fridge_storing_samples.jpg/183px-Minus_20_fridge_storing_samples.jpg" alt="183px Minus 20 fridge storing samples" height="400"></a>
-</div>
-<div class="title">Figure 22. Minus 20 fridge storing samples. <a href="https://commons.wikimedia.org/wiki/File:Minus_20_fridge_storing_samples.jpg">Source</a>.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pcr"><a class="anchor" href="#pcr"></a><a class="link" href="#pcr">5. PCR</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Polymerase_chain_reaction">"Polymerase chain reaction" on Wikipediajjj</a></p>
-</div>
-<div class="paragraph">
-<p>Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so I did not get to take many photos.</p>
-</div>
-<div class="paragraph">
-<p>PCR protocols are very standard it seems, all that biologists need to know to reproduce is the time and temperature of each step.</p>
-</div>
-<div class="paragraph">
-<p>We did 35 cycles of:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>94˚C for 30 seconds</p>
-</li>
-<li>
-<p>60˚C for 30 seconds</p>
-</li>
-<li>
-<p>72˚C for 45 seconds</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This process used a <a href="#marshal-scientific-mj-research-ptc-200-thermal-cycler">Marshal Scientific MJ Research PTC-200 Thermal Cycler</a>:</p>
-</div>
-<div id="image-marshal-scientific-mj-research-ptc-200-thermal-cycler" class="imageblock">
-<div class="content">
-<a class="image" href="#image-marshal-scientific-mj-research-ptc-200-thermal-cycler"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg/360px-Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg" alt="360px Marshal Scientific MJ Research PTC 200 Thermal Cycler" height="400"></a>
-</div>
-<div class="title">Figure 23. Marshal Scientific MJ Research PTC-200 Thermal Cycler. <a href="https://commons.wikimedia.org/wiki/File:Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>We added PCR primers for regions that surround the 16S DNA. The primers are just bought from a vendor, and we used well known regions are called 27F and 1492R. Here is a paper that analyzes other choices: <a href="https://academic.oup.com/femsle/article/221/2/299/630719" class="bare">https://academic.oup.com/femsle/article/221/2/299/630719</a> (<a href="http://web.archive.org/web/20190911091818/https://academic.oup.com/femsle/article/221/2/299/630719">archive</a>) "Evaluation of primers and PCR conditions for the analysis of 16S rRNA genes from a natural environment" by "Yuichi Hongoh, Hiroe Yuzawa, Moriya Ohkuma, Toshiaki Kudo Published" published 01 April 2003.</p>
-</div>
-<div class="paragraph">
-<p>One cool thing about the PCR is that we can also add a known barcode at the end of each primer as shown at <a href="#listing-pcr-diagram">Listing  2, &#8220;PCR diagram&#8221;</a>. This way, we were able to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>add a different barcode for samples collected from different locations</p>
-</li>
-<li>
-<p>sequence them all in one go</p>
-</li>
-<li>
-<p>then just from the sequencing output the barcode to determine where each sequence came from!</p>
-</li>
-</ul>
-</div>
-<div id="listing-pcr-diagram" class="listingblock">
-<div class="title">Listing  2. PCR diagram</div>
-<div class="content">
-<pre>Bacterial DNA (a little bit)
+<li id="l-5">long reads which can be necessary for long repetitive regions. For further info see the: <a href="https://en.wikipedia.org/wiki/Sequence_alignment">"Sequence alignment" page on Wikipedia</a>.</li>
+</ul></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-26">🔗</a></span><div class="p" id="p-26">One disadvantage of the Oxford Nanopore is that its error rate per base pair read is higher than Illumina.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/sample-collection">🔗</a></span><h2 id="sample-collection"><a  href="#sample-collection" title="link to this element">3. Sample collection</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/sample-collection">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-27">🔗</a></span><div class="p" id="p-27">As you would expect, not much secret here, we just dumped a 1 liter glass bottle with a rope attached around the neck in a few different locations of the river, and pulled it out with the rope.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-28">🔗</a></span><div class="p" id="p-28">The temperature of the water was measured with a mercury thermometer, and the PH with pH strips and a cell phone app to compare the color of the strip.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-29">🔗</a></span><div class="p" id="p-29">There were some swans in the river, so... swan poo bacteria I guess?</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-30">🔗</a></span><div class="p" id="p-30">And, in the name of science, we even wore gloves to not contaminate the samples!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-31">🔗</a></span><div class="p" id="p-31">Who said you can't have fun with science? <a href="#video-river-water-sample-collection-with-a-bottle-and-string">Video 1. "River water sample collection with a bottle and string."</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-swans">🔗</a></span><figure id="image-river-water-sample-collection-swans">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/River_water_sample_collection_swans.jpg/800px-River_water_sample_collection_swans.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/River_water_sample_collection_swans.jpg/800px-River_water_sample_collection_swans.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-river-water-sample-collection-swans"><span class="caption-prefix">Figure 7</span></a>. River water sample collection swans. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_swans.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-tie-rope-to-bottle">🔗</a></span><figure id="image-river-water-sample-collection-tie-rope-to-bottle">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/River_water_sample_collection_tie_rope_to_bottle.jpg/360px-River_water_sample_collection_tie_rope_to_bottle.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-river-water-sample-collection-tie-rope-to-bottle"><span class="caption-prefix">Figure 8</span></a>. River water sample collection tie rope to bottle. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_tie_rope_to_bottle.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-get-sample">🔗</a></span><figure id="image-river-water-sample-collection-get-sample">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/River_water_sample_collection_get_sample.jpg/360px-River_water_sample_collection_get_sample.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/River_water_sample_collection_get_sample.jpg/360px-River_water_sample_collection_get_sample.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-river-water-sample-collection-get-sample"><span class="caption-prefix">Figure 9</span></a>. River water sample collection get sample. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_get_sample.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-measure-temperature">🔗</a></span><figure id="image-river-water-sample-collection-measure-temperature">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River_water_sample_collection_measure_temperature.jpg/360px-River_water_sample_collection_measure_temperature.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/River_water_sample_collection_measure_temperature.jpg/360px-River_water_sample_collection_measure_temperature.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-river-water-sample-collection-measure-temperature"><span class="caption-prefix">Figure 10</span></a>. River water sample collection measure temperature. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_measure_temperature.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-read-ph-strip">🔗</a></span><figure id="image-river-water-sample-collection-read-ph-strip">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/River_water_sample_collection_read_PH_strip.jpg/360px-River_water_sample_collection_read_PH_strip.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-river-water-sample-collection-read-ph-strip"><span class="caption-prefix">Figure 11</span></a>. River water sample collection read PH strip. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_read_PH_strip.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-river-water-sample-collection-identify-bottle">🔗</a></span><figure id="image-river-water-sample-collection-identify-bottle">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/River_water_sample_collection_identify_bottle.jpg/360px-River_water_sample_collection_identify_bottle.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-river-water-sample-collection-identify-bottle"><span class="caption-prefix">Figure 12</span></a>. River water sample collection identify bottle. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_identify_bottle.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-river-water-sample-collection-with-a-bottle-and-string">🔗</a></span><figure id="video-river-water-sample-collection-with-a-bottle-and-string">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/River_water_sample_collection_with_a_bottle_and_string.ogv/River_water_sample_collection_with_a_bottle_and_string.ogv.480p.vp9.webm" height="400" controls></video>
+<figcaption><a  href="#video-river-water-sample-collection-with-a-bottle-and-string"><span class="caption-prefix">Video 1</span></a>. River water sample collection with a bottle and string. <a  href="https://commons.wikimedia.org/wiki/File:River_water_sample_collection_with_a_bottle_and_string.ogv">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/dna-extraction">🔗</a></span><h2 id="dna-extraction"><a  href="#dna-extraction" title="link to this element">4. DNA extraction</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-32">🔗</a></span><div class="p" id="p-32">The first thing we had to do with the sample was to extract the DNA present in the water in a pure form for the PCR.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-33">🔗</a></span><div class="p" id="p-33">We did that with a <a href="#qiagen-dneasy-powerwater-kit">qiagen DNeasy PowerWater Kit</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-34">🔗</a></span><div class="p" id="p-34">As you would expect, this consists of a purification procedure with several steps.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-35">🔗</a></span><div class="p" id="p-35">In each step we take a physical or chemical action on the sample, which splits it into two parts: the one with the DNA and the one without.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-36">🔗</a></span><div class="p" id="p-36">We then take the part with the DNA, and throw away the one without the DNA.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-37">🔗</a></span><div class="p" id="p-37">The first steps are coarser, and finer and finer splits are done as we move forward.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">🔗</a></span><h3 id="filtration-with-vacuum-pump"><a  href="#filtration-with-vacuum-pump" title="link to this element">4.1. Filtration with vacuum pump</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">⇑ toc</a> | <a href="#dna-extraction">↑ parent "DNA extraction"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-38">🔗</a></span><div class="p" id="p-38">The first thing we did was to filter the water samples with a membrane filter that is so fine that not even bacteria can pass through, but water can.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-39">🔗</a></span><div class="p" id="p-39">Therefore, after filtration, we would have all particles such as bacteria and larger dirt pieces in the filter.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-40">🔗</a></span><div class="p" id="p-40">From the 1 liter in each bottle, we only used 400 ml because previous experiments showed that filtering the remaining 600 ml is very time consuming because the membrane filter gets clogged up.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-41">🔗</a></span><div class="p" id="p-41">Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: <a href="#image-an-eppendorf-tube-is-small-and-convenient">Figure 13. "An Eppendorf tube is small and convenient"</a>. Reagents are expensive, and centrifuges are small!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-an-eppendorf-tube-is-small-and-convenient">🔗</a></span><figure id="image-an-eppendorf-tube-is-small-and-convenient">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-an-eppendorf-tube-is-small-and-convenient"><span class="caption-prefix">Figure 13</span></a>. An Eppendorf tube is small and convenient <a  href="https://commons.wikimedia.org/wiki/File:Microcentrifuge_tube_in_hand.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-labelled-eppendorf-microcentrifuge-tubes-on-rack">🔗</a></span><figure id="image-labelled-eppendorf-microcentrifuge-tubes-on-rack">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg/640px-Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg/640px-Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-labelled-eppendorf-microcentrifuge-tubes-on-rack"><span class="caption-prefix">Figure 14</span></a>. Labelled Eppendorf microcentrifuge tubes on rack. <a  href="https://commons.wikimedia.org/wiki/File:Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-42">🔗</a></span><div class="p" id="p-42">Since the filter is so fine, filtering by gravity alone would take forever, and so we used a vacuum pump to speed thing up!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-43">🔗</a></span><div class="p" id="p-43">For that we used:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/ul-3">🔗</a></span><div><ul id="ul-3">
+<li id="l-6"><a href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a></li>
+<li id="l-7"><a href="#knf-laboport-series-laboratory-vacuum-pump">kNF Laboport series laboratory vacuum pump</a></li>
+</ul></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-vacuum-pump-filter-peel-filter">🔗</a></span><figure id="image-vacuum-pump-filter-peel-filter">
+<a href="https://upload.wikimedia.org/wikipedia/commons/6/6e/Vacuum_pump_filter_peel_filter.png"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Vacuum_pump_filter_peel_filter.png" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-vacuum-pump-filter-peel-filter"><span class="caption-prefix">Figure 15</span></a>. Vacuum pump filter peel filter. <a  href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_peel_filter.png">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-vacuum-pump-filter-place-filter">🔗</a></span><figure id="image-vacuum-pump-filter-place-filter">
+<a href="https://upload.wikimedia.org/wikipedia/commons/7/78/Vacuum_pump_filter_place_filter.png"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Vacuum_pump_filter_place_filter.png" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-vacuum-pump-filter-place-filter"><span class="caption-prefix">Figure 16</span></a>. Vacuum pump filter place filter. <a  href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_place_filter.png">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-vacuum-pump-filter-pour-sample-and-turn-on">🔗</a></span><figure id="video-vacuum-pump-filter-pour-sample-and-turn-on">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/Vacuum_pump_filter_pour_sample_and_turn_on.webm/Vacuum_pump_filter_pour_sample_and_turn_on.webm.480p.vp9.webm" height="400" controls></video>
+<figcaption><a  href="#video-vacuum-pump-filter-pour-sample-and-turn-on"><span class="caption-prefix">Video 2</span></a>. Vacuum pump filter pour sample and turn on. <a  href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_pour_sample_and_turn_on.webm">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/post-filtration-purification">🔗</a></span><h3 id="post-filtration-purification"><a  href="#post-filtration-purification" title="link to this element">4.2. Post filtration purification</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/post-filtration-purification">⇑ toc</a> | <a href="#dna-extraction">↑ parent "DNA extraction"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-44">🔗</a></span><div class="p" id="p-44">After filtration, all DNA should present in the filter, so we cut the paper up with scissors and put the pieces into an Eppendorf: <a href="#video-vacuum-pump-filter-cut-and-place-in-eppendorf">Video 3. "Vacuum pump filter cut and place in eppendorf."</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-vacuum-pump-filter-cut-and-place-in-eppendorf">🔗</a></span><figure id="video-vacuum-pump-filter-cut-and-place-in-eppendorf">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/8/85/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm/Vacuum_pump_filter_cut_and_place_in_eppendorf.webm.480p.vp9.webm" height="400" controls></video>
+<figcaption><a  href="#video-vacuum-pump-filter-cut-and-place-in-eppendorf"><span class="caption-prefix">Video 3</span></a>. Vacuum pump filter cut and place in eppendorf. <a  href="https://commons.wikimedia.org/wiki/File:Vacuum_pump_filter_cut_and_place_in_eppendorf.webm">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-45">🔗</a></span><div class="p" id="p-45">Now that we had the DNA in Eppendorfs, we were ready to continue the purification in a simpler and more standardized lab pipeline fashion.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-46">🔗</a></span><div class="p" id="p-46">First we added some small specialized beads and chemicals to the water and shook them Eppendorfs hard in a <a href="#scientific-industries-inc-vortex-genie-2">scientific Industries Inc. Vortex-Genie 2</a> machine to break the cells and free the DNA.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-scientific-industries-inc-vortex-genie-2-loading">🔗</a></span><figure id="video-scientific-industries-inc-vortex-genie-2-loading">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e1/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm/Scientific_Industries_Inc_Vortex-Genie_2_loading.webm.480p.vp9.webm" height="315" controls></video>
+<figcaption><a  href="#video-scientific-industries-inc-vortex-genie-2-loading"><span class="caption-prefix">Video 4</span></a>. Scientific Industries Inc Vortex-Genie 2 loading. <a  href="https://commons.wikimedia.org/wiki/File:Scientific_Industries_Inc_Vortex-Genie_2_loading.webm">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-scientific-industries-inc-vortex-genie-2-running">🔗</a></span><figure id="video-scientific-industries-inc-vortex-genie-2-running">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/1/19/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv/Scientific_Industries_Inc_Vortex-Genie_2_running.ogv.480p.vp9.webm" height="400" controls></video>
+<figcaption><a  href="#video-scientific-industries-inc-vortex-genie-2-running"><span class="caption-prefix">Video 5</span></a>. Scientific Industries Inc Vortex-Genie 2 running. <a  href="https://commons.wikimedia.org/wiki/File:Scientific_Industries_Inc_Vortex-Genie_2_running.ogv">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-47">🔗</a></span><div class="p" id="p-47">Once that was done, we added several reagents which split the solution into two phases: one containing the DNA and the other not. We would then pipette the phase with the DNA out to the next Eppendorf, and continue the process.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-48">🔗</a></span><div class="p" id="p-48">In one step for example, the DNA was present as a white precipitate at the bottom of the tube, and we threw away the supernatant liquid: <a href="#image-qiagen-dneasy-powerwater-kit-white-precipitate">Figure 17. "Qiagen DNeasy PowerWater Kit White Precipitate."</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-qiagen-dneasy-powerwater-kit-white-precipitate">🔗</a></span><figure id="image-qiagen-dneasy-powerwater-kit-white-precipitate">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg/586px-Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg/586px-Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-qiagen-dneasy-powerwater-kit-white-precipitate"><span class="caption-prefix">Figure 17</span></a>. Qiagen DNeasy PowerWater Kit White Precipitate. <a  href="https://commons.wikimedia.org/wiki/File:Qiagen_DNeasy_PowerWater_Kit_White_Precipitate.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-49">🔗</a></span><div class="p" id="p-49">At various stages, centrifuging was also necessary. Much like the previous vacuum pump step, this adds extra gravity to speed up the separation of phases with different molecular masses.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-50">🔗</a></span><div class="p" id="p-50">In our case, we used a <a href="#vwr-micro-star-17-microcentrifuge">vWR Micro Star 17 microcentrifuge</a> for those steps:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-vwr-micro-star-17-microcentrifuge">🔗</a></span><figure id="image-vwr-micro-star-17-microcentrifuge">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VWR_Micro_Star_17_microcentrifuge.jpg/360px-VWR_Micro_Star_17_microcentrifuge.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VWR_Micro_Star_17_microcentrifuge.jpg/360px-VWR_Micro_Star_17_microcentrifuge.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-vwr-micro-star-17-microcentrifuge"><span class="caption-prefix">Figure 18</span></a>. VWR Micro Star 17 microcentrifuge. <a  href="https://commons.wikimedia.org/wiki/File:VWR_Micro_Star_17_microcentrifuge.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-vwr-micro-star-17-microcentrifuge-loading">🔗</a></span><figure id="image-vwr-micro-star-17-microcentrifuge-loading">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/VWR_Micro_Star_17_microcentrifuge_loading.png/358px-VWR_Micro_Star_17_microcentrifuge_loading.png"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/VWR_Micro_Star_17_microcentrifuge_loading.png/358px-VWR_Micro_Star_17_microcentrifuge_loading.png" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-vwr-micro-star-17-microcentrifuge-loading"><span class="caption-prefix">Figure 19</span></a>. VWR Micro Star 17 microcentrifuge loading. <a  href="https://commons.wikimedia.org/wiki/File:VWR_Micro_Star_17_microcentrifuge_loading.png">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-51">🔗</a></span><div class="p" id="p-51">Then, when we had finally finished all the purification steps, we measured the quantity of DNA with a <a href="#biochrom-simplinano-spectrophotometer">biochrom SimpliNano spectrophotometer</a> to check that the purification went well:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-biochrom-simplinano-spectrophotometer-loading-sample">🔗</a></span><figure id="image-biochrom-simplinano-spectrophotometer-loading-sample">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg/262px-Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-biochrom-simplinano-spectrophotometer-loading-sample"><span class="caption-prefix">Figure 20</span></a>. Biochrom SimpliNano spectrophotometer loading sample. <a  href="https://commons.wikimedia.org/wiki/File:Biochrom_SimpliNano_spectrophotometer_loading_sample.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-biochrom-simplinano-spectrophotometer-result-readout">🔗</a></span><figure id="image-biochrom-simplinano-spectrophotometer-result-readout">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-biochrom-simplinano-spectrophotometer-result-readout"><span class="caption-prefix">Figure 21</span></a>. Biochrom SimpliNano spectrophotometer result readout. <a  href="https://commons.wikimedia.org/wiki/File:Biochrom_SimpliNano_spectrophotometer_result_readout.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-52">🔗</a></span><div class="p" id="p-52">And because the readings were good, we put it in our -20 C fridge to preserve it until the second day of the workshop and called it a day:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-minus-20-fridge-storing-samples">🔗</a></span><figure id="image-minus-20-fridge-storing-samples">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Minus_20_fridge_storing_samples.jpg/183px-Minus_20_fridge_storing_samples.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Minus_20_fridge_storing_samples.jpg/183px-Minus_20_fridge_storing_samples.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-minus-20-fridge-storing-samples"><span class="caption-prefix">Figure 22</span></a>. Minus 20 fridge storing samples. <a  href="https://commons.wikimedia.org/wiki/File:Minus_20_fridge_storing_samples.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/pcr">🔗</a></span><h2 id="pcr"><a  href="#pcr" title="link to this element">5. PCR</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/pcr">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-53">🔗</a></span><div class="p" id="p-53">More generic PCR information at: <a href="index#polymerase-chain-reaction">polymerase chain reaction</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-54">🔗</a></span><div class="p" id="p-54">Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so participants did not get to take many photos.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-55">🔗</a></span><div class="p" id="p-55">PCR protocols are very standard it seems, all that biologists need to know to reproduce is the time and temperature of each step.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-56">🔗</a></span><div class="p" id="p-56">We did 35 cycles of:<div><ul id="ul-4">
+<li id="l-8">94˚C for 30 seconds</li>
+<li id="l-9">60˚C for 30 seconds</li>
+<li id="l-10">72˚C for 45 seconds</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-57">🔗</a></span><div class="p" id="p-57">This process used a <a href="#marshal-scientific-mj-research-ptc-200-thermal-cycler">marshal Scientific MJ Research PTC-200 Thermal Cycler</a>:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-marshal-scientific-mj-research-ptc-200-thermal-cycler">🔗</a></span><figure id="image-marshal-scientific-mj-research-ptc-200-thermal-cycler">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg/360px-Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg/360px-Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-marshal-scientific-mj-research-ptc-200-thermal-cycler"><span class="caption-prefix">Figure 23</span></a>. Marshal Scientific MJ Research PTC-200 Thermal Cycler. <a  href="https://commons.wikimedia.org/wiki/File:Marshal_Scientific_MJ_Research_PTC-200_Thermal_Cycler.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-58">🔗</a></span><div class="p" id="p-58">We added PCR primers for regions that surround the 16S DNA. The primers are just bought from a vendor, and we used well known regions are called 27F and 1492R. Here is a paper that analyzes other choices: <a href="https://academic.oup.com/femsle/article/221/2/299/630719">https://academic.oup.com/femsle/article/221/2/299/630719</a> (<a href="https://web.archive.org/web/20190911091818/https://academic.oup.com/femsle/article/221/2/299/630719">archive</a>) "Evaluation of primers and PCR conditions for the analysis of 16S rRNA genes from a natural environment" by "Yuichi Hongoh, Hiroe Yuzawa, Moriya Ohkuma, Toshiaki Kudo Published" published 01 April 2003.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-59">🔗</a></span><div class="p" id="p-59">One cool thing about the PCR is that we can also add a known barcode at the end of each primer as shown at <a href="#code-pcr-diagram">Code 2. "PCR diagram"</a>. This way, we were able to:<div><ul id="ul-5">
+<li id="l-11">add a different barcode for samples collected from different locations</li>
+<li id="l-12">sequence them all in one go</li>
+<li id="l-13">then just from the sequencing output the barcode to determine where each sequence came from!</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/code-pcr-diagram">🔗</a></span><div class="code-caption-container" id="code-pcr-diagram">
+
+<div class="caption"><a  href="#code-pcr-diagram"><span class="caption-prefix">Code 2</span></a>. PCR diagram</div>
+<pre><code>Bacterial DNA (a little bit)
 ... --- 27S --- 16S --- 1492R --- ...
 
 |
@@ -587,442 +229,135 @@ Your browser does not support the video tag.
 v
 
 PCR output (a lot of)
-Barcode --- 27S --- 16S --- 1492R</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Finally, after purification, we used the <a href="#qiagen-qiaquick-pcr-purification-kit">Qiagen QIAquick PCR Purification Kit</a> protocol to purify the generated from unwanted PCR byproducts.</p>
-</div>
-<div class="sect2">
-<h3 id="pcr-verification-with-gel-electrophoresis"><a class="anchor" href="#pcr-verification-with-gel-electrophoresis"></a><a class="link" href="#pcr-verification-with-gel-electrophoresis">5.1. PCR verification with gel electrophoresis</a></h3>
-<div class="paragraph">
-<p>Biology experiments are hard, and so they go wrong, a lot.</p>
-</div>
-<div class="paragraph">
-<p>For this reason, it is wise to verify that certain steps are correct whenever possible.</p>
-</div>
-<div class="paragraph">
-<p>And so this is the first thing we did on the second day!</p>
-</div>
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Gel_electrophoresis">Gel electrophoresis</a> separates molecules by their charge-to-mass ratio. It is one of those ultra common lab procedures!</p>
-</div>
-<div class="paragraph">
-<p>This allows us to determine how long are the DNA fragments present in our solution.</p>
-</div>
-<div class="paragraph">
-<p>Since we know that we amplified the 16S regions which we know the rough size of (there might be a bit of variability across species, but not that much), we were expecting to see a big band at that size.</p>
-</div>
-<div class="paragraph">
-<p>And that is exactly what we saw!</p>
-</div>
-<div class="paragraph">
-<p>First we had to prepare the gel, put the gel comb, and pipette the samples into wells present in the gel:</p>
-</div>
-<div id="image-gel-electrophoresis-insert-comb" class="imageblock">
-<div class="content">
-<a class="image" href="#image-gel-electrophoresis-insert-comb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Gel_electrophoresis_insert_comb.jpg/360px-Gel_electrophoresis_insert_comb.jpg" alt="360px Gel electrophoresis insert comb" height="400"></a>
-</div>
-<div class="title">Figure 24. Gel electrophoresis insert comb. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_insert_comb.jpg">Source</a>.</div>
-</div>
-<div id="image-gel-electrophoresis-top-view-with-wells-visible" class="imageblock">
-<div class="content">
-<a class="image" href="#image-gel-electrophoresis-top-view-with-wells-visible"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Gel_electrophoresis_top_view_with_wells_visible.jpg/360px-Gel_electrophoresis_top_view_with_wells_visible.jpg" alt="360px Gel electrophoresis top view with wells visible" height="400"></a>
-</div>
-<div class="title">Figure 25. Gel electrophoresis top view with wells visible. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_top_view_with_wells_visible.jpg">Source</a>.</div>
-</div>
-<div id="image-gel-electrophoresis-pipette-sample-into-wells" class="imageblock">
-<div class="content">
-<a class="image" href="#image-gel-electrophoresis-pipette-sample-into-wells"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gel_electrophoresis_pipette_sample_into_wells.jpg/360px-Gel_electrophoresis_pipette_sample_into_wells.jpg" alt="360px Gel electrophoresis pipette sample into wells" height="400"></a>
-</div>
-<div class="title">Figure 26. Gel electrophoresis pipette sample into wells. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_pipette_sample_into_wells.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>To see the DNA, we added <a href="https://en.wikipedia.org/wiki/Ethidium_bromide">ethidium bromide</a> to the samples, which is a substance that that both binds to DNA and is fluorescent.</p>
-</div>
-<div class="paragraph">
-<p>Because it interacts heavily with DNA, ethidium bromide is a <a href="https://en.wikipedia.org/wiki/Mutagen">mutagen</a>, and the biology people sure did treat the dedicated electrophoresis bench area with respect! <a href="#image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination">Figure 27, &#8220;Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination" class="imageblock">
-<div class="content">
-<a class="image" href="#image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg/360px-Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg" alt="360px Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination" height="400"></a>
-</div>
-<div class="title">Figure 27. Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg">Source</a>.</div>
-</div>
-<div id="image-gel-electrophoresis-dedicated-waste-bin-for-centrifuge-tubes-and-pipette-tips-contaminated-with-ethidium-bromide" class="imageblock">
-<div class="content">
-<a class="image" href="#image-gel-electrophoresis-dedicated-waste-bin-for-centrifuge-tubes-and-pipette-tips-contaminated-with-ethidium-bromide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg/360px-Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg" alt="360px Gel electrophoresis dedicated waste bin for centrifuge tubes and pipette tips contaminated with ethidium bromide" height="400"></a>
-</div>
-<div class="title">Figure 28. Gel electrophoresis dedicated waste bin for centrifuge tubes and pipette tips contaminated with ethidium bromide. <a href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>The UV transilluminator we used to shoot UV light into the gel was the <a href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a>. The fluorescent substance then emitted a light we can see.</p>
-</div>
-<div class="paragraph">
-<p>As barely seen at <a href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel">Figure 31, &#8220;Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator illuminated gel. <a href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg">Source</a>.&#8221;</a> due to bad photo quality due to lack of light, there is one strong green line, which compared to the ladder matches our expected 16S length. What we saw it with the naked eyes was very clear however.</p>
-</div>
-<div id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator" class="imageblock">
-<div class="content">
-<a class="image" href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg/640px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg" alt="640px Fischer Scientific UVP LM 26E Benchtop 2UV Transilluminator" height="400"></a>
-</div>
-<div class="title">Figure 29. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator. <a href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg">Source</a>.</div>
-</div>
-<div id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-loading-gel" class="imageblock">
-<div class="content">
-<a class="image" href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-loading-gel"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg" alt="360px Fischer Scientific UVP LM 26E Benchtop 2UV Transilluminator loading gel" height="400"></a>
-</div>
-<div class="title">Figure 30. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator loading gel. <a href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg">Source</a>.</div>
-</div>
-<div id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel" class="imageblock">
-<div class="content">
-<a class="image" href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg" alt="360px Fischer Scientific UVP LM 26E Benchtop 2UV Transilluminator illuminated gel" height="400"></a>
-</div>
-<div class="title">Figure 31. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator illuminated gel. <a href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg">Source</a>.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sequencing"><a class="anchor" href="#sequencing"></a><a class="link" href="#sequencing">6. Sequencing</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Once we had the amplified 16S DNA, we were almost ready to start sequencing!</p>
-</div>
-<div class="sect2">
-<h3 id="pre-sequencing-preparation"><a class="anchor" href="#pre-sequencing-preparation"></a><a class="link" href="#pre-sequencing-preparation">6.1. Pre-sequencing preparation</a></h3>
-<div class="paragraph">
-<p>One cool thing we did in this procedure was to use <a href="https://en.wikipedia.org/wiki/Magnetic_separation">magnetic separation</a> with magnetic beads to further concentrate the DNA: <a href="#image-ge-magrack-6-pipetting">Figure 32, &#8220;GE MagRack 6 pipetting. <a href="https://commons.wikimedia.org/wiki/File:GE_MagRack_6_pipetting.jpg">Source</a>.&#8221;</a>.</p>
-</div>
-<div class="paragraph">
-<p>The beads are coated to stick to the DNA, which allows us to easily extract the DNA from the rest of the solution. This is cool, but bio people are borderline obsessed by those beads! Go figure!</p>
-</div>
-<div id="image-ge-magrack-6-pipetting" class="imageblock">
-<div class="content">
-<a class="image" href="#image-ge-magrack-6-pipetting"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg" alt="360px GE MagRack 6 pipetting" height="400"></a>
-</div>
-<div class="title">Figure 32. GE MagRack 6 pipetting. <a href="https://commons.wikimedia.org/wiki/File:GE_MagRack_6_pipetting.jpg">Source</a>.</div>
-</div>
-<div id="image-ge-magrack-6-eppendorf-with-magnetic-beads-mounted" class="imageblock">
-<div class="content">
-<a class="image" href="#image-ge-magrack-6-eppendorf-with-magnetic-beads-mounted"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg/503px-GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg" alt="503px GE MagRack 6 eppendorf with magnetic beads mounted" height="400"></a>
-</div>
-<div class="title">Figure 33. GE MagRack 6 eppendorf with magnetic beads mounted. <a href="https://commons.wikimedia.org/wiki/File:GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>Then we prepared the DNA for sequencing with the Oxford Nanopore specific part: <a href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a>.</p>
-</div>
-<div class="paragraph">
-<p>Here some of the steps required a bit more of vortexing for mixing the reagents, and for this we used the <a href="#velp-scientifica-wizard-ir-infrared-vortex-mixer">VELP Scientifica WIZARD IR Infrared Vortex Mixer</a> which appears to be quicker to use and not as strong as the Vortex Genie 2 previously used to break up the cells:</p>
-</div>
-<div id="image-velp-scientifica-wizard-ir-infrared-vortex-mixer-running" class="imageblock">
-<div class="content">
-<a class="image" href="#image-velp-scientifica-wizard-ir-infrared-vortex-mixer-running"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg/360px-VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg" alt="360px VELP Scientifica WIZARD IR Infrared Vortex Mixer running" height="400"></a>
-</div>
-<div class="title">Figure 34. VELP Scientifica WIZARD IR Infrared Vortex Mixer running. <a href="https://commons.wikimedia.org/wiki/File:VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>After all that was done, the DNA of the several 400 ml water bottles and hours of hard purification labour were contained in one single Eppendorf!</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="using-the-oxford-nanopore"><a class="anchor" href="#using-the-oxford-nanopore"></a><a class="link" href="#using-the-oxford-nanopore">6.2. Using the Oxford Nanopore</a></h3>
-<div class="paragraph">
-<p>With all this ready, we opened the Nanopore flow cell, which is the 500 dollar consumable piece that goes in the sequencer.</p>
-</div>
-<div class="paragraph">
-<p>We then had to pipette the final golden Eppendorf into the flow cell. My anxiety levels were going through the roof: <a href="#image-oxford-nanopore-minion-flow-cell-pipette-loading">Figure 38, &#8220;Oxford nanopore MinION flow cell pipette loading. <a href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg">Source</a>.&#8221;</a>.</p>
-</div>
-<div id="image-oxford-nanopore-minion-flow-cell-package" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-flow-cell-package"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oxford_nanopore_MinION_flow_cell_package.jpg/304px-Oxford_nanopore_MinION_flow_cell_package.jpg" alt="304px Oxford nanopore MinION flow cell package" height="400"></a>
-</div>
-<div class="title">Figure 35. Oxford nanopore MinION flow cell package. <a href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_package.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-flow-cell-front" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-flow-cell-front"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Oxford_nanopore_MinION_flow_cell_front.jpg/640px-Oxford_nanopore_MinION_flow_cell_front.jpg" alt="640px Oxford nanopore MinION flow cell front" height="400"></a>
-</div>
-<div class="title">Figure 36. Oxford nanopore MinION flow cell front. <a href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_front.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-flow-cell-back" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-flow-cell-back"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Oxford_nanopore_MinION_flow_cell_back.jpg/1024px-Oxford_nanopore_MinION_flow_cell_back.jpg" alt="1024px Oxford nanopore MinION flow cell back" height="400"></a>
-</div>
-<div class="title">Figure 37. Oxford nanopore MinION flow cell back. <a href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_back.jpg">Source</a>.</div>
-</div>
-<div id="image-oxford-nanopore-minion-flow-cell-pipette-loading" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-flow-cell-pipette-loading"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg/278px-Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg" alt="278px Oxford nanopore MinION flow cell pipette loading" height="400"></a>
-</div>
-<div class="title">Figure 38. Oxford nanopore MinION flow cell pipette loading. <a href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg">Source</a>.</div>
-</div>
-<div class="paragraph">
-<p>At this point bio people start telling lab horror stories of expensive solutions being spilled and people having to recover them from fridge walls, or of how people threw away golden Eppendorfs and had to pick them out of trash bins with hundreds of others looking exactly the same etc. (but also how some discoveries were made like this) This reminded me of: <a href="https://youtu.be/89UNPdNtOoE?t=919" class="bare">https://youtu.be/89UNPdNtOoE?t=919</a> <a href="https://en.wikipedia.org/wiki/Alfred_Maddock">Alfred Maddock&#8217;s plutonium spill horror story</a>.</p>
-</div>
-<div class="paragraph">
-<p>Luckily this time, it worked out!</p>
-</div>
-<div class="paragraph">
-<p>We then just had to connect the MinION to the computer, and wait for 2 days.</p>
-</div>
-<div class="paragraph">
-<p>During this time, the DNA would be sucked through the pores.</p>
-</div>
-<div class="paragraph">
-<p>As can be seen from <a href="#video-oxford-nanopore-minion-software-channels-pannel-on-mac">Oxford Nanopore MinION software channels pannel on Mac. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm">Source</a>.</a> the software tells us which pores are still working.</p>
-</div>
-<div id="image-oxford-nanopore-minion-connected-to-a-mac-via-usb" class="imageblock">
-<div class="content">
-<a class="image" href="#image-oxford-nanopore-minion-connected-to-a-mac-via-usb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg/360px-Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg" alt="360px Oxford Nanopore MinION connected to a Mac via USB" height="400"></a>
-</div>
-<div class="title">Figure 39. Oxford Nanopore MinION connected to a Mac via USB. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg">Source</a>.</div>
-</div>
-<div id="video-oxford-nanopore-minion-software-channels-pannel-on-mac" class="videoblock">
-<div class="title">Video  6. Oxford Nanopore MinION software channels pannel on Mac. <a href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm">Source</a>.</div>
-<div class="content">
-<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm" height="400" controls>
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
-<div class="paragraph">
-<p>Pores go bad sooner or later randomly, until there are none left, at which point we can stop the process and throw the flow cell away.</p>
-</div>
-<div class="paragraph">
-<p>48 hours was expected to be a reasonable time until all pores went bad, and so we called it a day, and waited for an email from the PuntSeq team telling us how things went.</p>
-</div>
-<div class="paragraph">
-<p>We reached a yield of 16 billion base pairs out of the 30Gbp nominal maximum, which the bio people said was not bad.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bioinformatics"><a class="anchor" href="#bioinformatics"></a><a class="link" href="#bioinformatics">7. Bioinformatics</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To be honest, because I&#8217;m a software engineer, and I&#8217;ve done enough staring in computers for a lifetime already, and I believe in the power of <a href="https://en.wikipedia.org/wiki/Git">Git</a>, I didn&#8217;t pay much attention to this ;-)</p>
-</div>
-<div class="paragraph">
-<p>TODO at least mention the key algorithms and link to GitHub software.</p>
-</div>
-<div class="paragraph">
-<p>I can however see that it does however present interesting problems!</p>
-</div>
-<div class="paragraph">
-<p>Because we had to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year.</p>
-</div>
-<div class="paragraph">
-<p>First there is some signal processing / machine learning required to do the <a href="https://en.wikipedia.org/wiki/Base_calling">base calling</a>, which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.</p>
-</div>
-<div class="paragraph">
-<p>After the base calling was done, we analyzed the data using computer programs that match the sequenced 16S sequences to a database of known sequenced species.</p>
-</div>
-<div class="paragraph">
-<p>This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.</p>
-</div>
-<div class="paragraph">
-<p>The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data will be uploaded to: <a href="https://www.puntseq.co.uk/data" class="bare">https://www.puntseq.co.uk/data</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="conclusions"><a class="anchor" href="#conclusions"></a><a class="link" href="#conclusions">8. Conclusions</a></h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>against all odds, the experiment worked and we got DNA out of the water, despite a bunch of non-bio newbs actively messing with random parts of the experiment</p>
-</li>
-<li>
-<p>PuntSeq and Biomakespace people, and all those tho do scientific outreach, are awesome!</p>
-</li>
-<li>
-<p>biology is hard</p>
-</li>
-<li>
-<p>creating insanely media rich articles like this is also hard, but the following helped enormously:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="/#media-rationale-of-ciro-santillis-website">Wikimedia Commons</a> to store large media files out of Git</p>
-</li>
-<li>
-<p><a href="/markdown-style-guide">Asciidoctor</a> extensions to easily include those media files</p>
-</li>
-<li>
-<p><a href="https://unix.stackexchange.com/questions/25978/image-viewer-for-multiple-images/539333#539333">Nomacs</a> to give Google Photos photos meaningful names and to edit people&#8217;s faces out of pictures ;-)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>some scientific Wikipedia pages may or may not have been edited with better pictures during the course of writing this article</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="protocols-used"><a class="anchor" href="#protocols-used"></a><a class="link" href="#protocols-used">9. Protocols used</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Protocols are the biologist term for "recipe".</p>
-</div>
-<div class="paragraph">
-<p>I found that a lot of biology comes down to this: get the right recipe, follow it well even though you don&#8217;t understand all the proprietary details, and pray.</p>
-</div>
-<div class="sect2">
-<h3 id="qiagen-dneasy-powerwater-kit"><a class="anchor" href="#qiagen-dneasy-powerwater-kit"></a><a class="link" href="#qiagen-dneasy-powerwater-kit">9.1. Qiagen DNeasy PowerWater Kit</a></h3>
-<div class="paragraph">
-<p><a href="https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit" class="bare">https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit</a> (<a href="http://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/">archive</a>) Here is its documentation: <a href="https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en" class="bare">https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en</a> (<a href="http://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en">archive</a>).</p>
-</div>
-<div class="paragraph">
-<p>Manual archive: <a href="http://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en" class="bare">http://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en</a></p>
-</div>
-<div class="paragraph">
-<p>Kit to extract clean DNA from water.</p>
-</div>
-<div id="image-qiagen-dneasy-powerwater-kit-open-box" class="imageblock">
-<div class="content">
-<a class="image" href="#image-qiagen-dneasy-powerwater-kit-open-box"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Qiagen_DNeasy_PowerWater_Kit_open_box.jpg/360px-Qiagen_DNeasy_PowerWater_Kit_open_box.jpg" alt="360px Qiagen DNeasy PowerWater Kit open box" height="400"></a>
-</div>
-<div class="title">Figure 40. Qiagen DNeasy PowerWater Kit open box. <a href="https://commons.wikimedia.org/wiki/File:Qiagen_DNeasy_PowerWater_Kit_open_box.jpg">Source</a>.</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="qiagen-qiaquick-pcr-purification-kit"><a class="anchor" href="#qiagen-qiaquick-pcr-purification-kit"></a><a class="link" href="#qiagen-qiaquick-pcr-purification-kit">9.2. Qiagen QIAquick PCR Purification Kit</a></h3>
-<div class="paragraph">
-<p><a href="https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation" class="bare">https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation</a> (<a href="http://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/">archive</a>)</p>
-</div>
-<div class="paragraph">
-<p>Manual archive: <a href="http://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&amp;lang=en" class="bare">http://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&amp;lang=en</a></p>
-</div>
-<div class="paragraph">
-<p>Removes PCR byproducts from purified DNA.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="oxford-nanopore-sqk-lsk109-ligation-sequencing-kit"><a class="anchor" href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit"></a><a class="link" href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">9.3. Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a></h3>
-<div class="paragraph">
-<p><a href="https://store.nanoporetech.com/ligation-sequencing-kit.html" class="bare">https://store.nanoporetech.com/ligation-sequencing-kit.html</a> (<a href="http://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html">archive</a>)</p>
-</div>
-<div class="paragraph">
-<p>Repairs the ends of DNA, and also attaches an adapter protein to the DNA that makes them go through the pores of e.g. an <a href="oxford-nanopore-minion">Oxford Nanopore MinION</a>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="equipment-used"><a class="anchor" href="#equipment-used"></a><a class="link" href="#equipment-used">10. Equipment used</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters"><a class="anchor" href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters"></a><a class="link" href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">10.1. Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a></h3>
-<div class="paragraph">
-<p><a href="https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781" class="bare">https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781</a> (<a href="http://web.archive.org/web/20190907131756/https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781">archive</a>)</p>
-</div>
-<div class="paragraph">
-<p>This is where we poured the water. It was not large enough for the entire 1L sample, so we had to do it a few times.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="knf-laboport-series-laboratory-vacuum-pump"><a class="anchor" href="#knf-laboport-series-laboratory-vacuum-pump"></a><a class="link" href="#knf-laboport-series-laboratory-vacuum-pump">10.2. KNF Laboport series laboratory vacuum pump</a></h3>
-<div class="paragraph">
-<p><a href="https://www.knfusa.com/en/laboport/" class="bare">https://www.knfusa.com/en/laboport/</a> (<a href="http://web.archive.org/web/20190907132036/https://www.knfusa.com/en/laboport/">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="scientific-industries-inc-vortex-genie-2"><a class="anchor" href="#scientific-industries-inc-vortex-genie-2"></a><a class="link" href="#scientific-industries-inc-vortex-genie-2">10.3. Scientific Industries Inc. Vortex-Genie 2</a></h3>
-<div class="paragraph">
-<p><a href="https://www.scientificindustries.com/vortex-genie-2.html" class="bare">https://www.scientificindustries.com/vortex-genie-2.html</a> (<a href="http://web.archive.org/web/20190908034549/https://www.scientificind.ustries.com/vortex-genie-2.html">archive</a>)</p>
-</div>
-<div class="paragraph">
-<p><a href="https://en.wikipedia.org/wiki/Vortex_mixer" class="bare">https://en.wikipedia.org/wiki/Vortex_mixer</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="vwr-micro-star-17-microcentrifuge"><a class="anchor" href="#vwr-micro-star-17-microcentrifuge"></a><a class="link" href="#vwr-micro-star-17-microcentrifuge">10.4. VWR Micro Star 17 microcentrifuge</a></h3>
-<div class="paragraph">
-<p><a href="https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r" class="bare">https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r</a> (<a href="http://web.archive.org/web/20190908040119/https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="velp-scientifica-wizard-ir-infrared-vortex-mixer"><a class="anchor" href="#velp-scientifica-wizard-ir-infrared-vortex-mixer"></a><a class="link" href="#velp-scientifica-wizard-ir-infrared-vortex-mixer">10.5. VELP Scientifica WIZARD IR Infrared Vortex Mixer</a></h3>
-<div class="paragraph">
-<p><a href="https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer" class="bare">https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer</a> (<a href="http://web.archive.org/web/20190908091343/https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="marshal-scientific-mj-research-ptc-200-thermal-cycler"><a class="anchor" href="#marshal-scientific-mj-research-ptc-200-thermal-cycler"></a><a class="link" href="#marshal-scientific-mj-research-ptc-200-thermal-cycler">10.6. Marshal Scientific MJ Research PTC-200 Thermal Cycler</a></h3>
-<div class="paragraph">
-<p><a href="https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm" class="bare">https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm</a> (<a href="http://web.archive.org/web/20190908091629/https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="ge-magrack-6"><a class="anchor" href="#ge-magrack-6"></a><a class="link" href="#ge-magrack-6">10.7. GE MagRack 6</a></h3>
-<div class="paragraph">
-<p><a href="https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761" class="bare">https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761</a> (<a href="http://web.archive.org/web/20190908091852/https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="btlab-systems-mini-centrifuge"><a class="anchor" href="#btlab-systems-mini-centrifuge"></a><a class="link" href="#btlab-systems-mini-centrifuge">10.8. BTLab Systems Mini Centrifuge</a></h3>
-<div class="paragraph">
-<p><a href="https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K" class="bare">https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K</a> (<a href="http://web.archive.org/web/20190908094324/https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K">archive</a>).</p>
-</div>
-<div class="paragraph">
-<p>Manual: <a href="http://web.archive.org/web/20190908094334/https://www.btlabsystems.com/downloads/BT602_Mini_Centrifuge_7K_Fixed.pdf" class="bare">http://web.archive.org/web/20190908094334/https://www.btlabsystems.com/downloads/BT602_Mini_Centrifuge_7K_Fixed.pdf</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><a class="anchor" href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"></a><a class="link" href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">10.9. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a></h3>
-<div class="paragraph">
-<p><a href="https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0" class="bare">https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0</a> (<a href="http://web.archive.org/web/20190908094721/https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0">archive</a>) Cannot exact same product on official website, but here is a similar one:  <a href="https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038" class="bare">https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038</a> (<a href="http://web.archive.org/web/20190908094903/https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038">archive</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="biochrom-simplinano-spectrophotometer"><a class="anchor" href="#biochrom-simplinano-spectrophotometer"></a><a class="link" href="#biochrom-simplinano-spectrophotometer">10.10. Biochrom SimpliNano spectrophotometer</a></h3>
-<div class="paragraph">
-<p><a href="https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html" class="bare">https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html</a> (<a href="http://web.archive.org/web/20190920214435/https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html">archive</a>)</p>
-</div>
-<div class="paragraph">
-<p>Manual: <a href="https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf" class="bare">https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf</a> (<a href="https://web.archive.org/web/20190920214755/https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf">archive</a>)</p>
-</div>
-</div>
-</div>
-</div>
-    </main>
-    <footer>
-        <div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
-        <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
-        <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-        <div>Website version: <a href="https://github.com/cirosantilli/cirosantilli.github.io/commit/cfaf4d6d5a422666ee403356cfbf2e9015dacbf5">cfaf4d6d5a422666ee403356cfbf2e9015dacbf5</a></div>
-        <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
-    </footer>
-    
-
-    
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-
-    
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-    <script>
-      $('.data-table').dataTable({
-        //"aaSorting": [[0,'asc'], [1,'asc'], [2, 'asc'], [3, 'asc']],
-        "aaSorting": [],
-        "bFilter": false,
-        "bInfo": false,
-        "bPaginate": false
-      });
-    </script>
-
-    
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-          jax: ["input/TeX","output/HTML-CSS"],
-          displayAlign: "left",
-          displayIndent: "20px"
-      });
-    </script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  </body>
+Barcode --- 27S --- 16S --- 1492R
+</code></pre></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-60">🔗</a></span><div class="p" id="p-60">Finally, after purification, we used the <a href="#qiagen-qiaquick-pcr-purification-kit">qiagen QIAquick PCR Purification Kit</a> protocol to purify the generated from unwanted PCR byproducts.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">🔗</a></span><h3 id="pcr-verification-with-gel-electrophoresis"><a  href="#pcr-verification-with-gel-electrophoresis" title="link to this element">5.1. PCR verification with gel electrophoresis</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">⇑ toc</a> | <a href="#pcr">↑ parent "PCR"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-61">🔗</a></span><div class="p" id="p-61">Biology experiments are hard, and so they go wrong, a lot.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-62">🔗</a></span><div class="p" id="p-62">For this reason, it is wise to verify that certain steps are correct whenever possible.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-63">🔗</a></span><div class="p" id="p-63">And so this is the first thing we did on the second day!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-64">🔗</a></span><div class="p" id="p-64"><a href="https://en.wikipedia.org/wiki/Gel_electrophoresis">Gel electrophoresis</a> separates molecules by their charge-to-mass ratio. It is one of those ultra common lab procedures!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-65">🔗</a></span><div class="p" id="p-65">This allows us to determine how long are the DNA fragments present in our solution.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-66">🔗</a></span><div class="p" id="p-66">Since we know that we amplified the 16S regions which we know the rough size of (there might be a bit of variability across species, but not that much), we were expecting to see a big band at that size.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-67">🔗</a></span><div class="p" id="p-67">And that is exactly what we saw!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-68">🔗</a></span><div class="p" id="p-68">First we had to prepare the gel, put the gel comb, and pipette the samples into wells present in the gel:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-gel-electrophoresis-insert-comb">🔗</a></span><figure id="image-gel-electrophoresis-insert-comb">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Gel_electrophoresis_insert_comb.jpg/360px-Gel_electrophoresis_insert_comb.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Gel_electrophoresis_insert_comb.jpg/360px-Gel_electrophoresis_insert_comb.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-gel-electrophoresis-insert-comb"><span class="caption-prefix">Figure 24</span></a>. Gel electrophoresis insert comb. <a  href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_insert_comb.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-gel-electrophoresis-top-view-with-wells-visible">🔗</a></span><figure id="image-gel-electrophoresis-top-view-with-wells-visible">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Gel_electrophoresis_top_view_with_wells_visible.jpg/360px-Gel_electrophoresis_top_view_with_wells_visible.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Gel_electrophoresis_top_view_with_wells_visible.jpg/360px-Gel_electrophoresis_top_view_with_wells_visible.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-gel-electrophoresis-top-view-with-wells-visible"><span class="caption-prefix">Figure 25</span></a>. Gel electrophoresis top view with wells visible. <a  href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_top_view_with_wells_visible.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-gel-electrophoresis-pipette-sample-into-wells">🔗</a></span><figure id="image-gel-electrophoresis-pipette-sample-into-wells">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gel_electrophoresis_pipette_sample_into_wells.jpg/360px-Gel_electrophoresis_pipette_sample_into_wells.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gel_electrophoresis_pipette_sample_into_wells.jpg/360px-Gel_electrophoresis_pipette_sample_into_wells.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-gel-electrophoresis-pipette-sample-into-wells"><span class="caption-prefix">Figure 26</span></a>. Gel electrophoresis pipette sample into wells. <a  href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_pipette_sample_into_wells.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-69">🔗</a></span><div class="p" id="p-69">To see the DNA, we added <a href="https://en.wikipedia.org/wiki/Ethidium_bromide">ethidium bromide</a> to the samples, which is a substance that that both binds to DNA and is fluorescent.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-70">🔗</a></span><div class="p" id="p-70">Because it interacts heavily with DNA, ethidium bromide is a <a href="https://en.wikipedia.org/wiki/Mutagen">mutagen</a>, and the biology people sure did treat the dedicated electrophoresis bench area with respect! <a href="#image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination">Figure 27. "Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination."</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination">🔗</a></span><figure id="image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg/360px-Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg/360px-Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-gel-electrophoresis-dedicated-bench-area-to-prevent-ethidium-bromide-contamination"><span class="caption-prefix">Figure 27</span></a>. Gel electrophoresis dedicated bench area to prevent ethidium bromide contamination. <a  href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_dedicated_bench_area_to_prevent_ethidium_bromide_contamination.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-gel-electrophoresis-dedicated-waste-bin-for-centrifuge-tubes-and-pipette-tips-contaminated-with-ethidium-bromide">🔗</a></span><figure id="image-gel-electrophoresis-dedicated-waste-bin-for-centrifuge-tubes-and-pipette-tips-contaminated-with-ethidium-bromide">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg/360px-Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg/360px-Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-gel-electrophoresis-dedicated-waste-bin-for-centrifuge-tubes-and-pipette-tips-contaminated-with-ethidium-bromide"><span class="caption-prefix">Figure 28</span></a>. Gel electrophoresis dedicated waste bin for centrifuge tubes and pipette tips contaminated with ethidium bromide. <a  href="https://commons.wikimedia.org/wiki/File:Gel_electrophoresis_dedicated_waste_bin_for_centrifuge_tubes_and_pipette_tips_contaminated_with_ethidium_bromide.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-71">🔗</a></span><div class="p" id="p-71">The UV transilluminator we used to shoot UV light into the gel was the <a href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a>. The fluorescent substance then emitted a light we can see.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-72">🔗</a></span><div class="p" id="p-72">As barely seen at <a href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel">Figure 31. "Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator illuminated gel."</a> due to bad photo quality due to lack of light, there is one strong green line, which compared to the ladder matches our expected 16S length. What we saw it with the naked eyes was very clear however.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">🔗</a></span><figure id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg/640px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg/640px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><span class="caption-prefix">Figure 29</span></a>. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator. <a  href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-loading-gel">🔗</a></span><figure id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-loading-gel">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-loading-gel"><span class="caption-prefix">Figure 30</span></a>. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator loading gel. <a  href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_loading_gel.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel">🔗</a></span><figure id="image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg/360px-Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator-illuminated-gel"><span class="caption-prefix">Figure 31</span></a>. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator illuminated gel. <a  href="https://commons.wikimedia.org/wiki/File:Fischer_Scientific_UVP_LM-26E_Benchtop_2UV_Transilluminator_illuminated_gel.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/sequencing">🔗</a></span><h2 id="sequencing"><a  href="#sequencing" title="link to this element">6. Sequencing</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-73">🔗</a></span><div class="p" id="p-73">Once we had the amplified 16S DNA, we were almost ready to start sequencing!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/pre-sequencing-preparation">🔗</a></span><h3 id="pre-sequencing-preparation"><a  href="#pre-sequencing-preparation" title="link to this element">6.1. Pre-sequencing preparation</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/pre-sequencing-preparation">⇑ toc</a> | <a href="#sequencing">↑ parent "Sequencing"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-74">🔗</a></span><div class="p" id="p-74">One cool thing we did in this procedure was to use <a href="https://en.wikipedia.org/wiki/Magnetic_separation">magnetic separation</a> with magnetic beads to further concentrate the DNA: <a href="#image-ge-magrack-6-pipetting">Figure 32. "GE MagRack 6 pipetting."</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-75">🔗</a></span><div class="p" id="p-75">The beads are coated to stick to the DNA, which allows us to easily extract the DNA from the rest of the solution. This is cool, but bio people are borderline obsessed by those beads! Go figure!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-ge-magrack-6-pipetting">🔗</a></span><figure id="image-ge-magrack-6-pipetting">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/GE_MagRack_6_pipetting.jpg/360px-GE_MagRack_6_pipetting.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-ge-magrack-6-pipetting"><span class="caption-prefix">Figure 32</span></a>. GE MagRack 6 pipetting. <a  href="https://commons.wikimedia.org/wiki/File:GE_MagRack_6_pipetting.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-ge-magrack-6-eppendorf-with-magnetic-beads-mounted">🔗</a></span><figure id="image-ge-magrack-6-eppendorf-with-magnetic-beads-mounted">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg/503px-GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg/503px-GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-ge-magrack-6-eppendorf-with-magnetic-beads-mounted"><span class="caption-prefix">Figure 33</span></a>. GE MagRack 6 eppendorf with magnetic beads mounted. <a  href="https://commons.wikimedia.org/wiki/File:GE_MagRack_6_eppendorf_with_magnetic_beads_mounted.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-76">🔗</a></span><div class="p" id="p-76">Then we prepared the DNA for sequencing with the Oxford Nanopore specific part: <a href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-77">🔗</a></span><div class="p" id="p-77">Here some of the steps required a bit more of vortexing for mixing the reagents, and for this we used the <a href="#velp-scientifica-wizard-ir-infrared-vortex-mixer">vELP Scientifica WIZARD IR Infrared Vortex Mixer</a> which appears to be quicker to use and not as strong as the Vortex Genie 2 previously used to break up the cells:</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-velp-scientifica-wizard-ir-infrared-vortex-mixer-running">🔗</a></span><figure id="image-velp-scientifica-wizard-ir-infrared-vortex-mixer-running">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg/360px-VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg/360px-VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-velp-scientifica-wizard-ir-infrared-vortex-mixer-running"><span class="caption-prefix">Figure 34</span></a>. VELP Scientifica WIZARD IR Infrared Vortex Mixer running. <a  href="https://commons.wikimedia.org/wiki/File:VELP_Scientifica_WIZARD_IR_Infrared_Vortex_Mixer_running.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-78">🔗</a></span><div class="p" id="p-78">After all that was done, the DNA of the several 400 ml water bottles and hours of hard purification labour were contained in one single Eppendorf!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/using-the-oxford-nanopore">🔗</a></span><h3 id="using-the-oxford-nanopore"><a  href="#using-the-oxford-nanopore" title="link to this element">6.2. Using the Oxford Nanopore</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/using-the-oxford-nanopore">⇑ toc</a> | <a href="#sequencing">↑ parent "Sequencing"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-79">🔗</a></span><div class="p" id="p-79">With all this ready, we opened the Nanopore flow cell, which is the 500 dollar consumable piece that goes in the sequencer.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-80">🔗</a></span><div class="p" id="p-80">We then had to pipette the final golden Eppendorf into the flow cell. My anxiety levels were going through the roof: <a href="#image-oxford-nanopore-minion-flow-cell-pipette-loading">Figure 38. "Oxford nanopore MinION flow cell pipette loading."</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-flow-cell-package">🔗</a></span><figure id="image-oxford-nanopore-minion-flow-cell-package">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oxford_nanopore_MinION_flow_cell_package.jpg/304px-Oxford_nanopore_MinION_flow_cell_package.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oxford_nanopore_MinION_flow_cell_package.jpg/304px-Oxford_nanopore_MinION_flow_cell_package.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-flow-cell-package"><span class="caption-prefix">Figure 35</span></a>. Oxford nanopore MinION flow cell package. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_package.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-flow-cell-front">🔗</a></span><figure id="image-oxford-nanopore-minion-flow-cell-front">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Oxford_nanopore_MinION_flow_cell_front.jpg/640px-Oxford_nanopore_MinION_flow_cell_front.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Oxford_nanopore_MinION_flow_cell_front.jpg/640px-Oxford_nanopore_MinION_flow_cell_front.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-flow-cell-front"><span class="caption-prefix">Figure 36</span></a>. Oxford nanopore MinION flow cell front. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_front.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-flow-cell-back">🔗</a></span><figure id="image-oxford-nanopore-minion-flow-cell-back">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Oxford_nanopore_MinION_flow_cell_back.jpg/1024px-Oxford_nanopore_MinION_flow_cell_back.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Oxford_nanopore_MinION_flow_cell_back.jpg/1024px-Oxford_nanopore_MinION_flow_cell_back.jpg" loading="lazy" height="315"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-flow-cell-back"><span class="caption-prefix">Figure 37</span></a>. Oxford nanopore MinION flow cell back. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_back.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-flow-cell-pipette-loading">🔗</a></span><figure id="image-oxford-nanopore-minion-flow-cell-pipette-loading">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg/278px-Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg/278px-Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-flow-cell-pipette-loading"><span class="caption-prefix">Figure 38</span></a>. Oxford nanopore MinION flow cell pipette loading. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_nanopore_MinION_flow_cell_pipette_loading.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-81">🔗</a></span><div class="p" id="p-81">At this point bio people start telling lab horror stories of expensive solutions being spilled and people having to recover them from fridge walls, or of how people threw away golden Eppendorfs and had to pick them out of trash bins with hundreds of others looking exactly the same etc. (but also how some discoveries were made like this). This reminded Ciro of: <a href="https://youtu.be/89UNPdNtOoE?t=919">https://youtu.be/89UNPdNtOoE?t=919</a> <a href="https://en.wikipedia.org/wiki/Alfred_Maddock">Alfred Maddock's plutonium spill horror story</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-82">🔗</a></span><div class="p" id="p-82">Luckily this time, it worked out!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-83">🔗</a></span><div class="p" id="p-83">We then just had to connect the MinION to the computer, and wait for 2 days.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-84">🔗</a></span><div class="p" id="p-84">During this time, the DNA would be sucked through the pores.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-85">🔗</a></span><div class="p" id="p-85">As can be seen from <a href="#video-oxford-nanopore-minion-software-channels-pannel-on-mac">Video 6. "Oxford Nanopore MinION software channels pannel on Mac."</a> the software tells us which pores are still working.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-oxford-nanopore-minion-connected-to-a-mac-via-usb">🔗</a></span><figure id="image-oxford-nanopore-minion-connected-to-a-mac-via-usb">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg/360px-Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg/360px-Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-oxford-nanopore-minion-connected-to-a-mac-via-usb"><span class="caption-prefix">Figure 39</span></a>. Oxford Nanopore MinION connected to a Mac via USB. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_connected_to_a_Mac_via_USB.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/video-oxford-nanopore-minion-software-channels-pannel-on-mac">🔗</a></span><figure id="video-oxford-nanopore-minion-software-channels-pannel-on-mac">
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7e/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm/Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm.480p.webm" height="315" controls></video>
+<figcaption><a  href="#video-oxford-nanopore-minion-software-channels-pannel-on-mac"><span class="caption-prefix">Video 6</span></a>. Oxford Nanopore MinION software channels pannel on Mac. <a  href="https://commons.wikimedia.org/wiki/File:Oxford_Nanopore_MinION_software_channels_pannel_on_Mac.webm">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-86">🔗</a></span><div class="p" id="p-86">Pores go bad sooner or later randomly, until there are none left, at which point we can stop the process and throw the flow cell away.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-87">🔗</a></span><div class="p" id="p-87">48 hours was expected to be a reasonable time until all pores went bad, and so we called it a day, and waited for an email from the PuntSeq team telling us how things went.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-88">🔗</a></span><div class="p" id="p-88">We reached a yield of 16 billion base pairs out of the 30Gbp nominal maximum, which the bio people said was not bad.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/bioinformatics">🔗</a></span><h2 id="bioinformatics"><a  href="#bioinformatics" title="link to this element">7. Bioinformatics</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/bioinformatics">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-89">🔗</a></span><div class="p" id="p-89">To be honest, because I'm a software engineer, and I've done enough staring in computers for a lifetime already, and I believe in the power of <a href="https://en.wikipedia.org/wiki/Git">Git</a>, I didn't pay much attention to this ;-)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-90">🔗</a></span><div class="p" id="p-90">TODO at least mention the key algorithms and link to GitHub software.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-91">🔗</a></span><div class="p" id="p-91">I can however see that it does however present interesting problems!</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-92">🔗</a></span><div class="p" id="p-92">Because we had to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-93">🔗</a></span><div class="p" id="p-93">First there is some signal processing / machine learning required to do the <a href="https://en.wikipedia.org/wiki/Base_calling">base calling</a>, which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-94">🔗</a></span><div class="p" id="p-94">After the base calling was done, we analyzed the data using computer programs that match the sequenced 16S sequences to a database of known sequenced species.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-95">🔗</a></span><div class="p" id="p-95">This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-96">🔗</a></span><div class="p" id="p-96">The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data will be uploaded to: <a href="https://www.puntseq.co.uk/data">https://www.puntseq.co.uk/data</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/conclusions">🔗</a></span><h2 id="conclusions"><a  href="#conclusions" title="link to this element">8. Conclusions</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/conclusions">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/ul-6">🔗</a></span><div><ul id="ul-6">
+<li id="l-14">against all odds, the experiment worked and we got DNA out of the water, despite a bunch of non-bio newbs actively messing with random parts of the experiment</li>
+<li id="l-15">PuntSeq and Biomakespace people, and all those tho do scientific outreach, are awesome!</li>
+<li id="l-16">biology is hard</li>
+<li id="l-17">creating insanely media rich articles like this is also hard, but the following helped enormously:<div><ul id="ul-7">
+<li id="l-18"><a href="index#media-rationale-of-ciro-santilli-s-website">Wikimedia Commons</a> to store large media files out of Git</li>
+<li id="l-19"><a href="markdown-style-guide">Asciidoctor</a> extensions to easily include those media files. The lessons learnt in this article were then an important motivation for Ciro's <a href="index#cirodown">Cirodown</a>.</li>
+<li id="l-20"><a href="https://unix.stackexchange.com/questions/25978/image-viewer-for-multiple-images/539333#539333">Nomacs</a> to give Google Photos photos meaningful names and to edit people's faces out of pictures ;-)</li>
+</ul></div></li>
+<li id="l-21">some scientific Wikipedia pages may or may not have been edited with better pictures during the course of writing this article</li>
+</ul></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/protocols-used">🔗</a></span><h2 id="protocols-used"><a  href="#protocols-used" title="link to this element">9. Protocols used</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-97">🔗</a></span><div class="p" id="p-97">Protocols are the biologist term for "recipe".</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-98">🔗</a></span><div class="p" id="p-98">I found that a lot of biology comes down to this: get the right recipe, follow it well even though you don't understand all the proprietary details, and pray.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">🔗</a></span><h3 id="qiagen-dneasy-powerwater-kit"><a  href="#qiagen-dneasy-powerwater-kit" title="link to this element">9.1. Qiagen DNeasy PowerWater Kit</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">⇑ toc</a> | <a href="#protocols-used">↑ parent "Protocols used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-99">🔗</a></span><div class="p" id="p-99"><a href="https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit">https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit</a> (<a href="https://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/">archive</a>) Here is its documentation: <a href="https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en">https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en</a> (<a href="https://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-100">🔗</a></span><div class="p" id="p-100">Manual archive: <a href="https://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en">https://web.archive.org/web/20190911111136/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&amp;lang=en</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-101">🔗</a></span><div class="p" id="p-101">Kit to extract clean DNA from water.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/image-qiagen-dneasy-powerwater-kit-open-box">🔗</a></span><figure id="image-qiagen-dneasy-powerwater-kit-open-box">
+<a href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Qiagen_DNeasy_PowerWater_Kit_open_box.jpg/360px-Qiagen_DNeasy_PowerWater_Kit_open_box.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Qiagen_DNeasy_PowerWater_Kit_open_box.jpg/360px-Qiagen_DNeasy_PowerWater_Kit_open_box.jpg" loading="lazy" height="400"></a>
+<figcaption><a  href="#image-qiagen-dneasy-powerwater-kit-open-box"><span class="caption-prefix">Figure 40</span></a>. Qiagen DNeasy PowerWater Kit open box. <a  href="https://commons.wikimedia.org/wiki/File:Qiagen_DNeasy_PowerWater_Kit_open_box.jpg">Source</a>.</figcaption>
+</figure>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">🔗</a></span><h3 id="qiagen-qiaquick-pcr-purification-kit"><a  href="#qiagen-qiaquick-pcr-purification-kit" title="link to this element">9.2. Qiagen QIAquick PCR Purification Kit</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">⇑ toc</a> | <a href="#protocols-used">↑ parent "Protocols used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-102">🔗</a></span><div class="p" id="p-102"><a href="https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation">https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation</a> (<a href="https://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/">archive</a>)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-103">🔗</a></span><div class="p" id="p-103">Manual archive: <a href="https://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&amp;lang=en">https://web.archive.org/web/20190911100243/https://www.qiagen.com/us/resources/download.aspx?id=e0fab087-ea52-4c16-b79f-c224bf760c39&amp;lang=en</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-104">🔗</a></span><div class="p" id="p-104">Removes PCR byproducts from purified DNA.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">🔗</a></span><h3 id="oxford-nanopore-sqk-lsk109-ligation-sequencing-kit"><a  href="#oxford-nanopore-sqk-lsk109-ligation-sequencing-kit" title="link to this element">9.3. Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">⇑ toc</a> | <a href="#protocols-used">↑ parent "Protocols used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-105">🔗</a></span><div class="p" id="p-105"><a href="https://store.nanoporetech.com/ligation-sequencing-kit.html">https://store.nanoporetech.com/ligation-sequencing-kit.html</a> (<a href="https://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html">archive</a>)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-106">🔗</a></span><div class="p" id="p-106">Repairs the ends of DNA, and also attaches an adapter protein to the DNA that makes them go through the pores of e.g. an <a href="index#oxford-nanopore-minion">Oxford Nanopore MinION</a>.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/equipment-used">🔗</a></span><h2 id="equipment-used"><a  href="#equipment-used" title="link to this element">10. Equipment used</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">⇑ toc</a> | <a href="#oxford-nanopore-river-bacteria">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></h2>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">🔗</a></span><h3 id="thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters"><a  href="#thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters" title="link to this element">10.1. Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-107">🔗</a></span><div class="p" id="p-107"><a href="https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781">https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781</a> (<a href="https://web.archive.org/web/20190907131756/https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781">archive</a>)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-108">🔗</a></span><div class="p" id="p-108">This is where we poured the water. It was not large enough for the entire 1L sample, so we had to do it a few times.</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">🔗</a></span><h3 id="knf-laboport-series-laboratory-vacuum-pump"><a  href="#knf-laboport-series-laboratory-vacuum-pump" title="link to this element">10.2. KNF Laboport series laboratory vacuum pump</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-109">🔗</a></span><div class="p" id="p-109"><a href="https://www.knfusa.com/en/laboport/">https://www.knfusa.com/en/laboport/</a> (<a href="https://web.archive.org/web/20190907132036/https://www.knfusa.com/en/laboport/">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">🔗</a></span><h3 id="scientific-industries-inc-vortex-genie-2"><a  href="#scientific-industries-inc-vortex-genie-2" title="link to this element">10.3. Scientific Industries Inc. Vortex-Genie 2</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-110">🔗</a></span><div class="p" id="p-110"><a href="https://www.scientificindustries.com/vortex-genie-2.html">https://www.scientificindustries.com/vortex-genie-2.html</a> (<a href="https://web.archive.org/web/20190908034549/https://www.scientificind.ustries.com/vortex-genie-2.html">archive</a>)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-111">🔗</a></span><div class="p" id="p-111"><a href="https://en.wikipedia.org/wiki/Vortex_mixer">https://en.wikipedia.org/wiki/Vortex_mixer</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">🔗</a></span><h3 id="vwr-micro-star-17-microcentrifuge"><a  href="#vwr-micro-star-17-microcentrifuge" title="link to this element">10.4. VWR Micro Star 17 microcentrifuge</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-112">🔗</a></span><div class="p" id="p-112"><a href="https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r">https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r</a> (<a href="https://web.archive.org/web/20190908040119/https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">🔗</a></span><h3 id="velp-scientifica-wizard-ir-infrared-vortex-mixer"><a  href="#velp-scientifica-wizard-ir-infrared-vortex-mixer" title="link to this element">10.5. VELP Scientifica WIZARD IR Infrared Vortex Mixer</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-113">🔗</a></span><div class="p" id="p-113"><a href="https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer">https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer</a> (<a href="https://web.archive.org/web/20190908091343/https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">🔗</a></span><h3 id="marshal-scientific-mj-research-ptc-200-thermal-cycler"><a  href="#marshal-scientific-mj-research-ptc-200-thermal-cycler" title="link to this element">10.6. Marshal Scientific MJ Research PTC-200 Thermal Cycler</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-114">🔗</a></span><div class="p" id="p-114"><a href="https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm">https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm</a> (<a href="https://web.archive.org/web/20190908091629/https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/ge-magrack-6">🔗</a></span><h3 id="ge-magrack-6"><a  href="#ge-magrack-6" title="link to this element">10.7. GE MagRack 6</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/ge-magrack-6">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-115">🔗</a></span><div class="p" id="p-115"><a href="https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761">https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761</a> (<a href="https://web.archive.org/web/20190908091852/https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">🔗</a></span><h3 id="btlab-systems-mini-centrifuge"><a  href="#btlab-systems-mini-centrifuge" title="link to this element">10.8. BTLab Systems Mini Centrifuge</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-116">🔗</a></span><div class="p" id="p-116"><a href="https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K">https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K</a> (<a href="https://web.archive.org/web/20190908094324/https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-117">🔗</a></span><div class="p" id="p-117">Manual: <a href="https://web.archive.org/web/20190908094334/https://www.btlabsystems.com/downloads/BT602_Mini_Centrifuge_7K_Fixed.pdf">https://web.archive.org/web/20190908094334/https://www.btlabsystems.com/downloads/BT602_Mini_Centrifuge_7K_Fixed.pdf</a></div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">🔗</a></span><h3 id="fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><a  href="#fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator" title="link to this element">10.9. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-118">🔗</a></span><div class="p" id="p-118"><a href="https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0">https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0</a> (<a href="https://web.archive.org/web/20190908094721/https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0">archive</a>) Cannot exact same product on official website, but here is a similar one:  <a href="https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038">https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038</a> (<a href="https://web.archive.org/web/20190908094903/https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038">archive</a>).</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">🔗</a></span><h3 id="biochrom-simplinano-spectrophotometer"><a  href="#biochrom-simplinano-spectrophotometer" title="link to this element">10.10. Biochrom SimpliNano spectrophotometer</a><span>  | <a href="#toc-oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">⇑ toc</a> | <a href="#equipment-used">↑ parent "Equipment used"</a></span></h3>
+</div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-119">🔗</a></span><div class="p" id="p-119"><a href="https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html">https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html</a> (<a href="https://web.archive.org/web/20190920214435/https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html">archive</a>)</div></div><div><span class="hide-hover"><a href="#oxford-nanopore-river-bacteria/p-120">🔗</a></span><div class="p" id="p-120">Manual: <a href="https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf">https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf</a> (<a href="https://web.archive.org/web/20190920214755/https://biochromspectros.com/media/wysiwyg/support_page/support-simplinano/Simplinano-UM.pdf">archive</a>)</div></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/a9ae4c516eb0dcbe76fc6d4f1918a6ef6dcac540">a9ae4c516eb0dcbe76fc6d4f1918a6ef6dcac540</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="cirodown.runtime.js"></script>
+<script src="main.js"></script>
+</body>
 </html>
