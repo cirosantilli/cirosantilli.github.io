@@ -90,7 +90,6 @@ Operating systems must setup and control paging by communicating to the CPU hard
   Another notable example of RAM data structure used by the CPU is the https://en.wikipedia.org/wiki/Interrupt_descriptor_table[IDT] which sets up interrupt handlers.
 
   The OS makes it impossible for programs to change the paging setup directly without going through the OS:
-
 * CR3 cannot be modified in ring 3. The OS runs in ring 0. See also:
   * https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space/44285809#44285809
   * https://stackoverflow.com/questions/18717016/what-are-ring-0-and-ring-3-in-os
@@ -335,7 +334,6 @@ bits   function
 20     physical address of the start of the page
 1      present flag
 ``
-
 so in this example the hardware designers could have chosen the size of the page table to b `21` instead of `32` as we've used so far.
 
 All real page table entries have other fields, notably fields to set pages to read-only for Copy-on-write. This will be explained elsewhere.
