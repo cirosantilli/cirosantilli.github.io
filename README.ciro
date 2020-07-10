@@ -4934,12 +4934,20 @@ Chronological outline of the key theories:
     * Antimatter
     * \x[spin] as part of the equation
 
-==== Standard model
+==== Standard Model
 {c}
 
 https://en.wikipedia.org/wiki/Standard_Model
 
 As of 2019, the more formal name for \x[particle-physics], which is notably missing \x[general-relativity] to achieve the \x[theory-of-everything].
+
+===== Are there more than 3 generations of particles in the Standard Model??
+
+* https://physics.stackexchange.com/questions/2051/why-do-we-think-there-are-only-three-generations-of-fundamental-particles
+
+\Video[https://www.youtube/watch?v=AKtN6ajjSQo]
+{title="PHYS 485 Lecture 5: Standard Model and Feynman Diagrams" published by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] on 2016-04-06.}
+{description=t=1474 gives an argument why there might only be 3 generations of particles.}
 
 ==== Maxwell's equations
 {c}
@@ -5112,6 +5120,12 @@ Applications:
 Other more precise non-classical versions:
 * \x[quantum-hall-effect]
 
+===== Electromagnetism
+
+https://en.wikipedia.org/wiki/Electromagnetism
+
+The phenomena described by \x[maxwell-s-equations].
+
 ==== Theory of relativity
 
 https://en.wikipedia.org/wiki/Theory_of_relativity
@@ -5131,6 +5145,17 @@ This leads leads to the following conclusions:
 All of this goes of course completely against our daily Physics intuition.
 
 The "special" in the name refers to the fact that it is a superset of \x[general-relativity], which also explains gravity in a single framework.
+
+Since time and space get all messed up together, you have to be very careful to understand what it means to say "I observed this to happen over there at that time", otherwise you will go crazy. A good way to think about is this:
+* use \x[einstein-synchronization] to setup a bunch of clocks for every position in your frame of reference
+* on every point of space, you put a little detector which records events and the time of the event
+* each detector can only detect events locally, i.e. events that happen very close to the detector
+* then, after the event, the detectors can send a signal to you, who is sitting at the origin, telling you what they detected
+
+====== Einstein synchronization
+{c}
+
+https://en.wikipedia.org/wiki/Einstein_synchronisation
 
 ====== Lorentz transformation
 {c}
@@ -5223,13 +5248,14 @@ $$
 
 https://en.wikipedia.org/wiki/Length_contraction
 
-Suppose that a rod has is length $L$ measured on a rest frame $S$.
+Suppose that a rod has is length $L$ measured on a rest frame $S$ (or maybe even better: two identical rulers were manufactured, and one is taken on a spaceship, a bit like the \x[twin-paradox]).
 
 Question: what is the length $L'$ than an observer in frame $S'$ moving relative to $S$ as speed $v$ observe the rod to be?
 
-There are two events to consider in each frame, which we call 1 and 2:
+The key idea is that there are two events to consider in each frame, which we call 1 and 2:
 * the left end of the rod is an observation event at a given position at a given time: $x_1$ and $t_1$ for $S$ or $x'_1$ and $t'_1$ for $S'$
 * the right end of the rod is an observation event at a given position at a given time : $x_2$ and $t_2$ for $S$ or $x'_2$ and $t'_2$ for $S'$
+Note that what you visually observe on a photograph is a different measurement to the more precise/easy to calculate two event measurement. On a photograph, it seems you might not even see the contraction in some cases as mentioned at https://en.wikipedia.org/wiki/Terrell_rotation
 
 Measuring a length means to measure the $x_2 - x_1$ difference for a single point in time in your frame ($t2 = t1$).
 
@@ -5248,6 +5274,53 @@ By plugging those values into the \x[lorentz-transformation], we can eliminate $
 $$
 L' = \frac{L}{\gamma}
 $$
+
+The key question that needs intuitive clarification then is: but how can this be symmetric? How can both observers see each other's rulers shrink?
+
+And the key answer is: because to the second observer, the measurements made by the first observer are not simultaneous. Notably, the two measurement events are obviously \x[spacelike-separated-events] by looking at the \x[light-cone], and therefore can be measured even in different orders by different observers.
+
+======== Terrell rotation
+
+https://en.wikipedia.org/wiki/Terrell_rotation
+
+What you would see the moving rod look like on a photo of a \x[length-contraction] experiment, as opposed as using two separate spacetime events to measure its length.
+
+======= Twin paradox
+
+https://en.wikipedia.org/wiki/Twin_paradox
+
+The key question is: why is this not symmetrical?
+
+One answer is: because one of the twin accelerates, and therefore changes inertial frames.
+
+But the better answer is: understand what happens when the stationary twin sends light signals at constant time intervals to each other. When does the travelling twin receives them?
+
+By doing that, we see that "all the extra aging happens immediately when the twin turns around":
+* on the out trip, both twins receive signals at constant intervals
+* when the moving twin turns around and starts to accelerate through different inertial frames, shit happens:
+  * the moving twin suddenly notices that the rate of signals from the stationary twin increased. They are getting older faster than us!
+  * the stationary twin suddenly notices that the rate of signals from the moving twin decreased. They are getting older slower than us!
+* then when the moving twin reaches the return velocity, both see constant signal rates once again
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/7/73/TwinParadoxProperAcceleration.svg]
+{height=600}
+{title=Twin paradox illustration with twins sending light signals at regular intervals.}
+
+Another way of understanding it is: you have to make all calculations on a \i[single] inertial frame for the entire trip.
+
+Supposing the sibling quickly accelerates out (or magically starts moving at constant speed), travels at constant speed, and quickly accelerates back, and travels at constant speed setup, there are three frames that seem reasonable:
+* the frame of the non-accelerating sibling
+* the outgoing trip of the accelerating sibling
+* the return trip of the accelerating sibling
+
+If you do that, all three calculations give the exact same result, which is reassuring.
+
+Another way to understand it is to do explicit integrations of the acceleration: https://physics.stackexchange.com/questions/242043/what-is-the-proper-way-to-explain-the-twin-paradox/242044#242044 This is the least insightful however :-)
+
+Bibliography:
+
+* https://physics.stackexchange.com/questions/98708/twin-paradox-calculating-spacetime-intervals-from-both-perspectives
+* https://physics.stackexchange.com/questions/29921/why-isnt-the-symmetric-twin-paradox-a-paradox
 
 ======= Maxwell's equations are consistent with the Lorentz transformation
 {c}
@@ -5282,6 +5355,46 @@ This page also talks about it, but does not explain anything properly, although 
 https://en.wikipedia.org/wiki/Minkowski_space
 
 TODO why should I care when I can calculate new x and new time with \x[lorentz-transformation]?
+
+======= Minkowski diagram
+{c}
+
+https://en.wikipedia.org/wiki/Minkowski_diagram
+
+======== Light cone
+
+https://en.wikipedia.org/wiki/Light_cone
+
+A subset of \x[minkowski-diagram].
+
+The key insights that it gives are:
+* future and past are well defined: every reference frame sees your future in your future cone, and your past in your past cone
++
+Otherwise causality could be violated, and then things would go really bad, you could tell your past self to tell your past self to tell your past self to do something.
++
+You can only affect the outcome of events in your future cone, and you can only be affected by events in your past cone. You can't travel fast enough to affect.
++
+Two spacetime events with such fixed causality are called \x[timelike-separated-events].
+* every other event (to right and left, known as \x[spacelike-separated-events]) can be measured to happen before or after your current spacetime event by different observers.
++
+But that does not violate causality, because you just can't reach those spacetime points anyways to affect them.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/7/78/Relativity_of_Simultaneity_Animation.gif]
+{title=Animation showing how space-separated events can be observed to happen in different orders by observers in different frames of reference.}
+
+========= Timelike-separated events
+
+The opposite of \x[spacelike-separated-events].
+
+========= Spacelike-separated events
+
+On the \x[light-cone], these are events on the left/right part of the cone.
+
+Different observers might not agree on the order of two spacelike-separated events.
+
+Further discussion at \x[light-cone]{full}.
+
+The opposite of those events are \x[timelike-separated-events].
 
 ====== Mass-energy equivalence
 {title2=$E=mc^2$}
@@ -5696,6 +5809,10 @@ Experiments not explained: those that \x[quantum-electrodynamics] explains like:
 * \x[lamb-shift]
 * TODO: quantization of the electromagnetic field as \x[photon]{p}? And if it is, what's the difference between Dirac Equatin and QED? https://www.physicsforums.com/threads/is-diracs-equation-still-useful-after-qed-is-developed.663994/
 
+\Video[https://www.youtube.com/watch?v=ajMaPc022VM]
+{id=video-phys-485-lecture-14-the-dirac-equation-by-roger-moore-from-the-university-of-alberta-published-on-2016-04-07}
+{title="PHYS 485 Lecture 14: The Dirac Equation" by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] published on 2016-04-07.}
+
 ===== Spontaneous emission
 
 https://en.wikipedia.org/wiki/Spontaneous_emission
@@ -5735,6 +5852,8 @@ https://en.wikipedia.org/wiki/Klein–Gordon_equation
 
 TODO. Relativistic, but has some problems, which the \x[dirac-equation] solves.
 
+Discussed at: \x[video-phys-485-lecture-14-the-dirac-equation-by-roger-moore-from-the-university-of-alberta-published-on-2016-04-07] at around 7:30.
+
 ===== Solutions of the Dirac equation
 
 ====== Dirac equation solution for the hydrogen atom
@@ -5744,6 +5863,62 @@ https://en.wikipedia.org/w/index.php?title=Hydrogen-like_atom&oldid=959546353#So
 
 \Video[https://www.youtube.com/watch?v=jWYtP-rAoYA]
 {title="How To Solve The Dirac Equation For The Hydrogen Atom | Relativistic Quantum Mechanics" by Dietterich Labs published on 2018-06-15.}
+
+==== Spin
+
+https://en.wikipedia.org/wiki/Spin_(physics)
+
+https://www.youtube.com/watch?v=6sR6RV2znXI&list=PL193BC0532FE7B02C&index=17 "Quantum Mechanics 9a - Photon Spin and Schrödinger's Cat I" by "viascience" shows nicely how:
+* incorporated into the \x[dirac-equation] as a natural consequence of \x[special-relativity] corrections, but not present in the \x[schrodinger-equation], see also: \x[the-dirac-equation-predicts-spin]
+* \x[photon] spin can be either linear or circular
+* the linear one can be made from a superposition of circular ones
+* straight antennas produce linearly polarized photos, and https://en.wikipedia.org/wiki/Helical_antenna[Helical antennas] circularly polarized ones
+* a jump between 2s and 2p in an atom changes angular momentum. Therefore, the photon must carry angular momentum as well as energy.
+* cannot be classically explained, because even for a very large estimate of the electron size, its surface would have to spin faster than light to achieve that magnetic momentum with the known \x[electron-charge]
+
+\Video[https://www.youtube.com/watch?v=3k5IWlVdMbo]
+{title="Quantum Spin - Visualizing the physics and mathematics" by \x[physics-videos-by-eugene-khutoryansky]["Physics Videos by Eugene Khutoryansky"] published on 2016-06-29.}
+
+===== Spin experiments
+
+* \x[stern-gerlach-experiment]
+* \x[fine-structure] split in energy levels;
+* anomalous \x[zeeman-effect]
+
+====== Stern Gerlach experiment
+
+https://en.wikipedia.org/wiki/Stern–Gerlach_experiment
+
+Originally done with silver in 1921, but even clearer theoretically was the hydrogen reproduction in 1927 by T.E. Phipps and J.B. Taylor.
+
+The hydrogen experiment was apparently harder to do and the result is less visible, TODO why: https://physics.stackexchange.com/questions/33021/why-silver-atoms-were-used-in-stern-gerlach-experiment
+
+===== Why is the spin of the electron half?
+
+https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what
+
+More interestingly, how is that implied by the \x[stern-gerlach-experiment]?
+
+https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what/266371#266371 suggests that half could either mean:
+* at limit of large `l` for the \x[schrodinger-equation-solution-for-the-hydrogen-atom] the difference between each angular momentum is twice that of the eletron's spin. Not very satisfactory.
+* it comes directly out of the \x[dirac-equation]. This is satisfactory. :-)
+
+====== Pauli exclusion principle
+{c}
+
+https://en.wikipedia.org/wiki/Pauli_exclusion_principle
+
+Initially a phenomenological guess to explain the periodic table. Later it was apparently proven properly with the \x[spin-statistics-theorem], https://physics.stackexchange.com/questions/360140/theoretical-proof-of-paulis-exclusion-principle
+
+======= Spin-statistics theorem
+
+https://en.wikipedia.org/wiki/Spin–statistics_theorem
+
+===== Nuclear spin
+
+http://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nspin.html
+
+TODO experiments. Can you do \x[stern-gerlach-experiment] with alpha particles?
 
 ==== Quantum electrodynamics
 {title2=QED}
@@ -5794,6 +5969,17 @@ TODO find / create decent answer.
 
 https://en.wikipedia.org/wiki/Schwinger_effect
 
+===== Feynman diagram
+{c}
+
+https://en.wikipedia.org/wiki/Feynman_diagram
+
+I think they are a tool to calculate the probability of different types of particle decays and particle collision outcomes. TODO Minimal example of that.
+
+And they can be derived from a more complete \x[quantum-electrodynamics] formulation.
+
+Can be used for all of \x[quantum-electrodynamics], \x[weak-interaction] and \x[quantum-chromodynamics].
+
 ===== Quantum electrodynamics bibliography
 
 ====== Richard Feynman Quantum Electrodynamics Lecture at University of Auckland in 1979
@@ -5805,13 +5991,20 @@ Can't find an official upload, so going with this one for now: https://youtube.c
 
 \Video[http://youtube.com/watch?v=eLQ2atfqk2c]
 
-==== Quantum Chromodynamics
+==== Quantum chromodynamics
+{title2=QCD}
 
 https://en.wikipedia.org/wiki/Quantum_chromodynamics
 
+Formulated as a \x[quantum-field-theory].
+
 \Video[http://youtube.com/watch?v=FoR3hq5b5yE]
 {title="Quarks, Gluon flux tubes, Strong Nuclear Force, & Quantum Chromodynamics" by \x[physics-videos-by-eugene-khutoryansky]["Physics Videos by Eugene Khutoryansky"] published on Jul 7, 2018.}
-{description=Some decent visualizations of the field lines.}
+{description=Some decent visualizations of how the field lines don't expand out like they do in \x[electromagnetism], suggesting \x[color-confinement].}
+
+\Video[https://www.youtube.com/watch?v=LqUgzxJ8Jss]
+{title="PHYS 485 Lecture 6: Feynman Diagrams" by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] published on 2016-04-06.}
+{description=Despite the title, this is mostly about QCD.}
 
 ===== Strong interaction
 
@@ -5821,11 +6014,27 @@ https://en.wikipedia.org/wiki/Strong_interaction
 
 https://en.wikipedia.org/wiki/Quark
 
+TODO experimetal discovery.
+
+===== Gluon
+
+https://en.wikipedia.org/wiki/Gluon
+
+Force carrier of \x[quantum-chromodynamics], like the \x[photon] is the force carrier of \x[quantum-electrodynamics].
+
 ====== Cosmic ray
 
 https://en.wikipedia.org/wiki/Cosmic_ray
 
-==== Quantum Field Theory
+===== Color confinement
+
+https://en.wikipedia.org/wiki/Color_confinement
+
+Can be thought as being produced from \x[gluon]-gluon lines of the \x[feynman-diagram]{p} of \x[quantum-chromodynamics]. This is in contrast to \x[quantum-electrodynamics], in which there are no \x[photon]-photon vertices, because the photon does not have charge unlike gluons.
+
+This phenomena makes the strong force be very very different from electromagnetism.
+
+==== Quantum field theory
 
 https://en.wikipedia.org/wiki/Quantum_field_theory
 
@@ -6080,6 +6289,12 @@ Some light YouTube channels, good for the first view, but which don't go into en
 * PBS Space Time: https://www.youtube.com/channel/UC7_gcs09iThXybpVgjHZ_7g A bit on the superficial side, but OK, 5-10 minute videos.
 * https://www.youtube.com/watch?v=vIJTwYOZrGU&list=PLCfRa7MXBEsoJuAM8s6D8oKDPyBepBosS[Fermilab - Videos by Don Lincoln]
 
+===== 2011 PHYS 485 lecture videos by Roger Moore from the University of Alberta
+
+https://www.youtube.com/playlist?list=PLSrKSt8xhLVrc0ptX1OYr3OWoOvrxBOvz
+
+These feel good. Targeted at upper undergrads, so he says he holds back on some stuff, but gives a good level of detail for people who have a life.
+
 ===== Physics Videos by Eugene Khutoryansky
 {c}
 
@@ -6243,62 +6458,6 @@ More fun nuclear stuff to watch:
 * https://www.youtube.com/watch?v=g3SKBwzTtv0 "The World Of Enrico Fermi (1970)" produced by "Harvard Project Physics"
 * https://en.wikipedia.org/wiki/Fat_Man_and_Little_Boy[Fat Man and Little Boy (1987)] shows a possibly reasonably realistic of the history of the development of https://en.wikipedia.org/wiki/Trinity_(nuclear_test)[Trinity]
 
-=== Spin
-
-https://en.wikipedia.org/wiki/Spin_(physics)
-
-https://www.youtube.com/watch?v=6sR6RV2znXI&list=PL193BC0532FE7B02C&index=17 "Quantum Mechanics 9a - Photon Spin and Schrödinger's Cat I" by "viascience" shows nicely how:
-* incorporated into the \x[dirac-equation] as a natural consequence of \x[special-relativity] corrections, but not present in the \x[schrodinger-equation], see also: \x[the-dirac-equation-predicts-spin]
-* \x[photon] spin can be either linear or circular
-* the linear one can be made from a superposition of circular ones
-* straight antennas produce linearly polarized photos, and https://en.wikipedia.org/wiki/Helical_antenna[Helical antennas] circularly polarized ones
-* a jump between 2s and 2p in an atom changes angular momentum. Therefore, the photon must carry angular momentum as well as energy.
-* cannot be classically explained, because even for a very large estimate of the electron size, its surface would have to spin faster than light to achieve that magnetic momentum with the known \x[electron-charge]
-
-\Video[https://www.youtube.com/watch?v=3k5IWlVdMbo]
-{title="Quantum Spin - Visualizing the physics and mathematics" by \x[physics-videos-by-eugene-khutoryansky]["Physics Videos by Eugene Khutoryansky"] published on 2016-06-29.}
-
-==== Spin experiments
-
-* \x[stern-gerlach-experiment]
-* \x[fine-structure] split in energy levels;
-* anomalous \x[zeeman-effect]
-
-===== Stern Gerlach experiment
-
-https://en.wikipedia.org/wiki/Stern–Gerlach_experiment
-
-Originally done with silver in 1921, but even clearer theoretically was the hydrogen reproduction in 1927 by T.E. Phipps and J.B. Taylor.
-
-The hydrogen experiment was apparently harder to do and the result is less visible, TODO why: https://physics.stackexchange.com/questions/33021/why-silver-atoms-were-used-in-stern-gerlach-experiment
-
-==== Why is the spin of the electron half?
-
-https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what
-
-More interestingly, how is that implied by the \x[stern-gerlach-experiment]?
-
-https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what/266371#266371 suggests that half could either mean:
-* at limit of large `l` for the \x[schrodinger-equation-solution-for-the-hydrogen-atom] the difference between each angular momentum is twice that of the eletron's spin. Not very satisfactory.
-* it comes directly out of the \x[dirac-equation]. This is satisfactory. :-)
-
-===== Pauli exclusion principle
-{c}
-
-https://en.wikipedia.org/wiki/Pauli_exclusion_principle
-
-Initially a phenomenological guess to explain the periodic table. Later it was apparently proven properly with the \x[spin-statistics-theorem], https://physics.stackexchange.com/questions/360140/theoretical-proof-of-paulis-exclusion-principle
-
-====== Spin-statistics theorem
-
-https://en.wikipedia.org/wiki/Spin–statistics_theorem
-
-==== Nuclear spin
-
-http://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nspin.html
-
-TODO experiments. Can you do \x[stern-gerlach-experiment] with alpha particles?
-
 === Condensed matter physics
 
 https://en.wikipedia.org/wiki/Condensed_matter_physics
@@ -6383,10 +6542,10 @@ Discovered in 1988, the first \x[high-temperature-superconductivity][high-temper
 
 Superconductivity is one of the key advances of 21st century technology:
 * the \x[josephson-effect] can be used both for:
-** \x[squid-device]: precise \x[magnetometer]
-** basis for \x[superconducting-quantum-computer]
+  * \x[squid-device]: precise \x[magnetometer]
+  * basis for \x[superconducting-quantum-computer]
 * can be used to produce powerful magnetic fields, which in turn can be used to:
-** \x[magnetic-confinement-fusion]
+  * \x[magnetic-confinement-fusion]
 
 ===== What is the IV curve of superconductors?
 
@@ -6673,7 +6832,7 @@ https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_physics
 
 The most important ones are:
 * \x[theory-of-everything]. We are certain that our base equations are wrong, but we don't know how to fix them :-)
-** \x[grand-unified-theory]
+  * \x[grand-unified-theory]
 * full explanation of \x[high-temperature-superconductivity]. \x[superconductivity]{c} already has a gazillion applications, and doing it in higher temperatures would add a gazillion more, and maybe this theoretical explanation would help us find new high temperature superconducting materials more effectively
 
 == Mathematics
@@ -7157,8 +7316,8 @@ Some interesting properties:
 
 Sample numerical solutions:
 * with \x[freefem]:
-** \x[heat-dirichlet-1d-freefem]
-** \x[heat-dirichlet-2d-freefem]
+  * \x[heat-dirichlet-1d-freefem]
+  * \x[heat-dirichlet-2d-freefem]
 
 ======= Wave equation
 
@@ -7243,8 +7402,8 @@ Can be used for \x[elliptic-partial-differential-equation]{p} and \x[parabolic-p
 
 Numerical examples:
 * with \x[freefem]:
-** \x[heat-dirichlet-1d-freefem]
-** \x[heat-dirichlet-2d-freefem]
+  * \x[heat-dirichlet-1d-freefem]
+  * \x[heat-dirichlet-2d-freefem]
 
 ====== Neumann boundary condition
 {c}
@@ -7911,13 +8070,18 @@ If Ciro had become a scientist, he would write \x[the-side-effects-of-ambitious-
 
 https://en.wikipedia.org/wiki/Millennium_Prize_Problems
 
-\x[ciro-santilli] would like to fully understand the statements and motivations of each the problems:
+\x[ciro-santilli] would like to fully understand the statements and motivations of each the problems!
+
+Easy to understand the motivation:
+* \x[navier-stokes-existence-and-smoothness] is basically the only problem that is really easy to understand the statement and motivation :-)
+* \x[p-versus-np-problem] well, we all know the answer for this: either false or undecidable.
+
+Hard to understand the motivation!
 * \x[riemann-hypothesis]: a bunch of results on prime numbers, and therefore possible applications to cryptography
 
   Of course, everything of interest has already been proved conditionally on it, and the likely "true" result will in itself not have any immediate applications.
 
   As is often the case, the only usefulness would be possible new ideas from the proof technique, and people being more willing to prove stuff based on it without the risk of the hypothesis being false.
-* \x[navier-stokes-existence-and-smoothness] is basically the only problem that is really easy to understand the statement and motivation :-)
 * \x[yang-mills-existence-and-mass-gap]: this one has to do with findind/proving the existence/? of a more decent formalization of \x[quantum-field-theory] that does not resort to tricks like perturbation theory and \x[effective-field-theory] with a random cutoff value
 
   This is important because the best theory of light and electrons (and therefore chemistry and material science) that we have today, \x[quantum-electrodynamics], is a \x[quantum-field-theory].
@@ -7981,6 +8145,10 @@ And things got even worse as Ciro attained his \x[write-free-books-to-get-famous
 
 https://en.wikipedia.org/wiki/Tool-assisted_speedrun
 
+To some extent, the ultimate achievement of a TAS is to achieve \x[arbitracy-code-execution] (ACE) on a game, although this has been becoming rarer and rarer in newer consoles. The N64 is the current interesting ACE discovery frontier as of 2020.
+
+Post ACE, you then get into more subtle categories which tend to be more geometric clipping through wall glitches, but those can still be fun.
+
 The most beautiful TAS content ever made are:
 * Super Mario 64
   * no-A press 120 stars attempts by https://en.wikipedia.org/wiki/Pannenkoek2012
@@ -8002,7 +8170,7 @@ The most beautiful TAS content ever made are:
   * https://www.youtube.com/watch?v=voL3e0iqugo ACE was initially not forbidden in 11 exit rules, so Seth made an in-game manual ACE that programs an in-game accessible "exit stage now" functionality!!! This was later forbidden of course, but it was fun while it lasted.
     * then he injected a Flappy Bird clone manually!!! https://www.youtube.com/watch?v=hB6eY73sLV0, 2016
 * Ocarina of time
-* 2020 ACE via https://cwe.mitre.org/data/definitions/416.html[use after free] including a non-TAS credit warp faster than the 2016 wrong glitch: https://www.polygon.com/2020/1/24/21080568/zelda-ocarina-of-time-arwing-spawn-video-speedrun-credits-ace-cheat-code ACE later reproduced in Majora's Mask, which has a similar game engine.
+  * 2020 ACE via https://cwe.mitre.org/data/definitions/416.html[use after free] including a non-TAS credit warp faster than the 2016 wrong glitch: https://www.polygon.com/2020/1/24/21080568/zelda-ocarina-of-time-arwing-spawn-video-speedrun-credits-ace-cheat-code ACE later reproduced in Majora's Mask, which has a similar game engine.
   * 2016 Zelda Ocarina of Time wrong warp glitch:
     * https://www.youtube.com/watch?v=uCO0jU66g3g 2016 video
   * https://www.youtube.com/watch?v=Gso4MuNSuV8 EZScape explains the glitch, 2016
@@ -8012,7 +8180,7 @@ The most beautiful TAS content ever made are:
 
 It is also amusing to see http://tasvideos.org/ConsoleVerificationGuide.html[console verification] of emulations, e.g.: \x[vidoe-sm64-120-stars-console-verified].
 
-CIro also likes to watch commented manual speedruns of games as a way of experiencing the game at a high level without spending too much time on it.
+Ciro also likes to watch commented manual speedruns of games as a way of experiencing the game at a high level without spending too much time on it, often from https://en.wikipedia.org/wiki/Games_Done_Quick[Games Done Quick]. Their format is good because it generally showcases one player focusing more on the gameplay, and three couch commentators to give context, that's a good setup.
 
 \Video[http://youtube.com/watch?v=BFBGWrGT1E8]
 {id=vidoe-sm64-120-stars-console-verified}
@@ -8066,7 +8234,7 @@ This is a good project. Limited scope to 2D card-like games, but very good withi
 
 \x[ciro-santilli] used it for the 2D version of his \x[large-cohesive-game-world-for-robotic-like-artificial-intelligence-development].
 
-==== Magic the Gathering
+==== Magic: The Gathering
 {c}
 
 https://en.wikipedia.org/wiki/Magic:_The_Gathering
@@ -8249,24 +8417,29 @@ Honorable mentions (also insanely good):
 * Modern Jazz Quartet: https://en.wikipedia.org/wiki/Django_(album)[Django] (1956)
 
 ===== Surfing with the Alien (1987) by Joe Satriani
+{c}
 
 https://en.wikipedia.org/wiki/Surfing_with_the_Alien
 
 ===== Secrets (1989) by Allan Holdsworth
+{c}
 
 https://en.wikipedia.org/wiki/Secrets_(Allan_Holdsworth_album)
 
 I.O.U, Road Games, and Metal Fatigue are also extremely worth it, they are so good that even the singing does not spoil them. s2 forever Allan.
 
 ===== Romantic Warrior (1976) by Return to Forever
+{c}
 
 https://en.wikipedia.org/wiki/Romantic_Warrior
 
 ===== Maiden Voyage (1965) by Herbie Hancock
+{c}
 
 https://en.wikipedia.org/wiki/Maiden_Voyage_(Herbie_Hancock_album)
 
 ===== Jean-Luc Ponty
+{c}
 
 Many good albums:
 * https://en.wikipedia.org/wiki/Aurora_(Jean-Luc_Ponty_album)[Aurora (1976)]
@@ -8277,6 +8450,7 @@ Amazing samples in this 1976 live presentation "Soundstage" in Chicago https://w
 \Video[http://youtube.com/watch?v=VTrWQN1hRZk]
 
 ===== Bitches Brew (1970) by Miles Davis
+{c}
 
 https://en.wikipedia.org/wiki/Bitches_Brew
 
@@ -8369,6 +8543,7 @@ Related to technology:
 * https://en.wikipedia.org/wiki/Think_(IBM)["Think"] by Thomas J. Watson, 1915. The audio is a must: https://en.wikipedia.org/wiki/File:Think_Thomas_J_Watson_Sr.ogg. The past greatness of IBM at its brightest.
 
 ==== Jesus
+{c}
 
 https://en.wikipedia.org/wiki/Jesus
 
@@ -9041,22 +9216,22 @@ Parent section: \x[ciro-santilli-s-cycling].
 
 The united kingdom is a great place to cycle in general as there's plenty of small country roads and interesting new small towns to discover.
 * National Cycle Network
-** https://www.sustrans.org.uk/national-cycle-network/
-** Great set of long distance routes, they are very well chosen for their safety and interest, so you can just go into them without putting much thought into it.
-** Their distribution mechanisms are a bit shitty and sometimes asks you to pay for certain formats, which is hard to understand given that the maintainer of those maps, the https://en.wikipedia.org/wiki/Ordnance_Survey[Ordnance Survey] appears to be public... https://github.com/cirosantilli/cirosantilli.github.io/issues/61
-** Note however that there are many many other local routes which are not in the network, but arguably equally worthwhile
+  * https://www.sustrans.org.uk/national-cycle-network/
+  * Great set of long distance routes, they are very well chosen for their safety and interest, so you can just go into them without putting much thought into it.
+  * Their distribution mechanisms are a bit shitty and sometimes asks you to pay for certain formats, which is hard to understand given that the maintainer of those maps, the https://en.wikipedia.org/wiki/Ordnance_Survey[Ordnance Survey] appears to be public... https://github.com/cirosantilli/cirosantilli.github.io/issues/61
+  * Note however that there are many many other local routes which are not in the network, but arguably equally worthwhile
 
 Next, you want to decide about nice destinations to reach/go through, and these are good ideas to look into:
 * Area of Outstanding Natural Beauty
-** https://en.wikipedia.org/wiki/Area_of_Outstanding_Natural_Beauty
-** https://landscapesforlife.org.uk/about-aonbs/aonbs/overview map
+  * https://en.wikipedia.org/wiki/Area_of_Outstanding_Natural_Beauty
+  * https://landscapesforlife.org.uk/about-aonbs/aonbs/overview map
 * National Trust
-** https://en.wikipedia.org/wiki/National_Trust_for_Places_of_Historic_Interest_or_Natural_Beauty
-** https://www.nationaltrust.org.uk/
-** https://www.nationaltrust.org.uk/search?view=map map
+  * https://en.wikipedia.org/wiki/National_Trust_for_Places_of_Historic_Interest_or_Natural_Beauty
+  * https://www.nationaltrust.org.uk/
+  * https://www.nationaltrust.org.uk/search?view=map map
 * Royal Society for the Protection of Birds (RSPB)
-** https://en.wikipedia.org/wiki/Royal_Society_for_the_Protection_of_Birds
-** https://www.rspb.org.uk/reserves-and-events/reserves-a-z/ reserve map
+  * https://en.wikipedia.org/wiki/Royal_Society_for_the_Protection_of_Birds
+  * https://www.rspb.org.uk/reserves-and-events/reserves-a-z/ reserve map
 
 ==== Cambridge, United Kingdom
 {c}
@@ -9198,6 +9373,7 @@ Things that are not nice such as:
 * online forums that lock threads after some time like https://www.reddit.com/[Reddit] and https://support.google.com/[]. Ridiculous, so when new information comes out, we just duplicate all the old comments on a new thread again?
 * e-learning websites that only allows verified teachers to write content. \x[write-free-books-to-get-famous-website][Cowards who can't handle ranking algorithms].
 * \x[domain-specific-language]
+* a build system without an out-of-tree option
 
 ==== Discounts that happen more often than not
 
@@ -9329,6 +9505,63 @@ The only useful "computer science" subset any programmer ever needs to know is:
 * don't use https://en.wikipedia.org/wiki/Bubble_sort[Bubble sort] for sorting
 * you can't parse HTML with regular expressions: https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454[] because of \x[formal-language-theory]
 
+==== P (complexity)
+
+https://en.wikipedia.org/wiki/P_(complexity)
+
+==== NP (complexity)
+
+https://en.wikipedia.org/wiki/NP_(complexity)
+
+===== NP-complete
+
+https://en.wikipedia.org/wiki/NP-completeness
+
+A problem that is both \x[np-complexity] and \x[np-hard].
+
+====== Cook-Levin theorem
+{c}
+
+https://en.wikipedia.org/wiki/Cook–Levin_theorem
+
+====== P versus NP problem
+{title2=P vs NP}
+
+https://en.wikipedia.org/wiki/P_versus_NP_problem
+
+Interesting because of the \x[cook-levin-theorem]: if only a single \x[np-complete] problem were in \x[p-complexity], then all NP-complete problems would also be P!
+
+===== NP-hard
+
+https://en.wikipedia.org/wiki/NP-hardness
+
+A problem such that all NP problems can be reduced in polynomial time to it.
+
+===== NP-intermediate
+
+https://en.wikipedia.org/wiki/NP-intermediate
+
+This is the most interesting class of problems for \x[bqp] as we haven't proven that they are neither:
+* \x[p-complexity]: would be boring on quantum computer
+* \x[np-complete]: would likely be impossible on a quantum computer
+
+====== BQP
+
+https://en.wikipedia.org/wiki/BQP
+
+\x[p-complexity] for \x[quantum-computing]!
+
+Heck, we know nothing about this class yet related to non quantum classes!
+* conjectured not to intersect with \x[np-complete], because if it were, all NP-complete problems could be solved efficiently on quantum computers, and none has been found so far as of 2020.
+* conjectured to be larger than \x[p-complexity], but we don't have a single algorithm provenly there:
+  * it is believed that the NP complete ones can't be solved
+  * if they were neither NP-complete nor P, it would imply \x[p-versus-np-problem][P != NP]
+* we just don't know if it is even contained inside \x[np-complexity]!
+
+==== Undecidable problem
+
+https://en.wikipedia.org/wiki/Undecidable_problem
+
 ==== Turing machine
 {c}
 
@@ -9349,7 +9582,71 @@ https://en.wikipedia.org/wiki/Turing_completeness
 
 A computer model that is as powerful as the most powerful computer model we have: \x[turing-machine]!
 
-=== Hash function
+===== co-NP
+{c}
+
+https://en.wikipedia.org/wiki/Co-NP
+
+* https://math.stackexchange.com/questions/361422/why-isnt-np-conp "Why isn't NP = coNP?"
+
+==== Computational problem
+
+https://en.wikipedia.org/wiki/Computational_problem
+
+The list: https://complexityzoo.uwaterloo.ca/Complexity_Zoo
+
+===== Integer factorization
+
+https://en.wikipedia.org/wiki/Integer_factorization
+
+Complexity: \x[np-intermediate] as of 2020:
+* expected not to be \x[np-complete] because it would imply NP != \x[co-np]: https://cstheory.stackexchange.com/questions/167/what-are-the-consequences-of-factoring-being-np-complete#comment104849_169
+* expected not to be in \x[p-complexity] because "could we be that dumb that we haven't found a solution after having tried for that long?
+
+The basis of RSA: \x[rsa-cryptosystem]. But not proved \x[np-complete], which leads to:
+
+====== NP-hard cryptosystems
+
+This is natural question because both \x[integer-factorization] and \x[discrete-logarithm] are the basis for the most popular \x[public-key-cryptography] systems as of 2020 (\x[rsa-cryptosystem] and \x[diffie-hellman-key-exchange] respectively), and both are \x[np-intermediate]. Why not use something more provenly hard?
+* https://cs.stackexchange.com/questions/356/why-hasnt-there-been-an-encryption-algorithm-that-is-based-on-the-known-np-hard "Why hasn't there been an encryption algorithm that is based on the known NP-Hard problems?"
+
+===== Discrete logarithm
+
+https://en.wikipedia.org/wiki/Discrete_logarithm
+
+Logarithm for discrete \x[group-mathematics][groups].
+
+\x[np-intermediate] as of 2020 for similar reasons as \x[integer-factorization].
+
+==== Cryptography
+
+https://en.wikipedia.org/wiki/Cryptography
+
+===== Public-key cryptography
+
+https://en.wikipedia.org/wiki/Public-key_cryptography
+
+====== RSA (cryptosystem)
+
+https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+
+Based on the fact that we don't have a \x[p-complexity] algorithm for \x[integer-factorization] as of 2020. But nor proof that one does not exist!
+
+======= RSA vs Diffie-Hellman
+
+\x[rsa-cryptosystem] vs \x[diffie-hellman-key-exchange] are the dominant \x[public-key-cryptography] systems as of 2020, so it is natural to ask how they compare:
+* https://security.stackexchange.com/questions/35471/is-there-any-particular-reason-to-use-diffie-hellman-over-rsa-for-key-exchange
+* https://crypto.stackexchange.com/questions/2867/whats-the-fundamental-difference-between-diffie-hellman-and-rsa
+* https://crypto.stackexchange.com/questions/797/is-diffie-hellman-mathematically-the-same-as-rsa
+
+====== Diffie-Hellman key exchange
+{c}
+
+https://en.wikipedia.org/wiki/Diffie–Hellman_key_exchange
+
+Based on the fact that we don't have a \x[p-complexity] algorithm for \x[discrete-logarithm] as of 2020. But nor proof that one does not exist!
+
+==== Hash function
 
 https://en.wikipedia.org/wiki/Hash_function
 
@@ -9766,7 +10063,7 @@ https://github.com/tmux/tmux
 
 If session autosave was finally mainlined, this would be Nirvana.
 
-=== Software engineer
+==== Software engineer
 
 https://en.wikipedia.org/wiki/Software_engineer
 
@@ -9776,7 +10073,7 @@ Poet warriors monkeys?
 
 Much like a pianist plays his piano, a software engineer plays his \x[computer].
 
-==== The correlation between software engineers and Buddhism
+===== The correlation between software engineers and Buddhism
 
 \x[ciro-santilli] believes that there is a positive correlation between being a \x[software-engineer][software engineer] and liking \x[buddhism][Buddhist-like things].
 
@@ -9793,10 +10090,10 @@ Other programmers are equally obsessed by koans:
 * https://wiki.c2.com/?MysticalProgrammingKoans
 * http://rubykoans.com/[] even \x[evil] programming languages adopt them!
 
-==== Ciro Santilli's software engineering wisdom
+===== Ciro Santilli's software engineering wisdom
 {c}
 
-===== Excessive encapsulation is the root of much evil
+====== Excessive encapsulation is the root of much evil
 
 Some anecdotes.
 
@@ -9822,7 +10119,7 @@ Ciro has seen and had to deal with in his lifetime with two projects that had li
 
 Another important case: \x[linux][Linux] should have at least a C standard library, init system, and shell in-tree, like \x[bsd-operating-systems], as mentioned at: \x[linux][Linux]{full}.
 
-===== The development cycle time is your God
+====== The development cycle time is your God
 
 A slow development test cycle will kill your software.
 
@@ -9856,7 +10153,7 @@ cmd1;cmd2;cmd3
 
 And so, \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
 
-===== It is impossible to predict how long it will take to do something
+====== It is impossible to predict how long it will take to do something
 
 The trivial takes a few hours.
 
@@ -9868,7 +10165,7 @@ As "deadlines" approach, feature sets get cut down, then there are delays, and f
 
 The only deadlines that can be met are those of tasks which have already been done but not announced.
 
-===== Office space design and remote work
+====== Office space design and remote work
 
 Working remotely is hard if you don't already highly master the software and enterprise systems used.
 
@@ -9877,6 +10174,15 @@ Also you don't feel people's love as strongly, and usefulness is built on love, 
 But please, give workers a small silent office so that we can concentrate instead of a silly open space, and create an internal social network so people can see what others are doing.
 
 Remote working is much better if the majority of the team also does it, otherwise you will get excluded. Maybe after VR...
+
+==== Computer security
+
+https://en.wikipedia.org/wiki/Computer_security
+
+===== Arbitracy code execution
+{title2=ACE}
+
+https://en.wikipedia.org/wiki/Arbitrary_code_execution
 
 === Programming languages
 
