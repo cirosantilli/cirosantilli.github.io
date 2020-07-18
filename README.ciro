@@ -291,19 +291,16 @@ Further analysis has been done at: https://stats.stackexchange.com/questions/376
 Major projects can be seen at: \x[the-most-important-projects-done-by-ciro-santilli]{full}.
 
 These are some smaller projects that \x[ciro-santilli] carried out. They are all either for fun, or misguided use of his time done by an younger self:
-* Naughty stuff. Ciro likes being naughty.
-
+* Naughty stuff. Ciro likes being naughty:
   * \x[stack-overflow-vote-fraud-script]
-
-  * GitHub makes Ciro feel especially naughty:
+  * \x[github] makes Ciro feel especially naughty:
 
     * \x[all-github-commit-emails]: he extracted (almost) all Git commit emails from GitHub with \x[google] BigQuery
     * https://github.com/cirosantilli/test-many-commits-1m/[A repository with 1 million commits]: likely the https://www.quora.com/Which-GitHub-repo-has-the-most-commits/answer/Ciro-SantilliI[live repo with the most commits as of 1017]
     * https://stackoverflow.com/questions/20099235/who-is-the-user-with-the-longest-streak-on-github/27742165#27742165[An 100 year GitHub streak], likely longest ever when that existed. It was consuming too much server resources however, which led to GitHub admins manually https://web.archive.org/web/20151021135921/https://github.com/cirosantilli/[turning off his contribution history].
     * https://github.com/cirosantilli/test-octopus-100k[A repository with a 100k commit Git octopus merge]. Now that is a true https://softwareengineering.stackexchange.com/questions/314215/can-a-git-commit-have-more-than-2-parents/377903#377903[Cthulhu merge].
-
+    * https://github.com/isaacs/github/issues/1718[500 on adoc infinite header xref recursion]: that was fu
 * Because Ciro \x[write-free-books-to-get-famous-website][cares about education], around 2014 he looked into markup languages and version control for books, before he noticed that this approach was useless and that ranking algorithms are all that matter:
-
   * \x[gitlab]: very important to Ciro because he wanted to base https://github.com/booktree/booktree[Booktree] on it.
 
     He was https://github.com/gitlabhq/gitlabhq/graphs/contributors?from=2013-01-01&to=2015-01-01&type=a[the number 2 contributor from 2013 to 2015].
@@ -316,21 +313,16 @@ These are some smaller projects that \x[ciro-santilli] carried out. They are all
 
     \Image[Ciro_Santilli_in_a_dune_lake_in_Jericoacoara,_Brazil_with_his_GitLab_bottle.jpg]
     {height=300}
-
   * \a[markdown-style-guide][Markdown Style Guide]
-
   * \x[karlcow-markdown-testsuite] improvements: Ciro has implemented the test runner a few months before CommonMark left stealth mode and killed it instantaneously.
 
     At least MacFarlane was able to https://github.com/jgm/CommonMark/blob/2528c87c0cf08e02eb3e201c149cb3acf521e0c8/test/normalize.py#L8[reuse] part of the HTML normalizer https://github.com/karlcow/markdown-testsuite/blame/639cd234d71ca81956b61ff7876f37c3cdc5c043/run-tests.py[he wrote], and he extracted the multi-engine comparison to: https://github.com/cirosantilli/commonmark-implementation-compare[CommonMark Implementation Compare].
 
     Playing with this project has led him to find and report many Markdown bugs / bad behavior on other software, e.g. https://github.com/isaacs/github/issues/297[GitHub] and https://github.com/fletcher/MultiMarkdown-4/issues/68[MultiMarkdown-4].
   * https://github.com/isaacs/github[isaacs/github public unofficial GitHub issue tracker]: he has commented there so often that he https://github.com/isaacs/github/issues/430#issuecomment-123851480[was made a collaborator]
-
 * \x[vim][Vim]: sometimes Ciro want crazy and wasted his time with Vimscript:
-
   * https://github.com/plasticboy/vim-markdown[Vim Markdown]: the owner `plasticboy` was really nice and made Ciro a collaborator for his contributions, notably a live ToC outline and the header mappings
   * https://github.com/cirosantilli/vundle-plugin-tester[Vundle Plugin Tester], which he used to start the testing system of Vim Markdown
-
 * https://github.com/cirosantilli/breakthrough-message[Breakthrough Message]: aliens!!! Creative / media project, powered by some Python scripts.
 * making Google Maps reviews of places he's visited to help other people. Ciro's photos reached 1 million views in 2019: https://www.google.com/maps/contrib/106598607405640635523/photos (\a[http://web.archive.org/web/20190905081800/https://www.google.com/maps/contrib/106598607405640635523/photos][archive])
 
@@ -913,12 +905,11 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
 
 === How to contact Ciro Santilli
 
-To contact \x[ciro-santilli] publicly about any general subject that is not covered in a more specif repository, including saying hi or suggestions about his website, create a GitHub issue at: https://github.com/cirosantilli/cirosantilli.github.io/issues/new
+To contact \x[ciro-santilli] publicly about any general subject that is not covered in a more specif repository, including saying hi or suggestions about his website, create a \x[github] issue at: https://github.com/cirosantilli/cirosantilli.github.io/issues/new
 
 For comments about China first read:
 * https://github.com/cirosantilli/china-dictatorship#faq
 * https://github.com/cirosantilli/china-dictatorship/blob/master/CONTRIBUTING.md
-
 and then create a GitHub issue at: https://github.com/cirosantilli/china-dictatorship/issues/new
 
 If you need private contact, extract his email from on of his GitHub repos or use LinkedIn.
@@ -1523,59 +1514,6 @@ After that, Ciro went through puberty he guesses, and noticed that the natural s
 === Ciro Santilli's website
 {c}
 
-==== How to develop Ciro Santilli's website
-
-Ciro's website is powered by \x[github-pages] and https://github.com/asciidoctor/jekyll-asciidoc[Jekyll Asciidoc].
-
-The source code is located at: https://github.com/cirosantilli/cirosantilli.github.io
-
-Build locally, watch for changes and rebuild automatically, and start a local server with:
-
-``
-git clone --recursive https://github.com/cirosantilli/cirosantilli.github.io
-cd cirosantilli.github.io
-bundle install
-npm install
-./run
-``
-
-Source: \a[run]
-
-The website will be visible at: http://localhost:4000[].
-
-Tested on the latest Ubuntu.
-
-Publish changes to GitHub pages:
-
-``
-git add -u
-git commit -m 'make yourself look sillier'
-./publish
-``
-
-Source: \a[publish]
-
-GitHub forces us to use the master branch for the build output... so the actual source is in the branch `dev`.
-
-Update the gems with:
-
-``
-bundle update
-git add Gemfile.lock
-git commit -m 'update gems'
-``
-
-His website was originally written in Markdown, however those were deprecated in favour of Asciidoctor when Ciro saw the light, rationale shown at: \a[markdown-style-guide#use-asciidoc]
-
-GitHub pages is chosen instead of a single page GitHub README.adoc for the following reasons:
-* Ciro will want some unsupported extensions, notably mathematics, likely with \x[mathematics-typesetting-setup-of-ciro-santilli-s-website][KaTeX server side]:
-  * https://github.com/asciidoctor/asciidoctor/pull/3338
-  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
-  * https://g14n.info/2014/09/math-on-github-pages/
-  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
-  * https://www.quora.com/How-can-I-combine-latex-and-markdown-in-GitHub
-* when GitHub dies, Ciro's website URL still lives and retains the PageRank!
-
 ==== Unmigrated sections of the old version of Ciro Santilli's website
 
 It is interesting to see how your own ideas shift with time, and \x[ciro-santilli] doesn't think the following are very important anymore, so he was lazy to migrate them:
@@ -1758,6 +1696,61 @@ Because when this gets converted to a \x[write-free-books-to-get-famous-website]
 Also, what do you do when creating a pull request? Do you say I, which is not true because Ciro did not say that, or do you say "John Doe thinks" bla bla?
 
 And because \x[ciro-santilli-s-selfish-desires][his name is awesome]! :-) Just kidding.
+
+==== How to develop Ciro Santilli's website before the cirodown migration
+
+The website moved from Asciidoctor to Cirodown in 2020, making this section mostly useless. But hey, history!
+
+Ciro's website is powered by \x[github-pages] and https://github.com/asciidoctor/jekyll-asciidoc[Jekyll Asciidoc].
+
+The source code is located at: https://github.com/cirosantilli/cirosantilli.github.io
+
+Build locally, watch for changes and rebuild automatically, and start a local server with:
+
+``
+git clone --recursive https://github.com/cirosantilli/cirosantilli.github.io
+cd cirosantilli.github.io
+bundle install
+npm install
+./run
+``
+
+Source: \a[run]
+
+The website will be visible at: http://localhost:4000[].
+
+Tested on the latest Ubuntu.
+
+Publish changes to \x[github-pages]:
+
+``
+git add -u
+git commit -m 'make yourself look sillier'
+./publish
+``
+
+Source: \a[publish]
+
+GitHub forces us to use the master branch for the build output... so the actual source is in the branch `dev`.
+
+Update the gems with:
+
+``
+bundle update
+git add Gemfile.lock
+git commit -m 'update gems'
+``
+
+His website was originally written in Markdown, however those were deprecated in favour of Asciidoctor when Ciro saw the light, rationale shown at: \a[markdown-style-guide#use-asciidoc]
+
+GitHub pages is chosen instead of a single page GitHub README.adoc for the following reasons:
+* Ciro will want some unsupported extensions, notably mathematics, likely with \x[mathematics-typesetting-setup-of-ciro-santilli-s-website][KaTeX server side]:
+  * https://github.com/asciidoctor/asciidoctor/pull/3338
+  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
+  * https://g14n.info/2014/09/math-on-github-pages/
+  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
+  * https://www.quora.com/How-can-I-combine-latex-and-markdown-in-GitHub
+* when GitHub dies, Ciro's website URL still lives and retains the PageRank!
 
 === Ciro Santilli's skills
 {c}
@@ -4906,7 +4899,7 @@ Whenever you make a change to your material, people should still be able to acce
 
 Maybe there was something in the previous version that they needed, and you just removed.
 
-Git + GitHub is the perfect way to do versioning.
+Git + \x[github] is the perfect way to do versioning.
 
 ===== Explain how to make money with the lesson
 
@@ -7866,7 +7859,7 @@ It nice though that they do have some graphics out of the box, as that allows to
 
 Uses \x[variational-formulation-of-a-partial-differential-equation], which is not immediately obvious to beginners? The introduction https://doc.freefem.org/tutorials/poisson.html gives an ultra quick example, but your are mostly on your own with that.
 
-On Ubuntu 20.04, the `freefem` is a bit out-of-date (3.5.8, there isn't even a tag for that in the GitHub repo, and refs/tags/release_3_10 is from 2010!) and fails to run the examples from the website. It did work with the example package though, but the output does not have color, which makes me sad :-)
+On Ubuntu 20.04, the `freefem` is a bit out-of-date (3.5.8, there isn't even a tag for that in the \x[github] repo, and refs/tags/release_3_10 is from 2010!) and fails to run the examples from the website. It did work with the example package though, but the output does not have color, which makes me sad :-)
 ``
 sudo apt install freefem freefem-examples
 freefem /usr/share/doc/freefem-examples/heat.pde
@@ -7979,7 +7972,7 @@ It should be mentioned that when you strat Googling for \x[partial-differential-
 
 Unfortunately he died of cancer in 2016, shame, he seemed like a good educator.
 
-He also published to GitHub pages with his own crazy \x[markdown]-like multi-output markup language: https://github.com/hplgit/doconce[].
+He also published to \x[github] pages with his own crazy \x[markdown]-like multi-output markup language: https://github.com/hplgit/doconce[].
 
 Rest in peace, Hans.
 
@@ -8378,7 +8371,7 @@ https://en.wikipedia.org/wiki/Prime_number
 
 === Mathematics bibliography
 
-https://github.com/vEnhance/napkin Evan Chen's (陳誼廷) Infinite Napkin. 800+ page PDF with source on GitHub claiming to try and teach the beauty of modern maths for high schoolers. Fantastic project!!!
+https://github.com/vEnhance/napkin Evan Chen's (陳誼廷) Infinite Napkin. 800+ page PDF with source on \x[github] claiming to try and teach the beauty of modern maths for high schoolers. Fantastic project!!!
 
 === Mathematician
 
@@ -8529,7 +8522,7 @@ To some extent, the ultimate achievement of a TAS is to achieve \x[arbitracy-cod
 Post ACE, you then get into more subtle categories which tend to be more geometric clipping through wall glitches, but those can still be fun.
 
 The most beautiful TAS content ever made are:
-* Super Mario 64
+* \x[super-mario-64]
   * no-A press 120 stars attempts by https://en.wikipedia.org/wiki/Pannenkoek2012
 
     2018 video outlining the 18 unique A presses missing for 120-stars at the time: https://www.youtube.com/watch?v=RJaL5QOq590
@@ -8630,6 +8623,34 @@ So as Ciro became older, and turned into a \x[software-engineer], he started to 
 
 Luckily Ciro's mind is not interested enough by that \x[art][useless shit] for Ciro to seriously study it himself. But that's what \x[youtube] is for, right? Why do useless stuff when other more useless people can do it for you?
 
+====== Nintendo 64 emulators
+
+======= Mupen64Plus
+
+====== Nintendo 64 games
+
+======= Super Mario 64
+
+https://en.wikipedia.org/wiki/Super_Mario_64
+
+Ah, \x[ciro-santilli] loved this one... \x[games-young-ciro-santilli-played].
+
+And as a result, adult Ciro really enjoys \x[tool-assisted-speedrun]{p} of the game.
+
+======== Super Mario 64 reverse engineering project
+{title2=n64decomp/sm64}
+
+https://github.com/n64decomp/sm64
+
+OMG, that just fucking works on Ubuntu 20.04 with README instructions, tested at 9214dddabcce4723d9b6cda2ebccbac209f6447d, it is unbelievable, those people don't have lives. And it builds the ROM byte by byte equal.
+
+The only dependency missing from Ubuntu packages is the https://en.wikipedia.org/wiki/IRIX[IRIX] \x[qemu] https://cirosantilli.com/linux-kernel-module-cheat/#user-mode-simulation[user mode] which the need for their tooling.
+
+TODO there was also a PC port. It must share the codebase, but that repo does not seem to contain any PC stuff. I wonder why. Why would the PC one be illegal and the Nintendo 64 legal.
+
+\Image[Screenshot_of_Mupen64Plus_running_on_Ubuntu_20.04_emulating_Super_Mario_64_with_the_title_screen_hacked_by_Ciro_Santilli.png]
+{title=Screenshot of \x[mupen64plus][Mupen64Plus] running on \x[ubuntu][Ubuntu] 20.04 emulating \x[super-mario-64][Super Mario 64] with the title screen hacked by Ciro Santilli.}
+
 ==== Magic: The Gathering
 {c}
 
@@ -8714,6 +8735,9 @@ Ciro developed one interesting technique: while scrolling through YouTube's usel
 * subscribes if it is amazing and then "Don't recommend channel"
 * otherwise just "Don't recommend channel" immediately
 This helps to keep this feed clean of boring stuff he already knows about.
+
+Things Ciro hates about YouTube:
+* you can't follow or ignore a subject, only indirectly tell the algorithm about that. Once you click a popular cat video, you will be forced to watch cat videos for all eternity.
 
 ==== The best YouTube channels
 
@@ -9022,7 +9046,7 @@ First when he was really young, about 5, Ciro played a lot of NES, but he doesn'
 
 Ciro then skipped the SNES and handhelds, which he played only through friends because he \x[ciro-santilli-s-psychology-and-physiology][was cheap] (but also because Brazil is a poor country remember, and imports are pretty expensive). He clearly remembers playing https://en.wikipedia.org/wiki/Super_Mario_World[Super Mario World] for the SNES and \x[children-cartoons-ciro-santilli-liked-to-watch][Pokemon on friends Gameboys] of course.
 
-Ciro then went straight to 5th generation with the \x[nintendo-64] in 1994 which his parents bought for him during a trip to the United States. Once again, because he was cheap, the only game he bought was Super Mario 64, which likely came with the console? He played that game to death.
+Ciro then went straight to 5th generation with the \x[nintendo-64] in 1994 which his parents bought for him during a trip to the United States. Once again, because he was cheap, the only game he bought was \x[super-mario-64], which likely came with the console? He played that game to death.
 
 Then came https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time[Ocarina of Time], which blew everyone's minds, and Ciro would go to Blockbuster to rent it for the weekend, and again play to death with his friends. You had to arrive early at Blockbuster to rent it, otherwise other people would rent all copies!!!
 
@@ -9093,6 +9117,11 @@ The best place to get answers to programming questions as of 2019. \x[google] in
 
 An overview of \x[ciro-santilli]'s Stack Overflow contribution can be found at: \x[ciro-santilli-s-stack-overflow-contributions].
 
+\Image[http://web.archive.org/web/20200718095316im_/https://external-preview.redd.it/KiTyVKRwMwHSmTNKeInAVSsjyeSgcRlRgSEp_u9CByA.png?width=960&crop=smart&auto=webp&s=bfca099f99cea0eae883ddb2a59409f08a3c7d2e]
+{title=Stack Overflow in a nutshell.}
+{description=As the "WTF look at my points" guy, Ciro approves of this meme. A few more elements could be added, like marked as duplicate, but good enough.}
+{source=https://www.reddit.com/r/ProgrammerHumor/comments/55i0nl/stack_overflow_in_a_nutshell/}
+
 === Reply to Stack Overflow is doomed posts
 
 Stack Overflow does have an super naive reputation and moderation system and overly restrictive subject matter, which \x[ciro-santilli] wants to improve upon with: \x[write-free-books-to-get-famous-website].
@@ -9117,7 +9146,7 @@ What else would you expect from a naive algorithm system that has 10 million new
   Alter each answer slightly to avoid the duplicate answer detector.
 
   If one of the question closes, it is not too bad, as it continues netting you to upvotes, and prevents new answers from coming in.
-* follow on Twitter/RSS someone who comments on the top features of new software releases. E.g. for Git, follow GitHub on Twitter, C++ on Reddit. Then run back to any question which has a new answer.
+* follow on Twitter/RSS someone who comments on the top features of new software releases. E.g. for Git, follow \x[github] on Twitter, C++ on Reddit. Then run back to any question which has a new answer.
 * always upvote the question when you answer it:
   * the more upvotes, more likely people are to click it.
   * the OP is more likely to see your answer and feel good and upvote you
@@ -9219,6 +9248,22 @@ Stack Overflow Moderation Team
 ]
 
 A meta thread was later created by Yvette, to which Ciro answered with the correct unpopular answer that will be downvoted to oblivion: https://meta.stackoverflow.com/questions/381577/is-it-ok-to-have-links-on-how-to-create-sock-puppets-and-gain-rep-fraudulently-i/381635#381635
+
+Yvette had also previously \x[stack-overflow-content-deletion][deleted one or two of Ciro's answers for being duplicates], which is a policy Ciro is against: if the questions are not dupes, a single answer might still directly reply to both of them.
+
+Yvette later announced that she was leaving the website: https://meta.stackoverflow.com/questions/399495/leaving-the-site-and-the-network-mid-election-is-not-the-best-but-theres-no[]. This is evil, but Ciro was happy. He does not mean harm to Yvette, but in their limited interaction, Ciro disagreed with her choices.
+
+=== Stack overflow content deletion
+
+Stack overflow allows deleting content/making it visible only to 10k rep users.
+
+\x[ciro-santilli] is strictly against this, and this is an intended core policy of \x[write-free-books-to-get-famous-website].
+
+If you delete people's content randomly, they will be much less likely to write anything.
+
+Getting downvoted to oblivion is one thing, but data loss? Unacceptable.
+
+Only illegal content must ever be deleted.
 
 == Countries
 
@@ -9449,12 +9494,10 @@ An \x[evil][evil] \x[united-states-of-america][American] company
 * uses way more open source than it gives back
 * creates closed lock-in systems without inter-operability and actively fights users from owning their devices
 
-==== Macintosh
+==== MacOS
 {c}
 
-https://en.wikipedia.org/wiki/Macintosh
-
-Later evolved into: https://en.wikipedia.org/wiki/MacOS
+https://en.wikipedia.org/wiki/MacOS
 
 Nice looking and expensive operating system by \x[apple-inc]. \x[ciro-santilli] believes that:
 * if you want to be ripped off, just use \x[microsoft-windows] which has more software available
@@ -9471,6 +9514,14 @@ Equally awesome was Intel port initial 2005 demo by \x[steve-jobs]:
 Equally awesome was Intel port initial 2005 demo by Steve Jobs:
 
 After talking about it for several minutes with slides, he then reveals that the computer used for the slide presentation was an Intel CPU, and that OSX 10, then the last great update, was designed from the start for portability.
+
+===== Is the MacOS kernel open source?
+
+Can you do anything with it? What's the license?
+
+* https://github.com/apple/darwin-xnu
+* https://en.wikipedia.org/wiki/XNU
+* https://stackoverflow.com/questions/43136124/how-to-boot-xnu-kernel
 
 ==== Steve Jobs
 {c}
@@ -9601,7 +9652,7 @@ Financially backed by high schools trying to make ads showing how they will turn
 
 The most triggering thing possible is when programming competitions don't release their benchmarks as \x[open-source-software] afterwards: at least like that they might help someone to solve their real world problems. Maybe.
 
-On a related note, hackathons are also mostly useless. Instead of announcing a hackathon, just announce a web forum where people with similar interests can talk to one another instead, and let them code it out on GitHub if they want to. Restricting intensive development to a few days tends to produce crappy code and not reach real goals.
+On a related note, hackathons are also mostly useless. Instead of announcing a hackathon, just announce a web forum where people with similar interests can talk to one another instead, and let them code it out on \x[github] if they want to. Restricting intensive development to a few days tends to produce crappy code and not reach real goals.
 
 Some https://en.wikipedia.org/wiki/Artur_Avila[irrelevant people] highlight https://youtu.be/jz-41LxrI_M?t=46[that knowledge Olympiads can have good effects], because they are "an opportunity to meet university teachers and their research organizations". Ciro's argument is just that there are much more efficient ways to achieve those goals.
 
@@ -9898,6 +9949,12 @@ Therefore, if you ever submit patches and they get ignore, don't be too sad. It 
 * otherwise, e.g. you just want to randomly help out, you have to ask them before doing anything big "how can I be of help". If I propose a patch for this issue, do you promise to review it?
 
 Writing documentation in an open source project in which you don't have immediate push rights is another major pain due to code reviews. Code code reviews tend to be much less subjective, because if you do something wrong, stuff crashes, runs slower, or you need more lines of code to reach the same goal. There are tradeoffs, but in a limited number. Documentation code reviews on the other hand, are an open invitation to https://en.wikipedia.org/wiki/Law_of_triviality[infinite bike-shedding], since you can't "run" documentation through a standardized \x[brain][brain model]. Much better is for one good documenter person to just make one cohesive \x[stack-overflow] post, and ping others with more knowledge to review details or add any missing pieces :-)
+
+===== Closed source is less bad on online services
+
+\x[ciro-santilli] can accept closed source on server products more easily than offline, because the servers have to be paid for somehow (by stealing your private data).
+
+But closed source on offline products in unacceptable, when you could just have those for free! Thus Ciro's hatred for \x[microsoft-windows] and \x[macos] (at \x[is-the-macos-kernel-open-source][least userland, maybe]).
 
 ==== Integrated development environment
 {title2=IDE}
@@ -10245,6 +10302,10 @@ https://github.com/libgit2/rugged
 {c}
 
 https://en.wikipedia.org/wiki/GitHub
+
+This is where \x[ciro-santilli] stored his code since he started coding nonstop in 2013.
+
+He \x[closed-source-is-less-bad-on-online-services][does not like the closed source aspect of it], but hey, there are more important things to worry about, the network effect is just too strong.
 
 ======= GitHub Pages
 {c}
@@ -12235,6 +12296,10 @@ Other good talks:
 == Weekend
 
 Days of the week where you don't do what you set out to do. And yet, it is in those days that you save your sanity, and possibly the world. Wait, this sounds exactly like a week day?
+
+\Image[https://web.archive.org/web/20200718073243if_/https://pbs.twimg.com/media/DWObYfMU0AAgJJP?format=jpg&name=small]
+{title=Calvin and Hobbes "Oh No! I overslept! I gotta get up!" cartoon.}
+{source=https://twitter.com/calvinn_hobbes/status/964785603467395072}
 
 == Fusion power
 
