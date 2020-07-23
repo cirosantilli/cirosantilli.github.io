@@ -682,7 +682,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
 
     \Image[BIOS_bare_metal_hello_world_running_on_a_Lenovo_ThinkPad_T430.jpg]
     {source=https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545}
-* x86 Assembly
+* \x[x86] \x[assembly-language][assembly]
   * https://stackoverflow.com/questions/980999/what-does-multicore-assembly-language-look-like/33651438#33651438[What does “multicore” assembly language look like?]
   * https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[What is the function of the push / pop instructions used on registers in x86 assembly?] Going down to memory spills, register allocation and graph coloring.
 * \x[linux-kernel-module-cheat][Linux kernel]
@@ -720,13 +720,23 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
   * https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624[What is incremental linking or partial linking?]
   * https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263[GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld]
   * https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?] Concrete examples by running program through GDB twice, and an assembly hello world with absolute vs PC relative load.
-* C / C++: almost all of those fall into "disassemble https://knowyourmeme.com/memes/all-the-things[all the things]" category. Ciro also does "standards dissection" and "a new version of the standard is out" answers, but those are boring.
+* C/C++: almost all of those fall into "disassemble https://knowyourmeme.com/memes/all-the-things[all the things]" category. Ciro also does "standards dissection" and "a new version of the standard is out" answers, but those are boring.
   * https://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/14339047#14339047[What does "static" mean in a C program?]
   * https://stackoverflow.com/questions/1041866/in-c-source-what-is-the-effect-of-extern-c/30526795#30526795[In C++ source, what is the effect of `extern "C"`?]
   * https://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c/30661089#30661089[Char array vs Char Pointer in C]
   * https://stackoverflow.com/questions/847179/multiple-glibc-libraries-on-a-single-host/52454603#52454603[How to compile glibc from source and use it?]
   * https://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-const-cast-and-reinterpret-cast-be-used/60414256#60414256[When should `static_cast`, `dynamic_cast`, `const_cast` and `reinterpret_cast` be used?]
   * https://stackoverflow.com/questions/31978324/what-exactly-is-stdatomic/58904448#58904448[What exactly is `std::atomic` in C++?]. This answer was originally more appropriately entitled "Let's disassemble some stuff", and got three downvotes, so Ciro changed it to a more professional title, and it started getting upvotes. People judge books by their covers.
+  * https://stackoverflow.com/questions/2351148/explicit-template-instantiation-when-is-it-used/59614755#59614755[What is explicit template instantiation in C++ and when to use it?]
+
+    ``
+    notmain.o
+    0000000000000000 0000000000000017 W MyTemplate<int>::f(int)
+    main.o
+    0000000000000000 0000000000000017 W MyTemplate<int>::f(int)
+    ``
+    {title=`nm` outputs showing that objects are redefined multiple times across files if you don't use template instantiation properly.}
+
 * IEEE 754
   * https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
   * https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
@@ -763,13 +773,13 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
                   2^-127
     ``
     {title=Visualization of subnormal floating point numbers vs what IEEE 754 would look like without them.}
-* Algorithms
+* \x[algorithm]{c}{p}
   * https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834[Heap vs Binary Search Tree (BST)]. Compared Heap vs BST vs Hash Maps.
 
     \Image[C++_Heap_vs_BST_vs_hash_map_insert_time.png]
     {source=https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834}
     {height=800}
-* Git internals
+* \x[git] internals
   * https://stackoverflow.com/a/25806452/895245[What does the git index contain EXACTLY?]
 
     ``
@@ -792,7 +802,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
 
     {commit message}
     ``
-* Python
+* \x[python-programming-language][Python]
   * https://stackoverflow.com/a/19950198/895245[What is the difference between old style and new style classes in Python?]
   * https://stackoverflow.com/a/20022860/895245[What is a mixin in Python, and why are they useful?]
   * https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python/55319297#55319297[What are the differences between threads and processes in Python?]
@@ -805,7 +815,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
   * https://stackoverflow.com/a/28380690/895245[What does enctype='multipart/form-data' mean?]
   * https://stackoverflow.com/a/23877420/895245[How does JavaScript .prototype work?]
   * https://stackoverflow.com/a/24595458/895245[.prop() vs .attr()]
-* OpenGL
+* \x[opengl]
   * https://stackoverflow.com/questions/3191978/how-to-use-glut-opengl-to-render-to-a-file/14324292#14324292[How to use GLUT/OpenGL to render to a file?]
 
     \Image[opengl-rotating-triangle-image-magick.gif]
@@ -833,7 +843,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
 
     \Video[http://youtube.com/watch?v=MRhAljmHq-o]
     {title=OpenGL GPU GLSL fragment shader real time v4l2 Linux webcam computer vision box blur vs CPU}
-* Node.js
+* \x[node-js]
   * https://stackoverflow.com/a/22004559/895245[What's the difference between dependencies, devDependencies and peerDependencies in npm package.json file?]
 * Rails
   * https://stackoverflow.com/a/25626629/895245[What is the difference between +<%+, +<%=+, +<%#+ and +-%>+ in ERB in Rails?]
@@ -847,7 +857,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
     {source=https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376}
     {height=600}
   * https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management/57453334#57453334[What are RSS and VSZ in Linux memory management?]
-* Security
+* \x[computer-security]{c}
   * https://security.stackexchange.com/a/72569/53321[Why is the same origin policy so important?]
 * Media
   * https://stackoverflow.com/questions/2205070/programmatically-synthesizing-programming-music/52126471#52126471[How to programmatically synthesize music?] Question deleted, lol... so answer moved to: https://stackoverflow.com/questions/732699/how-is-audio-represented-with-numbers-in-computers/36510894#36510894[How is audio represented with numbers in computers?]
@@ -855,13 +865,13 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
     \Video[http://youtube.com/watch?v=JISozfHATms]
     {title=Canon in D in C}
   * https://stackoverflow.com/questions/12831761/how-to-resize-a-picture-using-ffmpegs-sws-scale/36487785#36487785[How to resize a picture using ffmpeg's sws_scale()?]
-* Non technical
+* Non-technical
   * \x[how-to-teach]{c}
 * Eclipse
   * https://stackoverflow.com/questions/4038760/how-to-set-up-the-eclipse-for-remote-c-debugging-with-gdbserver/45608937#45608937[How to set up the Eclipse for remote C debugging with gdbserver?]
-* Hardware
+* \x[computer-hardware]{c}
   * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli[Are there good open source standard cell libraries to learn IC synthesis with EDA tools?]
-* \x[scientific-visualization-software]
+* \x[scientific-visualization-software]{c}
   * \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
 
     \Image[VisIt_zoom_in_10_million_straight_line_plot_with_some_marked_points.png]
@@ -876,7 +886,7 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
     \Image[https://i.stack.imgur.com/9eVe9.png]
     {title=gnuplot plot of the y position of a sphere bouncing on a plane simulated in Bullet Physics.}
     {source=https://stackoverflow.com/questions/11175694/bullet-physics-simplest-collision-example/36987063#36987063}
-* \x[register-transfer-level] languages like \x[verilog] and \x[vhdl]
+* \x[register-transfer-level]{c} languages like \x[verilog] and \x[vhdl]
   * https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
 * \x[android]
   * https://stackoverflow.com/questions/1809774/how-to-compile-the-android-aosp-kernel-and-test-it-with-the-android-emulator/48310014#48310014[How to compile the Android AOSP kernel and test it with the Android Emulator?]
@@ -895,13 +905,13 @@ Some random in-tree essays will be present at: \x[essays-by-ciro-santilli]{full}
     \Image[http://web.archive.org/web/20200229164327if_/https://i.stack.imgur.com/mM8NQ.png]
     {title=gprof2dot image generated from the gprof data of a simple test program.}
     {source=https://stackoverflow.com/questions/375913/how-can-i-profile-c-code-running-on-linux/60265409#60265409}
-* Mathematics
+* \x[mathematics]{c}
   * https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups/3732426#3732426[What is the intuition behind normal subgroups?]
 
     \Image[Diagram_of_the_fundamental_theorem_on_homomorphisms.svg]
-* Physics
+* \x[physics]{c}
   * \x[uranium-vs-plutonium-quora-answer-by-ciro-santilli][What is the difference between plutonium and uranium?]
-* Biology
+* \x[biology]{c}
   * \x[oxford-nanopore-river-bacteria]{c}
 
     \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Oxford_Nanopore_MinION_top_cropped.jpg/392px-Oxford_Nanopore_MinION_top_cropped.jpg]
@@ -6376,7 +6386,9 @@ https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-
 
 https://en.wikipedia.org/wiki/Pauli_exclusion_principle
 
-Initially a phenomenological guess to explain the periodic table. Later it was apparently proven properly with the \x[spin-statistics-theorem], https://physics.stackexchange.com/questions/360140/theoretical-proof-of-paulis-exclusion-principle
+Initially a phenomenological guess to explain the periodic table. Later it was apparently proven properly with the \x[spin-statistics-theorem], https://physics.stackexchange.com/questions/360140/theoretical-proof-of-paulis-exclusion-principle[].
+
+And it was understood more and more that basically this is what prevents solids from collapsing into a single nucleus, not electrical repulsion: \x[electron-degeneracy-pressure]!
 
 \Video[https://www.youtube.com/watch?v=dQWn9NzvX4s]
 {title="The Biggest Ideas in the Universe | 17. Matter" published by Sean Carroll on 2020-07-14.}
@@ -6393,6 +6405,11 @@ https://en.wikipedia.org/wiki/Fermion
 https://en.wikipedia.org/wiki/Spin–statistics_theorem
 
 \x[video-the-biggest-ideas-in-the-universe-17-matter-published-by-sean-carroll-on-2020-07-14] at https://youtu.be/dQWn9NzvX4s?t=3707 says that no one has ever been able to come up with an intuitive reason for the proof.
+
+= Electron degeneracy pressure
+{parent=pauli-exclusion-principle}
+
+https://en.wikipedia.org/wiki/Electron_degeneracy_pressure
 
 = Nuclear spin
 {parent=spin}
@@ -7378,7 +7395,7 @@ Maybe nothing can ever make \x[physics-and-the-illusion-of-life] clearer.
 {title="ATP synthase in action" published by HarvardX on 2017-04-19.}
 
 \Video[https://www.youtube.com/watch?v=LQmTKxI4Wn4]
-{title="Electron transport chain" published by HarvardX on 2017-10-09.}
+{title="\x[electron-transport-chain]{c}" published by HarvardX on 2017-10-09.}
 {description=This actually explains how \x[mitochondrion]{p} use \x[cellular-respiration][sugar derivatives and oxygen to transform ADP into ATP].}
 
 \Video[http://youtube.com/watch?v=wJyUtbn0O5Y]
@@ -7403,13 +7420,13 @@ Very similar to \x[the-matrix-1999] when Agent Smith talks about the failed http
 {c}
 
 From episode "Mortynight Run"
-
 * https://rickandmorty.fandom.com/wiki/Mortynight_Run
 * https://rickandmorty.fandom.com/wiki/Roy:_A_Life_Well_Lived
 
 \Q[Look at this. You beat cancer, and then you went back to work at the carpet store? Booooh.]
 
 \Video[http://youtube.com/watch?v=szzVlQ653as]
+{title="Roy: A Life Well Lived | Rick and Morty | Adult Swim" published by Adult Swim on 2015-08-03.}
 
 === Unsolved problems in Physics
 
@@ -7538,6 +7555,10 @@ https://en.wikipedia.org/wiki/Ordered_pair
 ==== Matrix multiplication
 
 https://en.wikipedia.org/wiki/Matrix_multiplication
+
+===== Matrix multiplication algorithm
+
+https://math.stackexchange.com/questions/30330/fast-algorithm-for-solving-system-of-linear-equations/259372#259372
 
 ==== Eigenvalues and eigenvectors
 
@@ -10126,11 +10147,23 @@ https://en.wikipedia.org/wiki/Co-NP
 
 * https://math.stackexchange.com/questions/361422/why-isnt-np-conp "Why isn't NP = coNP?"
 
+==== Algorithm
+
+https://en.wikipedia.org/wiki/Algorithm
+
+A solution to a \x[computational-problem]!
+
 ==== Computational problem
 
 https://en.wikipedia.org/wiki/Computational_problem
 
+In other sections: \x[matrix-multiplication-algorithm].
+
 The list: https://complexityzoo.uwaterloo.ca/Complexity_Zoo
+
+===== Integer multiplication
+
+https://cs.stackexchange.com/questions/16226/what-is-the-fastest-algorithm-for-multiplication-of-two-n-digit-numbers
 
 ===== Integer factorization
 
@@ -10471,6 +10504,8 @@ The leading open source cross architecture and KVM emulator of the 2010's.
 
 Great way to understand how operating systems work, which \x[ciro-santilli] used extensively in his \x[linux-kernel-module-cheat].
 
+\x[ciro-santilli] has some good related articles listed under: \x{articles}.
+
 ===== The most awesome systems programming software engineers of the 2000's
 
 * https://en.wikipedia.org/wiki/Fabrice_Bellard[Fabrice Bellard]. Creator of \x[qemu] and FFmpeg. And a bunch other random stuff.
@@ -10479,7 +10514,7 @@ Great way to understand how operating systems work, which \x[ciro-santilli] used
 
   \x[google] made billions on top of this dude:
 
-  * FFmpeg likely being the backend of YouTube through \x[reverse-engineering]: https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html (\a[https://web.archive.org/web/20190519135210/https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html][archive])
+  * FFmpeg likely being the backend of \x[youtube] through \x[reverse-engineering]: https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html (\a[https://web.archive.org/web/20190519135210/https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html][archive])
   * https://github.com/cirosantilli/linux-kernel-module-cheat/tree/9afe5355e90bbb6b6c636f871b6eb461a957b0ea#introduction-to-qemu[QEMU] is the default emulator for https://en.wikipedia.org/wiki/Android_Studio[Android Studio] as of 2019, which \x[android] developers use by default under the hood to develop Android Apps on their desktop without the need for a real device.
 
   At last but not least, Fabrice also studied in the same school that Ciro studied in France, \x[ecole-polytechnique].
@@ -10720,6 +10755,8 @@ Couldn't handle exploration of large datasets though: \x[survey-of-open-source-i
 {c}
 
 https://en.wikipedia.org/wiki/OpenGL
+
+\x[ciro-santilli] has some good related articles listed under: \x{articles}.
 
 ===== Freetype GL
 {c}
@@ -12481,8 +12518,26 @@ It might already be possible to order dissimulated sequences online:
 * https://en.wikipedia.org/wiki/Protein
 * https://en.wikipedia.org/wiki/Protein_(nutrient)
 
-= Photosynthesis
+= Enzyme
+{parent=protein}
+
+https://en.wikipedia.org/wiki/Enzyme
+
+\Video[https://www.youtube.com/watch?v=yk14dOOvwMk]
+{title="How Enzymes Work" published by RCSBProteinDataBank on 2017-04-2020.}
+{description=Shows in detail how https://en.wikipedia.org/wiki/Aconitase[aconitase] catalyses the citrate to isocitrate reaction in the \x[citric-acid-cycle].}
+{start=121}
+
+= Metabolic pathway
 {parent=molecular-biology}
+
+https://en.wikipedia.org/wiki/Metabolic_pathway
+
+Examples:
+* \x[citric-acid-cycle]
+
+= Photosynthesis
+{parent=metabolic-pathway}
 
 https://en.wikipedia.org/wiki/Photosynthesis
 
@@ -12496,10 +12551,26 @@ https://en.wikipedia.org/wiki/Cell_(biology)
 
 https://en.wikipedia.org/wiki/Mitochondrion
 
+Key function:
+
 = Cellular respiration
 {parent=mitochondrion}
 
 https://en.wikipedia.org/wiki/Cellular_respiration
+
+= Citric acid cycle
+{parent=cellular-respiration}
+
+https://en.wikipedia.org/wiki/Citric_acid_cycle
+
+The key \x[metabolic-pathway] of \x[cellular-respiration].
+
+Happens in the matrix of the \x[mitochondrion] in \x[eukaryote]{p}.
+
+= Electron transport chain
+{parent=citric-acid-cycle}
+
+https://en.wikipedia.org/wiki/Electron_transport_chain
 
 Good animation explaining it: \x[video-electron-transport-chain-published-by-harvardx-on-2017-10-09].
 
@@ -12539,6 +12610,21 @@ Ah, \x[physics-and-the-illusion-of-life][the Holy Grail] of both \x[biology][bio
 On the other hand, Ciro's playing with the \x[linux-kernel-module-cheat][Linux kernel] and other complex software which no single human can every fully understand cheer him up a bit. But still, the high level view, that we can have...
 
 For now, \x[large-cohesive-game-world-for-robotic-like-artificial-intelligence-development].
+
+= Taxonomy (biology)
+{parent=biology}
+
+https://en.wikipedia.org/wiki/Taxonomy_(biology)
+
+= Prokaryote
+{parent=taxonomy-biology}
+
+https://en.wikipedia.org/wiki/Prokaryote
+
+= Eukaryote
+{parent=taxonomy-biology}
+
+https://en.wikipedia.org/wiki/Eukaryote
 
 == Education
 
