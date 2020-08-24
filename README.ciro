@@ -6,11 +6,12 @@ $$
 % Absolute value.
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\curl}[1]{\nabla \times #1}
+\renewcommand{\div}[1]{\nabla \cdot #1}
+\newcommand{\grad}[1]{\nabla #1}
+\newcommand{\laplacian}[1]{\nabla^2 #1}
 % Partial derivative.
-% TODO maybe move to match the esdiff or physics packages:
 % https://tex.stackexchange.com/questions/412439/is-there-a-short-hand-command-to-write-derivatives
-\newcommand{\dv}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\divergence}[1]{\nabla \cdot #1}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
 % Vector Arrow.
 \newcommand{\va}[1]{\overrightarrow{#1}}
 
@@ -5221,7 +5222,7 @@ Machines used extensively while developing the \x[linux-kernel-module-cheat] wil
 = 2017 Kross bicycle
 {parent=bicycles}
 
-Trekking bike bought second hand in 2017. Owner confirmed it is this one https://www.kross.pl/en/2012/trans-alp but male version (now shown clearly on website, but both exist).
+Trekking bike bought second hand in 2017. Owner confirmed it is this one https://www.kross.pl/en/2012/trans-alp (\a[http://web.archive.org/web/20200426174741/https://www.kross.pl/en/2012/trans-alp][archive]) but male version (now shown clearly on website, but both exist).
 
 2020-06-06: replaced front break pads with the Jagire ones previously bought (one pair already been put on rear breaks)
 
@@ -5274,6 +5275,8 @@ Tick on back wheel stopped. Back break did not get better. Gears not improved. R
 2018: front tire blew up and was replaced by TODO.
 
 2017: bought, specs:
+
+Saddle: completely destroyed when I decided to identify it for replacement in 2020. Website said "Selle Royal Freedom Royalgel".
 
 Frame markings: Trekking (two stylized trees on left, one with two triangles and the other 3 triangles), Frame Size: M. Feels like the right size for me.
 
@@ -5743,11 +5746,12 @@ Detectors are generally called \x[photomultiplier]{p}:
 
 = Spontaneous parametric down-conversion
 {parent=single-photon-production-and-detection-experiments}
+{title2=SPDC}
 {wiki}
 
 Phenomena that produces photons in pairs as it passes through a certain type of crystal.
 
-You can then detect one of the photons, and when you do you know that the other one is there as well and ready to be used. \x[two-photon-interference-experiment] comes to mind, which is the basis of \x[photonic-quantum-computer], where you need two photons to be produced at the exact same time to produce entanglement.
+You can then detect one of the photons, and when you do you know that the other one is there as well and ready to be used. \x[two-photon-interference-experiment] comes to mind, which is the basis of \x[photonic-quantum-computer], where you need two photons to be produced at the exact same time to produce \x[quantum-entanglement].
 
 \Video[https://www.youtube.com/watch?v=1MaOqvnkBxk]
 {title="One Photon In, TWO Photons Out" by JQInews (2010-05-26).}
@@ -5995,7 +5999,7 @@ and two known input functions:
 
 Due to the https://en.wikipedia.org/wiki/Charge_conservation[conservation of charge] however, those input functions have the following restriction:
 $$
-\dv{\rho}{t} + \divergence{\mathbf{\J}} = 0
+\pdv{\rho}{t} + \div{\mathbf{\J}} = 0
 $$
 {id=equation-charge-conservation}
 {title=Charge conservation.}
@@ -6006,67 +6010,73 @@ Also consider the following cases:
 
   Such infinite cylindrical wire is of course an ideal case, but one which is a good approximation to the huge number of electrons that travel in a actual wire.
 
-The goal of finding $\E$ and $\B$ is that those fields allow us to determine the force that gets applied to a charge via the https://en.wikipedia.org/wiki/Lorentz_force[Lorentz force equation]:
-$$
-\text{force\_density} = \rho \E + \J \times \B
-$$
-{id=equation-lorentz-force}
-{title=Lorentz force equation.}
+The goal of finding $\E$ and $\B$ is that those fields allow us to determine the force that gets applied to a charge via the \x[eq-lorentz-force].
 
 and then to find the force we just need to integrate over the entire body.
 
 Finally, now that we have defined all terms involved in the Maxwell equations, let's see the equations:
 $$
-\divergence{\E} = \frac{\rho}{\vacuumPermittivity}
+div{\E} = \frac{\rho}{\vacuumPermittivity}
 $$
 {id=equation-gauss-law}
-{title=Gauss' law.}
+{title=Gauss' law}
 
 $$
-\divergence{\B} = 0
+div{\B} = 0
 $$
 {id=equation-gauss-law-for-magnetism}
-{title=Gauss's law for magnetism.}
+{title=Gauss's law for magnetism}
 
 $$
-\curl{\E} = -\dv{\B}{t}
+\curl{\E} = -\pdv{\B}{t}
 $$
 {id=equation-faradays-law}
-{title=Faraday's law of induction.}
+{title=Faraday's law of induction}
 
 $$
-\curl{\B} = \vacuumPermeability \left(\J + \vacuumPermittivity \dv{E}{t} \right)
+\curl{\B} = \vacuumPermeability \left(\J + \vacuumPermittivity \pdv{E}{t} \right)
 $$
-{id=equation-amperes-circuital-law}
-{title=Ampère's circuital law.}
+{title=Ampere's circuital law}
 
-and you should review the interpretation of divergence $\divergence{}$ and curl $\curl{}$:
+and you should review the interpretation of divergence $div{}$ and curl $\curl{}$:
 * divergence: how much fluid goes out or into a point
 * curl: points in the direction in which a wind spinner spins fastest
+
+= Lorentz force
+{c}
+{parent=maxwell-s-equations}
+{wiki}
+
+$$
+\text{force\_density} = \rho \E + \J \times \B
+$$
+{title=Lorentz force}
+
+A little suspicious that it bears the name of Lorentz, who is famous for \x[special-relativity], isn't it? See: \x[classical-electromagnetism-and-special-relativity].
 
 = Explicit scalar form of the Maxwell's equations
 {parent=maxwell-s-equations}
 
 For numerical algorithms and to get a more low level understanding of the equations, we can expand all terms to the simpler and more explicit form:
 $$
-\dv{E_x}{x} + \dv{E_y}{x} +
-\dv{E_z}{x} =
+\pdv{E_x}{x} + \pdv{E_y}{x} +
+\pdv{E_z}{x} =
 \frac{\rho}{\vacuumPermittivity}
 \\
 
-\dv{B_x}{x} +
-\dv{B_y}{x} +
-\dv{B_z}{x} =
+\pdv{B_x}{x} +
+\pdv{B_y}{x} +
+\pdv{B_z}{x} =
 0
 \\
 
-\dv{E_z}{y} - \dv{E_y}{z} = -\dv{B_x}{t} \\
-\dv{E_x}{z} - \dv{E_z}{x} = -\dv{B_y}{t} \\
-\dv{E_y}{x} - \dv{E_x}{y} = -\dv{B_z}{t} \\
+\pdv{E_z}{y} - \pdv{E_y}{z} = -\pdv{B_x}{t} \\
+\pdv{E_x}{z} - \pdv{E_z}{x} = -\pdv{B_y}{t} \\
+\pdv{E_y}{x} - \pdv{E_x}{y} = -\pdv{B_z}{t} \\
 
-\dv{B_z}{y} - \dv{B_y}{z} = \vacuumPermeability \left(J_x + \vacuumPermittivity \dv{E_x}{t} \right) \\
-\dv{B_x}{z} - \dv{B_z}{x} = \vacuumPermeability \left(J_y + \vacuumPermittivity \dv{E_y}{t} \right) \\
-\dv{B_y}{x} - \dv{B_x}{y} = \vacuumPermeability \left(J_z + \vacuumPermittivity \dv{E_z}{t} \right) \\
+\pdv{B_z}{y} - \pdv{B_y}{z} = \vacuumPermeability \left(J_x + \vacuumPermittivity \pdv{E_x}{t} \right) \\
+\pdv{B_x}{z} - \pdv{B_z}{x} = \vacuumPermeability \left(J_y + \vacuumPermittivity \pdv{E_y}{t} \right) \\
+\pdv{B_y}{x} - \pdv{B_x}{y} = \vacuumPermeability \left(J_z + \vacuumPermittivity \pdv{E_z}{t} \right) \\
 $$
 {id=equation-maxwells-equation-explicit}
 
@@ -6379,41 +6389,49 @@ Bibliography:
 * https://physics.stackexchange.com/questions/98708/twin-paradox-calculating-spacetime-intervals-from-both-perspectives
 * https://physics.stackexchange.com/questions/29921/why-isnt-the-symmetric-twin-paradox-a-paradox
 
-= Maxwell's equations are consistent with the Lorentz transformation
-{parent=lorentz-transformation}
+= Classical electromagnetism and special relativity
 {c}
-
-Several random sources say that \x[maxwell-s-equations] are consistent with the \x[lorentz-transformation] of \x[special-relativity], so let's try to understand what that means.
-
-https://en.wikipedia.org/w/index.php?title=Lorentz_transformation&oldid=909991141#Transformation_of_the_electromagnetic_field
-
-Note that two observers moving relative to each other see different electromagnetic fields.
-
-For example, suppose that there is a stationary charge for the stationary observer. Because the charge is not moving, the magnetic field is zero for that observer according to \x[maxwell-s-equations].
-
-However, the moving observer sees that charge moving, and therefore a current, and therefore a magnetic field.
-
-TODO mathematical detail. Is all we need to prove that if a given $E(t, x, y, z)$ and $B(t, x, y, z)$ are a solution to the maxwell equations in one frame, then $E'(t', x', y', z')$ and $B'(t', x', y', z')$ are also a solution in the other frame?
-
-This appears awesome: http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf (\a[https://web.archive.org/web/20180920161243/http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf][archive]) "David Tong: Lectures on Electromagnetism - 5. Electromagnetism and Relativity"
-
-* "5.2.1 Magnetism and Relativity" shows how space contraction makes the charges of a wire unbalanced, and that directly causes magnetic force!!!
-
-  The same document mentions further on more explicitly that observers in different frames mix up the Electric and Magnetic fields, but that the same Maxwell laws are still valid in that frame.
-
-  It appears that Maxwell's equations can be derived directly from Coulomb's law + special relativity: https://physics.stackexchange.com/questions/3618/can-maxwells-equations-be-derived-from-coulombs-law-and-special-relativity
-
-  This is linked in a comment and also appears to be of interest: http://richardhaskell.com/files/Special%20Relativity%20and%20Maxwells%20Equations.pdf
-
-This page also talks about it, but does not explain anything properly, although it does give closed source references: https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity
-
-= Covariant formulation of classical electromagnetism
-{parent=maxwell-s-equations-are-consistent-with-the-lorentz-transformation}
+{parent=lorentz-transformation}
 {wiki}
 
-= Maxwell lagrangian
-{parent=covariant-formulation-of-classical-electromagnetism}
+The \x[lorentz-force] makes no sense without special relativity, because different observers have different speeds, see e.g.: \x[charged-particle-moving-at-the-same-speed-of-electrons-thought-experiment].
+o
+
+When such though experiments are seen from the point of view of special relativity, it becomes clear that magnetism is just a direct side effect of charges being viewed in special relativity. One is philosophically reminded of how \x[the-dirac-equation-predicts-spin][spin is the consequence of quantum mechanics + special relativity].
+
+Actually, it appears that Maxwell's equations can be derived directly from Coulomb's law + special relativity:
+* https://en.wikipedia.org/wiki/Classical_electromagnetism_and_special_relativity#Deriving_magnetism_from_electrostatics
+* https://physics.stackexchange.com/questions/3618/can-maxwells-equations-be-derived-from-coulombs-law-and-special-relativity
+
+Bibliography:
+* http://richardhaskell.com/files/Special%20Relativity%20and%20Maxwells%20Equations.pdf
+* https://en.wikipedia.org/w/index.php?title=Lorentz_transformation&oldid=909991141#Transformation_of_the_electromagnetic_field
+
+= Charged particle moving at the same speed of electrons thought experiment
+{parent=classical-electromagnetism-and-special-relativity}
+
+This is a well known though experiment, which \x[richard-feynman] used to emphasize
+* infinite wire with balanced positive and negative charges, so no net charge, but a net magnetic field
+* a single charge moves parallel to wire at the same speed as the electrons
+
+In the above experiment:
+* from the wire frame, the charge feels electromagnetic force, because it is moving and there is a magnetic field
+* from the single charge frame, there is still magnetic field (positive charges are moving), but the body itself is not moving, so there is no force!
+
+The solution to this problem is \x[length-contraction]: the positive charges are length contracted and the moving electrons aren't, and so therefore they are denser and therefore there is an effective charge from that frame.
+
+This is also mentioned at \x[david-tong] http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf (\a[https://web.archive.org/web/20180920161243/http://www.damtp.cam.ac.uk/user/tong/em/el4.pdf][archive]) "David Tong: Lectures on Electromagnetism - 5. Electromagnetism and Relativity" "5.2.1 Magnetism and Relativity".
+
+\Video[https://www.youtube.com/watch?v=Ii7rgIQawko]
+{title="How Special Relativity Fixed Electromagnetism" by The Science Asylum (2019-09-11)}
+
+= Covariant formulation of classical electromagnetism
+{parent=classical-electromagnetism-and-special-relativity}
+{wiki}
+
+= Maxwell Lagrangian
 {c}
+{parent=covariant-formulation-of-classical-electromagnetism}
 
 * https://www.youtube.com/watch?v=nrBiDRZRK5g by \x[dietterich-labs-youtube-channel]
 * https://www.youtube.com/watch?v=yo-Z3RO-eeY by Pretty Much Physics
@@ -6467,8 +6485,16 @@ Further discussion at \x[light-cone]{full}.
 
 The opposite of those events are \x[timelike-separated-events].
 
-= Mass-energy equivalence
+= Relativistic mechanics
 {parent=special-relativity}
+{wiki}
+
+= Relativistic energy
+{parent=relativistic-mechanics}
+{wiki=Relativistic_mechanics#Relativistic_energy_and_momentum}
+
+= Mass-energy equivalence
+{parent=relativistic-mechanics}
 {title2=$E=mc^2$}
 {wiki=Mass–energy_equivalence}
 
@@ -6731,10 +6757,23 @@ TODO \x[videos-of-all-key-physics-experiments][experiment video].
 Free material from university courses:
 * https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf  (\a[https://web.archive.org/web/20191230193450/https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf][archive]) "Notes on Quantum Mechanics" pusbliehd by Daniel V. Schroeder published on 2019-01-06. The author is from from Weber State University.
 
-= Quantum Mechanics for Engineers by Leon van Dommelen
+= Applications of Quantum Mechanics by David Tong (2017)
+{c}
 {parent=quantum-mechanics-bibliography}
 
-http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
+* http://www.damtp.cam.ac.uk/user/tong/aqm/aqm.pdf
+* https://web.archive.org/web/20200215103215/http://www.damtp.cam.ac.uk/user/tong/aqm/aqm.pdf
+
+Author: \x[david-tong]{parent}.
+
+Summary:
+* Chapter 2 "Band Structure" covers \x[electronic-band-theory]
+
+= Quantum Mechanics for Engineers by Leon van Dommelen (2011)
+{parent=quantum-mechanics-bibliography}
+
+* http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
+* https://web.archive.org/web/20200220003741/http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
 
 Looks very impressive! Last update marked 2011 as of 2020.
 
@@ -6744,7 +6783,7 @@ Personal page says he retired as of 2020: http://www.eng.fsu.edu/~dommelen/ But 
 
 And he appears to have his own lightweight markup language that transpiles to LaTeX called l2h: http://www.eng.fsu.edu/~dommelen/l2h/
 
-= Quantum physics lecture notes by Jim Branson
+= Quantum physics by Jim Branson (2003)
 {parent=quantum-mechanics-bibliography}
 
 https://quantummechanics.ucsd.edu/ph130a/130_notes/130_notes.html
@@ -6754,12 +6793,6 @@ For the UCSD Physics 130 course.
 Last updated: 2013.
 
 Very good! Goes up to the \x[dirac-equation].
-
-= UCSD Physics 130 quantum physics lecture notes Jim Branson
-{c}
-{parent=quantum-mechanics-bibliography}
-
-https://quantummechanics.ucsd.edu/ph130a/130_notes/130_notes.html
 
 = Mathematical formulation of quantum mechanics
 {parent=quantum-mechanics}
@@ -6842,11 +6875,11 @@ Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-an
 {parent=schrodinger-equation}
 {wiki=Schrödinger_equation#Time-independent_equation}
 
-As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] from \x[quantum-physics-lecture-notes-by-jim-branson], using \x[separation-of-variables] we can break up the general \x[schrodinger-equation] into:
+As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] from \x[quantum-physics-by-jim-branson-2003], using \x[separation-of-variables] we can break up the general \x[schrodinger-equation] into:
 * a time-only part that does not depend on space
 * a space-only part that does not depend on time
 $$
-\left[-\frac{\hbar}{2m} \nabla^2 + V(x)\right]\Psi = E \Psi(x)
+\left[-\frac{\hbar}{2m} \grad^2 + V(x)\right]\Psi = E \Psi(x)
 $$
 {title=Time-independent Schrodinger equation.}
 
@@ -6928,21 +6961,6 @@ This case is surprisingly not necessarily as trivial as non-free particles becau
 {parent=solutions-of-the-schrodinger-equation}
 {wiki}
 
-= Solutions of the Schrodinger equation for two electrons
-{parent=solutions-of-the-schrodinger-equation}
-
-TODO. Can't find it easily. Anyone?
-
-This is closely linked to the \x[pauli-exclusion-principle].
-
-What does a particle even mean, right? Especially in \x[quantum-field-theory], where two electrons are just vibrations of a single electron field.
-
-As mentioned at \x[david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute/lecture-1] https://youtube.com/watch?video=H3AFzbrqH68&t=555[], \x[special-relativity][relativistic] quantum mechanical theories like the \x[dirac-equation] and \x[klein-gordon-equation] make no sense for a "single particle": they must imply that particles can pop in out of existence.
-
-https://www.youtube.com/watch?v=Og13-bSF9kA&list=PLDfPUNusx1Eo60qx3Od2KLUL4b7VDPo9F by \x[tobias-j-osborne] says that the course will essentially cover multi-particle quantum mechanics!
-
-https://physics.stackexchange.com/questions/54854/equivalence-between-qft-and-many-particle-qm "Equivalence between QFT and many-particle QM"
-
 = Quantum tunnelling
 {parent=solutions-of-the-schrodinger-equation}
 {wiki}
@@ -6964,9 +6982,32 @@ In particular, it predicts:
 
 The explicit solution can be written in terms of \x[spherical-harmonic]{p}.
 
+= Solutions for the Schrodinger equation with multiple particles
+{parent=solutions-of-the-schrodinger-equation}
+
+Quantum Mechanics for Engineers by Leon van Dommelen (2011)
+
+Bibliography:
+* \x[quantum-mechanics-for-engineers-by-leon-van-dommelen-2011] "5. Multiple-Particle Systems"
+
+= Solutions of the Schrodinger equation for two electrons
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
+
+TODO. Can't find it easily. Anyone?
+
+This is closely linked to the \x[pauli-exclusion-principle].
+
+What does a particle even mean, right? Especially in \x[quantum-field-theory], where two electrons are just vibrations of a single electron field.
+
+As mentioned at \x[david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute/lecture-1] https://youtube.com/watch?video=H3AFzbrqH68&t=555[], \x[special-relativity][relativistic] quantum mechanical theories like the \x[dirac-equation] and \x[klein-gordon-equation] make no sense for a "single particle": they must imply that particles can pop in out of existence.
+
+Bibliography:
+* https://www.youtube.com/watch?v=Og13-bSF9kA&list=PLDfPUNusx1Eo60qx3Od2KLUL4b7VDPo9F "Advanced quantum theory" by \x[tobias-j-osborne] says that the course will essentially cover multi-particle quantum mechanics!
+* https://physics.stackexchange.com/questions/54854/equivalence-between-qft-and-many-particle-qm "Equivalence between QFT and many-particle QM"
+
 = Schrodinger equation solution for the helium atom
 {c}
-{parent=solutions-of-the-schrodinger-equation}
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
 
 No closed form solution, but good approximation that can be calculated by hand with the \x[hartree-fock-method], see \x[hartree-fock-method-for-the-helium-atom].
 
@@ -7013,7 +7054,7 @@ Bibliography:
 
 = Schrodinger equation solution for the hydrogen molecule
 {c}
-{parent=solutions-of-the-schrodinger-equation}
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
 
 Can we make any ab-initio predictions about it all?
 
@@ -7041,29 +7082,44 @@ When you represent a wave equation as a function, you have to say what the varia
 
 This is well shown at: \x[video-visualization-of-quantum-physics-quantum-mechanics-published-by-udiprod-on-2017-01-31].
 
-Furthermore, the position and momentum representations are equivalent: one is the \x[fourier-transform] of the other: \x[how-are-position-and-momentum-space-related-in-quantum-mechanics]. Remember that notably we can always take the Fourier transform of a function in \x[l2] due to \x[carleson-s-theorem].
+Furthermore, the position and momentum representations are equivalent: one is the \x[fourier-transform] of the other: \x[position-and-momentum-space]. Remember that notably we can always take the Fourier transform of a function in \x[l2] due to \x[carleson-s-theorem].
 
 Then the uncertainty principle follows immediately from a general property of the Fourier transform: https://en.wikipedia.org/w/index.php?title=Fourier_transform&oldid=961707157#Uncertainty_principle
 
 Bibliography:
 * https://www.youtube.com/watch?v=bIIjIZBKgtI&list=PL54DF0652B30D99A4&index=59 "K2. Heisenberg Uncertainty Relation" published by doctorphys
 
-= How are position and momentum space related in quantum mechanics?
+= Position and momentum space
 {parent=uncertainty-principle}
-
-https://physics.stackexchange.com/questions/39442/intuitive-explanation-of-why-momentum-is-the-fourier-transform-variable-of-posit/39508#39508 gives the best idea: the Fourier transform writes a function as a (continuous) sum of plane waves, and each plane wave has a fixed momentum.
+{wiki}
 
 Bibliography:
-* https://physics.stackexchange.com/questions/39442/intuitive-explanation-of-why-momentum-is-the-fourier-transform-variable-of-posit
+* https://physics.stackexchange.com/questions/39442/intuitive-explanation-of-why-momentum-is-the-fourier-transform-variable-of-posit/39508#39508 gives the best idea: the \x[fourier-transform] writes a function as a (continuous) sum of plane waves, and each plane wave has a fixed momentum.
 * https://en.wikipedia.org/wiki/Position_and_momentum_space
 
+= Position representation
+{parent=position-and-momentum-space}
+{wiki}
+
+Wave equation
+
 = Position operator
-{parent=how-are-position-and-momentum-space-related-in-quantum-mechanics}
+{parent=position-and-momentum-space}
 {wiki}
 
 = Momentum operator
-{parent=how-are-position-and-momentum-space-related-in-quantum-mechanics}
+{parent=position-and-momentum-space}
 {wiki}
+
+One dimension in position representation:
+$$
+\hat{p} = - i \hbar \pdv{}{x}
+$$
+
+In three dimensions In position representation, we define it by using the \x[gradient], and so we see that 
+$$
+\hat{p} = - i \hbar \pdv{}{x}
+$$
 
 = Energy operator
 {parent=uncertainty-principle}
@@ -7092,9 +7148,13 @@ TODO is there any good intuitive argument or proof of conservation of energy, mo
 {parent=conservation-laws-in-schrodinger-equations}
 
 Proof that the probability 1 is conserved by the time evolution:
-* https://quantummechanics.ucsd.edu/ph130a/130_notes/node127.html from \x[quantum-physics-lecture-notes-by-jim-branson].
+* https://quantummechanics.ucsd.edu/ph130a/130_notes/node127.html from \x[quantum-physics-by-jim-branson-2003].
 
   That proof also mentions that if the potential `V` is not real, then there is no conservation of probability! Therefore the potential \i[must] be real valued!
+
+= Wave function
+{parent=schrodinger-equation}
+{wiki}
 
 = Relativistic quantum mechanics
 {parent=quantum-mechanics}
@@ -7160,6 +7220,12 @@ https://en.wikipedia.org/wiki/Annihilation
 
 Predicted by the \x[dirac-equation].
 
+= Particle decay
+{parent=particle-creation-and-annihilation}
+{wiki}
+
+Can produce two \x[quantum-entanglement][entangled] particles.
+
 = Relativistic particle in a box thought experiment
 {parent=particle-creation-and-annihilation}
 
@@ -7193,11 +7259,41 @@ Bibliography:
 {parent=dirac-equation}
 {wiki=Klein–Gordon_equation}
 
-TODO. Relativistic, but has some problems, which the \x[dirac-equation] solves.
+Relativistic version of the \x[schrodinger-equation], but has some problems, which the \x[dirac-equation] solves.
 
-Discussed at: \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta] at around 7:30.
-
+Bibliography:
+* \x[an-introduction-to-qed-and-qcd-by-jeff-forshaw-1997] 1.2 "Relativistic Wave Equations" and 1.4 "The Klein Gordon Equation" gives some key ideas
+* \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta] at around 7:30
 * https://www.youtube.com/watch?v=WqoIW85xwoU&list=PL54DF0652B30D99A4&index=65 "L2. The Klein-Gordon Equation" published by doctorphys
+
+= Derivation of the Klein-Gordon
+{c}
+{parent=klein-gordon-equation}
+{wiki=Klein–Gordon_equation}
+
+The Klein-Gordon equation directly uses a more naive \x[relativistic-energy] guess of $p^2 + m^2$.
+
+But since this is \x[quantum-mechanics], we feel like making $p$ into the "\x[momentum-operator]", just like in the \x[schrodinger-equation].
+
+But we don't know how to square the momentum operator (because it is a \x[gradient]). So we just cheat and use the \x[laplace-operator] instead:
+$$
+H = \laplacian{} + m^2
+$$
+
+But then, we have to avoid taking the square root to reach a first derivative in time, because we don't know how to take the square root of that operator expression.
+
+So the Klein-Gordon equation just takes the approach of using this squared Hamiltonian instead.
+
+Since it is a Hamiltonian, and comparing it to the \x[schrodinger-equation] which looks like:
+$$
+H \psi = i \pdv{\psi}{t}
+$$
+taking the Hamiltonian twice leads to:
+$$
+H^2 \psi = - \pdv{^2 \psi}{^2 t}
+$$
+
+We can contrast this with the \x[dirac-equation], which instead attempts to explicitly construct an operator which squared coincides with the relativistic formula: \x[derivation-of-the-dirac-equation].
 
 = Solutions of the Dirac equation
 {parent=dirac-equation}
@@ -7318,6 +7414,12 @@ E.g. in QED, one for the electron and one for the photon: https://physics.stacke
 
 And then those fields interact with some \x[lagrangian-mechanics][Lagrangian].
 
+= Second quantization
+{parent=quantum-field-theory}
+{wiki}
+
+https://www.quora.com/How-are-quantum-fields-quantized-to-describe-particles
+
 = Path integral formulation
 {parent=quantum-field-theory}
 {wiki}
@@ -7430,8 +7532,15 @@ Bibliography:
 
 * https://www.quora.com/What-are-some-engineering-applications-of-QED-or-QCD-quantum-field-theories
 
-= Derivation of the quantum electrodynamics Lagrangian
+= Quantum electrodynamics Lagrangian
 {parent=quantum-electrodynamics}
+
+As mentioned at the beginning of \x[quantum-field-theory-lecture-notes-by-david-tong-2007]:
+* by "\x[lagrangian]" we mean Lagrangian density
+* the \x[generalized-coordinate]{p} of the Lagrangian are fields
+
+= Derivation of the quantum electrodynamics Lagrangian
+{parent=quantum-electrodynamics-lagrangian}
 
 \Video[https://www.youtube.com/watch?v=IFRyN3fQMO8]
 {title="Deriving The QED Lagrangian | Quantum Electrodynamics" published by \x[dietterich-labs-youtube-channel][Dietterich Labs] on 2018-12-28.}
@@ -7560,12 +7669,21 @@ Lecture notes found by \x[google][Googling] "quantum field theory pdf":
 * https://www.ppd.stfc.ac.uk/Pages/Dasgupta_08_Intro_to_QFT.pdf "An Introduction to Quantum Field Theory" published by Mrinal Dasgupta from the University of Manchester in 2008. 48 pages.
 * https://www.thphys.uni-heidelberg.de/~weigand/QFT2-14/SkriptQFT2.pdf "Quantum Field Theory I + II" published by Timo Weigand from the Heidelberg University. Unknown year, references up to 2008.
 
+= An Introduction to QED and QCD by Jeff Forshaw (1997)
+{c}
+{parent=quantum-field-theory-lecture-notes}
+
+http://www.hep.man.ac.uk/u/forshaw/NorthWest/QED.pdf https://web.archive.org/web/20200824083133/http://www.hep.man.ac.uk/u/forshaw/NorthWest/QED.pdf
+
+These seem very direct and not ultra advanced, good read.
+
 = Quantum Field Theory lecture notes by David Tong (2007)
+{c}
 {parent=quantum-field-theory-lecture-notes}
 
 https://www.damtp.cam.ac.uk/user/tong/qft/qft.pdf
 
-Author affiliation: \x[university-of-cambridge].
+Author: \x[david-tong]{parent}.
 
 Number of pages: 155.
 
@@ -7595,7 +7713,9 @@ The preface states that one of its pedagogical philosophies is to "Illustration 
 
 https://www.youtube.com/playlist?list=PLaNkJORnlhZlVkrpQVvCTVvGAMIlXL88Y
 
-By \x[david-tong].
+Lecture notes: \x[quantum-field-theory-lecture-notes-by-david-tong-2007].
+
+By \x[david-tong]{parent}.
 
 14 1 hours 20 minute lectures.
 
@@ -7724,6 +7844,15 @@ Examples:
 * \x[video-quantum-mechanics-9b-photon-spin-and-schrodinger-s-cat-ii-by-viascience-2013-11-11] gives a similar photon version
 * it seems that the \x[single-particle-double-slit-experiment] can also be thought of as in terms of a superposition of "the particle goes through the right" and "the particle goes through the right", although it is a bit harder to thing about as it is not a discrete process
 
+= Quantum entanglement
+{parent=quantum-mechanics}
+{wiki}
+
+How to generate entangled particles:
+* \x[particle-decay]
+* photons
+  * https://www.youtube.com/watch?v=tn1sEaw1K2k "Shanni Prutchi Construction of an Entangled Photon Source" by HACKADAY (2015-11-30). With \x[spontaneous-parametric-down-conversion].
+
 = Particle physics bibliography
 {parent=particle-physics}
 
@@ -7775,6 +7904,8 @@ The \x[quantum-electrodynamics] one was a bit too slow paced for Ciro unfortunat
 Accompanying website with a tiny little bit of code: http://viascience.org/what.html
 
 TODO: authors and their affiliation.
+
+Videos licensed as \x[creative-commons-license][CC-BY-SA], those guys are so good.
 
 = Physics Videos by Eugene Khutoryansky
 {parent=particle-physics-bibliography}
@@ -7929,11 +8060,12 @@ Includes fun things like:
 {parent=condensed-matter-physics}
 {wiki}
 
-And https://en.wikipedia.org/wiki/Fermi%E2%80%93Dirac_statistic
-
 How are the bands measured experimentally?
 
 Why are there gaps? Why aren't bands infinite? What determines the width of gaps?
+
+Bibliography:
+* \x[applications-of-quantum-mechanics-by-david-tong-2017] Chapter 2 "Band Structure"
 
 = Semiconductor
 {parent=condensed-matter-physics}
@@ -8261,6 +8393,14 @@ Bibliography:
 
 The function that fully describes a physical system in \x[lagrangian-mechanics].
 
+= Generalized coordinate
+{parent=lagrangian}
+{wiki}
+
+The variables of the \x[lagrangian], e.g. Dangles of a \x[double-pendulum].
+
+In \x[quantum-field-theory], those variables are actually fields.
+
 = Noether's theorem
 {c}
 {parent=lagrangian-mechanics}
@@ -8269,7 +8409,7 @@ For every \x[continuous-symmetry] in the system (\x[lie-group]), there is a corr
 
 Furthermore, given the symmetry, we can calculate the derived conservation law, and vice versa.
 
-As mentioned at http://buzzard.ups.edu/courses/2017spring/projects/schumann-lie-group-ups-434-2017.pdf[], what the symmetry (\x[lie-group]) acts on (obviously?!) are the \x[lagrangian] generalized variables. And from that, we immediately guess that manifolds are going to be important, because the generalized variables of the Lagrangian can trivially be non-Euclidian, e.g. the \x[pendulum] lives on an infinite cylinder.
+As mentioned at http://buzzard.ups.edu/courses/2017spring/projects/schumann-lie-group-ups-434-2017.pdf[], what the symmetry (\x[lie-group]) acts on (obviously?!) are the \x[lagrangian] \x[generalized-coordinate]{p}. And from that, we immediately guess that manifolds are going to be important, because the generalized variables of the Lagrangian can trivially be non-Euclidian, e.g. the \x[pendulum] lives on an infinite cylinder.
 
 \Video[https://www.youtube.com/watch?v=CxlHLqJ9I0A]
 {title="The most beautiful idea in physics - Noether's Theorem" by \x[looking-glass-universe] (2015-09-23)}
@@ -9550,6 +9690,12 @@ Calling such functions matrices is stretching it a bit, since we would need to s
 
 For example, the left side of the \x[time-independent-schrodinger-equation] is a linear map.
 
+= Linear operator
+{parent=linear-map}
+{wiki}
+
+We define it a synonym of \x[linear-map].
+
 = Self-adjoint operator
 {parent=linear-map}
 {wiki}
@@ -9761,7 +9907,7 @@ A set of theorems that prove under different conditions that the \x[fourier-tran
 {description=Explains how the Laplace transform works for functions that do not go to zero on infinity, which is a requirement for the \x[fourier-transform]. No applications in that video yet unfortunately.}
 
 = History of the Fourier series
-{parent=calculus}
+{parent=fourier-series}
 
 First published by Fourier in 1807 to solve the \x[heat-equation].
 
@@ -10280,8 +10426,39 @@ He also published to \x[github] pages with his own crazy \x[markdown]-like multi
 Rest in peace, Hans.
 
 = Taylor series
-{parent=calculus}
 {c}
+{parent=calculus}
+{wiki}
+
+= Gradient, Divergence, Curl, and Laplacian
+{parent=calculus}
+
+= Nabla symbol
+{parent=gradient-divergence-curl-and-laplacian}
+{wiki}
+{title2=$\nabla$}
+
+As if Greek letters weren't enough, \x[physicist]{p} and \x[mathematician]{p} also like to make up tons of symbols, some of which look like Greek letters!
+
+Nabla is one of those: it was completely made up in modern times, and just happens to look like an inverted upper case \x[delta-letter]!
+
+= Divergence
+{parent=gradient-divergence-curl-and-laplacian}
+{title2=$\div{}$}
+{wiki}
+
+Takes a vector field as input and produces a scalar field.
+
+= Gradient
+{parent=gradient-divergence-curl-and-laplacian}
+{title2=$\grad{}$}
+{wiki}
+
+Takes a scalar field as input and produces a vector field.
+
+= Laplace operator
+{parent=gradient-divergence-curl-and-laplacian}
+{title2=$\Delta$, $\laplacian{}$}
 {wiki}
 
 = Algebra
@@ -12324,6 +12501,9 @@ But too insane, and did not https://tex.stackexchange.com/questions/39309/conver
 https://github.com/KaTeX/KaTeX
 
 Default mathematics typesetting used in \x[cirodown].
+
+Key issues:
+* https://github.com/KaTeX/KaTeX/issues/2228 `newcommand` did not support optional arguments
 
 = Softcover
 {disambiguate=LaTeX}
@@ -14921,3 +15101,24 @@ Days of the week where you don't do what you set out to do. And yet, it is in th
 
 Some sciences include:
 * \x[natural-science]{child}
+
+= Linguistics
+{parent=ciro-santilli-s-homepage}
+{wiki}
+
+Remember: \x[having-more-than-one-natural-language-is-bad-for-the-world].
+
+= Greek alphabet
+{parent=linguistics}
+{wiki}
+
+Unfortunately, \x[physicist]{p} and \x[mathematician]{p} keep using Greek letters in their formulas, so we just have to learn them.
+
+Things that look like Greek letters but are not Greek letters:
+* \x[nabla-symbol]
+
+= Delta
+{disambiguate=letter}
+{parent=greek-alphabet}
+{title2=$\Delta$, $\delta$}
+{wiki}
