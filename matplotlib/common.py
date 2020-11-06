@@ -24,13 +24,17 @@ import sys
 
 import matplotlib.pyplot as plt
 
-#global params:
-out_ext = 'svg'
+# Global params
+dpi = 80
 
 class DefaultParameters:
     """
     Encapsulates all the default plot parameters
     """
+
+def set_height_pixels(fig, height):
+    w, h = fig.get_size_inches()
+    fig.set_size_inches((height*(w//h))/dpi, height/dpi)
 
 def plot(plt, params):
     """plot on an empty plt object
@@ -56,6 +60,10 @@ def import_path(path):
 
 if __name__ == '__main__':
     path = sys.argv[1]
+    if len(sys.argv) > 2:
+        out_ext = sys.argv[2]
+    else:
+        out_ext = 'svg'
     name = os.path.split(os.path.splitext(path)[0])[1]
     try:
         plotter = import_path(path)
@@ -68,6 +76,7 @@ if __name__ == '__main__':
         plt.savefig(
             name + '.' + out_ext,
             format=out_ext,
-            bbox_inches='tight'
+            bbox_inches='tight',
+            dpi=dpi,
         )
         plt.clf()
