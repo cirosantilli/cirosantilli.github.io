@@ -24,17 +24,13 @@ import sys
 
 import matplotlib.pyplot as plt
 
-# Global params
-dpi = 80
-
 class DefaultParameters:
     """
     Encapsulates all the default plot parameters
     """
 
-def set_height_pixels(fig, height):
-    w, h = fig.get_size_inches()
-    fig.set_size_inches((height*(w//h))/dpi, height/dpi)
+def braket(text):
+    return '|' + text + '\u27E9'
 
 def plot(plt, params):
     """plot on an empty plt object
@@ -72,11 +68,20 @@ if __name__ == '__main__':
         print(name)
         raise
     else:
-        plotter.plot(plt, DefaultParameters)
+        ret = plotter.plot(plt, DefaultParameters)
+        if ret is None:
+            ret = {}
+        if not 'height' in ret:
+            ret['height'] = 400
+        if not 'bbox_inches' in ret:
+            ret['bbox_inches'] = 'tight'
+        # https://stackoverflow.com/questions/64642855/how-to-obtain-a-fixed-height-in-pixels-fixed-data-x-y-aspect-ratio-and-automati
+        # plt.tight_layout(pad=1)
         plt.savefig(
             name + '.' + out_ext,
             format=out_ext,
+            dpi=ret['height']/plt.gcf().get_size_inches()[1],
+            # https://stackoverflow.com/questions/64642855/how-to-obtain-a-fixed-height-in-pixels-fixed-data-x-y-aspect-ratio-and-automati
             bbox_inches='tight',
-            dpi=dpi,
         )
         plt.clf()
