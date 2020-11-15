@@ -9,7 +9,7 @@ def braket(ax, x, y, text):
     ax.text(
         x,
         y,
-        '|' + text + '\u27E9',
+        common.bracket(text),
         verticalalignment='center',
         horizontalalignment='center',
         fontdict=dict(size=fontsize, weight='bold')
@@ -19,7 +19,6 @@ def plot(plt, params):
     color = 'black'
     linewidth = 2
     fig, ax = plt.subplots()
-    common.set_height_pixels(fig, 400)
     draw_width = 1.0
     ax.set_aspect(1)
     n = 9
@@ -28,7 +27,7 @@ def plot(plt, params):
     ax.set_xlim(-1.2*dx, draw_width+1.2*dx)
     ax.set_ylim(draw_height * -0.75, draw_height * 1.5)
     line_length = dx*0.8;
-    arrow_head_length = 5
+    arrow_head_length = 6
     name_map = {
         n//4: ['+', 'i'],
         n//2: ['1', '1'],
@@ -60,7 +59,7 @@ def plot(plt, params):
                     shrinkB=0,
                     arrowstyle=mpl.patches.ArrowStyle.Simple(
                         head_length=arrow_head_length,
-                        head_width=10,
+                        head_width=15,
                         tail_width=linewidth
                     ),
                 )
@@ -92,18 +91,18 @@ def plot(plt, params):
             ax.add_artist(ellipse)
             ellipse_top = draw_height*middleline + ellipse_height/2
             marker = ">" if i < n//2 else "<"
-            ax.plot(translate_x, ellipse_top, ls="", marker=marker, markersize=5, color="k",
+            ax.plot(translate_x, ellipse_top, ls="", marker=marker, markersize=8, color="k",
                     clip_on=False)
 
 
         # Annotations top and bottom.
         if i in name_map:
-            braket(ax, translate_x, draw_height* 1.25, name_map[i][0])
-            braket(ax, translate_x, draw_height*-0.25, name_map[i][1])
+            common.braket(ax, translate_x, draw_height* 1.25, name_map[i][0])
+            common.braket(ax, translate_x, draw_height*-0.25, name_map[i][1])
 
     # Annotations outside of loop.
-    braket(ax, -dx, draw_height*0.5, '0')
-    braket(ax, draw_width+dx, draw_height*0.5, '0')
+    common.braket(ax, -dx, draw_height*0.5, '0')
+    common.braket(ax, draw_width+dx, draw_height*0.5, '0')
     ax.text(
         draw_width/2,
         draw_height*-0.75,
@@ -131,5 +130,3 @@ def plot(plt, params):
         ax.grid()
     else:
         ax.set_axis_off()
-
-    return 400

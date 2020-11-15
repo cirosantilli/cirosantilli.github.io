@@ -6,8 +6,8 @@ OUT_EXT_SVG = svg
 .PHONY: all clean
 
 INS = $(filter-out $(COMMON), $(wildcard *$(IN_EXT)))
-OUTS_PNG = $(patsubst %$(IN_EXT), .%$(OUT_EXT_PNG), $(INS))
-OUTS_SVG = $(patsubst %$(IN_EXT), .%$(OUT_EXT_SVG), $(INS))
+OUTS_PNG = $(patsubst %$(IN_EXT), %.$(OUT_EXT_PNG), $(INS))
+OUTS_SVG = $(patsubst %$(IN_EXT), %.$(OUT_EXT_SVG), $(INS))
 
 default: $(OUTS_SVG)
 
