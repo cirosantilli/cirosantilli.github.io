@@ -2,6 +2,8 @@ import math
 import numpy as np
 import matplotlib
 
+import common
+
 """
 Setup for a typical explanatory-style illustration style graph.
 """
