@@ -9,7 +9,7 @@ def braket(ax, x, y, text):
     ax.text(
         x,
         y,
-        common.bracket(text),
+        common.braket(text),
         verticalalignment='center',
         horizontalalignment='center',
         fontdict=dict(size=fontsize, weight='bold')
@@ -97,12 +97,12 @@ def plot(plt, params):
 
         # Annotations top and bottom.
         if i in name_map:
-            common.braket(ax, translate_x, draw_height* 1.25, name_map[i][0])
-            common.braket(ax, translate_x, draw_height*-0.25, name_map[i][1])
+            braket(ax, translate_x, draw_height* 1.25, name_map[i][0])
+            braket(ax, translate_x, draw_height*-0.25, name_map[i][1])
 
     # Annotations outside of loop.
-    common.braket(ax, -dx, draw_height*0.5, '0')
-    common.braket(ax, draw_width+dx, draw_height*0.5, '0')
+    braket(ax, -dx, draw_height*0.5, '0')
+    braket(ax, draw_width+dx, draw_height*0.5, '0')
     ax.text(
         draw_width/2,
         draw_height*-0.75,
@@ -130,3 +130,4 @@ def plot(plt, params):
         ax.grid()
     else:
         ax.set_axis_off()
+    return {'height': 500}
