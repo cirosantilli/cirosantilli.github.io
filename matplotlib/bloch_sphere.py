@@ -86,6 +86,8 @@ def plot(plt, params):
         # Some of the points appear below the rest of the plot, which is undesired,
         # but maybe there is no way to get it to work:
         # - https://github.com/matplotlib/matplotlib/issues/14148
+        # - https://github.com/matplotlib/matplotlib/issues/14175
+        # - https://github.com/matplotlib/matplotlib/pull/14508
         # - https://stackoverflow.com/questions/56010933/matplotlib-plot3d-surface-line-scatter-plot-how-to-define-z-order
         # - https://stackoverflow.com/questions/37611023/3d-parametric-curve-in-matplotlib-does-not-respect-zorder-workaround
         # - https://stackoverflow.com/questions/52923540/matplotlib-3d-workaround-for-plot-order
