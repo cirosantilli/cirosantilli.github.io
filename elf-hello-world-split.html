@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>ELF Hello World Tutorial</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="elf-hello-world"><a href="" title="link to this element">ELF Hello World Tutorial</a><span>  | <a href="elf-hello-world">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="#p-1">🔗</a></span><div class="p" id="p-1">Introductory analysis of a simple example of the Executable and Linkable File format.</div></div><div><span class="hide-hover"><a href="#p-2">🔗</a></span><div class="p" id="p-2">Extracted from <a href="https://stackoverflow.com/a/30648229/895245">this Stack Overflow answer</a>.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="">
+<ul>
+<li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><a class="title" href="#toc">Table of contents</a>  <span class="descendant-count" title="Number of descendants.">[36]</span></div>
+<ul>
+<li class="has-child"><div id="toc-elf-hello-world/introduction"><div class="arrow"><div></div></div><a href="elf-hello-world/introduction">1. Introduction</a> <span class="descendant-count" title="Number of descendants.">[4]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/introduction">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/standards"><div class="arrow"><div></div></div><a href="elf-hello-world/standards">1.1. Standards</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/standards">🔗 link</a> | <a href="#toc-elf-hello-world/introduction">↑ parent "Introduction"</a></span></div></li>
+<li><div id="toc-elf-hello-world/how-to-learn"><div class="arrow"><div></div></div><a href="elf-hello-world/how-to-learn">1.2. How to learn</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/how-to-learn">🔗 link</a> | <a href="#toc-elf-hello-world/introduction">↑ parent "Introduction"</a></span></div></li>
+<li><div id="toc-elf-hello-world/specified-file-formats"><div class="arrow"><div></div></div><a href="elf-hello-world/specified-file-formats">1.3. Specified file formats</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/specified-file-formats">🔗 link</a> | <a href="#toc-elf-hello-world/introduction">↑ parent "Introduction"</a></span></div></li>
+<li><div id="toc-elf-hello-world/implementations"><div class="arrow"><div></div></div><a href="elf-hello-world/implementations">1.4. Implementations</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/implementations">🔗 link</a> | <a href="#toc-elf-hello-world/introduction">↑ parent "Introduction"</a></span></div></li>
+</ul>
+<li><div id="toc-elf-hello-world/minimal-elf-file"><div class="arrow"><div></div></div><a href="elf-hello-world/minimal-elf-file">2. Minimal ELF file</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/minimal-elf-file">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/generate-the-example"><div class="arrow"><div></div></div><a href="elf-hello-world/generate-the-example">3. Generate the example</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/generate-the-example">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/object-hd"><div class="arrow"><div></div></div><a href="elf-hello-world/object-hd">4. Object hd</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/object-hd">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/executable-hd"><div class="arrow"><div></div></div><a href="elf-hello-world/executable-hd">5. Executable hd</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/executable-hd">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/global-file-structure"><div class="arrow"><div></div></div><a href="elf-hello-world/global-file-structure">6. Global file structure</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/global-file-structure">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/section-vs-segment"><div class="arrow"><div></div></div><a href="elf-hello-world/section-vs-segment">7. Section vs segment</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/section-vs-segment">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/elf-header"><div class="arrow"><div></div></div><a href="elf-hello-world/elf-header">8. ELF header</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/elf-header">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/section-header-table"><div class="arrow"><div></div></div><a href="elf-hello-world/section-header-table">9. Section header table</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/section-header-table">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li class="has-child"><div id="toc-elf-hello-world/sections"><div class="arrow"><div></div></div><a href="elf-hello-world/sections">10. Sections</a> <span class="descendant-count" title="Number of descendants.">[20]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/sections">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div>
+<ul>
+<li class="has-child"><div id="toc-elf-hello-world/index-0-section"><div class="arrow"><div></div></div><a href="elf-hello-world/index-0-section">10.1. Index 0 section</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/index-0-section">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/sht-null"><div class="arrow"><div></div></div><a href="elf-hello-world/sht-null">10.1.1. SHT_NULL</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/sht-null">🔗 link</a> | <a href="#toc-elf-hello-world/index-0-section">↑ parent "Index 0 section"</a></span></div></li>
+</ul>
+<li><div id="toc-elf-hello-world/data-section"><div class="arrow"><div></div></div><a href="elf-hello-world/data-section">10.2. .data section</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/data-section">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div></li>
+<li><div id="toc-elf-hello-world/text-section"><div class="arrow"><div></div></div><a href="elf-hello-world/text-section">10.3. .text section</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/text-section">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div></li>
+<li><div id="toc-elf-hello-world/sht-strtab"><div class="arrow"><div></div></div><a href="elf-hello-world/sht-strtab">10.4. SHT_STRTAB</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/sht-strtab">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div></li>
+<li><div id="toc-elf-hello-world/shstrtab"><div class="arrow"><div></div></div><a href="elf-hello-world/shstrtab">10.5. .shstrtab</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/shstrtab">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div></li>
+<li class="has-child"><div id="toc-elf-hello-world/symtab"><div class="arrow"><div></div></div><a href="elf-hello-world/symtab">10.6. .symtab</a> <span class="descendant-count" title="Number of descendants.">[5]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/symtab">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/stt-file"><div class="arrow"><div></div></div><a href="elf-hello-world/stt-file">10.6.1. STT_FILE</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/stt-file">🔗 link</a> | <a href="#toc-elf-hello-world/symtab">↑ parent ".symtab"</a></span></div></li>
+<li><div id="toc-elf-hello-world/stt-section"><div class="arrow"><div></div></div><a href="elf-hello-world/stt-section">10.6.2. STT_SECTION</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/stt-section">🔗 link</a> | <a href="#toc-elf-hello-world/symtab">↑ parent ".symtab"</a></span></div></li>
+<li class="has-child"><div id="toc-elf-hello-world/stt-notype"><div class="arrow"><div></div></div><a href="elf-hello-world/stt-notype">10.6.3. STT_NOTYPE</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/stt-notype">🔗 link</a> | <a href="#toc-elf-hello-world/symtab">↑ parent ".symtab"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/shn-abs"><div class="arrow"><div></div></div><a href="elf-hello-world/shn-abs">10.6.3.1. SHN_ABS</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/shn-abs">🔗 link</a> | <a href="#toc-elf-hello-world/stt-notype">↑ parent "STT_NOTYPE"</a></span></div></li>
+</ul>
+<li><div id="toc-elf-hello-world/sht-symtab-on-the-executable"><div class="arrow"><div></div></div><a href="elf-hello-world/sht-symtab-on-the-executable">10.6.4. SHT_SYMTAB on the executable</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/sht-symtab-on-the-executable">🔗 link</a> | <a href="#toc-elf-hello-world/symtab">↑ parent ".symtab"</a></span></div></li>
+</ul>
+<li><div id="toc-elf-hello-world/strtab"><div class="arrow"><div></div></div><a href="elf-hello-world/strtab">10.7. .strtab</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/strtab">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div></li>
+<li class="has-child"><div id="toc-elf-hello-world/rela-text"><div class="arrow"><div></div></div><a href="elf-hello-world/rela-text">10.8. .rela.text</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/rela-text">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/rel-text"><div class="arrow"><div></div></div><a href="elf-hello-world/rel-text">10.8.1. .rel.text</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/rel-text">🔗 link</a> | <a href="#toc-elf-hello-world/rela-text">↑ parent ".rela.text"</a></span></div></li>
+</ul>
+<li class="has-child"><div id="toc-elf-hello-world/dynamic-linking-sections"><div class="arrow"><div></div></div><a href="elf-hello-world/dynamic-linking-sections">10.9. Dynamic linking sections</a> <span class="descendant-count" title="Number of descendants.">[4]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/dynamic-linking-sections">🔗 link</a> | <a href="#toc-elf-hello-world/sections">↑ parent "Sections"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/pt-interp"><div class="arrow"><div></div></div><a href="elf-hello-world/pt-interp">10.9.1. PT_INTERP</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/pt-interp">🔗 link</a> | <a href="#toc-elf-hello-world/dynamic-linking-sections">↑ parent "Dynamic linking sections"</a></span></div></li>
+<li class="has-child"><div id="toc-elf-hello-world/dynamic-section"><div class="arrow"><div></div></div><a href="elf-hello-world/dynamic-section">10.9.2. Dynamic section</a> <span class="descendant-count" title="Number of descendants.">[2]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/dynamic-section">🔗 link</a> | <a href="#toc-elf-hello-world/dynamic-linking-sections">↑ parent "Dynamic linking sections"</a></span></div>
+<ul>
+<li class="has-child"><div id="toc-elf-hello-world/dt-flags-1"><div class="arrow"><div></div></div><a href="elf-hello-world/dt-flags-1">10.9.2.1. DT_FLAGS_1</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/dt-flags-1">🔗 link</a> | <a href="#toc-elf-hello-world/dynamic-section">↑ parent "Dynamic section"</a></span></div>
+<ul>
+<li><div id="toc-elf-hello-world/df-1-pie"><div class="arrow"><div></div></div><a href="elf-hello-world/df-1-pie">10.9.2.1.1. DF_1_PIE</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/df-1-pie">🔗 link</a> | <a href="#toc-elf-hello-world/dt-flags-1">↑ parent "DT_FLAGS_1"</a></span></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<li><div id="toc-elf-hello-world/program-header-table"><div class="arrow"><div></div></div><a href="elf-hello-world/program-header-table">11. Program header table</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/program-header-table">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+<li><div id="toc-elf-hello-world/backlinks"><div class="arrow"><div></div></div><a href="elf-hello-world/backlinks">12. Backlinks</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/backlinks">🔗 link</a> | <a href="#toc">↑ parent "ELF Hello World Tutorial"</a></span></div></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

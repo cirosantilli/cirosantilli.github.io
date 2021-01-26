@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="oxford-nanopore-river-bacteria"><a href="" title="link to this element">How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it</a><span>  | <a href="oxford-nanopore-river-bacteria">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="#p-1">🔗</a></span><div class="p" id="p-1">This article gives an idea of how this kind of biological experiment feels like to a software engineer who has never done any <a href="biology">biology</a> like <a href="ciro-santilli">Ciro Santilli</a>. Parent node: <a href="articles">the best articles by Ciro Santilli</a>.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="">
+<ul>
+<li class="has-child toplevel"><div class="title-div"><div class="arrow"><div></div></div><a class="title" href="#toc">Table of contents</a>  <span class="descendant-count" title="Number of descendants.">[29]</span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/experiment-background"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/experiment-background">1. Experiment background</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/experiment-background">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/overview-of-the-experiment"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/overview-of-the-experiment">2. Overview of the experiment</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/overview-of-the-experiment">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">2.1. Why Oxford Nanopore was used instead of Illumina for the sequencing</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/why-oxford-nanopore-was-used-instead-of-illumina-for-the-sequencing">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/overview-of-the-experiment">↑ parent "Overview of the experiment"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/sample-collection"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/sample-collection">3. Sample collection</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/sample-collection">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/dna-extraction"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/dna-extraction">4. DNA extraction</a> <span class="descendant-count" title="Number of descendants.">[2]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/filtration-with-vacuum-pump"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">4.1. Filtration with vacuum pump</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/filtration-with-vacuum-pump">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">↑ parent "DNA extraction"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/post-filtration-purification"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/post-filtration-purification">4.2. Post filtration purification</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/post-filtration-purification">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/dna-extraction">↑ parent "DNA extraction"</a></span></div></li>
+</ul>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/pcr"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/pcr">5. PCR</a> <span class="descendant-count" title="Number of descendants.">[1]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/pcr">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">5.1. PCR verification with gel electrophoresis</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/pcr-verification-with-gel-electrophoresis">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/pcr">↑ parent "PCR"</a></span></div></li>
+</ul>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/sequencing"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/sequencing">6. Sequencing</a> <span class="descendant-count" title="Number of descendants.">[2]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/pre-sequencing-preparation"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/pre-sequencing-preparation">6.1. Pre-sequencing preparation</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/pre-sequencing-preparation">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">↑ parent "Sequencing"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/using-the-oxford-nanopore"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/using-the-oxford-nanopore">6.2. Using the Oxford Nanopore</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/using-the-oxford-nanopore">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/sequencing">↑ parent "Sequencing"</a></span></div></li>
+</ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/bioinformatics"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/bioinformatics">7. Bioinformatics</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/bioinformatics">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/conclusions"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/conclusions">8. Conclusions</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/conclusions">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div></li>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/protocols-used"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/protocols-used">9. Protocols used</a> <span class="descendant-count" title="Number of descendants.">[3]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">9.1. Qiagen DNeasy PowerWater Kit</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-dneasy-powerwater-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">9.2. Qiagen QIAquick PCR Purification Kit</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/qiagen-qiaquick-pcr-purification-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">9.3. Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/oxford-nanopore-sqk-lsk109-ligation-sequencing-kit">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/protocols-used">↑ parent "Protocols used"</a></span></div></li>
+</ul>
+<li class="has-child"><div id="toc-oxford-nanopore-river-bacteria/equipment-used"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/equipment-used">10. Equipment used</a> <span class="descendant-count" title="Number of descendants.">[10]</span><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">🔗 link</a> | <a href="#toc">↑ parent "How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it"</a></span></div>
+<ul>
+<li><div id="toc-oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">10.1. Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">10.2. KNF Laboport series laboratory vacuum pump</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/knf-laboport-series-laboratory-vacuum-pump">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">10.3. Scientific Industries Inc. Vortex-Genie 2</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/scientific-industries-inc-vortex-genie-2">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">10.4. VWR Micro Star 17 microcentrifuge</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/vwr-micro-star-17-microcentrifuge">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">10.5. VELP Scientifica WIZARD IR Infrared Vortex Mixer</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/velp-scientifica-wizard-ir-infrared-vortex-mixer">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">10.6. Marshal Scientific MJ Research PTC-200 Thermal Cycler</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/marshal-scientific-mj-research-ptc-200-thermal-cycler">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/ge-magrack-6"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/ge-magrack-6">10.7. GE MagRack 6</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/ge-magrack-6">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">10.8. BTLab Systems Mini Centrifuge</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/btlab-systems-mini-centrifuge">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">10.9. Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/fischer-scientific-uvp-lm-26e-benchtop-2uv-transilluminator">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+<li><div id="toc-oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer"><div class="arrow"><div></div></div><a href="oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">10.10. Biochrom SimpliNano spectrophotometer</a><span class="hover-metadata"> | <a href="#toc-oxford-nanopore-river-bacteria/biochrom-simplinano-spectrophotometer">🔗 link</a> | <a href="#toc-oxford-nanopore-river-bacteria/equipment-used">↑ parent "Equipment used"</a></span></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

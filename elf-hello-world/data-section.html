@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>.data section</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="data-section"><a href="" title="link to this element">.data section</a><span>  | <a href="sections">↑ parent "Sections"</a> | <a href="../elf-hello-world#data-section">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-84">🔗</a></span><div class="p" id="p-84"><code>.data</code> is section 1:
+<div class="code-caption-container" id="code-21">
+<pre><code>00000080  01 00 00 00 01 00 00 00  03 00 00 00 00 00 00 00  |................|
+00000090  00 00 00 00 00 00 00 00  00 02 00 00 00 00 00 00  |................|
+000000a0  0d 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+000000b0  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#ul-23">🔗</a></span><div><ul id="ul-23">
+<li id="l-62"><div class="p" id="p-85">80 0: <code>sh_name</code> = <code>01 00 00 00</code>: index 1 in the <code>.shstrtab</code> string table</div><div class="p" id="p-86">Here, <code>1</code> says the name of this section starts at the first character of that section, and ends at the first NUL character, making up the string <code>.data</code>.</div><div class="p" id="p-87"><code>.data</code> is one of the section names which has a predefined meaning according to <a href="http://www.sco.com/developers/gabi/2003-12-17/ch4.strtab.html">http://www.sco.com/developers/gabi/2003-12-17/ch4.strtab.html</a>:
+<blockquote id="q-4">These sections hold initialized data that contribute to the program's memory image.</blockquote></div></li>
+</ul></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#ul-24">🔗</a></span><div><ul id="ul-24">
+<li id="l-63">80 4: <code>sh_type</code> = <code>01 00 00 00</code>: <code>SHT_PROGBITS</code>: the section content is not specified by ELF, only by how the program interprets it. Normal since a <code>.data</code> section.</li>
+<li id="l-64">80 8: <code>sh_flags</code> = <code>03</code> 7x <code>00</code>: <code>SHF_WRITE</code> and <code>SHF_ALLOC</code>: <a href="http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags,">http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags,</a> as required from a <code>.data</code> section</li>
+<li id="l-65">90 0: <code>sh_addr</code> = 8x <code>00</code>: TODO: standard says:
+<blockquote id="q-5">If the section will appear in the memory image of a process, this member gives the address at which the section's first byte should reside. Otherwise, the member contains 0.</blockquote>
+but I don't understand it very well yet.</li>
+<li id="l-66">90 8: <code>sh_offset</code> = <code>00 02 00 00 00 00 00 00</code> = <code>0x200</code>: number of bytes from the start of the program to the first byte in this section</li>
+<li id="l-67"><div class="p" id="p-88">a0 0: <code>sh_size</code> = <code>0d 00 00 00 00 00 00 00</code></div><div class="p" id="p-89">If we take 0xD bytes starting at <code>sh_offset</code> 200, we see:</div><div class="code-caption-container" id="code-22">
+<pre><code>00000200  48 65 6c 6c 6f 20 77 6f  72 6c 64 21 0a 00        |Hello world!..  |
+</code></pre></div><div class="p" id="p-90">AHA! So our <code>"Hello world!"</code> string is in the data section like we told it to be on the NASM.</div><div class="p" id="p-91">Once we graduate from <code>hd</code>, we will look this up like:</div><div class="code-caption-container" id="code-23">
+<pre><code>readelf -x .data hello_world.o
+</code></pre></div><div class="p" id="p-92">which outputs:</div><div class="code-caption-container" id="code-24">
+<pre><code>Hex dump of section '.data':
+  0x00000000 48656c6c 6f20776f 726c6421 0a       Hello world!.
+</code></pre></div><div class="p" id="p-93">NASM sets decent properties for that section because it treats <code>.data</code> magically: <a href="https://www.nasm.us/doc/nasmdoc7.html#section-7.9.2">https://www.nasm.us/doc/nasmdoc7.html#section-7.9.2</a></div><div class="p" id="p-94">Also note that this was a bad section choice: a good C compiler would put the string in <code>.rodata</code> instead, because it is read-only and it would allow for further OS optimizations.<div><ul id="ul-25">
+<li id="l-68">a0 8: <code>sh_link</code> and <code>sh_info</code> = 8x 0: do not apply to this section type. <a href="http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#special_sections">http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#special_sections</a></li>
+<li id="l-69">b0 0: <code>sh_addralign</code> = <code>04</code> = TODO: why is this alignment necessary? Is it only for <code>sh_addr</code>, or also for symbols inside <code>sh_addr</code>?</li>
+<li id="l-70">b0 8: <code>sh_entsize</code> = <code>00</code> = the section does not contain a table. If != 0, it means that the section contains a table of fixed size entries. In this file, we see from the <code>readelf</code> output that this is the case for the <code>.symtab</code> and <code>.rela.text</code> sections.</li>
+</ul></div></div></li>
+</ul></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

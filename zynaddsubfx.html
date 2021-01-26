@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>ZynAddSubFX</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="zynaddsubfx"><a href="" title="link to this element">ZynAddSubFX</a><span>  | <a href="software-synthesizer">↑ parent "Software synthesizer"</a> | <a href=".#zynaddsubfx">nosplit</a></span></h1>
+<div class="h-nav"><span class="nav"></span> <a href="https://en.wikipedia.org/wiki/ZynAddSubFX">Wikipedia</a></div>
+</div><div><span class="hide-hover"><a href="index-split#p-3460">🔗</a></span><div class="p" id="p-3460"><a href="https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988">https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988</a></div></div><div><span class="hide-hover"><a href="index-split#p-3461">🔗</a></span><div class="p" id="p-3461">Contains a large database of instruments, and allows you to edit them. This is a fun toy.</div></div><div><span class="hide-hover"><a href="index-split#p-3462">🔗</a></span><div class="p" id="p-3462">Instruments are edited on a GUI. It is a multi-window program, and you open new windows from new windows from new windows, all filled with hundreds of virtual knobs that you drag with your keyboard, and which would be better done from textual software like <a href="csound">Csound</a>. It is a thing of beauty.</div></div><div><span class="hide-hover"><a href="index-split#p-3463">🔗</a></span><div class="p" id="p-3463">It does not seem possible to program arbitrary <a href="modular-synthesizer">modular synthesizer</a> circuits therefore. But if you understand <a href="additive-synthesis">additive synthesis</a> and <a href="subtractive-synthesis">subtractive synthesis</a> well, you can make some funky sounds with it.</div></div><div><span class="hide-hover"><a href="index-split#p-3464">🔗</a></span><div class="p" id="p-3464">It is basically a superset of all popular <a href="hardware-synthesizer">hardware synthesizers</a> ever made.</div></div><div><span class="hide-hover"><a href="index-split#p-3465">🔗</a></span><div class="p" id="p-3465">Has its own built-in MIDI keyboard which is nice.</div></div><div><span class="hide-hover"><a href="index-split#p-3466">🔗</a></span><div class="p" id="p-3466">On Ubuntu 20.04 Version: 3.0.5:
+<div class="code-caption-container" id="code-85">
+<pre><code>sudo apt install zynaddsubfx
+zynaddsubfx -O alsa
+</code></pre></div>
+as per <a href="https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988">https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/1297988#1297988</a>
+To do anything of interest, switch to the Advanced UI:<div><ul id="ul-640">
+<li id="l-1729">Misc</li>
+<li id="l-1730">Switch Interface Mode</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="index-split#p-3467">🔗</a></span><div class="p" id="p-3467">The UI is completely different form what is shown on the website as of 2020: <a href="https://zynaddsubfx.sourceforge.io/">https://zynaddsubfx.sourceforge.io/</a>, it looks instead like: <a href="https://www.youtube.com/watch?v=iVPr6iUuO3g">https://www.youtube.com/watch?v=iVPr6iUuO3g</a> Maybe on the website it is the new zyn-fusion UI... <a href="https://www.reddit.com/r/linuxaudio/comments/bxn3ur/some_help_for_installing_zynfusion_zynaddsubfx/">https://www.reddit.com/r/linuxaudio/comments/bxn3ur/some_help_for_installing_zynfusion_zynaddsubfx/</a> so confusing.</div></div><div><span class="hide-hover"><a href="index-split#p-3468">🔗</a></span><div class="p" id="p-3468">And they have some crappy policy of asking for 45 USD for binary downloads.</div></div><div><span class="hide-hover"><a href="index-split#p-3469">🔗</a></span><div class="p" id="p-3469">Compiling from source:
+<div class="code-caption-container" id="code-86">
+<pre><code>git clone https://github.com/zynaddsubfx/zynaddsubfx
+cd zynaddsubfx
+git checkout a789866de4d45a784c1f4d95fcf5a1938347baef
+sudo apt build-dep zynaddsubfx
+mkdir build
+cd build
+cmake ..
+make -j`nproc`
+</code></pre></div>
+fails with:
+<div class="code-caption-container" id="code-87">
+<pre><code>Traceback (most recent call last):
+  File "/usr/bin/cxxtestgen", line 7, in &lt;module&gt;
+    import cxxtest.cxxtestgen
+  File "/usr/share/cxxtest/cxxtest/__init__.py", line 33, in &lt;module&gt;
+    from cxxtest.cxxtestgen import *
+  File "/usr/share/cxxtest/cxxtest/cxxtestgen.py", line 18, in &lt;module&gt;
+    import __release__
+ModuleNotFoundError: No module named '__release__'
+</code></pre></div>
+Ciro gives up for now.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

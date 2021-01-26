@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>WebGL</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="webgl"><a href="" title="link to this element">WebGL</a><span>  | <a href="html-canvas">↑ parent "HTML canvas"</a> | <a href=".#webgl">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="index-split#p-3266">🔗</a></span><div class="p" id="p-3266"><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example">https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example</a></div></div><div><span class="hide-hover"><a href="index-split#jscanvasdemo-2">🔗</a></span><pre class="cirodown-js-canvas-demo"><code>new class extends CirodownCanvasDemo {
+  init() {
+    super.init('webgl', {context_type: 'webgl'});
+    this.ctx.viewport(0, 0, this.ctx.drawingBufferWidth, this.ctx.drawingBufferHeight);
+    this.ctx.clearColor(0.0, 0.0, 0.0, 1.0);
+    this.vertexShaderSource = `
+#version 100
+precision highp float;
+attribute float position;
+void main() {
+  gl_Position = vec4(position, 0.0, 0.0, 1.0);
+  gl_PointSize = 64.0;
+}
+`;
+
+    this.fragmentShaderSource = `
+#version 100
+precision mediump float;
+void main() {
+  gl_FragColor = vec4(0.18, 0.0, 0.34, 1.0);
+}
+`;
+    this.vertexShader = this.ctx.createShader(this.ctx.VERTEX_SHADER);
+    this.ctx.shaderSource(this.vertexShader, this.vertexShaderSource);
+    this.ctx.compileShader(this.vertexShader);
+    this.fragmentShader = this.ctx.createShader(this.ctx.FRAGMENT_SHADER);
+    this.ctx.shaderSource(this.fragmentShader, this.fragmentShaderSource);
+    this.ctx.compileShader(this.fragmentShader);
+    this.program = this.ctx.createProgram();
+    this.ctx.attachShader(this.program, this.vertexShader);
+    this.ctx.attachShader(this.program, this.fragmentShader);
+    this.ctx.linkProgram(this.program);
+    this.ctx.detachShader(this.program, this.vertexShader);
+    this.ctx.detachShader(this.program, this.fragmentShader);
+    this.ctx.deleteShader(this.vertexShader);
+    this.ctx.deleteShader(this.fragmentShader);
+    if (!this.ctx.getProgramParameter(this.program, this.ctx.LINK_STATUS)) {
+      console.log('error ' + this.ctx.getProgramInfoLog(this.program));
+      return;
+    }
+    this.ctx.enableVertexAttribArray(0);
+    var buffer = this.ctx.createBuffer();
+    this.ctx.bindBuffer(this.ctx.ARRAY_BUFFER, buffer);
+    this.ctx.vertexAttribPointer(0, 1, this.ctx.FLOAT, false, 0, 0);
+    this.ctx.useProgram(this.program);
+  }
+  draw() {
+    this.ctx.clear(this.ctx.COLOR_BUFFER_BIT);
+    this.ctx.bufferData(this.ctx.ARRAY_BUFFER, new Float32Array([Math.sin(this.time / 60.0)]), this.ctx.STATIC_DRAW);
+    this.ctx.drawArrays(this.ctx.POINTS, 0, 1);
+  }
+}
+</code></pre></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

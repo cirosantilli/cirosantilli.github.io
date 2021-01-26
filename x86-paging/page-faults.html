@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Page faults</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="page-faults"><a href="" title="link to this element">Page faults</a><span>  | <a href="example-simplified-single-level-paging-scheme">↑ parent "Example: simplified single-level paging scheme"</a> | <a href="../x86-paging#page-faults">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../x86-paging-split#p-63">🔗</a></span><div class="p" id="p-63">What if Process 1 tries to access <code>0x00003000</code>, which is not present?</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-64">🔗</a></span><div class="p" id="p-64">The hardware notifies the software via a Page Fault Exception.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-65">🔗</a></span><div class="p" id="p-65">When an exception happens, the CPU jumps to an address that the OS had previously registered as the fault handler. This is usually done at boot time by the OS.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-66">🔗</a></span><div class="p" id="p-66">This could happen for example due to a programming error:
+<div class="code-caption-container" id="code-10">
+<pre><code>int *is = malloc(1);
+is[2] = 1;
+</code></pre></div>
+but there are cases where it is not a bug, for example in Linux when:<div><ul id="ul-13">
+<li id="l-40"><div class="p" id="p-67">the program wants to increase its stack.</div><div class="p" id="p-68">It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space, otherwise, it sends a signal to the process.</div></li>
+<li id="l-41"><div class="p" id="p-69">the page was swapped to disk.</div><div class="p" id="p-70">The OS will need to do some work behind the processes back to get the page back into RAM.</div><div class="p" id="p-71">The OS can discover that this is the case based on the contents of the rest of the page table entry, since if the present flag is clear, the other entries of the page table entry are completely left for the OS to to what it wants.</div><div class="p" id="p-72">On Linux for example, when present = 0:<div><ul id="ul-14">
+<li id="l-42">if all the fields of the page table entry are 0, invalid address.</li>
+<li id="l-43">else, the page has been swapped to disk, and the actual values of those fields encode the position of the page on the disk.</li>
+</ul></div></div></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-73">🔗</a></span><div class="p" id="p-73">In any case, the OS needs to know which address generated the Page Fault to be able to deal with the problem. This is why the nice IA32 developers set the value of <code>cr2</code> to that address whenever a Page Fault occurs. The exception handler can then just look into <code>cr2</code> to get the address.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

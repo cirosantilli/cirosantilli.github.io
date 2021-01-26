@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Where to store images</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="media-rationale-of-ciro-santilli-s-website/where-to-store-images"><a href="" title="link to this element">Where to store images</a><span>  | <a href="../media-rationale-of-ciro-santilli-s-website">↑ parent "Media rationale of Ciro Santilli's website"</a> | <a href="../#media-rationale-of-ciro-santilli-s-website/where-to-store-images">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../index-split#p-512">🔗</a></span><div class="p" id="p-512">Since images are large, they bring the following challenges:<div><ul id="ul-105">
+<li id="l-419">keeping images in the main Git repository with text content makes the repository huge and slow to clone, and should not be done</li>
+<li id="l-420">storing and serving images could cost us, which we want to avoid</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../index-split#p-513">🔗</a></span><div class="p" id="p-513">To solve those problems, the following alternatives appear to be stable enough and should be used decreasing preference:<div><ul id="ul-106">
+<li id="l-421"><div class="p" id="p-514">for all images, use the separate GitHub repository: <a href="https://github.com/cirosantilli/media">https://github.com/cirosantilli/media</a></div><div class="p" id="p-515">This way, the entire website is relies on a single third party: GitHub, so we have a simple <a href="https://en.wikipedia.org/wiki/Single_point_of_failure">single point of failure</a>.</div><div class="p" id="p-516">We are at the mercy of GitHub's 1GB size policy: <a href="https://help.github.com/en/articles/what-is-my-disk-quota">https://help.github.com/en/articles/what-is-my-disk-quota</a>, but it will take a while to hit that.</div><div class="p" id="p-517">GitLab however has a 10Gb maximum size: <a href="https://about.gitlab.com/2015/04/08/gitlab-dot-com-storage-limit-raised-to-10gb-per-repo/">https://about.gitlab.com/2015/04/08/gitlab-dot-com-storage-limit-raised-to-10gb-per-repo/</a> so we could move there is we ever blow up 1Gb on GitHub.</div><div class="p" id="p-518">Both GitLab and GitHub allow uploading files through the web UI, so downloading a large repo is never needed to contribute.</div><div class="p" id="p-519">GitHub does not serve videos like it does images however as of 2019.</div></li>
+<li id="l-422"><div class="p" id="p-520"><a href="https://commons.wikimedia.org/wiki/Main_Page">Wikimedia Commons</a> for videos if the following conditions are met:</div><div><ul id="ul-107">
+<li id="l-423"><a href="https://commons.wikimedia.org/wiki/Commons:Project_scope">in scope</a>: "educational material in a broad sense", but not e.g. "Private image collections, e.g. private party photos, photos of yourself and your friends, your collection of holiday snaps and so on.". I don't think they will be too picky even with low quality photos.</li>
+<li id="l-424">allowed format, e.g. images or videos, but not ZIPs</li>
+<li id="l-425">allowed license: CC BY SA, but no fair use</li>
+</ul></div><div class="p" id="p-521">Since Wikimedia Commons has a higher level of curation and is an educational not-for-profit, it is the method most likely to remain available for the longest time.</div><div class="p" id="p-522">For this reason, we highly recommend uploading any acceptable files there as well as an additional backup.</div><div class="p" id="p-523">The downside is that its tooling is not as good, e.g. <a href="https://webapps.stackexchange.com/questions/135251/how-to-download-all-files-from-an-uploader-on-wikimedia-commons">there are a bunch of messy unofficial tools for batch operations</a>, and upload takes more effort.</div><div class="p" id="p-524">Another downside of Wikimedia Commons is that while we can choose the basename of files, it also adds some extra SHA crap to the beginning of URLs, making them harder to predict.</div><div class="p" id="p-525">Another serious downside is that they randomly rename images without redirects... e.g. they renamed <a href="https://upload.wikimedia.org/wikipedia/en/0/03/STJ_SVG_file.svg">https://upload.wikimedia.org/wikipedia/en/0/03/STJ_SVG_file.svg</a> to <a href="https://upload.wikimedia.org/wikipedia/commons/8/81/Superconducting_tunnel_junction.svg">https://upload.wikimedia.org/wikipedia/commons/8/81/Superconducting_tunnel_junction.svg</a></div><div class="p" id="p-526">Another "downside" is that they are extremelly strict about copyright compliance. This is good because you can be pretty sure that they are correct in general, but it also means that they are very conservative, and delete things where fair use would be OK. And if those fair uses have no Wikipedia page, they won't show up anywhere.</div></li>
+<li id="l-426"><div class="p" id="p-527"><a href="https://archive.org">https://archive.org</a> for anything else, e.g. videos that Wikimedia commons does not accept.</div><div class="p" id="p-528">All content will be tracked under the <code>cirosantilli</code> collection: <a href="https://archive.org/details/cirosantilli">https://archive.org/details/cirosantilli</a></div><div class="p" id="p-529">archive.org has a very convenient upload and lax requirements. The generated URLs are predictable (single SHA prefix for the entire collection).</div><div class="p" id="p-530">Never trust a website that is not on <a href="../github-pages">GitHub Pages</a>, for-profit companies will take down everything immediately as soon as it stops making them money.</div><div class="p" id="p-531">Every external link to non-GitHub pages must be archived. And GitHub links must be forked.</div><div class="p" id="p-532">We should also backup images that Wikimedia Commons does not accept here in addition to the <a href="https://github.com/cirosantilli/media">https://github.com/cirosantilli/media</a> repository.</div></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../index-split#p-533">🔗</a></span><div class="p" id="p-533">The following alternatives seem impossible because Ciro could not find if they expose direct links to the images:<div><ul id="ul-108">
+<li id="l-427">Google Photos <a href="https://webapps.stackexchange.com/questions/92777/how-to-get-the-direct-link-to-an-image-in-my-google-photos">https://webapps.stackexchange.com/questions/92777/how-to-get-the-direct-link-to-an-image-in-my-google-photos</a></li>
+<li id="l-428">Imgur <a href="https://webapps.stackexchange.com/questions/84535/has-imgur-stopped-giving-direct-links">https://webapps.stackexchange.com/questions/84535/has-imgur-stopped-giving-direct-links</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../index-split#p-534">🔗</a></span><div class="p" id="p-534">The following do have direct links:<div><ul id="ul-109">
+<li id="l-429"><a href="https://www.flickr.com">https://www.flickr.com</a> e.g. <a href="https://live.staticflickr.com/7437/27402357162_7d91b73cd5_z.jpg">https://live.staticflickr.com/7437/27402357162_7d91b73cd5_z.jpg</a> documented at <a href="https://help.flickr.com/en_us/get-the-url-of-a-flickr-photo-S1Hnnmjym">https://help.flickr.com/en_us/get-the-url-of-a-flickr-photo-S1Hnnmjym</a> Also does automatic image size conversion. But only provides ugly autogenerated URLs.</li>
+<li id="l-430"><a href="https://www.instagram.com">https://www.instagram.com</a> does not support upload from computer? Lol?</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../index-split#p-535">🔗</a></span><div class="p" id="p-535">For videos, <a href="../youtube">YouTube</a> does not allow download, even of Creative Commons videos so uploading only there is not acceptable as it prevents reuse:<div><ul id="ul-110">
+<li id="l-431"><a href="https://law.stackexchange.com/questions/8033/is-it-legal-to-download-and-modify-videos-from-youtube-licensed-under-creative-c">https://law.stackexchange.com/questions/8033/is-it-legal-to-download-and-modify-videos-from-youtube-licensed-under-creative-c</a></li>
+<li id="l-432"><a href="https://www.quora.com/Can-I-download-Creative-Commons-licensed-YouTube-videos-to-edit-them-and-use-them">https://www.quora.com/Can-I-download-Creative-Commons-licensed-YouTube-videos-to-edit-them-and-use-them</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

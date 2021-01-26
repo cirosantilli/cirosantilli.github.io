@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>How Bitcoin works</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="how-bitcoin-works"><a href="" title="link to this element">How Bitcoin works</a><span>  | <a href="bitcoin">↑ parent "Bitcoin"</a> | <a href=".#how-bitcoin-works">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="index-split#p-2573">🔗</a></span><div class="p" id="p-2573">Here is a very direct description of the system:<div><ul id="ul-469">
+<li id="l-1265">each transaction has a list of inputs, and a list of outputs</li>
+<li id="l-1266">each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a <a href="digital-signature">digital signature</a> for the public key specified on the output</li>
+<li id="l-1267">each output specifies the <a href="public-key-cryptography">public key</a> of the receiver and the value being sent</li>
+<li id="l-1268">the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.</li>
+<li id="l-1269">once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="index-split#p-2574">🔗</a></span><div class="p" id="p-2574">Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine.</div></div><div><span class="hide-hover"><a href="index-split#p-2575">🔗</a></span><div class="p" id="p-2575">The key innovation of Bitcoin is how to prevent double spending, i.e. use a single output as the input of two different transactions, via mining.</div></div><div><span class="hide-hover"><a href="index-split#p-2576">🔗</a></span><div class="p" id="p-2576">For example, what prevents me from very quickly using a single output to pay two different people in quick succession?</div></div><div><span class="hide-hover"><a href="index-split#p-2577">🔗</a></span><div class="p" id="p-2577">The solution are the blocks. Blocks discretize transactions into chunks in a way that prevents double spending.</div></div><div><span class="hide-hover"><a href="index-split#p-2578">🔗</a></span><div class="p" id="p-2578">A block contains:<div><ul id="ul-470">
+<li id="l-1270"><div class="p" id="p-2579">a list of transactions that are valid amongst themselves. Notably, there can't be double spending within a block.</div><div class="p" id="p-2580">People making transactions send them to the network, and miners select which ones they want to add to their block. Miners prefer to pick transactions that are:<div><ul id="ul-471">
+<li id="l-1271">small, as less bytes means less hashing costs. Small generally means "doesn't have a gazillion inputs/outputs".</li>
+<li id="l-1272">have higher transaction fees, for obvious reasons</li>
+</ul></div></div></li>
+<li id="l-1273">the ID of its parent block. Blocks therefore form a linear linked list of blocks, except for temporary ties that are soon resolved. The longest known list block is considerd to be the valid one.</li>
+<li id="l-1274">a nonce, which is an integer chosen "arbitrarily by the miner"</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="index-split#p-2581">🔗</a></span><div class="p" id="p-2581">For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.</div></div><div><span class="hide-hover"><a href="index-split#p-2582">🔗</a></span><div class="p" id="p-2582">Since hashes are basically random, miners just have to try a bunch of nonces randomly until they find one that works.</div></div><div><span class="hide-hover"><a href="index-split#p-2583">🔗</a></span><div class="p" id="p-2583">The more zeroes, the harder it is to find the hash. For example, on the extreme case where N is all the bits of the hash output, we are trying to find a hash of exactly 0, which is statistically impossible. But if e.g. N=1, you will in average have to try only two nonces, N=2 four nonces, and so on.</div></div><div><span class="hide-hover"><a href="index-split#p-2584">🔗</a></span><div class="p" id="p-2584">The value N is updated every 2 weeks, and aims to make blocks to take 10 minutes to mine on average. N has to be increased with time, as more advanced hashing hardware has become available.</div></div><div><span class="hide-hover"><a href="index-split#p-2585">🔗</a></span><div class="p" id="p-2585">Once a miner finds a nonce that works, they send their block to the network. Other miners then verify the block, and once they do, they are highly incentivized to stop their hashing attempts, and make the new valid block be the new parent, and start over. This is because the length of the chain has already increased: they would need to mine two blocks instead of one if they didn't update to the newest block!</div></div><div><span class="hide-hover"><a href="index-split#p-2586">🔗</a></span><div class="p" id="p-2586">Therefore if you try to double spend, some random miner is going to select only one of your transactions and add it to the block.</div></div><div><span class="hide-hover"><a href="index-split#p-2587">🔗</a></span><div class="p" id="p-2587">They can't pick both, otherwise their block would be invalid, and other miners would't accept is as the new longest one.</div></div><div><span class="hide-hover"><a href="index-split#p-2588">🔗</a></span><div class="p" id="p-2588">Then sooner or later, the transaction will be mined and added to the longest chain. At this point, the network will move to that newer header, and your second transaction will not be valid for any miner at all anymore, since it uses a spent output from the first one that went in. All miners will therefore drop that transaction, and it will never go in.</div></div><div><span class="hide-hover"><a href="index-split#p-2589">🔗</a></span><div class="p" id="p-2589">The goal of having this mandatory 10 minutes block interval is to make it very unlikely that two miners will mine at the exact same time, and therefore possibly each one mine one of the two double spending transactions. When ties to happen, miners randomly choose one of the valid blocks and work on top of it. The first one that does, now has a block of length L + 2 rather than L + 1, and therefore when that is propagated, everyone drops what they are doing and move to that new longest one.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

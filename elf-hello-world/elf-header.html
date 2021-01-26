@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>ELF header</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="elf-header"><a href="" title="link to this element">ELF header</a><span>  | <a href="../elf-hello-world-split">↑ parent "ELF Hello World Tutorial"</a> | <a href="../elf-hello-world#elf-header">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-52">🔗</a></span><div class="p" id="p-52">Running:
+<div class="code-caption-container" id="code-11">
+<pre><code>readelf -h hello_world.o
+</code></pre></div>
+outputs:
+<div class="code-caption-container" id="code-12">
+<pre><code>Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+Class:                             ELF64
+Data:                              2's complement, little endian
+Version:                           1 (current)
+OS/ABI:                            UNIX - System V
+ABI Version:                       0
+Type:                              REL (Relocatable file)
+Machine:                           Advanced Micro Devices X86-64
+Version:                           0x1
+Entry point address:               0x0
+Start of program headers:          0 (bytes into file)
+Start of section headers:          64 (bytes into file)
+Flags:                             0x0
+Size of this header:               64 (bytes)
+Size of program headers:           0 (bytes)
+Number of program headers:         0
+Size of section headers:           64 (bytes)
+Number of section headers:         7
+Section header string table index: 3
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-53">🔗</a></span><div class="p" id="p-53">Running:
+<div class="code-caption-container" id="code-13">
+<pre><code>readelf -h hello_world.out
+</code></pre></div>
+outputs:
+<div class="code-caption-container" id="code-14">
+<pre><code>Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+Class:                             ELF64
+Data:                              2's complement, little endian
+Version:                           1 (current)
+OS/ABI:                            UNIX - System V
+ABI Version:                       0
+Type:                              EXEC (Executable file)
+Machine:                           Advanced Micro Devices X86-64
+Version:                           0x1
+Entry point address:               0x4000b0
+Start of program headers:          64 (bytes into file)
+Start of section headers:          272 (bytes into file)
+Flags:                             0x0
+Size of this header:               64 (bytes)
+Size of program headers:           56 (bytes)
+Number of program headers:         2
+Size of section headers:           64 (bytes)
+Number of section headers:         6
+Section header string table index: 3
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-54">🔗</a></span><div class="p" id="p-54">Bytes in the object file:
+<div class="code-caption-container" id="code-15">
+<pre><code>00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  01 00 3e 00 01 00 00 00  00 00 00 00 00 00 00 00  |..&gt;.............|
+00000020  00 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
+00000030  00 00 00 00 40 00 00 00  00 00 40 00 07 00 03 00  |....@.....@.....|
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-55">🔗</a></span><div class="p" id="p-55">Executable:
+<div class="code-caption-container" id="code-16">
+<pre><code>00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+00000010  02 00 3e 00 01 00 00 00  b0 00 40 00 00 00 00 00  |..&gt;.......@.....|
+00000020  40 00 00 00 00 00 00 00  10 01 00 00 00 00 00 00  |@...............|
+00000030  00 00 00 00 40 00 38 00  02 00 40 00 06 00 03 00  |....@.8...@.....|
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-56">🔗</a></span><div class="p" id="p-56">Structure represented:
+<div class="code-caption-container" id="code-17">
+<pre><code># define EI_NIDENT 16
+
+typedef struct {
+    unsigned char   e_ident[EI_NIDENT];
+    Elf64_Half      e_type;
+    Elf64_Half      e_machine;
+    Elf64_Word      e_version;
+    Elf64_Addr      e_entry;
+    Elf64_Off       e_phoff;
+    Elf64_Off       e_shoff;
+    Elf64_Word      e_flags;
+    Elf64_Half      e_ehsize;
+    Elf64_Half      e_phentsize;
+    Elf64_Half      e_phnum;
+    Elf64_Half      e_shentsize;
+    Elf64_Half      e_shnum;
+    Elf64_Half      e_shstrndx;
+} Elf64_Ehdr;
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-57">🔗</a></span><div class="p" id="p-57">Manual breakdown:</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#ul-21">🔗</a></span><div><ul id="ul-21">
+<li id="l-42">0 0: <code>EI_MAG</code> = <code>7f 45 4c 46</code> = <code>0x7f 'E', 'L', 'F'</code>: ELF magic number</li>
+<li id="l-43">0 4: <code>EI_CLASS</code> = <code>02</code> = <code>ELFCLASS64</code>: 64 bit elf</li>
+<li id="l-44">0 5: <code>EI_DATA</code> = <code>01</code> = <code>ELFDATA2LSB</code>: little endian data</li>
+<li id="l-45">0 6: <code>EI_VERSION</code> = <code>01</code>: format version</li>
+<li id="l-46">0 7: <code>EI_OSABI</code> (only in 2003 Update) = <code>00</code> = <code>ELFOSABI_NONE</code>: no extensions.</li>
+<li id="l-47">0 8: <code>EI_PAD</code> = 8x <code>00</code>: reserved bytes. Must be set to 0.</li>
+<li id="l-48"><div class="p" id="p-58">1 0: <code>e_type</code> = <code>01 00</code> = 1 (big endian) = <code>ET_REl</code>: relocatable format</div><div class="p" id="p-59">On the executable it is <code>02 00</code> for <code>ET_EXEC</code>.</div><div class="p" id="p-60">Another important possibility for the executable is <code>ET_DYN</code> for PIE executables and shared libraries.</div><div class="p" id="p-61"><code>ET_DYN</code> tells the Linux kernel that the code is position independent, and can loaded at a random memory location with ASLR.</div><div class="p" id="p-62">This is explained further at:<div><ul id="ul-22">
+<li id="l-49"><a href="https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031">https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031</a></li>
+<li id="l-50"><a href="https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865">https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865</a></li>
+</ul></div></div></li>
+<li id="l-51">1 2: <code>e_machine</code> = <code>3e 00</code> = <code>62</code> = <code>EM_X86_64</code>: AMD64 architecture</li>
+<li id="l-52">1 4: <code>e_version</code> = <code>01 00 00 00</code>: must be 1</li>
+<li id="l-53"><div class="p" id="p-63">1 8: <code>e_entry</code> = 8x <code>00</code>: execution address entry point, or 0 if not applicable like for the object file since there is no entry point.</div><div class="p" id="p-64">On the executable, it is <code>b0 00 40 00 00 00 00 00</code>. The kernel puts the RIP directly on that value when executing. It can be configured by the linker script or <code>-e</code>. But it will segfault if you set it too low: <a href="https://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n">https://stackoverflow.com/questions/2187484/why-is-the-elf-execution-entry-point-virtual-address-of-the-form-0x80xxxxx-and-n</a></div></li>
+<li id="l-54"><div class="p" id="p-65">2 0: <code>e_phoff</code> = 8x <code>00</code>: program header table offset, 0 if not present.</div><div class="p" id="p-66"><code>40 00 00 00</code> on the executable, i.e. it starts immediately after the ELF header.</div></li>
+<li id="l-55">2 8: <code>e_shoff</code> = <code>40</code> 7x <code>00</code> = <code>0x40</code>: section header table file offset, 0 if not present.</li>
+<li id="l-56"><div class="p" id="p-67">3 0: <code>e_flags</code> = <code>00 00 00 00</code> Arch specific. <code>i386</code> docs say:</div><blockquote id="q-2">The Intel386 architecture defines no flags; so this member contains zero.</blockquote></li>
+<li id="l-57">3 4: <code>e_ehsize</code> = <code>40 00</code>: size of this elf header. TODO why this field needed? Isn't the size fixed?</li>
+<li id="l-58"><div class="p" id="p-68">3 6: <code>e_phentsize</code> = <code>00 00</code>: size of each program header, 0 if not present.</div><div class="p" id="p-69"><code>38 00</code> on executable: it is 56 bytes long</div></li>
+<li id="l-59"><div class="p" id="p-70">3 8: <code>e_phnum</code> = <code>00 00</code>: number of program header entries, 0 if not present.</div><div class="p" id="p-71"><code>02 00</code> on executable: there are 2 entries.</div></li>
+<li id="l-60">3 A: <code>e_shentsize</code> and <code>e_shnum</code> = <code>40 00 07 00</code>: section header size and number of entries</li>
+<li id="l-61">3 E: <code>e_shstrndx</code> (<code>Section Header STRing iNDeX</code>) = <code>03 00</code>: index of the <code>.shstrtab</code> section.</li>
+</ul></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

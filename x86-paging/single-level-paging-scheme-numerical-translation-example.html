@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Single level paging scheme numerical translation example</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="single-level-paging-scheme-numerical-translation-example"><a href="" title="link to this element">Single level paging scheme numerical translation example</a><span>  | <a href="example-simplified-single-level-paging-scheme">↑ parent "Example: simplified single-level paging scheme"</a> | <a href="../x86-paging#single-level-paging-scheme-numerical-translation-example">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../x86-paging-split#p-46">🔗</a></span><div class="p" id="p-46">Suppose that the OS has setup the following page tables for process 1:
+<div class="code-caption-container" id="code-4">
+<pre><code>entry index   entry address       page address   present
+-----------   ------------------  ------------   -------
+0             CR3_1 + 0      * 4  0x00001        1
+1             CR3_1 + 1      * 4  0x00000        1
+2             CR3_1 + 2      * 4  0x00003        1
+3             CR3_1 + 3      * 4                 0
+...
+2^20-1        CR3_1 + 2^20-1 * 4  0x00005        1
+</code></pre></div>
+and for process 2:
+<div class="code-caption-container" id="code-5">
+<pre><code>entry index   entry address       page address   present
+-----------   -----------------   ------------   -------
+0             CR3_2 + 0      * 4  0x0000A        1
+1             CR3_2 + 1      * 4  0x12345        1
+2             CR3_2 + 2      * 4                 0
+3             CR3_2 + 3      * 4  0x00003        1
+...
+2^20-1        CR3_2 + 2^20-1 * 4  0xFFFFF        1
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-47">🔗</a></span><div class="p" id="p-47">Before process 1 starts running, the OS sets its <code>cr3</code> to point to the page table 1 at <code>CR3_1</code>.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-48">🔗</a></span><div class="p" id="p-48">When process 1 tries to access a linear address, this is the physical addresses that will be actually accessed:
+<div class="code-caption-container" id="code-6">
+<pre><code>linear     physical
+---------  ---------
+00000 001  00001 001
+00000 002  00001 002
+00000 003  00001 003
+00000 FFF  00001 FFF
+00001 000  00000 000
+00001 001  00000 001
+00001 FFF  00000 FFF
+00002 000  00003 000
+FFFFF 000  00005 000
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-49">🔗</a></span><div class="p" id="p-49">To switch to process 2, the OS simply sets <code>cr3</code> to <code>CR3_2</code>, and now the following translations would happen:
+<div class="code-caption-container" id="code-7">
+<pre><code>linear     physical
+---------  ---------
+00000 002  0000A 002
+00000 003  0000A 003
+00000 FFF  0000A FFF
+00001 000  12345 000
+00001 001  12345 001
+00001 FFF  12345 FFF
+00004 000  00003 000
+FFFFF 000  FFFFF 000
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-50">🔗</a></span><div class="p" id="p-50">Step-by-step translation for process 1 of logical address <code>0x00000001</code> to physical address <code>0x00001001</code>:<div><ul id="ul-11">
+<li id="l-29"><div class="p" id="p-51">split the linear address into two parts:</div><div class="code-caption-container" id="code-8">
+<pre><code>| page (20 bits) | offset (12 bits) |
+</code></pre></div><div class="p" id="p-52">So in this case we would have:
+*page = 0x00000. This part must be translated to a physical location.
+*offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position _within_ the page.</div></li>
+<li id="l-30">look into Page table 1 because <code>cr3</code> points to it.</li>
+<li id="l-31">The hardware knows that this entry is located at RAM address <code>CR3 + 0x00000 * 4 = CR3</code>:
+*<code>0x00000</code> because the page part of the logical address is <code>0x00000</code>
+*<code>4</code> because that is the fixed size in bytes of every page table entry</li>
+<li id="l-32">since it is present, the access is valid</li>
+<li id="l-33">by the page table, the location of page number <code>0x00000</code> is at <code>0x00001 * 4K = 0x00001000</code>.</li>
+<li id="l-34"><div class="p" id="p-53">to find the final physical address we just need to add the offset:</div><div class="code-caption-container" id="code-9">
+<pre><code>  00001 000
++ 00000 001
+  ---------
+  00001 001
+</code></pre></div><div class="p" id="p-54">because <code>00001</code> is the physical address of the page looked up on the table and <code>001</code> is the offset.</div><div class="p" id="p-55">We shift <code>00001</code> by 12 bits because the pages are always aligned to 4KiB.</div><div class="p" id="p-56">The offset is always simply added the physical address of the page.</div></li>
+<li id="l-35">the hardware then gets the memory at that physical location and puts it in a register.</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-57">🔗</a></span><div class="p" id="p-57">Another example: for logical address <code>0x00001001</code>:<div><ul id="ul-12">
+<li id="l-36">the page part is <code>00001</code>, and the offset part is <code>001</code></li>
+<li id="l-37">the hardware knows that its page table entry is located at RAM address: <code>CR3 + 1 * 4</code> (<code>1</code> because of the page part), and that is where it will look for it</li>
+<li id="l-38">it finds the page address <code>0x00000</code> there</li>
+<li id="l-39">so the final address is <code>0x00000 * 4k + 0x001 = 0x00000001</code></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>SHT_STRTAB</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="sht-strtab"><a href="" title="link to this element">SHT_STRTAB</a><span>  | <a href="sections">↑ parent "Sections"</a> | <a href="../elf-hello-world#sht-strtab">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-100">🔗</a></span><div class="p" id="p-100">Sections with <code>sh_type == SHT_STRTAB</code> are called _string tables_.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-101">🔗</a></span><div class="p" id="p-101">They hold a null separated array of strings.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-102">🔗</a></span><div class="p" id="p-102">Such sections are used by other sections when string names are to be used. The using section says:<div><ul id="ul-26">
+<li id="l-71">which string table they are using</li>
+<li id="l-72">what is the index on the target string table where the string starts</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-103">🔗</a></span><div class="p" id="p-103">So for example, we could have a string table containing:
+<div class="code-caption-container" id="code-30">
+<pre><code>Data: \0 a b c \0 d e f \0
+Index: 0 1 2 3  4 5 6 7  8
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-104">🔗</a></span><div class="p" id="p-104">The first byte must be a 0. TODO rationale?</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-105">🔗</a></span><div class="p" id="p-105">And if another section wants to use the string <code>d e f</code>, they have to point to index <code>5</code> of this section (letter <code>d</code>).</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-106">🔗</a></span><div class="p" id="p-106">Notable string table sections:<div><ul id="ul-27">
+<li id="l-73"><code>.shstrtab</code></li>
+<li id="l-74"><code>.strtab</code></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

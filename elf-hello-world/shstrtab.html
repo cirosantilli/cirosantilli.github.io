@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>.shstrtab</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="shstrtab"><a href="" title="link to this element">.shstrtab</a><span>  | <a href="sections">↑ parent "Sections"</a> | <a href="../elf-hello-world#shstrtab">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-107">🔗</a></span><div class="p" id="p-107">Section type: <code>sh_type == SHT_STRTAB</code>.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-108">🔗</a></span><div class="p" id="p-108">Common name: _section header string table_.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-109">🔗</a></span><div class="p" id="p-109">The section name <code>.shstrtab</code> is reserved. The standard says:
+<blockquote id="q-6">This section holds section names.</blockquote></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-110">🔗</a></span><div class="p" id="p-110">This section gets pointed to by the <code>e_shstrnd</code> field of the ELF header itself.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-111">🔗</a></span><div class="p" id="p-111">String indexes of this section are are pointed to by the <code>sh_name</code> field of section headers, which denote strings.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-112">🔗</a></span><div class="p" id="p-112">This section does not have <code>SHF_ALLOC</code> marked, so it will not appear on the executing program.
+<div class="code-caption-container" id="code-31">
+<pre><code>readelf -x .shstrtab hello_world.o
+</code></pre></div>
+outputs:
+<div class="code-caption-container" id="code-32">
+<pre><code>Hex dump of section '.shstrtab':
+  0x00000000 002e6461 7461002e 74657874 002e7368 ..data..text..sh
+  0x00000010 73747274 6162002e 73796d74 6162002e strtab..symtab..
+  0x00000020 73747274 6162002e 72656c61 2e746578 strtab..rela.tex
+  0x00000030 7400                                t.
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-113">🔗</a></span><div class="p" id="p-113">The data in this section has a fixed format: <a href="http://www.sco.com/developers/gabi/2003-12-17/ch4.strtab.html">http://www.sco.com/developers/gabi/2003-12-17/ch4.strtab.html</a></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-114">🔗</a></span><div class="p" id="p-114">If we look at the names of other sections, we see that they all contain numbers, e.g. the <code>.text</code> section is number <code>7</code>.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-115">🔗</a></span><div class="p" id="p-115">Then each string ends when the first NUL character is found, e.g. character <code>12</code> is <code>\0</code> just after <code>.text\0</code>.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

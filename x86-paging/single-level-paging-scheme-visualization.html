@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Single level paging scheme visualization</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "../cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="../main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="single-level-paging-scheme-visualization"><a href="" title="link to this element">Single level paging scheme visualization</a><span>  | <a href="example-simplified-single-level-paging-scheme">↑ parent "Example: simplified single-level paging scheme"</a> | <a href="../x86-paging#single-level-paging-scheme-visualization">nosplit</a></span></h1>
+</div><div><span class="hide-hover"><a href="../x86-paging-split#p-44">🔗</a></span><div class="p" id="p-44">This is how the memory could look like in a single level paging scheme:
+<div class="code-caption-container" id="code-3">
+<pre><code>Links   Data                    Physical address
+
+      +-----------------------+ 2^32 - 1
+      |                       |
+      .                       .
+      |                       |
+      +-----------------------+ page0 + 4k
+      | data of page 0        |
++----&gt;+-----------------------+ page0
+|     |                       |
+|     .                       .
+|     |                       |
+|     +-----------------------+ pageN + 4k
+|     | data of page N        |
+|  +-&gt;+-----------------------+ pageN
+|  |  |                       |
+|  |  .                       .
+|  |  |                       |
+|  |  +-----------------------+ CR3 + 2^20 * 4
+|  +--| entry[2^20-1] = pageN |
+|     +-----------------------+ CR3 + 2^20 - 1 * 4
+|     |                       |
+|     .    many entires       .
+|     |                       |
+|     +-----------------------+ CR3 + 2 * 4
+|  +--| entry[1] = page1      |
+|  |  +-----------------------+ CR3 + 1 * 4
++-----| entry[0] = page0      |
+   |  +-----------------------+ &lt;--- CR3
+   |  |                       |
+   |  .                       .
+   |  |                       |
+   |  +-----------------------+ page1 + 4k
+   |  | data of page 1        |
+   +-&gt;+-----------------------+ page1
+      |                       |
+      .                       .
+      |                       |
+      +-----------------------+  0
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-45">🔗</a></span><div class="p" id="p-45">Notice that:<div><ul id="ul-10">
+<li id="l-23">the CR3 register points to the first entry of the page table</li>
+<li id="l-24">the page table is just a large array with 2^20 page table entries</li>
+<li id="l-25">each entry is 4 bytes big, so the array takes up 4 MiB</li>
+<li id="l-26">each page table contains the physical address a page</li>
+<li id="l-27">each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use</li>
+<li id="l-28">we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/892110035846bcb2667227d9792e17432ea40b59">892110035846bcb2667227d9792e17432ea40b59</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="../cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
