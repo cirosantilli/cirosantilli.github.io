@@ -103,9 +103,10 @@ Quick facts:
 But maybe "Everything you did brought you where you are now." applies, maybe it is during the "low impact activities" that one gets the inspiration and experience required for the "high impact ones".
 
 = Linux Kernel Module Cheat
+{c}
+{splitSuffix}
 {parent=the-most-important-projects-done-by-ciro-santilli}
 {title2=LKMC}
-{c}
 
 https://github.com/cirosantilli/linux-kernel-module-cheat
 
@@ -14360,6 +14361,12 @@ For more context see: \x[cool-stuff-found-in-the-bitcoin-blockchain/illegal-cont
 
   The downloader just https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py-L32[strips all operands], and keeps all data, notably where public key hashes would be normally put.
 
+The format expected by those scripts is as follows:
+* ignore all script operands and constants less than 40 bytes. And there are a lot of small operands, e.g. https://www.blockchain.com/btc/tx/54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 has a `OP_1`, data, `OP_3`, `OP_CHECKMULTISIG` pattern on every script, so the `OP_1` and `OP_3` are ignored
+* ignore the last transaction, it presumably contains a real change transaction instead of arbitrary data
+* the first 4 bytes are the payload length, the next 4 bytes a crc32 signtaure. The payload length is in particular useful because of potential granuarity of transcations
+This means that if we want to index certain file types encoded in this format, we can just skip the first 8 bytes and look for file signaures.
+
 Let's try out the downloader to download itself. First you have to be running a \x[bitcoin-core] server locally. Then, supposing `.bitcon/bitoin.conf` containing:
 ``
 rpcuser=asdf
@@ -14370,7 +14377,9 @@ txindex=1
 we run:
 ``
 git clone git://github.com/jgarzik/python-bitcoinrpc.git
+git -C python-bitcoinrpc checkout cdf43b41f982b4f811cd4ebfbc787ab2abf5c94a
 wget https://gist.githubusercontent.com/shirriff/64f48fa09a61b56ffcf9/raw/ad1d2e041edc0fb7ef23402e64eeb92c045b5ef7/bitcoin-file-downloader.py
+pip install python-bitcoinrpc==1.0
 BTCRPCURL=http://asdf:qwer@127.0.0.1:8332 \
   PYTHONPATH="$(pwd)/python-bitcoinrpc:$PYTHONPATH" \
   python3 bitcoin-file-downloader.py \
@@ -15607,12 +15616,13 @@ TODO how close does it get to Shannon's limit?
 = Cirodown
 {c}
 {parent=markup-language}
+{splitSuffix}
 
 https://github.com/cirosantilli/cirodown
 
-The one to rule them all?
+The one \x[markup-language] to rule them all?
 
-Motivated by \x[write-free-books-to-get-famous-website].
+Motivated/intended base for \x[write-free-books-to-get-famous-website].
 
 = LaTeX
 {parent=markup-language}
@@ -19161,6 +19171,7 @@ Good ones:
 Honorable mentions (also insanely good):
 * Grant Green: https://en.wikipedia.org/wiki/Idle_Moments[Idle Moments] (1963)
 * John Abercrombie: https://en.wikipedia.org/wiki/Timeless_(John_Abercrombie_album)[Timeless] (1975). Just close your eyes, and imagine.
+* Paco de Lucia: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
 * Modern Jazz Quartet: https://en.wikipedia.org/wiki/Django_(album)[Django] (1956)
 * Victor Wooten: https://en.wikipedia.org/wiki/A_Show_of_Hands_(Victor_Wooten_album)[A Show of Hands (1996)]. OMG this is sick.
 
