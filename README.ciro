@@ -55,7 +55,7 @@ https://www.zhihu.com/people/cirosantilli/activities[Zhihu 知乎] |
 https://www.weibo.com/p/1005055601627311[Weibo 微博] |
 \x[accounts-controlled-by-ciro-santilli][Other accounts]
 
-You can \x[sponsor] at https://github.com/sponsors/cirosantilli[] starting from 1\$/month so he can work full time on \x[write-free-books-to-get-famous-website].
+You can \x[sponsor] at https://github.com/sponsors/cirosantilli[] starting from 1\x[dollar][\$]/month so he can work full time on \x[write-free-books-to-get-famous-website].
 
 \x[ciro-santilli-s-website][This website] is written in \x[cirodown] and its source code is located at: https://github.com/cirosantilli/cirosantilli.github.io[].
 
@@ -14162,1191 +14162,6 @@ diff -u hello.decrypt.txt hello.txt
 {parent=tor-anonymity-network}
 {wiki}
 
-= Cryptocurrency
-{parent=cryptography}
-{wiki}
-
-The key questions are:
-* how do transaction fees/guarantees/times compare to credit cards:
-  * https://bitcoin.stackexchange.com/questions/1261/is-it-possible-to-send-bitcoins-without-paying-a-fee "The Blockchain Scalability Problem & the Race for Visa-Like Transaction Speed" (2019)
-
-    \Q[The battle for a scalable solution is the blockchain's moon race. Bitcoin processes 4.6 transactions per second. Visa does around 1,700 transactions per second on average (based on a calculation derived from the official claim of over 150 million transactions per day).]
-  * https://towardsdatascience.com/the-blockchain-scalability-problem-the-race-for-visa-like-transaction-speed-5cce48f9d44
-* how can governments tax cryptocurrency
-
-= Bitcoin
-{c}
-{parent=cryptocurrency}
-{wiki}
-
-Official website: https://bitcoin.org/en/
-
-Reference implementation: \x[bitcoin-core]
-
-Ads spammed as `https://codepen.io/anon/pen/pVKajz?editors=0011` in the blockchain.
-
-= How Bitcoin works
-{parent=bitcoin}
-
-Here is a very direct description of the system:
-* each transaction has a list of inputs, and a list of outputs
-* each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a \x[digital-signature] for the public key specified on the output
-* each output specifies the \x[public-key-cryptography][public key] of the receiver and the value being sent
-* the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.
-* once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.
-
-Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine.
-
-The key innovation of Bitcoin is how to prevent double spending, i.e. use a single output as the input of two different transactions, via mining.
-
-For example, what prevents me from very quickly using a single output to pay two different people in quick succession?
-
-The solution are the blocks. Blocks discretize transactions into chunks in a way that prevents double spending.
-
-A block contains:
-* a list of transactions that are valid amongst themselves. Notably, there can't be double spending within a block.
-
-  People making transactions send them to the network, and miners select which ones they want to add to their block. Miners prefer to pick transactions that are:
-  * small, as less bytes means less hashing costs. Small generally means "doesn't have a gazillion inputs/outputs".
-  * have higher transaction fees, for obvious reasons
-* the ID of its parent block. Blocks therefore form a linear linked list of blocks, except for temporary ties that are soon resolved. The longest known list block is considerd to be the valid one.
-* a nonce, which is an integer chosen "arbitrarily by the miner"
-
-For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.
-
-Since hashes are basically random, miners just have to try a bunch of nonces randomly until they find one that works.
-
-The more zeroes, the harder it is to find the hash. For example, on the extreme case where N is all the bits of the hash output, we are trying to find a hash of exactly 0, which is statistically impossible. But if e.g. N=1, you will in average have to try only two nonces, N=2 four nonces, and so on.
-
-The value N is updated every 2 weeks, and aims to make blocks to take 10 minutes to mine on average. N has to be increased with time, as more advanced hashing hardware has become available.
-
-Once a miner finds a nonce that works, they send their block to the network. Other miners then verify the block, and once they do, they are highly incentivized to stop their hashing attempts, and make the new valid block be the new parent, and start over. This is because the length of the chain has already increased: they would need to mine two blocks instead of one if they didn't update to the newest block!
-
-Therefore if you try to double spend, some random miner is going to select only one of your transactions and add it to the block.
-
-They can't pick both, otherwise their block would be invalid, and other miners would't accept is as the new longest one.
-
-Then sooner or later, the transaction will be mined and added to the longest chain. At this point, the network will move to that newer header, and your second transaction will not be valid for any miner at all anymore, since it uses a spent output from the first one that went in. All miners will therefore drop that transaction, and it will never go in.
-
-The goal of having this mandatory 10 minutes block interval is to make it very unlikely that two miners will mine at the exact same time, and therefore possibly each one mine one of the two double spending transactions. When ties to happen, miners randomly choose one of the valid blocks and work on top of it. The first one that does, now has a block of length L + 2 rather than L + 1, and therefore when that is propagated, everyone drops what they are doing and move to that new longest one.
-
-= Satoshi Nakamoto
-{c}
-{parent=bitcoin}
-{wiki}
-
-Domain registration: 2008-08-18 by https://www.namecheap.com[], an \x[united-states] company. But using a privacy oriented registrar: https://bitcoin.stackexchange.com/questions/89532/how-did-nakamoto-untraceably-pay-for-registering-bitcoin-org
-
-2008-08-22: private Wei Dai email: https://www.gwern.net/docs/bitcoin/2008-nakamoto from \x[gwern-net]
-
-Paper announcement: 2008-10-31 https://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html linking to bitcoin.org, from satoshi@vistomail.com Claimed one year and a half development time.
-
-Replies in November: https://www.metzdowd.com/pipermail/cryptography/2008-November/thread.html#14863 under satoshi@anonymousspeech.com claims source code shared privately by request at that point.
-
-It is unknown how he could have paid anonymously: https://bitcoin.stackexchange.com/questions/89532/how-did-nakamoto-untraceably-pay-for-registering-bitcoin-org[], so it seems likely that the true identity could be obtained by law enforcement if needed.
-
-First open source release: 9 January 2009. Announcement: https://www.metzdowd.com/pipermail/cryptography/2009-January/014994.html "Windows only for now.  Open source C++ code is included" Arghhhhhh how can those libertarians use Windows??? Had a GUI already.
-
-Hal Finney:
-* Jan 11, 2009 https://twitter.com/halfin/status/1110302988 "Running Bitcoin"
-
-= Bitcoin script
-{c}
-{parent=bitcoin}
-
-= Bitcoin non-standard transactions
-{c}
-{parent=bitcoin-script}
-
-* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions
-* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions
-
-= Invalid Bitcoin script
-{c}
-{parent=bitcoin}
-
-They appear to be included, with rationale that you can already include syntactically valid crap in an unprovable way: https://github.com/bitcoin/bitcoin/issues/320 Better then have syntactically invalid crap that is provable.
-
-The outputs of this transaction seem to be the first syntactically incorrect scripts of the blockchain: https://blockchain.info/tx/ebc9fa1196a59e192352d76c0f6e73167046b9d37b8302b6bb6968dfd279b767?format=json[], found by parsing everything locally. The transaction was made in 2013 for 0.1 BTC, which then became unspendable.
-
-The first invalid script is just e.g. "script":"01", which says will push one byte into the stack, but then ends prematurely.
-
-= Bitcoin Core
-{c}
-{parent=bitcoin}
-
-Reference implementation?
-
-Links:
-* https://github.com/bitcoin/bitcoin
-* https://bitcoin.org
-
-Executables provided:
-* `bitcoin-qt`
-
-= How to store data in the Bitcoin blockchain
-{parent=bitcoin}
-
-There are apparently two methods:
-* in the script, e.g. as in the \x[genesis-block-message]
-* in output addresses
-
-Specific implementations:
-
-* http://eternitywall.it/ Eternity Wall
-
-  Launched 2015 https://www.newsbtc.com/news/bitcoin/eternity-wall-records-1150-documents-blockchain-first-year/
-
-  TODO find sample transactions. Did it support images?
-
-  Shutdown sometime after 2019, working archive: https://web.archive.org/web/20190417074034/https://eternitywall.it/ says "Sorry, the service is not properly working at the moment..." and last working message timestamped "April 16, 2019 8:02 PM GMT".
-
-Bibliography:
-* https://bitcoin.stackexchange.com/questions/32575/what-methods-are-currently-used-to-embed-additional-data-into-the-bitcoin-blockc
-* https://bitcoin.stackexchange.com/questions/39347/how-to-store-data-on-the-blockchain
-
-= How to extract data from the Bitcoin blockchain
-{parent=bitcoin}
-
-TODO: it would be cool to have something like https://bitcoinstrings.com[] but including the actual transactions:
-
-Local methods:
-* https://bitcoin.stackexchange.com/questions/30295/how-can-i-search-for-transaction-text-on-the-blockchain
-* https://bitcoin.stackexchange.com/questions/22500/is-there-a-lightweight-blockchain-parser-library-server/101472#101472
-* https://github.com/alecalve/python-bitcoin-blockchain-parser
-* https://bitcoin.stackexchange.com/questions/84266/wondering-how-to-use-bitcoin-parser
-* https://github.com/bitcoinprivacy/Bitcoin-Graph-Explorer stores the blockchain in a database, and should allow more intelligent querying.
-
-= Blockchain.info
-{parent=how-to-extract-data-from-the-bitcoin-blockchain}
-
-TODO who owns it? Are they reliable?
-
-* transaction hex data: https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=hex
-* disassembled transaction as JSON: https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=json
-* block by height:
-  * https://blockchain.info/block/0?format=json
-  * https://blockchain.info/block/0?format=hex
-
-This helper dumps a transaction JSON to a binary:
-``
-bitcoin-tx-out-scripts() (
-    # Dump data contained in out scripts. Remove first 3 last 2 bytes of
-    # standard transaction boilerplate.
-    h="$1"
-    echo curl "https://blockchain.info/tx/${h}?format=json" |
-    jq '.out[].script' tmp.json |
-    sed 's/"76a914//;s/88ac"//' |
-    xxd -r -p > "${h}.bin"
-)
-``
-
-= BitcoinStrings.com
-{parent=how-to-extract-data-from-the-bitcoin-blockchain}
-
-https://bitcoinstrings.com has all `strings -n20` strings, we can obtain the whole thing and clean it up a bit with:
-``
-wget -O all.html https://bitcoinstrings.com/all
-cp all.html all-recode.html
-recode html..ascii all-recode.html
-awk '!seen[$0]++' all-recode.html > all-uniq.html
-``
-`awk` to skip the gazillion "mined by message" repeats.
-
-A lot of in that website stuff appears to be cut up at the 20 mark. As shown in \x[cool-stuff-found-in-the-bitcoin-blockchain/force-of-will], this is possibly because they didn't use `-w` in `strings -n20`, and the text after the newlines was less than 20 characters.
-
-That website can be replicated by downloading the \x[bitcoin] blockchain locally, then:
-``
-cd .bitcoin/blocks
-for f in blk*.dat; do strings -n20 -w $f | awk '!seen[$0]++' > ${f%.dat}.txt; done
-tail +n1 *.txt
-``
-
-Remove most of the binary crap:
-``
-head -n-1 *.txt | grep -e '[. ]' | grep -iv 'mined by' | less
-``
-
-= Bitcoin data download and upload scripts from blk0052.dat
-{parent=how-to-extract-data-from-the-bitcoin-blockchain}
-
-For more context see: \x[cool-stuff-found-in-the-bitcoin-blockchain/illegal-content-of-block-52].
-
-\x[python-programming-language] programs stored in the blockchain itself, to add and download arbitrary data into the blockchain:
-* uploader: tx 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17 contains a the uploader, reproduced at: https://gist.github.com/zeroed/325bb539bd72dabccbe97cfd5228cdf5
-
-  The uploader https://gist.github.com/zeroed/325bb539bd72dabccbe97cfd5228cdf5#file-bitcoininsertiontool-py-L161[creates a standard Pay-to-PubkeyHash transaction] with a single output and data as a fake pubkey hash, and sends change to an address specified on the command line:
-
-  ``
-  ./bitcoinInsertionTool.py <data> <change-addr>
-  ``
-* downloader: tx 6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc contains a downloader version of the uploader, reproduced at https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py
-
-  The downloader just https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py-L32[strips all operands], and keeps all data, notably where public key hashes would be normally put.
-
-The format expected by those scripts is as follows:
-* ignore all script operands and constants less than 40 bytes. And there are a lot of small operands, e.g. https://www.blockchain.com/btc/tx/54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 has a `OP_1`, data, `OP_3`, `OP_CHECKMULTISIG` pattern on every script, so the `OP_1` and `OP_3` are ignored
-* ignore the last transaction, it presumably contains a real change transaction instead of arbitrary data
-* the first 4 bytes are the payload length, the next 4 bytes a crc32 signtaure. The payload length is in particular useful because of potential granuarity of transcations
-This means that if we want to index certain file types encoded in this format, we can just skip the first 9 bytes (4 size, 4 CRC, 1 `OP_1`) and look for file signatures.
-
-Let's try out the downloader to download itself. First you have to be running a \x[bitcoin-core] server locally. Then, supposing `.bitcon/bitoin.conf` containing:
-``
-rpcuser=asdf
-rpcpassword=qwer
-server=1
-txindex=1
-``
-we run:
-``
-git clone git://github.com/jgarzik/python-bitcoinrpc.git
-git -C python-bitcoinrpc checkout cdf43b41f982b4f811cd4ebfbc787ab2abf5c94a
-wget https://gist.githubusercontent.com/shirriff/64f48fa09a61b56ffcf9/raw/ad1d2e041edc0fb7ef23402e64eeb92c045b5ef7/bitcoin-file-downloader.py
-pip install python-bitcoinrpc==1.0
-BTCRPCURL=http://asdf:qwer@127.0.0.1:8332 \
-  PYTHONPATH="$(pwd)/python-bitcoinrpc:$PYTHONPATH" \
-  python3 bitcoin-file-downloader.py \
-  6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc
-``
-worked! The source of the downloader script is visible! Note that we had to wait for the sync of the entire blockchain to be fully finished for some reason for that to work.
-
-Also, the format is not necessarily uber popular. E.g. the checksum fails for the \x[cool-stuff-found-in-the-bitcoin-blockchain/nelson-mandela-jpg] transaction, so the usefulness of this remains to be decided.
-
-TODO port to \x[blockchain-info] ASCII hex:
-``
-./bitcoin_file_downloader_ascii_hex.py https://blockchain.info/tx/6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc?format=hex
-``
-We need to parse the transaction to get it working, possibly with https://github.com/alecalve/python-bitcoin-blockchain-parser[].
-
-= Peter Todd's data upload scripts
-{parent=bitcoin-data-download-and-upload-scripts-from-blk0052-dat}
-
-blk00248.txt contains another upload script. The help reads:
-\Q[Publish text in the blockchain, suitably padded for easy recovery with strings]
-
-The script is: https://github.com/petertodd/python-bitcoinlib/blob/master/examples/publish-text.py
-
-= Services based on Bitcoin
-{parent=bitcoin}
-
-= Satoshi Dice
-{parent=services-based-on-bitcoin}
-
-https://en.bitcoin.it/wiki/Satoshi_Dice
-
-Claims provably fair. https://satoshidice.com/fair clarifies what that means: they prove fairness by releasing a hash of the seed before the bets, and the actual seed after the bets.
-
-As mentioned in bitcoin.it, it functions basically as \x[cryptocurrency-tumbler] in practice.
-
-= Cool stuff found in the Bitcoin blockchain
-{c}
-{parent=bitcoin}
-{scope}
-{wiki}
-
-This is a list of cool stuff found using techniques mentioned at: \x[how-to-extract-data-from-the-bitcoin-blockchain]{full}.
-
-\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] is a mandatory precursor to this section, and potentially contains some of the most interesting examples already.
-
-An attempt is made to not repeat stuff that is already said in that article. Some repetition happened by accident, as we explored and only later noticed it was already mentioned there. But there are also some new aspects of existing comments.
-
-\x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][China stuff] is shown at: https://cirosantilli.com/china-dictatorship/#bitcoin-blockchain[].
-
-Quick ones that didn't deserve a section:
-* blk00053.txt tx 3a1c1cc760bffad4041cbfde56fbb5e29ea58fda416e9f4c4615becd65576fe7 has the broken basic creature simulation mentioned at \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014]
-* blk00118.txt contains a few tributes/good ridance messages to \x[mt-gox]' shutdown.
-
-  tx 0540b5dda23ee870330c6b1e18a88c592cf8d847c47f1dc1d5328f46115b12b3:
-  ``
-  jK2014-02-25: The day Mt.Gox shut down. Farewell, may even you rest in peace!
-  ``
-
-  tx 2374f8575f65763caf6909551c131d3ae45399a73aee638bcbccaebdb1219d67:
-  ``
-  Fuck you MtGox
-  Fuck you MtGox
-  ``
-
-  tx c00a4a04905a2e8d8dee8a768165aa6bdf842413a8a648462a6349db89cd77f2 TODO understand meme:
-  ``
-         o
-        / |
-        | \
-    .   |  |
-  .'\`  | \|
-   | \_/ \ \
-    \____/\/
-  <3 You Seals!
-  ``
-* blk00153.txt tx e3e37ed5c1de2631c147bd39429e42ff634e95b7d72423bc32d6c6b9d8eef8ee "For my first official Journal entry I've decided to archive some old poetry" TODO who is that person?
-* blk00169.txt and onwards has copy pastes of several biographical Wikipedia pages: https://en.wikipedia.org/wiki/Outline_of_Bob_Marley[Bob Marley], Marilyn Monroe, Robin McLaurin Williams, and others follow.
-
-  This appears to use the same system that had been used earlier for the \x[nelson-mandela-jpg] image: \x[atomsea-embii].
-
-  The Bob Marley one is at tx https://blockchain.info/tx/a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2?format=json in the scripts, and should be followed by a large image: `bob-marley.jpg*7500?`, see also \x[images]
-
-  The Bob Marley transaction is referenced in an index present at tx feee59fe4d7dc89f2828f894d3faf4e8e6957426da8f84cec291bb5a156e6153:
-
-  ``
-  a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2/264:a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2
-  cf1de63d68ba36041816d31d6beae6c3964c41915a15a27fdecd84854947caf6
-  9ac57cb3da27478345e40c029237a982435db165ac833e0f5e5e097b1b6164e1
-  308bf8f084c3beea4a6916fdcbf56d22763c6d9ff5c5063fe60011f9e331aeb7
-  79HHSm
-  ``
-
-  Therefore, the following ones presumably contain the rest of the image which starts at the end of a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2.
-
-  TODO image is a bit corrupted when I do that, bottom half is green.
-* blk00179.txt tx 713a6832365a68f71c6aee879f79b70e6e738cd6255f09bc41f204c81575c248 has the https://en.wikipedia.org/wiki/LaVeyan_Satanism#The_Eleven_Satanic_Rules_of_the_Earth[eleven rules of LaVevan Stanism] starting with: 1. Do not give opinions or advice unless you are asked."
-* blk00248.txt tx 213e8f46f98e96f4f4d8b45bd3a1cbada14213796c200220e1e8c2b315988faa "Warning! Kaspersky Alerts Users of Malware and 'Blockchain Abuse'" contains a full-text copy of: http://cointelegraph.com/news/113806/warning-kaspersky-alerts-users-of-malware-and-blockchain-abuse (includes link). Two other copies appear in future transactions `tx c863aa9d6aa9345e4abdc216b6f035c4276b4423a924bb2e1593c22c670cba6f` and tx ba58caf1a27ab7ca627cc3efa5914e4d37e00b3a7e9cf29508d451dc3da00bf7 from blk00250.txt
-* blk00279.txt tx 210000d1392bec2505d1289e5c39c2039204ff1ecf7eef55f973ccd3111003e1 and the following transactions have transcripts of a very long developer chat starting with:
-
-  \Q[jgarzik: if you aren't near one of the consulates there are some companies that will charge you money to do it...]
-
-  TODO purpose? The transcripts are interspersed with developers likely voting for project leadership, and commenting on Gavin.
-
-  These might just be more of \x[protests-against-larger-block-sizes].
-* tx 87aad85c6cd75a516789f364637d243c668e3424d031ae510e43c6edfe6ed206 the default \x[pandoc] markdown https://pandoc.org/try markdown tutorial string!
-  ``
-  An h1 header
-  ============
-
-  Paragraphs are separated by a blank line.
-  ``
-  And if ends with:
-  ``
-  Uploaded from http://cryptograffiti.info to demonstrate Markdown rendering.
-  ``
-  so \x[cryptograffiti-info] must have some markdown rendering mechanism.
-* blk00970.txt tx 0f25e23b7b59fde67d8b2d41b749e4f89fd1ff8061aa0ddac8c27c8230167e35:
-
-  \Q[A Crosschain transaction was sent in to your address in error. The transaction was https://www.blockchain.com/btc/tx/9174f24946496823e4edaf3fe1676a404164178d1c848fa476113bbe2f5b9463[9174f24946496823e4edaf3fe1676a404164178d1c848fa476113bbe2f5b9463] . Please return to 1AAEXtLo9SoyFQbZvWoqAMCpkz9okSpCuV. Thank you in advance."]
-
-  Epic.
-
-Politics:
-* Trump: there's a bit of both sides in the 2016 race:
-  * out/blk00501.txt: "oEW "Fuck Obama&Clinton Go Trump!!!!"
-  * out/blk00805.txt: "L299,Trump touched my no-no"
-  * out/blk00994.txt: "EW Heil Trump!He's the true white leader our race need so much since Adolph"
-
-Non-cool things:
-* `Hitler did nothing wrong` is repeated several times: https://knowyourmeme.com/memes/hitler-did-nothing-wrong
-
-Encrypted data: transactions such as:
-``
-tx fe37c7eee73be5fda91068dbe0eb74a68495a3fc7185712b8417032db7fc9c5e
-U2FsdGVkX1/4iSjLxQ5epo8eRSCOQLGgAsn1CucGii27k8ZyC7Jz6wxhYcevVmxi
-6Q4ZFN04WDN0UhKqYardgQf26oeBMURupduDd0ZozxlgMrBkFOCaARqU7RABVWDO
-/ruPUcOY0VC8p4lrMNqSdqvN7y6OWwOSH3c0duumZfFNZs9+BbtKCxtaqR5+RkUI
-``
-are base 64 encoded. Running them through `base64 -d` leads to starting output bytes `Salted__`: https://security.stackexchange.com/questions/124312/decrypting-binary-code-from-a-base64-string So whever we see the start:
-``
-U2FsdGVkX1/
-``
-we might as well give up.
-
-Bibliography:
-
-* https://bitcoin.stackexchange.com/questions/799/can-i-download-the-whole-block-chain-from-somewhere
-* https://bitcoin.stackexchange.com/questions/68925/how-can-data-be-accessed-searched-for-in-a-blockchain
-* https://bitcoin.stackexchange.com/questions/55188/download-single-and-specific-block-for-study-purposes
-* https://www.fiverr.com/usefulshine/embed-your-logo-or-brand-art-on-blockchain user usefulshine from India embeds ASCII art for you into the blockchain starting at 260 dollars! XD
-
-= The largest transactions in the Bitcoin Blockchain by byte size
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-https://bitcoin.stackexchange.com/questions/11542/by-byte-size-and-number-of-inputs-outputs-what-are-the-largest-transactions-in
-
-* bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08 999,657 bytes. Joins a bunch of tiny inputs into a single output
-* 623463a2a8a949e0590ffe6b2fd3e4e1028b2b99c747e82e899da4485eb0b6be and 5143cf232576ae53e8991ca389334563f14ea7a7c507a3e081fbef2538c84f6e both have 3,075 outputs of 1 satoshi each and a single input. We were not able to identify any meaningful data in it, `file` just says `data`, and there aren't long ASCII strings. However, the outputs were unspent as of 2021, which suggests that they might actually be data.
-
-Analysis of some of them follows.
-
-* dd9f6bbf80ab36b722ca95d93268667a3ea6938288e0d4cf0e7d2e28a7a91ab3 has 13107 with payload 256KB in size, but some of them at least have been spent: https://www.blockchain.com/btc/tx/dd9f6bbf80ab36b722ca95d93268667a3ea6938288e0d4cf0e7d2e28a7a91ab3 therefore it's not data. `file` says their payload is a DOS executable, but it must be a coincidence
-
-= Prayer wars
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-On https://bitcoinstrings.com/blk00003.txt[blk00003.txt].
-
-Starting at tx cbbaa0a64924fe1d6ace3352f23242aa0028d4e0ff6ae8ed615244d66079cfb1 with one line per transaction:
-``
-Eligius/Benedictus Deus. Benedictum Nomen Sanctum eius
-``
-
-Because it is one line per transaction, it could got broken up by some interspersed atheist mockery graffiti, e.g.:
-``
-Benedicta sancta eius et immaculata Conceptio.
-   I LIKE TURTLES
-Benedicta eius gloriosa Assumptio.
-Benedictum Nomen Iesu.
-Benedictus Iesus in sanctissimo altaris Sacramento.
-C-C-C-COMBO BREAKER
-Benedictus sanctus Ioseph, eius castissimus Sponsus
-``
-
-The non-obvious interruptions are all well known memes/anime references:
-* "I like turtles": https://knowyourmeme.com/memes/i-like-turtles
-* Combo breaker: https://knowyourmeme.com/memes/combo-breaker
-* "Yukkuri Shiteitte ne": https://knowyourmeme.com/memes/yukkuri-shiteitte-ne
-* "kLhLUKE-JR IS A PEDOPHILE! Oh, and god isn't real, sucka. Stop polluting the blockchain with your nonsense."
-* "Help me, ERINNNNNN!!": https://touhou.fandom.com/wiki/Lyrics:_Help_me,_ERINNNNNN!!
-
-It should be noted however, that the interruptions we've found were all output transactions, therefore not done by miners, but just by regular transfers, which are much easier to make. In this sense, therefore, the prayer did win.
-
-Later comments attribute the prayers to a Luke Jr., who is likely: https://twitter.com/LukeDashjr[], who says is a Roman Catholic on his Twitter introduction. This is consistent with him being one of the early miners.
-
-= Illegal content of block 52
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-https://bitcoinstrings.com/blk00052.txt[blk00052.txt] contains the first noticeable attempts at insertion of possibly illegal content into the blockchain:
-* \x[bitcoin-data-download-and-upload-scripts-from-blk0052-dat]
-* tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
-* tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 PDF file, https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi suggests it is the Bitcoin white paper
-* tx dde7cd8e8f073a525c16c5ee4e4a254f847b7ad6babef257231813166fbef551 and tx 4a0088a249e9099d205fb4760c28275d4b8965ac9fd56f5ddf6771cdb0d94f38 contain indexes of pages from \x[the-hidden-wiki]
-* tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
-* tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a Wikileaks Cablegate Backup. Mentioned in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014]
-
-Nearby transaction include:
-* a reproduction of http://en.wikipedia.org/wiki/Illegal_prime including the prime
-So basically, this was the first obviously illegal block attempt.
-
-= Images
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-The huge majority of images is encoded with the \x[atomsea-embii] system/format. All images in that system will be documented in that section.
-
-Non-Atomsea & EMBII images follow.
-
-Custom encoding:
-* blk00001.txt https://blockchain.info/tx/ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806?format=json[tx ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806] has bitcoin.jpg which contains the bitcoin logo. The image, encoding and conversion script given described at \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014].
-
-  As mentioned there, the logo is split across two transactions: ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806 and 9173744691ac25f3cd94f35d4fc0e0a2b9d1ab17b4fe562acc07660552f95518. TODO how did Ken find out about the second one?
-
-  It is true that the second one is the only other transactions in blk00001.txt that have ASCII data. The second one ends in `776 crc32=a7ac8449` which must be part of yEnc. But are they related in any other more precise way?
-
-  They are not even in the same block: https://blockchain.info/block/123573?format=json | https://blockchain.info/block/123571?format=json
-
-Standard transaction output script hashes from JPEG from first byte:
-* blk00253.txt tx 9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b contains a full JPG in the output scripts. The image has a heart next to a bitcoin logo and written "we love bitcoin". The image is reproduced here: https://kryptomoney.com/grayscale-report-institutional-investors-retirement-funds-love-bitcoin/
-
-  Embedded in the image itself, there's a message in the header comments: "Bitcoin uses peer-to-peer technology to operate with no central authority or banks" which is the opening paragrpah of: https://bitcoin.org/en/
-* 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183 badtaxidermy.com "Water Deer" https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3
-* e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6 Rene Angelil and Celine Dion Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces.
-* c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f contains the picture of a well built man wearing a gas mask. Google search leads to: https://github.com/1Hyena[] (\a[https://web.archive.org/web/20201103193934/https://github.com/1Hyena][archive]), who is the creator of <<cryptograffiti-info>>
-* eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b advertisement "Cryptocurrency Mining", Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm
-* 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a wedding with people holding "Blockchain" and "Ipa" signs. Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.com.ua/zapushhen-ukrainskij-bitkoin-pul-bitcoinukraine/ Google translate: "One of the initiators of the launch of this pool was Oles Slobodenyuk, who earlier created a grocery store in Kiev accepting bitcoins, arranged a TakeMyBitcoin flash mob, and also registered his own marriage in the bitcoin blockchain on the weddingbook.io website."
-* c67dca17d3e5544d8d2c70d143196e1c1438a09c7371b80086d0a71ec5aec3c8 black and white photo of couple in wedding dress with a red rose/light-like thing in the middle
-* ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e Tank man: https://cirosantilli.com/china-dictatorship/#tank-man
-* b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511 \x[ross-ulbricht]
-* 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b has a PNG with a... nematode-like shaped hand drawn extremely simple image. A test upload presumably? The squiggle outside of the worm might be a test direction marker.
-
-tx 4be3a833ee83b4ca7d157d60fbf7411f7528314ce90df8a844f855118bc6ca11 contains a base 64 encoded image:
-``
-v27sSra.jpg
-
-/9j/4AAQSkZJRgABAQEASABIAAD/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+A
-...
-``
-By searching for the identifier, we see: https://bitcointalk.org/index.php?topic=1061926.220;wap which links to https://i.imgur.com/v27sSra.jpg so it is a \x[satoshi-nakamoto] real identity thing.
-
-= cryptograffiti.info
-{parent=images}
-
-https://cryptograffiti.info
-
-Bitcoin blockchain image indexer.
-
-Stopped indexing Bitcoin and moved to Bitcoin Cash instead: https://www.newsbtc.com/news/bitcoin/cryptograffiti-rejects-bitcoin-core-bch-now-available-payment-method/ and therefore becuse useless, is is now hard to match any of the images.
-
-Searching for the Tank Man image hash ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e leads to https://archive.4plebs.org/pol/thread/191157608/#q191162145 which claims URLs were of type https://cryptograffiti.info/#ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e.jpg but that is not working as of 2021.
-
-= AtomSea & EMBII
-{parent=images}
-
-A text/file upload system.
-
-http://bitfossil.org/ is the website system to view live indexed images, it has an abuse report to unindex presumably. TODO source? Local extraction script?
-
-http://apertus.io/ is the system to upload/index locally, and therefore likely part of the backend of bitfossil: https://github.com/HugPuddle/Apertus
-
-The system shows the messages and the images on a single page: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm It is basically a blockchain-based Twitter.
-
-\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] suggests that AtomSea & EMBII are the creator's aliases.
-
-Presumably this is AtomSea; https://twitter.com/TheAtomSea[], AKA https://github.com/AtomSea[AtomSea]
-
-And this is EMBII: https://github.com/embiimob AKA https://github.com/HugPuddle[HugPuddle]. 
-
-Holy crap, they support:
-
-* multipage setups: http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/
-* image galleries: http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
-* audio: http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
-* author photo below post via signture!!! http://bitfossil.org/738ab32bf82e3e0d4d2b29e40ad194cbbef6685d0116e94371e3cef4992349c8/index.htm See the `SIGNED BY` with EMBII's photo!
-
-Somewhat related projects:
-
-* http://www.memorymatrix.org/
-
-See \x[nelson-mandela-jpg] for a detailed extraction example.
-
-blk00097.txt contains the first EMBII image and the first `.jpg` hit at tx d28a46f8ae7ef6372a1bf2fb62a161509fc53733767443addee6c7188bb94dca
-``
-EMBII.jpg:330*f26212
-``
-
-Text on early nearby tx f262123b5d54137a0e9ccbd6fc71aaae50c1e085aa674c705732c6ea7acb6699 says:
-``
-EMBII Photo Credit: Kyleigh KruseEM
-``
-
-TODO how to decode it? Tried to pasted all bytes that follow, but does not have a FF D8 https://en.wikipedia.org/wiki/List_of_file_signatures[magic signature]. Might just be in actual binary, but then we need the transaction
-
-\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] actually has some images with matching names (see HTML names of the image), so we could use those as reference to reverse engineer the data.
-
-The next image is \x[iloveyoumore-jpg].
-
-Other EMBII formatted files:
-* blk00171.txt and blk00172.txt contains several files:
-  * `Shiemaa&Vincent.jpg` tx 5316f55b30d0e09af7a3e402425aaba4dc813202997348e876cb16037605b72d http://bitfossil.org/36d0d77acd760f0aa549b6b314f0c1e9690baa6bcc2d0f07ea9f3167f4a5ec99/index.htm
-  * `RedRaven.jpg` http://bitfossil.org/e17b83234402d85f3a18207eec11bc5c4397f88aa880aae4fb7d15802806a971/index.htm
-  * `Earth3Archive.jpg` tx 75fc91da531e7a9ecacbdf9ca7a25c16ef1b722d55f2b4af05c3121c068ad976 http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
-  * `SkyEarth5Archive.jpg` at tx e436ebdaf78f5e7f1bfd39ac215bc4391f8a2eca5f43f92980a61c86eab5dadd http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
-  * `YellowRobot.jpg` tx 8644f059e5a42a2f80403caf5306bdded9c83a749518347da3ab8979f96c4f22, preceded by an explanation text on the same transaction: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm
-
-  \Q[Chiharu and I found this little yellow robot while exploring Chicago. It will be covered by tar or eventually removed but this tribute will remain. N 41.880778 E -87.629210]
-
-  Isn't that the cutest thing ever?
-
-Audio:
-* `OneGiantLeapForMankind.mp3` at blk00173.txt tx 4f5b25fa8021c67235423930580e69121aa0d2c2bb779f75139bf442f8dc7297 EMBII-indexed at 743f3286b00fc96c13db4b16d5aead8a1e059fee9ce775b1761be9be5bdc2501 and then indexed at: 0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb
-
-  The toplevel index does appear on Bitfossil: http://bitfossil.org/0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb/index.htm but the audio is not there as it was for Spock below, maybe a bug on upload/Bitfossil?
-* `Spock_Live_Long_And_Prosper.mp3`: http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
-
-  At blk00227.txt tx 855655f2ab14ba6683d8d179a98792532607e68525bf8a254e7615be1755bb51 indexed at a467eb78c5d5c5d3ce0e6dc5ad3b2532dd8b4e916ad762897d43c71ba868308c indexed at 1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c.
-
-Large text/data:
-* blk00098.txt: pi to 1000+ decimal digits: http://bitfossil.org/70fd289901bae0409f27237506c330588d917716944c6359a8711b0ad6b4ce76/index.htm
-* blk00191.txt tx daa050bf8ac22752e40412c9265b4533f68ab8e6ed26d2db1eeee6710e7d9e4b http://bitfossil.org/daa050bf8ac22752e40412c9265b4533f68ab8e6ed26d2db1eeee6710e7d9e4b/index.htm[] Unrendered HTML of:
-  * https://www.cartalk.com/content/tom-and-rays-bios-photos-2
-  * https://www.cartalk.com/content/rant-and-rave-36 "The New Theory of Learning" which agrees perfectly with \x[backward-design]
-  Likely an obituary for: https://en.wikipedia.org/wiki/Tom_and_Ray_Magliozzi
-* blk00215.txt: http://bitfossil.org/c6d2e535cd2ba4659e954a61198c66fd98c60f6475cf8ff92a404f3fe3a16c4b/index.htm Arecibo message. The parallels with crypto graffiti are striking. Besides the SVG, when properly cut at the newlines, the 1's and 0's shown in that page also draw the message as ASCII art!
-* http://bitfossil.org/b4b8fe752a258f95b191b8c5426319ee0e8d41d5db53ea2ae18beed141cbb9bd/index.htm "In loving memory of Loraine Elizabeth White", EMBII's mum :-(
-
-= Nelson-Mandela.jpg
-{parent=atomsea-embii}
-
-http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/
-
-blk00099.txt tx 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba contains a copy of part of his wiki page ending in an image:
-``
-There is nothing like returning to a place
- that remains unchanged to find the ways in
- which you yourself have altered.lson Mandela
-
-
-Nelson Rolihlahla Mandela was a South African anti-apartheid revolutionary, politician and philanthropist who served as President of South Africa from 1994 to 1999. -Wikipedia
-
-Born: July 18, 1918, Mvezo, South Africa
-Died: December 5, 2013Nelson-Mandela.jpg?14400/d-jpeg v1.0 (using IJG JPEG v80), quality = 40
-``
-
-By inspecting the transaction, we see that the initial text is cut up because it starts in the middle of a script with line:
-``
-00000000  22 33 39 36 5c e2 80 9c  54 68 65 72 65 20 69 73  |"396\...There is|
-00000010  20 6e 6f 74 68 69 6e 67  20 6c 69 6b 65 20 72 65  | nothing like re|
-00000020  74 75 72 6e 69 6e 67 20  74 6f 20 61 20 70 6c 61  |turning to a pla|
-``
-
-The hash number is the first of an index at tx 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e:
-``
-8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba|396*8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba
-575061146335bd57f2dc132112152d0eeea44cf187ea6a52ac02435a7e5bea44
-674c7cc34ea44bb276c6caf76f2b28fa1597380ab6e6a6906076d8f7229ca5b3
-8e2642416ad20924b43f51a633fa1c0a5ba8e4a7b631877db1c64540a42081c9
-a3084018096b92af04df57b6116e01ff4b7c7e8bd228235ed49e23f4a2817029
-39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091
-tomSea & EMBII
-``
-The `A` is really missing from `AtomSea`, it shows up as `AtomSea` almost in all other greps.
-
-Therefore, the rest of the transactions presumably contain the rest of the image!
-
-The bytes for the first one are:
-``
-         "n":21,
-         "script":"76a914334e656c736f6e2d4d616e64656c612e6a70673f88ac"
-``
-which is
-``
-
-00000000  76 a9 14 33 4e 65 6c 73  6f 6e 2d 4d 61 6e 64 65  |v..3Nelson-Mande|
-00000010  6c 61 2e 6a 70 67 3f 88  ac                       |la.jpg?..|
-00000019
-``
-
-And then the next one:
-``
-"n":22,
-"script":"76a91431343430302fffd8ffe000104a4649460001010088ac"
-``
-which is:
-``
-00000000  76 a9 14 31 34 34 30 30  2f ff d8 ff e0 00 10 4a  |v..14400/......J|
-00000010  46 49 46 00 01 01 00 88  ac                       |FIF......|
-``
-so unlike in \x[iloveyoumore-jpg], we do have the raw JPEG header data here starting with `ffd8`!
-
-And there is a possible footer `ffd9` in the last file of the list 39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091!
-
-However, when I put everything together, cutting around delimiters, it gives only the top half of the head! My data is 14960, not 14400. So there must be 460 bytes of metadata in some of the blocks, possibly error checking.
-
-The actual data starting at `ffd8` and cutting off header/tails (20 bytes per transaction):
-``
-ffd8ffe000104a46494600010100
-000100010000fffe003b43524541544f523a2067
-642d6a7065672076312e3020287573696e672049
-4a47204a50454720763830292c207175616c6974
-79203d2034300affdb004300140e0f120f0d1412
-1012171514181e32211e1c1c1e3d2c2e24324940
-4c4b47404645505a736250556d5645466488656d
-777b8182814e608d978c7d96737e817cffdb0043
-011517171e1a1e3b21213b7c5346537c7c7c7c7c
-7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c
-``
-
-The above bytes are not contained at all in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014][Ken's uploaded image].
-
-On a related note, tx f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64 in blk00098.txt contains a speech from Mandela starting with:
-``
-/1442:Nelson Mandela (1918-2013)
-
-"I am fundamentally an optimist ...
-``
-followed by lots of text.
-
-That transaction is also part of an index in the same file:
-``
-tx 9e2928e02e77ceffc217a6df1fc992be128f2188e691986cbb0df8a4207a492f
-7fad2fc0-2f51-44a0-9358-886262426359>462<f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64
-27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8
-8ff79814c99b0e35ceeca86f22a7f41e94c7287ed4f4fc2cd5c747bd2c31cc8d
-3
-``
-The middle hash 27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8 does not name any existing transaction however (it is one byte too long).
-
-= ILoveYouMore.jpg
-{parent=atomsea-embii}
-
-http://bitfossil.com/affbac1bfde690c1fabd60812d046c911b2882038a42b18a4d2e7cb50e989604/index.htm
-
-https://blockchain.info/tx/11d09fa24ce628ac8b4e236350bd985fe64c216cfa2aa751e96a56c9d8dd4a18?format=json[].
-
-Earlier nearby tx 365961499d15d9a0bec00bbc889c031e891bbf689a19c7ba4c99ec943cc04bf2 gives further hints to identities:
-``
-My Dearest Chiharu....I Love you more.
-
-<3 EricILoveYo
-``
-
-http://bitfossil.org/94ba41330b7bfb1e6528497e3b1dd21018c63a7f163e0bc9281c21cc1071462e/index.htm gives the full identity with picture basically:
-\Q[The Sato Family Arrives from Japan! Taken Aug 2. 2014 in Minneapolis MN. (Keiko, Chiharu, Hideaki, Katsuhiko)]
-so Chiharu Sato
-
-More Chiharu at: http://bitfossil.org/966e090d19172b6a6f988b1f1d32141492349279cedd2a436d7a2143c67d7af4/index.htm "#Chiharu #embii & the #AtomSea #Fargo #ND", so their location is: https://en.wikipedia.org/wiki/Fargo,_North_Dakota
-
-Fuller initial text of the image is: `ILoveYouMore.jpg:396*365961499d15d9a0bec...`.
-
-So presumably 396 is the size in bytes.
-
-The string `ILoveYouMore` is part of the first output script:
-``
-00000000  76 a9 14 49 4c 6f 76 65  59 6f 75 4d 6f 72 65 2e  |v..ILoveYouMore.|
-00000010  6a 70 67 3a 33 39 36 88  ac                       |jpg:396..|
-00000019
-``
-
-The next one is:
-``
-00000000  76 a9 14 2a 33 36 35 39  36 31 34 39 39 64 31 35  |v..*365961499d15|
-00000010  64 39 61 30 62 65 63 88  ac                       |d9a0bec..|
-00000019
-``
-so we understand that the `76 a9 14` prefix and  `88 ac` suffixes are just trash mandated by the script format.
-
-The lines that follow all encode a lot of printable ASCII characters, all of which that can represnt hex numbers, with a few carriage return (why, oh why) + newline pairs interspersed, which we can expand as:
-``
-LoveYouMore.jpg:396*
-365961499d15d9a0bec00bbc889c031e891bbf689a19c7ba4c99ec943cc04bf2
-22b1e607887ad95874c4638df037c725175bef221204dceae81c7d27ef558975
-9356fdfa903125332f944a97a905315c254fc883d88f4cec946e39902c373303
-2a5c716debd84fc5477e4acd173c577330d4f6185a760c74c5ddc4ff967141d6
-3c632fecec295bf5bfd27c892106188e82f6081156dc849a625592bcbb797ad6
-d5c9966b863c54e6b45437c71726dc8d181e78480b5fa321ed9945fd5527a950
-``
-This adds up to exactly 6 * (64 + 2) = 396 ASCII characters after the `*`, but it does not contain the JPG header...
-
-These are finally followed by `II\0` end of the last script:
-``
-00000000  76 a9 14 64 39 39 34 35  66 64 35 35 32 37 61 39  |v..d9945fd5527a9|
-00000010  35 30 0d 0a 49 49 00 88  ac                       |50..II...|
-00000019
-``
-
-OK... desperation, let's see https://stackoverflow.com/questions/2253404/what-is-the-smallest-valid-jpeg-file-size-in-bytes to try and guess the missing data, but I couldn't find a way easily.
-
-From \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014], we see the expected correct data supposing he didn't re-encode:
-``
-00000000  ff d8 ff e0 00 10 4a 46  49 46 00 01 01 00 00 01  |......JFIF......|
-00000010  00 01 00 00 ff e1 00 7e  45 78 69 66 00 00 49 49  |.......~Exif..II|
-00000020
-``
-and total size 10472 (160x160 image). So some extra template data must have been added.
-
-The sequence found above in the blockchain is not contained at all in Ken's file.
-
-= ASCII art
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-There are a few dozen \x[ascii-art]{p} in the blockchain.
-
-TODO decode ASCII arts we were unable to decode:
-* blk01280.txt tx 4531a323b32ca9274018f39b54e4a7936e23f6f5e7500692e5973c6ea6253e70
-
-Decoded:
-* blk00180.txt tx 09a5d5aaecdce1757e6ec713cc8a2201abca9acdb6fbadc7760e831cdad3d680 huge high resolution image of two men with the bitcoin logo on the background, followed by "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9w". TODO who do they represent?
-* blk00183 "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC" portrait of a young man
-* blk00208.txt tx 57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe "MERRY CHRISTMAS!" father Christmas with gift bag
-* blk00253.txt tx 00d8871c1b3fb85912616bb2602b5a9869a345d9fa092f8454614c6158c83d10 "Muy feliz cumple Manu! ---- The Fantastic Four Gang :-D" followed by Manu's face in medium resolution
-* blk00303.txt tx 0fc0c50e410b62ee3a316135711116db6b4e728841c976f29ab85e2a41e0dcc3 "if you like it, leave a tip: 1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz". Large portrait of a man in his 50's. Who is it?
-* blk00316.txt tx 467c075ee6edaa60f184d0683655f1f6d267efd98061872f167ef7ca9ca7c50f `!`/`R` pattern
-* blk00349.txt tx 1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7 "Viva la Revolucion! Happy Birthday Santi! Manu, Santi, Demi, Esteban" starts a long chain of contiguous transactions with two peopled raw in low resolution. How did they manage to keep it contiguous?
-* blk00351.txt tx ddc39a3da0ee6f0651bdf0be7119b4db2612b19416e9128091b1f29cdfe2aa0d "I Love You Forever". Large busts of a man and a woman looking forward.
-* blk00502.txt tx f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f "vaardig regulerend de orde van de dag", really nice candles!
-* blk00528.txt tx 90b663f380ed043a0c35aaeed5405b260545df991fed4bfff3d1386ecb256ce1 a man and a woman hugging looking forward, signed B&E April 9, Image repeated at: tx 47fafaa96c24d3f204658fb4bec34ab6f18df138084e04535ea60cce8c4e4857 without signature.
-* blk00569.txt tx 06d2528cfabf360c7a8f925d84207d47612cd0ac1ad2efd8aea9758263d9738b "Dr. Bill Maurer Economic anthropologist" join every 5 lines, shows a man with a surfboard
-* blk00223.txt tx 69708943906eb32a320a5a450fed450b0f14b4e475a98bc74615962b68a0bc83 "All Glory to he HYPNO TOAD" signed "SSt", has an ASCII art of: https://knowyourmeme.com/memes/hypnotoad The same art can be seen for example at: http://www.gotfuturama.com/Multimedia/AsciiArt/HypnoSebastian.shtml
-* blk01752.txt tx 0c9a25ef26a2cbcea1ee7bf34c43af803e83b15f83992cbdba55a78c72aa0782 has a squirrel:
-  ```
-  ,;;;,
-  ,:;:;    ,'=.
-  ;::;' .=" ,'_\
-  '::;,/  ,__:=@
-    ';:;  =./)
-          ``'"`
-  ```
-* tx 89248ecadd51ada613cf8bdf46c174c57842e51de4f99f4bbd8b8b34d3cb7792 has a sitting Buddha between two Ying Yang symbols:
-  ``
-            69696969                         69696969
-         6969    696969                   696969    6969
-       969    69  6969696               6969  6969     696
-      969        696969696             696969696969     696
-     969        69696969696           6969696969696      696
-     696      9696969696969           969696969696       969
-      696     696969696969             969696969        969
-       696     696  96969      _=_      9696969  69    696
-         9696    969696      q(-_-)p      696969    6969
-            96969696         '_) (_`         69696969
-               96            /__/  \            69
-               69          _(<_   / )_          96
-              6969        (__\_\_|_/__)        9696
-  ``
-* Batman symbols:
-  * tx a55e7587bb34a56ae1113b0848506ea2fcf0c0e1af8c241e76677eb2bcb727eb
-  * tx 959a19729ca02b1e06e600a331d7f4603669a7eaaa20b5cfb9f3528e3005a8f2
-
-    This on includes lyrics "Denk niet wit, denk niet zwart." of a song by Dutch artist Zwart wit.
-* tx 43b0bb63fc50ad1edbb17486dc44825e4dd642a952c699cc13958e010ba3d8a5 has a star of David:
-  ``
-             /\
-            /  \
-           / /\ \
-  ________/ /__\_\________
-  \  ____/ /___________  /
-   \ \  / /      \ \  / /
-    \ \/ /        \ \/ /
-     \ \/          \ \/
-     /\ \          /\ \
-    / /\ \        / /\ \
-   / /__\_\______/ /__\ \
-  /_____________/ /______\
-          \ \  / /
-           \ \/ /
-            \  /
-             \/
-
-      HELLO FROM ZOG
-  ``
-
-Transaction inputs with ASCII art:
-* tx 75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4 two faces
-* tx 9caaa9f8d0e170bf6d73a722e9bb2e7e0d37577476d485bd3eeac09866f26345 a large A letter. Has some custom encoding, so possibly for download with \x[peter-todd-s-data-upload-scripts]
-* tx 2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966 face of a woman with short hair
-
-\x[ascii-porn], all of them also reproduced at: https://asciiart.website/index.php?art=people/naked%20ladies[]:
-* blk00124.txt tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f naked woman sitting looking forward with legs open showing vagina.
-
-  Vagina row as an identifier:
-  ``
-  .     `.    .\x./-`--...../'   ;   :
-  ``
-
-  A bit bellow tx 8367a48e4a863e37b3749bc9c111327b07a7c383ec9b3e7ce8d41949e71e1c10 has a large hand showing the middle finger
-* blk00179.txt tx 0aab36554c2ac5ec23747e7f21f75dbe3f16739134cf44953ad7ac98927146d6 naked woman laying on her side showing her vagina from under her legs, signed `fsc`. TODO full author name?
-
-= Len Sassaman tribute
-{parent=ascii-art}
-
-https://bitcoinstrings.com/blk00003.txt[blk00003.txt]
-
-https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=json
-
-https://bitcoin.stackexchange.com/questions/3370/in-which-block-was-len-sassaman-memorialised/101276#101276
-
-https://en.wikipedia.org/wiki/Len_Sassaman[`LEN "rabbi" SASSAMA`] tribute starting with \x[ascii-art]:
-``
----BEGIN TRIBUTE---
-#./BitLen
-:::::::::::::::::::
-:::::::.::.::.:.:::
-:.: :.' ' ' ' ' : :
-:.:'' ,,xiW,"4x, ''
-:  ,dWWWXXXXi,4WX,
-' dWWWXXX7"     `X,
- lWWWXX7   __   _ X
-:WWWXX7 ,xXX7' "^^X
-lWWWX7, _.+,, _.+.,
-:WWW7,. `^"-" ,^-'
- WW",X:        X,
- "7^^Xl.    _(_x7'
- l ( :X:       __ _
- `. " XX  ,xxWWWWX7
-  )X- "" 4X" .___.
-,W X     :Xi  _,,_
-WW X      4XiyXWWXd
-"" ,,      4XWWWWXX
-, R7X,       "^447^
-R, "4RXk,      _, ,
-TWk  "4RXXi,   X',x
-lTWk,  "4RRR7' 4 XH
-:lWWWk,  ^"     `4
-::TTXWWi,_  Xll :..
-=-=-=-=-=-=-=-=-=-=
-``
-
-From the JSON transaction we understand the encoding format:
-``
-   "out":[
-      {
-         "spent":false,
-         "tx_index":0,
-         "type":0,
-         "addr":"1CqKQ2EqUscMkeYRFMmgepNGtfKynXzKW7",
-         "value":1000000,
-         "n":0,
-         "script":"76a91481ccb4ee682bc1da3bda70176b7ccc616a6ba9da88ac"
-      },
-      {
-         "spent":false,
-         "tx_index":0,
-         "type":0,
-         "addr":"157sXa7duStAvq3dPLWe7J449sgh47eHzw",
-         "value":1000000,
-         "n":1,
-         "script":"76a9142d2d2d424547494e20545249425554452d2d2d2088ac"
-      },
-...
-      {
-         "spent":false,
-         "tx_index":0,
-         "type":0,
-         "addr":"157sXYpjvAyEJ6TdVFaVzmoETAQnHB6FGU",
-         "value":1000000,
-         "n":77,
-         "script":"76a9142d2d2d2d454e4420545249425554452d2d2d2d2088ac"
-      }
-``
-So it is really encoded one line at a time in the `script` of the transaction outputs.
-
-Because it comes so early in the blockchain, and because the ASCII art is so well done, this is by far the most visible ASCII art of the blockchain.
-
-Before it, there is only two other non-remarkable tests/ASCII art in blk00001.txt:
-``
-tx 9173744691ac25f3cd94f35d4fc0e0a2b9d1ab17b4fe562acc07660552f95518
-o>z+o>z+o>z+o
->z+o>
-z+o>z+o>z+o>z+o>z+o>
-z+o>z+o>z+o>z+o>z+o>
-z+o>z+o>z+o>z+o>z+o>
-z+o>z+o>z+o>z+o>z+o>
-z+o>z+o>z+o>z+o>z+o>
-z+o>z+o>z+o>z+o>z+o>
-776 crc32=a7ac8449
-
-tx ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806
-=ybegin line=128 siz
-e=8776 name=bitcoin.
-***2*.+D*/***+***h+E
-*/***+***p+R*-***+*,
-**+[*,***;***x******
-0010/211133246>76556
-C<=}9>GDIHGDFFJNXQJL
-VMFFRaSVZ[^^^IQcgb\f
-KFK\\\\\\\\\\\\\\\\\
-\\\\\\\\\\\\\\\\\\\\
-+/++++++********+,-.
-+*-
-+++++++++******
-DPQRST_`abcdmnopqrst
-*>{o*>{o*>{o*>{o*>{o
-``
-
-Maybe one of those were tests in preparation for the tribute. Imagine if there was a bug in the tribute, right!
-
-= Marijuana plant
-{parent=ascii-art}
-
-blk00191.txt, the art starts at tx 6650107a4e4e4838ba1081ce87862c38dcb4181b8d34fc0405b099213ba76033 and goes one line per transaction using the \x[j-system]:
-
-``
-j(-> 1EGa1izEFDHzEobDDQny73re9BwXdzhZvH <-
-j(                 ,
-j(                dM
-j(                MMr
-j(               4MMML                  .
-j(               MMMMM.                xf
-j(              "M6MMM               .MM-
-j( h..          +MM5MMM            .MMMM
-j( .MM.         .MMMMML.          MMMMMh
-j( )MMMh.        MM5MMM         MMMMMMM
-j(  3MMMMx.     'MMM3MMf      xnMMMMMM"
-j(  '*MMMMM      MMMMMM.     nMMMMMMP"
-j(    *MMMMMx    "MMM5M\    .MMMMMMM=
-j(     *MMMMMh   "MMMMM"   JMMMMMMP
-j(       MMMMMM   GMMMM.  dMMMMMM
-j(        MMMMMM  "MMMM  .MMMMM(        .n
-j(         *MMMMx  MMM"  dMMMM"    .nnMMMM
-j(Mn...     'MMMMr 'MM   MMM"   .nMMMMMMM*
-j(4MMMMnn..   *MMM  MM  MMP"  .dMMMMMMM""
-j( ^MMMMMMMMx.  *ML "M .M*  .MMMMMM**"
-j(    *PMMMMMMhn. *x > M  .MMMM**""
-j(       ""**MMMMhx/.h/ .=*"
-j(                .3P"%....
-j(              nP"     "*MMnx
-``
-
-The transaction before the ASCII art tx 9b08c00ced2bca4525d74e82db9af2aec8ef213eb1c1bf68a48b6be929968332 starts with what is likely a "Legalize" and must be a \x[tor-onion-service]:
-``
-j(-> 1EGa1izEFDHzEobDDQny73re9BwXdzhZvH <-
-``
-but that address as is + `.onion` is invalid, TODO find the correct one.
-
-Other plants can be found contained entirely in single transactions:
-
-* b338cdddb20a7ffe5114a2eec7bef736720ab5eeeb4a723e66ef623f42949ccb
-* fc4981261701d06610394c4200a9cbf03f890ac928db58938bed8d7ba7eaccf3
-* 55623bf694f6dfbda4db2ea7a940ffd80c49eee3430e44a57fdfecd4e9381f72
-
-= Force of Will
-{c}
-{parent=ascii-art}
-
-https://blockchain.info/tx/9a74d0ee2e9a925d9afadc413e087fa2effda031935bf19a0d4d48df76e4ce3f?format=json
-
-https://bitcoinstrings.com/blk00202.txt[blk00202.txt]
-
-\x[ascii-art] of a https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=413591[Force of Will], a famous \x[magic-the-gathering] card.
-
-If we add `-w` to `string -w` however, we see that the lines follow.
-
-TODO understand exactly how it was encoded and why it is so weird.
-
-The `UUUU` has a slightly weird encoding which we fixed by hand here TODO understand.
-``
- -------------------------------------
-|  Force of Will               3 U U  |
-|  ---------------------------------  |
-| |                  ////////////   | |
-| |                ////() ()\////\  | |
-| |               ///_\ (--) \///\  | |
-| |        )      ////  \_____///\\ | |
-| |       ) \      /   /   /    /   | |
-| |    ) /   \     |   |  /   _/    | |
-| |   ) \  (  (   /   / /   / \     | |
-| |  / ) ( )  / (    )/(    )  \    | |
-| |  \(_)/(_)/  /UUUU \  \\\/   |   | |
-| .---------------------------------. |
-| Interrupt                           |
-| ,---------------------------------, |
-| | You may pay 1 life and remove a | |
-| | blue card in your hand from the | |
-| | game instead of paying Force of | |
-| | Will's casting cost.  Effects   | |
-| | that prevent or redirect damage | |
-| | cannot be used to counter this  | |
-| | loss of life.                   | |
-| | Counter target spell.           | |
-| `---------------------------------` |
-|                                     l
-| Illus.  Terese Nelsen               |
- -------------------------------------
-``
-
-= `j(` system
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-This is likely a system that uploads text to the blockchain. Messages are uploaded one line per transaction, and thus may be cut up on the blk.txt
-
-But because each line starts with `j(` you can generally piece things up regardless.
-
-TODO identify. The first occurrence seems to be in blk00156.txt tx e8c61e29c6b829e289f8d0fc95f9eb2eb00c89c85cfa3a9c700b15805451ae6a:
-``
-j(DOCPROOF@?pnvf=!;AG
-``
-
-= Protests against larger block sizes
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-https://en.bitcoin.it/wiki/Block_size_limit_controversy
-
-Protesters were posting large chunks of text multiple times into the blockchain as a way to protest against the controversial increase of block size.
-
-blk00265.txt tx 08893442680a20c4d0548dec2c8c421fa43336528b4e274dbf2652774f9c9f2d has the first copy of:
-\Q[I like big blocks and I can not lie]
-which is the first line of a parody on:
-\Q[I like big butts and I cannot lie]
-from the https://en.wikipedia.org/wiki/Baby_Got_Back[Baby Got Back] hip-hop song.
-
-blk00264.txt tx 52159222289cd0a5afe0644150d0e23d5d272a57365627d5e869fdb458289858 has the first copy of:
-\Q[Time to roll out bigger blocks]
-which is likely a copy of an email from the bitcoin development mailing list. This message is repeated dozens of times in other transactions.
-
-= 503: Bitcoin over capacity
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-From blk00460.txt starting tx a87d406fae047258a12923b3c11a797a5765bd8f868df5c7e9b1cead0e92c9c1 up to blk00462.txt, the message:
-``
-503: Bitcoin over capacity!
-``
-appears about 13 thousand times. WTF happened?
-
-= Miner signatures
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-= HHTT
-{parent=miner-signatures}
-
-Horrible Horrendous Terrible Tremendous Mining Pool: http://hhtt.1209k.com/
-
-Pool that shut down in 2014: http://organofcorti.blogspot.com/2014/01/17-goodbye-hhtt-coinbase-will-never-be.html
-
-Has some cute one liner messages starting blk00022.txt.
-
-= Bibliography
-{parent=cool-stuff-found-in-the-bitcoin-blockchain}
-
-= Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)
-{c}
-{parent=bibliography}
-
-http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html
-
-= Genesis block
-{c}
-{parent=bitcoin}
-{wiki}
-
-https://blockchain.info/block-height/0?format=json
-
-https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
-
-= Genesis block message
-{c}
-{parent=genesis-block}
-{wiki}
-
-https://blockchain.info/block-height/0?format=json
-
-From that page we manually extract the hash `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f` and then:
-``
-wget -O 0.hex https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f?format=hex
-xxd -p -r 0.hex
-``
-and that does contain the famous genesis block string:
-``
-EThe Times 03/Jan/2009 Chancellor on brink of second bailout for banks
-``
-The JSON clarifies that the data is encoded in the `script` field of the transaction `input`:
-``
-{
-      {
-         "script":"04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-``
-
-The extra `E` (0x45 in \x[ascii]) in `EThe Times` is just extra noise required by the script, we can break things up as:
-``
-04ffff001d0104 45 5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73
-``
-where:
-* `54` is `T`
-* the `04ffff001d0104` part just doesn't show up on the terminal because it is not made of any printable characters.
-
-The initial `04` is `OP_RETURN`
-
-TODO what is actual the meaning of the `ffff001d010445` part?
-
-TODO the `output` of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.
-
-The message proves a minimal starting date for the first mine.
-
-And it hints that one of Bitcoin's motivation was the \x[financial-crisis-of-2007-2008], where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place.
-
-= Monero
-{c}
-{parent=cryptocurrency}
-{wiki}
-
-Cryptocurrency with focus on anonymity. https://localmonero.co/knowledge/monero-stealth-addresses?language=en gives an overview:
-
-* ring signatures, which hide the true output (sender)
-
-https://localmonero.co/knowledge/ring-signatures
-* ring signatures which hides the sender.
-
-  https://localmonero.co/knowledge/ring-signatures Gives an overview. Mentions that it is prone to heuristic attacks.
-
-  Uses a system of decoys, that adds 10 fake possible previous outputs as inputs, in addition to the actual input.
-
-  So the network only knows/verifies that one of those 11 previous outputs was used, but it does not know which one.
-
-  It's a bit like having a built-in \x[cryptocurrency-tumbler] in every transaction.
-
-  TODO so how do you know which previous outputs were spent or not?
-* RingCT which hides the amounts.
-* stealth addresses, which hides who you send to
-
-  This forces receivers to scan try and unlock every single transaction in the chain to see if it is theirs or not.
-
-  The sender therefore can know when the money is spent, but once again, not to whom it is being sent.
-
-= Cryptocurrency exchange
-{parent=cryptocurrency}
-{wiki}
-
-= Mt. Gox
-{c}
-{parent=cryptocurrency-exchange}
-{wiki}
-
-= Cryptocurrency tumbler
-{parent=cryptocurrency}
-{wiki}
-
 = Hash function
 {parent=computer-science}
 {wiki}
@@ -18319,6 +17134,1209 @@ This is an interesting licensing model that might just scale.
 
 https://calebporzio.com/sponsorware
 
+= Management
+{parent=social-technology}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=GsN0WVLjpcs]
+{title="DealBook Conference 2015 - Activist Investing" published by New York Times Events on 2015-11-03.}
+{description=At this timestamp, Carl Icahn tells an anecdote of how he found that an entire 12-floor building of the https://en.wikipedia.org/wiki/American_Car_and_Foundry_Company[American Car and Foundry Company] which he had recently bought was not doing anything useful, and fired the entire building.}
+{start=377}
+
+= Money
+{parent=social-technology}
+{wiki}
+
+= Cryptocurrency
+{parent=cryptography}
+{wiki}
+
+The key questions are:
+* how do transaction fees/guarantees/times compare to credit cards:
+  * https://bitcoin.stackexchange.com/questions/1261/is-it-possible-to-send-bitcoins-without-paying-a-fee "The Blockchain Scalability Problem & the Race for Visa-Like Transaction Speed" (2019)
+
+    \Q[The battle for a scalable solution is the blockchain's moon race. Bitcoin processes 4.6 transactions per second. Visa does around 1,700 transactions per second on average (based on a calculation derived from the official claim of over 150 million transactions per day).]
+  * https://towardsdatascience.com/the-blockchain-scalability-problem-the-race-for-visa-like-transaction-speed-5cce48f9d44
+* how can governments tax cryptocurrency
+
+= Bitcoin
+{c}
+{parent=cryptocurrency}
+{wiki}
+
+Official website: https://bitcoin.org/en/
+
+Reference implementation: \x[bitcoin-core]
+
+Ads spammed as `https://codepen.io/anon/pen/pVKajz?editors=0011` in the blockchain.
+
+= How Bitcoin works
+{parent=bitcoin}
+
+Here is a very direct description of the system:
+* each transaction has a list of inputs, and a list of outputs
+* each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a \x[digital-signature] for the public key specified on the output
+* each output specifies the \x[public-key-cryptography][public key] of the receiver and the value being sent
+* the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.
+* once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.
+
+Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine.
+
+The key innovation of Bitcoin is how to prevent double spending, i.e. use a single output as the input of two different transactions, via mining.
+
+For example, what prevents me from very quickly using a single output to pay two different people in quick succession?
+
+The solution are the blocks. Blocks discretize transactions into chunks in a way that prevents double spending.
+
+A block contains:
+* a list of transactions that are valid amongst themselves. Notably, there can't be double spending within a block.
+
+  People making transactions send them to the network, and miners select which ones they want to add to their block. Miners prefer to pick transactions that are:
+  * small, as less bytes means less hashing costs. Small generally means "doesn't have a gazillion inputs/outputs".
+  * have higher transaction fees, for obvious reasons
+* the ID of its parent block. Blocks therefore form a linear linked list of blocks, except for temporary ties that are soon resolved. The longest known list block is considerd to be the valid one.
+* a nonce, which is an integer chosen "arbitrarily by the miner"
+
+For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.
+
+Since hashes are basically random, miners just have to try a bunch of nonces randomly until they find one that works.
+
+The more zeroes, the harder it is to find the hash. For example, on the extreme case where N is all the bits of the hash output, we are trying to find a hash of exactly 0, which is statistically impossible. But if e.g. N=1, you will in average have to try only two nonces, N=2 four nonces, and so on.
+
+The value N is updated every 2 weeks, and aims to make blocks to take 10 minutes to mine on average. N has to be increased with time, as more advanced hashing hardware has become available.
+
+Once a miner finds a nonce that works, they send their block to the network. Other miners then verify the block, and once they do, they are highly incentivized to stop their hashing attempts, and make the new valid block be the new parent, and start over. This is because the length of the chain has already increased: they would need to mine two blocks instead of one if they didn't update to the newest block!
+
+Therefore if you try to double spend, some random miner is going to select only one of your transactions and add it to the block.
+
+They can't pick both, otherwise their block would be invalid, and other miners would't accept is as the new longest one.
+
+Then sooner or later, the transaction will be mined and added to the longest chain. At this point, the network will move to that newer header, and your second transaction will not be valid for any miner at all anymore, since it uses a spent output from the first one that went in. All miners will therefore drop that transaction, and it will never go in.
+
+The goal of having this mandatory 10 minutes block interval is to make it very unlikely that two miners will mine at the exact same time, and therefore possibly each one mine one of the two double spending transactions. When ties to happen, miners randomly choose one of the valid blocks and work on top of it. The first one that does, now has a block of length L + 2 rather than L + 1, and therefore when that is propagated, everyone drops what they are doing and move to that new longest one.
+
+= Satoshi Nakamoto
+{c}
+{parent=bitcoin}
+{wiki}
+
+Domain registration: 2008-08-18 by https://www.namecheap.com[], an \x[united-states] company. But using a privacy oriented registrar: https://bitcoin.stackexchange.com/questions/89532/how-did-nakamoto-untraceably-pay-for-registering-bitcoin-org
+
+2008-08-22: private Wei Dai email: https://www.gwern.net/docs/bitcoin/2008-nakamoto from \x[gwern-net]
+
+Paper announcement: 2008-10-31 https://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html linking to bitcoin.org, from satoshi@vistomail.com Claimed one year and a half development time.
+
+Replies in November: https://www.metzdowd.com/pipermail/cryptography/2008-November/thread.html#14863 under satoshi@anonymousspeech.com claims source code shared privately by request at that point.
+
+It is unknown how he could have paid anonymously: https://bitcoin.stackexchange.com/questions/89532/how-did-nakamoto-untraceably-pay-for-registering-bitcoin-org[], so it seems likely that the true identity could be obtained by law enforcement if needed.
+
+First open source release: 9 January 2009. Announcement: https://www.metzdowd.com/pipermail/cryptography/2009-January/014994.html "Windows only for now.  Open source C++ code is included" Arghhhhhh how can those libertarians use Windows??? Had a GUI already.
+
+Hal Finney:
+* Jan 11, 2009 https://twitter.com/halfin/status/1110302988 "Running Bitcoin"
+
+= Bitcoin script
+{c}
+{parent=bitcoin}
+
+= Bitcoin non-standard transactions
+{c}
+{parent=bitcoin-script}
+
+* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions
+* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions
+
+= Invalid Bitcoin script
+{c}
+{parent=bitcoin}
+
+They appear to be included, with rationale that you can already include syntactically valid crap in an unprovable way: https://github.com/bitcoin/bitcoin/issues/320 Better then have syntactically invalid crap that is provable.
+
+The outputs of this transaction seem to be the first syntactically incorrect scripts of the blockchain: https://blockchain.info/tx/ebc9fa1196a59e192352d76c0f6e73167046b9d37b8302b6bb6968dfd279b767?format=json[], found by parsing everything locally. The transaction was made in 2013 for 0.1 BTC, which then became unspendable.
+
+The first invalid script is just e.g. "script":"01", which says will push one byte into the stack, but then ends prematurely.
+
+= Bitcoin Core
+{c}
+{parent=bitcoin}
+
+Reference implementation?
+
+Links:
+* https://github.com/bitcoin/bitcoin
+* https://bitcoin.org
+
+Executables provided:
+* `bitcoin-qt`
+
+= How to store data in the Bitcoin blockchain
+{parent=bitcoin}
+
+There are apparently two methods:
+* in the script, e.g. as in the \x[genesis-block-message]
+* in output addresses
+
+Specific implementations:
+
+* http://eternitywall.it/ Eternity Wall
+
+  Launched 2015 https://www.newsbtc.com/news/bitcoin/eternity-wall-records-1150-documents-blockchain-first-year/
+
+  TODO find sample transactions. Did it support images?
+
+  Shutdown sometime after 2019, working archive: https://web.archive.org/web/20190417074034/https://eternitywall.it/ says "Sorry, the service is not properly working at the moment..." and last working message timestamped "April 16, 2019 8:02 PM GMT".
+
+Bibliography:
+* https://bitcoin.stackexchange.com/questions/32575/what-methods-are-currently-used-to-embed-additional-data-into-the-bitcoin-blockc
+* https://bitcoin.stackexchange.com/questions/39347/how-to-store-data-on-the-blockchain
+
+= How to extract data from the Bitcoin blockchain
+{parent=bitcoin}
+
+TODO: it would be cool to have something like https://bitcoinstrings.com[] but including the actual transactions:
+
+Local methods:
+* https://bitcoin.stackexchange.com/questions/30295/how-can-i-search-for-transaction-text-on-the-blockchain
+* https://bitcoin.stackexchange.com/questions/22500/is-there-a-lightweight-blockchain-parser-library-server/101472#101472
+* https://github.com/alecalve/python-bitcoin-blockchain-parser
+* https://bitcoin.stackexchange.com/questions/84266/wondering-how-to-use-bitcoin-parser
+* https://github.com/bitcoinprivacy/Bitcoin-Graph-Explorer stores the blockchain in a database, and should allow more intelligent querying.
+
+= Blockchain.info
+{parent=how-to-extract-data-from-the-bitcoin-blockchain}
+
+TODO who owns it? Are they reliable?
+
+* transaction hex data: https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=hex
+* disassembled transaction as JSON: https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=json
+* block by height:
+  * https://blockchain.info/block/0?format=json
+  * https://blockchain.info/block/0?format=hex
+
+This helper dumps a transaction JSON to a binary:
+``
+bitcoin-tx-out-scripts() (
+    # Dump data contained in out scripts. Remove first 3 last 2 bytes of
+    # standard transaction boilerplate.
+    h="$1"
+    echo curl "https://blockchain.info/tx/${h}?format=json" |
+    jq '.out[].script' tmp.json |
+    sed 's/"76a914//;s/88ac"//' |
+    xxd -r -p > "${h}.bin"
+)
+``
+
+= BitcoinStrings.com
+{parent=how-to-extract-data-from-the-bitcoin-blockchain}
+
+https://bitcoinstrings.com has all `strings -n20` strings, we can obtain the whole thing and clean it up a bit with:
+``
+wget -O all.html https://bitcoinstrings.com/all
+cp all.html all-recode.html
+recode html..ascii all-recode.html
+awk '!seen[$0]++' all-recode.html > all-uniq.html
+``
+`awk` to skip the gazillion "mined by message" repeats.
+
+A lot of in that website stuff appears to be cut up at the 20 mark. As shown in \x[cool-stuff-found-in-the-bitcoin-blockchain/force-of-will], this is possibly because they didn't use `-w` in `strings -n20`, and the text after the newlines was less than 20 characters.
+
+That website can be replicated by downloading the \x[bitcoin] blockchain locally, then:
+``
+cd .bitcoin/blocks
+for f in blk*.dat; do strings -n20 -w $f | awk '!seen[$0]++' > ${f%.dat}.txt; done
+tail +n1 *.txt
+``
+
+Remove most of the binary crap:
+``
+head -n-1 *.txt | grep -e '[. ]' | grep -iv 'mined by' | less
+``
+
+= Bitcoin data download and upload scripts from blk0052.dat
+{parent=how-to-extract-data-from-the-bitcoin-blockchain}
+
+For more context see: \x[cool-stuff-found-in-the-bitcoin-blockchain/illegal-content-of-block-52].
+
+\x[python-programming-language] programs stored in the blockchain itself, to add and download arbitrary data into the blockchain:
+* uploader: tx 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17 contains a the uploader, reproduced at: https://gist.github.com/zeroed/325bb539bd72dabccbe97cfd5228cdf5
+
+  The uploader https://gist.github.com/zeroed/325bb539bd72dabccbe97cfd5228cdf5#file-bitcoininsertiontool-py-L161[creates a standard Pay-to-PubkeyHash transaction] with a single output and data as a fake pubkey hash, and sends change to an address specified on the command line:
+
+  ``
+  ./bitcoinInsertionTool.py <data> <change-addr>
+  ``
+* downloader: tx 6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc contains a downloader version of the uploader, reproduced at https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py
+
+  The downloader just https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py-L32[strips all operands], and keeps all data, notably where public key hashes would be normally put.
+
+The format expected by those scripts is as follows:
+* ignore all script operands and constants less than 40 bytes. And there are a lot of small operands, e.g. https://www.blockchain.com/btc/tx/54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 has a `OP_1`, data, `OP_3`, `OP_CHECKMULTISIG` pattern on every script, so the `OP_1` and `OP_3` are ignored
+* ignore the last transaction, it presumably contains a real change transaction instead of arbitrary data
+* the first 4 bytes are the payload length, the next 4 bytes a crc32 signtaure. The payload length is in particular useful because of potential granuarity of transcations
+This means that if we want to index certain file types encoded in this format, we can just skip the first 9 bytes (4 size, 4 CRC, 1 `OP_1`) and look for file signatures.
+
+Let's try out the downloader to download itself. First you have to be running a \x[bitcoin-core] server locally. Then, supposing `.bitcon/bitoin.conf` containing:
+``
+rpcuser=asdf
+rpcpassword=qwer
+server=1
+txindex=1
+``
+we run:
+``
+git clone git://github.com/jgarzik/python-bitcoinrpc.git
+git -C python-bitcoinrpc checkout cdf43b41f982b4f811cd4ebfbc787ab2abf5c94a
+wget https://gist.githubusercontent.com/shirriff/64f48fa09a61b56ffcf9/raw/ad1d2e041edc0fb7ef23402e64eeb92c045b5ef7/bitcoin-file-downloader.py
+pip install python-bitcoinrpc==1.0
+BTCRPCURL=http://asdf:qwer@127.0.0.1:8332 \
+  PYTHONPATH="$(pwd)/python-bitcoinrpc:$PYTHONPATH" \
+  python3 bitcoin-file-downloader.py \
+  6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc
+``
+worked! The source of the downloader script is visible! Note that we had to wait for the sync of the entire blockchain to be fully finished for some reason for that to work.
+
+Also, the format is not necessarily uber popular. E.g. the checksum fails for the \x[cool-stuff-found-in-the-bitcoin-blockchain/nelson-mandela-jpg] transaction, so the usefulness of this remains to be decided.
+
+TODO port to \x[blockchain-info] ASCII hex:
+``
+./bitcoin_file_downloader_ascii_hex.py https://blockchain.info/tx/6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc?format=hex
+``
+We need to parse the transaction to get it working, possibly with https://github.com/alecalve/python-bitcoin-blockchain-parser[].
+
+= Peter Todd's data upload scripts
+{parent=bitcoin-data-download-and-upload-scripts-from-blk0052-dat}
+
+blk00248.txt contains another upload script. The help reads:
+\Q[Publish text in the blockchain, suitably padded for easy recovery with strings]
+
+The script is: https://github.com/petertodd/python-bitcoinlib/blob/master/examples/publish-text.py
+
+= Services based on Bitcoin
+{parent=bitcoin}
+
+= Satoshi Dice
+{parent=services-based-on-bitcoin}
+
+https://en.bitcoin.it/wiki/Satoshi_Dice
+
+Claims provably fair. https://satoshidice.com/fair clarifies what that means: they prove fairness by releasing a hash of the seed before the bets, and the actual seed after the bets.
+
+As mentioned in bitcoin.it, it functions basically as \x[cryptocurrency-tumbler] in practice.
+
+= Cool stuff found in the Bitcoin blockchain
+{c}
+{parent=bitcoin}
+{scope}
+{wiki}
+
+This is a list of cool stuff found using techniques mentioned at: \x[how-to-extract-data-from-the-bitcoin-blockchain]{full}.
+
+\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] is a mandatory precursor to this section, and potentially contains some of the most interesting examples already.
+
+An attempt is made to not repeat stuff that is already said in that article. Some repetition happened by accident, as we explored and only later noticed it was already mentioned there. But there are also some new aspects of existing comments.
+
+\x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][China stuff] is shown at: https://cirosantilli.com/china-dictatorship/#bitcoin-blockchain[].
+
+Quick ones that didn't deserve a section:
+* blk00053.txt tx 3a1c1cc760bffad4041cbfde56fbb5e29ea58fda416e9f4c4615becd65576fe7 has the broken basic creature simulation mentioned at \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014]
+* blk00118.txt contains a few tributes/good ridance messages to \x[mt-gox]' shutdown.
+
+  tx 0540b5dda23ee870330c6b1e18a88c592cf8d847c47f1dc1d5328f46115b12b3:
+  ``
+  jK2014-02-25: The day Mt.Gox shut down. Farewell, may even you rest in peace!
+  ``
+
+  tx 2374f8575f65763caf6909551c131d3ae45399a73aee638bcbccaebdb1219d67:
+  ``
+  Fuck you MtGox
+  Fuck you MtGox
+  ``
+
+  tx c00a4a04905a2e8d8dee8a768165aa6bdf842413a8a648462a6349db89cd77f2 TODO understand meme:
+  ``
+         o
+        / |
+        | \
+    .   |  |
+  .'\`  | \|
+   | \_/ \ \
+    \____/\/
+  <3 You Seals!
+  ``
+* blk00153.txt tx e3e37ed5c1de2631c147bd39429e42ff634e95b7d72423bc32d6c6b9d8eef8ee "For my first official Journal entry I've decided to archive some old poetry" TODO who is that person?
+* blk00169.txt and onwards has copy pastes of several biographical Wikipedia pages: https://en.wikipedia.org/wiki/Outline_of_Bob_Marley[Bob Marley], Marilyn Monroe, Robin McLaurin Williams, and others follow.
+
+  This appears to use the same system that had been used earlier for the \x[nelson-mandela-jpg] image: \x[atomsea-embii].
+
+  The Bob Marley one is at tx https://blockchain.info/tx/a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2?format=json in the scripts, and should be followed by a large image: `bob-marley.jpg*7500?`, see also \x[images]
+
+  The Bob Marley transaction is referenced in an index present at tx feee59fe4d7dc89f2828f894d3faf4e8e6957426da8f84cec291bb5a156e6153:
+
+  ``
+  a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2/264:a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2
+  cf1de63d68ba36041816d31d6beae6c3964c41915a15a27fdecd84854947caf6
+  9ac57cb3da27478345e40c029237a982435db165ac833e0f5e5e097b1b6164e1
+  308bf8f084c3beea4a6916fdcbf56d22763c6d9ff5c5063fe60011f9e331aeb7
+  79HHSm
+  ``
+
+  Therefore, the following ones presumably contain the rest of the image which starts at the end of a573ca62c9efd80c15d9a54fd7d3a422d930c26ca714ba980ad196f5d30ce1b2.
+
+  TODO image is a bit corrupted when I do that, bottom half is green.
+* blk00179.txt tx 713a6832365a68f71c6aee879f79b70e6e738cd6255f09bc41f204c81575c248 has the https://en.wikipedia.org/wiki/LaVeyan_Satanism#The_Eleven_Satanic_Rules_of_the_Earth[eleven rules of LaVevan Stanism] starting with: 1. Do not give opinions or advice unless you are asked."
+* blk00248.txt tx 213e8f46f98e96f4f4d8b45bd3a1cbada14213796c200220e1e8c2b315988faa "Warning! Kaspersky Alerts Users of Malware and 'Blockchain Abuse'" contains a full-text copy of: http://cointelegraph.com/news/113806/warning-kaspersky-alerts-users-of-malware-and-blockchain-abuse (includes link). Two other copies appear in future transactions `tx c863aa9d6aa9345e4abdc216b6f035c4276b4423a924bb2e1593c22c670cba6f` and tx ba58caf1a27ab7ca627cc3efa5914e4d37e00b3a7e9cf29508d451dc3da00bf7 from blk00250.txt
+* blk00279.txt tx 210000d1392bec2505d1289e5c39c2039204ff1ecf7eef55f973ccd3111003e1 and the following transactions have transcripts of a very long developer chat starting with:
+
+  \Q[jgarzik: if you aren't near one of the consulates there are some companies that will charge you money to do it...]
+
+  TODO purpose? The transcripts are interspersed with developers likely voting for project leadership, and commenting on Gavin.
+
+  These might just be more of \x[protests-against-larger-block-sizes].
+* tx 87aad85c6cd75a516789f364637d243c668e3424d031ae510e43c6edfe6ed206 the default \x[pandoc] markdown https://pandoc.org/try markdown tutorial string!
+  ``
+  An h1 header
+  ============
+
+  Paragraphs are separated by a blank line.
+  ``
+  And if ends with:
+  ``
+  Uploaded from http://cryptograffiti.info to demonstrate Markdown rendering.
+  ``
+  so \x[cryptograffiti-info] must have some markdown rendering mechanism.
+* blk00970.txt tx 0f25e23b7b59fde67d8b2d41b749e4f89fd1ff8061aa0ddac8c27c8230167e35:
+
+  \Q[A Crosschain transaction was sent in to your address in error. The transaction was https://www.blockchain.com/btc/tx/9174f24946496823e4edaf3fe1676a404164178d1c848fa476113bbe2f5b9463[9174f24946496823e4edaf3fe1676a404164178d1c848fa476113bbe2f5b9463] . Please return to 1AAEXtLo9SoyFQbZvWoqAMCpkz9okSpCuV. Thank you in advance."]
+
+  Epic.
+
+Politics:
+* Trump: there's a bit of both sides in the 2016 race:
+  * out/blk00501.txt: "oEW "Fuck Obama&Clinton Go Trump!!!!"
+  * out/blk00805.txt: "L299,Trump touched my no-no"
+  * out/blk00994.txt: "EW Heil Trump!He's the true white leader our race need so much since Adolph"
+
+Non-cool things:
+* `Hitler did nothing wrong` is repeated several times: https://knowyourmeme.com/memes/hitler-did-nothing-wrong
+
+Encrypted data: transactions such as:
+``
+tx fe37c7eee73be5fda91068dbe0eb74a68495a3fc7185712b8417032db7fc9c5e
+U2FsdGVkX1/4iSjLxQ5epo8eRSCOQLGgAsn1CucGii27k8ZyC7Jz6wxhYcevVmxi
+6Q4ZFN04WDN0UhKqYardgQf26oeBMURupduDd0ZozxlgMrBkFOCaARqU7RABVWDO
+/ruPUcOY0VC8p4lrMNqSdqvN7y6OWwOSH3c0duumZfFNZs9+BbtKCxtaqR5+RkUI
+``
+are base 64 encoded. Running them through `base64 -d` leads to starting output bytes `Salted__`: https://security.stackexchange.com/questions/124312/decrypting-binary-code-from-a-base64-string So whever we see the start:
+``
+U2FsdGVkX1/
+``
+we might as well give up.
+
+Bibliography:
+
+* https://bitcoin.stackexchange.com/questions/799/can-i-download-the-whole-block-chain-from-somewhere
+* https://bitcoin.stackexchange.com/questions/68925/how-can-data-be-accessed-searched-for-in-a-blockchain
+* https://bitcoin.stackexchange.com/questions/55188/download-single-and-specific-block-for-study-purposes
+* https://www.fiverr.com/usefulshine/embed-your-logo-or-brand-art-on-blockchain user usefulshine from India embeds ASCII art for you into the blockchain starting at 260 dollars! XD
+
+= The largest transactions in the Bitcoin Blockchain by byte size
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+https://bitcoin.stackexchange.com/questions/11542/by-byte-size-and-number-of-inputs-outputs-what-are-the-largest-transactions-in
+
+* bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08 999,657 bytes. Joins a bunch of tiny inputs into a single output
+* 623463a2a8a949e0590ffe6b2fd3e4e1028b2b99c747e82e899da4485eb0b6be and 5143cf232576ae53e8991ca389334563f14ea7a7c507a3e081fbef2538c84f6e both have 3,075 outputs of 1 satoshi each and a single input. We were not able to identify any meaningful data in it, `file` just says `data`, and there aren't long ASCII strings. However, the outputs were unspent as of 2021, which suggests that they might actually be data.
+
+Analysis of some of them follows.
+
+* dd9f6bbf80ab36b722ca95d93268667a3ea6938288e0d4cf0e7d2e28a7a91ab3 has 13107 with payload 256KB in size, but some of them at least have been spent: https://www.blockchain.com/btc/tx/dd9f6bbf80ab36b722ca95d93268667a3ea6938288e0d4cf0e7d2e28a7a91ab3 therefore it's not data. `file` says their payload is a DOS executable, but it must be a coincidence
+
+= Prayer wars
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+On https://bitcoinstrings.com/blk00003.txt[blk00003.txt].
+
+Starting at tx cbbaa0a64924fe1d6ace3352f23242aa0028d4e0ff6ae8ed615244d66079cfb1 with one line per transaction:
+``
+Eligius/Benedictus Deus. Benedictum Nomen Sanctum eius
+``
+
+Because it is one line per transaction, it could got broken up by some interspersed atheist mockery graffiti, e.g.:
+``
+Benedicta sancta eius et immaculata Conceptio.
+   I LIKE TURTLES
+Benedicta eius gloriosa Assumptio.
+Benedictum Nomen Iesu.
+Benedictus Iesus in sanctissimo altaris Sacramento.
+C-C-C-COMBO BREAKER
+Benedictus sanctus Ioseph, eius castissimus Sponsus
+``
+
+The non-obvious interruptions are all well known memes/anime references:
+* "I like turtles": https://knowyourmeme.com/memes/i-like-turtles
+* Combo breaker: https://knowyourmeme.com/memes/combo-breaker
+* "Yukkuri Shiteitte ne": https://knowyourmeme.com/memes/yukkuri-shiteitte-ne
+* "kLhLUKE-JR IS A PEDOPHILE! Oh, and god isn't real, sucka. Stop polluting the blockchain with your nonsense."
+* "Help me, ERINNNNNN!!": https://touhou.fandom.com/wiki/Lyrics:_Help_me,_ERINNNNNN!!
+
+It should be noted however, that the interruptions we've found were all output transactions, therefore not done by miners, but just by regular transfers, which are much easier to make. In this sense, therefore, the prayer did win.
+
+Later comments attribute the prayers to a Luke Jr., who is likely: https://twitter.com/LukeDashjr[], who says is a Roman Catholic on his Twitter introduction. This is consistent with him being one of the early miners.
+
+= Illegal content of block 52
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+https://bitcoinstrings.com/blk00052.txt[blk00052.txt] contains the first noticeable attempts at insertion of possibly illegal content into the blockchain:
+* \x[bitcoin-data-download-and-upload-scripts-from-blk0052-dat]
+* tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
+* tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 PDF file, https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi suggests it is the Bitcoin white paper
+* tx dde7cd8e8f073a525c16c5ee4e4a254f847b7ad6babef257231813166fbef551 and tx 4a0088a249e9099d205fb4760c28275d4b8965ac9fd56f5ddf6771cdb0d94f38 contain indexes of pages from \x[the-hidden-wiki]
+* tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
+* tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a Wikileaks Cablegate Backup. Mentioned in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014]
+
+Nearby transaction include:
+* a reproduction of http://en.wikipedia.org/wiki/Illegal_prime including the prime
+So basically, this was the first obviously illegal block attempt.
+
+= Images
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+The huge majority of images is encoded with the \x[atomsea-embii] system/format. All images in that system will be documented in that section.
+
+Non-Atomsea & EMBII images follow.
+
+Custom encoding:
+* blk00001.txt https://blockchain.info/tx/ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806?format=json[tx ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806] has bitcoin.jpg which contains the bitcoin logo. The image, encoding and conversion script given described at \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014].
+
+  As mentioned there, the logo is split across two transactions: ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806 and 9173744691ac25f3cd94f35d4fc0e0a2b9d1ab17b4fe562acc07660552f95518. TODO how did Ken find out about the second one?
+
+  It is true that the second one is the only other transactions in blk00001.txt that have ASCII data. The second one ends in `776 crc32=a7ac8449` which must be part of yEnc. But are they related in any other more precise way?
+
+  They are not even in the same block: https://blockchain.info/block/123573?format=json | https://blockchain.info/block/123571?format=json
+
+Standard transaction output script hashes from JPEG from first byte:
+* blk00253.txt tx 9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b contains a full JPG in the output scripts. The image has a heart next to a bitcoin logo and written "we love bitcoin". The image is reproduced here: https://kryptomoney.com/grayscale-report-institutional-investors-retirement-funds-love-bitcoin/
+
+  Embedded in the image itself, there's a message in the header comments: "Bitcoin uses peer-to-peer technology to operate with no central authority or banks" which is the opening paragrpah of: https://bitcoin.org/en/
+* 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183 badtaxidermy.com "Water Deer" https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3
+* e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6 Rene Angelil and Celine Dion Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces.
+* c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f contains the picture of a well built man wearing a gas mask. Google search leads to: https://github.com/1Hyena[] (\a[https://web.archive.org/web/20201103193934/https://github.com/1Hyena][archive]), who is the creator of <<cryptograffiti-info>>
+* eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b advertisement "Cryptocurrency Mining", Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm
+* 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a wedding with people holding "Blockchain" and "Ipa" signs. Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.com.ua/zapushhen-ukrainskij-bitkoin-pul-bitcoinukraine/ Google translate: "One of the initiators of the launch of this pool was Oles Slobodenyuk, who earlier created a grocery store in Kiev accepting bitcoins, arranged a TakeMyBitcoin flash mob, and also registered his own marriage in the bitcoin blockchain on the weddingbook.io website."
+* c67dca17d3e5544d8d2c70d143196e1c1438a09c7371b80086d0a71ec5aec3c8 black and white photo of couple in wedding dress with a red rose/light-like thing in the middle
+* ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e Tank man: https://cirosantilli.com/china-dictatorship/#tank-man
+* b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511 \x[ross-ulbricht]
+* 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b has a PNG with a... nematode-like shaped hand drawn extremely simple image. A test upload presumably? The squiggle outside of the worm might be a test direction marker.
+
+tx 4be3a833ee83b4ca7d157d60fbf7411f7528314ce90df8a844f855118bc6ca11 contains a base 64 encoded image:
+``
+v27sSra.jpg
+
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+A
+...
+``
+By searching for the identifier, we see: https://bitcointalk.org/index.php?topic=1061926.220;wap which links to https://i.imgur.com/v27sSra.jpg so it is a \x[satoshi-nakamoto] real identity thing.
+
+= cryptograffiti.info
+{parent=images}
+
+https://cryptograffiti.info
+
+Bitcoin blockchain image indexer.
+
+Stopped indexing Bitcoin and moved to Bitcoin Cash instead: https://www.newsbtc.com/news/bitcoin/cryptograffiti-rejects-bitcoin-core-bch-now-available-payment-method/ and therefore becuse useless, is is now hard to match any of the images.
+
+Searching for the Tank Man image hash ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e leads to https://archive.4plebs.org/pol/thread/191157608/#q191162145 which claims URLs were of type https://cryptograffiti.info/#ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e.jpg but that is not working as of 2021.
+
+= AtomSea & EMBII
+{parent=images}
+
+A text/file upload system.
+
+http://bitfossil.org/ is the website system to view live indexed images, it has an abuse report to unindex presumably. TODO source? Local extraction script?
+
+http://apertus.io/ is the system to upload/index locally, and therefore likely part of the backend of bitfossil: https://github.com/HugPuddle/Apertus
+
+The system shows the messages and the images on a single page: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm It is basically a blockchain-based Twitter.
+
+\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] suggests that AtomSea & EMBII are the creator's aliases.
+
+Presumably this is AtomSea; https://twitter.com/TheAtomSea[], AKA https://github.com/AtomSea[AtomSea]
+
+And this is EMBII: https://github.com/embiimob AKA https://github.com/HugPuddle[HugPuddle]. 
+
+Holy crap, they support:
+
+* multipage setups: http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/
+* image galleries: http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
+* audio: http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
+* author photo below post via signture!!! http://bitfossil.org/738ab32bf82e3e0d4d2b29e40ad194cbbef6685d0116e94371e3cef4992349c8/index.htm See the `SIGNED BY` with EMBII's photo!
+
+Somewhat related projects:
+
+* http://www.memorymatrix.org/
+
+See \x[nelson-mandela-jpg] for a detailed extraction example.
+
+blk00097.txt contains the first EMBII image and the first `.jpg` hit at tx d28a46f8ae7ef6372a1bf2fb62a161509fc53733767443addee6c7188bb94dca
+``
+EMBII.jpg:330*f26212
+``
+
+Text on early nearby tx f262123b5d54137a0e9ccbd6fc71aaae50c1e085aa674c705732c6ea7acb6699 says:
+``
+EMBII Photo Credit: Kyleigh KruseEM
+``
+
+TODO how to decode it? Tried to pasted all bytes that follow, but does not have a FF D8 https://en.wikipedia.org/wiki/List_of_file_signatures[magic signature]. Might just be in actual binary, but then we need the transaction
+
+\x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] actually has some images with matching names (see HTML names of the image), so we could use those as reference to reverse engineer the data.
+
+The next image is \x[iloveyoumore-jpg].
+
+Other EMBII formatted files:
+* blk00171.txt and blk00172.txt contains several files:
+  * `Shiemaa&Vincent.jpg` tx 5316f55b30d0e09af7a3e402425aaba4dc813202997348e876cb16037605b72d http://bitfossil.org/36d0d77acd760f0aa549b6b314f0c1e9690baa6bcc2d0f07ea9f3167f4a5ec99/index.htm
+  * `RedRaven.jpg` http://bitfossil.org/e17b83234402d85f3a18207eec11bc5c4397f88aa880aae4fb7d15802806a971/index.htm
+  * `Earth3Archive.jpg` tx 75fc91da531e7a9ecacbdf9ca7a25c16ef1b722d55f2b4af05c3121c068ad976 http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
+  * `SkyEarth5Archive.jpg` at tx e436ebdaf78f5e7f1bfd39ac215bc4391f8a2eca5f43f92980a61c86eab5dadd http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
+  * `YellowRobot.jpg` tx 8644f059e5a42a2f80403caf5306bdded9c83a749518347da3ab8979f96c4f22, preceded by an explanation text on the same transaction: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm
+
+  \Q[Chiharu and I found this little yellow robot while exploring Chicago. It will be covered by tar or eventually removed but this tribute will remain. N 41.880778 E -87.629210]
+
+  Isn't that the cutest thing ever?
+
+Audio:
+* `OneGiantLeapForMankind.mp3` at blk00173.txt tx 4f5b25fa8021c67235423930580e69121aa0d2c2bb779f75139bf442f8dc7297 EMBII-indexed at 743f3286b00fc96c13db4b16d5aead8a1e059fee9ce775b1761be9be5bdc2501 and then indexed at: 0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb
+
+  The toplevel index does appear on Bitfossil: http://bitfossil.org/0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb/index.htm but the audio is not there as it was for Spock below, maybe a bug on upload/Bitfossil?
+* `Spock_Live_Long_And_Prosper.mp3`: http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
+
+  At blk00227.txt tx 855655f2ab14ba6683d8d179a98792532607e68525bf8a254e7615be1755bb51 indexed at a467eb78c5d5c5d3ce0e6dc5ad3b2532dd8b4e916ad762897d43c71ba868308c indexed at 1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c.
+
+Large text/data:
+* blk00098.txt: pi to 1000+ decimal digits: http://bitfossil.org/70fd289901bae0409f27237506c330588d917716944c6359a8711b0ad6b4ce76/index.htm
+* blk00191.txt tx daa050bf8ac22752e40412c9265b4533f68ab8e6ed26d2db1eeee6710e7d9e4b http://bitfossil.org/daa050bf8ac22752e40412c9265b4533f68ab8e6ed26d2db1eeee6710e7d9e4b/index.htm[] Unrendered HTML of:
+  * https://www.cartalk.com/content/tom-and-rays-bios-photos-2
+  * https://www.cartalk.com/content/rant-and-rave-36 "The New Theory of Learning" which agrees perfectly with \x[backward-design]
+  Likely an obituary for: https://en.wikipedia.org/wiki/Tom_and_Ray_Magliozzi
+* blk00215.txt: http://bitfossil.org/c6d2e535cd2ba4659e954a61198c66fd98c60f6475cf8ff92a404f3fe3a16c4b/index.htm Arecibo message. The parallels with crypto graffiti are striking. Besides the SVG, when properly cut at the newlines, the 1's and 0's shown in that page also draw the message as ASCII art!
+* http://bitfossil.org/b4b8fe752a258f95b191b8c5426319ee0e8d41d5db53ea2ae18beed141cbb9bd/index.htm "In loving memory of Loraine Elizabeth White", EMBII's mum :-(
+
+= Nelson-Mandela.jpg
+{parent=atomsea-embii}
+
+http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/
+
+blk00099.txt tx 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba contains a copy of part of his wiki page ending in an image:
+``
+There is nothing like returning to a place
+ that remains unchanged to find the ways in
+ which you yourself have altered.lson Mandela
+
+
+Nelson Rolihlahla Mandela was a South African anti-apartheid revolutionary, politician and philanthropist who served as President of South Africa from 1994 to 1999. -Wikipedia
+
+Born: July 18, 1918, Mvezo, South Africa
+Died: December 5, 2013Nelson-Mandela.jpg?14400/d-jpeg v1.0 (using IJG JPEG v80), quality = 40
+``
+
+By inspecting the transaction, we see that the initial text is cut up because it starts in the middle of a script with line:
+``
+00000000  22 33 39 36 5c e2 80 9c  54 68 65 72 65 20 69 73  |"396\...There is|
+00000010  20 6e 6f 74 68 69 6e 67  20 6c 69 6b 65 20 72 65  | nothing like re|
+00000020  74 75 72 6e 69 6e 67 20  74 6f 20 61 20 70 6c 61  |turning to a pla|
+``
+
+The hash number is the first of an index at tx 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e:
+``
+8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba|396*8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba
+575061146335bd57f2dc132112152d0eeea44cf187ea6a52ac02435a7e5bea44
+674c7cc34ea44bb276c6caf76f2b28fa1597380ab6e6a6906076d8f7229ca5b3
+8e2642416ad20924b43f51a633fa1c0a5ba8e4a7b631877db1c64540a42081c9
+a3084018096b92af04df57b6116e01ff4b7c7e8bd228235ed49e23f4a2817029
+39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091
+tomSea & EMBII
+``
+The `A` is really missing from `AtomSea`, it shows up as `AtomSea` almost in all other greps.
+
+Therefore, the rest of the transactions presumably contain the rest of the image!
+
+The bytes for the first one are:
+``
+         "n":21,
+         "script":"76a914334e656c736f6e2d4d616e64656c612e6a70673f88ac"
+``
+which is
+``
+
+00000000  76 a9 14 33 4e 65 6c 73  6f 6e 2d 4d 61 6e 64 65  |v..3Nelson-Mande|
+00000010  6c 61 2e 6a 70 67 3f 88  ac                       |la.jpg?..|
+00000019
+``
+
+And then the next one:
+``
+"n":22,
+"script":"76a91431343430302fffd8ffe000104a4649460001010088ac"
+``
+which is:
+``
+00000000  76 a9 14 31 34 34 30 30  2f ff d8 ff e0 00 10 4a  |v..14400/......J|
+00000010  46 49 46 00 01 01 00 88  ac                       |FIF......|
+``
+so unlike in \x[iloveyoumore-jpg], we do have the raw JPEG header data here starting with `ffd8`!
+
+And there is a possible footer `ffd9` in the last file of the list 39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091!
+
+However, when I put everything together, cutting around delimiters, it gives only the top half of the head! My data is 14960, not 14400. So there must be 460 bytes of metadata in some of the blocks, possibly error checking.
+
+The actual data starting at `ffd8` and cutting off header/tails (20 bytes per transaction):
+``
+ffd8ffe000104a46494600010100
+000100010000fffe003b43524541544f523a2067
+642d6a7065672076312e3020287573696e672049
+4a47204a50454720763830292c207175616c6974
+79203d2034300affdb004300140e0f120f0d1412
+1012171514181e32211e1c1c1e3d2c2e24324940
+4c4b47404645505a736250556d5645466488656d
+777b8182814e608d978c7d96737e817cffdb0043
+011517171e1a1e3b21213b7c5346537c7c7c7c7c
+7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c
+``
+
+The above bytes are not contained at all in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014][Ken's uploaded image].
+
+On a related note, tx f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64 in blk00098.txt contains a speech from Mandela starting with:
+``
+/1442:Nelson Mandela (1918-2013)
+
+"I am fundamentally an optimist ...
+``
+followed by lots of text.
+
+That transaction is also part of an index in the same file:
+``
+tx 9e2928e02e77ceffc217a6df1fc992be128f2188e691986cbb0df8a4207a492f
+7fad2fc0-2f51-44a0-9358-886262426359>462<f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64
+27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8
+8ff79814c99b0e35ceeca86f22a7f41e94c7287ed4f4fc2cd5c747bd2c31cc8d
+3
+``
+The middle hash 27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8 does not name any existing transaction however (it is one byte too long).
+
+= ILoveYouMore.jpg
+{parent=atomsea-embii}
+
+http://bitfossil.com/affbac1bfde690c1fabd60812d046c911b2882038a42b18a4d2e7cb50e989604/index.htm
+
+https://blockchain.info/tx/11d09fa24ce628ac8b4e236350bd985fe64c216cfa2aa751e96a56c9d8dd4a18?format=json[].
+
+Earlier nearby tx 365961499d15d9a0bec00bbc889c031e891bbf689a19c7ba4c99ec943cc04bf2 gives further hints to identities:
+``
+My Dearest Chiharu....I Love you more.
+
+<3 EricILoveYo
+``
+
+http://bitfossil.org/94ba41330b7bfb1e6528497e3b1dd21018c63a7f163e0bc9281c21cc1071462e/index.htm gives the full identity with picture basically:
+\Q[The Sato Family Arrives from Japan! Taken Aug 2. 2014 in Minneapolis MN. (Keiko, Chiharu, Hideaki, Katsuhiko)]
+so Chiharu Sato
+
+More Chiharu at: http://bitfossil.org/966e090d19172b6a6f988b1f1d32141492349279cedd2a436d7a2143c67d7af4/index.htm "#Chiharu #embii & the #AtomSea #Fargo #ND", so their location is: https://en.wikipedia.org/wiki/Fargo,_North_Dakota
+
+Fuller initial text of the image is: `ILoveYouMore.jpg:396*365961499d15d9a0bec...`.
+
+So presumably 396 is the size in bytes.
+
+The string `ILoveYouMore` is part of the first output script:
+``
+00000000  76 a9 14 49 4c 6f 76 65  59 6f 75 4d 6f 72 65 2e  |v..ILoveYouMore.|
+00000010  6a 70 67 3a 33 39 36 88  ac                       |jpg:396..|
+00000019
+``
+
+The next one is:
+``
+00000000  76 a9 14 2a 33 36 35 39  36 31 34 39 39 64 31 35  |v..*365961499d15|
+00000010  64 39 61 30 62 65 63 88  ac                       |d9a0bec..|
+00000019
+``
+so we understand that the `76 a9 14` prefix and  `88 ac` suffixes are just trash mandated by the script format.
+
+The lines that follow all encode a lot of printable ASCII characters, all of which that can represnt hex numbers, with a few carriage return (why, oh why) + newline pairs interspersed, which we can expand as:
+``
+LoveYouMore.jpg:396*
+365961499d15d9a0bec00bbc889c031e891bbf689a19c7ba4c99ec943cc04bf2
+22b1e607887ad95874c4638df037c725175bef221204dceae81c7d27ef558975
+9356fdfa903125332f944a97a905315c254fc883d88f4cec946e39902c373303
+2a5c716debd84fc5477e4acd173c577330d4f6185a760c74c5ddc4ff967141d6
+3c632fecec295bf5bfd27c892106188e82f6081156dc849a625592bcbb797ad6
+d5c9966b863c54e6b45437c71726dc8d181e78480b5fa321ed9945fd5527a950
+``
+This adds up to exactly 6 * (64 + 2) = 396 ASCII characters after the `*`, but it does not contain the JPG header...
+
+These are finally followed by `II\0` end of the last script:
+``
+00000000  76 a9 14 64 39 39 34 35  66 64 35 35 32 37 61 39  |v..d9945fd5527a9|
+00000010  35 30 0d 0a 49 49 00 88  ac                       |50..II...|
+00000019
+``
+
+OK... desperation, let's see https://stackoverflow.com/questions/2253404/what-is-the-smallest-valid-jpeg-file-size-in-bytes to try and guess the missing data, but I couldn't find a way easily.
+
+From \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014], we see the expected correct data supposing he didn't re-encode:
+``
+00000000  ff d8 ff e0 00 10 4a 46  49 46 00 01 01 00 00 01  |......JFIF......|
+00000010  00 01 00 00 ff e1 00 7e  45 78 69 66 00 00 49 49  |.......~Exif..II|
+00000020
+``
+and total size 10472 (160x160 image). So some extra template data must have been added.
+
+The sequence found above in the blockchain is not contained at all in Ken's file.
+
+= ASCII art
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+There are a few dozen \x[ascii-art]{p} in the blockchain.
+
+TODO decode ASCII arts we were unable to decode:
+* blk01280.txt tx 4531a323b32ca9274018f39b54e4a7936e23f6f5e7500692e5973c6ea6253e70
+
+Decoded:
+* blk00180.txt tx 09a5d5aaecdce1757e6ec713cc8a2201abca9acdb6fbadc7760e831cdad3d680 huge high resolution image of two men with the bitcoin logo on the background, followed by "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9w". TODO who do they represent?
+* blk00183 "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC" portrait of a young man
+* blk00208.txt tx 57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe "MERRY CHRISTMAS!" father Christmas with gift bag
+* blk00253.txt tx 00d8871c1b3fb85912616bb2602b5a9869a345d9fa092f8454614c6158c83d10 "Muy feliz cumple Manu! ---- The Fantastic Four Gang :-D" followed by Manu's face in medium resolution
+* blk00303.txt tx 0fc0c50e410b62ee3a316135711116db6b4e728841c976f29ab85e2a41e0dcc3 "if you like it, leave a tip: 1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz". Large portrait of a man in his 50's. Who is it?
+* blk00316.txt tx 467c075ee6edaa60f184d0683655f1f6d267efd98061872f167ef7ca9ca7c50f `!`/`R` pattern
+* blk00349.txt tx 1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7 "Viva la Revolucion! Happy Birthday Santi! Manu, Santi, Demi, Esteban" starts a long chain of contiguous transactions with two peopled raw in low resolution. How did they manage to keep it contiguous?
+* blk00351.txt tx ddc39a3da0ee6f0651bdf0be7119b4db2612b19416e9128091b1f29cdfe2aa0d "I Love You Forever". Large busts of a man and a woman looking forward.
+* blk00502.txt tx f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f "vaardig regulerend de orde van de dag", really nice candles!
+* blk00528.txt tx 90b663f380ed043a0c35aaeed5405b260545df991fed4bfff3d1386ecb256ce1 a man and a woman hugging looking forward, signed B&E April 9, Image repeated at: tx 47fafaa96c24d3f204658fb4bec34ab6f18df138084e04535ea60cce8c4e4857 without signature.
+* blk00569.txt tx 06d2528cfabf360c7a8f925d84207d47612cd0ac1ad2efd8aea9758263d9738b "Dr. Bill Maurer Economic anthropologist" join every 5 lines, shows a man with a surfboard
+* blk00223.txt tx 69708943906eb32a320a5a450fed450b0f14b4e475a98bc74615962b68a0bc83 "All Glory to he HYPNO TOAD" signed "SSt", has an ASCII art of: https://knowyourmeme.com/memes/hypnotoad The same art can be seen for example at: http://www.gotfuturama.com/Multimedia/AsciiArt/HypnoSebastian.shtml
+* blk01752.txt tx 0c9a25ef26a2cbcea1ee7bf34c43af803e83b15f83992cbdba55a78c72aa0782 has a squirrel:
+  ```
+  ,;;;,
+  ,:;:;    ,'=.
+  ;::;' .=" ,'_\
+  '::;,/  ,__:=@
+    ';:;  =./)
+          ``'"`
+  ```
+* tx 89248ecadd51ada613cf8bdf46c174c57842e51de4f99f4bbd8b8b34d3cb7792 has a sitting Buddha between two Ying Yang symbols:
+  ``
+            69696969                         69696969
+         6969    696969                   696969    6969
+       969    69  6969696               6969  6969     696
+      969        696969696             696969696969     696
+     969        69696969696           6969696969696      696
+     696      9696969696969           969696969696       969
+      696     696969696969             969696969        969
+       696     696  96969      _=_      9696969  69    696
+         9696    969696      q(-_-)p      696969    6969
+            96969696         '_) (_`         69696969
+               96            /__/  \            69
+               69          _(<_   / )_          96
+              6969        (__\_\_|_/__)        9696
+  ``
+* Batman symbols:
+  * tx a55e7587bb34a56ae1113b0848506ea2fcf0c0e1af8c241e76677eb2bcb727eb
+  * tx 959a19729ca02b1e06e600a331d7f4603669a7eaaa20b5cfb9f3528e3005a8f2
+
+    This on includes lyrics "Denk niet wit, denk niet zwart." of a song by Dutch artist Zwart wit.
+* tx 43b0bb63fc50ad1edbb17486dc44825e4dd642a952c699cc13958e010ba3d8a5 has a star of David:
+  ``
+             /\
+            /  \
+           / /\ \
+  ________/ /__\_\________
+  \  ____/ /___________  /
+   \ \  / /      \ \  / /
+    \ \/ /        \ \/ /
+     \ \/          \ \/
+     /\ \          /\ \
+    / /\ \        / /\ \
+   / /__\_\______/ /__\ \
+  /_____________/ /______\
+          \ \  / /
+           \ \/ /
+            \  /
+             \/
+
+      HELLO FROM ZOG
+  ``
+
+Transaction inputs with ASCII art:
+* tx 75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4 two faces
+* tx 9caaa9f8d0e170bf6d73a722e9bb2e7e0d37577476d485bd3eeac09866f26345 a large A letter. Has some custom encoding, so possibly for download with \x[peter-todd-s-data-upload-scripts]
+* tx 2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966 face of a woman with short hair
+
+\x[ascii-porn], all of them also reproduced at: https://asciiart.website/index.php?art=people/naked%20ladies[]:
+* blk00124.txt tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f naked woman sitting looking forward with legs open showing vagina.
+
+  Vagina row as an identifier:
+  ``
+  .     `.    .\x./-`--...../'   ;   :
+  ``
+
+  A bit bellow tx 8367a48e4a863e37b3749bc9c111327b07a7c383ec9b3e7ce8d41949e71e1c10 has a large hand showing the middle finger
+* blk00179.txt tx 0aab36554c2ac5ec23747e7f21f75dbe3f16739134cf44953ad7ac98927146d6 naked woman laying on her side showing her vagina from under her legs, signed `fsc`. TODO full author name?
+
+= Len Sassaman tribute
+{parent=ascii-art}
+
+https://bitcoinstrings.com/blk00003.txt[blk00003.txt]
+
+https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72?format=json
+
+https://bitcoin.stackexchange.com/questions/3370/in-which-block-was-len-sassaman-memorialised/101276#101276
+
+https://en.wikipedia.org/wiki/Len_Sassaman[`LEN "rabbi" SASSAMA`] tribute starting with \x[ascii-art]:
+``
+---BEGIN TRIBUTE---
+#./BitLen
+:::::::::::::::::::
+:::::::.::.::.:.:::
+:.: :.' ' ' ' ' : :
+:.:'' ,,xiW,"4x, ''
+:  ,dWWWXXXXi,4WX,
+' dWWWXXX7"     `X,
+ lWWWXX7   __   _ X
+:WWWXX7 ,xXX7' "^^X
+lWWWX7, _.+,, _.+.,
+:WWW7,. `^"-" ,^-'
+ WW",X:        X,
+ "7^^Xl.    _(_x7'
+ l ( :X:       __ _
+ `. " XX  ,xxWWWWX7
+  )X- "" 4X" .___.
+,W X     :Xi  _,,_
+WW X      4XiyXWWXd
+"" ,,      4XWWWWXX
+, R7X,       "^447^
+R, "4RXk,      _, ,
+TWk  "4RXXi,   X',x
+lTWk,  "4RRR7' 4 XH
+:lWWWk,  ^"     `4
+::TTXWWi,_  Xll :..
+=-=-=-=-=-=-=-=-=-=
+``
+
+From the JSON transaction we understand the encoding format:
+``
+   "out":[
+      {
+         "spent":false,
+         "tx_index":0,
+         "type":0,
+         "addr":"1CqKQ2EqUscMkeYRFMmgepNGtfKynXzKW7",
+         "value":1000000,
+         "n":0,
+         "script":"76a91481ccb4ee682bc1da3bda70176b7ccc616a6ba9da88ac"
+      },
+      {
+         "spent":false,
+         "tx_index":0,
+         "type":0,
+         "addr":"157sXa7duStAvq3dPLWe7J449sgh47eHzw",
+         "value":1000000,
+         "n":1,
+         "script":"76a9142d2d2d424547494e20545249425554452d2d2d2088ac"
+      },
+...
+      {
+         "spent":false,
+         "tx_index":0,
+         "type":0,
+         "addr":"157sXYpjvAyEJ6TdVFaVzmoETAQnHB6FGU",
+         "value":1000000,
+         "n":77,
+         "script":"76a9142d2d2d2d454e4420545249425554452d2d2d2d2088ac"
+      }
+``
+So it is really encoded one line at a time in the `script` of the transaction outputs.
+
+Because it comes so early in the blockchain, and because the ASCII art is so well done, this is by far the most visible ASCII art of the blockchain.
+
+Before it, there is only two other non-remarkable tests/ASCII art in blk00001.txt:
+``
+tx 9173744691ac25f3cd94f35d4fc0e0a2b9d1ab17b4fe562acc07660552f95518
+o>z+o>z+o>z+o
+>z+o>
+z+o>z+o>z+o>z+o>z+o>
+z+o>z+o>z+o>z+o>z+o>
+z+o>z+o>z+o>z+o>z+o>
+z+o>z+o>z+o>z+o>z+o>
+z+o>z+o>z+o>z+o>z+o>
+z+o>z+o>z+o>z+o>z+o>
+776 crc32=a7ac8449
+
+tx ceb1a7fb57ef8b75ac59b56dd859d5cb3ab5c31168aa55eb3819cd5ddbd3d806
+=ybegin line=128 siz
+e=8776 name=bitcoin.
+***2*.+D*/***+***h+E
+*/***+***p+R*-***+*,
+**+[*,***;***x******
+0010/211133246>76556
+C<=}9>GDIHGDFFJNXQJL
+VMFFRaSVZ[^^^IQcgb\f
+KFK\\\\\\\\\\\\\\\\\
+\\\\\\\\\\\\\\\\\\\\
++/++++++********+,-.
++*-
++++++++++******
+DPQRST_`abcdmnopqrst
+*>{o*>{o*>{o*>{o*>{o
+``
+
+Maybe one of those were tests in preparation for the tribute. Imagine if there was a bug in the tribute, right!
+
+= Marijuana plant
+{parent=ascii-art}
+
+blk00191.txt, the art starts at tx 6650107a4e4e4838ba1081ce87862c38dcb4181b8d34fc0405b099213ba76033 and goes one line per transaction using the \x[j-system]:
+
+``
+j(-> 1EGa1izEFDHzEobDDQny73re9BwXdzhZvH <-
+j(                 ,
+j(                dM
+j(                MMr
+j(               4MMML                  .
+j(               MMMMM.                xf
+j(              "M6MMM               .MM-
+j( h..          +MM5MMM            .MMMM
+j( .MM.         .MMMMML.          MMMMMh
+j( )MMMh.        MM5MMM         MMMMMMM
+j(  3MMMMx.     'MMM3MMf      xnMMMMMM"
+j(  '*MMMMM      MMMMMM.     nMMMMMMP"
+j(    *MMMMMx    "MMM5M\    .MMMMMMM=
+j(     *MMMMMh   "MMMMM"   JMMMMMMP
+j(       MMMMMM   GMMMM.  dMMMMMM
+j(        MMMMMM  "MMMM  .MMMMM(        .n
+j(         *MMMMx  MMM"  dMMMM"    .nnMMMM
+j(Mn...     'MMMMr 'MM   MMM"   .nMMMMMMM*
+j(4MMMMnn..   *MMM  MM  MMP"  .dMMMMMMM""
+j( ^MMMMMMMMx.  *ML "M .M*  .MMMMMM**"
+j(    *PMMMMMMhn. *x > M  .MMMM**""
+j(       ""**MMMMhx/.h/ .=*"
+j(                .3P"%....
+j(              nP"     "*MMnx
+``
+
+The transaction before the ASCII art tx 9b08c00ced2bca4525d74e82db9af2aec8ef213eb1c1bf68a48b6be929968332 starts with what is likely a "Legalize" and must be a \x[tor-onion-service]:
+``
+j(-> 1EGa1izEFDHzEobDDQny73re9BwXdzhZvH <-
+``
+but that address as is + `.onion` is invalid, TODO find the correct one.
+
+Other plants can be found contained entirely in single transactions:
+
+* b338cdddb20a7ffe5114a2eec7bef736720ab5eeeb4a723e66ef623f42949ccb
+* fc4981261701d06610394c4200a9cbf03f890ac928db58938bed8d7ba7eaccf3
+* 55623bf694f6dfbda4db2ea7a940ffd80c49eee3430e44a57fdfecd4e9381f72
+
+= Force of Will
+{c}
+{parent=ascii-art}
+
+https://blockchain.info/tx/9a74d0ee2e9a925d9afadc413e087fa2effda031935bf19a0d4d48df76e4ce3f?format=json
+
+https://bitcoinstrings.com/blk00202.txt[blk00202.txt]
+
+\x[ascii-art] of a https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=413591[Force of Will], a famous \x[magic-the-gathering] card.
+
+If we add `-w` to `string -w` however, we see that the lines follow.
+
+TODO understand exactly how it was encoded and why it is so weird.
+
+The `UUUU` has a slightly weird encoding which we fixed by hand here TODO understand.
+``
+ -------------------------------------
+|  Force of Will               3 U U  |
+|  ---------------------------------  |
+| |                  ////////////   | |
+| |                ////() ()\////\  | |
+| |               ///_\ (--) \///\  | |
+| |        )      ////  \_____///\\ | |
+| |       ) \      /   /   /    /   | |
+| |    ) /   \     |   |  /   _/    | |
+| |   ) \  (  (   /   / /   / \     | |
+| |  / ) ( )  / (    )/(    )  \    | |
+| |  \(_)/(_)/  /UUUU \  \\\/   |   | |
+| .---------------------------------. |
+| Interrupt                           |
+| ,---------------------------------, |
+| | You may pay 1 life and remove a | |
+| | blue card in your hand from the | |
+| | game instead of paying Force of | |
+| | Will's casting cost.  Effects   | |
+| | that prevent or redirect damage | |
+| | cannot be used to counter this  | |
+| | loss of life.                   | |
+| | Counter target spell.           | |
+| `---------------------------------` |
+|                                     l
+| Illus.  Terese Nelsen               |
+ -------------------------------------
+``
+
+= `j(` system
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+This is likely a system that uploads text to the blockchain. Messages are uploaded one line per transaction, and thus may be cut up on the blk.txt
+
+But because each line starts with `j(` you can generally piece things up regardless.
+
+TODO identify. The first occurrence seems to be in blk00156.txt tx e8c61e29c6b829e289f8d0fc95f9eb2eb00c89c85cfa3a9c700b15805451ae6a:
+``
+j(DOCPROOF@?pnvf=!;AG
+``
+
+= Protests against larger block sizes
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+https://en.bitcoin.it/wiki/Block_size_limit_controversy
+
+Protesters were posting large chunks of text multiple times into the blockchain as a way to protest against the controversial increase of block size.
+
+blk00265.txt tx 08893442680a20c4d0548dec2c8c421fa43336528b4e274dbf2652774f9c9f2d has the first copy of:
+\Q[I like big blocks and I can not lie]
+which is the first line of a parody on:
+\Q[I like big butts and I cannot lie]
+from the https://en.wikipedia.org/wiki/Baby_Got_Back[Baby Got Back] hip-hop song.
+
+blk00264.txt tx 52159222289cd0a5afe0644150d0e23d5d272a57365627d5e869fdb458289858 has the first copy of:
+\Q[Time to roll out bigger blocks]
+which is likely a copy of an email from the bitcoin development mailing list. This message is repeated dozens of times in other transactions.
+
+= 503: Bitcoin over capacity
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+From blk00460.txt starting tx a87d406fae047258a12923b3c11a797a5765bd8f868df5c7e9b1cead0e92c9c1 up to blk00462.txt, the message:
+``
+503: Bitcoin over capacity!
+``
+appears about 13 thousand times. WTF happened?
+
+= Miner signatures
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+= HHTT
+{parent=miner-signatures}
+
+Horrible Horrendous Terrible Tremendous Mining Pool: http://hhtt.1209k.com/
+
+Pool that shut down in 2014: http://organofcorti.blogspot.com/2014/01/17-goodbye-hhtt-coinbase-will-never-be.html
+
+Has some cute one liner messages starting blk00022.txt.
+
+= Bibliography
+{parent=cool-stuff-found-in-the-bitcoin-blockchain}
+
+= Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)
+{c}
+{parent=bibliography}
+
+http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html
+
+= Genesis block
+{c}
+{parent=bitcoin}
+{wiki}
+
+https://blockchain.info/block-height/0?format=json
+
+https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
+
+= Genesis block message
+{c}
+{parent=genesis-block}
+{wiki}
+
+https://blockchain.info/block-height/0?format=json
+
+From that page we manually extract the hash `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f` and then:
+``
+wget -O 0.hex https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f?format=hex
+xxd -p -r 0.hex
+``
+and that does contain the famous genesis block string:
+``
+EThe Times 03/Jan/2009 Chancellor on brink of second bailout for banks
+``
+The JSON clarifies that the data is encoded in the `script` field of the transaction `input`:
+``
+{
+      {
+         "script":"04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
+``
+
+The extra `E` (0x45 in \x[ascii]) in `EThe Times` is just extra noise required by the script, we can break things up as:
+``
+04ffff001d0104 45 5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73
+``
+where:
+* `54` is `T`
+* the `04ffff001d0104` part just doesn't show up on the terminal because it is not made of any printable characters.
+
+The initial `04` is `OP_RETURN`
+
+TODO what is actual the meaning of the `ffff001d010445` part?
+
+TODO the `output` of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.
+
+The message proves a minimal starting date for the first mine.
+
+And it hints that one of Bitcoin's motivation was the \x[financial-crisis-of-2007-2008], where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place.
+
+= Monero
+{c}
+{parent=cryptocurrency}
+{wiki}
+
+Cryptocurrency with focus on anonymity. https://localmonero.co/knowledge/monero-stealth-addresses?language=en gives an overview:
+
+* ring signatures, which hide the true output (sender)
+
+https://localmonero.co/knowledge/ring-signatures
+* ring signatures which hides the sender.
+
+  https://localmonero.co/knowledge/ring-signatures Gives an overview. Mentions that it is prone to heuristic attacks.
+
+  Uses a system of decoys, that adds 10 fake possible previous outputs as inputs, in addition to the actual input.
+
+  So the network only knows/verifies that one of those 11 previous outputs was used, but it does not know which one.
+
+  It's a bit like having a built-in \x[cryptocurrency-tumbler] in every transaction.
+
+  TODO so how do you know which previous outputs were spent or not?
+* RingCT which hides the amounts.
+* stealth addresses, which hides who you send to
+
+  This forces receivers to scan try and unlock every single transaction in the chain to see if it is theirs or not.
+
+  The sender therefore can know when the money is spent, but once again, not to whom it is being sent.
+
+= Cryptocurrency exchange
+{parent=cryptocurrency}
+{wiki}
+
+= Mt. Gox
+{c}
+{parent=cryptocurrency-exchange}
+{wiki}
+
+= Cryptocurrency tumbler
+{parent=cryptocurrency}
+{wiki}
+
+= Dollar
+{parent=money}
+{title2=\$}
+{wiki}
+
 = Prize
 {parent=social-technology}
 {wiki}
@@ -18358,15 +18376,6 @@ Days of the week where you don't do what you set out to do. And yet, it is in th
 \Image[https://web.archive.org/web/20200718073243if_/https://pbs.twimg.com/media/DWObYfMU0AAgJJP?format=jpg&name=small]
 {title=Calvin and Hobbes "Oh No! I overslept! I gotta get up!" cartoon.}
 {source=https://twitter.com/calvinn_hobbes/status/964785603467395072}
-
-= Management
-{parent=social-technology}
-{wiki}
-
-\Video[https://www.youtube.com/watch?v=GsN0WVLjpcs]
-{title="DealBook Conference 2015 - Activist Investing" published by New York Times Events on 2015-11-03.}
-{description=At this timestamp, Carl Icahn tells an anecdote of how he found that an entire 12-floor building of the https://en.wikipedia.org/wiki/American_Car_and_Foundry_Company[American Car and Foundry Company] which he had recently bought was not doing anything useful, and fired the entire building.}
-{start=377}
 
 = Telecommunication
 {parent=technology}
