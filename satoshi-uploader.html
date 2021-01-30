@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Satoshi uploader</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
+<style>@import "cirodown.min.css";
+
+</style>
+<link rel="stylesheet" type="text/css" href="main.css">
+<body>
+<header>
+<a href="/">Ciro Santilli</a>
+<a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
+<a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
+<a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
+<a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+</header>
+<main class="cirodown">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="satoshi-uploader"><a href="" title="link to this element">Satoshi uploader</a><span>  | <a title="view all headers in a single page" href=".#satoshi-uploader">🗖 nosplit</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a></span></h1>
+<div class="h-nav"><span class="nav"> <a title="view all headers in a single page" href=".#satoshi-uploader">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a></span></div>
+</div><div><span class="hide-hover"><a href="index-split#p-3067">🔗</a></span><div class="p" id="p-3067">These scripts were notably, this uploaded was used for: <a href="cool-data-embedded-in-the-bitcoin-blockchain/illegal-content-of-block-229k" title="internal link">illegal content of block 229k</a>. It is not clear if the script managed to maintain its popularity much after this initial surge.</div></div><div><span class="hide-hover"><a href="index-split#p-3068">🔗</a></span><div class="p" id="p-3068">They are <a href="python-programming-language" title="internal link">Python</a> programs stored in the blockchain itself, made to upload and download arbitrary data into the blockchain via RPC.</div></div><div><span class="hide-hover"><a href="index-split#p-3069">🔗</a></span><div class="p" id="p-3069">A more convenient version of those scripts that can download directly from <a href="blockchain-info" title="internal link">blockchain.info</a> without the need for a full node can be found at: <a href="https://github.com/cirosantilli/bitcoin-strings-with-txid/master/download_tx_consts.py">https://github.com/cirosantilli/bitcoin-strings-with-txid/master/download_tx_consts.py</a> by using the <code>--satoshi</code> option. E.g. with it you can download the uploader script with:
+<div class="code-caption-container" id="code-30">
+<pre><code>./download_tx_consts.py --satoshi 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17
+mv 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17.bin uploader.py
+</code></pre></div></div></div><div><span class="hide-hover"><a href="index-split#p-3070">🔗</a></span><div class="p" id="p-3070">The scripts from the blockchain are:<div><ul id="ul-560">
+<li id="l-1521"><div class="p" id="p-3071">uploader: tx 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17 block 229991 reproduced at: <a href="https://gist.github.com/cirosantilli/7e9af25f4f742b97074c10b9c5816f3d">https://gist.github.com/cirosantilli/7e9af25f4f742b97074c10b9c5816f3d</a></div><div class="p" id="p-3072">The uploader <a href="https://gist.github.com/zeroed/325bb539bd72dabccbe97cfd5228cdf5#file-bitcoininsertiontool-py-L161">creates a standard Pay-to-PubkeyHash transaction</a> with a single output and data as a fake pubkey hash, and sends change to an address specified on the command line:</div><div class="code-caption-container" id="code-31">
+<pre><code>./bitcoinInsertionTool.py &lt;data&gt; &lt;change-addr&gt;
+</code></pre></div></li>
+<li id="l-1522"><div class="p" id="p-3073">downloader: tx 6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc block 229991 reproduced at <a href="https://gist.github.com/cirosantilli/e90bd2e6c3fab25a20898e61e3ab3e90">https://gist.github.com/cirosantilli/e90bd2e6c3fab25a20898e61e3ab3e90</a></div><div class="p" id="p-3074">The downloader just <a href="https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py-L32">strips all operands</a>, and keeps all data, notably where public key hashes would be normally put.</div></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="index-split#p-3075">🔗</a></span><div class="p" id="p-3075">The format expected by those scripts is as follows:<div><ul id="ul-561">
+<li id="l-1523">ignore all script operands and constants less than 20 bytes (40 hex characters). And there are a lot of small operands, e.g. the uploader itself uses format <a href="https://www.blockchain.com/btc/tx/4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17">https://www.blockchain.com/btc/tx/4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17</a> has a <code>OP_1</code>, data, <code>OP_3</code>, <code>OP_CHECKMULTISIG</code> pattern on every output script, so the <code>OP_1</code> and <code>OP_3</code> are ignored</li>
+<li id="l-1524">ignore the last output, which contains a real change transaction instead of arbitrary data. TODO why not just do what with the length instead?</li>
+<li id="l-1525">the first 4 bytes are the payload length, the next 4 bytes a crc32 signature. The payload length is in particular useful because of possible granularity of transactions
+</li>
+</ul></div>This means that if we want to index certain file types encoded in this format, a good heuristic is to skip the first 9 bytes (4 size, 4 CRC, 1 <code>OP_1</code>) and look for file signatures.</div></div><div><span class="hide-hover"><a href="index-split#p-3076">🔗</a></span><div class="p" id="p-3076">Let's try out the downloader to download itself. First you have to be running a <a href="bitcoin-core" title="internal link">Bitcoin Core</a> server locally. Then, supposing <code>.bitcon/bitoin.conf</code> containing:
+<div class="code-caption-container" id="code-32">
+<pre><code>rpcuser=asdf
+rpcpassword=qwer
+server=1
+txindex=1
+</code></pre></div>
+we run:
+<div class="code-caption-container" id="code-33">
+<pre><code>git clone git://github.com/jgarzik/python-bitcoinrpc.git
+git -C python-bitcoinrpc checkout cdf43b41f982b4f811cd4ebfbc787ab2abf5c94a
+wget https://gist.githubusercontent.com/shirriff/64f48fa09a61b56ffcf9/raw/ad1d2e041edc0fb7ef23402e64eeb92c045b5ef7/bitcoin-file-downloader.py
+pip install python-bitcoinrpc==1.0
+BTCRPCURL=http://asdf:qwer@127.0.0.1:8332 \
+  PYTHONPATH="$(pwd)/python-bitcoinrpc:$PYTHONPATH" \
+  python3 bitcoin-file-downloader.py \
+  6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc
+</code></pre></div>
+worked! The source of the downloader script is visible! Note that we had to wait for the sync of the entire blockchain to be fully finished for some reason for that to work.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="toc">
+<ul>
+<li class="has-child toplevel"><div class="title-div"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a class="title" href="#toc">Table of contents</a>  <span class="descendant-count" title="number of descendant headers">[1]</span></div>
+<ul>
+<li><div id="toc-peter-todd-s-data-upload-scripts"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a href="peter-todd-s-data-upload-scripts">1. Peter Todd's data upload scripts</a><span class="hover-metadata"> | <a href="#toc-peter-todd-s-data-upload-scripts" title="link to this ToC entry">🔗 link</a> | <a title="view all headers in a single page" href=".#peter-todd-s-data-upload-scripts">🗖 nosplit</a> | <a href="#toc" title="parent ToC entry">↑ parent "Satoshi uploader"</a></span></div></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</main>
+<footer>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
+<div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/189d038bc242fe9c2db1775b51b81c7971947ca4">189d038bc242fe9c2db1775b51b81c7971947ca4</a></div>
+<div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
+</footer>
+<script>
+<!-- Google Analytics, AKA selling my soul to Google for some backlinks. -->
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47867706-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script src="cirodown.runtime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
