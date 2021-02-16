@@ -87,7 +87,7 @@ With the experimental limitations of experiment however, we would only be able t
 
 \x[illumina] equipment is currently cheaper per base pair and dominates the \x[human-genome] sequencing market, but it requires a much higher initial investment for the equipment
 
-The reusable Nanopore device costs just https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/[about 500 dollars], and https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html[about 500 dollars (50 unit volume)] for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 https://en.wikipedia.org/wiki/Human_genome[human genomes] 1x!
+The reusable Nanopore device costs just https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/[about 500 dollars], and https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html[about 500 dollars (50 unit volume)] for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 human genomes 1x! Note that 1x is basically useless for one of the most important of all applications of sequencing: detection of \x[single-nucleotide-polymorphism]{p}, since the error rate would be too high to base clinical decisions on.
 
 Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).
 
@@ -363,21 +363,21 @@ We reached a yield of 16 billion base pairs out of the 30Gbp nominal maximum, wh
 
 == Bioinformatics
 
-To be honest, because I'm a software engineer, and I've done enough staring in computers for a lifetime already, and I believe in the power of https://en.wikipedia.org/wiki/Git[Git], I didn't pay much attention to this ;-)
+Because Ciro's a software engineer, and he's done enough staring in computers for a lifetime already, and he believes in the power of \x[git], he didn't pay much attention to this part ;-)
 
-TODO at least mention the key algorithms and link to GitHub software.
+According to the eLife paper, the code appears to have been uploaded to: https://github.com/d-j-k/puntseq[]. TODO least mention the key algorithms used more precisely.
 
-I can however see that it does however present interesting problems!
+Ciro can however see that it does present interesting problems!
 
-Because we had to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year.
+Because it was necessary to wait for 2 days to get our data, the workshop first reused sample data from previous collections done earlier in the year.
 
-First there is some signal processing / machine learning required to do the https://en.wikipedia.org/wiki/Base_calling[base calling], which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.
+First there is some signal processing/machine learning required to do the \x[base-calling], which is not trivial in the Oxford Nanopore, since neighbouring bases can affect the signal of each other. This is mostly handled by Oxford Nanopore itself, or by hardcore programmers in the field however.
 
-After the base calling was done, we analyzed the data using computer programs that match the sequenced 16S sequences to a database of known sequenced species.
+After the base calling was done, the data was analyzed using computer programs that match the sequenced 16S sequences to a database of known sequenced species.
 
 This is of course not just a simple direct string matching problem, since like any in experiment, the DNA reads have some errors, so the program has to find the best match even though it is not exact.
 
-The PuntSeq team uploaded / will upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data will be uploaded to: https://www.puntseq.co.uk/data
+The PuntSeq team would later upload the data to well known open databases so that it will be preserved forever! When ready, a link to the data would be uploaded to: https://www.puntseq.co.uk/data
 
 == Conclusions
 
