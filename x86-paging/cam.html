@@ -11,30 +11,31 @@
 <link rel="stylesheet" type="text/css" href="../main.css">
 <body>
 <header>
-<a href="/">Ciro Santilli</a>
+<a href="../">Ciro Santilli</a>
 <a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
 <a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
 <a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="../sponsor"><i class="fab fa-patreon fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
 </header>
 <main class="cirodown">
-<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="cam"><a href="" title="link to this element">CAM</a><span>  | <a title="view all headers in a single page" href="../x86-paging#cam">🗖 nosplit</a> | <a href="tlb" title="parent header">↑ parent "TLB"</a></span></h1>
-<div class="h-nav"><span class="nav"> <a title="view all headers in a single page" href="../x86-paging#cam">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="tlb" title="parent header">↑ parent "TLB"</a></span></div>
-</div><div><span class="hide-hover"><a href="../x86-paging-split#p-165">🔗</a></span><div class="p" id="p-165">Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-166">🔗</a></span><div class="p" id="p-166">The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-167">🔗</a></span><div class="p" id="p-167">Mappings could also be implemented on RAM addresses, but CAM mappings may required much less entries than a RAM mapping.</div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-168">🔗</a></span><div class="p" id="p-168">For example, a map in which:<div><ul id="ul-28">
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="cam"><a href="" title="link to this element">CAM</a><span>  | <a title="view all headers in a single page" href="#cam">🗖 nosplit</a> | <a href="tlb#tlb" title="parent header">↑ parent "TLB"</a> | <span class="metrics"><span class="word-count" title="word count for this node">181</span></span></span></h1>
+<div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="#cam">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="tlb#tlb" title="parent header">↑ parent "TLB"</a> | <span class="metrics"><span class="word-count" title="word count for this node">181</span></span></div></div>
+</div><div><span class="hide-hover"><a href="../x86-paging#p-165">🔗</a></span><div class="p" id="p-165">Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.</div></div><div><span class="hide-hover"><a href="../x86-paging#p-166">🔗</a></span><div class="p" id="p-166">The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.</div></div><div><span class="hide-hover"><a href="../x86-paging#p-167">🔗</a></span><div class="p" id="p-167">Mappings could also be implemented on RAM addresses, but CAM mappings may required much less entries than a RAM mapping.</div></div><div><span class="hide-hover"><a href="../x86-paging#p-168">🔗</a></span><div class="p" id="p-168">For example, a map in which:<div><ul id="ul-28">
 <li id="l-78">both keys and values have 20 bits (the case of a simple paging schemes)</li>
 <li id="l-79">at most 4 values need to be stored at each time
 </li>
-</ul></div>could be stored in a TLB with 4 entries:</div></div><div><span class="hide-hover"><a href="../x86-paging-split#code-28">🔗</a></span><div class="code-caption-container" id="code-28">
+</ul></div>could be stored in a TLB with 4 entries:</div></div><div><span class="hide-hover"><a href="../x86-paging#code-28">🔗</a></span><div class="code-caption-container" id="code-28">
 <pre><code>linear  physical
 ------  --------
 00000   00001
 00001   00010
 00010   00011
 FFFFF   00000
-</code></pre></div></div><div><span class="hide-hover"><a href="../x86-paging-split#p-169">🔗</a></span><div class="p" id="p-169">However, to implement this with RAM, _it would be necessary to have 2^20 addresses_:
+</code></pre></div></div><div><span class="hide-hover"><a href="../x86-paging#p-169">🔗</a></span><div class="p" id="p-169">However, to implement this with RAM, _it would be necessary to have 2^20 addresses_:
 <div class="code-caption-container" id="code-29">
 <pre><code>linear  physical
 ------  --------
@@ -50,7 +51,7 @@ which would be even more expensive than using a TLB.</div></div><div><span class
 <div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/189d038bc242fe9c2db1775b51b81c7971947ca4">189d038bc242fe9c2db1775b51b81c7971947ca4</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/94509958fed1352bae61394ef620d51456573d42">94509958fed1352bae61394ef620d51456573d42</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>

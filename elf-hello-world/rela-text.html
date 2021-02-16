@@ -11,19 +11,20 @@
 <link rel="stylesheet" type="text/css" href="../main.css">
 <body>
 <header>
-<a href="/">Ciro Santilli</a>
+<a href="../">Ciro Santilli</a>
 <a class="font-awesome-container" href="https://stackoverflow.com/users/895245"><i class="fab fa-stack-overflow fa-fw"></i></a>
 <a class="font-awesome-container" href="https://github.com/cirosantilli"><i class="fab fa-github fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
 <a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
+<a class="font-awesome-container" href="../sponsor"><i class="fab fa-patreon fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
 </header>
 <main class="cirodown">
-<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="rela-text"><a href="" title="link to this element">.rela.text</a><span>  | <a title="view all headers in a single page" href="../elf-hello-world#rela-text">🗖 nosplit</a> | <a href="sections" title="parent header">↑ parent "Sections"</a></span></h1>
-<div class="h-nav"><span class="nav"> <a title="view all headers in a single page" href="../elf-hello-world#rela-text">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="sections" title="parent header">↑ parent "Sections"</a></span></div>
-</div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-155">🔗</a></span><div class="p" id="p-155">Section type: <code>sh_type == SHT_RELA</code>.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-156">🔗</a></span><div class="p" id="p-156">Common name: _relocation section_.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-157">🔗</a></span><div class="p" id="p-157"><code>.rela.text</code> holds relocation data which says how the address should be modified when the final executable is linked. This points to bytes of the text area that must be modified when linking happens to point to the correct memory locations.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-158">🔗</a></span><div class="p" id="p-158">Basically, it translates the object text containing the placeholder 0x0 address:
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="rela-text"><a href="" title="link to this element">.rela.text</a><span>  | <a title="view all headers in a single page" href="#rela-text">🗖 nosplit</a> | <a href="sections#sections" title="parent header">↑ parent "Sections"</a> | <span class="metrics"><span class="word-count" title="word count for this node">366</span>, <span class="descendant-count" title="number of descendant nodes">1</span>, <span class="word-count-descendant" title="word count for this node + descendants">429</span></span></span></h1>
+<div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="#rela-text">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="sections#sections" title="parent header">↑ parent "Sections"</a> | <span class="metrics"><span class="word-count" title="word count for this node">366</span>, <span class="descendant-count" title="number of descendant nodes">1</span>, <span class="word-count-descendant" title="word count for this node + descendants">429</span></span></div></div>
+</div><div><span class="hide-hover"><a href="../elf-hello-world#p-155">🔗</a></span><div class="p" id="p-155">Section type: <code>sh_type == SHT_RELA</code>.</div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-156">🔗</a></span><div class="p" id="p-156">Common name: _relocation section_.</div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-157">🔗</a></span><div class="p" id="p-157"><code>.rela.text</code> holds relocation data which says how the address should be modified when the final executable is linked. This points to bytes of the text area that must be modified when linking happens to point to the correct memory locations.</div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-158">🔗</a></span><div class="p" id="p-158">Basically, it translates the object text containing the placeholder 0x0 address:
 <div class="code-caption-container" id="code-47">
 <pre><code>   a:       48 be 00 00 00 00 00    movabs $0x0,%rsi
   11:       00 00 00
@@ -32,23 +33,23 @@ to the actual executable code containing the final 0x6000d8:
 <div class="code-caption-container" id="code-48">
 <pre><code>4000ba: 48 be d8 00 60 00 00    movabs $0x6000d8,%rsi
 4000c1: 00 00 00
-</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-159">🔗</a></span><div class="p" id="p-159">It was pointed to by <code>sh_info</code> = <code>6</code> of the <code>.symtab</code> section.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-160">🔗</a></span><div class="p" id="p-160"><code>readelf -r hello_world.o</code> outputs:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-159">🔗</a></span><div class="p" id="p-159">It was pointed to by <code>sh_info</code> = <code>6</code> of the <code>.symtab</code> section.</div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-160">🔗</a></span><div class="p" id="p-160"><code>readelf -r hello_world.o</code> outputs:
 <div class="code-caption-container" id="code-49">
 <pre><code>Relocation section '.rela.text' at offset 0x3b0 contains 1 entries:
   Offset          Info           Type           Sym. Value    Sym. Name + Addend
 00000000000c  000200000001 R_X86_64_64       0000000000000000 .data + 0
-</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-161">🔗</a></span><div class="p" id="p-161">The section does not exist in the executable.</div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-162">🔗</a></span><div class="p" id="p-162">The actual bytes are:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-161">🔗</a></span><div class="p" id="p-161">The section does not exist in the executable.</div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-162">🔗</a></span><div class="p" id="p-162">The actual bytes are:
 <div class="code-caption-container" id="code-50">
 <pre><code>00000370  0c 00 00 00 00 00 00 00  01 00 00 00 02 00 00 00  |................|
 00000380  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-163">🔗</a></span><div class="p" id="p-163">The <code>struct</code> represented is:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-163">🔗</a></span><div class="p" id="p-163">The <code>struct</code> represented is:
 <div class="code-caption-container" id="code-51">
 <pre><code>typedef struct {
     Elf64_Addr  r_offset;
     Elf64_Xword r_info;
     Elf64_Sxword    r_addend;
 } Elf64_Rela;
-</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-164">🔗</a></span><div class="p" id="p-164">So:<div><ul id="ul-31">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-164">🔗</a></span><div class="p" id="p-164">So:<div><ul id="ul-31">
 <li id="l-84">370 0: <code>r_offset</code> = 0xC: address into the <code>.text</code> whose address this relocation will modify</li>
 <li id="l-85"><div class="p" id="p-165">370 8: <code>r_info</code> = 0x200000001. Contains 2 fields:<div><ul id="ul-32">
 <li id="l-86"><code>ELF64_R_TYPE</code> = 0x1: meaning depends on the exact architecture.</li>
@@ -58,11 +59,11 @@ to the actual executable code containing the final 0x6000d8:
 <li id="l-89"><code>A</code>: the addend, present in field <code>r_added</code></li>
 </ul></div></div><div class="p" id="p-167">This address is added to the section on which the relocation operates.</div><div class="p" id="p-168">This relocation operation acts on a total 8 bytes.</div></li>
 <li id="l-90">380 0: <code>r_addend</code> = 0</li>
-</ul></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world-split#p-169">🔗</a></span><div class="p" id="p-169">So in our example we conclude that the new address will be: <code>S + A</code> = <code>.data + 0</code>, and thus the first thing in the data section.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="">
+</ul></div></div></div><div><span class="hide-hover"><a href="../elf-hello-world#p-169">🔗</a></span><div class="p" id="p-169">So in our example we conclude that the new address will be: <code>S + A</code> = <code>.data + 0</code>, and thus the first thing in the data section.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="">
 <ul>
-<li class="has-child toplevel"><div class="title-div"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a class="title" href="#toc">Table of contents</a>  <span class="descendant-count" title="number of descendant headers">[1]</span></div>
+<li class="has-child toplevel"><div class="title-div"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a class="title" href="#toc">Table of contents</a> | <span class="metrics"><span class="word-count" title="word count for this node">366</span>, <span class="descendant-count" title="number of descendant nodes">1</span>, <span class="word-count-descendant" title="word count for this node + descendants">429</span></span></div>
 <ul>
-<li><div id="toc-elf-hello-world/rel-text"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a href="rel-text">1. .rel.text</a><span class="hover-metadata"> | <a href="#toc-elf-hello-world/rel-text" title="link to this ToC entry">🔗 link</a> | <a title="view all headers in a single page" href="../elf-hello-world#rel-text">🗖 nosplit</a> | <a href="#toc" title="parent ToC entry">↑ parent ".rela.text"</a></span></div></li>
+<li><div id="toc-elf-hello-world/rel-text"><div class="arrow" title="close children -> close all -> open all"><div></div></div><a href="rel-text#rel-text">1. .rel.text</a> | <span class="metrics"><span class="word-count" title="word count for this node">63</span></span><span class="hover-metadata"> | <a href="#toc-elf-hello-world/rel-text" title="link to this ToC entry">🔗 link</a> | <a title="view all headers in a single page" href="rel-text#rel-text">🗖 nosplit</a> | <a href="#toc" title="parent ToC entry">↑ parent ".rela.text"</a></span></div></li>
 </ul>
 </li>
 </ul>
@@ -73,7 +74,7 @@ to the actual executable code containing the final 0x6000d8:
 <div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/189d038bc242fe9c2db1775b51b81c7971947ca4">189d038bc242fe9c2db1775b51b81c7971947ca4</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/94509958fed1352bae61394ef620d51456573d42">94509958fed1352bae61394ef620d51456573d42</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
