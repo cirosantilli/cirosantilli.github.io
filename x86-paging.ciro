@@ -26,7 +26,7 @@ Paging makes it easier to compile and run two programs or threads at the same ti
 
 For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.
 
-So nothing prevents it from using the same \x[dynamic-random-access-memory][DRAM] address, say, `0x1234`, to store a global variable.
+So nothing prevents it from using the same \x[ram] address, say, `0x1234`, to store a global variable.
 
 And thread https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[stacks], that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!
 
@@ -43,7 +43,7 @@ Where:
 * logical addresses are what userland programs see, e.g. the contents of `rsi` in `mov eax, [rsi]`.
 
   They are often called "virtual" addresses as well.
-* physical addresses can be though of the values that go to physical DRAM index wires.
+* physical addresses can be though of the values that go to physical RAM index wires.
 
   But keep in mind that this is not 100% true because of further indirections such as:
 
@@ -73,19 +73,19 @@ Or if you like non-funny jokes: \x[image-funny-comparison-between-the-linux-kern
 
 Paging is implemented by the \x[central-processing-unit][CPU] hardware itself.
 
-Paging could be implemented in software, but that would be too slow, because every single DRAM memory access uses it!
+Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!
 
 Operating systems must setup and control paging by communicating to the CPU hardware. This is done mostly via:
-* the CR3 register, which tells the CPU where the page table is in DRAM memory
-* writing the correct paging data structures to the DRAM pointed to the CR3 register.
+* the CR3 register, which tells the CPU where the page table is in RAM memory
+* writing the correct paging data structures to the RAM pointed to the CR3 register.
 
-  Using DRAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
+  Using RAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
 
-  The format of the configuration data structures is fixed _by the hardware_, but it is up to the OS to set up and manage those data structures on DRAM correctly, and to tell the hardware where to find them (via `cr3`).
+  The format of the configuration data structures is fixed _by the hardware_, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
 
-  Then some heavy caching is done to ensure that the DRAM access will be fast, in particular using the TLB.
+  Then some heavy caching is done to ensure that the RAM access will be fast, in particular using the TLB.
 
-  Another notable example of DRAM data structure used by the CPU is the https://en.wikipedia.org/wiki/Interrupt_descriptor_table[IDT] which sets up interrupt handlers.
+  Another notable example of RAM data structure used by the CPU is the https://en.wikipedia.org/wiki/Interrupt_descriptor_table[IDT] which sets up interrupt handlers.
 
   The OS makes it impossible for programs to change the paging setup directly without going through the OS:
 * CR3 cannot be modified in ring 3. The OS runs in ring 0. See also:
@@ -111,7 +111,7 @@ like this:
 ``
 
 The major difference between paging and segmentation is that:
-* paging splits DRAM into equal sized chunks called pages
+* paging splits RAM into equal sized chunks called pages
 * segmentation splits memory into chunks of arbitrary sizes
 
 This is the main advantage of paging, since equal sized chunks make things more manageable by reducing memory fragmentation problems. See also:
@@ -247,7 +247,7 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
   *page = 0x00000. This part must be translated to a physical location.
   *offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position _within_ the page.
 * look into Page table 1 because `cr3` points to it.
-* The hardware knows that this entry is located at DRAM address `CR3 + 0x00000 * 4 = CR3`:
+* The hardware knows that this entry is located at RAM address `CR3 + 0x00000 * 4 = CR3`:
   *`0x00000` because the page part of the logical address is `0x00000`
   *`4` because that is the fixed size in bytes of every page table entry
 * since it is present, the access is valid
@@ -270,7 +270,7 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 
 Another example: for logical address `0x00001001`:
 * the page part is `00001`, and the offset part is `001`
-* the hardware knows that its page table entry is located at DRAM address: `CR3 + 1 * 4` (`1` because of the page part), and that is where it will look for it
+* the hardware knows that its page table entry is located at RAM address: `CR3 + 1 * 4` (`1` because of the page part), and that is where it will look for it
 * it finds the page address `0x00000` there
 * so the final address is `0x00000 * 4k + 0x001 = 0x00000001`
 
@@ -307,7 +307,7 @@ but there are cases where it is not a bug, for example in Linux when:
   It just tries to accesses a certain byte in a given possible range, and if the OS is happy it adds that page to the process address space, otherwise, it sends a signal to the process.
 * the page was swapped to disk.
 
-  The OS will need to do some work behind the processes back to get the page back into DRAM.
+  The OS will need to do some work behind the processes back to get the page back into RAM.
 
   The OS can discover that this is the case based on the contents of the rest of the page table entry, since if the present flag is clear, the other entries of the page table entry are completely left for the OS to to what it wants.
 
@@ -366,13 +366,13 @@ x86 designers have found that 4KiB pages are a good middle ground.
 
 === The problem with single-level paging
 
-The problem with a single-level paging scheme is that it would take up too much DRAM: 4G / 4K = 1M entries _per_ process.
+The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries _per_ process.
 
-If each entry is 4 bytes long, that would make 4M _per process_, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my DRAM!
+If each entry is 4 bytes long, that would make 4M _per process_, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
 
-For this reason, x86 developers decided to use a multi-level scheme that reduces DRAM usage.
+For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.
 
-The downside of this system is that is has a slightly higher access time, as we need to access DRAM more times for each translation.
+The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.
 
 === K-ary trees to the rescue
 
@@ -453,7 +453,7 @@ Then:
 
   The top table is called a "directory of page tables".
 
-  `cr3` now points to the location on DRAM of the page directory of the current process instead of page tables.
+  `cr3` now points to the location on RAM of the page directory of the current process instead of page tables.
 
   Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.
 
@@ -510,7 +510,7 @@ entry index   entry address     page address  present
 ...
 2^10-1        PT2 + 0x3FF * 4   0x00003       1
 ``
-where `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on DRAM.
+where `PT1` and `PT2`: initial position of page table 1 and page table 2 for process 1 on RAM.
 
 With that setup, the following translations would happen:
 ``
@@ -544,9 +544,9 @@ Let's translate the linear address `0x00801004` step by step:
   offset               = 0x4
   ``
   So the hardware looks for entry 2 of the page directory.
-* The page directory table says that the page table is located at `0x80000 * 4K = 0x80000000`. This is the first DRAM access of the process.
+* The page directory table says that the page table is located at `0x80000 * 4K = 0x80000000`. This is the first RAM access of the process.
 
-  Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`, which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second DRAM access of the process.
+  Since the page table entry is `0x1`, the hardware looks at entry 1 of the page table at `0x80000000`, which tells it that the physical page is located at address `0x0000C * 4K = 0x0000C000`. This is the second RAM access of the process.
 * Finally, the paging hardware adds the offset, and the final address is `0x0000C004`.
 
 Page faults occur if either a page directory entry or a page table entry is not present.
@@ -557,7 +557,7 @@ The Intel manual gives a picture of this translation process in the image "Linea
 
 == 64-bit architectures
 
-64 bits is still too much address for current DRAM sizes, so most architectures will use less bits.
+64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
 
 x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addresses (4 PiB). 56-bits is a likely future candidate.
 
@@ -565,7 +565,7 @@ x86_64 uses 48 bits (256 TiB), and legacy mode's PAE already allows 52-bit addre
 
 If a 2 level approach is taken, the best split would be two 18 bit levels.
 
-But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much DRAM: close to a single-level paging for 32 bit architectures!
+But that would mean that the page directory would have `2^18 = 256K` entries, which would take too much RAM: close to a single-level paging for 32 bit architectures!
 
 Therefore, 64 bit architectures create even further page levels, commonly 3 or 4.
 
@@ -592,7 +592,7 @@ A 5-level scheme is emerging in 2016: https://software.intel.com/sites/default/f
 
 Physical address extension.
 
-With 32 bits, only 4GB DRAM can be addressed.
+With 32 bits, only 4GB RAM can be addressed.
 
 This started becoming a limitation for large servers, so Intel introduced the PAE mechanism to Pentium Pro.
 
@@ -677,7 +677,7 @@ and after a second translation of `00007` to `00009` it becomes:
   0      00000   00000
 ``
 
-Now if `00003` needs to be translated again, hardware first looks up the TLB and finds out its address with a single DRAM access `00003 --> 00005`.
+Now if `00003` needs to be translated again, hardware first looks up the TLB and finds out its address with a single RAM access `00003 --> 00005`.
 
 Of course, `00000` is not on the TLB since no valid entry contains `00000` as a key.
 
@@ -708,9 +708,9 @@ adding `0000D -> 0000A` would give:
 
 Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.
 
-The TLB is usually implemented as an expensive type of DRAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.
+The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.
 
-Mappings could also be implemented on DRAM addresses, but CAM mappings may required much less entries than a DRAM mapping.
+Mappings could also be implemented on RAM addresses, but CAM mappings may required much less entries than a RAM mapping.
 
 For example, a map in which:
 * both keys and values have 20 bits (the case of a simple paging schemes)
@@ -726,7 +726,7 @@ linear  physical
 FFFFF   00000
 ``
 
-However, to implement this with DRAM, _it would be necessary to have 2^20 addresses_:
+However, to implement this with RAM, _it would be necessary to have 2^20 addresses_:
 ``
 linear  physical
 ------  --------
