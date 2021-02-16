@@ -740,7 +740,20 @@ which would be even more expensive than using a TLB.
 
 === Invalidating entries
 
-When `cr3` changes, all TLB entries are invalidated, because a new page table for a new process is going to be used, so it is unlikely that any of the old entries have any meaning.
+When the process changes, `cr3` change to point to the page table of the new current process.
+
+This creates a problem: the TLB is now filled with a bunch of cached entries for the old process.
+
+A simple and naive solution would be to completely invalidate the TLB whenever the `cr3` changes.
+
+However, this is would not be very efficient, because it often happens that we switch back to process 1 before process 2 has completely used up the entire TLB cache entries.
+
+The solution for this is to use so called "Address Space Identifiers" (ASID) as mentioned in sources such as:
+* https://stackoverflow.com/questions/52813239/how-many-bits-there-are-in-a-tlb-asid-tag-for-intel-processors-and-how-to-handl
+* https://stackoverflow.com/questions/52713940/purpose-of-address-spaced-identifiersasids
+* https://www.inf.ed.ac.uk/teaching/courses/os/slides/10-paging16.pdf
+
+Basically, the OS assigns a different ASID for each process, and then TLB entries are automatically also tagged with that ASID. This way when the process makes an access, the TLB can determine if a hit is actually for the current process, or if it is an old address coincidence with another process.
 
 The x86 also offers the `invlpg` instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.
 
@@ -928,7 +941,7 @@ https://stackoverflow.com/a/32258855/895245[Peter Cordes mentions] that some arc
 
 === ARM
 
-Information about ARM paging can be found at: https://github.com/cirosantilli/linux-kernel-module-cheat#arm-paging
+Information about ARM paging can be found at: https://cirosantilli.com/linux-kernel-module-cheat#arm-paging
 
 == Bibliography
 
