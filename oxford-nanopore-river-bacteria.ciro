@@ -1,20 +1,21 @@
 = How to use an Oxford Nanopore MinION to extract DNA from river water and determine which bacteria live in it
 {scope}
 
-This article gives an idea of how this kind of biological experiment feels like to a \x[software-engineer] who has never done any \x[biology][biology] like \x[ciro-santilli]. Parent node: \x[articles].
+This article gives an idea of how this kind of biological experiment feels like to a \x[software-engineer] who has never done any \x[biology] like \x[ciro-santilli].
 
 == Experiment background
 
-https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few \x[university-of-cambridge] PhDs that aims to determine which bacteria are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
+https://www.puntseq.co.uk/[PuntSeq] is a side project led by a few \x[university-of-cambridge] \x[doctor-of-philosophy][PhDs] that aims to determine which \x[bacteria] are present in the https://en.wikipedia.org/wiki/River_Cam[River Cam].
 
 In July 2019, the PuntSeq team got together with the awesome https://biomake.space[Cambridge Biomakespace], an awesome biology makerspace open to all, to create a two day science outreach activity showing their procedures.
+
+The data collected in this experiment, together with other collection sessions done by the organizers actually led to a publication on \x[elife]: https://elifesciences.org/articles/61504 "Freshwater monitoring by nanopore sequencing" by Lara Urban et al. (2021), so it is awesome to see that were are actual being part of "real science".
 
 Ciro knows nothing about biology, but since he is \x[molecular-biology-technologies][very curious about it], he jumped at this opportunity, and decided to document things as well as his limited knowledge would allow.
 
 All participants chipped in some money to help cover the experiment's costs. Ciro suspects that this activity was done partially to help crowdfund the experiment, but it was a worthy investment!
 
 The impressions you get from the experiment as a software engineer will be:
-
 * OMG, this is so labour intensive, why haven't they automated this
 * OMG, this is frightening, all the 8 hours of work I've just done are present in that tiny plastic tube
 * Amazing! Look at that apparatus! And the bio people are like: I've used this a million times, it's cheap and every lab has one, just work faster and don't break you piece of junk!
@@ -23,7 +24,7 @@ The impressions you get from the experiment as a software engineer will be:
 
 For those that know biology and just want to do the thing, see: \x[protocols-used]{full}.
 
-The PuntSeq team uses an \x[oxford-nanopore-minion] DNA sequencer made by https://en.wikipedia.org/wiki/Oxford_Nanopore_Technologies[Oxford Nanopore Technologies] to sequence the https://en.wikipedia.org/wiki/16S_ribosomal_RNA[16S] region of bacterial DNA, which is about 1500 nucleotides long.
+The PuntSeq team uses an \x[oxford-nanopore-minion] \x[dna-sequencing][DNA sequencer] made by \x[oxford-nanopore-technologies] to sequence the \x[16s-ribosomal-rna][16S] region of bacterial DNA, which is about 1500 nucleotides long.
 
 This kind of "decode everything from the sample to see what species are present approach" is called "\x[metagenomics]".
 
@@ -42,11 +43,13 @@ This is how the MinION looks like: \x[image-oxford-nanopore-minion-top]{full}.
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oxford_Nanopore_MinION_side_USB_cropped.jpg/597px-Oxford_Nanopore_MinION_side_USB_cropped.jpg]
 {title=Oxford Nanopore MinION side USB}
 
-The 16S region codes for one of the RNA pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome].
+The 16S region codes for one of the \x[rna] pieces that makes the https://en.wikipedia.org/w/index.php?title=Ribosome&oldid=912600990#Bacterial_ribosomes[bacterial ribosome].
 
-Before sequencing the DNA, we will do a \x[pcr] with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.
+Before \x[sequencing][sequencing the DNA], we will do a \x[pcr] with primers that fit just before and just after the 16S DNA, in well conserved regions expected to be present in all bacteria.
 
-https://en.wikipedia.org/wiki/Eukaryote[Eukaryotes] also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.
+The PCR replicate only the DNA region between our two selected primers a gazillion times so that only those regions will actually get picked up by the sequencing step in practice.
+
+\x[eukarya][Eukaryotes] also have an analogous ribosome part, the 18S region, but the PCR primers are selected for targets around the 16S region which are only present in prokaryotes.
 
 This way, we amplify only the 16S region of bacteria, excluding other parts of bacterial genome, and excluding eukaryotes entirely.
 
@@ -82,22 +85,19 @@ With the experimental limitations of experiment however, we would only be able t
 
 === Why Oxford Nanopore was used instead of Illumina for the sequencing
 
-\x[illumina][Illumina equipment] is currently cheaper per base pair and dominates the human genome sequencing market, but it requires a much higher initial investment for the equipment
+\x[illumina] equipment is currently cheaper per base pair and dominates the \x[human-genome] sequencing market, but it requires a much higher initial investment for the equipment
 
 The reusable Nanopore device costs just https://web.archive.org/web/20190717141155/https://store.nanoporetech.com/starter-packs/[about 500 dollars], and https://web.archive.org/web/20190911092809/https://store.nanoporetech.com/flowcells.html[about 500 dollars (50 unit volume)] for the single usage flow cell which can decode up to 30 billion base pairs, which is about 10 https://en.wikipedia.org/wiki/Human_genome[human genomes] 1x!
 
 Compare that to Illumina which is currently doing about an 1000 dollar human genome at 30x, and a bit less errors per base pair (TODO how much).
 
 Other advantages of the MinION over Illumina which didn't really matter to this particular experiment are:
-
 * portability for e.g. to do analysis on the field near infections outbreaks. Compare that to the smallest Illumina sequencer currently available in 2019, the iSeq 100: \x[image-illumina-iseq-100-dna-sequencer]{full}.
 
   \Image[https://web.archive.org/web/20190922113448if_/https://www.illumina.com/content/dam/illumina-marketing/images/systems/v2/web-graphic/iseq-100-demo-video-thumbnail-web-graphic.jpg]
-  {title=Illumina iSeq 100 DNA sequencer}
+  {title=Illumina iSeq 100 DNA sequencer.}
   {source=https://www.illumina.com/systems/sequencing-platforms/iseq.html}
-* long reads which can be necessary for long repetitive regions. For further info see the: https://en.wikipedia.org/wiki/Sequence_alignment["Sequence alignment" page on Wikipedia].
-
-One disadvantage of the Oxford Nanopore is that its error rate per base pair read is higher than Illumina.
+* long reads which can be necessary for long repetitive regions, see also: \x[sequence-alignment]{full}
 
 == Sample collection
 
@@ -153,17 +153,17 @@ Therefore, after filtration, we would have all particles such as bacteria and la
 
 From the 1 liter in each bottle, we only used 400 ml because previous experiments showed that filtering the remaining 600 ml is very time consuming because the membrane filter gets clogged up.
 
-Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: \x[image-an-eppendorf-tube-is-small-and-convenient]{full}. Reagents are expensive, and centrifuges are small!
+Therefore, the filtration step allows us to reduce those 400 ml volumes to more manageable Eppendorf tube volumes: \x[image-an-eppendorf-tube]{full}. Reagents are expensive, and centrifuges are small!
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Microcentrifuge_tube_in_hand.jpg/640px-Microcentrifuge_tube_in_hand.jpg]
-{title=An Eppendorf tube is small and convenient}
+{title=An \x[eppendorf-tube].}
+{description=They are small, convenient and disposable.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg/640px-Labelled_Eppendorf_microcentrifuge_tubes_on_rack.jpg]
 
 Since the filter is so fine, filtering by gravity alone would take forever, and so we used a vacuum pump to speed thing up!
 
 For that we used:
-
 * \x[thermo-scientific-nalgene-polysulfone-reusable-bottle-top-filters]
 * \x[knf-laboport-series-laboratory-vacuum-pump]
 
@@ -219,8 +219,9 @@ And because the readings were good, we put it in our -20 C fridge to preserve it
 {height=400}
 
 == PCR
+{c}
 
-More generic PCR information at: \x[polymerase-chain-reaction].
+More generic PCR information at: \x[polymerase-chain-reaction]{parent}.
 
 Because it is considered the less interesting step, and because it takes quite some time, this step was done by the event organizers between the two event days, so participants did not get to take many photos.
 
@@ -396,6 +397,7 @@ Protocols are the biologist term for "recipe".
 I found that a lot of biology comes down to this: get the right recipe, follow it well even though you don't understand all the proprietary details, and pray.
 
 === Qiagen DNeasy PowerWater Kit
+{c}
 
 https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit (https://web.archive.org/web/20190905084344/https://www.qiagen.com/gb/products/discovery-and-translational-research/dna-rna-purification/dna-purification/microbial-dna/dneasy-powerwater-kit/[archive]) Here is its documentation: https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en (https://web.archive.org/web/20190905084623/https://www.qiagen.com/gb/resources/download.aspx?id=bb731482-874b-4241-8cf4-c15054e3a4bf&lang=en[archive]).
 
@@ -407,6 +409,7 @@ Kit to extract clean DNA from water.
 {height=400}
 
 === Qiagen QIAquick PCR Purification Kit
+{c}
 
 https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/#orderinginformation (https://web.archive.org/web/20190911092647/https://www.qiagen.com/us/products/discovery-translational-research/dna-rn-a-purification/dna-purification/dna-clean-up/qiaquick-pcr-purification-kit/[archive])
 
@@ -415,6 +418,7 @@ Manual archive: https://web.archive.org/web/20190911100243/https://www.qiagen.co
 Removes PCR byproducts from purified DNA.
 
 === Oxford Nanopore SQK-LSK109 Ligation Sequencing Kit
+{c}
 
 https://store.nanoporetech.com/ligation-sequencing-kit.html (https://web.archive.org/web/20190911092756/https://store.nanoporetech.com/ligation-sequencing-kit.html[archive])
 
@@ -423,12 +427,14 @@ Repairs the ends of DNA, and also attaches an adapter protein to the DNA that ma
 == Equipment used
 
 === Thermo Scientific Nalgene Polysulfone Reusable Bottle Top Filters
+{c}
 
 https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781 (https://web.archive.org/web/20190907131756/https://www.fishersci.no/shop/products/nalgene-polysulfone-reusable-bottle%20-top-filters/10465781[archive])
 
 This is where we poured the water. It was not large enough for the entire 1L sample, so we had to do it a few times.
 
 === KNF Laboport series laboratory vacuum pump
+{c}
 
 https://www.knfusa.com/en/laboport/ (https://web.archive.org/web/20190907132036/https://www.knfusa.com/en/laboport/[archive]).
 
@@ -437,6 +443,7 @@ https://www.knfusa.com/en/laboport/ (https://web.archive.org/web/20190907132036/
 ]]
 
 === Scientific Industries Inc. Vortex-Genie 2
+{c}
 
 https://www.scientificindustries.com/vortex-genie-2.html (https://web.archive.org/web/20190908034549/https://www.scientificind.ustries.com/vortex-genie-2.html[archive])
 
@@ -449,6 +456,7 @@ https://en.wikipedia.org/wiki/Vortex_mixer
 ]]
 
 === VWR Micro Star 17 microcentrifuge
+{c}
 
 https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r (https://web.archive.org/web/20190908040119/https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerated-micro-star-17-17r[archive]).
 
@@ -459,6 +467,7 @@ https://uk.vwr.com/store/product/8306728/microcentrifuges-ventilated-refrigerate
 ]]
 
 === VELP Scientifica WIZARD IR Infrared Vortex Mixer
+{c}
 
 https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer (https://web.archive.org/web/20190908091343/https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_infrared_vortex_mixer[archive]).
 
@@ -467,6 +476,7 @@ https://www.velp.com/en/products/lines/3/family/44/vortex_mixers/65/wizard_ir_in
 ]]
 
 === Marshal Scientific MJ Research PTC-200 Thermal Cycler
+{c}
 
 https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm (https://web.archive.org/web/20190908091629/https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.htm[archive]).
 
@@ -475,6 +485,7 @@ https://www.marshallscientific.com/MJ-Research-PTC-200-Thermal-Cycler-p/mj-200.h
 ]]
 
 === GE MagRack 6
+{c}
 
 https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761 (https://web.archive.org/web/20190908091852/https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-preparation/protein-enrichment/magrack-6-p-05761[archive]).
 
@@ -485,6 +496,7 @@ https://www.gelifesciences.com/en/us/shop/protein-analysis/protein-sample-prepar
 ]]
 
 === BTLab Systems Mini Centrifuge
+{c}
 
 https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K (https://web.archive.org/web/20190908094324/https://www.btlabsystems.com/Centrifuges/Mini_Centrifuge_Fixed_7K[archive]).
 
@@ -495,6 +507,7 @@ Manual: https://web.archive.org/web/20190908094334/https://www.btlabsystems.com/
 ]]
 
 === Fischer Scientific UVP LM-26E Benchtop 2UV Transilluminator
+{c}
 
 https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0 (https://web.archive.org/web/20190908094721/https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10011/lot-c6605b41-1a14-40e5-a255-a5c5000866e0[archive]) Cannot exact same product on official website, but here is a similar one:  https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038 (https://web.archive.org/web/20190908094903/https://www.fishersci.co.uk/shop/products/lm-26-2uv-transilluminator/12382038[archive]).
 
@@ -507,6 +520,7 @@ https://www.bidspotter.com/en-us/auction-catalogues/bscsur/catalogue-id-bscsur10
 ]]
 
 === Biochrom SimpliNano spectrophotometer
+{c}
 
 https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html (https://web.archive.org/web/20190920214435/https://biochromspectros.com/spectrophotometers/simplinano-cat/simplinano-spectrophotometer.html[archive])
 
@@ -517,3 +531,7 @@ Manual: https://biochromspectros.com/media/wysiwyg/support_page/support-simplina
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Biochrom_SimpliNano_spectrophotometer_result_readout.jpg/360px-Biochrom_SimpliNano_spectrophotometer_result_readout.jpg]
 ]]
+
+== External links to this page
+
+* 2021: https://hackaday.com/author/wd5gnr1/ "SEQUENCING DNA FOR METAGENOMICS" by Al Williams (2021). This came after \x[ciro-santilli] self promoted at: https://stackoverflow.blog/2021/02/03/sequencing-your-dna-with-a-usb-dongle-and-open-source-code/#comment-1411921
