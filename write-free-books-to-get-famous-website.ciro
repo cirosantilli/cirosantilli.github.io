@@ -4,23 +4,57 @@
 
 Originally at: https://github.com/cirosantilli/write-free-science-books-to-get-famous-website but being migrated here.
 
-In this project, \x[ciro-santilli] wants to explore if it is possible to create a sustainable website that will make people (notably students taking courses) write \x[open-knowledge][freely licensed] university-level \x[natural-science] books for free.
+In this project, \x[ciro-santilli] wants to explore if it is possible to create a sustainable website that will make learners (notably universite students taking courses) write \x[open-knowledge][freely licensed] university-level \x[natural-science] books for free.
 
 Ciro is looking for \x[funding][funding possibilities] for this project, including donations as mentioned at \x[sponsor]{full}.
 
-The initial incentive for those people is to make them famous and allow them to get more fulfilling jobs more easily, although Ciro also wants to add \x[knowledge-market][money transfer] mechanisms to it later on.
+The initial incentive for the creators is to make them famous and allow them to get more fulfilling jobs more easily, although Ciro also wants to add \x[knowledge-market][money transfer] mechanisms to it later on.
 
-We can't rely on teachers writing materials, because they simply don't have enough incentive: publication count is all that matters to their careers. The students however, are desperate to prove themselves to the world, and therefore will do a lot of free work for the fame reward. They might even learn something along the way ;)
+We \x[how-to-convince-teachers-to-use-cc-by-sa][can't rely on teachers writing materials, because they simply don't have enough incentive]: publication count is all that matters to their careers. The students however, are desperate to prove themselves to the world, and therefore will do a lot of free work for the fame reward.
 
 Ciro envisions this as a \x[wikipedia][Wikipedia-like] website, but where:
-* each user can have their own version of each page which cannot be edited without their permission
-* you can copy and modify other users' pages, since \x[creative-commons-license] will be mandatory, and also make suggestions to their page if you want to
+* each user can have their own version of each page which cannot be edited without their permission, e.g. only `cirosantilli` can edit http://elearning.com/cirosantilli/mathematics[].
+* you can copy and modify other users' pages, since \x[creative-commons-license] will be mandatory. You can also make suggestions to their page if you want to.
+* each page has an issue tracker/comment section at the bottom to allow for sane discussion about the subject. As opposed to Wikipedia's unusable talk pages.
+* more granular pages than Wikipedia: every single header has its own page/metadata, no matter how specific the topic it covers is
+* you can upvote and downvote the headers/pages
+If you are a software engineer, you can see that this is basically a cross between \x[wikipedia], \x[github] and \x[stack-exchange].
+
+For example, Ciro could have his pages organized as:
+* http://elearning.com/cirosantilli/mathematics "Mathematics"
+  * http://elearning.com/cirosantilli/calculus "Calculus"
+    * http://elearning.com/cirosantilli/limit-mathematics "Limit (mathematics)"
+    * http://elearning.com/cirosantilli/riemann-integral "Riemann integral"
+      * http://elearning.com/cirosantilli/intuition-behind-the-reimann-integral "Intuition behind the Reimann integral"
+* http://elearning.com/cirosantilli/physics "Physics"
+
+Then, anyone would be able to create their own version of the pages, e.g. user John Smith could create:
+* http://elearning.com/johnsmith/mathematics
+  * http://elearning.com/johnsmith/calculus
+    * http://elearning.com/johnsmith/derivative
+    * http://elearning.com/johnsmith/riemann-integral
+      * http://elearning.com/cirosantilli/intuition-behind-the-reimann-integral
+* http://elearning.com/johnsmith/physics
+
+Here for example, John decided:
+* to remove `limit-mathematics` from his tree
+* add `derivative` to his tree
+* keep `intuition-behind-the-reimann-integral` at Ciro's version
+* modify `mathematics`, `riemann-integral` and `physics` to his liking
 
 The key intended technical innovation of the website is a PageRank-like algorithm that answers the key questions:
-* who knows the most about subject X
-* what is the best content for subject X
+* what is the best content for subject X.
 
-Then, while reading an article about a subject, say, "The Fundamental Theorem of Calculus", you would be able to click a button, and easily view the other best articles about that subject.
+  For example, if you are reading `cirosantilli/riemann-integral` and it is crap, you would be able to click the button
+  \Q[Versions by other authors]
+  which leads you to the URL: http://elearning.com/subject/mathematics[]. This URL then contains a list of all pages people have written about the subject `mathematics`, sorted by some algorithm, containing for example:
+  * http://elearning.com/johnsmith/riemann-integral
+  * http://elearning.com/cirosantilli/riemann-integral
+
+  This URL would also contain a list of issues/comments that are related to the subject.
+* who knows the most about subject X. This can be found by visiting: http://elearning.com/users/mathematics[] "Top Mathematics users", which would contain the list of users sorted by the algorithm:
+  * http://elearning.com/johnsmith
+  * http://elearning.com/cirosantilli
 
 Many subjects have changed very little in the last hundred years, and so it is mind-blowing that people have to pay for books that teach them!
 
@@ -127,6 +161,28 @@ Ciro is basically a librarian at heart, and wants to be the next:
 {title=https://en.wikipedia.org/wiki/Sal_Khan[Sal Kahn] from https://en.wikipedia.org/wiki/Khan_Academy[Khan Academy] 2016 \x[ted-conference] talk.}
 {description=Ciro is not a big fan of the "basis on top of basis focus" because of his obsession with \x[backward-design], but "learn to mastery at your own pace" and "everyone can be a world class innovator" are obviously good.}
 
+= Action plan
+{parent=write-free-books-to-get-famous-website}
+
+The steps are sorted in roughtly cronological order. The project might fail at any point, and some steps may be carried in parallel:
+* make \x[cirodown] good enough, to the point that it allows to create a static version of the website, which is used to prototype certain ideas, and for Ciro to start writting test content.
+
+  Status: almost finished.
+* create a basic implementation of the website, without advanced features like PageRank sorting and WYSIWYG. This is not much more than a blog with some extra medata, so it is definitely achievable with constrained resources.
+* find a university teacher would would like to try it out.
+
+  Ciro would like to volunteer to work for free for this teacher and students to help the students learn.
+
+  He would like act like a "super student" who has a lot of free time and motivation.
+
+  Ciro would start by mapping the headers of the lecture notes onto the website, and then slowly adding content as he feels the need to improve certain explanations.
+
+  Finding teachers willing to allow this will be a major roadblock: \x[how-to-convince-teachers-to-use-cc-by-sa].
+
+  If such enlightened teacher is found, it will allow for the initial validation of the website, to decide what kind of tweaking the idea might need, and start uploading quality technical content to the site.
+* once some level of validation as been done, Ciro will start looking for charitable \x[funding] more aggressively
+* if things seem to be working, start adding more advance features: PageRank-like sorting and WYSIWYG editing
+
 = Alternatives
 {parent=write-free-books-to-get-famous-website}
 
@@ -141,7 +197,7 @@ These are websites that offer somewhat overlapping services, many of which serve
 * Scope too limited, and politics defined. Everything has to sound encyclopedic and be notable enough. This basically excludes completely good tutorials.
 * Insane impossible talk pages instead of issue trackers?! Ridiculous!!! That change alone could make Wikipedia so much more amazing. Wikipedia could become a Stack Exchange killer by doing that alone + some basic reputation system.
 
-https://en.wikipedia.org/w/index.php?title=Isomorphism_theorems&oldid=976843241[This edit] perfectly summarizes how Ciro feels about Wikipedia (no particular hate towards that user, he https://en.wikipedia.org/wiki/Daniel_Lazard[actually as a wiki page about him]):
+https://en.wikipedia.org/w/index.php?title=Isomorphism_theorems&oldid=976843241[This edit] perfectly summarizes how Ciro feels about Wikipedia (no particular hate towards that user, he was a teacher at the prestigious \x[pierre-and-marie-curie-university] and https://en.wikipedia.org/wiki/Daniel_Lazard[actually as a wiki page about him]):
 \Q[rm a cryptic diagram (not understandable by a professional mathematician, without further explanations]
 which removed the only diagram that was actually understandable to non-Mathematicians, which \x[ciro-santilli] had created, and received many upvotes at: https://math.stackexchange.com/questions/776039/intuition-behind-normal-subgroups/3732426#3732426[]. The removal does not generate any notifications to you unless you follow the page which would lead to infinite noise, and is extremely difficult to find out how to contact the other person. The removal justification is even somewhat \x[ad-hominem]: how does he know \x[ciro-santilli] is also not a professional Mathematician? :-) Maybe it is obvious because \x[there-is-value-of-tutorials-written-by-beginners][Ciro explains in a way that is understandable]. Also removal makes no effort to contact original author. Of course, this is caused by the fact that there must also have been a bunch of useless edits not done by Ciro, and there is no reputation system to see if you should ignore a person or not immediately, so removal author has no patience anymore. This is what makes it impossible to contribute to Wikipedia: your stuff gets deleted at any time, and you don't know how to appeal it. Ciro is going to regret having written this rant after Daniel replies and shows the diagram is crap. But that would be better than not getting a reply and not learning that the diagram is crap.
 
@@ -164,7 +220,7 @@ Major shortcoming are mentioned at \x[idiotic-stack-overflow-policies]:
 * Although you can answer your own question, there's no way to write an organized multi-page book with Stack Exchange due to shortcomings such as no table of contents, 30k max chars on answer, huge risk of deletion due to "too broad"
 * Absolutely no algorithmic attempt to overcome the fastest gun in the West problem (early answers have huge advantage over newer ones): https://meta.stackoverflow.com/questions/404535/closing-an-old-upvoted-question-as-duplicate-of-new-unvoted-questions/404567#404567
 * Native reputation system:
-  * if the living ultimate god of `C++` upvotes you, you get `10` reputation
+  * if the living ultimate \x[god] of `C++` upvotes you, you get `10` reputation
   * if the first-day newb of `Java` upvotes you, you also get `10` reputation
 * Randomly split between sites like Stack Overflow vs Super User, with separate user reputations, but huge overlaps, and many questions that appears as dupes on both and never get merged.
 * Possible edit wars, just like \x[wikipedia], but these are much less common since content ownership is much clearer than in Wikipedia however
@@ -203,11 +259,35 @@ We basically just want to make the process more efficient and enjoyable, by maki
 * to find what you want based on an initial subject hit across the best version of any author
 * and to publish your own stuff with one click, and get feedback if people like it or not, and improvement suggestions like you do you GitHub
 
-There are also licensing issues, many of the university lecture notes are copyrighted often with unspecific licenses, rather than using open licenses those teachers must be waiting to see if they can ever publish their stuff and get some money...
+= How to convince teachers to use CC By-SA
+{parent=university-lecture-notes}
 
-This makes it hard/impossible to fork and modify their content to your needs. Sometimes it is not even clear if you are allowed to distribute the fucking material as a PDF to your own class!
+A major difficulty of getting such this to work is that may university teachers don't want to retain copyright of their work because:
+* they want to publish a book later and get paid
+* they believe that if anyone were allowed to touch their precious content, those people would just "screw it up" and make it worse
 
-Our website will destroy this bullshit, and have a single CC-BY-SA license to rule them all.
+Therefore the only way is to find teachers who are:
+* enlightened to use such licenses
+* forced by their organizations to use such licenses
+The forced option therefore seems like a more bulk efficient starting point for searches.
+
+No matter how much effort a single person puts into writing perfect tutorials, they will never beat 1000x people + an algorithm.
+
+It is not simply a matter of how much time you have. The fundamental reason is that each person has a different background and different skills. Notably the \x[there-is-value-of-tutorials-written-by-beginners][young students have radically different understanding than that of the experienced teacher].
+
+Therefore, those that refuse to contribute to such platforms, or at least license their content with open licenses, will inevitably have their work forgotten in favor of those that have contributed to the more open platform, which will eventually dominate everything.
+
+Perhaps \x[write-free-books-to-get-famous-website] is not he killer platform that will make this happen. Perhaps the world is not yet ready for it. But Ciro believes that this will happen, sooner or later, inevitable, and he wants to give it a shot.
+
+Some possible/not possible sources that could be used to manually bootstrap content:
+* https://physics.stackexchange.com/questions/6157/list-of-freely-available-physics-books "List of freely available physics books" explicitly asks for:
+  \Q[a list of physics books with open-source licenses, like Creative Commons, GPL]
+  but the thread \x[closing-questions-as-off-topic][was locked], and basically none of the sources in the answers have free licenses, nor do they not it. It just seems that the \x[physicist]{p} don't know what a \x[free-licence] is.
+* \x[mit-opencourseware]: \x[cc-by-nc-sa], so not really usable
+* \x[https-open-ed-ac-uk-about]: \x[cc-by-nc-sa]
+* https://open.ed.ac.uk/about/[]: talk only
+* https://github.com/vEnhance/napkin[]: no license but considering it https://github.com/vEnhance/napkin/issues/77
+* https://github.com/certik/theoretical-physics[]: \x[mit-license]. https://opensource.stackexchange.com/questions/324/are-permissive-licenses-mit-bsd-zlib-compatible-with-cc-by[Workable] but wonky.
 
 = GitHub
 {c}
