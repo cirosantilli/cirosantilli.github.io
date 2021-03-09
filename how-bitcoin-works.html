@@ -22,30 +22,131 @@
 <a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
 </header>
 <main class="cirodown">
-<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="how-bitcoin-works"><a href="" title="link to this element">How Bitcoin works</a><span>  | <a title="view all headers in a single page" href="#how-bitcoin-works">🗖 nosplit</a> | <a href="bitcoin#bitcoin" title="parent header">↑ parent "Bitcoin"</a> | <span class="metrics"><span class="word-count" title="word count for this node">868</span></span></span></h1>
-<div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="#how-bitcoin-works">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="bitcoin#bitcoin" title="parent header">↑ parent "Bitcoin"</a> | <span class="metrics"><span class="word-count" title="word count for this node">868</span></span></div></div>
-</div><div><span class="hide-hover"><a href=".#p-3145">🔗</a></span><div class="p" id="p-3145">Here is a very direct description of the system:<div><ul id="ul-576">
-<li id="l-1644">each transaction has a list of inputs, and a list of outputs</li>
-<li id="l-1645">each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a <a href="digital-signature#digital-signature" title="internal link
+<div><span class="hide-hover"><a href="">🔗</a></span><h1 id="how-bitcoin-works"><a href="" title="link to this element">How Bitcoin works</a><span>  | <a title="view all headers in a single page" href=".#how-bitcoin-works">🗖 nosplit</a> | <a href="bitcoin" title="parent header">↑ parent "Bitcoin"</a> | <span class="metrics"><span class="word-count" title="word count for this node">2k</span></span></span></h1>
+<div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href=".#how-bitcoin-works">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="bitcoin" title="parent header">↑ parent "Bitcoin"</a> | <span class="metrics"><span class="word-count" title="word count for this node">2k</span></span></div></div>
+</div><div><span class="hide-hover"><a href="split#p-3250">🔗</a></span><div class="p" id="p-3250">Here is a very direct description of the system:<div><ul id="ul-610">
+<li id="l-1747">each transaction (transaction is often abbreviated "tx") has a list of inputs, and a list of outputs</li>
+<li id="l-1748">each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a <a href="digital-signature" title="internal link
 word count: 0
 descendant count: 19
-descendant word count: 19">digital signature</a> for the public key specified on the output</li>
-<li id="l-1646">each output specifies the <a href="public-key-cryptography#public-key-cryptography" title="internal link
-word count: 7
+descendant word count: 19">digital signature</a> for the <a href="public-key-cryptography" title="internal link
+word count: 8
 descendant count: 19
-descendant word count: 434">public key</a> of the receiver and the value being sent</li>
-<li id="l-1647">the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.</li>
-<li id="l-1648">once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.</li>
-</ul></div></div></div><div><span class="hide-hover"><a href=".#p-3146">🔗</a></span><div class="p" id="p-3146">Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine.</div></div><div><span class="hide-hover"><a href=".#p-3147">🔗</a></span><div class="p" id="p-3147">The key innovation of Bitcoin is how to prevent double spending, i.e. use a single output as the input of two different transactions, via mining.</div></div><div><span class="hide-hover"><a href=".#p-3148">🔗</a></span><div class="p" id="p-3148">For example, what prevents me from very quickly using a single output to pay two different people in quick succession?</div></div><div><span class="hide-hover"><a href=".#p-3149">🔗</a></span><div class="p" id="p-3149">The solution are the blocks. Blocks discretize transactions into chunks in a way that prevents double spending.</div></div><div><span class="hide-hover"><a href=".#p-3150">🔗</a></span><div class="p" id="p-3150">A block contains:<div><ul id="ul-577">
-<li id="l-1649"><div class="p" id="p-3151">a list of transactions that are valid amongst themselves. Notably, there can't be double spending within a block.</div><div class="p" id="p-3152">People making transactions send them to the network, and miners select which ones they want to add to their block. Miners prefer to pick transactions that are:<div><ul id="ul-578">
-<li id="l-1650">small, as less bytes means less hashing costs. Small generally means "doesn't have a gazillion inputs/outputs".</li>
-<li id="l-1651">have higher transaction fees, for obvious reasons</li>
+descendant word count: 451">public key</a> specified on the output</li>
+<li id="l-1749">each output specifies the <a href="public-key-cryptography" title="internal link
+word count: 8
+descendant count: 19
+descendant word count: 451">public key</a> of the receiver and the value being sent</li>
+<li id="l-1750">the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.</li>
+<li id="l-1751">once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.
+</li>
+</ul></div><a href="#code-sample-bitcoin-transaction-graph" title="internal link
+word count: 0
+descendant count: 0
+descendant word count: 0">Code 4. "Sample Bitcoin transaction graph."</a> illustrates these concepts:<div><ul id="ul-611">
+<li id="l-1752"><code>tx0</code>: magic transaction without any inputs, i.e. either <a href="genesis-block" title="internal link
+word count: 1
+descendant count: 8
+descendant word count: 217">Genesis block</a> or a coinbase mining reward. Since it is a magic transaction, it produces 3 Bitcoins from scratch: 1 in <code>out0</code> and 2 in <code>out1</code></li>
+<li id="l-1753"><code>tx1</code>: regular transaction that takes:<div><ul id="ul-612">
+<li id="l-1754">a single input from <code>tx0 out0</code>, with value 1</li>
+<li id="l-1755">produces two outputs:<div><ul id="ul-613">
+<li id="l-1756"><code>out0</code> for value 0.5</li>
+<li id="l-1757"><code>out1</code> for value 0.3</li>
+</ul></div></li>
+<li id="l-1758">this means that there was 0.2 left over from the input. This value will be given to the miner that mines this transaction.
+</li>
+</ul></div>Since this is a regular transaction, no new coins are produced.</li>
+<li id="l-1759"><code>tx2</code>: regular transaction with a single input and a single output. It uses up the entire input, leading to 0 miner fees, so this greedy one might (will?) never get mined.</li>
+<li id="l-1760"><code>tx3</code>: regular transaction with two inputs and one output. The total input is 2.3, and the output is 1.8, so the miner fee will be 0.5</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#code-sample-bitcoin-transaction-graph">🔗</a></span><div class="code-caption-container" id="code-sample-bitcoin-transaction-graph">
+
+<div class="caption"><a href="#code-sample-bitcoin-transaction-graph"><span class="caption-prefix">Code 4</span></a>. Sample <a href="bitcoin" title="internal link
+word count: 39
+descendant count: 21
+descendant word count: 8k">Bitcoin</a> transaction <a href="graph-discrete-mathematics" title="internal link
+word count: 0
+descendant count: 0
+descendant word count: 0">graph</a>.</div>
+<pre><code>                   tx1                     tx3
+  tx0            +---------------+       +---------------+
++----------+     | in0           |       | in0           |
+| out0     |&lt;------out: tx0 out0 |  +------out: tx1 out1 |
+| value: 1 |     +---------------+  |    +---------------+
++----------+     | out0          |  |    | in1           |
+| out1     |&lt;-+  | value: 0.5    |  | +----out: tx2 out0 |
+| value: 2 |  |  +---------------+  | |  +---------------+
++----------+  |  | out1          |&lt;-+ |  | out1          |
+              |  | value: 0.3    |    |  | value: 1.8    |
+              |  +---------------+    |  +---------------+
+              |                       |
+              |                       |
+              |                       |
+              |    tx2                |
+              |  +---------------+    |
+              |  | in0           |    |
+              +----out: tx0 out1 |    |
+                 +---------------+    |
+                 | out0          |&lt;---+
+                 | value: 2      |
+                 +---------------+
+</code></pre></div></div><div><span class="hide-hover"><a href="split#p-3251">🔗</a></span><div class="p" id="p-3251">Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine. This magic transaction is called a "<a href="https://en.bitcoin.it/wiki/Coinbase">coinbase transaction</a>".</div></div><div><span class="hide-hover"><a href="split#p-3252">🔗</a></span><div class="p" id="p-3252">The key innovation of Bitcoin is how to prevent double spending, i.e. use a single output as the input of two different transactions, via mining.</div></div><div><span class="hide-hover"><a href="split#p-3253">🔗</a></span><div class="p" id="p-3253">For example, what prevents me from very quickly using a single output to pay two different people in quick succession?</div></div><div><span class="hide-hover"><a href="split#p-3254">🔗</a></span><div class="p" id="p-3254">The solution are the blocks. Blocks discretize transactions into chunks in a way that prevents double spending.</div></div><div><span class="hide-hover"><a href="split#p-3255">🔗</a></span><div class="p" id="p-3255">A block contains:<div><ul id="ul-614">
+<li id="l-1761"><div class="p" id="p-3256">a list of transactions that are valid amongst themselves. Notably, there can't be double spending within a block.</div><div class="p" id="p-3257">People making transactions send them to the network, and miners select which ones they want to add to their block. Miners prefer to pick transactions that are:<div><ul id="ul-615">
+<li id="l-1762">small, as less bytes means less hashing costs. Small generally means "doesn't have a gazillion inputs/outputs".</li>
+<li id="l-1763">have higher transaction fees, for obvious reasons</li>
 </ul></div></div></li>
-<li id="l-1652">the ID of its parent block. Blocks therefore form a linear linked list of blocks, except for temporary ties that are soon resolved. The longest known list block is considerd to be the valid one.</li>
-<li id="l-1653">a nonce, which is an integer chosen "arbitrarily by the miner"</li>
-</ul></div></div></div><div><span class="hide-hover"><a href=".#p-3153">🔗</a></span><div class="p" id="p-3153">For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.</div></div><div><span class="hide-hover"><a href=".#p-3154">🔗</a></span><div class="p" id="p-3154">Since hashes are basically random, miners just have to try a bunch of nonces randomly until they find one that works.</div></div><div><span class="hide-hover"><a href=".#p-3155">🔗</a></span><div class="p" id="p-3155">The more zeroes, the harder it is to find the hash. For example, on the extreme case where N is all the bits of the hash output, we are trying to find a hash of exactly 0, which is statistically impossible. But if e.g. N=1, you will in average have to try only two nonces, N=2 four nonces, and so on.</div></div><div><span class="hide-hover"><a href=".#p-3156">🔗</a></span><div class="p" id="p-3156">The value N is updated every 2 weeks, and aims to make blocks to take 10 minutes to mine on average. N has to be increased with time, as more advanced hashing hardware has become available.</div></div><div><span class="hide-hover"><a href=".#p-3157">🔗</a></span><div class="p" id="p-3157">Once a miner finds a nonce that works, they send their block to the network. Other miners then verify the block, and once they do, they are highly incentivized to stop their hashing attempts, and make the new valid block be the new parent, and start over. This is because the length of the chain has already increased: they would need to mine two blocks instead of one if they didn't update to the newest block!</div></div><div><span class="hide-hover"><a href=".#p-3158">🔗</a></span><div class="p" id="p-3158">Therefore if you try to double spend, some random miner is going to select only one of your transactions and add it to the block.</div></div><div><span class="hide-hover"><a href=".#p-3159">🔗</a></span><div class="p" id="p-3159">They can't pick both, otherwise their block would be invalid, and other miners would't accept is as the new longest one.</div></div><div><span class="hide-hover"><a href=".#p-3160">🔗</a></span><div class="p" id="p-3160">Then sooner or later, the transaction will be mined and added to the longest chain. At this point, the network will move to that newer header, and your second transaction will not be valid for any miner at all anymore, since it uses a spent output from the first one that went in. All miners will therefore drop that transaction, and it will never go in.</div></div><div><span class="hide-hover"><a href=".#p-3161">🔗</a></span><div class="p" id="p-3161">The goal of having this mandatory 10 minutes block interval is to make it very unlikely that two miners will mine at the exact same time, and therefore possibly each one mine one of the two double spending transactions. When ties to happen, miners randomly choose one of the valid blocks and work on top of it. The first one that does, now has a block of length L + 2 rather than L + 1, and therefore when that is propagated, everyone drops what they are doing and move to that new longest one.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#incomding-links">🔗</a></span><h2 id="#incoming-links"><a href="#incoming-links">Incoming links</a></h2></div>
+<li id="l-1764">the ID of its parent block. Blocks therefore form a linear linked list of blocks, except for temporary ties that are soon resolved. The longest known list block is considered to be the valid one.</li>
+<li id="l-1765">a nonce, which is an integer chosen "arbitrarily by the miner"</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="split#p-3258">🔗</a></span><div class="p" id="p-3258">For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.</div></div><div><span class="hide-hover"><a href="split#p-3259">🔗</a></span><div class="p" id="p-3259">For example, considering the transactions from <a href="#code-sample-bitcoin-transaction-graph" title="internal link
+word count: 0
+descendant count: 0
+descendant word count: 0">Code 4. "Sample Bitcoin transaction graph."</a>, the block structure shown at <a href="#code-sample-bitcoin-blockchain" title="internal link
+word count: 0
+descendant count: 0
+descendant word count: 0">Code 5. "Sample Bitcoin blockchain."</a> would be valid. In it <code>block0</code> contains two transactions: <code>tx0</code> and <code>tx1</code>, and <code>block1</code> also contains two transactions: <code>tx2</code> and <code>tx3</code>.</div></div><div><span class="hide-hover"><a href="#code-sample-bitcoin-blockchain">🔗</a></span><div class="code-caption-container" id="code-sample-bitcoin-blockchain">
+
+<div class="caption"><a href="#code-sample-bitcoin-blockchain"><span class="caption-prefix">Code 5</span></a>. Sample <a href="bitcoin" title="internal link
+word count: 39
+descendant count: 21
+descendant word count: 8k">Bitcoin</a> blockchain.</div>
+<pre><code> block0           block1             block2
++------------+   +--------------+   +--------------+
+| prev:      |&lt;----prev: block0 |&lt;----prev: block1 |
++------------+   +--------------+   +--------------+
+| txs:       |   | txs:         |   | txs:         |
+| - tx0      |   | - tx2        |   | - tx4        |
+| - tx1      |   | - tx3        |   | - tx5        |
++------------+   +--------------+   +--------------+
+| nonce: 944 |   | nonce: 832   |   | nonce: 734   |
++------------+   +--------------+   +--------------+
+
+</code></pre></div></div><div><span class="hide-hover"><a href="split#p-3260">🔗</a></span><div class="p" id="p-3260">The <code>nonce</code>s are on this example arbitrary chosen numbers that would lead to a desired hash for the block.</div></div><div><span class="hide-hover"><a href="split#p-3261">🔗</a></span><div class="p" id="p-3261"><code>block0</code> is the <a href="genesis-block" title="internal link
+word count: 1
+descendant count: 8
+descendant word count: 217">Genesis block</a>, which is magic and does not have a previous block, because we have to start from somewhere. The network is hardcoded to accept that as a valid starting point.</div></div><div><span class="hide-hover"><a href="split#p-3262">🔗</a></span><div class="p" id="p-3262">Now suppose that the person who created <code>tx2</code> had tried to double spend and also created another transaction <code>tx2'</code> at the same time that looks like this:
+<div class="code-caption-container" id="code-31">
+<pre><code>  tx2'
++---------------+
+| in0           |
+| out: tx0 out1 |
++---------------+
+| out0          |
+| value: 2      |
++---------------+
+</code></pre></div>
+Clearly, this transaction would try to spend <code>tx0 out1</code> one more time in addition to <code>tx2</code>, and should not be allowed! If this were attempted, only the following outcomes are possible:<div><ul id="ul-616">
+<li id="l-1766"><code>block1</code> contains <code>tx2</code>. Then when <code>block2</code> gets made, it cannot contain <code>tx2'</code>, because <code>tx0 out1</code> was already spent by <code>tx2</code></li>
+<li id="l-1767"><code>block1</code> contains <code>tx2'</code>. <code>tx2</code> cannot be spent anymore
+</li>
+</ul></div>Notably, it is not possible that <code>block1</code> contains both <code>tx2</code> and <code>tx2'</code>, as that would make the block invalid, and the network would not accept that block even if a miner found a <code>nonce</code>.</div></div><div><span class="hide-hover"><a href="split#p-3263">🔗</a></span><div class="p" id="p-3263">Since hashes are basically random, miners just have to try a bunch of nonces randomly until they find one that works.</div></div><div><span class="hide-hover"><a href="split#p-3264">🔗</a></span><div class="p" id="p-3264">The more zeroes, the harder it is to find the hash. For example, on the extreme case where N is all the bits of the hash output, we are trying to find a hash of exactly 0, which is statistically impossible. But if e.g. N=1, you will in average have to try only two nonces, N=2 four nonces, and so on.</div></div><div><span class="hide-hover"><a href="split#p-3265">🔗</a></span><div class="p" id="p-3265">The value N is updated every 2 weeks, and aims to make blocks to take 10 minutes to mine on average. N has to be increased with time, as more advanced hashing hardware has become available.</div></div><div><span class="hide-hover"><a href="split#p-3266">🔗</a></span><div class="p" id="p-3266">Once a miner finds a nonce that works, they send their block to the network. Other miners then verify the block, and once they do, they are highly incentivized to stop their hashing attempts, and make the new valid block be the new parent, and start over. This is because the length of the chain has already increased: they would need to mine two blocks instead of one if they didn't update to the newest block!</div></div><div><span class="hide-hover"><a href="split#p-3267">🔗</a></span><div class="p" id="p-3267">Therefore if you try to double spend, some random miner is going to select only one of your transactions and add it to the block.</div></div><div><span class="hide-hover"><a href="split#p-3268">🔗</a></span><div class="p" id="p-3268">They can't pick both, otherwise their block would be invalid, and other miners wouldn't accept is as the new longest one.</div></div><div><span class="hide-hover"><a href="split#p-3269">🔗</a></span><div class="p" id="p-3269">Then sooner or later, the transaction will be mined and added to the longest chain. At this point, the network will move to that newer header, and your second transaction will not be valid for any miner at all anymore, since it uses a spent output from the first one that went in. All miners will therefore drop that transaction, and it will never go in.</div></div><div><span class="hide-hover"><a href="split#p-3270">🔗</a></span><div class="p" id="p-3270">The goal of having this mandatory 10 minutes block interval is to make it very unlikely that two miners will mine at the exact same time, and therefore possibly each one mine one of the two double spending transactions. When ties to happen, miners randomly choose one of the valid blocks and work on top of it. The first one that does, now has a block of length L + 2 rather than L + 1, and therefore when that is propagated, everyone drops what they are doing and move to that new longest one.</div></div><div><span class="hide-hover"><a href="split#p-3271">🔗</a></span><div class="p" id="p-3271">Bibliography:<div><ul id="ul-617">
+<li id="l-1768"><a href="https://arstechnica.com/tech-policy/2020/12/how-bitcoin-works/">https://arstechnica.com/tech-policy/2020/12/how-bitcoin-works/</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#incomding-links">🔗</a></span><h2 id="#incoming-links"><a href="#incoming-links">Incoming links</a></h2></div>
 <div><ul>
-<li><a href="digital-signature#digital-signature" title="internal link
+<li><a href="bitcoin" title="internal link
+word count: 39
+descendant count: 21
+descendant word count: 8k">Bitcoin</a></li>
+<li><a href="digital-signature" title="internal link
 word count: 0
 descendant count: 19
 descendant word count: 19">Digital signature</a></li>
@@ -55,7 +156,7 @@ descendant word count: 19">Digital signature</a></li>
 <div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/94509958fed1352bae61394ef620d51456573d42">94509958fed1352bae61394ef620d51456573d42</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/daef6a02dcebbf4a350ae2e9109532287178413b">daef6a02dcebbf4a350ae2e9109532287178413b</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
