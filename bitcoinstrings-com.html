@@ -24,14 +24,14 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><h1 id="bitcoinstrings-com"><a href="" title="link to this element">BitcoinStrings.com</a><span>  | <a title="view all headers in a single page" href="nosplit#bitcoinstrings-com">🗖 nosplit</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a> | <span class="metrics"><span class="word-count" title="word count for this node">153</span></span></span></h1>
 <div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#bitcoinstrings-com">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a> | <span class="metrics"><span class="word-count" title="word count for this node">153</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3347">🔗</a></span><div class="p" id="p-3347"><a href="https://bitcoinstrings.com">https://bitcoinstrings.com</a> has all <code>strings -n20</code> strings, we can obtain the whole thing and clean it up a bit with:
+</div><div><span class="hide-hover"><a href="#p-3366">🔗</a></span><div class="p" id="p-3366"><a href="https://bitcoinstrings.com">https://bitcoinstrings.com</a> has all <code>strings -n20</code> strings, we can obtain the whole thing and clean it up a bit with:
 <div class="code-caption-container" id="code-33">
 <pre><code>wget -O all.html https://bitcoinstrings.com/all
 cp all.html all-recode.html
 recode html..ascii all-recode.html
 awk '!seen[$0]++' all-recode.html &gt; all-uniq.html
 </code></pre></div>
-<code>awk</code> to skip the gazillion "mined by message" repeats.</div></div><div><span class="hide-hover"><a href="#p-3348">🔗</a></span><div class="p" id="p-3348">A lot of in that website stuff appears to be cut up at the 20 mark. As shown in <a href="cool-data-embedded-in-the-bitcoin-blockchain#force-of-will" title="internal link">Force of Will</a>, this is possibly because they didn't use <code>-w</code> in <code>strings -n20</code>, and the text after the newlines was less than 20 characters.</div></div><div><span class="hide-hover"><a href="#p-3349">🔗</a></span><div class="p" id="p-3349">That website can be replicated by downloading the <a href="bitcoin" title="internal link
+<code>awk</code> to skip the gazillion "mined by message" repeats.</div></div><div><span class="hide-hover"><a href="#p-3367">🔗</a></span><div class="p" id="p-3367">A lot of in that website stuff appears to be cut up at the 20 mark. As shown in <a href="cool-data-embedded-in-the-bitcoin-blockchain#force-of-will" title="internal link">Force of Will</a>, this is possibly because they didn't use <code>-w</code> in <code>strings -n20</code>, and the text after the newlines was less than 20 characters.</div></div><div><span class="hide-hover"><a href="#p-3368">🔗</a></span><div class="p" id="p-3368">That website can be replicated by downloading the <a href="bitcoin" title="internal link
 word count: 17
 descendant count: 24
 descendant word count: 3k">Bitcoin</a> blockchain locally, then:
@@ -39,7 +39,7 @@ descendant word count: 3k">Bitcoin</a> blockchain locally, then:
 <pre><code>cd .bitcoin/blocks
 for f in blk*.dat; do strings -n20 -w $f | awk '!seen[$0]++' &gt; ${f%.dat}.txt; done
 tail +n1 *.txt
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3350">🔗</a></span><div class="p" id="p-3350">Remove most of the binary crap:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3369">🔗</a></span><div class="p" id="p-3369">Remove most of the binary crap:
 <div class="code-caption-container" id="code-35">
 <pre><code>head -n-1 *.txt | grep -e '[. ]' | grep -iv 'mined by' | less
 </code></pre></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
@@ -49,7 +49,7 @@ tail +n1 *.txt
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/3fbecb06084edd6c470755d8b59d293b601b3796">3fbecb06084edd6c470755d8b59d293b601b3796</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/b2972561ac1f80ff9fcaf62e9e5ef751c52cead5">b2972561ac1f80ff9fcaf62e9e5ef751c52cead5</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
