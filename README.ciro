@@ -12613,13 +12613,6 @@ Several software projects followed the purge from their codebases, maybe GitHub 
 
 The words "whitelist" and "blacklist" were also targeted.
 
-= Society
-{parent=social-science}
-{wiki}
-
-= Social
-{synonym}
-
 = Magic the gathering's banning of 7 cards due to "racism" (2020)
 {parent=ridiculous-cases-of-political-correctness-censorship}
 
@@ -12638,6 +12631,13 @@ List of cards with images: https://www.hipstersofthecoast.com/2020/06/wizards-ba
 By \x[wizards-of-the-coast], parent company of \x[magic-the-gathering]{parent}.
 
 \x[reddit] discussion: https://www.reddit.com/r/mtgfinance/comments/h0kb84/depictions_of_racism_in_magic_aka_invoke/
+
+= Society
+{parent=social-science}
+{wiki}
+
+= Social
+{synonym}
 
 = War
 {parent=social-science}
@@ -16688,7 +16688,7 @@ Basically the opposite of \x[security-through-obscurity], though slightly more f
 {title2=PaaS}
 {wiki}
 
-Highly managed, you don't even see the \x[docker] images, only some higher level \x[json] configuration file.
+Highly managed, you don't even see the \x[docker-software] images, only some higher level \x[json] configuration file.
 
 = Heroku
 {c}
@@ -16702,7 +16702,7 @@ This feels good.
 {wiki}
 
 = Relational database management system
-{parent=software}
+{parent=database}
 {title2=RDBMS}
 
 = SQL
@@ -16723,7 +16723,7 @@ sudo -u postgres createuser -s $(whoami)
 createdb $(whoami)
 ``
 Explanation:
-* `sudo -u postgres` uses the `postgres` user via \x[peer authentication]
+* `sudo -u postgres` uses the `postgres` user via \x[peer-authentication]
 * `-s` in `createuser -s`: make it a superuser
 * `createdb`: TODO why do we have to create a table with the same name as the user? Otherwise login fails.
 
@@ -17652,6 +17652,7 @@ Hopefully will be killed by https://en.wikipedia.org/wiki/WebAssembly[WebAssembl
 = Babel
 {c}
 {disambiguate=transcompiler}
+{parent=javascript-library}
 {wiki}
 
 = Node.js
@@ -17678,6 +17679,12 @@ https://github.com/sequelize/sequelize
 {c}
 {parent=node-js}
 
+= Express.js
+{c}
+{parent=node-js-web-framework}
+
+This doesn't do a hole lot. \x[ciro-santilli] wouldn't really call it a web framework. It's more like a middleware. Real web frameworks are built on top of it.
+
 = Feathers.js
 {c}
 {parent=node-js-web-framework}
@@ -17688,12 +17695,15 @@ https://github.com/sequelize/sequelize
 
 Looks interesting.
 
+It seems to abstract the part about the client messaging the backend, which focuses on being able to easily plug in a number of \x[front-end-web-framework] to manage client state.
+
 Their standard template from `feathers generate app` on `@feathersjs/cli@4.5.0` includes:
 * several authentication methods, including \x[oauth]
 * testing
 * backend \x[database] with one of several \x[object-relational-mapping]!
 which looks promising! They don't have a default template for a \x[front-end-web-framework] however unfortunately: https://docs.feathersjs.com/guides/frameworks.html#the-feathers-chat lists a few chat app versions, which is their \x[hello-world]:
-* \x[front-end-web-framework]: not built-in on generator, but there are some sample repos pointed from the documentation. 
+* \x[front-end-web-framework]: not built-in on generator, but there are some sample repos pointed from the documentation, and they did work out-of-box:
+  * \x[feathers-chat-react]
 But it is in itself a completely boring app with a single splash page, and no database interaction, so not a good showcase. The actual showcase app is \x[feathersjs-feathers-chat].
 
 And there is no official example of the chat app that is immediately deployable to \x[heroku]: \x[feathers-js-heroku-deployment], all setups require thinking.
@@ -17704,47 +17714,23 @@ And there is no official example of the chat app that is immediately deployable 
 
 https://github.com/feathersjs/feathers-chat
 
-The main \x[feathers.js] demo. No \x[front-end-web-framework] which sucks.
+The main \x[feathers-js] demo. No \x[front-end-web-framework] which sucks.
 
-= Feathers.js Heroku deployment
+= feathers-chat PostgreSQL
 {c}
-{parent=feathers-js}
+{parent=feathersjs-feathers-chat}
 
-* https://stackoverflow.com/questions/47270219/deploy-feathersjs-app-on-heroku
-* https://github.com/feathersjs/feathers/issues/1647
-* https://medium.com/@mattchewone/feathersjs-deployment-gitlab-ci-cd-heroku-4ea9e34ab129
+The default feathers-chat app runs on NeDB (local filesystem \x[json] database).
 
-Starting from \x[feathers-chat-react] at fd729a47c57f9e6170cc1fa23cee0c84a004feb5 on an app called `cirosantilli-feathersjs-chat`:
-``
-heroku login
-heroku git:remote -a cirosantilli-feathersjs-chat
-heroku addons:create heroku-postgresql:hobby-dev
-npm install --save feathers-sequelize pg pg-hstore
-feathers generate service
-# Sequelize
-# db
-# PostgreSQL
-git add -u
-git commit -m 'heroku'
-git push heroku crow:master
-``
-Now at https://cirosantilli-feathersjs-chat.herokuapp.com/ the app login page shows, but I can't do anything yet, presumably because of the lack of database connection, as the chat example runs on NeDB (local filesystem \x[jason] database).
-
-So the first step is going to be to port \x[feathersjs-feathers-chat] to \x[postgresql] locally with Sequelize. That app uses `NeDB` calls explicitly on the code, which shows that Feathers.js does not abstract across radically different database providers. Sequelize should however offer the flexibility that we want: https://github.com/catalyst-technologies/feathers-chat-pgsql last updated 2017 as of 2021 but that repo fails with:
-``
-npm ERR! notarget No matching version found for feathers-authentication@pre.
-``
-WTF. There is also: https://github.com/pedrogk/feathers-chat-sequelize last updated 2017 as of 2021, so likely not going to work either.
-
-https://stackoverflow.com/questions/45903574/connect-to-a-local-sql-server-db-with-sequelize
+Managed to port it to \x[sequelize] for \x[postgresql] as shown at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
 
 = feathers-chat-react
 {c}
-{parent=feathers-js}
+{parent=feathersjs-feathers-chat}
 
 https://github.com/feathersjs-ecosystem/feathers-chat-react
 
-Last updated 2018 as of 2021.
+Last updated 2018 as of 2021, but still just worked.
 
 Also uses \x[webpack] which is fantastic.
 
@@ -17769,6 +17755,29 @@ then visit http://localhost:3000/ and you can create an account and login, teste
 TODO how to merge those two repos into a single repo.
 
 If you \x[disable-javascript-on-chromium], it stops working completely. There is a section on how to solve that at: https://docs.feathersjs.com/cookbook/express/view-engine.html[] but it does not cover React specifically. \x[codaisseur-feathersjs-react-redux-ssr] might be good to look into.
+
+= Feathers.js Heroku deployment
+{c}
+{parent=feathers-js}
+
+Got it working as mentioned at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
+
+* https://stackoverflow.com/questions/47270219/deploy-feathersjs-app-on-heroku
+* https://github.com/feathersjs/feathers/issues/1647
+* https://medium.com/@mattchewone/feathersjs-deployment-gitlab-ci-cd-heroku-4ea9e34ab129
+
+There's also a `heroku` branch at: https://github.com/feathersjs/feathers-chat/tree/heroku[], but it also seems to use NeDB? So you can have a filesystem in Heroku? Doesn't seem so: https://stackoverflow.com/questions/42775418/heroku-local-persistent-storage
+
+Randomgly starting from \x[feathers-chat-react] at fd729a47c57f9e6170cc1fa23cee0c84a004feb5 on an app called `cirosantilli-feathersjs-chat`:
+``
+heroku login
+heroku git:remote -a cirosantilli-feathersjs-chat
+heroku addons:create heroku-postgresql:hobby-dev
+git add -u
+git commit -m 'heroku'
+git push heroku HEAD:master
+``
+Now at https://cirosantilli-feathersjs-chat.herokuapp.com/ the app login page shows, but I can't do anything yet, presumably because of the lack of database connection, which could be solved with: \x[feathers-chat-postgresql].
 
 = Codaisseur/feathersjs-react-redux-ssr
 {c}
@@ -17879,6 +17888,25 @@ index bcb29c3..86bd593 100644
 ``
 and the next problem is: https://stackoverflow.com/questions/48513573/gulp-error-gulp-hastask-is-not-a-function
 
+= Meteor
+{c}
+{disambiguate=web framework}
+{parent=node-js-web-framework}
+
+https://github.com/meteor/meteor
+
+The idea is cool. It really unifies front-and back end.
+
+But \x[ciro-santilli] feels the approach proposed by \x[feathers-js] of being a glue between bigger third-party \x[front-end-web-framework]{p} like \x[react-javascript-library] and backend (\x[object-relational-mapping]) is more promising and flexible.
+
+= Nest.js
+{c}
+{parent=node-js-web-framework}
+
+* \x[object-relational-mapping]: https://docs.nestjs.com/techniques/database
+* \x[front-end-web-framework]: looks weak:
+	* https://github.com/yemiwebby/nest-react-project
+
 = Sails.js
 {c}
 {parent=node-js-web-framework}
@@ -17976,7 +18004,7 @@ The only reason why \x[ruby-programming-language] exists.
 
 This web framework is pretty good as of 2020 compared to others, because it managed to gain a critical community size, and there's a lot of basic setup already done for you.
 
-it is just big shame it wasn't written in \x[python] or even better, \x[node-js], because learning \x[ruby] is completely useless for anything else. As of 2020 for example, most \x[node-js] web frameworks feel like crap compared to Rails, you just have to debug so much there.
+it is just big shame it wasn't written in \x[python] or even better, \x[node-js], because learning \x[ruby-programming-language] is completely useless for anything else. As of 2020 for example, most \x[node-js] web frameworks feel like crap compared to Rails, you just have to debug so much there.
 
 Used in \x[gitlab], which is why \x[ciro-santilli] touched it.
 
@@ -18943,7 +18971,7 @@ The more of their syntax gets merged into mainline \x[cascading-style-sheets], t
 {wiki}
 
 = Disable JavaScript on Chromium
-{parent=chromium}
+{parent=chromium-web-browser}
 
 https://stackoverflow.com/questions/13405383/how-to-disable-javascript-in-chrome-developer-tools
 
@@ -18981,7 +19009,7 @@ Notably, new elements might need to be added to the webpage, which in turn means
 The only way to do this basically is to have a functional dependency graph that keeps everything in the page in working state as updates come.
 
 = Single page application
-{parent=front-end-web-frameworks}
+{parent=front-end-web-framework}
 {title2=SPA}
 {wiki}
 
@@ -18990,7 +19018,7 @@ The only way to do this basically is to have a functional dependency graph that 
 {wiki}
 
 = List of front-end web frameworks
-{parent=front-end-web-frameworks}
+{parent=front-end-web-framework}
 
 = React
 {c}
@@ -20153,7 +20181,7 @@ If crypto really takes off, 99.99% of people will only ever use it through some 
 
 For those reasons, \x[ciro-santilli] instead believes that Governments should issue electronic money, and maintain an open API that all can access instead. So for example you would e able to put all your money in the Government account instead of using useless banks. And they you would invest it as you want with the investment company of your choice. The centralized service will always be cheaper for \x[society] to maintain than any distributed service, and it will still allow for proper taxation.
 
-Ciro believes that it is easy for people to be seduced by the \x[idealistic] promise that "cryptocurrency will make the world more fair and equal by giving everyone equal opportunities, away from the corruption of Governments". Such optimism that new \xptechnology]{p} will solve certain key \x[social] problems without the need for constant \x[government] intervention and management is not new, as shown e.g. at \x[hypernormalisation-by-adam-curtis-2016] when he talks about the cyberspace (when the \x[internet] was just beginning): https://youtu.be/fh2cDKyFdyU?t=2375[]. Technologies can make our lives better. But in general, some of them also have to be managed.
+Ciro believes that it is easy for people to be seduced by the \x[idealistic] promise that "cryptocurrency will make the world more fair and equal by giving everyone equal opportunities, away from the corruption of Governments". Such optimism that new \x[technology]{p} will solve certain key \x[social] problems without the need for constant \x[government] intervention and management is not new, as shown e.g. at \x[hypernormalisation-by-adam-curtis-2016] when he talks about the cyberspace (when the \x[internet] was just beginning): https://youtu.be/fh2cDKyFdyU?t=2375[]. Technologies can make our lives better. But in general, some of them also have to be managed.
 
 In any case, cryptocurrencies are bullshit, the true currency of the future is going to be \x[magic-the-gathering] cards.
 
