@@ -31,14 +31,31 @@
 <li id="l-69"><div class="p" id="p-104">the top 10 bits are used to walk the top level of the K-ary tree (<code>level0</code>)</div><div class="p" id="p-105">The top table is called a "directory of page tables".</div><div class="p" id="p-106"><code>cr3</code> now points to the location on RAM of the page directory of the current process instead of page tables.</div><div class="p" id="p-107">Page directory entries are very similar to page table entries except that they point to the physical addresses of page tables instead of physical addresses of pages.</div><div class="p" id="p-108">Each directory entry also takes up 4 bytes, just like page entries, so that makes 4 KiB per process minimum.</div><div class="p" id="p-109">Page directory entries also contain a valid flag: if invalid, the OS does not allocate a page table for that entry, and saves memory.</div><div class="p" id="p-110">Each process has one and only one page directory associated to it (and pointed to by <code>cr3</code>), so it will contain at least <code>2^10 = 1K</code> page directory entries, much better than the minimum 1M entries required on a single-level scheme.</div></li>
 <li id="l-70"><div class="p" id="p-111">the next 10 bits are used to walk the second level of the K-ary tree (<code>level1</code>)</div><div class="p" id="p-112">Second level entries are also called page tables like the single level scheme.</div><div class="p" id="p-113">Page tables are only allocated only as needed by the OS.</div><div class="p" id="p-114">Each page table has only <code>2^10 = 1K</code> page table entries instead of <code>2^20</code> for the single paging scheme.</div><div class="p" id="p-115">Each process can now have up to <code>2^10</code> page tables instead of <code>2^20</code> for the single paging scheme.</div></li>
 <li id="l-71">the offset is again not used for translation, it only gives the offset within a page</li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-116">🔗</a></span><div class="p" id="p-116">One reason for using 10 bits on the first two levels (and not, say, <code>12 | 8 | 12</code> ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-116">🔗</a></span><div class="p" id="p-116">One reason for using 10 bits on the first two levels (and not, say, <code>12 | 8 | 12</code> ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#ancestors">🔗</a></span><h2 id="#ancestors"><a href="#ancestors">Ancestors</a></h2></div>
+<div><ul>
+<li><a href="../x86-paging#example-multi-level-paging-scheme" title="internal link
+word count: 5
+descendant word count: 1k
+descendant count: 0">Example: multi-level paging scheme</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">5</span></span></li>
+<li><a href="../x86-paging" title="internal link
+word count: 39
+descendant word count: 6k
+descendant count: 88">x86 Paging Tutorial</a> | <span class="metrics"><span class="word-count" title="word count for this node">88</span>, <span class="word-count-descendant" title="word count for this node + descendants">6k</span>, <span class="descendant-count" title="number of descendant nodes">39</span></span></li>
+<li><a href="../x86" title="internal link">x86</a></li>
+<li><a href="../list-of-instruction-set-architectures" title="internal link">List of instruction set architectures</a></li>
+<li><a href="../instruction-set-architecture" title="internal link">Instruction set architecture</a></li>
+<li><a href="../computer-hardware" title="internal link">Computer hardware</a></li>
+<li><a href="../computer" title="internal link">Computer</a></li>
+<li><a href="../technology" title="internal link">Technology</a></li>
+<li><a href="../" title="internal link">Ciro Santilli's Homepage</a></li>
+</ul></div>
 </main>
 <footer>
-<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> unless noted</div>
+<div>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless noted</div>
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="../contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/0bf523908b05d904047addd8d355f73fc0545921">0bf523908b05d904047addd8d355f73fc0545921</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/c6e3b5a35c72e628c8d625357c0721cf67d48457">c6e3b5a35c72e628c8d625357c0721cf67d48457</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
