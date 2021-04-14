@@ -16,7 +16,10 @@ An attempt is made to not repeat stuff that is already said in that article. Som
 Cool stuff in other sections:
 * \x[genesis-block-message]
 
-Quick ones that didn't deserve a section:
+= Miscellaneous
+{parent=cool-data-embedded-in-the-bitcoin-blockchain}
+
+Quick ones that didn't deserve a their own section:
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L705[tx 3a1c1cc760bffad4041cbfde56fbb5e29ea58fda416e9f4c4615becd65576fe7] has the broken basic creature simulation mentioned at \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014]
 * contains a few tributes/good riddance messages to \x[mt-gox]' shutdown.
 
@@ -59,7 +62,7 @@ Quick ones that didn't deserve a section:
 
   Epic.
 
-Politics:
+\x[politics]{c}:
 * \x[donald-trump]: there's a bit of both sides in the 2016 race:
   * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0408.txt#L4620[tx 202ceac7b3e7b990d1961fd2eab18ba5c80c99f10eacc783f14c53ebfdcaee00] "oEW Fuck Obama&Clinton Go Trump!!!!"
   * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0457.txt#L6780[tx 2fb07a8f358d690d8717734a48e5daf0ef70ea2d0e3b7c88dace8a5818fcb168] "L299,Trump touched my no-no"
@@ -75,21 +78,11 @@ U2FsdGVkX1/4iSjLxQ5epo8eRSCOQLGgAsn1CucGii27k8ZyC7Jz6wxhYcevVmxi
 6Q4ZFN04WDN0UhKqYardgQf26oeBMURupduDd0ZozxlgMrBkFOCaARqU7RABVWDO
 /ruPUcOY0VC8p4lrMNqSdqvN7y6OWwOSH3c0duumZfFNZs9+BbtKCxtaqR5+RkUI
 ``
-are base 64 encoded. Running them through `base64 -d` leads to starting output bytes `Salted__`: https://security.stackexchange.com/questions/124312/decrypting-binary-code-from-a-base64-string So whever we see the start:
+are \x[base64] encoded. Running them through `base64 -d` leads to starting output bytes `Salted__` which as mentioend at https://security.stackexchange.com/questions/124312/decrypting-binary-code-from-a-base64-string is OpenSSL encrypted data. So whever we see the start:
 ``
 U2FsdGVkX1/
 ``
 we might as well give up.
-
-Around block 264k we several transactions starting with a \x[xml] format `<CG SZ="1156"><MG>...` the first one being 0b4efe49ea1454020c4d51a163a93f726a20cd75ad50bb9ed0f4623c141a8008 As mentioned not very clearly at http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html#ref12 the content of the first `<MG><payload></MG>` is a \x[base64] encoded string
-``
-Catagory: Poetry
-Title: Never Gonna Give You Up
-Performer: Rick Astley
-Writer: Mike Stock, Matt Aitken, Pete Waterman
-Label: RCA Records
-``
-followed by lyrics also base64 encoded as part of the XML metadata. The above article was not able to identify the exact format either. tx d29c9c0e8e4d2a9790922af73f0b8d51f0bd4bb19940d9cf910ead8fbe85bc9b is a plaintext rickroll lyric.
 
 TODO
 * 4dd57f3e443ad1567a37beab8f6b31d8cb1328a26bac09e50ba96048ad07b8c1 long text in Italian starting with `E il cazzo non entr` looks vulgar/porn, identify
@@ -147,8 +140,31 @@ The generated text is however rather obfuscated by the limitations of Base58.
 * https://www.blockchain.com/btc/tx/1f9606f267cc398356663b14d1a7a3591e3da06572893394c14975a6fc11798f https://en.wikipedia.org/wiki/Philosophiæ_Naturalis_Principia_Mathematica
 * https://www.blockchain.com/btc/tx/ef374dcc5b23f16ecb0b1b639ba577d2acda7ad32321b5866db2fa9e6807b9c5 https://web.archive.org/web/20210129054851/https://bitcoin.org/en/
 
-= Prayer wars
+= Interesting input script data
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
+
+Data in input and output transactions are quite different because:
+* input transaction data can only be added by the miner who obtained the block.
+
+Input script transactions can only contain arbitrary data when they are made by miners that obtained the block.
+
+Therefore, except at the very early beginnings when random individuals could still mine without having a nuclear power station at their disposal, basically all input script transactions are boring ads made by mining pools or other souless companies.
+
+  As a result, inputs contain almost exclusively boring miner advertisements.
+* output transaction data however can be added by anyone who makes a transaction.
+
+  Therefore, although the large majority of it is also crap and spam like the rest of the \x[internet], there is much more interesting stuff to be found there in total.
+
+Here are some exceptionally interesting input data that are not mentioned in other sections:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0268.txt#L10[tx 61e26d407c17e8ee33a8b166c78f78c53cdcdc0078ae1f9405e6583cfb90eaf4]:  has an is exceptionally cute miner message:
+  \Q[I should not run the washing machine while listening to WZBC. I managed to convince myself that the machine was slowly failing -- that a rythmic, squeaking noise it had been making had gotten a little worse. Ten minutes later, though, the machine had paused. But the noise was still there.]
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0307.txt#L61[tx 15b11e8d4e5b9425f024b381ba0cb7a54a35e52389bb4855f505772ce685b39c]: \x[/rickrolling] lyrics were mined several times starting with this block, see also: \x[rickrolling]
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0386.txt#L785[tx 24e137d5b478d9a8b947e4f3f6130a86f2e0f6a2dda1cac1373b485c577f8ba7]: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt[]: "Once upon a time, in a kingdom not far from here" Electrical Engineer vs Software Developer tale. Possible original: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0456.txt#L1169[tx e450166eba552202fb6984867f2b851e2399c5a0ae05026bf6b056176491ec5d]: "Here are some of the reasons why Tau is better than Pi as a universal constant for circles."
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0396.txt#L61[tx e2c20c2977589240ad9486672a0273d340ed5f8b50a50071716d12035d7212e8]: has a large \x[lorem-ipsum]
+
+= Prayer wars
+{parent=interesting-input-script-data}
 
 Starting at https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0139.txt#L1[tx cbbaa0a64924fe1d6ace3352f23242aa0028d4e0ff6ae8ed615244d66079cfb1] with one line per transaction:
 ``
@@ -180,15 +196,15 @@ Later comments attribute the prayers to a Luke Jr., who is likely: https://twitt
 = Illegal content of block 229k
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
 
-Soon after block 229991 uploaded the \x[satoshi-uploader], several interesting files were added to the blockchain, and notably some containing content that might be illegal in some countries:
+These can be viewed at https://bitcoinstrings.com/blk00052.txt[].
+
+Soon after block 229991 uploaded the \x[satoshi-uploader], several interesting files were added to the blockchain, and notably some containing content that might be \x[illegal] in certain \x[country]{p}, although enforcement seems unlikely:
 * tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd block 229999 contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
 * tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7 block 230001 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
 * tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 block 230009 contains the Bitcoin white paper: https://bitcoin.org/bitcoin.pdf More context: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi
 * tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a block 230203 \x[cablegate] index. The announced filename is `cablegate-201012041811.7z`. As mentioned in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014], it has an ASCII list of several other transactions, which presumably when downloaded with the \x[satoshi-uploader] can concatenated lead to the full 7z file. Also as mentioned by Ken, it is infinitely easier for the average user to just access the cables directly on \x[wikileaks] :-)
 * tx dde7cd8e8f073a525c16c5ee4e4a254f847b7ad6babef257231813166fbef551 block 230229 and tx 4a0088a249e9099d205fb4760c28275d4b8965ac9fd56f5ddf6771cdb0d94f38 block 
 230231 contain indexes of pages from \x[the-hidden-wiki]
-
-These can be viewed at https://bitcoinstrings.com/blk00052.txt[].
 
 So basically, this was the first obviously illegal block attempt.
 
@@ -290,6 +306,11 @@ The following online profiles of the creators feel authentic:
   * Real name: likely "Eric Bobby" according to:
     * \x[linkedin]: https://www.linkedin.com/in/eric-bobby-0ab1b935/
     * http://bitfossil.org/affbac1bfde690c1fabd60812d046c911b2882038a42b18a4d2e7cb50e989604/
+  * https://twitter.com/EMBII4U
+    * https://twitter.com/TheAtomSea/status/990318090738196481 sample link
+* HugPuddle
+  * https://github.com/HugPuddle
+Tried saying hi to them at: https://twitter.com/cirosantilli/status/1382080760774033415
 
 The first upload that we could find with https://github.com/cirosantilli/bitcoin-strings-with-txid#atomsea was http://bitfossil.org/c9d1363ea517cd463950f83168ce8242ef917d99cd6518995bd1af927d335828/ on block 272577 (2013-12-02). It reads:
 \Q[I WONDER WHAT HISTORY WILL THINK ABOUT THESE FIRST FEW BUGS...HA HA HA. NOBODY IS PERFECT.]
@@ -753,6 +774,24 @@ The `UUUU` has a slightly weird encoding which we fixed by hand here TODO unders
 | Illus.  Terese Nelsen               |
  -------------------------------------
 ``
+
+= Rickrolling
+{c}
+{parent=cool-data-embedded-in-the-bitcoin-blockchain}
+
+\x[/rickrolling] lyrics were mined several times into the blockchain as mentioned at \x[interesting-input-script-data].
+
+Around block https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0264.txt#L28[block 246k] we note several transactions starting with a \x[xml] format `<CG SZ="1156"><MG>...` the first one being 0b4efe49ea1454020c4d51a163a93f726a20cd75ad50bb9ed0f4623c141a8008 As mentioned not very clearly at http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html#ref12 the content of the first `<MG><payload></MG>` is a \x[base64] encoded string
+``
+Catagory: Poetry
+Title: Never Gonna Give You Up
+Performer: Rick Astley
+Writer: Mike Stock, Matt Aitken, Pete Waterman
+Label: RCA Records
+``
+followed by lyrics also base64 encoded as part of the XML metadata. \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] was not able to identify the exact format either.
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0268.txt#L1[tx d29c9c0e8e4d2a9790922af73f0b8d51f0bd4bb19940d9cf910ead8fbe85bc9b] contains a plaintext Rickroll lyric in an output.
 
 = Protests against larger block sizes
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
