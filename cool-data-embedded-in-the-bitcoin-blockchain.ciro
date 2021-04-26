@@ -9,7 +9,7 @@ Notably, \x[ciro-santilli] developed his own set of scripts at https://github.co
 
 \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014] is a mandatory precursor to this article, and potentially contains some of the most interesting examples already.
 
-An attempt is made to not repeat stuff that is already said in that article. Some repetition happened by accident, as we explored and only later noticed it was already mentioned there. But there are also some new aspects of existing comments.
+An attempt is made to not repeat stuff that is already said in that article. Some repetition happened by accident, as we explored and only later noticed it was already mentioned there. But there are also some new aspects of existing comments. This analysis is also a bit more data oriented through our scripting. And there are somethings that only showed up after that post was originally written in 2014, this being originally written in 2021.
 
 \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][China stuff] is shown at: https://cirosantilli.com/china-dictatorship/#bitcoin-blockchain[].
 
@@ -85,7 +85,7 @@ U2FsdGVkX1/
 we might as well give up.
 
 TODO
-* 4dd57f3e443ad1567a37beab8f6b31d8cb1328a26bac09e50ba96048ad07b8c1 long text in Italian starting with `E il cazzo non entr` looks vulgar/porn, identify
+* 4dd57f3e443ad1567a37beab8f6b31d8cb1328a26bac09e50ba96048ad07b8c1 long text in Italian starting with `E il cazzo non entr` looks vulgar/\x[porn], identify
 
 = Base58 messages
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
@@ -196,16 +196,32 @@ Later comments attribute the prayers to a Luke Jr., who is likely: https://twitt
 = Illegal content of block 229k
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
 
-These can be viewed at https://bitcoinstrings.com/blk00052.txt[].
+These can be viewed at https://bitcoinstrings.com/blk00052.txt[] and are mostly commented on the "Wikileaks cablegate data" section of \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014].
 
-Soon after block 229991 uploaded the \x[satoshi-uploader], several interesting files were added to the blockchain, and notably some containing content that might be \x[illegal] in certain \x[country]{p}, although enforcement seems unlikely:
-* tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd block 229999 contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
-* tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7 block 230001 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
-* tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 block 230009 contains the Bitcoin white paper: https://bitcoin.org/bitcoin.pdf More context: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi
-* tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a block 230203 \x[cablegate] index. The announced filename is `cablegate-201012041811.7z`. As mentioned in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014], it has an ASCII list of several other transactions, which presumably when downloaded with the \x[satoshi-uploader] can concatenated lead to the full 7z file. Also as mentioned by Ken, it is infinitely easier for the average user to just access the cables directly on \x[wikileaks] :-)
+Soon after block 229991 uploaded the \x[satoshi-uploader], several interesting files were added to the blockchain using the uploader, and notably some containing content that might be \x[illegal] in certain \x[country]{p}, as a test to see if this type of content would make the Bitcoin blockchain illegal or not:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0229.txt#L241[tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd] block 229999 contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L1[tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7] block 230001 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L7[tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713] block 230009 contains the Bitcoin white paper: https://bitcoin.org/bitcoin.pdf More context: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L557[tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a] block 230203 \x[cablegate] index. The announced filename is `cablegate-201012041811.7z`. As mentioned in \x[hidden-surprises-in-the-bitcoin-blockchain-by-ken-shirriff-2014], it has an ASCII list of several other transactions, which presumably when downloaded with the \x[satoshi-uploader] can concatenated lead to the full 7z file. Also as mentioned by Ken, it is infinitely easier for the average user to just access the cables directly on \x[wikileaks] :-) The data is preceded by the message:
+  ``
+  sSEXWikileaks Cablegate Backup
+
+  cablegate-201012041811.7z
+
+  Download the following transactions with Satoshi Nakamoto's download tool which
+  can be found in transaction 6c53cd987119ef797d5adccd76241247988a0a5ef783572a9972e7371c5fb0cc
+
+  Free speech and free enterprise! Thank you Satoshi!
+  ``
 * tx dde7cd8e8f073a525c16c5ee4e4a254f847b7ad6babef257231813166fbef551 block 230229 and tx 4a0088a249e9099d205fb4760c28275d4b8965ac9fd56f5ddf6771cdb0d94f38 block 230231 contain indexes of pages from \x[the-hidden-wiki]. These can be viewed at: https://bitcoinstrings.com/blk00052.txt
 
 So basically, this was the first obviously illegal block attempt.
+
+None of this content is particularly eye-popping for \x[ciro-santilli]'s slightly crazy \x[freedom-of-speech] standards, and as of 2021, the Bitcoin blockchain hasn't become illegal anywhere yet.
+
+Furthermore, it is likely much easier to find much worse illegal content by browsing the \x[dark-web] for 5 minutes.
+
+Ciro estimates that perhaps the uploader didn't upload \x[child-pornography], which is basically the apex of illegality, because they were afraid that their identities would one day be found.
 
 = Images
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
@@ -227,15 +243,15 @@ Standard transaction output script hashes from \x[jpeg] or \x[png] from first by
 * tx 9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b block 351375 has a heart next to a bitcoin logo and written "we love bitcoin". Reproduced at: https://kryptomoney.com/grayscale-report-institutional-investors-retirement-funds-love-bitcoin/
 
   Embedded in the image itself, there's a message in the header comments: "Bitcoin uses peer-to-peer technology to operate with no central authority or banks" which is the opening paragraph of: https://bitcoin.org/en/
-* c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f block 416527 a well built man wearing a gas mask. Google search leads to: https://github.com/1Hyena[] (https://web.archive.org/web/20201103193934/https://github.com/1Hyena[archive]), who is the creator of <<cryptograffiti-info>>. It was around after this time that the number of raw images surged dramatically in the blockchain, so it is possible that this is when the service started operating.
-* 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183 block 416735 badtaxidermy.com "Water Deer" image: https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3
-* eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b block 417111 advertisement "Cryptocurrency Mining", Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm
-* e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6 block 417272 Rene Angelil and Celine Dion Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces.
-* 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a block 421280 wedding with people holding "Blockchain" and "Ipa" signs. Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.com.ua/zapushhen-ukrainskij-bitkoin-pul-bitcoinukraine/ Google translate: "One of the initiators of the launch of this pool was Oles Slobodenyuk, who earlier created a grocery store in Kiev accepting bitcoins, arranged a TakeMyBitcoin flash mob, and also registered his own marriage in the bitcoin blockchain on the weddingbook.io website."
-* 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b block 424414 has a PNG with a... nematode-like shaped hand drawn extremely simple image. A test upload presumably? The squiggle outside of the worm might be a test direction marker.
-* b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511 block 442225 \x[ross-ulbricht]
-* c67dca17d3e5544d8d2c70d143196e1c1438a09c7371b80086d0a71ec5aec3c8 block 453083 black and white photo of couple in wedding dress with a red rose/light-like thing in the middle
-* ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e block 458238 Tank man: https://cirosantilli.com/china-dictatorship/#tank-man
+* tx c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f block 416527 a well built man wearing a gas mask. Google search leads to: https://github.com/1Hyena[] (https://web.archive.org/web/20201103193934/https://github.com/1Hyena[archive]), who is the creator of \x[cryptograffiti-info]. It was around after this time that the number of raw images surged dramatically in the blockchain, so it is possible that this is when the service started operating.
+* tx 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183 block 416735 badtaxidermy.com "Water Deer" image: https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3
+* tx eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b block 417111 advertisement "Cryptocurrency Mining", Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm
+* tx e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6 block 417272 Rene Angelil and Celine Dion Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces.
+* tx 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a block 421280 wedding with people holding "Blockchain" and "Ipa" signs. Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.com.ua/zapushhen-ukrainskij-bitkoin-pul-bitcoinukraine/ Google translate: "One of the initiators of the launch of this pool was Oles Slobodenyuk, who earlier created a grocery store in Kiev accepting bitcoins, arranged a TakeMyBitcoin flash mob, and also registered his own marriage in the bitcoin blockchain on the weddingbook.io website."
+* tx 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b block 424414 has a PNG with a... nematode-like shaped hand drawn extremely simple image. A test upload presumably? The squiggle outside of the worm might be a test direction marker.
+* tx b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511 block 442225 \x[ross-ulbricht]
+* tx c67dca17d3e5544d8d2c70d143196e1c1438a09c7371b80086d0a71ec5aec3c8 block 453083 black and white photo of couple in wedding dress with a red rose/light-like thing in the middle
+* tx ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e block 458238 Tank man: https://cirosantilli.com/china-dictatorship/#tank-man
 
 tx 4be3a833ee83b4ca7d157d60fbf7411f7528314ce90df8a844f855118bc6ca11 contains a base 64 encoded image:
 ``
@@ -260,7 +276,7 @@ Searching for the Tank Man image hash ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6
 Also, based on the timing of c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f which is discussed at \x[images], this service may be responsible for a large part of the raw JPEG images present in the blockchain from block 416527 onwards
 
 Other related transactions:
-* tx 87aad85c6cd75a516789f364637d243c668e3424d031ae510e43c6edfe6ed206 block 474652 the default \x[pandoc] markdown https://pandoc.org/try markdown tutorial string!
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0474.txt#L3990[tx 87aad85c6cd75a516789f364637d243c668e3424d031ae510e43c6edfe6ed206] block 474652 the default \x[pandoc] \x[markdown] https://pandoc.org/try markdown tutorial string!
   ``
   An h1 header
   ============
@@ -341,7 +357,7 @@ Other interesting EMBII formatted images:
 
 Audio:
 * `alien.wav` block 318638 http://bitfossil.org/a3a24d6ea01ce481a50346818b8977220687f3ba385838fe8894ce61c9718bbc/
-* `OneGiantLeapForMankind.mp3` at tx 4f5b25fa8021c67235423930580e69121aa0d2c2bb779f75139bf442f8dc7297 EMBII-indexed at 743f3286b00fc96c13db4b16d5aead8a1e059fee9ce775b1761be9be5bdc2501 and then indexed at: 0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb
+* `OneGiantLeapForMankind.mp3` at https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0319.txt#915[tx 4f5b25fa8021c67235423930580e69121aa0d2c2bb779f75139bf442f8dc7297] EMBII-indexed at 743f3286b00fc96c13db4b16d5aead8a1e059fee9ce775b1761be9be5bdc2501 and then indexed at: 0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb
 
   The toplevel index does appear on Bitfossil: http://bitfossil.org/0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb/index.htm but the audio is not there as it was for Spock below, maybe a bug on upload/Bitfossil?
 * `Spock_Live_Long_And_Prosper.mp3` block 345858 http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
@@ -405,7 +421,7 @@ By inspecting the transaction, we see that the initial text is cut up because it
 00000020  74 75 72 6e 69 6e 67 20  74 6f 20 61 20 70 6c 61  |turning to a pla|
 ``
 
-The txid is the first of an index at tx 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e:
+The txid is the first of an index at https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/319.txt#L915[tx 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e]:
 ``
 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba|396*8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba
 575061146335bd57f2dc132112152d0eeea44cf187ea6a52ac02435a7e5bea44
@@ -533,7 +549,7 @@ There are a few dozen \x[/ascii-art]{p} in the blockchain.
 To be honest, almost all of them are copy pastes of stuff present elsewhere, or boring auto-generated ones. But hey, it's still fun to see.
 
 \x[ascii-porn], all of them also reproduced at: https://asciiart.website/index.php?art=people/naked%20ladies[]:
-* tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f: \x[sexual-arousal][sexually aroused] naked woman sitting looking forward with legs open showing her \x[vagina]. Vagina row as an identifier:
+* tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f: \x[sexually-aroused] naked woman sitting looking forward with legs open showing her \x[vagina]. Vagina row as an identifier:
   ``
   .     `.    .\x./-`--...../'   ;   :
   ``
@@ -562,7 +578,7 @@ Decoded:
     ';:;  =./)
           ``'"`
   ```
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0344.txt#L43[tx 89248ecadd51ada613cf8bdf46c174c57842e51de4f99f4bbd8b8b34d3cb7792] block 344068 has a sitting Buddha between two Ying Yang symbols:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0344.txt#L43[tx 89248ecadd51ada613cf8bdf46c174c57842e51de4f99f4bbd8b8b34d3cb7792] block 344068 has a sitting Buddha between two \x[yin-yang] symbols:
   ``
             69696969                         69696969
          6969    696969                   696969    6969
@@ -614,6 +630,8 @@ Transaction inputs with ASCII art, some miners went all the way:
 = Len Sassaman tribute
 {parent=ascii-art}
 
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0138.txt#L2[tx 930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72].
+
 https://en.wikipedia.org/wiki/Len_Sassaman[`LEN "rabbi" SASSAMA`] tribute starting with \x[ascii-art] followed by text.
 
 Can be seen at: https://bitcoinstrings.com/blk00003.txt[].
@@ -622,7 +640,7 @@ Transaction: https://blockchain.info/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d41
 
 Discussion: https://bitcoin.stackexchange.com/questions/3370/in-which-block-was-len-sassaman-memorialised/101276#101276
 
-Creted by Dan Kaminsky: https://bitcointalk.org/index.php?topic=34458.0
+Created by Dan Kaminsky: https://bitcointalk.org/index.php?topic=34458.0
 
 ``
 ---BEGIN TRIBUTE---
@@ -722,7 +740,7 @@ j(                .3P"%....
 j(              nP"     "*MMnx
 ``
 
-The transaction before the ASCII art tx 9b08c00ced2bca4525d74e82db9af2aec8ef213eb1c1bf68a48b6be929968332 starts with what is likely a "Legalize" and must be a \x[tor-onion-service]:
+The transaction before the ASCII art https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0328.txt#L1048[tx 9b08c00ced2bca4525d74e82db9af2aec8ef213eb1c1bf68a48b6be929968332] starts with what is likely a "Legalize" and must be a \x[tor-onion-service]:
 ``
 j(-> 1EGa1izEFDHzEobDDQny73re9BwXdzhZvH <-
 ``
@@ -822,7 +840,7 @@ appears about 13 thousand times. WTF happened?
 = The largest transactions in the Bitcoin Blockchain
 {parent=cool-data-embedded-in-the-bitcoin-blockchain}
 
-https://bitcoin.stackexchange.com/questions/11542/by-byte-size-and-number-of-inputs-outputs-what-are-the-largest-transactions-in
+https://bitcoin.stackexchange.com/questions/11542/by-byte-size-and-number-of-inputs-outputs-what-are-the-largest-transactions-in/105384#105384
 
 * bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08 999,657 bytes. Joins a bunch of tiny inputs into a single output
 * 623463a2a8a949e0590ffe6b2fd3e4e1028b2b99c747e82e899da4485eb0b6be and 5143cf232576ae53e8991ca389334563f14ea7a7c507a3e081fbef2538c84f6e both have 3,075 outputs of 1 satoshi each and a single input. We were not able to identify any meaningful data in it, `file` just says `data`, and there aren't long ASCII strings. However, the outputs were unspent as of 2021, which suggests that they might actually be data.
@@ -875,4 +893,4 @@ By \x[ciro-santilli]:
 * https://twitter.com/cirosantilli/status/1382067162492366854 main announcement on \x[twitter]
   * https://twitter.com/mikko[], who has 209.9K followers and a \x[wikipedia] page: https://en.wikipedia.org/wiki/Mikko_Hyppönen[Mikko Hypponen] hearted the tweet s2
 By others:
-* https://news.ycombinator.com/item?id=26801067[] on \x[hacker-news] failed unfortunately. Edit: looked a few hours later and miraculously it achieved a mild success, caught it at position 16: https://archive.ph/L0Fte and led to about 5k views total. Ah, Ciro could watch that \x[google-analytics] realtime view go bling all day long. \x[narcisism]{c} is a bitch.
+* https://news.ycombinator.com/item?id=26801067[] on \x[hacker-news] failed unfortunately. Edit: looked a few hours later and miraculously it achieved a mild success, caught it at position 16: https://archive.ph/L0Fte and led to about 5k views total. Ah, Ciro could watch that \x[google-analytics] realtime view go bling all day long. \x[narcissism]{c} is a bitch.
