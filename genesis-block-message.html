@@ -24,31 +24,31 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="genesis-block-message"><a href="" title="link to this element">Genesis block message</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#genesis-block-message">🗖 nosplit</a> | <a href="genesis-block" title="parent header">↑ parent "Genesis block"</a> | <span class="metrics"><span class="word-count" title="word count for this node">212</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#genesis-block-message">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="genesis-block" title="parent header">↑ parent "Genesis block"</a> | <a href="https://en.wikipedia.org/wiki/Genesis_block_message">Wikipedia</a> | <span class="metrics"><span class="word-count" title="word count for this node">212</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3644">🔗</a></span><div class="p" id="p-3644"><a href="https://blockchain.info/block-height/0?format=json">https://blockchain.info/block-height/0?format=json</a></div></div><div><span class="hide-hover"><a href="#p-3645">🔗</a></span><div class="p" id="p-3645">From that page we manually extract the hash <code>000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code> and then:
-<div class="code-caption-container" id="code-112">
+</div><div><span class="hide-hover"><a href="#p-3713">🔗</a></span><div class="p" id="p-3713"><a href="https://blockchain.info/block-height/0?format=json">https://blockchain.info/block-height/0?format=json</a></div></div><div><span class="hide-hover"><a href="#p-3714">🔗</a></span><div class="p" id="p-3714">From that page we manually extract the hash <code>000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code> and then:
+<div class="code-caption-container" id="code-118">
 <pre><code>wget -O 0.hex https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f?format=hex
 xxd -p -r 0.hex
 </code></pre></div>
 and that does contain the famous genesis block string:
-<div class="code-caption-container" id="code-113">
+<div class="code-caption-container" id="code-119">
 <pre><code>EThe Times 03/Jan/2009 Chancellor on brink of second bailout for banks
 </code></pre></div>
 The JSON clarifies that the data is encoded in the <code>script</code> field of the transaction <code>input</code>:
-<div class="code-caption-container" id="code-114">
+<div class="code-caption-container" id="code-120">
 <pre><code>{
       {
          "script":"04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3646">🔗</a></span><div class="p" id="p-3646">The extra <code>E</code> (0x45 in <a href="ascii" title="internal link
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3715">🔗</a></span><div class="p" id="p-3715">The extra <code>E</code> (0x45 in <a href="ascii" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">ASCII</a>) in <code>EThe Times</code> is just extra noise required by the script, we can break things up as:
-<div class="code-caption-container" id="code-115">
+<div class="code-caption-container" id="code-121">
 <pre><code>04ffff001d0104 45 5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73
 </code></pre></div>
-where:<div><ul id="ul-715">
-<li id="l-1983"><code>54</code> is <code>T</code></li>
-<li id="l-1984">the <code>04ffff001d0104</code> part just doesn't show up on the terminal because it is not made of any printable characters.</li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3647">🔗</a></span><div class="p" id="p-3647">The initial <code>04</code> is <code>OP_RETURN</code></div></div><div><span class="hide-hover"><a href="#p-3648">🔗</a></span><div class="p" id="p-3648">TODO what is actual the meaning of the <code>ffff001d010445</code> part?</div></div><div><span class="hide-hover"><a href="#p-3649">🔗</a></span><div class="p" id="p-3649">TODO the <code>output</code> of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.</div></div><div><span class="hide-hover"><a href="#p-3650">🔗</a></span><div class="p" id="p-3650">The message proves a minimal starting date for the first mine.</div></div><div><span class="hide-hover"><a href="#p-3651">🔗</a></span><div class="p" id="p-3651">And it hints that one of Bitcoin's motivation was the <a href="financial-crisis-of-2007-2008" title="internal link
+where:<div><ul id="ul-724">
+<li id="l-2004"><code>54</code> is <code>T</code></li>
+<li id="l-2005">the <code>04ffff001d0104</code> part just doesn't show up on the terminal because it is not made of any printable characters.</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3716">🔗</a></span><div class="p" id="p-3716">The initial <code>04</code> is <code>OP_RETURN</code></div></div><div><span class="hide-hover"><a href="#p-3717">🔗</a></span><div class="p" id="p-3717">TODO what is actual the meaning of the <code>ffff001d010445</code> part?</div></div><div><span class="hide-hover"><a href="#p-3718">🔗</a></span><div class="p" id="p-3718">TODO the <code>output</code> of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.</div></div><div><span class="hide-hover"><a href="#p-3719">🔗</a></span><div class="p" id="p-3719">The message proves a minimal starting date for the first mine.</div></div><div><span class="hide-hover"><a href="#p-3720">🔗</a></span><div class="p" id="p-3720">And it hints that one of Bitcoin's motivation was the <a href="financial-crisis-of-2007-2008" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">financial crisis of 2007-2008</a>, where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place.</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#ancestors">🔗</a></span><h2 id="#ancestors"><a href="#ancestors">Ancestors</a></h2></div>
@@ -58,33 +58,33 @@ word count: 1
 descendant word count: 222
 descendant count: 10">Genesis block</a> | <span class="metrics"><span class="word-count" title="word count for this node">10</span>, <span class="word-count-descendant" title="word count for this node + descendants">222</span>, <span class="descendant-count" title="number of descendant nodes">1</span></span></li>
 <li><a href="bitcoin" title="internal link
-word count: 18
+word count: 19
 descendant word count: 3k
-descendant count: 24">Bitcoin</a> | <span class="metrics"><span class="word-count" title="word count for this node">24</span>, <span class="word-count-descendant" title="word count for this node + descendants">3k</span>, <span class="descendant-count" title="number of descendant nodes">18</span></span></li>
+descendant count: 24">Bitcoin</a> | <span class="metrics"><span class="word-count" title="word count for this node">24</span>, <span class="word-count-descendant" title="word count for this node + descendants">3k</span>, <span class="descendant-count" title="number of descendant nodes">19</span></span></li>
 <li><a href="list-of-cryptocurrencies" title="internal link
-word count: 22
+word count: 23
 descendant word count: 4k
-descendant count: 0">List of cryptocurrencies</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">4k</span>, <span class="descendant-count" title="number of descendant nodes">22</span></span></li>
+descendant count: 0">List of cryptocurrencies</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">4k</span>, <span class="descendant-count" title="number of descendant nodes">23</span></span></li>
 <li><a href="cryptocurrency" title="internal link
-word count: 31
+word count: 32
 descendant word count: 4k
-descendant count: 695">Cryptocurrency</a> | <span class="metrics"><span class="word-count" title="word count for this node">695</span>, <span class="word-count-descendant" title="word count for this node + descendants">4k</span>, <span class="descendant-count" title="number of descendant nodes">31</span></span></li>
+descendant count: 702">Cryptocurrency</a> | <span class="metrics"><span class="word-count" title="word count for this node">702</span>, <span class="word-count-descendant" title="word count for this node + descendants">4k</span>, <span class="descendant-count" title="number of descendant nodes">32</span></span></li>
 <li><a href="money" title="internal link
-word count: 39
+word count: 40
 descendant word count: 5k
-descendant count: 0">Money</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">5k</span>, <span class="descendant-count" title="number of descendant nodes">39</span></span></li>
+descendant count: 0">Money</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">5k</span>, <span class="descendant-count" title="number of descendant nodes">40</span></span></li>
 <li><a href="social-technology" title="internal link
-word count: 180
+word count: 190
 descendant word count: 11k
-descendant count: 0">Social technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">11k</span>, <span class="descendant-count" title="number of descendant nodes">180</span></span></li>
+descendant count: 0">Social technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">11k</span>, <span class="descendant-count" title="number of descendant nodes">190</span></span></li>
 <li><a href="technology" title="internal link
-word count: 739
+word count: 758
 descendant word count: 33k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">33k</span>, <span class="descendant-count" title="number of descendant nodes">739</span></span></li>
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">33k</span>, <span class="descendant-count" title="number of descendant nodes">758</span></span></li>
 <li><a href="." title="internal link
 word count: 2k
-descendant word count: 143k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">143k</span>, <span class="descendant-count" title="number of descendant nodes">2k</span></span></li>
+descendant word count: 147k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">147k</span>, <span class="descendant-count" title="number of descendant nodes">2k</span></span></li>
 </ul></div><div><span class="hide-hover"><a href="#incomding-links">🔗</a></span><h2 id="#incoming-links"><a href="#incoming-links">Incoming links</a></h2></div>
 <div><ul>
 <li><a href="how-to-store-data-in-the-bitcoin-blockchain" title="internal link
@@ -98,7 +98,7 @@ descendant count: 75">How to store data in the Bitcoin blockchain</a> | <span cl
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/f15a531903de60b977b67e35c364742210782ed6">f15a531903de60b977b67e35c364742210782ed6</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/3971b8ead916d799846d1802063c50c4151766dd">3971b8ead916d799846d1802063c50c4151766dd</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
