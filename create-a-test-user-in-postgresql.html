@@ -24,7 +24,7 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="create-a-test-user-in-postgresql"><a href="" title="link to this element">Create a test user in PostgreSQL</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics"><span class="word-count" title="word count for this node">274</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics"><span class="word-count" title="word count for this node">274</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3015">🔗</a></span><div class="p" id="p-3015">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
+</div><div><span class="hide-hover"><a href="#p-3194">🔗</a></span><div class="p" id="p-3194">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
 word count: 0
 descendant word count: 28
 descendant count: 28">peer authentication</a>, let's create test user:
@@ -32,25 +32,25 @@ descendant count: 28">peer authentication</a>, let's create test user:
 <pre><code>createuser -P user0
 createdb user0
 </code></pre></div>
-<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3016">🔗</a></span><div class="p" id="p-3016">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
+<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3195">🔗</a></span><div class="p" id="p-3195">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
 <div class="code-caption-container" id="code-69">
 <pre><code>psql -c "create role NewRole with login password 'secret'"
 </code></pre></div>
-Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3017">🔗</a></span><div class="p" id="p-3017">We can then login with that password with:
+Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3196">🔗</a></span><div class="p" id="p-3196">We can then login with that password with:
 <div class="code-caption-container" id="code-70">
 <pre><code>psql -U user0 -h localhost
 </code></pre></div>
-which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3018">🔗</a></span><div class="p" id="p-3018">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
+which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3197">🔗</a></span><div class="p" id="p-3197">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">environment variable</a>:
 <div class="code-caption-container" id="code-71">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3019">🔗</a></span><div class="p" id="p-3019">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3198">🔗</a></span><div class="p" id="p-3198">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
 <div class="code-caption-container" id="code-72">
 <pre><code>createdb user0db0
 psql -c 'GRANT ALL PRIVILEGES ON DATABASE user0db0 TO user0'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3020">🔗</a></span><div class="p" id="p-3020">We can check this permission with:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3199">🔗</a></span><div class="p" id="p-3199">We can check this permission with:
 <div class="code-caption-container" id="code-73">
 <pre><code>psql -c '\l'
 </code></pre></div>
@@ -63,10 +63,10 @@ which now contains:
            |          |          |             |             | ciro=CTc/ciro        +
            |          |          |             |             | user0=CTc/ciro
 </code></pre></div>
-The permission letters are explained at:<div><ul id="ul-558">
-<li id="l-1594"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
-<li id="l-1595"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3021">🔗</a></span><div class="p" id="p-3021"><code>user0</code> can now do the usual table operations on that table:
+The permission letters are explained at:<div><ul id="ul-597">
+<li id="l-1685"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
+<li id="l-1686"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3200">🔗</a></span><div class="p" id="p-3200"><code>user0</code> can now do the usual table operations on that table:
 <div class="code-caption-container" id="code-75">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
 PGPASSWORD=a psql -U user0 -h localhost user0db0 -c "INSERT INTO table0 (int0, char0) VALUES (2, 'two'), (3, 'three'), (5, 'five'), (7, 'seven');"
@@ -94,21 +94,21 @@ word count: 12
 descendant word count: 1k
 descendant count: 0">Database</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">12</span></span></li>
 <li><a href="software" title="internal link
-word count: 314
+word count: 315
 descendant word count: 13k
-descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">13k</span>, <span class="descendant-count" title="number of descendant nodes">314</span></span></li>
+descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">13k</span>, <span class="descendant-count" title="number of descendant nodes">315</span></span></li>
 <li><a href="computer" title="internal link
-word count: 532
+word count: 538
 descendant word count: 21k
-descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">21k</span>, <span class="descendant-count" title="number of descendant nodes">532</span></span></li>
+descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">21k</span>, <span class="descendant-count" title="number of descendant nodes">538</span></span></li>
 <li><a href="technology" title="internal link
-word count: 758
-descendant word count: 33k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">33k</span>, <span class="descendant-count" title="number of descendant nodes">758</span></span></li>
+word count: 774
+descendant word count: 34k
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">34k</span>, <span class="descendant-count" title="number of descendant nodes">774</span></span></li>
 <li><a href="." title="internal link
 word count: 2k
-descendant word count: 147k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">147k</span>, <span class="descendant-count" title="number of descendant nodes">2k</span></span></li>
+descendant word count: 154k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">154k</span>, <span class="descendant-count" title="number of descendant nodes">2k</span></span></li>
 </ul></div>
 </main>
 <footer>
@@ -116,7 +116,7 @@ descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><spa
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/3971b8ead916d799846d1802063c50c4151766dd">3971b8ead916d799846d1802063c50c4151766dd</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/d6a410586c9c5045cb73e1e97e06850af8541ec4">d6a410586c9c5045cb73e1e97e06850af8541ec4</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
@@ -135,6 +135,7 @@ ga('send', 'pageview');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+<script>cirodown_runtime()</script>
 <script src="main.js"></script>
 </body>
 </html>

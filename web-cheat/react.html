@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello World</title>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+class ContentRenderer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {n: 0};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.myElement.addEventListener('click', (e) => {
+      alert(1);
+    });
+  }
+
+  componentWillUnmount() {
+    this.observer.disconnect();
+  }
+
+  handleClick() {
+    this.setState((state, props) => ({
+        n: state.n + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <div onClick={this.handleClick}>Click me</div>
+        <div
+          dangerouslySetInnerHTML={{ __html: "<div>" + this.state.n + "</div>" }}
+          ref={(myElement) => { this.myElement = myElement; }}
+        />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <ContentRenderer/>,
+  document.getElementById('root')
+);
+</script>
+</body>
+</html>
