@@ -416,8 +416,10 @@ Tutorials with a gazillion photos and short videos are also equally good or even
 
 The https://www.youtube.com/channel/UCivA7_KLKWo43tFcCkFvydw["Applied Science" YouTube channel] by Ben Krasnow does well in that direction: it deals with materials, chemistry, microscopy, electronics. Uber practical, well described setups deep science stuff, he is awesome and has been at Google since 2016: https://www.linkedin.com/in/ben-krasnow-6796a94/
 
-TODO:
-* \x[quantum-hall-effect]
+This project is one step that could be taken towards improving the \x[replication-crisis] of \x[science]. It's a bit what \x[hackster-io] wants to do really. But that website is useless, just write \x[cirodown] and create videos instead :-)
+
+TODO experiments to find videos for:
+* \x[quantum-hall-effect]{child}
 
 = Website front-end for a mathematical formal proof system
 {parent=the-most-important-projects-ciro-santilli-wants-to-do}
@@ -6016,6 +6018,8 @@ Headphone Type: In-Ear
 
 Trekking bike bought second hand in 2017. Seller confirmed it is this one https://www.kross.pl/en/2012/trans-alp (http://web.archive.org/web/20200426174741/https://www.kross.pl/en/2012/trans-alp[archive]) but male version (now shown clearly on website, but both exist).
 
+2021-05: got the first flat tire ever on the back wheel! A perfectly shaped pointed triangular rock slotted perfectly into the thread and managed to perforate the inner tube. Managed to patch it up perfectly on the road, 2 hours away from home! The inside of the tire is basically intact, so I'm going to keep using it. The next day I put back an old intact inner tube I had replaced preemptively earlier on with this new one that was punctured.
+
 2021-04: put on the Bluemels mudgard on the back. It wasn't hard, and their system seems quite easy to adjust. Chain reached 1.0 stretch, gotta get a new one.
 
 2021-03: clicking noise when pedalling strong driving me crazy. Likely bottom bracket: https://bicycles.stackexchange.com/questions/41149/something-clicks-while-pedaling or maybe pedal. Re-buying the exact same Shimano BB-UN55 Bottom Bracket - Silver, 68-118: https://www.ebay.co.uk/itm/224364037969
@@ -6670,6 +6674,25 @@ Gives particular emphasis to the invention of \x[gauge-block]{p}.
 {parent=versions-of-the-international-system-of-units}
 {wiki}
 
+= Ampere in the 2019 redefinition of the SI base units
+{parent=international-system-of-units}
+{wiki}
+
+TODO how does basing it on the \x[elementary-charge] help at all? Can we count individual electrons going through a wire? https://www.nist.gov/si-redefinition/ampere/ampere-quantum-metrology-triangle by the \x[nist] explains that is it basically due to the following two \x[quantized-physics] \x[solid-state-physics] phenomena/experiments that allows for extremelly precise measurements of the \x[elementary-charge]:
+* \x[quantum-hall-effect], which has discrete resistances of type:
+  $$
+  R_{xy} = \frac{V_\text{Hall}}{I_\text{channel}} = \frac{h}{e^2\nu}
+  $$
+  for integer vallues of $\nu$.
+* \x[josephson-effect], which provides the \x[josephson-constant] which equals:
+  $$
+  K_{J} = \frac{2e}{h}
+  $$
+
+= Ampere
+{parent=international-system-of-units}
+{wiki}
+
 = Kilogram
 {parent=international-system-of-units}
 {wiki}
@@ -7178,8 +7201,12 @@ For example, that is how most modern \x[microscopy][microscopes] are prototyped,
 
 Behaviour fully described by \x[quantum-electrodynamics]{p}.
 
-= Electron charge
+= Elementary charge
 {parent=electron}
+{wiki}
+
+= Electron charge
+{synonym}
 
 Experiments to measure it:
 * \x[oil-drop-experiment]
@@ -7187,7 +7214,7 @@ Experiments to measure it:
 The \x[2019-redefinition-of-the-si-base-units] defines it precisely and uses it as a measure of charge: https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere
 
 = Oil drop experiment
-{parent=electron-charge}
+{parent=elementary-charge}
 {wiki}
 
 Clear experiment diagram which explains that the droplet mass determined with https://en.wikipedia.org/wiki/Stokes%27_law[Stoke's law]:
@@ -8213,13 +8240,18 @@ So if we take for example electrons of different speeds, we should be able to se
 
 Quantum version of the \x[hall-effect].
 
-Gotta understand this because the name sounds cool. Maybe also because it is used to define the \x[sexual-intercourse][fucking] \x[kilogram].
+Gotta understand this because the name sounds cool. Maybe also because it is used to define the \x[sexual-intercourse][fucking] \x[ampere-in-the-2019-redefinition-of-the-si-base-units].
+
+At least the experiment description itself is easy to understand. The hard part is the physical theory behind.
 
 TODO \x[videos-of-all-key-physics-experiments][experiment video].
 
 = Fractional quantum Hall effect
 {parent=quantum-hall-effect}
 {wiki}
+
+= Fractional quantum Hall effect 5/2
+{parent=fractional-quantum-hall-effect}
 
 = Spin Hall effect
 {parent=quantum-hall-effect}
@@ -8319,19 +8351,37 @@ This formulation was apparently called more precisely \x[dirac-von-neumann-axiom
 
 Notation used in \x[quantum-mechanics].
 
-Ket is just a \x[vector-mathematics].
+Ket is just a \x[vector-mathematics]. Though generally in the context of \x[quantum-mechanics], this is an infinite dimensional vector in a \x[hilbert-space] like \x[l2].
 
-Bra is just the projection operator on the given vector, also known as... \x[dot-product]:
+Bra is just the \x[projection-mathematics] \x[linear-operator], i.e. a linear function which can act on a given vector and returns a single \x[complex-number]. Also known as... \x[dot-product].
+
+For example:
 $$
-(\bra{x}) \ket{y} = (x \dot) y
+(\bra{x}) \ket{y}
 $$
-The projection operator is completely specified by the vector that we are projecting it. This is why the bracket notation makes sense.
+is basically a fancy way of saying:
+$$
+x \cdot y
+$$
+that is: we are taking the projection of $y$ along the $x$ direction. Note that in the ordinary dot product notation however, we don't differentiate as clearly what is a vector and what is an operator, while the bra-ket notation makes it clear.
 
-Like the dot-product, it operates on a vector and returns a number.
+The projection operator is completely specified by the vector that we are projecting it on. This is why the bracket notation makes sense.
 
-This notation is widely used in quantum mechanics because calculating the probability of a given quantum state is the same as calculating the projection on an eigenvalue basis vector as explained at: \x[mathematical-formulation-of-quantum-mechanics]{full}.
+It also has the merit of clearly differentiating vectors from operators. E.g. it is not very clear in $x \cdot y$ that $x$ is an operator and $y$ is a vector, except due to the relative position to the dot. This is especially bad when we start manipulating operators by themselves without vectors.
 
-\x[ciro-santilli] thinks that this notation is a bit over-engineered. Notably the bra's are just vectors, which we should just write as usual with $\va{v}$... the bra thing makes it look scarier than it needs to be. And then we should just find a different notation for the projection part. But alas.
+This notation is widely used in \x[quantum-mechanics] because calculating the \x[probability] of getting a certain outcome for an experiment is calculated by taking the projection of a state on one an \x[eigenvalue] basis vector as explained at: \x[mathematical-formulation-of-quantum-mechanics]{full}.
+
+Making the projection operator "look like a thing" (the bra) is nice because we can add and multiply them much like we can for vectors (they also form a \x[vector-space]), e.g.:
+$$
+\bra{x} + \bra{y}
+$$
+just means taking the projection along the $x + y$ direction.
+
+\x[ciro-santilli] thinks that this notation is a bit over-engineered. Notably the bra's are just vectors, which we should just write as usual with $\va{v}$... the bra thing makes it look scarier than it needs to be. And then we should just find a different notation for the projection part.
+
+Maybe \x[dirac] chose it because of the appeal of the women's piece of clothing: \x[bra], in an irresistible call from \x[british-humour].
+
+But in any case, alas, we are now stuck with it.
 
 = Dirac-von Neumann axioms
 {c}
@@ -9986,6 +10036,10 @@ Summary:
 {parent=quantum-mechanics}
 {wiki}
 
+= Quantized
+{disambiguate=physics}
+{synonym}
+
 \x[quantum-field-theory-lecture-by-tobias-osborne-2017] mentions that quantization is a guess.
 
 We make observations
@@ -10454,6 +10508,9 @@ The basis of 1970-20XX \x[computer]{p}, gotta understand them I guess.
 {parent=condensed-matter-physics}
 {wiki}
 
+= Superconductor
+{synonym}
+
 Experiments:
 * "An introduction to superconductivity" by Alfred Leitner originally published in 1965, source: http://www.alfredleitner.com/
 * Isotope effect on the critical temperature. http://hyperphysics.phy-astr.gsu.edu/hbase/Solids/coop.html mentions that:
@@ -10477,18 +10534,28 @@ Media:
 
   Cool CNRS video showing the condensed wave function, and mentioning that "every pair moves at the same speed". To change the speed of one pair, you need to change the speed of all others. That's why there's not energy loss.
 
-= Superconducting materials
+Transition into superconductivity can be seen as a \x[phase-transition], which happens to be a \x[second-order-phase-transition].
+
+= Superconducting material
 {parent=superconductivity}
 
+= Type-I superconductor
+{parent=superconducting-material}
+{wiki}
+
+= Type-II superconductor
+{parent=superconducting-material}
+{wiki}
+
 = High-temperature superconductivity
-{parent=superconducting-materials}
+{parent=superconducting-material}
 {wiki}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/b/bb/Timeline_of_Superconductivity_from_1900_to_2015.svg]
 {height=600}
 
 = Yttrium barium copper oxide
-{parent=superconducting-materials}
+{parent=superconducting-material}
 {wiki}
 
 = YBCO
@@ -10501,7 +10568,7 @@ Upside: superconducting above 92K, which is above the 77K of \x[liquid-nitrogen]
 Downside: it is brittle, so how do you make wires out of it? Still, can already be used in certain circuits, e.g. high temperature \x[squid-device]{p}.
 
 = Bismuth strontium calcium copper oxide
-{parent=superconducting-materials}
+{parent=superconducting-material}
 {wiki}
 
 = BSCCO
@@ -10557,7 +10624,7 @@ High level concepts:
 {parent=superconductivity}
 {wiki}
 
-Discrete quantum effect observed in superconductors with a small insulating layer.
+Discrete quantum effect observed in \x[superconductor]{p} with a small insulating layer.
 
 TODO: curves showing the effect.
 
@@ -10573,11 +10640,22 @@ Bibliography:
 
 A device that exhibits the \x[josephson-effect].
 
+= Magnetic flux quantum
+{c}
+{parent=josephson-effect}
+{wiki}
+
+= Josephson constant
+{c}
+{parent=magnetic-flux-quantum}
+
+The inverse of the \x[magnetic-flux-quantum].
+
 = Applications of Josephson Junctions
 {parent=josephson-effect}
 
 * the basis for the most promising 2019 \x[quantum-computing] implementation: \x[superconducting-quantum-computer]
-* offers https://en.wikipedia.org/wiki/Josephson_voltage_standard[the most practical/precise volt standard] although the 2019 SI Volt definition https://en.wikipedia.org/wiki/2019_redefinition_of_the_SI_base_units#Ampere[is still based on the electron charge]
+* offers https://en.wikipedia.org/wiki/Josephson_voltage_standard[the most practical/precise volt standard], which motivated the definition of the \x[ampere-in-the-2019-redefinition-of-the-si-base-units]
 
   Quick NIST article about it: https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world (https://web.archive.org/web/20190410011041/https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world[archive])
 * \x[squid-device]
@@ -10687,6 +10765,10 @@ Also briefly explains the imperfections that lead to the slightly imperfect non 
 {parent=laser}
 {wiki}
 
+= Quasiparticle
+{parent=condensed-matter-physics}
+{wiki}
+
 = Thermodynamics
 {parent=physics}
 
@@ -10709,6 +10791,18 @@ For entropy in chemistry see: \x[entropy-of-a-chemical-reaction]{child}.
 {wiki}
 
 TODO can anything interesting and deep be said about "why phase transition happens?" https://physics.stackexchange.com/questions/29128/what-causes-a-phase-transition on \x[physics-stack-exchange]
+
+= Second-order phase transition
+{parent=phase-transition}
+
+Mentioned at: https://en.wikipedia.org/wiki/Phase_transition#Modern_classifications
+
+The more familiar transitions we are familiar with like liquid \x[water] into solid water happen at constant temperature.
+
+However, other types of phase transitions we are less familiar in our daily lives happen across a continuum of such "state variables", notably
+* \x[superconductivity]{child}
+* \x[superfluidity]{child}
+* \x[ferromagnetism]{child}
 
 = Refrigerator
 {parent=thermodynamics}
@@ -11229,6 +11323,11 @@ https://physicstravelguide.com/about
 
 Worked with \x[niels-bohr].
 
+= John Bardeen
+{c}
+{parent=physicist}
+{wiki}
+
 = John von Neumann
 {c}
 {parent=physicist}
@@ -11396,6 +11495,10 @@ Feynman really enjoyed Brazil's (and notably \x[rio]'s) stereotypical "take it e
 {parent=physicist}
 {wiki}
 
+= Dirac
+{c}
+{synonym}
+
 Eccentric nerdy slow speaking \x[physicist] mostly based in \x[university-of-cambridge].
 
 Created the \x[dirac-equation], what else do you need to know?!
@@ -11443,6 +11546,14 @@ This is also suggested in the https://en.wikipedia.org/wiki/The_Theory_of_Everyt
 \x[quantum-mechanics] stuff at https://en.wikipedia.org/wiki/University_of_Hanover[University of Hanover]. Good teaching. Big respect:
 * \x[quantum-field-theory-lecture-by-tobias-osborne-2017]{child}
 * \x[advanced-quantum-field-theory-lecture-by-tobias-osborne-2017]{child}
+
+= Walter Houser Brattain
+{c}
+{parent=physicist}
+{wiki}
+
+= Walter Brattain
+{synonym}
 
 = William Shockley
 {c}
@@ -11565,6 +11676,7 @@ The most important ones are:
   * \x[grand-unified-theory]{child}
   * \x[strong-cp-problem]{child}
 * full explanation of \x[high-temperature-superconductivity]{child}. \x[superconductivity]{c} already has a gazillion applications, and doing it in higher temperatures would add a gazillion more, and maybe this theoretical explanation would help us find new high temperature superconducting materials more effectively
+* \x[fractional-quantum-hall-effect-5-2]{child}
 
 Other super important ones:
 * \x[neutrino] mass measurement and explanation
@@ -11693,6 +11805,10 @@ Original observation in 1827 by Brown, with further experiments and interpretati
 {title2=H, 1}
 {wiki}
 
+= Water
+{parent=hydrogen}
+{wiki}
+
 = Deuterium
 {parent=hydrogen}
 {title2=\sup[2]H}
@@ -11729,7 +11845,7 @@ Here's a copy online as of 2020: https://www.youtube.com/watch?v=bCXB6BdMh9Y
 {parent=helium}
 {wiki}
 
-4K. Enough for to make "low temperature superconductors" like regular metals superconducting.
+4K. Enough for to make "low temperature \x[superconductor]{p}" like regular metals superconducting.
 
 Contrast with \x[liquid-nitrogen], which is much cheaper but only goes to 77K.
 
@@ -11742,7 +11858,7 @@ Contrast with \x[liquid-nitrogen], which is much cheaper but only goes to 77K.
 {parent=nitrogen}
 {wiki}
 
-77K. Low enough for "high tempreature superconductors" such as \x[yttrium-barium-copper-oxide], but for "low temperature superconductors", you need to go much lower, typically with \x[liquid-helium], which is likely much more expensive. TODO by how much?
+77K. Low enough for "high temperature \x[superconductor]{p}" such as \x[yttrium-barium-copper-oxide], but for "low temperature superconductors", you need to go much lower, typically with \x[liquid-helium], which is likely much more expensive. TODO by how much?
 
 \Video[https://www.youtube.com/watch?v=PEgm5NFXlFM]
 {title="Where Do You Get Liquid Nitrogen?" by The King of Random (2016)}
@@ -15178,6 +15294,7 @@ More precisely for set theory \x[formalization-of-mathematics]:
 = Function
 {disambiguate=mathematics}
 {parent=formalization-of-mathematics}
+{wiki}
 
 \x[set-mathematics]{c} of \x[ordered-pair][ordered pairs]. That's it! This is illustrated at: https://math.stackexchange.com/questions/1480651/is-fx-x-1-x-2-a-function/1481099#1481099
 
@@ -15193,6 +15310,12 @@ Is the solution to a \x[system-of-linear-ordinary-differential-equations], the \
 
 \Video[https://www.youtube.com/watch?v=O85OWBJ2ayo]
 {title=How (and why) to raise e to the power of a matrix | DE6 by \x[3blue1brown] (2021)}
+
+= Function space
+{parent=formalization-of-mathematics}
+{wiki}
+
+Most notable example: \x[l2].
 
 = Integer
 {parent=formalization-of-mathematics}
@@ -15270,9 +15393,15 @@ https://math.stackexchange.com/questions/30330/fast-algorithm-for-solving-system
 {title2=linear operator}
 {wiki}
 
-Basically a generalization of a matrix, notably to infinite dimensional spaces like \x[hilbert-space].
+A linear function from $X \times X \rightarrow Y$ where $X$ and $Y$ are \x[vector-space]{p}.
 
-Calling such functions matrices is stretching it a bit, since we would need to specify infinitely many rows and columns.
+Basically a generalization of both:
+* \x[matrix-multiplication], with $X = Y = \R^n$
+* \x[dot-product], which is a key example of $X \ne Y$
+
+The key advatnage over those concepts however is that it makes more sense in infinite dimensional spaces like \x[hilbert-space]{p}.
+
+Calling such functions "matrices" in infinite dimensions is stretching it a bit, since we would need to specify infinitely many rows and columns.
 
 For example, the left side of the \x[time-independent-schrodinger-equation] is a linear map.
 
@@ -17614,6 +17743,26 @@ Open source ones:
 {parent=computer-hardware}
 {wiki}
 
+= Point-contact transistor
+{parent=transistor}
+{title2=BJT, 1947}
+{wiki}
+
+The first working one in 1947 by \x[john-bardeen] and \x[walter-brattain] in \x[bell-labs-murray-hill].
+
+People had already \x[patented] a lot of stuff before without being able to make them work. Nonsense.
+
+As the name suggests, this is not very sturdy, and was quickly replaced by \x[bipolar-junction-transistor].
+
+= Bipolar junction transistor
+{parent=transistor}
+{title2=BJT, 1948}
+{wiki}
+
+By \x[william-shockley] in 1948 also at \x[bell-labs-murray-hill].
+
+As of 2020, not used anymore in \x[logic-gate]{p}, but still used in \x[amplifier]{p}.
+
 = Field-effect transistor
 {parent=transistor}
 {title2=FET}
@@ -17622,6 +17771,7 @@ Open source ones:
 = MOSFET
 {c}
 {parent=field-effect-transistor}
+{title2=1959}
 {wiki}
 
 = CMOS
@@ -17719,6 +17869,10 @@ Basically a synonym for \x[central-processing-unit] nowadays: https://electronic
 {parent=computer-hardware}
 {wiki}
 
+= Disk storage
+{parent=computer-data-storage}
+{wiki}
+
 = Random-access memory
 {parent=computer-data-storage}
 {wiki}
@@ -17755,6 +17909,23 @@ DRAM is often shortened to just \x[random-access-memory].
 {parent=synchronous-dynamic-random-access-memory}
 {title2=DDR SDRAM}
 {wiki}
+
+= Solid-state storage
+{parent=computer-data-storage}
+{wiki}
+
+= SSD
+{synonym}
+{title2}
+
+= Erase SSD securely
+{parent=solid-state-storage}
+
+You can't `shred` individual \x[ssd] files because SSD writes only at large granularities, so hardware/drivers have to copy stuff around all the time to compact it. This means that leftover copies are left around everywhere.
+
+What you can do however is to erase the entire thing, which most hardware has support for. On hardware encrypted disks, you can even just erase the keys:
+* ATA: https://www.thomas-krenn.com/en/wiki/Perform_a_SSD_Secure_Erase for ATA.
+* NVMe: http://forum.notebookreview.com/threads/secure-erase-hdds-ssds-sata-nvme-using-hdparm-nvme-cli-on-linux.827525/
 
 = Solid-state drive
 {parent=computer-data-storage}
@@ -18446,7 +18617,6 @@ diff -u hello.decrypt.txt hello.txt
 {wiki}
 
 = Anonymity
-{c}
 {parent=internet-privacy}
 {wiki}
 
@@ -18669,6 +18839,22 @@ Invented for \x[bitcoin].
 {parent=file-format}
 {wiki}
 
+= Audio editor
+{parent=audio-file-format}
+{wiki}
+
+= Audacity
+{disambiguate=audio editor}
+{parent=audio-editor}
+{wiki}
+
+= Audacity profile-based background noise removal
+{parent=audacity-audio-editor}
+
+You select a sample noise-only area, and it remove noise from the entire video for you:
+* https://www.youtube.com/watch?v=AeOjtMOq3EU
+* https://www.youtube.com/watch?v=3nMkMn4--5w
+
 = MIDI
 {c}
 {parent=audio-file-format}
@@ -18829,6 +19015,54 @@ Some answers by \x[ciro-santilli]:
 = Video file format
 {parent=file-format}
 {wiki=Video_file_formats}
+
+= Video editing software
+{parent=video-file-format}
+{wiki}
+
+= Kdenlive
+{c}
+{parent=video-editing-software}
+{wiki}
+
+Preview has no sound on \x[ubuntu] 20.10.
+
+= ShotCut
+{c}
+{parent=video-editing-software}
+{wiki}
+
+Worked on \x[ubuntu] 20.10.
+
+The UI is a bit too buggy to bear.
+
+How to unsplit, can't find on shotcut 21.05.01: https://forum.shotcut.org/t/is-it-possible-to-unsplit/1466/2
+
+Background noise reduction: couldn't easily find out how, especially with automatic profile detected based on a selected region as mentioned at \x[audacity-profile-based-background-noise-removal]:
+* https://forum.shotcut.org/t/how-to-apply-filter-reduction-noise-on-audio/12678/2
+* https://forum.shotcut.org/t/noise-reduction-filter-request/5348/6
+
+= OpenShot
+{c}
+{parent=video-editing-software}
+{wiki}
+
+\x[ubuntu] 20.10 crash...:
+``
+  exceptions:ERROR Unhandled Exception
+Traceback (most recent call last):
+  File "/usr/bin/openshot-qt", line 11, in <module>
+    load_entry_point('openshot-qt==2.5.1', 'gui_scripts', 'openshot-qt')()
+  File "/usr/lib/python3/dist-packages/openshot_qt/launch.py", line 97, in main
+    app = OpenShotApp(argv)
+  File "/usr/lib/python3/dist-packages/openshot_qt/classes/app.py", line 218, in __init__
+    from windows.main_window import MainWindow
+  File "/usr/lib/python3/dist-packages/openshot_qt/windows/main_window.py", line 45, in <module>
+    from windows.views.timeline_webview import TimelineWebView
+  File "/usr/lib/python3/dist-packages/openshot_qt/windows/views/timeline_webview.py", line 42, in <module>
+    from PyQt5.QtWebKitWidgets import QWebView
+ImportError: /usr/lib/x86_64-linux-gnu/libQt5Quick.so.5: undefined symbol: _ZN4QRhi10newSamplerEN11QRhiSampler6FilterES1_S1_NS0_11AddressModeES2_, version Qt_5_PRIVATE_API
+``
 
 = Subtitle
 {parent=video-file-format}
@@ -19583,6 +19817,7 @@ Basically the opposite of \x[security-through-obscurity], though slightly more f
 {wiki}
 
 = API
+{c}
 {synonym}
 {title2}
 
@@ -20475,6 +20710,11 @@ FFmpeg was created by \x[fabrice-bellard], which Ciro deeply respects.
 FFmpeg is likely the backend of \x[youtube] through \x[reverse-engineering]: https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html (https://web.archive.org/web/20190519135210/https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html[archive])
 
 On \x[quora]: https://www.quora.com/What-does-YouTube-use-for-encoding-video/answer/Ciro-Santilli
+
+= Concatenate two videos with ffmpeg
+{parent=ffmpeg}
+
+https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg
 
 = ImageMagick
 {c}
@@ -21866,6 +22106,14 @@ However, many, many, many terrible horrors come with it:
 * \x[google] doesn't care about the CLI, even the \x[hello-world] requires creating infinite out-of-control boilerplate from a \x[gui]: https://stackoverflow.com/questions/20801042/how-to-create-android-project-with-gradle-from-command-line/46994747#46994747
 * the boot is uber bloated and takes forever in cycle simulators
 
+= Transfer Android 11 camera videos to Ubuntu 20.10
+{c}
+{parent=android-operating-system}
+
+https://android.stackexchange.com/questions/66385/how-to-transfer-files-from-an-android-phone-to-a-ubuntu-pc-by-using-a-usb-cable/194107#194107
+
+The video folder is `DCIM/Camera`.
+
 = F-Droid
 {c}
 {parent=android-operating-system}
@@ -22732,6 +22980,10 @@ Crystallizing is not simple because:
 {parent=electronics}
 {wiki}
 
+= Amplifier
+{parent=electronics}
+{wiki}
+
 = Semiconductor package
 {parent=electronics}
 {wiki}
@@ -22793,6 +23045,14 @@ Overview of Shimano brands 2018: https://www.evanscycles.com/coffeestop/advice/t
 * Shimano Tiagra: 10-speed road bike https://bike.shimano.com/en-EU/product/component/tiagra-4700.html
 * Shimano Deore: non-\x[shitty] MTB, in increasing performance: M610, M6000, M7000, ...)
 * Shimano Tourney; commuter, likely the shittiest of all lines: https://bike.shimano.com/en-EU/product/component/tourney.html
+
+= Clothing
+{parent=technology}
+{wiki}
+
+= Bra
+{parent=clothing}
+{wiki}
 
 = Social technology
 {parent=technology}
@@ -23588,27 +23848,51 @@ And a one second \x[ciro-santilli] appearance from a 2016 video made during the 
 {id=jan-hendrik-schon}
 {parent=academic-fraud}
 
-One is reminded of \x[nick-leeson].
-
-\Video[https://www.youtube.com/watch?v=nfDoml-Db64]
-{title=The man who almost faked his way to a Nobel Prize by BobbyBroccoli (2021)}
-{description=Playlist: https://www.youtube.com/watch?v=nfDoml-Db64&list=PLAB-wWbHL7Vsfl4PoQpNsGp61xaDDiZmh&index=1}
-
 = Schön scandal
 {c}
 {id=schon-scandal}
 {parent=jan-hendrik-schon}
 {wiki=Schön_scandal}
 
-https://en.wikipedia.org/wiki/Sch%C3%B6n_scandal
+One is reminded of \x[nick-leeson].
+
+One things must be said: the root cause of all of this is the \x[replication-crisis].
+
+This is why he managed to go on for so long.
+
+People felt it was normal to have to try for one or two years to replicate a paper.
+
+\Video[https://www.youtube.com/watch?v=nfDoml-Db64]
+{title=The man who almost faked his way to a Nobel Prize by BobbyBroccoli (2021)}
+{description=Playlist: https://www.youtube.com/watch?v=nfDoml-Db64&list=PLAB-wWbHL7Vsfl4PoQpNsGp61xaDDiZmh&index=1}
+
+= Research group
+{parent=academia}
+{wiki}
 
 = Academic publishing
 {parent=academia}
 {wiki}
 
+= Academic journal
+{parent=academic-publishing}
+{wiki}
+
 = Academic paper
 {parent=academic-publishing}
 {wiki}
+
+= Replication crisis
+{parent=academic-paper}
+{wiki}
+
+Of course, if \x[academic-journal]{p} require greater reproducibility, then the cost per paper increases.
+
+However, that cost has to be smaller than the cost everyone who reads the paper spends to reproduce, no?
+
+The truth is, part of the replication crisis is also due to \x[research-group]{p} not wanting to share their precious secrets with others, so they can keep ahead of the publication curve, or maybe spin off a \x[startup].
+
+\x[ciro-santilli] wants to help in this area with his \x[videos-of-all-key-physics-experiments] project idea.
 
 = Review article
 {parent=academic-paper}
@@ -23676,9 +23960,10 @@ Ah, some of the coolest places on Earth?
 {parent=company-research-institute}
 {wiki}
 
-Original headquarters and laboratories: 463 West Street in \x[new-york], \x[manhattan] area. On \x[surely-you-re-joking-mr-feynman] Feynman mentions that in 1941 they could see the construction of the George Washington Bridge, presumabl from that building, when \x[william-shockley] brought him over to visit to get a job there. However, the actual 
+Original headquarters and laboratories: 463 West Street in \x[new-york], \x[manhattan] area. On \x[surely-you-re-joking-mr-feynman] Feynman mentions that in 1941 they could see the construction of the George Washington Bridge, presumably from that building, when \x[william-shockley] brought him over to visit to get a job there. However, the actual 
 
-\x[bell-labs-murray-hills].
+Later:
+* 1967 \x[bell-labs-murray-hill]
 
 Some interesting videos:
 * https://www.youtube.com/watch?v=7qkizPs2kdw
@@ -23695,11 +23980,13 @@ It started with radio research apparently, including \x[karl-guthe-jansky].
 \Video[https://www.youtube.com/watch?v=BPq_ZyOvbsg]
 {title=Holmdel 20th Anniversary, a history of the legendary Bell Labs facility designed by Eero Saarinen by AT&T Tech Channel (1982)}
 
-= Bell Labs Murray Hills
+= Bell Labs Murray Hill
 {c}
 {parent=company-research-institute}
 
 600 Mountain Ave bldg 5, New Providence, NJ 07974, \x[united-states].
+
+Became headquarters in 1967,
 
 Drone footage: https://www.youtube.com/watch?v=z0Ld2KFjaC8 Bell LABS Headquarters Murray Hill NJ in 4K Drone Flight by ESTOUCHFPV (2017)
 
@@ -23939,6 +24226,17 @@ Bibliography:
 {synonym}
 
 = Legalize
+{synonym}
+
+= Intellectual property
+{parent=law}
+{wiki}
+
+= Patent
+{parent=intellectual-property}
+{wiki}
+
+= Patented
 {synonym}
 
 = Crime
@@ -25246,6 +25544,15 @@ Some honorable mentions:
 {disambiguate=TV series}
 {parent=list-of-television-shows}
 {title2=2014-2019}
+{wiki}
+
+= Comedy
+{parent=art}
+{wiki}
+
+= British humour
+{c}
+{parent=comedy}
 {wiki}
 
 = Comics
@@ -26829,6 +27136,12 @@ By \x[rice-university].
 {wiki}
 
 \x[online-forums-that-lock-threads-after-some-time-are-evil]{c}. What else needs to be said?
+
+= Hackster.io
+{c}
+{parent=internet-forum}
+
+https://www.hackster.io/
 
 = Reddit
 {c}
