@@ -24,57 +24,57 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="postgresql"><a href="" title="link to this element">PostgreSQL</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#postgresql">🗖 nosplit</a> | <a href="sql" title="parent header">↑ parent "SQL"</a> | <span class="metrics"><span class="word-count" title="word count for this node">452</span>, <span class="word-count-descendant" title="word count for this node + descendants">754</span>, <span class="descendant-count" title="number of descendant nodes">2</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#postgresql">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="sql" title="parent header">↑ parent "SQL"</a> | <a href="https://en.wikipedia.org/wiki/PostgreSQL">Wikipedia</a> | <span class="metrics"><span class="word-count" title="word count for this node">452</span>, <span class="word-count-descendant" title="word count for this node + descendants">754</span>, <span class="descendant-count" title="number of descendant nodes">2</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3252">🔗</a></span><div class="p" id="p-3252">On Ubuntu 20.10 PostgreSQL 12.6, login with <code>psql</code> on my default username without <a href="sudo" title="internal link
+</div><div><span class="hide-hover"><a href="#p-3283">🔗</a></span><div class="p" id="p-3283">On Ubuntu 20.10 PostgreSQL 12.6, login with <code>psql</code> on my default username without <a href="sudo" title="internal link
 word count: 0
 descendant word count: 5
-descendant count: 5">sudo</a> fails with: <a href="https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist">https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist</a></div></div><div><span class="hide-hover"><a href="#p-3253">🔗</a></span><div class="p" id="p-3253">This is the one that seemed to work: <a href="https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152">https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152</a>
-<div class="code-caption-container" id="code-50">
+descendant count: 5">sudo</a> fails with: <a href="https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist">https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist</a></div></div><div><span class="hide-hover"><a href="#p-3284">🔗</a></span><div class="p" id="p-3284">This is the one that seemed to work: <a href="https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152">https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152</a>
+<div class="code-caption-container" id="code-51">
 <pre><code>sudo -u postgres createuser -s $(whoami)
 createdb $(whoami)
 </code></pre></div>
-Explanation:<div><ul id="ul-601">
-<li id="l-1691"><code>sudo -u postgres</code> uses the <code>postgres</code> user via <a href="peer-authentication" title="internal link
+Explanation:<div><ul id="ul-607">
+<li id="l-1705"><code>sudo -u postgres</code> uses the <code>postgres</code> user via <a href="peer-authentication" title="internal link
 word count: 0
 descendant word count: 28
 descendant count: 28">peer authentication</a></li>
-<li id="l-1692"><code>-s</code> in <code>createuser -s</code>: make it a superuser</li>
-<li id="l-1693"><code>createdb</code>: TODO why do we have to create a table with the same name as the user? Otherwise login fails.</li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3254">🔗</a></span><div class="p" id="p-3254">You can now run <code>psql</code> without any password. This works without password due to peer authentication, 
-<div class="code-caption-container" id="code-51">
+<li id="l-1706"><code>-s</code> in <code>createuser -s</code>: make it a superuser</li>
+<li id="l-1707"><code>createdb</code>: TODO why do we have to create a table with the same name as the user? Otherwise login fails.</li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3285">🔗</a></span><div class="p" id="p-3285">You can now run <code>psql</code> without any password. This works without password due to peer authentication, 
+<div class="code-caption-container" id="code-52">
 <pre><code>sudo cat /etc/postgresql/12/main/pg_hba.conf
 </code></pre></div>
 shows that peer authentication is available to all users apparently:
-<div class="code-caption-container" id="code-52">
+<div class="code-caption-container" id="code-53">
 <pre><code>local   all             postgres                                peer
 
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
 # "local" is for Unix domain socket connections only
 local   all             all                                     peer
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3255">🔗</a></span><div class="p" id="p-3255">List users:
-<div class="code-caption-container" id="code-53">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3286">🔗</a></span><div class="p" id="p-3286">List users:
+<div class="code-caption-container" id="code-54">
 <pre><code>psql -c '\du'
 </code></pre></div>
 output:
-<div class="code-caption-container" id="code-54">
+<div class="code-caption-container" id="code-55">
 <pre><code>                                    List of roles
   Role name  |                         Attributes                         | Member of 
 -------------+------------------------------------------------------------+-----------
  ciro        | Superuser, Create role, Create DB                          | {}
  owning_user |                                                            | {}
  postgres    | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3256">🔗</a></span><div class="p" id="p-3256">Delete user later on:
-<div class="code-caption-container" id="code-55">
-<pre><code>psql -c 'DROP USER username;'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3257">🔗</a></span><div class="p" id="p-3257">Create a database:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3287">🔗</a></span><div class="p" id="p-3287">Delete user later on:
 <div class="code-caption-container" id="code-56">
-<pre><code>createdb testdb0
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3258">🔗</a></span><div class="p" id="p-3258">List all databases:
+<pre><code>psql -c 'DROP USER username;'
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3288">🔗</a></span><div class="p" id="p-3288">Create a database:
 <div class="code-caption-container" id="code-57">
+<pre><code>createdb testdb0
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3289">🔗</a></span><div class="p" id="p-3289">List all databases:
+<div class="code-caption-container" id="code-58">
 <pre><code>psql -c '\l'
 </code></pre></div>
 which shows:
-<div class="code-caption-container" id="code-58">
+<div class="code-caption-container" id="code-59">
 <pre><code>    Name     |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
 -------------+----------+----------+-------------+-------------+-----------------------
  ciro        | postgres | UTF8     | en_GB.UTF-8 | en_GB.UTF-8 |
@@ -85,41 +85,41 @@ which shows:
              |          |          |             |             | postgres=CTc/postgres
  testdb0     | postgres | UTF8     | en_GB.UTF-8 | en_GB.UTF-8 |
 (6 rows)
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3259">🔗</a></span><div class="p" id="p-3259">Delete a database:
-<div class="code-caption-container" id="code-59">
-<pre><code>psql -c 'DROP DATABASE "testdb0";'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3260">🔗</a></span><div class="p" id="p-3260">Let's create a table and test that it is working:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3290">🔗</a></span><div class="p" id="p-3290">Delete a database:
 <div class="code-caption-container" id="code-60">
-<pre><code>psql testdb0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3261">🔗</a></span><div class="p" id="p-3261">List tables:
+<pre><code>psql -c 'DROP DATABASE "testdb0";'
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3291">🔗</a></span><div class="p" id="p-3291">Let's create a table and test that it is working:
 <div class="code-caption-container" id="code-61">
+<pre><code>psql testdb0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3292">🔗</a></span><div class="p" id="p-3292">List tables:
+<div class="code-caption-container" id="code-62">
 <pre><code>psql testdb0 -c '\dt'
 </code></pre></div>
 gives:
-<div class="code-caption-container" id="code-62">
+<div class="code-caption-container" id="code-63">
 <pre><code>        List of relations
  Schema |  Name  | Type  | Owner
 --------+--------+-------+-------
  public | table0 | table | ciro
 (1 row)
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3262">🔗</a></span><div class="p" id="p-3262">View table schema: <a href="https://stackoverflow.com/questions/109325/postgresql-describe-table">https://stackoverflow.com/questions/109325/postgresql-describe-table</a>
-<div class="code-caption-container" id="code-63">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3293">🔗</a></span><div class="p" id="p-3293">View table schema: <a href="https://stackoverflow.com/questions/109325/postgresql-describe-table">https://stackoverflow.com/questions/109325/postgresql-describe-table</a>
+<div class="code-caption-container" id="code-64">
 <pre><code>psql testdb0 -c '\d+ table0'
 </code></pre></div>
 output:
-<div class="code-caption-container" id="code-64">
+<div class="code-caption-container" id="code-65">
 <pre><code>                                      Table "public.table0"
  Column |     Type      | Collation | Nullable | Default | Storage  | Stats target | Description 
 --------+---------------+-----------+----------+---------+----------+--------------+-------------
  int0   | integer       |           |          |         | plain    |              | 
  char0  | character(16) |           |          |         | extended |              | 
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3263">🔗</a></span><div class="p" id="p-3263">Insert some data into it and get the data out:
-<div class="code-caption-container" id="code-65">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3294">🔗</a></span><div class="p" id="p-3294">Insert some data into it and get the data out:
+<div class="code-caption-container" id="code-66">
 <pre><code>psql testdb0 -c "INSERT INTO table0 (int0, char0) VALUES (2, 'two'), (3, 'three'), (5, 'five'), (7, 'seven');"
 psql testdb0 -c 'SELECT * FROM table0;'
 </code></pre></div>
 output:
-<div class="code-caption-container" id="code-66">
+<div class="code-caption-container" id="code-67">
 <pre><code> int0 |      char0
 ------+------------------
     2 | two
@@ -127,8 +127,8 @@ output:
     5 | five
     7 | seven
 (4 rows)
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3264">🔗</a></span><div class="p" id="p-3264">Delete the table:
-<div class="code-caption-container" id="code-67">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3295">🔗</a></span><div class="p" id="p-3295">Delete the table:
+<div class="code-caption-container" id="code-68">
 <pre><code>psql testdb0 -c 'DROP TABLE table0;'
 </code></pre></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span><div class="toc-container" id="toc">
 <ul>
@@ -159,21 +159,21 @@ word count: 12
 descendant word count: 1k
 descendant count: 0">Database</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">12</span></span></li>
 <li><a href="software" title="internal link
-word count: 316
+word count: 318
 descendant word count: 13k
-descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">13k</span>, <span class="descendant-count" title="number of descendant nodes">316</span></span></li>
+descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">13k</span>, <span class="descendant-count" title="number of descendant nodes">318</span></span></li>
 <li><a href="computer" title="internal link
-word count: 541
+word count: 555
 descendant word count: 21k
-descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">21k</span>, <span class="descendant-count" title="number of descendant nodes">541</span></span></li>
+descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">21k</span>, <span class="descendant-count" title="number of descendant nodes">555</span></span></li>
 <li><a href="technology" title="internal link
-word count: 795
-descendant word count: 34k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">34k</span>, <span class="descendant-count" title="number of descendant nodes">795</span></span></li>
+word count: 817
+descendant word count: 35k
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">35k</span>, <span class="descendant-count" title="number of descendant nodes">817</span></span></li>
 <li><a href="." title="internal link
 word count: 3k
-descendant word count: 156k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">156k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant word count: 158k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">158k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div><div><span class="hide-hover"><a href="#incomding-links">🔗</a></span><h2 id="#incoming-links"><a href="#incoming-links">Incoming links</a></h2></div>
 <div><ul>
 <li><a href="feathers-chat-postgresql" title="internal link
@@ -195,7 +195,7 @@ descendant count: 66">Heroku</a> | <span class="metrics"><span class="word-count
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/105b49607a6626dc57ae3cb26f384166cdef7e67">105b49607a6626dc57ae3cb26f384166cdef7e67</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/d830b0ff315bc218786f7efe32e6d1557db0dd2d">d830b0ff315bc218786f7efe32e6d1557db0dd2d</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>

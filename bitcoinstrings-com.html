@@ -24,23 +24,23 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="bitcoinstrings-com"><a href="" title="link to this element">BitcoinStrings.com</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#bitcoinstrings-com">🗖 nosplit</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a> | <span class="metrics"><span class="word-count" title="word count for this node">153</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#bitcoinstrings-com">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="how-to-extract-data-from-the-bitcoin-blockchain" title="parent header">↑ parent "How to extract data from the Bitcoin blockchain"</a> | <span class="metrics"><span class="word-count" title="word count for this node">153</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3968">🔗</a></span><div class="p" id="p-3968"><a href="https://bitcoinstrings.com">https://bitcoinstrings.com</a> has all <code>strings -n20</code> strings, we can obtain the whole thing and clean it up a bit with:
-<div class="code-caption-container" id="code-113">
+</div><div><span class="hide-hover"><a href="#p-4009">🔗</a></span><div class="p" id="p-4009"><a href="https://bitcoinstrings.com">https://bitcoinstrings.com</a> has all <code>strings -n20</code> strings, we can obtain the whole thing and clean it up a bit with:
+<div class="code-caption-container" id="code-114">
 <pre><code>wget -O all.html https://bitcoinstrings.com/all
 cp all.html all-recode.html
 recode html..ascii all-recode.html
 awk '!seen[$0]++' all-recode.html &gt; all-uniq.html
 </code></pre></div>
-<code>awk</code> to skip the gazillion "mined by message" repeats.</div></div><div><span class="hide-hover"><a href="#p-3969">🔗</a></span><div class="p" id="p-3969">A lot of in that website stuff appears to be cut up at the 20 mark. As shown in <a href="cool-data-embedded-in-the-bitcoin-blockchain#force-of-will" title="internal link">Force of Will</a>, this is possibly because they didn't use <code>-w</code> in <code>strings -n20</code>, and the text after the newlines was less than 20 characters.</div></div><div><span class="hide-hover"><a href="#p-3970">🔗</a></span><div class="p" id="p-3970">That website can be replicated by downloading the <a href="bitcoin" title="internal link
+<code>awk</code> to skip the gazillion "mined by message" repeats.</div></div><div><span class="hide-hover"><a href="#p-4010">🔗</a></span><div class="p" id="p-4010">A lot of in that website stuff appears to be cut up at the 20 mark. As shown in <a href="cool-data-embedded-in-the-bitcoin-blockchain#force-of-will" title="internal link">Force of Will</a>, this is possibly because they didn't use <code>-w</code> in <code>strings -n20</code>, and the text after the newlines was less than 20 characters.</div></div><div><span class="hide-hover"><a href="#p-4011">🔗</a></span><div class="p" id="p-4011">That website can be replicated by downloading the <a href="bitcoin" title="internal link
 word count: 19
 descendant word count: 3k
 descendant count: 24">Bitcoin</a> blockchain locally, then:
-<div class="code-caption-container" id="code-114">
+<div class="code-caption-container" id="code-115">
 <pre><code>cd .bitcoin/blocks
 for f in blk*.dat; do strings -n20 -w $f | awk '!seen[$0]++' &gt; ${f%.dat}.txt; done
 tail +n1 *.txt
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3971">🔗</a></span><div class="p" id="p-3971">Remove most of the binary crap:
-<div class="code-caption-container" id="code-115">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-4012">🔗</a></span><div class="p" id="p-4012">Remove most of the binary crap:
+<div class="code-caption-container" id="code-116">
 <pre><code>head -n-1 *.txt | grep -e '[. ]' | grep -iv 'mined by' | less
 </code></pre></div></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#ancestors">🔗</a></span><h2 id="#ancestors"><a href="#ancestors">Ancestors</a></h2></div>
 <div><ul>
@@ -65,17 +65,17 @@ word count: 40
 descendant word count: 5k
 descendant count: 0">Money</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">5k</span>, <span class="descendant-count" title="number of descendant nodes">40</span></span></li>
 <li><a href="social-technology" title="internal link
-word count: 218
+word count: 223
 descendant word count: 12k
-descendant count: 0">Social technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">12k</span>, <span class="descendant-count" title="number of descendant nodes">218</span></span></li>
+descendant count: 0">Social technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">12k</span>, <span class="descendant-count" title="number of descendant nodes">223</span></span></li>
 <li><a href="technology" title="internal link
-word count: 795
-descendant word count: 34k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">34k</span>, <span class="descendant-count" title="number of descendant nodes">795</span></span></li>
+word count: 817
+descendant word count: 35k
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">35k</span>, <span class="descendant-count" title="number of descendant nodes">817</span></span></li>
 <li><a href="." title="internal link
 word count: 3k
-descendant word count: 156k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">156k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant word count: 158k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">158k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div>
 </main>
 <footer>
@@ -83,7 +83,7 @@ descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><spa
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/105b49607a6626dc57ae3cb26f384166cdef7e67">105b49607a6626dc57ae3cb26f384166cdef7e67</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/d830b0ff315bc218786f7efe32e6d1557db0dd2d">d830b0ff315bc218786f7efe32e6d1557db0dd2d</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
