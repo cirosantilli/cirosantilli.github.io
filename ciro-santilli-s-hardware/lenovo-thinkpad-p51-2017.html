@@ -23,25 +23,104 @@
 </header>
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="lenovo-thinkpad-p51-2017"><a href="" title="link to this element">Lenovo ThinkPad P51 (2017)</a></h1>
-<span class="hover-meta">  | <a title="view all headers in a single page" href="lenovo-thinkpad-p51-2017/nosplit#lenovo-thinkpad-p51-2017">🗖 nosplit</a> | <a href="computers" title="parent header">↑ parent "Computers"</a> | <span class="metrics"><span class="word-count" title="word count for this node">11</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="lenovo-thinkpad-p51-2017/nosplit#lenovo-thinkpad-p51-2017">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="computers" title="parent header">↑ parent "Computers"</a> | <span class="metrics"><span class="word-count" title="word count for this node">11</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-938">🔗</a></span><div class="p" id="p-938">Ciro's main laptop: <a href="https://cirosantilli.com/linux-kernel-module-cheat/#p51">https://cirosantilli.com/linux-kernel-module-cheat/#p51</a> (<a href="permalink"><a href="https://raw.githubusercontent.com/cirosantilli/linux-kernel-module-cheat/a0d6fa15a207cb40cd8ce090c77aa9b55d7605a6/README.adoc">https://raw.githubusercontent.com/cirosantilli/linux-kernel-module-cheat/a0d6fa15a207cb40cd8ce090c77aa9b55d7605a6/README.adoc</a></a>)</div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#ancestors">🔗</a></span><h2 id="#ancestors"><a href="#ancestors">Ancestors</a></h2></div>
+<span class="hover-meta">  | <a title="view all headers in a single page" href="lenovo-thinkpad-p51-2017/nosplit#lenovo-thinkpad-p51-2017">🗖 nosplit</a> | <a href="computers" title="parent header">↑ parent "Computers"</a> | <span class="metrics"><span class="word-count" title="word count for this node">619</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="lenovo-thinkpad-p51-2017/nosplit#lenovo-thinkpad-p51-2017">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="computers" title="parent header">↑ parent "Computers"</a> | <span class="metrics"><span class="word-count" title="word count for this node">619</span></span></div></div>
+</div><div><span class="hide-hover"><a href="#p-938">🔗</a></span><div class="p" id="p-938">Bought: 2017 for approximately 2400 <a href="../pound-sterling" title="internal link
+word count: 0
+descendant word count: 0
+descendant count: 0">pounds</a> to be <a href="../ciro-santilli" title="internal link
+word count: 177
+descendant word count: 54k
+descendant count: 514">Ciro Santilli</a>'s main personal laptop.</div></div><div><span class="hide-hover"><a href="#p-939">🔗</a></span><div class="p" id="p-939"><a href="https://cirosantilli.com/linux-kernel-module-cheat/#p51">https://cirosantilli.com/linux-kernel-module-cheat/#p51</a> (<a href="permalink"><a href="https://raw.githubusercontent.com/cirosantilli/linux-kernel-module-cheat/a0d6fa15a207cb40cd8ce090c77aa9b55d7605a6/README.adoc">https://raw.githubusercontent.com/cirosantilli/linux-kernel-module-cheat/a0d6fa15a207cb40cd8ce090c77aa9b55d7605a6/README.adoc</a></a>)</div></div><div><span class="hide-hover"><a href="#ul-164">🔗</a></span><div><ul id="ul-164">
+<li id="l-701"><div class="p" id="p-940">2021-06-05 upgraded to <a href="../ubuntu" title="internal link
+word count: 0
+descendant word count: 162
+descendant count: 162">Ubuntu</a> 21.04 with a clean install from an ISO. Selected<div><ul id="ul-165">
+<li id="l-702">"Minimal installation"</li>
+<li id="l-703">"Erase disk and install Ubuntu". Notably, this erased the <a href="../microsoft-windows" title="internal link
+word count: 0
+descendant word count: 330
+descendant count: 330">Microsoft Windows</a> that came with the computer and was never used not even once</li>
+<li id="l-704">"Erase disk ans use ZFS"</li>
+<li id="l-705">Encrypt the new Ubuntu installation for security
+</li>
+</ul></div>After this, the GUI felt fast, who would have thought that erasing a bunch of stuff would make the system faster!</div><div class="p" id="p-941"><code>lsblk</code> contains:
+<div class="code-caption-container" id="code-14">
+<pre><code>zd0               230:0    0   500M  0 disk
+└─keystore-rpool  253:0    0   484M  0 crypt /run/keystore/rpool
+nvme0n1           259:0    0 476.9G  0 disk
+├─nvme0n1p1       259:1    0   512M  0 part  /boot/efi
+├─nvme0n1p2       259:2    0     2G  0 part
+│ └─cryptoswap    253:1    0     2G  0 crypt
+├─nvme0n1p3       259:3    0     2G  0 part
+└─nvme0n1p4       259:4    0 472.4G  0 part
+</code></pre></div>
+and <code>lsblk -f</code>:
+<div class="code-caption-container" id="code-15">
+<pre><code>zd0               crypto_LUKS 2
+└─keystore-rpool  ext4        1.0   keystore-rpool
+nvme0n1
+├─nvme0n1p1       vfat        FAT32
+├─nvme0n1p2       crypto_LUKS 2
+│ └─cryptoswap
+├─nvme0n1p3       zfs_member  5000  bpool
+└─nvme0n1p4       zfs_member  5000  rpoo
+</code></pre></div></div><div class="p" id="p-942">Then:
+<div class="code-caption-container" id="code-16">
+<pre><code>grep '[rb]pool' /proc/mounts
+</code></pre></div>
+contains:
+<div class="code-caption-container" id="code-17">
+<pre><code>rpool/ROOT/ubuntu_uvs1fq / zfs rw,relatime,xattr,posixacl 0 0
+rpool/USERDATA/ciro_czngbg /home/ciro zfs rw,relatime,xattr,posixacl 0 0
+rpool/USERDATA/root_czngbg /root zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/srv /srv zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/usr/local /usr/local zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/games /var/games zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/log /var/log zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/lib /var/lib zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/mail /var/mail zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/snap /var/snap zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/www /var/www zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/spool /var/spool zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/lib/AccountsService /var/lib/AccountsService zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/lib/NetworkManager /var/lib/NetworkManager zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/lib/apt /var/lib/apt zfs rw,relatime,xattr,posixacl 0 0
+rpool/ROOT/ubuntu_uvs1fq/var/lib/dpkg /var/lib/dpkg zfs rw,relatime,xattr,posixacl 0 0
+bpool/BOOT/ubuntu_uvs1fq /boot zfs rw,nodev,relatime,xattr,posixacl 0 0
+</code></pre></div>
+which gives an idea of how the above map to mountpoints.</div></li>
+</ul></div></div><div><span class="hide-hover"><a href="#p-943">🔗</a></span><div class="p" id="p-943">2020-06-06: dropped some lemon juice on the bottom left of touchpad. Bottom left button not working anymore... I'm an idiot. There are many other alternatives, but very aggravating, I'll replace it for sure. Can't find the exact replacement part or any videos showing its replacement online easliy, dang. For the T430: <a href="https://www.youtube.com/watch?v=F3lzV9uXRjU">https://www.youtube.com/watch?v=F3lzV9uXRjU</a> Asked at: <a href="https://forums.lenovo.com/t5/ThinkPad-P-and-W-Series-Mobile-Workstations/P51-left-bottom-button-below-trackpad-mouse-left-click-stopped-working-possible-to-replace/m-p/5019903">https://forums.lenovo.com/t5/ThinkPad-P-and-W-Series-Mobile-Workstations/P51-left-bottom-button-below-trackpad-mouse-left-click-stopped-working-possible-to-replace/m-p/5019903</a> Also I could not access it because you need to remove the HDD first: <a href="https://www.youtube.com/watch?v=5Klawxc7T_Y">https://www.youtube.com/watch?v=5Klawxc7T_Y</a> and I can't pull it out even with considerable force, unlike in the video... And OMG, those button caps are impossible to re-install once removed!!! Then when I put the whole thing back together, the upper buttons were not working anymore. FUUUUUUUUCK. When first opening I pulled on it without properly removing the cap and it came off, but it didn't look broken in any way and I put it back in. Keyboard works thank God, so right black connector is fine, left white one oppears to be the one for upper keys and trackpoint, both of which stopped working. The hardware manual confirms that they are both part of the same device, so basically a mouse :-) TODO can it be bought separately from te keyboard? Doesn't look like it, photo of keyboard part includes those buttons. The manual also confirms that the bottom buttons are one device with the trackpad "trackpad with buttons", thus forming the second entire mouse.</div></div><div><span class="hide-hover"><a href="#p-944">🔗</a></span><div class="p" id="p-944">2019-04-17: popup asking about "ThinkPad P51 Management Engine Update" from from 182.29.3287 to 184.60.3561, said yes.</div></div><div><span class="hide-hover"><a href="#p-945">🔗</a></span><div class="p" id="p-945"><a href="../ubuntu" title="internal link
+word count: 0
+descendant word count: 162
+descendant count: 162">Ubuntu</a> 17.10 setup after buying it:</div></div><div><span class="hide-hover"><a href="#p-946">🔗</a></span><div class="p" id="p-946"><div><ul id="ul-166">
+<li id="l-706">partition setup: <a href="https://askubuntu.com/questions/343268/how-to-use-manual-partitioning-during-installation/976430#976430">https://askubuntu.com/questions/343268/how-to-use-manual-partitioning-during-installation/976430#976430</a></li>
+<li id="l-707">BIOS:
+</li>
+</ul></div>** for NVIDIA driver:
+** for KVM, required by Android Emulator: enable virtualization extensions<div><ul id="ul-167">
+<li id="l-708">TODO fix the brightness keys:
+</li>
+</ul></div>** failed: <a href="https://askubuntu.com/questions/769006/brightness-key-not-working-ubuntu-16-04-lts/770100#770100">https://askubuntu.com/questions/769006/brightness-key-not-working-ubuntu-16-04-lts/770100#770100</a></div></div><div><span class="hide-hover"><a href="#p-947">🔗</a></span><div class="p" id="p-947">Battery life shown by Ubuntu battery app after installation:</div></div><div><span class="hide-hover"><a href="#ul-168">🔗</a></span><div><ul id="ul-168">
+<li id="l-709">before NVIDIA driver setup: 8h</li>
+<li id="l-710">after: 6.5h</li>
+</ul></div></div><div><span class="hide-hover"><a href="#toc">🔗</a></span></div><div><span class="hide-hover"><a href="#ancestors">🔗</a></span><h2 id="#ancestors"><a href="#ancestors">Ancestors</a></h2></div>
 <div><ul>
 <li><a href="computers" title="internal link
 word count: 12
-descendant word count: 599
-descendant count: 20">Computers</a> | <span class="metrics"><span class="word-count" title="word count for this node">20</span>, <span class="word-count-descendant" title="word count for this node + descendants">599</span>, <span class="descendant-count" title="number of descendant nodes">12</span></span></li>
+descendant word count: 1k
+descendant count: 20">Computers</a> | <span class="metrics"><span class="word-count" title="word count for this node">20</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">12</span></span></li>
 <li><a href="../ciro-santilli-s-hardware" title="internal link
 word count: 56
-descendant word count: 8k
-descendant count: 55">Ciro Santilli's hardware</a> | <span class="metrics"><span class="word-count" title="word count for this node">55</span>, <span class="word-count-descendant" title="word count for this node + descendants">8k</span>, <span class="descendant-count" title="number of descendant nodes">56</span></span></li>
+descendant word count: 9k
+descendant count: 55">Ciro Santilli's hardware</a> | <span class="metrics"><span class="word-count" title="word count for this node">55</span>, <span class="word-count-descendant" title="word count for this node + descendants">9k</span>, <span class="descendant-count" title="number of descendant nodes">56</span></span></li>
 <li><a href="../ciro-santilli" title="internal link
 word count: 177
 descendant word count: 54k
 descendant count: 514">Ciro Santilli</a> | <span class="metrics"><span class="word-count" title="word count for this node">514</span>, <span class="word-count-descendant" title="word count for this node + descendants">54k</span>, <span class="descendant-count" title="number of descendant nodes">177</span></span></li>
 <li><a href="../" title="internal link
 word count: 3k
-descendant word count: 162k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">162k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant word count: 163k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">163k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div><div><span class="hide-hover"><a href="#incomding-links">🔗</a></span><h2 id="#incoming-links"><a href="#incoming-links">Incoming links</a></h2></div>
 <div><ul>
 <li><a href="../how-to-mine-monero" title="internal link
@@ -59,7 +138,7 @@ descendant count: 220">vmpk</a> | <span class="metrics"><span class="word-count"
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="../contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/948fc8a47862c096d8f09c7129d727171964bd36">948fc8a47862c096d8f09c7129d727171964bd36</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/eed6fa630c8f25344506adbe70164b6b28f79aa3">eed6fa630c8f25344506adbe70164b6b28f79aa3</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>

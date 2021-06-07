@@ -24,38 +24,38 @@
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="create-a-test-user-in-postgresql"><a href="" title="link to this element">Create a test user in PostgreSQL</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics"><span class="word-count" title="word count for this node">274</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics"><span class="word-count" title="word count for this node">274</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3389">🔗</a></span><div class="p" id="p-3389">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
+</div><div><span class="hide-hover"><a href="#p-3402">🔗</a></span><div class="p" id="p-3402">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
 word count: 0
 descendant word count: 28
 descendant count: 28">peer authentication</a>, let's create test user:
-<div class="code-caption-container" id="code-69">
+<div class="code-caption-container" id="code-73">
 <pre><code>createuser -P user0
 createdb user0
 </code></pre></div>
-<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3390">🔗</a></span><div class="p" id="p-3390">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
-<div class="code-caption-container" id="code-70">
+<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3403">🔗</a></span><div class="p" id="p-3403">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
+<div class="code-caption-container" id="code-74">
 <pre><code>psql -c "create role NewRole with login password 'secret'"
 </code></pre></div>
-Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3391">🔗</a></span><div class="p" id="p-3391">We can then login with that password with:
-<div class="code-caption-container" id="code-71">
+Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3404">🔗</a></span><div class="p" id="p-3404">We can then login with that password with:
+<div class="code-caption-container" id="code-75">
 <pre><code>psql -U user0 -h localhost
 </code></pre></div>
-which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3392">🔗</a></span><div class="p" id="p-3392">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
+which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3405">🔗</a></span><div class="p" id="p-3405">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">environment variable</a>:
-<div class="code-caption-container" id="code-72">
+<div class="code-caption-container" id="code-76">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3393">🔗</a></span><div class="p" id="p-3393">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
-<div class="code-caption-container" id="code-73">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3406">🔗</a></span><div class="p" id="p-3406">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
+<div class="code-caption-container" id="code-77">
 <pre><code>createdb user0db0
 psql -c 'GRANT ALL PRIVILEGES ON DATABASE user0db0 TO user0'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3394">🔗</a></span><div class="p" id="p-3394">We can check this permission with:
-<div class="code-caption-container" id="code-74">
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3407">🔗</a></span><div class="p" id="p-3407">We can check this permission with:
+<div class="code-caption-container" id="code-78">
 <pre><code>psql -c '\l'
 </code></pre></div>
 which now contains:
-<div class="code-caption-container" id="code-75">
+<div class="code-caption-container" id="code-79">
 <pre><code>                                  List of databases
    Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
 -----------+----------+----------+-------------+-------------+-----------------------
@@ -63,11 +63,11 @@ which now contains:
            |          |          |             |             | ciro=CTc/ciro        +
            |          |          |             |             | user0=CTc/ciro
 </code></pre></div>
-The permission letters are explained at:<div><ul id="ul-622">
-<li id="l-1731"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
-<li id="l-1732"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3395">🔗</a></span><div class="p" id="p-3395"><code>user0</code> can now do the usual table operations on that table:
-<div class="code-caption-container" id="code-76">
+The permission letters are explained at:<div><ul id="ul-627">
+<li id="l-1741"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
+<li id="l-1742"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3408">🔗</a></span><div class="p" id="p-3408"><code>user0</code> can now do the usual table operations on that table:
+<div class="code-caption-container" id="code-80">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
 PGPASSWORD=a psql -U user0 -h localhost user0db0 -c "INSERT INTO table0 (int0, char0) VALUES (2, 'two'), (3, 'three'), (5, 'five'), (7, 'seven');"
 PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'SELECT * FROM table0;'
@@ -94,21 +94,21 @@ word count: 12
 descendant word count: 1k
 descendant count: 0">Database</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">12</span></span></li>
 <li><a href="software" title="internal link
-word count: 328
+word count: 331
 descendant word count: 14k
-descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">14k</span>, <span class="descendant-count" title="number of descendant nodes">328</span></span></li>
+descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">14k</span>, <span class="descendant-count" title="number of descendant nodes">331</span></span></li>
 <li><a href="computer" title="internal link
-word count: 565
+word count: 571
 descendant word count: 22k
-descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">22k</span>, <span class="descendant-count" title="number of descendant nodes">565</span></span></li>
+descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">22k</span>, <span class="descendant-count" title="number of descendant nodes">571</span></span></li>
 <li><a href="technology" title="internal link
-word count: 840
-descendant word count: 35k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">35k</span>, <span class="descendant-count" title="number of descendant nodes">840</span></span></li>
+word count: 847
+descendant word count: 36k
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">36k</span>, <span class="descendant-count" title="number of descendant nodes">847</span></span></li>
 <li><a href="." title="internal link
 word count: 3k
-descendant word count: 162k
-descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">162k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant word count: 163k
+descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">238</span>, <span class="word-count-descendant" title="word count for this node + descendants">163k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div>
 </main>
 <footer>
@@ -116,7 +116,7 @@ descendant count: 238">Ciro Santilli's Homepage</a> | <span class="metrics"><spa
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/948fc8a47862c096d8f09c7129d727171964bd36">948fc8a47862c096d8f09c7129d727171964bd36</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/eed6fa630c8f25344506adbe70164b6b28f79aa3">eed6fa630c8f25344506adbe70164b6b28f79aa3</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
