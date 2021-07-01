@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello World with hooks. It's just less code, everyone is using hooks now.</title>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+function Main(props) {
+  console.log('Main');
+  const [n, setN] = React.useState(0)
+  function handleClick() {
+    console.error('handleClick');
+    setN(n + 1)
+  }
+  return (
+    <div>
+      <div onClick={handleClick}>Click me</div>
+      <div>{n}</div>
+    </div>
+  )
+}
+
+ReactDOM.render(
+  <Main />,
+  document.getElementById('root')
+);
+</script>
+</body>
+</html>
