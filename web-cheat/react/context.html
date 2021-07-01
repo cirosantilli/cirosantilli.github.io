@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Hello World with hooks. It's just less code, everyone is using hooks now.</title>
+<title>Context</title>
 <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
@@ -10,6 +10,8 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
+const CounterContext = React.createContext();
+
 function Main(props) {
   console.log('Main');
   const [n, setN] = React.useState(0)
@@ -21,7 +23,27 @@ function Main(props) {
     <div>
       <div onClick={handleClick}>Click me</div>
       <div>{n}</div>
+      <CounterContext.Provider value={{n, handleClick}}>
+        <Child />
+      </CounterContext.Provider>
     </div>
+  )
+}
+
+function Child(props) {
+  console.log('Child');
+  return (<Child2 />)
+}
+
+function Child2(props) {
+  console.log('Child2');
+  const {n, handleClick} = React.useContext(CounterContext);
+  return (
+    <>
+      <div>Child2</div>
+      <div onClick={handleClick}>Click me 2</div>
+      <div>{n}</div>
+    </>
   )
 }
 
