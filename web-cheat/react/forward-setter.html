@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Clicking either counter will also update the other one</title>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+function Counter(props) {
+  console.log('Counter');
+  function handleClick() {
+    console.error('handleClick');
+    props.setN(props.n + 1)
+  }
+  return (
+    <>
+      <div onClick={handleClick}>Click me</div>
+      <div>{props.n}</div>
+    </>
+  )
+}
+
+function Main(props) {
+  console.log('Main');
+  const [n, setN] = React.useState(0)
+  return (
+    <div>
+      <Counter n={n} setN={setN} />
+      <Counter n={n} setN={setN} />
+    </div>
+  )
+}
+
+ReactDOM.render(
+  <Main />,
+  document.getElementById('root')
+);
+</script>
+</body>
+</html>
