@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import './main.css';
 import './main.scss';
 import { notindex_constant } from './notindex.js';
 
