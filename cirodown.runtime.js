@@ -1,5 +1,16 @@
 // https://cirosantilli.com/cirodown#insane-link-parsing-rules
 
+if (typeof exports !== 'undefined') {
+  // With import gave Uncaught ReferenceError: Tablesort is not defined
+  // but this worked https://github.com/tristen/tablesort/issues/165
+  Tablesort = require('tablesort')
+  require('tablesort/src/sorts/tablesort.date.js')
+  require('tablesort/src/sorts/tablesort.dotsep.js')
+  require('tablesort/src/sorts/tablesort.filesize.js')
+  require('tablesort/src/sorts/tablesort.monthname.js')
+  require('tablesort/src/sorts/tablesort.number.js')
+}
+
 function cirodown_runtime(toplevel) {
   if (toplevel === undefined) {
     toplevel = document;
