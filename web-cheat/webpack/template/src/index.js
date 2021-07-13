@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import './main.css';
 import './main.scss';
+import 'normalize.css/normalize.css';
 import { notindex_constant } from './notindex.js';
 // Not recommended, but works if you need it to.
 const { cjs_constant, cjs_func } = require('./cjs.js');
