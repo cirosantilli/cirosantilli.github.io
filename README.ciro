@@ -2649,6 +2649,8 @@ Ciro likes to decide location on a whim on the day prior. He checks the wind to 
 
 Each time you try to find a new cool location, and sometimes you just stumble into amazing stuff without knowing about it. Ciro likes to keep open to new experiences. Keep your eyes open, and if something looks curious, just check it out! Talking to locals for tips is also a great way to find new stuff.
 
+One thing that Ciro often feels is rather excited on the way out, and lightly afraid of going futher at each step because of the return. And during the return, there is a greater feeling of worry and resignation, as you are more tired, you've seen what you wanted to, and you just have to get yourself homehow, often going back through paths that you know better. This reminds Ciro of the ending of the film \x[in-the-realm-of-the-senses-1976], in which the sex obsessed couple plays a strangling sex game, and the man says that it hurts too much when she stops strangling him, and so she strangles him to death. She also cut his \x[penis] and carried it around in a bag afterwards, but that not relevant to the cycling analogy.
+
 It is funny, but sometimes this gives Ciro the same feeling that he had as a child playing 2D exploration RPGs such \x[pokemon] and \x[final-fantasy-vi] as you explore the wild: Ciro can often hear the FF VI overworld soundtrack, or imagine that a Charmeleon is hidden just around the corner of this new towns he's never been to before. Because in the places you live and have walked a million times, you know there is no magic. But in a new place that you're visiting for the first time? Anything is possible there.
 
 The main difference from video games is that the real world is much much more detailed and diverse, and the freedom is much more real. Also you can't just walk into any house or field like in the games, and there are more empty or repetitive areas that can sometimes get boring since they weren't hand designed. And if you die on a car crash there are no continues.
@@ -6934,6 +6936,10 @@ TODO arguments, proofs
 {parent=subatomic-particle}
 {wiki}
 
+In other sections:
+* \x[w-boson]{child}
+* \x[z-boson]{child}
+
 = Are there more than 3 generations of particles in the Standard Model?
 {parent=elementary-particle}
 
@@ -7536,7 +7542,7 @@ Conceptually the simplest \x[meson]{p}. All of them have neutral \x[color-charge
 {parent=meson}
 {wiki}
 
-One \x[strange-quark] bound with one \x[up-quark] or a \x[down-quark]. 6 combinations exist, 4 if we consier antiparticles the same as particles.
+One \x[strange-quark] bound with one \x[up-quark] or a \x[down-quark]. 6 combinations exist, 4 if we consider antiparticles the same as particles.
 
 = Eightfold way
 {disambiguate=physics}
@@ -7838,6 +7844,9 @@ The Lorentz gauge is just one such choice. It is however a very popular one, bec
 = Electromagnetism
 {parent=maxwell-s-equations}
 {wiki}
+
+= Electromagnetic force
+{synonym}
 
 The phenomena described by \x[maxwell-s-equations].
 
@@ -8592,6 +8601,12 @@ $$
 6.62607015 \times 10^{-34} J \cdot s
 $$
 
+= Reduced Planck constant
+{parent=planck-constant}
+{title2=$\hbar$}
+
+Appears in the \x[schrodinger-equation].
+
 = de Broglie relations
 {c}
 {parent=planck-constant}
@@ -8836,6 +8851,25 @@ To get some intuition on the equation on the consequences of the equation, have 
 * \x[schrodinger-equation-simulations]
 * \x[solutions-of-the-schrodinger-equation]
 
+The easiest to understand case of the equation which you must have in mind initially that of the \x[schrodinger-equation-for-a-free-one-dimensional-particle].
+
+Then, with that in mind, the general form of the \x[schrodinger-equation] is:
+$$i\hbar\pdv{\psi(\vv{x}, t)}{t} = \hat{H}[\psi(\vv{x}, t)]$$
+{title=Schrodinger equation}
+where:
+* $\hbar$ is the \x[reduced-planck-constant]
+* $\psi$ is the \x[wave-function]
+* $t$ is the time
+* $\hat{H}$ is a \x[linear-operator] called the \x[hamiltonian]. It takes as input a function $\psi$, and returns another function. This plays a role analogous to the Hamiltonian in \x[classical-mechanics]: determining it determines what the physical system looks like, and how the system evolves in time, because we can just plug it into the equation and solve it. It basically encodes the total energy and forces of the system.
+
+The $\vv{x}$ argument of $\psi$ could be anything, e.g.:
+* we could have preferred \x[polar-coordinate]{p} instead of linear ones if the potential were symmetric around a point
+* we could have more than one particle, e.g. \x[solutions-of-the-schrodinger-equation-for-two-electrons], which would have e.g. $x_1$ and $x_2$ for different particles. No matter how many particles there are, we have just a single $\psi$, we just add more arguments to it.
+* we could have even more generalized coordinates. This is much in the spirit of \x[hamiltonian-mechanics] or \x[generalized-coordinate]{p}
+Note however that there is always a single magical $t$ time variable. This is needed in particular because there is a time \x[partial-derivative] in the equation, so there must be a corresponding time variable in the function. This makes the equation explicitly \x[non-relativistic].
+
+The general \x[schrodinger-equation] can be broken up into a trivial time-dependent and a \x[time-independent-schrodinger-equation] by separation of variables. So in practice, all we need to solve is the slightly simpler \x[time-independent-schrodinger-equation], and the full equation comes out as a result.
+
 Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-and-uniqueness-for-two-dimensional-time-dependent-schr%C3%B6dinger-equation
 
 = Time-independent Schrodinger equation
@@ -8843,14 +8877,21 @@ Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-an
 {wiki=Schrödinger_equation#Time-independent_equation}
 
 As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] from \x[quantum-physics-by-jim-branson-2003], using \x[separation-of-variables] we can break up the general \x[schrodinger-equation] into:
-* a time-only part that does not depend on space
-* a space-only part that does not depend on time
-$$
-\left[-\frac{\hbar}{2m} \grad^2 + V(x)\right]\Psi = E \Psi(x)
-$$
-{title=Time-independent Schrodinger equation.}
+* a time-only part that does not depend on space and does not depend on the potential
+* a space-only part that does not depend on time:
 
-It is interesting to note that the time-independent Schrodinger equation can also be seen exactly as an \x[eigenvalue] equation.
+  $$\hat{H}[\psi(\vv{x})] = E \psi{\vv{x}}$$
+  {title=Time-independent Schrodinger equation}
+
+  Since this is the only non-trivial part, unlike the time part which is trivial, this spacial part is just called "the time-independent Schrodinger equation".
+
+  Note that the $\psi$ here is not the same as the $\psi$ in the \x[equation-schrodinger-equation][time-dependent Schrodinger equation] of course, as that psi is the result of the multiplication of the time and space parts. This is a bit of imprecise terminology, but hey, physics.
+
+The key initial example to have in mind is the \x[time-independent-schrodinger-equation-equation-for-a-free-one-dimensional-particle].
+
+It is interesting to note that the time-independent Schrodinger equation can also be seen exactly as an \x[eigenvalue] equation, since the value of the energy `E` can be any fixed value that can satisfy the \x[boundary-condition]{p} conditions imposed.
+
+Then, just like in \x[solving-partial-differential-equations-with-the-fourier-series] of the \x[heat-equation], the boundary conditions may make it so that only certain discrete values of `E` are possible solutions.
 
 Then, the time part o the equation can be solved explicitly in the general case, as it does not depend on the potential $V(x)$, and it is just an exponential.
 
@@ -8929,10 +8970,28 @@ This is basically how \x[quantum-computing] was first theorized by \x[richard-fe
 
 TODO answer that: https://quantumcomputing.stackexchange.com/questions/5005/why-it-is-hard-to-simulate-a-quantum-device-by-a-classical-devices[]. A good answer would be with a more physical example of \x[quantum-entanglement], e.g. on a \x[photonic-quantum-computer].
 
-= Schrodinger equation solution for a free particle
+= Schrodinger equation for a one dimensional particle
+{c}
+{parent=solutions-of-the-schrodinger-equation}
+
+We select for the general \x[equation-schrodinger-equation]:
+* $\vv{x} = x$, the linear \x[cartesian-coordinate] in the x direction
+* $\hat{H} = -\frac{\hbar^2}{2m}\pdv{^2}{x^2} + V(x, t)$, which analogous to the sum of \x[kinetic-energy][kinetic] and \x[potential-energy] in \x[classical-mechanics]
+giving the full explicit \x[partial-differential-equation]:
+$$i\hbar\pdv{\psi(x, t)}{t} = \left[ -\frac{\hbar^2}{2m}\pdv{^2}{x^2} + V(x, t) \right]\psi(x, t)$$
+{title=\x[schrodinger-equation] for a one dimensional particle}
+The corresponding \x[time-independent-schrodinger-equation] for this equation is:
+$$
+\left[-\frac{\hbar}{2m} \pdv{^2}{x} + V(x)\right]\psi = E \psi(x)
+$$
+{title=\x[time-independent-schrodinger-equation] for a one dimensional particle}
+
+= Schrodinger equation for a free one dimensional particle
 {c}
 {parent=solutions-of-the-schrodinger-equation}
 {wiki=Free_particle#Quantum_free_particle}
+
+\x[schrodinger-equation-for-a-one-dimensional-particle] with $V = 0$.
 
 = Particle in a box
 {parent=solutions-of-the-schrodinger-equation}
@@ -8942,22 +9001,16 @@ TODO answer that: https://quantumcomputing.stackexchange.com/questions/5005/why-
 {parent=solutions-of-the-schrodinger-equation}
 {wiki}
 
-OK, let's remember a few things...
-* solving the \x[time-independent-schrodinger-equation] leads immediately to the time dependent solution, so we focus on the time-independent one
-* solving the time independent equation:
-  $$\hat{H} \phi = E \phi$$
-  actually means solving it for every $E$ such that a solution exists.
+This equation is a subcase of \x[equation-schrodinger-equation-for-a-one-dimensional-particle] with $V(x) = x^2$.
 
-  It is therefore a \x[eigenvalue]-problem.
-
-  Furthermore, since our $\hat{H}$ is nice and \x[self-adjoint] (like all \x[observable]{p}), it also forms a basis of the space. This basis is made of infinitely many basis functions.
-* therefore, just like we did when solving \x[solving-partial-differential-equations-with-the-fourier-series], solving the problem basically means finding the \x[eigenvector] basis, and then expressing the initial condition in terms of it.
-
-  Due to linearity, we can just add each component up, and it all works out.
+We get the \x[time-independent-schrodinger-equation] by substituting this $V$ into \x[equation-time-independent-schrodinger-for-a-one-dimensional-particle]:
+$$
+\left[- \frac{\hbar}{2m} \pdv{^2}{x} + x^2 \right]\psi = E \psi(x)
+$$
 
 Now, there are two ways to go about this.
 
-The first is the stupid "here's a guess", and in this case, there is an explicit basis that can be proven complete that actually works: \x[hermite-functions].
+The first is the stupid "here's a guess" + "hey this family of solutions forms a \x[complete-basis]"! This is exactly how we solved the problem at \x[solving-partial-differential-equations-with-the-fourier-series]{full}, except that now the complete basis are the \x[hermite-functions].
 
 The second is the much celebrated \x[ladder-operator] method.
 
@@ -8966,11 +9019,14 @@ The second is the much celebrated \x[ladder-operator] method.
 {parent=quantum-harmonic-oscillator}
 {wiki}
 
-Show up in the solution of the \x[quantum-harmonic-oscillator], presumably after separation of variables much like \x[solving-partial-differential-equations-with-the-fourier-series].
+Show up in the solution of the \x[quantum-harmonic-oscillator] after \x[separation-of-variables] leading into the \x[time-independent-schrodinger-equation], much like \x[solving-partial-differential-equations-with-the-fourier-series].
 
 = Hermite functions
 {c}
 {parent=hermite-polynomials}
+{wiki=Hermite_polynomials#Hermite_functions}
+
+Not the same as \x[hermite-polynomials].
 
 = Ladder operator
 {parent=quantum-harmonic-oscillator}
@@ -9335,7 +9391,7 @@ Proof that the probability 1 is conserved by the time evolution:
 
 It can be derived directly from the \x[schrodinger-equation].
 
-Bibiliogrpahy:
+Bibliography:
 * https://quantummechanics.ucsd.edu/ph130a/130_notes/node127.html from \x[quantum-physics-by-jim-branson-2003].
 
   That proof also mentions that if the potential `V` is not real, then there is no conservation of probability! Therefore the potential \i[must] be real valued!
@@ -9641,6 +9697,14 @@ The hydrogen experiment was apparently harder to do and the result is less visib
 = Spintronics
 {parent=spin-experiments}
 {wiki}
+
+= Tunnel magnetoresistance
+{parent=spintronics}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=q3-S5hM-3QY]
+{title=What is spintronics and how is it useful? by SciToons (2019)}
+{description=Gives a good 1 minute explanation of \x[tunnel-magnetoresistance].}
 
 = Giant magnetoresistance
 {parent=spintronics}
@@ -10282,11 +10346,18 @@ From \x[university-of-alberta].
 {parent=quantum-field-theory}
 {wiki}
 
+= Weak force
+{synonym}
+
 Explains \x[beta-decay]. TODO why/how.
 
 http://www.thestargarden.co.uk/Weak-nuclear-force.html gives a quick and dirty:
 \Q[
-Beta decay could not be explained by the strong nuclear force, the force that’s responsible for holding the atomic nucleus together, because this force doesn’t affect electrons. It couldn’t be explained by the electromagnetic force, because this does not affect \x[neutron]{p}, and the force of gravity is far too weak to be responsible. Since this new atomic force was not as strong as the strong nuclear force, it was dubbed the weak nuclear force.
+Beta decay could not be explained by the strong nuclear force, the force that’s responsible for holding the atomic nucleus together, because this force doesn't affect electrons. It couldn't be explained by the electromagnetic force, because this does not affect \x[neutron]{p}, and the force of \x[gravity]] is far too weak to be responsible. Since this new atomic force was not as strong as the strong nuclear force, it was dubbed the weak nuclear force.
+]
+Also interesting:
+\Q[
+While the photon 'carries' charge, and therefore mediates the \x[electromagnetic-force], the \x[z-boson][Z] and \x[w-boson][W] \x[boson]{p} are said to carry a property known as 'weak isospin'. \x[w-boson]{p} mediate the weak force when particles with charge are involved, and \x[z-boson]{p} mediate the weak force when neutral particles are involved.
 ]
 
 \Video[https://www.youtube.com/watch?v=iIWTRwJlrGo]
@@ -10297,15 +10368,43 @@ Beta decay could not be explained by the strong nuclear force, the force that’
 {parent=weak-interaction}
 {wiki}
 
-= CP Violation
+= Parity violation
 {parent=weak-interaction}
 {wiki}
 
 This is quite \x[mind-blowing]. The \x[laws-of-physics] actually differentiate between particles and \x[antiparticle]{p} moving in opposite directions!!!
 
+Only the \x[weak-interaction] however does it of the \x[fundamental-interaction]{p}.
+
 Some historical remarks on \x[surely-you-re-joking-mr-feynman] section "The 7 Percent Solution".
 
+It gets worse of course with \x[cp-violation].
+
+= Wu experiment
+{c}
+{parent=parity-violation}
+{title2=1956}
+{wiki}
+
+= CP Violation
+{parent=parity-violation}
+{wiki}
+
+= CPT symmetry
+{parent=cp-violation}
+{wiki}
+
 = Strong CP problem
+{parent=cp-violation}
+{wiki}
+
+= W boson
+{c}
+{parent=weak-interaction}
+{wiki}
+
+= Z boson
+{c}
 {parent=weak-interaction}
 {wiki}
 
@@ -10409,7 +10508,8 @@ https://physics.stackexchange.com/questions/16142/is-qft-mathematically-self-con
 
 * https://physics.stackexchange.com/questions/8441/what-is-a-complete-book-for-introductory-quantum-field-theory "What is a complete book for introductory quantum field theory?"
 * https://www.quora.com/What-is-the-best-book-to-learn-quantum-field-theory-on-your-own on \x[quora]
-* https://web.archive.org/web/20150623011722/http://users.physik.fu-berlin.de/~kleinert/b6/psfiles/qft.pdf by https://en.wikipedia.org/wiki/Hagen_Kleinert[Hagen Kleinert]. 1500 pages!
+
+https://www.amazon.co.uk/Lectures-Quantum-Field-Theory-Ashok-ebook/dp/B07CL8Y3KY
 
 = Quantum field theory lecture notes
 {parent=quantum-field-theory-bibliography}
@@ -10446,7 +10546,7 @@ Followup "Advanced QFT course" (AQFT, Quantum field theory II) by David Skinner 
 = Quantum Field Theory book by Mark Srednicki (2006)
 {parent=quantum-field-theory-lecture-notes}
 
-Draft: https://web.physics.ucsb.edu/~mark/ms-qft-DRAFT.pdf
+Free to view draft: https://web.physics.ucsb.edu/~mark/ms-qft-DRAFT.pdf Page presenting it: http://web.physics.ucsb.edu/~mark/qft.html
 
 Author affiliation: University of California, Santa Barbara.
 
@@ -10640,12 +10740,18 @@ Gaussian path integrals.
 {c}
 {parent=quantum-field-theory-bibliography}
 
+* https://web.archive.org/web/20150623011722/http://users.physik.fu-berlin.de/~kleinert/b6/psfiles/qft.pdf by https://en.wikipedia.org/wiki/Hagen_Kleinert[Hagen Kleinert] (2015). 1500 pages!
+* The Quantum Theory of Fields by Steven Weinberg (2013) https://www.cambridge.org/core/books/quantum-theory-of-fields/22986119910BF6A2EFE42684801A3BDF 
+* Quantum Field Theory by Lewis H. Ryder 2nd edition (1996) https://www.amazon.co.uk/Quantum-Field-Theory-Lewis-Ryder/dp/0521478146
+* Lectures of Quantum Field Theory by Ashok Das (2018) https://www.amazon.co.uk/Lectures-Quantum-Field-Theory-Ashok-ebook/dp/B07CL8Y3KY
+* A Modern Introduction to Quantum Field Theory by Michele Maggiore (2005) https://www.amazon.co.uk/Modern-Introduction-Quantum-Theory-Physics/dp/0198520743
+
 = An Introduction To Quantum Field Theory by Peskin and Schroeder (1995)
 {parent=quantum-field-theory-book}
 
 https://www.amazon.co.uk/Introduction-Quantum-Theory-Frontiers-Physics/dp/0201503972
 
-This is very widely used in courses.
+This is very widely used in courses as of 2020, it became kind of the default book.
 
 800+ pages.
 
@@ -10798,8 +10904,39 @@ Some of the most remarkable ones seem to be:
 {parent=bell-s-theorem}
 {wiki}
 
-= Particle accelerator
+= Experimental particle physics
 {parent=particle-physics}
+{wiki}
+
+= Cross section
+{disambiguate=physics}
+{parent=experimental-particle-physics}
+{wiki}
+
+https://cms.cern/news/what-do-we-mean-cross-section-particle-physics
+
+The \x[neutron-temperature] example is crucial: you just can't give the cross section of a target alone, the \x[energy] of the incoming beam also matters.
+
+= Barn
+{disambiguate=unit}
+{parent=cross-section}
+{wiki}
+
+= Particle detector
+{parent=experimental-particle-physics}
+{wiki}
+
+= Cloud chamber
+{parent=particle-detector}
+{title2=}
+{wiki}
+
+= Bubble chamber
+{parent=particle-detector}
+{wiki}
+
+= Particle accelerator
+{parent=experimental-particle-physics}
 {wiki}
 
 = Synchrotron
@@ -10903,6 +11040,20 @@ Example: \x[image-cesium-137-decay-scheme]
 
 = Nuclear fission
 {parent=nuclear-physics}
+{wiki}
+
+= Neutron temperature
+{parent=nuclear-fission}
+{wiki}
+
+https://www.radioactivity.eu.com/site/pages/Slow_Neutrons.htm
+
+= Fast neutron
+{parent=neutron-temperature}
+{wiki}
+
+= Slow neutron
+{parent=neutron-temperature}
 {wiki}
 
 = Fissile material
@@ -11148,6 +11299,10 @@ Some insights, but too much on the \x[popular-science] side of things.
 {c}
 {parent=energy}
 {title2=J}
+{wiki}
+
+= Potential energy
+{parent=energy}
 {wiki}
 
 = Kinetic energy
@@ -11842,7 +11997,7 @@ The main point of talking about the Lagrangian density instead of a Lagrangian f
 {parent=lagrangian}
 {wiki}
 
-The variables of the \x[lagrangian], e.g. Dangles of a \x[double-pendulum].
+The variables of the \x[lagrangian], e.g. the angles of a \x[double-pendulum]. From that example it is clear that these variables don't need to be simple things like \x[cartesian-coordinate]{p} or \x[polar-coordinate]{p} (although these tend to be the overwhelming majority of simple case encountered): any way to describe the system is perfectly valid.
 
 In \x[quantum-field-theory], those variables are actually fields.
 
@@ -12018,10 +12173,14 @@ TODO what's the largest molecule done on a \x[classical-computer]?
 {title2=1911}
 {wiki}
 
+= First Solvay Conference (1911)
+{c}
+{parent=solvay-conference}
+{wiki}
+
 = Fifth Solvay Conference (1927)
 {c}
 {parent=solvay-conference}
-{title2=1911}
 {wiki}
 
 = Shelter Island Conference
@@ -12038,9 +12197,11 @@ This is where \x[isidor-rabi] exposed experiments carried out on the \x[anomalou
 
 It was a very private and intimate conference, that gathered the best physicists of the area, one is reminded of the style of the \x[solvay-conference].
 
+\x[qed-and-the-men-who-made-it-dyson-feynman-schwinger-and-tomonaga-by-silvan-schweber-1994] chapter 4.1 this conference was soon compared to the \x[first-solvay-conference-1911], which set in motion the development of \x[non-relativistic-quantum-mechanics].
+
 = Pocono conference
 {c}
-{parent=physics-conference}
+{parent=shelter-island-conference}
 {title2=1948}
 {wiki}
 
@@ -15207,6 +15368,11 @@ A lot of skateboarders hand out there, and it was where \x[ciro-santilli] used t
 
 For parallels between nazi \x[germany] and the https://cirosantilli.com/china-dictatorship#nazi
 
+= Nazi Germany
+{c}
+{parent=nazism}
+{wiki}
+
 = Greece
 {c}
 {parent=country-in-europe}
@@ -15923,6 +16089,20 @@ By \x[wizards-of-the-coast], parent company of \x[magic-the-gathering]{parent}.
 
 = Social
 {synonym}
+
+= Military-industrial complex
+{parent=society}
+{wiki=Military–industrial_complex}
+
+This is notably what the \x[united-states] emerged to be after \x[world-war-ii]. But it was likely what \x[nazi-germany] also was, and many other superpowers.
+
+\x[ciro-santilli] feels that much more relevant would be to also include academia as in "military-industrial-academic" complex, the \x[wikipedia] page actually mentions precedents to this idea.
+
+The addition of congress/\x[politician]{p} is also relevant.
+
+But hey, the name wouldn't sound so slick with three parts.
+
+It is basically in this context that \x[american] science and technology flourished after \x[world-war-ii], including notably the development of \x[quantum-electrodynamics], \x[richard-feynman] being a prototypical example, having previously worked on the \x[manhattan-project].
 
 = War
 {parent=social-science}
@@ -16656,11 +16836,13 @@ Basically a generalization of both:
 * \x[matrix-multiplication], with $X = Y = \R^n$
 * \x[dot-product], which is a key example of $X \ne Y$
 
-The key advatnage over those concepts however is that it makes more sense in infinite dimensional spaces like \x[hilbert-space]{p}.
+The key advantage over those concepts however is that it makes more sense in infinite dimensional spaces like \x[hilbert-space]{p}.
 
 Calling such functions "matrices" in infinite dimensions is stretching it a bit, since we would need to specify infinitely many rows and columns.
 
-For example, the left side of the \x[time-independent-schrodinger-equation] is a linear map.
+The key building block of infinite dimensional linear map is the \x[derivative]. In that case, the vectors being operated upon are \x[function]{p}, which cannot therefore be specified by a finite number of parameters.
+
+For example, the left side of the \x[time-independent-schrodinger-equation] is a linear map. And the \x[time-independent-schrodinger-equation] can be seen as a \x[eigenvalue] problem.
 
 = Linear operator
 {parent=linear-map}
@@ -16720,8 +16902,21 @@ https://math.stackexchange.com/questions/1507290/linear-algebra-identity-matrix-
 {wiki}
 
 = Hermitian matrix
+{c}
 {parent=spectral-theorem}
 {wiki}
+
+= Hermitian operator
+{c}
+{parent=hermitian-matrix}
+
+This is the possibly infinite dimensional version of a \x[hermitian-matrix], since \x[linear-operator]{p} are the possibly infinite dimensional version of \x[matrix]{p}.
+
+There's a catch though: now we don't have explicit matrix indices here however in general, the generalized definition is shown at: https://en.wikipedia.org/w/index.php?title=Hermitian_adjoint&oldid=1032475701#Definition_for_bounded_operators_between_Hilbert_spaces
+
+= Riesz representation theorem
+{c}
+{parent=hermitian-operator}
 
 = Orthogonal matrix
 {parent=matrix}
@@ -17045,6 +17240,10 @@ The reason why the epsilon delta definition is so venerated is that it fits dire
 {parent=calculus}
 {wiki}
 
+= Newton dot notation
+{c}
+{parent=derivative}
+
 = Chain rule
 {parent=derivative}
 {wiki}
@@ -17321,7 +17520,7 @@ Continuous version of the \x[fourier-series].
 
 Can be used to represent functions that are not periodic: https://math.stackexchange.com/questions/221137/what-is-the-difference-between-fourier-series-and-fourier-transformation while the \x[fourier-series] is only for periodic functions.
 
-Of course, every function defined on a finite line sement (i.e. a \x[compact-space])
+Of course, every function defined on a finite line segment (i.e. a \x[compact-space]).
 
 Therefore, the \x[fourier-transform] can be seen as a generalization of the \x[fourier-series] that can also decompose functions defined on the entire \x[real-line].
 
@@ -17330,8 +17529,8 @@ As a more concrete example, just like the \x[fourier-series] is how you solve a 
 = Multidimensional Fourier transform
 {parent=fourier-transform}
 
-* lecture notes:
-  * http://www.robots.ox.ac.uk/~az/lectures/ia/lect2.pdf Lecture 2: 2D Fourier transforms and applications by A. Zisserman (2014)
+Lecture notes:
+* http://www.robots.ox.ac.uk/~az/lectures/ia/lect2.pdf Lecture 2: 2D Fourier transforms and applications by A. Zisserman (2014)
 
 \Video[https://www.youtube.com/watch?v=v743U7gvLq0]
 {title=How the 2D FFT works by Mike X Cohen (2017)}
@@ -17507,6 +17706,30 @@ https://math.stackexchange.com/questions/466707/what-are-some-examples-of-infini
 
 \x[r-n] with extra structure added to make it into a \x[metric-space]{parent}.
 
+= Cartesian coordinate system
+{c}
+{parent=euclidean-space}
+{wiki}
+
+= Cartesian coordinate
+{synonym}
+
+= Polar coordinate system
+{c}
+{parent=euclidean-space}
+{wiki}
+
+= Polar coordinate
+{synonym}
+
+= Spherical coordinate system
+{c}
+{parent=polar-coordinate-system}
+{wiki}
+
+= Spherical coordinate
+{synonym}
+
 = Pythagorean theorem
 {c}
 {parent=euclidean-space}
@@ -17532,6 +17755,8 @@ For this reason, most people are tempted to assume that all the hand wavy intuit
 
 One notable example where distributions pop up are the \x[eigenvector]{p} of the \x[position-operator] in \x[quantum-mechanics], which are given by \x[dirac-delta-function]{p}, which is most commonly rigorously defined in terms of \x[distribution-mathematics]{p}.
 
+Distributions are also defined in a way that allows you to do calculus on them. Notably, you can define a \x[derivative], and the derivative of the \x[heaviside-step-function] is the \x[dirac-delta-function].
+
 = Dirac delta function
 {c}
 {parent=distribution-mathematics}
@@ -17539,10 +17764,15 @@ One notable example where distributions pop up are the \x[eigenvector]{p} of the
 
 The "0-width" pulse \x[distribution-mathematics] that integrates to a step.
 
-There's not way to describe it as a classical \x[function-mathematics], making it the most important example of distribution.
+There's not way to describe it as a classical \x[function-mathematics], making it the most important example of a \x[distribution-mathematics].
 
 Applications:
 * \x[position-operator] in \x[quantum-mechanics]. It's not a coincidence that the function is named after \x[paul-dirac].
+
+= Heaviside step function
+{c}
+{parent=dirac-delta-function}
+{wiki}
 
 = Complex analysis
 {parent=calculus}
@@ -17611,6 +17841,19 @@ One of the \x[millennium-prize-problems]{parent} and \x[hilbert-s-problems]{pare
 {wiki}
 
 Key for \x[quantum-mechanics], see: \x[mathematical-formulation-of-quantum-mechanics], the most important example by far being \x[l2].
+
+= Complete basis
+{parent=hilbert-space}
+
+Finding a complete basis such that each vector solves a given \x[differential-equation] is the basic method of solving \x[partial-differential-equation] through \x[separation-of-variables].
+
+The first example of this you must see is \x[solving-partial-differential-equations-with-the-fourier-series].
+
+Notable examples:
+* \x[fourier-series]{child} for the \x[heat-equation] as shown at \x[fourier-basis-is-complete-for-l2] and \x[solving-partial-differential-equations-with-the-fourier-series]
+* \x[hermite-functions]{child} for the \x[quantum-harmonic-oscillator]
+* \x[legendre-polynomials]{child} for \x[laplace-s-equation] in \x[spherical-coorindate]{p}
+* \x[bessel-function]{child} for the \x[2d-wave-equation-on-a-circular-domain] in \x[polar-coordinate]{p}
 
 = Differential equation
 {parent=calculus}
@@ -17683,6 +17926,12 @@ TODO confirm: does the solution of the heat equation always converge to the solu
 In one dimension, the Laplace equation is boring as it is just a straight line since the second derivative must be 0. That also matches our intuition of the limit solution of the heat equation.
 
 Uniqueness: \x[uniqueness-theorem-for-poisson-s-equation].
+
+= Legendre polynomials
+{c}
+{parent=laplace-s-equation}
+
+Show up when solving the \x[laplace-s-equation] on \x[spherical-coordinates] by \x[separation-of-variables], which leads to the \x[differential-equation] shown at: https://en.wikipedia.org/w/index.php?title=Legendre_polynomials&oldid=1018881414#Definition_via_differential_equation[].
 
 = Poisson's equation
 {c}
@@ -17809,7 +18058,7 @@ Notably used for the pattern of the \x[double-slit-experiment].
 {parent=2d-wave-equation-on-a-circular-domain}
 {wiki}
 
-Shows up when trying to solve \x[2d-wave-equation-on-a-circular-domain] in spherical coordinates with \x[separation-of-variables], where we have to decompose the initial condition in termes of a \x[fourier-bessel-series], exactly like the \x[fourier-series] appears when solving the wave equation in linear coordinates.
+Shows up when trying to solve \x[2d-wave-equation-on-a-circular-domain] in \x[polar-coordinate]{p} with \x[separation-of-variables], where we have to decompose the initial condition in termes of a \x[fourier-bessel-series], exactly like the \x[fourier-series] appears when solving the wave equation in linear coordinates.
 
 For the same fundamental reasons, also appears when calculating the \x[schrodinger-equation-solution-for-the-hydrogen-atom].
 
@@ -24384,11 +24633,15 @@ In order to make websites efficient and portable, a lot of \x[transpilation] is 
 {parent=asset-bundler}
 {wiki}
 
+Webpack is like a magic hydra that can eat any type of file and bundle it into a single output: .js, .ts, .ccs, .scss, .jsx, .tsx, `require`, `import`, `import` css from `.js`, it doesn't matter at all, it just digests all into the same \x[shit][dump].
+
+When it works, you are just left in awe. When it doesn't, you're fucked and have to debug for several hours.
+
 Demos at: \a[web-cheat/webpack/]
 
 Usage:
 ``
-cd web-cheat/webpack
+cd web-cheat/webpack/template
 npm install
 npm run build
 ``
@@ -24408,6 +24661,22 @@ You can also run this test with the development server on http://localhost:9000[
 npm start
 ``
 which uses unminimized outptus, and automatically push reloads the page whenever you change any of the input files!
+
+= webpack Sass import
+{c}
+{parent=asset-bundler}
+{wiki}
+
+This shows how to produce a minimized fully embedded CSS file with webpack from a \x[sass-stylesheet-language]:
+``
+cd web-cheat/webpack/sass-import
+npm install
+npm run build
+xdg-open index.html
+``
+That example produces a `dist/main.css` file which is a compresesd combination of:
+* \a[web-cheat/webpack/sass-importmain.scss]
+* https://necolas.github.io/normalize.css/[normalize.css], added to the project as a regular `node_modules` package
 
 = Push technology
 {parent=web-technology}
@@ -26055,9 +26324,9 @@ One of \x[ciro-santilli-s-selfish-desires].
 
 Exams are useless. Exams must be abolished. The only metrics that matter are \x[money] and fame. See also: \x[write-free-books-to-get-famous-website/motivation].
 
-Once the question of an exam has been formulated, The usefulness of the problem is already been completely destroyed, because formulating the problem that matters is the most important part of things. And any problem with an answer, is useless to put effort into: \x[how-to-teach/give-answers].
+Once the question of an exam has been formulated, the usefulness of the problem is already been completely destroyed, because formulating the problem that matters is the most important part of things. And any problem with an answer, is useless to put effort into: \x[how-to-teach/give-answers].
 
-Furthermore, preventing people from searching for answers while answering an exam, AKA preventing "cheating", also makes absolutely no sense. In the real world, we want people to find answers as quickly as possible! We should be teaching people how to "cheat"!
+Furthermore, preventing people from searching for answers while answering an exam, AKA preventing "cheating", also makes absolutely no sense. In the real world, we want people to find answers as quickly as possible! We should be teaching people how to "cheat"! What we should teach them instead is what a \x[fucking] \x[license] is, and what you have to do to comply with it.
 
 And if you must absolutely have exams, they must be open to anyone who wants to applies. Then people have to pay to take the exam, with subsidies for "official course takers", who are spending 100x more anyways due to not living with their parents.
 
@@ -26071,6 +26340,14 @@ You cannot get educated by this self-propagating system in which people study to
 
 You learn something by doing it yourself, by asking questions, by thinking, and by experimenting.
 ]
+
+Related: \x[how-to-teach/exams-and-homework-are-useless-only-projects-matter]
+
+= Homework
+{parent=exam}
+{wiki}
+
+Same remarks as \x[exam]{full}.
 
 = Government
 {parent=social-technology}
@@ -27059,6 +27336,12 @@ TODO who is the digital switch person he mentions?
 
 \x[pieter-zeeman]{child} for the \x[zeeman-effect]{child}.
 
+= 1927 Nobel Prize in Physics
+{parent=list-of-nobel-prizes-in-physics}
+{title2=cloud chamber}
+
+\x[cloud-chamber]{child}.
+
 = 1936 Nobel Prize in Physics
 {parent=list-of-nobel-prizes-in-physics}
 {title2=positron, cosmic rays}
@@ -27081,6 +27364,12 @@ Discovery of:
 The key initial \x[quantum-electrodynamics] experiments:
 * \x[willis-lamb]{child} for the \x[lamb-retherford-experiment]{child}
 * \x[polykarp-kusch]{child} for the \x[anomalous-magnetic-dipole-moment-of-the-electron]{child}, key publication: \x[the-magnetic-moment-of-the-electron-by-kusch-and-foley-1948]{child}
+
+= 1960 Nobel Prize in Physics
+{parent=list-of-nobel-prizes-in-physics}
+{title2=bubble chamber}
+
+\x[bubble-chamber]{child}.
 
 = 1965 Nobel Prize in Physics
 {parent=list-of-nobel-prizes-in-physics}
@@ -28210,6 +28499,14 @@ Here are some cool decks:
   {title=Ops All Spells - Legacy | Channel Mengucci.}
 * Gyruda Cannon - Legacy - April 18th, 2020 https://www.youtube.com/watch?v=PefRTsRRi6w
 
+If Ciro were to ever overcome \x[ciro-santilli-s-cheapness][his cheapness] and play the legacy forma (which will never happen), he would likely play one of the following decks when trying to be able to win at all:
+* https://www.mtggoldfish.com/archetype/turbo-depths[turbo depths]
+* https://www.mtggoldfish.com/archetype/sneak-and-show[sneak and show]
+Both of this decks focus on cheating a huge creature into play in one go, and both have combo protection methods (discard for turbo depths, and counterspells for sneak and show). Ciro believes that those decks reflect his personality well, notably  \x[https-www-mtggoldfish-com-archetype-sneak-and-show]. Related decks that don't appeal as much to Ciro:
+* reanimator: you have to worry about graveyard hate all the time, worrying is bad
+* storm: you have to play too many spells, it's tiring. Ciro would rather put a fattie into play and swing once.
+And above all, Ciro would never play a fair deck. Grinding victories is not for him. He'd rather quickly decide win/lose status and move on.
+
 Competitive commander is also interesting, although matches tend to be much more random so the format is harder to digest, see for example this channel; https://www.youtube.com/channel/UCum8N4KUUC0l_NK_mybvilg[Playing With Power MTG channel].
 
 https://mtg.gamepedia.com/Urza%27s_block[Urza's block] is the most epic of all. Ridiculous power level and epic art, and happened just before \x[ciro-santilli] started playing, so Ciro saw some cards from it floating around, but not many, and it felt mystical.
@@ -29093,6 +29390,15 @@ Best songs:
 {parent=pornography}
 {wiki}
 
+= Pornographic film
+{parent=pornography}
+{wiki}
+
+= In the Realm of the Senses (1976)
+{c}
+{parent=pornographic-film}
+{wiki}
+
 = Public speaking
 {parent=art}
 {wiki}
@@ -29871,7 +30177,7 @@ Impossible to hide your current location?
 
 \x[ciro-santilli]'s accounts: \x[ciro-santilli-s-twitter-accounts]{full}.
 
-Can't not shorten a URL: https://webapps.stackexchange.com/questions/20325/how-to-avoid-twitters-url-shortening
+https://twitter.com/zaikandongxi
 
 = Web archiving
 {parent=website}
