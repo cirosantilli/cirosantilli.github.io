@@ -39,5 +39,5 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
     minimize: true,
-  }
+  },
 };
