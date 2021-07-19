@@ -7,6 +7,7 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   entry: {
+    index: ['./index.js'],
     main: ['./main.less'],
   },
   mode: 'none',
@@ -28,6 +29,11 @@ module.exports = {
           },
         ],
       },
+      // Fonts.
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
@@ -40,5 +46,8 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
     minimize: true,
+  },
+  output: {
+    filename: '[name].js',
   },
 };
