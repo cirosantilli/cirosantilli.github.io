@@ -1,7 +1,5 @@
 const path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const distDir = path.resolve(__dirname, 'dist');
 
 module.exports = {
@@ -25,19 +23,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      // Inject the include to our hashed filename,
-      // since it is not deterministic due to the hash.
-      inject: true,
-      template: path.resolve(__dirname, 'index.html'),
-    }),
-  ],
   output: {
     clean: true,
     // Add a hash to the file so that browsers can cache agressively.
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     path: distDir,
 
     // This will allow us to use exports of index.js on the browser
