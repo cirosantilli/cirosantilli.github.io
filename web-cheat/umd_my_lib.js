@@ -8,9 +8,8 @@
     factory(exports);
   } else {
     // Browser globals
-    const exports = {}
-    factory(exports);
-    root.my_umd_lib = exports
+    root.umd_my_lib = {}
+    factory(root.umd_my_lib);
   }
 }(this, (exports) => {
   exports.myvar = 'abc';
