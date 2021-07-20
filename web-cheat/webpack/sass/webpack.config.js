@@ -20,9 +20,10 @@ module.exports = {
           { loader: 'css-loader' },
           // This might help find the KaTeX fonts, but it leads to another failure...
           // https://github.com/bholloway/resolve-url-loader/issues/107
+          // https://github.com/bholloway/resolve-url-loader/issues/212
           // https://stackoverflow.com/questions/54042335/webpack-and-fonts-with-relative-paths
           // https://stackoverflow.com/questions/68366936/how-to-bundle-katex-css-from-node-modules-to-a-single-output-css-from-a-sass-us
-          'resolve-url-loader',
+          //'resolve-url-loader',
           {
             loader: "sass-loader",
             options: {
