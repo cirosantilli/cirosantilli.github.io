@@ -12,6 +12,7 @@ import katex from 'katex'
 import './main.css'
 import './main.scss'
 import { notindex_constant } from './notindex.js'
+import { my_umd_var } from '../../umd_my_lib.js'
 // require is not recommended, but also works if you need it to.
 const { cjs_constant, cjs_func } = require('./cjs.js')
 
@@ -24,9 +25,10 @@ function component() {
       notindex_constant,
       cjs_constant,
       cjs_func(),
-      katex.renderToString('\\frac{1}{\\sqrt{2}}')
+      katex.renderToString('\\frac{1}{\\sqrt{2}}'),
+      my_umd_var,
     ],
-    ' '
+    '<br/>'
   );
   return element;
 }
