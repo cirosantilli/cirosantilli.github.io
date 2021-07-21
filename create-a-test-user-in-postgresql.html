@@ -20,12 +20,12 @@
 <a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
 <a href="sponsor">$$ Sponsor Ciro $$</a>
-<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心，六四事件，法轮功 ，郝海东 ，709大抓捕，2015巴拿马文件 邓家贵，低端人口，西藏骚乱</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心、六四事件、法轮功、郝海东、709大抓捕、2015巴拿马文件 邓家贵、低端人口、西藏骚乱</a>
 </header>
 <main class="cirodown">
 <div><span class="hide-hover"><a href="">🔗</a></span><div class="h" id="create-a-test-user-in-postgresql"><h1><a href="" title="link to this element">Create a test user in PostgreSQL</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics">words: <span class="word-count" title="word count for this node">274</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics">words: <span class="word-count" title="word count for this node">274</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3581">🔗</a></span><div class="p" id="p-3581">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
+</div><div><span class="hide-hover"><a href="#p-3582">🔗</a></span><div class="p" id="p-3582">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
 word count: 0
 descendant word count: 28
 descendant count: 28">peer authentication</a>, let's create test user:
@@ -33,25 +33,25 @@ descendant count: 28">peer authentication</a>, let's create test user:
 <pre><code>createuser -P user0
 createdb user0
 </code></pre></div>
-<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3582">🔗</a></span><div class="p" id="p-3582">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
+<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3583">🔗</a></span><div class="p" id="p-3583">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
 <div class="code-caption-container" id="code-77">
 <pre><code>psql -c "create role NewRole with login password 'secret'"
 </code></pre></div>
-Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3583">🔗</a></span><div class="p" id="p-3583">We can then login with that password with:
+Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3584">🔗</a></span><div class="p" id="p-3584">We can then login with that password with:
 <div class="code-caption-container" id="code-78">
 <pre><code>psql -U user0 -h localhost
 </code></pre></div>
-which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3584">🔗</a></span><div class="p" id="p-3584">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
+which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3585">🔗</a></span><div class="p" id="p-3585">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">environment variable</a>:
 <div class="code-caption-container" id="code-79">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3585">🔗</a></span><div class="p" id="p-3585">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3586">🔗</a></span><div class="p" id="p-3586">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
 <div class="code-caption-container" id="code-80">
 <pre><code>createdb user0db0
 psql -c 'GRANT ALL PRIVILEGES ON DATABASE user0db0 TO user0'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3586">🔗</a></span><div class="p" id="p-3586">We can check this permission with:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3587">🔗</a></span><div class="p" id="p-3587">We can check this permission with:
 <div class="code-caption-container" id="code-81">
 <pre><code>psql -c '\l'
 </code></pre></div>
@@ -67,7 +67,7 @@ which now contains:
 The permission letters are explained at:<div><ul id="ul-657">
 <li id="l-1801"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
 <li id="l-1802"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3587">🔗</a></span><div class="p" id="p-3587"><code>user0</code> can now do the usual table operations on that table:
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3588">🔗</a></span><div class="p" id="p-3588"><code>user0</code> can now do the usual table operations on that table:
 <div class="code-caption-container" id="code-83">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
 PGPASSWORD=a psql -U user0 -h localhost user0db0 -c "INSERT INTO table0 (int0, char0) VALUES (2, 'two'), (3, 'three'), (5, 'five'), (7, 'seven');"
@@ -109,7 +109,7 @@ descendant count: 0">Technology</a> | <span class="metrics"><span class="word-co
 <li><a href="." title="internal link
 word count: 3k
 descendant word count: 174k
-descendant count: 245">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">245</span>, <span class="word-count-descendant" title="word count for this node + descendants">174k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant count: 244">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">244</span>, <span class="word-count-descendant" title="word count for this node + descendants">174k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div>
 </main>
 <footer>
@@ -117,7 +117,7 @@ descendant count: 245">Ciro Santilli's Homepage</a> | <span class="metrics"><spa
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/c35c78b62dbfb7afa49ad2d4c2a9f3c0e6b36706">c35c78b62dbfb7afa49ad2d4c2a9f3c0e6b36706</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/da296c3c933704484d5cd1a42754f60ec00f672b">da296c3c933704484d5cd1a42754f60ec00f672b</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
