@@ -4,8 +4,8 @@
 <meta charset=utf-8>
 <title>Create a test user in PostgreSQL</title>
 <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013.jpg" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
-<style>@import "cirodown.min.css";
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>@import "cirodown.css";
 
 </style>
 <link rel="stylesheet" type="text/css" href="main.css">
@@ -17,14 +17,15 @@
 <a class="font-awesome-container" href="https://www.linkedin.com/in/cirosantilli"><i class="fab fa-linkedin fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.youtube.com/c/CiroSantilli"><i class="fab fa-youtube fa-fw"></i></a>
 <a class="font-awesome-container" href="https://twitter.com/cirosantilli"><i class="fab fa-twitter fa-fw"></i></a>
-<a class="font-awesome-container" href="sponsor"><i class="fab fa-patreon fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.zhihu.com/people/cirosantilli/activities"><i class="fab fa-zhihu fa-fw"></i></a>
 <a class="font-awesome-container" href="https://www.weibo.com/p/1005055601627311"><i class="fab fa-weibo fa-fw"></i></a>
+<a href="sponsor">$$ Sponsor Ciro $$</a>
+<a href="https://github.com/cirosantilli/china-dictatorship">中国独裁统治 China Dictatorship 新疆改造中心，六四事件，法轮功 ，郝海东 ，709大抓捕，2015巴拿马文件 邓家贵，低端人口，西藏骚乱</a>
 </header>
 <main class="cirodown">
-<div><span class="hide-hover"><a href="">🔗</a></span><div class="h"><h1 id="create-a-test-user-in-postgresql"><a href="" title="link to this element">Create a test user in PostgreSQL</a></h1>
+<div><span class="hide-hover"><a href="">🔗</a></span><div class="h" id="create-a-test-user-in-postgresql"><h1><a href="" title="link to this element">Create a test user in PostgreSQL</a></h1>
 <span class="hover-meta">  | <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics">words: <span class="word-count" title="word count for this node">274</span></span></span></div><div class="h-nav h-nav-toplevel"><div class="nav"> <a title="view all headers in a single page" href="nosplit#create-a-test-user-in-postgresql">🗖 nosplit</a> | <a href="#toc">⇓ toc</a> | <a href="postgresql" title="parent header">↑ parent "PostgreSQL"</a> | <span class="metrics">words: <span class="word-count" title="word count for this node">274</span></span></div></div>
-</div><div><span class="hide-hover"><a href="#p-3522">🔗</a></span><div class="p" id="p-3522">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
+</div><div><span class="hide-hover"><a href="#p-3581">🔗</a></span><div class="p" id="p-3581">In order to create a test user with password instead of <a href="peer-authentication" title="internal link
 word count: 0
 descendant word count: 28
 descendant count: 28">peer authentication</a>, let's create test user:
@@ -32,25 +33,25 @@ descendant count: 28">peer authentication</a>, let's create test user:
 <pre><code>createuser -P user0
 createdb user0
 </code></pre></div>
-<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3523">🔗</a></span><div class="p" id="p-3523">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
+<code>-P</code> makes it prompt for the users password.</div></div><div><span class="hide-hover"><a href="#p-3582">🔗</a></span><div class="p" id="p-3582">Alternatively, to create the password non-interactively <a href="https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal">https://stackoverflow.com/questions/42419559/postgres-createuser-with-password-from-terminal</a>:
 <div class="code-caption-container" id="code-77">
 <pre><code>psql -c "create role NewRole with login password 'secret'"
 </code></pre></div>
-Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3524">🔗</a></span><div class="p" id="p-3524">We can then login with that password with:
+Can't find a way using the <code>createuser</code> helper.</div></div><div><span class="hide-hover"><a href="#p-3583">🔗</a></span><div class="p" id="p-3583">We can then login with that password with:
 <div class="code-caption-container" id="code-78">
 <pre><code>psql -U user0 -h localhost
 </code></pre></div>
-which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3525">🔗</a></span><div class="p" id="p-3525">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
+which asks for the password we've just set, because the <code>-h</code> option turns off peer authentication, and turns off password authentication.</div></div><div><span class="hide-hover"><a href="#p-3584">🔗</a></span><div class="p" id="p-3584">The password can be given non-interactively as shown at <a href="https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively">https://stackoverflow.com/questions/6405127/how-do-i-specify-a-password-to-psql-non-interactively</a> with the <code>PGPASSWORD</code> <a href="environment-variable" title="internal link
 word count: 0
 descendant word count: 0
 descendant count: 0">environment variable</a>:
 <div class="code-caption-container" id="code-79">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3526">🔗</a></span><div class="p" id="p-3526">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3585">🔗</a></span><div class="p" id="p-3585">Now let's create a test database which <code>user0</code> can access with an existing superuser account:
 <div class="code-caption-container" id="code-80">
 <pre><code>createdb user0db0
 psql -c 'GRANT ALL PRIVILEGES ON DATABASE user0db0 TO user0'
-</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3527">🔗</a></span><div class="p" id="p-3527">We can check this permission with:
+</code></pre></div></div></div><div><span class="hide-hover"><a href="#p-3586">🔗</a></span><div class="p" id="p-3586">We can check this permission with:
 <div class="code-caption-container" id="code-81">
 <pre><code>psql -c '\l'
 </code></pre></div>
@@ -63,10 +64,10 @@ which now contains:
            |          |          |             |             | ciro=CTc/ciro        +
            |          |          |             |             | user0=CTc/ciro
 </code></pre></div>
-The permission letters are explained at:<div><ul id="ul-647">
-<li id="l-1777"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
-<li id="l-1778"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
-</ul></div></div></div><div><span class="hide-hover"><a href="#p-3528">🔗</a></span><div class="p" id="p-3528"><code>user0</code> can now do the usual table operations on that table:
+The permission letters are explained at:<div><ul id="ul-657">
+<li id="l-1801"><a href="https://www.postgresql.org/docs/13/ddl-priv.html">https://www.postgresql.org/docs/13/ddl-priv.html</a></li>
+<li id="l-1802"><a href="https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587">https://stackoverflow.com/questions/25691037/postgresql-permissions-explained/25691587</a></li>
+</ul></div></div></div><div><span class="hide-hover"><a href="#p-3587">🔗</a></span><div class="p" id="p-3587"><code>user0</code> can now do the usual table operations on that table:
 <div class="code-caption-container" id="code-83">
 <pre><code>PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
 PGPASSWORD=a psql -U user0 -h localhost user0db0 -c "INSERT INTO table0 (int0, char0) VALUES (2, 'two'), (3, 'three'), (5, 'five'), (7, 'seven');"
@@ -94,21 +95,21 @@ word count: 13
 descendant word count: 1k
 descendant count: 0">Database</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">1k</span>, <span class="descendant-count" title="number of descendant nodes">13</span></span></li>
 <li><a href="software" title="internal link
-word count: 344
+word count: 346
 descendant word count: 15k
-descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">15k</span>, <span class="descendant-count" title="number of descendant nodes">344</span></span></li>
+descendant count: 0">Software</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">15k</span>, <span class="descendant-count" title="number of descendant nodes">346</span></span></li>
 <li><a href="computer" title="internal link
-word count: 586
+word count: 582
 descendant word count: 23k
-descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">23k</span>, <span class="descendant-count" title="number of descendant nodes">586</span></span></li>
+descendant count: 136">Computer</a> | <span class="metrics"><span class="word-count" title="word count for this node">136</span>, <span class="word-count-descendant" title="word count for this node + descendants">23k</span>, <span class="descendant-count" title="number of descendant nodes">582</span></span></li>
 <li><a href="technology" title="internal link
-word count: 876
-descendant word count: 37k
-descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">37k</span>, <span class="descendant-count" title="number of descendant nodes">876</span></span></li>
+word count: 897
+descendant word count: 38k
+descendant count: 0">Technology</a> | <span class="metrics"><span class="word-count" title="word count for this node">0</span>, <span class="word-count-descendant" title="word count for this node + descendants">38k</span>, <span class="descendant-count" title="number of descendant nodes">897</span></span></li>
 <li><a href="." title="internal link
 word count: 3k
-descendant word count: 170k
-descendant count: 245">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">245</span>, <span class="word-count-descendant" title="word count for this node + descendants">170k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
+descendant word count: 174k
+descendant count: 245">Ciro Santilli's Homepage</a> | <span class="metrics"><span class="word-count" title="word count for this node">245</span>, <span class="word-count-descendant" title="word count for this node + descendants">174k</span>, <span class="descendant-count" title="number of descendant nodes">3k</span></span></li>
 </ul></div>
 </main>
 <footer>
@@ -116,7 +117,7 @@ descendant count: 245">Ciro Santilli's Homepage</a> | <span class="metrics"><spa
 <div>Suggestions and corrections: <a href="https://github.com/cirosantilli/cirosantilli.github.io/issues">https://github.com/cirosantilli/cirosantilli.github.io/issues</a></div>
 <div><a href="contact">Contact</a></div>
 <div>Website source code: <a href="https://github.com/cirosantilli/cirosantilli.github.io">https://github.com/cirosantilli/cirosantilli.github.io</a></div>
-<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/bb2953e65f5ca6e7ebb7e00676868e92c639964a">bb2953e65f5ca6e7ebb7e00676868e92c639964a</a></div>
+<div>Website Git version: <a href="https://github.com/cirosantilli/cirodown/commit/c35c78b62dbfb7afa49ad2d4c2a9f3c0e6b36706">c35c78b62dbfb7afa49ad2d4c2a9f3c0e6b36706</a></div>
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 </footer>
 <script>
@@ -128,14 +129,8 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-47867706-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script src="cirodown.runtime.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.date.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.dotsep.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.filesize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.monthname.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
-<script>cirodown_runtime()</script>
+<script src="cirodown_runtime.js"></script>
+<script>cirodown_runtime.cirodown_runtime()</script>
 <script src="main.js"></script>
 </body>
 </html>
