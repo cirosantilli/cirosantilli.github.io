@@ -12,5 +12,5 @@
     factory(root.umd_my_lib);
   }
 }(this, (exports) => {
-  exports.myvar = 'abc';
+  exports.my_umd_var = 'my_umd_var_val';
 }));

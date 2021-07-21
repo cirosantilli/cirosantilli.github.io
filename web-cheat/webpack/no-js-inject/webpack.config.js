@@ -34,4 +34,11 @@ module.exports = {
     library: 'my_library_name',
     libraryTarget: 'umd',
   },
+
+  // Development stuff.
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist',
+  },
 };
