@@ -3,9 +3,11 @@ const path = require('path');
 
 module.exports = {
   entry: './index.js',
+  mode: 'production',
   output: {
+    clean: true,
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js'
+    filename: 'index.js',
   },
   module: {
     rules: [{
@@ -17,6 +19,8 @@ module.exports = {
     }]
   },
   plugins: [
-    new MonacoWebpackPlugin()
+    new MonacoWebpackPlugin({
+      languages: ['javascript', 'typescript'],
+    })
   ]
 };
