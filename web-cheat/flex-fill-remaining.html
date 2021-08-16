@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Flex fill remaining</title>
+<style>
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+.box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+.box .row {
+    border: 1px dotted grey;
+}
+.box .row.header {
+    flex: 0 1 auto;
+}
+.box .row.content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+.box .row.content .tall {
+    height: 1000px;
+    background-color: red;
+}
+.box .row.footer {
+    flex: 0 1 40px;
+}
+</style>
+</head>
+<body>
+<div class="box">
+    <div class="row header">
+    <p>
+        <b>header</b>
+        <br />
+        <br />
+        (sized to content)
+        <a href="https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space/24979148#24979148">https://stackoverflow.com/questions/90178/make-a-div-fill-the-height-of-the-remaining-screen-space/24979148#24979148</a>
+    </p>
+    </div>
+    <div class="row content">
+    <p>
+        <b>content</b> (fills remaining space)
+        <div class="tall">Tall</div>
+    </p>
+    </div>
+    <div class="row footer">
+    <p><b>footer</b> (fixed height)</p>
+    </div>
+</div>
+</body>
+</html>
