@@ -17380,6 +17380,9 @@ An easy to prove theorem that follows from a harder to prove theorem.
 {disambiguate=mathematics}
 {parent=formalization-of-mathematics}
 
+= Set
+{synonym}
+
 Intuitively: unordered container where all the values are unique, just like C++ `std::set`.
 
 More precisely for set theory \x[formalization-of-mathematics]:
@@ -17389,6 +17392,17 @@ More precisely for set theory \x[formalization-of-mathematics]:
   * `{{}}` is a set that contains an empty set
   * `{{}, {{}}}` is a set that contains two sets: `{}` and `{{}}`
   * `{{}, {}}` is not well formed, because it contains `{}` twice
+
+= Cardinality
+{parent=set-mathematics}
+
+The size of a set.
+
+For \x[finite] sizes, the definition is simple, and the intuitive name "size" matches well.
+
+But for infinity, things are messier, e.g. the size of the \x[real-number]{p} is strictly larger than the size of the \x[integer]{p} as shown by \x[cantor-s-diagonal-argument], which is kind of what justifies a fancier word "cardinality" to distinguish it from the more normal word "size".
+
+The key idea is to compare set sizes with \x[bijection]{p}.
 
 = Function
 {disambiguate=mathematics}
@@ -17422,7 +17436,7 @@ More precisely for set theory \x[formalization-of-mathematics]:
 = Exponential function differential equation
 {parent=exponential-function}
 
-The \x[differetial-equation] that is solved by the \x[exponential-function]
+The \x[differential-equation] that is solved by the \x[exponential-function]:
 $$
 y'(x) = y(x)
 $$
@@ -17431,7 +17445,7 @@ $$
 y(0) = 1
 $$
 
-TODO find better name for it, it is a \x[linear-differential-equation][linear] homogenous differential equation of degree one.
+TODO find better name for it, "\x[linear-differential-equation][linear] homogenous differential equation of degree one" almost fully constrainst it except for the exponent constant and initial value.
 
 = Definition of the exponential function
 {parent=exponential-function}
@@ -17490,13 +17504,16 @@ Most notable example: \x[l2].
 
 Good definition: https://en.wikipedia.org/wiki/Dedekind_cut
 
-= Countable set
+= Cardinality of the continuum
 {parent=real-number}
+
+= Countable set
+{parent=cardinality-of-the-continuum}
 {wiki}
 
 = Cantor's diagonal argument
 {c}
-{parent=countable-set}
+{parent=cardinality-of-the-continuum}
 {wiki}
 
 = Complex number
@@ -17583,7 +17600,7 @@ The key advantage over those concepts however is that it makes more sense in inf
 
 Calling such functions "matrices" in infinite dimensions is stretching it a bit, since we would need to specify infinitely many rows and columns.
 
-The key building block of infinite dimensional linear map is the \x[derivative]. In that case, the vectors being operated upon are \x[function]{p}, which cannot therefore be specified by a finite number of parameters.
+The key building block of \x[infinite-dimensional] linear map is the \x[derivative]. In that case, the vectors being operated upon are \x[function]{p}, which cannot therefore be specified by a finite number of parameters.
 
 For example, the left side of the \x[time-independent-schrodinger-equation] is a linear map. And the \x[time-independent-schrodinger-equation] can be seen as a \x[eigenvalue] problem.
 
@@ -17969,6 +17986,9 @@ An fancy name for \x[calculus], with the "more advanced" connotation.
 {parent=calculus}
 {wiki}
 
+= Limit
+{synonym}
+
 The fundamental concept of \x[calculus]!
 
 The reason why the epsilon delta definition is so venerated is that it fits directly into well known methods of the \x[formalization-of-mathematics], making the notion completely precise.
@@ -18026,9 +18046,26 @@ Notably studied in \x[discrete-mathematics].
 = Discretize
 {synonym}
 
+= Infinity
+{parent=limit-mathematics}
+{title2=$\infty$}
+{wiki}
+
+= Infinite
+{synonym}
+
+= Finite
+{synonym}
+
+There are a few related concepts that are called infinity in \x[mathematics]:
+* \x[limit]{p} that are greater than any number
+* the \x[cardinality] of a \x[set] that does not have a finite number of elements
+* in some number systems, there 
+
 = L'Hôpital's rule
 {id=l-hopital-s-rule}
 {parent=limit-mathematics}
+{title2=limit of a ratio}
 {wiki}
 
 = Derivative
@@ -18491,12 +18528,30 @@ One notable example where completeness matters: \x[lebesgue-integral-of-lp-is-co
 {synonym}
 {title2}
 
+= Real plane
+{parent=real-coordinate-space}
+
+= $\R^2$
+{synonym}
+{title2}
+
+= Real coordinate space of dimension three
+{c}
+{parent=real-coordinate-space}
+
+= $\R^3$
+{synonym}
+{title2}
+
 = Dimension
 {parent=real-coordinate-space}
 {wiki}
 
 = Infinite dimensional
 {parent=dimension}
+
+= Infinite dimensions
+{synonym}
 
 https://math.stackexchange.com/questions/466707/what-are-some-examples-of-infinite-dimensional-vector-spaces
 
@@ -19412,6 +19467,11 @@ Related ideas:
 
 = Sphere
 {parent=geometry}
+{wiki}
+
+= Antipodal point
+{parent=sphere}
+{wiki}
 
 = 3-sphere
 {parent=sphere}
@@ -19419,6 +19479,24 @@ Related ideas:
 {wiki}
 
 Diffeomorphic to the \x[unitary-group-of-dimension-2].
+
+= Projective plane
+{parent=geometry}
+{wiki}
+
+= Real projective plane
+{parent=projective-plane}
+{wiki}
+
+\x[ciro-santilli]'s preferred visualization of the real projective plane is a small variant of the standard "lines through origin in \x[r-3]".
+
+Take a open half \x[sphere] e.g. a sphere but only the points with $z > 0$.
+
+Each point in the half sphere identifies a unique line through the origin.
+
+Then, the only lines missing are the lines in the x-y plane itself.
+
+For those, you should think of them as magic poins that are identified with the corresponding \x[antipodal-point], also on the x-y, but on the other side of the origin. So basically you you can teleport from one of those to the other side, and you are still in the same point.
 
 = Four-dimensional space
 {parent=geometry}
@@ -22174,7 +22252,7 @@ heroku restart
 {parent=compiler}
 
 = Automatic programming
-{parent=software}
+{parent=compiler}
 {wiki}
 
 "automatic programming has always been a euphemism for programming in a higher-level language than was then available to the programmer" sums it up.
