@@ -6,13 +6,15 @@ Introductory analysis of a simple example of the \x[executable-and-linkable-form
 
 Extracted from https://stackoverflow.com/a/30648229/895245[this Stack Overflow answer].
 
-== Introduction
+= Introduction
+{parent=elf-hello-world}
 
 ELF is the dominating file format for Linux. It competes with Mach-O for OS X and PE for Windows.
 
 ELF supersedes `.coff`, which supersedes `a.out`.
 
-=== Standards
+= Standards
+{parent=introduction}
 
 ELF is specified by the https://en.wikipedia.org/wiki/Linux_Standard_Base[LSB]:
 * core generic: https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/elf-generic.html
@@ -21,7 +23,7 @@ ELF is specified by the https://en.wikipedia.org/wiki/Linux_Standard_Base[LSB]:
 The LSB basically links to other standards with minor extensions, in particular:
 
 * Generic (both by https://en.wikipedia.org/wiki/Santa_Cruz_Operation[SCO]):
-  * System V ABI 4.1 (1997) http://www.sco.com/developers/devspecs/gabi41.pdf, no 64 bit, although a magic number is reserved for it. Same for core files. _This_ is the first document you should look at when searching for information.
+  * System V ABI 4.1 (1997) http://www.sco.com/developers/devspecs/gabi41.pdf, no 64 bit, although a magic number is reserved for it. Same for core files. \i[This] is the first document you should look at when searching for information.
   * System V ABI Update DRAFT 17 (2003) http://www.sco.com/developers/gabi/2003-12-17/contents.html, adds 64 bit. Only updates chapters 4 and 5 of the previous document: the others remain valid and are still referenced.
 * Architecture specific (by the processor vendor):
   * IA-32: https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html, points mostly to http://www.sco.com/developers/devspecs/abi386-4.pdf
@@ -32,7 +34,8 @@ A handy summary can be found at:
 man elf
 ``
 
-=== How to learn
+= How to learn
+{parent=introduction}
 
 Spin like mad between:
 * standards
@@ -42,7 +45,8 @@ Spin like mad between:
 * low-level generators: stand-alone libraries that let you control every field of the ELF files you generated. https://github.com/BR903/ELFkickers, https://github.com/sqall01/ZwoELF and many more on GitHub.
 * consumer: the `exec` system call of the Linux kernel can parse ELF files to starts processes: https://github.com/torvalds/linux/blob/v4.11/fs/binfmt_elf.c, https://stackoverflow.com/questions/8352535/how-does-kernel-get-an-executable-binary-file-running-under-linux/31394861#31394861
 
-=== Specified file formats
+= Specified file formats
+{parent=introduction}
 
 The ELF standard specifies multiple file formats:
 * Object files (`.o`).
@@ -91,7 +95,8 @@ The ELF standard specifies multiple file formats:
 
 In this tutorial, we consider only object and executable files.
 
-=== Implementations
+= Implementations
+{parent=introduction}
 
 * Compiler toolchains generate and read ELF files.
 
@@ -107,7 +112,8 @@ In this tutorial, we consider only object and executable files.
   * https://github.com/eliben/pyelftools. By a hardcore Googler: https://plus.google.com/+EliBenderskyGplus/posts
   * https://sourceforge.net/projects/elftoolchain
 
-== Minimal ELF file
+= Minimal ELF file
+{parent=elf-hello-world}
 
 It is non-trivial to determine what is the smallest legal ELF file, or the smaller one that will do something trivial in Linux.
 
@@ -118,7 +124,8 @@ Some impressive attempts:
 
 In this example we will consider a saner `hello world` example that will better capture real life cases.
 
-== Generate the example
+= Generate the example
+{parent=elf-hello-world}
 
 Let's break down a minimal runnable Linux x86-64 example:
 
@@ -156,7 +163,8 @@ Versions:
 
 We don't use a C program as that would complicate the analysis, that will be level 2 :-)
 
-== Object hd
+= Object hd
+{parent=elf-hello-world}
 
 Running:
 ``
@@ -222,7 +230,8 @@ gives:
 00000390
 ``
 
-== Executable hd
+= Executable hd
+{parent=elf-hello-world}
 
 Running:
 ``
@@ -294,7 +303,8 @@ gives:
 000003e4
 ``
 
-== Global file structure
+= Global file structure
+{parent=elf-hello-world}
 
 An ELF file contains the following parts:
 * ELF header. Points to the position of the section header table and the program header table.
@@ -303,7 +313,7 @@ An ELF file contains the following parts:
 * Program header table (only on executable). Each has `e_phnum` program headers, each pointing to the position of a segment.
 * N segments, with `N <= e_phnum` (only on executable)
 
-The order of those parts is _not_ fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
+The order of those parts is \i[not] fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
 \Q[
 Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.
 ]
@@ -357,7 +367,8 @@ But some newbies may prefer PNGs :-)
 {source=https://github.com/corkami/pics/blob/28cb0226093ed57b348723bc473cea0162dad366/binary/elf101/elf101.pdf}
 {height=900}
 
-== Section vs segment
+= Section vs segment
+{parent=elf-hello-world}
 
 We will get into more detail later, but it is good to have it in mind now:
 
@@ -376,7 +387,8 @@ See also:
 * https://stackoverflow.com/questions/14361248/whats-the-difference-of-section-and-segment-in-elf-file-format
 * https://stackoverflow.com/questions/23379880/difference-between-program-header-and-section-header-in-elf
 
-== ELF header
+= ELF header
+{parent=elf-hello-world}
 
 Running:
 ``
@@ -511,7 +523,8 @@ Manual breakdown:
 * 3 A: `e_shentsize` and `e_shnum` = `40 00 07 00`: section header size and number of entries
 * 3 E: `e_shstrndx` (`Section Header STRing iNDeX`) = `03 00`: index of the `.shstrtab` section.
 
-== Section header table
+= Section header table
+{parent=elf-hello-world}
 
 Array of `Elf64_Shdr` structs.
 
@@ -572,9 +585,11 @@ typedef struct {
 } Elf64_Shdr;
 ``
 
-== Sections
+= Sections
+{parent=elf-hello-world}
 
-=== Index 0 section
+= Index 0 section
+{parent=sections}
 
 Contained in bytes 0x40 to 0x7F.
 
@@ -584,11 +599,13 @@ The first section is always magic: http://www.sco.com/developers/gabi/2003-12-17
 
 There are also other magic sections detailed in `Figure 4-7: Special Section Indexes`.
 
-==== SHT_NULL
+= `SHT_NULL`
+{parent=index-0-section}
 
 In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: https://stackoverflow.com/questions/26812142/what-is-the-use-of-the-sht-null-section-in-elf ?
 
-=== .data section
+= `.data` section
+{parent=sections}
 
 `.data` is section 1:
 ``
@@ -641,7 +658,8 @@ In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: https://st
   * b0 0: `sh_addralign` = `04` = TODO: why is this alignment necessary? Is it only for `sh_addr`, or also for symbols inside `sh_addr`?
   * b0 8: `sh_entsize` = `00` = the section does not contain a table. If != 0, it means that the section contains a table of fixed size entries. In this file, we see from the `readelf` output that this is the case for the `.symtab` and `.rela.text` sections.
 
-=== .text section
+= `.text` section
+{parent=sections}
 
 Now that we've done one section manually, let's graduate and use the `readelf -S` of the other sections:
 ``
@@ -688,9 +706,10 @@ to pass the address of the string to the system call. Currently, the `0x0` is ju
 ``
 This modification is possible because of the data of the `.rela.text` section.
 
-=== SHT_STRTAB
+= `SHT_STRTAB`
+{parent=sections}
 
-Sections with `sh_type == SHT_STRTAB` are called _string tables_.
+Sections with `sh_type == SHT_STRTAB` are called string tables.
 
 They hold a null separated array of strings.
 
@@ -712,11 +731,12 @@ Notable string table sections:
 * `.shstrtab`
 * `.strtab`
 
-=== .shstrtab
+= `.shstrtab`
+{parent=sections}
 
 Section type: `sh_type == SHT_STRTAB`.
 
-Common name: _section header string table_.
+Common name: "section header string table".
 
 The section name `.shstrtab` is reserved. The standard says:
 \Q[This section holds section names.]
@@ -744,11 +764,12 @@ If we look at the names of other sections, we see that they all contain numbers,
 
 Then each string ends when the first NUL character is found, e.g. character `12` is `\0` just after `.text\0`.
 
-=== .symtab
+= `.symtab`
+{parent=sections}
 
 Section type: `sh_type == SHT_SYMTAB`.
 
-Common name: _symbol table_.
+Common name: "symbol table".
 
 First the we note that:
 * `sh_link` = `5`
@@ -822,7 +843,8 @@ typedef struct {
 
 Like in the section table, the first entry is magical and set to a fixed meaningless values.
 
-==== STT_FILE
+= `STT_FILE`
+{parent=symtab}
 
 Entry 1 has `ELF64_R_TYPE == STT_FILE`. `ELF64_R_TYPE` is continued inside of `st_info`.
 
@@ -860,7 +882,8 @@ Byte analysis:
 
 Now from the `readelf`, we interpret the others quickly.
 
-==== STT_SECTION
+= `STT_SECTION`
+{parent=symtab}
 
 There are two such entries, one pointing to `.data` and the other to `.text` (section indexes `1` and `2`).
 ``
@@ -871,7 +894,8 @@ Num:    Value          Size Type    Bind   Vis      Ndx Name
 
 TODO what is their purpose?
 
-==== STT_NOTYPE
+= `STT_NOTYPE`
+{parent=symtab}
 
 Then come the most important symbols:
 ``
@@ -890,7 +914,8 @@ global _start
 
 in NASM. This is necessary since it must be seen as the entry point. Unlike in C, by default NASM labels are local.
 
-===== SHN_ABS
+= `SHN_ABS`
+{parent=stt-notype}
 
 `hello_world_len` points to the special `st_shndx == SHN_ABS == 0xF1FF`.
 
@@ -904,15 +929,17 @@ This is small optimization that our assembler does for us and which has ELF supp
 
 If we had used the address of `hello_world_len` anywhere, the assembler would not have been able to mark it as `SHN_ABS`, and the linker would have extra relocation work on it later.
 
-==== SHT_SYMTAB on the executable
+= `SHT_SYMTAB` on the executable
+{parent=symtab}
 
 By default, NASM places a `.symtab` on the executable as well.
 
 This is only used for debugging. Without the symbols, we are completely blind, and must reverse engineer everything.
 
-You can strip it with `objcopy`, and the executable will still run. Such executables are called _stripped executables_.
+You can strip it with `objcopy`, and the executable will still run. Such executables are called "stripped executables".
 
-=== .strtab
+= `.strtab`
+{parent=sections}
 
 Holds strings for the symbol table.
 
@@ -933,11 +960,12 @@ Hex dump of section '.strtab':
 
 This implies that it is an ELF level limitation that global variables cannot contain NUL characters.
 
-=== .rela.text
+= `.rela.text`
+{parent=sections}
 
 Section type: `sh_type == SHT_RELA`.
 
-Common name: _relocation section_.
+Common name: "relocation section".
 
 `.rela.text` holds relocation data which says how the address should be modified when the final executable is linked. This points to bytes of the text area that must be modified when linking happens to point to the correct memory locations.
 
@@ -995,7 +1023,8 @@ So:
 
 So in our example we conclude that the new address will be: `S + A` = `.data + 0`, and thus the first thing in the data section.
 
-==== .rel.text
+= `.rel.text`
+{parent=rela-text}
 
 Besides `sh_type == SHT_RELA`, there also exists `SHT_REL`, which would have section name `.text.rel` (not present in this object file).
 
@@ -1009,7 +1038,8 @@ typedef struct {
 
 The ELF standard says that in many cases the both can be used, and it is just a matter of convenience.
 
-=== Dynamic linking sections
+= Dynamic linking sections
+{parent=sections}
 
 This program did not have certain dynamic linking related sections because we linked it minimally with `ld`.
 
@@ -1020,19 +1050,23 @@ gcc -o main.out main.c
 
 some other interesting sections would appear.
 
-==== PT_INTERP
+= `PT_INTERP`
+{parent=dynamic-linking-sections}
 
 Contains the path to the dynamic loader, i.e. `/lib64/ld-linux-x86-64.so.2` in Ubuntu 18.10. Explained at: https://stackoverflow.com/questions/8040631/checking-if-a-binary-compiled-with-static/55664341#55664341
 
-==== Dynamic section
+= Dynamic section
+{parent=dynamic-linking-sections}
 
 Contains a lot of different flag masks.
 
-===== DT_FLAGS_1
+= `DT_FLAGS_1`
+{parent=dynamic-section}
 
 Seems to be a GNU Binutils extension
 
-====== DF_1_PIE
+= `DF_1_PIE`
+{parent=dt-flags-1}
 
 Determines if an executable is a position independent executable (PIE).
 
@@ -1040,7 +1074,8 @@ Seems to be informational only, since not used by Linux kernel 5.0 or glibc 2.29
 
 `file` 5.36 however does use it to display file type as explained at: https://stackoverflow.com/questions/34519521/why-does-gcc-create-a-shared-object-instead-of-an-executable-binary-according-to/55704865#55704865
 
-== Program header table
+= Program header table
+{parent=elf-hello-world}
 
 Only appears in the executable.
 
@@ -1111,7 +1146,7 @@ Breakdown of the first one:
 
   \Q[This member gives the offset from the beginning of the file at which the first byte of the segment resides.]
 
-  But it looks like offsets from the beginning of _segments_, not file?
+  But it looks like offsets from the beginning of segments, not file?
 * 50 0: `p_vaddr` = `00 00 40 00 00 00 00 00`: initial virtual memory address to load this segment to
 * 50 8: `p_paddr` = `00 00 40 00 00 00 00 00`: unspecified effect. Intended for systems in which physical addressing matters. TODO example?
 * 60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: size that the segment occupies in memory. If smaller than `p_memsz`, the OS fills it with zeroes to fit when loading the program. This is how BSS data is implemented to save space on executable files. i368 ABI says on `PT_LOAD`:
@@ -1135,6 +1170,7 @@ section of the `readelf` tells us that:
 
 TODO where does this information come from? https://stackoverflow.com/questions/23018496/section-to-segment-mapping-in-elf-files
 
-== Backlinks
+= Backlinks
+{parent=elf-hello-world}
 
 * 2017-05: https://news.ycombinator.com/item?id=14359159 https://web.archive.org/web/20170517174951/https://news.ycombinator.com/news
