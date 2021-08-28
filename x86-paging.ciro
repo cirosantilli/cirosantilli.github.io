@@ -10,7 +10,8 @@ The goals are to:
 
 This tutorial was extracted and expanded from https://stackoverflow.com/a/18431262/895245[this Stack Overflow answer].
 
-== Sample code
+= Sample code
+{parent=x86-paging}
 
 Minimal example: https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c672f73884a487414b3e21bd9e579c67cd77621/paging.S
 
@@ -18,7 +19,8 @@ Like everything else in programming, the only way to really understand this is t
 
 What makes this a "hard" subject is that the minimal example is large because you need to make your own small \x[operating-system][OS].
 
-== Intel manual
+= Intel manual
+{parent=x86-paging}
 
 Although it is impossible to understand without examples in mind, try to get familiar with the manuals as soon as possible.
 
@@ -26,7 +28,8 @@ Intel describes paging in the https://web.archive.org/web/20151025081259/http://
 
 Specially interesting is Figure 4-4 "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging", which gives the key data structures.
 
-== Application
+= Application
+{parent=x86-paging}
 
 Paging makes it easier to compile and run two programs or threads at the same time on a single computer.
 
@@ -75,7 +78,8 @@ Or if you like non-funny jokes: \x[image-funny-comparison-between-the-linux-kern
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png]
 
-== Hardware implementation
+= Hardware implementation
+{parent=x86-paging}
 
 Paging is implemented by the \x[central-processing-unit][CPU] hardware itself.
 
@@ -105,7 +109,8 @@ Processes can however make requests to the OS that cause the page tables to be m
 
 The kernel then decides if the request will be granted or not in a controlled manner.
 
-== Segmentation
+= Segmentation
+{parent=x86-paging}
 
 In x86 systems, there may actually be 2 address translation steps:
 * first segmentation
@@ -129,11 +134,13 @@ Paging came after segmentation historically, and largely replaced it for the imp
 
 Paging has become so much more popular that support for segmentation was dropped in x86-64 in 64-bit mode, the main mode of operation for new software, where it only exists in compatibility mode, which emulates IA-32.
 
-== Example: simplified single-level paging scheme
+= Example: simplified single-level paging scheme
+{parent=x86-paging}
 
 This is an example of how paging operates on a _simplified_ version of a x86 architecture to implement a virtual memory space with a `20 | 12` address split (4 KiB page size).
 
-=== Single level paging scheme visualization
+= Single level paging scheme visualization
+{parent=example-simplified-single-level-paging-scheme}
 
 This is how the memory could look like in a single level paging scheme:
 ``
@@ -186,7 +193,8 @@ Notice that:
 * each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use
 * we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory
 
-=== Single level paging scheme numerical translation example
+= Single level paging scheme numerical translation example
+{parent=example-simplified-single-level-paging-scheme}
 
 Suppose that the OS has setup the following page tables for process 1:
 ``
@@ -280,7 +288,8 @@ Another example: for logical address `0x00001001`:
 * it finds the page address `0x00000` there
 * so the final address is `0x00000 * 4k + 0x001 = 0x00000001`
 
-=== Multiple addresses translate to a single physical address
+= Multiple addresses translate to a single physical address
+{parent=example-simplified-single-level-paging-scheme}
 
 The same linear address can translate to different physical addresses for different processes, depending only on the value inside `cr3`.
 
@@ -290,11 +299,13 @@ This often in normal operation because of Copy-on-write (COW), which be explaine
 
 Such mappings are sometime called "aliases".
 
-=== Identity mapping
+= Identity mapping
+{parent=example-simplified-single-level-paging-scheme}
 
 `FFFFF 000` points to its own physical address `FFFFF 000`. This kind of translation is called an "identity mapping", and can be very convenient for OS-level debugging.
 
-=== Page faults
+= Page faults
+{parent=example-simplified-single-level-paging-scheme}
 
 What if Process 1 tries to access `0x00003000`, which is not present?
 
@@ -323,7 +334,8 @@ but there are cases where it is not a bug, for example in Linux when:
 
 In any case, the OS needs to know which address generated the Page Fault to be able to deal with the problem. This is why the nice IA32 developers set the value of `cr2` to that address whenever a Page Fault occurs. The exception handler can then just look into `cr2` to get the address.
 
-=== Page table entries
+= Page table entries
+{parent=example-simplified-single-level-paging-scheme}
 
 The exact format of table entries is fixed _by the hardware_.
 
@@ -350,7 +362,8 @@ Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Stru
 
 The fields are explained in the manual just after.
 
-=== Page size choice
+= Page size choice
+{parent=example-simplified-single-level-paging-scheme}
 
 Why are pages 4KiB anyways?
 
@@ -368,9 +381,11 @@ This can be seen with the extreme cases:
 
 x86 designers have found that 4KiB pages are a good middle ground.
 
-== Example: multi-level paging scheme
+= Example: multi-level paging scheme
+{parent=x86-paging}
 
-=== The problem with single-level paging
+= The problem with single-level paging
+{parent=example-multi-level-paging-scheme}
 
 The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries _per_ process.
 
@@ -380,7 +395,9 @@ For this reason, x86 developers decided to use a multi-level scheme that reduces
 
 The downside of this system is that is has a slightly higher access time, as we need to access RAM more times for each translation.
 
-=== K-ary trees to the rescue
+= K-ary trees to the rescue
+{c}
+{parent=example-multi-level-paging-scheme}
 
 The algorithmically minded will have noticed that paging requires https://en.wikipedia.org/wiki/Associative_array[associative array] (like Java `Map` of Python `dict()`) abstract data structure where:
 * the keys are linear pages addresses, thus of integer type
@@ -436,7 +453,8 @@ K-ary trees can save up a lot of space, because if we only have one key, then we
 * one `pagetable` at `directory[0]` with 2^10 entries
 * all other `directory[i]` are marked as invalid, don't point to anything, and we don't allocate `pagetable` for them at all
 
-=== Why not a balanced tree
+= Why not a balanced tree
+{parent=example-multi-level-paging-scheme}
 
 Learned readers will ask themselves: so why use an unbalanced tree instead of balanced one, which offers better asymptotic times https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree?
 
@@ -445,7 +463,8 @@ Likely:
 * different entries would have different levels, and thus different access times
 * tree rotations would likely make caching more complicated
 
-=== How the K-ary tree is used in x86
+= How the K-ary tree is used in x86
+{parent=example-multi-level-paging-scheme}
 
 x86's multi-level paging scheme uses a 2 level K-ary tree with 2^10 bits on each level.
 
@@ -481,7 +500,8 @@ Then:
 
 One reason for using 10 bits on the first two levels (and not, say, `12 | 8 | 12` ) is that each Page Table entry is 4 bytes long. Then the 2^10 entries of Page directories and Page Tables will fit nicely into 4Kb pages. This means that it faster and simpler to allocate and deallocate pages for that purpose.
 
-=== Multi-level paging scheme numerical translation example
+= Multi-level paging scheme numerical translation example
+{parent=example-multi-level-paging-scheme}
 
 Page directory given to process by the OS:
 ``
@@ -561,7 +581,8 @@ The Intel manual gives a picture of this translation process in the image "Linea
 
 \Image[x86_page_translation_process.png]{height=300}
 
-== 64-bit architectures
+= 64-bit architectures
+{parent=x86-paging}
 
 64 bits is still too much address for current RAM sizes, so most architectures will use less bits.
 
@@ -594,7 +615,9 @@ Bottom half
 
 A 5-level scheme is emerging in 2016: https://software.intel.com/sites/default/files/managed/2b/80/5-level_paging_white_paper.pdf which allows 52-bit addresses with 4k pagetables.
 
-== PAE
+= PAE
+{c}
+{parent=x86-paging}
 
 Physical address extension.
 
@@ -610,7 +633,9 @@ PAE is turned on and off via the `PAE` bit of `cr4`.
 
 Even if the total addressable memory is 64GB, individual process are still only able to use up to 4GB. The OS can however put different processes on different 4GB chunks.
 
-== PSE
+= PSE
+{c}
+{parent=x86-paging}
 
 Page size extension.
 
@@ -618,7 +643,9 @@ Allows for pages to be 4M ( or 2M if PAE is on ) in length instead of 4K.
 
 PSE is turned on and off via the `PAE` bit of `cr4`.
 
-== PAE and PSE page table schemes
+= PAE and PSE page table schemes
+{c}
+{parent=x86-paging}
 
 If either PAE and PSE are active, different paging level schemes are used:
 * no PAE and no PSE: `10 | 10 | 12`
@@ -642,7 +669,9 @@ If either PAE and PSE are active, different paging level schemes are used:
 
   This leaves 23 bits. Leaving 2 for the PDPT to keep things uniform with the PAE case without PSE leaves 21 for offset, meaning that pages are 2M wide instead of 4M.
 
-== TLB
+= TLB
+{c}
+{parent=x86-paging}
 
 The Translation Lookahead Buffer (TLB) is a cache for paging addresses.
 
@@ -650,7 +679,8 @@ Since it is a cache, it shares many of the design issues of the CPU cache, such 
 
 This section shall describe a simplified fully associative TLB with 4 single address entries. Note that like other caches, real TLBs are not usually fully associative.
 
-=== Basic operation
+= Basic TLB operation
+{parent=tlb}
 
 After a translation between linear and physical address happens, it is stored on the TLB. For example, a 4 entry TLB starts in the following state:
 ``
@@ -687,7 +717,9 @@ Now if `00003` needs to be translated again, hardware first looks up the TLB and
 
 Of course, `00000` is not on the TLB since no valid entry contains `00000` as a key.
 
-=== Replacement policy
+= TLB replacement policy
+{c}
+{parent=tlb}
 
 When TLB is filled up, older addresses are overwritten. Just like CPU cache, the replacement policy is a potentially complex operation, but a simple and reasonable heuristic is to remove the least recently used entry (LRU).
 
@@ -710,7 +742,9 @@ adding `0000D -> 0000A` would give:
   1      0000B   00003
 ``
 
-=== CAM
+= CAM
+{c}
+{parent=tlb}
 
 Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.
 
@@ -744,7 +778,8 @@ FFFFF   00000
 ``
 which would be even more expensive than using a TLB.
 
-=== Invalidating entries
+= Invalidating TLB entries
+{parent=tlb}
 
 When the process changes, `cr3` change to point to the page table of the new current process.
 
@@ -763,11 +798,16 @@ Basically, the OS assigns a different ASID for each process, and then TLB entrie
 
 The x86 also offers the `invlpg` instruction which explicitly invalidates a single TLB entry. Other architectures offer even more instructions to invalidated TLB entries, such as invalidating all entries on a given range.
 
-== Linux kernel usage
+= Linux kernel usage
+{c}
+{parent=x86-paging}
 
 The Linux kernel makes extensive usage of the paging features of x86 to allow fast process switches with small data fragmentation.
 
-=== Play with physical addresses in Linux
+There are also however some features that the Linux kernel might not use, either because they are only for backwards compatibility, or because the Linux devs didn't feel it was worth it yet.
+
+= Play with physical addresses in Linux
+{parent=linux-kernel-usage}
 
 Convert virtual addresses to physical from user space with `/proc/<pid>/pagemap` and from kernel space with `virt_to_phys`:
 * https://stackoverflow.com/questions/5748492/is-there-any-api-for-determining-the-physical-address-from-virtual-address-in-li/45128487#45128487
@@ -784,7 +824,8 @@ Read and write physical addresses from userspace with `/dev/mem`:
 * https://stackoverflow.com/questions/12040303/accessing-physical-address-from-user-space/45127890#45127890
 * https://free-electrons.com/pub/mirror/devmem2.c
 
-=== Kernel vs process memory layout
+= Kernel vs process memory layout
+{parent=linux-kernel-usage}
 
 The Linux Kernel reserves two zones of virtual memory:
 * one for kernel memory
@@ -830,7 +871,8 @@ In previous versions, https://stackoverflow.com/questions/1658757/linux-3-1-virt
 
 There is no clear physical memory split: https://stackoverflow.com/questions/30471742/physical-memory-userspace-kernel-split-on-linux-x86-64
 
-=== Process memory layout
+= Process memory layout
+{parent=linux-kernel-usage}
 
 For each process, the virtual address space looks like this:
 ``
@@ -891,7 +933,9 @@ Calculating exact addresses Things are complicated by:
 
 Why the text does not start at 0: https://stackoverflow.com/questions/14795164/why-do-linux-program-text-sections-start-at-0x0804800-and-stack-tops-start-at-0
 
-=== Copy-on-write
+= Copy-on-write
+{parent=linux-kernel-usage}
+{title2=COW}
 
 https://en.wikipedia.org/wiki/Copy-on-write
 
@@ -906,7 +950,9 @@ When Linux forks a process:
 * it marks those linear addresses as read-only
 * whenever one of the processes tries to write to a page, the makes a copy of the physical memory, and updates the pages of the two process to point to the two different physical addresses
 
-=== Linux source tree
+= Linux source tree
+{c}
+{parent=linux-kernel-usage}
 
 In `v4.2`, look under `arch/x86/`:
 * `include/asm/pgtable*`
@@ -927,7 +973,8 @@ There seems to be no structs defined to represent the pages, only macros: `inclu
 #define X86_CR0_PG_BIT      31 /* Paging */
 ``
 
-== Memory management unit
+= Memory management unit
+{parent=x86-paging}
 
 Paging is done by the https://en.wikipedia.org/wiki/Memory_management_unit[Memory Management Unit] (MMU) part of the CPU.
 
@@ -935,22 +982,26 @@ Like many others (e.g. https://en.wikipedia.org/wiki/X87[x87 co-processor], http
 
 It was later integrated into the CPU, but the term MMU still used.
 
-== Second Level Address Translation
+= Second Level Address Translation
+{parent=x86-paging}
 
 https://en.wikipedia.org/wiki/Second_Level_Address_Translation
 
 Two level address translation to make OS emulation more efficient.
 
-== Other architectures
+= Other architectures
+{parent=x86-paging}
 
 https://stackoverflow.com/a/32258855/895245[Peter Cordes mentions] that some architectures like MIPS leave paging almost completely in the hands of software: a TLB miss runs an OS-supplied function to walk the page tables, and insert the new mapping into the TLB. In such architectures, the OS can use whatever data structure it wants.
 
-=== ARM
+= ARM
 {c}
+{parent=other-architectures}
 
 Information about ARM paging can be found at: https://cirosantilli.com/linux-kernel-module-cheat#arm-paging
 
-== Bibliography
+= Bibliography
+{parent=x86-paging}
 
 Free:
 * https://www.cs.rutgers.edu/~pxk/416/notes/[rutgers-pxk-416] chapter "Memory management: lecture notes"
