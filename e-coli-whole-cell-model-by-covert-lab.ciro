@@ -1,0 +1,301 @@
+= E. Coli Whole Cell Model by Covert lab
+{c}
+{parent=e-coli-whole-cell-simulation}
+
+https://github.com/CovertLab/WholeCellEcoliRelease
+
+By \x[covert-lab]. Written in \x[python], hurray! But on-request \x[code-drop] model, meh.
+
+A followup to the earlier \x[m-genitalium-whole-cell-model-by-covert-lab]. \x[e-coli] has 8x more genes, but it has been studied more thorougly, and reproduces faster, which are huge advantages.
+
+= E. Coli Whole Cell Model by Covert lab source getting started
+{c}
+{parent=e-coli-whole-cell-model-by-covert-lab}
+
+At 7e4cc9e57de76752df0f4e32eca95fb653ea64e4 you basically need to use the \x[docker] image on \x[ubuntu] 21-04 due to \x[pip-package-manager] breaking changes...
+
+The Docker setup from README does just work, but what you really want to run is:
+``
+sudo docker run --name=wcm -it -v "$(pwd):/wcEcoli" docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full
+``
+and once inside docker:
+``
+make clean compile
+python runscripts/manual/runSim.py
+``
+to share the host source directory with docker, so you can easily edit source files in your host GUI text editor, and also view output images. But TODO that fails with:
+``
+ImportError: No module named two_component_system_odes
+``
+as per: https://github.com/CovertLab/WholeCellEcoliRelease/issues/20[], there's something missing.
+
+Progress output contains lines of type:
+``
+Time (s)  Dry mass     Dry mass      Protein          RNA    Small mol     Expected
+              (fg)  fold change  fold change  fold change  fold change  fold change
+========  ========  ===========  ===========  ===========  ===========  ===========
+    0.00    403.09        1.000        1.000        1.000        1.000        1.000
+    0.20    403.18        1.000        1.000        1.000        1.000        1.000
+``
+and then it ended on the \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017] at:
+``
+ 2569.18    783.09        1.943        1.910        2.005        1.950        1.963
+
+Simulation finished:
+ - Length: 0:42:49
+ - Runtime: 0:09:13
+``
+when the cell had almost doubled, and presumably divided in 42 minutes of simualted time, which is ballpark with the expected 20.
+
+Output seems to have gone to:
+``
+out/manual/wildtype_000000/000000/generation_000000/000000/simOut/
+``
+and after running all the analysis scripts from the README, we see a bunch of plots under `out/`, just `find -name '*.png'`, but those graphs are not very interesting.
+
+TODO: how to visualize the evolution of a single protein with time?
+
+= E. Coli Whole Cell Model by Covert lab source code overview
+{c}
+{parent=e-coli-whole-cell-model-by-covert-lab}
+
+The key model database is located in the source code at `reconstruction/ecoli/flat`.
+
+Let's try to understand some interesting looking, with a special focus on our understanding of the tiny \x[e-coli-k-12-mg1655-operon-thrlabc] part of the metabolism, which we have well understood at \x[e-coli-k-12-mg1655-operon-thrlabc]{full}.
+
+We'll realize that a lot of data and IDs come from/match \x[biocyc] quite closely.
+
+TODO where are \x[promoter]{p}/\x[transcription-factor] interactions modelled?
+
+* `reconstruction/ecoli/flat/compartments.tsv` contains \x[cellular-compartment] information:
+  ``
+  "abbrev" "id"
+  "n" "CCO-BAC-NUCLEOID"
+  "j" "CCO-CELL-PROJECTION"
+  "w" "CCO-CW-BAC-NEG"
+  "c" "CCO-CYTOSOL"
+  "e" "CCO-EXTRACELLULAR"
+  "m" "CCO-MEMBRANE"
+  "o" "CCO-OUTER-MEM"
+  "p" "CCO-PERI-BAC"
+  "l" "CCO-PILUS"
+  "i" "CCO-PM-BAC-NEG"
+  ``
+  * `CCO`: "Celular COmpartment"
+  * `BAC-NUCLEOID`: \x[nucleoid]
+  * `CELL-PROJECTION`: \x[cell-projection]
+  * `CW-BAC-NEG`: TODO confirm: \x[cell-wall] (of a \x[gram-negative-bacteria])
+  * `CYTOSOL`: \x[cytosol]
+  * `EXTRACELLULAR`: outside the cell
+  * `MEMBRANE`: \x[cell-membrane]
+  * `OUTER-MEM`: \x[bacterial-outer-membrane]
+  * `PERI-BAC`: \x[periplasm]
+  * `PILUS`: \x[pilus]
+  * `PM-BAC-NEG`: TODO: \x[plasma-membrane], but that is the same as \x[cell-membrane] no?
+* `reconstruction/ecoli/flat/promoters.tsv` contains \x[promoter] information. Simple file, sample lines:
+  ``
+  "position" "direction" "id" "name"
+  148 "+" "PM00249" "thrLp"
+  ``
+  corresponds to \x[e-coli-k-12-mg1655-promoter-thrlp], which starts as position 148.
+* `reconstruction/ecoli/flat/proteins.tsv` contains \x[protein] information. Sample line corresponding to \x[e-coli-k-12-mg1655-gene-thra]:
+  ``
+  "aaCount" "name" "seq" "comments" "codingRnaSeq" "mw" "location" "rnaId" "id" "geneId"
+  [91, 46, 38, 44, 12, 53, 30, 63, 14, 46, 89, 34, 23, 30, 29, 51, 34, 4, 20, 0, 69] "ThrA" "MRVL..." "Location information from Ecocyc dump." "AUGCGAGUGUUG..." [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 89103.51099999998, 0.0, 0.0, 0.0, 0.0] ["c"] "EG10998_RNA" "ASPKINIHOMOSERDEHYDROGI-MONOMER" "EG10998"
+  ``
+  so we understand that:
+  * `aaCount`: \x[amino-acid] count, how many of each of the 20 \x[proteinogenic-amino-acid] are there
+  * `seq`: full sequence, using the single letter abbreviation of the \x[proteinogenic-amino-acid]{p}
+  * `mw`; molecular weight? The 11 components appear to be given at `reconstruction/ecoli/flat/scripts/unifyBulkFiles.py`:
+    ``
+    molecular_weight_keys = [
+      '23srRNA',
+      '16srRNA',
+      '5srRNA',
+      'tRNA',
+      'mRNA',
+      'miscRNA',
+      'protein',
+      'metabolite',
+      'water',
+      'DNA',
+      'RNA' # nonspecific RNA
+      ]
+    ``
+    so they simply classify the weight? Presumably this exists for complexes that have multiple classes?
+    * `23srRNA`, `16srRNA`, `5srRNA` are the three structural \x[rna]{p} present in the \x[ribossome]: \x[23s-ribosomal-rna], \x[16s-ribosomal-rna], \x[5s-ribosomal-rna], all others are obvious:
+    * \x[trna]
+    * \x[mrna]
+    * \x[protein]. This is the seventh class, and this enzyme only contains mass in this class as expected.
+    * \x[metabolite]
+    * \x[water]
+    * \x[dna]
+    * \x[rna]: TODO `rna` vs `miscRNA`
+  * `location`: \x[cell-compartment] where the protein is present, `c` defined at `reconstruction/ecoli/flat/compartments.tsv` as \x[cytoplasm], as expected for something that will make an \x[amino-acid]
+* `reconstruction/ecoli/flat/rnas.tsv`: TODO vs `transcriptionUnits.tsv`. Sample lines:
+  ``
+  "halfLife" "name" "seq" "type" "modifiedForms" "monomerId" "comments" "mw" "location" "ntCount" "id" "geneId" "microarray expression"
+  174.0 "ThrA [RNA]" "AUGCGAGUGUUG..." "mRNA" [] "ASPKINIHOMOSERDEHYDROGI-MONOMER" "" [0.0, 0.0, 0.0, 0.0, 790935.00399999996, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] ["c"] [553, 615, 692, 603] "EG10998_RNA" "EG10998" 0.0005264904
+  ``
+  * `halfLife`: \x[half-life]
+  * `mw`: molecular weight, same as in `reconstruction/ecoli/flat/proteins.tsv`. This \x[molecule] only have weight in the `mRNA` class, as expected, as it just codes for a protein
+  * `location`: same as in `reconstruction/ecoli/flat/proteins.tsv`
+  * `ntCount`: \x[nucleotide] count for each of the ATGC
+  * `microarray expression`: presumably refers to \x[dna-microarray] for \x[gene-expression-profiling], but what measure exactly?
+* `reconstruction/ecoli/flat/sequence.fasta`: \x[fasta] \x[dna] sequence, first two lines:
+  ``
+  >E. coli K-12 MG1655 U00096.2 (1 to 4639675 = 4639675 bp)
+  AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTG
+  ``
+* `reconstruction/ecoli/flat/transcriptionUnits.tsv`: \x[transcription-unit]{p}. We can observe for example the two different transcription units of the \x[e-coli-k-12-mg1655-operon-thrlabc] in the lines:
+  ``
+  "expression_rate" "direction" "right" "terminator_id"  "name"    "promoter_id" "degradation_rate" "id"       "gene_id"                                   "left"
+  0.0               "f"         310     ["TERM0-1059"]   "thrL"    "PM00249"     0.198905992329492 "TU0-42486" ["EG11277"]                                  148
+  657.057317358791  "f"         5022    ["TERM_WC-2174"] "thrLABC" "PM00249"     0.231049060186648 "TU00178"   ["EG10998", "EG10999", "EG11000", "EG11277"] 148
+  ``
+  * `promoter_id`: matches promoter id in `reconstruction/ecoli/flat/promoters.tsv`
+  * `gene_id`: matches id in `reconstruction/ecoli/flat/genes.tsv`
+  * `id`: matches exactly those used in \x[biocyc], which is quite nice, might be more or less standardized:
+    * https://biocyc.org/ECOLI/NEW-IMAGE?object=TU0-42486
+    * https://biocyc.org/ECOLI/NEW-IMAGE?type=OPERON&object=TU00178
+* `reconstruction/ecoli/flat/genes.tsv`
+  ``
+  "length" "name"                      "seq"             "rnaId"      "coordinate" "direction" "symbol" "type" "id"      "monomerId"
+  66       "thr operon leader peptide" "ATGAAACGCATT..." "EG11277_RNA" 189         "+"         "thrL"   "mRNA" "EG11277" "EG11277-MONOMER"
+  2463     "ThrA"                      "ATGCGAGTGTTG"    "EG10998_RNA" 336         "+"         "thrA"   "mRNA" "EG10998" "ASPKINIHOMOSERDEHYDROGI-MONOMER"
+  ``
+* `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` contains the nutrients in a minimal environment in which the cell survives:
+  ``
+  "molecule id" "lower bound (units.mmol / units.g / units.h)" "upper bound (units.mmol / units.g / units.h)"
+  "ADP[c]" 3.15 3.15
+  "PI[c]" 3.15 3.15
+  "PROTON[c]" 3.15 3.15
+  "GLC[p]" NaN 20
+  "OXYGEN-MOLECULE[p]" NaN NaN
+  "AMMONIUM[c]" NaN NaN
+  "PI[p]" NaN NaN
+  "K+[p]" NaN NaN
+  "SULFATE[p]" NaN NaN
+  "FE+2[p]" NaN NaN
+  "CA+2[p]" NaN NaN
+  "CL-[p]" NaN NaN
+  "CO+2[p]" NaN NaN
+  "MG+2[p]" NaN NaN
+  "MN+2[p]" NaN NaN
+  "NI+2[p]" NaN NaN
+  "ZN+2[p]" NaN NaN
+  "WATER[p]" NaN NaN
+  "CARBON-DIOXIDE[p]" NaN NaN
+  "CPD0-1958[p]" NaN NaN
+  "L-SELENOCYSTEINE[c]" NaN NaN
+  "GLC-D-LACTONE[c]" NaN NaN
+  "CYTOSINE[c]" NaN NaN
+  ``
+  If we compare that to `condition/nutrient/minimal_plus_amino_acids.tsv`, we see that it adds the 20 \x[amino-acids] on top of the minimal condition:
+  ``
+  "L-ALPHA-ALANINE[p]" NaN NaN
+  "ARG[p]" NaN NaN
+  "ASN[p]" NaN NaN
+  "L-ASPARTATE[p]" NaN NaN
+  "CYS[p]" NaN NaN
+  "GLT[p]" NaN NaN
+  "GLN[p]" NaN NaN
+  "GLY[p]" NaN NaN
+  "HIS[p]" NaN NaN
+  "ILE[p]" NaN NaN
+  "LEU[p]" NaN NaN
+  "LYS[p]" NaN NaN
+  "MET[p]" NaN NaN
+  "PHE[p]" NaN NaN
+  "PRO[p]" NaN NaN
+  "SER[p]" NaN NaN
+  "THR[p]" NaN NaN
+  "TRP[p]" NaN NaN
+  "TYR[p]" NaN NaN
+  "L-SELENOCYSTEINE[c]" NaN NaN
+  "VAL[p]" NaN NaN
+  ``
+  so we guess that `NaN` in the `upper mound` likely means infinite.
+
+  We can try to understand the less obvious ones:
+  * `ADP`: TODO
+  * `PI`: TODO
+  * `PROTON[c]`: presumably a measure of \x[ph]
+  * `GLC[p]`: \x[glucose], this can be seen by comparing `minimal.tsv` with `minimal_no_glucose.tsv`
+* `reconstruction/ecoli/flat/metabolites.tsv` contains \x[metabolite] information. Sample lines:
+  ``
+  "id"                       "mw7.2" "location"
+  "HOMO-SER"                 119.12  ["n", "j", "w", "c", "e", "m", "o", "p", "l", "i"]
+  "L-ASPARTATE-SEMIALDEHYDE" 117.104 ["n", "j", "w", "c", "e", "m", "o", "p", "l", "i"]
+  ``
+  In the case of the enzyme thrA, one of the two reactions it catalyzes is "L-aspartate 4-semialdehyde" into "Homoserine".
+
+  Starting from the enzyme page: https://biocyc.org/gene?orgid=ECOLI&id=EG10998 we reach the reaction page: https://biocyc.org/ECOLI/NEW-IMAGE?type=REACTION&object=HOMOSERDEHYDROG-RXN[] which has reaction ID `HOMOSERDEHYDROG-RXN`, and that page which clarifies the IDs:
+  * https://biocyc.org/compound?orgid=ECOLI&id=L-ASPARTATE-SEMIALDEHYDE: "L-aspartate 4-semialdehyde" has ID `L-ASPARTATE-SEMIALDEHYDE`
+  * https://biocyc.org/compound?orgid=ECOLI&id=HOMO-SER: "Homoserine" has ID `HOMO-SER`
+  so these are the compounds that we care about.
+* `reconstruction/ecoli/flat/reactions.tsv` contains \x[chemical-reaction] information. Sample lines:
+  ``
+  "reaction id" "stoichiometry" "is reversible" "catalyzed by"
+
+  "HOMOSERDEHYDROG-RXN-HOMO-SER/NAD//L-ASPARTATE-SEMIALDEHYDE/NADH/PROTON.51."
+    {"NADH[c]": -1, "PROTON[c]": -1, "HOMO-SER[c]": 1, "L-ASPARTATE-SEMIALDEHYDE[c]": -1, "NAD[c]": 1}
+    false
+    ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]
+
+  "HOMOSERDEHYDROG-RXN-HOMO-SER/NADP//L-ASPARTATE-SEMIALDEHYDE/NADPH/PROTON.53."
+    {"NADPH[c]": -1, "NADP[c]": 1, "PROTON[c]": -1, "L-ASPARTATE-SEMIALDEHYDE[c]": -1, "HOMO-SER[c]": 1
+    false
+    ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]
+  ``
+  * `catalized by`: here we see `ASPKINIHOMOSERDEHYDROGI-CPLX`, which we can guess is a \x[protein-complex] made out of `ASPKINIHOMOSERDEHYDROGI-MONOMER`, which is the ID for the `thrA` we care about! This is confirmed in `complexationReactions.tsv`.
+* `reconstruction/ecoli/flat/complexationReactions.tsv` contains information about \x[chemical-reaction]{p} that produce \x[protein-complex]{p}:
+  ``
+  "process" "stoichiometry" "id" "dir"
+  "complexation"
+    [
+      {
+        "molecule": "ASPKINIHOMOSERDEHYDROGI-CPLX",
+        "coeff": 1,
+        "type": "proteincomplex",
+        "location": "c",
+        "form": "mature"
+      },
+      {
+        "molecule": "ASPKINIHOMOSERDEHYDROGI-MONOMER",
+        "coeff": -4,
+        "type": "proteinmonomer",
+        "location": "c",
+        "form": "mature"
+      }
+    ]
+  "ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
+  1
+  ``
+  The `coeff` is how many monomers need to get together for form the final complex. This can be seen from the Summary section of https://ecocyc.org/gene?orgid=ECOLI&id=ASPKINIHOMOSERDEHYDROGI-MONOMER[]:
+  \Q[Aspartate kinase I / homoserine dehydrogenase I comprises a dimer of ThrA dimers. Although the dimeric form is catalytically active, the binding equilibrium dramatically favors the tetrameric form. The aspartate kinase and homoserine dehydrogenase activities of each ThrA monomer are catalyzed by independent domains connected by a linker region.]
+  Fantastic literature summary! Can't find that in database form there however.
+* `reconstruction/ecoli/flat/proteinComplexes.tsv` contains \x[protein-complex] information:
+  ``
+  "name" "comments" "mw" "location" "reactionId" "id"
+  "aspartate kinase / homoserine dehydrogenase"
+  ""
+  [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 356414.04399999994, 0.0, 0.0, 0.0, 0.0]
+  ["c"]
+  "ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
+  "ASPKINIHOMOSERDEHYDROGI-CPLX"
+  ``
+* `reconstruction/ecoli/flat/protein_half_lives.tsv` contains the \x[half-life] of \x[protein]{p}. Very few proteins are listed however for some reason.
+* `reconstruction/ecoli/flat/tfIds.csv`: \x[transcription-factor]{p} information:
+  ``
+  "TF"   "geneId"  "oneComponentId"  "twoComponentId" "nonMetaboliteBindingId" "activeId" "notes"
+  "arcA" "EG10061" "PHOSPHO-ARCA"    "PHOSPHO-ARCA"
+  "fnr"  "EG10325" "FNR-4FE-4S-CPLX" "FNR-4FE-4S-CPLX"
+  "dksA" "EG10230"
+  ``
+
+= E. Coli Whole Cell Model by Covert lab papers
+{c}
+{parent=e-coli-whole-cell-model-by-covert-lab}
+
+2021 \x[review-paper]: https://journals.asm.org/doi/full/10.1128/ecosalplus.ESP-0001-2020 "The E. coli Whole-Cell Modeling Project". They should just past that stuff in a README :-) The article mentions that it is a follow up to the previous \x[m-genitalium-whole-cell-model-by-covert-lab]. Only 43% of known genes modelled at this point however, a shame.
