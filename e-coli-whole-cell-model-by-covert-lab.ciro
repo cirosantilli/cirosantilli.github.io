@@ -5,13 +5,16 @@
 
 https://github.com/CovertLab/WholeCellEcoliRelease is a \x[whole-cell-simulation] model created by \x[covert-lab] and other collaborators.
 
-The project is written in \x[python], hurray! But according to te \x[readme], it seems to be the use a \x[code-drop] model with on-request access to master, very \x[meh], asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion].
+The project is written in \x[python], hurray! But according to te \x[readme], it seems to be the use a \x[code-drop] model with on-request access to master, very \x[meh], asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion], and they confirmed as expected that it is to:
+* to prevent their \x[academic-publishing][publication] ideas from being stolen. Who would steal publication ideas with public proof in an issue tracker without crediting original authors?
+* to prevent noise from non collaborators. They do only get like 2 issues as year though, people forget that it is legal to ignore other people :-)
+Oh well.
 
-The project is a followup to the earlier \x[m-genitalium-whole-cell-model-by-covert-lab] which modelled \x[mycoplasma-genitalium]. \x[e-coli] has 8x more genes (500 vs 4k), but it the undisputed \x[bacterial] \x[model-organism] and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few minutes), which is a huge advantages for experiments.
+The project is a followup to the earlier \x[m-genitalium-whole-cell-model-by-covert-lab] which modelled \x[mycoplasma-genitalium]. \x[e-coli] has 8x more genes (500 vs 4k), but it the undisputed \x[bacterial] \x[model-organism] and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few hours), which is a huge advantages for validation/exploratory \x[experiment]{p}.
 
-The project has a partial dependency on the commercial \x[optimization-software] \x[cplex] (\x[freeware] for students), not sure what it is used for exactly, from the comment in the requirements.txt
+The project has a partial dependency on the \x[proprietary-software][proprietary] \x[optimization-software] \x[cplex] which is \x[freeware], for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
 
-This project makes \x[ciro-santilli] think of the \x[e-coli] as an \x[optimization-problem]. Given such external nutrient/temperature condition, which DNA sequence makes the cell grow the fastest? Balancing \x[metabolite]{p} feels like designing a \x[factorio] speedrun.
+This project makes \x[ciro-santilli] think of the \x[e-coli] as an \x[optimization-problem]. Given such external nutrient/temperature condition, which \x[dna] sequence makes the cell grow the fastest? Balancing \x[metabolite]{p} feels like designing a \x[factorio] speedrun.
 
 Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on \x[ubuntu] 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
 
@@ -20,7 +23,9 @@ Everything in this section refers to version https://github.com/CovertLab/WholeC
 
 At https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4] you basically need to use the \x[docker] image on \x[ubuntu] 21.04 due to \x[pip-package-manager] breaking changes... (not their fault). Perhaps \x[pyenv] would solve things, but who has the patience for that?!?!
 
-The Docker setup from README does just work, but what you really want to run is:
+The Docker setup from README does just work. The image download is a bit tedius, as it requires you to create a GitHub API key as described in the README, but there must be reasons for that.
+
+Once the image is downloaded, you really want to run is from the root of the source tree:
 ``
 sudo docker run --name=wcm -it -v "$(pwd):/wcEcoli" docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full
 ``
@@ -34,7 +39,7 @@ python runscripts/manual/analysisCohort.py &&
 python runscripts/manual/analysisMultigen.py &&
 python runscripts/manual/analysisSingle.py
 ``
-The meaning of each of the analysis commands is described at \x[output-overview].
+The meaning of each of the analysis commands is described at \x[output-overview]{full}.
 
 As a \x[docker] refresher, after you stop the container, e.g. by restarting your computer or running `sudo docker stop wcm`, you can get back into it with:
 ``
@@ -69,7 +74,7 @@ Run output is placed under `out/`:
 
 Some of the output data is stored as `.cpickle` files. To observe those files, you need the original Python classes, and therefore you have to be inside Docker, from the host it won't work.
 
-We can list all the plots that have been produced under out/ with
+We can list all the plots that have been produced under `out/` with
 ``
 find -name '*.png'
 ``
@@ -103,7 +108,7 @@ Each of thoes four levels of `plotOut` is generated by a different one of the an
 * `./out/manual/wildtype_000000/000000/generation_000000/000000/plotOut`: generated by `python runscripts/manual/analysisSingle.py --variant_index 0 --seed 0 --generation 0 --daughter 0`. Contains information about a single specific cell.
 
 = Mass fracion summary plot analysis
-{parent=e-coli-whole-cell-model-by-covert-lab}
+{parent=output-overview}
 
 Let's look into a sample plot, `out/manual/plotOut/svg_plots/massFractionSummary.svg`, and try to understand as much as we can about what it means and how it was generated.
 
@@ -136,22 +141,29 @@ By reading `models/ecoli/analysis/variant/massFractionSummary.py` a little bit, 
 \Image[https://upload.wikimedia.org/wikipedia/commons/9/94/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_mass_fraction_summary.svg]
 {title=Minimal condition mass fraction plot.}
 {description=File name: `out/manual/plotOut/svg_plots/massFractionSummary.svg`}
+{height=600}
 
-More plot types will be explored at \x[time-series-run-variant], where we will contrast two runs with different environments.
+More plot types will be explored at \x[time-series-run-variant], where we will contrast two runs with different \x[growth-medium]{p}.
 
 = Run variants
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
 It would be boring if we could only simulate the same condition all the time, so let's have a look at the different \x[boundary-condition]{p} that we can apply to the cell!
 
-We'll be altering things like the composition of the external medium, and the genome of the bacteria, which will make the bacteria behave differently.
+We are able to alter things like the composition of the external medium, and the genome of the bacteria, which will make the bacteria behave differently.
 
 The variant selection is a bit cumbersome as we have to use indexes instead of names, but one you know what you are doing, it is fine.
+
+Of course, genetic modification is limited only to experimentally known protein interactions due to the intractability of \x[computational-protein-folding] and \x[computational-chemistry] in general, solving those would bsai.
 
 = Default run variant
 {parent=run-variants}
 
-The default run variant, if you don't pass any options, just has the minimal growth conditions set. What this means can be seen at \x[condition]. Notably, this includes \x[glucose] and \x[oxygen], but no \x[amino-acid]{p}.
+The default run variant, if you don't pass any options, just has the minimal growth conditions set. What this means can be seen at \x[condition].
+
+Notably, this implies a \x[growth-medium] that includes \x[glucose] and \x[salt-chemistry]. It also includes \x[oxygen], which is not strictly required, but greatly benefits cell growth, and is of course easier to have than not have as it is part of the atmosphere!
+
+But the medium does not include \x[amino-acid]{p}, which the bacteria will have to produce by itself.
 
 = Time series run variant
 {parent=run-variants}
@@ -199,8 +211,9 @@ We can now compare the outputs of this run to the default `wildtype_000000` run 
   Then, at 20 minutes, which is about 0.3 hours, we see that the cell starts growing a bit less fast as the slope of the curve decreases a bit, because we removed that free amino acid supply.
 
   \Image[https://upload.wikimedia.org/wikipedia/commons/5/5f/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_acids_mass_fraction_summary.svg]
-  {title=Minimal condition vs amino acid cut mass fraction plot.}
+  {title=Minimal condition vs \x[amino-acid] cut mass fraction plot.}
   {description=From file `out/manual/plotOut/svg_plots/massFractionSummary.svg`.}
+  {height=600}
 
 The following plots from under `out/manual/wildtype_000000/000000/{generation_000000,nutrientTimeSeries_000025}/000000/plotOut/svg_plots` have been manually joined side-by-side with:
 ``
@@ -236,7 +249,7 @@ done
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7a/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_mrna_count_of_highly_expressed_mRNAs.svg]
 {title=\x[mrna] count of highly expressed mRNAs.}
-{description=From file `expression_rna_03_high.svg`. Each of the entries is a \x[gene] using the conventional gene naming convention of `xyzW`, e.g. here's the \x[biocyc] for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. TODO how can one protein be coded by two genes? What this seems to mean is that tufA and tufB are two similar molecules, either of which can makes up the \x[ef-tu] of the \x[e-coli], which is an important part of \x[translation-biology].}
+{description=From file `expression_rna_03_high.svg`. Each of the entries is a \x[gene] using the conventional gene naming convention of `xyzW`, e.g. here's the \x[biocyc] for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the \x[ef-tu] of the \x[e-coli], which is an important part of \x[translation-biology].}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/4/49/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes.svg]
 {title=External exchange fluxes.}
