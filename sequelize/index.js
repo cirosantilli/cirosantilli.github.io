@@ -1,14 +1,6 @@
 #!/usr/bin/env node
 
 // https://cirosantilli.com/sequelize
-//
-// Before running this:
-// * ensure that you can use peer authentication without password
-//   from the command line, i.e. `psql` works
-// * create the database for our test:
-//   ``
-//   createdb lkmc-nodejs
-//   ``
 
 const assert = require('assert');
 const path = require('path');
@@ -19,15 +11,23 @@ const { Sequelize, DataTypes, Op } = require('sequelize');
 // But the second constructor works with peer authentication.
 // https://stackoverflow.com/questions/46207155/sequelize-and-peer-authentication-for-postgres
 //
-// Fails
+// Fails:
+//
 //const sequelize = new Sequelize('postgres://user:password@localhost:5432/lkmc-nodejs')
 //
-// Works with peer authentication:
+// Works with peer authentication: Before running this:
+// * ensure that you can use peer authentication without password
+//   from the command line, i.e. `psql` works
+// * create the database for our test:
+//   ``
+//   createdb lkmc-nodejs
+//   ``
 //const sequelize = new Sequelize('lkmc-nodejs', undefined, undefined, {
 //  host: '/var/run/postgresql',
 //  dialect: 'postgres',
 //  logging: false,
 //});
+
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'tmp.' + path.basename(__filename) + '.sqlite',

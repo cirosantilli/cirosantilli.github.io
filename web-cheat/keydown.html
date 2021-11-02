@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Keydown</title>
+<script>
+</script>
+</head>
+<body>
+<p>Press "d" to stop logging the document callback.</p>
+<p>Try giving this input focus:</p>
+<input id="input">
+<div id="log">
+<script>
+function logKey(e, pref) {
+  log.innerHTML += `<div>${pref}: ${e.code} ${e.ctrlKey} ${e.key}</div>`;
+  if (e.code === 'KeyD') {
+    log.innerHTML += `<div></div>`;
+    document.removeEventListener('keydown', logDocumentKeydown);
+    document.removeEventListener('keyup', logDocumentKeyup);
+  }
+}
+let logDocumentKeydown = e => logKey(e, "document keydown")
+let logDocumentKeyup = e => logKey(e, "document keyup")
+const log = document.getElementById('log');
+const input = document.getElementById('input');
+document.addEventListener('keydown', logDocumentKeydown);
+document.addEventListener('keyup', logDocumentKeyup);
+input.onkeydown = e => logKey(e, "input keydown");
+input.onkeyup = e => logKey(e, "input keyup");
+</script>
+</body>
+</html>
