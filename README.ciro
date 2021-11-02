@@ -469,7 +469,7 @@ Packages can rely on other packages that contain pre-requisites definition or th
 
 Packages are just regular git repos, with some metadata. One notable metadata would be a human readable description of the theorems the package provides.
 
-The package registry would then in addition to most package registries have a CI \x[server] in it, that checks the correctness of all proofs, generates a web-page showing each theorem.
+The package registry would then in addition to most package registries have a \x[CI] \x[server] in it, that checks the correctness of all proofs, generates a web-page showing each theorem.
 
 All proofs can be conditional: the package registry simply shows clearly what axiom set a theorem is based on.
 
@@ -1470,11 +1470,11 @@ Or: how to learn X.
 
 This pops up on \x[reddit] every week.
 
-That is the wrong question.
+That is \x[backward-design][the wrong question].
 
 The right question is: what is the most awesome project I can do to improve the world?
 
-Then, once you decide to try one, if that involves programming, learn to program to achieve that goal.
+Then, once you decide to try one, if that involves \x[programming], only then learn to program to achieve that goal.
 
 And if doesn't involve programming, then don't learn to program, and learn whatever you actually need to reach that goal instead.
 
@@ -19079,6 +19079,17 @@ This brand: https://www.jongga.co.kr/global/product/product.jsp
 {c}
 {synonym}
 
+= Indian cuisine
+{c}
+{parent=india}
+{wiki}
+
+= Thali
+{parent=indian-cuisine}
+{wiki}
+
+South Indian vegetarian thali is the best thing ever.
+
 = Southeast Asia
 {c}
 {parent=asia}
@@ -28082,6 +28093,7 @@ Summary from low-level to high-level:
 
 \Image[https://web.archive.org/web/20191222121520if_/http://imgs.xkcd.com/comics/real_programmers.png]
 {title=\x[xkcd] 378: Real Programmers.}
+{height=600}
 {source=https://xkcd.com/378/}
 
 \Video[http://youtube.com/watch?v=_6D05gCWh_I]
@@ -28522,6 +28534,75 @@ Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
 https://kinesis-ergo.com/shop/advantage2/
 
 For \x[ciro-santilli], this is not a \x[computer-keyboard]. It is a \x[fetish].
+
+= Computer network
+{parent=computer}
+{wiki}
+
+= Internet
+{c}
+{parent=computer-network}
+{wiki}
+
+= Online
+{synonym}
+
+= Internet protocol suite
+{c}
+{parent=internet}
+{wiki}
+
+= Internet Protocol
+{c}
+{parent=internet-protocol-suite}
+{title2=IP}
+{wiki}
+
+= IP address
+{c}
+{parent=internet-protocol}
+
+= IP
+{c}
+{synonym}
+
+= Transmission Control Protocol
+{c}
+{parent=internet-protocol-suite}
+{title2=TCP}
+{wiki}
+
+= Domain Name System
+{c}
+{parent=internet-protocol-suite}
+{title2=DNS}
+{wiki}
+
+= DNS
+{synonym}
+
+= Domain name
+{parent=domain-name-system}
+{title2=DNS}
+{wiki}
+
+= Server
+{disambiguate=computing}
+{parent=computer-network}
+{wiki}
+
+= Server
+{synonym}
+
+= Local server
+{parent=server-computing}
+
+Server run on the current machine. That's how all \x[websites] are developed and born!
+
+= Client
+{disambiguate=computing}
+{parent=server-computing}
+{wiki}
 
 = Computer science
 {parent=computer}
@@ -29896,75 +29977,6 @@ TODO how close does it get to Shannon's limit?
 {title2=LDPC}
 {wiki}
 
-= Computer network
-{parent=computer}
-{wiki}
-
-= Internet
-{c}
-{parent=computer-network}
-{wiki}
-
-= Online
-{synonym}
-
-= Internet protocol suite
-{c}
-{parent=internet}
-{wiki}
-
-= Internet Protocol
-{c}
-{parent=internet-protocol-suite}
-{title2=IP}
-{wiki}
-
-= IP address
-{c}
-{parent=internet-protocol}
-
-= IP
-{c}
-{synonym}
-
-= Transmission Control Protocol
-{c}
-{parent=internet-protocol-suite}
-{title2=TCP}
-{wiki}
-
-= Domain Name System
-{c}
-{parent=internet-protocol-suite}
-{title2=DNS}
-{wiki}
-
-= DNS
-{synonym}
-
-= Domain name
-{parent=domain-name-system}
-{title2=DNS}
-{wiki}
-
-= Server
-{disambiguate=computing}
-{parent=computer-network}
-{wiki}
-
-= Server
-{synonym}
-
-= Local server
-{parent=server-computing}
-
-Server run on the current machine. That's how all \x[websites] are developed and born!
-
-= Client
-{disambiguate=computing}
-{parent=server-computing}
-{wiki}
-
 = Markup language
 {parent=computer}
 {wiki}
@@ -30111,6 +30123,32 @@ It is impossible to understand speech, and take meaningful actions from it, if y
 And without doubt, "understanding what is being talked about" comes down to understanding (efficiently representing) the geometry of the 3D world with a time component.
 
 Not from hearing sounds alone.
+
+= Parallel computing
+{parent=computer}
+{wiki}
+
+= Memory semantics
+{parent=parallel-computing}
+{wiki}
+
+These are the rules which specify what different concurrent read/write memory accesses from different threads/processes can or cannot see.
+
+Notable such set of rules include:
+* \x[c-memory-model]. These are also reflected on the semantics of memory of the corresponding \x[instruction-set-architecture]
+* \x[sql-transaction-isolation-level]
+
+= C++ memory model
+{c}
+{parent=memory-semantics}
+
+https://stackoverflow.com/questions/6319146/c11-introduced-a-standardized-memory-model-what-does-it-mean-and-how-is-it-g
+
+= Read-modify-write
+{parent=parallel-computing}
+{wiki=Read–modify–write}
+
+That's what usually fucks up parallel programs.
 
 = Quantum computing
 {parent=computer}
@@ -30760,6 +30798,26 @@ Very sweet. This is the future of the web.
 {parent=software}
 {wiki}
 
+= ACID
+{c}
+{disambiguate=database}
+{parent=database}
+{wiki}
+
+= Atomicity
+{disambiguate=database systems}
+{parent=acid-database}
+
+This means that e.g. if you do an `UPDATE` query on multiple rows, and power goes out half way, either all update, or none update.
+
+This is different from \x[isolation-database-systems], which considers instead what can or cannot happen when multiple queries are running in parallel.
+
+= Isolation
+{disambiguate=database systems}
+{parent=acid-database}
+
+See \x[sql-transaction-isolation-level]{full}.
+
 = NoSQL
 {c}
 {parent=database}
@@ -30812,6 +30870,35 @@ Tested as of Ubuntu 20.04, there is no Mongo package available by default due to
 {c}
 {parent=relational-database-management-system}
 {wiki}
+
+= SQL example
+{c}
+{parent=sql}
+
+We have some runnable SQL examples with \x[assertion-software-development]{p} under the `sequelize` directory.
+
+These examples are written in the \x[sequelize] library using raw queries.
+
+Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard \x[javascript].
+
+The examples use \x[sqlite] by default, as that is the easiest database
+
+Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
+
+* \a[sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
+* \a[sequelize/raw/many_to_many.js]: many to many relations
+
+= SQL transaction isolation level
+{c}
+{parent=sql}
+
+Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the \x[memory-semantics] of the system.
+
+Remember that queries can affects thousands of rows, and database systems like \x[postgresql] can run multiple such queries at the same time.
+
+Good summary on the \x[postgresql] page: https://www.postgresql.org/docs/9.5/transaction-iso.html
+
+TODO examples of each.
 
 = MySQL
 {c}
@@ -31134,8 +31221,15 @@ output:
 = Node.js SQLite bindings
 {parent=sqlite}
 
-* `sqlite3`
 * `better-sqlite3`
+
+= Node.js `sqlite3` package
+{parent=node-js-sqlite-bindings}
+
+* https://github.com/mapbox/node-sqlite3
+* https://www.npmjs.com/package/sqlite3
+
+Hello world example: \a[sqlite/node-sqlite3.js].
 
 = Object-relational mapping
 {parent=database}
@@ -31979,6 +32073,8 @@ Cheat:
 * \a[web-cheat/esm.html]: ESM modules
   * \a[web-cheat/esm1.js]
   * \a[web-cheat/esm2.js]
+* \a[web-cheat/keydown.html]
+  * https://stackoverflow.com/questions/16006583/capturing-ctrlz-key-combination-in-javascript
 
 = Client-side storage
 {parent=javascript}
@@ -32044,7 +32140,9 @@ WellSync, if you are gonna useSync this \x[javascript][wonky language] thing inS
 
 Source code: https://github.com/sequelize/sequelize
 
-Some examples: \a[sequelize]
+Some examples under the `sequelize` directory:
+* \a[sequelize/index.js]: a bunch of basic examples
+* \a[sequelize/raw/index.js]: queries. This is a hello world. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial.
 
 As of 2021, this is semi-decent.
 
@@ -32070,7 +32168,7 @@ Some issues include:
   * https://github.com/sequelize/sequelize/issues/12044
   * https://stackoverflow.com/questions/28231970/bluebird-shows-broken-stacktrace-when-using-with-sequelize-mysql
 * does not automatically update fields on hooks: https://github.com/sequelize/sequelize/issues/8586#issuecomment-422877555
-* no way to do (non-raw) querries during migrations, e.g. to update fields based on other fields in a complex way?
+* no way to do (non-raw) queries during migrations, e.g. to update fields based on other fields in a complex way?
   * https://github.com/sequelize/cli/issues/862
   * https://stackoverflow.com/questions/45286429/custom-query-on-sequelize-seeder
   * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
@@ -33016,8 +33114,8 @@ The best open source implementation as of 2020 seems to be: \x[mozilla-rr].
 * https://softwareengineering.stackexchange.com/questions/181527/why-is-reverse-debugging-rarely-used
 
 = Mozilla rr
-{parent=reverse-debugging}
 {c}
+{parent=reverse-debugging}
 
 https://github.com/mozilla/rr
 
@@ -33045,6 +33143,27 @@ The \x[musical-study] of \x[software-engineering].
 \x[ciro-santilli] is obsessed by those in order to learn any new concept, not just for bug reporting.
 
 This includes to learn more theoretical subjects like \x[physics] and \x[mathematics].
+
+= Software testing
+{parent=software-bug}
+{wiki}
+
+= Continuous integration
+{parent=software-testing}
+{wiki}
+
+= CI
+{c}
+{title2}
+{synonym}
+
+In other sections:
+* \x[gitlab-ci]{child}
+
+= Assertion
+{disambiguate=software development}
+{parent=software-testing}
+{wiki}
 
 = Software documentation
 {parent=software}
@@ -33105,7 +33224,7 @@ This means that build time, and the time to run tests, must be short.
 
 You also have to spend some time profiling execution and build from scratch times.
 
-A slow build from scratch will mean that your CI costs a lot, money that could be invested in a new developer!
+A slow build from scratch will mean that your \x[continuous-integration] costs a lot, money that could be invested in a new developer!
 
 It also means that people won't bother to reproduce bugs on given commits, or \x[bisection-software-engineering][bisect stuff].
 
@@ -33915,8 +34034,8 @@ GitLab was very important to Ciro because he wanted to base https://github.com/b
 See also: \x[ciro-santilli-s-minor-projects].
 
 = GitLab CI
-{parent=gitlab}
 {c}
+{parent=gitlab}
 
 https://github.com/gitlabhq/gitlab-ci
 
@@ -40818,9 +40937,12 @@ Ron seems to share a few philosophies which Ciro greatly agrees with as part of 
 * enthusiasm for \x[molecular-biology-technologies], seen e.g. at: https://www.quora.com/Why-are-an-abundance-of-physicists-moving-to-theoretical-biology/answer/Ron-Maimon on \x[quora]:
   \Q[\[biology\] is also clearly going to be the major technology of the 21st century, you should have a sugar outlet next to the electrical outlet, and plug in artificial biological technology made out of artificial cells. To plan these requires a complete method of describing biological cells, a precise model of all the processes, so that you can make artificial ones, and it produces a type of precise control on single-molecule chemistry that makes chemists drool.]
   Ciro is actually specifically curious about \x[whole-cell-simulation] which he makes reference to.
-* \x[effortless-effort]:
-  * https://www.quora.com/How-do-you-control-your-urge-to-access-the-internet-so-you-can-complete-your-assignments[] How do you control your urge to access the \x[internet] so you can complete your assignments?:
-    \Q[I don't. I consider the internet the first priority, as it will be viewed by thousands of people, and will have a real impact, while other assignments are lower priority, as they will only have an impact locally.]
+* \x[effortless-effort] and the to explain everything he knows online. These can be seen at https://www.quora.com/How-do-you-control-your-urge-to-access-the-internet-so-you-can-complete-your-assignments[] "How do you control your urge to access the \x[internet] so you can complete your assignments?":
+  \Q[I don't. I consider the internet the first priority, as it will be viewed by thousands of people, and will have a real impact, while other assignments are lower priority, as they will only have an impact locally.]
+* his cheapness as in \x[ciro-santilli-s-cheapness] as mentioned at https://youtu.be/ObXbKbpkSjQ?t=2454 from \x[video-ron-maimon-interview-with-jeff-meverson-2014]:
+  \Q[Interviewer: there's a question on \x[quora] where you say thta you took a vow of poverty when you were very young.
+
+  Ron: I was ten, I mean, most people would give it up, but I mean I figured I didn't have any need to give it up, so I just kept with it, I mean, I was never was really offered that much more. When we started the startup, I think I was offered 50k, but I said "no, I'll keep it 40k, I took a vow", and then they gave me 40k. And that of sort of set an example, the CEO also took 40k. It was a very good thing because we had very little money, we were a startup, and we were going by seed money.]
 
 He has either been blocked from or quit every single website he participates in due to his highly combative nature:
 * https://physics.meta.stackexchange.com/users/4864/ron-maimon from \x[physics-stack-exchange]:
@@ -40972,7 +41094,7 @@ Disadvantages: everything else:
 
   The alternative: do like LLVM and send attachments. Yes, I we all love opening up attachments on our browsers.
 
-  The real solution: everyone can create branches and pull requests. Also has the benefit of running CI on the pull requests.
+  The real solution: everyone can create branches and pull requests. Also has the benefit of running \x[ci] on the pull requests.
 
 Not sure:
 * you can have infinitely many trackers to replicate data in case apocalypse happens in some part of the world.

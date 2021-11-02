@@ -24,7 +24,7 @@ await IntegerNames.create({value: 2, name: 'two'});
 await IntegerNames.create({value: 3, name: 'three'});
 await IntegerNames.create({value: 5, name: 'five'});
 const integerName5 = await IntegerNames.findOne({ where: { value: 5 } });
-integerName5.increment('value')
+await integerName5.increment('value')
 // Sequelize updates, but others don't...
 console.error(integerName5.value);
 const integerName6 = await IntegerNames.findOne({ where: { value: 6 } });

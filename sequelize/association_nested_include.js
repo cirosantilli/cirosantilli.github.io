@@ -175,7 +175,7 @@ await users[0].addFollows([users[1], users[2]])
   assert(user0FollowsLimit2[0].name === 'user1')
   assert(user0FollowsLimit2.length === 1)
 
-  // Get just the count of the posts authored by useres followed by user0.
+  // Get just the count of the posts authored by users followed by user0.
   // attributes: [] excludes all other data from the SELECT of the querries
   // to optimize things a bit.
   // https://stackoverflow.com/questions/37817808/counting-associated-entries-with-sequelize
