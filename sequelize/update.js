@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');

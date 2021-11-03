@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// https://cirosantilli.com/sequelize-example
+
 const assert = require('assert');
 const path = require('path');
 

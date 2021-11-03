@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');

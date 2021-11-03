@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-// Two associations between two specific models. Requires us to use alias with `as:`
-// to disambiguate them.
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');

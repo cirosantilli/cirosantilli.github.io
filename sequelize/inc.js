@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// https://cirosantilli.com/sequelize-example
+
 const assert = require('assert');
 const path = require('path');
 
@@ -10,7 +12,6 @@ const sequelize = new Sequelize({
 });
 
 (async () => {
-await sequelize.authenticate();
 const IntegerNames = sequelize.define('IntegerNames', {
   value: {
     type: DataTypes.INTEGER,
@@ -25,8 +26,9 @@ await IntegerNames.create({value: 3, name: 'three'});
 await IntegerNames.create({value: 5, name: 'five'});
 const integerName5 = await IntegerNames.findOne({ where: { value: 5 } });
 await integerName5.increment('value')
-// Sequelize updates, but others don't...
+// SQLite updates, but PostgreSQL doesn't.
 console.error(integerName5.value);
+// So we do another find to get the updated value.
 const integerName6 = await IntegerNames.findOne({ where: { value: 6 } });
 assert.strictEqual(integerName6.name, 'five')
 await sequelize.close();

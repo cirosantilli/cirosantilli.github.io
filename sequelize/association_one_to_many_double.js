@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-// Two associations between two models: posts
-// now have the author, and a mandatory reviewer.
-// Requires us to use as do disambiguate them.
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');
