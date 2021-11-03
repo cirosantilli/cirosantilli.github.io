@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-// Find all posts by users that a given user follows.
-// https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');
