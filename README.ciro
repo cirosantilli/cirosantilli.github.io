@@ -1044,6 +1044,7 @@ Other accounts:
 * https://www.biostars.org/u/50170/
 * https://www.bountysource.com/people/25676-ciro-santilli
 * https://www.bulletphysics.org/Bullet/phpBB3/memberlist.php?mode=viewprofile&u=11704
+* https://www.codewars.com/users/cirosantilli
 * https://www.codingame.com/profile/cddd0a711c22d97e8264361f7c8205567563841
 * https://www.coursera.org/user/f65b08c191d792eb809fe2808d771ee7
 * https://www.dailymotion.com/ciro-santilli
@@ -6256,6 +6257,10 @@ Headphone Type: In-Ear
 {parent=bicycles}
 
 Trekking bike bought second hand in 2017. Seller confirmed it is this one https://www.kross.pl/en/2012/trans-alp (http://web.archive.org/web/20200426174741/https://www.kross.pl/en/2012/trans-alp[archive]) but male version (now shown clearly on website, but both exist).
+
+2021-10: noticed that bicycle is turning to right if I don't hold the handlebars.
+* https://www.sheldonbrown.com/brandt/pull-side.html
+* https://bicycles.stackexchange.com/questions/6630/my-bike-leans-to-the-right-what-should-i-check
 
 2021-10: changed chain for new one. Found out that the one I bought did not have a quicklink... Also, it did not come in the original package, but in a sealed plastic bag, presumably to reduce shipping costs. https://www.amazon.com/dp/B004XVQ2O0 have to be more careful next time. Lost the Shimano  500ml bottle, was strapped on back carrier of bike, but not safe enough, and I went through rough terrain. Had seen it fall off once before another time, but very rare. When I noticed, had no idea where it had fallen off and didn't go back for it. Buying:
 * https://www.topeak.com/global/en/products/245-Accessories/1093-VERSAMOUNT Topeak Versamount bottle cage mount because this frame only has 1 pair of holes, why...
@@ -15537,7 +15542,12 @@ Many \x[startup] companies are attempting to create more efficient de novo synth
 
 Notably, the dream of most of those companies is to have a machine that sits on a lab bench, which synthesises whatever you want.
 
-TODO current de novo synthesis costs.
+TODO current de novo synthesis costs/time to delivery after ordering a custom sequence.
+
+The initial main applications are likely going to be:
+* \x[polymerase-chain-reaction] primers (determine which region will be amplified
+* creating a custom sequence to be inserted in a \x[plasmid], i.e. \x[artificial-gene-synthesis]
+but the real pipe dream is building and bootstraping entire \x[artificial-chromosome]{p}
 
 News coverage:
 * 2020-10-05 https://www.nature.com/articles/s41587-020-0695-9 "Enzymatic DNA synthesis enters new phase"
@@ -15546,7 +15556,17 @@ News coverage:
 {parent=de-novo-dna-synthesis}
 {wiki}
 
-Same as \x[de-novo-dna-synthesis]?
+Using \x[de-novo-dna-synthesis] to synthesize a \x[gene]{p} to later insert somewhere.
+
+Note that this is a specific application of \x[de-novo-dna-synthesis], e.g. \x[polymerase-chain-reaction] primers is another major application that does not imply creating genes.
+
+= Artificial chromosome
+{parent=artificial-gene-synthesis}
+
+Using \x[de-novo-dna-synthesis] to synthesize entire \x[chromosome]{p}.
+
+In other sections:
+* \x[yeast-artificial-chromosome]{child}
 
 = Species bootstrapping from DNA
 {parent=de-novo-dna-synthesis}
@@ -20969,6 +20989,8 @@ Ciro really enjoyed the description of the "Arindam Kumar Chatterjee" \x[youtube
 \Q[Theoretical/mathematical physics at the graduate level and above. This is NOT a popular science channel. Here you find real theoretical physicists doing real theoretical physics. We think it is important for people to get a taste of the real deal, and for aspiring theoretical physicists to see what they are working towards, i.e., to provide the public with something beyond the ubiquitous Michio Kaku and Brian Cox.]
 
 One thing must be said however: there seems to be an actual bias against researchers tho try to create vulgarization material: \x[how-to-get-tenure-at-a-major-research-university-by-sean-carroll-2011], and that is terrible.
+
+There is often \x[there-is-value-in-tutorials-written-by-beginners][more value in a tutorial by a beginner who is trying to fully learn and explain a subject], than by an expert who is trying to "dumb it down" too much.
 
 = Crank
 {disambiguate=person}
@@ -30816,6 +30838,8 @@ This is different from \x[isolation-database-systems], which considers instead w
 {disambiguate=database systems}
 {parent=acid-database}
 
+Determines what can or cannot happen when multiple queries are running in parallel.
+
 See \x[sql-transaction-isolation-level]{full}.
 
 = NoSQL
@@ -30858,6 +30882,14 @@ echo 'db.collectionName.find()' | mongo mydb
 
 Tested as of Ubuntu 20.04, there is no Mongo package available by default due to their change to \x[server-side-public-license], which Debian opposed. Therefore, you have to add their custom PPA as mentioned at: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
+= Object-relational mapping
+{parent=database}
+{title2=ORM}
+{wiki=Object–relational_mapping}
+
+Per language:
+* \x[node-js-object-relational-mapping-library]
+
 = Relational database
 {parent=database}
 {wiki}
@@ -30881,12 +30913,24 @@ These examples are written in the \x[sequelize] library using raw queries.
 
 Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard \x[javascript].
 
-The examples use \x[sqlite] by default, as that is the easiest database
+The examples are tested on \x[sqlite] by default, as that is the easiest database to setup.
 
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
 
 * \a[sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
-* \a[sequelize/raw/many_to_many.js]: many to many relations
+* \a[sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}. Illustrates:
+  * \x[join-sql]
+  * \x[group-by]
+
+= GROUP BY
+{c}
+{disambiguate=sql}
+{wiki=Group_by_(SQL)}
+
+= JOIN
+{c}
+{disambiguate=sql}
+{wiki=Join_(SQL)}
 
 = SQL transaction isolation level
 {c}
@@ -31231,13 +31275,28 @@ output:
 
 Hello world example: \a[sqlite/node-sqlite3.js].
 
-= Object-relational mapping
+= Table relationship
 {parent=database}
-{title2=ORM}
-{wiki=Object–relational_mapping}
+{wiki=Associative_entity}
 
-Per language:
-* \x[node-js-object-relational-mapping-library]
+= One-to-one
+{parent=table-relationship}
+{wiki=One-to-one_(data_model)}
+
+= One-to-many
+{parent=table-relationship}
+{wiki=One-to-many_(data_model)}
+
+= Many-to-one
+{synonym}
+{title2}
+
+= Many-to-many
+{parent=table-relationship}
+{wiki=Many-to-many_(data_model)}
+
+= Many-to-many relation
+{synonym}
 
 = File manager
 {parent=software}
@@ -32140,9 +32199,7 @@ WellSync, if you are gonna useSync this \x[javascript][wonky language] thing inS
 
 Source code: https://github.com/sequelize/sequelize
 
-Some examples under the `sequelize` directory:
-* \a[sequelize/index.js]: a bunch of basic examples
-* \a[sequelize/raw/index.js]: queries. This is a hello world. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial.
+Some usage examples under: \x[sequelize-example]{full}.
 
 As of 2021, this is semi-decent.
 
@@ -32174,6 +32231,34 @@ Some issues include:
   * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
 * cannot change columns when other columns have constraints due to the backup table?
   * https://stackoverflow.com/questions/64533732/process-of-changing-a-table-with-sequelize-migration-if-foreign-key-constraint-i
+
+= Sequelize example
+{parent=sequelize}
+
+* \a[sequelize/index.js]: a bunch of basic examples
+* \a[sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial, and will not comment on them much further on this section.
+* \a[sequelize/before_validate_modify.js]
+* \a[sequelize/camel_case.js]
+* \a[sequelize/ignore_duplicates.js]
+* \a[sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
+  ``
+  UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
+  ``
+* \a[sequelize/sync_alter.js]: illustrates `Model.sync({alter: true})` to modify a table definition, answers: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
+* \a[sequelize/truncate_key.js]
+* \a[sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
+* \a[sequelize/updateOnDuplicate.js]
+* association examples:
+  * \a[sequelize/one_to_many.js]: basic \x[one-to-many] examples.
+  * \a[sequelize/many_to_many.js]: basic \x[many-to-many] examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+  * \a[sequelize/many_to_many_custom_table.js]
+  * \a[sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+  * \a[sequelize/many_to_many_same_model_super.js]
+  * \a[sequelize/nested_include.js]: double \x[join-sql] query: find all posts by users that a given user follows. Answers: https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause/68018083#68018083
+  * \a[sequelize/nested_include_super.js]
+  * two relationships between two specific tables: we need to use `as:` to disambiguate them
+    * \a[sequelize/many_to_many_double.js]: users can both follow and like posts
+    * \a[sequelize/many_to_one_double.js]: posts have the author and a mandatory reviewer
 
 = Node.js web framework
 {c}
@@ -39328,6 +39413,11 @@ By company:
 {c}
 {parent=video-game}
 
+Some that Ciro likes:
+* \x[angry-video-game-nerd]
+* SsethTzeentach https://www.youtube.com/channel/UCD6VugMZKRhSyzWEWA9W2fg
+  * https://www.youtube.com/watch?v=sw8v5__Ytf4 Heroes of Might and Magic III (2018)
+
 = Angry Video Game Nerd
 {c}
 {parent=video-game-review}
@@ -40366,11 +40456,11 @@ The sportsmen \x[ciro-santilli] admires the most are from \x[endurance-sport]:
 {parent=list-of-sports}
 {wiki}
 
-= Soccer
-{synonym}
-{title2}
-
 = Football
+{parent=list-of-sports}
+{wiki}
+
+= Soccer
 {synonym}
 {title2}
 

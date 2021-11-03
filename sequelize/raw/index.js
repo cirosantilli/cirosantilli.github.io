@@ -14,11 +14,16 @@ CREATE TABLE IntegerNames (
   name TEXT NOT NULL
 )
 `)
-await Promise.all([
-  `INSERT INTO IntegerNames VALUES (NULL, 2, 'two')`,
-  `INSERT INTO IntegerNames VALUES (NULL, 3, 'three')`,
-  `INSERT INTO IntegerNames VALUES (NULL, 5, 'five')`,
-].map(s => sequelize.query(s)))
+await sequelize.query(`CREATE INDEX valueIdx ON IntegerNames (value)`)
+async function reset() {
+  await sequelize.query(`DELETE FROM IntegerNames`)
+  return Promise.all([
+    `INSERT INTO IntegerNames VALUES (NULL, 2, 'two')`,
+    `INSERT INTO IntegerNames VALUES (NULL, 3, 'three')`,
+    `INSERT INTO IntegerNames VALUES (NULL, 5, 'five')`,
+  ].map(s => sequelize.query(s)))
+}
+await reset()
 
 let rows, meta
 
@@ -49,7 +54,7 @@ WHERE value > 2
 assert.strictEqual(rows[0].count, 2)
 assert.strictEqual(rows.length, 1)
 
-// SUM aggregate.
+// SUM aggregate query.
 ;[rows, meta] = await sequelize.query(`SELECT SUM(value) as 'sum' FROM IntegerNames`)
 assert.strictEqual(rows[0].sum, 10)
 assert.strictEqual(rows.length, 1)
@@ -64,8 +69,7 @@ assert.strictEqual(rows[1].name, 'three')
 assert.strictEqual(rows[2].value, 55)
 assert.strictEqual(rows[2].name, 'five')
 assert.strictEqual(rows.length, 3)
-// Undo.
-await sequelize.query(`UPDATE IntegerNames SET value = 5 WHERE value = 55`)
+await reset()
 
 // UPDATE multiple rows.
 await sequelize.query(`UPDATE IntegerNames SET value = value + 1`)
@@ -77,8 +81,7 @@ assert.strictEqual(rows[1].name, 'three')
 assert.strictEqual(rows[2].value, 6)
 assert.strictEqual(rows[2].name, 'five')
 assert.strictEqual(rows.length, 3)
-// Undo.
-await sequelize.query(`UPDATE IntegerNames SET value = value - 1`)
+await reset()
 
 // DELETE a row.
 await sequelize.query(`DELETE FROM IntegerNames WHERE value > 2`)
@@ -86,9 +89,7 @@ await sequelize.query(`DELETE FROM IntegerNames WHERE value > 2`)
 assert.strictEqual(rows[0].value, 2)
 assert.strictEqual(rows[0].name, 'two')
 assert.strictEqual(rows.length, 1)
-// Undo.
-await sequelize.query(`INSERT INTO IntegerNames VALUES (NULL, 3, 'three')`)
-await sequelize.query(`INSERT INTO IntegerNames VALUES (NULL, 5, 'five')`)
+await reset()
 
 await sequelize.close();
 })();
