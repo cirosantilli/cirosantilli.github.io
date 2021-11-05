@@ -3,46 +3,52 @@
 // https://cirosantilli.com/sql-example
 
 const assert = require('assert');
-const path = require('path');
-const { Sequelize, DataTypes, Op } = require('sequelize');
-const sequelize = new Sequelize({ dialect: 'sqlite', storage: ':memory:' });
-(async () => {
+const { DataTypes, Op } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(__filename)
+;(async () => {
 
-// Create tables and data.
+try { await sequelize.query(`DROP TABLE "AnimalTag"`) } catch (e) {}
+try { await sequelize.query(`DROP TABLE "Animal"`) } catch (e) {}
+try { await sequelize.query(`DROP TABLE "Tag"`) } catch (e) {}
 await Promise.all([
-  `CREATE TABLE Animal (id INTEGER PRIMARY KEY, name TEXT NOT NULL)`,
-  `CREATE TABLE Tag (id INTEGER PRIMARY KEY, name TEXT NOT NULL)`,
-  `
-CREATE TABLE AnimalTag (
-  animalId INTEGER NOT NULL,
-  tagId INTEGER NOT NULL,
-  PRIMARY KEY (animalId, tagId),
-  FOREIGN KEY (animalId) REFERENCES Animal(id) ON DELETE CASCADE,
-  FOREIGN KEY (tagId) REFERENCES Tag(id) ON DELETE CASCADE
-)
-`,
+  `CREATE TABLE "Animal" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
+  `CREATE TABLE "Tag" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
 ].map(s => sequelize.query(s)))
+await sequelize.query(`
+CREATE TABLE "AnimalTag" (
+  "animalId" INTEGER NOT NULL,
+  "tagId" INTEGER NOT NULL,
+  PRIMARY KEY ("animalId", "tagId"),
+  FOREIGN KEY ("animalId") REFERENCES "Animal"(id) ON DELETE CASCADE,
+  FOREIGN KEY ("tagId") REFERENCES "Tag"(id) ON DELETE CASCADE
+)
+`)
 async function reset() {
+  // Any of those also clears AnimalTag due to the CASCADE.
+  await sequelize.query(`DELETE FROM "Animal"`)
+  await sequelize.query(`DELETE FROM "Tag"`)
+  // Trying to run both concurrently often leads to deadlocks
+  // due to the concurrent CASCADEs on AnimalTag.
+  //await Promise.all([`Animal`, `Tag`].map(s => sequelize.query(`DELETE FROM "${s}"`)))
+
   await Promise.all([
-    `DELETE FROM Animal`,
-    `DELETE FROM Tag`,
-    `DELETE FROM AnimalTag`,
+    `INSERT INTO "Animal" VALUES (0, 'dog')`,
+    `INSERT INTO "Animal" VALUES (1, 'cat')`,
+    `INSERT INTO "Animal" VALUES (2, 'hawk')`,
+    `INSERT INTO "Animal" VALUES (3, 'bee')`,
+    `INSERT INTO "Tag" VALUES (0, 'flying')`,
+    `INSERT INTO "Tag" VALUES (1, 'mammal')`,
+    `INSERT INTO "Tag" VALUES (2, 'vertebrate')`,
   ].map(s => sequelize.query(s)))
   return Promise.all([
-    `INSERT INTO Animal VALUES (0, 'dog')`,
-    `INSERT INTO Animal VALUES (1, 'cat')`,
-    `INSERT INTO Animal VALUES (2, 'hawk')`,
-    `INSERT INTO Animal VALUES (3, 'bee')`,
-    `INSERT INTO Tag VALUES (0, 'flying')`,
-    `INSERT INTO Tag VALUES (1, 'mammal')`,
-    `INSERT INTO Tag VALUES (2, 'vertebrate')`,
-    `INSERT INTO AnimalTag VALUES (0, 1)`,
-    `INSERT INTO AnimalTag VALUES (0, 2)`,
-    `INSERT INTO AnimalTag VALUES (1, 1)`,
-    `INSERT INTO AnimalTag VALUES (1, 2)`,
-    `INSERT INTO AnimalTag VALUES (2, 0)`,
-    `INSERT INTO AnimalTag VALUES (2, 2)`,
-    `INSERT INTO AnimalTag VALUES (3, 0)`,
+    `INSERT INTO "AnimalTag" VALUES (0, 1)`,
+    `INSERT INTO "AnimalTag" VALUES (0, 2)`,
+    `INSERT INTO "AnimalTag" VALUES (1, 1)`,
+    `INSERT INTO "AnimalTag" VALUES (1, 2)`,
+    `INSERT INTO "AnimalTag" VALUES (2, 0)`,
+    `INSERT INTO "AnimalTag" VALUES (2, 2)`,
+    `INSERT INTO "AnimalTag" VALUES (3, 0)`,
   ].map(s => sequelize.query(s)))
 }
 await reset()
@@ -52,14 +58,14 @@ let rows, meta
 // Get all animals with a given tag.
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  Animal.name AS 'Animal_name'
-FROM Animal
-INNER JOIN AnimalTag
-  ON Animal.id = AnimalTag.animalId
-INNER JOIN Tag
-  ON AnimalTag.tagId = Tag.id
-  AND Tag.name = 'flying'
-ORDER BY Animal.id ASC
+  "Animal".name AS "Animal_name"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+  AND "Tag".name = 'flying'
+ORDER BY "Animal".id ASC
 `)
 assert.strictEqual(rows[0].Animal_name, 'hawk')
 assert.strictEqual(rows[1].Animal_name, 'bee')
@@ -68,100 +74,138 @@ assert.strictEqual(rows.length, 2)
 // Get all tags with of a given animal.
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  Tag.name AS 'Tag_name'
-FROM Tag
-INNER JOIN AnimalTag
-  ON Tag.id = AnimalTag.tagId
-INNER JOIN Animal
-  ON AnimalTag.animalId = Animal.id
-  AND Animal.name = 'dog'
-ORDER BY Tag.id ASC
+  "Tag".name AS "Tag_name"
+FROM "Tag"
+INNER JOIN "AnimalTag"
+  ON "Tag".id = "AnimalTag"."tagId"
+INNER JOIN "Animal"
+  ON "AnimalTag"."animalId" = "Animal".id
+  AND "Animal".name = 'dog'
+ORDER BY "Tag".id ASC
 `)
 assert.strictEqual(rows[0].Tag_name, 'mammal')
 assert.strictEqual(rows[1].Tag_name, 'vertebrate')
 assert.strictEqual(rows.length, 2)
 
 // Get animal counts for each tag and order them in increasing order.
-// Illustrates `GROUP BY`.
+// Illustrates `GROUP BY`. TODO why is Tag.name allowed in the SELECT
+// even though it does not appear in the GROUP BY or aggregates?
+// Wasn't this supposed to fail?
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  Tag.name AS name,
+  "Tag".name AS name,
   COUNT(*) AS count
-FROM Tag
-INNER JOIN AnimalTag
-  ON Tag.id = AnimalTag.tagId
-INNER JOIN Animal
-  ON AnimalTag.animalId = Animal.id
-GROUP BY Tag.id
+FROM "Tag"
+INNER JOIN "AnimalTag"
+  ON "Tag".id = "AnimalTag"."tagId"
+INNER JOIN "Animal"
+  ON "AnimalTag"."animalId" = "Animal".id
+GROUP BY "Tag".id
 ORDER BY
   count DESC,
-  Tag.id ASC
+  "Tag".id ASC
 `)
 assert.strictEqual(rows[0].name, 'vertebrate')
-assert.strictEqual(rows[0].count, 3)
+assert.strictEqual(parseInt(rows[0].count, 10), 3)
 assert.strictEqual(rows[1].name, 'flying')
-assert.strictEqual(rows[1].count, 2)
+assert.strictEqual(parseInt(rows[1].count, 10), 2)
 assert.strictEqual(rows[2].name, 'mammal')
-assert.strictEqual(rows[2].count, 2)
+assert.strictEqual(parseInt(rows[2].count, 10), 2)
 assert.strictEqual(rows.length, 3)
 
 // Get animal counts for each tag that has less than 3 animals.
+//
 // This illustrates HAVING, which is what you have to do when dealing with aggregations:
 // https://stackoverflow.com/questions/9253244/sql-having-vs-where
+//
+// Note that we cannot use the alias "count" in the HAVING:
+// we just have to write COUNT(*) again there
+// * https://dba.stackexchange.com/questions/281438/why-does-an-alias-with-a-having-clause-not-exist-in-postgresql
+// * https://www.postgresqltutorial.com/postgresql-having/
+//   "PostgreSQL evaluates the HAVING clause after the FROM, WHERE, GROUP BY, and before the SELECT, DISTINCT, ORDER BY and LIMIT clauses"
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  Tag.name AS name,
+  "Tag".name AS name,
   COUNT(*) AS count
-FROM Tag
-INNER JOIN AnimalTag
-  ON Tag.id = AnimalTag.tagId
-INNER JOIN Animal
-  ON AnimalTag.animalId = Animal.id
-GROUP BY Tag.id
+FROM "Tag"
+INNER JOIN "AnimalTag"
+  ON "Tag".id = "AnimalTag"."tagId"
+INNER JOIN "Animal"
+  ON "AnimalTag"."animalId" = "Animal".id
+GROUP BY "Tag".id
 HAVING
-  count < 3
+  COUNT(*) < 3
 ORDER BY
   count DESC,
-  Tag.id ASC
+  "Tag".id ASC
 `)
 assert.strictEqual(rows[0].name, 'flying')
-assert.strictEqual(rows[0].count, 2)
+assert.strictEqual(parseInt(rows[0].count, 10), 2)
 assert.strictEqual(rows[1].name, 'mammal')
-assert.strictEqual(rows[1].count, 2)
+assert.strictEqual(parseInt(rows[1].count, 10), 2)
 assert.strictEqual(rows.length, 2)
 
 // Get animal counts only for the tags that are associated with 'dog'.
+// Because SELECT must either contain aggregates or group by columns,
+// we can't get names here unless:
+// * we add a names to the GROUP BY. TODO wouldn't this would lead to slower evaluation, as it would have to both strings and integers, or strings rather than integers?
+//   The optimizer could in principle however notice that because both names and IDs unique, that it can use the IDs for comparisons instead of names. But does it really?
+// * TODO any other better possibility, either with joins or subqueries?
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  COUNT(*) as 'count',
-  Tag.name as 'name'
-FROM Animal
-INNER JOIN AnimalTag
-  ON Animal.name = 'dog'
-  AND Animal.id = AnimalTag.animalId
-INNER JOIN Tag
-  ON Tag.id = AnimalTag.tagId
-INNER JOIN AnimalTag as 'AnimalTag2'
-  ON AnimalTag2.tagId = AnimalTag.tagId
-GROUP BY AnimalTag2.tagId
+  COUNT(*) AS count,
+  "AnimalTag2"."tagId" AS "tagId"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal".name = 'dog'
+  AND "Animal".id = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "Tag".id = "AnimalTag"."tagId"
+INNER JOIN "AnimalTag" AS "AnimalTag2"
+  ON "AnimalTag2"."tagId" = "AnimalTag"."tagId"
+GROUP BY "AnimalTag2"."tagId"
 ORDER BY
   count DESC,
-  Tag.id ASC
+  "AnimalTag2"."tagId" ASC
+`)
+assert.strictEqual(rows[0].tagId, 2)
+assert.strictEqual(parseInt(rows[0].count, 10), 3)
+assert.strictEqual(rows[1].tagId, 1)
+assert.strictEqual(parseInt(rows[1].count, 10), 2)
+assert.strictEqual(rows.length, 2)
+
+// Same as above but use names in the JOIN instead of IDs.
+;[rows, meta] = await sequelize.query(`
+SELECT
+  COUNT(*) AS count,
+  "Tag".name AS name
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal".name = 'dog'
+  AND "Animal".id = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "Tag".id = "AnimalTag"."tagId"
+INNER JOIN "AnimalTag" AS "AnimalTag2"
+  ON "AnimalTag2"."tagId" = "AnimalTag"."tagId"
+GROUP BY "Tag".name
+ORDER BY
+  count DESC,
+  "Tag"."name" ASC
 `)
 assert.strictEqual(rows[0].name, 'vertebrate')
-assert.strictEqual(rows[0].count, 3)
+assert.strictEqual(parseInt(rows[0].count, 10), 3)
 assert.strictEqual(rows[1].name, 'mammal')
-assert.strictEqual(rows[1].count, 2)
+assert.strictEqual(parseInt(rows[1].count, 10), 2)
 assert.strictEqual(rows.length, 2)
 
 // Queries that modify data.
 
 // ON DELETE CASCADE action: if we delete the 'vertebrate' tag,
 // corresponding relations are also deleted.
-await sequelize.query(`DELETE FROM Tag WHERE id = 2`)
+await sequelize.query(`DELETE FROM "Tag" WHERE id = 2`)
 ;[rows, meta] = await sequelize.query(`
-SELECT * FROM AnimalTag
-ORDER BY animalId ASC, tagId ASC
+SELECT * FROM "AnimalTag"
+ORDER BY "animalId" ASC, "tagId" ASC
 `)
 assert.strictEqual(rows[0].animalId, 0)
 assert.strictEqual(rows[0].tagId,    1)
@@ -186,31 +230,31 @@ await reset()
 if (false) {
   // JOIN version.
   await sequelize.query(`
-DELETE FROM Animal
-INNER JOIN AnimalTag
-  ON Animal.id = AnimalTag.animalId
-INNER JOIN Tag
-  ON AnimalTag.tagId = Tag.id
-  AND Tag.name = 'flying'
-ORDER BY Animal.id ASC
+DELETE FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal".id = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+  AND "Tag".name = 'flying'
+ORDER BY "Animal".id ASC
 `)
 } else {
   // Subquery version.
   await sequelize.query(`
-DELETE FROM Animal
-WHERE Animal.id IN (
+DELETE FROM "Animal"
+WHERE "Animal".id IN (
   SELECT
-    Animal.id
-  FROM Animal
-  INNER JOIN AnimalTag
-    ON Animal.id = AnimalTag.animalId
-  INNER JOIN Tag
-    ON AnimalTag.tagId = Tag.id
-    AND Tag.name = 'flying'
+    "Animal".id
+  FROM "Animal"
+  INNER JOIN "AnimalTag"
+    ON "Animal".id = "AnimalTag"."animalId"
+  INNER JOIN "Tag"
+    ON "AnimalTag"."tagId" = "Tag".id
+    AND "Tag".name = 'flying'
 )
 `)
 }
-;[rows, meta] = await sequelize.query(`SELECT * FROM Animal ORDER BY id ASC`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "Animal" ORDER BY id ASC`)
 assert.strictEqual(rows[0].name, 'dog')
 assert.strictEqual(rows[1].name, 'cat')
 assert.strictEqual(rows.length, 2)
@@ -222,24 +266,24 @@ await reset()
 // empty tags after deleting animal, as there might be no more associated animals
 // to them after every animal deletion.
 await sequelize.query(`
-DELETE FROM Tag
-WHERE Tag.id IN (
+DELETE FROM "Tag"
+WHERE "Tag".id IN (
   SELECT
-    Tag.id
-  FROM Animal
-  INNER JOIN AnimalTag
-    ON Animal.name = 'dog'
-    AND Animal.id = AnimalTag.animalId
-  INNER JOIN Tag
-    ON Tag.id = AnimalTag.tagId
-  INNER JOIN AnimalTag as 'AnimalTag2'
-    ON AnimalTag2.tagId = AnimalTag.tagId
-  GROUP BY AnimalTag2.tagId
+    "AnimalTag2"."tagId"
+  FROM "Animal"
+  INNER JOIN "AnimalTag"
+    ON "Animal".name = 'dog'
+    AND "Animal".id = "AnimalTag"."animalId"
+  INNER JOIN "Tag"
+    ON "Tag".id = "AnimalTag"."tagId"
+  INNER JOIN "AnimalTag" AS "AnimalTag2"
+    ON "AnimalTag2"."tagId" = "AnimalTag"."tagId"
+  GROUP BY "AnimalTag2"."tagId"
   HAVING
     COUNT(*) < 3
 )
 `)
-;[rows, meta] = await sequelize.query(`SELECT * FROM Tag ORDER BY id ASC`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "Tag" ORDER BY id ASC`)
 assert.strictEqual(rows[0].name, 'flying')
 assert.strictEqual(rows[1].name, 'vertebrate')
 assert.strictEqual(rows.length, 2)
