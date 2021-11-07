@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // https://cirosantilli.com/sequelize
+// https://cirosantilli.com/sql-example
 const assert = require('assert');
 const { DataTypes, Op } = require('sequelize');
 const common = require('./common')
-const sequelize = common.sequelize(__filename)
+const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
 // Create tables and data.
@@ -18,11 +19,12 @@ CREATE TABLE "IntegerNames" (
 await sequelize.query(`CREATE INDEX "valueIdx" ON "IntegerNames" (value)`)
 async function reset() {
   await sequelize.query(`DELETE FROM "IntegerNames"`)
-  return Promise.all([
-    `INSERT INTO "IntegerNames" VALUES (0, 2, 'two')`,
-    `INSERT INTO "IntegerNames" VALUES (1, 3, 'three')`,
-    `INSERT INTO "IntegerNames" VALUES (2, 5, 'five')`,
-  ].map(s => sequelize.query(s)))
+  return sequelize.query(`
+INSERT INTO "IntegerNames" VALUES
+(0, 2, 'two'),
+(1, 3, 'three'),
+(2, 5, 'five')
+`)
 }
 await reset()
 

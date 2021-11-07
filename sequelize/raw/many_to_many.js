@@ -5,9 +5,12 @@
 const assert = require('assert');
 const { DataTypes, Op } = require('sequelize');
 const common = require('./common')
-const sequelize = common.sequelize(__filename)
+const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
+// We do separate DROPs here because if one CREATE fails, we still
+// want the other DROPs to run, even though one of them will fail.
+// due to the table of the failed CREATE not existing.
 try { await sequelize.query(`DROP TABLE "AnimalTag"`) } catch (e) {}
 try { await sequelize.query(`DROP TABLE "Animal"`) } catch (e) {}
 try { await sequelize.query(`DROP TABLE "Tag"`) } catch (e) {}
@@ -29,27 +32,35 @@ async function reset() {
   await sequelize.query(`DELETE FROM "Animal"`)
   await sequelize.query(`DELETE FROM "Tag"`)
   // Trying to run both concurrently often leads to deadlocks
-  // due to the concurrent CASCADEs on AnimalTag.
+  // on PostgreSQL due to the concurrent CASCADEs on AnimalTag.
   //await Promise.all([`Animal`, `Tag`].map(s => sequelize.query(`DELETE FROM "${s}"`)))
 
+  // We have to first insert Animal and Tag because AnimalTag
+  // depend on it.
   await Promise.all([
-    `INSERT INTO "Animal" VALUES (0, 'dog')`,
-    `INSERT INTO "Animal" VALUES (1, 'cat')`,
-    `INSERT INTO "Animal" VALUES (2, 'hawk')`,
-    `INSERT INTO "Animal" VALUES (3, 'bee')`,
-    `INSERT INTO "Tag" VALUES (0, 'flying')`,
-    `INSERT INTO "Tag" VALUES (1, 'mammal')`,
-    `INSERT INTO "Tag" VALUES (2, 'vertebrate')`,
+    `
+INSERT INTO "Animal" VALUES
+(0, 'dog'),
+(1, 'cat'),
+(2, 'hawk'),
+(3, 'bee')
+`,
+    `
+INSERT INTO "Tag" VALUES
+(0, 'flying'),
+(1, 'mammal'),
+(2, 'vertebrate')
+`,
   ].map(s => sequelize.query(s)))
-  return Promise.all([
-    `INSERT INTO "AnimalTag" VALUES (0, 1)`,
-    `INSERT INTO "AnimalTag" VALUES (0, 2)`,
-    `INSERT INTO "AnimalTag" VALUES (1, 1)`,
-    `INSERT INTO "AnimalTag" VALUES (1, 2)`,
-    `INSERT INTO "AnimalTag" VALUES (2, 0)`,
-    `INSERT INTO "AnimalTag" VALUES (2, 2)`,
-    `INSERT INTO "AnimalTag" VALUES (3, 0)`,
-  ].map(s => sequelize.query(s)))
+  return sequelize.query(`
+INSERT INTO "AnimalTag" VALUES (0, 1),
+(0, 2),
+(1, 1),
+(1, 2),
+(2, 0),
+(2, 2),
+(3, 0)
+`)
 }
 await reset()
 
