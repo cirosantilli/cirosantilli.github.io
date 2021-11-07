@@ -28246,11 +28246,15 @@ It must also be said that like in any industry, certain layers are hidden in com
 
 But as you climb down into the abyss of low level hardcoreness, don't forget that \x[backward-design][making usefulness is more important than being hardcore]: \x[image-xkcd-378-real-programmers].
 
+First, the most important thing you should know about this subject: https://cirosantilli.com/linux-kernel-module-cheat/should-you-waste-your-life-with-systems-programming
+
 Summary from low-level to high-level:
 * \x[computer-hardware]
   * \x[microarchitecture]: a good way to play with this is to try and run some minimal userland examples on \x[gem5] userland simulation with logging, e.g. see on the \x[linux-kernel-module-cheat]:
     * https://cirosantilli.com/linux-kernel-module-cheat/gem5-event-queue-derivo3cpu-syscall-emulation-freestanding-example-analysis
     This should be done at the same time as books/website/courses that explain the microarchitecture basics.
+
+    This is the level of abstraction that \x[ciro-santilli] finds the most interesting of the hardware stack. Learning it for actual \x[cpu]{p} (which as of 2020 is only partially documented by vendos) could actually be useful in hardcore software optimization use cases.
   * \x[instruction-set-architecture]: a good approach to learn this is to manually write some userland assembly with assertions as done in the \x[linux-kernel-module-cheat] e.g. at:
     * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/add.S
     * https://cirosantilli.com/linux-kernel-module-cheat/x86-userland-assembly
@@ -28263,20 +28267,36 @@ Summary from low-level to high-level:
   * \x[executable-file-format], notably \x[executable-and-linkable-format]. Particularly important is to understand the basics of address relocation and position independent code:
     * https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144[How do linkers and address relocation works?]
     * https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]
+  * \x[register-transfer-level]
+    * interactive \x[verilator] fun: https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
+    * more importantly, and much harder/maybe impossible with \x[open-source], would be to try and set up a open source \x[standard-cell-library] and supporting software to obtain \x[power-performance-and-area] estimates
+      * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli[Are there good open source standard cell libraries to learn IC synthesis with EDA tools?] on \x[quora]
+      * the most open source ones are some initiatives targetting FPGAs, e.g. https://symbiflow.github.io/[], http://www.clifford.at/icestorm/[]
+      * qflow is an initiative targetting actual \x[integrated-circuit]{p}
+        * http://opencircuitdesign.com/qflow/
+        * https://github.com/RTimothyEdwards/qflow
 * \x[software]
   * \x[systems-programming]
     * \x[operating-system]. There are two ways to approach this:
       * learn about the Linux kernel \x[linux-kernel]. A good starting point is to learn about its main interfaces. This is well shown at \x[linux-kernel-module-cheat]:
-        * write some system calls in
-          * pure assembly:
-            * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/freestanding/linux/hello.S
-            * https://stackoverflow.com/questions/174942/how-should-strace-be-used/55397255#55397255
-          * C GCC inline assembly:
-            * https://stackoverflow.com/questions/9506353/how-to-invoke-a-system-call-via-syscall-or-sysenter-in-inline-assembly/54956854#54956854
-            * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/inline_asm/freestanding/linux/hello.c
-        * write your own (mini-) OS, or study a minimal educational OS, e.g. as in:
-          * \x[x86-bare-metal-examples]
-          * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
+        * system calls
+          * write some system calls in
+            * pure assembly:
+              * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/freestanding/linux/hello.S
+              * https://stackoverflow.com/questions/174942/how-should-strace-be-used/55397255#55397255
+            * C GCC inline assembly:
+              * https://stackoverflow.com/questions/9506353/how-to-invoke-a-system-call-via-syscall-or-sysenter-in-inline-assembly/54956854#54956854
+              * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/inline_asm/freestanding/linux/hello.c
+        * learn about kernel modules and their interfaces. Notably, learn about to demystify special files such `/dev/random` and so on:
+          * https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-driver/44640466#44640466
+          * https://github.com/cirosantilli/linux-kernel-module-cheat/tree/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/kernel_modules
+        * learn how to do a minimal Linux kernel disk image/boot to userland hello world: https://unix.stackexchange.com/questions/2692/what-is-the-smallest-possible-linux-implementation/203902#203902[What is the smallest possible Linux implementation?]
+        * learn how to GDB step debug the Linux kernel itself. Once you know this, you will feel that "given enough patience, I could understand anything that I wanted about the kernel", and you can then proceed to not learn almost anything about it and carry on with your life:
+          * https://cirosantilli.com/linux-kernel-module-cheat/gdb
+          * https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642[How to debug the Linux kernel with GDB and QEMU?]
+      * write your own (mini-) OS, or study a minimal educational OS, e.g. as in:
+        * \x[x86-bare-metal-examples]
+        * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
   * \x[programming-language]
 
 \Image[https://web.archive.org/web/20191222121520if_/http://imgs.xkcd.com/comics/real_programmers.png]
@@ -28346,6 +28366,26 @@ At this level, you are basically thinking about the 3D layered structure of a ch
 * https://www.youtube.com/watch?v=CFsn1CUyXWs ASML: TSMC's Critical Supplier, Explained by asianometry (2021)
 * https://www.youtube.com/watch?v=SB8qIO6Ti_M How ASML Won Lithography (& Why Japan Lost) by asianometry (2021)
 
+= Power, performance and area
+{parent=semiconductor-physical-implementation}
+{title2=PPA}
+
+https://en.wikichip.org/wiki/power-performance-area
+
+This is the mantra of the \x[semiconductor-industry]:
+* power and area are the main limiting factors of chips, i.e., your budget:
+  * chip area is ultra expensive because there are sporadic errors in the fabrication process, and each error in any part of the chip can potentially break the entire chip. Although there are 
+
+    The pecentage of working chips is called the yield.
+
+    In some cases however, e.g. if the error only affects single CPU of a multi-core CPU, then they actually deactivate the broken CPU after testing, and sell the worse CPU cheaper with a clear branding of that: this is called binning https://www.tomshardware.com/uk/reviews/glossary-binning-definition,5892.html
+  * power is a major semiconductor limit as of 2010's and onwards. If everything turns on at once, the chip would burn. Designs have to account for that.
+* performance is the goal: basically a set of algorithms that you want your hardware to solve, each one with a respective weight of importance
+
+  Serial performance is fundamentally limited by the \x[critical-path][longest path] that electrons have to travel in a given clock cycle.
+
+  The way to work around it is to create pipelines, splitting up single operations into multiple states, and storing intermediate results in memories.
+
 = Wafer
 {disambiguate=electronics}
 {parent=semiconductor-physical-implementation}
@@ -28393,12 +28433,23 @@ Some nice insights at: \x[robert-noyce-the-man-behind-the-microchip-by-leslie-be
 {parent=semiconductor-physical-implementation}
 {wiki}
 
-Basically what \x[register-transfer-level] maps to in order to achieve a real chip implementation.
+Basically what \x[register-transfer-level] compiles to in order to achieve a real chip implementation.
 
-They can be designed by third parties
+After this is done, the final step is \x[place-and-route].
+
+They can be designed by third parties besides the \x[semiconductor-fabrication-plant]{p}. E.g. \x[arm-ltd] markets its \x[arm-artisan][Artisan] Standard Cell Libraries as mentioned e.g. at: https://web.archive.org/web/20211007050341/https://developer.arm.com/ip-products/physical-ip/logic This came from a 2004 acquisition: https://www.eetimes.com/arm-to-acquire-artisan-components-for-913-million/[], \x[if-a-product-of-a-big-company-has-a-catchy-name-it-came-from-an-acquisition][obviously].
+
+= Open source standard cell library
+{parent=standard-cell-library}
 
 Open source ones:
 * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli Are there good open source standard cell libraries to learn IC synthesis with EDA tools?
+
+= Place and route
+{parent=semiconductor-physical-implementation}
+{wiki}
+
+Given a bunch of interlinked \x[standard-cell-library] elements, actually decide where exactly they are going to go on 2D (stacked 2D) \x[integrated-circuit] surface.
 
 = Integrated circuit
 {parent=computer-hardware}
@@ -28459,6 +28510,12 @@ Examples of companies that work at this level include:
 {c}
 {parent=register-transfer-level}
 {wiki}
+
+= Verilator
+{parent=verilog}
+{wiki}
+
+\x[verilog] simulator that \x[transpile]{p} to \x[c-plus-plus].
 
 = VHDL
 {c}
@@ -28725,6 +28782,28 @@ Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
 https://kinesis-ergo.com/shop/advantage2/
 
 For \x[ciro-santilli], this is not a \x[computer-keyboard]. It is a \x[fetish].
+
+= Semiconductor industry
+{parent=computer-hardware}
+{wiki}
+
+= Semiconductor company
+{parent=semiconductor-industry}
+
+= Arm Ltd.
+{c}
+{parent=semiconductor-company}
+{wiki}
+
+= Arm Artisan
+{c}
+{parent=arm-ltd}
+{wiki}
+
+= Intel
+{c}
+{parent=semiconductor-company}
+{wiki}
 
 = Computer network
 {parent=computer}
@@ -29199,6 +29278,9 @@ Heck, we know nothing about this class yet related to non quantum classes!
 = Critical path method
 {parent=limiting-factor}
 {wiki}
+
+= Critical path
+{parent=limiting-factor}
 
 = Cryptography
 {parent=computer-science}
@@ -36779,6 +36861,13 @@ https://calebporzio.com/sponsorware
 {wiki}
 
 Taboola is a \x[clickbait] trained neural network. Which happens to have been written by \x[adolf-hitler].
+
+= If a product of a big company has a catchy name it came from an acquisition
+{parent=marketing}
+
+If a Big Company makes a product that Does Something, they just call it Big Company Does Something.
+
+If a product is called "Big Company Catchy Name Does Something", then it came from an acquisition, and they wanted to keep the name due to its prestige and to not confuse users.
 
 = Meal deal
 {parent=marketing}
