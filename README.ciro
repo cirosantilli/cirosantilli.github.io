@@ -437,6 +437,7 @@ There are a few \x[proof-assistant] systems with several theorems in their Git t
 * https://github.com/coq/coq[]
 * \x[metamath] this one is likely an older and less powerful system, but the web presentation and tutorial are very good! Source: https://github.com/metamath/metamath-exe Here is a proof that 2 + 2 equals 4: http://us.metamath.org/mpeuni/2p2e4.html
 * https://en.wikipedia.org/wiki/Lean_(proof_assistant) | https://github.com/leanprover/lean | https://github.com/leanprover/lean4
+* https://www.bookofproofs.org/branches/fpl-formal-proving-language/ from \x[bookofproofs]
 
 And here are some more interesting links:
 * https://github.com/awesomo4000/awesome-provable an awesome list of formal stuff
@@ -6271,7 +6272,7 @@ Headphone Type: In-Ear
 
 Trekking bike bought second hand in 2017. Seller confirmed it is this one https://www.kross.pl/en/2012/trans-alp (http://web.archive.org/web/20200426174741/https://www.kross.pl/en/2012/trans-alp[archive]) but male version (now shown clearly on website, but both exist).
 
-2021-11: trickling noise coming from front wheel. Going to get a new one without the generator which I hever use anyways and see if it solves it: https://www.tredz.co.uk/.M-Part-Shimano-Deore-Hub-on-Mavic-A319-700c-Rim-Complete-Wheel_35638.htm M Part Shimano Deore Hub On Mavic A319 700c Rim Complete Wheel.
+2021-11: trickling noise coming from front wheel. Going to get a new one without the generator which I hever use anyways and see if it solves it: https://www.tredz.co.uk/.M-Part-Shimano-Deore-Hub-on-Mavic-A319-700c-Rim-Complete-Wheel_35638.htm M Part Shimano Deore Hub On Mavic A319 700c Rim Complete Wheel. Getting https://www.amazon.com/dp/B004TGL57S Raleigh TRT701 Wheel Rim Tape - Red, 700c 
 
 2021-10: noticed that bicycle is turning to right if I don't hold the handlebars.
 * https://www.sheldonbrown.com/brandt/pull-side.html
@@ -21535,6 +21536,15 @@ More precisely for set theory \x[formalization-of-mathematics]:
   * `{{}, {{}}}` is a set that contains two sets: `{}` and `{{}}`
   * `{{}, {}}` is not well formed, because it contains `{}` twice
 
+= Union
+{disambiguate=set theory}
+{parent=set-mathematics}
+{title2=$A \bigcup B$}
+{wiki}
+
+= Set union
+{synonym}
+
 = Cardinality
 {parent=set-mathematics}
 
@@ -21619,6 +21629,26 @@ E.g. the \x[direct-product-of-groups] carries over \x[group] structure on both s
 = Codomain
 {parent=domain-codomain-and-image}
 {wiki}
+
+Vs: \x[image-mathematics]: the codomain is the set that the function might reach.
+
+The \x[image-mathematics] is the exact set that it actually reaches.
+
+E.g. the function:
+$$
+f(x) = x^2
+$$
+could have:
+* codomain $\R$
+* image $\R_{+}$
+
+Note that the definition of the codomain is somewhat arbitrary, e.g. $x^2$ could as well technically have codomain:
+$$
+\R \bigcup \R^2
+$$
+even though it will obviously never reach any value in $\R^2$.
+
+The exact image is in general therefore harder to characterize.
 
 = Endofunction
 {parent=codomain}
@@ -22112,6 +22142,15 @@ Examples:
 * a 2x2 matrix can represent a \x[linear-map] from \x[r-2] to \x[r-2], so which is a linear operator
 * the \x[derivative] is a \x[linear-map] from \x[c-infty] to \x[c-infty], so which is also a linear operator
 
+= Adjoint operator
+{parent=linear-operator}
+{title2=$A^\dagger$}
+
+Given a \x[linear-operator] $A$ over a space $S$ that has a \x[inner-product] defined, we define the adjoint operator $A^\dagger$ (the $\dagger$ symbol is called "dagger") as the unique operator that satisfies:
+$$
+\forall v, w \in S, <Av, w> = <v, A^{\dagger} w}
+$$
+
 = Self-adjoint operator
 {parent=linear-map}
 {wiki}
@@ -22246,11 +22285,15 @@ $$
 {parent=symmetric-bilinear-map}
 {wiki}
 
-The \x[complex-number] version of a \x[symmetric-bilinear-form]:
+The \x[complex-number] analogue of a \x[symmetric-bilinear-form].
+
+The prototypical example of it is the \x[complex-dot-product].
+
+Note that this form is neither strictly \x[symmetric-form][symmetric], it satisfies:
 $$
 <x, y> = \overline{<y, x>}
 $$
-where the over bar indicates the \x[complex-conjugate].
+where the over bar indicates the \x[complex-conjugate], nor is it linear for complex scalar multiplication on the second argument.
 
 Bibliography:
 * https://mathworld.wolfram.com/HermitianForm.html
@@ -22350,7 +22393,14 @@ Implies \x[antisymmetric-multilinear-map].
 {parent=linear-algebra}
 {wiki}
 
-The \x[dot-product] is an example of, or a synonym of, a \x[positive-definite-symmetric-bilinear-form].
+The definition of the "dot product" of a general space varies quite a lot with different contexts.
+
+Most definitions tend to be \x[bilinear-form]{p}.
+
+We use the unqualified generally refers to the dot product of \x[real-coordinate-space]{p}, which is a \x[positive-definite-symmetric-bilinear-form]. Other important examples include:
+* the \x[complex-dot-product], which is not strictly \x[symmetric-bilinear-map][symmetric] nor \x[linear], but it is \x[positive-definite]
+* \x[minkowski-inner-product], sometimes called" "Minkowski dot product is not \x[positive-definite]
+The rest of this section is about the \x[r-n] case.
 
 The \x[positive-definite] part of the definition likely comes in because we are so familiar with \x[metric-space]{p}, which requires a positive \x[norm] in the \x[norm-induced-by-an-inner-product].
 
@@ -22907,6 +22957,8 @@ Every vector space is defined over a \x[field-mathematics].
 E.g. in $\R^3$, the underlying \x[field-mathematics] is $\R$, the \x[real-number]{p}. And in $\C^2$ the underlying field is $\C$, the \x[complex-number]{p}.
 
 Any field can be used, including \x[finite-field]. But the underlying thing has to be a field, because the definitions of a vector need all field properties to hold to make sense.
+
+Elements of the underlying field of a vector space are known as \x[scalar-mathematics].
 
 = Vector
 {disambiguate=mathematics}
@@ -24555,7 +24607,7 @@ https://www.youtube.com/watch?v=tq7sb3toTww&list=PLxBAVPVHJPcrNrcEBKbqC_ykiVqfxZ
 
 A metric is a function that give the distance, i.e. a \x[real-number], between any two elements of a space.
 
-A metric may be induced from a \x[norm] as shown at: \x[metric-induced-from-a-norm]{full}.
+A metric may be induced from a \x[norm] as shown at: \x[metric-induced-by-a-norm]{full}.
 
 Because a \x[norm-induced-by-an-inner-product][norm can be induced by an inner product], and the \x[inner-product] given by the \x[matrix-representation-of-a-positive-definite-symmetric-bilinear-form], in simple cases metrics can also be represented by a \x[matrix].
 
@@ -24570,7 +24622,7 @@ Canonical example: \x[euclidean-space].
 
 TODO examples:
 * \x[metric-space] that is not a \x[normed-vector-space]
-* \x[norm-mathematics] vs \x[metric]: a norm gives size of one element. A \x[metric] is the distance between two elements. Given a norm in a space with subtraction, we can obtain a distance function: the \x[metric-induced-from-a-norm].
+* \x[norm-mathematics] vs \x[metric]: a norm gives size of one element. A \x[metric] is the distance between two elements. Given a norm in a space with subtraction, we can obtain a distance function: the \x[metric-induced-by-a-norm].
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/74/Mathematical_Spaces.png]
 {title=Hierarchy of topological, metric, normed and inner product spaces.}
@@ -24623,7 +24675,7 @@ $$
 |x| = \sqrt{<x, x>}
 $$
 
-= Metric induced from a norm
+= Metric induced by a norm
 {parent=norm-mathematics}
 
 In a \x[vector-space], a \x[metric] may be induced from a norm by using \x[subtraction]:
@@ -24848,6 +24900,33 @@ https://math.stackexchange.com/questions/466707/what-are-some-examples-of-infini
 
 = Finite dimension
 {synonym}
+
+= Complex coordinate space
+{parent=real-coordinate-space}
+{title2=$\C^n$}
+{wiki}
+
+= Complex dot product
+{parent=complex-coordinate-space}
+
+https://math.stackexchange.com/questions/2459814/what-is-the-dot-product-of-complex-vectors/4300169#4300169
+
+The complex dot product is defined as:
+$$
+\sum a_i \overline{b_i}
+$$
+
+E.g. in $\C^1$:
+$$
+(a + bi) \cdot (c + di) = (a + bi) (\overline{c + di}) = (a + bi) (c - di) = (ac + bd) + (bc - ad)i
+$$
+
+We can see therefore that this is a \x[form-mathematics], and a positive definite because:
+$$
+(a + bi) \cdot (a + bi) = (aa + bb) + (ba - ab)i = a^2 + b^2
+$$
+
+Just like the usual \x[dot-product], this will be a \x[positive-definite-symmetric-bilinear-form] by definition.
 
 = Euclidean space
 {c}
@@ -28242,62 +28321,62 @@ Unlike other humans, computers are mindless slaves that do exactly what they are
 
 A computer is a highly layered system, and so you have to decide which layers you are the most interested in studying.
 
+Although the layer are somewhat independent, they also sometimes interact, and when that happens it usually hurts your brain. E.g., if \x[compiler]{p} were perfect, no one optimizing software would have to know anything about \x[microarchitecture]. But if you want to go hardcore enough, you might have to learn some lower layer.
+
 It must also be said that like in any industry, certain layers are hidden in commercial secrecy mysteries making it harder to actually learn them. In computing, the lower level you go, the more \x[closed-source] things tend to become.
 
 But as you climb down into the abyss of low level hardcoreness, don't forget that \x[backward-design][making usefulness is more important than being hardcore]: \x[image-xkcd-378-real-programmers].
 
 First, the most important thing you should know about this subject: https://cirosantilli.com/linux-kernel-module-cheat/should-you-waste-your-life-with-systems-programming
 
-Summary from low-level to high-level:
-* \x[computer-hardware]
-  * \x[microarchitecture]: a good way to play with this is to try and run some minimal userland examples on \x[gem5] userland simulation with logging, e.g. see on the \x[linux-kernel-module-cheat]:
-    * https://cirosantilli.com/linux-kernel-module-cheat/gem5-event-queue-derivo3cpu-syscall-emulation-freestanding-example-analysis
-    This should be done at the same time as books/website/courses that explain the microarchitecture basics.
+Here's a summary from low-level to high-level:
+* \x[register-transfer-level]
+  * interactive \x[verilator] fun: https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
+  * more importantly, and much harder/maybe impossible with \x[open-source], would be to try and set up a open source \x[standard-cell-library] and supporting software to obtain \x[power-performance-and-area] estimates
+    * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli[Are there good open source standard cell libraries to learn IC synthesis with EDA tools?] on \x[quora]
+    * the most open source ones are some initiatives targeting FPGAs, e.g. https://symbiflow.github.io/[], http://www.clifford.at/icestorm/[]
+    * \x[qflow] is an initiative targeting actual \x[integrated-circuit]{p}
+* \x[microarchitecture]: a good way to play with this is to try and run some minimal userland examples on \x[gem5] userland simulation with logging, e.g. see on the \x[linux-kernel-module-cheat]:
+  * https://cirosantilli.com/linux-kernel-module-cheat/gem5-event-queue-derivo3cpu-syscall-emulation-freestanding-example-analysis
+  This should be done at the same time as books/website/courses that explain the microarchitecture basics.
 
-    This is the level of abstraction that \x[ciro-santilli] finds the most interesting of the hardware stack. Learning it for actual \x[cpu]{p} (which as of 2020 is only partially documented by vendos) could actually be useful in hardcore software optimization use cases.
-  * \x[instruction-set-architecture]: a good approach to learn this is to manually write some userland assembly with assertions as done in the \x[linux-kernel-module-cheat] e.g. at:
-    * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/add.S
-    * https://cirosantilli.com/linux-kernel-module-cheat/x86-userland-assembly
-    * learn a bit about calling conventions, e.g. by calling C standar library functions from assembly: 
-      * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/aarch64/inline_asm/linux/asm_from_c.c
-      * https://stackoverflow.com/questions/16255608/calling-c-functions-from-x86-assembly-language/56328708#56328708[Calling C functions from x86 assembly language]
-    * you can also try and understand what some simple \x[c-programming-language] programs \x[compile] to. Things can get a bit hard though when `-O3` is used. Some cute examples:
-      * https://stackoverflow.com/questions/310974/what-is-tail-call-optimization/55230417#55230417[What is tail call optimization?]
-      * https://stackoverflow.com/questions/1345670/stack-smashing-detected/51897264#51897264[What is the "Stack smashing detected" error in GCC and how to solve it?]
-  * \x[executable-file-format], notably \x[executable-and-linkable-format]. Particularly important is to understand the basics of address relocation and position independent code:
-    * https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144[How do linkers and address relocation works?]
-    * https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]
-  * \x[register-transfer-level]
-    * interactive \x[verilator] fun: https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654[Is it possible to do interactive user input and output simulation in VHDL or Verilog?]
-    * more importantly, and much harder/maybe impossible with \x[open-source], would be to try and set up a open source \x[standard-cell-library] and supporting software to obtain \x[power-performance-and-area] estimates
-      * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli[Are there good open source standard cell libraries to learn IC synthesis with EDA tools?] on \x[quora]
-      * the most open source ones are some initiatives targetting FPGAs, e.g. https://symbiflow.github.io/[], http://www.clifford.at/icestorm/[]
-      * qflow is an initiative targetting actual \x[integrated-circuit]{p}
-        * http://opencircuitdesign.com/qflow/
-        * https://github.com/RTimothyEdwards/qflow
-* \x[software]
-  * \x[systems-programming]
-    * \x[operating-system]. There are two ways to approach this:
-      * learn about the Linux kernel \x[linux-kernel]. A good starting point is to learn about its main interfaces. This is well shown at \x[linux-kernel-module-cheat]:
-        * system calls
-          * write some system calls in
-            * pure assembly:
-              * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/freestanding/linux/hello.S
-              * https://stackoverflow.com/questions/174942/how-should-strace-be-used/55397255#55397255
-            * C GCC inline assembly:
-              * https://stackoverflow.com/questions/9506353/how-to-invoke-a-system-call-via-syscall-or-sysenter-in-inline-assembly/54956854#54956854
-              * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/inline_asm/freestanding/linux/hello.c
-        * learn about kernel modules and their interfaces. Notably, learn about to demystify special files such `/dev/random` and so on:
-          * https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-driver/44640466#44640466
-          * https://github.com/cirosantilli/linux-kernel-module-cheat/tree/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/kernel_modules
-        * learn how to do a minimal Linux kernel disk image/boot to userland hello world: https://unix.stackexchange.com/questions/2692/what-is-the-smallest-possible-linux-implementation/203902#203902[What is the smallest possible Linux implementation?]
-        * learn how to GDB step debug the Linux kernel itself. Once you know this, you will feel that "given enough patience, I could understand anything that I wanted about the kernel", and you can then proceed to not learn almost anything about it and carry on with your life:
-          * https://cirosantilli.com/linux-kernel-module-cheat/gdb
-          * https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642[How to debug the Linux kernel with GDB and QEMU?]
-      * write your own (mini-) OS, or study a minimal educational OS, e.g. as in:
-        * \x[x86-bare-metal-examples]
-        * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
-  * \x[programming-language]
+  This is the level of abstraction that \x[ciro-santilli] finds the most interesting of the hardware stack. Learning it for actual \x[cpu]{p} (which as of 2020 is only partially documented by vendos) could actually be useful in hardcore software optimization use cases.
+* \x[instruction-set-architecture]: a good approach to learn this is to manually write some userland assembly with assertions as done in the \x[linux-kernel-module-cheat] e.g. at:
+  * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/add.S
+  * https://cirosantilli.com/linux-kernel-module-cheat/x86-userland-assembly
+  * learn a bit about calling conventions, e.g. by calling C standar library functions from assembly: 
+    * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/aarch64/inline_asm/linux/asm_from_c.c
+    * https://stackoverflow.com/questions/16255608/calling-c-functions-from-x86-assembly-language/56328708#56328708[Calling C functions from x86 assembly language]
+  * you can also try and understand what some simple \x[c-programming-language] programs \x[compile] to. Things can get a bit hard though when `-O3` is used. Some cute examples:
+    * https://stackoverflow.com/questions/310974/what-is-tail-call-optimization/55230417#55230417[What is tail call optimization?]
+    * https://stackoverflow.com/questions/1345670/stack-smashing-detected/51897264#51897264[What is the "Stack smashing detected" error in GCC and how to solve it?]
+* \x[executable-file-format], notably \x[executable-and-linkable-format]. Particularly important is to understand the basics of:
+  * address relocation:  https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144[How do linkers and address relocation works?]
+  * position independent code: https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]
+  * how to observe which symbols are present in object files, e.g.:
+    * how C++ uses name mangling https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c/30526795#30526795[What is the effect of extern "C" in C++?]
+    * how C++ template instantiation can help reduce link time and size: https://stackoverflow.com/questions/2351148/explicit-template-instantiation-when-is-it-used/59614755#59614755[Explicit template instantiation - when is it used?]
+* \x[operating-system]. There are two ways to approach this:
+  * learn about the Linux kernel \x[linux-kernel]. A good starting point is to learn about its main interfaces. This is well shown at \x[linux-kernel-module-cheat]:
+    * system calls
+      * write some system calls in
+        * pure assembly:
+          * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/freestanding/linux/hello.S
+          * https://stackoverflow.com/questions/174942/how-should-strace-be-used/55397255#55397255[How should strace be used?]
+        * C GCC inline assembly:
+          * https://stackoverflow.com/questions/9506353/how-to-invoke-a-system-call-via-syscall-or-sysenter-in-inline-assembly/54956854#54956854
+          * https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/userland/arch/x86_64/inline_asm/freestanding/linux/hello.c
+    * learn about kernel modules and their interfaces. Notably, learn about to demystify special files such `/dev/random` and so on:
+      * https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-driver/44640466#44640466
+      * https://github.com/cirosantilli/linux-kernel-module-cheat/tree/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/kernel_modules
+    * learn how to do a minimal Linux kernel disk image/boot to userland hello world: https://unix.stackexchange.com/questions/2692/what-is-the-smallest-possible-linux-implementation/203902#203902[What is the smallest possible Linux implementation?]
+    * learn how to GDB step debug the Linux kernel itself. Once you know this, you will feel that "given enough patience, I could understand anything that I wanted about the kernel", and you can then proceed to not learn almost anything about it and carry on with your life:
+      * https://cirosantilli.com/linux-kernel-module-cheat/gdb
+      * https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642[How to debug the Linux kernel with GDB and QEMU?]
+  * write your own (mini-) OS, or study a minimal educational OS, e.g. as in:
+    * \x[x86-bare-metal-examples]
+    * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
+* \x[programming-language]
 
 \Image[https://web.archive.org/web/20191222121520if_/http://imgs.xkcd.com/comics/real_programmers.png]
 {title=\x[xkcd] 378: Real Programmers.}
@@ -28376,15 +28455,17 @@ This is the mantra of the \x[semiconductor-industry]:
 * power and area are the main limiting factors of chips, i.e., your budget:
   * chip area is ultra expensive because there are sporadic errors in the fabrication process, and each error in any part of the chip can potentially break the entire chip. Although there are 
 
-    The pecentage of working chips is called the yield.
+    The percentage of working chips is called the yield.
 
     In some cases however, e.g. if the error only affects single CPU of a multi-core CPU, then they actually deactivate the broken CPU after testing, and sell the worse CPU cheaper with a clear branding of that: this is called binning https://www.tomshardware.com/uk/reviews/glossary-binning-definition,5892.html
   * power is a major semiconductor limit as of 2010's and onwards. If everything turns on at once, the chip would burn. Designs have to account for that.
-* performance is the goal: basically a set of algorithms that you want your hardware to solve, each one with a respective weight of importance
+* performance is the goal.
+
+  Conceptually, this is basically a set of algorithms that you want your hardware to solve, each one with a respective weight of importance.
 
   Serial performance is fundamentally limited by the \x[critical-path][longest path] that electrons have to travel in a given clock cycle.
 
-  The way to work around it is to create pipelines, splitting up single operations into multiple states, and storing intermediate results in memories.
+  The way to work around it is to create pipelines, splitting up single operations into multiple smaller operations, and storing intermediate results in memories.
 
 = Wafer
 {disambiguate=electronics}
@@ -28397,29 +28478,33 @@ This is the mantra of the \x[semiconductor-industry]:
 
 = Semiconductor fabrication plant
 {parent=semiconductor-physical-implementation}
-{title2=fab, foundry}
+{title2=foundry}
 {wiki}
+
+= Fab
+{synonym}
+{title2}
 
 They put a lot of expensive equipment together, much of it \x[company-that-makes-semiconductor-production-equipment][made by other companies], and they make the entire chip for companies ordering them.
 
-= Company with semiconductor fabrication plants
+= Company with a semiconductor fabrication plant
 {parent=semiconductor-fabrication-plant}
 
 A list of \x[semiconductor-fabrication-plant][fabs] can be seen at: https://en.wikipedia.org/wiki/List_of_semiconductor_fabrication_plants and basically summarizes all the companies that have fabs.
 
-= TSMC
-{c}
-{parent=company-with-semiconductor-fabrication-plants}
-{wiki}
-
-One of the companies that has fabs, which buys machines from companies such as ASML and puts them together in so called "silicon fabs" to make the chips
-
 = Fairchild Semiconductor
 {c}
-{parent=company-with-semiconductor-fabrication-plants}
+{parent=company-with-a-semiconductor-fabrication-plant}
 {wiki}
 
 Some nice insights at: \x[robert-noyce-the-man-behind-the-microchip-by-leslie-berlin-2006].
+
+= TSMC
+{c}
+{parent=company-with-a-semiconductor-fabrication-plant}
+{wiki}
+
+One of the companies that has fabs, which buys machines from companies such as ASML and puts them together in so called "silicon fabs" to make the chips
 
 = Photolithography
 {parent=semiconductor-fabrication-plant}
@@ -28439,17 +28524,85 @@ After this is done, the final step is \x[place-and-route].
 
 They can be designed by third parties besides the \x[semiconductor-fabrication-plant]{p}. E.g. \x[arm-ltd] markets its \x[arm-artisan][Artisan] Standard Cell Libraries as mentioned e.g. at: https://web.archive.org/web/20211007050341/https://developer.arm.com/ip-products/physical-ip/logic This came from a 2004 acquisition: https://www.eetimes.com/arm-to-acquire-artisan-components-for-913-million/[], \x[if-a-product-of-a-big-company-has-a-catchy-name-it-came-from-an-acquisition][obviously].
 
+The standard cell library is typically composed of a bunch of versions of somewhat simple gates, e.g.:
+* AND with 2 inputs
+* AND with 3 inputs
+* AND with 4 inputs
+* OR with 2 inputs
+* OR with 3 inputs
+and so on.
+
+Each of those gates has to be designed by hand as a \x[3d] structure that can be produced in a given \x[fab].
+
+Simulations are then carried out, and the electric properties of those structures are characterized in a standard way as a bunch of tables of numbers that specify things like:
+* how long it takes for electrons to pass through
+* how much heat it produces
+Those are then used in \x[power-performance-and-area] estimates.
+
 = Open source standard cell library
 {parent=standard-cell-library}
 
 Open source ones:
 * https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli Are there good open source standard cell libraries to learn IC synthesis with EDA tools?
 
-= Place and route
+= Electronic design automation
 {parent=semiconductor-physical-implementation}
+{title2=EDA}
 {wiki}
 
-Given a bunch of interlinked \x[standard-cell-library] elements, actually decide where exactly they are going to go on 2D (stacked 2D) \x[integrated-circuit] surface.
+A set of software programs that \x[compile] high level \x[register-transfer-level] languages such as \x[verilog] into something that a \x[fab] can actually produce. One is reminded of a \x[compiler-toolchain] but on a lower level.
+
+The most important steps of that include:
+* \x[logic-synthesis]: mapping the \x[verilog] to a \x[standard-cell-library]
+* \x[place-and-route]: mapping the synthesis output into the 2D surface of the chip
+
+= Electronic design automation phase
+{parent=electronic-design-automation}
+
+= Logic synthesis
+{parent=electronic-design-automation-phase}
+{wiki}
+
+Step of \x[electronic-design-automation] that maps the \x[register-transfer-level] input (e.g. \x[verilog]) to a \x[standard-cell-library].
+
+The output of this step is another \x[verilog] file, but one that exclusively uses interlinked cell library components.
+
+= Place and route
+{parent=electronic-design-automation-phase}
+{wiki}
+
+Given a bunch of interlinked \x[standard-cell-library] elements from the \x[logic-synthesis] step, actually decide where exactly they are going to go on 2D (stacked 2D) \x[integrated-circuit] surface.
+
+= EDA company
+{c}
+{parent=electronic-design-automation}
+
+The main ones as of 2020 are:
+* \x[mentor-graphics], which was bought by \x[siemens] in 2017
+* \x[cadence-design-systems]
+* \x[synopsys]
+
+= Cadence Design Systems
+{c}
+{parent=eda-company}
+{wiki}
+
+= Synopsys
+{c}
+{parent=eda-company}
+{wiki}
+
+= Open source EDA tool
+{parent=electronic-design-automation}
+
+= qflow
+{parent=open-source-eda-tool}
+
+Cool looking \x[open-source-eda-tool][open source EDA toolchain]:
+* http://opencircuitdesign.com/qflow/
+* https://github.com/RTimothyEdwards/qflow
+
+They apparently even produced a real working small \x[risc-v] chip with the flow, not bad.
 
 = Integrated circuit
 {parent=computer-hardware}
@@ -28701,6 +28854,24 @@ List of \x[instruction-set-architecture].
 {c}
 {parent=list-of-instruction-set-architectures}
 {wiki}
+
+= RISC-V
+{c}
+{parent=list-of-instruction-set-architectures}
+{wiki}
+
+The leading no-royalties options as of 2020.
+
+= SiFive
+{C}
+{parent=risc-v}
+{wiki}
+
+Leading \x[risc-v] consultants as of 2020, they are basically trying to become the \x[red-hat] of the \x[semiconductor-industry].
+
+\x[china] has been a major client, since the country is trying to increase its \x[semiconductor-industry] independence, especially given economic sanctions imposed by the \x[usa].
+
+As a result, \x[sifive] moved its legal headquarters to \x[switzerland] in 2019 to try and overcome some of the sanctions.
 
 = Computer manufacturers
 {parent=computer-hardware}
@@ -30756,6 +30927,9 @@ heroku restart
 {wiki}
 
 = Compile
+{synonym}
+
+= Compiles
 {synonym}
 
 = Compiler toolchain
@@ -37724,6 +37898,27 @@ It is just a question of business model: some business models are eviler than ot
 
 One thing must be said however. You can learn a lot by working in a good company, because it ends up putting you in contact with practical real problems that you wouldn't otherwise see by just doing your own random low-tech startup. This is especially valuable if said company is also enlightened enough to use and contribute back to \x[open-source-software], thus improving the world and paying back the moral debt of using other people's work for free.
 
+= Technology company
+{parent=company}
+{wiki}
+
+= Tech company
+{synonym}
+
+= Red Hat
+{c}
+{parent=technology-company}
+{wiki}
+
+= Siemens
+{c}
+{parent=technology-company}
+{wiki}
+
+= Conglomerate
+{disambiguate=company}
+{parent=company}
+
 = Lifestyle business
 {parent=company}
 {wiki}
@@ -41613,9 +41808,28 @@ https://knowyourmeme.com/
 
 The dominating \x[meme] \x[database] as of 2020.
 
+= Mathematics wiki
+{parent=wiki}
+
+= Encyclopedia of Math
+{c}
+{parent=mathematics-wiki}
+{wiki}
+
+https://encyclopediaofmath.org/wiki/Main_Page
+
+Originally by \x[springer], but later moved to the European mathematical society.
+
+= MathWorld
+{c}
+{parent=mathematics-wiki}
+{wiki}
+
+https://mathworld.wolfram.com/
+
 = NLab
 {c}
-{parent=wiki}
+{parent=mathematics-wiki}
 {wiki}
 
 https://ncatlab.org
@@ -41633,7 +41847,7 @@ Unlike \x[wikipedia], they have a more sane forum commenting system, e.g. a page
 
 = ProofWiki
 {c}
-{parent=wiki}
+{parent=mathematics-wiki}
 
 A \x[wiki] that gathers mathematical proofs.
 
@@ -41642,6 +41856,16 @@ URL: https://proofwiki.org/wiki/Main_Page
 \x[mediawiki]-based.
 
 This appears to be the creator: https://github.com/externl "Joe George".
+
+= BookofProofs
+{c}
+{parent=mathematics-wiki}
+
+https://www.bookofproofs.org/
+
+No open signup it seems. TODO CV of owner.
+
+They are making a \x[proof-assistant] to integrate into the website: https://github.com/bookofproofs/fpl/[], reminds \x[ciro-santilli] of \x[website-front-end-for-a-mathematical-formal-proof-system].
 
 = TV Tropes
 {c}
