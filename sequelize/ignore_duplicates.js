@@ -4,15 +4,14 @@
 
 const assert = require('assert');
 const path = require('path');
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  define: {
-    timestamps: false
-  },
-});
-(async () => {
+const { DataTypes } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(
+  __filename,
+  process.argv[2],
+  {define: { timestamps: false }}
+)
+;(async () => {
 const Tag = sequelize.define('Tag', {
   name: {
     type: DataTypes.STRING,
@@ -27,7 +26,8 @@ await Tag.create({name: 't0'})
 // https://github.com/sequelize/sequelize/issues/4513
 //await Tag.create({name: 't0', ignoreDuplicates: true})
 
-// SQLite: INSERT OR IGNORE INTO as desired.
+// SQLite: `INSERT OR IGNORE INTO` as desired
+// PostgreSQL: `ON CONFLICT DO NOTHING` as desired
 const tags = await Tag.bulkCreate(
   [
     {name: 't0'},

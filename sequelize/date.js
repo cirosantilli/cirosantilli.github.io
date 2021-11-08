@@ -8,7 +8,7 @@ const path = require('path');
 const { Sequelize, DataTypes, Op } = require('sequelize');
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
+  storage: path.basename(__filename) + '.sqlite',
 });
 
 (async () => {
