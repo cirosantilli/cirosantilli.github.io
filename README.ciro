@@ -19305,15 +19305,6 @@ At most, there must be a standardized \x[api] that allows your browser to say "I
 = Country in Europe
 {parent=europe}
 
-= Spain
-{c}
-{parent=country-in-europe}
-{wiki}
-
-= Spanish
-{c}
-{synonym}
-
 = France
 {c}
 {parent=country-in-europe}
@@ -19418,6 +19409,24 @@ For what it is worth though, \x[ciro-santilli] does honestly love \x[europe], an
 {c}
 {parent=kosovo}
 {wiki}
+
+= Spain
+{c}
+{parent=country-in-europe}
+{wiki}
+
+= Spanish
+{c}
+{synonym}
+
+= Switzerland
+{c}
+{parent=country-in-europe}
+{wiki}
+
+= Swiss
+{c}
+{synonym}
 
 = United Kingdom
 {c}
@@ -22148,7 +22157,7 @@ Examples:
 
 Given a \x[linear-operator] $A$ over a space $S$ that has a \x[inner-product] defined, we define the adjoint operator $A^\dagger$ (the $\dagger$ symbol is called "dagger") as the unique operator that satisfies:
 $$
-\forall v, w \in S, <Av, w> = <v, A^{\dagger} w}
+\forall v, w \in S, <Av, w> = <v, A^{\dagger} w>
 $$
 
 = Self-adjoint operator
@@ -22289,7 +22298,7 @@ The \x[complex-number] analogue of a \x[symmetric-bilinear-form].
 
 The prototypical example of it is the \x[complex-dot-product].
 
-Note that this form is neither strictly \x[symmetric-form][symmetric], it satisfies:
+Note that this form is neither strictly \x[symmetric-bilinear-map][symmetric], it satisfies:
 $$
 <x, y> = \overline{<y, x>}
 $$
@@ -28587,6 +28596,11 @@ The main ones as of 2020 are:
 {parent=eda-company}
 {wiki}
 
+= Mentor Graphics
+{c}
+{parent=eda-company}
+{wiki}
+
 = Synopsys
 {c}
 {parent=eda-company}
@@ -28863,7 +28877,7 @@ List of \x[instruction-set-architecture].
 The leading no-royalties options as of 2020.
 
 = SiFive
-{C}
+{c}
 {parent=risc-v}
 {wiki}
 
@@ -28873,12 +28887,12 @@ Leading \x[risc-v] consultants as of 2020, they are basically trying to become t
 
 As a result, \x[sifive] moved its legal headquarters to \x[switzerland] in 2019 to try and overcome some of the sanctions.
 
-= Computer manufacturers
+= Computer manufacturer
 {parent=computer-hardware}
 
 = Lenovo
 {c}
-{parent=computer-manufacturers}
+{parent=computer-manufacturer}
 {wiki}
 
 Their websites a bit \x[shitty], clearly a non cohesive amalgamation of several different groups.
@@ -28910,7 +28924,7 @@ The only thing Ciro never understood is the trackpoint: https://superuser.com/qu
 
 = Raspberry Pi Foundation
 {c}
-{parent=computer-manufacturers}
+{parent=computer-manufacturer}
 {wiki}
 
 = Raspberry Pi
@@ -31365,9 +31379,6 @@ Sequelize is used minimally, just to feed raw queries in transparently to any un
 
 The examples are tested on \x[sqlite] by default, as that is the easiest database to setup.
 
-To run them in another database, use:
-* `./example.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
-
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
 
 * \a[sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
@@ -32718,11 +32729,17 @@ Some issues include:
 = Sequelize example
 {parent=sequelize}
 
+To run examples on a specific database:
+* `./index.js` or `./index.js l`: \x[sqlite]
+* `./index.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
+
+Overview of the examples:
 * \a[sequelize/index.js]: a bunch of basic examples
 * \a[sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial, and will not comment on them much further on this section.
 * \a[sequelize/before_validate_modify.js]
-* \a[sequelize/camel_case.js]
-* \a[sequelize/ignore_duplicates.js]
+* \a[sequelize/date.js]:
+* \a[sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
+* \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
 * \a[sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
   ``
   UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
@@ -37904,6 +37921,9 @@ One thing must be said however. You can learn a lot by working in a good company
 
 = Tech company
 {synonym}
+
+In other sections:
+* \x[eda-company]
 
 = Red Hat
 {c}
