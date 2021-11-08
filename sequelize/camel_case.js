@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-// Trying to get everything in the database camel cased, columns lowercase, tables uppercase.
-// The defaults documented on getting started documentation do uppercase foreign keys, an
-// lowercase non-foreign keys. It's a mess.
+// https://cirosantilli.com/sequelize-example
 
 const assert = require('assert');
 const path = require('path');

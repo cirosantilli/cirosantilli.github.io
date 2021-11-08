@@ -4,7 +4,7 @@
 
 const assert = require('assert');
 const { DataTypes, Op } = require('sequelize');
-const common = require('./common')
+const common = require('../common')
 const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
