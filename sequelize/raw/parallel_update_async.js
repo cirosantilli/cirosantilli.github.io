@@ -5,7 +5,7 @@
 const assert = require('assert');
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const { DataTypes, Op } = require('sequelize');
-const common = require('./common');
+const common = require('../common');
 const sequelize = common.sequelize(__filename, process.argv[2], {logging: false})
 
 async function inc(n, id) {

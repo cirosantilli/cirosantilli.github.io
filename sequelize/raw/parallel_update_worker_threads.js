@@ -4,7 +4,7 @@
 
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const { DataTypes, Op } = require('sequelize');
-const common = require('./common');
+const common = require('../common');
 const sequelize = common.sequelize(__filename)
 
 ;(async () => {
