@@ -40,5 +40,4 @@ assert.strictEqual(parseInt(postLikeCounts[0].get('count'), 10), 3)
 assert.strictEqual(postLikeCounts[1].postId, 2)
 assert.strictEqual(parseInt(postLikeCounts[1].get('count'), 10), 2)
 assert.strictEqual(postLikeCounts.length, 2)
-await sequelize.close()
-})()
+})().finally(() => { return sequelize.close() });

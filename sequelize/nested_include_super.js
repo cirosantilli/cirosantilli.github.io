@@ -1,21 +1,10 @@
 #!/usr/bin/env node
-
-// Like association_nested_include.js but with a super many to many.
-
-const assert = require('assert');
-const path = require('path');
-
-const { Sequelize, DataTypes, Op } = require('sequelize');
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  define: {
-    timestamps: false
-  },
-});
-
-(async () => {
+// https://cirosantilli.com/sequelize-example
+const assert = require('assert')
+const { DataTypes, Op, Sequelize } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+;(async () => {
 
 // Create the tables.
 const User = sequelize.define('User', {
@@ -107,5 +96,4 @@ await users[0].addFollows([users[1], users[2]])
   assert.strictEqual(postsFound.length, 4)
 }
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

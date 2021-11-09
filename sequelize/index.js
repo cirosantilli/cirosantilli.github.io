@@ -1,12 +1,7 @@
 #!/usr/bin/env node
-
 // https://cirosantilli.com/sequelize-example
-
 const assert = require('assert');
-const path = require('path');
-
 const { DataTypes, Op } = require('sequelize');
-
 const common = require('./common')
 const sequelize = common.sequelize(__filename, process.argv[2])
 
@@ -134,8 +129,7 @@ await sequelize.truncate();
 assert.strictEqual(await IntegerNames.count(), 0);
 await reset()
 
-// Otherwise it hangs for 10 seconds, it seems that it keeps the connection alive.
+// .close Otherwise it hangs for 10 seconds, it seems that it keeps the connection alive.
 // https://stackoverflow.com/questions/28253831/recreating-database-sequelizejs-is-slow
 // https://github.com/sequelize/sequelize/issues/8468
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

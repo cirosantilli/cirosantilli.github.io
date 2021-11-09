@@ -16,13 +16,13 @@ async function inc(n, id) {
 }
 
 let nthreads;
-if (process.argv.length > 2) {
+if (process.argv.length > 3) {
   nthreads = parseInt(process.argv[3], 10)
 } else {
   nthreads = 10;
 }
 let n;
-if (process.argv.length > 3) {
+if (process.argv.length > 4) {
   n = parseInt(process.argv[4], 10)
 } else {
   n = 10;
@@ -39,5 +39,4 @@ for (let i = 0; i < n; i++) {
 await Promise.all(arr)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM MyInt`)
 assert.strictEqual(rows[0].i, nthreads * n)
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });
