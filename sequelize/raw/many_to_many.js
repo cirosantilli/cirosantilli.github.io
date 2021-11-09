@@ -49,7 +49,8 @@ INSERT INTO "Animal" VALUES
 INSERT INTO "Tag" VALUES
 (0, 'flying'),
 (1, 'mammal'),
-(2, 'vertebrate')
+(2, 'vertebrate'),
+(3, 'aquatic')
 `,
   ].map(s => sequelize.query(s)))
   return sequelize.query(`
@@ -101,7 +102,10 @@ assert.strictEqual(rows.length, 2)
 // Get animal counts for each tag and order them in increasing order.
 // Illustrates `GROUP BY`. TODO why is Tag.name allowed in the SELECT
 // even though it does not appear in the GROUP BY or aggregates?
-// Wasn't this supposed to fail?
+// Wasn't this supposed to fail in PostgreSQL?
+//
+// Ignore tags with zero animals due to INNER JOIN.
+// https://dba.stackexchange.com/questions/174694/how-to-get-a-group-where-the-count-is-zero
 ;[rows, meta] = await sequelize.query(`
 SELECT
   "Tag".name AS name,
@@ -123,6 +127,32 @@ assert.strictEqual(parseInt(rows[1].count, 10), 2)
 assert.strictEqual(rows[2].name, 'mammal')
 assert.strictEqual(parseInt(rows[2].count, 10), 2)
 assert.strictEqual(rows.length, 3)
+
+// Same as above, but also consider tags with zero animals
+// due to OUTER JOIN + COUNT(column)
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Tag".name AS name,
+  COUNT("Animal".id) AS count
+FROM "Tag"
+LEFT OUTER JOIN "AnimalTag"
+  ON "Tag".id = "AnimalTag"."tagId"
+LEFT OUTER JOIN "Animal"
+  ON "AnimalTag"."animalId" = "Animal".id
+GROUP BY "Tag".id
+ORDER BY
+  count DESC,
+  "Tag".id ASC
+`)
+assert.strictEqual(rows[0].name, 'vertebrate')
+assert.strictEqual(parseInt(rows[0].count, 10), 3)
+assert.strictEqual(rows[1].name, 'flying')
+assert.strictEqual(parseInt(rows[1].count, 10), 2)
+assert.strictEqual(rows[2].name, 'mammal')
+assert.strictEqual(parseInt(rows[2].count, 10), 2)
+assert.strictEqual(rows[3].name, 'aquatic')
+assert.strictEqual(parseInt(rows[3].count, 10), 0)
+assert.strictEqual(rows.length, 4)
 
 // Get animal counts for each tag that has less than 3 animals.
 //
@@ -297,7 +327,8 @@ WHERE "Tag".id IN (
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "Tag" ORDER BY id ASC`)
 assert.strictEqual(rows[0].name, 'flying')
 assert.strictEqual(rows[1].name, 'vertebrate')
-assert.strictEqual(rows.length, 2)
+assert.strictEqual(rows[2].name, 'aquatic')
+assert.strictEqual(rows.length, 3)
 await reset()
 
 await sequelize.close();

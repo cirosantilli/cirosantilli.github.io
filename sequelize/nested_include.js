@@ -1,21 +1,10 @@
 #!/usr/bin/env node
-
 // https://cirosantilli.com/sequelize-example
-
-const assert = require('assert');
-const path = require('path');
-
-const { Sequelize, DataTypes } = require('sequelize');
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  define: {
-    timestamps: false
-  },
-});
-
-(async () => {
+const assert = require('assert')
+const { DataTypes, Op, Sequelize } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2])
+;(async () => {
 
 // Create the tables.
 const User = sequelize.define('User', {
@@ -183,20 +172,19 @@ await users[0].addFollows([users[1], users[2]])
       attributes: [
         [Sequelize.fn('COUNT', Sequelize.col('Follows.Posts.id')), 'count']
       ],
+      raw: true,
+      includeIgnoreAttributes: false,
       include: [
         {
           model: User,
           as: 'Follows',
-          attributes: [],
-          through: {attributes: []},
           include: [{
-              model: Post,
-              attributes: [],
+            model: Post,
           }],
         },
       ],
     })
-    assert.strictEqual(user0Follows.dataValues.count, 4);
+    assert.strictEqual(parseInt(user0Follows.count, 10), 4);
   }
 
   // Case in which our post-sorting is needed.
@@ -285,9 +273,8 @@ await users[0].addFollows([users[1], users[2]])
     //assert.strictEqual(postsFound[1].body, 'body5')
     //assert.strictEqual(postsFound[2].body, 'body2')
     //assert.strictEqual(postsFound[3].body, 'body1')
-    assert.strictEqual(postsFound.length, 4)
+    //assert.strictEqual(postsFound.length, 4)
   }
 }
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

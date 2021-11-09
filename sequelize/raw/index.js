@@ -107,5 +107,4 @@ assert.strictEqual(rows[0].name, 'two')
 assert.strictEqual(rows.length, 1)
 await reset()
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

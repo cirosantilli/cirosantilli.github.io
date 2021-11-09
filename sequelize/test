@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const path = require('path')
+
+const test = require('../test.js')
+
+test.test({
+  args: [
+    [],
+    ['p'],
+  ],
+  pref: ['node', '--unhandled-rejections=strict'],
+  skip: new Set([
+    path.join('raw', 'parallel_update_worker_threads.js'),
+  ]),
+})

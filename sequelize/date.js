@@ -25,5 +25,4 @@ let date = await Dates.findOne({
 })
 assert.strictEqual(date.date.getTime(), new Date(2000, 0, 1, 2, 3, 4, 5).getTime())
 assert.strictEqual(date.date.getTime(), dateCreate.date.getTime())
-await sequelize.close()
-})()
+})().finally(() => { return sequelize.close() });
