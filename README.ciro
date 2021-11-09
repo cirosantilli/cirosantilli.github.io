@@ -3010,6 +3010,10 @@ Ciro was mor stupid than now, and continued to try and hang out with those evil 
 
 Advice to his children: stay away from evil people.
 
+The bullied sometimes feel an almost masochistic desire to overcome the bullies contempt, and either become friends with the bullies, or overpower them.
+
+You must never give into those thoughts.
+
 If you come across evil people, smile a fake smile to them, and walk away, but never give your back to them, and always be ready to fight.
 
 If they laugh at you, know that you https://en.wikipedia.org/wiki/Ecclesiastes_3#Verse_20[are shit] like everyone else, pretend to laugh with them, take their post and repost it on your public profile, and silently stay away from those idiots.
@@ -3025,7 +3029,9 @@ Call parents or other authorities as soon as there is risk of physical harm. Bet
 If a physical fight is inevitable however, https://biblehub.com/luke/6-29.htm[ignore Jesus this once and don't give the other face], but rather follow the Talmud and https://en.wikipedia.org/wiki/We_shall_fight_on_the_beaches[fight all out on the beaches]:
 \Q[If someone comes to kill you, rise and kill first.]
 
-Perhaps it was good to learn those lessons early, before the stakes were too high. Adults fake it much better, and therefore it is harder to learn those lessons from them, but they are still just as evil on the inside. It might also have contributed to \x[ciro-santilli-s-self-perceived-compassionate-personality].
+Perhaps it was good to learn those lessons early, before the stakes were too high. Adults fake it much better, and therefore it is harder to learn those lessons from them, but they are still just as evil on the inside.
+
+These experiences might have contributed to \x[ciro-santilli-s-self-perceived-compassionate-personality].
 
 = Ciro Santilli's formal education
 {c}
@@ -6869,7 +6875,7 @@ Videos should be found/made for all of those: \x[videos-of-all-key-physics-exper
 * \x[quantum-hall-effect]{child}
 * \x[zartman-ko-experiment]{child}
 
-= Aharonov–Bohm effect
+= Aharonov-Bohm effect
 {c}
 {parent=the-most-important-physics-experiments}
 
@@ -32695,15 +32701,16 @@ Source code: https://github.com/sequelize/sequelize
 
 Some usage examples under: \x[sequelize-example]{full}.
 
-As of 2021, this is semi-decent.
-
-It might be reasonably well developed. What feel like some global downsides
-* the documentation is a bit messy and misses a lot of stuff. The examples are often too short, and it is hard to understand what specific options they are talking about do because they lack clear input/expected output pairs.
-* the implementation also has several inelegant/unintuitive annoyances/requirements of code repetition that drive you mad.
+As of 2021, this library is extremelly painful to use. It does feel semi-mature, but there are just too much horrible things going on;
+* the documentation is a bit messy and misses a lot of stuff. The examples are often too short, and it is hard to understand what specific options they are talking about do because they lack clear input/expected output pairs. Examples:
+  * https://github.com/sequelize/sequelize/issues/5385#issuecomment-324479607
+  * https://github.com/sequelize/sequelize/issues/1775#issuecomment-360028396
+* the implementation has several inelegant/unintuitive annoyances/requirements of code repetition that drive you mad.
 
   The association API feels notably bad, it took a few days for \x[ciro-santilli] to learn to do what he considers "basic" association operations, knowledge which he dumped to: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+* bugs ar piling. It appears that many key devs left, and current maintainers are not being able to keep up
 
-Some issues include:
+Some glaring issues include:
 * foreign keys are capitalized:
   * https://stackoverflow.com/questions/55273091/why-use-the-uppercase-key-when-creating-association-model-in-sequelize 
   * https://github.com/sequelize/sequelize/issues/5828
@@ -32711,9 +32718,6 @@ Some issues include:
 * https://stackoverflow.com/questions/41502699/return-flat-object-from-sequelize-with-association can't auto-flatten to reuse the database's `ORDER`
 * `limit` and `offset` don't work without `subQuery: false`
 * https://stackoverflow.com/questions/34059081/how-do-i-reference-an-association-when-creating-a-row-in-sequelize-without-assum hard to not duplicate foreign keys values everywhere
-* they implement stuff but simply don't document it, check out these comments:
-  * https://github.com/sequelize/sequelize/issues/5385#issuecomment-324479607
-  * https://github.com/sequelize/sequelize/issues/1775#issuecomment-360028396
 * stack traces permanently broken or requiring non-obvious configs:
   * https://github.com/sequelize/sequelize/issues/8199#issuecomment-863943835
   * https://github.com/sequelize/sequelize/issues/12044
@@ -32725,6 +32729,8 @@ Some issues include:
   * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
 * cannot change columns when other columns have constraints due to the backup table?
   * https://stackoverflow.com/questions/64533732/process-of-changing-a-table-with-sequelize-migration-if-foreign-key-constraint-i
+* you have to use `.get()` for `attribute` aliased fields, why? https://stackoverflow.com/questions/32649218/how-do-i-select-a-column-using-an-alias/69890944#69890944
+* `.id` gets added to `SELECT` no matter, what, breaking `GROUP BY` unless you do horrible workarounds: https://github.com/sequelize/sequelize/issues/3256
 
 = Sequelize example
 {parent=sequelize}
@@ -32737,6 +32743,7 @@ Overview of the examples:
 * \a[sequelize/index.js]: a bunch of basic examples
 * \a[sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial, and will not comment on them much further on this section.
 * \a[sequelize/before_validate_modify.js]
+* \a[sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] querries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
 * \a[sequelize/date.js]:
 * \a[sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
 * \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
