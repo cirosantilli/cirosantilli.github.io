@@ -1,3 +1,4 @@
+
 #!/usr/bin/env node
 
 // https://cirosantilli.com/sql-parallel-update-example
@@ -29,9 +30,23 @@ if (process.argv.length > 4) {
 }
 
 ;(async () => {
-try { await sequelize.query(`DROP TABLE MyInt`) } catch (e) {}
-await sequelize.query(`CREATE TABLE MyInt ( i INTEGER NOT NULL)`)
-await sequelize.query(`INSERT INTO MyInt VALUES (0)`)
+try { await sequelize.query(`DROP TABLE "PostTag"`) } catch (e) {}
+try { await sequelize.query(`DROP TABLE "Animal"`) } catch (e) {}
+try { await sequelize.query(`DROP TABLE "Tag"`) } catch (e) {}
+await Promise.all([
+  `CREATE TABLE "Animal" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
+  `CREATE TABLE "Tag" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
+].map(s => sequelize.query(s)))
+await sequelize.query(`
+CREATE TABLE "AnimalTag" (
+  "animalId" INTEGER NOT NULL,
+  "tagId" INTEGER NOT NULL,
+  PRIMARY KEY ("animalId", "tagId"),
+  FOREIGN KEY ("animalId") REFERENCES "Animal"(id) ON DELETE CASCADE,
+  FOREIGN KEY ("tagId") REFERENCES "Tag"(id) ON DELETE CASCADE
+)
+`)
+
 const arr = []
 for (let i = 0; i < n; i++) {
   arr.push(inc(n, i))

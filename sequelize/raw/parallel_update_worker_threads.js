@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-// https://cirosantilli.com/sql-isolation-level-example
-
+// https://cirosantilli.com/sql-parallel-update-example
+//
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common');
