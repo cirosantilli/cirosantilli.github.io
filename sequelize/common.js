@@ -2,14 +2,26 @@ const path = require('path');
 
 const { Sequelize } = require('sequelize');
 
+async function drop(sequelize, table) {
+  if (sequelize.options.dialect === 'postgres') {
+    // We need CASCADE because we use a single database for all runs,
+    // and some tables have conflicting names across tests.
+    await sequelize.query(`DROP TABLE IF EXISTS "${table}" CASCADE`)
+  } else {
+    await sequelize.query(`DROP TABLE IF EXISTS "${table}"`)
+  }
+}
+exports.drop = drop
+
 function sequelize(filename, dialect, opts) {
   if (dialect === undefined) {
     dialect = 'l'
   }
   if (dialect === 'l') {
+    const pathParse = path.parse(filename)
     return new Sequelize(Object.assign({
       dialect: 'sqlite',
-      storage: path.parse(filename).name + '.sqlite'
+      storage: path.join(pathParse.dir, pathParse.name) + '.sqlite'
     }, opts));
   } else if (dialect === 'p') {
     // To use the URI syntax, we need an explcit username and password.

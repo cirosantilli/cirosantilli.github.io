@@ -10131,7 +10131,7 @@ $$
 Then as done at https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers/557600#557600 from \x[why-are-complex-numbers-used-in-the-schrodinger-equation], we could further split those equations up into a system of 8 equations on 8 \x[real-number][real-valued] functions.
 
 \Video[http://youtube.com/watch?v=OCuaBmAzqek]
-{title="Quantum Mechanics 12a - Dirac Equation I" by \x[viascience] (2015)}
+{title=Quantum Mechanics 12a - Dirac Equation I by \x[viascience] (2015)}
 
 \Video[https://www.youtube.com/watch?v=ajMaPc022VM]
 {title="PHYS 485 Lecture 14: The Dirac Equation" by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] (2016)}
@@ -21077,6 +21077,8 @@ Proverbs 27:17:
 
 \x[water-margin] also comes to mind. And also https://en.wikipedia.org/wiki/A_Story_of_Floating_Weeds[A story of floating weeds].
 
+Also known as being \x[hipster].
+
 = The truth will set you free
 {parent=quotes-by-jesus}
 {wiki}
@@ -31614,7 +31616,22 @@ Remember that queries can affects thousands of rows, and database systems like \
 
 Good summary on the \x[postgresql] page: https://www.postgresql.org/docs/14/transaction-iso.html
 
-= SQL read committed isolation level
+Implementation specifics:
+* \x[sqlite-isolation-levels]{child}
+
+= SQL READ UNCOMMITTED isolation level
+{c}
+{parent=sql-transaction-isolation-level}
+
+= SQL READ COMMITTED isolation level
+{c}
+{parent=sql-transaction-isolation-level}
+
+= SQL REPEATABLE READ isolation level
+{c}
+{parent=sql-transaction-isolation-level}
+
+= SQL SERIALIZABLE isolation level
 {c}
 {parent=sql-transaction-isolation-level}
 
@@ -31640,7 +31657,40 @@ that the default isolation level, \x[sql-read-committed-isolation-level], alread
 {id=file/sequelize/raw/parallel_create_delete_empty_tag.js}
 {parent=sql-parallel-update-example}
 
-\a[sequelize/raw/parallel_create_delete_empty_tag.js]
+This section is about: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
+
+In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
+
+What is happening is that we are creating and deleting posts at the same time, and we want to ensure that we don't delete a tag of a new post during this process due to a concurrency issue of type:
+* thread 2: delete old post
+* thread 2: find all tags with 0 posts. Finds `tag0` from the deleted old post which is now empty.
+* thread 1: create new post, which we want to have tag `tag0`
+* thread 1: try to create a new tag `tag0`, but don't because it already exists, this is done using \x[sqlite]'s `INSERT OR IGNORE INTO` or \x[postgresql]'s `INSERT ... ON CONFLICT DO NOTHING`
+* thread 1: assign `tag0` to the new post by adding an entry to the join table
+* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it, which then cascades into the join table
+which would result in the new post incorrectly not having the `tag0`.
+
+Another failure case:
+* thread 2: delete old post
+* thread 2: find all tags with 0 posts
+* thread 1: create new post
+* thread 1: try to create a new tag `tag0`, but don't because it already exists
+* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it
+* thread 1: assign `tag0` to the new post
+which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
+
+Another another one:
+* thread 2: delete old post
+* thread 1: create new post, which we want to have tag `tag0`
+* thread 1: try to create a new tag `tag0`, and succeed because it wasn't present
+* thread 2: find all tags with 0 posts, finds the tag that was just created
+* thread 2: delete all tags with 0 posts, deleting the new tag
+* thread 1: assign `tag0` to the new post
+which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
+
+Sample executions:
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 10 'READ COMMITTED'`: \x[postgresql], 9 tags, DELETE/CREATE the `tag0` test tag 10 times
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 10 'NONE'`: magic value, don't use any transaction. Should blow up sometimes.
 
 = SQL keyword
 {parent=sql}
@@ -31935,7 +31985,9 @@ Uses the name of the current \x[linux] user to login without a \x[password].
 {parent=sql}
 {wiki}
 
-The minimalism, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil SMC. Wait, scrap that last one. Pure beauty!
+The minimalimsm, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil \x[version-control]https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
+
+Official \x[git] mirror: https://github.com/sqlite/sqlite
 
 Create a table
 ``
@@ -31975,6 +32027,21 @@ output:
 7|seven
 ``
 
+= SQLite isolation levels
+{c}
+{parent=sql}
+{wiki}
+
+https://www.sqlite.org/pragma.html#pragma_read_uncommitted mentions:
+
+____
+The default isolation level for SQLite is SERIALIZABLE
+____
+
+It does not appear possible to achieve the other two levels besides SERIALIZABLE and READ UNCOMMITED
+
+https://www.sqlite.org/isolation.html
+
 = Node.js SQLite bindings
 {parent=sqlite}
 
@@ -31983,6 +32050,8 @@ output:
 
 * https://github.com/mapbox/node-sqlite3
 * https://www.npmjs.com/package/sqlite3
+
+Includes its own copy of sqlite3, you don't use the system one, which is good to ensure compatibility. The version is shown at: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/common-sqlite.gypi#L3 \x[sqlite] source is tracked compressed in-tree: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/sqlite-autoconf-3360000.tar.gz horrendous. This explains why it takes forever to clone that repository. People who don't believe in git submodules, there's even an official Git mirror at: https://github.com/sqlite/sqlite
 
 It appears to spawn its own \x[thread]{p} via its \x[c-programming-language] extension (since \x[javascript-is-single-threaded] and and \x[sqlite] is not \x[server]-based), which allows for parallel queries using multiple threads: https://github.com/mapbox/node-sqlite3/blob/v5.0.2/src/threading.h
 
@@ -32992,7 +33061,7 @@ Overview of the examples:
 * \a[sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] querries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
 * \a[sequelize/date.js]: automatic date typecasts
 * \a[sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
-* \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
+* \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
 * \a[sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
   ``
   UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
@@ -36169,6 +36238,10 @@ Not even the \x[open-university] seems to be very open!
 {c}
 {parent=list-of-british-universities}
 {wiki}
+
+= Imperial College
+{c}
+{synonym}
 
 Nice, nice place. \x[natural-science]{c}{p} only, no bullshit.
 

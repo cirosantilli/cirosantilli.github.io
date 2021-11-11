@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 // https://cirosantilli.com/sequelize
 // https://cirosantilli.com/sql-example
-const assert = require('assert');
-const { DataTypes, Op } = require('sequelize');
+const assert = require('assert')
 const common = require('../common')
 const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
 // Create tables and data.
-try { await sequelize.query(`DROP TABLE "IntegerNames"`) } catch (e) {}
+await common.drop(sequelize, `IntegerNames`)
 await sequelize.query(`
 CREATE TABLE "IntegerNames" (
   id INTEGER PRIMARY KEY,

@@ -7,7 +7,7 @@ const sequelize = common.sequelize(__filename)
 ;(async () => {
 
 // Create tables and data.
-try { await sequelize.query(`DROP TABLE "AnimalTag"`) } catch (e) {}
+await common.drop(sequelize, `AnimalTag`)
 // This would normally be done with many to many since tagid and tagName are redundant.
 // We are doing it like this just to illustrate a post JOIN table state.
 await sequelize.query(`
@@ -39,7 +39,6 @@ FROM "AnimalTag"
 GROUP BY "tagId"
 ORDER BY "tagName" ASC
 `)
-console.error(rows);
 assert.strictEqual(rows[0].tagName, 'flying')
 assert.strictEqual(rows[1].tagName, 'mammal')
 assert.strictEqual(rows.length, 2)

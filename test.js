@@ -8,7 +8,7 @@ function testLoop(topdir, dir, opts) {
   const dirents = fs.readdirSync(dir, { withFileTypes: true })
   for (let dirent of dirents.sort((a, b) => a.name.localeCompare(b.name))) {
     const curPath = path.join(dir, dirent.name)
-    const relpath = path.relative(topdir, curPath)
+    const relpath = path.relative(process.cwd(), curPath)
     if (!opts.skip.has(relpath)) {
       if (dirent.isDirectory()) {
         if (
@@ -59,18 +59,31 @@ function testLoop(topdir, dir, opts) {
   return true
 }
 
+// Test all executables under a given directory recursively.
+//
 // opts:
 //
 // * args: string[][]. List of common command line arguments passed to all executables
 //                     Each executable runs once with every given set of arguments.
+// * argv: string[][]. process.argv of the ./test command. Elements:
+//                     - 0: toplevel file or directory. If not given, use cwd.
 // * pref: string[]. Prefix added to each command to run.
 // * skip: string[]. List of paths to skip tests for, usually because they are failing,
 //                   or because they are slow.
 function test(opts = {}) {
   if (!('args' in opts)) {
-    args.opts = [[]]
+    opts.args = [[]]
   }
-  const ret = testLoop(process.cwd(), process.cwd(), opts) ? 0 : 1
+  if (!('argv' in opts)) {
+    opts.argv = []
+  }
+  let toplevel;
+  if (opts.argv.length > 2) {
+    toplevel = path.resolve(opts.argv[2])
+  } else {
+    toplevel = process.cwd()
+  }
+  const ret = testLoop(toplevel, toplevel, opts) ? 0 : 1
   process.exit(ret);
 }
 exports.test = test
