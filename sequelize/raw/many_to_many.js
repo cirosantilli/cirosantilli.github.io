@@ -3,7 +3,6 @@
 // https://cirosantilli.com/sql-example
 
 const assert = require('assert');
-const { DataTypes, Op } = require('sequelize');
 const common = require('../common')
 const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
@@ -11,9 +10,9 @@ const sequelize = common.sequelize(__filename, process.argv[2])
 // We do separate DROPs here because if one CREATE fails, we still
 // want the other DROPs to run, even though one of them will fail.
 // due to the table of the failed CREATE not existing.
-try { await sequelize.query(`DROP TABLE "AnimalTag"`) } catch (e) {}
-try { await sequelize.query(`DROP TABLE "Animal"`) } catch (e) {}
-try { await sequelize.query(`DROP TABLE "Tag"`) } catch (e) {}
+await common.drop(sequelize, 'AnimalTag')
+await common.drop(sequelize, 'Animal')
+await common.drop(sequelize, 'Tag')
 await Promise.all([
   `CREATE TABLE "Animal" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
   `CREATE TABLE "Tag" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,

@@ -5,14 +5,14 @@
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common');
-const sequelize = common.sequelize(__filename)
+const sequelize = common.sequelize(__filename, process.argv[2], {logging: false})
 
 ;(async () => {
 if (isMainThread) {
   const assert = require('assert');
 
   // Create tables and data.
-  try { await sequelize.query(`DROP TABLE MyInt`) } catch (e) {}
+  await common.drop(sequelize, 'MyInt')
   await sequelize.query(`CREATE TABLE MyInt ( i INTEGER NOT NULL)`)
   await sequelize.query(`INSERT INTO MyInt VALUES (0)`)
   const threadCount = 2;
@@ -38,5 +38,4 @@ if (isMainThread) {
   }
   await sequelize.close();
 }
-
 })();
