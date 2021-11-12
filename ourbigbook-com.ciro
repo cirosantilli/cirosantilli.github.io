@@ -9,20 +9,19 @@
 
 https://ourbigbook.com
 
+Source code: https://github.com/cirosantilli/cirodown/tree/master/web
+
+Current status: \x[action-plan][useless prototype], active work in process.
+
 Mission: live in a world where you can learn \x[university]-level \x[mathematics], \x[physics], \x[chemistry], \x[biology] and \x[engineering] for free whenever you want from perfect open source books made for free by random people who want to get famous to get better paying jobs.
 
 In this project, \x[ciro-santilli] wants to explore if it is possible to create a sustainable \x[website] that will make learners (notably \x[university] students taking courses) write \x[open-knowledge][freely licensed] university-level \x[natural-science] books for free.
 
-Ciro is looking for:
-* university teachers who might be interested in trying it out as described at \x[action-plan]{full}, especially \x[how-to-convince-teachers-to-use-cc-by-sa][those who already use open licenses for their lecture notes]
-* \x[funding][funding possibilities] for this project, including donations as mentioned at \x[sponsor]{full} and contracts
+= How the website works
+{parent=ourbigbook-com}
 
-The initial incentive for the creators is to make them famous and allow them to get more fulfilling jobs more easily, although Ciro also wants to add \x[knowledge-market][money transfer] mechanisms to it later on.
-
-We \x[how-to-convince-teachers-to-use-cc-by-sa][can't rely on teachers writing materials, because they simply don't have enough incentive]: publication count is all that matters to their careers. The students however, are desperate to prove themselves to the world, and therefore will do a lot of free work for the fame reward.
-
-Ciro envisions this as a \x[wikipedia][Wikipedia-like] website, but where:
-* each user can have their own version of each page which cannot be edited without their permission, e.g. only `cirosantilli` can edit http://elearning.com/cirosantilli/mathematics[]
+\x[ourbigbook-com] is a bit like \x[wikipedia] but:
+* each user can have their own version of each page which cannot be edited without their permission, e.g. only `cirosantilli` can edit http://ourbigbook.com/cirosantilli/mathematics[]
 * you can copy and modify other users' pages, since \x[creative-commons-license] will be mandatory. You can also make suggestions to their page if you want to.
 * each page has an issue tracker/comment section at the bottom to allow for sane discussion about the subject. As opposed to Wikipedia's unusable talk pages.
 * more granular pages than Wikipedia: every single header has its own page/metadata, no matter how specific the topic it covers is
@@ -30,20 +29,20 @@ Ciro envisions this as a \x[wikipedia][Wikipedia-like] website, but where:
 If you are a software engineer, you can see that this is basically a cross between \x[wikipedia], \x[github] and \x[stack-exchange].
 
 For example, Ciro could have his pages organized as:
-* http://elearning.com/cirosantilli/mathematics "Mathematics"
-  * http://elearning.com/cirosantilli/calculus "Calculus"
-    * http://elearning.com/cirosantilli/limit-mathematics "Limit (mathematics)"
-    * http://elearning.com/cirosantilli/riemann-integral "Riemann integral"
-      * http://elearning.com/cirosantilli/intuition-behind-the-reimann-integral "Intuition behind the Reimann integral"
-* http://elearning.com/cirosantilli/physics "Physics"
+* http://ourbigbook.com/cirosantilli/mathematics "Mathematics"
+  * http://ourbigbook.com/cirosantilli/calculus "Calculus"
+    * http://ourbigbook.com/cirosantilli/limit-mathematics "Limit (mathematics)"
+    * http://ourbigbook.com/cirosantilli/riemann-integral "Riemann integral"
+      * http://ourbigbook.com/cirosantilli/intuition-behind-the-reimann-integral "Intuition behind the Reimann integral"
+* http://ourbigbook.com/cirosantilli/physics "Physics"
 
 Then, anyone would be able to create their own version of the pages, e.g. user John Smith could create:
-* http://elearning.com/johnsmith/mathematics
-  * http://elearning.com/johnsmith/calculus
-    * http://elearning.com/johnsmith/derivative
-    * http://elearning.com/johnsmith/riemann-integral
-      * http://elearning.com/cirosantilli/intuition-behind-the-reimann-integral
-* http://elearning.com/johnsmith/physics
+* http://ourbigbook.com/johnsmith/mathematics
+  * http://ourbigbook.com/johnsmith/calculus
+    * http://ourbigbook.com/johnsmith/derivative
+    * http://ourbigbook.com/johnsmith/riemann-integral
+      * http://ourbigbook.com/cirosantilli/intuition-behind-the-reimann-integral
+* http://ourbigbook.com/johnsmith/physics
 
 Here for example, John decided:
 * to remove `limit-mathematics` from his tree
@@ -56,40 +55,32 @@ The key intended technical innovation of the website is a \x[pagerank]-like algo
 
   For example, if you are reading `cirosantilli/riemann-integral` and it is crap, you would be able to click the button
   \Q[Versions by other authors]
-  which leads you to the URL: http://elearning.com/subject/mathematics[]. This URL then contains a list of all pages people have written about the subject `mathematics`, sorted by some algorithm, containing for example:
-  * http://elearning.com/johnsmith/riemann-integral
-  * http://elearning.com/cirosantilli/riemann-integral
+  which leads you to the URL: http://ourbigbook.com/subject/mathematics[]. This URL then contains a list of all pages people have written about the subject `mathematics`, sorted by some algorithm, containing for example:
+  * http://ourbigbook.com/johnsmith/riemann-integral
+  * http://ourbigbook.com/cirosantilli/riemann-integral
 
   This URL would also contain a list of issues/comments that are related to the subject.
-* who knows the most about subject X. This can be found by visiting: http://elearning.com/users/mathematics[] "Top Mathematics users", which would contain the list of users sorted by the algorithm:
-  * http://elearning.com/johnsmith
-  * http://elearning.com/cirosantilli
+* who knows the most about subject X. This can be found by visiting: http://ourbigbook.com/users/mathematics[] "Top Mathematics users", which would contain the list of users sorted by the algorithm:
+  * http://ourbigbook.com/johnsmith
+  * http://ourbigbook.com/cirosantilli
 However, Ciro has decided to leave this for phase two \x[action-plan].
-
-Many subjects have changed very little in the last hundred years, and so it is mind-blowing that people have to pay for books that teach them!
-
-More than that however, if such project succeeds, it could fundamentally change the way \x[university] is organized, enormously improving its efficiency.
-
-It could destroy the current educational system and replace it by one that lets people \x[students-must-have-a-flexible-choice-of-what-to-learn][choose what they want to learn], which basically implies that a much large proportion of students get a de-facto \x[gifted-education].
-
-Ciro decided to start with a decent \x[markup-language] with a decent implementation: \x[cirodown]. Once that gets reasonable, he will move on to another attempt at the website itself.
-
-If \x[video-a-computer-is-the-equivalent-of-a-bicycle-for-our-minds-by-steve-jobs-1980][computers are bicycles for the mind], Ciro wants this website to be the Ferrari of the mind.
-
-This project is likely to fail. It could become the \x[templeos] of \x[wiki]{p}. It might be an impossible attempt at a \x[lifestyle-business]. But Ciro is beyond caring now. It must be done.
 
 In some ways, Ciro wants the website to feel like a \x[video-game], where you fluidly interact with headers, comments and their metadata. If game developers can achieve impressively complicated game engines, why can't we achieve a decent amazing elearning website? :-)
 
 Ciro predicts that the general organic user acquisition will go as follows:
 * \x[google] into rare specific subject
-* look around, then login/create account with \x[oauth] to leavea a comment or upvote
+* look around, then login/create account with \x[oauth] to leaves a comment or upvote
 * notice that you can fork anything
 * \x[mind-blown][mind = KABOOM]
 
-The project plan was originally at;: https://github.com/cirosantilli/write-free-science-books-to-get-famous-website but being migrated here. The original working project name was "Write free books to get famous website", until Ciro decided on `OurBigBook.com` and settled the domain name.
-
 = Motivation
 {parent=ourbigbook-com}
+
+Many subjects have changed very little in the last hundred years, and so it is mind-blowing that people have to pay for books that teach them!
+
+If \x[video-a-computer-is-the-equivalent-of-a-bicycle-for-our-minds-by-steve-jobs-1980][computers are bicycles for the mind], Ciro wants this website to be the Ferrari of the mind.
+
+This project is likely to fail. It could become the \x[templeos] of \x[wiki]{p}. It might be an impossible attempt at a \x[lifestyle-business]. But Ciro is beyond caring now. It must be done.
 
 Since \x[ciro-santilli] was young, he has been bewildered by the natural sciences and mathematics \x[ciro-santilli-s-bad-old-event-memory][due to his bad memory].
 
@@ -119,7 +110,7 @@ The very fact that you had very little choice of what to learn so that a large g
 
 This is especially true because Ciro was in \x[brazil], a third world country, where the opportunities are comparatively extremely limited to the \x[what-poor-countries-have-to-do-to-get-richer][first world].
 
-Also extremelly frustrating is how you might have to wait for years to get to the subject you really want. For example, on a \x[physics] course, \x[quantum-mechanics] is normally only taught on the third year! While there is value to knowing the pre-requisites, holding people back for years is just too sad, and Ciro much prefers \x[backward-design]. And just like the university entry, it creates an entry barrier situation where you might in the end find that "hey, that's not what I wanted to learn afer all", see also: \x[students-must-have-a-flexible-choice-of-what-to-learn].
+Also extremely frustrating is how you might have to wait for years to get to the subject you really want. For example, on a \x[physics] course, \x[quantum-mechanics] is normally only taught on the third year! While there is value to knowing the pre-requisites, holding people back for years is just too sad, and Ciro much prefers \x[backward-design]. And just like the university entry, it creates an entry barrier situation where you might in the end find that "hey, that's not what I wanted to learn afer all", see also: \x[students-must-have-a-flexible-choice-of-what-to-learn].
 
 And all of this is considering that he was very lucky to not be in a poor family, and was already in some of the best educational institutions locally available already, and had comparatively awesome teachers, without which he wouldn't be where he is today if he hadn't had such advantages in the first place.
 
@@ -203,6 +194,21 @@ The steps are sorted in roughly chronological order. The project might fail at a
 * if things seem to be working, start adding more advance features: PageRank-like sorting and WYSIWYG editing
 
   The recommendation algorithms notably is left for a second stage because it needs real world data to be tested. And at the beginning, before \x[eternal-september] kicks in, there would be few posts written by well educated university students, so a simple sort by upvote would likely be good enough.
+
+Ciro decided to start with a decent \x[markup-language] with a decent implementation: \x[cirodown]. Once that gets reasonable, he will move on to another attempt at the website itself.
+
+The project description was originally at: https://github.com/cirosantilli/write-free-science-books-to-get-famous-website but being migrated here. The original working project name was "Write free books to get famous website", until Ciro decided to settle for `OurBigBook.com` and fixed the domain name.
+
+= What the project needs
+{parent=ourbigbook-com}
+
+Ciro is looking for:
+* university teachers who might be interested in trying it out as described at \x[action-plan]{full}, especially \x[how-to-convince-teachers-to-use-cc-by-sa][those who already use open licenses for their lecture notes]
+* \x[funding][funding possibilities] for this project, including donations as mentioned at \x[sponsor]{full} and contracts
+
+The initial incentive for the creators is to make them famous and allow them to get more fulfilling jobs more easily, although Ciro also wants to add \x[knowledge-market][money transfer] mechanisms to it later on.
+
+We \x[how-to-convince-teachers-to-use-cc-by-sa][can't rely on teachers writing materials, because they simply don't have enough incentive]: publication count is all that matters to their careers. The students however, are desperate to prove themselves to the world, and becoming famous for amazing educational content is something that some of them might want to spend their times on, besides grinding for useless \x[grade-exam]{p}.
 
 = Alternatives
 {parent=ourbigbook-com}
@@ -431,8 +437,6 @@ At the same time, develop the website, and use the generated content to bootstra
 
 Choose a domain of knowledge, generate perfect courses for it, and find all teachers of the domain in the world who are teaching that and help them out.
 
-Ensure that the content can be downloaded as text, so that if this project fails, we can just upload everything to GitHub, and not all is lost.
-
 Then expand out to other domains.
 
 TODO: which domain of knowledge should we go for? The more precise the better.
@@ -518,8 +522,50 @@ Destroy useless \x[exam]{p}, the only metrics of society are either:
 
 Reduce the entry barrier to education, like Uber has done for taxis.
 
-Help create much greater \x[equal-opportunity] to talented poor studends as described at \x[free-gifted-education].
+Help create much greater \x[equal-opportunity] to talented poor students as described at \x[free-gifted-education].
+
+Give the students \x[students-must-have-a-flexible-choice-of-what-to-learn][a flexible choice of what to learn], which basically implies that a much large proportion of students get a de-facto \x[gifted-education].
 
 Related:
 
 * https://www.edsurge.com/news/2021-08-17-it-s-time-to-blur-the-boundaries-between-high-school-college-and-work
+
+= Website help
+{parent=ourbigbook-com}
+
+= Content license
+{parent=website-help}
+
+All original content, or reuploads of pre-published content that you own copyright for, are immediately licensed as \x[cc-by-sa-4-0] (the same license family used by \x[wikipedia]) upon upload.
+
+Any non-freely licensed content that you upload has to fall under \x[fair-use]. These are murky waters, but Wikipedia's guidelines are likely the best pointers one can find https://en.wikipedia.org/wiki/Wikipedia:Non-free_content[].
+
+Some examples of what should generally be OK:
+* quote up to a paragraph from a copyrighted book, clearly attributing it
+* explain what you've learned from a book or course in your own words.
+
+  You also have to take some care to not copy the exact structure of the original, as that itself could be subject to copyright.
+
+  One good approach is to just use several sources. If multiple sources use the same structure, then it is more arguable that this structure is not a novel copyrighted thing.
+* use a copyrighted photograph when there is no free alternative to illustrate what you are talking about
+
+If the copyright owner complains, we might have to take something down, but as long as you are not just uploading a bunch of copyrighted content, it's not the end of the world, we'll just find another freer way to explain things without them.
+
+= What content can I publish on this website?
+{parent=website-help}
+
+Anything you want, as long as it is legal. This notably includes not violating copyright, see also: \x[content-license].
+
+At some distant point in the future we could start letting people self tag content that is illegal in certain countries or for certain age groups, and we could then block this content to satisfy the laws of each country.
+
+= Can my content be edited or removed by other users?
+{parent=website-help}
+
+Unlike websites such as \x[wikipedia] or \x[stack-exchange], your content cannot be deleted by other users.
+
+Moderators of the website will only delete content that is illegal, see also \x[what-content-can-i-publish-on-this-website]{full}.
+
+= If the website shuts down, will I lose all my content?
+{parent=website-help}
+
+We haven't implemented it yet, but it is an important feature that we will implement: you will be able to download all your content as a .zip file containing \x[cirodown] files, and then you will be able to generate the \x[html] for your content on your own computer with the open source Cirodown implementation. There are then several alternative ways to host the generated HTML files, including free ones such as \x[github-pages].
