@@ -57,6 +57,13 @@ async function transaction(sequelize, cb) {
       ) {
         if (isolation !== 'NONE') {
           await sequelize.query(`ROLLBACK`)
+          // COMMIT would also work here in PostgreSQL it seems, when it enters error state it ignores
+          // everything until the transaction finishes, and the COMMIT then becomes as ROLLBACK:
+          // https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234
+          // but can't find any clear docs on it, this one:
+          // https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708
+          // points to some possible docs, but not very direct.
+          // await sequelize.query(`COMMIT`)
         }
       } else {
         // Error that we don't know how to handle.
@@ -141,8 +148,7 @@ ORDER BY "Post".id ASC
     // We could do it by DELETEing all posts with a given tag from that thread however.
     await sequelize.query(`DELETE FROM "Post" WHERE id = ${postId}`)
   }
-  done = true
-})()
+})().finally(() => { done = true })
 
 // This thread will repeatedly delete all tags with 0 posts.
 while (!done) {
