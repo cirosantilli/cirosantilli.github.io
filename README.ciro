@@ -3168,7 +3168,7 @@ A summary of minor projects is given at: \x[ciro-santilli-s-minor-projects].
 
 This section is a dump for anything else, to keep those sacred first sections clean.
 
-\Include[write-free-books-to-get-famous-website]
+\Include[ourbigbook-com]
 
 = All GitHub Commit Emails
 {c}
@@ -17936,7 +17936,7 @@ Includes:
 Does not include \x[amphibian]{p}. If you include the, you have the \x[tetrapod]{p}.
 
 = Amnion
-{parent=amnion}
+{parent=amniote}
 {wiki}
 
 = Amniote subclade
@@ -18354,7 +18354,7 @@ When a characteristic is basal, it basically means the opposite of it being \x[p
 E.g. \x[monotreme]{p} laying eggs did not evolve separately after function loss, it comes directly from \x[reptile]{p}.
 
 = Polyphyly
-{disambiguate=phylogenetics}
+{parent=phylogenetics}
 {wiki}
 
 = Polyphyletic
@@ -20367,7 +20367,7 @@ https://www.urbandictionary.com/define.php?term=turd%20polishing on \x[urban-dic
 {wiki}
 
 = Greek root
-{parent=greek}
+{parent=greek-language}
 {title2=μόνος}
 
 = Mono
@@ -31589,7 +31589,7 @@ Per language:
 {c}
 {parent=sql}
 
-We have some runnable SQL examples with \x[assertion-software-development]{p} under the `sequelize` directory.
+We have some runnable \x[sql] examples with \x[assertion-software-development]{p} under the `sequelize/raw` directory.
 
 These examples are written in the \x[sequelize] library using raw queries.
 
@@ -31604,11 +31604,17 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * \x[join-sql]
   * \x[group-by-sql]
   * \a[sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it
-* \x[sql-isolation-level-example]{child}
+* \x[sql-transaction] examples:
+  * \x[sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
+  * \x[sql-isolation-level-example]{child}
+
+= SQL transaction
+{c}
+{parent=sql}
 
 = SQL transaction isolation level
 {c}
-{parent=sql}
+{parent=sql-transaction}
 
 Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the \x[memory-semantics] of the system.
 
@@ -32029,7 +32035,7 @@ output:
 
 = SQLite isolation levels
 {c}
-{parent=sql}
+{parent=sqlite}
 {wiki}
 
 https://www.sqlite.org/pragma.html#pragma_read_uncommitted mentions:
@@ -34253,6 +34259,24 @@ Ciro likes how \x[the-internet-s-own-boy-2014] explains how Aaron felt like high
 
 It also mentions how he was a natural teacher from a very early age.
 
+= Guerilla Open Access Manifesto by Aaron Swartz (2008)
+{parent=aaron-swartz}
+{wiki}
+
+https://gist.github.com/briandoll/4522952
+
+Hmmm, he does not know how to spell guerilla? \x[sic]? https://www.quora.com/What-is-the-correct-spelling-guerilla-or-guerrilla
+
+Note to self: if you are going to commit a \x[crime], don't publish your plans online.
+
+\x[ross-ulbricht]'s diaries come to mind.
+
+That's how \x[russian] \x[shadow-library] maintainers do it, they know how to crime good old Russians. Maybe there is a good thing about having \x[dictatorship]{p} in the world that give zero fucks about \x[american] copyright laws. There will always be some random \x[russian] academic who will implement this and not go to jail. Maybe it's even \x[government][state] sponsored.
+
+= The Internet's Own Boy (2014)
+{parent=aaron-swartz}
+{wiki}
+
 = Sandy Maguire
 {c}
 {parent=list-of-software-engineers}
@@ -34278,24 +34302,6 @@ Other interesting points:
 * https://algebradriven.design/ \x[closed=source] books though, ouch. At least they seem to have been made with \x[leanpub] though, could be worse.
 
 He's a \x[haskell] person.
-
-= Guerilla Open Access Manifesto by Aaron Swartz (2008)
-{parent=aaron-swartz}
-{wiki}
-
-https://gist.github.com/briandoll/4522952
-
-Hmmm, he does not know how to spell guerilla? \x[sic]? https://www.quora.com/What-is-the-correct-spelling-guerilla-or-guerrilla
-
-Note to self: if you are going to commit a \x[crime], don't publish your plans online.
-
-\x[ross-ulbricht]'s diaries come to mind.
-
-That's how \x[russian] \x[shadow-library] maintainers do it, they know how to crime good old Russians. Maybe there is a good thing about having \x[dictatorship]{p} in the world that give zero fucks about \x[american] copyright laws. There will always be some random \x[russian] academic who will implement this and not go to jail. Maybe it's even \x[government][state] sponsored.
-
-= The Internet's Own Boy (2014)
-{parent=aaron-swartz}
-{wiki}
 
 = Dan Dascalescu
 {c}
@@ -42114,7 +42120,7 @@ Smart people who agree with Ciro:
 = Personal website
 {synonym}
 
-= The best personal webpages of all time;
+= The best personal webpages of all time
 {parent=personal-web-page}
 
 \x[personal-web-page]{c}{p}: These are basically technically minded people that \x[ciro-santilli] feels have similar \x[ciro-santilli-s-psychology-and-physiology][interests/psychology] to him, and who write too much for their own good:
@@ -42123,7 +42129,8 @@ Smart people who agree with Ciro:
 * \x[sandy-maguire]'s blog: https://sandymaguire.me
 
 = cat-v.org
-{parent=the-best-websites-of-all-time}
+{c}
+{parent=the-best-personal-webpages-of-all-time}
 
 http://cat-v.org/ by https://en.wikipedia.org/wiki/Rob_Pike[Rob Pike], co-creator of https://en.wikipedia.org/wiki/Go_(programming_language)[Go], looong time Unixer, and some kind of leader of a https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs[9p] resurrection cult. That one's spicy. E.g.: http://harmful.cat-v.org/[], Ciro's version: \x[good-and-evil].
 
