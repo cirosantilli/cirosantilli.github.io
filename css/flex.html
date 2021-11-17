@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<style>
+.container {
+  display: flex;
+  width: 400px;
+}
+.container .child-1 {
+  background-color: red;
+  height: 2em;
+}
+.container .child-2 {
+  background-color: blue;
+  height: 2em;
+}
+.container .subchild-1 {
+  background-color: green;
+}
+.container .subchild-2 {
+  background-color: yellow;
+}
+</style>
+</head>
+<body>
+ruler
+<div class="container">
+  <div style="width: 50px; background-color: magenta;">50</div>
+  <div style="width: 50px; background-color: cyan;">50</div>
+  <div style="width: 50px; background-color: magenta;">50</div>
+  <div style="width: 50px; background-color: cyan;">50</div>
+  <div style="width: 50px; background-color: magenta;">50</div>
+  <div style="width: 50px; background-color: cyan;">50</div>
+  <div style="width: 50px; background-color: magenta;">50</div>
+  <div style="width: 50px; background-color: cyan;">50</div>
+</div>
+flex-grow 1 1 (the default). Adds 75 (175 = 100 + 75) to child-1 and 75 to child-2 (225 = 150 + 75)
+<div class="container">
+  <div class="child-1" style="flex-grow: 1;"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2" style="flex-grow: 1;"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+flex-grow 1 1. Analogous, adds 50 to each.
+<div class="container">
+  <div class="child-1" style="flex-grow: 1;"><div class="subchild-1" style="width: 150px">150</div></div>
+  <div class="child-2" style="flex-grow: 1;"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+flex-grow 1 1 flex-basis 150. child-1 wants to have 150, just like child-2. So add 50 each.
+<div class="container">
+  <div class="child-1" style="flex-grow: 1; flex-basis:  150px;"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2" style="flex-grow: 1;"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+flex-grow 1 1 flex-basis 100. flex-basis is still used as the value that counts even if it is smaller than the minimal content size.
+<div class="container">
+  <div class="child-1" style="flex-grow: 1; flex-basis:  100px;"><div class="subchild-1" style="width: 150px">150</div></div>
+  <div class="child-2" style="flex-grow: 1;"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+flex-grow 1 2. child-1 wants 100, child-2 wants 200. We have 100 left to 400. Because of flex-grow 2, child-2 will grow 2x more than child-1, so child-1 grows 33 from 100 to 133 and child-2 grows 67 from 200 to 267
+<div class="container">
+  <div class="child-1" style="flex-grow: 1;"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2" style="flex-grow: 2;"><div class="subchild-2" style="width: 200px">200</div></div>
+</div>
+flex-grow 1 2
+<div class="container">
+  <div class="child-1" style="flex-grow: 1;"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2" style="flex-grow: 2;"><div class="subchild-2" style="width: 250px">250</div></div>
+</div>
+flex-grow 0 1. child-1 simply cannot grow, so child-2 takes up all remaining space.
+<div class="container">
+  <div class="child-1" style="flex-grow: 0"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-grow: 1"><div class="subchild-2" style="width: 50px">50</div></div>
+</div>
+flex-grow 0 0. How much is 300 divided by 0? Doesn't matter, if neither can grow we go below the min.
+<div class="container">
+  <div class="child-1" style="flex-grow: 0"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-grow: 0"><div class="subchild-2" style="width: 50px">50</div></div>
+</div>
+No more space left, all fits perfectly.
+<div class="container">
+  <div class="child-1"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2"><div class="subchild-2" style="width: 300px">300</div></div>
+</div>
+flex-basis 200. child-1 wants to be 200, child-2 also 200, there is enough space, so let child-1 be 200.
+<div class="container">
+  <div class="child-1" style="flex-basis: 200px"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2"><div class="subchild-2" style="width: 200px">200</div></div>
+</div>
+flex-basis 200. child-1 wants to be 200, but child-2 needs 250, so we can only give child-1 50
+<div class="container">
+  <div class="child-1" style="flex-basis: 200px"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2"><div class="subchild-2" style="width: 250px">250</div></div>
+</div>
+flex-basis 200 flex-shrink 0. child-1 refuses to shrink due to shrink 0, so we have no choice but to overflow the container.
+<div class="container">
+  <div class="child-1" style="flex-basis: 200px; flex-shrink: 0;"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2"><div class="subchild-2" style="width: 250px">250</div></div>
+</div>
+flex-basis 300 300. Both want 300px. There isn't enough space, so we shrink both by an equal amount, from 300 to 150.
+<div class="container">
+  <div class="child-1" style="flex-basis: 300px"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-basis: 300px"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+flex-basis 300 300 flex-shrink 2 1. This time, child-1 will shrink 2x more than child-2. We need to shrink from 600 to 400, child-2 shrinks 200/3 = 66 from 300 to 233, and child-1 shrinks 2*66 = 133 from 300 to 167
+<div class="container">
+  <div class="child-1" style="flex-basis: 300px;flex-shrink: 2;"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-basis: 300px;flex-shrink: 1;"><div class="subchild-2" style="width: 150px">150</div></div>
+</div>
+minimal content size doesn't fit, nothing we can do about it
+<div class="container">
+  <div class="child-1"><div class="subchild-1" style="width: 100px">100</div></div>
+  <div class="child-2"><div class="subchild-2" style="width: 400px">400</div></div>
+</div>
+flex-grow 0 1 + reflowing text content
+<div class="container">
+  <div class="child-1" style="flex-grow: 0; height: auto;"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-grow: 1; height: auto;"><div class="subchild-2">asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9</div></div>
+</div>
+flex-grow 1 1 + reflowing text content
+<div class="container">
+  <div class="child-1" style="flex-grow: 1; height: auto;"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-grow: 1; height: auto;"><div class="subchild-2">asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9</div></div>
+</div>
+flex-grow 0 1 + reflowing text content, and align-items center
+<div class="container" style="align-items: center;">
+  <div class="child-1" style="flex-grow: 0; height: auto;"><div class="subchild-1" style="width: 50px">50</div></div>
+  <div class="child-2" style="flex-grow: 1; height: auto;"><div class="subchild-2">asdf qwer asdf2 qwer2 asdf3 qwer3 asdf4 qwer4 asdf5 qwer5 asdf6 qwre6 asdf7 qwer7 asdf8 qwer8 asdf9 qwer9</div></div>
+</div>
+<script>
+for (let container of document.getElementsByClassName('container')) {
+  const widths = [];
+  for (let child of container.children) {
+    widths.push(child.offsetWidth)
+  }
+  container.insertAdjacentHTML('afterEnd', `<div>widths: ${widths.join(' ')}</div>`)
+}
+</script>
+</body>
+</html>
