@@ -66,17 +66,19 @@ await user1.addPost(post2, {through: {score: 3}})
 
 // Find what user0 likes.
 const user0Likes = await user0.getPosts({order: [['body', 'ASC']]})
-assert(user0Likes[0].body === 'post0');
-assert(user0Likes[0].UserLikesPost.score === 1);
-assert(user0Likes.length === 1);
+assert.strictEqual(user0Likes[0].body, 'post0');
+console.error(user0Likes[0]);
+asdf
+assert.strictEqual(user0Likes[0].UserLikesPost.score, 1);
+assert.strictEqual(user0Likes.length, 1);
 
 // Find what user1 likes.
 const user1Likes = await user1.getPosts({order: [['body', 'ASC']]})
-assert(user1Likes[0].body === 'post1');
-assert(user1Likes[0].UserLikesPost.score === 2);
-assert(user1Likes[1].body === 'post2');
-assert(user1Likes[1].UserLikesPost.score === 3);
-assert(user1Likes.length === 2);
+assert.strictEqual(user1Likes[0].body, 'post1');
+assert.strictEqual(user1Likes[0].UserLikesPost.score, 2);
+assert.strictEqual(user1Likes[1].body, 'post2');
+assert.strictEqual(user1Likes[1].UserLikesPost.score, 3);
+assert.strictEqual(user1Likes.length, 2);
 
 // Where on the custom through table column.
 // Find posts that user1 likes which have score greater than 2.

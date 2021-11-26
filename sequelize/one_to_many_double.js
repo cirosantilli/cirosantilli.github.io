@@ -57,34 +57,34 @@ const posts = await Post.bulkCreate([
 // Get user from post and vice versa.
 
 const user0AuthoredPosts = await users[0].getAuthoredPosts()
-assert(user0AuthoredPosts[0].body === 'body00')
-assert(user0AuthoredPosts[1].body === 'body01')
-assert(user0AuthoredPosts.length === 2)
+assert.strictEqual(user0AuthoredPosts[0].body, 'body00')
+assert.strictEqual(user0AuthoredPosts[1].body, 'body01')
+assert.strictEqual(user0AuthoredPosts.length, 2)
 
 const user1AuthoredPosts = await users[1].getAuthoredPosts()
-assert(user1AuthoredPosts[0].body === 'body10')
-assert(user1AuthoredPosts[1].body === 'body11')
-assert(user1AuthoredPosts.length === 2)
+assert.strictEqual(user1AuthoredPosts[0].body, 'body10')
+assert.strictEqual(user1AuthoredPosts[1].body, 'body11')
+assert.strictEqual(user1AuthoredPosts.length, 2)
 
 const user0ReviewedPosts = await users[0].getReviewedPosts()
-assert(user0ReviewedPosts[0].body === 'body00')
-assert(user0ReviewedPosts[1].body === 'body20')
-assert(user0ReviewedPosts.length === 2)
+assert.strictEqual(user0ReviewedPosts[0].body, 'body00')
+assert.strictEqual(user0ReviewedPosts[1].body, 'body20')
+assert.strictEqual(user0ReviewedPosts.length, 2)
 
 const user1ReviewedPosts = await users[1].getReviewedPosts()
-assert(user1ReviewedPosts[0].body === 'body01')
-assert(user1ReviewedPosts[1].body === 'body21')
-assert(user1ReviewedPosts.length === 2)
+assert.strictEqual(user1ReviewedPosts[0].body, 'body01')
+assert.strictEqual(user1ReviewedPosts[1].body, 'body21')
+assert.strictEqual(user1ReviewedPosts.length, 2)
 
-assert((await posts[0].getAuthor()).name === 'user0')
-assert((await posts[1].getAuthor()).name === 'user0')
-assert((await posts[2].getAuthor()).name === 'user1')
-assert((await posts[3].getAuthor()).name === 'user1')
+assert.strictEqual((await posts[0].getAuthor()).name, 'user0')
+assert.strictEqual((await posts[1].getAuthor()).name, 'user0')
+assert.strictEqual((await posts[2].getAuthor()).name, 'user1')
+assert.strictEqual((await posts[3].getAuthor()).name, 'user1')
 
-assert((await posts[0].getReviewer()).name === 'user0')
-assert((await posts[1].getReviewer()).name === 'user1')
-assert((await posts[2].getReviewer()).name === 'user2')
-assert((await posts[3].getReviewer()).name === 'user3')
+assert.strictEqual((await posts[0].getReviewer()).name, 'user0')
+assert.strictEqual((await posts[1].getReviewer()).name, 'user1')
+assert.strictEqual((await posts[2].getReviewer()).name, 'user2')
+assert.strictEqual((await posts[3].getReviewer()).name, 'user3')
 
 // Same as getAuthoredPosts but with the user ID instead of the model object.
 {
@@ -97,9 +97,9 @@ assert((await posts[3].getReviewer()).name === 'user3')
     }],
     order: [['body', 'ASC']],
   })
-  assert(user0AuthoredPosts[0].body === 'body00');
-  assert(user0AuthoredPosts[1].body === 'body01');
-  assert(user0AuthoredPosts.length === 2);
+  assert.strictEqual(user0AuthoredPosts[0].body, 'body00');
+  assert.strictEqual(user0AuthoredPosts[1].body, 'body01');
+  assert.strictEqual(user0AuthoredPosts.length, 2);
 }
 
 // Yet another way that can be more useful in nested includes.
@@ -112,9 +112,9 @@ assert((await posts[3].getReviewer()).name === 'user3')
     }],
     order: [[{model: Post, as: 'authoredPosts'}, 'body', 'ASC']],
   })).authoredPosts
-  assert(user0AuthoredPosts[0].body === 'body00');
-  assert(user0AuthoredPosts[1].body === 'body01');
-  assert(user0AuthoredPosts.length === 2);
+  assert.strictEqual(user0AuthoredPosts[0].body, 'body00');
+  assert.strictEqual(user0AuthoredPosts[1].body, 'body01');
+  assert.strictEqual(user0AuthoredPosts.length, 2);
 }
 
 await sequelize.close();

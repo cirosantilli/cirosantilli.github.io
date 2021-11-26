@@ -59,20 +59,20 @@ await user3.addFollow(user0)
 
 // Find all users that a user follows.
 const user0Follows = await user0.getFollows({order: [['name', 'ASC']]})
-assert(user0Follows[0].name === 'user1');
-assert(user0Follows[1].name === 'user2');
-assert(user0Follows.length === 2);
+assert.strictEqual(user0Follows[0].name, 'user1');
+assert.strictEqual(user0Follows[1].name, 'user2');
+assert.strictEqual(user0Follows.length, 2);
 
 const user1Follows = await user1.getFollows({order: [['name', 'ASC']]})
-assert(user1Follows.length === 0);
+assert.strictEqual(user1Follows.length, 0);
 
 const user2Follows = await user2.getFollows({order: [['name', 'ASC']]})
-assert(user2Follows[0].name === 'user0');
-assert(user2Follows.length === 1);
+assert.strictEqual(user2Follows[0].name, 'user0');
+assert.strictEqual(user2Follows.length, 1);
 
 const user3Follows = await user3.getFollows({order: [['name', 'ASC']]})
-assert(user3Follows[0].name === 'user0');
-assert(user3Follows.length === 1);
+assert.strictEqual(user3Follows[0].name, 'user0');
+assert.strictEqual(user3Follows.length, 1);
 
 // Same but with explicit id.
 {
@@ -85,9 +85,9 @@ assert(user3Follows.length === 1);
       through: {attributes: []},
     }],
   })).Follows
-  assert(user0Follows[0].name === 'user1');
-  assert(user0Follows[1].name === 'user2');
-  assert(user0Follows.length === 2);
+  assert.strictEqual(user0Follows[0].name, 'user1');
+  assert.strictEqual(user0Follows[1].name, 'user2');
+  assert.strictEqual(user0Follows.length, 2);
 }
 
 // Another method with the many-to-many reversed.
@@ -105,9 +105,9 @@ assert(user3Follows.length === 1);
     }],
     order: [['name', 'ASC']],
   })
-  assert(user0Follows[0].name === 'user1');
-  assert(user0Follows[1].name === 'user2');
-  assert(user0Follows.length === 2);
+  assert.strictEqual(user0Follows[0].name, 'user1');
+  assert.strictEqual(user0Follows[1].name, 'user2');
+  assert.strictEqual(user0Follows.length, 2);
 }
 
 await sequelize.close();

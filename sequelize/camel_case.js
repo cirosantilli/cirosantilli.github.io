@@ -73,26 +73,26 @@ await users[0].addFollows([users[1], users[2]])
 // Check case of auto-getters.
 
 const user0Posts = await users[0].getPosts({order: [['body', 'ASC']]})
-assert(user0Posts[0].body === 'body00')
-assert(user0Posts[1].body === 'body01')
-assert(user0Posts.length === 2)
+assert.strictEqual(user0Posts[0].body, 'body00')
+assert.strictEqual(user0Posts[1].body, 'body01')
+assert.strictEqual(user0Posts.length, 2)
 
 const user1Posts = await users[1].getPosts({order: [['body', 'ASC']]})
-assert(user1Posts[0].body === 'body10')
-assert(user1Posts[1].body === 'body11')
-assert(user1Posts.length === 2)
+assert.strictEqual(user1Posts[0].body, 'body10')
+assert.strictEqual(user1Posts[1].body, 'body11')
+assert.strictEqual(user1Posts.length, 2)
 
 const post00User = await posts[0].getUser()
-assert(post00User.name === 'user0')
+assert.strictEqual(post00User.name, 'user0')
 
 const post01User = await posts[1].getUser()
-assert(post01User.name === 'user0')
+assert.strictEqual(post01User.name, 'user0')
 
 const post10User = await posts[2].getUser()
-assert(post10User.name === 'user1')
+assert.strictEqual(post10User.name, 'user1')
 
 const post11User = await posts[3].getUser()
-assert(post11User.name === 'user1')
+assert.strictEqual(post11User.name, 'user1')
 
 // Check case of as;
 {
@@ -114,11 +114,11 @@ assert(post11User.name === 'user1')
     postsFound.push(...followedUser.Posts)
   }
   postsFound.sort((x, y) => { return x.body < y.body ? -1 : x.body > y.body ? 1 : 0 })
-  assert(postsFound[0].body === 'body10')
-  assert(postsFound[1].body === 'body11')
-  assert(postsFound[2].body === 'body20')
-  assert(postsFound[3].body === 'body21')
-  assert(postsFound.length === 4)
+  assert.strictEqual(postsFound[0].body, 'body10')
+  assert.strictEqual(postsFound[1].body, 'body11')
+  assert.strictEqual(postsFound[2].body, 'body20')
+  assert.strictEqual(postsFound[3].body, 'body21')
+  assert.strictEqual(postsFound.length, 4)
 }
 
 await sequelize.close();
