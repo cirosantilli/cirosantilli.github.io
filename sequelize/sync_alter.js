@@ -40,15 +40,15 @@ const { Sequelize, DataTypes } = require('sequelize');
   const integerNames = await IntegerNames.findAll({
     order: [['value', 'ASC']],
   });
-  assert(integerNames[0].value  === 2);
-  assert(integerNames[0].name   === 'two');
-  assert(integerNames[0].nameEs === null);
-  assert(integerNames[1].name   === 'three');
-  assert(integerNames[1].nameEs === null);
-  assert(integerNames[2].name   === 'five');
-  assert(integerNames[2].nameEs === 'cinco');
-  assert(integerNames[3].name   === 'seven');
-  assert(integerNames[3].nameEs === 'siete');
+  assert.strictEqual(integerNames[0].value , 2);
+  assert.strictEqual(integerNames[0].name  , 'two');
+  assert.strictEqual(integerNames[0].nameEs, null);
+  assert.strictEqual(integerNames[1].name  , 'three');
+  assert.strictEqual(integerNames[1].nameEs, null);
+  assert.strictEqual(integerNames[2].name  , 'five');
+  assert.strictEqual(integerNames[2].nameEs, 'cinco');
+  assert.strictEqual(integerNames[3].name  , 'seven');
+  assert.strictEqual(integerNames[3].nameEs, 'siete');
   await sequelize.close();
 }
 
@@ -67,15 +67,15 @@ const { Sequelize, DataTypes } = require('sequelize');
   const integerNames = await IntegerNames.findAll({
     order: [['value', 'ASC']],
   });
-  assert(integerNames[0].value  === 2);
-  assert(integerNames[0].name   === 'two');
-  assert(integerNames[0].nameEs === undefined);
-  assert(integerNames[1].name   === 'three');
-  assert(integerNames[1].nameEs === undefined);
-  assert(integerNames[2].name   === 'five');
-  assert(integerNames[2].nameEs === undefined);
-  assert(integerNames[3].name   === 'seven');
-  assert(integerNames[3].nameEs === undefined);
+  assert.strictEqual(integerNames[0].value , 2);
+  assert.strictEqual(integerNames[0].name  , 'two');
+  assert.strictEqual(integerNames[0].nameEs, undefined);
+  assert.strictEqual(integerNames[1].name  , 'three');
+  assert.strictEqual(integerNames[1].nameEs, undefined);
+  assert.strictEqual(integerNames[2].name  , 'five');
+  assert.strictEqual(integerNames[2].nameEs, undefined);
+  assert.strictEqual(integerNames[3].name  , 'seven');
+  assert.strictEqual(integerNames[3].nameEs, undefined);
   await sequelize.close();
 }
 
@@ -96,14 +96,14 @@ const { Sequelize, DataTypes } = require('sequelize');
   const integerNames = await IntegerNames.findAll({
     order: [['value', 'ASC']],
   });
-  assert(integerNames[0].value === '2');
-  assert(integerNames[0].name  === 'two');
-  assert(integerNames[1].value === '3');
-  assert(integerNames[1].name  === 'three');
-  assert(integerNames[2].value === '5');
-  assert(integerNames[2].name  === 'five');
-  assert(integerNames[3].value === '7');
-  assert(integerNames[3].name  === 'seven');
+  assert.strictEqual(integerNames[0].value, '2');
+  assert.strictEqual(integerNames[0].name , 'two');
+  assert.strictEqual(integerNames[1].value, '3');
+  assert.strictEqual(integerNames[1].name , 'three');
+  assert.strictEqual(integerNames[2].value, '5');
+  assert.strictEqual(integerNames[2].name , 'five');
+  assert.strictEqual(integerNames[3].value, '7');
+  assert.strictEqual(integerNames[3].name , 'seven');
   await sequelize.close();
 }
 

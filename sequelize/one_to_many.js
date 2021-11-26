@@ -35,13 +35,13 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
     where: { UserId: u0.id },
     order: [['id', 'ASC']],
   });
-  assert(u0Comments[0].body === 'u0c0');
-  assert(u0Comments[1].body === 'u0c1');
-  assert(u0Comments[0].UserId === u0.id);
-  assert(u0Comments[1].UserId === u0.id);
+  assert.strictEqual(u0Comments[0].body, 'u0c0');
+  assert.strictEqual(u0Comments[1].body, 'u0c1');
+  assert.strictEqual(u0Comments[0].UserId, u0.id);
+  assert.strictEqual(u0Comments[1].UserId, u0.id);
   // Not added as an object by default. Would require extra query.
-  assert(u0Comments[0].User === undefined);
-  assert(u0Comments[1].User === undefined);
+  assert.strictEqual(u0Comments[0].User, undefined);
+  assert.strictEqual(u0Comments[1].User, undefined);
 }
 
 // Include data from the other side of the association in the query.
@@ -54,13 +54,13 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
     //include: [User],
     //include: [{ model: User }],
   });
-  assert(u0Comments[0].body === 'u0c0');
-  assert(u0Comments[1].body === 'u0c1');
-  assert(u0Comments[0].UserId === u0.id);
-  assert(u0Comments[1].UserId === u0.id);
+  assert.strictEqual(u0Comments[0].body, 'u0c0');
+  assert.strictEqual(u0Comments[1].body, 'u0c1');
+  assert.strictEqual(u0Comments[0].UserId, u0.id);
+  assert.strictEqual(u0Comments[1].UserId, u0.id);
   // These did get added now.
-  assert(u0Comments[0].User.name === 'u0');
-  assert(u0Comments[1].User.name === 'u0');
+  assert.strictEqual(u0Comments[0].User.name, 'u0');
+  assert.strictEqual(u0Comments[1].User.name, 'u0');
 }
 
 // Nicer higher level way.
@@ -69,10 +69,10 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
     include: [{ model: User }],
     order: [['id', 'ASC']],
   });
-  assert(u0Comments[0].body === 'u0c0');
-  assert(u0Comments[1].body === 'u0c1');
-  assert(u0Comments[0].User.name === 'u0');
-  assert(u0Comments[1].User.name === 'u0');
+  assert.strictEqual(u0Comments[0].body, 'u0c0');
+  assert.strictEqual(u0Comments[1].body, 'u0c1');
+  assert.strictEqual(u0Comments[0].User.name, 'u0');
+  assert.strictEqual(u0Comments[1].User.name, 'u0');
 }
 
 // If you REALLY wanted to not repeat the UserId magic constant everywhere, you could use User.associations.Comments.foreignKey
@@ -126,12 +126,12 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
       // Instead of include: UserAs
       include: 'author',
     });
-    assert(u0Comments[0].body === 'u0c0');
-    assert(u0Comments[1].body === 'u0c1');
-    assert(u0Comments[0].authorId === u0.id);
-    assert(u0Comments[1].authorId === u0.id);
-    assert(u0Comments[0].author.name === 'u0');
-    assert(u0Comments[1].author.name === 'u0');
+    assert.strictEqual(u0Comments[0].body, 'u0c0');
+    assert.strictEqual(u0Comments[1].body, 'u0c1');
+    assert.strictEqual(u0Comments[0].authorId, u0.id);
+    assert.strictEqual(u0Comments[1].authorId, u0.id);
+    assert.strictEqual(u0Comments[0].author.name, 'u0');
+    assert.strictEqual(u0Comments[1].author.name, 'u0');
   }
 
   // Trying with the higher level getter.
@@ -141,10 +141,10 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
     //const u0Comments = await u0.getComments({
     //  include: 'author',
     //});
-    //assert(u0Comments[0].body === 'u0c0');
-    //assert(u0Comments[1].body === 'u0c1');
-    //assert(u0Comments[0].author.name === 'u0');
-    //assert(u0Comments[1].author.name === 'u0');
+    //assert.strictEqual(u0Comments[0].body, 'u0c0');
+    //assert.strictEqual(u0Comments[1].body, 'u0c1');
+    //assert.strictEqual(u0Comments[0].author.name, 'u0');
+    //assert.strictEqual(u0Comments[1].author.name, 'u0');
   }
 }
 await sequelize.close();

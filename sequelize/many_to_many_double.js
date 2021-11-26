@@ -53,58 +53,58 @@ await post1.addFollower(user2)
 // Get likes by a user.
 
 const user0Likes = await user0.getLikedPosts({order: [['body', 'ASC']]})
-assert(user0Likes[0].body === 'post0');
-assert(user0Likes[1].body === 'post1');
-assert(user0Likes.length === 2);
+assert.strictEqual(user0Likes[0].body, 'post0');
+assert.strictEqual(user0Likes[1].body, 'post1');
+assert.strictEqual(user0Likes.length, 2);
 
 const user1Likes = await user1.getLikedPosts({order: [['body', 'ASC']]})
-assert(user1Likes.length === 0);
+assert.strictEqual(user1Likes.length, 0);
 
 const user2Likes = await user2.getLikedPosts({order: [['body', 'ASC']]})
-assert(user2Likes[0].body === 'post1');
-assert(user2Likes.length === 1);
+assert.strictEqual(user2Likes[0].body, 'post1');
+assert.strictEqual(user2Likes.length, 1);
 
 // Get users that liked a given post.
 
 const post0Likers = await post0.getLikers({order: [['name', 'ASC']]})
-assert(post0Likers[0].name === 'user0');
-assert(post0Likers.length === 1);
+assert.strictEqual(post0Likers[0].name, 'user0');
+assert.strictEqual(post0Likers.length, 1);
 
 const post1Likers = await post1.getLikers({order: [['name', 'ASC']]})
-assert(post1Likers[0].name === 'user0');
-assert(post1Likers[1].name === 'user2');
-assert(post1Likers.length === 2);
+assert.strictEqual(post1Likers[0].name, 'user0');
+assert.strictEqual(post1Likers[1].name, 'user2');
+assert.strictEqual(post1Likers.length, 2);
 
 const post2Likers = await post2.getLikers({order: [['name', 'ASC']]})
-assert(post2Likers.length === 0);
+assert.strictEqual(post2Likers.length, 0);
 
 // Get follows by a user.
 
 const user0Follows = await user0.getFollowedPosts({order: [['body', 'ASC']]})
-assert(user0Follows.length === 0);
+assert.strictEqual(user0Follows.length, 0);
 
 const user1Follows = await user1.getFollowedPosts({order: [['body', 'ASC']]})
-assert(user1Follows[0].body === 'post0');
-assert(user1Follows[1].body === 'post1');
-assert(user1Follows.length === 2);
+assert.strictEqual(user1Follows[0].body, 'post0');
+assert.strictEqual(user1Follows[1].body, 'post1');
+assert.strictEqual(user1Follows.length, 2);
 
 const user2Follows = await user2.getFollowedPosts({order: [['body', 'ASC']]})
-assert(user2Follows[0].body === 'post1');
-assert(user2Follows.length === 1);
+assert.strictEqual(user2Follows[0].body, 'post1');
+assert.strictEqual(user2Follows.length, 1);
 
 // Get users that followed a given post.
 
 const post0Followers = await post0.getFollowers({order: [['name', 'ASC']]})
-assert(post0Followers[0].name === 'user1');
-assert(post0Followers.length === 1);
+assert.strictEqual(post0Followers[0].name, 'user1');
+assert.strictEqual(post0Followers.length, 1);
 
 const post1Followers = await post1.getFollowers({order: [['name', 'ASC']]})
-assert(post1Followers[0].name === 'user1');
-assert(post1Followers[1].name === 'user2');
-assert(post1Followers.length === 2);
+assert.strictEqual(post1Followers[0].name, 'user1');
+assert.strictEqual(post1Followers[1].name, 'user2');
+assert.strictEqual(post1Followers.length, 2);
 
 const post2Followers = await post2.getFollowers({order: [['name', 'ASC']]})
-assert(post2Followers.length === 0);
+assert.strictEqual(post2Followers.length, 0);
 
 // Same as getLikedPosts but with the user ID instead of the model object.
 // as is mandatory to disambiguate which one we want to get.
@@ -117,9 +117,9 @@ assert(post2Followers.length === 0);
     }],
     order: [['body', 'ASC']],
   })
-  assert(user0Likes[0].body === 'post0');
-  assert(user0Likes[1].body === 'post1');
-  assert(user0Likes.length === 2);
+  assert.strictEqual(user0Likes[0].body, 'post0');
+  assert.strictEqual(user0Likes[1].body, 'post1');
+  assert.strictEqual(user0Likes.length, 2);
 }
 
 // Alternatively, we can also pass the association object instead of model + as.
@@ -132,9 +132,9 @@ assert(post2Followers.length === 0);
     }],
     order: [['body', 'ASC']],
   })
-  assert(user0Likes[0].body === 'post0');
-  assert(user0Likes[1].body === 'post1');
-  assert(user0Likes.length === 2);
+  assert.strictEqual(user0Likes[0].body, 'post0');
+  assert.strictEqual(user0Likes[1].body, 'post1');
+  assert.strictEqual(user0Likes.length, 2);
 }
 
 // Yet another way that can be more useful in nested includes.
@@ -147,9 +147,9 @@ assert(post2Followers.length === 0);
     }],
     order: [[{model: Post, as: 'likedPosts'}, 'body', 'ASC']],
   })).likedPosts
-  assert(user0Likes[0].body === 'post0');
-  assert(user0Likes[1].body === 'post1');
-  assert(user0Likes.length === 2);
+  assert.strictEqual(user0Likes[0].body, 'post0');
+  assert.strictEqual(user0Likes[1].body, 'post1');
+  assert.strictEqual(user0Likes.length, 2);
 }
 
 await sequelize.close();

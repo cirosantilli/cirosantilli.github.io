@@ -61,11 +61,11 @@ await users[0].addFollows([users[1], users[2]])
     postsFound.push(...followedUser.Posts)
   }
   postsFound.sort((x, y) => { return x.body < y.body ? -1 : x.body > y.body ? 1 : 0 })
-  assert(postsFound[0].body === 'body10')
-  assert(postsFound[1].body === 'body11')
-  assert(postsFound[2].body === 'body20')
-  assert(postsFound[3].body === 'body21')
-  assert(postsFound.length === 4)
+  assert.strictEqual(postsFound[0].body, 'body10')
+  assert.strictEqual(postsFound[1].body, 'body11')
+  assert.strictEqual(postsFound[2].body, 'body20')
+  assert.strictEqual(postsFound[3].body, 'body21')
+  assert.strictEqual(postsFound.length, 4)
 }
 
 // Similar to the above, but now with ordering, offset and limit.
@@ -90,17 +90,17 @@ await users[0].addFollows([users[1], users[2]])
       },
     ],
   })).Follows
-  assert(user0Follows[0].name === 'user1')
-  assert(user0Follows[1].name === 'user2')
-  assert(user0Follows.length === 2)
+  assert.strictEqual(user0Follows[0].name, 'user1')
+  assert.strictEqual(user0Follows[1].name, 'user2')
+  assert.strictEqual(user0Follows.length, 2)
   const postsFound = []
   for (const followedUser of user0Follows) {
     postsFound.push(...followedUser.Posts)
   }
   postsFound.sort((x, y) => { return x.body < y.body ? -1 : x.body > y.body ? 1 : 0 })
-  assert(postsFound[0].body === 'body11')
-  assert(postsFound[1].body === 'body20')
-  assert(postsFound.length === 2)
+  assert.strictEqual(postsFound[0].body, 'body11')
+  assert.strictEqual(postsFound[1].body, 'body20')
+  assert.strictEqual(postsFound.length, 2)
 
   // Same as above, but now with DESC ordering.
   {
@@ -128,9 +128,9 @@ await users[0].addFollows([users[1], users[2]])
     })).Follows
     // Note how user ordering is also reversed from an ASC.
     // it likely takes the use that has the first post.
-    assert(user0Follows[0].name === 'user2')
-    assert(user0Follows[1].name === 'user1')
-    assert(user0Follows.length === 2)
+    assert.strictEqual(user0Follows[0].name, 'user2')
+    assert.strictEqual(user0Follows[1].name, 'user1')
+    assert.strictEqual(user0Follows.length, 2)
     const postsFound = []
     for (const followedUser of user0Follows) {
       postsFound.push(...followedUser.Posts)
@@ -140,9 +140,9 @@ await users[0].addFollows([users[1], users[2]])
     // alphabetically.
     postsFound.sort((x, y) => { return x.body < y.body ? 1 : x.body > y.body ? -1 : 0 })
     // Note that what happens is that some of the
-    assert(postsFound[0].body === 'body20')
-    assert(postsFound[1].body === 'body11')
-    assert(postsFound.length === 2)
+    assert.strictEqual(postsFound[0].body, 'body20')
+    assert.strictEqual(postsFound[1].body, 'body11')
+    assert.strictEqual(postsFound.length, 2)
   }
 
   // Here user2 would have no post hits due to the limit,
@@ -160,8 +160,8 @@ await users[0].addFollows([users[1], users[2]])
       },
     ],
   })).Follows
-  assert(user0FollowsLimit2[0].name === 'user1')
-  assert(user0FollowsLimit2.length === 1)
+  assert.strictEqual(user0FollowsLimit2[0].name, 'user1')
+  assert.strictEqual(user0FollowsLimit2.length, 1)
 
   // Get just the count of the posts authored by users followed by user0.
   // attributes: [] excludes all other data from the SELECT of the querries
@@ -226,9 +226,9 @@ await users[0].addFollows([users[1], users[2]])
         },
       ],
     })).Follows
-    assert(user0Follows[0].name === 'user2')
-    assert(user0Follows[1].name === 'user1')
-    assert(user0Follows.length === 2)
+    assert.strictEqual(user0Follows[0].name, 'user2')
+    assert.strictEqual(user0Follows[1].name, 'user1')
+    assert.strictEqual(user0Follows.length, 2)
     const postsFound = []
     for (const followedUser of user0Follows) {
       postsFound.push(...followedUser.Posts)
@@ -236,11 +236,11 @@ await users[0].addFollows([users[1], users[2]])
     // We need this here, otherwise we would get all user2 posts first:
     // body6, body2, body5, body1
     postsFound.sort((x, y) => { return x.body < y.body ? 1 : x.body > y.body ? -1 : 0 })
-    assert(postsFound[0].body === 'body6')
-    assert(postsFound[1].body === 'body5')
-    assert(postsFound[2].body === 'body2')
-    assert(postsFound[3].body === 'body1')
-    assert(postsFound.length === 4)
+    assert.strictEqual(postsFound[0].body, 'body6')
+    assert.strictEqual(postsFound[1].body, 'body5')
+    assert.strictEqual(postsFound[2].body, 'body2')
+    assert.strictEqual(postsFound[3].body, 'body1')
+    assert.strictEqual(postsFound.length, 4)
   }
 
   // This almost achieves the flat array return. We just have to understand the undocumented custom on:
