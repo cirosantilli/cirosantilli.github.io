@@ -1019,6 +1019,7 @@ Other accounts:
 * https://nanohub.org/members/146301/
 * https://next-episode.net/user/cirosantilli/
 * https://opencollective.com/ciro-santilli
+* https://www.openstreetmap.org/user/Ciro%20Santilli
 * https://orcid.org/0000-0003-2895-7763
 * https://parler.com/profile/cirosantilli/posts
 * https://peerj.com/cirosantilli/
@@ -12016,6 +12017,10 @@ More fun nuclear stuff to watch:
 {parent=fission-weapon}
 {wiki}
 
+= Low-background steel
+{parent=nuclear-weapon}
+{wiki}
+
 = Thermonuclear weapon
 {parent=nuclear-weapon}
 {wiki}
@@ -12375,6 +12380,20 @@ Includes fun things like:
 
 = Solid-state physics
 {parent=condensed-matter-physics}
+{wiki}
+
+= Chrystalography
+{parent=solid-state-physics}
+{wiki}
+{child=space-group}
+
+= Crystallographic restriction theorem
+{parent=chrystalography}
+{wiki}
+
+= Bravais lattice
+{c}
+{parent=chrystalography}
 {wiki}
 
 = Condensed matter Physics bibliography
@@ -15077,8 +15096,12 @@ https://www.quora.com/What-is-the-difference-between-plutonium-and-uranium/answe
 
 Vs \x[uranium]: \x[uranium-vs-plutonium-quora-answer-by-ciro-santilli].
 
-= Chemical compound
+= Chemical substance
 {parent=chemistry}
+{wiki}
+
+= Chemical compound
+{parent=chemical-substance}
 {wiki}
 
 The definition does not include \x[homonuclear-molecule]{p} which is a pain.
@@ -15164,6 +15187,38 @@ The most important on in \x[metabolism] internals, everything else gets converte
 
 = Sucrose
 {parent=disaccharide}
+{wiki}
+
+= Poison
+{parent=chemical-compound}
+{wiki}
+
+= Chemical weapon
+{parent=poison}
+{wiki}
+
+= Blood agent
+{parent=poison}
+{wiki}
+
+= Hydrogen cyanide
+{parent=blood-agent}
+{wiki}
+
+= Nerve agent
+{parent=poison}
+{wiki}
+
+= Sarin
+{parent=nerve-agent}
+{title2=1938}
+{wiki}
+
+= VX
+{c}
+{disambiguate=nerve agent}
+{parent=nerve-agent}
+{title2=1952}
 {wiki}
 
 = Organic chemistry
@@ -16906,6 +16961,10 @@ Notably, Ciro is against \x[university-entry-quotas].
 = Wealth inequality in the United States
 {parent=social-inequality}
 {wiki}
+
+Grew tremendously since the 1990's, likely linked to the \x[internet].
+
+https://www.cbpp.org/wealth-concentration-has-been-rising-toward-early-20th-century-levels-2 shows historical for top 1% and 0.5% from 1920 to 2010.
 
 = Stock market
 {parent=economy}
@@ -19758,6 +19817,8 @@ Googling "National Cycle Netowrk \x[keyhole-markup-language][KML]" leads to: htt
 "Ralph Hughes" https://www.linkedin.com/in/ralph-hughes-501474121 is listed as the creator/responsible of the exports, but can't find his email. Sent an email to gissupport@sustrans.org.uk but yeah, no big hopes.
 GPSPrune 20.2-1 can open the KML however, so that file can't be entirely wrong.
 
+\x[openstreetmaps] has them on by default though if you just click "Cycle Map" layer. It is not as incredibly detalied as the Ordnance Survey one, e.g. does not show which side of the street to ride on, but still, is very good.
+
 = The National Byway
 {c}
 {parent=uk-cycle-route}
@@ -19769,14 +19830,26 @@ https://www.thenationalbyway.org/
 
 TODO interactive online app? Ahh, those charities that try to make money by individual transactions... when they die, nothing will be left of all their work.
 
+Edit: noticed that it is on by default on \x[openstreetmaps] web UI under the "Cycle Map" layer marked at "NB".
+
 = Counties of the United Kingdom
 {parent=united-kingdom}
 {wiki}
+
+There are few different versions. The most important as of 2020 are:
+* \x[historic-counties-of-england]: these are more fixed, but useless for politics
+* \x[administrative-counties-of-england]: these evolve with politics more
 
 No one is capable of offering an official/more generalized (why can't \x[google-maps] do this properly?) map than these people: https://wikishire.co.uk/map/#/centre=54.004,-4.500/zoom=7 So so be it.
 
 \Video[https://www.youtube.com/watch?v=hCc0OsyMbQk]
 {title=English counties explained by Jay Foreman (2021)}
+
+= Historic counties of England
+{parent=counties-of-the-united-kingdom}
+
+= Administrative counties of England
+{parent=counties-of-the-united-kingdom}
 
 = Cambridgeshire
 {c}
@@ -30713,6 +30786,18 @@ Dropped in favor of \x[svg-2].
 {synonym}
 {title2}
 
+= libpng
+{c}
+{parent=portable-network-graphics}
+
+\x[png] reference implementation. Ahh, if feels good to have a dominating open source reference implementation.
+
+Demo of using it by \x[ciro-santilli]: https://stackoverflow.com/questions/1362945/how-to-decode-a-png-image-to-raw-bytes-from-c-code-with-libpng/36399711#36399711
+
+\Image[https://i.stack.imgur.com/rfdHr.png]
+
+\Image[https://i.stack.imgur.com/IWBSj.png]
+
 = Image editor
 {parent=image-file-format}
 
@@ -31878,12 +31963,13 @@ We have some runnable \x[sql] examples with \x[assertion-software-development]{p
 
 These examples are written in the \x[sequelize] library using raw queries.
 
-Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard \x[javascript].
+Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard \x[javascript]. The queries themselves are all written by hand.
 
-The examples are tested on \x[sqlite] by default, as that is the easiest database to setup.
+By default the examples run on \x[sqlite]. Just like the examples from \x[sequelize-example], you can set the database at runtime as:
+* `./index.js` or `./index.js l`: \x[sqlite]
+* `./index.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
 
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
-
 * \a[sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
 * \a[sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}:
   * \x[join-sql]
@@ -31918,9 +32004,15 @@ Implementation specifics:
 {c}
 {parent=sql-transaction-isolation-level}
 
+Example where this level is sufficient: \x[file/sequelize/raw/parallel_update_async.js].
+
 = SQL REPEATABLE READ isolation level
 {c}
 {parent=sql-transaction-isolation-level}
+
+Vs \x[sql-serializable-isolation-level] on \x[postgresql]: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
+
+\x[file/sequelize/raw/parallel_create_delete_empty_tag.js] is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the \x[sql-read-committed-isolation-level].
 
 = SQL SERIALIZABLE isolation level
 {c}
@@ -31934,15 +32026,82 @@ Implementation specifics:
 {c}
 {parent=sql-isolation-level-example}
 
+= sequelize/raw/parallel_update_async.js
+{id=file/sequelize/raw/parallel_update_async.js}
+{parent=sql-parallel-update-example}
+
+This section is about: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
+
 \a[sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a \x[sqlite3-node-js-package] bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
 
 \a[sequelize/raw/parallel_update_async.js] is an \x[async-javascript] version of it. It should be just parallel enough to allow observing the same effects.
 
-The https://www.postgresql.org/docs/14/transaction-iso.html page makes it very clear, including with an explicit example that does:
+This is an example of a transaction where the \x[sql-read-committed-isolation-level] if sufficient.
+
+These examples run queries of type:
 ``
-UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;
+UPDATE "MyInt" SET i = i + 1
 ``
-that the default isolation level, \x[sql-read-committed-isolation-level], already prevents any problems with this, as the update always re-reads in case of conflicts.
+
+Sample execution:
+``
+node --unhandled-rejections=strict ./parallel_update_async.js p 10 100
+``
+which does:
+* \x[postgresql], see other databases options at \x[sql-example]
+* 10 threads
+* 100 increments on each thread
+
+The fear then is that of a classic \x[read-modify-write] failure.
+
+But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, \x[sql-read-committed-isolation-level], already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
+\Q[If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row]
+
+Since in \x[postgresql] "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
+
+\x[file/sequelize/raw/parallel_create_delete_empty_tag.js] contains an example where things can actually blow up in read committed.
+
+= sequelize/raw/parallel_select_and_update.js
+{id=file/sequelize/raw/parallel_select_and_update.js}
+{parent=sql-parallel-update-example}
+
+This section is about: \a[sequelize/raw/parallel_select_and_update.js].
+
+This example is similar to \x[file/sequelize/raw/parallel_update_async.js], but now we are doing a separate SELECT, later followed by an update:
+* `SELECT FROM` to get i
+* update on Js code `newI = i + 1`
+* `UPDATE SET` the `newI`
+
+Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in \x[file/sequelize/raw/parallel_update_async.js], which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
+
+Sample execution:
+``
+node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED'
+``
+which does:
+* \x[postgresql], see other databases options at \x[sql-example]
+* 2 threads
+* 10 increments on each thread
+
+Another one:
+``
+node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED' 'FOR UPDATE'
+``
+this will run \x[select-for-update] rather than just \x[select-sql]
+
+Observed behaviour under different \x[sql-transaction-isolation-level]{p}:
+* `READ COMMITTED`: fails. Nothing in this case prevents:
+  * thread 1: SELECT, obtains i = 0
+  * thread 2: SELECT, obtains i = 0
+  * thread 2: newI = 1
+  * thread 2: UPDATE i = 1
+  * thread 1: newI = 1
+  * thread 1: UPDATE i = 1
+* `REPEATABLE READ`: works. the manual mentions that if multiple concurrent updates would happen, only the first commit succeeds, and the following ones fail and rollback and retry, therefore preventing the loss of an update.
+* `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017].
+
+  `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
+  \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
 
 = sequelize/raw/parallel_create_delete_empty_tag.js
 {id=file/sequelize/raw/parallel_create_delete_empty_tag.js}
@@ -31952,7 +32111,11 @@ This section is about: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
 
 In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
 
-What is happening is that we are creating and deleting posts at the same time, and we want to ensure that we don't delete a tag of a new post during this process due to a concurrency issue of type:
+If we are creating and deleting posts concurrently, a naive implementation might wrongly delete the tags of a newly created post.
+
+This could be due to a concurrency issue of the following typesE.
+
+Failure case 1:
 * thread 2: delete old post
 * thread 2: find all tags with 0 posts. Finds `tag0` from the deleted old post which is now empty.
 * thread 1: create new post, which we want to have tag `tag0`
@@ -31961,7 +32124,7 @@ What is happening is that we are creating and deleting posts at the same time, a
 * thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it, which then cascades into the join table
 which would result in the new post incorrectly not having the `tag0`.
 
-Another failure case:
+Failure case 2:
 * thread 2: delete old post
 * thread 2: find all tags with 0 posts
 * thread 1: create new post
@@ -31970,7 +32133,7 @@ Another failure case:
 * thread 1: assign `tag0` to the new post
 which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
 
-Another another one:
+Failure case 3:
 * thread 2: delete old post
 * thread 1: create new post, which we want to have tag `tag0`
 * thread 1: try to create a new tag `tag0`, and succeed because it wasn't present
@@ -31980,23 +32143,61 @@ Another another one:
 which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
 
 Sample executions:
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 10 'READ COMMITTED'`: \x[postgresql], 9 tags, DELETE/CREATE the `tag0` test tag 10 times
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 10 'NONE'`: magic value, don't use any transaction. Should blow up sometimes.
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: \x[postgresql], 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'REPEATABLE READ'`: repeatable read
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'`: serializable
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Should blow up sometimes.
+All executions use 2 threads.
+
+Some theoretical notes:
+* Failure case 3 is averted by a `READ COMMITTED` transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it
+
+Execution often fails for `READ COMMITTED`, although not always. The most common failure is:
+``
+error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"
+``
+because the:
+``
+INSERT INTO "PostTag"
+``
+tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.
+
+TODO: we've never managed to observe the failure case in which `tag0` is deleted. Is it truly possible? And if not, by which guarantee?
+
+We've never observed any failures with `REPEATABLE READ`. That level should clearly fix the foreign key issue according to the PostgreSQL docs, since:
+* the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
+* and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information.
+
+https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from \x[select-for-update] also talks about a similar example, and has relevant answers.
 
 = SQL keyword
 {parent=sql}
 
 = GROUP BY
 {c}
-{disambiguate=sql}
+{disambiguate=SQL}
 {parent=sql-keyword}
 {wiki=Group_by_(SQL)}
 
 = JOIN
 {c}
-{disambiguate=sql}
+{disambiguate=SQL}
 {parent=sql-keyword}
 {wiki=Join_(SQL)}
+
+= SELECT
+{c}
+{disambiguate=SQL}
+{parent=sql-keyword}
+{wiki=Select_(SQL)}
+
+= SELECT FOR UPDATE
+{c}
+{parent=select-sql}
+
+An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: \x[file/sequelize/raw/parallel_select_and_update.js].
+
+`SELECT FOR UPDATE` vs/together with the \x[sql-transaction-isolation-level] is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
 = MySQL
 {c}
@@ -32271,6 +32472,33 @@ https://www.postgresql.org/docs/13/auth-peer.html
 
 Uses the name of the current \x[linux] user to login without a \x[password].
 
+= PostgreSQL logging
+{parent=postgresql}
+
+https://stackoverflow.com/questions/722221/how-to-log-postgresql-queries
+
+Ubuntu 21.10 has a certain default level of logging by default to:
+``
+/var/log/postgresql/postgresql-13-main.log
+``
+but it does not log everything, only/mostly errors it seems.
+
+Setting:
+``
+log_statement = 'all'
+``
+under:
+``
+/etc/postgresql/13/main/postgresql.conf
+``
+and then restarting the server:
+``
+sudo service restart postgresql
+``
+just works.
+
+Realtime monitoring for long queries instead: https://stackoverflow.com/questions/8597516/app-to-monitor-postgresql-queries-in-real-time
+
 = SQLite
 {c}
 {parent=sql}
@@ -32480,6 +32708,8 @@ E.g., as of 2020, their help login https://help.openstreetmap.org/ shows MyOpenI
 They do still seem to have a bit more activity than https://gis.stackexchange.com/questions/tagged/openstreetmap on \x[stack-exchange].
 
 \x[transliteration]{c} is off by default!...... https://wiki.openstreetmap.org/wiki/Translation You just have to learn all scripts ever. Good luck with the \x[chinese-character]{p}. Genius.
+
+In order to see information about places, you have to click "Query features" on the toolbar first. Who made such a terrible UI? Direct click is a much, and so easy to implement?
 
 = Ordnance Survey
 {c}
@@ -33127,11 +33357,11 @@ This is how other languages compare:
 
   One thing must be said tough: `someobject.not_defined_property` silently returning `undefined` rather than blowing up is \x[bullshit]
 * \x[go-language]: likely a good replacement for \x[python]. If the ecosystem gets there, will gladly use it more.
-* \x[java]: good language, but has an ugly enterprisey ecosystem, Oracle has made / kept the development process too closed, and https://en.wikipedia.org/wiki/Google_v._Oracle_America[API patenting madness on Android just kills if off completely]
-* Haskell: many have tried to learn some functional stuff, but too hard. Sounds really cool though.
+* \x[java]: good language, but has an ugly enterprisey ecosystem, Oracle has made/kept the development process too closed, and https://en.wikipedia.org/wiki/Google_v._Oracle_America[API patenting madness on Android just kills if off completely]
+* \x[haskell]: many have tried to learn some functional stuff, but too hard. Sounds really cool though.
 * Rust: sounds cool, you will gladly replace C and C++ with it if the ecosystem ramps up.
 * C#: \x[microsoft-windows][Microsoft] is \x[evil]
-* Tcl, \x[perl-programming-language]: Python killed them way back and is less insane
+* \x[tcl], \x[perl-programming-language]: Python killed them way back and is less insane
 * R, GNU Octave and any other "\x[numerical-computing-language]": all of this is a waste of society's time as explained at: \x[numerical-computing-language]{full}
 * Swift: Ciro would rather stay away from \x[apple-inc] dominated projects if possible since they sell a \x[closed-source] \x[operating-system]
 
@@ -33373,6 +33603,11 @@ Some glaring issues include:
 To run examples on a specific database:
 * `./index.js` or `./index.js l`: \x[sqlite]
 * `./index.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
+All examples can be tested on all databases with:
+``
+cd sequelize
+./test
+``
 
 Overview of the examples:
 * \a[sequelize/index.js]: a bunch of basic examples
@@ -36661,6 +36896,15 @@ It is good to see that top-\x[university]{p} is still keeping up with it's main 
 * https://www.cambridge-news.co.uk/news/cambridge-news/cambridge-university-crushbridge-love-declaration-15879668
 * https://thetab.com/uk/cambridge/2019/06/11/an-admins-ode-to-crushbridge-125875
 
+= Oxford Brookes University
+{c}
+{parent=list-of-british-universities}
+{wiki}
+
+Their only undergraduate courses that matter:
+* https://www.brookes.ac.uk/courses/undergraduate/biological-sciences-mbiol/ (https://archive.ph/wip/0Pg4y[archive])
+* https://www.brookes.ac.uk/courses/undergraduate/mathematics/ should be called applied mathematics (https://archive.ph/wip/aMUQp[archive])
+
 = University of Oxford
 {c}
 {parent=list-of-british-universities}
@@ -37510,6 +37754,13 @@ Fiscal paradises must be invaded and destroyed.
 \Video[https://www.youtube.com/watch?v=t6V9i8fFADI]
 {title=How the rich avoid paying taxes by Vox (2021)}
 {description=Features interview with Morris Pearl, a rich dude that is campaigning to tax the rich. He also participates in an association called  https://patrioticmillionaires.org/about/["Patriotic Milionairs"] to further this agenda.}
+
+= Georgism
+{parent=tax-the-rich}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Li_MGFRNqOE]
+{title=Georgism 101 by BritMonkey (2019)}
 
 = Redistribution of wealth
 {parent=tax-the-rich}
@@ -38977,9 +39228,16 @@ Open source \x[driver-software]{p}???
 {parent=list-of-companies}
 {wiki}
 
-\x[evil] company that desecrated the beauty created by https://en.wikipedia.org/wiki/Sun_Microsystems[Sun], and was https://en.wikipedia.org/wiki/Google_v._Oracle_America[trying to bury Java once and or all in the 2010's].
+\x[evil] company that desecrated the beauty created by \x[sun-microsystems], and was https://en.wikipedia.org/wiki/Google_v._Oracle_America[trying to bury Java once and or all in the 2010's].
 
-Their database has already been surpassed by open source, and https://en.wikipedia.org/wiki/Enterprise_resource_planning[ERP] and https://en.wikipedia.org/wiki/Customer_relationship_management[CRM] is boring.
+Their database has already been surpassed by \x[open-source], and https://en.wikipedia.org/wiki/Enterprise_resource_planning[ERP] and https://en.wikipedia.org/wiki/Customer_relationship_management[CRM] is boring.
+
+= Sun Microsystems
+{c}
+{parent=oracle-corporation}
+{wiki}
+
+Altough \x[ciro-santilli] is a bit past their era, there's an aura of technical excelence about those people.
 
 = Business-to-business
 {parent=company}
@@ -38990,18 +39248,26 @@ Their database has already been surpassed by open source, and https://en.wikiped
 {parent=company}
 
 = Elon Musk
+{c}
 {parent=entrepreneur}
 {wiki}
 
 \x[ciro-santilli][Respect on the technical side].
 
-But the way he treated his first wife, is very very weird, in comprehensible: https://www.marieclaire.com/sex-love/a5380/millionaire-starter-wife/
+But the way he treated his first wife, is very very weird, incomprehensible: https://www.marieclaire.com/sex-love/a5380/millionaire-starter-wife/
+
+\Video[https://www.youtube.com/watch?v=IcIzaqSnBdA]
+{title=The REAL Reason Why Tesla Made All Patents Open-Source by The not so boring Man (2021)}
+{description=Supercut from various interviews/presentations in which Elon saying that Tesla has \x[open-source] patents and pro open source stuff. Can we trust it? Maybe.}
 
 = Xavier Niel
+{c}
 {parent=entrepreneur}
 {wiki}
 
-* https://www.youtube.com/watch?v=oBPMFcURM_Y Xavier Niel, Iliad - Free: Je suis un casseur de monopoles by DECIDEURSTV (2011)
+\Video[https://www.youtube.com/watch?v=oBPMFcURM_Y]
+{title=Xavier Niel, Iliad - Free: Je suis un casseur de monopoles by DECIDEURSTV (2011)}
+{description=Title translation: "I'm a hunter of monopolies".}
 
 = Internal communications
 {parent=organization}
@@ -40765,13 +41031,18 @@ https://www.youtube.com/watch?v=h6DtVHqyYts Big Rigs: Over the Road Racing (PC) 
 
 https://www.youtube.com/channel/UCD6VugMZKRhSyzWEWA9W2fg
 
-Reviews mostly old RPG and strategy games. And \x[hentai] games when it is possible to hide the porn from \x[youtube].
+Reviews mostly old RPG and strategy games. And \x[hentai] games when it is possible to hide the porn from \x[youtube]. He also sponsors hentain and uploads it on his website: https://www.ssethtzeentach.com/nsfw
 
-\x[ciro-santilli] really likes his sense of humor, always going into "politically incorrect" areas, and often making fun of both dictatorships and the USA. He actually knows a bit about politics.
+\x[ciro-santilli] really likes his sense of humor, always going into "politically incorrect" areas, and often making fun of both dictatorships and the USA. He actually knows a bit about politics. Due to the nature of his humour, many of his videos have been taken down from YouTube apparently, https://www.ssethtzeentach.com/videos mentions:
+\Q[Ever since going full time, I'm usually very clean and stay out of trouble, but in the past a fair number of my videos were taken down.]
+
+https://www.ssethtzeentach.com/videos mentions that
 
 https://www.youtube.com/watch?v=sw8v5__Ytf4 Heroes of Might and Magic III (2018) is one of the best reviews. Sseth likes to find and make fun of game breaking imbalances, something that Ciro likes due to his \x[ciro-santilli-s-self-perceived-creative-personality].
 
 https://www.youtube.com/watch?v=rOJdDvf-tUs The Sseth Streaming Experience (2019), being a live stream, likely shows more realistically how Seth actually talks in real life.
+
+https://www.youtube.com/watch?v=yG9g2byXR2c Might and Magic VI (Re)Review is another good video (2021)
 
 Sseth has a certain \x[vaporwave] aesthetic, which Ciro also enjoys.
 
