@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-// https://cirosantilli.com/sql-parallel-update-example
+// https://cirosantilli.com/file/sequelize/raw/parallel_create_delete_empty_tag.js
 
 const assert = require('assert')
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads')
 const { DataTypes, Op } = require('sequelize')
 const common = require('../common')
-const sequelizes = Array.from(Array(2).keys(),
-  i => common.sequelize(__filename, process.argv[2], {logging: (s) => console.log(`${i}: ${s}`)}))
+const sequelizes = common.sequelizes(2, __filename, process.argv[2])
 const sequelize = sequelizes[0]
 const sequelize2 = sequelizes[1]
 
@@ -23,55 +22,7 @@ if (process.argv.length > 4) {
 } else {
   iters = 10
 }
-let isolation
-if (process.argv.length > 5) {
-  isolation = process.argv[5]
-} else {
-  isolation = 'SERIALIZABLE'
-}
-
-async function transaction(sequelize, cb) {
-  let done = false
-  while (!done) {
-    if (isolation !== 'NONE') {
-      if (sequelize.options.dialect === 'sqlite') {
-        await sequelize.query(`BEGIN TRANSACTION`)
-      } else {
-        await sequelize.query(`BEGIN TRANSACTION ISOLATION LEVEL ${isolation}`)
-      }
-    }
-    try {
-      await cb(sequelize)
-      if (isolation !== 'NONE') {
-        await sequelize.query(`COMMIT`)
-      }
-      done = true;
-    } catch (e) {
-      if (
-        sequelize.options.dialect === 'postgres' &&
-        // This can happen randomly, and we have to re-run the transaction:
-        // - could not serialize access due to read/write dependencies among transactions
-        // - could not serialize access due to concurrent update
-        // https://www.postgresql.org/docs/13/errcodes-appendix.html
-        e.original.code === '40001'
-      ) {
-        if (isolation !== 'NONE') {
-          await sequelize.query(`ROLLBACK`)
-          // COMMIT would also work here in PostgreSQL it seems, when it enters error state it ignores
-          // everything until the transaction finishes, and the COMMIT then becomes as ROLLBACK:
-          // https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234
-          // but can't find any clear docs on it, this one:
-          // https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708
-          // points to some possible docs, but not very direct.
-          // await sequelize.query(`COMMIT`)
-        }
-      } else {
-        // Error that we don't know how to handle.
-        throw e;
-      }
-    }
-  }
-}
+const isolation = process.argv[5]
 
 ;(async () => {
 try {
@@ -115,7 +66,7 @@ let rows, meta, done = false
     const tagName = `tag0`
     const postTitle = `post${postId}`
     await sequelize.query(`INSERT INTO "Post" VALUES (${postId}, '${postTitle}')`)
-    await transaction(sequelize, async (sequelize) => {
+    await common.transaction(sequelize, isolation, async sequelize => {
       if (sequelize.options.dialect === 'sqlite') {
         await sequelize.query(`INSERT OR IGNORE INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
       } else {
@@ -143,7 +94,7 @@ ORDER BY "Post".id ASC
 `)
     assert.strictEqual(rows[0].title, postTitle)
 
-    // DELETE this new post just to keep it's count at 0. This would be done from the other thread in the real example,
+    // DELETE this new post just to keep its count at 0. This would be done from the other thread in the real example,
     // but then it would be harder to synchronize things to get a large number of such conflict cases happening.
     // We could do it by DELETEing all posts with a given tag from that thread however.
     await sequelize.query(`DELETE FROM "Post" WHERE id = ${postId}`)
@@ -152,7 +103,7 @@ ORDER BY "Post".id ASC
 
 // This thread will repeatedly delete all tags with 0 posts.
 while (!done) {
-  await transaction(sequelize2, async sequelize2 => {
+  await common.transaction(sequelize2, isolation, async sequelize2 => {
     await sequelize2.query(`
 DELETE FROM "Tag"
 WHERE "Tag".id IN (

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-// https://cirosantilli.com/sql-parallel-update-example
-//
+// https://cirosantilli.com/file/sequelize/raw/parallel_update_async.js
+
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common');
