@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// https://cirosantilli.com/sql-parallel-update-example
+// https://cirosantilli.com/file/sequelize/raw/parallel_select_and_update.js
 
 const assert = require('assert');
 const common = require('../common');
