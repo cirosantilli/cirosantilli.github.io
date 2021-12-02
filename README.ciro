@@ -32152,6 +32152,8 @@ Observed behaviour under different \x[sql-transaction-isolation-level]{p}:
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
   \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
 
+A non-raw version of this example can be seen at: \x[file/sequelize/parallel_select_and_update.js].
+
 = File: sequelize/raw/parallel_select_and_update_deterministic.js
 {id=file/sequelize/raw/parallel_select_and_update_deterministic.js}
 {parent=file/sequelize/raw/parallel_select_and_update.js}
@@ -33744,7 +33746,7 @@ Overview of the examples:
 
 This section is about the file: \a[sequelize/parallel_select_and_update.js].
 
-This example is the same as \x[file/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries.
+This example is the same as \x[file/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
 
 The examples illustrates: https://stackoverflow.com/questions/55452441/for-share-and-for-update-statements-in-sequelize
 
@@ -33755,6 +33757,9 @@ node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ
 where:
 * `READ_COMMITTED`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html which correspond to the standard \x[sql-isolation-level]{p}. It not given, don't set one, defaulting to the database's/sequelize's default level.
 * `UPDATE`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html#static-get-LOCK[]. Update generates a `SELECT FOR UPDATE` in \x[postgresql] for example. If not given, don't use any `FOR xxx` explicit locking.
+
+Other examples:
+* `node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ_COMMITTED UPDATE`
 
 Then, the outcome is exactly as described at: \x[file/sequelize/raw/parallel_select_and_update.js]:
 * `READ_COMMITTED`: fails
