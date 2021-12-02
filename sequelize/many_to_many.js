@@ -65,7 +65,7 @@ let rows;
 
 // Get posts that a user likes.
 
-const user0Likes = await user0.getPosts({order: [['body', 'ASC']])
+const user0Likes = await user0.getPosts({order: [['body', 'ASC']]})
 assert.strictEqual(user0Likes[0].body, 'post0');
 assert.strictEqual(user0Likes[1].body, 'post1');
 assert.strictEqual(user0Likes.length, 2);

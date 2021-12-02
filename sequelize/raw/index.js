@@ -98,6 +98,26 @@ assert.strictEqual(rows[2].name, 'five')
 assert.strictEqual(rows.length, 3)
 await reset()
 
+// UPDATE CASE WHEN
+// https://stackoverflow.com/questions/15766102/i-want-to-use-case-statement-to-update-some-records-in-sql-server-2005
+// https://stackoverflow.com/questions/6097815/using-a-conditional-update-statement-in-sql
+await sequelize.query(`
+UPDATE "IntegerNames"
+SET value = CASE
+  WHEN value < 3 THEN value - 1
+  WHEN value = 3 THEN value
+  ELSE value + 1 END
+`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
+assert.strictEqual(rows[0].value, 1)
+assert.strictEqual(rows[0].name, 'two')
+assert.strictEqual(rows[1].value, 3)
+assert.strictEqual(rows[1].name, 'three')
+assert.strictEqual(rows[2].value, 6)
+assert.strictEqual(rows[2].name, 'five')
+assert.strictEqual(rows.length, 3)
+await reset()
+
 // DELETE a row.
 await sequelize.query(`DELETE FROM "IntegerNames" WHERE value > 2`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)

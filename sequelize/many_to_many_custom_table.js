@@ -68,7 +68,6 @@ await user1.addPost(post2, {through: {score: 3}})
 const user0Likes = await user0.getPosts({order: [['body', 'ASC']]})
 assert.strictEqual(user0Likes[0].body, 'post0');
 console.error(user0Likes[0]);
-asdf
 assert.strictEqual(user0Likes[0].UserLikesPost.score, 1);
 assert.strictEqual(user0Likes.length, 1);
 
