@@ -41,7 +41,7 @@ async function transactionWithRetry(sequelize, transactionArgs, cb) {
 async function inc(sequelize, n, isolation, lock) {
   for (let i = 0; i < n; i++) {
     const transactionArgs = {}
-    if (isolation !== undefined) {
+    if (isolation !== 'NONE') {
       transactionArgs.isolationLevel = Transaction.ISOLATION_LEVELS[isolation]
     }
     await transactionWithRetry(sequelize, transactionArgs, async t => {
@@ -69,7 +69,10 @@ if (process.argv.length > 4) {
 } else {
   n = 10;
 }
-const isolation = process.argv[5]
+let isolation = process.argv[5]
+if (isolation === undefined) {
+  isolation = 'SERIALIZABLE'
+}
 const lock = process.argv[6]
 
 const sequelizes = common.sequelizes(nthreads, __filename, process.argv[2])
