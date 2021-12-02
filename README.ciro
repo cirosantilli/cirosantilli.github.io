@@ -19814,7 +19814,7 @@ Their diginal map distribution mechanisms are a bit \x[shitty] and sometimes ask
 Googling "National Cycle Netowrk \x[keyhole-markup-language][KML]" leads to: https://data-sustrans-uk.opendata.arcgis.com/ from which we can download the KML. https://gis.stackexchange.com/questions/216770/how-to-open-kml-file-in-google-maps-for-android then shows how to make that viewable on \x[google-maps] by going through https://www.google.com/maps/d/u/0/?hl=en on the browser. TODO 2021-11:
 * KML: nothing happens after the upload finishes, the "Select button remains grayed out
 * CSV: you need to "Choose a column to title your markers", but all I tried give "Oops! We're having trouble finding those locations. Did you pick the correct location columns?"
-"Ralph Hughes" https://www.linkedin.com/in/ralph-hughes-501474121 is listed as the creator/responsible of the exports, but can't find his email. Sent an email to gissupport@sustrans.org.uk but yeah, no big hopes.
+"Ralph Hughes" https://www.linkedin.com/in/ralph-hughes-501474121 is listed as the creator/responsible of the exports, but can't find his email. Sent an email to gissupport@sustrans.org.uk and he did reply a few days later that they are aware of the issue, and are particularly trying to reach out to Google about it. Great news!
 GPSPrune 20.2-1 can open the KML however, so that file can't be entirely wrong.
 
 \x[openstreetmaps] has them on by default though if you just click "Cycle Map" layer. It is not as incredibly detalied as the Ordnance Survey one, e.g. does not show which side of the street to ride on, but still, is very good.
@@ -31892,7 +31892,18 @@ This is different from \x[isolation-database-systems], which considers instead w
 
 Determines what can or cannot happen when multiple queries are running in parallel.
 
-See \x[sql-transaction-isolation-level]{full}.
+See \x[sql-transaction-isolation-level]{full} for the most common context under which this is discussed: \x[sql].
+
+= Database management system
+{parent=database}
+{wiki}
+{child=relational-database-management-system}
+
+= DBMS
+{c}
+{synonym}
+
+A \x[software] that implements some database system, e.g. \x[postgresql] or \x[mysql] are two (widely extended) \x[sql] implementations.
 
 = NoSQL
 {c}
@@ -31936,8 +31947,12 @@ Tested as of Ubuntu 20.04, there is no Mongo package available by default due to
 
 = Object-relational mapping
 {parent=database}
-{title2=ORM}
 {wiki=Object–relational_mapping}
+
+= ORM
+{c}
+{synonym}
+{title2}
 
 Per language:
 * \x[node-js-object-relational-mapping-library]
@@ -31987,6 +32002,9 @@ Here we list only examples which we believe are standard SQL, and should therefo
 {c}
 {parent=sql-transaction}
 
+= SQL isolation level
+{synonym}
+
 Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the \x[memory-semantics] of the system.
 
 Remember that queries can affects thousands of rows, and database systems like \x[postgresql] can run multiple such queries at the same time.
@@ -32013,6 +32031,8 @@ Example where this level is sufficient: \x[file/sequelize/raw/parallel_update_as
 Vs \x[sql-serializable-isolation-level] on \x[postgresql]: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
 
 \x[file/sequelize/raw/parallel_create_delete_empty_tag.js] is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the \x[sql-read-committed-isolation-level].
+
+In \x[postgresql], this is the first isolation level which can lead to \x[serialization-failure]{p}, this does not happen to \x[sql-read-committed-isolation-level] in that \x[dbms]. You then have to retry the transaction.
 
 = SQL SERIALIZABLE isolation level
 {c}
@@ -32061,7 +32081,7 @@ Since in \x[postgresql] "Read uncommitted" appears to be effectively the same as
 
 \x[file/sequelize/raw/parallel_create_delete_empty_tag.js] contains an example where things can actually blow up in read committed.
 
-= sequelize/raw/parallel_select_and_update.js
+= File: sequelize/raw/parallel_select_and_update.js
 {id=file/sequelize/raw/parallel_select_and_update.js}
 {parent=sql-parallel-update-example}
 
@@ -32103,17 +32123,27 @@ Observed behaviour under different \x[sql-transaction-isolation-level]{p}:
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
   \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
 
-= sequelize/raw/parallel_create_delete_empty_tag.js
+= File: sequelize/raw/parallel_select_and_update_deterministic.js
+{id=file/sequelize/raw/parallel_select_and_update_deterministic.js}
+{parent=file/sequelize/raw/parallel_select_and_update.js}
+
+This section is about the file: \a[sequelize/raw/parallel_select_and_update_deterministic.js]
+
+This example contains a deterministic demo of when \x[serialization-failure]{p} may happen.
+
+Tested on \x[postgresql] 13.5.
+
+= File: sequelize/raw/parallel_create_delete_empty_tag.js
 {id=file/sequelize/raw/parallel_create_delete_empty_tag.js}
 {parent=sql-parallel-update-example}
 
-This section is about: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
+This section is about the file: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
 
 In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
 
 If we are creating and deleting posts concurrently, a naive implementation might wrongly delete the tags of a newly created post.
 
-This could be due to a concurrency issue of the following typesE.
+This could be due to a concurrency issue of the following types.
 
 Failure case 1:
 * thread 2: delete old post
@@ -32499,6 +32529,18 @@ just works.
 
 Realtime monitoring for long queries instead: https://stackoverflow.com/questions/8597516/app-to-monitor-postgresql-queries-in-real-time
 
+= Serialization failure
+{parent=postgresql}
+
+When using \x[sql-repeatable-read-isolation-level] and \x[sql-serializable-isolation-level], concurrent transactions may fail with a serialization failure, and then you might need to retry them. You server code or your ORM must always account for that.
+
+A good way to explore when it happens is to use the example
+
+Related questions:
+* https://stackoverflow.com/questions/7705273/what-are-the-conditions-for-encountering-a-serialization-failure
+* https://stackoverflow.com/questions/59351109/error-could-not-serialize-access-due-to-concurrent-update
+* https://stackoverflow.com/questions/50797097/postgres-could-not-serialize-access-due-to-concurrent-update/51932824
+
 = SQLite
 {c}
 {parent=sql}
@@ -32829,6 +32871,9 @@ It seems impossible to avoid the signaling server. With signaling server:
 * https://github.com/tom-james-watson/p2p.chat
 * https://github.com/OTRMan/otr.to-chat
 * maybe \x[jitsi]
+
+Games:
+* https://github.com/rameshvarun/netplayjs
 
 = Email
 {parent=messaging-software}
@@ -33596,6 +33641,7 @@ Some glaring issues include:
 * `.id` gets added to `SELECT` no matter, what, breaking `GROUP BY` unless you do horrible workarounds:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
+* they don't seem to have a simple built-in mechanism for transaction retries? \x[sequelize-transaction-retry]{p}.
 
 = Sequelize example
 {parent=sequelize}
@@ -33639,6 +33685,47 @@ Overview of the examples:
   * two relationships between two specific tables: we need to use `as:` to disambiguate them
     * \a[sequelize/many_to_many_double.js]: users can both follow and like posts
     * \a[sequelize/one_to_many_double.js]: posts have the author and a mandatory reviewer
+
+= Sequelize parallel example
+{parent=sequelize-example}
+
+= File: sequelize/parallel_select_and_update.js
+{id=file/sequelize/parallel_select_and_update.js}
+{parent=sequelize-parallel-example}o
+
+This section is about the file: \a[sequelize/parallel_select_and_update.js].
+
+This example is the same as \x[file/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries.
+
+The examples illustrates: https://stackoverflow.com/questions/55452441/for-share-and-for-update-statements-in-sequelize
+
+Sample invocation:
+``
+node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ_COMMITTED UPDATE
+``
+where:
+* `READ_COMMITTED`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html which correspond to the standard \x[sql-isolation-level]{p}. It not given, don't set one, defaulting to the database's/sequelize's default level.
+* `UPDATE`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html#static-get-LOCK[]. Update generates a `SELECT FOR UPDATE` in \x[postgresql] for example. If not given, don't use any `FOR xxx` explicit locking.
+
+Then, the outcome is exactly as described at: \x[file/sequelize/raw/parallel_select_and_update.js]:
+* `READ_COMMITTED`: fails
+* `READ_COMMITTED UPDATE`: works
+* `REPEATABLE_READ`: works, but is a bit slower, as it does rollbacks
+
+  This case also illustrates \x[sequelize-transaction-retry]{p}, since in this transaction isolation level transactions may fail:
+  * https://stackoverflow.com/questions/68427796/sequelize-transaction-retry-doenst-work-as-expected
+  * https://github.com/sequelize/sequelize/issues/1478
+  * https://github.com/sequelize/sequelize/issues/8294
+
+= Sequelize transaction retry
+{parent=sequelize}
+
+Transaction retries are inevitable, as some \x[sql-isolation-level]{p}
+
+Doesn't seem to have any simple built-in mechanism?
+* https://stackoverflow.com/questions/68427796/sequelize-transaction-retry-doenst-work-as-expected
+* https://github.com/sequelize/sequelize/issues/1478
+* https://github.com/sequelize/sequelize/issues/8294
 
 = Node.js web framework
 {c}
@@ -34608,6 +34695,22 @@ This includes to learn more theoretical subjects like \x[physics] and \x[mathema
 = Software testing
 {parent=software-bug}
 {wiki}
+
+= File: testExecutables.js
+{id=file/testExecutables.js}
+{parent=software-testing}
+
+This section is about the file: \a[testExecutables.js]
+
+This script tests all executables under a selected directory.
+
+\x[ciro-santilli] has been writing scripts of that type for a long time in order to test his \x[ciro-santilli-s-documentation-superpowers][programming self-learning setups with asserts].
+
+The most advanced of those being the https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/test[test system] of \x[linux-kernel-module-cheat].
+
+But had too much stuff that would be specific to that project, so Ciro decided to start this new one in \x[node-js], hopefully it will also be the last he ever writes.
+
+A sample usage of the test library can be seen at: \a[sequelize/test].
 
 = Continuous integration
 {parent=software-testing}
@@ -40711,6 +40814,12 @@ It is also amusing to see http://tasvideos.org/ConsoleVerificationGuide.html[con
 \Video[http://youtube.com/watch?v=BFBGWrGT1E8]
 {title=\x[super-mario-64] '120 Stars' in 1:20:41.52 Console Verified by Soul Umbreon (2012)}
 
+= Software toy
+{parent=video-game}
+
+* https://en.wikipedia.org/wiki/Toy_program
+* https://en.wikipedia.org/wiki/Non-game
+
 = Open source video game
 {parent=video-game}
 
@@ -40724,10 +40833,13 @@ Those who devote their time to the \x[art][useless] development of open source v
 
 * tower defense
   * https://www.edopedia.com/demo/pixeldefense possible source https://github.com/jesseakt/PixelDefense 2020-03 desperately lacks a fast forward button and enemy health bars
-* 3D platformer
-  * http://edelweiss.32x.io/
+* platformer
+  * 2D platformer
+    * teeworlds: does not run on Ubuntu 21.10, `X Error of failed request:  BadValue`
+  * 3D platformer
+    * http://edelweiss.32x.io/
 * OpenClonk: Terraria-like 2D mining crafting game. Pretty well done. Not sure if you can have a super huge open world. The fact that the music stops completely so often is a bit saddening.
-* https://en.wikipedia.org/wiki/Pingus[Pingus]: Lemmings clone. Very good.
+* https://en.wikipedia.org/wiki/Pingus[Pingus]: Lemmings clone. Very good!
 * https://github.com/The-Powder-Toy/The-Powder-Toy[]: https://en.wikipedia.org/wiki/Falling-sand_game in C++. No Ubuntu 19.10 package it seems, but was easy to compile from source.
 * roguelike
   * survival

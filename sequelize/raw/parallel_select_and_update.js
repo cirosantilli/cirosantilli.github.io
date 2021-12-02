@@ -29,7 +29,10 @@ if (process.argv.length > 4) {
   n = 10;
 }
 const isolation = process.argv[5]
-const for_update = process.argv[6]
+let for_update = process.argv[6]
+if (for_update === undefined) {
+  for_update = ''
+}
 
 const sequelizes = common.sequelizes(nthreads, __filename, process.argv[2])
 const sequelize = sequelizes[0]
@@ -42,7 +45,7 @@ for (let i = 0; i < nthreads; i++) {
   arr.push(inc(sequelizes[i], n, isolation, for_update))
 }
 await Promise.all(arr)
-;[rows, meta] = await sequelize.query(`SELECT * FROM "MyInt"`)
+let [rows, meta] = await sequelize.query(`SELECT * FROM "MyInt"`)
 assert.strictEqual(rows[0].i, nthreads * n)
 })().finally(() => {
   return Promise.all(sequelizes.map(s => s.close()))

@@ -43,7 +43,7 @@ function sequelize(filename, dialect, opts) {
       host: '/var/run/postgresql',
     }, opts));
   } else {
-    throw new Error('Unknown dialect')
+    throw new Error(`Unknown dialect: "${dialect}"`)
   }
 }
 exports.sequelize = sequelize
