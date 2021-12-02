@@ -7,13 +7,44 @@ const common = require('./common');
 const sequelize = require('sequelize');
 const { Transaction } = require('sequelize');
 
+async function transactionWithRetry(sequelize, transactionArgs, cb) {
+  let done = false
+  while (!done) {
+    try {
+      await sequelize.transaction(transactionArgs, cb)
+      done = true
+    } catch (e) {
+      if (
+        sequelize.options.dialect === 'postgres' &&
+        // This can happen randomly, and we have to re-run the transaction:
+        // - could not serialize access due to read/write dependencies among transactions
+        // - could not serialize access due to concurrent update
+        // https://www.postgresql.org/docs/13/errcodes-appendix.html
+        e.original.code === '40001'
+      ) {
+        await sequelize.query(`ROLLBACK`)
+        // COMMIT would also work here in PostgreSQL it seems, when it enters error state it ignores
+        // everything until the transaction finishes, and the COMMIT then becomes as ROLLBACK:
+        // https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234
+        // but can't find any clear docs on it, this one:
+        // https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708
+        // points to some possible docs, but not very direct.
+        // await sequelize.query(`COMMIT`)
+      } else {
+        // Error that we don't know how to handle.
+        throw e;
+      }
+    }
+  }
+}
+
 async function inc(sequelize, n, isolation, lock) {
   for (let i = 0; i < n; i++) {
     const transactionArgs = {}
     if (isolation !== undefined) {
       transactionArgs.isolationLevel = Transaction.ISOLATION_LEVELS[isolation]
     }
-    await sequelize.transaction(transactionArgs, async t => {
+    await transactionWithRetry(sequelize, transactionArgs, async t => {
       const findArgs = { transaction: t }
       if (lock !== undefined) {
         findArgs.lock = t.LOCK[lock]

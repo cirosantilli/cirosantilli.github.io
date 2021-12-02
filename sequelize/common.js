@@ -50,18 +50,23 @@ exports.sequelize = sequelize
 
 // Get n sequelize instances for parallel tests.
 // Each one prepends its index to every log message.
-function sequelizes(n, filename, dialect, opts) {
+function sequelizes(n, filename, dialect, opts={}) {
   return Array.from(
     Array(n).keys(),
-    i => sequelize(
-      filename,
-      dialect,
-      { logging: (s) => console.log(`${i}: ${s}`) }
-    )
+    i => {
+      let opts2 = Object.assign({}, opts)
+      if (!('logging' in opts)) {
+        opts2.logging = s => console.log(`${i}: ${s}`)
+      }
+      return sequelize(
+        filename,
+        dialect,
+        opts2,
+      )
+    }
   )
 }
 exports.sequelizes = sequelizes
-
 
 async function transaction(sequelize, isolation, cb) {
   let done = false

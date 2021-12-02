@@ -53,7 +53,7 @@ assert.strictEqual(rows[0].i, 1)
 await reset()
 
 // 0 updates, 0 commits, 1 updates, 1 commits
-// No error:.
+// No error.
 await sequelize0.query(`BEGIN TRANSACTION ISOLATION LEVEL ${isolation}`)
 await sequelize1.query(`BEGIN TRANSACTION ISOLATION LEVEL ${isolation}`)
 await sequelize0.query(`UPDATE "MyInt" SET i = 1`)
