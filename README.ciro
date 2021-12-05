@@ -10839,7 +10839,7 @@ Bibliography:
 * https://www.youtube.com/watch?v=Ix-3LQhElvU Anomalous Magnetic Moment Of The Electron | One Loop Quantum Correction | Quantum Electrodynamics by \x[dietterich-labs] (2019)
 
 = The Magnetic Moment of the Electron by Kusch and Foley (1948)
-{parent=anomalous-magnetic-dipole-moment-of-the-electron}o
+{parent=anomalous-magnetic-dipole-moment-of-the-electron}
 
 Published on \x[physical-review] by \x[polykarp-kusch] and Foley.
 
@@ -13359,10 +13359,66 @@ But does have a few classic pendulum/pulley/spring worked out examples that woul
 
 As mentioned on the \x[wikipedia] page https://en.wikipedia.org/w/index.php?title=Stationary_Action_Principle&oldid=1020413171[], "principle of least action" is not accurate since it could not necessarily be a minima, we could just be in a \x[maxima-and-minima][saddle-point].
 
+= Calculus of variations
+{parent=stationary-action-principle}
+{wiki}
+
+Calculus of variations is the field that searches for \x[maxima-and-minima] of \x[functional]{p}, rather than the more elementary case of functions from $\R$ to $\R$.
+
+= Functional
+{c}
+{parent=calculus-of-variations}
+{wiki=Euler–Lagrange equation}
+
+A \x[function] that takes input function and outputs a \x[real-number].
+
 = Euler-Lagrange equation
 {c}
-{parent=stationary-action-principle}
+{parent=calculus-of-variations}
 {wiki=Euler–Lagrange equation}
+
+Let's start with the one dimensional case. Let the $q : \R \to \R$ and a \x[functional] $I$ defined by a function of three variables $F : \R^3 \to \R$:
+$$I(q) = \int_{t_0}^{t} F(t, q(t), \dot{q}(t)) dt$$
+
+Then, the \x[euler-lagrange-equation] gives the \x[maxima-and-minima] of the that type of functional. Note that this type of functional is just one very specific type of functional amongst all possible functionals that one might come up with. However, it turns out to be enough to do most of physics, so we are happy with with it.
+
+Given $F$, the Euler-Lagrange equations are a system of \x[ordinary-differential-equation]{p} constructed from that $F$ such that the solutions to that system are the maxima/minima.
+
+In the one dimensional case, the system has a single ordinary differential equation:
+$$
+\pdv{F(t, q(t), \dot{q}(t))}{q} - \dv{}{t} \pdv{F(t, q(t), \dot{q}(t))}{\dot{q}} = 0
+$$
+
+By $\pdv{F}{q}$ and $\pdv{F}{\dot{q}}$ we simply mean "the \x[partial-derivative] of $F$ with respect to its second and third arguments". The notation is a bit confusing at first, but that's all it means.
+
+Therefore, that expression ends up being at most a \x[order-of-a-differential-equation][second order] \x[ordinary-differential-equation] where $q$ is the unknown, since:
+* the term $\pdv{F(t, q(t), \dot{q}(t))}{q}$ is a function of $t, q(t), \dot{q}(t)$
+* the term $\pdv{F(t, q(t), \dot{q}(t))}{\dot{q}}$ is a function of $t, q(t), \dot{q}(t)$. And so it's derivative with respect to time will contain only up to $\ddot{q}$
+
+Now let's think about the multi-dimensional case. Instead of having $q : \R \to \R$, we now have $q : \R \to \R^n$. Think about the \x[lagrangian-mechanics] motivation of a \x[double-pendulum] where for a given time we have two angles.
+
+Let's do the 2-dimensional case then. In that case, $F$ is going to be a function of 5 variables $F : \R^5 \to \R$ rather than 3 as in the one dimensional case, and the functional looks like:
+$$
+$$I(q) = \int_{t_0}^{t} F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2})(t) dt$$
+$$
+
+This time, the Euler-Lagrange equations are going to be a system of two \x[ordinary-differential-equation]{p} on two unknown functions $q_1$ and $q_2$ of order up to 2 in both variables:
+$$
+\pdv{F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2}(t))}{q_1} - \dv{}{t} \pdv{F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2}(t)}{\dot{q_1}} = 0 \\
+\pdv{F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2}(t))}{q_2} - \dv{}{t} \pdv{F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2}(t)}{\dot{q_2}} = 0 \\
+$$
+At this point, notation is getting a bit clunky, so people will often condense the $q_i$ vector
+$$
+\pdv{F(t, \mathbf{q}(t), \dot{\mathbf{q}}(t))}{q_1} - \dv{}{t} \pdv{F(t, \mathbf{q}(t), \dot{\mathbf{q}}(t))}{\dot{q_1}} = 0 \\
+\pdv{F(t, \mathbf{q}(t), \dot{\mathbf{q}}(t))}{q_2} - \dv{}{t} \pdv{F(t, \mathbf{q}(t), \dot{\mathbf{q}}(t))}{\dot{q_2}} = 0 \\
+$$
+or just omit the arguments of $F$ entirely:
+$$
+\pdv{F}{q_i} - \dv{}{t} \pdv{F}{\dot{q_i}} = 0
+$$
+
+\Video[https://www.youtube.com/watch?v=SQLxrr9N8zM]
+{title=Calculus of Variations ft. Flammable Maths by vcubingx (2020)}
 
 = Equations of motion
 {parent=euler-lagrange-equation}
@@ -19058,6 +19114,11 @@ I knew the problem. In those days, the \x[age-of-earth][earth appeared to be old
 {parent=north-america}
 {wiki}
 
+= Canada
+{c}
+{parent=country-in-north-america}
+{wiki}
+
 = Mexico
 {c}
 {parent=country-in-north-america}
@@ -19545,7 +19606,7 @@ South Indian vegetarian thali is the best thing ever.
 
 For the most part, a great pseudo-country to live in with lots of cultural diversity, \x[art] and safety.
 
-However, Europe is in economic decline after all its Jewish and German geniuses fled in/after \x[world-war-ii] and due to \x[having-more-than-one-natural-language-is-bad-for-the-world].
+However, Europe is in economic decline after all its \x[jewish] and \x[german] geniuses fled in/after \x[world-war-ii] and due to \x[having-more-than-one-natural-language-is-bad-for-the-world].
 
 \x[ciro-santilli] moved \x[ciro-santilli-s-biography][to Europe in 2010].
 
@@ -20868,6 +20929,9 @@ Related:
 = Religion
 {parent=social-science}
 {wiki}
+{child=christianism}
+{child=islam}
+{child=judaism}
 
 = Religious
 {synonym}
@@ -20880,6 +20944,251 @@ It's a genetic thing it seems.
 
 See also:
 * \x[jesus]{child}
+
+= Abrahamic religion
+{c}
+{parent=list-of-religions}
+{wiki=Abrahamic_religions}
+
+= Christianism
+{c}
+{parent=abrahamic-religion}
+{wiki}
+
+= Christian
+{c}
+{synonym}
+
+= Jewish Christian
+{c}
+{parent=christianism}
+{wiki}
+
+It is those early splinter groups that make it so clear that religion is fake. We believed in \x[judaism]. Now we believe in Jesus. Oh, but wait, actually Judaism is now semi fake, and we don't live by Jewish law anymore.
+
+= Bible
+{c}
+{parent=christianism}
+{wiki}
+
+= The bible
+{synonym}
+
+= Old Testament
+{c}
+{parent=bible}
+{wiki}
+
+= New Testament
+{c}
+{parent=bible}
+{wiki}
+
+= Gospel
+{parent=new-testament}
+
+= Gospel of Matthew
+{c}
+{parent=gospel}
+{title2=1st book}
+{wiki}
+
+The first chapter of the \x[new-testament].
+
+= Gospel of John
+{c}
+{parent=gospel}
+{title2=4st book}
+{wiki}
+
+The first chapter of the \x[new-testament].
+
+= Acts of the Apostles
+{c}
+{parent=new-testament}
+{title2=5st book}
+{wiki}
+
+= Version of the bible
+{parent=bible}
+
+= New International Version
+{c}
+{parent=version-of-the-bible}
+{title2=NIV, 1978}
+{wiki}
+
+Direct translation from oldest documents deemed reliable, in a mixture of Hebrew, Aramaic, and Greek.
+
+= King James Version
+{c}
+{parent=version-of-the-bible}
+{title2=1611-}
+{wiki}
+
+= Freely licensed Bibles
+{parent=version-of-the-bible}
+
+How can you make a translation of the \x[bible] and not put it in the public domain???? You tell me, you tell me.
+* https://christianity.stackexchange.com/questions/16377/what-major-translations-of-the-bible-are-in-the-public-domain
+
+With \x[falun-gong] it's even more fun: the words of God Himself are will be copyrighted for a while after Li Hongzhi dies!!!
+
+= Christian denomination
+{c}
+{parent=christianism}
+{wiki}
+
+= Catholic Church
+{c}
+{parent=christian-denomination}
+{wiki}
+
+= Catholic
+{c}
+{synonym}
+
+= Church of England
+{c}
+{parent=christian-denomination}
+{title2=C of E}
+{wiki}
+
+Political division:
+* nominal leader: \x[british-monarch]
+* toplevel arch-dioceses/provinces of Cantebury and York. One archbishop each, who is also bishop of Cantebury and York diocese
+* within provinces: one cathedral and bishop per diocese
+
+= Jesus
+{c}
+{parent=christianism}
+{wiki}
+
+That self blame, imminent end of the world and hatred for tax collectors stuff is a bit over the top, you should chill man.
+
+But please \x[quotes-by-jesus][keep the parables coming].
+
+= Jesus Christ Superstar (1973)
+{c}
+{parent=jesus}
+{wiki}
+
+= John the Baptist
+{c}
+{parent=jesus}
+{wiki}
+
+A pre-\x[jesus]-like figure, likely possibly a mentor or competitor with Jesus.
+
+He would have deserved a scene in \x[jesus-christ-superstar-1973].
+
+= Apostle
+{c}
+{parent=jesus}
+{wiki}
+
+= Twelve Apostles
+{c}
+{parent=apostle}
+{wiki}
+
+= Commissioning of the Twelve Apostles
+{c}
+{parent=twelve-apostles}
+{wiki}
+
+The \x[twelve-apostles] were actually officially appointed by Jesus amongst his followers. It was not simply that they were the first followers. It was official rank.
+
+= Saint Peter
+{c}
+{parent=twelve-apostles}
+{wiki}
+
+= Simon called Peter
+{c}
+{synonym}
+{title2}
+
+Brother of \x[andrew-the-apostle], called by \x[jesus] in \x[fishers-of-men]. Born Simon, but \x[jesus] renamed him to Peter, thus the weird "Simon called Peter" way he is referred to as in some versions of the \x[bible].
+
+= Andrew the Apostle
+{parent=twelve-apostles}
+{wiki}
+
+Brother of \x[saint-peter], called by \x[jesus] in \x[fishers-of-men]. \x[crucified]{c}.
+
+= Apostle not in the Twelve
+{c}
+{parent=apostle}
+{wiki}
+
+= Quotes by Jesus
+{parent=jesus}
+
+Proverbs 27:17:
+\Q[As iron sharpens iron, so one person sharpens another.]
+
+= Fishers of men
+{parent=quotes-by-jesus}
+{wiki}
+
+\x[gospel-of-matthew] 4 \x[king-james-version]:
+\Q[
+18 And Jesus, walking by the sea of Galilee, saw two brethren, \x[simon-called-peter], and \x[andrew-the-apostle] his brother, casting a net into the sea: for they were fishers.
+
+19 And he saith unto them, Follow me, and I will make you fishers of men.
+]
+
+= Man shall not live by bread alone
+{parent=quotes-by-jesus}
+
+\x[gospel-of-matthew] 4:4:
+\Q[Man shall not live by bread alone, but by every word that proceeds out of the mouth of \x[god]]
+
+\x[ciro-santilli-s-mother] loves that one. Even though she was constantly worried that if Ciro had studied physics he would be poor and starve, a factor which led him to study engineering instead, one of the greatest mistakes of his life. \x[don-t-be-a-pussy].
+
+= Enter through the narrow gate
+{parent=quotes-by-jesus}
+
+\x[gospel-of-matthew] 7:13:
+\Q[Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction, and many enter through it.]
+
+\x[ciro-santilli] really likes this one, because he feels that where many people go, it is useless to go again. \x[ciro-santilli-s-self-perceived-creative-personality][It is much better to explore that which few can do], but which many will need.
+
+\x[water-margin] also comes to mind. And also https://en.wikipedia.org/wiki/A_Story_of_Floating_Weeds[A story of floating weeds].
+
+Also known as being \x[hipster].
+
+= The truth will set you free
+{parent=quotes-by-jesus}
+{wiki}
+
+= Islam
+{c}
+{parent=list-of-religions}
+{wiki}
+
+Islam has some really nice things in it.
+
+The way it was perverted to be used as a tool for \x[terrorism] by some is a great tragedy.
+
+\x[ciro-santilli] especially appreciates the idea of \x[ramadan].
+
+= Ramadan
+{c}
+{parent=islam}
+{wiki}
+
+\x[ciro-santilli] appreciates this concept of "remembering the suffering of others" a lot due to \x[ciro-santilli-s-self-perceived-compassionate-personality] and \x[ciro-santilli-s-cheapness].
+
+= Judaism
+{c}
+{parent=list-of-religions}
+{wiki}
+
+= Jewish
+{c}
+{synonym}
 
 = Agnosticism
 {parent=religion}
@@ -21064,194 +21373,6 @@ https://chinatxt.sitehost.iu.edu/Analects_of_Confucius_(Eno-2015).pdf
 
 https://cirosantilli.com/china-dictatorship/analects-translation-by-robert-eno-2015
 
-= Christianism
-{c}
-{parent=list-of-religions}
-{wiki}
-
-= Christian
-{c}
-{synonym}
-
-= Bible
-{c}
-{parent=christianism}
-{wiki}
-
-= The bible
-{synonym}
-
-= Old Testament
-{c}
-{parent=bible}
-{wiki}
-
-= New Testament
-{c}
-{parent=bible}
-{wiki}
-
-= Gospel
-{parent=new-testament}
-
-= Gospel of Matthew
-{c}
-{parent=gospel}
-{title2=1st book}
-{wiki}
-
-The first chapter of the \x[new-testament].
-
-= Gospel of John
-{c}
-{parent=gospel}
-{title2=4st book}
-{wiki}
-
-The first chapter of the \x[new-testament].
-
-= Acts of the Apostles
-{c}
-{parent=new-testament}
-{title2=5st book}
-{wiki}
-
-= Version of the bible
-{parent=bible}
-
-= New International Version
-{c}
-{parent=version-of-the-bible}
-{title2=NIV, 1978}
-{wiki}
-
-Direct translation from oldest documents deemed reliable, in a mixture of Hebrew, Aramaic, and Greek.
-
-= King James Version
-{c}
-{parent=version-of-the-bible}
-{title2=1611-}
-{wiki}
-
-= Freely licensed Bibles
-{parent=version-of-the-bible}
-
-How can you make a translation of the \x[bible] and not put it in the public domain???? You tell me, you tell me.
-* https://christianity.stackexchange.com/questions/16377/what-major-translations-of-the-bible-are-in-the-public-domain
-
-With \x[falun-gong] it's even more fun: the words of God Himself are will be copyrighted for a while after Li Hongzhi dies!!!
-
-= Christian denomination
-{c}
-{parent=christianism}
-{wiki}
-
-= Catholic Church
-{c}
-{parent=christian-denomination}
-{wiki}
-
-= Catholic
-{c}
-{synonym}
-
-= Church of England
-{c}
-{parent=christian-denomination}
-{title2=C of E}
-{wiki}
-
-Political division:
-* nominal leader: \x[british-monarch]
-* toplevel arch-dioceses/provinces of Cantebury and York. One archbishop each, who is also bishop of Cantebury and York diocese
-* within provinces: one cathedral and bishop per diocese
-
-= Jesus
-{c}
-{parent=christianism}
-{wiki}
-
-That self blame, imminent end of the world and hatred for tax collectors stuff is a bit over the top, you should chill man.
-
-But please \x[quotes-by-jesus][keep the parables coming].
-
-= Jesus Christ Superstar (1973)
-{c}
-{parent=jesus}
-{wiki}
-
-= John the Baptist
-{c}
-{parent=jesus}
-{wiki}
-
-A pre-\x[jesus]-like figure, likely possibly a mentor or competitor with Jesus.
-
-He would have deserved a scene in \x[jesus-christ-superstar-1973].
-
-= Twelve Apostles
-{c}
-{parent=jesus}
-{wiki}
-
-= Saint Peter
-{parent=twelve-apostles}
-{wiki}
-
-= Simon called Peter
-{c}
-{synonym}
-{title2}
-
-Brother of \x[andrew-the-apostle], called by \x[jesus] in \x[fishers-of-men]. Born Simon, but \x[jesus] renamed him to Peter, thus the weird "Simon called Peter" way he is referred to as in some versions of the \x[bible].
-
-= Andrew the Apostle
-{parent=twelve-apostles}
-{wiki}
-
-Brother of \x[saint-peter], called by \x[jesus] in \x[fishers-of-men]. \x[crucified]{c}.
-
-= Quotes by Jesus
-{parent=jesus}
-
-Proverbs 27:17:
-\Q[As iron sharpens iron, so one person sharpens another.]
-
-= Fishers of men
-{parent=quotes-by-jesus}
-{wiki}
-
-\x[gospel-of-matthew] 4 \x[king-james-version]:
-\Q[
-18 And Jesus, walking by the sea of Galilee, saw two brethren, \x[simon-called-peter], and \x[andrew-the-apostle] his brother, casting a net into the sea: for they were fishers.
-
-19 And he saith unto them, Follow me, and I will make you fishers of men.
-]
-
-= Man shall not live by bread alone
-{parent=quotes-by-jesus}
-
-\x[gospel-of-matthew] 4:4:
-\Q[Man shall not live by bread alone, but by every word that proceeds out of the mouth of \x[god]]
-
-\x[ciro-santilli-s-mother] loves that one. Even though she was constantly worried that if Ciro had studied physics he would be poor and starve, a factor which led him to study engineering instead, one of the greatest mistakes of his life. \x[don-t-be-a-pussy].
-
-= Enter through the narrow gate
-{parent=quotes-by-jesus}
-
-\x[gospel-of-matthew] 7:13:
-\Q[Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction, and many enter through it.]
-
-\x[ciro-santilli] really likes this one, because he feels that where many people go, it is useless to go again. \x[ciro-santilli-s-self-perceived-creative-personality][It is much better to explore that which few can do], but which many will need.
-
-\x[water-margin] also comes to mind. And also https://en.wikipedia.org/wiki/A_Story_of_Floating_Weeds[A story of floating weeds].
-
-Also known as being \x[hipster].
-
-= The truth will set you free
-{parent=quotes-by-jesus}
-{wiki}
-
 = Falun Gong
 {c}
 {parent=list-of-religions}
@@ -21260,24 +21381,6 @@ Also known as being \x[hipster].
 On \x[cirosantilli-china-dictatorship]:
 * https://cirosantilli.com/china-dictatorship/falun-gong
 * https://cirosantilli.com/china-dictatorship/flg-cult
-
-= Islam
-{c}
-{parent=list-of-religions}
-{wiki}
-
-Islam has some really nice things in it.
-
-The way it was perverted to be used as a tool for \x[terrorism] by some is a great tragedy.
-
-\x[ciro-santilli] especially appreciates the idea of \x[ramadan].
-
-= Ramadan
-{c}
-{parent=islam}
-{wiki}
-
-\x[ciro-santilli] appreciates this concept of "remembering the suffering of others" a lot due to \x[ciro-santilli-s-self-perceived-compassionate-personality] and \x[ciro-santilli-s-cheapness].
 
 = Sikhism
 {c}
@@ -22403,6 +22506,7 @@ Models \x[existence] in the context of the \x[formalization-of-mathematics].
 = Existence and uniqueness
 {parent=existential-quantification}
 {wiki}
+{child=existence-and-uniqueness-of-solutions-to-maxwell-s-equations}
 
 Existence and uniqueness results are fundamental in \x[mathematics] because we often define objects by their properties, and then start calling them "the object", which is fantastically convenient.
 
@@ -24670,11 +24774,23 @@ https://math.stackexchange.com/questions/1786964/is-it-possible-to-construct-a-s
 = Maxima and minima
 {parent=derivative}
 {wiki}
+{child=calculus-of-variations}
+
+Given a \x[function] $f$:
+* from some space. For beginners the \x[real-number]{p} but more generally \x[topological-space]{p} should work in general
+* to the \x[real-number]{p}
+we want to find the points $x$ of the \x[domain-function] of $f$ where the value of $f$ is smaller (for minima, or larger for maxima) than all other points in some \x[neighbourhood-mathematics] of $x$.
+
+In the case of \x[functional]{p}, this problem is treated under the theory of the \x[calculus-of-variations].
 
 = Lifegard problem
 {parent=maxima-and-minima}
 
 https://pumphandle.consulting/2020/09/04/the-lifeguard-problem-solved/
+
+= Derivative test
+{parent=maxima-and-minima}
+{wiki}
 
 = Saddle point
 {parent=maxima-and-minima}
@@ -25695,10 +25811,29 @@ Explicit solutions exist for the very specific cases of:
 {parent=linear-differential-equation}
 {wiki}
 
+= Order of a differential equation
+{parent=differential-equation}
+{wiki}
+
+Order of the highest derivative that appears.
+
 = Ordinary differential equation
 {parent=differential-equation}
 {title2=ODE}
 {wiki}
+
+= Existence and uniqueness of solutions of ordinary differential equations
+{parent=ordinary-differential-equation}
+
+= Peano existence theorem
+{c}
+{parent=existence-and-uniqueness-of-solutions-of-ordinary-differential-equations}
+{wiki}
+
+= Picard-Lindelöf theorem
+{c}
+{parent=existence-and-uniqueness-of-solutions-of-ordinary-differential-equations}
+{wiki=Picard–Lindelöf theorem}
 
 = System of ordinary differential equations
 {parent=ordinary-differential-equation}
@@ -32023,6 +32158,16 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * \a[sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * \x[sql-isolation-level-example]{child}
 
+= SQL aggregate function
+{c}
+{parent=sql}
+
+= SQL `COUNT` function
+{c}
+{parent=sql-aggregate-function}
+
+Have a look at some interesting examples under \a[sequelize/raw/many_to_many.js].
+
 = SQL transaction
 {c}
 {parent=sql}
@@ -32061,7 +32206,7 @@ Vs \x[sql-serializable-isolation-level] on \x[postgresql]: https://dba.stackexch
 
 \x[file/sequelize/raw/parallel_create_delete_empty_tag.js] is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the \x[sql-read-committed-isolation-level].
 
-In \x[postgresql], this is the first isolation level which can lead to \x[serialization-failure]{p}, this does not happen to \x[sql-read-committed-isolation-level] in that \x[dbms]. You then have to retry the transaction.
+In \x[postgresql], this is the first isolation level which can lead to \x[postgresql-serialization-failure]{p}, this does not happen to \x[sql-read-committed-isolation-level] in that \x[dbms]. You then have to retry the transaction.
 
 = SQL SERIALIZABLE isolation level
 {c}
@@ -32079,7 +32224,7 @@ In \x[postgresql], this is the first isolation level which can lead to \x[serial
 {id=file/sequelize/raw/parallel_update_async.js}
 {parent=sql-parallel-update-example}
 
-This section is about: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
+This section is about: \a[sequelize/raw/parallel_update_async.js]
 
 \a[sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a \x[sqlite3-node-js-package] bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
 
@@ -32160,7 +32305,7 @@ A non-raw version of this example can be seen at: \x[file/sequelize/parallel_sel
 
 This section is about the file: \a[sequelize/raw/parallel_select_and_update_deterministic.js]
 
-This example contains a deterministic demo of when \x[serialization-failure]{p} may happen.
+This example contains a deterministic demo of when \x[postgresql-serialization-failure]{p} may happen.
 
 Tested on \x[postgresql] 13.5.
 
@@ -32205,29 +32350,34 @@ which leads to a foreign key failure, because the tag does not exist anymore whe
 
 Sample executions:
 * `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: \x[postgresql], 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
+
+  Execution often fails, although not always. The failure is always:
+  ``
+  error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"
+  ``
+  because the:
+  ``
+  INSERT INTO "PostTag"
+  ``
+  tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.
+
+  TODO: we've never managed to observe the failure case in which `tag0` is deleted. Is it truly possible? And if not, by which guarantee?
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED' 'FOR UPDATE'`: do a `SELECT ... FOR UPDATE` before trying to `INSERT`.
+
+  This is likely correct and the fastest correct method according to our quick benchmarking, about 20% faster than `REPEATABLE READ`.
+
+  We are just now 100% sure it is corret becase we can't find out if the `SELECT` in the `DELETE` subquery could first select some rows, which are then locked by the tag creator, and only then locked by `DELETE` after selection. Or does it re-evaludate the `SELECT` even though it is in a subquery?
 * `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'REPEATABLE READ'`: repeatable read
+
+  We've never observed any failures with this level. This should likely fix the foreign key issue according to the PostgreSQL docs, since:
+  * the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
+  * and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: \x[postgresql-serialization-failure].
 * `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'`: serializable
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Should blow up sometimes.
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Can blow up of course, since even less restrictions than `READ COMMITTED`
 All executions use 2 threads.
 
 Some theoretical notes:
 * Failure case 3 is averted by a `READ COMMITTED` transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it
-
-Execution often fails for `READ COMMITTED`, although not always. The most common failure is:
-``
-error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"
-``
-because the:
-``
-INSERT INTO "PostTag"
-``
-tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.
-
-TODO: we've never managed to observe the failure case in which `tag0` is deleted. Is it truly possible? And if not, by which guarantee?
-
-We've never observed any failures with `REPEATABLE READ`. That level should clearly fix the foreign key issue according to the PostgreSQL docs, since:
-* the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
-* and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information.
 
 https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from \x[select-for-update] also talks about a similar example, and has relevant answers.
 
@@ -32580,7 +32730,7 @@ just works.
 
 Realtime monitoring for long queries instead: https://stackoverflow.com/questions/8597516/app-to-monitor-postgresql-queries-in-real-time
 
-= Serialization failure
+= PostgreSQL serialization failure
 {parent=postgresql}
 
 When using \x[sql-repeatable-read-isolation-level] and \x[sql-serializable-isolation-level], concurrent transactions may fail with a serialization failure, and then you might need to retry them. You server code or your ORM must always account for that.
@@ -32800,9 +32950,18 @@ E.g., as of 2020, their help login https://help.openstreetmap.org/ shows MyOpenI
 
 They do still seem to have a bit more activity than https://gis.stackexchange.com/questions/tagged/openstreetmap on \x[stack-exchange].
 
-\x[transliteration]{c} is off by default!...... https://wiki.openstreetmap.org/wiki/Translation You just have to learn all scripts ever. Good luck with the \x[chinese-character]{p}. Genius.
+Complaints:
+* \x[transliteration]{c} is off by default!...... https://wiki.openstreetmap.org/wiki/Translation You just have to learn all scripts ever. Good luck with the \x[chinese-character]{p}. Genius.
+* In order to see information about places, you have to click "Query features" on the toolbar first. Who made such a terrible UI? Direct click is a much, and so easy to implement?
+* It is impossible to discern different types of paths and other walking path symbols, the symbols are too small, and just scale down to a line no matter how much you zoom in.
+* Power lines are way too visible. While that is kind of cool, it is useless and distracting to most people most of the time.
+* No street-level imagery...: https://help.openstreetmap.org/questions/1178/adding-photos
+* No aerial imagery: https://help.openstreetmap.org/questions/6849/how-can-i-see-the-aerial-imagery-without-editing-the-map But that is kind of understandable, as that one might not be free.
+* No restaurant ratings: https://help.openstreetmap.org/questions/64852/ratings-for-pois because it is "Subjective". OMG those people, such a huge value powerhouse wasted.
 
-In order to see information about places, you have to click "Query features" on the toolbar first. Who made such a terrible UI? Direct click is a much, and so easy to implement?
+  Not just for restaurants, but for other things as well, e.g. sharing of good cycle circuits.
+
+All of this is a shame, because they do have some incredible data that you cannot find easily on other maps because people just edited it up.
 
 = Ordnance Survey
 {c}
@@ -33693,6 +33852,9 @@ Some glaring issues include:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
 * they don't seem to have a simple built-in mechanism for transaction retries? \x[sequelize-transaction-retry]{p}.
+* impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[sequelize/raw/many_to_many.js]
+  * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
+  * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
 
 = Sequelize example
 {parent=sequelize}
@@ -33709,8 +33871,7 @@ cd sequelize
 Overview of the examples:
 * \a[sequelize/index.js]: a bunch of basic examples
 * \a[sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial under \x[sql-example], and will not comment on them much further on this section.
-* \a[sequelize/before_validate_modify.js]
-* \a[sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] querries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
+* \a[sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
 * \a[sequelize/date.js]: automatic date typecasts
 * \a[sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
 * \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
@@ -33736,13 +33897,19 @@ Overview of the examples:
   * two relationships between two specific tables: we need to use `as:` to disambiguate them
     * \a[sequelize/many_to_many_double.js]: users can both follow and like posts
     * \a[sequelize/one_to_many_double.js]: posts have the author and a mandatory reviewer
+* hooks
+  * \a[sequelize/before_validate_modify.js]:
+    * https://github.com/sequelize/sequelize/issues/3534
+    * https://github.com/sequelize/sequelize/issues/8586
+  * \a[sequelize/hook_in_transaction.js]:
+    * https://stackoverflow.com/questions/35014679/sequelize-hook-depending-on-transaction
 
 = Sequelize parallel example
 {parent=sequelize-example}
 
 = File: sequelize/parallel_select_and_update.js
 {id=file/sequelize/parallel_select_and_update.js}
-{parent=sequelize-parallel-example}o
+{parent=sequelize-parallel-example}
 
 This section is about the file: \a[sequelize/parallel_select_and_update.js].
 
@@ -42319,7 +42486,7 @@ Everyone else must walk or cycle from home to \x[public-transport].
 
 Lobbying groups:
 * https://twitter.com/bicyclelobby
-* Shifter \x[youtube-channel]: https://www.youtube.com/channel/UC9-ZlLTioqMZowRLZHscozw[]. Has many videos about making cycling a means of transport.
+* Shifter \x[youtube-channel]: https://www.youtube.com/channel/UC9-ZlLTioqMZowRLZHscozw[]. Has many videos about making cycling as means of transport. He's from Calgary, \x[canada].
 * \x[cycling-uk]
 * https://banprivatecarsinlondon.com/ Ban Private Cars in London
 

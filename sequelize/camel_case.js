@@ -4,18 +4,10 @@
 
 const assert = require('assert');
 const path = require('path');
-
-const { Sequelize, DataTypes } = require('sequelize');
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  define: {
-    timestamps: false
-  },
-});
-
-(async () => {
+const common = require('./common')
+const { DataTypes } = require('sequelize');
+const sequelize = common.sequelize(__filename, process.argv[2])
+;(async () => {
 
 // Create the tables.
 const User = sequelize.define('User', {
@@ -121,5 +113,4 @@ assert.strictEqual(post11User.name, 'user1')
   assert.strictEqual(postsFound.length, 4)
 }
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

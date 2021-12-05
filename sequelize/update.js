@@ -4,15 +4,10 @@
 
 const assert = require('assert');
 const path = require('path');
-
-const { Sequelize, DataTypes, Op } = require('sequelize');
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-});
-
-(async () => {
+const { DataTypes, Op } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+;(async () => {
 const Inverses = sequelize.define('Inverses',
   {
     value: {
@@ -82,5 +77,4 @@ assert.strictEqual((await Inverses.findOne({ where: { value: 3 } })).name, 'THRE
 assert.strictEqual((await Inverses.findOne({ where: { value: 5 } })).name, 'FIVE');
 assert.strictEqual(await Inverses.count(), 3);
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });
