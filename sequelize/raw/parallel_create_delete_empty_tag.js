@@ -23,6 +23,7 @@ if (process.argv.length > 4) {
   iters = 10
 }
 const isolation = process.argv[5]
+const for_update = process.argv[6]
 
 ;(async () => {
 try {
@@ -67,16 +68,31 @@ let rows, meta, done = false
     const postTitle = `post${postId}`
     await sequelize.query(`INSERT INTO "Post" VALUES (${postId}, '${postTitle}')`)
     await common.transaction(sequelize, isolation, async sequelize => {
-      if (sequelize.options.dialect === 'sqlite') {
-        await sequelize.query(`INSERT OR IGNORE INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
+      let tagId;
+      if (for_update !== undefined) {
+        // If the tag is present, this SELECT will prevent it from being deleted in another thread.
+        ;[rows, meta] = await sequelize.query(`SELECT id FROM "Tag" WHERE name = '${tagName}' ${for_update}`)
+        if (rows.length === 0) {
+          // If we insert a new tag, it cannot be seen from the DELETE thread until COMMIT,
+          // so it cannot be deleted either, and we are fine.
+          await sequelize.query(`INSERT INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
+          tagId = newTagId
+        } else {
+          tagId = rows[0].id
+        }
       } else {
-        await sequelize.query(`INSERT INTO "Tag" VALUES (${newTagId}, '${tagName}') ON CONFLICT DO NOTHING`)
+        if (sequelize.options.dialect === 'sqlite') {
+          await sequelize.query(`INSERT OR IGNORE INTO "Tag" VALUES (${newTagId}, '${tagName}')`)
+        } else {
+          await sequelize.query(`INSERT INTO "Tag" VALUES (${newTagId}, '${tagName}') ON CONFLICT DO NOTHING`)
+        }
+        // Now we need to get the tag id, because we don't know if a new one was inserted or not, and there's no
+        // way to get it back with the INSERT yet:
+        // https://stackoverflow.com/questions/13244393/sqlite-insert-or-ignore-and-return-original-rowid
+        ;[rows, meta] = await sequelize.query(`SELECT id FROM "Tag" WHERE name = '${tagName}'`)
+        tagId = rows[0].id
       }
-      // Now we need to get the tag id, because we don't know if a new one was inserted or not, and there's no
-      // way to get it back with the INSERT yet:
-      // https://stackoverflow.com/questions/13244393/sqlite-insert-or-ignore-and-return-original-rowid
-      ;[rows, meta] = await sequelize.query(`SELECT id FROM "Tag" WHERE name = '${tagName}'`)
-      await sequelize.query(`INSERT INTO "PostTag" VALUES (${postId}, ${rows[0].id})`)
+      await sequelize.query(`INSERT INTO "PostTag" VALUES (${postId}, ${tagId})`)
     })
 
     // Now check that the tag wasn't deleted by the other thread.
@@ -104,6 +120,8 @@ ORDER BY "Post".id ASC
 // This thread will repeatedly delete all tags with 0 posts.
 while (!done) {
   await common.transaction(sequelize2, isolation, async sequelize2 => {
+    // PostgreSQL says that this acquires the SELECT FOR UPDATE lock.
+    // But it is hard to decide if this is part of the SQL standard or not.
     await sequelize2.query(`
 DELETE FROM "Tag"
 WHERE "Tag".id IN (

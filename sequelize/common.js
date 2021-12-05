@@ -90,12 +90,16 @@ async function transaction(sequelize, isolation, cb) {
     } catch (e) {
       if (
         sequelize.options.dialect === 'postgres' &&
+        e instanceof Sequelize.DatabaseError &&
         // This can happen randomly, and we have to re-run the transaction:
         // - could not serialize access due to read/write dependencies among transactions
         // - could not serialize access due to concurrent update
         // https://www.postgresql.org/docs/13/errcodes-appendix.html
         e.original.code === '40001'
       ) {
+        console.error(typeof(e));
+        console.error(Sequelize.DatabaseError);
+        console.error();
         if (isolation !== 'NONE') {
           await sequelize.query(`ROLLBACK`)
           // COMMIT would also work here in PostgreSQL it seems, when it enters error state it ignores

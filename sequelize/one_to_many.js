@@ -4,15 +4,10 @@
 
 const assert = require('assert');
 const path = require('path');
-
-const { Sequelize, DataTypes } = require('sequelize');
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-});
-
-(async () => {
+const { DataTypes } = require('sequelize');
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+;(async () => {
 const Comment = sequelize.define('Comment', {
   body: { type: DataTypes.STRING },
 });
@@ -21,13 +16,16 @@ const User = sequelize.define('User', {
 });
 User.hasMany(Comment)
 Comment.belongsTo(User)
-console.dir(User);
-await sequelize.sync({force: true});
-const u0 = await User.create({name: 'u0'})
-const u1 = await User.create({name: 'u1'})
-await Comment.create({body: 'u0c0', UserId: u0.id});
-await Comment.create({body: 'u0c1', UserId: u0.id});
-await Comment.create({body: 'u1c0', UserId: u1.id});
+let u0, u1
+async function reset(UserModel=User, CommentModel=Comment) {
+  await sequelize.sync({force: true});
+  u0 = await UserModel.create({name: 'u0'})
+  u1 = await UserModel.create({name: 'u1'})
+  await CommentModel.create({body: 'u0c0', UserId: u0.id});
+  await CommentModel.create({body: 'u0c1', UserId: u0.id});
+  await CommentModel.create({body: 'u1c0', UserId: u1.id});
+}
+await reset()
 
 // Direct way.
 {
@@ -82,21 +80,42 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
   await Comment.create({body: 'u0c2', [User.associations.Comments.foreignKey]: u0.id});
   // Syntax that we really would like instead.
   //await Comment.create({body: 'u0c2', User: u0});
-  assert((await Comment.findAll({
-    where: { [User.associations.Comments.foreignKey]: u0.id },
-  })).length === 3);
+  assert.strictEqual(
+    (await Comment.findAll({
+      where: { [User.associations.Comments.foreignKey]: u0.id },
+    })).length,
+    3
+  );
+  await reset()
 }
 
-// Removal auto-cascades.
+// DELETE does SET NULL by default, not CASCADE.
 {
-  const u0id = u0.id
   await u0.destroy()
-  assert((await Comment.findAll({
-    where: { UserId: u0id },
-  })).length === 0);
-  assert((await Comment.findAll({
-    where: { UserId: u1.id },
-  })).length === 1);
+  const comments = await Comment.findAll({order: [['body', 'ASC']]})
+  assert.strictEqual(comments[0].body, 'u0c0');
+  assert.strictEqual(comments[0].UserId, null);
+  assert.strictEqual(comments[1].body, 'u0c1');
+  assert.strictEqual(comments[1].UserId, null);
+  assert.strictEqual(comments[2].body, 'u1c0');
+  assert.strictEqual(comments[2].UserId, u1.id);
+  await reset()
+}
+
+// ON DELETE CASCADE
+{
+  await u0.destroy()
+  const CommentCascade = sequelize.define('CommentCascade', {
+    body: { type: DataTypes.STRING },
+  }, {});
+  User.hasMany(CommentCascade, { onDelete: 'CASCADE' })
+  CommentCascade.belongsTo(User)
+  await reset(User, CommentCascade)
+  await u0.destroy()
+  const comments = await CommentCascade.findAll({order: [['body', 'ASC']]})
+  assert.strictEqual(comments[0].body, 'u1c0');
+  assert.strictEqual(comments.length, 1);
+  await reset()
 }
 
 // as aliases.
@@ -147,5 +166,4 @@ await Comment.create({body: 'u1c0', UserId: u1.id});
     //assert.strictEqual(u0Comments[1].author.name, 'u0');
   }
 }
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

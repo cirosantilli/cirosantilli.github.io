@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node,,
 
 // https://cirosantilli.com/sql-example
 
@@ -265,18 +265,17 @@ await reset()
 // ``
 // so the only way is to do it with sub queries:
 // https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite
-// PostgreSQL does support it however:
+//
+// PostgreSQL does have a non-standard USING syntax for it:
 // https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
-if (false) {
+if (sequelize.options.dialect === 'postgres') {
   // JOIN version.
   await sequelize.query(`
 DELETE FROM "Animal"
-INNER JOIN "AnimalTag"
-  ON "Animal".id = "AnimalTag"."animalId"
-INNER JOIN "Tag"
-  ON "AnimalTag"."tagId" = "Tag".id
+USING "AnimalTag", "Tag"
+WHERE "Animal".id = "AnimalTag"."animalId"
+  AND "AnimalTag"."tagId" = "Tag".id
   AND "Tag".name = 'flying'
-ORDER BY "Animal".id ASC
 `)
 } else {
   // Subquery version.
@@ -330,5 +329,4 @@ assert.strictEqual(rows[2].name, 'aquatic')
 assert.strictEqual(rows.length, 3)
 await reset()
 
-await sequelize.close();
-})();
+})().finally(() => { return sequelize.close() });

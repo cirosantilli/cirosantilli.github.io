@@ -4,15 +4,11 @@
 
 const assert = require('assert');
 const path = require('path');
-
-const { Sequelize, DataTypes } = require('sequelize');
-
-(async () => {
+const { DataTypes } = require('sequelize');
+const common = require('./common')
+;(async () => {
 {
-  const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  });
+  const sequelize = common.sequelize(__filename, process.argv[2])
   const IntegerNames = sequelize.define('IntegerNames', {
     value: { type: DataTypes.INTEGER, },
     name: { type: DataTypes.STRING, },
@@ -25,10 +21,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 // Alter by adding column..
 {
-  const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  });
+  const sequelize = common.sequelize(__filename, process.argv[2])
   const IntegerNames = sequelize.define('IntegerNames', {
     value: { type: DataTypes.INTEGER, },
     name: { type: DataTypes.STRING, },
@@ -55,10 +48,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 // Alter by removing column. undefined instead of null,
 // because the values really aren't present in the database anymore.
 {
-  const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  });
+  const sequelize = common.sequelize(__filename, process.argv[2])
   const IntegerNames = sequelize.define('IntegerNames', {
     value: { type: DataTypes.INTEGER, },
     name: { type: DataTypes.STRING, },
@@ -84,10 +74,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 // so shy does it work still?. sqlite from CLI does confirm that it is now a VARCHAR(255)
 // column.
 {
-  const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-  });
+  const sequelize = common.sequelize(__filename, process.argv[2])
   const IntegerNames = sequelize.define('IntegerNames', {
     value: { type: DataTypes.STRING, },
     name: { type: DataTypes.STRING, },

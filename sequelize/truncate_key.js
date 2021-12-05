@@ -4,14 +4,9 @@
 
 const assert = require('assert')
 const path = require('path')
-
-const { Sequelize, DataTypes } = require('sequelize')
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'tmp.' + path.basename(__filename) + '.sqlite',
-})
-
+const { DataTypes } = require('sequelize')
+const common = require('./common')
+const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
 ;(async () => {
 const IntegerNames = sequelize.define('IntegerNames', {
   value: {
@@ -31,6 +26,4 @@ await IntegerNames.truncate({cascade: true})
 await IntegerNames.create({value: 5, name: 'five'})
 await IntegerNames.create({value: 7, name: 'seven'})
 console.error((await IntegerNames.findOne({where: {value: 5}})).id)
-
-await sequelize.close()
-})();
+})().finally(() => { return sequelize.close() });

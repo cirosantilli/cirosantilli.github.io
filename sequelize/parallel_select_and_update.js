@@ -5,7 +5,7 @@
 const assert = require('assert');
 const common = require('./common');
 const sequelize = require('sequelize');
-const { Transaction } = require('sequelize');
+const { Transaction, Sequelize } = sequelize;
 
 async function transactionWithRetry(sequelize, transactionArgs, cb) {
   let done = false
@@ -16,6 +16,7 @@ async function transactionWithRetry(sequelize, transactionArgs, cb) {
     } catch (e) {
       if (
         sequelize.options.dialect === 'postgres' &&
+        e instanceof Sequelize.DatabaseError &&
         // This can happen randomly, and we have to re-run the transaction:
         // - could not serialize access due to read/write dependencies among transactions
         // - could not serialize access due to concurrent update
