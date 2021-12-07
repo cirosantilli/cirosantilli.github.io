@@ -83,7 +83,6 @@ assert.strictEqual(user2Likes.length, 1);
 // TODO I don't even know to how access that data when joinTableAttributes
 // is not given. At many_to_many_custom_table.js, we are able to do that,
 // but it doesn't seem to be populated when the implicit table is used.
-
 const user0LikesNoJoin = await user0.getPosts({order: [['body', 'ASC']], joinTableAttributes: []})
 assert.strictEqual(user0LikesNoJoin[0].body, 'post0');
 assert.strictEqual(user0LikesNoJoin[1].body, 'post1');
@@ -296,5 +295,23 @@ assert( await user0.hasPost(post1))
 assert( await user0.hasPost(post2))
 assert(!await user0.hasPost(post3))
 ;[user0, user1, user2, post0, post1, post2] = await reset()
+
+// Access join table.
+rows = await sequelize.models.UserLikesPost.findAll({order: [
+  ['UserId', 'ASC'], ['PostId', 'ASC'],
+]})
+assert.strictEqual(rows[0].UserId, user0.id)
+assert.strictEqual(rows[0].PostId, post0.id)
+assert.strictEqual(rows[1].UserId, user0.id)
+assert.strictEqual(rows[1].PostId, post1.id)
+assert.strictEqual(rows[2].UserId, user2.id)
+assert.strictEqual(rows[2].PostId, post1.id)
+assert.strictEqual(rows.length, 3)
+
+// Modify join table.
+await sequelize.models.UserLikesPost.truncate({})
+rows = await sequelize.models.UserLikesPost.findAll()
+assert.strictEqual(rows.length, 0)
+await reset()
 
 })().finally(() => { return sequelize.close() });

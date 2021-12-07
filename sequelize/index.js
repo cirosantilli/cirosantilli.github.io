@@ -74,8 +74,29 @@ async function reset() {
 }
 await reset()
 
+let integerNames;
+
+// SELECT all
+integerNames = await IntegerNames.findAll();
+assert.strictEqual(integerNames[0].id, 1);
+assert.strictEqual(integerNames[0].name, 'two');
+assert.strictEqual(integerNames[0].value, 2);
+assert.strictEqual(integerNames[1].id, 2);
+assert.strictEqual(integerNames[1].name, 'three');
+assert.strictEqual(integerNames[1].value, 3);
+assert.strictEqual(integerNames[2].id, 3);
+assert.strictEqual(integerNames[2].name, 'five');
+assert.strictEqual(integerNames[2].value, 5);
+assert.strictEqual(integerNames.length, 3);
+
+// SELECT OFFSET without LIMIT. Non-SQL standard, but Sequelize implements it for us.
+integerNames = await IntegerNames.findAll({ offset: 1 });
+assert.strictEqual(integerNames[0].value, 3);
+assert.strictEqual(integerNames[1].value, 5);
+assert.strictEqual(integerNames.length, 2);
+
 // SELECT WHERE
-let integerNames = await IntegerNames.findAll({
+integerNames = await IntegerNames.findAll({
   where: {
     value: 2
   }
@@ -84,6 +105,22 @@ assert.strictEqual(integerNames[0].id, 1);
 assert.strictEqual(integerNames[0].name, 'two');
 assert.strictEqual(integerNames[0].value, 2);
 assert.strictEqual(integerNames.length, 1);
+
+// SELECT WHERE IN
+integerNames = await IntegerNames.findAll({
+  where: {
+    id: [1, 2],
+  }
+});
+assert.strictEqual(integerNames[0].value, 2);
+assert.strictEqual(integerNames[1].value, 3);
+assert.strictEqual(integerNames.length, 2);
+
+// It is a bit annoying though that it makes IN NULL queries when the list is empty.
+integerNames = await IntegerNames.findAll({
+  where: { id: [], }
+});
+assert.strictEqual(integerNames.length, 0);
 
 // attributes: SELECT only specified columns instead of the default of selecting all of them.
 // Rename value to myvalue
@@ -103,7 +140,6 @@ integerNames = await IntegerNames.findAll({
     value: 2
   }
 });
-console.error(integerNames);
 assert.strictEqual(integerNames[0].id, undefined);
 assert.strictEqual(integerNames[0].name, 'two');
 assert.strictEqual(integerNames[0].value, undefined);
@@ -115,6 +151,10 @@ await IntegerNames.destroy({
   where: {
     value: { [Op.gt]: 2 },
   },
+  // The LIMIT requires a subquery in many DBMS e.g. SQLite and PostgreSQL,
+  // as it is not SQL standard. But sequelize does implement for us.
+  // It does not implement offset however, although that would be trivial:
+  // https://stackoverflow.com/questions/56377593/complex-destroy-query
   limit: 1,
 });
 integerNames = await IntegerNames.findAll({order: [['value', 'ASC']]})

@@ -1031,6 +1031,7 @@ Other accounts:
 * https://software.intel.com/en-us/user/1090688
 * https://soundcloud.com/cirosantilli
 * https://sourceforge.net/u/cirosantilli/profile/
+* https://stackshare.io/cirosantilli
 * https://steamcommunity.com/id/cirosantilli/
 * https://subreply.com/cirosantilli
 * https://support.discord.com/hc/en-us/profiles/427813342894
@@ -13398,9 +13399,7 @@ Therefore, that expression ends up being at most a \x[order-of-a-differential-eq
 Now let's think about the multi-dimensional case. Instead of having $q : \R \to \R$, we now have $q : \R \to \R^n$. Think about the \x[lagrangian-mechanics] motivation of a \x[double-pendulum] where for a given time we have two angles.
 
 Let's do the 2-dimensional case then. In that case, $F$ is going to be a function of 5 variables $F : \R^5 \to \R$ rather than 3 as in the one dimensional case, and the functional looks like:
-$$
 $$I(q) = \int_{t_0}^{t} F(t, q_1(t), q_2(t), \dot{q_1}(t), \dot{q_2})(t) dt$$
-$$
 
 This time, the Euler-Lagrange equations are going to be a system of two \x[ordinary-differential-equation]{p} on two unknown functions $q_1$ and $q_2$ of order up to 2 in both variables:
 $$
@@ -19255,6 +19254,8 @@ And Americans, please stop that https://en.wikipedia.org/wiki/Make_America_Numbe
 {parent=u-s-state}
 {wiki}
 
+\x[mormon]-land.
+
 = Washington
 {c}
 {disambiguate=state}
@@ -19288,6 +19289,21 @@ Another thing that was shocking is the amount of phone spam when you get a new S
 
 Related:
 * \x[popular-brazilian-music]{child}
+
+= Brazilian Student Association
+{c}
+{parent=brazil}
+{wiki}
+
+= BRASA
+{c}
+{synonym}
+
+https://www.home.gobrasa.org/
+
+https://www.youtube.com/channel/UC7L4clHfA2mjiTe-XuNAe_w
+
+This is a good initiative. Since \x[what-poor-countries-have-to-do-to-get-richer/exchange-students][the government is incapable of doing shit in this area], individuals have to do it themselves.
 
 = Favela
 {parent=brazil}
@@ -20947,7 +20963,7 @@ See also:
 
 = Abrahamic religion
 {c}
-{parent=list-of-religions}
+{parent=religion}
 {wiki=Abrahamic_religions}
 
 = Christianism
@@ -20958,6 +20974,15 @@ See also:
 = Christian
 {c}
 {synonym}
+
+= The Church of Jesus Christ of Latter-day Saints
+{c}
+{parent=christianism}
+{wiki}
+
+= Mormon
+{synonym}
+{title2}
 
 = Jewish Christian
 {c}
@@ -21165,7 +21190,7 @@ Also known as being \x[hipster].
 
 = Islam
 {c}
-{parent=list-of-religions}
+{parent=abrahamic-religion}
 {wiki}
 
 Islam has some really nice things in it.
@@ -21183,7 +21208,7 @@ The way it was perverted to be used as a tool for \x[terrorism] by some is a gre
 
 = Judaism
 {c}
-{parent=list-of-religions}
+{parent=abrahamic-religion}
 {wiki}
 
 = Jewish
@@ -31927,6 +31952,13 @@ https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle
 
 https://stackoverflow.com/questions/533965/why-is-security-through-obscurity-a-bad-idea
 
+\Video[https://www.youtube.com/watch?v=IH0GXWQDk0Q]
+{title=LockPickingLawyer SAINTCON keynote (2021)}
+{description=SAINTCON is "Utah's Premiere Security Conference".
+* https://youtu.be/IH0GXWQDk0Q?t=900 mentions that https://en.wikipedia.org/wiki/Alfred_Charles_Hobbs[Alfred Charles Hobbs] commented in 1853:
+  \Q[Rogues are very keen in their profession, and know already much more than we can teach them]
+}
+
 = Kerckhoffs's principle
 {c}
 {parent=security-through-obscurity}
@@ -32555,6 +32587,26 @@ Create a database:
 createdb testdb0
 ``
 
+Help toplevel:
+``
+help
+``
+
+Get help for Postgres commands such as `\h` and so on:
+``
+\?
+``
+
+List supported SQL commands:
+``
+\h
+``
+
+Show syntax for one type of command:
+``
+\h SELECT
+``
+
 List all databases:
 ``
 psql -c '\l'
@@ -32592,7 +32644,7 @@ Let's create a table and test that it is working:
 psql testdb0 -c 'CREATE TABLE table0 (int0 INT, char0 CHAR(16));'
 ``
 
-List tables:
+List tables, no special tables:
 ``
 psql testdb0 -c '\dt'
 ``
@@ -32817,7 +32869,7 @@ Includes its own copy of sqlite3, you don't use the system one, which is good to
 
 It appears to spawn its own \x[thread]{p} via its \x[c-programming-language] extension (since \x[javascript-is-single-threaded] and and \x[sqlite] is not \x[server]-based), which allows for parallel queries using multiple threads: https://github.com/mapbox/node-sqlite3/blob/v5.0.2/src/threading.h
 
-Hello world example: \a[node-js/node-sqlite3.js].
+Hello world example: \a[nodejs/node-sqlite3/index.js].
 
 As of 2021, this had slumped back a bit, as maintainers got tired. Unmerged pull requests started piling more, and \x[better-sqlite3-node-js-package] started pulling ahead a little.
 * https://github.com/mapbox/node-sqlite3/issues/1381 `FATAL ERROR: Error::ThrowAsJavaScriptException napi_throw` with \x[node-js-worker-threads] vs \x[better-sqlite3-node-js-package] https://github.com/JoshuaWise/better-sqlite3/issues/237
@@ -33828,7 +33880,12 @@ As of 2021, this library is extremely painful to use. It does feel semi-mature, 
   The association API feels notably bad, it took a few days for \x[ciro-santilli] to learn to do what he considers "basic" association operations, knowledge which he dumped to: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
 * bugs are piling up. It appears that many key devs left, and current maintainers are just not being able to keep up. And they have a stupid bot that closes every thread automatically after a few days, what's the point... valid bugs are being closed due to this.
 
-Some glaring issues include:
+Some glaring issues are listed at \x[the-horrors-of-sequelize].
+
+= The horrors of Sequelize
+{c}
+{parent=node-js-object-relational-mapping-library}
+
 * foreign keys are capitalized:
   * https://stackoverflow.com/questions/55273091/why-use-the-uppercase-key-when-creating-association-model-in-sequelize 
   * https://github.com/sequelize/sequelize/issues/5828
@@ -33852,9 +33909,10 @@ Some glaring issues include:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
 * they don't seem to have a simple built-in mechanism for transaction retries? \x[sequelize-transaction-retry]{p}.
-* impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[sequelize/raw/many_to_many.js]
+* impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[sequelize/raw/many_to_many.js]:
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
+  Also, you can't get query strings either: https://github.com/sequelize/sequelize/issues/2325
 
 = Sequelize example
 {parent=sequelize}
@@ -33883,6 +33941,9 @@ Overview of the examples:
 * \a[sequelize/truncate_key.js]
 * \a[sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
 * \a[sequelize/updateOnDuplicate.js]
+* \a[sequelize/validation.js]: is handled by a third-party library: https://github.com/validatorjs/validator.js[]. They then add a few extra validators on top of that.
+
+  The `args: true` thing is explained at: https://stackoverflow.com/questions/58522387/unhandled-rejection-sequelizevalidationerror-validation-error-cannot-create-pr/70263032#70263032
 * association examples:
   * \a[sequelize/one_to_many.js]: basic \x[one-to-many] examples.
   * \a[sequelize/many_to_many.js]: basic \x[many-to-many] examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
@@ -33957,6 +34018,12 @@ Doesn't seem to have any simple built-in mechanism?
 {parent=node-js-web-framework}
 
 This doesn't do a hole lot. \x[ciro-santilli] wouldn't really call it a web framework. It's more like a middleware. Real web frameworks are built on top of it.
+
+Examples under: \a[nodejs/express]:
+* \a[nodejs/express/min.js]: minimal example. Visit http://localhost:3000 and it shows `hello world`. It is a bit wrong because the headers say HTML but we return plaintext.
+* \a[nodejs/express/index.js]: example dump with automated tests where possible. The automated tests are run at startup after the server launches. Then the server keeps running so you can interact with it.
+
+A live example on \x[heroku] can be seen at: https://github.com/cirosantilli/heroku-node-min
 
 = Realworld app written in Express
 {c}
@@ -35243,7 +35310,6 @@ Creator of \x[qemu] and \x[ffmpeg], both of which \x[ciro-santilli] deeply respe
 What is shocking about Fabrice this is that both are insanely important software that \x[ciro-santilli] really likes, and both seem to be completely unrelated subjects!
 
 \x[google] made billions on top of this dude:
-
 * \x[ffmpeg-is-the-backend-of-youtube]
 * \x[qemu] is the default emulator for https://en.wikipedia.org/wiki/Android_Studio[Android Studio] as of 2019, which \x[android] developers use by default under the hood to develop Android Apps on their desktop without the need for a real device.
 
@@ -35530,6 +35596,40 @@ It ain't perfect, but it's decent enough.
 The greatest advantage of it being that it has the likely largest desktop user base, and therefore the highest likelihood that your problems are solved on https://askubuntu.com/users/52975[Ask Ubuntu], and goes together with Ciro's philosophy that \x[having-more-than-one-natural-language-is-bad-for-the-world]["people should do everything in the same way to factor stuff out"], especially the \x[open-source-software][open source losers].
 
 Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: \x[linux-distribution-buildable-from-source]. This is why Ciro based the \x[linux-kernel-module-cheat] on \x[buildroot], see also: \x[linux-distribution-buildable-from-source].
+
+= Ubuntu release
+{c}
+{parent=ubuntu}
+{wiki}
+
+= Ubuntu 21.10
+{c}
+{parent=ubuntu-release}
+
+= Ubuntu 21.10 does not wake up from suspend
+{parent=ubuntu-21-10}
+
+On \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017].
+
+Does not happen every time, only some times. Can't figure out why. Usually happens when has suspended for a longer time.
+
+https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-470/+bug/1946303 sounds like a likely report, \x[nvidia] driver version 470, but can't find those error messages anywhere. The last line of:
+``
+journalctl -o short-precise -k -b -1
+``
+is:
+``
+PM: suspend entry (deep)
+``
+which is when sleep starts.
+
+This suggests that it is not a video bug then, seems that it is not waking up at all? Gotta try to SSH into it.
+
+``
+PM: suspend exit
+``
+
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1949977 is another one, based on kernel version. I'm running 5.13, which is one of the failing versions on the report.
 
 = Launchpad
 {c}
@@ -36887,6 +36987,14 @@ After learning this term, \x[ciro-santilli] finally understood that \x[ciro-sant
 
 = American university
 {parent=university}
+
+= Brigham Young University
+{c}
+{parent=american-university}
+{title2=BYU}
+{wiki}
+
+\x[utah]'s \x[mormon]-uni.
 
 = Brown University
 {c}
@@ -39651,6 +39759,11 @@ In this section we list charitable organizations that support \x[education] or r
 * https://en.wikipedia.org/wiki/Peter_Lampl[Sir Peter Lampl], https://en.wikipedia.org/wiki/Education_Endowment_Foundation[Education Endowment Foundation] and https://en.wikipedia.org/wiki/Sutton_Trust[Sutton Trust]
 
 = KIPP
+{c}
+{parent=educational-charitable-organization}
+{wiki}
+
+= IntoUniversity
 {c}
 {parent=educational-charitable-organization}
 {wiki}
@@ -42492,6 +42605,16 @@ Lobbying groups:
 
 \Video[https://www.youtube.com/watch?v=gohSeOYheXg]
 {title=Why isn't cycling normal in London? by Jay Foreman (2018)}
+
+= Street reclamation
+{c}
+{parent=restrict-the-fuck-out-of-cars}
+{wiki}
+
+= Reclaim the Streets
+{c}
+{parent=restrict-the-fuck-out-of-cars}
+{wiki}
 
 = Skiing
 {parent=list-of-sports}
