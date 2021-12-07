@@ -32181,13 +32181,13 @@ By default the examples run on \x[sqlite]. Just like the examples from \x[sequel
 * `./index.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
 
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
-* \a[sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
-* \a[sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}:
+* \a[nodejs/sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
+* \a[nodejs/sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}:
   * \x[join-sql]
   * \x[group-by-sql]
-  * \a[sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it
+  * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it
 * \x[sql-transaction] examples:
-  * \a[sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
+  * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * \x[sql-isolation-level-example]{child}
 
 = SQL aggregate function
@@ -32198,7 +32198,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
 {c}
 {parent=sql-aggregate-function}
 
-Have a look at some interesting examples under \a[sequelize/raw/many_to_many.js].
+Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_many.js].
 
 = SQL transaction
 {c}
@@ -32228,7 +32228,7 @@ Implementation specifics:
 {c}
 {parent=sql-transaction-isolation-level}
 
-Example where this level is sufficient: \x[file/sequelize/raw/parallel_update_async.js].
+Example where this level is sufficient: \x[file/nodejs/sequelize/raw/parallel_update_async.js].
 
 = SQL REPEATABLE READ isolation level
 {c}
@@ -32236,7 +32236,7 @@ Example where this level is sufficient: \x[file/sequelize/raw/parallel_update_as
 
 Vs \x[sql-serializable-isolation-level] on \x[postgresql]: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
 
-\x[file/sequelize/raw/parallel_create_delete_empty_tag.js] is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the \x[sql-read-committed-isolation-level].
+\x[file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js] is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the \x[sql-read-committed-isolation-level].
 
 In \x[postgresql], this is the first isolation level which can lead to \x[postgresql-serialization-failure]{p}, this does not happen to \x[sql-read-committed-isolation-level] in that \x[dbms]. You then have to retry the transaction.
 
@@ -32253,14 +32253,14 @@ In \x[postgresql], this is the first isolation level which can lead to \x[postgr
 {parent=sql-isolation-level-example}
 
 = sequelize/raw/parallel_update_async.js
-{id=file/sequelize/raw/parallel_update_async.js}
+{id=file/nodejs/sequelize/raw/parallel_update_async.js}
 {parent=sql-parallel-update-example}
 
-This section is about: \a[sequelize/raw/parallel_update_async.js]
+This section is about: \a[nodejs/sequelize/raw/parallel_update_async.js]
 
-\a[sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a \x[sqlite3-node-js-package] bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
+\a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a \x[sqlite3-node-js-package] bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
 
-\a[sequelize/raw/parallel_update_async.js] is an \x[async-javascript] version of it. It should be just parallel enough to allow observing the same effects.
+\a[nodejs/sequelize/raw/parallel_update_async.js] is an \x[async-javascript] version of it. It should be just parallel enough to allow observing the same effects.
 
 This is an example of a transaction where the \x[sql-read-committed-isolation-level] if sufficient.
 
@@ -32285,20 +32285,20 @@ But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very c
 
 Since in \x[postgresql] "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
 
-\x[file/sequelize/raw/parallel_create_delete_empty_tag.js] contains an example where things can actually blow up in read committed.
+\x[file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js] contains an example where things can actually blow up in read committed.
 
-= File: sequelize/raw/parallel_select_and_update.js
-{id=file/sequelize/raw/parallel_select_and_update.js}
+= File: nodejs/sequelize/raw/parallel_select_and_update.js
+{id=file/nodejs/sequelize/raw/parallel_select_and_update.js}
 {parent=sql-parallel-update-example}
 
-This section is about: \a[sequelize/raw/parallel_select_and_update.js].
+This section is about: \a[nodejs/sequelize/raw/parallel_select_and_update.js].
 
-This example is similar to \x[file/sequelize/raw/parallel_update_async.js], but now we are doing a separate SELECT, later followed by an update:
+This example is similar to \x[file/nodejs/sequelize/raw/parallel_update_async.js], but now we are doing a separate SELECT, later followed by an update:
 * `SELECT FROM` to get i
 * update on Js code `newI = i + 1`
 * `UPDATE SET` the `newI`
 
-Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in \x[file/sequelize/raw/parallel_update_async.js], which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
+Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in \x[file/nodejs/sequelize/raw/parallel_update_async.js], which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
 
 Sample execution:
 ``
@@ -32329,23 +32329,23 @@ Observed behaviour under different \x[sql-transaction-isolation-level]{p}:
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
   \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
 
-A non-raw version of this example can be seen at: \x[file/sequelize/parallel_select_and_update.js].
+A non-raw version of this example can be seen at: \x[file/nodejs/sequelize/parallel_select_and_update.js].
 
-= File: sequelize/raw/parallel_select_and_update_deterministic.js
-{id=file/sequelize/raw/parallel_select_and_update_deterministic.js}
-{parent=file/sequelize/raw/parallel_select_and_update.js}
+= File: nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
+{id=file/nodejs/sequelize/raw/parallel_select_and_update_deterministic.js}
+{parent=file/nodejs/sequelize/raw/parallel_select_and_update.js}
 
-This section is about the file: \a[sequelize/raw/parallel_select_and_update_deterministic.js]
+This section is about the file: \a[nodejs/sequelize/raw/parallel_select_and_update_deterministic.js]
 
 This example contains a deterministic demo of when \x[postgresql-serialization-failure]{p} may happen.
 
 Tested on \x[postgresql] 13.5.
 
-= File: sequelize/raw/parallel_create_delete_empty_tag.js
-{id=file/sequelize/raw/parallel_create_delete_empty_tag.js}
+= File: nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
+{id=file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js}
 {parent=sql-parallel-update-example}
 
-This section is about the file: \a[sequelize/raw/parallel_create_delete_empty_tag.js]
+This section is about the file: \a[nodejs/sequelize/raw/parallel_create_delete_empty_tag.js]
 
 In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
 
@@ -32438,7 +32438,7 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 {c}
 {parent=select-sql}
 
-An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: \x[file/sequelize/raw/parallel_select_and_update.js].
+An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: \x[file/nodejs/sequelize/raw/parallel_select_and_update.js].
 
 `SELECT FOR UPDATE` vs/together with the \x[sql-transaction-isolation-level] is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
@@ -33883,8 +33883,7 @@ As of 2021, this library is extremely painful to use. It does feel semi-mature, 
 Some glaring issues are listed at \x[the-horrors-of-sequelize].
 
 = The horrors of Sequelize
-{c}
-{parent=node-js-object-relational-mapping-library}
+{parent=sequelize}
 
 * foreign keys are capitalized:
   * https://stackoverflow.com/questions/55273091/why-use-the-uppercase-key-when-creating-association-model-in-sequelize 
@@ -33909,7 +33908,7 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
 * they don't seem to have a simple built-in mechanism for transaction retries? \x[sequelize-transaction-retry]{p}.
-* impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[sequelize/raw/many_to_many.js]:
+* impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[nodejs/sequelize/raw/many_to_many.js]:
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
   Also, you can't get query strings either: https://github.com/sequelize/sequelize/issues/2325
@@ -33927,54 +33926,54 @@ cd sequelize
 ``
 
 Overview of the examples:
-* \a[sequelize/index.js]: a bunch of basic examples
-* \a[sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial under \x[sql-example], and will not comment on them much further on this section.
-* \a[sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
-* \a[sequelize/date.js]: automatic date typecasts
-* \a[sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
-* \a[sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
-* \a[sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
+* \a[nodejs/sequelize/index.js]: a bunch of basic examples
+* \a[nodejs/sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial under \x[sql-example], and will not comment on them much further on this section.
+* \a[nodejs/sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
+* \a[nodejs/sequelize/date.js]: automatic date typecasts
+* \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
+* \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
+* \a[nodejs/sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
   ``
   UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
   ``
-* \a[sequelize/sync_alter.js]: illustrates `Model.sync({alter: true})` to modify a table definition, answers: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
-* \a[sequelize/truncate_key.js]
-* \a[sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
-* \a[sequelize/updateOnDuplicate.js]
-* \a[sequelize/validation.js]: is handled by a third-party library: https://github.com/validatorjs/validator.js[]. They then add a few extra validators on top of that.
+* \a[nodejs/sequelize/sync_alter.js]: illustrates `Model.sync({alter: true})` to modify a table definition, answers: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
+* \a[nodejs/sequelize/truncate_key.js]
+* \a[nodejs/sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
+* \a[nodejs/sequelize/updateOnDuplicate.js]
+* \a[nodejs/sequelize/validation.js]: is handled by a third-party library: https://github.com/validatorjs/validator.js[]. They then add a few extra validators on top of that.
 
   The `args: true` thing is explained at: https://stackoverflow.com/questions/58522387/unhandled-rejection-sequelizevalidationerror-validation-error-cannot-create-pr/70263032#70263032
 * association examples:
-  * \a[sequelize/one_to_many.js]: basic \x[one-to-many] examples.
-  * \a[sequelize/many_to_many.js]: basic \x[many-to-many] examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
-    * \a[sequelize/many_to_many_custom_table.js]: \x[many-to-many] example, but where we craft our own table which can hold extra data. In our case, users can like posts, but likes have a integer weight associated with them. Related threads:
+  * \a[nodejs/sequelize/one_to_many.js]: basic \x[one-to-many] examples.
+  * \a[nodejs/sequelize/many_to_many.js]: basic \x[many-to-many] examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+    * \a[nodejs/sequelize/many_to_many_custom_table.js]: \x[many-to-many] example, but where we craft our own table which can hold extra data. In our case, users can like posts, but likes have a integer weight associated with them. Related threads:
       * https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
       * https://stackoverflow.com/questions/30308217/sequelize-find-by-association-through-manually-defined-join-table/69899876#69899876
-    * \a[sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
-    * \a[sequelize/many_to_many_same_model_super.js]
+    * \a[nodejs/sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+    * \a[nodejs/sequelize/many_to_many_same_model_super.js]
   * nested includes to produce queries with multiple \x[join-sql]{p}:
-    * \a[sequelize/nested_include.js]: find all posts by users that a given user follows. Answers: https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause/68018083#68018083
-    * \a[sequelize/nested_include_super.js]: like \a[sequelize/nested_include.js] but with a super many to many.
+    * \a[nodejs/sequelize/nested_include.js]: find all posts by users that a given user follows. Answers: https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause/68018083#68018083
+    * \a[nodejs/sequelize/nested_include_super.js]: like \a[nodejs/sequelize/nested_include.js] but with a super many to many.
   * two relationships between two specific tables: we need to use `as:` to disambiguate them
-    * \a[sequelize/many_to_many_double.js]: users can both follow and like posts
-    * \a[sequelize/one_to_many_double.js]: posts have the author and a mandatory reviewer
+    * \a[nodejs/sequelize/many_to_many_double.js]: users can both follow and like posts
+    * \a[nodejs/sequelize/one_to_many_double.js]: posts have the author and a mandatory reviewer
 * hooks
-  * \a[sequelize/before_validate_modify.js]:
+  * \a[nodejs/sequelize/before_validate_modify.js]:
     * https://github.com/sequelize/sequelize/issues/3534
     * https://github.com/sequelize/sequelize/issues/8586
-  * \a[sequelize/hook_in_transaction.js]:
+  * \a[nodejs/sequelize/hook_in_transaction.js]:
     * https://stackoverflow.com/questions/35014679/sequelize-hook-depending-on-transaction
 
 = Sequelize parallel example
 {parent=sequelize-example}
 
-= File: sequelize/parallel_select_and_update.js
-{id=file/sequelize/parallel_select_and_update.js}
+= File: nodejs/sequelize/parallel_select_and_update.js
+{id=file/nodejs/sequelize/parallel_select_and_update.js}
 {parent=sequelize-parallel-example}
 
-This section is about the file: \a[sequelize/parallel_select_and_update.js].
+This section is about the file: \a[nodejs/sequelize/parallel_select_and_update.js].
 
-This example is the same as \x[file/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
+This example is the same as \x[file/nodejs/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
 
 The examples illustrates: https://stackoverflow.com/questions/55452441/for-share-and-for-update-statements-in-sequelize
 
@@ -33989,7 +33988,7 @@ where:
 Other examples:
 * `node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ_COMMITTED UPDATE`
 
-Then, the outcome is exactly as described at: \x[file/sequelize/raw/parallel_select_and_update.js]:
+Then, the outcome is exactly as described at: \x[file/nodejs/sequelize/raw/parallel_select_and_update.js]:
 * `READ_COMMITTED`: fails
 * `READ_COMMITTED UPDATE`: works
 * `REPEATABLE_READ`: works, but is a bit slower, as it does rollbacks
@@ -35000,7 +34999,7 @@ The most advanced of those being the https://github.com/cirosantilli/linux-kerne
 
 But had too much stuff that would be specific to that project, so Ciro decided to start this new one in \x[node-js], hopefully it will also be the last he ever writes.
 
-A sample usage of the test library can be seen at: \a[sequelize/test].
+A sample usage of the test library can be seen at: \a[nodejs/sequelize/test].
 
 = Continuous integration
 {parent=software-testing}
