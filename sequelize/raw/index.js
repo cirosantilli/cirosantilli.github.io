@@ -29,7 +29,7 @@ await reset()
 
 let rows, meta
 
-// Select all.
+// SELECT all.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
 assert.strictEqual(rows[0].value, 2)
 assert.strictEqual(rows[0].name, 'two')
@@ -39,12 +39,34 @@ assert.strictEqual(rows[2].value, 5)
 assert.strictEqual(rows[2].name, 'five')
 assert.strictEqual(rows.length, 3)
 
-// Select with a WHERE condition.
+// SELECT with a WHERE condition.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE value > 2 ORDER BY value ASC`)
 assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[0].name, 'three')
 assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows[1].name, 'five')
+assert.strictEqual(rows.length, 2)
+
+// SELECT LIMIT
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT 2`)
+assert.strictEqual(rows[0].value, 2)
+assert.strictEqual(rows[1].value, 3)
+assert.strictEqual(rows.length, 2)
+
+// SELECT LIMIT OFFSET
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT 1 OFFSET 2`)
+assert.strictEqual(rows[0].value, 5)
+assert.strictEqual(rows.length, 1)
+
+// OFFSET without LIMIT.
+// Once again, SQL standard, why are you so worthless? Basic functionality not available.
+// * https://stackoverflow.com/questions/29894645/how-to-skip-the-first-n-rows-in-sql-query/29894850
+// * https://stackoverflow.com/questions/315621/mysql-how-to-select-all-rows-from-a-table-except-the-last-one
+if (sequelize.options.dialect === 'postgres') {
+  ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC OFFSET 1`)
+} else if (sequelize.options.dialect === 'sqlite') {
+  ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT -1 OFFSET 1`)
+}
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows[1].value, 5)
 assert.strictEqual(rows.length, 2)
 
 // COUNT and rename.
@@ -118,12 +140,26 @@ assert.strictEqual(rows[2].name, 'five')
 assert.strictEqual(rows.length, 3)
 await reset()
 
-// DELETE a row.
+// DELETE rows that match some criteria.
 await sequelize.query(`DELETE FROM "IntegerNames" WHERE value > 2`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
 assert.strictEqual(rows[0].value, 2)
 assert.strictEqual(rows[0].name, 'two')
 assert.strictEqual(rows.length, 1)
+await reset()
+
+// DELETE LIMIT.
+// Why do they make the DELETE statment so limited in the SQL standard?
+// MySQL and SQLite implement it as an extension, and but PostgreSQL doesn't.
+// * https://www.sqlite.org/draft/lang_delete.html "Optional LIMIT and ORDER BY clauses"
+// * https://stackoverflow.com/questions/5170546/how-do-i-delete-a-fixed-number-of-rows-with-sorting-in-postgresql
+// * https://www.postgresql.org/message-id/425496CE.5070400@interspire.com
+await sequelize.query(`DELETE FROM "IntegerNames" WHERE id IN
+  ( SELECT id FROM "IntegerNames" ORDER BY value ASC LIMIT 1 )`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows[1].value, 5)
+assert.strictEqual(rows.length, 2)
 await reset()
 
 })().finally(() => { return sequelize.close() });
