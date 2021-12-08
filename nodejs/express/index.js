@@ -62,6 +62,10 @@ const tests = [
   // The default handler inspects the .status
   // property of the error. 4xx and 5xx are kept.
   // everything else is replaced with 500.
+  //
+  // With NODE_ENV=production however
+  // it is coded  to omit stack traces,
+  // and show just the error name.
   ['/error/code/404', 'GET', 404],
   ['/error/code/505', 'GET', 505],
   ['/error/code/606', 'GET', 500],
