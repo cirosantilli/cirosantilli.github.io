@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>Do prop changes re-render?</title>
+<meta charset="utf-8" />
 <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
 </head>
 <body>
-<p>Yes, but only render gets called, not the constructor.</p>
-<p>Actually, children re-render every time, not just if the prop value changes. React then diffs the DOM and only updates changes.</p>
+<p><a href="https://cirosantilli.com/react">https://cirosantilli.com/react</a></p>
 <div id="root"></div>
 <script type="text/babel">
 class NotMain2 extends React.Component {
@@ -41,9 +39,7 @@ class NotMain extends React.Component {
     console.log('NotMain.render');
     return (
       <>
-        <div>NotMain this.props.n = {this.props.n}</div>
-        <div>NotMain this.state.n = {this.state.n}</div>
-        <NotMain2 n={this.props.n}/>
+        <div>NotMain {this.props.n}</div>
       </>
     );
   }
@@ -72,7 +68,7 @@ class Main extends React.Component {
       <div>
         <div onClick={this.handleClick}>Click me twice</div>
         <div>Main this.state.n = {this.state.n}</div>
-        <NotMain n={Math.floor(this.state.n / 2)}></NotMain>
+        <NotMain n={1}></NotMain>
       </div>
     );
   }
