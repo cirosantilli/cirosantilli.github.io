@@ -1,15 +1,15 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
 <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
 </head>
 <body>
 <p><a href="https://cirosantilli.com/react">https://cirosantilli.com/react</a></p>
 <div id="root"></div>
-<script type="text/babel">
+<script>
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -27,18 +27,16 @@ class Main extends React.Component {
 
   render() {
     console.log('Main.render');
-    return (
-      <div>
-        <div onClick={this.handleClick}>Click me</div>
-        <div>{this.state.n}</div>
-        <div>{Math.floor(this.state.n / 2)}</div>
-      </div>
+    return React.createElement('div', null,
+      React.createElement("div", { onClick: this.handleClick }, "Click me"),
+      React.createElement("div", null, this.state.n),
+      React.createElement("div", null, Math.floor(this.state.n / 2))
     );
   }
 }
 
 ReactDOM.render(
-  <Main/>,
+  React.createElement(Main, {}, null),
   document.getElementById('root')
 );
 </script>

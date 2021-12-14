@@ -5,24 +5,28 @@
 const express = require('express')
 
 // Test it.
-function test(path, method, status, body) {
+function test(path, method, status, resBodyExpect, reqBody) {
   const assert = require('assert')
   const http = require('http')
   const options = {
     hostname: 'localhost',
     port: server.address().port,
-    path: path,
-    method: method,
+    path,
+    method,
   }
-  http.request(options, res => {
-    console.log([path, method, status, body]);
+  const req = http.request(options, res => {
+    console.log([path, method, status, resBodyExpect]);
     assert.strictEqual(res.statusCode, status);
     res.on('data', d => {
-      if (body !== undefined) {
-        assert.strictEqual(d.toString(), body);
+      if (resBodyExpect !== undefined) {
+        assert.strictEqual(d.toString(), resBodyExpect);
       }
     })
-  }).end()
+  })
+  if (reqBody !== undefined) {
+    req.write(reqBody)
+  }
+  req.end()
 }
 
 function check_helper(req, res) {
@@ -37,6 +41,11 @@ function check_helper(req, res) {
 const tests = [
   ['/hello', 'GET', 200, 'hello world'],
   ['/', 'POST', 404],
+  ['/form', 'GET', 200],
+  // TODO lazy
+  // Need to set headers as well likely.
+  // https://nodejs.dev/learn/make-an-http-post-request-using-nodejs
+  //['/form', 'POST', 200, 'aa: 00 bb: 11', 'aa=00&bb=11'],
   ['/dontexist', 'GET', 404],
 
   ['/query?aa=000&bb=111', 'GET', 200, 'aa: 000 bb: 111'],
@@ -59,7 +68,7 @@ const tests = [
   // Shows stack traceon terminal.
   ['/error/custom-handler', 'GET', 500],
 
-  // The default handler inspects the .status
+  // The default errot handler inspects the .status
   // property of the error. 4xx and 5xx are kept.
   // everything else is replaced with 500.
   //
@@ -72,6 +81,7 @@ const tests = [
 ]
 
 const app = express()
+app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   res.send(`<!doctype html>
 <html lang=en>
@@ -81,7 +91,7 @@ app.get('/', (req, res) => {
 </head>
 <body>
 <ul>
-${tests.map(t => `<li><a href="${t[0]}">${t[0]}</a></li>`).join('\n')}
+${tests.filter(t => t[1] === 'GET').map(t => `<li><a href="${t[0]}">${t[0]}</a></li>`).join('\n')}
 </ul>
 </body>
 </html>
@@ -89,6 +99,29 @@ ${tests.map(t => `<li><a href="${t[0]}">${t[0]}</a></li>`).join('\n')}
 })
 app.get('/hello', (req, res) => {
   res.send('hello world')
+})
+app.get('/form', (req, res) => {
+  res.send(`<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Min sane</title>
+</head>
+<body>
+<form action="/form" method="post">
+  <input type="text" name="aa" placeholder="aa"><br>
+  <input type="text" name="bb" placeholder="bb"><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+`)
+})
+app.post('/form', (req, res) => {
+  // Requires the middleware:
+  // app.use(express.urlencoded
+  console.error(req.body);
+  res.send(`aa: ${req.body.aa} bb: ${req.body.bb}`)
 })
 app.get('/check-helper-1/:param', (req, res) => {
   const ret = check_helper(req, res)
@@ -151,8 +184,7 @@ app.get('/error/custom-handler',
 const server = app.listen(3000, () => {
   console.log(`listening: http://localhost:${server.address().port}`)
   for (let atest of tests) {
-    if (test[1] === 'GET') {
-      test(...atest)
-    }
+    console.error(atest);
+    test(...atest)
   }
 })

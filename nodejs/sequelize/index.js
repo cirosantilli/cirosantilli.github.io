@@ -72,6 +72,7 @@ async function reset() {
   //   3 |     5 | five  | 2021-03-19 19:12:08.437+00 | 2021-03-19 19:12:08.437+00
   // (3 rows)
 }
+let i = await IntegerNames.findOne();
 await reset()
 
 let integerNames;
