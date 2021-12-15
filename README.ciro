@@ -34779,18 +34779,18 @@ The best way to install Node.js:
 {parent=javascript}
 {wiki}
 
-TypeScript is good. It does find errors in your \x[javascript]. It is a form of "turd polishing". But \x[ciro-santilli] would rather have a polished turd than a non-polished one.
+TypeScript is good. It does find errors in your \x[javascript]. But it is a form of "turd polishing". But \x[ciro-santilli] would rather have a polished turd than a non-polished one.
 
 The reason TypeScript became popular is due to the universality of \x[asset-bundler]{p}.
 
-Once you are already using an asset bundler, changing the `.js` extension into `.ts` to get a less shitty experince is an easy choice.
+Once you are already using an asset bundler, changing the `.js` extension into `.ts` to get a less shitty experience is an easy choice.
 
 Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped Not sure if this is beautiful, or frightening.
 
 Examples under \a[typescript]. Run with `npx example.ts`.
 * \a[typescript/inferFromInit.ts]. Should fail with:
   \Q[hello.ts:2:1 - error TS2322: Type 'string' is not assignable to type 'number]
-  since typesript infers the type of `i` from first assignment as `string`, and we then attempt a `number` assignment later on
+  since TypeScript infers the type of `i` from first assignment as `string`, and we then attempt a `number` assignment later on
 * \a[typescript/inferAfterInit.ts]. Does not fail, as the first assignment cannot be computationally determined at runtime without breaking computer science.
 * \a[typescript/js-from-ts/main.ts]: call \x[javascript] file \x[typescript/js-from-ts/notmain.js] from \x[typescript].
   ``
@@ -36960,7 +36960,7 @@ It does feel like they don't document deployment very well however, especially n
 
 And until the prerender upload location issue mentioned below is answered clearly, \x[ciro-santilli] just can't go for this option.
 
-Examples at: https://github.com/vercel/next.js/tree/canary/examples
+In-tree examples at: https://github.com/vercel/next.js/tree/canary/examples
 
 `canary` is their `master`: https://github.com/vercel/next.js/issues/3211
 
@@ -36997,8 +36997,11 @@ Overviews:
 TODO answer:
 * https://stackoverflow.com/questions/59674496/how-to-pass-pageprops-in-next-js-from-a-child-component-to-app-js
 
-Examples under \a[nodejs/next]:
-* \a[nodejs/next/hello-world]
+Our oxamples under \a[nodejs/next]:
+* \a[nodejs/next/hello-world]: a hello world. There's an in-tree one at: https://github.com/vercel/next.js/tree/e75361fd03872b097e817634c049b3185f24cf56/examples/hello-world[], but ours is truly minimal
+* \a[nodejs/next/hoc]: shows how to use a higher order component (HOC) to factor out `getStaticProps` across two pages: \a[nodejs/next/hoc/pages/index.js] and \a[nodejs/next/hoc/pages/notindex.js]
+
+  Notably, that shows how `require` errors are avoided in that case as mentioned at: https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153
 
 = Vue.js
 {c}
