@@ -2636,8 +2636,15 @@ Shoe size 30 year old, as in \x[ciro-santilli-s-hardware/2017-04-nike-flex-exper
   * sitting on cardboard: 110mm, this method felt accurate
   * https://www.youtube.com/watch?v=xSWlwzqGKik water method: 90mm/100mm. Small butt!?
 * Arm sleeve length: 61.5 cm
+* Head circumference: 58.5 cm
+* Hand circumference: 19.8 cm
 * Erect \x[penis] length: just kidding, just kidding. \x[ciro-santilli-s-wife] would kill him.
 * rest heart rate: 60 BPM
+
+Sight:
+* 32 yo:
+  * R SPH -1.50, CYL -0.5, AXIS 150
+  * R SPH -1.25, CYL -0.5, AXIS 3
 
 = Ciro Santilli's knee
 {c}
@@ -6590,6 +6597,10 @@ Headset: threaded: https://www.youtube.com/watch?v=pX0UxFV-G4Y
 
 = Cycling clothes
 {parent=bicycle-products}
+
+2021-12:
+* dhb Windproof Cycling Gloves Small Black 33 dollars to replace the Nike academy hyperwam gloves which I lost a pair of recently. It already had a hole in the thumb anyways from shifting the small gears all the time.
+* dhb C1.0 Crossover Helmet Matte Black 58-61cm 40 dollars after recent crash to ensure helmet integrity
 
 2021-02 Castelli PRO THERMAL SKULLY red https://www.wiggle.co.uk/castelli-pro-thermal-skully https://www.castelli-cycling.com/gb/pro-thermal-skully/p/452054220A to help with cold, the X Lite Run Black Headband is just not made for winter.
 
@@ -34776,6 +34787,17 @@ Once you are already using an asset bundler, changing the `.js` extension into `
 
 Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped Not sure if this is beautiful, or frightening.
 
+Examples under \a[typescript]. Run with `npx example.ts`.
+* \a[typescript/inferFromInit.ts]. Should fail with:
+  \Q[hello.ts:2:1 - error TS2322: Type 'string' is not assignable to type 'number]
+  since typesript infers the type of `i` from first assignment as `string`, and we then attempt a `number` assignment later on
+* \a[typescript/inferAfterInit.ts]. Does not fail, as the first assignment cannot be computationally determined at runtime without breaking computer science.
+* \a[typescript/js-from-ts/main.ts]: call \x[javascript] file \x[typescript/js-from-ts/notmain.js] from \x[typescript].
+  ``
+  npx tsc jsFromTs.ts && node jsFromTs.js
+  ``
+  TODO we are unable to make it typecheck that require, i.e. make that fail, but we've seen cases in complex codebases where that did happen and https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html has infinite information on supporting it. So... how to make it fail??
+
 = Universal Module Definition
 {c}
 {parent=javascript}
@@ -36975,7 +36997,8 @@ Overviews:
 TODO answer:
 * https://stackoverflow.com/questions/59674496/how-to-pass-pageprops-in-next-js-from-a-child-component-to-app-js
 
-Examples under \x[nodejs/next].
+Examples under \a[nodejs/next]:
+* \a[nodejs/next/hello-world]
 
 = Vue.js
 {c}
