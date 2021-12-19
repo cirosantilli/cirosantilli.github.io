@@ -1,10 +1,13 @@
-const fs = require('fs')
+import Link from 'next/link'
 
-export function makeGetStaticProps(isBlue) {
-  return () => {
-    return { props: {
-      fs: Object.keys(fs).join(' '),
-      isBlue,
-    } }
+export function makeIndexPage(isIndex) {
+  return (props) => {
+    return <>
+      <Link href={isIndex ? '/index' : '/notindex'}>
+        <a>{isIndex ? 'index' : 'notindex'}</a>
+      </Link>
+      <div>{props.fs}</div>
+      <div>{props.isBlue}</div>
+    </>
   }
 }

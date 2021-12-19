@@ -1,30 +1,11 @@
 // Client + server code.
 
-import Link from 'next/link'
+import { makeIndexPage } from "../lib"
 
-export default function IndexPage(props) {
-  return <>
-    <Link href="/notindex">
-      <a>notindex</a>
-    </Link>
-    <div>{props.fs}</div>
-    <div>{props.isBlue}</div>
-  </>
-}
-
-export default function IndexPage() {
-  return (
-    <div>
-      Hello World.{' '}
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </div>
-  )
-}
+export default makeIndexPage(true)
 
 // Server-only code.
 
-import { makeGetStaticProps } from "../lib"
+import { makeGetStaticProps } from "../back"
 
 export const getStaticProps = makeGetStaticProps(true)
