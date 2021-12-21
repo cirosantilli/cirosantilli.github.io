@@ -95,12 +95,19 @@ assert.strictEqual(await user0.countPosts(), 2)
   const user0Likes = await Post.findAll({
     include: [{
       model: User,
-      where: {id: user0.id},
+      where: { id: user0.id },
     }],
     order: [['body', 'ASC']],
   })
   assert.strictEqual(user0Likes[0].body, 'post0');
+  assert.strictEqual(user0Likes[0].Users[0].name, 'user0');
+  assert.strictEqual(user0Likes[0].Users.length, 1);
   assert.strictEqual(user0Likes[1].body, 'post1');
+  // We can aslo access user0 data here.
+  // But note that user2, who also likes post 1, is missing
+  // because the where selects it out.
+  assert.strictEqual(user0Likes[1].Users[0].name, 'user0');
+  assert.strictEqual(user0Likes[1].Users.length, 1);
   assert.strictEqual(user0Likes.length, 2);
 }
 
@@ -116,6 +123,34 @@ assert.strictEqual(await user0.countPosts(), 2)
   assert.strictEqual(user0Likes[0].body, 'post0');
   assert.strictEqual(user0Likes[1].body, 'post1');
   assert.strictEqual(user0Likes.length, 2);
+}
+
+// TODO Find all posts that user0 likes, and for each post include
+// all useres that like that post. Doesn't seem possible.
+// https://github.com/sequelize/sequelize/issues/8013
+// https://github.com/sequelize/sequelize/issues/7754
+if (false) {
+rows = await Post.findAll({
+  include: [
+    {
+      model: User,
+      where: { id: user0.id },
+    },
+    {
+      model: User,
+      as: 'User2',
+    }
+  ],
+  order: [['body', 'ASC']],
+})
+assert.strictEqual(rows[0].body, 'post0');
+assert.strictEqual(rows[0].Users[0].name, 'user0');
+assert.strictEqual(rows[0].Users.length, 1);
+assert.strictEqual(rows[1].body, 'post1');
+assert.strictEqual(rows[1].Users[0].name, 'user0');
+assert.strictEqual(rows[1].Users[1].name, 'user2');
+assert.strictEqual(rows[1].Users.length, 2);
+assert.strictEqual(user0Likes.length, 2);
 }
 
 // Get users that liked a given post.
