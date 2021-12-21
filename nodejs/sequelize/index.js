@@ -170,6 +170,24 @@ await sequelize.truncate();
 assert.strictEqual(await IntegerNames.count(), 0);
 await reset()
 
+// bulkdreate
+await sequelize.truncate();
+const date = new Date(2000, 0, 1, 2, 3, 4, 5)
+await IntegerNames.bulkCreate([
+  { value: 2, name: 'two'  , createdAt: date, updatedAt: date },
+  { value: 3, name: 'three', createdAt: date, updatedAt: date },
+  { value: 5, name: 'five' , createdAt: date, updatedAt: date },
+])
+rows = await IntegerNames.findAll({order: [['value', 'ASC']]})
+// Check that they get updated.
+// https://stackoverflow.com/questions/42519583/sequelize-updating-updatedat-manually
+// https://github.com/sequelize/sequelize/issues/3759
+// https://stackoverflow.com/questions/69053635/in-sequelize-bulkcreate-timestamps-are-not-updating
+// https://github.com/sequelize/sequelize/issues/6992
+assert.strictEqual(rows[0].createdAt.getTime(), date.getTime())
+assert.strictEqual(rows[0].updatedAt.getTime(), date.getTime())
+await reset()
+
 // .close Otherwise it hangs for 10 seconds, it seems that it keeps the connection alive.
 // https://stackoverflow.com/questions/28253831/recreating-database-sequelizejs-is-slow
 // https://github.com/sequelize/sequelize/issues/8468

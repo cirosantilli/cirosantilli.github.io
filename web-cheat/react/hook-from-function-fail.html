@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+<body>
+<p><a href="https://cirosantilli.com/react">https://cirosantilli.com/react</a></p>
+<div id="root"></div>
+<script type="text/babel">
+function helper() {
+  return React.useState(0)
+}
+
+function Main(props) {
+  console.log('Main');
+  const [n, setN] = helper()
+  function handleClick() {
+    console.log('handleClick');
+    setN(n + 1)
+  }
+  return (
+    <div>
+      <div onClick={handleClick}>Click me</div>
+      <div>{n}</div>
+      <div>{Math.floor(n / 2)}</div>
+    </div>
+  )
+}
+
+ReactDOM.render(
+  <Main />,
+  document.getElementById('root')
+);
+</script>
+</body>
+</html>
