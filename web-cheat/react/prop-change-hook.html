@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+<body>
+<p><a href="https://cirosantilli.com/react">https://cirosantilli.com/react</a></p>
+<div id="root"></div>
+<script type="text/babel">
+function NotMain2(props) {
+  console.log('NotMain2');
+  const [n, setN] = React.useState(props.n)
+  return (
+    <>
+      <div>NotMain2 props.n = {props.n}</div>
+      <div>NotMain2 n = {n}</div>
+    </>
+  )
+}
+
+function NotMain(props) {
+  console.log('NotMain');
+  const [n, setN] = React.useState(props.n)
+  return (
+    <>
+      <div>NotMain props.n = {props.n} n = {props.n}</div>
+      <NotMain2 n={props.n} />
+    </>
+  )
+}
+
+function Main(props) {
+  console.log('Main');
+  const [n, setN] = React.useState(0)
+  function handleClick() {
+    console.log('handleClick\n');
+    setN(n + 1)
+  }
+  return (
+    <div>
+      <div onClick={handleClick}>Click me twice</div>
+      <div>Main n = {n}</div>
+      <NotMain n={Math.floor(n / 2)}></NotMain>
+    </div>
+  )
+}
+
+ReactDOM.render(
+  <Main/>,
+  document.getElementById('root')
+);
+</script>
+</body>
+</html>

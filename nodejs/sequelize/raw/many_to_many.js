@@ -1,4 +1,4 @@
-#!/usr/bin/env node,,
+#!/usr/bin/env node
 
 // https://cirosantilli.com/sql-example
 
@@ -66,7 +66,37 @@ await reset()
 
 let rows, meta
 
-// Get all animals with a given tag.
+// Get all tags of all animals.
+// This shows how in general JOIN returns repeated animal and tag rows.
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Animal".name AS "Animal_name",
+  "Tag".name AS "Tag_name"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+ORDER BY "Animal".id ASC, "Tag".id ASC
+`)
+console.error(rows);
+assert.strictEqual(rows[0].Animal_name, 'dog')
+assert.strictEqual(rows[0].Tag_name, 'mammal')
+assert.strictEqual(rows[1].Animal_name, 'dog')
+assert.strictEqual(rows[1].Tag_name, 'vertebrate')
+assert.strictEqual(rows[2].Animal_name, 'cat')
+assert.strictEqual(rows[2].Tag_name, 'mammal')
+assert.strictEqual(rows[3].Animal_name, 'cat')
+assert.strictEqual(rows[3].Tag_name, 'vertebrate')
+assert.strictEqual(rows[4].Animal_name, 'hawk')
+assert.strictEqual(rows[4].Tag_name, 'flying')
+assert.strictEqual(rows[5].Animal_name, 'hawk')
+assert.strictEqual(rows[5].Tag_name, 'vertebrate')
+assert.strictEqual(rows[6].Animal_name, 'bee')
+assert.strictEqual(rows[6].Tag_name, 'flying')
+assert.strictEqual(rows.length, 7)
+
+// Get all animals with the tag "flying".
 ;[rows, meta] = await sequelize.query(`
 SELECT
   "Animal".name AS "Animal_name"
@@ -82,7 +112,7 @@ assert.strictEqual(rows[0].Animal_name, 'hawk')
 assert.strictEqual(rows[1].Animal_name, 'bee')
 assert.strictEqual(rows.length, 2)
 
-// Get all tags with of a given animal.
+// Get all tags of animal "dog"
 ;[rows, meta] = await sequelize.query(`
 SELECT
   "Tag".name AS "Tag_name"
@@ -97,6 +127,32 @@ ORDER BY "Tag".id ASC
 assert.strictEqual(rows[0].Tag_name, 'mammal')
 assert.strictEqual(rows[1].Tag_name, 'vertebrate')
 assert.strictEqual(rows.length, 2)
+
+// Get all animals with tag "flying", but include all their other tags in the result as well
+// https://stackoverflow.com/questions/25734598/get-all-posts-for-specific-tag-with-sql
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Animal".name AS "Animal_name",
+  "Tag2".name AS "Tag_name"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+  AND "Tag".name = 'flying'
+INNER JOIN "AnimalTag" AS "AnimalTag2"
+  ON "AnimalTag2"."animalId" = "Animal".id
+INNER JOIN "Tag" AS "Tag2"
+  ON "Tag2".id = "AnimalTag2"."tagId"
+ORDER BY "Animal".id ASC, "Tag2".id ASC
+`)
+assert.strictEqual(rows[0].Animal_name, 'hawk')
+assert.strictEqual(rows[0].Tag_name, 'flying')
+assert.strictEqual(rows[1].Animal_name, 'hawk')
+assert.strictEqual(rows[1].Tag_name, 'vertebrate')
+assert.strictEqual(rows[2].Animal_name, 'bee')
+assert.strictEqual(rows[2].Tag_name, 'flying')
+assert.strictEqual(rows.length, 3)
 
 // Get animal counts for each tag and order them in increasing order.
 // Illustrates `GROUP BY`. TODO why is Tag.name allowed in the SELECT

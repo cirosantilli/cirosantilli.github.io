@@ -1718,7 +1718,7 @@ Interesting projects:
 {parent=students-must-have-a-flexible-choice-of-what-to-learn}
 {title2=Grosse Männer}
 
-https://www.nature.com/articles/081121a0 \x[academic-publishing][paywall] after mores than 100 years.
+https://www.nature.com/articles/081121a0[]. \x[academic-publishing][paywalled] after more than 100 years, thanks \x[nature-journal].
 
 From the abstract:
 \Q[Much money, his student went on to say, is spent by various Governments in attempting to discover those people whose thorough education may be expected to bring in a return of value to the State, and the question how best to discover latent genius is an eminently practical one. After cogitation, Prof. Ostwald came to the conclusion that it is those students who cannot be kept on the rails - that is, who are not contented with methodical teaching - who have within them the seeds of genius]
@@ -1747,7 +1747,7 @@ The ironic reason is simple: maybe is Brazil loses more on this \x[art][useless 
 
 Notably, what Ciro really wants people to root for are:
 * the number of \x[brazilian] \x[nobel-prize]{p}, which is zero, yes, zero, as of 2020, despite a population of 210 million people. But thank \x[god] for our one https://en.wikipedia.org/wiki/Artur_Avila[Field Medal], what an epic start, even though \x[art][Mathematics is useless].
-* the number of high tech companies that have a global impact, which is likely extremelly low as of 2020, and must contain only a few mammoths that dominate some local \x[commodity] market and therefore got enough money from that to expand a bit of technology worldwide. But they were mostly not classic tech \x[startup]{p} that did world innovation from the start.
+* the number of high tech companies that have a global impact, which is likely extremely low as of 2020, and must contain only a few mammoths that dominate some local \x[commodity] market and therefore got enough money from that to expand a bit of technology worldwide. But they were mostly not classic tech \x[startup]{p} that did world innovation from the start.
 * how low your country's https://en.wikipedia.org/wiki/Gini_coefficient[Gini coefficient is]
 
 Don't get Ciro wrong.
@@ -11522,7 +11522,7 @@ By \x[david-tong]{parent}.
 
 14 1 hours 20 minute lectures.
 
-The video resolution is extremelly low, with images glued as he moves away from what he wrote :-) The beauty of the early \x[internet].
+The video resolution is extremely low, with images glued as he moves away from what he wrote :-) The beauty of the early \x[internet].
 
 = Lecture 1
 {parent=david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute}
@@ -18451,6 +18451,10 @@ High level simulation only, no way to get from DNA to worm! :-) Includes:
 {synonym}
 
 A \x[kingdom-biology]{parent}, formal name: "fungi".
+
+= Mold
+{parent=fungus}
+{wiki}
 
 = Yeast
 {parent=fungus}
@@ -28320,7 +28324,7 @@ A \x[law-of-physics] is Galilean invariant if the same formula works both when y
 
 For example, if we were describing the movement of a \x[point-particle], the exact same formulas that predict the evolution of $x_{land}(t)$ must also predict $x_{boat}(t)$, even though of course both of those $x(t)$ will have different values. 
 
-It would be extremelly unsatisfactory if the formulas of the \x[laws-of-physics] did not obey \x[galilean-invariance]. Especially if you remember that \x[earth] is travelling extremelly fast relative to the \x[sun]. If there was no such invariance, that would mean for example that the \x[laws-of-physics] would be different in other \x[planet]{p} that are moving at different speeds. That would be a strong sign that our laws of physics are not complete.
+It would be extremely unsatisfactory if the formulas of the \x[laws-of-physics] did not obey \x[galilean-invariance]. Especially if you remember that \x[earth] is travelling extremelly fast relative to the \x[sun]. If there was no such invariance, that would mean for example that the \x[laws-of-physics] would be different in other \x[planet]{p} that are moving at different speeds. That would be a strong sign that our laws of physics are not complete.
 
 The consequence/cause of that is that you cannot know if you are moving at a constant speed or not.
 
@@ -36918,7 +36922,7 @@ Examples under: \a[web-cheat/react].
   By opening a web inspector, you can see that only modified elements get updated. So we understand that \x[jsx] parses its "HTML-like" into a tree, and then propagates updates on that tree.
 
   By looking at the terminal, we see that `render()` does get called every time the button is clicked, so the tree gets recreated every time.
-* \a[web-cheat/react/hello-hook.html]: Hello World with hooks instead of classes. Exactly equivalent to \a[web-cheat/react/hello.html]. Hooks were introduced much after classes, and just require less code, so everyone is using them now instead of classes.
+* \a[web-cheat/react/hello-hook.html]: Hello World with hooks instead of classes. Exactly equivalent to \a[web-cheat/react/hello.html]. `React.useState` plays the role of the constructor. Hooks were introduced much after classes, and just require less code, so everyone is using them now instead of classes.
 * \a[web-cheat/react/hello-without-jsx.html]: Hello World in pure \x[javascript], without \x[jsx]. Exactly equivalent to \a[web-cheat/react/hello.html]. Documented at: https://reactjs.org/docs/react-without-jsx.html Understanding this is fundamental to understanding React.
 * \a[web-cheat/react/prop-change.html]: shows what gets called as parameters flow down through the tree.
 
@@ -36951,8 +36955,22 @@ Examples under: \a[web-cheat/react].
   Related:
   * https://stackoverflow.com/questions/61301937/why-is-react-component-rerendering-when-props-has-not-changed
   * https://stackoverflow.com/questions/67214500/why-react-rerendres-components-even-if-props-didnt-changed
+* \a[web-cheat/react/prop-change-hook.html]: same as \a[web-cheat/react/prop-change.html], but using hooks. The notable difference is that functional components don't have a clear constructor/render separation, the function just gets called every time. Then React does some magic to ensure that `useState` returns the current state, except for the first render where they return the initial value.
+* \a[web-cheat/react/prop-change-chile.html]: shows what child prop changes do not call render on parent, `Main` does not show up on console when you click under `NotMain`
+* \a[web-cheat/react/hook-from-function-fail.html]: TODO got some errors that seemed linked to this on a larger program, but failed to minimize them here
+* \a[web-cheat/react/hook-different-number-of-times.html]: this illustrates one of the cardinal points of using hooks: you must always call them the same number of times, otherwise it fails with:
+  \Q[React has detected a change in the order of Hooks called by Main. This will lead to bugs and errors if not fixed.]
+  In the case of `useState`, we can kind of understand why this happens: React must use the order of calls to determine which state variable to return at each point in time.
+* \a[web-cheat/react/hello-hook-use-effect.html]: just checking when it gets called. Happens after every render
+  ``
+  handleClick
+  Main
+  useEffect
+  useEffect2
+  ``
 
 How React works bibliography:
+* https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/ shows how `uesState` works under the hood with crazy closures
 * https://medium.com/@gethylgeorge/how-virtual-dom-and-diffing-works-in-react-6fc805f9f84e
 
 = React JSX
@@ -36980,19 +36998,28 @@ Minimal reproduction: https://stackoverflow.com/questions/62336340/cannot-update
 
 Framework built on top of \x[react-javascript-library].
 
-Officially recommended by \x[react-javascript-library]{ref}.
+Officially recommended by \x[react-javascript-library]https://reactjs.org/docs/create-a-new-react-app.html{ref}:
+\Q[Recommended Toolchains
 
-Puts lots of emphasis on \x[server-side-rendering] just working, which looks good.
+If you’re building a server-rendered website with Node.js, try Next.js.]
 
-It does feel like they don't document deployment very well however, especially non-Vercel options, which is the company behind Next.js.
+\x[gothinkster-realworld] blog example by \x[ciro-santilli]: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app
 
-And until the prerender upload location issue mentioned below is answered clearly, \x[ciro-santilli] just can't go for this option.
+Basically what this does is to get \x[server-side-rendering] just working by \x[react-javascript-library], including hydration, which is a good thing.
+
+Next.js sends the first pre-rendered HTML page along with the JavaScript code. Then, JavaScript page switches just load the API data.
+
+Next.js does this nicely by forcing you to provide page data in a serialized JSON format, even when rendering server-side (e.g. the return value of `getServerSideProps`). This way, it is also able to provide either the full HTML, or just the JSON.
+
+Some general downsides:
+* it does feel like they don't document deployment very well however, especially non-Vercel options, which is the company behind Next.js. I'm unable to find how to use a non Vercel CDN with ISR supposing that is possible.
+* Next.js is very opinionated, and like any opinionated library it is sometimes hard to know why something is/isn't happening, and sometimes it is hard/impossible to do what you want with it unless they add support
 
 In-tree examples at: https://github.com/vercel/next.js/tree/canary/examples
 
 `canary` is their `master`: https://github.com/vercel/next.js/issues/3211
 
-In order to offer its amazing features, Next.js is also extremelly opinionated, which means that if something wasn't designed to be possible, it basically isn't.
+In order to offer its amazing features, Next.js is also extremely opinionated, which means that if something wasn't designed to be possible, it basically isn't.
 
 No prerender with custom \x[server]? It forces you to write your API with next as well? Or does it mean something else?
 * https://github.com/vercel/next.js/discussions/25394
@@ -37027,6 +37054,7 @@ Our oxamples under \a[nodejs/next]:
 * \a[nodejs/next/hoc]: shows how to use a higher order component (HOC) to factor out `getStaticProps` across two pages: \a[nodejs/next/hoc/pages/index.js] and \a[nodejs/next/hoc/pages/notindex.js]
 
   Notably, that shows how `require` errors are avoided in that case as mentioned at: https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153
+* \a[nodejs/next/localStorage]: a counter that is persistent across page reloads by using `localStorage`. Used in: https://stackoverflow.com/questions/54819721/next-js-access-localstorage-before-rendering-page/68136224#68136224
 
 Solved ones:
 * solved by https://nextjs.org/docs/advanced-features/preview-mode[preview mode] in Next.js 12:
@@ -37789,8 +37817,6 @@ See the street view for: https://goo.gl/maps/ZVnTjxNpsK6QPqTE9[R. Catumbi - Vila
 
 To the left, the outer walls of a large police station, with \x[concertina-wire] on top and all.
 
-93 Dp - Jaguare
-
 To the right, dudes \x[drug-traffic][selling drugs] on the entry of a small corridor street, presumably to which they could easily escape to in case of need.
 
 The cops could have identified the dealers with binoculars if they actually wanted to!!!
@@ -37805,7 +37831,7 @@ This is consistent with the terribly old buildings Ciro saw when he was at unive
 
 The state just has to either \x[legalize] those people, or give them houses somewhere else nearby. A \x[what-poor-countries-have-to-do-to-get-richer][world class University is the most important thing a poor country can have], and its image cannot be jeopardized like that.
 
-The existence of that favela, right next to one of the most important universities in Latin America, puts \x[brazil]'s surreal social inequality into perspective.
+The existence of that favela, right next to one of the most important universities in Latin America, puts \x[brazil]'s surreal social inequality into perspective. Especially considering that before extremely heavy \x[university-entry-quotas] were added, basically all students of the university (or at least of the courses that lead to high paying jobs) had attended private schools, and therefore were not of the poorer classes (see passage about 10 out 500 passage from \x[free-gifted-education]{full}).
 
 The janitors of the apartment block Ciro lived all lived in the favela. Yes, in poor countries lives are worth nothing, and some poorer people work by watching the entrance of buildings of less poor people 24/7 to guard it from other even more desperate poor people who might want to rob the not so poor inhabitants. They also do janitor jobs like cleaning common areas in parallel.
 
@@ -38257,6 +38283,18 @@ Key \x[physics] papers from the 50's are still \x[copyright] encumbered as of 20
 {disambiguate=journal}
 {parent=american-academic-journal}
 {wiki}
+
+= British academic journal
+{parent=academic-journal}
+
+= Nature
+{c}
+{disambiguate=journal}
+{parent=british-academic-journal}
+{title2=1869-}
+{wiki}
+
+Ended up under \x[springer] in 2015 after a massive merger.
 
 = German physics journal
 {parent=academic-journal}
@@ -39163,7 +39201,11 @@ The flagship instance was https://mastodon.social[] and then in 2020 they closed
 {parent=list-of-social-media}
 {wiki}
 
-LinkedIn fully complies with censorship imposed locally by the \x[chinese-government], and does so in a non-transparent way: https://cirosantilli.com/china-dictatorship/linkedin It is hard to understand what the point of that website is, as it is basically just a more closed version of \x[facebook].
+\x[ciro-santilli]'s LinkedIn profile: https://www.linkedin.com/in/cirosantilli/ see also: \x[accounts].
+
+LinkedIn fully complies with censorship imposed locally by the \x[chinese-government], and does so in a non-transparent way: https://cirosantilli.com/china-dictatorship/linkedin[].
+
+It is hard to understand what the point of that website is, as it is basically just a more closed version of \x[facebook], but alas, it has flourished as the only place where people post more useful content compared to \x[twitter] and \x[facebook].
 
 Impossible to hide your current location?
 * https://www.quora.com/How-can-I-hide-my-location-on-LinkedIn
@@ -41458,7 +41500,7 @@ And above all, Ciro would never play a fair deck. Grinding victories is not for 
 
 Competitive commander is also interesting, although matches tend to be much more random so the format is harder to digest, see for example this channel; https://www.youtube.com/channel/UCum8N4KUUC0l_NK_mybvilg[Playing With Power MTG channel].
 
-In Ciro's mind, https://mtg.gamepedia.com/Urza%27s_block[Urza's block] is the most epic of all, followed by the https://en.wikipedia.org/wiki/Masques_block[masques block]. Those sets had a ridiculous power level and epic art, and they happened just before \x[ciro-santilli] started playing during https://en.wikipedia.org/wiki/Invasion_(Magic:_The_Gathering)[Invasion], which had an extremelly low power level in comparison. So Ciro saw some cards from those slightly older formats floating around, but not many, and they felt so mystical and awesome.
+In Ciro's mind, https://mtg.gamepedia.com/Urza%27s_block[Urza's block] is the most epic of all, followed by the https://en.wikipedia.org/wiki/Masques_block[masques block]. Those sets had a ridiculous power level and epic art, and they happened just before \x[ciro-santilli] started playing during https://en.wikipedia.org/wiki/Invasion_(Magic:_The_Gathering)[Invasion], which had an extremely low power level in comparison. So Ciro saw some cards from those slightly older formats floating around, but not many, and they felt so mystical and awesome.
 
 \Video[http://youtube.com/watch?v=pdmODVYPDLA]
 {title=I Built a COMPUTER in Magic: The Gathering by Because Science (2019)}
@@ -43579,7 +43621,7 @@ Basically a programming-only \x[reddit]-lite.
 {parent=q-and-a-software}
 {wiki}
 
-Quora is crap, but in part due to some \x[idiotic-stack-overflow-policies], it is the best crap we've got for certain (mostly useless) subjects. Until \x[ourbigbook-com] dominates the world.
+Quora is crap, but in part due to some \x[bad-stack-overflow-policies], it is the best crap we've got for certain (mostly useless) subjects. Until \x[ourbigbook-com] dominates the world.
 
 The worst thing about quora is that you cannot subscribe only to certain subjects on your feed. Quora just keeps pumping \x[shit] you never subscribed to, no matter what. Ciro, for sport, unfollowed every single idiotic subject it was proposing, but it didn't work, sooner or later Quora just keeps pumping more shit back. Mind you, some of that shit is fun. But it's still shit. Though on second thought, \x[youtube] also randomly decides to reset Ciro's humongous "don't recomend this shitty channel" choices from time to time, which is not much different...
 
@@ -43740,11 +43782,14 @@ Yvette had also previously \x[stack-overflow-content-deletion][deleted one or tw
 
 Yvette later announced that she was leaving the website: https://meta.stackoverflow.com/questions/399495/leaving-the-site-and-the-network-mid-election-is-not-the-best-but-theres-no[]. This is evil, but Ciro was happy. He does not mean harm to Yvette, but in their limited interaction, Ciro disagreed with her choices.
 
-= Idiotic Stack Overflow policies
+= Bad Stack Overflow policies
 {parent=stack-overflow}
 
+= Idiotic Stack Overflow policies
+{synonym}
+
 = Closing questions as off-topic
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 There's no point.
 
@@ -43755,7 +43800,7 @@ Reputation is meaningless regardless, since \x[javascript] gurus will always hav
 The deeper problem: the existence of multiple separate websites instead of just using the tags on a single website.
 
 = Stack Overflow content deletion
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 Stack overflow allows deleting content/making it visible only to 10k rep users.
 
@@ -43768,19 +43813,19 @@ Getting downvoted to oblivion is one thing, but data loss? Unacceptable.
 Only \x[illegal] content must ever be deleted.
 
 = Stack Overflow policy that you cannot harshly criticize the character of a politician
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 https://cirosantilli.com/china-dictatorship/stack-overflow-forbids-criticizing-the-character-of-genocidal-political-leaders-like-xi-jinping
 
 = Stack Overflow link-only answer policy
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 The link will break, and the answer will lose. Or the person who summarizes inline will get more upvotes because people are lazy to click the link. Also, \x[web-archiving] exists.
 
 This is especially idiotic when it is a link to another post in \x[stack-overflow] itself.
 
 = Stack Overflow no duplicate answers policy
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 It's great right? You can't link to your other answer alone: \x[stack-overflow-link-only-answer-policy], but you can't copy the other answer either.
 
@@ -43796,7 +43841,7 @@ Related:
 * https://meta.stackexchange.com/questions/243243/vote-to-delete-answers-as-duplicates-of-earlier-answers/243271#243271
 
 = Stack Overflow maximum 200 daily reputation limit
-{parent=idiotic-stack-overflow-policies}
+{parent=bad-stack-overflow-policies}
 
 Why. Why. Why is there no limit to how much I can help, but there is a limit to how many thanks I can get?
 
