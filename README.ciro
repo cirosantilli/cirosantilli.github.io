@@ -32544,6 +32544,8 @@ Tested as of Ubuntu 20.04, there is no Mongo package available by default due to
 {synonym}
 {title2}
 
+How to decide if an ORM is decent? Just try to replicate every \x[sql] query from \a[nodejs/sequelize/raw/many_to_many.js]. If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer.
+
 Per language:
 * \x[node-js-object-relational-mapping-library]
 
@@ -32584,7 +32586,9 @@ Here we list only examples which we believe are standard SQL, and should therefo
 * \a[nodejs/sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}:
   * \x[join-sql]
   * \x[group-by-sql]
-  * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it
+  * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it:
+    * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
+    * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in \x[sql-1999] when there are no ambiguities due to constraints, e.g. when grouping by unique columns
 * \x[sql-transaction] examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * \x[sql-isolation-level-example]{child}
@@ -32841,9 +32845,29 @@ An example where `SELECT FOR UPDATE` is a good solution to an use case can be se
 
 `SELECT FOR UPDATE` vs/together with the \x[sql-transaction-isolation-level] is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
-= MySQL
+= SQL standard
 {c}
 {parent=sql}
+{wiki}
+
+A quick look at \x[postgresql]'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
+
+= SQL standard version
+{c}
+{parent=sql-standard}
+
+= SQL:1999
+{c}
+{parent=sql-standard-version}
+
+= SQL implementation
+{c}
+{parent=sql}
+{wiki}
+
+= MySQL
+{c}
+{parent=sql-implementation}
 {wiki}
 
 Login without password: https://askubuntu.com/questions/915585/how-to-login-mysql-shell-when-mysql-have-no-password
@@ -32920,7 +32944,7 @@ Dude's a legend. Sells company for a few million. Then forks the open source pro
 
 = PostgreSQL
 {c}
-{parent=sql}
+{parent=sql-implementation}
 {wiki}
 
 = Postgres
@@ -33195,7 +33219,7 @@ Related questions:
 
 = SQLite
 {c}
-{parent=sql}
+{parent=sql-implementation}
 {wiki}
 
 The minimalimsm, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil \x[version-control]https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!

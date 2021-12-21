@@ -79,7 +79,6 @@ INNER JOIN "Tag"
   ON "AnimalTag"."tagId" = "Tag".id
 ORDER BY "Animal".id ASC, "Tag".id ASC
 `)
-console.error(rows);
 assert.strictEqual(rows[0].Animal_name, 'dog')
 assert.strictEqual(rows[0].Tag_name, 'mammal')
 assert.strictEqual(rows[1].Animal_name, 'dog')
@@ -129,7 +128,7 @@ assert.strictEqual(rows[1].Tag_name, 'vertebrate')
 assert.strictEqual(rows.length, 2)
 
 // Get all animals with tag "flying", but include all their other tags in the result as well
-// https://stackoverflow.com/questions/25734598/get-all-posts-for-specific-tag-with-sql
+// https://stackoverflow.com/questions/25734598/get-all-posts-that-have-a-specific-tag-and-keep-all-other-tags-on-results-with-s/70435014#70435014
 ;[rows, meta] = await sequelize.query(`
 SELECT
   "Animal".name AS "Animal_name",
@@ -155,14 +154,20 @@ assert.strictEqual(rows[2].Tag_name, 'flying')
 assert.strictEqual(rows.length, 3)
 
 // Get animal counts for each tag and order them in increasing order.
-// Illustrates `GROUP BY`. TODO why is Tag.name allowed in the SELECT
-// even though it does not appear in the GROUP BY or aggregates?
-// Wasn't this supposed to fail in PostgreSQL?
+// Illustrates `GROUP BY` and getting other columns not in the GROUP BY
+// which is possible because we are grouping by the PRIMARY KEY.
+// https://dba.stackexchange.com/a/141600/33332
 //
-// Ignore tags with zero animals due to INNER JOIN.
+// If we grouped by "Tag".id it would fail on Postgres 13.5 with:
+// > SequelizeDatabaseError: column "Tag.id" must appear in the GROUP BY clause or be used in an aggregate function
+//
+// Related example without JOIN: group_by_extra_column.js
+//
+// Ignores tags with zero animals due to INNER JOIN.
 // https://dba.stackexchange.com/questions/174694/how-to-get-a-group-where-the-count-is-zero
 ;[rows, meta] = await sequelize.query(`
 SELECT
+  "Tag".id AS id,
   "Tag".name AS name,
   COUNT(*) AS count
 FROM "Tag"

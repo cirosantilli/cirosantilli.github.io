@@ -12,6 +12,7 @@ await common.drop(sequelize, `AnimalTag`)
 // We are doing it like this just to illustrate a post JOIN table state.
 await sequelize.query(`
 CREATE TABLE "AnimalTag" (
+  "animalId" INTEGER NOT NULL,
   "animalName" TEXT NOT NULL,
   "tagId" INTEGER NOT NULL,
   "tagName" TEXT NOT NULL
@@ -21,9 +22,9 @@ async function reset() {
   await sequelize.query(`DELETE FROM "AnimalTag"`)
   return sequelize.query(`
 INSERT INTO "AnimalTag" VALUES
-('dog', 0, 'mammal'),
-('bat', 0, 'mammal'),
-('bat', 1, 'flying')
+(0, 'dog', 0, 'mammal'),
+(1, 'bat', 0, 'mammal'),
+(1, 'bat', 1, 'flying')
 `)
 }
 await reset()
