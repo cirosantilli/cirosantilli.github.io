@@ -3,46 +3,80 @@
 const assert = require('assert');
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common')
-const sequelize = common.sequelize(__filename)
+const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
 // Create tables and data.
-await common.drop(sequelize, `AnimalTag`)
+await common.drop(sequelize, `MyTable`)
 // This would normally be done with many to many since tagid and tagName are redundant.
 // We are doing it like this just to illustrate a post JOIN table state.
 await sequelize.query(`
-CREATE TABLE "AnimalTag" (
-  "animalId" INTEGER NOT NULL,
-  "animalName" TEXT NOT NULL,
-  "tagId" INTEGER NOT NULL,
-  "tagName" TEXT NOT NULL
+CREATE TABLE "MyTable" (
+  "a" INTEGER PRIMARY KEY,
+  "b" INTEGER UNIQUE NOT NULL,
+  "c" INTEGER
 )
 `)
 async function reset() {
-  await sequelize.query(`DELETE FROM "AnimalTag"`)
+  await sequelize.query(`DELETE FROM "MyTable"`)
   return sequelize.query(`
-INSERT INTO "AnimalTag" VALUES
-(0, 'dog', 0, 'mammal'),
-(1, 'bat', 0, 'mammal'),
-(1, 'bat', 1, 'flying')
+INSERT INTO "MyTable" VALUES
+(0, 10, 20),
+(1, 11, 20),
+(2, 12, 21)
 `)
 }
 await reset()
-
 let rows, meta
 
-// Select all.
+// PostgreSQL 13.5 OK, select extra columns when grouping by PK.
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  "tagName",
-  COUNT(*) AS count
-FROM "AnimalTag"
-GROUP BY "tagId"
-ORDER BY "tagName" ASC
+  "b", "c"
+FROM "MyTable"
+GROUP BY "a"
+ORDER BY "b" ASC, "c" ASC
 `)
-assert.strictEqual(rows[0].tagName, 'flying')
-assert.strictEqual(rows[1].tagName, 'mammal')
-assert.strictEqual(rows.length, 2)
+assert.strictEqual(rows[0].b, 10)
+assert.strictEqual(rows[0].c, 20)
+assert.strictEqual(rows[1].b, 11)
+assert.strictEqual(rows[1].c, 20)
+assert.strictEqual(rows[2].b, 12)
+assert.strictEqual(rows[2].c, 21)
+assert.strictEqual(rows.length, 3)
+
+// PostgreSQL 13.5 fail but is TODO:
+// select extra columns when grouping by UNIQUE NOT NULL
+// https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27
+if (false) {
+rows, meta
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "a", "c"
+FROM "MyTable"
+GROUP BY "b"
+ORDER BY "a" ASC, "c" ASC
+`)
+assert.strictEqual(rows[0].a, 0)
+assert.strictEqual(rows[0].c, 20)
+assert.strictEqual(rows[1].a, 1)
+assert.strictEqual(rows[1].c, 20)
+assert.strictEqual(rows[2].a, 2)
+assert.strictEqual(rows[2].c, 21)
+assert.strictEqual(rows.length, 3)
+}
+
+// OK, this one just fails on PostgreSQL, and it is easy to understand why.
+if (false) {
+rows, meta
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "a", "b"
+FROM "MyTable"
+GROUP BY "c"
+ORDER BY "b" ASC, "c" ASC
+`)
+}
 
 await sequelize.close();
 })();

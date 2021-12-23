@@ -285,6 +285,7 @@ These are some smaller projects that \x[ciro-santilli] carried out. They are all
     * https://stackoverflow.com/questions/20099235/who-is-the-user-with-the-longest-streak-on-github/27742165#27742165[An 100 year GitHub streak], likely longest ever when that existed. It was consuming too much \x[server] resources however, which led to GitHub admins manually https://web.archive.org/web/20151021135921/https://github.com/cirosantilli/[turning off his contribution history].
     * https://github.com/cirosantilli/test-octopus-100k[A repository with a 100k commit Git octopus merge]. Now that is a true https://softwareengineering.stackexchange.com/questions/314215/can-a-git-commit-have-more-than-2-parents/377903#377903[Cthulhu merge].
     * https://github.com/isaacs/github/issues/1718[500 on adoc infinite header xref recursion]: that was fun while it lasted
+    * \x[node-express-sequelize-next-js-realworld-example-app]
 * Because Ciro \x[ourbigbook-com][cares about education], around 2014 he looked into markup languages and version control for books, before he noticed that this approach was useless and that ranking algorithms are all that matter:
   * \x[gitlab]: very important to Ciro because he wanted to base https://github.com/booktree/booktree[Booktree] on it.
 
@@ -1921,6 +1922,7 @@ Things that are not nice such as:
 * noises coming out of your \x[bicycle]. It is so hard to find where they come to fix them!!!
 * \x[code-drop]{child}
 * private cars as opposed to \x[public-transport]. As a cyclist, you can just see the effect that large roads have on nearby areas, it just destroys nature.
+* \x[closed-standard]{child}{p}
 
 = Online forums that lock threads after some time are evil
 {parent=evil}
@@ -5925,6 +5927,8 @@ Table: https://web.archive.org/web/20210718034540/https://www.westelm.com/weimgs
 {parent=houses}
 {scope}
 
+Fridge: Lamona LAM6800 fridge freezer.
+
 = Fire alarm
 {parent=house-2021}
 
@@ -6600,8 +6604,10 @@ Headset: threaded: https://www.youtube.com/watch?v=pX0UxFV-G4Y
 = Cycling clothes
 {parent=bicycle-products}
 
+2021-12: bought a north face etip recycled gloves black with white signs, large about 40 dollars: https://www.thenorthface.co.uk/shop/en-gb/tnf-gb/mens-etip-gloves-4sha?variationId=KY4 let's see how that goes.
+
 2021-12:
-* dhb Windproof Cycling Gloves Small Black 33 dollars to replace the Nike academy hyperwam gloves which I lost a pair of recently. It already had a hole in the thumb anyways from shifting the small gears all the time.
+* dhb Windproof Cycling Gloves Small Black 33 dollars to replace the Nike academy hyperwam gloves which I lost a pair of recently. It already had a hole in the thumb anyways from shifting the small gears all the time. S was way too small despite me making hand measurement, returned.
 * dhb C1.0 Crossover Helmet Matte Black 58-61cm 40 dollars after recent crash to ensure helmet integrity
 
 2021-02 Castelli PRO THERMAL SKULLY red https://www.wiggle.co.uk/castelli-pro-thermal-skully https://www.castelli-cycling.com/gb/pro-thermal-skully/p/452054220A to help with cold, the X Lite Run Black Headband is just not made for winter.
@@ -21321,6 +21327,8 @@ See also:
 {parent=religion}
 {wiki=Abrahamic_religions}
 
+It is just mind blowing that \x[christian]{p}, \x[muslim]{p} and \x[jew]{p} can have so many conflicts considering that their religions are basically the same. \x[uncanny-valley]{c} comes to mind. See also remarks at: https://cirosantilli.com/china-dictatorship/zhong-gong
+
 = Christianism
 {c}
 {parent=abrahamic-religion}
@@ -21730,6 +21738,14 @@ This feels so right. Doesn't have to be taken so literally for non-Monks, but al
 = 公案
 {synonym}
 {title2}
+
+= The Gateless Barrier
+{c}
+{parent=koan}
+{wiki}
+
+= 无门关
+{synonym}
 
 = Confucianism
 {c}
@@ -32240,6 +32256,13 @@ https://github.com/rougier/freetype-gl
 
 Good library to render text in \x[opengl], see also: https://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835
 
+= Khronos Group
+{c}
+{parent=opengl}
+{wiki}
+
+The fact that they kept the standard \x[open-source] makes them huge heroes, see also: \x[closed-standard].
+
 = opengl-tutorial.org
 {parent=opengl}
 
@@ -32544,10 +32567,21 @@ Tested as of Ubuntu 20.04, there is no Mongo package available by default due to
 {synonym}
 {title2}
 
-How to decide if an ORM is decent? Just try to replicate every \x[sql] query from \a[nodejs/sequelize/raw/many_to_many.js]. If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer.
-
 Per language:
 * \x[node-js-object-relational-mapping-library]
+
+= How to decide if an ORM is good?
+{parent=object-relational-mapping]
+
+How to decide if an ORM is decent? Just try to replicate every \x[sql] query from \a[nodejs/sequelize/raw/many_to_many.js] on \x[postgresql] and \x[sqlite].
+
+There is only a very finite number of possible reasonable queries on a two table many to many relationship with a join table. A decent ORM \i[has] to be able to do them all.
+
+If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer. E.g. \x[sequelize] v5 is such an ORM that makes you suffer.
+
+The next thing to check are transactions.
+
+Basically, all of those come up if you try to implement a blog \x[hello-world] world such as \x[gothinkster-realworld] \i[correctly], i.e. without unnecessary inefficiencies due to your ORM on top of underlying SQL, and dealing with concurrency.
 
 = Relational database
 {parent=database}
@@ -32589,6 +32623,8 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it:
     * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
     * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in \x[sql-1999] when there are no ambiguities due to constraints, e.g. when grouping by unique columns
+    * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that \x[postgresql] wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
+    * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to rationale mailing list thread: 
 * \x[sql-transaction] examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * \x[sql-isolation-level-example]{child}
@@ -34027,6 +34063,29 @@ Closed source on offline products used by millions of people is \x[evil], when y
 
 The opposite of \x[open-source-software].
 
+= Closed standard
+{parent=closed-source}
+
+\x[iso] is the main culprit of this \x[bullshit], some notable examples related to \x[open-source-software]:
+* \x[ansi-c]
+* \x[sql-standard]
+* \x[verilog]
+
+The only low level thing that escaped this was \x[opengl] via \x[khronos], what heroes those people are.
+
+How the hell are you supposed to develop an open source implementation of something that has a closed standard?
+
+Not to mention open source test suites, that would be way too much to ask for, those always end up being made by some shady small companies that go bankrupt from time to time, see e.g. .
+
+= International Organization for Standardization
+{c}
+{parent=closed-standard}
+{wiki}
+
+= ISO
+{c}
+{synonym}
+
 = Inner source
 {parent=closed-source-software}
 {wiki}
@@ -34034,6 +34093,10 @@ The opposite of \x[open-source-software].
 If you are going to do \x[closed-source], at least do it like this.
 
 Basically the opposite of \x[need-to-know] for \x[software].
+
+= Personal information management
+{parent=software}
+{wiki}
 
 = Productivity software
 {parent=software}
@@ -34144,6 +34207,11 @@ The more heavily a project relies on it, the more you start to regret it.
 It gets the job done, but cannot make a large codebase DRY without insanity.
 
 As of 2020, C is like \x[latin], and we are in the \x[middle-ages], where it has become a \x[lingua-franca].
+
+= ANSI C
+{c}
+{parent=c-programming-language}
+{wiki}
 
 = C++
 {c}
@@ -34307,7 +34375,11 @@ As of 2021, this library is extremely painful to use. It does feel semi-mature, 
 * the implementation has several inelegant/unintuitive annoyances/requirements of code repetition that drive you mad.
 
   The association API feels notably bad, it took a few days for \x[ciro-santilli] to learn to do what he considers "basic" association operations, knowledge which he dumped to: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
-* bugs are piling up. It appears that many key devs left, and current maintainers are just not being able to keep up. And they have a stupid bot that closes every thread automatically after a few days, what's the point... valid bugs are being closed due to this.
+
+  See also: \x[how-to-decide-if-an-orm-is-good].
+* bugs are piling up. It appears that many key devs left, and current maintainers are just not being able to keep up.
+
+  And they have setup a stupid bot that closes every thread automatically after a few days, what's the point... valid bugs are being closed due to this, and it is impossible to distinguish what is solved and what isn't since everything gets closed.
 
 Some glaring issues are listed at \x[the-horrors-of-sequelize].
 
@@ -34380,9 +34452,10 @@ Overview of the examples:
       * https://stackoverflow.com/questions/30308217/sequelize-find-by-association-through-manually-defined-join-table/69899876#69899876
     * \a[nodejs/sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
     * \a[nodejs/sequelize/many_to_many_same_model_super.js]
+    * \a[nodejs/sequelize/many_to_many_super.js]: "Super many to many": https://sequelize.org/master/manual/advanced-many-to-many.html This should not exist and shows how bad this library is for associations, you need all that boilerplate in order to expose certain relationships that aren't otherwise exposed by a direct `hasMany` with implicit join table.
   * nested includes to produce queries with multiple \x[join-sql]{p}:
     * \a[nodejs/sequelize/nested_include.js]: find all posts by users that a given user follows. Answers: https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause/68018083#68018083
-    * \a[nodejs/sequelize/nested_include_super.js]: like \a[nodejs/sequelize/nested_include.js] but with a super many to many.
+    * \a[nodejs/sequelize/nested_include_super.js]: like \a[nodejs/sequelize/nested_include.js] but with a super many to many. We should move this to \a[nodejs/sequelize/many_to_many_super.js].
   * two relationships between two specific tables: we need to use `as:` to disambiguate them
     * \a[nodejs/sequelize/many_to_many_double.js]: users can both follow and like posts
     * \a[nodejs/sequelize/one_to_many_double.js]: posts have the author and a mandatory reviewer
@@ -34392,6 +34465,12 @@ Overview of the examples:
     * https://github.com/sequelize/sequelize/issues/8586
   * \a[nodejs/sequelize/hook_in_transaction.js]:
     * https://stackoverflow.com/questions/35014679/sequelize-hook-depending-on-transaction
+* internals:
+  * \a[nodejs/sequelize/common.js]: common utilities used across examples, most notably:
+    * to easily setup different DBRM
+    * do a lot more stuff under \a[nodejs/sequelize/raw] to have a little bit of DBRM portability where we need it, notably transactions
+  * \a[nodejs/sequelize/min-nocommon.js]: to copy paste to \x[stack-overflow]
+  * \a[nodejs/sequelize/min.js]: template for new exapmles in the folder
 
 = Sequelize parallel example
 {parent=sequelize-example}
@@ -35545,11 +35624,20 @@ The first thing the colleague said: join those three commands into one:
 ``
 cmd1;cmd2;cmd3
 ``
-
 And so, \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
 
-= It is impossible to predict how long it will take to do something
+= You can sometimes debug code by staring at it
 {parent=ciro-santilli-s-software-engineering-wisdom}
+
+A long time ago.
+
+= Hofstadter's law
+{c}
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+= It is impossible to predict how long it will take to do something
+{synonym}
 
 The trivial takes a few hours.
 
@@ -35560,6 +35648,26 @@ And what seemed hard takes a few hours.
 As "deadlines" approach, feature sets get cut down, then there are delays, and finally a feasible feature set is delivered some time after the deadline.
 
 The only deadlines that can be met are those of tasks which have already been done but not announced.
+
+This is of course \x[hofstadter-s-law].
+
+On the other hand, it is also known that the time it takes for a task to be done expands without limits to match the deadline. And therefore, without deadlines, tasks will take forever and never get done.
+
+And so, in a moment, perceiving \x[koan][this paradox], \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
+
+= Sometimes you can debug software by staring at the code for long enough
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+Once upon a time, when \x[ciro-santilli] had a job, he had a programming problem.
+
+A senior developer came over, and rather than trying to run and modify the code like an idiot, which is what \x[ciro-santilli] usually does (see also experimentalism remarks at \x[ciro-santilli-s-bad-old-event-memory]{full}), he just stared at the code for about 10 minutes.
+
+We knew that the problem was likely in a particular function, but it was really hard to see why things were going wrong.
+
+After the 10 minutes of examining every line in minute detail, he said: I think this function call has "such or such weird edge case", and truly, that was the cause.
+
+And so, \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
 
 = Office space design and remote work
 {parent=ciro-santilli-s-software-engineering-wisdom}
@@ -35805,10 +35913,6 @@ This is basically the cause of \x[hofstadter-s-law].
 But of course, it is because it is hard that it feels amazing when you achieve your goal.
 
 Putting a complex and useful program together is like composing a symphony, or reaching the summit of a hard \x[rock-climbing] proble.
-
-= Hofstadter's law
-{c}
-{parent=software-engineering}
 
 = Software portability
 {parent=software}
@@ -36852,6 +36956,9 @@ APIURL=http://localhost:3000/api USERNAME="u$(date +%s)" ./run-api-tests.sh
 ``
 so the per-repository tests are basically useless, and that single test can test everything for any backend! There is no frontend testing however: https://github.com/gothinkster/realworld/issues/269 so newb.
 
+= gothinkster/realworld implementation
+{parent=gothinkster-realworld}
+
 Setups we've tried:
 * backend:
   * \x[randyscotsmithey-feathers-realworld-example-app]{child} worked with \x[react] and \x[vue-js]
@@ -37027,7 +37134,7 @@ Officially recommended by \x[react-javascript-library]https://reactjs.org/docs/c
 
 If you’re building a server-rendered website with Node.js, try Next.js.]
 
-\x[gothinkster-realworld] blog example by \x[ciro-santilli]: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app
+\x[gothinkster-realworld] blog example by \x[ciro-santilli]: \x[node-express-sequelize-nextjs-realworld-example-app].
 
 Basically what this does is to get \x[server-side-rendering] just working by \x[react-javascript-library], including hydration, which is a good thing.
 
@@ -37084,6 +37191,12 @@ Solved ones:
 * solved by https://nextjs.org/docs/advanced-features/preview-mode[preview mode] in Next.js 12:
   * ISR was basically unusable for CRUD websites because you can't force a one-off immediate page update:
     * https://github.com/vercel/next.js/discussions/25677
+
+= Node Express Sequelize Next.js realworld example app
+{parent=next-js}
+{tag=gothinkster-realworld-implementation}
+
+https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app
 
 = Vue.js
 {c}
@@ -44216,6 +44329,18 @@ https://cirosantilli.com/china-dictatorship/wayback-machine
 {parent=wiki}
 {wiki}
 
+= HyperCard
+{c}
+{parent=wiki}
+{wiki}
+
+This was the pre-\x[internet] precursor of \x[wiki]{p}. This program was likely venerable, shame it predates \x[ciro-santilli]'s era.
+
+But the thing was much more bloated it seems, and also included visual programming elements, and WYSISYG UI creation.
+
+\Video[https://www.youtube.com/watch?v=FquNpWdf9vg]
+{title2=Hypercard by The Computer Chronicles (1987)}
+
 = Know Your Meme
 {c}
 {parent=wiki}
@@ -44226,6 +44351,7 @@ https://knowyourmeme.com/
 The dominating \x[meme] \x[database] as of 2020.
 
 = Mathematics wiki
+
 {parent=wiki}
 
 = Encyclopedia of Math

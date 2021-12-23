@@ -3,7 +3,11 @@
 const assert = require('assert')
 const { DataTypes, Op } = require('sequelize')
 const common = require('./common')
-const sequelize = common.sequelize(__filename, process.argv[2], { define: { timestamps: false } })
+const sequelize = common.sequelize(
+  __filename,
+  process.argv[2],
+  { define: { timestamps: false }
+})
 ;(async () => {
 
 // Create the tables.
@@ -13,7 +17,7 @@ const User = sequelize.define('User', {
 const Post = sequelize.define('Post', {
   body: { type: DataTypes.STRING },
 });
-const UserFollowUser = sequelize.define('UserFollowUser', {
+const UserFollowUser = sequelize.define('UserFollowPost', {
     UserId: {
       type: DataTypes.INTEGER,
       references: {
@@ -32,7 +36,7 @@ const UserFollowUser = sequelize.define('UserFollowUser', {
 );
 
 // Super many to many.
-User.belongsToMany(User, {through: UserFollowUser, as: 'Follows'});
+User.belongsToMany(User, { through: UserFollowUser, as: 'Follows' });
 UserFollowUser.belongsTo(User)
 User.hasMany(UserFollowUser)
 

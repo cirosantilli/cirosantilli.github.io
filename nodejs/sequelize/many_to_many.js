@@ -9,10 +9,10 @@ const sequelize = common.sequelize(__filename, process.argv[2])
 // Create the tables.
 const User = sequelize.define('User', {
   name: { type: DataTypes.STRING },
-}, {});
+});
 const Post = sequelize.define('Post', {
   body: { type: DataTypes.STRING },
-}, {});
+});
 // UserLikesPost is the name of the relation table.
 // Sequelize creates it automatically for us.
 // On SQLite that table looks like this:
@@ -126,9 +126,11 @@ assert.strictEqual(await user0.countPosts(), 2)
 }
 
 // TODO Find all posts that user0 likes, and for each post include
-// all useres that like that post. Doesn't seem possible.
-// https://github.com/sequelize/sequelize/issues/8013
-// https://github.com/sequelize/sequelize/issues/7754
+// data about all users that like that post. Doesn't seem possible.
+// in Sequelize, as we would need to include the same model twice
+// under different aliases, which does not seem supported:
+// * https://github.com/sequelize/sequelize/issues/8013
+// * https://github.com/sequelize/sequelize/issues/7754
 if (false) {
 rows = await Post.findAll({
   include: [
@@ -138,11 +140,12 @@ rows = await Post.findAll({
     },
     {
       model: User,
-      as: 'User2',
+      where: { id: user1.id },
     }
   ],
   order: [['body', 'ASC']],
 })
+console.error(rows);
 assert.strictEqual(rows[0].body, 'post0');
 assert.strictEqual(rows[0].Users[0].name, 'user0');
 assert.strictEqual(rows[0].Users.length, 1);
@@ -151,6 +154,102 @@ assert.strictEqual(rows[1].Users[0].name, 'user0');
 assert.strictEqual(rows[1].Users[1].name, 'user2');
 assert.strictEqual(rows[1].Users.length, 2);
 assert.strictEqual(user0Likes.length, 2);
+}
+
+// TODO Get all posts, and also determine if user2 likes each of of them or not.
+// by doing LEFT OUTER JOIN. Managed only with super many to many.
+// https://stackoverflow.com/questions/31091420/nodejs-sequelize-include-where-required-false
+// https://stackoverflow.com/questions/39658204/sequelize-how-to-do-a-where-condition-on-joined-table-with-left-outer-join
+//
+// PostgreSQL works with the desired:
+//
+// SELECT
+//   "Post"."id",
+//   "Post"."body",
+//   "Post"."createdAt",
+//   "Post"."updatedAt",
+//   "Users"."id" AS "Users.id"
+// FROM
+//   "Posts" AS "Post"
+//   LEFT OUTER JOIN (
+//     "UserLikesPost" AS "Users->UserLikesPost"
+//     INNER JOIN "Users" AS "Users" ON "Users"."id" = "Users->UserLikesPost"."UserId"
+//   ) ON "Post"."id" = "Users->UserLikesPost"."PostId"
+//   AND "Users"."id" = 3
+// ORDER BY
+//   "Post"."body" ASC;
+//
+// but SQLite fails with:
+//
+// SELECT
+//   `Post`.`id`,
+//   `Post`.`body`,
+//   `Post`.`createdAt`,
+//   `Post`.`updatedAt`,
+//   `Users`.`id` AS `Users.id`
+// FROM
+//   `Posts` AS `Post`
+// LEFT OUTER JOIN `UserLikesPost` AS `Users->UserLikesPost`
+//   ON `Post`.`id` = `Users->UserLikesPost`.`PostId`
+// LEFT OUTER JOIN `Users` AS `Users`
+//   ON `Users`.`id` = `Users->UserLikesPost`.`UserId`
+//   AND `Users`.`id` = 3
+// ORDER BY `Post`.`body` ASC;
+//
+// Running that manually gives:
+//
+// 1|post0|
+// 2|post1|
+// 2|post1|3
+// 3|post2|
+//
+// The correct query would have been:
+//
+// SELECT
+//   `Post`.`id`,
+//   `Post`.`body`,
+//   `Post`.`createdAt`,
+//   `Post`.`updatedAt`,
+//   `Users`.`id` AS `Users.id`
+// FROM
+//   `Posts` AS `Post`
+// LEFT OUTER JOIN `UserLikesPost` AS `Users->UserLikesPost`
+//   ON `Post`.`id` = `Users->UserLikesPost`.`PostId`
+//   AND `Users->UserLikesPost`.`UserId` = 3
+// LEFT OUTER JOIN `Users` AS `Users`
+//   ON `Users`.`id` = `Users->UserLikesPost`.`UserId`
+// ORDER BY `Post`.`body` ASC;
+//
+// which gives the desired:
+//
+// 1|post0|
+// 2|post1|3
+// 3|post2|
+if (true || sequelize.options.dialect === 'postgres') {
+rows = await Post.findAll({
+  include: [{
+    model: User,
+    where: { id: user0.id },
+    // No effect.
+    //on: { id: user2.id },
+    through: {
+      //attributes: [],
+      // Same as putting the where outside of through.
+      //where: { UserId: user2.id },
+    },
+    required: false,
+    //attributes: ['id'],
+  }],
+  order: [['body', 'ASC']],
+})
+console.error(rows.map(row => row.Users.map(user => user.id)));
+assert.strictEqual(rows[0].body, 'post0');
+assert.strictEqual(rows[0].Users.length, 0);
+assert.strictEqual(rows[1].body, 'post1');
+assert.strictEqual(rows[1].Users.length, 1);
+assert.strictEqual(rows[2].body, 'post2');
+assert.strictEqual(rows[2].Users.length, 0);
+assert.strictEqual(rows.length, 3);
 }
 
 // Get users that liked a given post.

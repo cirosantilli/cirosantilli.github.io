@@ -1,6 +1,19 @@
+const assert = require('assert')
 const path = require('path');
 
 const { Sequelize } = require('sequelize');
+
+function assertEqual(rows, rowsExpect) {
+  assert.strictEqual(rows.length, rowsExpect.length)
+  for (let i = 0; i < rows.length; i++) {
+    let row = rows[i]
+    let rowExpect = rowsExpect[i]
+    for (let key in rowExpect) {
+      assert.strictEqual(row[key], rowExpect[key])
+    }
+  }
+}
+exports.assertEqual = assertEqual
 
 async function drop(sequelize, table) {
   if (sequelize.options.dialect === 'postgres') {
