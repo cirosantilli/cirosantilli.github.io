@@ -2,15 +2,16 @@
 
 // https://cirosantilli.com/express-js
 
+const assert = require('assert')
+const http = require('http')
+
 const express = require('express')
 
 // Test it.
-function test(path, method, status, resBodyExpect, reqBody) {
-  const assert = require('assert')
-  const http = require('http')
+function test(port, path, method, status, resBodyExpect, reqBody) {
   const options = {
     hostname: 'localhost',
-    port: server.address().port,
+    port,
     path,
     method,
   }
@@ -181,10 +182,11 @@ app.get('/error/custom-handler',
   }
 )
 
-const server = app.listen(3000, () => {
-  console.log(`listening: http://localhost:${server.address().port}`)
+app.listen(3000, function () {
+  const port = this.address().port
+  console.log(`listening: http://localhost:${port}`)
   for (let atest of tests) {
     console.error(atest);
-    test(...atest)
+    test(port, ...atest)
   }
 })
