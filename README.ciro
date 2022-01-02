@@ -19920,6 +19920,23 @@ South Indian vegetarian thali is the best thing ever.
 {parent=southeast-asia}
 {wiki}
 
+= West Asia
+{c}
+{parent=asia}
+
+= Country in West Asia
+{parent=west-asia}
+
+= Israel
+{c}
+{parent=country-in-west-asia}
+
+What they are doing to the Palestinians is a tremendous injustice. Either give them citizenship, or give them a country.
+
+The fact that the \x[united-states] supports this is an incurable black mark in their moral standing that will not be forgotten for a very long time.
+
+See also: https://cirosantilli.com/china-dictatorship/israel
+
 = Europe
 {c}
 {parent=list-of-continents}
@@ -19968,6 +19985,15 @@ At most, there must be a standardized \x[api] that allows your browser to say "I
 
 = Country in Europe
 {parent=europe}
+
+= Netherlands
+{c}
+{parent=country-in-europe}
+{wiki}
+
+= Dutch
+{c}
+{synonym}
 
 = France
 {c}
@@ -29376,7 +29402,13 @@ It is funny to see how the first computers were very artisanal, made on a one-of
 
 Amazing how Control Data Corporation raised capital IPO style as a startup without a product. The dude was selling shares at dinner parties in his home.
 
-Very interesting mention on page 70 of how Israel bought CDC's https://en.wikipedia.org/wiki/UNIVAC_1103[UNIVAC 1103] which Cray contributed greatly to design, and everyone knew that it was to make \x[thermonuclear-weapon]{p}, since that was what the big American labs like  this mention should be added to: https://en.wikipedia.org/wiki/Nuclear_weapons_and_Israel but that's Extended Protected... the horrors of wikipedia.
+Very interesting mention on page 70 of how \x[israel] bought CDC's https://en.wikipedia.org/wiki/UNIVAC_1103[UNIVAC 1103] which Cray contributed greatly to design, and everyone knew that it was to make \x[thermonuclear-weapon]{p}, since that was what the big American labs like  this mention should be added to: https://en.wikipedia.org/wiki/Nuclear_weapons_and_Israel but that's Extended Protected... the horrors of wikipedia.
+
+Another interesting insight is how "unintegrated" computers were back then. They were literally building computers out of individual \x[vacuum-tube]{p}, then individual semiconducting transistors, a gate at a time. Then things got more and more integrated as time went.
+
+Also, because integration was so weak initially, it was important to more manually consider the length of wire signals had to travel, and try to put components closer together to reduce the \x[critical-path] to be able to inrease clock speeds. These constraints are also of course present in modern computer design, but they were just so much more visible in those days.
+
+The book does unfortunately not give much detail in Crays personal life as mentioned on this book review: https://www.goodreads.com/review/show/1277733185?book_show_action=true[]. His childhood section is brief, and his wedding is described in one paragraph, and divorce in one sentence.
 
 = Industry
 {parent=engineering}
@@ -31060,9 +31092,14 @@ diff -u hello.decrypt.txt hello.txt
 {parent=tor-anonymity-network}
 {wiki}
 
-= Tor Onion service
+= Onion service
 {c}
 {parent=tor-anonymity-network}
+{wiki=https://en.wikipedia.org/wiki/Tor_(network)#Onion_services}
+
+= Tor Onion service
+{c}
+{synonym}
 
 = Tor hidden service
 {c}
@@ -31080,8 +31117,16 @@ Bibliography:
 * https://security.stackexchange.com/questions/38194/how-can-i-get-the-ip-address-for-a-tor-hidden-service-hs-with-a-onion-address
 
 = Dark web
-{parent=tor-onion-service}
+{parent=onion-service}
 {wiki}
+
+= Onion service search engine
+{parent=onion-service}
+
+= Uncensored Onion service search engine
+{parent=onion-service-search-engine}
+
+This is where "fun" stuf is likely to be.
 
 = The Hidden Wiki
 {c}
@@ -31319,6 +31364,12 @@ Invented for \x[bitcoin].
 = Base64
 {c}
 {parent=binary-to-text-encoding}
+{wiki}
+
+= yEnc
+{c}
+{parent=binary-to-text-encoding}
+{wiki}
 
 = Archive file
 {parent=file-format}
@@ -37290,7 +37341,7 @@ and then the new comment easily gets the callback attached to it.
 
 And it also ends up naturally doubling as a template engine.
 
-But it can be hard to know what you can and cannot do sometimes, then you have to stop and try to understand how react works things better:
+But React can also be extremelly hard to use. It can be very hard to know what you can and cannot do sometimes, then you have to stop and try to understand how react works things better:
 * \x[cannot-update-a-component-while-rendering-a-different-component-warning-in-react]
 * Rendered more hooks than during the previous render.
 * cannot use hooks from helpers:
@@ -37299,6 +37350,8 @@ But it can be hard to know what you can and cannot do sometimes, then you have t
   * https://stackoverflow.com/questions/64689409/helper-function-using-hooks-inside-a-functional-component
 The biggest problem is that it is hard to automatically detect such errors, but perhaps this is the same for other frontend stuff. Though when doing \x[server-side-rendering], the setup should really tell you about such errors, so you don't just discover them in production later on.
 
+Is is also very difficult to understand precisely why hooks run a certain number of times.
+
 Examples under: \a[web-cheat/react].
 * \a[web-cheat/react/hello.html]: minimal example. As you click:
   * one counter increments every time
@@ -37306,7 +37359,7 @@ Examples under: \a[web-cheat/react].
   By opening a web inspector, you can see that only modified elements get updated. So we understand that \x[jsx] parses its "HTML-like" into a tree, and then propagates updates on that tree.
 
   By looking at the terminal, we see that `render()` does get called every time the button is clicked, so the tree gets recreated every time.
-* \a[web-cheat/react/hello-hook.html]: Hello World with hooks instead of classes. Exactly equivalent to \a[web-cheat/react/hello.html]. `React.useState` plays the role of the constructor. Hooks were introduced much after classes, and just require less code, so everyone is using them now instead of classes.
+* \a[web-cheat/react/hello-hook.html]: Hello World with hooks instead of classes. Exactly equivalent to \a[web-cheat/react/hello.html]. `React.useState` plays the role of the constructor. Hooks were introduced much after classes, and just require less code, so everyone is using them now instead of classes. It appears that that hello world is wrong though, you need functional sets: https://stackoverflow.com/questions/375913/how-can-i-profile-c-code-running-on-linux/60265409#60265409[] TODO confirm.
 * \a[web-cheat/react/hello-without-jsx.html]: Hello World in pure \x[javascript], without \x[jsx]. Exactly equivalent to \a[web-cheat/react/hello.html]. Documented at: https://reactjs.org/docs/react-without-jsx.html Understanding this is fundamental to understanding React.
 * \a[web-cheat/react/prop-change.html]: shows what gets called as parameters flow down through the tree.
 
@@ -39977,7 +40030,7 @@ Bibliography:
 TODO: it would be cool to have something like https://bitcoinstrings.com[] but including the actual transactions:
 
 Local methods:
-* https://github.com/cirosantilli/bitcoin-strings-with-txid
+* https://github.com/cirosantilli/bitcoin-strings-with-txids
 * https://bitcoin.stackexchange.com/questions/30295/how-can-i-search-for-transaction-text-on-the-blockchain
 * https://bitcoin.stackexchange.com/questions/22500/is-there-a-lightweight-blockchain-parser-library-server/101472#101472
 * https://github.com/alecalve/python-bitcoin-blockchain-parser
@@ -41331,6 +41384,10 @@ Collections and overviews:
 
 TODO it is quite hard to actually find non-automatically generated \x[ascii-art] of people \x[fucking], most of them are just \x[sexy]/\x[horny] women drawn by bearded nerds.
 
+Here's one of the \x[chinese-government] \x[fucking] 1 million Chinese people in the \x[anus][ass] during the \x[tiananmen-square-protests], which was undoubtedly one of the largest \x[gang-bang]{p} of the late 20th century:
+* \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china]{full}
+* https://cirosantilli.com/china-dictatorship/tank-man about \x[tank-man]
+
 ``
                                     |
                                     |
@@ -41372,10 +41429,6 @@ o||0
  /\
 ``
 {title=Tank man \x[ascii-art] by \x[ciro-santilli] (2021)}
-{description=This image depicts the \x[chinese-government] \x[fucking] 1 million Chinese people in the \x[anus][ass] during the \x[tiananmen-square-protests] which was undoubtedly one of the largest \x[gang-bang]{p} of the late 20th century:
-* \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china]{full}
-* https://cirosantilli.com/china-dictatorship/tank-man about \x[tank-man]
-}
 
 = ANSI art
 {c}
@@ -44719,7 +44772,11 @@ https://cirosantilli.com/china-dictatorship/archive-today
 {parent=web-archiving}
 {wiki}
 
-You can borrow online books from them for a few hours/days: https://help.archive.org/hc/en-us/articles/360016554912-Borrowing-From-The-Lending-Library This is the most amazing thing ever made!!!
+= Internet Archive Lending Library
+{c}
+{parent=internet-archive}
+
+You can borrow online books from them for a few hours/days: https://help.archive.org/hc/en-us/articles/360016554912-Borrowing-From-The-Lending-Library This is the most amazing thing ever made!!! You can even link to specific pages, e.g. https://archive.org/details/supermenstory00murr/page/80/mode/2up
 
 = Wayback Machine
 {c}
@@ -44878,8 +44935,47 @@ Best languages:
 = MediaWiki
 {c}
 {parent=wikipedia}
+{wiki}
 
 \x[open-source-software]{c} engine created for and used by \x[wikipedia].
+
+= MediaWiki markup
+{c}
+{parent=mediawiki}
+
+https://www.mediawiki.org/wiki/Markup_spec
+
+= How to reference a book in Wikipedia markup?
+{parent=mediawiki-markup}
+
+Their reference markup is incredibly overengineered, convoluted, and underdocumented, it is unbelivable!
+
+Use the reference:
+``
+This is a fact.{{sfn|Schweber|1994|p=487}}
+``
+
+Define the reference:
+``
+===Sources===
+{{refbegin|2|indent=yes}}
+*{{Cite book|author-link=Silvan S. Schweber |title=QED and the Men Who Made It: Dyson, Feynman, Schwinger, and Tomonaga|last=Schweber|first=Silvan S.|location=Princeton|publisher=University Press|year=1994 |isbn=978-0-691-03327-3 |url=https://archive.org/details/qedmenwhomadeitd0000schw/page/492 |url-access=registration}}
+{{refend}}
+``
+
+`sfn` is magic and matches the the author last name and date from the `Cite`, it is documented at: https://en.wikipedia.org/wiki/Template:Sfn
+
+Unforutunately, if there are multiple duplicate `Cite`s inline in the article, it will complain that there are multiple definitions, and you have to first factor out the article by replacing all those existing `Cite` with `sfn`, and keeping just one `Cite` at the bottom. What a pain...
+
+You can also link to a specific page of the book, e.g. if it is a book is on \x[internet-archive-lending-library] with:
+``
+{{sfn|Murray|1997|p=[https://archive.org/details/supermenstory00murr/page/86 86]}}
+``
+
+For multiple pages should use `pp=` instead of `p=`. Does not seem to make much difference on the rendered output besides showing `p.` vs `pp.`, but so be it:
+``
+{{sfn|Murray|1997|pp=[https://archive.org/details/supermenstory00murr/page/86 86-87]}}
+``
 
 = Ciro Santilli's Wikipedia contributions
 {c}
