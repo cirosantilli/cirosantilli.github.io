@@ -58,9 +58,11 @@ async function reset() {
   // First clean the database to properly reset data after we modify data in our tests.
   await sequelize.truncate({ cascade: true })
 
-  await IntegerNames.create({value: 2, name: 'two'});
-  await IntegerNames.create({value: 3, name: 'three'});
-  await IntegerNames.create({value: 5, name: 'five'});
+  return [
+    await IntegerNames.create({value: 2, name: 'two'}),
+    await IntegerNames.create({value: 3, name: 'three'}),
+    await IntegerNames.create({value: 5, name: 'five'}),
+  ]
   // psql lkmc-nodejs -c 'SELECT * FROM "IntegerNames";'
   //
   // gives:
@@ -72,8 +74,8 @@ async function reset() {
   //   3 |     5 | five  | 2021-03-19 19:12:08.437+00 | 2021-03-19 19:12:08.437+00
   // (3 rows)
 }
-let i = await IntegerNames.findOne();
-await reset()
+let i2, i3, i5
+;[i2, i3, i5] = await reset()
 
 let integerNames;
 
@@ -123,6 +125,21 @@ integerNames = await IntegerNames.findAll({
 });
 assert.strictEqual(integerNames.length, 0);
 
+// SELECT WHERE IN LIMIT 1
+integerNames = await IntegerNames.findOne({
+  where: { value: { [Op.gt]: 2 }, },
+  order: [['value', 'ASC']]
+});
+assert.strictEqual(integerNames.value, 3);
+
+// SELECT WHERE IN id =
+integerNames = await IntegerNames.findByPk(i3.id)
+assert.strictEqual(integerNames.value, 3);
+
+// Returns null if does not exist.
+integerNames = await IntegerNames.findByPk(666)
+assert.strictEqual(integerNames, null);
+
 // attributes: SELECT only specified columns instead of the default of selecting all of them.
 // Rename value to myvalue
 //
@@ -162,13 +179,13 @@ integerNames = await IntegerNames.findAll({order: [['value', 'ASC']]})
 assert.strictEqual(integerNames[0].name, 'two');
 assert.strictEqual(integerNames[1].name, 'five');
 assert.strictEqual(integerNames.length, 2);
-await reset()
+;[i2, i3, i5] = await reset()
 
 // Truncate all tables.
 // https://stackoverflow.com/questions/47816162/wipe-all-tables-in-a-schema-sequelize-nodejs/66985334#66985334
 await sequelize.truncate();
 assert.strictEqual(await IntegerNames.count(), 0);
-await reset()
+;[i2, i3, i5] = await reset()
 
 // bulkdreate
 await sequelize.truncate();
@@ -186,7 +203,7 @@ rows = await IntegerNames.findAll({order: [['value', 'ASC']]})
 // https://github.com/sequelize/sequelize/issues/6992
 assert.strictEqual(rows[0].createdAt.getTime(), date.getTime())
 assert.strictEqual(rows[0].updatedAt.getTime(), date.getTime())
-await reset()
+;[i2, i3, i5] = await reset()
 
 // .close Otherwise it hangs for 10 seconds, it seems that it keeps the connection alive.
 // https://stackoverflow.com/questions/28253831/recreating-database-sequelizejs-is-slow

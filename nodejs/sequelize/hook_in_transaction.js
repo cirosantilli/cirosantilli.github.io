@@ -31,10 +31,10 @@ const IntegerNames = sequelize.define('IntegerNames',
 );
 await IntegerNames.sync({force: true})
 let i;
-await sequelize.transaction(async t => {
-  i = await IntegerNames.create({value: 2, name: 'two'}, { transaction: t })
+await sequelize.transaction(async transaction => {
+  i = await IntegerNames.create({value: 2, name: 'two'}, { transaction })
 })
-await sequelize.transaction(async t => {
-  await i.destroy({ transaction: t })
+await sequelize.transaction(async transaction => {
+  await i.destroy({ transaction })
 })
 })().finally(() => { return sequelize.close() });

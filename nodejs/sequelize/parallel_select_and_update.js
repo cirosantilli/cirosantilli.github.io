@@ -45,14 +45,14 @@ async function inc(sequelize, n, isolation, lock) {
     if (isolation !== 'NONE') {
       transactionArgs.isolationLevel = Transaction.ISOLATION_LEVELS[isolation]
     }
-    await transactionWithRetry(sequelize, transactionArgs, async t => {
-      const findArgs = { transaction: t }
+    await transactionWithRetry(sequelize, transactionArgs, async transaction => {
+      const findArgs = { transaction }
       if (lock !== undefined) {
         findArgs.lock = t.LOCK[lock]
       }
       const rows = await sequelize.models.MyInt.findAll(findArgs)
       const newI = rows[0].i + 1
-      await sequelize.models.MyInt.update({ i: newI }, { where: {}, transaction: t })
+      await sequelize.models.MyInt.update({ i: newI }, { where: {}, transaction })
     })
   }
 }
