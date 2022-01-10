@@ -45,6 +45,19 @@ assert.strictEqual(rows[0].value, 3)
 assert.strictEqual(rows[1].value, 5)
 assert.strictEqual(rows.length, 2)
 
+// SELECT with a WHERE IN condition.
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE value IN (3, 5) ORDER BY value ASC`)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows[1].value, 5)
+assert.strictEqual(rows.length, 2)
+
+// WHERE IN pair. VALUES thing likely makes a temporary database.
+// https://stackoverflow.com/questions/10725901/select-query-by-pair-of-fields-using-an-in-clause
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE (value, name) IN (VALUES (3, 'three'), (5, 'five')) ORDER BY value ASC`)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows[1].value, 5)
+assert.strictEqual(rows.length, 2)
+
 // SELECT LIMIT
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT 2`)
 assert.strictEqual(rows[0].value, 2)
