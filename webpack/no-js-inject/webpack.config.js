@@ -25,7 +25,6 @@ module.exports = {
   },
   output: {
     clean: true,
-    // Add a hash to the file so that browsers can cache agressively.
     filename: '[name].js',
     path: distDir,
 

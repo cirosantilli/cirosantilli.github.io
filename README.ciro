@@ -37591,25 +37591,25 @@ Webpack is like a magic hydra that can \x[eat] any type of file and bundle it in
 
 When it works, you are just left in awe. When it doesn't, you're fucked and have to debug for several hours.
 
-Demos at: \a[web-cheat/webpack/].
+Demos at: \a[webpack/].
 
-\a[web-cheat/webpack/template] contains a reasonable starter template.
+\a[webpack/template] contains a reasonable starter template.
 
 Usage:
 ``
-cd web-cheat/webpack/template
+cd webpack/template
 npm install
 npm run build
 ``
 
 This will produce, under `dist/` the following minimized files:
-* `dist/index.html`: from \a[web-cheat/webpack/template/index.html]. You can open it to see:
+* `dist/index.html`: from \a[webpack/template/index.html]. You can open it to see:
   ``
   Hello webpack
   ``
   show on the browser. This was added from \x[javascript].
-* `dist/index.js`: from \a[web-cheat/webpack/template/index.js] and anything in its import tree, e.g.:
-  * \a[web-cheat/webpack/template/main.scss]: \x[sass-stylesheet-language] source. It gets embedded the the \x[javascript] output as a string, and the JavaScript then applies it to the page, making the font blue
+* `dist/index.js`: from \a[webpack/template/index.js] and anything in its import tree, e.g.:
+  * \a[webpack/template/main.scss]: \x[sass-stylesheet-language] source. It gets embedded the the \x[javascript] output as a string, and the JavaScript then applies it to the page, making the font blue
   * `lodash` third party library
 
 You can also run this test with the development server on http://localhost:9000[]:
@@ -37618,6 +37618,27 @@ npm start
 ``
 which uses unminimized outptus, and automatically push reloads the page whenever you change any of the input files!
 
+= File: webpack/no-js-inject
+{id=file/webpack/no-js-inject}
+{parent=webpack}
+
+This section is about: \a[webpack/no-js-inject].
+
+This example shows how you could manually include the `dist/index.js` that is output from webpack into your `index.html`.
+
+This is generally not what you want to do, because what you actually want to do is to use a Js output name with a hash in it, so that browsers only need to refetch when the name changes.
+
+And to do that, we have to let webpack dynamically inject that unpredictable hash as done in \x[webpack/template] with:
+``
+new HtmlWebpackPlugin({
+  filename: 'index.html',
+  // Inject the include to our hashed filename,
+  // since it is not deterministic due to the hash.
+  inject: true,
+  template: path.resolve(__dirname, 'index.html'),
+}),
+``
+
 = webpack Sass import
 {c}
 {parent=asset-bundler}
@@ -37625,13 +37646,13 @@ which uses unminimized outptus, and automatically push reloads the page whenever
 
 This shows how to produce a minimized fully embedded CSS file with webpack from a \x[sass-stylesheet-language]:
 ``
-cd web-cheat/webpack/sass
+cd webpack/sass
 npm install
 npm run build
 xdg-open index.html
 ``
 That example produces a `dist/main.css` file which is a compresesd combination of:
-* \a[web-cheat/webpack/sass/main.scss]
+* \a[webpack/sass/main.scss]
 * https://necolas.github.io/normalize.css/[normalize.css], added to the project as a regular `node_modules` package
 
 = Push technology
