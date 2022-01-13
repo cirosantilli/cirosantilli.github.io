@@ -9,10 +9,9 @@ import 'katex/dist/katex.css'
 import katex from 'katex'
 
 // Internal dependencies.
-import './main.css'
 import './main.scss'
 import { notindex_constant } from './notindex.js'
-import { my_umd_var } from '../../umd_my_lib.js'
+import { my_umd_var } from '../../web-cheat/umd_my_lib.js'
 // require is not recommended, but also works if you need it to.
 const { cjs_constant, cjs_func } = require('./cjs.js')
 
