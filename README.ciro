@@ -39,7 +39,7 @@ Quick facts:
 * \x[mailing-list]{c} or \x[git](\x[github][Hub]|\x[gitlab][Lab]): Git(Hub|Lab), with passion, see \x[mailing-list]{full}
 * System or unit tests: system
 * \x[programming-language]{p}: \x[python] and \x[c-plus-plus]. He'll learn Rust and \x[haskell] once he's rich.
-* Musical instruments to listen: \x[the-best-chinese-traditional-instrumental-music-of-all-time][Chinese Guqin] and \x[the-best-modern-instrumental-western-music-of-all-time][electric Jazz-fusion guitar]
+* Musical instruments to listen: \x[the-best-chinese-traditional-instrumental-music-of-all-time][Chinese Guqin] and \x[the-best-modern-instrumental-western-music][electric Jazz-fusion guitar]
 * Metric or \x[imperial-units][imperial]: metric, for The Love. \x[international-system-of-units][Science]? \x[having-more-than-one-natural-language-is-bad-for-the-world][Standardization]? 21st century anyone?
 * QWERTY or Dvorak: QWERTY, alas
 
@@ -3122,11 +3122,11 @@ While in \x[santos-sao-paulo-brazil][Santos], before going to university, Ciro s
 
 The \x[electric-guitar] environment was much less formalized in general, and he took courses with http://www.maurohector.com.br/[an awesome teacher] (https://web.archive.org/web/20190107231749/http://www.maurohector.com.br/[archive]), who actually tried to inspire his students to create their own music and improvisation.
 
-And so a young teenage Ciro once seriously considered becoming a professional \x[the-best-modern-instrumental-western-music-of-all-time][guitar player].
+And so a young teenage Ciro once seriously considered becoming a professional \x[the-best-modern-instrumental-western-music][guitar player].
 
 In his early teens, Ciro listened to the usual canned music his friends listened to: \x[music-teenager-ciro-santilli-liked-to-listen-to], until he started to stumble upon \x[jazz].
 
-Ciro remembers clearly rainy \x[weekend][weekend] days where he would go to a run down second hand shop near his home in someone's garage (Sebo do Alfaiate, R. Frei Francisco de Sampaio, 183 - Embaré, Santos - SP, 11040-220, Brazil :-)), and buy amazing second hand Jazz CDs. It was just a matter of time until he would start scouring the web for "the best jazz albums of all time" and start listening to all of them, see e.g. \x[the-best-modern-instrumental-western-music-of-all-time]. https://digitaldreamdoor.com/index.html was a good resource from those times!
+Ciro remembers clearly rainy \x[weekend][weekend] days where he would go to a run down second hand shop near his home in someone's garage (Sebo do Alfaiate, R. Frei Francisco de Sampaio, 183 - Embaré, Santos - SP, 11040-220, Brazil :-)), and buy amazing second hand Jazz CDs. It was just a matter of time until he would start scouring the web for "the best jazz albums of all time" and start listening to all of them, see e.g. \x[the-best-modern-instrumental-western-music]. https://digitaldreamdoor.com/index.html was a good resource from those times!
 
 Ciro ultimately decided \x[ciro-santilli-s-bad-old-event-memory][his bad memory] and overwhelming \x[ourbigbook-com/motivation][passion for the natural sciences] would better suit a scientific carrier.
 
@@ -36213,6 +36213,11 @@ But had too much stuff that would be specific to that project, so Ciro decided t
 
 A sample usage of the test library can be seen at: \a[nodejs/sequelize/test].
 
+= Assertion
+{disambiguate=software development}
+{parent=software-testing}
+{wiki}
+
 = Continuous integration
 {parent=software-testing}
 {wiki}
@@ -36222,10 +36227,13 @@ A sample usage of the test library can be seen at: \a[nodejs/sequelize/test].
 {title2}
 {synonym}
 
-= Assertion
-{disambiguate=software development}
+= Test driven development
 {parent=software-testing}
 {wiki}
+
+This is a good approach. The downside is that while you are developing the implementation and testing interactively you might notice that the requirements are wrong, and then the tests have to change.
+
+One intermediate approach \x[ciro-santilli] likes is to do the implementation and be happy with interactive usage, then create the test, make it pass, then remove the code that would make it pass, and see it fail. This does have a risk that you will forget to test something, but Ciro finds it is a worth it generally. Unless it really is one of those features that you are unable to develop without an automated test, generally more "logical/mathematical" stuff.
 
 = Software documentation
 {parent=software}
@@ -43577,7 +43585,7 @@ https://github.com/I-am-Erk/CDDA-Tilesets has a good tileset pack. To install on
 ``
 ~/.local/share/cataclysm-dda/gfx/
 ``
-and then select `UltCa` from Settings > Tiles in the main menu. It does make things much more immediately understandable. Edit: after some initial plays, Ciro had a second look at the default `-tiles` graphics, and they are not so bad. But still, the higher resolution is better.
+and then select `UltCa` from Settings > Tiles in the main menu. It does make things much more immediately understandable. Edit: after some initial plays, Ciro had a second look at the default `-tiles` graphics, and they are not so bad. But still, the higher resolution is better. Edit: looks like they are going to merge it in-tree, which is great! https://github.com/CleverRaven/Cataclysm-DDA/commits/master/gfx/UltimateCataclysm
 
 No default sounds, but has a soundpacks mechanism. Sad for now default, but cool for the configurability:
 * https://github.com/damalsk/damalsksoundpack/releases[]. It makes a large noise every time you walk, which is very annoying. Ambient sounds and music are OK though. It should really give a comfy music when in the shelter though.
@@ -43621,7 +43629,12 @@ Top feature requests for \x[ciro-santilli]:
 * fill all empty containers with something, e.g. water from a large pool into 25 plastic bottles
 * view wound details without having to select bandage or antiseptic. `@` "EFFECTS" has a summary, but it is too tiny, that stats window should be fullscreen for sure
 
+TODO how to create a custom non random map/scenario? Possible from JSON: https://discourse.cataclysmdda.org/t/guide-to-adding-new-content-to-cdda-for-first-time-modders/17781/13/ ?
+
 Their dominating communication channels are terrible, as of 2021 everything you google leads to: https://www.reddit.com/r/cataclysmdda/ which suffers from \x[online-forums-that-lock-threads-after-some-time-are-evil].
+
+Source code overview:
+* it is funny how the `lang/` directory with translations is by far the largest of the repo ta 100MB, way larger than `gfx`, it's comical
 
 \Video[https://www.youtube.com/watch?v=Cyoj4-niEPc&t=244s]
 {title=\x[cataclysm-dark-days-ahead] Review by \x[ssethtzeentach] (2018)}
@@ -44278,6 +44291,25 @@ Lots of demos.
 {parent=sea-shanty}
 {wiki}
 
+= Flamenco
+{parent=music-genre}
+{wiki}
+
+= Paco de Lucía
+{c}
+{parent=flamenco}
+{tag=guitarrist}
+{tag=the-best-modern-instrumental-western-musicians}
+{wiki}
+
+God, \x[ciro-santilli] respects this guy.
+
+Watching https://www.youtube.com/watch?v=-SbZZPX-y9g[] in 2022, who was one of his inspirations, \x[ciro-santilli-s-musical-education][made Ciro miss his guitar so much]... one day, maybe, one day.
+
+\Video[https://www.youtube.com/watch?v=VKtAhJPZS6o]
+{title=https://en.wikipedia.org/wiki/Bulerías[Bulerias] by Camaron de la isla & Paco de lucia}
+{description=TODO date and location}
+
 = Jazz
 {parent=music-genre}
 {wiki}
@@ -44303,43 +44335,46 @@ Ciro's 2020 perfect friday evening: jazz fusion + study \x[quantum-field-theory]
 Good ones:
 * https://en.wikipedia.org/wiki/In_the_Court_of_the_Crimson_King[In the Court of the Crimson King] by King Crimson (1969)
 
-= The best modern instrumental Western music of all time
+= The best modern instrumental Western music
 {parent=jazz}
 
 Not in other sections:
 * Grant Green: https://en.wikipedia.org/wiki/Idle_Moments[Idle Moments] (1963)
 * John Abercrombie: https://en.wikipedia.org/wiki/Timeless_(John_Abercrombie_album)[Timeless] (1975). Just close your eyes, and imagine.
-* Paco de Lucia: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
+* \x[paco-de-lucia]: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
 * Modern Jazz Quartet: https://en.wikipedia.org/wiki/Django_(album)[Django] (1956)
 * Victor Wooten: https://en.wikipedia.org/wiki/A_Show_of_Hands_(Victor_Wooten_album)[A Show of Hands (1996)]. OMG this is sick.
 * Bill Bruford https://en.wikipedia.org/wiki/Feels_Good_to_Me[Feels Good to Me (1978)]. Well, with \x[allan-holdsworth] on the g
 * \x[jean-luc-ponty]
 
+= The best modern instrumental Western musicians
+{parent=the-best-modern-instrumental-western-music}
+
 = Surfing with the Alien (1987) by Joe Satriani
 {c}
-{parent=the-best-modern-instrumental-western-music-of-all-time}
+{parent=the-best-modern-instrumental-western-music}
 {wiki=Surfing_with_the_Alien}
 
 = Secrets by Allan Holdsworth (1989)
 {c}
-{parent=the-best-modern-instrumental-western-music-of-all-time}
+{parent=the-best-modern-instrumental-western-music}
 {wiki=Secrets_(Allan_Holdsworth_album)}
 
 I.O.U, Road Games, and Metal Fatigue are also extremely worth it, they are so good that even the singing does not spoil them. s2 forever Allan.
 
 = Romantic Warrior by Return to Forever (1976)
 {c}
-{parent=the-best-modern-instrumental-western-music-of-all-time}
+{parent=the-best-modern-instrumental-western-music}
 {wiki=Romantic_Warrior}
 
 = Maiden Voyage by Herbie Hancock (1965)
 {c}
-{parent=the-best-modern-instrumental-western-music-of-all-time}
+{parent=the-best-modern-instrumental-western-music}
 {wiki=Maiden_Voyage_(Herbie_Hancock_album)}
 
 = Bitches Brew (1970) by Miles Davis
 {c}
-{parent=the-best-modern-instrumental-western-music-of-all-time}
+{parent=the-best-modern-instrumental-western-music}
 {wiki=Bitches_Brew}
 
 There is of course no need to talk much more about the Jazz God, this one line of mandatory tribute is enough.
@@ -44586,6 +44621,10 @@ See also some remarks of \x[ciro-santilli]'s thoughts on the instrument \x[ciro-
 {parent=electric-guitar}
 
 * \x[allan-holdsworth]{child}
+
+= Guitarrist
+{parent=guitar}
+{wiki}
 
 = Piano
 {parent=musical-instrument}
