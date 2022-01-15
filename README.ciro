@@ -1872,7 +1872,7 @@ Notable lists:
 {parent=good-and-evil}
 
 Things that are not nice such as:
-* \x[taboola], Outbrain, and other \x[chumbox]
+* \x[taboola]{child}, Outbrain, and other \x[chumbox]{child}
 * \x[blob]{child}{p}
 * \x[europe-cookie-law]{child}
 * adhesive inside mobile phones and more generally, \x[planned-obsolescence]{child}
@@ -14228,7 +14228,8 @@ Ciro's theory for his disappearance is that he became a \x[majorana-fermion] and
 = Freeman Dyson
 {c}
 {parent=physicist}
-{title2=1923-2020, God}
+{title2=1923-2020}
+{tag=god}
 {wiki}
 
 \x[ciro-santilli]'s admiration for Dyson goes beyond his "unify all the things approach", which \x[high-flying-bird-vs-gophers][Ciro loves], but also extends to the way he talks and the things he says. Dyson is one of Ciro's favorite physicist.
@@ -29160,6 +29161,14 @@ That's Ciro.
 = List of mathematicians
 {parent=mathematician}
 
+= Alexander Grothendieck
+{c}
+{parent=list-of-mathematicians}
+{tag=god}
+{wiki}
+
+This dude looks like a \x[god]. \x[ciro-santilli] does not understand his stuff, but just based on the names of his theories, e.g. "Yoga of anabelian algebraic geometry", and on his eccentric lifestyle, it is obvious that he was in fact a God.
+
 = Blaise Pascal
 {c}
 {parent=list-of-mathematicians}
@@ -33361,11 +33370,9 @@ Since in \x[postgresql] "Read uncommitted" appears to be effectively the same as
 
 \x[file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js] contains an example where things can actually blow up in read committed.
 
-= File: nodejs/sequelize/raw/parallel_select_and_update.js
-{id=file/nodejs/sequelize/raw/parallel_select_and_update.js}
+= nodejs/sequelize/raw/parallel_select_and_update.js
+{file}
 {parent=sql-parallel-update-example}
-
-This section is about: \a[nodejs/sequelize/raw/parallel_select_and_update.js].
 
 This example is similar to \x[file/nodejs/sequelize/raw/parallel_update_async.js], but now we are doing a separate SELECT, later followed by an update:
 * `SELECT FROM` to get i
@@ -33405,8 +33412,8 @@ Observed behaviour under different \x[sql-transaction-isolation-level]{p}:
 
 A non-raw version of this example can be seen at: \x[file/nodejs/sequelize/parallel_select_and_update.js].
 
-= File: nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
-{id=file/nodejs/sequelize/raw/parallel_select_and_update_deterministic.js}
+= nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
+{file}
 {parent=file/nodejs/sequelize/raw/parallel_select_and_update.js}
 
 This section is about the file: \a[nodejs/sequelize/raw/parallel_select_and_update_deterministic.js]
@@ -33415,11 +33422,9 @@ This example contains a deterministic demo of when \x[postgresql-serialization-f
 
 Tested on \x[postgresql] 13.5.
 
-= File: nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
-{id=file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js}
+= nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
+{file}
 {parent=sql-parallel-update-example}
-
-This section is about the file: \a[nodejs/sequelize/raw/parallel_create_delete_empty_tag.js]
 
 In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
 
@@ -35161,11 +35166,9 @@ Overview of the examples:
 = Sequelize parallel example
 {parent=sequelize-example}
 
-= File: nodejs/sequelize/parallel_select_and_update.js
-{id=file/nodejs/sequelize/parallel_select_and_update.js}
+= nodejs/sequelize/parallel_select_and_update.js
+{file}
 {parent=sequelize-parallel-example}
-
-This section is about the file: \a[nodejs/sequelize/parallel_select_and_update.js].
 
 This example is the same as \x[file/nodejs/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
 
@@ -36197,11 +36200,9 @@ This includes to learn more theoretical subjects like \x[physics] and \x[mathema
 {parent=software-bug}
 {wiki}
 
-= File: testExecutables.js
-{id=file/testExecutables.js}
+= testExecutables.js
+{file}
 {parent=software-testing}
-
-This section is about the file: \a[testExecutables.js]
 
 This script tests all executables under a selected directory.
 
@@ -37575,6 +37576,10 @@ Bibliography:
 {parent=cascading-style-sheets}
 {wiki}
 
+= Sass
+{c}
+{synonym}
+
 The more of their syntax gets merged into mainline \x[cascading-style-sheets], the better the world will be.
 
 = Asset bundler
@@ -37591,7 +37596,11 @@ Webpack is like a magic hydra that can \x[eat] any type of file and bundle it in
 
 When it works, you are just left in awe. When it doesn't, you're fucked and have to debug for several hours.
 
-Demos at: \a[webpack/].
+Demos under: \a[webpack/].
+
+= webpack/template
+{file}
+{parent=webpack}
 
 \a[webpack/template] contains a reasonable starter template.
 
@@ -37618,17 +37627,23 @@ npm start
 ``
 which uses unminimized outptus, and automatically push reloads the page whenever you change any of the input files!
 
-= File: webpack/no-js-inject
-{id=file/webpack/no-js-inject}
+= webpack/sass
+{file}
 {parent=webpack}
 
-This section is about: \a[webpack/no-js-inject].
+This example shows how to use \x[sass].
+
+To make things simple, it generates a completely separate `dist/index.js` and `dist/main.css` which are manually included from `index.html`, and does not do any type of injection (neither Js into HTML nor CSS in Js).
+
+= webpack/no-js-inject
+{file}
+{parent=webpack}
 
 This example shows how you could manually include the `dist/index.js` that is output from webpack into your `index.html`.
 
 This is generally not what you want to do, because what you actually want to do is to use a Js output name with a hash in it, so that browsers only need to refetch when the name changes.
 
-And to do that, we have to let webpack dynamically inject that unpredictable hash as done in \x[webpack/template] with:
+And to do that, we have to let webpack dynamically inject that unpredictable hash as done in \x[file/webpack/template] with:
 ``
 new HtmlWebpackPlugin({
   filename: 'index.html',
@@ -40122,6 +40137,7 @@ https://calebporzio.com/sponsorware
 \x[clickbait]{c} advertisement
 
 = Taboola
+{c}
 {parent=advertising}
 {wiki}
 
@@ -42505,9 +42521,21 @@ They do have some really good ones.
 {parent=comedy}
 {wiki}
 
-= "Weird Al" Yankovic
+= Comedy musician
 {parent=comedy-music}
 {tag=comedian}
+{wiki}
+
+= Victor Borge
+{c}
+{parent=comedy-musician}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=v1hgXlWlA98]
+{title=Multi piano scene in Miss Møller's anniversary by Victor Borge (1937)}
+
+= "Weird Al" Yankovic
+{parent=comedy-musician}
 {wiki}
 
 Best ones:
