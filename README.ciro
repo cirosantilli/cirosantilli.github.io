@@ -35713,11 +35713,13 @@ The best way to install Node.js:
 
 TypeScript is good. It does find errors in your \x[javascript]. But it is a form of "turd polishing". But \x[ciro-santilli] would rather have a polished turd than a non-polished one.
 
-The reason TypeScript became popular is due to the universality of \x[asset-bundler]{p}.
+Part of the reason TypeScript became popular is due to the universality of \x[asset-bundler]{p}. Once you are already using an asset bundler, changing the `.js` extension into `.ts` to get a less shitty experience is an easy choice.
 
-Once you are already using an asset bundler, changing the `.js` extension into `.ts` to get a less shitty experience is an easy choice.
+The other big reason is that JavaScript is so lose with type conversions, notably undefined happily converting to strings without problems, and any missing properties of Object happily being undefined. We should actually use ES6 Map everywhere.
 
-Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript, and sometimes fight a lot to get things to work. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped Not sure if this is beautiful, or frightening.
+Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript, and sometimes fight a lot to get things to work. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped[]. Not sure if this is beautiful, or frightening.
+
+but in the end, as with other type of static linters, TypeScript generally transforms a few hard to debug runtime issues, into a bunch of stupid to solve compile time issues, which is generally a good thing.
 
 Examples under \a[typescript]. Run with `npx example.ts`.
 * \a[typescript/inferFromInit.ts]. Should fail with:
