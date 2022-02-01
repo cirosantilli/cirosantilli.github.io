@@ -251,7 +251,7 @@ if (false) {
   assert.strictEqual(rows.length, 3);
 }
 
-// Get animals that has a given tag.
+// Get animals that have a given tag.
 
 const flyingTagged = await flying.getAnimals({order: [['species', 'ASC']]})
 assert.strictEqual(flyingTagged[0].species, 'bat');
@@ -286,7 +286,7 @@ assert(!await bat.hasTags([flying, mammal, reptile]))
 assert.strictEqual(await bat.countTags(), 2)
 assert.strictEqual(await flying.countAnimals(), 1)
 
-// Count how many tag each animal has: GROUP BY + COUNT aggregate.
+// Count how many tags each animal has: GROUP BY + COUNT aggregate.
 // Order return by animals with most tags first.
 // INNER JOIN due to `required: true`, so 0 counts are not present.
 rows = await Animal.findAll({
@@ -314,70 +314,93 @@ assert.strictEqual(rows[1].species, 'dog')
 assert.strictEqual(parseInt(rows[1].count, 10), 1)
 assert.strictEqual(rows.length, 2)
 
-// Same as above, but LEFT OUTER JOIN + COUNT(column),
-// so 0 counts will be present.
+// Same but grouping by PK id as a generally better workaround.
 rows = await Animal.findAll({
   attributes: [
     'species',
-    [sequelize.fn('COUNT', sequelize.col('Tags.id')), 'count'],
+    [sequelize.fn('COUNT', '*'), 'count'],
   ],
-  raw: true,
-  includeIgnoreAttributes: false,
   include: [
     {
       model: Tag,
-      required: false,
+      required: true,
+      attributes: [],
+      through: {attributes: []},
     },
   ],
-  group: ['Animal.species'],
+  group: ['Animal.id'],
   order: [[sequelize.col('count'), 'DESC']],
 })
 assert.strictEqual(rows[0].species, 'bat')
-assert.strictEqual(parseInt(rows[0].count, 10), 2)
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 2)
 assert.strictEqual(rows[1].species, 'dog')
-assert.strictEqual(parseInt(rows[1].count, 10), 1)
-assert.strictEqual(rows[2].species, 'frog')
-assert.strictEqual(parseInt(rows[2].count, 10), 0)
-assert.strictEqual(rows.length, 3)
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 1)
+assert.strictEqual(rows.length, 2)
 
-// Same as above, but only consider animal with less than 2 tags.
-// so 0 counts will be present.
+// Count how many tags each animal has but use
+// LEFT OUTER JOIN + COUNT(column), so 0 counts will be present.
 rows = await Animal.findAll({
   attributes: [
     'species',
     [sequelize.fn('COUNT', sequelize.col('Tags.id')), 'count'],
   ],
-  raw: true,
-  includeIgnoreAttributes: false,
   include: [
     {
       model: Tag,
       required: false,
+      attributes: [],
+      through: {attributes: []},
     },
   ],
-  group: ['Animal.species'],
+  group: ['Animal.id'],
+  order: [[sequelize.col('count'), 'DESC']],
+})
+assert.strictEqual(rows[0].species, 'bat')
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 2)
+assert.strictEqual(rows[1].species, 'dog')
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 1)
+assert.strictEqual(rows[2].species, 'frog')
+assert.strictEqual(parseInt(rows[2].get('count'), 10), 0)
+assert.strictEqual(rows.length, 3)
+
+// Count how many tags each animal has but
+// only consider animals with less than 2 tags.
+rows = await Animal.findAll({
+  attributes: [
+    'species',
+    [sequelize.fn('COUNT', sequelize.col('Tags.id')), 'count'],
+  ],
+  include: [
+    {
+      model: Tag,
+      required: false,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  group: ['Animal.id'],
   order: [[sequelize.col('count'), 'DESC']],
   having: sequelize.where(sequelize.fn('COUNT', sequelize.col('Tags.id')), Op.lt, 2)
 })
 assert.strictEqual(rows[0].species, 'dog')
-assert.strictEqual(parseInt(rows[0].count, 10), 1)
+assert.strictEqual(parseInt(rows[0].get('count'), 10), 1)
 assert.strictEqual(rows[1].species, 'frog')
-assert.strictEqual(parseInt(rows[1].count, 10), 0)
+assert.strictEqual(parseInt(rows[1].get('count'), 10), 0)
 assert.strictEqual(rows.length, 2)
 
-// Count how many tags each animal that is mammal has.
+// Count how many tags each animal that has a given tag has.
 async function getTagCountForAnimalsThatAreTagged(tagId) {
   return Tag.findAll({
     attributes: [
       sequelize.col('Animals.id'),
-      [sequelize.fn('COUNT', '$Tag.id$'), 'count'],
+      [sequelize.fn('COUNT', 'Tag.id'), 'count'],
     ],
     raw: true,
     includeIgnoreAttributes: false,
     include: [
       {
-        where: { '$Tag.id$': tagId },
         model: Animal,
+        where: { '$Tag.id$': tagId },
         include: [
           {
             model: Tag,
