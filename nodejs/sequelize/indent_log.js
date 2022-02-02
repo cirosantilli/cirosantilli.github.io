@@ -1,18 +1,41 @@
 #!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
 const assert = require('assert')
 const path = require('path')
 const { DataTypes, Sequelize } = require('sequelize')
-let sequelize
+const sql_formatter = require('sql-formatter')
+let dialect
+let language
+function logging(query_string, query_object) {
+  console.log(sql_formatter.format(query_string.replace(/^.*: /, ''), { language }))
+  if (query_object.bind !== undefined) {
+    // https://stackoverflow.com/questions/55715724/how-to-log-queries-with-bounded-paramenters-in-sequelize
+    // https://stackoverflow.com/questions/59712807/sequelize-how-to-log-raw-query
+    console.log(query_object.bind.map((v, i) => [i + 1, v]));
+  }
+  console.log();
+}
 if (process.argv[2] === 'p') {
+  dialect = 'postgres'
   sequelize = new Sequelize('tmp', undefined, undefined, {
-    dialect: 'postgres',
+    dialect,
     host: '/var/run/postgresql',
+    logging,
   })
 } else {
+  dialect = 'sqlite'
   sequelize = new Sequelize({
-    dialect: 'sqlite',
+    dialect,
     storage: 'tmp.sqlite',
+    logging,
   })
+}
+if (dialect === 'sqlite') {
+  // Not implemented.
+  // https://github.com/zeroturnaround/sql-formatter/issues/133
+  language = 'postgresql'
+} else if (dialect === 'postgres') {
+  language = 'postgresql'
 }
 ;(async () => {
 const IntegerNames = sequelize.define('IntegerNames', {
