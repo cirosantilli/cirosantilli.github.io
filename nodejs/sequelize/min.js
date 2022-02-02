@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// https://cirosantilli.com/sequelize-example
 const path = require('path')
 const { DataTypes } = require('sequelize')
 const common = require('./common')
