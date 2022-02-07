@@ -51,6 +51,52 @@ assert.strictEqual(rows[0].value, 3)
 assert.strictEqual(rows[1].value, 5)
 assert.strictEqual(rows.length, 2)
 
+// Example of using bind to let sequelize/the database worry about proper value quoting.
+// https://sequelize.org/master/manual/raw-queries.html#replacements
+;[rows, meta] = await sequelize.query(
+  `SELECT * FROM "IntegerNames" WHERE value = $value AND name = $name ORDER BY value ASC`,
+  {
+    //replacements: { value: 3 },
+    bind: { value: 3, name: 'three' },
+  }
+)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows.length, 1)
+
+// With replacement instead.
+// https://sequelize.org/master/manual/raw-queries.html#replacements
+;[rows, meta] = await sequelize.query(
+  `SELECT * FROM "IntegerNames" WHERE value = :value AND name = :name ORDER BY value ASC`,
+  {
+    replacements: { value: 3, name: 'three' },
+  }
+)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows.length, 1)
+
+// Array example with replacement.
+;[rows, meta] = await sequelize.query(
+  `SELECT * FROM "IntegerNames" WHERE value IN (:value) ORDER BY value ASC`,
+  {
+    replacements: { value: [3, 5] },
+  }
+)
+assert.strictEqual(rows[0].value, 3)
+assert.strictEqual(rows[1].value, 5)
+assert.strictEqual(rows.length, 2)
+
+//// TODO array example with bind
+//// https://github.com/sequelize/sequelize/issues/8140
+//;[rows, meta] = await sequelize.query(
+//  `SELECT * FROM "IntegerNames" WHERE value IN $value ORDER BY value ASC`,
+//  {
+//    bind: { value: [3, 5] },
+//  }
+//)
+//assert.strictEqual(rows[0].value, 3)
+//assert.strictEqual(rows[1].value, 5)
+//assert.strictEqual(rows.length, 2)
+
 // WHERE IN pair. VALUES thing likely makes a temporary database.
 // https://stackoverflow.com/questions/10725901/select-query-by-pair-of-fields-using-an-in-clause
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE (value, name) IN (VALUES (3, 'three'), (5, 'five')) ORDER BY value ASC`)
