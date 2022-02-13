@@ -1,0 +1,140 @@
+= Ciro's Edict 4
+{title2=2022-02-13}
+
+\x[cirist]{p},
+
+= ourbigbook.com
+{parent=4}
+
+I had meant to make an update earlier, but I wanted to try and add some more "visible end-user changes" to \x[/ourbigbook-com].
+
+I still haven't the user visible ones I wanted, but I've hit major milestones, and it feels like time for an update.
+
+I have now finished all the Cirodown features that I wanted for 1.0, all of which will be automatically reused in \x[/ourbigbook-com].
+
+The two big things since last email were the following:
+* \x[group-all-sql-queries-together]
+* \x[the-table-of-contents-shows-across-different-files-via-include]
+I knew I was going to do those for several months now, and I knew they were going to hurt, and they did hurt, but I managed to do them.
+
+These change caused two big bugs that I will solve next, one them infinite recursion in the database recursive query, but they shouldn't be too hard.
+
+A secondary but also important advance was: \x[further-improvements-to-the-website-s-base-technology].
+
+This kind of hard feature always makes me wonder if I'm moving in the right direction, or if I should just be more focused on quickly doing user visible stuff.
+
+It comes down to a very difficult balance between the ideal, and that which you notice works or doesn't only as you go along.
+
+= Advances
+{parent=ourbigbook-com}
+
+= Group all SQL queries together
+{parent=advances}
+
+And do 5 big queries instead of hundreds of smaller ones.
+
+For example, a README.ciro document that references another document saying:
+``
+The \x[speed-of-light] is fast.
+``
+needs to fetch "speed-of-light" from the ID database (previously populated e.g. by preparsing light.ciro:
+``= Light
+
+== Speed of light
+``
+to decide that it should display as "Speed of light" (the title rather than the ID).
+
+Previously, I was doing a separate fetch for each `\x[]` as they were needed, leading to hundreds of them at different times.
+
+Now I refactored things so that I do very few database queries, but large ones that fetch everything during parsing. And then at render time they are all ready in cache.
+
+This will be fundamental for the live preview on the browser, where the roundtrip to server would make it impossible
+
+= The table of contents shows across different files via `\Include`
+{parent=advances}
+
+E.g.:
+
+README.ciro
+``
+= My website
+
+== h2
+
+\Include[not-readme]
+``
+not-readme.ciro
+``
+= Not readme
+
+== Not readme h2
+``
+the table of contents for `index.html` also contains the headers for `not-readme.ciro` producing:
+* My website
+  * h2
+    * Not readme
+      * Not readme h2
+
+This feature means that you can split large input files if rendering starts to slow you down, and things will still render exactly the same, with the larger table of contents.
+
+This will be especially important for the website because initially I want users to be able to edit one header at a time, and join all headers with `\Include`. But I still want the ToC to show those children.
+
+This was a bit hard because it required doing RECURSIVE SQL queries, something I hadn't done before: https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/192462#192462 + of course the usual refactor a bunch of stuff and fix tests until you go mad.
+
+= Further improvements to the website's base technology
+{parent=advances}
+
+https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app contains the same baseline tech as OurBigBook, and I have been use to quickly test/benchmark new concepts for the website base.
+
+I'm almost proud about that project, as a reasonable template for a Next.js project. It is not perfect, notably see issues on the issue tracker, but it it quite reasonable.
+
+\x[the-side-effects-of-ambitious-goals-are-often-the-most-valuable-thing-achieved]{c} once again? I to actually make the project be more important thatn the side effects this time, but we'll see.
+
+Since the last update, I've made some major improvements to the baseline tech of the website, which I'll move little by little into OurBigBook. Some of the improvements actually started in OurBigBook.com. The improvements were:
+* determine if the user is logged in from the Next.js call. Previously, this was only possible via API calls (that are made after the initial GET request), but that makes the website much more complex. https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/3b5225f9e4204ffffd2709f90e982c81ca32670a[Commit]. Wisdom partially extracted to: https://stackoverflow.com/questions/54819721/next-js-access-localstorage-before-rendering-page/68136224#68136224[]
+* got a satisfactorily comprehensive linting working at: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/bf2eec3537a70e56b89e6e3cc3e546610cf8f51c[this commit]. Nothing is easy, not even that! Part of the wisdom extracted to: https://stackoverflow.com/questions/58233482/next-js-setting-up-eslint-for-nextjs/70519682#70519682[].
+* fully rationalized directory structure to avoid nasty errors that show up in \x[next-js] when accidentally requiring backend stuff on the client. https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/67962af74b5c7e5efe9b3af168763d16a2e7c9f0[Commit]. A detailed explanation of this was extracted to: https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153[].
+* create an extremely clean and rationalized way to do API tests from a simple `npm test`. These now actually start a clean server, and make full HTTP requests to that server. https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/commit/9ee4962b04d75399bf8ab04ae0540e5d039cff45[Commit]. Wisdom extracted to: https://stackoverflow.com/questions/63762896/whats-the-best-way-to-test-express-js-api/70479940#70479940[].
+* greatly reduce the number of SQL queries, fully understood every problem 
+  * more intelligently using JOINs where I have managed to get \x[sequelize] to do what I fucking want. This also led to several sequelize Stack Overflow answers as usual: https://stackoverflow.com/search?tab=newest&q=user%3a895245%20%5bsequelize%5d
+
+    Everything that I didn't manage to do because of crappy sequelize is documented at: https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app/issues/5
+  * better understanding Next.js/React/useSWR do avoid doing double API queries. Notably, I've had to differentiate between "user is logged in" and "I don't know if the user is logged in", because we need to do different calls in different cases: https://stackoverflow.com/questions/54819721/next-js-access-localstorage-before-rendering-page/68136224#68136224
+
+= Next steps
+{parent=ourbigbook-com}
+
+= Enable reference features into ourbigbook.com
+{parent=next-steps}
+
+Currently, none of the crucial cross file features like `\x`, `\Include` and table of contents are working. I was waiting until the above mentioned features were done, and now I'm going to get to that.
+
+= Misc tech
+{parent=4}
+
+I've finally had enough of \x[nvidia] breaking my \x[ubuntu-21-10] suspend, so I investigated some more and found a workaround on the NVIDIA forums: https://stackoverflow.com/questions/58233482/next-js-setting-up-eslint-for-nextjs/70519682#70519682[].
+
+Thanks enormously to https://forums.developer.nvidia.com/t/fixed-suspend-resume-issues-with-the-driver-version-470/187150/3[heroic user humblebee], and once again, \x[video-linus-torvalds-saying-nvidia-fuck-you-2012][Nvidia, fuck you].
+
+= China front
+{c}
+{parent=4}
+
+At https://github.com/cirosantilli/china-dictatorship/issues/738 a user made a comment about gang raping my mother (more like country-raping).
+
+As mentioned at https://github.com/cirosantilli/china-dictatorship/issues/739[], ally Martin then reported the issue, and GitHub took down the wumao's account for a while using https://stackoverflow.com/questions/50720844/can-github-delete-your-account/66105692#66105692[their undocumented shadowban feature], until the wumao edited the issue.
+
+Based on the discussion with Martin, I then recommended at https://github.com/cirosantilli/china-dictatorship/blob/41b4741a4e6553f44f5f1ef85cf63c55eb7b8277/CONTRIBUTING.md that we do not report such issues, and that GitHub do not delete such accounts, with rationale explained on the CONTRIBUTING.
+
+= Not work
+{parent=4}
+
+I caught and overcame a minor addiction to \x[cataclysm-dda].
+
+It does bring back the \x[the-sims] feeling from my teenage years, but with killer zombies added in.
+
+I especially like going to sleep in that game, and how you need to setup a confy bed for it.
+
+Some further comments at: \x[cataclysm-dda]{full}.
+
+The way to quit is simple: delete your saves, then get annoyed with slowness of progressing back up, then use built-in debug/cheat menu to overcome that, then it's not fun anymore. This is a major advantage of single player open source games: addiction resistance!
