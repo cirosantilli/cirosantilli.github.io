@@ -31913,15 +31913,64 @@ More commonly known as a map or dictionary.
 {title2=NLR}
 {wiki}
 
-= Post-order depth-first search
-{parent=depth-first-search}
-{title2=LRN}
-{wiki}
+Like \x[breadth-first-search], this also has the property of visiting parents before any children.
+
+= Interative pre-order
+{parent=pre-order-depth-first-search}
+
+This is the easiest one to do iteratively:
+* pop and visit
+* push right to stack
+* push left to stack
 
 = In-order depth-first search
 {parent=depth-first-search}
 {title2=LNR}
 {wiki}
+
+Only makes sense for \x[binary-tree] because if there are more nodes it is not clear what the top node should go in the middle of.
+
+This is unlike \x[pre-order-depth-first-search] and \x[post-order-depth-first-search] which generalize obviously to general trees.
+
+= Interative in-order
+{parent=in-order-depth-first-search}
+
+This is a bit harder than \x[interative-pre-order]: now we have to check if there is a left or right element or not:
+* (START) push current
+* if there is left:
+  * move left
+* else:
+  * (ELSE) pop
+  * visit
+  * if there is right
+    * move right
+    * GOTO START
+  * else:
+    * GOTO ELSE
+
+The control flow can be slightly simplified if we allow NULLs: https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+
+= Post-order depth-first search
+{parent=depth-first-search}
+{title2=LRN}
+{wiki}
+
+Has the property of visiting all children before the parent.
+
+= Interative post-order
+{parent=post-order-depth-first-search}
+
+This is the hardest one to do iteratively.
+
+= Interative post-order with two stacks
+{parent=interative-post-order}
+
+https://www.geeksforgeeks.org/iterative-postorder-traversal/
+
+= Interative post-order with one stack
+{parent=interative-post-order}
+
+https://www.geeksforgeeks.org/iterative-postorder-traversal-using-stack/
 
 = Breadth-first search
 {parent=tree-traversal}
@@ -31933,6 +31982,25 @@ More commonly known as a map or dictionary.
 
 = Linked list
 {parent=data-structure}
+{wiki}
+
+= Recursion
+{disambiguate=computer science}
+{parent=algorithm}
+{wiki}
+
+= Recursion
+{synonym}
+
+= Recursive algorithm
+{synonym}
+
+= Iteration
+{parent=recursion-computer-science}
+{wiki}
+
+= Iterative algorithm
+{parent=iteration}
 {wiki}
 
 = String-search algorithm
@@ -35892,7 +35960,12 @@ There are only two pre-requisites to using Haskell in 2020. You have to be an \x
 {wiki}
 
 = Java
+{c}
 {synonym}
+
+= Java program
+{c}
+{parent=java-programming-language}
 
 = JavaScript
 {c}
@@ -44979,6 +45052,32 @@ A recreational \x[computer-simulation]!
 {tag=good-video-game-to-watch}
 {wiki}
 
+= Mindustry
+{c}
+{parent=construction-and-management-simulation}
+{tag=java-program}
+{tag=open-source-video-game}
+{tag=real-time-strategy}
+{wiki}
+
+Conveyor belt 2D top down mining like \x[factorio], but with more emphasis on tower defense/\x[real-time-strategy], \x[pvp] looks a lot like \x[starcraft] or \x[age-of-empires].
+
+As of pre alpha 135, the most annoying thing is that you can't easily start a campaign scenario from fresh, if you lose you have to start from wave 1 but with everything already half built as you left it. This gives you a huge advantage...
+
+It is also annoying that you have to manually rebuild everything that was destroyed afer each attack, unless you have some unit that you can only unlock later on...
+
+https://mindustry-unofficial.fandom.com/wiki/Future_Content#New_Google_Play_Listing suggests \x[freemium] features being considered, but they are mostly minor or plaform specific. There seems to be no server list by default however, making the Steam multiplayer freemium valuable.
+
+https://www.youtube.com/watch?v=o5ThSECaAwA suggests \x[code-drop] is used.
+
+It is a bit annoying that you have to unlock the tech tree little by little in campaign, but it does serve as a reasonable introduction to the general order of development. Games with progression state are boring, except when there is \x[permadeath]. But custom play scenarios have everything unlocked immediately, much better.
+
+It is very cool that you can copy chunks of buildings as macros, and save them for later.
+
+The game runs very well it feels like.
+
+The logic blocks are particularly interesting, and allow you to program a block yourself.
+
 = Rust
 {c}
 {disambiguate=video game}
@@ -45035,6 +45134,9 @@ A young \x[ciro-santilli] really liked this game, the way it makes you feel.
 = Roguelike
 {parent=role-playing-video-game}
 {wiki}
+
+= Permadeath
+{parent=roguelike}
 
 = Dungeon Crawl Stone Soup
 {c}
@@ -45098,6 +45200,11 @@ This launches the UI version already for you.
 = Age of Empires II
 {c}
 {tag=good-video-game-to-watch}
+{parent=age-of-empires}
+{wiki}
+
+= StarCraft
+{c}
 {parent=real-time-strategy}
 {wiki}
 
