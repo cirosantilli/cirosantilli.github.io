@@ -12,6 +12,78 @@
 = Advances
 {parent=ourbigbook-com}
 
+One of the \x[/sponsor/updates/4/the-table-of-contents-shows-across-different-files-via-include][key advances of the previous update] was to show include headers on the table of contents.
+
+This was to allow splitting source files freely.
+
+While that goal was in principle achieved in that commit, when I went ahead to split the huge index of cirosantilli.com into multiple files, I notice several bugs that took a week to fix.
+
+After all of these were solved, I finally managed to split the https://github.com/cirosantilli/cirosantilli.github.io/blob/84c8a6e7fdbe252041accfb7a06d9b7462287131/README.ciro[README] at: https://github.com/cirosantilli/cirosantilli.github.io/commit/84c8a6e7fdbe252041accfb7a06d9b7462287131 and keep the previous desired output. You can now see that the README contains just:
+``
+\Include[ciro-santilli]
+\Include[science]
+\Include[mathematics]
+\Include[technology]
+\Include[art]
+``
+
+This split led to a small positive modification of the output as follows. Previously, a section such as "Quantum Electrodynamics" would have been present in the monolithic README.ciro as:
+``
+= Quantum electrodynamics
+``
+If you visited https://cirosantilli.com/quantum-electrodynamics[], you would see see a link to the "nosplit" version, which would link you back to https://cirosantilli.com#quantum-electrodynamics[], but that is not great, since this is was a humongous page with all of the README.ciro, and took long to display.
+
+After the split, `= Quantum electrodynamics` is present under `science.ciro`, and the nosplit version is the more manageable https://cirosantilli.com/science#quantum-electrodynamics[].
+
+The key changes that were missing for that to happen were:
+* \x[link-to-an-image-or-video-in-another-file-that-has-an-x-on-title-from-another-file]
+* \x[reconciling-source-files-and-the-database]
+
+= Link to an image or video in another file that has an `\x` on title from another file
+{parent=advances}
+
+Issue report at:  https://github.com/cirosantilli/cirodown/issues/198 Suppose you had:
+
+programming-language.ciro
+
+``
+= Programming language
+
+\Image[python-logo.jpg]
+{title=The \x[python-programming-language] logo}
+
+== Python
+{c}
+{disambiguate=programming-language}
+``
+
+logos-i-like.ciro
+
+``
+= Logos I like
+
+\x[image-the-python-logo]
+``
+
+Now, when rendering `\x[image-the-python-logo]`, we would need to fetch two IDs:
+* `image-the-python-logo` for the `The ` and ` logo` part
+* `python-programming-language` itself, to know that `\x[python-programming-language]` should render as `Python`
+
+But after \x[/sponsor/updates/4/group-all-sql-queries-together] was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
+
+This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` to the existing References table, which tracks dependencies between IDs.
+
+After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single \x[join-sql].
+
+= Reconciling source files and the database
+{parent=advances}
+
+TODO
+
+Then came some nasty stuff about reconciling:
+* the current source file being rendered
+* the known database state
+
 = Next steps
 {parent=ourbigbook-com}
 
