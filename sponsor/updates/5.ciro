@@ -37,7 +37,7 @@ After the split, `= Quantum electrodynamics` is present under `science.ciro`, an
 
 The key changes that were missing for that to happen were:
 * \x[link-to-an-image-or-video-in-another-file-that-has-an-x-on-title-from-another-file]
-* \x[reconciling-source-files-and-the-database]
+* \x[properly-reconciling-source-files-and-the-database]
 
 = Link to an image or video in another file that has an `\x` on title from another file
 {parent=advances}
@@ -75,14 +75,79 @@ This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` 
 
 After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single \x[join-sql].
 
-= Reconciling source files and the database
+= Properly reconciling source files and the database
 {parent=advances}
 
 TODO
 
 Then came some nasty stuff about reconciling:
-* the current source file being rendered
+* the current source file being rendered, and in particular the placeholder header that shows up on 
 * the known database state
+
+= Improve header summary display
+{parent=advances}
+
+TODO before after screenshot comparison.
+
+Added font awesome icons. https://github.com/cirosantilli/cirodown/issues/151
+
+Didn't manage to subset, but so be it for now: https://stackoverflow.com/questions/62395038/how-can-i-export-only-one-character-from-ttf-woff-file-to-avoid-load-unnecessa/71197892#71197892
+
+= Skip ID extraction and rendering based on database timestamps
+{parent=advances}
+
+Now that we can reliably split files at will with `\Include`, I finally added this feature.
+
+This means while developing a Cirodown website locally, if you have a bunch of files with an error in one of them, your first run will run slowly until the error:
+``
+extract_ids README.ciro
+extract_ids README.ciro finished in 73.82836899906397 ms
+extract_ids art.ciro
+extract_ids art.ciro finished in 671.1738419979811 ms
+extract_ids ciro-santilli.ciro
+extract_ids ciro-santilli.ciro finished in 1009.6256089992821 ms
+extract_ids science.ciro
+error: science.ciro:13686:1: named argument "parent" given multiple times
+extract_ids science.ciro finished in 1649.6193730011582 ms
+``
+but further runs will blast through the files that worked, skipping all files that have sucessfully converted:
+``
+extract_ids README.ciro
+extract_ids README.ciro skipped by timestamp
+extract_ids art.ciro
+extract_ids art.ciro skipped by timestamp
+extract_ids ciro-santilli.ciro
+extract_ids ciro-santilli.ciro skipped by timestamp
+extract_ids science.ciro
+``
+so you can fix file by file and move on quickly.
+
+Before we could split files, you would just have to re-run on a single huge file multiple times until it started working.
+
+This does create a bit of a difficulty for rendering however, as opposed to extracting IDs, because the way we render one file depends on other files, e.g. if we modify:
+
+README.ciro
+
+``
+= Ciro Santilli
+``
+
+to:
+
+``
+= Ciro Santilli v2
+{id=ciro-santilli}
+``
+
+then that would affect:
+
+another-file.ciro
+
+``
+\x[ciro-santilli]
+``
+
+While we could in principle deduce what changes to a file affect the rendering of other files, which we already essentially do in order \x[/sponsor/updates/4/group-all-sql-queries-together][to group all queries into one place], it would be hard, so we are just adding a flag for it: TODO.
 
 = Next steps
 {parent=ourbigbook-com}

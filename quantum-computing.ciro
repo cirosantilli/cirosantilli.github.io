@@ -1,0 +1,664 @@
+= Quantum computing
+{wiki}
+
+= Quantum computer
+{synonym}
+
+Quantum is getting hot in 2019, and even \x[ciro-santilli] got a bit excited: \x[quantum-computing-could-be-the-next-big-thing].
+
+No useful algorithm has been economically accelerated by quantum yet, only \x[quantum-supremacy][useless ones], but \x[quantum-computing-player][the bets are on, big time].
+
+To get a feeling of this, just have a look at the insane number of startups that are already developing \x[quantum-algorithm]{p} for hardware that doesn't/barely exists! https://quantumcomputingreport.com/players/privatestartup (https://web.archive.org/web/20191223175204/https://quantumcomputingreport.com/players/privatestartup/[archive]).
+
+To get a basic idea of what programming a quantum computer looks like start by reading: \x[quantum-computing-is-just-matrix-multiplication]{full}.
+
+= Quantum computing is just matrix multiplication
+{parent=quantum-computing}
+
+= Programmer's model of quantum computers
+{synonym}
+
+This is a quick tutorial on how a \x[quantum-computer] programmer thinks about how a quantum computer works. If you know:
+* what a \x[complex-number] is
+* how to do \x[matrix-multiplication]
+* what is a \x[probability]
+a concrete and precise \x[hello-world] operation can be understood in 30 minutes.
+
+Although there are several \x[quantum-computer-physical-implementations][types of quantum computer] under development, there exists a single high level model that represents what any of those computers can do, and we are going to explain that model here.
+
+Beyond that basic model, programmers only may have to consider the \x[quantum-logic-gates-are-needed-for-physical-implementation][imperfections of their hardware], but the starting point will almost always be this basic model, and tooling that automates mapping the high level model to real hardware considering those imperfections (i.e. compilers) is already getting better and better.
+
+This model is very simple to understand, being only marginally more complex than that of a classical computer, see also: https://quantumcomputing.stackexchange.com/questions/6639/is-my-background-sufficient-to-start-quantum-computing/14317#14317
+
+The situation of quantum computers today in the 2020's is somewhat analogous to that of the early days of classical circuits and computers in the 1950's and 1960's, before \x[cpu]{p} came along and software ate the world. Even though the \x[semiconductor-physical-implementation][exact physics of a classical computer] might be hard to understand and vary across different types of \x[integrated-circuit]{p}, those early hardware pioneers (and to this day modern CPU designers), can usefully view circuits from a higher level point of view, thinking only about concepts such as:
+* \x[logic-gate]{p} like AND, NOR and NOT
+* a clock + registers
+as modelled at the \x[register-transfer-level], and only in a separate compilation step translated into actual chips. This high level understanding of how a classical computer works is what we can call "the programmer's model of a classical computer". So we are now going to describe the quantum analogue of it.
+
+The way quantum programmers think about a quantum computer in order to program can be described as follows:
+* the input of a N qubit quantum computer is a vector of dimension N containing classic bits 0 and 1
+* the quantum program, also known as circuit, is a $2^n \times 2^n$ \x[unitary-matrix] of \x[complex-number]{p} $Q \in \C^{2^n} \times \C^{2^n}$ that operates on the input to generate the output
+* the output of a N qubit computer is also a vector of dimension N containing classic bits 0 and 1
+
+To operate a quantum computer, you:
+* set the classic input bits
+* press a "RUN" button
+* read the classic output bits
+
+Each time you do this, you are literally conducting a physical experiment of the specific \x[quantum-computer-physical-implementations][physical implementation] of the computer:
+* setup your physical system to represent the classical 0/1 inputs
+* let the state evolve for long enough
+* measure the classical output back out
+and each run as the above can is simply called "an experiment" or "a measurement".
+
+The output comes out "instantly" in the sense that it is physically impossible to observe any intermediate state of the system, i.e. there are no clocks like in classical computers, further discussion at: \x[quantum-circuits-vs-classical-circuits]. Setting up, running the experiment and taking the does take some time however, and this is important because you have to run the same experiment multiple times because results are probabilistic as mentioned below.
+
+Unlike in a classical computer, the output of a quantum computer is not deterministic however.
+
+But the each output is not equally likely either, otherwise the computer would be useless except as \x[random-number-generator]!
+
+This is because the probabilities of each output for a given input depends on the program (\x[unitary-matrix]) it went through.
+
+Therefore, what we have to do is to design the quantum circuit in a way that the right or better answers will come out more likely than the bad answers.
+
+We then calculate the error bound for our circuit based on its design, and then determine how many times we have to run the experiment to reach the desired accuracy.
+
+The probability of each output of a quantum computer is derived from the input and the circuit as follows.
+
+First we take the classic input vector of dimension N of 0's and 1's and convert it to a "quantum state vector" $\va{q_{in}}$ of dimension $2^n$:
+$$
+\va{q_{in}} \in \C^{2^n}
+$$
+
+We are after all going to multiply it by the program matrix, as you would expect, and that has dimension $2^n \times 2^n$!
+
+Note that this initial transformation also transforms the discrete zeroes and ones into \x[complex-number]{p}.
+
+For example, in a 3 qubit computer, the quantum state vector has dimension $2^3 = 8$ and the following shows all 8 possible conversions from the classic input to the quantum state vector:
+``
+000 -> 1000 0000 == (1.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0)
+001 -> 0100 0000 == (0.0, 1.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0)
+010 -> 0010 0000 == (0.0, 0.0, 1.0, 0.0,  0.0, 0.0, 0.0, 0.0)
+011 -> 0001 0000 == (0.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0, 0.0)
+100 -> 0000 1000 == (0.0, 0.0, 0.0, 0.0,  1.0, 0.0, 0.0, 0.0)
+101 -> 0000 0100 == (0.0, 0.0, 0.0, 0.0,  0.0, 1.0, 0.0, 0.0)
+110 -> 0000 0010 == (0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 1.0, 0.0)
+111 -> 0000 0001 == (0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 1.0)
+``
+
+This can be intuitively interpreted as:
+* if the classic input is `000`, then we are certain that all three bits are 0.
+
+  Therefore, the probability of all three 0's is 1.0, and all other possible combinations have 0 probability.
+* if the classic input is `001`, then we are certain that bit one and two are 0, and bit three is 1. The probability of that is 1.0, and all others are zero.
+* and so on
+
+Now that we finally have our quantum state vector, we just multiply it by the \x[unitary-matrix] $Q$ of the quantum circuit, and obtain the $2^n$ dimensional output quantum state vector $\va{q_{out}}$:
+$$
+\va{q_{out}} = Q \: \va{q_{in}}
+$$
+
+And at long last, the probability of each classical outcome of the measurement is proportional to the square of the length of each entry in the quantum vector, analogously to what is done in the \x[schrodinger-equation].
+
+For example, suppose that the 3 qubit output were:
+$$
+\begin{aligned}
+\va{q_{out}} &=
+\begin{bmatrix}
+\frac{\sqrt{3}}{2} \\
+0.0 \\
+\frac{1}{2} \\
+0.0 \\
+0.0 \\
+0.0 \\
+0.0 \\
+0.0
+\end{bmatrix}
+\end{aligned}
+$$
+
+Then, the probability of the first and third possible outcomes would be the length of each component squared:
+$$
+\begin{aligned}
+\abs{\frac{\sqrt{3}}{2}}^2 &= \frac{\sqrt{3}}{2}^2 &= \frac{3}{4} \\
+\abs{\frac{1}{2}^2}^2      &= \frac{1}{2}^2        &= \frac{1}{4}
+\end{aligned}
+$$
+i.e. 75% for the first, and 25% for the third outcomes, where just like for the input:
+* first outcome means `000`: all output bits are zero
+* third outcome means `010`: the first and third bits are zero, but the second one is 1
+
+All other outcomes have probability 0 and cannot occur, e.g.: `001` is impossible.
+
+Keep in mind that the quantum state vector can also contain \x[why-are-complex-numbers-used-in-the-schrodinger-equation][complex numbers because we are doing quantum mechanics], but we just take their magnitude in that case, e.g. the following quantum state would lead to the same probabilities as the previous one:
+$$
+\begin{aligned}
+\abs{\frac{1 + \sqrt{2}i}{2}}^2 &= \frac{1^2 + \sqrt{2^2}}{2^2} &= \frac{3}{4} \\
+\abs{\frac{i}{2}}^2             &= \frac{1^2}{2^2}              &= \frac{1}{4}
+\end{aligned}
+$$
+
+This interpretation of the quantum state vector clarifies a few things:
+* the input quantum state is just a simple state where we are certain of the value of each classic input bit
+* the matrix has to be unitary because the total probability of all possible outcomes must be 1.0
+
+  This is true for the input matrix, and unitary matrices have the probability of maintaining that property after multiplication.
+
+  Unitary matrices are a bit analogous to https://en.wikipedia.org/wiki/Self-adjoint_operator[self-adjoint operators] in general quantum mechanics (self-adjoint in finite dimensions implies is stronger)
+
+  This also allows us to understand intuitively why quantum computers may be capable of accelerating certain algorithms exponentially: that is because the quantum computer is able to quickly do an unitary matrix multiplication of a humongous $2^{N}$ sized matrix.
+
+  If we are able to encode our algorithm in that matrix multiplication, considering the probabilistic interpretation of the output, then we stand a chance of getting that speedup.
+
+Consider reading the following next:
+* \x[quantum-logic-gate]{full} shows an alternative, and extremely important view of a quantum computer besides a matrix multiplication: as a circuit. Fundamental subsections:
+  * \x[quantum-logic-gates-are-needed-because-you-can-t-compute-the-matrix-explicitly-as-it-grows-exponentially]{full}
+  * \x[quantum-logic-gates-are-needed-for-physical-implementation]{full}
+  * \x[universal-quantum-gates]{full}
+  * \x[quantum-circuits-vs-classical-circuits]{full}
+
+= Quantum algorithm
+{parent=quantum-computing}
+
+This is the true key question: what are the most important algorithms that would be accelerated by quantum computing?
+
+Maybe there is some room for doubt because some applications might be way better in some \x[quantum-computer-physical-implementations][implementations], but we should at least have a good general idea.
+
+However, clear information on this really hard to come by, not sure why.
+
+Whenever asked e.g. at: https://physics.stackexchange.com/questions/3390/can-anybody-provide-a-simple-example-of-a-quantum-computer-algorithm/3407 on \x[physics-stack-exchange] people say the infinite mantra:
+* \x[grover-s-algorithm][Grover]: speedup not exponential
+* Deutsch: solves an useless problem
+* Shor: cryptography is boring, do you have proper optimization or \x[quantum-chemistry] algorithms that will make trillions?
+* https://en.wikipedia.org/wiki/Quantum_Fourier_transform[Quantum Fourier transform]: TODO is the speedup exponential or not?
+
+\x[ciro-santilli] wonders if there is any understandable algorithm that meets the above criteria.
+
+Lists:
+* \x[quantum-algorithm-zoo]: the leading list as of 2020
+* \x[quantum-computing-computational-chemistry-algorithms] is the area that Ciro and many people are te most excited about is 
+* https://cstheory.stackexchange.com/questions/3888/np-intermediate-problems-with-efficient-quantum-solutions
+* https://mathoverflow.net/questions/33597/are-there-any-known-quantum-algorithms-that-clearly-fall-outside-a-few-narrow-cla
+
+= Quantum computers are not expected to solve NP-complete problems
+{parent=quantum-algorithm}
+
+Only \x[np-intermediate], which includes notably \x[integer-factorization]:
+* https://quantumcomputing.stackexchange.com/questions/16506/can-quantum-computer-solve-np-complete-problems
+* https://www.cs.virginia.edu/~robins/The_Limits_of_Quantum_Computers.pdf by \x[scott-aaronson]
+* https://cs.stackexchange.com/questions/130470/can-quantum-computing-help-solve-np-complete-problems
+* https://www.quora.com/How-can-quantum-computing-help-to-solve-NP-hard-problems
+
+= Quantum Algorithm Zoo
+{c}
+{parent=quantum-algorithm}
+
+https://quantumalgorithmzoo.org/
+
+Source on \x[github]: https://github.com/stephenjordan/stephenjordan.github.io
+
+The most comprehensive list is the amazing curated and commented list of \x[quantum-algorithm]{p} as of 2020.
+
+= Grover's algorithm
+{parent=quantum-algorithm}
+{wiki}
+
+= Quantum error correction
+{parent=quantum-computing}
+{wiki}
+
+Technique that uses multiple non-\x[ideal] qubits (physical qubits) to simulate/produce one perfect qubit (logical).
+
+TODO understand in detail. This appears to be a fundamental technique since all physical systems we can manufacture are imperfect.
+
+Part of the fundamental interest of this technique is due to the \x[quantum-threshold-theorem].
+
+For example, when https://www.bloomberg.com/news/articles/2020-04-06/quantum-computing-startup-raises-215-million-for-faster-device[PsiQuantum raised 215M in 2020], they announced that they intended to reach 1 million physical qubits, which would achieve between 100 and 300 logical qubits.
+
+\x[video-jeremy-o-brien-quantum-technologies-by-googletechtalks-2014] https://youtu.be/7wCBkAQYBZA?t=2778 describes an error correction approach for a \x[photonic-quantum-computer].
+
+= Quantum threshold theorem
+{parent=quantum-error-correction}
+{wiki}
+
+This theorem roughly states that states that for every \x[quantum-algorithm], once we reach a certain level of physical error rate small enough (where small enough is algorithm dependant), then we can \i[perfectly] error correct.
+
+This algorithm provides the conceptual division between \x[noisy-intermediate-scale-quantum-era] and post-NISQ.
+
+= Noisy intermediate-scale quantum era
+{parent=quantum-threshold-theorem}
+{wiki}
+
+= NISQ
+{c}
+{synonym}
+{title2}
+
+Era of \x[quantum-computing] before we reach physical errors small enough to perfectly error correct, \x[quantum-threshold-theorem].
+
+= Quantum computing player
+{parent=quantum-computing}
+
+It is hard to beat the lists present at: https://quantumcomputingreport.com (closed source unfortunately, no GitHub) in particular:
+* https://quantumcomputingreport.com/scorecards/qubit-count/ lists what are the latest qbit counts and technologies that each player is using
+* https://quantumcomputingreport.com/players/public-companies/ summarizes what each player has been doing in a few paragraphs
+
+Also of interest: https://quantumzeitgeist.com/interactive-map-of-quantum-computing-companies-from-around-the-globe/
+
+= Organization developing quantum hardware
+{parent=quantum-computing-player}
+
+= Organizations developing quantum hardware
+{synonym}
+
+= Quantum hardware company
+{parent=organization-developing-quantum-hardware}
+
+= D-Wave Systems
+{c}
+{parent=quantum-hardware-company}
+{wiki}
+
+Vaporware?
+
+= PsiQuantum
+{c}
+{parent=quantum-hardware-company}
+
+CEO: Jeremy O'Brien https://www.linkedin.com/in/jeremy-o-brien-39482631
+
+Raised 215M in 2020: https://www.bloomberg.com/news/articles/2020-04-06/quantum-computing-startup-raises-215-million-for-faster-device
+
+Good talk by CEO before starting the company which gives insight on what they are very likely doing: \x[video-jeremy-o-brien-quantum-technologies-by-googletechtalks-2014]
+
+They are very secretive as any for profit, but we know that they want to reuse classical \x[semiconductor-physical-implementation][semiconductor fabrication technologies].
+
+\x[ciro-santilli] heard a story that O'Brien had competed for government funding in the UK, he was at \x[university-of-bristol], but someone from \x[university-of-oxford] got it instead (can't beat their government ties), and the Oxford people created their own company, maybe it was \x[oxford-quantum-circuits].
+
+So he went to the \x[us] and raised N times more from the \x[american] \x[military-industrial-complex].
+
+= Oxford Quantum Circuits
+{c}
+{parent=quantum-hardware-company}
+
+= Xanadu
+{c}
+{disambiguate=quantum computing company}
+{parent=quantum-hardware-company}
+
+https://www.youtube.com/watch?v=v7iAqcFCTQQ shows their base technology:
+* \x[laser] beam comes in
+* input set via of \x[optical-ring-resonator]{p} that form a \x[squeezed-state-of-light]. Does not seem to rely on \x[single-photon-production-and-detection-experiments]?
+
+= Organization developing quantum software
+{parent=quantum-computing-player}
+
+= Organizations developing quantum software
+{synonym}
+
+= Cambridge Quantum Computing
+{c}
+{parent=organization-developing-quantum-software}
+{wiki}
+
+In 2015, they got a 50 million investment from Grupo Arcano, led by Alberto Chang-Rajii, who is a really shady character who fled from justice for 2 years:
+* http://web.archive.org/web/20160320064944/http://www.cambridgequantum.com/index.php?page=team Alberto on the board
+* https://theshiftnews.com/2018/10/25/wanted-chilean-businessman-in-hiding-in-malta-for-two-years/
+* https://www.techbritannia.co.uk/2015/09/cambridge-quantum-computing-receives-50m-funding-from-grupo-arcano/
+
+= Quantum computer physical implementations
+{parent=quantum-computing}
+
+Lists of the most promising implementations:
+* https://en.wikipedia.org/wiki/Quantum_computing#Physical_realizations
+* https://quantumcomputingreport.com/scorecards/qubit-count/[], see also: \x[quantum-computing-player]{full}.
+
+As of 2020, the hottest by far are:
+* \x[superconducting-quantum-computer]
+* \x[trapped-ion-quantum-computer]
+* \x[photonic-quantum-computer]
+
+= Quantum computers as experiments that are hard to predict outcomes
+{parent=quantum-computer-physical-implementations}
+
+One possibly interesting and possibly obvious point of view, is that a quantum computer is an experimental device that executes a quantum probabilistic experiment for which the probabilities cannot be calculated theoretically efficiently by a \x[nuclear-weapon].
+
+This is how quantum computing was originally theorized by the likes of \x[richard-feynman]: they noticed that "Hey, here's a well formulated \x[quantum-mechanics] problem, which I know the algorithm to solve (calculate the probability of outcomes), but it would take exponential time on the problem size".
+
+The converse is then of course that if you were able to encode useful problems in such an experiment, then you have a computer that allows for exponential speedups.
+
+This can be seen very directly by studying one specific quantum computer implementation. E.g. if you take the simplest to understand one, \x[photonic-quantum-computer], you can make systems for which you need exponential time to calculate the probabilities that photons will exit through certain holes and not others.
+
+The obvious aspect of this idea is by coming from \x[quantum-logic-gates-are-needed-because-you-can-t-compute-the-matrix-explicitly-as-it-grows-exponentially]: knowing the full explicit matrix is impossible in practice, and knowing the matrix is equivalent to knowing the probabilities of every outcome.
+
+= Superconducting quantum computer
+{parent=quantum-computer-physical-implementations}
+{wiki}
+
+Based on the \x[josephson-effect]. Yet another application of that phenomenal idea!
+
+Philosophically, this approach is promising because superconductivity is a https://en.wikipedia.org/wiki/Macroscopic_quantum_phenomena[macroscopic quantum phenomena] of \x[bose-einstein-condensate][Bose Einstein condensation], and so as a macroscopic phenomena, it is easier to control and observe.
+
+It is fun to see that the representation of information in the QC basically uses an https://en.wikipedia.org/wiki/LC_circuit[LC circuit], which is a very classical resonator circuit.
+
+As mentioned at https://en.wikipedia.org/wiki/Superconducting_quantum_computing#Qubit_archetypes[] there are actually a few different types of superconducting qubits:
+* flux
+* charge
+* phase
+
+and hybridizations of those such as:
+* \x[transmon]
+
+Input:
+* microwave radiation to excite circuit, or do nothing and wait for it to fall to 0 spontaneously
+* interaction: TODO
+* output: TODO
+
+\Video[http://youtube.com/watch?v=t5nxusm_Umk]
+{title=Quantum Computing with Superconducting Qubits by Alexandre Blais (2012)}
+{description=https://youtu.be/t5nxusm_Umk?t=784[784s] explains why non-linearity is needed: otherwise the input energy would just go to higher and higher levels.}
+
+\Video[http://youtube.com/watch?v=Kz6mhh1A_mU]
+{title=Quantum Transport, Lecture 16: Superconducting qubits by Sergey Frolov (2013)}
+{description=https://youtu.be/Kz6mhh1A_mU?t=1171[1171s] describes several possible realizations: charge, flux, charge/flux and phase.}
+
+= Transmon
+{parent=superconducting-quantum-computer}
+{wiki}
+
+Used in: https://en.wikipedia.org/wiki/Sycamore_processor
+
+\Video[http://youtube.com/watch?v=VA2HEUmkrKo]
+{title=Control of transmon qubits using a cryogenic \x[cmos] integrated circuit (QuantumCasts) by (\x[google]) (2020)}
+
+= Trapped ion quantum computer
+{parent=quantum-computer-physical-implementations}
+{wiki}
+
+TODO understand.
+
+= Photonic quantum computer
+{parent=quantum-computer-physical-implementations}
+
+* https://en.wikipedia.org/wiki/Linear_optical_quantum_computing
+* https://en.wikipedia.org/wiki/KLM_protocol
+
+Uses \x[photon]{p}!
+
+The key experiment/phenomena that sets the basis for photonic quantum computing is the \x[two-photon-interference-experiment].
+
+The physical representation of the information encoding is very easy to understand:
+* input: we choose to put or not photons into certain wires or no
+* interaction: two wires pass very nearby at some point, and photons travelling on either of them can jump to the other one and interact with the other photons
+* output: the probabilities that photos photons will go out through one wire or another
+
+\Video[http://youtube.com/watch?v=7wCBkAQYBZA]
+{title=Jeremy O'Brien: "Quantum Technologies" by GoogleTechTalks (2014)}
+{description=This is a good introduction to a \x[photonic-quantum-computer]. Highly recommended.
+* https://youtube.com/watch?v=7wCBkAQYBZA&t=1285 shows an experimental curve for a \x[two-photon-interference-experiment] by Hong, Ou, Mandel (1987)
+* https://youtube.com/watch?v=7wCBkAQYBZA&t=1440 shows a KLM CNOT gate
+* https://youtube.com/watch?v=7wCBkAQYBZA&t=2831 discusses the \x[quantum-error-correction] scheme for photonic QC based on the idea of the "Raussendorf unit cell"
+}
+
+= Photonic quantum computer companies
+{parent=photonic-quantum-computer}
+
+* \x[psiquantum]{child}
+* \x[xanadu-quantum-computing-company]{child}
+
+= Timeline of quantum computing
+{parent=quantum-computing}
+{wiki}
+
+= Superconducting quantum computing
+{parent=quantum-computing}
+{wiki}
+
+Dominant 2019 method.
+
+= Quantum computer simulator
+{parent=quantum-computing}
+
+Other good lists:
+* https://quantumcomputingreport.com/resources/tools/ is hard to beat as usual.
+* https://www.quantiki.org/wiki/list-qc-simulators
+
+* \x[javascript]
+  * https://algassert.com/quirk demo: https://github.com/Strilanc/Quirk drag-and-drop, by a 2019-quantum-computing-\x[googler], impressive. You can create gates. State store in URL.
+  * https://github.com/stewdio/q.js/ demo: https://quantumjavascript.app/
+
+= Qiskit
+{c}
+{parent=quantum-computer-simulator}
+{wiki}
+
+Python library, claims multiple backends, including simulation and real \x[ibm] quantum hardware.
+
+= Classical computer
+{parent=quantum-computing}
+
+In the context of \x[quantum-computing] of the 2020's, a "classical computer" is a \x[computer] that is not "quantum", i.e., the then dominating \x[cmos] computers.
+
+= ZX-calculus
+{parent=quantum-computing}
+{wiki}
+
+As https://en.wikipedia.org/w/index.php?title=ZX-calculus&oldid=1071329204#Diagram_rewriting tries to explain \x[ourbigbook-com/wikipedia][but fails to deliver as usual] consider the \x[ghz-state] represented as a quantum circuit.
+
+How can we easily prove that that quantum circuit equals the state:
+$$
+\frac{|000> + |111>}{\sqrt{2}}
+$$
+?
+
+The naive way would be to just do the matrix multiplication as explained at \x[quantum-computing-is-just-matrix-multiplication]{full}.
+
+However, ZX-calculus provides a simpler way.
+
+And even more importantly, sometimes it is the only way, because in a real circuit, we would not be able to do the matrix multiplication 
+
+What we do in ZX-calculus is we first transform the original quantum circuit into a ZX graph.
+
+This is always possible, because we can describe how to do the conversion simply for any of the \x[clifford-plus-t] gates, which is a set of \x[universal-quantum-gates].
+
+Then, after we do this transformation, we can start applying further transformations that simplify the circuit.
+
+It has already been proven that there is no efficient algorithm for this (TODO source, someone said P-sharp complete best case)
+
+But it has been proven in 2017 that any possible equivalence between quantum circuits can be reached by modifying ZX-calculus circuits.
+
+There are only 7 transformation rules that we need, and all others can be derived from those, universality.
+
+So, we can apply those rules to do https://en.wikipedia.org/w/index.php?title=ZX-calculus&oldid=1071329204#Diagram_rewriting[the transformation shown in Wikipedia]:
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/0/05/GHZ_circuit_as_ZX-diagram.svg]
+{height=500}
+
+and one of those rules finally tells us that that last graph means our desired state:
+$$
+\frac{|000> + |111>}{\sqrt{2}}
+$$
+because it is a Z spider with $m = 3$ and $n = 1$.
+
+= Quantum logic gate
+{parent=quantum-computing}
+{wiki}
+
+At \x[quantum-computing-is-just-matrix-multiplication]{full} we saw that making a quantum circuit actually comes down to designing one big \x[unitary-matrix].
+
+We have to say though that that was a bit of a lie.
+
+Quantum programmers normally don't just produce those big matrices manually from scratch.
+
+Instead, they use \x[/quantum-logic-gate]{p}.
+
+The following are the main reasons for that:
+* \x[quantum-logic-gates-are-needed-because-you-can-t-compute-the-matrix-explicitly-as-it-grows-exponentially]{full}
+* \x[quantum-logic-gates-are-needed-for-physical-implementation]{full}
+
+= Quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially
+{parent=quantum-logic-gate}
+
+One key insight, is that the matrix of a non-trivial quantum circuit is going to be huge, and won't fit into any amount classical memory that can be present in this universe.
+
+This is because the matrix is exponential in the number qubits, and $2^{100}$ is more than the number of atoms in the universe!
+
+Therefore, off the bat we know that we cannot possibly describe those matrices in an explicit form, but rather must use some kind of shorthand.
+
+But it gets worse.
+
+Even if we had enough memory, the act of explicitly computing the matrix is not generally possible.
+
+This is because knowing the matrix, basically means knowing the probability result for all possible $2^{N}$ outputs for each of the $2^{N}$ possible inputs.
+
+But if we had those probabilities, our algorithmic problem would already be solved in the first place! We would "just" go over each of those output probabilities (OK, there are $2^{N}$ of those, which is also an insurmountable problem in itself), and the largest probability would be the answer.
+
+So if we could calculate those probabilities on a classical machine, we would also be able to simulate the quantum computer on the classical machine, and quantum computing would not be able to give exponential speedups, which we know it does.
+
+To see this, consider that for a given input, say `000` on a 3 qubit machine, the corresponding 8-sized quantum state looks like:
+``
+000 -> 1000 0000 == (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+``
+and therefore when you multiply it by the unitary matrix of the quantum circuit, what you get is the first column of the unitary matrix of the quantum circuit. And `001`, gives the second column and so on.
+
+As a result, to prove that a quantum algorithm is correct, we need to be a bit smarter than "just calculate the full matrix".
+
+Which is why you should now go and read: \x[quantum-algorithm]{full}.
+
+This type of thinking links back to how physical experiments relate to quantum computing: a quantum computer realizes a physical experiment to which we cannot calculate the probabilities of outcomes without exponential time.
+
+So for example in the case of a \x[photonic-quantum-computer], you are not able to calculate from theory the probability that photons will show up on certain wires or not.
+
+= Quantum logic gates are needed for physical implementation
+{parent=quantum-logic-gate}
+
+One direct practical reason is that we need to map the matrix to real quantum hardware somehow, and all quantum hardware designs so far and likely in the future are gate-based: you manipulate a small number of qubits at a time (2) and add more and more of such operations.
+
+While there are "quantum compilers" to increase the portability of quantum programs, it is to be expected that programs manually crafted for a specific hardware will be more efficient just like in classic computers.
+
+TODO: is there any clear reason why computers can't beat humans in approximating any unitary matrix with a gate set?
+
+This is analogous to what classic circuit programmers will do, by using smaller \x[logic-gate]{p} to create complex circuits, rather than directly creating one huge \x[truth-table].
+
+The most commonly considered quantum gates take 1, 2, or 3 qubits as input.
+
+The gates themselves are just unitary matrices that operate on the input qubits and produce the same number of output qubits.
+
+For example, the matrix for the quantum CNOT gate, which takes 2 qubits as input is:
+``
+1 0 0 0
+0 1 0 0
+0 0 0 1
+0 0 1 0
+``
+
+The final question is then: if I have a 2 qubit gate but an input with more qubits, say 3 qubits, then what does the 2 qubit gate (4x4 matrix) do for the final big 3 qubit matrix (8x8)? In order words, how do we scale quantum gates up to match the total number of qubits?
+
+The intuitive answer is simple: we "just" extend the small matrix with a larger identity matrix so that the sum of the probabilities third bit is unaffected.
+
+More precisely, we likely have to extend the matrix in a way such that the https://cs.stackexchange.com/questions/71462/how-are-partial-measurements-performed-on-a-n-qubit-quantum-circuit[partial measurement] of the original small gate qubits leaves all other qubits unaffected.
+
+For example, if the circuit were made up of a CNOT gate operating on the first and second qubits as in:
+``
+0 ----+----- 0
+      |
+1 ---CNOT--- 1
+
+2 ---------- 2
+``
+
+then we would just extend the 2x2 CNOT gate to:
+
+TODO lazy to properly learn right now. Apparently you have to use the https://en.wikipedia.org/wiki/Kronecker_product[Kronecker product] by the identity matrix. Also, \x[zx-calculus] appears to provide a powerful alternative method in some/all cases.
+
+Bibliography:
+* https://quantumcomputing.stackexchange.com/questions/2299/how-to-interpret-a-quantum-circuit-as-a-matrix
+
+= Quantum circuits vs classical circuits
+{parent=quantum-logic-gate}
+
+Just like a classic \x[software-engineer][programmer] does not need to understand the intricacies of how transistors are implemented and CMOS semiconductors, the quantum programmer does not understand physical intricacies of the underlying \x[quantum-computer-physical-implementations][physical implementation].
+
+The main difference to keep in mind is that quantum computers cannot https://en.wikipedia.org/wiki/Observer_effect_(physics)[save and observe intermediate quantum state], so programming a quantum computer is basically like programming a combinatorial-like circuit with gates that operate on (qu)bits:
+* https://quantumcomputing.stackexchange.com/questions/8441/does-a-quantum-computer-have-a-clock-signal-and-if-yes-how-big-is-it/9383#9383
+* https://quantumcomputing.stackexchange.com/questions/8849/quantum-circuits-explain-algorithms-why-didnt-classical-circuits/8869#8869
+
+For this reason programming a quantum computer is much like programming a classical combinatorial circuit as you would do with https://en.wikipedia.org/wiki/SPICE[SPICE], \x[register-transfer-level][verilog-or-vhdl], in which you are basically describing a graph of gates that goes from the input to the output
+
+For this reason, we can use the words "program" and "circuit" interchangeably to refer to a quantum program
+
+Also remember that and there is no no clocks in combinatorial circuits because there are no registers to drive; and so there is no analogue of clock in the quantum system either,
+
+Another consequence of this is that programming quantum computers does not look like programming the more "common" procedural programming languages such as C or Python, since those fundamentally rely on processor register / memory state all the time.
+
+Quantum programmers can however use classic languages to help describe their quantum programs more easily, for example this is what happens in \x[qiskit], where you write a Python program that makes Qiskit library calls that describe the quantum program.
+
+= Universal quantum gates
+{parent=quantum-logic-gate}
+{wiki=Quantum_logic_gate#Universal_quantum_gates}
+
+Just https://en.wikipedia.org/wiki/Functional_completeness[like as for classic gates], we would like to be able to select \x[quantum-computer-physical-implementations] that can represent one or a few gates that can be used to create \i[any] quantum circuit.
+
+Unfortunately, in the case of quantum circuits this is obviously impossible, since the space of N x N unitary matrices is infinite and continuous.
+
+Therefore, when we say that certain gates form a "set of universal quantum gates", we actually mean that "any unitary matrix can be approximated to arbitrary precision with enough of these gates".
+
+Or if you like fancy Mathy words, you can say that the subgroup of the \x[unitary-group] \x[subgroup-generated-by-a-group][generated by] our basic gate set is a \x[dense-set][dense subset] of the unitary group.
+
+= Clifford gates
+{c}
+{parent=quantum-logic-gate}
+{wiki}
+
+This gate set alone is not a set of \x[universal-quantum-gates].
+
+Notably, circuits containing those gates alone can be fully simulated by classical computers according to the \x[gottesman-knill-theorem], so there's no way they could be universal.
+
+This means that if we add any number of Clifford gates to a quantu circuit, we haven't really increased the complexity of the algorithm, which can be useful as a transformational device.
+
+A popular set of \x[universal-quantum-gates] derived from \x[clifford-gates] is \x[clifford-plus-t].
+
+= Clifford plus T
+{c}
+{parent=clifford-gates}
+{tag=universal-quantum-gates}
+
+Set of \x[quantum-logic-gate] composed of the \x[clifford-gates] plus the \x[toffoli-gate]. It forms a set of \x[universal-quantum-gates].
+
+= Gottesman-Knill theorem
+{c}
+{parent=clifford-gates}
+{wiki}
+
+= Toffoli gate
+{c}
+{parent=quantum-logic-gate}
+{wiki}
+
+= Quantum state
+{parent=quantum-computing}
+{wiki}
+
+= Bell state
+{c}
+{parent=quantum-state}
+{wiki}
+
+= Greenberger-Horne-Zeilinger state
+{c}
+{parent=quantum-state}
+{wiki=Greenberger–Horne–Zeilinger_state}
+
+= GHZ state
+{c}
+{synonym}
+
+= Quantum supremacy
+{parent=quantum-computing}
+{title2=2019}
+{wiki}
+
+= Quantum advantage
+{parent=quantum-supremacy}
+
+Similar to \x[quantum-supremacy], but add the goal that the computation must be useful, i.e. make money or solve some open \x[mathematical] problem, \x[ciro-santilli-s-wife] was quite excited about the possibility of finding some counter examples in \x[number-theory] with quantum computers.
