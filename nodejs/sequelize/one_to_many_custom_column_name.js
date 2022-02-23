@@ -15,8 +15,8 @@ const City = sequelize.define('City', {
   parent_country: { type: DataTypes.STRING },
   city_name: { type: DataTypes.STRING },
 });
-Country.hasMany(City, { foreignKey: 'parent_country', sourceKey: 'country_name' } )
-City.belongsTo(Country, { foreignKey: 'parent_country', targetKey: 'country_name' } )
+Country.hasMany(City, { foreignKey: 'parent_country', sourceKey: 'country_name' })
+City.belongsTo(Country, { foreignKey: 'parent_country', targetKey: 'country_name' })
 async function reset() {
   await sequelize.sync({force: true});
   await Country.create({country_name: 'germany'})
