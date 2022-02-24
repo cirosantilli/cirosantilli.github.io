@@ -126,32 +126,13 @@ extract_ids science.ciro
 ``
 so you can fix file by file and move on quickly.
 
-Before we could split files, you would just have to re-run on a single huge file multiple times until it started working.
+More details at: https://cirosantilli.com/cirodown#no-render-timestamp
 
-This does create a bit of a difficulty for rendering however, as opposed to extracting IDs, because the way we render one file depends on other files, e.g. if we modify:
+This was not fully trivial to implement because we had to rework how duplicate IDs are checked. Previously, we just nuked the DB every time on a directory conversion, and then repopulated everything. If a duplicated showed up on a file, it was a duplicate.
 
-README.ciro
+But now that we are not necessarily extracing IDs from every file, we can't just nuke the database anymore, otherwise we'd lose the information. Therefore, what we have to do is to convert every file, and only at the end check the duplicates.
 
-``
-= Ciro Santilli
-``
-
-to:
-
-``
-= Ciro Santilli v2
-{id=ciro-santilli}
-``
-
-then that would affect:
-
-another-file.ciro
-
-``
-\x[ciro-santilli]
-``
-
-While we could in principle deduce what changes to a file affect the rendering of other files, which we already essentially do in order \x[/sponsor/updates/4/group-all-sql-queries-together][to group all queries into one place], it would be hard, so we are just adding a flag for it: TODO.
+Managed to do that with a single query as documented at: https://stackoverflow.com/questions/71235548/how-to-find-all-rows-that-have-certain-columns-duplicated-in-sequelize/71235550#71235550
 
 = Next steps
 {parent=ourbigbook-com}
