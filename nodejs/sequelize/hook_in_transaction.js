@@ -23,7 +23,7 @@ const IntegerNames = sequelize.define('IntegerNames',
       afterCreate: (integerName, options) => {
         assert.notStrictEqual(options.transaction, undefined)
       },
-      beforeDestroy: (article, options) => {
+      beforeDestroy: (integerName, options) => {
         assert.notStrictEqual(options.transaction, undefined)
       },
     }

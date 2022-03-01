@@ -14,6 +14,16 @@ if (process.argv[2] === 'p') {
     storage: 'tmp.sqlite',
   })
 }
+function assertEqual(rows, rowsExpect) {
+  assert.strictEqual(rows.length, rowsExpect.length)
+  for (let i = 0; i < rows.length; i++) {
+    let row = rows[i]
+    let rowExpect = rowsExpect[i]
+    for (let key in rowExpect) {
+      assert.strictEqual(row[key], rowExpect[key])
+    }
+  }
+}
 ;(async () => {
 const IntegerNames = sequelize.define('IntegerNames', {
   value: { type: DataTypes.INTEGER },
@@ -29,14 +39,9 @@ async function reset() {
 await reset()
 let rows
 rows = await IntegerNames.findAll()
-assert.strictEqual(rows[0].id, 1)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows[0].value, 2)
-assert.strictEqual(rows[1].id, 2)
-assert.strictEqual(rows[1].name, 'three')
-assert.strictEqual(rows[1].value, 3)
-assert.strictEqual(rows[2].id, 3)
-assert.strictEqual(rows[2].name, 'five')
-assert.strictEqual(rows[2].value, 5)
-assert.strictEqual(rows.length, 3)
+assertEqual(rows, [
+  { id: 1, value: 2, name: 'two',   },
+  { id: 2, value: 3, name: 'three', },
+  { id: 3, value: 5, name: 'five',  },
+])
 })().finally(() => { return sequelize.close() })

@@ -35,10 +35,6 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
   * https://github.com/sequelize/sequelize/issues/12044
   * https://stackoverflow.com/questions/28231970/bluebird-shows-broken-stacktrace-when-using-with-sequelize-mysql
 * does not automatically update fields on hooks: https://github.com/sequelize/sequelize/issues/8586#issuecomment-422877555
-* no way to do (non-raw) queries during migrations, e.g. to update fields based on other fields in a complex way?
-  * https://github.com/sequelize/cli/issues/862
-  * https://stackoverflow.com/questions/45286429/custom-query-on-sequelize-seeder
-  * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
 * cannot change columns when other columns have constraints due to the backup table?
   * https://stackoverflow.com/questions/64533732/process-of-changing-a-table-with-sequelize-migration-if-foreign-key-constraint-i
 * you have to use `.get()` for `attribute` aliased fields, why? https://stackoverflow.com/questions/32649218/how-do-i-select-a-column-using-an-alias/69890944#69890944
@@ -51,6 +47,12 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
   Also, you can't get query strings either: https://github.com/sequelize/sequelize/issues/2325
 * SQLite `changeColumn` migrations do on delete cascades of other tables. SQLite does not have change column statements, so they have to drop and recreate tables, but they don't temporarily remove cascades, so you lose data.
+* migrations
+  * no way to do (non-raw) queries during migrations, e.g. to update fields based on other fields in a complex way?
+    * https://github.com/sequelize/cli/issues/862
+    * https://stackoverflow.com/questions/45286429/custom-query-on-sequelize-seeder
+    * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
+  * https://stackoverflow.com/questions/56043246/node-js-sequelize-no-primary-keys-when-migrating/56046101#56046101
 
 = Sequelize example
 {parent=sequelize}
@@ -113,6 +115,7 @@ Overview of the examples:
     * https://github.com/sequelize/sequelize/issues/8586
   * \a[nodejs/sequelize/hook_in_transaction.js]:
     * https://stackoverflow.com/questions/35014679/sequelize-hook-depending-on-transaction
+  * \a[nodejs/sequelize/hook_abort.js]: aborting updates from hooks: https://stackoverflow.com/questions/64362298/how-to-abort-an-update-operation-with-beforeupdate-hook-sequelize/71308632#71308632
 * internals:
   * \a[nodejs/sequelize/common.js]: common utilities used across examples, most notably:
     * to easily setup different DBRM
