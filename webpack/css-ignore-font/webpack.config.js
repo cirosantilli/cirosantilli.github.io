@@ -1,9 +1,5 @@
-const path = require('path');
-
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   entry: {
@@ -17,7 +13,6 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          //'resolve-url-loader',
         ],
       },
       { test: /\.(woff2)$/i, type: 'asset/resource', },
