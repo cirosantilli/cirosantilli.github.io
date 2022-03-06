@@ -15,8 +15,7 @@ module.exports = {
           'css-loader',
         ],
       },
-      { test: /\.(woff2)$/i, type: 'asset/resource', },
-      { test: /\.woff$/, loader: 'ignore-loader' },
+      { test: /\.(woff|woff2)$/i, type: 'asset/resource', },
     ],
   },
   plugins: [
