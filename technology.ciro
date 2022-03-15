@@ -157,6 +157,8 @@ Most promising approaches as of 2020:
 
 Once again, relies on \x[superconductivity] to reach insane magnetic fields. Superconductivity is just so important.
 
+\x[ciro-santilli] saw a good presentation about it once circa 2020, it seems that the main difficulty of the time was turbulence messing things up. They have some nice simulations with cross section pictures e.g. at: https://www.eurekalert.org/news-releases/937941[].
+
 = List of magnetic confinement fusion reactors
 {parent=magnetic-confinement-fusion}
 
@@ -1300,7 +1302,9 @@ Same as \x[recursive-language] but in the context of the \x[integer]{p}.
 {parent=formal-language-theory}
 {wiki}
 
-This is the classic result of \x[formal-language-theory], but there is too much slack between context free and context sensitive, which is PSPACE (larger than NP!).
+This is the classic result of \x[formal-language-theory], but there is too much slack between context free and context sensitive, which is PSPACE (larger than \x[np-complexity]!).
+
+By \x[noam-chomsky].
 
 TODO had seen a good table on Wikipedia with an expanded hierarchy, but lost it!
 
@@ -1727,6 +1731,12 @@ The exact same problem appears over and over, e.g.:
 {parent=computer-science}
 {wiki}
 
+= Value function
+{parent=optimization-problem}
+{wiki}
+
+The function being maximized in a \x[optimization-problem].
+
 = Random number generation
 {parent=cryptography}
 {title2=RNG}
@@ -2039,9 +2049,6 @@ Applications:
 {parent=secure-hash-algorithms}
 {wiki}
 
-Implementations:
-* 
-
 = SHA-2
 {c}
 {parent=secure-hash-algorithms}
@@ -2061,6 +2068,12 @@ Implementations:
 = Alan Turing
 {c}
 {parent=computer-scientist}
+{wiki}
+
+= Noam Chomsky
+{c}
+{parent=computer-scientist}
+{tag=cool-person}
 {wiki}
 
 = Scott Aaronson
@@ -2904,6 +2917,29 @@ This likely implies \x[transhumanism], and https://en.wikipedia.org/wiki/Mind_up
 \x[ciro-santilli] joined the silicon industry at one point to help increase our computational capacity and reach AGI.
 
 Ciro believes that the easiest route to full AI, if any, could involve \x[ciro-s-2d-reinforcement-learning-games].
+
+= AI alignment
+{c}
+{parent=artificial-intelligence}
+{wiki}
+
+As highlighted e.g. at \x[human-compatible-by-stuart-j-russell-2019], this AI alignment intrisically linked to the idea of \x[utility] in \x[economy].
+
+= Artificial intelligence bibliography
+{c}
+{parent=artificial-intelligence}
+{wiki}
+
+= Human compatible by Stuart J. Russell (2019)
+{c}
+{parent=artificial-intelligence-bibliography}
+{wiki=Human_compatible}
+
+The key takeaway is that setting an explicit \x[value-function] to an \x[agi] entity is a good way to destroy the world due to poor \x[ai-alignment]. We are more likely to not destroy by creating an AI whose goals is to "do what humans what it to do", but in a way that it does not know before hand what it is that humans want, and it has to learn from them.
+
+Some other cool ideas:
+* \x[game-theory] can be seen as part of \x[artificial-intelligence] that deals with scenarios where multiple intelligent agents are involved
+* \x[economy], and notably the study of the \x[utility], is intrinsically linked to \x[ai-alignment]
 
 = Natural language processing
 {parent=machine-learning}
@@ -4740,6 +4776,12 @@ No proper threaded discussion without creating new channels? As of 2022 there is
 
 As of 2022 they also have a school hub: https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ which auto creates groups by university email access. Good idea, and shows popularity amongst that user group.
 
+Servers don't have an ID to join them? https://www.reddit.com/r/discordapp/comments/b9zdt6/join_discord_server_from_id/
+
+Can only make public servers if you have 1000 members?? https://support.discord.com/hc/en-us/articles/360023968311 Why so much bullshit?? https://www.reddit.com/r/discordapp/comments/6jouf8/how_do_i_make_my_server_public/
+
+Also asked at: https://webapps.stackexchange.com/questions/163441/how-to-create-a-public-discord-server-that-anyone-can-join-without-an-invite
+
 = Jami
 {c}
 {disambiguate=software}
@@ -4873,6 +4915,21 @@ They claim to delete metadata: https://www.quora.com/Does-WhatsApp-store-message
 \Video[https://www.youtube.com/watch?v=X4YsJt4rIOI]
 {title=WhatsApp founder Jan Koum talks about their Journey by Roots (2017)}
 {description=Good talk, explains how everything happened in the perfect location at the perfect time: unemployed people who knew how to code, bought an iPhone, the next big platform, at its very beginning, they had just release the required push notifications \x[api], and he travelled a lot and knew how much SMS sucked, especially international.}
+
+= Why did Facebook buy WhatsApp?
+{parent=whatsapp}
+
+Obviously with the single intention of killing a competitor.
+
+It is impossible to make money off WhatsApp as it is because of \x[end-to-end-encryption].
+
+Facebook just clearly bought it to prevent it from actually growing further and killing facebook.
+
+It is mindblowing that the sale wasn't cancelled due to anti trust.
+
+The outcome of this is that WhatApp will remain with the same feature set forever, while other competitors have been growing, notably \x[discord] and \x[slack-software].
+
+It seems that there is a case looming 10 years after the fact: https://www.cityam.com/facebook-fails-to-block-antitrust-lawsuit-over-whatsapp-and-instagram-ownership/ Wake up???
 
 = WhatsApp profile information is public by default
 {parent=whatsapp}
@@ -5838,7 +5895,7 @@ The other big reason is that JavaScript is so lose with type conversions, notabl
 
 Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript, and sometimes fight a lot to get things to work. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped[]. Not sure if this is beautiful, or frightening.
 
-but in the end, as with other type of static linters, TypeScript generally transforms a few hard to debug runtime issues, into a bunch of stupid to solve compile time issues, which is generally a good thing.
+But in the end, as with other type of static linters, TypeScript generally transforms a few hard to debug runtime issues, into a bunch of stupid to solve compile time issues, which is generally a good thing.
 
 Examples under \a[typescript]. Run with `npx example.ts`.
 * \a[typescript/inferFromInit.ts]. Should fail with:
@@ -5850,6 +5907,18 @@ Examples under \a[typescript]. Run with `npx example.ts`.
   npx tsc jsFromTs.ts && node jsFromTs.js
   ``
   TODO we are unable to make it typecheck that require, i.e. make that fail, but we've seen cases in complex codebases where that did happen and https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html has infinite information on supporting it. So... how to make it fail??
+
+Some major annoyances of TypeScript:
+* https://stackoverflow.com/questions/12710905/how-do-i-dynamically-assign-properties-to-an-object-in-typescript how to dynamically assign properties to objects without defining explicit interfaces? We really need a syntax of type:
+  ``
+  const myobj = {
+    i: 2,
+    [s string],
+  }
+  if (something) {
+    myobj.s = 'asdf'
+  }
+  ``
 
 = Universal Module Definition
 {c}
@@ -8459,6 +8528,7 @@ Each one of them appears in the image in a random rotated view, so given enough 
 = X-ray crystallography
 {c}
 {parent=microscopy}
+{tag=crystallography}
 {wiki}
 
 One of its main applications is to determine the 3D structure of \x[protein]{p}.
@@ -8470,6 +8540,12 @@ Crystallizing is not simple because:
 * sometimes it only crystallizes if you add some extra small chemical that stabilizes it
 
 \x[cryogenic-electron-microscopy] can sometimes determine the structures of proteins that failed crystallization.
+
+= Electron crystallography
+{parent=x-ray-crystallography}
+{wiki}
+
+Crystallography determination with a \x[transmission-electron-microscopy] instead of the more classical \x[x-ray=crystallography].
 
 = Reverse engineering
 {parent=technology}
@@ -8523,6 +8599,19 @@ How to improve education? Simple:
 * invest intelligently as mentioned at \x[what-poor-countries-have-to-do-to-get-richer]:
   * focus on fewer higher excellence schools that select the most promising poor students, rather than giving crappy average to everyone
   * use \x[ourbigbook-com]
+
+= Education as a system of indoctrination
+{parent=education}
+
+Whenever \x[ciro-santilli] walks in front of a school and sees the tall gates it makes him sad. Maybe 8 year olds need gates. But do we need to protect 15 year olds like that? Students should be going out to see the world, both good and evil not hiding from it! We should instead be guiding them \i[to] the world. But instead, we are locking them up in brainwashing centers.
+
+\x[the-purpose-of-education-by-noam-chomsky-2012] puts it well, education can be either be:
+* a brainwashing to make people comply with The Establishment
+* a way to get people genuinely interested and \x[how-to-teach/help-students-achieve-their-goal][help them to reach their life goals]
+He has spoken about that infinitely, e.g. from when he was thin: https://www.youtube.com/watch?v=JVqMAlgAnlo
+
+Bibliography:
+* https://www.youtube.com/watch?v=ts7CEFQM2bE How Education Became Indoctrination: Dr Stephen Hicks (2021) Interview by https://www.youtube.com/c/KnowlandKnows Interesting channel. "Are you sick of woke-washing in education? Free speech distinguishes education from indoctrination" and "I taught at \x[eton-college] before I was fired because 'The Patriarchy Paradox' caused offence.".
 
 = Stuff school should actually teach
 {parent=education}
@@ -8671,11 +8760,13 @@ Good \x[portuguese-language] overview: http://www.scielo.br/scielo.php?script=sc
 
 A fantastic sounding full time 4-year course that any student could transfer to called that teaches various \x[natural-science] topics, notably \x[mathematics], \x[physics], \x[chemistry] and \x[molecular-biology].
 
-Many past students Ciro talked to however share a common frustration with the course: in the first 2 years at least, you have infinitely many courses, and no time to study, and \x[students-must-have-a-flexible-choice-of-what-to-learn][no choice of what to study], it is only in the latter 2 years that you get the choices.
+Many past students Ciro talked to however share a common frustration with the course: in the first 2 years at least, the "basic cycle", you have infinitely many courses, and no time to study, and \x[students-must-have-a-flexible-choice-of-what-to-learn][no choice of what to study], it is only in the latter 2 years (the advanced cycle) that you get the choices.
 
 Also, if you get low grades in a single subject, your out. And \x[exams-are-useless] of course.
 
 Here's a \x[quora] question in \x[portuguese-language] about the course: https://pt.quora.com/Como-funciona-o-tal-do-curso-secreto-da-USP[], the only decent answer so far being: https://pt.quora.com/Como-funciona-o-tal-do-curso-secreto-da-USP/answer/Victor-Soares-31[]. Very disappointing to hear.
+
+On the advanced cycle, you have a lot of academic freedom. You are basically supposed to pick a research project with an advisor and go for it, with a small ammount of mandatory course hours. Ciro was told in 2022 that you can even have advisors from other universities or industry, and that it is perfectly feasible to take courses in another university and valiate the course hours later on. Fantastic!!!
 
 Students from the entire \x[university-of-sao-paulo] can apply to transfer to it only after joining the university, with the guarantee that they can go back to their original courses if they don't adapt to the new course, which is great!
 
@@ -8755,6 +8846,7 @@ Other people that think that the educational system is currently \x[bullshit] as
 * by Zach Caceres
   * https://zach.dev/blog/unschooling-myself
   * https://zach.dev/blog/mpc
+* Anand Raja submission "Students and Universities": https://publications.parliament.uk/pa/cm200809/cmselect/cmdius/170/170ii.pdf[], https://www.linkedin.com/in/anandraja/[].
 
 \Video[https://www.youtube.com/watch?v=cAxzkl2cmNY]
 {title=Peter Gregory from \x[silicon-valley-tv-series] shows his hate for \x[university] in a fake \x[ted-conference] talk.}
@@ -9214,7 +9306,7 @@ We must destroy \x[social-inequality].
 No, they are basically \x[not-for-profit]{p}, more like what the \x[united-states] more sensibly calls "\x[private-university]{p}". But if they take government funding (directly or indirectly through subsiding enrolment fees?), they have to follow some government rules, and all major ones do it seems.
 * https://academia.stackexchange.com/questions/49187/in-what-sense-are-uk-universities-public/49188
 
-A similar confusing naming pattern appears to apply to \x[public-school]{p}.
+A similar confusing naming pattern appears to apply to \x[public-school-united-kingdom]{p}.
 
 In the \x[university-of-cambridge] for example, all MA degree holders or higher appear to have some voting power: https://www.cam.ac.uk/about-the-university/how-the-university-and-colleges-work/governance (https://web.archive.org/web/20210811192322/https://www.cam.ac.uk/about-the-university/how-the-university-and-colleges-work/governance[archive])
 
@@ -10341,254 +10433,7 @@ Bibliography:
 
   While this increased efficiency, it also fired many people, and the government didn't manage to change legislation fast enough to \x[tax] those profits to increase welfare.
 
-= Law
-{parent=social-technology}
-{wiki}
-
-= Legal
-{synonym}
-
-= Illegal
-{synonym}
-
-= Legality
-{synonym}
-
-= Illegality
-{synonym}
-
-= Legally
-{synonym}
-
-= Illegally
-{synonym}
-
-= Legalize
-{synonym}
-
-= Intellectual property
-{parent=law}
-{title2=IP}
-{wiki}
-
-= Patent
-{parent=intellectual-property}
-{wiki}
-
-= Patented
-{synonym}
-
-= Crime
-{parent=law}
-{wiki}
-
-Some types of crimes include:
-* \x[cybercrime]{child}
-
-= Fraud
-{parent=crime}
-{wiki}
-
-= Bait-and-switch
-{parent=fraud}
-{wiki}
-
-= Clickbait
-{parent=bait-and-switch}
-{wiki}
-
-= Clickbaity
-{synonym}
-
-= Organized crime
-{parent=crime}
-{wiki}
-
-= Punishment
-{parent=crime}
-{wiki}
-
-= Crucifixion
-{parent=punishment}
-{wiki}
-
-= Crucify
-{synonym}
-
-= Crucified
-{synonym}
-
-= Theft
-{parent=crime}
-{wiki}
-
-= Freedom of speech
-{parent=law}
-{wiki}
-
-For \x[ciro-santilli]'s campaign for freedom of speech in China: \x[cirosantilli-china-dictatorship]{full}.
-
-Ciro has the radical opinion that absolute freedom of speech must be guaranteed by \x[law] for anyone to talk about absolutely anything, anonymously if they wish, with the exception only of copyright-related infringement.
-
-And Ciro believes that there should be no age restriction of access to any information.
-
-People should be only be punished for actions that they actually do in the real world. Not even purportedly planning those actions must be punished. Access and ability to publish information must be completely and totally free.
-
-If you don't like someone, you should just block them, or start your own campaign to prepare a counter for whatever it is that they are want to do.
-
-This freedom does not need to apply to citizens and organizations of other countries, only to citizens of the country in question, since foreign governments can create influence campaigns to affect the rights of your citizens. More info at: https://cirosantilli.com/china-dictatorship/mark-government-controlled-social-media
-
-Limiting foreign influence therefore requires some kind of nationality check, which could harm \x[anonymity]. But Ciro believes that almost certainly such checks can be carried out in anonymous blockchain consensus based mechanisms. Governments would issues nationality tokens, and tokens are used for anonymous confirmations of rights in a way that only the token owner, not even the government, can determine who used the token. E.g. something a bit like what \x[monero] does. Rights could be checked on a once per account basis, or yearly basis, so transaction costs should not be a big issue. Maybe expensive proof-of-work systems can be completely bypassed to the existence of this central token authority?
-
-Some people believe that freedom of speech means "freedom of speech that I agree with". Those people should move to \x[china] or some other \x[dictatorship].
-
-Related: https://cirosantilli.com/china-dictatorship/hate-speech
-
-= Censorship
-{parent=freedom-of-speech}
-{wiki}
-
-The opposite of \x[freedom-of-speech].
-
-For \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][censorship in China] see: https://cirosantilli.com/china-dictatorship/censorship
-
-= Law enforcement
-{parent=law}
-{wiki}
-
-= Police
-{parent=law-enforcement}
-{wiki}
-
-= License
-{parent=law}
-{wiki}
-
-= Licensed
-{synonym}
-
-Related:
-* \x[freely-licensed-bibles]{child}
-
-= Copyright
-{parent=license}
-{wiki}
-
-= Fair use
-{parent=copyright}
-{wiki}
-
-= Freedom of panorama
-{parent=license}
-{wiki}
-
-= Free license
-{parent=license}
-{wiki}
-
-= Creative Commons license
-{c}
-{parent=free-license}
-{wiki}
-
-= Creative Commons
-{c}
-{synonym}
-
-= CC BY
-{c}
-{parent=creative-commons-license}
-
-= CC BY-SA
-{c}
-{parent=creative-commons-license}
-
-This one strikes the right balance between restriction and permissions. NC and ND are simply too restrictive.
-
-TODO where does the SA boundary end? E.g.:
-* \x[software]: https://opensource.stackexchange.com/questions/173/what-do-i-need-to-share-if-i-include-cc-by-sa-artwork-in-my-software/11323#11323
-* \x[video-game]:
-  * https://gamedev.stackexchange.com/questions/92536/is-it-legal-to-use-creative-commons-art-in-a-commercial-game/189293#189293
-  * https://www.reddit.com/r/creativecommons/comments/5nn01q/using_sharealike_music_in_a_video_game_must_i/
-* \x[website]: https://graphicdesign.stackexchange.com/questions/68805/using-cc-by-sa-3-0-images-in-website-does-share-alike-affect-my-websites-lice/145124#145124
-* book: https://academia.stackexchange.com/questions/48375/using-images-with-cc-by-sa-license-in-slides-or-a-thesis
-* \x[music] in a podcast: https://opensource.stackexchange.com/questions/7022/using-cc-by-sa-music-in-a-podcast
-
-Does source code need to be redistributed: https://opensource.stackexchange.com/questions/1849/does-the-cc-by-sa-license-require-that-source-code-of-derivative-works-be-shared
-
-Case law list on the CC wiki: https://wiki.creativecommons.org/wiki/Category:Case_Law
-
-= CC BY-SA 4.0
-{parent=cc-by-sa}
-
-= CC BY-NC-SA
-{c}
-{parent=creative-commons-license}
-
-Too restrictive. People should be able to make money from stuff.
-
-The definition of "commercial" could also be taken in extremely broad senses, making serious reuse risky in many applications.
-
-Notably, many \x[university] courses use it, notably \x[mit-opencourseware]. Ciro wonders if it is because \x[academic]{p} are wary of \x[industry], or if they want to make money from it themselves. This reminds Ciro of a documentary he watched about the origins of one an early \x[web-browser]{p} in some \x[american] university. And then that university wanted to retain copyright to make money from it. But the PhDs made a separate company nonetheless. And someone from the company rightly said something along the lines of:
-\Q[The goal of \x[university]{p} is to help create companies and to give back to society like that. Not to try and make money from inventions.]
-TODO source.
-
-= Public domain
-{parent=free-license}
-{wiki}
-
-= Software license
-{parent=license}
-{wiki}
-
-= Affero General Public License
-{c}
-{parent=software-license}
-{wiki}
-
-= AGPL
-{c}
-{synonym}
-
-= Server Side Public License
-{c}
-{parent=affero-general-public-license}
-{title2=SSPL}
-{wiki}
-
-Created by \x[mongodb], attempts to be even more restrictive than \x[agpl] by more explicitly saying that indirect automatic requests are also included in the "you must give source" domain: https://opensource.stackexchange.com/questions/8025/difference-between-mongodb-sspl-and-gnu-agpl
-
-The base use case is:
-* client contacts \x[server] software, e.g. a \x[python] program
-* \x[python] contacts the \x[database], and returns results back to the client
-which is what MongoDB is trying to ensure, which sounds fair.
-
-= Freeware
-{parent=software-license}
-{wiki}
-
-= Freemium
-{parent=software-license}
-{wiki}
-
-= MIT License
-{c}
-{parent=software-license}
-{wiki}
-
-= Proprietary software
-{parent=software-license}
-{wiki}
-
-= Software license that starts closed and becomes open once a certain amount of money is raised
-{parent=software-license}
-
-This is an interesting licensing model that might just scale.
-
-= Sponsorware
-{parent=software-license-that-starts-closed-and-becomes-open-once-a-certain-amount-of-money-is-raised}
-
-https://calebporzio.com/sponsorware
+\Include[law]{parent=social-technology}
 
 = Management
 {parent=social-technology}
@@ -11499,8 +11344,8 @@ How do we prevent the bank from logging which token goes to which user besides t
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=rhSg9X3q2gc]
-{title=The \x[euro] Has Never Been More Problematic by Yanis Varoufakis (2018)}
-{description=Talk given at the \x[oxford-union].}
+{title=The \x[euro] Has Never Been More Problematic by \x[yanis-varoufakis] (2018)}
+{description=Talk given at the \x[oxford-union]. https://youtu.be/cCA68U3P_Z8?t=1288 describes the problem with the Uero a bit better.}
 
 = Pound sterling
 {c}
