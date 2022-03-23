@@ -2374,6 +2374,7 @@ TODO how to save to a `.mid` file? https://askubuntu.com/questions/709673/save-a
 = XML
 {c}
 {parent=data-file-format}
+{tag=markup-language}
 {title2=Extensible Markup Language}
 {wiki}
 
@@ -2785,23 +2786,17 @@ TODO how close does it get to Shannon's limit?
 {parent=computer}
 {wiki}
 
-= Cirodown
-{c}
+= Lightweight markup language
 {parent=markup-language}
-{splitSuffix}
-{tag=personal-knowledge-base}
+{wiki}
 
-\x[markup-language]{c} created by \x[ciro-santilli], and used on \x[ciro-santilli-s-homepage]. The one \x[markup-language] to rule them all?
-
-\x[github] project page: https://github.com/cirosantilli/cirodown
-
-Documentation: \a[cirodown]{check=0}
-
-Motivated/intended base for \x[ourbigbook-com].
+= List of markup languages
+{parent=markup-language}
 
 = AsciiDoc
 {c}
-{parent=markup-language}
+{parent=list-of-markup-languages}
+{tag=lightweight-markup-language}
 {wiki}
 
 = AsciiDoctor
@@ -2811,7 +2806,7 @@ Motivated/intended base for \x[ourbigbook-com].
 
 = LaTeX
 {c}
-{parent=markup-language}
+{parent=list-of-markup-languages}
 {wiki}
 
 Revolutionary for its time, and a big part of \x[ourbigbook-com/motivation][Ciro's Enlightenment].
@@ -2819,12 +2814,12 @@ Revolutionary for its time, and a big part of \x[ourbigbook-com/motivation][Ciro
 But too insane, and did not https://tex.stackexchange.com/questions/39309/convert-latex-to-html/196520#196520[keep up with internet age], and so Ciro wants to kill it now.
 
 = KaTeX
-{parent=latex}
 {c}
+{parent=latex}
 
 https://github.com/KaTeX/KaTeX
 
-Default mathematics typesetting used in \x[cirodown].
+Default mathematics typesetting used in \x[ourbigbook-markup].
 
 Key issues:
 * https://github.com/KaTeX/KaTeX/issues/2228 `newcommand` did not support optional arguments
@@ -2839,18 +2834,44 @@ LaTeX subset that output nicely to HTML.
 
 https://tex.stackexchange.com/questions/39309/convert-latex-to-html/196520#196520
 
-Too insane though due to LaTeX roots, better just move to newer HTML-first markups like \x[cirodown] or \x[markdown].
+Too insane though due to LaTeX roots, better just move to newer HTML-first markups like \x[ourbigbook-markup] or \x[markdown].
+
+= OurBigBook Markup
+{c}
+{parent=list-of-markup-languages}
+{tag=lightweight-markup-language}
+{tag=personal-knowledge-base}
+
+= Cirodown
+{c}
+{splitSuffix}
+{synonym}
+
+The \x[markup-language] of \x[ourbigbook-com].
+
+Also used on \x[ciro-santilli-s-homepage] as a \x[static-website] via the OurBigBook CLI.
+
+The one \x[markup-language] to rule them all?
+
+Documentation: \a[ourbigbook]{check=0}
+
+= OurBigBook CLI
+{c}
+{parent=ourbigbook-markup}
+
+Official \x[command-line-interface]{c} to convert a directory of \x[ourbigbook-markup] files into a \x[static-website].
 
 = MathBook XML
 {c}
-{parent=markup-language}
+{parent=list-of-markup-languages}
 
 https://github.com/rbeezer/mathbook
 
 \x[xml], ain't nobody ever going to write that manually.
 
 = Markdown
-{parent=markup-language}
+{parent=list-of-markup-languages}
+{tag=lightweight-markup-language}
 {wiki}
 
 = Pandoc
@@ -2859,7 +2880,7 @@ https://github.com/rbeezer/mathbook
 
 This is good software.
 
-If it only it were written in \x[javascript] instead of Haskell (!?), then Ciro might have used it as the basis for \x[cirodown].
+If it only it were written in \x[javascript] instead of Haskell (!?), then Ciro might have used it as the basis for \x[ourbigbook-markup].
 
 = karlcow/markdown-testsuite
 {parent=markdown}
@@ -2893,6 +2914,19 @@ This is why Ciro started \x[ciro-s-2d-reinforcement-learning-games] to generate 
 The other reason is that it is ugly.
 
 \Include[artificial-intelligence]{parent=machine-learning}
+
+= Natural language processing
+{parent=machine-learning}
+{tag=ai-complete}
+{wiki}
+
+An impossible \x[ai-complete] dream.
+
+It is impossible to understand speech, and take meaningful actions from it, if you don't understand what is being talked about.
+
+And without doubt, "understanding what is being talked about" comes down to understanding (efficiently representing) the geometry of the 3D world with a time component.
+
+Not from hearing sounds alone.
 
 = Recommender system
 {parent=machine-learning}
@@ -5401,7 +5435,7 @@ God, it's impossible! You just have to convert the entire fucking call stack all
 * https://stackoverflow.com/questions/43832490/is-it-possible-to-use-await-without-async-in-js
 * https://stackoverflow.com/questions/6921895/synchronous-delay-in-code-execution
 
-And then, after many many hours of this work, you might notice that the new code is way, way way slower than before, because making small functions `async` has a large performance impact: https://madelinemiller.dev/blog/javascript-promise-overhead/[]. Real world case with a 4x slowdown: https://github.com/cirosantilli/cirodown/tree/async-slow[].
+And then, after many many hours of this work, you might notice that the new code is way, way way slower than before, because making small functions `async` has a large performance impact: https://madelinemiller.dev/blog/javascript-promise-overhead/[]. Real world case with a 4x slowdown: https://github.com/cirosantilli/ourbigbook/tree/async-slow[].
 
 = Node.js
 {c}
@@ -7758,6 +7792,7 @@ Index:
 = HTML
 {c}
 {parent=web-technology}
+{tag=markup-language}
 {wiki}
 
 = HTML canvas
@@ -7770,7 +7805,7 @@ Allows us to draw with JavaScript pixel by pixel! Great way to create \x[computa
 
 Here is an animation demo with some useful controls:
 \JsCanvasDemo[[
-new class extends CirodownCanvasDemo {
+new class extends OurbigbookCanvasDemo {
   init() {
     super.init('hello');
     this.pixel_size_input = this.addInputAfterEnable(
@@ -7810,7 +7845,7 @@ Bibliography: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutori
 https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example
 
 \JsCanvasDemo[[
-new class extends CirodownCanvasDemo {
+new class extends OurbigbookCanvasDemo {
   init() {
     super.init('webgl', {context_type: 'webgl'});
     this.ctx.viewport(0, 0, this.ctx.drawingBufferWidth, this.ctx.drawingBufferHeight);
@@ -7879,7 +7914,7 @@ void main() {
 * \a[web-cheat/responsive-image-max-height.html]: here we try to create an image that is never wider than the screen. If the screen is less wide than the image, then the image scales down proportionally. Otherwise, the image has a user determined fixed by the CSS or the HTML `height` property. Related:
   * https://stackoverflow.com/questions/13632985/limit-the-height-of-a-responsive-image-with-css
   * https://stackoverflow.com/questions/50193946/responsive-image-with-max-height-max-width/50194061
-  TODO I'm unable to do this....... https://stackoverflow.com/questions/69964332/how-to-set-the-default-height-of-responsive-images-when-screen-is-wide-and-have The objective was to implement: https://github.com/cirosantilli/cirodown/issues/168
+  TODO I'm unable to do this....... https://stackoverflow.com/questions/69964332/how-to-set-the-default-height-of-responsive-images-when-screen-is-wide-and-have The objective was to implement: https://github.com/cirosantilli/ourbigbook/issues/168
 
 = CSS flex
 {parent=cascading-style-sheets}
@@ -9430,12 +9465,9 @@ People felt it was normal to have to try for one or two years to replicate a pap
 {wiki}
 
 = Principal investigator
-{parent=richard-henderson}
+{parent=research-group}
+{title2=PI}
 {wiki}
-
-= PI
-{c}
-{synonym}
 
 = Academic publishing
 {parent=academia}

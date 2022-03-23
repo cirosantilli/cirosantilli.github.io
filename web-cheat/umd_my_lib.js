@@ -1,4 +1,4 @@
-// https://cirosantilli.com/cirodown#universal-module-definition
+// https://cirosantilli.com/ourbigbook#universal-module-definition
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Meh.
