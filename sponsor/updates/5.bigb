@@ -12,77 +12,19 @@
 = Advances
 {parent=ourbigbook-com}
 
-One of the \x[4/the-table-of-contents-shows-across-different-files-via-include][key advances of the previous update] was to show include headers on the table of contents.
-
-This was to allow splitting source files freely.
-
-While that goal was in principle achieved in that commit, when I went ahead to split the huge index of cirosantilli.com into multiple files, I notice several bugs that took a week to fix.
-
-After all of these were solved, I finally managed to split the https://github.com/cirosantilli/cirosantilli.github.io/blob/84c8a6e7fdbe252041accfb7a06d9b7462287131/README.ciro[README] at: https://github.com/cirosantilli/cirosantilli.github.io/commit/84c8a6e7fdbe252041accfb7a06d9b7462287131 and keep the previous desired output. You can now see that the README contains just:
-``
-\Include[ciro-santilli]
-\Include[science]
-\Include[mathematics]
-\Include[technology]
-\Include[art]
-``
-
-This split led to a small positive modification of the output as follows. Previously, a section such as "Quantum Electrodynamics" would have been present in the monolithic README.ciro as:
-``
-= Quantum electrodynamics
-``
-If you visited https://cirosantilli.com/quantum-electrodynamics[], you would see see a link to the "nosplit" version, which would link you back to https://cirosantilli.com#quantum-electrodynamics[], but that is not great, since this is was a humongous page with all of the README.ciro, and took long to display.
-
-After the split, `= Quantum electrodynamics` is present under `science.ciro`, and the nosplit version is the more manageable https://cirosantilli.com/science#quantum-electrodynamics[].
-
-The key changes that were missing for that to happen were:
-* \x[link-to-an-image-or-video-in-another-file-that-has-an-x-on-title-from-another-file]
-* \x[properly-reconciling-source-files-and-the-database]
-
-= Link to an image or video in another file that has an `\x` on title from another file
+= `\Include` and `\x` and working on dynamic website
 {parent=advances}
 
-Issue report at:  https://github.com/cirosantilli/ourbigbook/issues/198 Suppose you had:
+This was the major final step of fully integrating the \x[ourbigbook-cli] into the dynamic website (besides fixing some nasty bugs that escaped passed by me from the previous newsletter).
 
-programming-language.ciro
+The implementation was done by "simply" reusing https://cirosantilli.com/ourbigbook/h-scope-argument[scopes], e.g.: `cirosantilli`'s article about `mathematics` has scope `cirosantilli` and full ID `cirosantilli/mathematics`.
 
+That on the website is equivalent to a local file structure of:
 ``
-= Programming language
-
-\Image[python-logo.jpg]
-{title=The \x[python-programming-language] logo}
-
-== Python
-{c}
-{disambiguate=programming-language}
+cirodown/mathematics.bigb
 ``
 
-logos-i-like.ciro
-
-``
-= Logos I like
-
-\x[image-the-python-logo]
-``
-
-Now, when rendering `\x[image-the-python-logo]`, we would need to fetch two IDs:
-* `image-the-python-logo` for the `The ` and ` logo` part
-* `python-programming-language` itself, to know that `\x[python-programming-language]` should render as `Python`
-
-But after \x[4/group-all-sql-queries-together] was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
-
-This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` to the existing References table, which tracks dependencies between IDs.
-
-After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single \x[join-sql].
-
-= Properly reconciling source files and the database
-{parent=advances}
-
-TODO
-
-Then came some nasty stuff about reconciling:
-* the current source file being rendered, and in particular the placeholder header that shows up on 
-* the known database state
+The problem is that a bunch of subdirectory scope operations were broken locally as well, as it simply wasn't a major use case. But now they became a major use case for , so I fixed them.
 
 = Improve header summary display
 {parent=advances}
@@ -139,15 +81,99 @@ Managed to do that with a single query as documented at: https://stackoverflow.c
 
 The name cirodown should not appear anywhere now, except with very few exceptions, e.g.:
 * https://github.com/cirosantilli/cirodown to https://github.com/cirosantilli/ourbigbook
+* file extension from `.ciro` to `.bigb`
 * the Node.js NPM package was renamed from `cirodown` to `ourbibook`.
 * all in-code instances
 
 I have also squatted `OurBigBook` on all major social media handles for near future usage, e.g.: https://twitter.com/ourbigbook[] and so on.
 
-I kid you not, this was partly due to noticing that English speakers (and likely many other nationalities) are not able to easily hear/pronounce "Ciro".
+I was going to do this sooner or later, it was inevitable, but the timing was partly triggered due to noticing that English speakers (and likely many other nationalities) are not able to easily read/hear/pronounce "Ciro".
+
+= Staging server
+{parent=advances}
+
+After breaking production and sweating for a bit hotfixing (not that anyone uses the website yet), I decided to be smart and created a staging server: https://ourbigbook-staging.herokuapp.com[]. Now I can blow that server up as I wish without afecting users. Documented at: https://cirosantilli.com/ourbigbook/staging-deployment
+
+= OurBigBook Library tested on PostgreSQL
+{parent=advances}
+
+After something broke on the website due to SQLite vs PostgreSQL inconsistencies and took me a day to figure it out, I finally decided to update the test system so that `OURBIGBOOK_POSTGRES=true npm test` will run the tests on PostgreSQL.
+
+Originally, these were being run only on SQLite, which is the major use case for OurBigBook CLI, which came before the website.
+
+But the website runs on PostgreSQL, so it is fundamental to test things in PostgreSQL as well.
+
+= Make `\Include` headers show on table of contents work for cirosantilli.com
+{parent=advances}
+
+One of the \x[4/the-table-of-contents-shows-across-different-files-via-include][key advances of the previous update] was to show include headers on the table of contents.
+
+This was to allow splitting source files freely.
+
+While that goal was in principle achieved in that commit, when I went ahead to split the huge index of cirosantilli.com into multiple files, I notice several bugs that took a week to fix.
+
+After all of these were solved, I finally managed to split the https://github.com/cirosantilli/cirosantilli.github.io/blob/84c8a6e7fdbe252041accfb7a06d9b7462287131/README.ciro[README] at: https://github.com/cirosantilli/cirosantilli.github.io/commit/84c8a6e7fdbe252041accfb7a06d9b7462287131 and keep the previous desired output. You can now see that the README contains just:
+``
+\Include[ciro-santilli]
+\Include[science]
+\Include[mathematics]
+\Include[technology]
+\Include[art]
+``
+
+This split led to a small positive modification of the output as follows. Previously, a section such as "Quantum Electrodynamics" would have been present in the monolithic README.ciro as:
+``
+= Quantum electrodynamics
+``
+If you visited https://cirosantilli.com/quantum-electrodynamics[], you would see see a link to the "nosplit" version, which would link you back to https://cirosantilli.com#quantum-electrodynamics[], but that is not great, since this is was a humongous page with all of the README.ciro, and took long to display.
+
+After the split, `= Quantum electrodynamics` is present under `science.ciro`, and the nosplit version is the more manageable https://cirosantilli.com/science#quantum-electrodynamics[].
+
+The key changes that were missing for that to happen were:
+* \x[link-to-an-image-or-video-in-another-file-that-has-an-x-on-title-from-another-file]
+
+= Link to an image or video in another file that has an `\x` on title from another file
+{parent=make-include-headers-show-on-table-of-contents-work-for-cirosantilli-com}
+
+Issue report at:  https://github.com/cirosantilli/ourbigbook/issues/198 Suppose you had:
+
+programming-language.ciro
+
+``
+= Programming language
+
+\Image[python-logo.jpg]
+{title=The \x[python-programming-language] logo}
+
+== Python
+{c}
+{disambiguate=programming-language}
+``
+
+logos-i-like.ciro
+
+``
+= Logos I like
+
+\x[image-the-python-logo]
+``
+
+Now, when rendering `\x[image-the-python-logo]`, we would need to fetch two IDs:
+* `image-the-python-logo` for the `The ` and ` logo` part
+* `python-programming-language` itself, to know that `\x[python-programming-language]` should render as `Python`
+
+But after \x[4/group-all-sql-queries-together] was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
+
+This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` to the existing References table, which tracks dependencies between IDs.
+
+After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single \x[join-sql].
 
 = Next steps
 {parent=ourbigbook-com}
+
+* upload all of https://cirosantilli.com to https://ourbigbook.com[]. I will do this by implementing an import from filesystem functionality based on the \x[ourbigbook-cli]
+* get `\x` and `\Include` working on the live web preview editor. This will require creating a new simple API, currently the editor jus shows broken references, but final render works because it goes through the database backend
+* implement email verification signup. Finally! Maybe add some notifications too, e.g. on new comments or likes.
 
 = Misc OurBigBook.com
 {parent=ourbigbook-com}
