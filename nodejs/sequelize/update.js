@@ -58,6 +58,10 @@ assert.strictEqual((await Inverses.findOne({ where: { value: 5 } })).inverse, 5)
 assert.strictEqual(await Inverses.count(), 3);
 
 // Update to match another column with modification.
+//
+// TODO operator without parenthesis, e.g. col1 + col2??? Impossible without literals?
+// * https://stackoverflow.com/questions/39946586/sequelize-sum-between-two-columns-in-model
+// * https://stackoverflow.com/questions/48778789/addition-and-subtraction-assignment-operator-with-sequelize
 await Inverses.update(
   { inverse: sequelize.fn('1 + ', sequelize.col('value')), },
   { where: { value: { [Op.gt]: 2 } } },
