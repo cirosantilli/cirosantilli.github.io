@@ -84,22 +84,5 @@ assert.strictEqual(tagsFound[0].name2, 's0')
 assert.strictEqual(tagsFound.length, 1)
 await reset()
 
-// upsert version that updates selected fields.
-// This one does not work with create, only bulkCreate.
-tags = await Tag.bulkCreate(
-  [
-    { name: 't0', name2: 's1', notUnique: 'b' },
-  ],
-  {
-    updateOnDuplicate: ['notUnique'],
-  },
-)
-tagsFound = await Tag.findAll({order: [['name', 'ASC']]})
-assert.strictEqual(tagsFound[0].name, 't0')
-assert.strictEqual(tagsFound[0].name2, 's0')
-assert.strictEqual(tagsFound[0].notUnique, 'b')
-assert.strictEqual(tagsFound.length, 1)
-await reset()
-
 await sequelize.close();
 })();

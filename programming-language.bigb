@@ -675,43 +675,7 @@ The best way to install Node.js:
 * https://askubuntu.com/questions/594656/how-to-install-the-latest-versions-of-nodejs-and-npm/971612#971612
 * https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version/1115255#1115255
 
-= TypeScript
-{c}
-{parent=javascript}
-{wiki}
-
-TypeScript is good. It does find errors in your \x[javascript]. But it is a form of "turd polishing". But \x[ciro-santilli] would rather have a polished turd than a non-polished one.
-
-Part of the reason TypeScript became popular is due to the universality of \x[asset-bundler]{p}. Once you are already using an asset bundler, changing the `.js` extension into `.ts` to get a less shitty experience is an easy choice.
-
-The other big reason is that JavaScript is so lose with type conversions, notably undefined happily converting to strings without problems, and any missing properties of Object happily being undefined. We should actually use ES6 Map everywhere.
-
-Since TypeScript is not the default form of the language however, it inevitably happens that you need to add external types for a gazillion projects that are using raw JavaScript, and sometimes fight a lot to get things to work. And so we have: https://github.com/DefinitelyTyped/DefinitelyTyped[]. Not sure if this is beautiful, or frightening.
-
-But in the end, as with other type of static linters, TypeScript generally transforms a few hard to debug runtime issues, into a bunch of stupid to solve compile time issues, which is generally a good thing.
-
-Examples under \a[typescript]. Run with `npx example.ts`.
-* \a[typescript/inferFromInit.ts]. Should fail with:
-  \Q[hello.ts:2:1 - error TS2322: Type 'string' is not assignable to type 'number]
-  since TypeScript infers the type of `i` from first assignment as `string`, and we then attempt a `number` assignment later on
-* \a[typescript/inferAfterInit.ts]. Does not fail, as the first assignment cannot be computationally determined at runtime without breaking computer science.
-* \a[typescript/js-from-ts/main.ts]: call \x[javascript] file \a[typescript/js-from-ts/notmain.js] from \x[typescript].
-  ``
-  npx tsc jsFromTs.ts && node jsFromTs.js
-  ``
-  TODO we are unable to make it typecheck that require, i.e. make that fail, but we've seen cases in complex codebases where that did happen and https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html has infinite information on supporting it. So... how to make it fail??
-
-Some major annoyances of TypeScript:
-* https://stackoverflow.com/questions/12710905/how-do-i-dynamically-assign-properties-to-an-object-in-typescript how to dynamically assign properties to objects without defining explicit interfaces? We really need a syntax of type:
-  ``
-  const myobj = {
-    i: 2,
-    [s string],
-  }
-  if (something) {
-    myobj.s = 'asdf'
-  }
-  ``
+\Include[typescript]{parent=javascript}
 
 = Universal Module Definition
 {c}
