@@ -9,6 +9,9 @@ function assertEqual(rows, rowsExpect) {
     let row = rows[i]
     let rowExpect = rowsExpect[i]
     for (let key in rowExpect) {
+      if (row[key] !== rowExpect[key]) {
+        console.error({ i, key });
+      }
       assert.strictEqual(row[key], rowExpect[key])
     }
   }

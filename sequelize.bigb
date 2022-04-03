@@ -41,7 +41,7 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
 * `.id` gets added to `SELECT` no matter what, breaking `GROUP BY` unless you do horrible workarounds:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
-* they don't seem to have a simple built-in mechanism for transaction retries? \x[sequelize-transaction-retry]{p}.
+* no simple built-in mechanism for transaction retries: \x[sequelize-transaction-retry]{p}
 * impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[nodejs/sequelize/raw/many_to_many.js]:
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
@@ -54,6 +54,8 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
     * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
     * https://stackoverflow.com/questions/38998397/can-i-use-sequelize-models-in-migration-scripts
     `queryInterface.sequelize.models` contains only `SequelizeMeta`. Not sure why they have this limitation.
+
+    Edit: actually things will likely just work if immediately after making table changes you just instantiate a new sequelize and do any data changes.
   * https://stackoverflow.com/questions/56043246/node-js-sequelize-no-primary-keys-when-migrating/56046101#56046101
 
 = Sequelize example
@@ -75,10 +77,9 @@ Overview of the examples:
 * \a[nodejs/sequelize/date.js]: automatic date typecasts
 * \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
 * \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`
-
-  Also testing in the same file the closely related `updateOnDuplicate`:
-  * https://stackoverflow.com/questions/57009357/sequelize-postgres-how-to-use-on-conflict-for-unique
-  * https://stackoverflow.com/questions/55531860/sequelize-bulkcreate-updateonduplicate-for-postgresql
+  * \a[nodejs/sequelize/updateOnDuplicate.js] is the closely related \x[upsert] version:
+    * https://stackoverflow.com/questions/57009357/sequelize-postgres-how-to-use-on-conflict-for-unique
+    * https://stackoverflow.com/questions/55531860/sequelize-bulkcreate-updateonduplicate-for-postgresql
 * \a[nodejs/sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
   ``
   UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
@@ -86,7 +87,6 @@ Overview of the examples:
 * \a[nodejs/sequelize/sync_alter.js]: illustrates `Model.sync({alter: true})` to modify a table definition, answers: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
 * \a[nodejs/sequelize/truncate_key.js]
 * \a[nodejs/sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138
-* \a[nodejs/sequelize/updateOnDuplicate.js]
 * \a[nodejs/sequelize/validation.js]: is handled by a third-party library: https://github.com/validatorjs/validator.js[]. They then add a few extra validators on top of that.
 
   The `args: true` thing is explained at: https://stackoverflow.com/questions/58522387/unhandled-rejection-sequelizevalidationerror-validation-error-cannot-create-pr/70263032#70263032
