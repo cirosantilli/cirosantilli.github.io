@@ -59,6 +59,7 @@ rows = await Integer.bulkCreate(
 // so not sure how it returns any IDs at all, is it just incrementing them manually? In any case, those IDs are
 // all wrong as they don't match the final database state, Likely RETURNING will be added at some point.
 //
+// * https://stackoverflow.com/questions/29063232/sequelize-upsert
 // * https://github.com/sequelize/sequelize/issues/7478
 // * https://github.com/sequelize/sequelize/issues/12426
 // * https://github.com/sequelize/sequelize/issues/3354
