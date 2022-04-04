@@ -344,7 +344,44 @@ This is where "fun" stuff is likely to be.
 https://security.stackexchange.com/questions/237632/can-isp-deanonymize-telegram-public-channel-creators
 
 = Key
-{c}
 {disambiguate=cryptography}
 {parent=cryptography}
 {wiki}
+
+= Pre-shared key
+{parent=key-cryptography}
+{wiki}
+
+An overview of what you can do with a pre-shared key with tradeoffs can be found at: https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 The options are:
+* \x[one-time-pad]
+* \x[symmetric-encryption]
+* authentication with some \x[message-authentication-code] protocol
+
+= Message authentication code
+{parent=pre-shared-key}
+{wiki}
+
+Bibliography:
+* https://crypto.stackexchange.com/questions/59958/is-it-safe-to-hash-a-packet-with-a-shared-secret-to-prove-authenticity
+
+= Man-in-the-middle attack
+{parent=cryptography}
+{wiki}
+
+= Man-in-the-middle
+{synonym}
+
+= MITM
+{c}
+{title2=MITM}
+{synonym}
+
+= Authentication
+{disambiguate=cryptography}
+{parent=man-in-the-middle-attack}
+
+In the context of cryptography, authentication means "ensuring that the message you got comes from who you think it did".
+
+Authentication is how we prevent the \x[man-in-the-middle-attack].
+
+Authentication is one of the hardest parts of cryptography, because the only truly secure way to do it is by driving to the other party yourself to establish a \x[pre-shared-key] so you can do \x[message-authentication-code]. Or to share your \x[public-key] with them if you are satisfied with the safety of \x[post-quantum-cryptography].
