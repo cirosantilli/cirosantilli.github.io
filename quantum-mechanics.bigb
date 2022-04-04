@@ -1,0 +1,3072 @@
+= Quantum mechanics
+{wiki}
+
+= Quantum mechanical
+{synonym}
+
+= Quantum
+{synonym}
+
+Quantum mechanics is quite a broad term. Perhaps it is best to start approaching it from the division into:
+* \x[non-relativistic-quantum-mechanics]: obviously the simpler one, and where you should start
+* \x[relativistic-quantum-mechanics]: more advanced, and arguably "less useful"
+
+Key experiments that could not work without quantum mechanics: \x[quantum-mechanics-experiment]{full}.
+
+Mathematics: there are a few models of increasing precision which could all be called "quantum mechanics":
+* \x[schrodinger-equation]
+* \x[dirac-equation]
+* \x[quantum-electrodynamics]
+
+\x[ciro-santilli] feels that the \x[deep-tech][largest technological revolutions since the 1950's have been quantum related], and will continue to be for a while, from deeper understanding of chemistry and materials to \x[quantum-computing], understanding and controlling quantum systems is where the most interesting frontier of technology lies.
+
+= Quantum mechanics experiment
+{parent=quantum-mechanics}
+
+Atoms exist and last for a long time, while in \x[maxwell-s-equations][classical electromagnetic theory punctual] orbiting electrons should emit radiation quickly and fall into the nucleus: https://physics.stackexchange.com/questions/20003/why-dont-electrons-crash-into-the-nuclei-they-orbit
+
+In other sections:
+* \x[black-body-radiation-experiment]{child}
+  * \x[einstein-solid]{child} experiments, which are analogous to black body radiation experiments
+* \x[emission-spectrum]
+* \x[electron-diffraction-experiment]{p} such as:
+  * \x[davisson-germer-experiment]{child}
+
+Bibliography:
+* http://web.mit.edu/course/5/5.73/oldwww/Fall04/notes/Experimental_Evidence_for_Quantum_Mechanics.pdf Experimental Evidence for Quantum Mechanics
+
+= Emission spectrum
+{parent=quantum-mechanics-experiment}
+{wiki}
+
+= Spectral line
+{parent=emission-spectrum}
+{wiki}
+
+A single line in the \x[emission-spectrum].
+
+So precise, so \x[discrete], which makes no sense in \x[classical-mechanics]!
+
+Has been the leading motivation of the development of \x[quantum-mechanics], all the way from the:
+* \x[schrodinger-equation]: major lines predicted, including \x[zeeman-effect], but not finer line splits like \x[fine-structure]
+* \x[dirac-equation]: explains \x[fine-structure] 2p spin split due to electron spin/orbit interactions, but not \x[lamb-shift]
+* \x[quantum-electrodynamics]: explains \x[lamb-shift]
+* \x[hyperfine-structure]: due to electron/nucleus spin interactions, offers a window into \x[nuclear-spin]
+
+= NIST Atomic Spectra Database
+{c}
+{parent=spectral-line}
+
+\x[nist] database for \x[spectral-line]: https://physics.nist.gov/PhysRefData/ASD/lines_form.html
+
+Let's do a sanity check.
+
+Searching for "H" for \x[hydrogen] leads to: https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&max_low_enrg=&show_av=2&max_upp_enrg=&tsb_value=0&min_str=&A_out=0&intens_out=on&max_str=&allowed_out=1&forbid_out=1&min_accur=&min_intens=&conf_out=on&term_out=on&enrg_out=on&J_out=on
+
+From there we can see for example the 1 to 2 lines:
+* 1s to 2p: 121.5673644608 nm
+* 1s to 2: 121.56701 nm TODO what does that $2$ mean?
+* 1s to 2s: 121.5673123130200 TODO what does that mean?
+
+We see that the table is sorted from lower from level first and then by upper level second.
+
+So it is good to see that we are in the same 121nm ballpark as mentioned at \x[hydrogen-spectral-line].
+
+TODO why I can't see 2s to 2p transitions there to get the \x[fine-structure]?
+
+= Hydrogen emission spectrum
+{parent=spectral-line}
+
+= Hydrogen spectral line
+{synonym}
+
+= Gross hydrogen emission spectrum
+{parent=hydrogen-emission-spectrum}
+
+One reasonable and memorable approximation excluding any \x[fine-structure] is:
+$$
+E_n = -\frac{13.6eV}{n^2}
+$$
+{title=Hydrogen spectral series mnemonic}
+see for example example: \x[hydrogen-1-2-spectral-line].
+
+= Hydrogen 1-2 spectral line
+{parent=gross-hydrogen-emission-spectrum}
+{title2=121.6 nm}
+
+\x[equation-hydrogen-spectral-series-mnemonic] gives for example from \x[principal-quantum-number] 1 to 2 a difference:
+$$
+E_n = -13.6eV\left[\frac{1}{2^2} - \frac{1}{1^2}\right] = 10.2eV
+$$
+which with \x[planck-einstein-relation] gives about 121.6 \x[nm] ($2.47 \times 10^15$ \x[hz]), which is a reasonable match with the value of 121.567... from the \x[nist-atomic-spectra-database].
+
+= Rydberg formula
+{c}
+{parent=spectral-line}
+{wiki}
+
+= Hydrogen spectral series
+{parent=rydberg-formula}
+{wiki}
+
+Kind of a synonym for \x[hydrogen-spectral-series], not very clear if \x[fine-structure] is considered by this term or not.
+
+= Balmer series
+{c}
+{parent=rydberg-formula}
+{wiki}
+
+A line set for \x[hydrogen-spectral-line].
+
+Formula discovered in 1885, was it the first set to have an empirical formula?
+
+= Fine structure
+{parent=spectral-line}
+{wiki}
+
+Split in energy levels due to interaction between electron up or down \x[spin-physics] and the electron orbitals.
+
+Numerically explained by the \x[dirac-equation] when \x[dirac-equation-solution-for-the-hydrogen-atom][solving it for the hydrogen atom], and it is one of the main triumphs of the theory.
+
+= Fine structure constant
+{parent=fine-structure}
+{title2=$\alpha$}
+{wiki}
+
+= Hyperfine structure
+{parent=fine-structure}
+{wiki}
+
+Small splits present in all levels due to interaction between the electron spin and the \x[nuclear-spin] if it is present, i.e. the nucleus has an even number of nucleons.
+
+As the name suggests, this energy split is very small, since the influence of the nucleus spin on the electron spin is relatively small compared to other \x[fine-structure].
+
+For example, for the \x[hydrogen-emission-spectrum]:
+* \x[hydrogen-1-2-spectral-line]: 10.2eV
+
+TODO confirm: does it need \x[quantum-electrodynamics] or is the \x[dirac-equation] enough?
+
+Notable application: \x[caesium-standard], which is used to define the \x[second] in the \x[international-system-of-units] since 1967.
+
+= Zeeman effect
+{c}
+{parent=spectral-line}
+{wiki}
+
+Split in the \x[spectral-line] when a \x[magnetic-field] is applied.
+
+Non-anomalous: number of splits matches predictions of the \x[schrodinger-equation] about the number of possible states with a given angular momentum. TODO does it make numerical predictions?
+
+\x[anomalous-zeeman-effect][Anomalous]: evidence of \x[spin-physics].
+
+http://www.pas.rochester.edu/~blackman/ast104/zeeman-split.html contains the hello world that everyone should know: 2p splits into 3 energy levels, so you see 3 spectral lines from 1s to 2p rather than just one.
+
+p splits into 3, d into 5, f into 7 and so on, i.e. one for each possible \x[azimuthal-quantum-number].
+
+It also mentions that polarization effects become visible from this: each line is polarized in a different way. TODO more details as in an experiment to observe this.
+
+Well explained at: \x[video-quantum-mechanics-7a-angular-momentum-i-by-viascience-2013].
+
+\Video[https://www.youtube.com/watch?v=ZmObNFAqkBE]
+{title=Experimental physics - IV: 22 - Zeeman effect by Lehrportal Uni Gottingen (2020)}
+{description=This one is decent. Uses a \x[cadmium] lamp and an \x[etalon] on an \x[optical-table]. They see a more or less clear 3-split in a circular \x[interference-pattern],
+
+They filter out all but the transition of interest.
+
+* https://youtu.be/ZmObNFAqkBE?t=165 passes the lines through a \x[polarizer], which shows how orbital angular momentum is carried by \x[photon-polarization]
+* https://youtu.be/ZmObNFAqkBE?t=370 says they are looking at 1D2 to 1P1 changes.
+}
+
+\Video[https://www.youtube.com/watch?v=OzkcB1lkgGU]
+{title=Zeeman Effect - Control light with magnetic fields by \x[applied-science-youtube-channel] (2018)}
+{description=Does not appear to achieve a crystal clear split unfortunately.}
+
+= Anomalous Zeeman effect
+{parent=zeeman-effect}
+
+= Double-slit experiment
+{parent=quantum-mechanics-experiment}
+{wiki}
+
+Amazingly confirms the wave particle duality of \x[quantum-mechanics].
+
+The effect is even more remarkable when done with individual particles such individual \x[photon]{p} or \x[electron]{p}.
+
+\x[richard-feynman] liked to stress how this experiment can illustrate the core ideas of \x[quantum-mechanics]. Notably, he night have created the \x[infinitely-many-slits-thought-experiment] which illustrates the \x[path-integral-formulation].
+
+= Single particle double slit experiment
+{parent=double-slit-experiment}
+
+This experiment seems to be really hard to do, and so there aren't many super clear demonstration videos with full experimental setup description out there unfortunately.
+
+Wikipedia has a good summary at: https://en.wikipedia.org/wiki/Double-slit_experiment#Overview
+
+For single-\x[photon] non-\x[double-slit-experiment]{p} see: \x[single-photon-production-and-detection-experiments]. Those are basically a pre-requisite to this.
+
+\x[photon] experiments:
+* https://aapt.scitation.org/doi/full/10.1119/1.4955173 "Video recording true single-photon double-slit interference" by Aspden and Padgetta (2016). Abstract says using \x[spontaneous-parametric-down-conversion] detection of the second photon to know when to turn the camera on
+
+\x[electron] experiments: \x[single-electron-double-slit-experiment].
+
+Non-\x[elementary-particle]:
+* 2019-10-08: 25,000 Daltons
+* https://interactive.quantumnano.at/letsgo/ awesome interactive demo that allows you to control many parameters on a lab. Written in Flash unfortunately, in 2015... what a lack of future proofing!
+
+\Video[https://www.youtube.com/watch?v=GzbKb59my3U]
+{title=Single Photon Interference by \x[veritasium] (2013)}
+{description=Claims to do exactly what we want, but does not describe the setup precisely well enough. Notably, does not justify how he knows that single photons are being produced.}
+
+= Single electron double slit experiment
+{parent=single-particle-double-slit-experiment}
+{tag=electron-diffraction-experiment}
+
+\Video[https://www.youtube.com/watch?v=zc-iyjpzzGQ]
+{title=Electron Interference by the https://en.wikipedia.org/wiki/National_Research_Council_(Italy)[Italian National Research Council] (1976)}
+{description=Institutional video about the 1974 single electron experiment by Merli, Missiroli, Pozzi from the https://en.wikipedia.org/wiki/University_of_Bologna[University of Bologna].
+
+Uses an electron biprism as in \x[electron-holography] inside a \x[transmission-electron-microscope].
+
+Shows them manually making the biprism by drawing a fine glass wire and coating it with gold.
+
+Then actually show the result live on a television screen, where you see the interference patterns only at higher electron currents, and then on photographic film.
+
+This was elected "the most beautiful experiment" by readers of Physics World in 2002.
+
+Accompanying website: http://l-esperimento-piu-bello-della-fisica.bo.imm.cnr.it/english/index.html[].
+
+Italian title: "Interferenza di elettroni". Goddammit, those Italian cinematographers can make even \x[physics] look exciting!
+}
+
+= Are particles bounced by the first wall in the double slit experiment?
+{parent=double-slit-experiment}
+
+https://physics.stackexchange.com/questions/443358/in-the-double-slit-experiment-why-is-it-never-shown-that-particles-may-hit-the/573455#573455
+
+It would be amazing to answer this with \x[single-particle-double-slit-experiment] measurements!
+
+= Franck–Hertz experiment
+{c}
+{parent=quantum-mechanics-experiment}
+{wiki=Franck–Hertz_experiment}
+
+= Quantum Hall effect
+{parent=quantum-mechanics-experiment}
+{wiki}
+
+Quantum version of the \x[hall-effect].
+
+Gotta understand this because the name sounds cool. Maybe also because it is used to define the \x[fucking] \x[ampere-in-the-2019-redefinition-of-the-si-base-units].
+
+At least the experiment description itself is easy to understand. The hard part is the physical theory behind.
+
+TODO \x[videos-of-all-key-physics-experiments][experiment video].
+
+= Fractional quantum Hall effect
+{parent=quantum-hall-effect}
+{wiki}
+
+= Fractional quantum Hall effect 5/2
+{parent=fractional-quantum-hall-effect}
+
+= Spin Hall effect
+{parent=quantum-hall-effect}
+{wiki}
+
+= History of quantum mechanics
+{parent=quantum-mechanics}
+{wiki}
+
+The discovery of the \x[photon] was one of the major initiators of quantum mechanics.
+
+Light was very well known to be a wave through \x[diffraction] experiments. So how could it also be a particle???
+
+This was a key development for people to eventually notice that the \x[electron] is also a wave.
+
+This process "started" in 1900 with \x[planck-s-law] which was based on discrete energy packets being exchanged as exposed at \x[on-the-theory-of-the-energy-distribution-law-of-the-normal-spectrum-by-max-planck-1900].
+
+This ideas was reinforced by \x[einstein]'s explanation of the \x[photoelectric-effect] in 1905 in terms of \x[photon].
+
+In the next big development was the \x[bohr-model] in 1913, which supposed non-\x[classical-physics] new quantization rules for the \x[electron] which explained the \x[hydrogen-emission-spectrum]. The quantization rule used made use of the \x[planck-constant], and so served an initial link between the emerging quantized nature of \x[light], and that of the \x[electron].
+
+The final phase started in 1923, when \x[louis-de-broglie] proposed that in analogy to photons, \x[electron]{p} might also be waves, a statement made more precise through the \x[de-broglie-relations].
+
+This event opened the floodgates, and soon \x[matrix-mechanics] was published in \x[quantum-mechanical-re-interpretation-of-kinematic-and-mechanical-relations-by-heisenberg-1925], as the first coherent formulation of \x[quantum-mechanics].
+
+It was followed by the \x[schrodinger-equation] in 1926, which proposed an equivalent \x[partial-differential-equation] formulation to \x[matrix-mechanics], a mathematical formulation that was more familiar to \x[physicist]{p} than the matrix ideas of Heisenberg.
+
+Bibliography:
+* https://physics.stackexchange.com/questions/18632/good-book-on-the-history-of-quantum-mechanics on \x[physics-stack-exchange]
+* https://www.youtube.com/watch?v=5hVmeOCJjOU A Brief History of Quantum Mechanics by \x[sean-carroll] (2020) Given at the \x[royal-institution].
+
+\x[inward-bound-by-abraham-pais-1988] summarizes his views of it:
+\Q[Planck's on the discovery of the quantum theory (1900); Einstein's on the light-quantum (1905); \x[bohr-model][Bohr's on the hydrogen atom] (1913); Bose's on what came to be called quantum statistics (1924); Heisenberg's on what came to be known as \x[matrix-mechanics] (1925); and Schroedinger's on wave mechanics (1926).]
+
+= Old quantum theory
+{parent=history-of-quantum-mechanics}
+{wiki}
+
+= History of quantum mechanics bibliography
+{parent=quantum-mechanics}
+{wiki}
+
+= The Old Quantum Theory by Dirk ter Haar (1967)
+{c}
+{parent=history-of-quantum-mechanics-bibliography}
+
+= Quantum mechanics bibliography
+{parent=quantum-mechanics}
+
+= The Principles of Quantum Mechanics by Paul Dirac (1930)
+{c}
+{parent=quantum-mechanics-bibliography}
+{wiki}
+
+= The Principles of Quantum Mechanics by Paul Dirac revised fourth edition (1967)
+{c}
+{parent=the-principles-of-quantum-mechanics-by-paul-dirac-1930}
+
+= MIT 8.06 Quantum Physics III, Spring 2018 by Barton Zwiebach
+{c}
+{parent=quantum-mechanics-bibliography}
+
+https://www.youtube.com/playlist?list=PLUl4u3cNGP60Zcz8LnCDFI8RPqRhJbb4L
+
+100 10-20 minute videos properly split by topic, good resource!
+
+Instructor: \x[barton-zwiebach]{parent}.
+
+Free material from university courses:
+* https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf  (https://web.archive.org/web/20191230193450/https://physics.weber.edu/schroeder/quantum/QuantumBook.pdf[archive]) "Notes on Quantum Mechanics" pusbliehd by Daniel V. Schroeder (2019) The author is from from Weber State University.
+
+= Applications of Quantum Mechanics by David Tong (2017)
+{c}
+{parent=quantum-mechanics-bibliography}
+
+* http://www.damtp.cam.ac.uk/user/tong/aqm/aqm.pdf
+* https://web.archive.org/web/20200215103215/http://www.damtp.cam.ac.uk/user/tong/aqm/aqm.pdf
+
+Author: \x[david-tong]{parent}.
+
+Summary:
+* Chapter 2 "Band Structure" covers \x[electronic-band-theory]
+
+= Quantum Mechanics for Engineers by Leon van Dommelen (2011)
+{parent=quantum-mechanics-bibliography}
+
+* http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
+* https://web.archive.org/web/20200220003741/http://www.eng.fsu.edu/~dommelen/quantum/style_a/index.html
+
+Looks very impressive! Last update marked 2011 as of 2020.
+
+Goes up to "A.15 \x[quantum-field-theory] in a Nanoshell", Ciro have to review it to see if there's anything worthwhile in that section.
+
+Personal page says he retired as of 2020: http://www.eng.fsu.edu/~dommelen/ But hopefully he has more time for these notes!
+
+And he appears to have his own lightweight markup language that \x[transpiles] to \x[latex] called l2h: http://www.eng.fsu.edu/~dommelen/l2h/
+
+= Quantum physics by Jim Branson (2003)
+{parent=quantum-mechanics-bibliography}
+
+https://quantummechanics.ucsd.edu/ph130a/130_notes/130_notes.html
+
+For the UCSD Physics 130 course.
+
+Last updated: 2013.
+
+Very good! Goes up to the \x[dirac-equation].
+
+= Mathematical formulation of quantum mechanics
+{parent=quantum-mechanics}
+{wiki}
+
+These are the key mathematical ideas to understand!!
+
+There are actually a few formulations out there. By far the dominant one as of 2020 has been the \x[schrodinger-picture], which contrasts notably with the \x[heisenberg-picture].
+
+Another well known one is the \x[de-broglie-bohm-theory], which is deterministic, but \x[non-local].
+
+= Schrödinger picture
+{c}
+{parent=mathematical-formulation-of-quantum-mechanics}
+
+The state of a quantum system is a vector of unit length in a \x[hilbert-space]. TODO why Hilbert Space.
+
+"Making a measurement" for an \x[observable] means applying a \x[self-adjoint-operator] to the state, and after a measurement is done:
+* the state \x[wave-function-collapse][collapses] to an \x[eigenvector] of the self adjoint operator
+* the result of the measurement is the \x[eigenvalue] of the self adjoint operator
+* the probability of a given result happening when the spectrum is \x[discrete] is proportional to the modulus of the projection on that eigenvector.
+
+  For continuous spectra such as that of the \x[position-operator] in most systems, e.g. \x[schrodinger-equation-for-a-free-one-dimensional-particle], the projection on each individual eigenvalue is zero, i.e. the probability of one absolutely exact position is zero. To get a non-zero result, measurement has to be done on a continuous range of eigenvectors (e.g. for position: "is the particle present between x=0 and x=1?"), and you have to integrate the probability over the projection on a continuous range of eigenvalues.
+
+  In such continuous cases, the probability collapses to an uniform distribution on the range after measurement.
+
+  The continuous position operator case is well illustrated at: \x[video-visualization-of-quantum-physics-quantum-mechanics-by-udiprod-2017]
+Those last two rules are also known as the \x[born-rule].
+
+Self adjoint operators are chosen because they have the following key properties:
+* their eigenvalues form an orthonormal basis
+* they are diagonalizable
+
+See also: https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics
+
+Perhaps the easiest case to understand this for is that of \x[spin-physics], which has only a finite number of eigenvalues. Although it is a shame that fully understanding that requires a \x[special-relativity][relativistic] quantum theory such as the \x[dirac-equation].
+
+The next steps are to look at simple 1D bound states such as \x[particle-in-a-box] and \x[quantum-harmonic-oscillator].
+
+This naturally generalizes to \x[schrodinger-equation-solution-for-the-hydrogen-atom].
+
+The solution to the \x[schrodinger-equation-for-a-free-one-dimensional-particle] is a bit harder since the possible energies do not make up a \x[countable-set].
+
+This formulation was apparently called more precisely \x[dirac-von-neumann-axioms], but it because so dominant we just call it "the" formulation.
+
+\x[quantum-field-theory-lecture-notes-by-david-tong-2007] mentions that:
+\Q[if you were to write the wavefunction in quantum field theory, it would be a functional, that is a function of every possible configuration of the field $\phi$.]
+
+= Wave function collapse
+{parent=schrodinger-picture}
+{wiki}
+
+= Born rule
+{parent=mathematical-formulation-of-quantum-mechanics}
+{wiki}
+
+= Bra-ket notation
+{parent=mathematical-formulation-of-quantum-mechanics}
+{wiki=Bra–ket_notation}
+
+= Bra-ket
+{synonym}
+
+Notation used in \x[quantum-mechanics].
+
+Ket is just a \x[vector-mathematics]. Though generally in the context of \x[quantum-mechanics], this is an infinite dimensional vector in a \x[hilbert-space] like \x[l2].
+
+Bra is just the \x[dual-vector] corresponding to a ket, or in other words \x[projection-mathematics] \x[linear-operator], i.e. a linear function which can act on a given vector and returns a single \x[complex-number]. Also known as... \x[dot-product].
+
+For example:
+$$
+(\bra{x}) \ket{y}
+$$
+is basically a fancy way of saying:
+$$
+x \cdot y
+$$
+that is: we are taking the projection of $y$ along the $x$ direction. Note that in the ordinary dot product notation however, we don't differentiate as clearly what is a vector and what is an operator, while the bra-ket notation makes it clear.
+
+The projection operator is completely specified by the vector that we are projecting it on. This is why the bracket notation makes sense.
+
+It also has the merit of clearly differentiating vectors from operators. E.g. it is not very clear in $x \cdot y$ that $x$ is an operator and $y$ is a vector, except due to the relative position to the dot. This is especially bad when we start manipulating operators by themselves without vectors.
+
+This notation is widely used in \x[quantum-mechanics] because calculating the \x[probability] of getting a certain outcome for an experiment is calculated by taking the projection of a state on one an \x[eigenvalue] basis vector as explained at: \x[mathematical-formulation-of-quantum-mechanics]{full}.
+
+Making the projection operator "look like a thing" (the bra) is nice because we can add and multiply them much like we can for vectors (they also form a \x[vector-space]), e.g.:
+$$
+\bra{x} + \bra{y}
+$$
+just means taking the projection along the $x + y$ direction.
+
+\x[ciro-santilli] thinks that this notation is a bit over-engineered. Notably the bra's are just vectors, which we should just write as usual with $\va{v}$... the bra thing makes it look scarier than it needs to be. And then we should just find a different notation for the projection part.
+
+Maybe \x[dirac] chose it because of the appeal of the women's piece of clothing: \x[bra], in an irresistible call from \x[british-humour].
+
+But in any case, alas, we are now stuck with it.
+
+= Dirac-von Neumann axioms
+{c}
+{parent=mathematical-formulation-of-quantum-mechanics}
+{wiki=Dirac–von_Neumann_axioms}
+
+This is basically what became the dominant formulation as of 2020 (and much earlier), and so we just call it the "\x[mathematical-formulation-of-quantum-mechanics]".
+
+= Linearity of quantum mechanics
+{parent=mathematical-formulation-of-quantum-mechanics}
+
+* https://physics.stackexchange.com/questions/1201/linearity-of-quantum-mechanics-and-nonlinearity-of-macroscopic-physics
+* https://physics.stackexchange.com/questions/134503/what-is-the-physical-reason-behind-linearity-of-schrodingers-equation
+* https://physics.stackexchange.com/questions/33344/is-the-universe-linear-if-so-why
+
+= Observable
+{parent=mathematical-formulation-of-quantum-mechanics}
+{wiki}
+
+= Phase-space formulation
+{parent=mathematical-formulation-of-quantum-mechanics}
+{wiki}
+
+An "alternative" formulation of \x[quantum-mechanics] that does not involve operators.
+
+= Non-relativistic quantum mechanics
+{parent=quantum-mechanics}
+
+The first \x[quantum-mechanics] theories developed.
+
+Their most popular formulation has been the \x[schrodinger-equation].
+
+= Schrödinger equation
+{c}
+{parent=non-relativistic-quantum-mechanics}
+{wiki}
+
+The \x[partial-differential-equation] of \x[special-relativity][non-relativistic] \x[quantum-mechanics].
+
+Experiments explained:
+* via the \x[schrodinger-equation-solution-for-the-hydrogen-atom] it predicts:
+  * \x[spectral-line] basic lines, plus \x[zeeman-effect]
+* \x[schrodinger-equation-solution-for-the-helium-atom]: perturbative solutions give good approximations to the energy levels
+* \x[double-slit-experiment]: I think we have a closed solution for the max and min probabilities on the measurement wall, and they match experiments
+
+Experiments not explained: those that the \x[dirac-equation] explains like:
+* \x[fine-structure]
+* \x[spontaneous-emission] coefficients
+
+To get some intuition on the equation on the consequences of the equation, have a look at:
+* \x[schrodinger-equation-simulations]
+* \x[solutions-of-the-schrodinger-equation]
+
+The easiest to understand case of the equation which you must have in mind initially that of the \x[schrodinger-equation-for-a-free-one-dimensional-particle].
+
+Then, with that in mind, the general form of the \x[schrodinger-equation] is:
+$$i\hbar\pdv{\psi(\vv{x}, t)}{t} = \hat{H}[\psi(\vv{x}, t)]$$
+{title=Schrodinger equation}
+where:
+* $\hbar$ is the \x[reduced-planck-constant]
+* $\psi$ is the \x[wave-function]
+* $t$ is the time
+* $\hat{H}$ is a \x[linear-operator] called the \x[hamiltonian]. It takes as input a function $\psi$, and returns another function. This plays a role analogous to the Hamiltonian in \x[classical-mechanics]: determining it determines what the physical system looks like, and how the system evolves in time, because we can just plug it into the equation and solve it. It basically encodes the total energy and forces of the system.
+
+The $\vv{x}$ argument of $\psi$ could be anything, e.g.:
+* we could have preferred \x[polar-coordinate]{p} instead of linear ones if the potential were symmetric around a point
+* we could have more than one particle, e.g. \x[solutions-of-the-schrodinger-equation-for-two-electrons], which would have e.g. $x_1$ and $x_2$ for different particles. No matter how many particles there are, we have just a single $\psi$, we just add more arguments to it.
+* we could have even more generalized coordinates. This is much in the spirit of \x[hamiltonian-mechanics] or \x[generalized-coordinate]{p}
+Note however that there is always a single magical $t$ time variable. This is needed in particular because there is a time \x[partial-derivative] in the equation, so there must be a corresponding time variable in the function. This makes the equation explicitly \x[non-relativistic].
+
+The general \x[schrodinger-equation] can be broken up into a trivial time-dependent and a \x[time-independent-schrodinger-equation] by separation of variables. So in practice, all we need to solve is the slightly simpler \x[time-independent-schrodinger-equation], and the full equation comes out as a result.
+
+Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-and-uniqueness-for-two-dimensional-time-dependent-schr%C3%B6dinger-equation
+
+= Time-independent Schrodinger equation
+{parent=schrodinger-equation}
+{wiki=Schrödinger_equation#Time-independent_equation}
+
+As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] from \x[quantum-physics-by-jim-branson-2003], using \x[separation-of-variables] we can break up the general \x[schrodinger-equation] into:
+* a time-only part that does not depend on space and does not depend on the potential
+* a space-only part that does not depend on time:
+
+  $$\hat{H}[\psi(\vv{x})] = E \psi{\vv{x}}$$
+  {title=Time-independent Schrodinger equation}
+
+  Since this is the only non-trivial part, unlike the time part which is trivial, this spacial part is just called "the time-independent Schrodinger equation".
+
+  Note that the $\psi$ here is not the same as the $\psi$ in the \x[equation-schrodinger-equation][time-dependent Schrodinger equation] of course, as that psi is the result of the multiplication of the time and space parts. This is a bit of imprecise terminology, but hey, physics.
+
+The key initial example to have in mind is the \x[time-independent-schrodinger-equation-for-a-free-one-dimensional-particle].
+
+It is interesting to note that the time-independent Schrodinger equation can also be seen exactly as an \x[eigenvalue] equation, since the value of the energy `E` can be any fixed value that can satisfy the \x[boundary-condition]{p} conditions imposed. The only difference from usual \x[matrix] \x[eigenvector]{p} is that we are now dealing with an \x[infinite-dimensional] vector space.
+
+Then, just like in \x[solving-partial-differential-equations-with-the-fourier-series] of the \x[heat-equation], the boundary conditions may make it so that only certain \x[discrete] values of `E` are possible solutions.
+
+Then, the time part o the equation can be solved explicitly in the general case, as it does not depend on the potential $V(x)$, and it is just an exponential.
+
+Therefore, all we need to do to solve the general Schrodinger equation is to solve the time-independent version, and then decompose the initial condition in terms of it like as done in \x[solving-partial-differential-equations-with-the-fourier-series]{full}.
+
+Furthermore:
+* we immediately see from the equation that the time-independent solutions are states of deterministic energy because the energy is an \x[eigenvalue] of the Hamiltonian operator
+* the probability density of such a state does not change with time because the exponential time part cancels out on the conjugate
+
+= Derivation of the Schrodinger equation
+{parent=schrodinger-equation}
+
+Where derivation == "intuitive routes", since a "law of physics" cannot be derived, only observed right or wrong.
+
+TODO also comment on \x[why-are-complex-numbers-used-in-the-schrodinger-equation].
+
+Some approaches:
+* https://en.wikipedia.org/w/index.php?title=Schr%C3%B6dinger_equation&oldid=964460597#Derivation[]: holy crap, this just goes all in into a \x[lie-group] approach, nice
+* \x[richard-feynman]'s derivation of the Schrodinger equation:
+  * https://physics.stackexchange.com/questions/263990/feynmans-derivation-of-the-schrödinger-equation
+  * https://www.youtube.com/watch?v=xQ1d0M19LsM "Class Y. Feynman's Derivation of the Schrödinger Equation" by doctorphys (2020)
+* https://www.youtube.com/watch?v=zC_gYfAqjZY&list=PL54DF0652B30D99A4&index=53 "I5. Derivation of the Schrödinger Equation" by doctorphys
+
+= Why are complex numbers used in the Schrodinger equation?
+{parent=derivation-of-the-schrodinger-equation}
+
+\x[ciro-santilli][Ciro]'s 10 cents: https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers/557600#557600
+
+Why is there a \x[complex-number] in the equation? Intuitively and mathematically:
+* https://physics.stackexchange.com/questions/8062/about-the-complex-nature-of-the-wave-function
+* https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers
+* https://physics.stackexchange.com/questions/292947/is-it-possible-to-formulate-the-schr%C3%B6dinger-equation-in-a-manner-that-excludes-i
+
+Some ideas:
+* \x[explicit-scalar-form-of-the-maxwell-s-equations]
+
+= Solutions of the Schrodinger equation
+{parent=schrodinger-equation}
+
+https://en.wikipedia.org/wiki/List_of_quantum-mechanical_systems_with_analytical_solutions
+
+As always, the best way to get some intuition about an equation is to solve it for some simple cases, so let's give that a try with different fixed potentials.
+
+= Schrödinger equation simulations
+{c}
+{parent=solutions-of-the-schrodinger-equation}
+
+* https://www.youtube.com/watch?v=1Z9wo2CzJO8 "Schrodinger equation solved numerically in 3D" by Tetsuya Matsuno. 3D hydrogen atom, code may be hidden in some paper, maybe
+* https://www.youtube.com/playlist?list=PLdCdV2GBGyXM0j66zrpDy2aMXr6cgrBJA "Computational Quantum Mechanics" by Let's Code Physics. Uses a 1D trinket.io.
+* https://www.youtube.com/watch?v=BBt8EugN03Q Simulating Quantum Systems \[Split Operator Method\] by LeiosOS (2018)
+* https://www.youtube.com/watch?v=86x0_-JGlGQ Simulating the Quantum World on a \x[classical-computer][Classical Computer] by Garnet Chan (2016) discusses how modeling only local \x[entanglement] can make certain simulations feasible
+
+\Video[http://youtube.com/watch?v=g4wuSgwLT9I]
+{title=Simulation of the time-dependent Schrodinger equation (\x[javascript] Animation) by Coding Physics (2019)}
+{description=Source code: https://github.com/CodingPhysics/Schroedinger[]. One dimensional potentials, non-interacting particles. The code is clean, graphics based on https://github.com/processing/p5.js[], and all maths from scratch. Source organization and comments are typical of numerical code, the anonymous author is was likely a Fortran user in the past.
+
+A potential change patch in `sketch.js`:
+``
+-   potential:     x => 2E+4*Math.pow((4*x - 1)*(4*x - 3),2),
++ potential:     x => 4*Math.pow(x - 0.5, 2),
+``
+}
+
+\Video[http://youtube.com/watch?v=ee4LqXRlQmE]
+{title=Quantum Mechanics 5b - Schrödinger Equation II by \x[viascience] (2013)}
+{description=2D non-interacting particle in a box, description says using \x[scilab][Scilab] and points to source. Has a double slit simulation.}
+
+\Video[https://www.youtube.com/watch?v=p7bzE1E5PMY]
+{title=Visualization of Quantum Physics (Quantum Mechanics) by udiprod (2017)}
+{description=Closed source, but a fantastic visualization and explanation of a 1D free wave packet, including how measurement snaps position to the measured range, \x[position-and-momentum-space] and the \x[uncertainty-principle].}
+
+= Why it is hard to simulate quantum systems?
+{parent=schrodinger-equation-simulations}
+
+This is basically how \x[quantum-computing] was first theorized by \x[richard-feynman]: \x[quantum-computers-as-experiments-that-are-hard-to-predict-outcomes].
+
+TODO answer that: https://quantumcomputing.stackexchange.com/questions/5005/why-it-is-hard-to-simulate-a-quantum-device-by-a-classical-devices[]. A good answer would be with a more physical example of \x[quantum-entanglement], e.g. on a \x[photonic-quantum-computer].
+
+= Schrödinger equation for a one dimensional particle
+{c}
+{parent=solutions-of-the-schrodinger-equation}
+
+We select for the general \x[equation-schrodinger-equation]:
+* $\vv{x} = x$, the linear \x[cartesian-coordinate] in the x direction
+* $\hat{H} = -\frac{\hbar^2}{2m}\pdv{^2}{x^2} + V(x, t)$, which analogous to the sum of \x[kinetic-energy][kinetic] and \x[potential-energy] in \x[classical-mechanics]
+giving the full explicit \x[partial-differential-equation]:
+$$i\hbar\pdv{\psi(x, t)}{t} = \left[ -\frac{\hbar^2}{2m}\pdv{^2}{x^2} + V(x, t) \right]\psi(x, t)$$
+{title=\x[schrodinger-equation] for a one dimensional particle}
+The corresponding \x[time-independent-schrodinger-equation] for this equation is:
+$$
+\left[-\frac{\hbar}{2m} \pdv{^2}{x} + V(x)\right]\psi = E \psi(x)
+$$
+{title=\x[time-independent-schrodinger-equation] for a one dimensional particle}
+
+= Schrödinger equation for a free one dimensional particle
+{c}
+{parent=solutions-of-the-schrodinger-equation}
+{wiki=Free_particle#Quantum_free_particle}
+
+\x[schrodinger-equation-for-a-one-dimensional-particle] with $V = 0$.
+
+= Time independent Schrodinger equation for a free one dimensional particle
+{parent=schrodinger-equation-for-a-free-one-dimensional-particle}
+
+= Particle in a box
+{parent=solutions-of-the-schrodinger-equation}
+{wiki}
+
+= Quantum harmonic oscillator
+{parent=solutions-of-the-schrodinger-equation}
+{wiki}
+
+This equation is a subcase of \x[equation-schrodinger-equation-for-a-one-dimensional-particle] with $V(x) = x^2$.
+
+We get the \x[time-independent-schrodinger-equation] by substituting this $V$ into \x[equation-time-independent-schrodinger-equation-for-a-one-dimensional-particle]:
+$$
+\left[- \frac{\hbar}{2m} \pdv{^2}{x} + x^2 \right]\psi = E \psi(x)
+$$
+
+Now, there are two ways to go about this.
+
+The first is the stupid "here's a guess" + "hey this family of solutions forms a \x[complete-basis]"! This is exactly how we solved the problem at \x[solving-partial-differential-equations-with-the-fourier-series]{full}, except that now the complete basis are the \x[hermite-functions].
+
+The second is the much celebrated \x[ladder-operator] method.
+
+= Hermite polynomials
+{c}
+{parent=quantum-harmonic-oscillator}
+{wiki}
+
+Show up in the solution of the \x[quantum-harmonic-oscillator] after \x[separation-of-variables] leading into the \x[time-independent-schrodinger-equation], much like \x[solving-partial-differential-equations-with-the-fourier-series].
+
+= Hermite functions
+{c}
+{parent=hermite-polynomials}
+{wiki=Hermite_polynomials#Hermite_functions}
+
+Not the same as \x[hermite-polynomials].
+
+= Ladder operator
+{parent=quantum-harmonic-oscillator}
+{wiki}
+
+http://www.physics.udel.edu/~jim/PHYS424_17F/Class%20Notes/Class_5.pdf by James MacDonald shows it well.
+
+The operators are a natural guess on the lines of "if p and x were integers".
+
+And then we can prove the ladder properties easily.
+
+The \x[commutator] appear in the middle of this analysis.
+
+= Quantum tunnelling
+{parent=solutions-of-the-schrodinger-equation}
+{wiki}
+
+Examples:
+* \x[flash-memory] uses quantum tunneling as the basis for setting and resetting bits
+* \x[alpha-decay] is understood as a quantum tunneling effect in the nucleus
+
+= Schrödinger equation solution for the hydrogen atom
+{c}
+{parent=solutions-of-the-schrodinger-equation}
+
+Is the only atom that has a closed form solution, which allows for very good predictions, and gives awesome intuition about the orbitals in general.
+
+It is arguably the most important solution of the Schrodinger equation.
+
+In particular, it predicts:
+* the major \x[spectral-line] of the \x[hydrogen] atom by taking the difference between energy levels
+
+The explicit solution can be written in terms of \x[spherical-harmonic]{p}.
+
+\Video[https://www.youtube.com/watch?v=W2Xb2GFK2yc]
+{title=A Better Way To Picture Atoms by \x[minutephysics] (2021)}
+{description=Renderings based on the exact \x[schrodinger-equation-solution-for-the-hydrogen-atom] that depict \x[wave-function] concentration by concentration of small balls, and \x[angular-momentum] by how fast the balls rotate at each point. Mentions that the approach is inspired by \x[de-broglie-bohm-theory].}
+
+= Atomic orbital
+{parent=schrodinger-equation-solution-for-the-hydrogen-atom}
+{wiki}
+
+In the case of the \x[schrodinger-equation-solution-for-the-hydrogen-atom], each orbital is one \x[eigenvector] of the solution.
+
+Remember from \x[time-independent-schrodinger-equation] that the final solution is just the weighted sum of the eigenvector decomposition of the initial state, analogously to \x[solving-partial-differential-equations-with-the-fourier-series].
+
+This is the table that you should have in mind to visualize them: https://en.wikipedia.org/w/index.php?title=Atomic_orbital&oldid=1022865014#Orbitals_table
+
+= Principal quantum number
+{parent=atomic-orbital}
+{title2=n}
+{wiki}
+
+Determines energy. This comes out directly from the resolution of the \x[schrodinger-equation-solution-for-the-hydrogen-atom] where we have to set some arbitrary values of energy by \x[separation-of-variables] just like we have to set some arbitrary numbers when \x[solving-partial-differential-equations-with-the-fourier-series]. We then just happen to see that only certain integer values are possible to satisfy the equations.
+
+= Azimuthal quantum number
+{parent=atomic-orbital}
+{title2=l}
+{wiki}
+
+Fixed \x[total-angular-momentum].
+
+= s-orbital
+{parent=azimuthal-quantum-number}
+
+= p-orbital
+{parent=azimuthal-quantum-number}
+
+= d-orbital
+{parent=azimuthal-quantum-number}
+
+= f-orbital
+{parent=azimuthal-quantum-number}
+
+= Magnetic quantum number
+{parent=atomic-orbital}
+{title2=m_l}
+{wiki}
+
+Fixed \x[angular-momentum-operator][angular momentum in a given direction].
+
+Note that this direction is arbitrary, since for a fixed \x[azimuthal-quantum-number] (and therefore fixed total angular momentum), we can only know one direction for sure. $z$ is normally used by convention.
+
+= Solutions for the Schrodinger equation with multiple particles
+{parent=solutions-of-the-schrodinger-equation}
+
+Quantum Mechanics for Engineers by Leon van Dommelen (2011)
+
+Bibliography:
+* \x[quantum-mechanics-for-engineers-by-leon-van-dommelen-2011] "5. Multiple-Particle Systems"
+
+= Solutions of the Schrodinger equation for two electrons
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
+
+TODO. Can't find it easily. Anyone?
+
+This is closely linked to the \x[pauli-exclusion-principle].
+
+What does a particle even mean, right? Especially in \x[quantum-field-theory], where two electrons are just vibrations of a single electron field.
+
+Another issue is that if we consider \x[magnetism], things only make sense if we add \x[special-relativity], since \x[maxwell-s-equations-require-special-relativity], so a non approximate solution for this will necessarily require full \x[quantum-electrodynamics].
+
+As mentioned at \x[david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute/lecture-1] https://youtube.com/watch?video=H3AFzbrqH68&t=555[], \x[special-relativity][relativistic] quantum mechanical theories like the \x[dirac-equation] and \x[klein-gordon-equation] make no sense for a "single particle": they must imply that particles can pop in out of existence.
+
+Bibliography:
+* https://www.youtube.com/watch?v=Og13-bSF9kA&list=PLDfPUNusx1Eo60qx3Od2KLUL4b7VDPo9F "Advanced quantum theory" by \x[tobias-j-osborne] says that the course will essentially cover multi-particle quantum mechanics!
+* https://physics.stackexchange.com/questions/54854/equivalence-between-qft-and-many-particle-qm "Equivalence between QFT and many-particle QM"
+* Course: Quantum Many-Body Physics in Condensed Matter by Luis Gregorio Dias (2020) from \x[course-quantum-many-body-physics-in-condensed-matter-by-luis-gregorio-dias-2020] give a good introduction to non-interacting particles
+
+= Schrödinger equation solution for the helium atom
+{c}
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
+
+No closed form solution, but good approximation that can be calculated by hand with the \x[hartree-fock-method], see \x[hartree-fock-method-for-the-helium-atom].
+
+Bibliography:
+* https://www.quora.com/Why-do-electrons-not-repel-each-other-on-their-orbits
+* https://physics.stackexchange.com/questions/224108/what-does-an-orbital-mean-in-atoms-with-multiple-electrons-what-do-the-orbitals
+
+\Video[https://www.youtube.com/watch?v=tcfNNGGjS2o]
+{title=Quantum Chemistry 9.2 - Helium Atom Energy Approximations by TMP Chem (2016)}
+{description=Video gives the actual numerical value of various methods, second order \x[perturbation-theory] being very close. But it the says that in the following videos will only do \x[hartree-fock-method][Hartree-Fock method].}
+
+= Hartree-Fock method
+{c}
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
+{wiki=Hartree–Fock_method}
+
+= Hartree-Fock method for the helium atom
+{parent=hartree-fock-method}
+{wiki=Helium_atom#Hartree–Fock_method}
+
+= Why do multiple electrons occupy the same orbital if electrons repel each other?
+{parent=hartree-fock-method}
+
+That is, two electrons per \x[atomic-orbital], each with a different \x[spin-physics].
+
+As shown at \x[schrodinger-equation-solution-for-the-helium-atom], they do repel each other, and that affects their measurable energy.
+
+However, this energy is still lower than going up to the next orbital. TODO numbers.
+
+Bibliography:
+* https://physics.stackexchange.com/questions/505263/do-electrons-in-the-same-orbital-but-different-spin-feel-each-others-coulomb-re
+
+This changes however at higher orbitals, notably as approximately described by the \x[aufbau-principle].
+
+= Aufbau principle
+{parent=hartree-fock-method}
+{wiki}
+
+Boring rule that says that less energetic atomic orbitals are filled first.
+
+Much more interesting is actually determining that order, which the \x[madelung-energy-ordering-rule] is a reasonable approximation to.
+
+= Madelung energy ordering rule
+{c}
+{parent=aufbau-principle}
+
+= n + l energy ordering rule
+{synonym}
+
+Looking at the energy level of the \x[schrodinger-equation-solution-for-the-hydrogen-atom], you would guess that for multi-electron atoms that only the \x[principal-quantum-number] would matter, \x[azimuthal-quantum-number] getting filled randomly.
+
+However, orbitals energies for large atoms don't increase in energy like those of hydrogen due to \x[electron]-electron interactions.
+
+In particular, the following would not be naively expected:
+* 2s fills up before 2p. From the hydrogen solution, you might guess that they would randomly go into either one as they'd have the same energy
+* $4s^1$ in \x[potassium] fills up before 3d, even though it has a higher \x[principal-quantum-number]!
+
+This rule is only an approximation, there exist \x[exceptions-to-the-madelung-energy-ordering-rule].
+
+Bibliography:
+* https://chemistry.stackexchange.com/questions/8357/why-does-the-3rd-electron-shell-start-filling-up-with-scandium
+* https://www.quora.com/If-4s-orbitals-are-higher-in-energy-than-3d-orbitals-then-why-do-electrons-fill-up-in-4s-before-filling-up-in-3d
+
+= Exception to the Madelung energy ordering rule
+{parent=madelung-energy-ordering-rule}
+
+= Exceptions to the Madelung energy ordering rule
+{synonym}
+
+The most notable exception is the borrowing of 3\x[d-orbital] electrons to 4\x[s-orbital][s] as in \x[chromium], leading to a 3d5 4s1 configuration instead of the 3d4 4s2 we would have with the rule. TODO how is that observed observed experimentally?
+
+= Schrödinger equation solution for molecule
+{c}
+{parent=solutions-for-the-schrodinger-equation-with-multiple-particles}
+
+= Schrödinger equation solution for the hydrogen molecule
+{c}
+{parent=schrodinger-equation-solution-for-molecule}
+
+Can we make any ab initio predictions about it all?
+
+A 2016 paper: https://aip.scitation.org/doi/abs/10.1063/1.4948309
+
+\Video[https://www.youtube.com/watch?v=BBoE6NRRZ8k]
+{title=Quantum Chemistry 10.1 - Hydrogen Molecule Hamiltonian by TMP Chem (2016)}
+{description=Continued in the following videos, uses the \x[born-oppenheimer-approximation][Born–Oppenheimer approximation]. Does not give predictions vs experiment?}
+
+= Chemical bond
+{parent=schrodinger-equation-solution-for-molecule}
+{wiki}
+
+= Molecule
+{parent=chemical-bond}
+{tag=chemical-compound}
+{wiki}
+
+= Isomer
+{parent=molecule}
+{wiki}
+
+= Isomerism
+{synonym}
+
+Isomers were quite confusing for early chemists, before \x[atomic-theory] was widely accepted, and people where thinking mostly in terms of proportions of equations, related: \x[isomers-suggest-that-atoms-exist]{full}.
+
+= Cis-trans isomerism
+{parent=isomer}
+{wiki=Cis–trans isomerism}
+
+Exist because \x[double-bond]{p} don't rotate freely. Have different properties of course, unlike \x[enantiomer].
+
+Bibliography:
+* https://chem.libretexts.org/Bookshelves/Organic_Chemistry/Map%3A_Essential_Organic_Chemistry_(Bruice)/06%3A_Isomers_and_Stereochemistry/5.01%3A_Cis-Trans_Isomers_Result_from_Restricted_Rotation from \x[libretexts]
+
+= Enantiomer
+{parent=isomer}
+{wiki}
+
+Mirror images.
+
+Key exmaple: \x[d-and-l-amino-acids]. Enantiomers have identical physico-chemical properties. But their biological roles can be very different, because an \x[enzyme] might only be able to act on one of them.
+
+= Polymorphism
+{disambiguate=materials science}
+{parent=isomer}
+{wiki}
+
+TODO definition. Appears to be \x[isomer]{p}
+
+Example:
+* the three most table polymorphs of \x[calcium-carbonate-polymorph]{p} are:
+  * \x[calcite]
+  * \x[aragonite]
+  * \x[vaterite]
+
+= Stereochemistry
+{parent=isomer}
+{wiki}
+
+= Stereochemical
+{synonym}
+
+= Stereoisomerism
+{synonym}
+
+Molecules that are the same if you just look at "what atom is linked to what atom", they are only different if you consider the relative spacial positions of atoms.
+
+= Covalent bond
+{parent=chemical-bond}
+{wiki}
+
+= Sigma bond
+{parent=covalent-bond}
+{wiki}
+
+= Pi bond
+{parent=covalent-bond}
+{wiki}
+
+= Double bond
+{parent=pi-bond}
+{wiki}
+
+= Triple bond
+{parent=pi-bond}
+{wiki}
+
+= Ionic bond
+{parent=chemical-bond}
+{wiki}
+
+= Octet rule
+{parent=chemical-bond}
+{wiki}
+
+= Two-state quantum system
+{parent=solutions-of-the-schrodinger-equation}
+{wiki}
+
+\x[discrete]{c} quantum system model that can model both \x[spin-physics] in the \x[stern-gerlach-experiment] or \x[photon-polarization] in \x[polarizer].
+
+Also known in \x[quantum-computing] as a qubit :-)
+
+= Bloch sphere
+{c}
+{parent=two-state-quantum-system}
+{wiki}
+
+https://physics.stackexchange.com/questions/204090/understanding-the-bloch-sphere/598254#598254
+
+A more concrete and easier to understand version of it is the more \x[photon]-specific \x[poincare-sphere], have a look at that one first.
+
+= Pauli matrix
+{c}
+{parent=two-state-quantum-system}
+{wiki=Pauli_matrices}
+
+\x[2d-representation-of-su-2].
+
+= Born-Oppenheimer approximation
+{c}
+{parent=schrodinger-equation}
+{wiki=Born–Oppenheimer_approximation}
+
+= Uncertainty principle
+{parent=schrodinger-equation}
+{wiki}
+
+= Heisenberg uncertainty principle
+{c}
+{synonym}
+
+The wave equation contains the entire state of a particle.
+
+From \x[mathematical-formulation-of-quantum-mechanics] remember that the wave equation is a vector in \x[hilbert-space].
+
+And a single vector can be represented in many different ways in different basis, and two of those ways happen to be the position and the momentum representations.
+
+More importantly, position and momentum are first and foremost operators associated with observables: the \x[position-operator] and the \x[momentum-operator]. And both of their eigenvalue sets form a basis of the \x[hilbert-space] according to the \x[spectral-theorem].
+
+When you represent a wave equation as a function, you have to say what the variable of the function means. And depending on weather you say "it means position" or "it means momentum", the position and momentum operators will be written differently.
+
+This is well shown at: \x[video-visualization-of-quantum-physics-quantum-mechanics-by-udiprod-2017].
+
+Furthermore, the position and momentum representations are equivalent: one is the \x[fourier-transform] of the other: \x[position-and-momentum-space]. Remember that notably we can always take the Fourier transform of a function in \x[l2] due to \x[carleson-s-theorem].
+
+Then the uncertainty principle follows immediately from a general property of the Fourier transform: https://en.wikipedia.org/w/index.php?title=Fourier_transform&oldid=961707157#Uncertainty_principle
+
+In precise terms, the \x[uncertainty-principle] talks about the \x[standard-deviation] of two measures.
+
+We can visualize the uncertainty principle more intuitively by thinking of a \x[wave-function] that is a \x[real-number][real] \x[flat-top-bump-function] with a flat top in \x[1d]. We can then change the width of the support, but when we do that, the top goes higher to keep probability equal to 1. The momentum is 0 everywhere, except in the edges of the support. Then:
+* to localize the wave in space at position 0 to reduce the space uncertainty, we have to reduce the support. However, doing so makes the momentum variation on the edges more and more important, as the slope will go up and down faster (higher top, and less x space for descent), leading to a larger variance (note that average momentum is still 0, due to to symmetry of the bump function)
+* to localize the momentum as much as possible at 0, we can make the support wider and wider. This makes the bumps at the edges smaller and smaller. However, this also obviously delocalises the wave function more and more, increasing the variance of x
+
+Bibliography:
+* https://www.youtube.com/watch?v=bIIjIZBKgtI&list=PL54DF0652B30D99A4&index=59 "K2. Heisenberg Uncertainty Relation" by doctorphys (2011)
+* https://physics.stackexchange.com/questions/132111/uncertainty-principle-intuition Uncertainty Principle Intuition on \x[physics-stack-exchange]
+
+= Position and momentum space
+{parent=uncertainty-principle}
+{wiki}
+
+One of the main reasons why physicists are obsessed by this topic is that position and momentum are mapped to the \x[phase-space-coordinate]{p} of \x[hamiltonian-mechanics], which appear in the \x[matrix-mechanics] formulation of \x[quantum-mechanics], which offers insight into the theory, particularly when generalizing to \x[relativistic-quantum-mechanics].
+
+One way to think is: what is the definition of space space? It is a way to write the wave function $\psi_x(x)$ such that:
+* the position operator is the multiplication by $x$
+* the momentum operator is the derivative by $x$
+And then, what is the definition of momentum space? It is of course a way to write the wave function $\psi_p(p)$ such that:
+* the momentum operator is the multiplication by $p$
+
+https://physics.stackexchange.com/questions/39442/intuitive-explanation-of-why-momentum-is-the-fourier-transform-variable-of-posit/39508#39508 gives the best idea intuitive idea: the \x[fourier-transform] writes a function as a (continuous) sum of plane waves, and each plane wave has a fixed momentum.
+
+Bibliography:
+* https://en.wikipedia.org/wiki/Position_and_momentum_space
+
+= Position representation
+{parent=position-and-momentum-space}
+{wiki}
+
+A way to write the wavefunction $\psi(x)$ such that the \x[position-operator] is:
+$$x$$
+i.e., a function that takes the wavefunction as input, and outputs another function:
+$$x \psi(x)$$
+
+If you believe that \x[mathematician]{p} took care of \x[continuous-spectrum-functional-analysis] for us and that everything just works, the most concrete and direct thing that this representation tells us is that:
+\Q[the probability of finding a particle between $x_0$ and $x_1$ at time $t$]
+equals:
+$$\int_{x_0}^{x_1}x \psi{x, t} dx$$
+
+= Position operator
+{parent=position-and-momentum-space}
+{wiki}
+
+This operator case is surprisingly not necessarily mathematically trivial to describe formally because you often end up getting into the \x[dirac-delta-function]{p}/continuous spectrum: as mentioned at: \x[mathematical-formulation-of-quantum-mechanics]
+
+= Momentum operator
+{parent=position-and-momentum-space}
+{wiki}
+
+One dimension in \x[position-representation]:
+$$
+\hat{p} = - i \hbar \pdv{}{x}
+$$
+
+In three dimensions In position representation, we define it by using the \x[gradient], and so we see that 
+$$
+\hat{p} = - i \hbar \pdv{}{x}
+$$
+
+\Video[https://www.youtube.com/watch?v=Egu4i8umpoM]
+{title=Position and Momentum from Wavefunctions by \x[faculty-of-khan] (2018)}
+{description=Proves in detail why the \x[momentum-operator] is $\pdv{}{x}$. The starting point is determining the time \x[derivative] of the \x[expectation-value] of the \x[position-operator].}
+
+= Squeezed coherent state
+{parent=position-and-momentum-space}
+{wiki}
+
+= Energy operator
+{parent=uncertainty-principle}
+{wiki}
+
+Appears directly on \x[schrodinger-equation]! And in particular in the \x[time-independent-schrodinger-equation].
+
+= Time-energy uncertainty principle
+{parent=energy-operator}
+
+There is also a time-energy \x[uncertainty-principle], because those two operators are also \x[complementarity-physics][complementary].
+
+= Angular momentum operator
+{parent=uncertainty-principle}
+{wiki}
+
+Basically the operators are just analogous to the classical ones e.g. the classical:
+$$L_z = x p_y - y p_x$$
+becomes:
+$$\hat{L}_z = -i \hbar \left( x\pdv{}{y} - y\pdv{}{x} \right)$$
+
+Besides the angular momentum in each direction, we also have the \x[total-angular-momentum]:
+$$\hat{L}^2 = \hat{L}_x + \hat{L}_y + \hat{L}_z$$
+
+Then you have to understand what each one of those does to the each \x[atomic-orbital]:
+* total angular momentum: determined by the \x[azimuthal-quantum-number]
+* angular momentum in one direction ($z$ by convention): determined by the \x[magnetic-quantum-number]
+
+There is an \x[uncertainty-principle] between the x, y and z angular momentums, we can only measure one of them with certainty at a time. \x[video-quantum-mechanics-7a-angular-momentum-i-by-viascience-2013] justifies this intuitively by mentioning that this is analogous to \x[precession]: if you try to measure electrons e.g. with the \x[zeeman-effect] the precess on the other directions which you end up modifing.
+
+\Video[https://youtube.com/watch?v=NwbvTa2xV9k]
+{title=Quantum Mechanics 7a - Angular Momentum I by \x[viascience] (2013)}
+
+= Total angular momentum operator
+{parent=angular-momentum-operator}
+
+= Total angular momentum
+{synonym}
+
+See: \x[angular-momentum-operator].
+
+= Complementarity
+{disambiguate=physics}
+{parent=uncertainty-principle}
+{wiki}
+
+= Conservation laws in Schrodinger equations
+{parent=schrodinger-equation}
+
+https://physics.stackexchange.com/questions/229885/energy-equation-in-quantum-mechanics
+
+TODO is there any good intuitive argument or proof of conservation of energy, momentum, angular momentum?
+
+= Conservation of the square amplitude in the Schrodinger equation
+{parent=conservation-laws-in-schrodinger-equations}
+
+Proof that the probability 1 is conserved by the time evolution:
+
+It can be derived directly from the \x[schrodinger-equation].
+
+Bibliography:
+* https://quantummechanics.ucsd.edu/ph130a/130_notes/node127.html from \x[quantum-physics-by-jim-branson-2003].
+
+  That proof also mentions that if the potential `V` is not real, then there is no conservation of probability! Therefore the potential \i[must] be real valued!
+
+= Probability current
+{parent=conservation-of-the-square-amplitude-in-the-schrodinger-equation}
+{wiki}
+
+= Wave function
+{parent=schrodinger-equation}
+{title2=$\psi$}
+{wiki}
+
+Contains the full state of the quantum system.
+
+This is in contrast to classical mechanics where e.g. the state of mechanical system is given by two real functions: position and speed.
+
+The wave equation in \x[position-representation] on the other hand encodes speed in "how fast does the complex phase spin around", and direction in "does it spin clockwise or counterclockwise", as described well at: \x[video-visualization-of-quantum-physics-quantum-mechanics-by-udiprod-2017]. Then once you understand that, it is more compact to just view those graphs with the phase color coded as in \x[video-simulation-of-the-time-dependent-schrodinger-equation-javascript-animation-by-coding-physics-2019].
+
+= Matter wave
+{parent=wave-function}
+{title2=1923}
+{wiki}
+
+= Electron diffraction experiment
+{parent=matter-wave}
+
+= Diffraction of Cathode Rays by a Thin Film by Thomson and Reid (1927)
+{c}
+{parent=electron-diffraction-experiment}
+
+https://www.nature.com/articles/119890a0
+
+= Davisson-Germer experiment
+{c}
+{parent=electron-diffraction-experiment}
+{title2=1927}
+{wiki=Davisson–Germer_experiment}
+
+= de Broglie relations
+{c}
+{parent=matter-wave}
+{wiki=Matter_wave#de_Broglie_relations}
+
+Relates particle momentum and its wavelength, or equivalently, energy and frequency.
+
+The wavelength relation is:
+$$
+\lambda = \frac{h}{p}
+$$
+but since:
+$$
+v = \lambda f
+E = p v
+$$
+the wavelength relation implies:
+$$
+\frac{v}{f} = \frac{h}{p}
+f = \frac{v p}{h}  = \frac{E}{h}
+$$
+
+Particle wavelength can be for example measured very directly on a \x[double-slit-experiment].
+
+So if we take for example electrons of different speeds, we should be able to see the diffraction pattern change accordingly.
+
+= Equivalent alternatives to the Schrodinger equation
+{parent=non-relativistic-quantum-mechanics}
+
+* \x[path-integral-formulation]{child}
+
+= Matrix mechanics
+{parent=equivalent-alternatives-to-the-schrodinger-equation}
+{title2=1925}
+{wiki}
+
+Published by \x[werner-heisenberg] in 1925-07-25 as \x[quantum-mechanical-re-interpretation-of-kinematic-and-mechanical-relations-by-heisenberg-1925], it offered the first general formulation of quantum mechanics.
+
+It is apparently more closely related to the \x[ladder-operator] method, which is a more \x[algebraic] than the more \x[analytical] \x[schrodinger-equation].
+
+It appears that this formulation makes the importance of the \x[poisson-bracket] clear, and explains why \x[physicist]{p} are so obsessed with talking about \x[position-and-momentum-space]. This point of view also apparently makes it clearer that \x[quantum-mechanics] can be seen as a generalization of \x[classical-mechanics] through the \x[hamiltonian].
+
+\x[qed-and-the-men-who-made-it-dyson-feynman-schwinger-and-tomonaga-by-silvan-schweber-1994] mentions however that \x[relativistic-quantum-mechanics] broke that analogy, because some 2x2 matrix had a different form, TODO find that again.
+
+\x[inward-bound-by-abraham-pais-1988] chapter 12 "Quantum mechanics, an essay" part (c) "A chronology" has some ultra brief, but worthwhile mentions of matrix mechanics and the \x[commutator].
+
+= Quantum mechanical re-interpretation of kinematic and mechanical relations by Heisenberg (1925)
+{parent=matrix-mechanics}
+{title2=Über quantentheoretische Umdeutung kinematischer und mechanischer Beziehungen}
+
+This \x[heisenberg]'s breakthrough paper on \x[matrix-mechanics] which later led to the \x[schrodinger-equation], see also: \x[history-of-quantum-mechanics].
+
+Published on the \x[zeitschrift-fur-physik] volume 33 page pages 879-893, https://link.springer.com/article/10.1007%2FBF01328377
+
+Modern overview: http://www.mat.unimi.it/users/galgani/arch/heisenberg25amer_j_phys.pdf
+
+= Heisenberg picture
+{c}
+{parent=matrix-mechanics}
+{wiki}
+
+Basically the same as \x[matrix-mechanics] it seems, just a bit more generalized.
+
+= De Broglie-Bohm theory
+{parent=equivalent-alternatives-to-the-schrodinger-equation}
+{wiki=De Broglie–Bohm theory}
+
+Deterministic, but \x[non-local].
+
+= Planck-Einstein relation
+{c}
+{parent=quantum-mechanics}
+{wiki=Planck–Einstein_relation}
+
+Photon energy is proportional to its frequency:
+$$
+energy = (plancks \space constant) * (frequency)
+$$
+or with common weird variables:
+$$
+E = h * \nu
+$$
+
+This only makes sense if the \x[photon] exists, there is no classical analogue, because the energy of classical waves depends only on their amplitude, not frequency.
+
+Experiments that suggest this:
+* \x[photoelectric-effect]
+* \x[compton-scattering]
+
+= Planck constant
+{c}
+{parent=planck-einstein-relation}
+{title2=$h$}
+{wiki}
+
+Proportionality factor in the \x[planck-einstein-relation] between light energy and frequency.
+
+And analogously for matter, appears in the \x[de-broglie-relations] relating momentum and frequency. Also appears in the \x[schrodinger-equation], basically as a consequence/cause of the de Broglie relations most likely.
+
+Intuitively, the \x[planck-constant] determines at what length scale do quantum effects start to show up for a given energy scale. It is because the Plank constant is very small that we don't perceive quantum effects on everyday energy/length/time scales. On the $\lim_{h \to 0}$, quantum mechanics disappears entirely.
+
+A very direct way of thinking about it is to think about what would happen in a \x[double-slit-experiment]. TODO think more clearly what happens there.
+
+Defined exactly in the \x[2019-redefinition-of-the-si-base-units] to:
+$$
+6.62607015 \times 10^{-34} J \cdot s
+$$
+
+= Reduced Planck constant
+{parent=planck-constant}
+{title2=$\hbar$, $h/2\pi$}
+
+Appears in the \x[schrodinger-equation].
+
+Equals the quantum of \x[angular-momentum] in the \x[bohr-model].
+
+= Relativistic quantum mechanics
+{parent=quantum-mechanics}
+{wiki}
+
+The first really good \x[quantum-mechanics] theory made compatible with \x[special-relativity] was the \x[dirac-equation].
+
+And then came \x[quantum-electrodynamics] to improve it: \x[dirac-equation-vs-quantum-electrodynamics].
+
+TODO: does it use full blown QED, or just something intermediate?
+
+https://www.youtube.com/watch?v=NtnsHtYYKf0 "Mercury and Relativity - Periodic Table of Videos" by \x[periodic-videos] (2013). Doesn't give the key juicy details/intuition. Also mentioned on Wikipedia: https://en.wikipedia.org/wiki/Relativistic_quantum_chemistry#Mercury
+
+= Dirac equation
+{c}
+{parent=relativistic-quantum-mechanics}
+{wiki}
+
+Adds \x[special-relativity] to the \x[schrodinger-equation], and the following conclusions come basically as a direct consequence of this!
+
+Experiments explained:
+* \x[spontaneous-emission] coefficients.
+* \x[fine-structure], notably for example \x[dirac-equation-solution-for-the-hydrogen-atom]
+* \x[antimatter]
+* \x[particle-creation-and-annihilation]
+
+Experiments not explained: those that \x[quantum-electrodynamics] explains like:
+* \x[lamb-shift]
+* TODO: quantization of the electromagnetic field as \x[photon]{p}?
+See also: \x[dirac-equation-vs-quantum-electrodynamics].
+
+The Dirac equation is a set of 4 \x[partial-differential-equation]{p} on 4 \x[complex-number][complex valued] wave functions. The full explicit form in \x[planck-units] is shown e.g. in \x[video-quantum-mechanics-12a-dirac-equation-i-by-viascience-2015] at https://youtu.be/OCuaBmAzqek?t=1010[]:
+$$
+  i \partial_t \begin{bmatrix} \psi_1 \\  \psi_2 \\  \psi_3 \\  \psi_4 \end{bmatrix} =
+- i \partial_x \begin{bmatrix} \psi_4 \\  \psi_3 \\  \psi_2 \\  \psi_1 \end{bmatrix}
++   \partial_y \begin{bmatrix}-\psi_4 \\  \psi_3 \\ -\psi_2 \\  \psi_1 \end{bmatrix}
+- i \partial_z \begin{bmatrix} \psi_3 \\ -\psi_4 \\  \psi_1 \\ -\psi_2 \end{bmatrix}
++ m            \begin{bmatrix} \psi_1 \\  \psi_2 \\ -\psi_3 \\ -\psi_4 \end{bmatrix}
+$$
+{title=Expanded \x[dirac-equation] in \x[planck-units].}
+Then as done at https://physics.stackexchange.com/questions/32422/qm-without-complex-numbers/557600#557600 from \x[why-are-complex-numbers-used-in-the-schrodinger-equation], we could further split those equations up into a system of 8 equations on 8 \x[real-number][real-valued] functions.
+
+\Video[http://youtube.com/watch?v=OCuaBmAzqek]
+{title=Quantum Mechanics 12a - Dirac Equation I by \x[viascience] (2015)}
+
+\Video[https://www.youtube.com/watch?v=ajMaPc022VM]
+{title=PHYS 485 Lecture 14: The Dirac Equation by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] (2016)}
+
+= Spontaneous emission
+{parent=dirac-equation}
+{wiki}
+
+Do electrons spontaneously jump from high orbitals to lower ones emitting photons?
+
+Explaining this was was one of the key initial achievements of the \x[dirac-equation].
+
+Yes, but this is not predicted by the \x[schrodinger-equation], you need to go to the \x[dirac-equation].
+
+A critical application of this phenomena is \x[laser].
+
+See also:
+* https://physics.stackexchange.com/questions/233330/why-do-electrons-jump-between-orbitals
+* https://physics.stackexchange.com/questions/117417/quantum-mechanics-scattering-theory/522220#522220
+* https://physics.stackexchange.com/questions/430268/stimulated-emission-how-can-giving-energy-to-electrons-make-them-decay-to-a-low/430288
+
+= Spontaneous emission defies causality
+{parent=spontaneous-emission}
+
+TODO understand better, mentioned e.g. at \x[subtle-is-the-lord-by-abraham-pais-1982] page 20, and is something that \x[einstein] worked on.
+
+= The Dirac equation predicts spin
+{parent=dirac-equation}
+
+Shown at: \x[video-quantum-mechanics-12b-dirac-equation-ii-by-viascience-2015].
+
+= Antimatter
+{parent=dirac-equation}
+{wiki}
+
+= Antiparticle
+{synonym}
+
+Predicted by the \x[dirac-equation].
+
+Can be easily seen from the solution of \x[equation-expanded-dirac-equation-in-planck-units] when the particle is at rest as shown at \x[video-quantum-mechanics-12b-dirac-equation-ii-by-viascience-2015].
+
+= Particle creation and annihilation
+{parent=dirac-equation}
+
+https://en.wikipedia.org/wiki/Annihilation
+
+Predicted by the \x[dirac-equation].
+
+We've likely known since forever that \x[photon]{p} are created: just turn on a light and see gazillion of them come out!
+
+Photon creation is easy because photons are massless, so there is not minimum energy to create them.
+
+The creation of other particles is much rarer however, and took longer to be discovered, one notable milestone being the discovery of the \x[positron].
+
+In the case of the electron, we need to start with at least enough energy for the mass of the electron positron pair. This requires a photon with wavelength in the \x[picometer] range, which is not common in the thermal radiation of daily life.
+
+= Particle decay
+{parent=particle-creation-and-annihilation}
+{wiki}
+
+Can produce two \x[quantum-entanglement][entangled] particles.
+
+= Pair production
+{parent=particle-decay}
+{wiki}
+
+= Relativistic particle in a box thought experiment
+{parent=particle-creation-and-annihilation}
+
+Described for example in \x[quantum-field-theory-lecture-by-tobias-osborne-2017/lecture-1].
+
+= The Dirac equation is consistent with special relativity
+{parent=dirac-equation}
+
+TODO, including why the Schrodinger equation is not.
+
+= Derivation of the Dirac equation
+{parent=dirac-equation}
+
+The \x[dirac-equation] can be derived basically "directly" from the \x[representation-theory-of-the-lorentz-group] for the \x[spin-half] representation, this is shown for example at \x[physics-from-symmetry-by-jakob-schwichtenberg-2015] 6.3 "Dirac Equation".
+
+The Diract equation is the \x[spacetime-symmetry] part of the \x[quantum-electrodynamics-lagrangian], i.e. is describes how \x[spin-half] particles behave without interactions. The full \x[quantum-electrodynamics-lagrangian] can then be reached by adding the \x[u-1] \x[internal-symmetry].
+
+As mentioned at \x[spin-comes-naturally-when-adding-relativity-to-quantum-mechanics], this same method allows us to analogously derive the equations for other \x[spin-number]{p}.
+
+Bibliography:
+* \x[video-quantum-mechanics-12a-dirac-equation-i-by-viascience-2015] at https://youtu.be/OCuaBmAzqek?t=743
+* https://www.youtube.com/watch?v=zM-Lc16nyho&list=PL54DF0652B30D99A4&index=66 "L3. The Dirac Equation" by doctorphys
+* \x[video-dirac-equation-for-the-electron-and-hydrogen-hamiltonian-by-barton-zwiebach-2019]
+
+\Video[https://www.youtube.com/watch?v=jjG2Y_dMsbI]
+{title=Deriving The \x[dirac-equation] by \x[andrew-dotson] (2019)}
+
+= Pauli equation
+{c}
+{parent=dirac-equation}
+{wiki}
+
+Bibliography:
+
+* https://www.youtube.com/watch?v=Fu1BGGeyqHQ&list=PL54DF0652B30D99A4&index=63 "K6. The Pauli Equation" by doctorphys
+
+= Klein-Gordon equation
+{c}
+{parent=dirac-equation}
+{wiki=Klein–Gordon_equation}
+
+A relativistic version of the \x[schrodinger-equation].
+
+Correctly describes \x[spin-0] particles.
+
+The most memorable version of the equation can be written as shown at \x[klein-gordon-equation-in-einstein-notation]{full} with \x[einstein-notation] and \x[planck-units]:
+$$
+\partial_i \partial^i \psi - m^2 \psi = 0
+$$
+
+Has some issues which are solved by the \x[dirac-equation]:
+* it has a second time derivative of the \x[wave-function]. Therefore, to solve it we must specify not only the initial value of the wave equation, but also the derivative of the wave equation, 
+
+  As mentioned at \x[advanced-quantum-mechanics-by-freeman-dyson-1951] and further clarified at: https://physics.stackexchange.com/questions/340023/cant-the-negative-probabilities-of-klein-gordon-equation-be-avoided[], this would lead to negative probabilities.
+* the modulus of the wave function is not constant and therefore not always one, and therefore cannot be interpreted as a probability density anymore
+* since we are working with the square of the energy, we have both positive and negative value solutions. This is also a features of the \x[dirac-equation] however.
+
+Bibliography:
+* \x[video-quantum-mechanics-12a-dirac-equation-i-by-viascience-2015] at https://youtu.be/OCuaBmAzqek?t=600
+* \x[an-introduction-to-qed-and-qcd-by-jeff-forshaw-1997] 1.2 "Relativistic Wave Equations" and 1.4 "The Klein Gordon Equation" gives some key ideas
+* \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta] at around 7:30
+* https://www.youtube.com/watch?v=WqoIW85xwoU&list=PL54DF0652B30D99A4&index=65 "L2. The Klein-Gordon Equation" by doctorphys
+* https://sites.ualberta.ca/~gingrich/courses/phys512/node21.html from \x[advanced-quantum-mechanics-ii-by-douglas-gingrich-2004]
+  * https://sites.ualberta.ca/~gingrich/courses/phys512/node23.html gives \x[lorentz-invariance]
+
+= Derivation of the Klein-Gordon equation
+{c}
+{parent=klein-gordon-equation}
+
+The Klein-Gordon equation directly uses a more naive \x[relativistic-energy] guess of $p^2 + m^2$ squared.
+
+But since this is \x[quantum-mechanics], we feel like making $p$ into the "\x[momentum-operator]", just like in the \x[schrodinger-equation].
+
+But we don't really know how to apply the momentum operator twice, because it is a \x[gradient], so the first application goes from a scalar field to the vector field, and the second one...
+
+So we just cheat and try to use the \x[laplace-operator] instead because there's some squares on it:
+$$
+H = \laplacian{} + m^2
+$$
+
+But then, we have to avoid taking the square root to reach a first derivative in time, because we don't know how to take the square root of that operator expression.
+
+So the Klein-Gordon equation just takes the approach of using this squared Hamiltonian instead.
+
+Since it is a Hamiltonian, and comparing it to the \x[schrodinger-equation] which looks like:
+$$
+H \psi = i \pdv{\psi}{t}
+$$
+taking the Hamiltonian twice leads to:
+$$
+H^2 \psi = - \pdv{^2 \psi}{^2 t}
+$$
+
+We can contrast this with the \x[dirac-equation], which instead attempts to explicitly construct an operator which squared coincides with the relativistic formula: \x[derivation-of-the-dirac-equation].
+
+= Solutions of the Dirac equation
+{parent=dirac-equation}
+
+Related: \x[dirac-equation-vs-quantum-electrodynamics].
+
+\Video[https://www.youtube.com/watch?v=tR6UebCvFqE]
+{title=Quantum Mechanics 12b - Dirac Equation II by \x[viascience] (2015)}
+{description=
+* https://youtu.be/tR6UebCvFqE?t=23 particle at rest
+* https://youtu.be/tR6UebCvFqE?t=322 unidirectional movement without a potential
+* https://youtu.be/tR6UebCvFqE?t=507 shows that observers in different \x[frame-of-reference][frames of reference] also see different \x[spin-physics]. We are reminded of how \x[maxwell-s-equations-require-special-relativity][magnetism is just a side effect of special-relativity].
+* https://youtu.be/tR6UebCvFqE?t=549 \x[dirac-equation-solution-for-the-hydrogen-atom], final result only + mentions \x[fine-structure] prediction.
+}
+
+= Dirac equation solution for the hydrogen atom
+{c}
+{parent=solutions-of-the-dirac-equation}
+{wiki=Hydrogen-like_atom#Solution_to_Dirac_equation}
+
+Predicts \x[fine-structure].
+
+Bibliography:
+* \x[video-quantum-mechanics-12b-dirac-equation-ii-by-viascience-2015] https://youtu.be/tR6UebCvFqE?t=549
+
+\Video[https://www.youtube.com/watch?v=lr4HqQ_sLO0]
+{title=\x[dirac-equation] for the \x[electron] and \x[hydrogen] Hamiltonian by \x[barton-zwiebach] (2019)}
+{description=Uses \x[perturbation-theory] to get to the relativistic corrections of \x[fine-structure]! Part of \x[mit-8-06-quantum-physics-iii-spring-2018-by-barton-zwiebach]}
+
+\Video[https://www.youtube.com/watch?v=jWYtP-rAoYA]
+{title=How To Solve The Dirac Equation For The Hydrogen Atom | Relativistic Quantum Mechanics by \x[dietterich-labs] (2018)}
+
+= Spin
+{disambiguate=physics}
+{parent=dirac-equation}
+
+Spin is one of the \x[defining-properties-of-elementary-particles], i.e. number that describes how an \x[elementary-particle] behaves, much like \x[electric-charge] and \x[mass].
+
+Possible values are half integer numbers: 0, 1/2, 1, 3/2, and so on.
+
+The approach shown in this section: \x[spin-comes-naturally-when-adding-relativity-to-quantum-mechanics]{c}{full} shows what the spin number actually means in general. As shown there, the spin number it is a direct consequence of having the laws of nature be \x[lorentz-invariant]. Different spin numbers are just different ways in which this can be achieved as per different \x[representation-of-the-lorentz-group].
+
+\x[video-quantum-mechanics-9a-photon-spin-and-schrodinger-s-cat-i-by-viascience-2013] explains nicely how:
+* incorporated into the \x[dirac-equation] as a natural consequence of \x[special-relativity] corrections, but not naturally present in the \x[schrodinger-equation], see also: \x[the-dirac-equation-predicts-spin]{child}
+* \x[photon] spin can be either linear or circular
+* the linear one can be made from a superposition of circular ones
+* straight antennas produce linearly polarized photos, and https://en.wikipedia.org/wiki/Helical_antenna[Helical antennas] circularly polarized ones
+* a jump between 2s and 2p in an atom changes angular momentum. Therefore, the photon must carry angular momentum as well as energy.
+* cannot be classically explained, because even for a very large estimate of the electron size, its surface would have to spin faster than light to achieve that magnetic momentum with the known \x[electron-charge]
+* as shown at \x[video-quantum-mechanics-12b-dirac-equation-ii-by-viascience-2015], observers in different \x[frame-of-reference][frames of reference] see different spin states
+
+\Video[https://www.youtube.com/watch?v=6sR6RV2znXI]
+{title=Quantum Mechanics 9a - Photon Spin and Schrodinger's Cat I by \x[viascience] (2013)}
+
+\Video[https://www.youtube.com/watch?v=3k5IWlVdMbo]
+{title=Quantum Spin - Visualizing the physics and mathematics by \x[physics-videos-by-eugene-khutoryansky] (2016)}
+
+= Spin experiments
+{parent=spin-physics}
+
+* \x[stern-gerlach-experiment]
+* \x[fine-structure] split in energy levels
+* \x[anomalous-zeeman-effect]
+* of a more statistical nature, but therefore also macroscopic and more dramatically observable:
+  * \x[ferromagnetism]
+  * \x[bose-einstein-statistics] vs \x[fermi-dirac-statistics]. A notable example is the difference in \x[superfluid] transition \x[temperature] between \x[superfluid-helium-3] and \x[superfluid-helium-4].
+
+= Stern-Gerlach experiment
+{c}
+{parent=spin-experiments}
+{title2=1921}
+{wiki=Stern–Gerlach_experiment}
+
+Originally done with silver in 1921, but even clearer theoretically was the hydrogen reproduction in 1927 by T.E. Phipps and J.B. Taylor.
+
+The hydrogen experiment was apparently harder to do and the result is less visible, TODO why: https://physics.stackexchange.com/questions/33021/why-silver-atoms-were-used-in-stern-gerlach-experiment
+
+= Spintronics
+{parent=spin-experiments}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=1vSQ9u1SP2M]
+{title=Introduction to Spintronics by Aurélien Manchon (2020)}
+
+= Spin valve
+{parent=spintronics}
+{wiki}
+
+Basic component in \x[spintronics], used in both \x[giant-magnetoresistance]
+
+= Tunnel magnetoresistance
+{parent=spintronics}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=q3-S5hM-3QY]
+{title=What is \x[spintronics] and how is it useful? by SciToons (2019)}
+{description=Gives a good 1 minute explanation of \x[tunnel-magnetoresistance].}
+
+= Giant magnetoresistance
+{parent=spintronics}
+{tag=2007-nobel-prize-in-physics}
+{title2=1988}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=1vSQ9u1SP2M]
+{title=Introduction to Spintronics by Aurélien Manchon (2020) \x[giant-magnetoresistance] section}
+{start=461}
+{description=Describes how \x[giant-magnetoresistance] was used in \x[magnetoresistive-disk-head]{p} in the 90's providing a huge improvement in \x[disk-storage] density over the pre-existing \x[inductive-sensor]{p}
+
+More comments at: \x[video-introduction-to-spintronics-by-aurelien-manchon-2020].
+}
+
+= Spin-transfer torque
+{parent=spintronics}
+{title2=1996}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=1vSQ9u1SP2M]
+{title=Introduction to Spintronics by Aurélien Manchon (2020) \x[spin-transfer-torque] section}
+{start=519}
+{description=Describes how how \x[spin-transfer-torque] was used in \x[magnetoresistive-ram]
+
+More comments at: \x[video-introduction-to-spintronics-by-aurelien-manchon-2020].
+}
+
+= Spin number of a field
+{parent=spin-physics}
+
+= Spin number
+{synonym}
+
+= Spin comes naturally when adding relativity to quantum mechanics
+{synonym}
+
+Best mathematical explanation: \x[spin-comes-naturally-when-adding-relativity-to-quantum-mechanics]{c}{full}.
+
+\x[physics-from-symmetry-by-jakob-schwichtenberg-2015] chapter 3.9 "Elementary particles" has an amazing summary of the preceding chapters the \x[spin-physics] value has a relation to the \x[representation-theory][representations] of the \x[lorentz-group], which encodes the \x[spacetime-symmetry] that each particle observes. These symmetries can be characterized by small integer numbers:
+* \x[spin-0]: $(0, 0)$ representation
+* \x[spin-half]: $(1/2, 0) \bigoplus (0, 1/2)$ representation
+* \x[spin-1]: $(1/2, 1/2)$ representation
+\x[parameters-of-the-standard-model][As usual], we don't know why there aren't \x[elementary-particle]{p} with other spins, as we could construct them.
+
+Bibliography:
+* \x[video-quantum-field-theory-visualized-by-scienceclic-english-2020]
+* \x[spin-comes-naturally-when-adding-relativity-to-quantum-mechanics]
+* https://physics.stackexchange.com/questions/31119/what-does-spin-0-mean-exactly What does spin 0 mean exactly? on \x[physics-stack-exchange]
+
+= Spin 0
+{parent=spin-number-of-a-field}
+
+https://physics.stackexchange.com/questions/31119/what-does-spin-0-mean-exactly
+
+Leads to the \x[klein-gordon-equation].
+
+= Spin half
+{parent=spin-number-of-a-field}
+
+Leads to the \x[dirac-equation].
+
+= Spin 1
+{parent=spin-number-of-a-field}
+
+Leads to the \x[proca-equation].
+
+= Proca equation
+{c}
+{parent=spin-1}
+{wiki=Proca_action#Equation}
+
+= Spin 2
+{parent=spin-number-of-a-field}
+
+Theorized for the \x[graviton].
+
+= Why is the spin of the electron half?
+{parent=spin-number-of-a-field}
+
+https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what
+
+More interestingly, how is that implied by the \x[stern-gerlach-experiment]?
+
+https://physics.stackexchange.com/questions/266359/when-we-say-electron-spin-is-1-2-what-exactly-does-it-mean-1-2-of-what/266371#266371 suggests that half could either mean:
+* at limit of large `l` for the \x[schrodinger-equation-solution-for-the-hydrogen-atom] the difference between each angular momentum is twice that of the eletron's spin. Not very satisfactory.
+* it comes directly out of the \x[dirac-equation]. This is satisfactory. :-)
+
+= Pauli exclusion principle
+{c}
+{parent=spin-physics}
+{wiki}
+
+Initially a phenomenological guess to explain the periodic table. Later it was apparently proven properly with the \x[spin-statistics-theorem], https://physics.stackexchange.com/questions/360140/theoretical-proof-of-paulis-exclusion-principle[].
+
+And it was understood more and more that basically this is what prevents solids from collapsing into a single nucleus, not electrical repulsion: \x[electron-degeneracy-pressure]!
+
+Bibliography:
+* https://www.youtube.com/watch?v=EK_6OzZAh5k How Electron Spin Makes Matter Possible by \x[pbs-space-time] (2021)
+
+\Video[https://www.youtube.com/watch?v=dQWn9NzvX4s]
+{title=The Biggest Ideas in the Universe | 17. Matter by \x[sean-carroll] (2020)}
+
+= Fermion
+{parent=pauli-exclusion-principle}
+{wiki}
+
+= Boson
+{parent=fermion}
+{wiki}
+
+= Spin-statistics theorem
+{parent=pauli-exclusion-principle}
+{wiki=Spin–statistics_theorem}
+
+\x[video-the-biggest-ideas-in-the-universe-17-matter-by-sean-carroll-2020] at https://youtu.be/dQWn9NzvX4s?t=3707 says that no one has ever been able to come up with an intuitive reason for the proof.
+
+= Electron degeneracy pressure
+{parent=pauli-exclusion-principle}
+{wiki}
+
+= Nuclear spin
+{parent=spin-physics}
+
+http://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nspin.html
+
+Nuclear physics basically means \x[quantum-chromodynamics]
+
+TODO experiments. Can you do \x[stern-gerlach-experiment] with alpha particles?
+
+= Dirac Lagrangian
+{c}
+{parent=dirac-equation}
+{wiki=Lagrangian_(field_theory)#Dirac_Lagrangian}
+
+$$
+\mathcal{L} = \bar \psi ( i \hbar c {\partial}\!\!\!/ - mc^2) \psi
+$$
+where:
+* ${\partial}\!\!\!$: \x[feynman-slash-notation]
+* $\bar \psi$: \x[dirac-adjoint]
+
+Remember that $\psi$ is a 4-vetor, gamma matrices are 4x4 matrices, so the whole thing comes down to a \x[dot-product] of two 4-vectors, with a modified $\psi$ by matrix multiplication/derivatives, and the result is a scalar, as expected for a \x[lagrangian].
+
+Like any other \x[lagrangian], you can then recover the \x[dirac-equation], which is the corresponding \x[equations-of-motion], by applying the \x[euler-lagrange-equation] to the Lagrangian.
+
+= Dirac adjoint
+{c}
+{parent=dirac-lagrangian}
+{wiki}
+
+= Gamma matrices
+{c}
+{parent=dirac-lagrangian}
+{wiki}
+
+= Gamma matrix
+{synonym}
+
+= Feynman slash notation
+{c}
+{parent=dirac-lagrangian}
+{wiki}
+
+= Quantum field theory
+{parent=relativistic-quantum-mechanics}
+
+= QFT
+{c}
+{synonym}
+{title2}
+
+Theoretical framework on which quantum field theories are based, theories based on framework include:
+* \x[quantum-electrodynamics]
+* \x[quantum-chromodynamics]
+so basically the entire \x[standard-model]
+
+The basic idea is that there is a field for each particle particle type.
+
+E.g. in QED, one for the \x[electron] and one for the \x[photon]: https://physics.stackexchange.com/questions/166709/are-electron-fields-and-photon-fields-part-of-the-same-field-in-qed[].
+
+And then those fields interact with some \x[lagrangian].
+
+One way to look at QFT is to split it into two parts:
+* deriving the Lagrangians of the \x[standard-model]: \x[why-do-symmetries-such-as-su-3-su-2-and-u-1-matter-in-particle-physics]. This is the easier part, since the lagrangians themselves can be understood with not very advanced mathematics, and derived beautifully from symmetry constraints
+* the qantization of fields. This is the hard part \x[ciro-santilli] is unable to understand, TODO \x[mathematical-formulation-of-quantum-field-theory].
+Then interwined with those two is the part "OK, how to solve the equations, if they are solvable at all", which is an open problem: \x[yang-mills-existence-and-mass-gap].
+
+There appear to be two main equivalent formulations of quantum field theory:
+* \x[second-quantization]
+* \x[path-integral-formulation]
+
+\Video[https://www.youtube.com/watch?v=MmG2ah5Df4g]
+{title=Quantum Field Theory visualized by \x[scienceclic] English (2020)}
+{description=Gives one piece of possibly OK intuition: quantum theories kind of model all possible evolutions of the system at the same time, but with different probabilities. QFT is no different in that aspect.
+* https://youtu.be/MmG2ah5Df4g?t=209 describes how the \x[spin-number-of-a-field] is directly related to how much you have to rotate an element to reach the original position
+* https://youtu.be/MmG2ah5Df4g?t=480 explains which particles are modelled by which spin number
+}
+
+\Video[https://youtu.be/zNVQfWC_evg]
+{title=Quantum Fields: The Real Building Blocks of the Universe by \x[david-tong] (2017)}
+{description=Boring, does not give anything except the usual blabla everyone knows from Googling:
+* https://youtu.be/zNVQfWC_evg?t=1335 shows https://www.youtube.com/watch?v=9TJe1Pr5c9Q from \x[quantum-field-theory-simulations]
+* https://youtu.be/zNVQfWC_evg?t=1522 alludes to the \x[birch-and-swinnerton-dyer-conjecture]
+}
+
+\Video[https://www.youtube.com/watch?v=QPAxzr6ihu8]
+{title=Quantum Field Theory: What is a particle? by \x[physics-explained] (2021)}
+{description=Gives some high level analogies between high level principles of \x[non-relativistic-quantum-mechanics] and \x[special-relativity] in to suggest that there is a minimum quanta of a relativistic quantum field.}
+
+= Quantum field
+{parent=quantum-field-theory}
+
+= Mathematical formulation of quantum field theory
+{parent=quantum-field-theory}
+
+TODO holy crap, even this is hard to understand/find a clear definition of.
+
+The \x[dirac-equation], OK, is a \x[partial-differential-equation], so we can easily understand its definition with basic calculus. We may not be able to solve it efficiently, but at least we understand it.
+
+But what the heck is the mathematical model for a quantum field theory? TODO someone was saying it is equivalent to an infinite set of PDEs somehow. Investigate. Related:
+* https://www.reddit.com/r/AskPhysics/comments/74qeag/what_is_so_hard_about_qft_after_all/
+* https://physics.stackexchange.com/questions/337423/what-are-quantum-fields-mathematically
+* https://physics.stackexchange.com/questions/155608/what-is-a-quantum-field
+
+The \x[path-integral-formulation] might actually be the most understandable formulation, as shown at \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979].
+
+The formulation of QFT also appears to be a form of infinite-dimentional calculus.
+
+\x[quantum-electrodynamics-by-lifshitz-et-al-2nd-edition-1982] chapter 1. "The uncertainty principle in the relativistic case" contains an interesting idea:
+\Q[The foregoing discussion suggests that the theory will not consider the time dependence of particle interaction processes. It will show that in these processes there are no characteristics precisely definable (even within the usual limitations of quantum mechanics); the description of such a process as occurring in the course of time is therefore just as unreal as the classical paths are in non-relativistic quantum mechanics. The only observable quantities are the properties (momenta,
+polarizations) of free particles: the initial particles which come into interaction, and the final particles which result from the process.]
+
+= Gauge theory
+{parent=mathematical-formulation-of-quantum-field-theory}
+{wiki}
+
+The term and idea was first introduced initialized by \x[hermann-weyl] when he was working on combining \x[electromagnetism] and \x[general-relativity] to formulate \x[maxwell-s-equations-in-curved-spacetime] in 1918 and published as \x[gravity-and-electricity-by-hermann-weyl-1918]. Based on perception that \x[u-1] symmetry implies \x[charge-conservation]. The same idea was later adapted for \x[quantum-electrodynamics], a context in which is has even more impact.
+
+= Lattice gauge theory
+{parent=gauge-theory}
+{wiki}
+
+= Gauge field
+{parent=gauge-theory}
+
+A random field you add to make something transform locally the way you want. See e.g.: \x[video-deriving-the-qed-lagrangian-by-dietterich-labs-2018].
+
+= Gauge symmetry
+{parent=gauge-theory}
+{wiki=Gauge_symmetry_(mathematics)}
+
+\Video[https://www.youtube.com/watch?v=YP-tPE7WO64]
+{title=Lawrence Krauss explains Gauge symmetry by Joe Rogan (2017)}
+{description=While most of this is useless as you would expect from the channel, it does give one key idea: you can change charge locally, but things somehow still work out.
+
+And this has something to do with the general intuition of \x[special-relativity] that only local measures make much sense, as evidenced by \x[einstein-synchronization].}
+
+= Fock space
+{c}
+{parent=mathematical-formulation-of-quantum-field-theory}
+{wiki}
+
+Yup, this one Focks you up.
+
+= Second quantization
+{parent=mathematical-formulation-of-quantum-field-theory}
+{wiki}
+
+https://www.quora.com/How-are-quantum-fields-quantized-to-describe-particles
+
+Second quantization also appears to be useful not only for \x[relativistic-quantum-mechanics], but also for \x[condensed-matter-physics]. The reason is that the basis idea is to use the number occupation basis. This basis is:
+* convenient for \x[quantum-field-theory] because of \x[particle-creation-and-annihilation] changes the number of particles all the time
+* convenient for \x[condensed-matter-physics] because there you have a gazillion particles occupying entire \x[electronic-band-theory][energy bands]
+
+Bibliography:
+
+* https://www.youtube.com/watch?v=MVqOfEYzwFY "How to Visualize Quantum Field Theory" by ZAP Physics (2020). Has \x[quantum-field-theory-simulations][1D simulations] on a circle. Starts towards the right direction, but is a bit lacking unfortunately, could go deeper.
+
+= Canonical quantization
+{parent=second-quantization}
+{wiki}
+
+Basically a synonym for \x[second-quantization].
+
+= Path integral formulation
+{parent=mathematical-formulation-of-quantum-field-theory}
+{wiki}
+
+This one might actually be understandable! It is what \x[richard-feynman] starts to explain at: \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979].
+
+The difficulty is then proving that the total probability remains at 1, and maybe causality is hard too.
+
+The path integral formulation can be seen as a generalization of the \x[double-slit-experiment] to infinitely many slits.
+
+Feynman first stared working it out for \x[non-relativistic-quantum-mechanics], with the relativistic goal in mind, and only later on he attained the relativistic goal.
+
+TODO why intuitively did he take that approach? Likely is makes it easier to add \x[special-relativity].
+
+This approach more directly suggests the idea that \x[quantum-particles-take-all-possible-paths].
+
+= Quantum particles take all possible paths
+{parent=path-integral-formulation}
+
+As mentioned at: https://physics.stackexchange.com/questions/212726/a-quantum-particle-moving-from-a-to-b-will-take-every-possible-path-from-a-to-b/212790#212790[], classical \x[gravity-wave]{p} for example also "take all possible paths". This is just what waves look like they are doing.
+
+= Propagator
+{parent=path-integral-formulation}
+{wiki}
+
+= Infinitely many slits thought experiment
+{parent=path-integral-formulation}
+
+Thought experiment that illustrates the \x[path-integral-formulation] of \x[quantum-field-theory].
+
+Mentioned for example in \x[quantum-field-theory-in-a-nutshell-by-anthony-zee-2010] page 8.
+
+= Renormalization
+{parent=mathematical-formulation-of-quantum-field-theory}
+{wiki}
+
+* https://www.quora.com/What-is-renormalization-in-quantum-theory-explained-to-graduated-only-not-doctors/answer/Paul-Mainwood covers the simpler \x[ising-model] case
+
+\Video[https://www.youtube.com/watch?v=Nm8DRUgmjZc]
+{title=The Biggest Ideas in the Universe | 11. Renormalization by \x[sean-carroll] (2020)}
+{description=Gives a very quick and high level overview of \x[renormalization]. It is not enough to satisfy \x[ciro-santilli] as usual for other Sean Carroll videos, but it goes some way.}
+
+= Mass renormalization
+{parent=renormalization}
+
+= Renormalization group
+{parent=renormalization}
+{wiki}
+
+= Cutoff energy
+{parent=renormalization}
+{wiki}
+
+= Effective field theory
+{parent=renormalization}
+{wiki}
+
+https://www.youtube.com/watch?v=WB8r7CU7clk&list=PLUl4u3cNGP60TvpbO5toEWC8y8w51dtvm by Iain Stewart. Basically starts by explaining how \x[quantum-field-theory] is so generic that it is hard to get any numerical results out of it :-)
+
+But in particular, we want to describe those subtheories in a way that we can reach arbitrary precision of the full theory if desired.
+
+= Yang-Mills theory
+{c}
+{parent=renormalization}
+{wiki=Yang–Mills_theory}
+
+= Yang-Mills existence and mass gap
+{c}
+{parent=yang-mills-theory}
+{wiki=Yang–Mills_existence_and_mass_gap}
+
+* https://www.youtube.com/watch?v=-_qNKbwM_eE Unsolved: Yang-Mills existence and mass gap by J Knudsen (2019). Gives 10 key points, but the truly hard ones are too quick. He knows the thing though.
+
+\Video[https://www.youtube.com/watch?v=j3fsPHnrgLg]
+{title=Yang-Mills 1 by David Metzler (2011)}
+{description=Playlist: https://www.youtube.com/watch?v=j3fsPHnrgLg&list=PL613A31A706529585&index=13
+
+A bit disappointing, too high level, with very few nuggests that are not Googleable withing 5 minutes.
+
+Breakdown:
+* 1 https://www.youtube.com/watch?v=j3fsPHnrgLg[]: too basic
+* 2 https://www.youtube.com/watch?v=br6OxCLyqAI?t=569[]: mentions \x[groups-of-lie-type] in the context of \x[classification-of-finite-simple-groups]. Each group has a little diagram.
+* 3 https://youtu.be/1baiIxKKQlQ?list=PL613A31A706529585&t=728 the original example of a \x[local-symmetry] was \x[general-relativity], and that in that context it can be clearly seen that the local symmetry is what causes "forces" to appear
+  * https://youtu.be/1baiIxKKQlQ?list=PL613A31A706529585&t=933 \x[local-symmetry] gives a conserved current. In the case of \x[electromagnetism], this is electrical current. This was the only worthwhile thing he sad to 2021 Ciro. Summarized at: \x[local-symmetries-of-the-lagrangian-imply-conserved-currents].
+* 4 https://youtu.be/5ljKcWm7hoU?list=PL613A31A706529585&t=427 \x[electromagnetism] has both a global symmetry (\x[special-relativity]) but also \x[local-symmetry], which leads to the conservation of charge current and forces.
+
+  \x[quantum-field-theory-lecture-by-tobias-osborne-2017/lecture-3] properly defines a \x[local-symmetry] in terms of the context of the \x[lagrangian-density], and explains that the conservation of currents there is basically the statement of \x[noether-s-theorem] in that context.
+}
+
+\Video[https://www.youtube.com/watch?v=vMiY7zlBOFI]
+{title=Millennium Prize Problem: Yang Mills Theory by David Gross (2018)}
+{description=2 hour talk at the \x[kavli-institute-for-theoretical-physics]. Too mathematical, 2021 Ciro can't make much out of it.}
+
+\Video[https://www.youtube.com/watch?v=pCQ9GIqpGBI]
+{title=Lorenzo Sadun on the "Yang-Mills and Mass Gap" \x[millennium-prize-problems][Millennium problem]}
+{description=Unknown year. He almost gets there, he's good. Just needed to be a little bit deeper.}
+
+= Wightman axioms
+{c}
+{parent=yang-mills-existence-and-mass-gap}
+{wiki}
+
+= Quantum electrodynamics
+{parent=quantum-field-theory}
+{title2=QED}
+{wiki}
+
+Theory that describes \x[electron]{p} and \x[photon]{p} really well, and \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979][as Feynman puts it] "accounts very precisely for all physical phenomena we have ever observed, except for gravity and nuclear physics" ("including the laughter of the crowd" ;-)).
+
+Learning it is one of \x[ciro-santilli]'s main intellectual \x[fetish]{p}.
+
+While Ciro acknowledges that QED is intrinsically challenging due to the wide range or requirements (\x[quantum-mechanics], \x[special-relativity] and \x[electromagnetism]), Ciro feels that there is a glaring gap in this moneyless market for a learning material that follows the \x[middle-way] as mentioned at: \x[the-missing-link-between-basic-and-advanced]. \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979] is one of the best attempts so far, but it falls a bit too close to the superficial side of things, if only Feynman hadn't assumed that the audience doesn't know any mathematics...
+
+The funny thing is that when \x[ciro-santilli-s-mother] retired, learning it (or as she put it: "how photons and electrons interact") was also one of her retirement plans. She is a pharmacist by training, and doesn't know much \x[mathematics], and her \x[english-language] was \x[having-more-than-one-natural-language-is-bad-for-the-world][somewhat limited]. Oh, she also wanted to learn how \x[photosynthesis] works (possibly not fully understood by science as that time, 2020). Ambitious old lady!!!
+
+Experiments: \x[quantum-electrodynamics-experiments].
+
+Combines \x[special-relativity] with more classical \x[quantum-mechanics], but further generalizing the \x[dirac-equation], which also does that: \x[dirac-equation-vs-quantum-electrodynamics].
+
+Before QED, the most advanced theory was that of the \x[dirac-equation], which was already relativistic but TODO what was missing there exactly?
+
+As summarized at: https://youtube.com/watch?v=_AZdvtf6hPU?t=305[] Quantum Field Theory lecture at the African Summer Theory Institute 1 of 4 by Anthony Zee (2004):
+* classical mechanics describes large and slow objects
+* special relativity describes large and fast objects (they are getting close to the speed of light, so we have to consider relativity)
+* classical \x[quantum-mechanics] describes small and slow objects.
+* QED describes objects that are both small and fast
+
+That video also mentions the interesting idea that:
+* in special relativity, we have the \x[mass-energy-equivalence]
+* in quantum mechanics, thinking along the \x[time-energy-uncertainty-principle], $\Delta E \sim \frac{1}{\Delta t}$
+Therefore, for small timescales, energy can vary a lot. But mass is equivalent to energy. Therefore, for small time scale, particles can appear and disappear wildly.
+
+QED is the first \x[quantum-field-theory] fully developed. That framework was later extended to also include the \x[weak-interaction] and \x[strong-interaction]. As a result, it is perhaps easier to just \x[google] for "Quantum Field Theory" if you want to learn QED, since QFT is more general and has more resources available generally.
+
+Like in more general quantum field theory, there is on field for each particle type. In quantum field theory, there are only two fields to worry about:
+* \x[photon] field
+* \x[electromagnetism] field
+
+\Video[https://www.youtube.com/watch?v=EzfFklLqDjA]
+{title=Lecture 01 | Overview of Quantum Field Theory by Markus Luty (2013)}
+{description=This takes quite a direct approach, one cool thing he says is how we have to be careful with adding special relativity to the \x[schrodinger-equation] to avoid faster-than-light information.}
+
+= Quantum electrodynamics experiments
+{parent=quantum-electrodynamics}
+{wiki}
+
+Experiments explained by QED but not by the \x[dirac-equation]:
+* \x[lamb-shift]: by far the most famous one
+* \x[hyperfine-structure] TODO confirm
+* \x[anomalous-magnetic-dipole-moment-of-the-electron]
+
+= Electron magnetic moment
+{parent=quantum-electrodynamics-experiments}
+{wiki}
+
+= Anomalous magnetic dipole moment
+{parent=electron-magnetic-moment}
+{wiki}
+
+= Anomalous magnetic dipole moment of the electron
+{parent=anomalous-magnetic-dipole-moment}
+{wiki=Anomalous_magnetic_dipole_moment#Electron}
+
+\x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979] mentions it several times.
+
+This was one of the first two great successes of \x[quantum-electrodynamics], the other one being the \x[lamb-shift].
+
+In https://youtu.be/UKbp85zpdcY?t=52 from \x[freeman-dyson-web-of-stories-interview-1998] Dyson mentions that the original key experiment was from Kusch and Foley from \x[columbia-university], and that in 1948, \x[julian-schwinger] reached the correct value from his calculations.
+
+Apparently first published at \x[the-magnetic-moment-of-the-electron-by-kusch-and-foley-1948].
+
+Bibliography:
+* https://www.youtube.com/watch?v=Ix-3LQhElvU Anomalous Magnetic Moment Of The Electron | One Loop Quantum Correction | Quantum Electrodynamics by \x[dietterich-labs] (2019)
+
+= The Magnetic Moment of the Electron by Kusch and Foley (1948)
+{parent=anomalous-magnetic-dipole-moment-of-the-electron}
+
+Published on \x[physical-review] by \x[polykarp-kusch] and Foley.
+
+https://journals.aps.org/pr/abstract/10.1103/PhysRev.74.250[], paywall as of 2021.
+
+= Dirac equation vs quantum electrodynamics
+{c}
+{parent=quantum-electrodynamics-experiments}
+
+TODO: in high level terms, why is QED more general than just solving the \x[dirac-equation]{parent}, and therefore explaining \x[quantum-electrodynamics-experiments]?
+
+Also, is it just a bunch of \x[differential-equation] (like the \x[dirac-equation] itself), or does it have some other more complicated mathematical formulation, as seems to be the case? Why do we need something more complicated than 
+
+\x[advanced-quantum-mechanics-by-freeman-dyson-1951] mentions:
+\Q[A Relativistic Quantum Theory of a Finite Number of Particles is Impossible.]
+
+Bibliography:
+* https://physics.stackexchange.com/questions/101307/dirac-equation-in-qft-vs-relativistic-qm
+* https://physics.stackexchange.com/questions/44188/what-is-the-relativistic-particle-in-a-box/44309#44309 says:
+  \Q[By several reasons explained in textbooks, the Dirac equation is not a valid wavefunction equation. You can solve it and find solutions, but those solutions cannot be interpreted as wavefunctions for a particle]
+* https://physics.stackexchange.com/questions/64206/why-is-the-dirac-equation-not-used-for-calculations
+* https://www.physicsforums.com/threads/is-diracs-equation-still-useful-after-qed-is-developed.663994/
+
+= Applications of quantum electrodynamics
+{parent=quantum-electrodynamics}
+
+* https://www.quora.com/What-are-some-engineering-applications-of-QED-or-QCD-quantum-field-theories
+* \x[relativistic-quantum-chemistry]{child}
+
+= Quantum electrodynamics Lagrangian
+{parent=quantum-electrodynamics}
+
+= QED Lagrangian
+{synonym}
+{title2}
+
+$$\mathcal{L}_{\mathrm{QED}} = \bar \psi (i\hbar c {D}\!\!\!\!/\ - mc^2) \psi - {1 \over 4\mu_0} F_{\mu \nu} F^{\mu \nu}$$
+where:
+* $F$ is the \x[electromagnetic-tensor]
+
+Note that this is the sum of the:
+* \x[dirac-lagrangian], which  only describes the "inertia of bodies" part of the equation
+* the \x[electromagnetic] interaction term ${1 \over 4\mu_0} F_{\mu \nu} F^{\mu \nu}$, which describes term describes forces
+Note that the relationship between $\psi$ and $F$ is not explicit. However, if we knew what type of particle we were talking about, e.g. \x[electron], then the knowledge of \x[psi] would also give the charge distribution and therefore $F$
+
+As mentioned at the beginning of \x[quantum-field-theory-lecture-notes-by-david-tong-2007]:
+* by "\x[lagrangian]" we mean Lagrangian density
+* the \x[generalized-coordinate]{p} of the Lagrangian are fields
+
+= Derivation of the quantum electrodynamics Lagrangian
+{parent=quantum-electrodynamics-lagrangian}
+
+= Derivation of the QED Lagrangian
+{synonym}
+{title2}
+
+Like the rest of the \x[standard-model-lagrangian], this can be split into two parts:
+* \x[spacetime-symmetry]: reaches the \x[derivation-of-the-dirac-equation], but has no interactions
+* add the \x[u-1] \x[internal-symmetry] to add interactions, which reaches the full equation
+
+\Video[https://www.youtube.com/watch?v=IFRyN3fQMO8]
+{title=Deriving the \x[qed-lagrangian] by \x[dietterich-labs] (2018)}
+{description=As mentioned at the start of the video, he starts with the \x[dirac-equation] Lagrangian derived in a previous video. It has nothing to do with \x[electromagnetism] specifically.
+
+He notes that that \x[dirac-lagrangian], besides being globally \x[lorentz-invariant], it also also has a global \x[u-1] invariance.
+
+However, it does not have a local invariance if the \x[u-1] transformation depends on the point in spacetime.
+
+He doesn't mention it, but I think this is highly desirable, because in general \x[local-symmetries-of-the-lagrangian-imply-conserved-currents], and in this case we want conservation of charges.
+
+To fix that, he adds an extra \x[gauge-field] $A_\mu$ (a field of $4 \times 4$ matrices) to the regular derivative, and the resulting derivative has a fancy name: the \x[covariant-derivative].
+
+Then finally he notes that this \x[gauge-field] he had to add has to transform exactly like the \x[electromagnetic-four-potential]!
+
+So he uses that as the gauge, and also adds in the \x[maxwell-lagrangian] in the same go. It is kind of a guess, but it is a natural guess, and it turns out to be correct.
+
+https://www.youtube.com/watch?v=IFRyN3fQMO8&lc=UgzNGkLXdwcSl7z8Lap4AaABAg
+}
+
+= What does it mean that photons are force carriers for electromagnetism?
+{parent=quantum-electrodynamics}
+
+https://physics.stackexchange.com/questions/61095/photon-as-the-carrier-of-the-electromagnetic-force
+
+TODO find/create decent answer.
+
+I think the best answer is something along:
+* \x[local-symmetries-of-the-lagrangian-imply-conserved-currents]. $U(1)$ gives conserved charges.
+* OK now. We want a local $U(1)$ symmetry. And we also want:
+  * \x[dirac-equation]: quantum relativistic Newton's laws that specify what forces do to the fields
+  * \x[electromagnetism]: specifies what causes forces based on currents. But not what it does to masses.
+  Given all of that, the most obvious and direct thing we reach a guess at the \x[quantum-electrodynamics-lagrangian] is \x[video-deriving-the-qed-lagrangian-by-dietterich-labs-2018]
+
+A basic non-precise intuition is that a good model of reality is that electrons do not "interact with one another directly via the electromagnetic field".
+
+A better model happens to be the \x[quantum-field-theory] view that the electromagnetic field interacts with the photon field but not directly with itself, and then the photon field interacts with parts of the electromagnetic field further away.
+
+The more precise statement is that the \x[photon-field] is a gauge field of the electromagnetic force under local U(1) symmetry, which is described by a \x[lie-group]. TODO understand.
+
+This idea was first applied in \x[general-relativity], where \x[einstein] understood that the "force of \x[gravity]" can be understood just in terms of symmetry and curvature of space. This was later applied o \x[quantum-electrodynamics] and the entire \x[standard-model].
+
+From \x[video-lorenzo-sadun-on-the-yang-mills-and-mass-gap-millennium-problem]:
+* https://www.youtube.com/watch?v=pCQ9GIqpGBI&t=1663s mentions this idea first came about from \x[hermann-weyl].
+* https://youtu.be/pCQ9GIqpGBI?t=2827 mentions that in that case the curvature is given by the \x[electromagnetic-tensor].
+
+Bibliography:
+* https://www.youtube.com/watch?v=qtf6U3FfDNQ Symmetry and Quantum Electrodynamics (The Standard Model Part 1) by ZAP Physics (2021)
+* https://www.youtube.com/watch?v=OQF7kkWjVWM The Symmetry and Simplicity of the Laws of Nature and the Higgs Boson by Juan Maldacena (2012). \x[meh]{c}, also too basic.
+
+= Photon field
+{parent=quantum-electrodynamics}
+
+= Schwinger effect
+{c}
+{parent=quantum-electrodynamics}
+{wiki}
+
+= Feynman diagram
+{c}
+{parent=quantum-electrodynamics}
+{wiki}
+
+I think they are a tool to calculate the probability of different types of particle decays and particle collision outcomes. TODO Minimal example of that.
+
+And they can be derived from a more complete \x[quantum-electrodynamics] formulation via \x[perturbation-theory].
+
+Can be used for all of \x[quantum-electrodynamics], \x[weak-interaction] and \x[quantum-chromodynamics].
+
+At \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979], an intuitive explanation of them in termes of sum of products of \x[propagator]{p} is given.
+
+* https://www.youtube.com/watch?v=fG52mXN-uWI The Secrets of Feynman Diagrams | Space Time by \x[pbs-space-time] (2017)
+
+= Feynman diagram solver
+{c}
+{parent=feynman-diagram}
+
+https://physics.stackexchange.com/questions/96510/software-for-calculating-feynman-diagrams
+
+= Does the exact position of vertices matter in Feynman diagrams?
+{parent=feynman-diagram}
+
+No, but why?
+
+* https://physics.stackexchange.com/questions/297004/feynman-diagram-and-uncertainty/297006
+
+= Wheeler-Feynman absorber theory
+{c}
+{parent=quantum-electrodynamics}
+{wiki=Wheeler–Feynman absorber theory}
+
+What they presented on \x[richard-feynman-s-first-seminar-in-1941]. Does not include \x[quantum-mechanics] it seems.
+
+= Cavity quantum electrodynamics
+{parent=quantum-electrodynamics}
+{wiki}
+
+= Circuit quantum electrodynamics
+{parent=cavity-quantum-electrodynamics}
+{wiki}
+
+= Positrons are electrons travelling back in time
+{parent=quantum-electrodynamics}
+
+TODO understand this stuff:
+* https://physics.stackexchange.com/questions/144607/are-all-positrons-electrons-traveling-back-in-time
+* https://www.quora.com/Is-a-positron-just-an-electron-going-backwards-in-time?share=1
+
+= Quantum electrodynamics bibliography
+{parent=quantum-electrodynamics}
+
+http://fafnir.phyast.pitt.edu/py3765/ Phys3765 Advanced Quantum Mechanics -- QFT-I Fall 2012 by E.S. Swanson mentions several milestone texts including:
+* \x[advanced-quantum-mechanics-by-freeman-dyson-1951]
+
+= Quantum Theory of Radiation by Fermi (1932)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+= Advanced quantum mechanics by Freeman Dyson (1951)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+https://arxiv.org/abs/quant-ph/0608140v1
+
+Lecture notes that were apparently very popular at \x[cornell-university]. In this period he was actively synthesizing the revolutionary bullshit \x[richard-feynman] and \x[julian-schwinger] were writing and making it understandable to the more general \x[physicist] audience, so it might be a good reading.
+
+\Q[We shall not develop straightaway a correct theory including many particles. Instead we follow the historical development. We try to make a relativistic quantum theory of one particle, find out how far we can go and where we get into trouble.]
+Oh yes, see also: \x[dirac-equation-vs-quantum-electrodynamics].
+
+= Selected Papers on Quantum Electrodynamics by Julian Schwinger (1958)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+Recommended by \x[ron-maimon] at https://physics.stackexchange.com/questions/18632/good-book-on-the-history-of-quantum-mechanics/18643#18643[].
+
+\x[julian-schwinger]'s selection of \x[academic-paper]{p} by himself and others.
+
+= Richard Feynman Quantum Electrodynamics Lecture at University of Auckland (1979)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+By \x[richard-feynman]{parent}.
+
+Talk title shown on intro: "Today's Answers to Newton's Queries about Light".
+
+6 hour lecture, where he tries to explain it to an audience that does not know any modern physics. This is a noble effort.
+
+Part of The Douglas Robb Memorial Lectures lecture series.
+
+Feynman apparently also made a book adaptation: https://en.wikipedia.org/wiki/QED:_The_Strange_Theory_of_Light_and_Matter[QED: The Strange Theory of Light and Matter]. That book is basically word by word the same as the presentation, including the diagrams.
+
+According to http://www.feynman.com/science/qed-lectures-in-new-zealand/ the official upload is at http://www.vega.org.uk/video/subseries/8[] and Vega does show up as a watermark on the video (though it is too pixilated to guess without knowing it), a project that has been discontinued and has has a non-permissive license. Newbs.
+
+4 parts:
+* Part 1: is saying "\x[photon]{p} exist"
+* Part 2: is amazing, and describes how photons move as a sum of all possible paths, not sure if it is relativistic at all though, and suggests that something is minimized in that calculation (the \x[action-physics])
+* Part 3: is where he hopelessly tries to explain the crucial part of how electrons join the picture in a similar manner to how photons do.
+
+  He does make the link to light, saying that there is a function $P(A, B)$ which gives the amplitude for a photon going from A to B, where A and B are spacetime events.
+
+  And then he mentions that there is a similar function $E(A, B)$ for an electron to go from A to B, but says that that function is too complicated, and gives no intuition unlike the photon one.
+
+  He does not mention it, but P and E are the so called \x[propagator]{p}.
+
+  This is likely the \x[path-integral-formulation] of QED.
+
+  On \x[quantum-mechanical-view-of-reality-by-richard-feynman-1983] he mentions that $E$ is a \x[bessel-function], without giving further detail.
+
+  And also mentions that:
+  $$
+  E = f(1, 2, m) \\
+  P = f(1, 2, 0)
+  $$
+  where `m` is basically a scale factor.
+  such that both are very similar. And that something similar holds for many other particles.
+
+  And then, when you draw a \x[feynman-diagram], e.g. electron emits photon and both are detected at given positions, you sum over all the possibilities, each amplitude is given by:
+  $$
+  c \times E(A, D) \times E(D, B) \times P(B, C)
+  $$
+  summed over all possible $D$ \x[spacetime] points.
+
+  This is basically well said at: https://youtu.be/rZvgGekvHes?t=3349 from \x[quantum-mechanical-view-of-reality-by-richard-feynman-1983].
+
+  TODO: how do electron velocities affect where they are likely to end up? $E(A, D)$ suggests the probability only depends on the spacetime points.
+
+  Also, this clarifies why computations in QED are so insane: you have to sum over every possible point in space!!! TODO but then how do we calculate anything at all in practice?
+* Part 4: known problems with QED and thoughts on QCD. Boring.
+This talk has the merit of being very experiment oriented on part 2, big kudos: \x[how-to-teach-and-learn-physics]
+
+\Video[https://www.youtube.com/watch?v=Alj6q4Y0TNE]
+{title=Richard Feynman Quantum Electrodynamics Lecture at University of Auckland (1979) uploaded by Trev M (2015)}
+{description=Single upload version. Let's use this one for the timestamps I guess.
+* https://youtu.be/Alj6q4Y0TNE?t=2217[]: \x[photomultiplier-tube]
+* https://youtu.be/Alj6q4Y0TNE?t=2410[]: \x[local-hidden-variable-theory]
+* https://youtu.be/Alj6q4Y0TNE?t=6444[]: mirror experiment shown at https://en.wikipedia.org/w/index.php?title=Quantum_electrodynamics&oldid=991301352#Probability_amplitudes
+* https://youtu.be/Alj6q4Y0TNE?t=7309[]: mirror experiment with a \x[diffraction-grating] pattern painted black leads to reflection at a weird angle
+* https://youtu.be/Alj6q4Y0TNE?t=7627[]: detector under water to explain \x[refraction]
+* https://youtu.be/Alj6q4Y0TNE?t=8050[]: explains \x[biconvex-spherical-lens]{p} in terms of minimal times
+* https://youtu.be/Alj6q4Y0TNE?t=8402[]: mentions that for events in a series, you multiply the complex number of each step
+* https://youtu.be/Alj6q4Y0TNE?t=9270[]: mentions that the up to this point, ignored:
+  * amplitude shrinks down with distance
+  * \x[photon-polarization]
+  but it should not be too hard to add those
+* https://youtu.be/Alj6q4Y0TNE?t=11697[]: finally starts electron interaction. First point is to add time of event detection.
+* https://youtu.be/Alj6q4Y0TNE?t=13704[]: electron between plates, and mentions the word \x[action-physics], without giving a clear enough idea of what it is unfortunately
+* https://youtu.be/Alj6q4Y0TNE?t=14467[]: mentions \x[positron]{p} going back in time, but does not clarify it well enough
+* https://youtu.be/Alj6q4Y0TNE?t=16614[]: on the fourth part, half is about frontiers in \x[quantum-electrodynamics], and half full blown \x[theory-of-everything]. The QED part goes into \x[renormalization] and the large number of parameters of the \x[standard-model]
+}
+
+\Video[https://www.youtube.com/watch?v=LPDP_8X5Hug]
+
+= Quantum Mechanical View of Reality by Richard Feynman (1983)
+{c}
+{parent=richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979}
+
+Sample playlist: https://www.youtube.com/playlist?list=PLW_HsOU6YZRkdhFFznHNEfua9NK3deBQy
+
+Basically the same content as: \x[richard-feynman-quantum-electrodynamics-lecture-at-university-of-auckland-1979], but maybe there is some merit to this talk, as it is a bit more direct in some points. This is consistent with what is mentioned at http://www.feynman.com/science/qed-lectures-in-new-zealand/ that the Auckland lecture was the first attempt.
+
+Some more information at: https://iucat.iu.edu/iub/5327621
+
+By Mill Valley, CA based producer "Sound Photosynthesis", some info on their website: http://sound.photosynthesis.com/Richard_Feynman.html
+
+They are mostly a \x[new-age] production company it seems, which highlights Feynman's absolute cult status. E.g. on the last video, he's not wearing shoes, like a proper guru.
+
+Feynman liked to meet all kinds of weird people, and at some point he got interested in the \x[new-age] \x[esalen-institute]. \x[surely-you-re-joking-mr-feynman] this kind of experience a bit, there was nude bathing on a pool that oversaw the sea, and a guy offered to give a massage to the he nude girl and the accepted.
+
+https://youtu.be/rZvgGekvHest=5105 actually talks about \x[spin-physics], notably that the endpoint events also have a spin, and that the transition rules take spin into account by rotating thing, and that the transition rules take spin into account by rotating things.
+
+= Quantum electrodynamics by Lifshitz et al. 2nd edition (1982)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+= Physics 253a by Sidney Coleman (1986)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+= QED and the men who made it: Dyson, Feynman, Schwinger, and Tomonaga by Silvan Schweber (1994)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+Available for \x[free] \x[online] \x[rent] on the \x[internet-archive]: https://archive.org/details/qedmenwhomadeitd0000schw
+
+This book has formulas on it, which is quite cool!! And the formulas are basically not understandable unless you know the subject pretty well already in advance. It is however possible to skip over them and get back to the little personal stories.
+
+= Advanced quantum mechanics II by Douglas Gingrich (2004)
+{c}
+{parent=quantum-electrodynamics-bibliography}
+
+https://sites.ualberta.ca/~gingrich/courses/phys512/phys512.html
+
+From \x[university-of-alberta].
+
+= Weak interaction
+{parent=quantum-field-theory}
+{wiki}
+
+= Weak force
+{synonym}
+
+Explains \x[beta-decay]. TODO why/how.
+
+Maybe a good view of why this force was needed given \x[beta-decay] experiments is: in beta decay, a \x[neutron] is getting split up into an \x[electron] and a \x[proton]. Therefore, those charges must be contained inside the neutron somehow to start with. But then what could possibly make a positive and a negative particle separate?
+* the \x[electromagnetic-force] should hold them together
+* the \x[strong-force] seems to hold positive charges together. Could it then be pushing opposite-charges apart? Why not?
+* \x[gravity] is too weak
+
+http://www.thestargarden.co.uk/Weak-nuclear-force.html gives a quick and dirty:
+\Q[
+Beta decay could not be explained by the strong nuclear force, the force that's responsible for holding the atomic nucleus together, because this force doesn't affect electrons. It couldn't be explained by the electromagnetic force, because this does not affect \x[neutron]{p}, and the force of \x[gravity] is far too weak to be responsible. Since this new atomic force was not as strong as the strong nuclear force, it was dubbed the weak nuclear force.
+]
+Also interesting:
+\Q[
+While the photon 'carries' charge, and therefore mediates the \x[electromagnetic-force], the \x[z-boson][Z] and \x[w-boson][W] \x[boson]{p} are said to carry a property known as 'weak isospin'. \x[w-boson]{p} mediate the weak force when particles with charge are involved, and \x[z-boson]{p} mediate the weak force when neutral particles are involved.
+]
+
+\Video[https://www.youtube.com/watch?v=iIWTRwJlrGo]
+{title=Weak Nuclear Force and \x[standard-model] of \x[particle-physics] by \x[physics-videos-by-eugene-khutoryansky] (2018)}
+{description=Some decent visualizations of the field lines.}
+
+= Electroweak interaction
+{parent=weak-interaction}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=qKVpknSKgE0]
+{title=Electroweak Theory and the Origin of the Fundamental Forces by \x[pbs-space-time] (2020)}
+{description=\x[the-missing-link-between-basic-and-advanced][Unsatisfactory], as usual.}
+
+= Parity violation
+{parent=weak-interaction}
+{wiki}
+
+This is quite \x[mind-blowing]. The \x[laws-of-physics] actually differentiate between particles and \x[antiparticle]{p} moving in opposite directions!!!
+
+Only the \x[weak-interaction] however does it of the \x[fundamental-interaction]{p}.
+
+Some historical remarks on \x[surely-you-re-joking-mr-feynman] section "The 7 Percent Solution".
+
+It gets worse of course with \x[cp-violation].
+
+= Wu experiment
+{c}
+{parent=parity-violation}
+{title2=1956}
+{wiki}
+
+= CP Violation
+{parent=parity-violation}
+{wiki}
+
+= CPT symmetry
+{parent=cp-violation}
+{wiki}
+
+= Strong CP problem
+{parent=cp-violation}
+{wiki}
+
+= Weak charge
+{c}
+{parent=weak-interaction}
+{wiki}
+
+= W boson
+{c}
+{parent=weak-interaction}
+{tag=elementary-particle}
+{wiki}
+
+= Z boson
+{c}
+{parent=weak-interaction}
+{tag=elementary-particle}
+{wiki}
+
+= Quantum chromodynamics
+{parent=quantum-field-theory}
+{title2=QCD}
+{wiki}
+
+Formulated as a \x[quantum-field-theory].
+
+\Video[http://youtube.com/watch?v=FoR3hq5b5yE]
+{title=Quarks, Gluon flux tubes, Strong Nuclear Force, & Quantum Chromodynamics by \x[physics-videos-by-eugene-khutoryansky] (2018)}
+{description=Some decent visualizations of how the field lines don't expand out like they do in \x[electromagnetism], suggesting \x[color-confinement].}
+
+\Video[https://www.youtube.com/watch?v=LqUgzxJ8Jss]
+{title=PHYS 485 Lecture 6: Feynman Diagrams by \x[2011-phys-485-lecture-videos-by-roger-moore-from-the-university-of-alberta][Roger Moore] (2016)}
+{description=Despite the title, this is mostly about QCD.}
+
+= Quark
+{parent=quantum-chromodynamics}
+{wiki}
+
+TODO experimental discovery.
+
+= Down quark
+{parent=quark}
+{wiki}
+
+= Up quark
+{parent=quark}
+{wiki}
+
+= Why do the up ad down quarks have different masses?
+{parent=up-quark}
+{wiki}
+
+https://www.quora.com/Why-do-up-quarks-and-down-quarks-have-different-charges
+
+= Strange quark
+{parent=quantum-chromodynamics}
+{wiki}
+
+= Gluon
+{parent=quantum-chromodynamics}
+{wiki}
+
+Force carrier of \x[quantum-chromodynamics], like the \x[photon] is the force carrier of \x[quantum-electrodynamics].
+
+One big difference is that it carrier itself \x[color-charge].
+
+= Glueball
+{parent=gluon}
+{wiki}
+
+= Proton decay
+{parent=quantum-chromodynamics}
+{wiki}
+
+= Strong interaction
+{parent=quantum-chromodynamics}
+{wiki}
+
+= Strong force
+{synonym}
+
+= Color charge
+{parent=quantum-chromodynamics}
+{wiki}
+
+= Color confinement
+{parent=quantum-chromodynamics}
+{wiki}
+
+Can be thought as being produced from \x[gluon]-gluon lines of the \x[feynman-diagram]{p} of \x[quantum-chromodynamics]. This is in contrast to \x[quantum-electrodynamics], in which there are no \x[photon]-photon vertices, because the photon does not have charge unlike gluons.
+
+This phenomena makes the strong force be very very different from electromagnetism.
+
+= Quantum field theory simulations
+{parent=quantum-field-theory}
+
+TODO why is it so hard to find anything non perturbative :-(
+
+* https://www.youtube.com/channel/UCPHFUHiwbpMqC8ONxEICCiQ NanoNebula using raw \x[perl-programming-language] PDFL https://en.wikipedia.org/wiki/Perl_Data_Language (the Perl \x[numpy])
+* https://www.youtube.com/watch?v=9TJe1Pr5c9Q "Interplay of Quantum Electrodynamics and Quantum Chromodynamics in the Nontrivial Vacuum" by CSSM Visualisation (2019)
+
+On a \x[quantum-computer]...:
+* https://www.cornell.edu/video/john-preskill-simulating-quantum-field-theory-with-quantum-computer Simulating Quantum Field Theory with a Quantum Computer by John Preskill (2019)
+* https://www.youtube.com/watch?v=Lln-C21u0U8 Quantum Simulation from Quantum Chemistry to Quantum Field Theory by Peter Love (2019)
+
+\Video[https://www.youtube.com/watch?v=QPMn7SuiHP8]
+{title=Are we living in \x[the-matrix-1999][the matrix]? by \x[david-tong] (2020)}
+{description=Talks about how the \x[nielsen-ninomiya-theorem] means it is impossible to simulate \x[qft] on a computer in the case of a \x[lattice-gauge-theory].}
+
+= Nielsen-Ninomiya theorem
+{c}
+{parent=quantum-field-theory-simulations}
+{wiki=Nielsen–Ninomiya_theorem}
+
+= Infinities in quantum field theory
+{parent=quantum-field-theory}
+
+TODO concrete example, please...
+* https://physics.stackexchange.com/questions/310496/what-is-the-infinity-that-strikes-quantum-field-theory
+* \x[qed-and-the-men-who-made-it-dyson-feynman-schwinger-and-tomonaga-by-silvan-schweber-1994] chapter 2.5 "The Divergences" contains a specific example by \x[pascual-jordan]
+
+= Mathematical consistency of quantum field theory
+{parent=infinities-in-quantum-field-theory}
+
+https://physics.stackexchange.com/questions/16142/is-qft-mathematically-self-consistent
+
+= Internal and spacetime symmetries
+{parent=quantum-field-theory}
+
+https://physics.stackexchange.com/questions/106392/internal-and-spacetime-symmetries
+
+The different only shows up for \x[field-physics], not with particles. For fields, there are two types of changes that we can make that can keep the \x[lagrangian] unchanged as mentioned at \x[physics-from-symmetry-by-jakob-schwichtenberg-2015] chapter "4.5.2 Noether's Theorem for Field Theories - Spacetime":
+* \x[spacetime-symmetry]: act with the \x[poincare-group] on the \x[four-vector] spacetime inputs of the field itself, i.e. transforming $L(\Phi(x), \partial \Phi(x), dx)$ into $L(\Phi'(x'), \partial \Phi'(x'), x')$
+* \x[internal-symmetry]: act on the output of the  field, i.e.: $L(\Phi(x) + \delta \Phi(x), \partial (\Phi(x) + \delta \Phi(x)), x)$
+
+From \x[defining-properties-of-elementary-particles]:
+* spacetime:
+  * \x[mass]
+  * \x[spin-physics]
+* internal
+  * \x[electric-charge]
+  * \x[weak-charge]
+  * \x[color-charge]
+
+From the spacetime theory alone, we can derive the \x[lagrangian] for the free theories for each \x[spin-physics]:
+* \x[spin-0]: \x[klein-gordon-equation]
+* \x[spin-half]: \x[dirac-equation]
+* \x[spin-1]: \x[proca-equation]
+Then the internal symmetries are what add the interaction part of the \x[lagrangian], which then completes the \x[standard-model-lagrangian].
+
+= Internal symmetry
+{parent=internal-and-spacetime-symmetries}
+
+See: \x[internal-and-spacetime-symmetries].
+
+= Spacetime symmetry
+{parent=internal-and-spacetime-symmetries}
+
+See: \x[internal-and-spacetime-symmetries].
+
+= Quantum field theory bibliography
+{parent=quantum-field-theory}
+
+\x[ciro-santilli]'s favorites so far:
+* \x[physics-from-symmetry-by-jakob-schwichtenberg-2015]
+
+Bibliography of the biliograpy:
+* https://physics.stackexchange.com/questions/8441/what-is-a-complete-book-for-introductory-quantum-field-theory "What is a complete book for introductory quantum field theory?"
+* https://www.quora.com/What-is-the-best-book-to-learn-quantum-field-theory-on-your-own on \x[quora]
+* https://www.amazon.co.uk/Lectures-Quantum-Field-Theory-Ashok-ebook/dp/B07CL8Y3KY
+
+Recommendations by friend P. C.:
+* The Global Approach to Quantum Field Theory
+* Lecture Notes | Geometry and Quantum Field Theory | Mathematics https://ocw.mit.edu/courses/mathematics/18-238-geometry-and-quantum-field-theory-fall-2002/lecture-notes/
+* Towards the mathematics of quantum field theory (Frederic Paugam)
+* Path Integrals in Quantum Mechanics (J. Zinn–Justin)
+* (B.Hall) Quantum Theory for Mathematicians (B.Hall)
+* Quantum Field Theory and the Standard Model (Schwartz)
+* The Algebra of Grand Unified Theories (\x[john-c-baez])
+* \x[quantum-field-theory-for-the-gifted-amateur-by-tom-lancaster-2015]
+
+= Quantum field theory lecture notes
+{parent=quantum-field-theory-bibliography}
+
+Lecture notes found by \x[google][Googling] "quantum field theory pdf":
+* https://www.ppd.stfc.ac.uk/Pages/Dasgupta_08_Intro_to_QFT.pdf "An Introduction to Quantum Field Theory" by Mrinal Dasgupta from the University of Manchester (2008). 48 pages.
+* https://www.thphys.uni-heidelberg.de/~weigand/QFT2-14/SkriptQFT2.pdf "Quantum Field Theory I + II" by Timo Weigand from the Heidelberg University. Unknown year, references up to 2008.
+* https://edu.itp.phys.ethz.ch/hs12/qft1/ Quantum Field Theory 1 by Niklas Beisert
+
+= An Introduction to QED and QCD by Jeff Forshaw (1997)
+{c}
+{parent=quantum-field-theory-lecture-notes}
+
+http://www.hep.man.ac.uk/u/forshaw/NorthWest/QED.pdf https://web.archive.org/web/20200824083133/http://www.hep.man.ac.uk/u/forshaw/NorthWest/QED.pdf
+
+These seem very direct and not ultra advanced, good read.
+
+= Quantum Field Theory lecture notes by David Tong (2007)
+{c}
+{parent=quantum-field-theory-lecture-notes}
+
+https://www.damtp.cam.ac.uk/user/tong/qft/qft.pdf
+
+Author: \x[david-tong]{parent}.
+
+Number of pages circa 2021: 155.
+
+It should also be noted that those notes are still being updated circa 2020 much after original publication. But without \x[git] to track the \x[latex], it is hard to be sure how much. \x[ourbigbook-com][We'll get there one day, one day].
+
+Likely used at: \x[david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute].
+
+Some quotes self describing the work:
+* \Q[
+  \x[an-introduction-to-quantum-field-theory-by-peskin-and-schroeder-1995]
+
+  This is a very clear and comprehensive book, covering everything in this course at the right level. To a large extent, our course will follow the first section of this book.
+  ]
+  Perhaps for this reason \x[ciro-santilli] was not able to get as much as he'd out of those notes either. This is not to say that the notes are bad, just not what Ciro needed, much like P&S:
+  * \x[the-missing-link-between-basic-and-advanced]
+  * \x[doing-physics-means-calculating-a-number]
+* \Q[In this course we will not discuss \x[path-integral-formulation][path integral methods], and focus instead on \x[canonical-quantization].]
+
+A follow up course in the \x[university-of-cambridge] seems to be the "Advanced QFT course" (AQFT, Quantum field theory II) by David Skinner: http://www.damtp.cam.ac.uk/user/dbs26/AQFT.html
+
+= Quantum Field Theory book by Mark Srednicki (2006)
+{parent=quantum-field-theory-lecture-notes}
+
+Free to view draft: https://web.physics.ucsb.edu/~mark/ms-qft-DRAFT.pdf Page presenting it: http://web.physics.ucsb.edu/~mark/qft.html
+
+Author affiliation: University of California, Santa Barbara.
+
+Number of pages: 616!
+
+Don't redistribute clause, and final version by Cambridge University Press, alas, so corrections will never be merged back: http://web.physics.ucsb.edu/~mark/qft.html[]. But at least he's collecing erratas for the published (and therefore draft) versions there.
+
+The book is top-level organized in spin 0, spin half, and spin 1. Quite ominous, really.
+
+The preface states that one of its pedagogical philosophies is to "Illustration of the basic concepts with the simplest examples.", so maybe there is hope after all.
+
+= Quantum field theory lectures
+{parent=quantum-field-theory-bibliography}
+
+= Relativistic Quantum Mechanics by Apoorva D Patel (2014)
+{c}
+{parent=quantum-field-theory-lectures}
+
+https://www.youtube.com/playlist?list=PLbMVogVj5nJTDMhThY9xu2Tvg0u1RPuxO
+
+45 1 hour lessons. The Indian traditional music opening is the best.
+
+= New Revolutions in Particle Physics by Leonard Susskind (2009)
+{c}
+{parent=quantum-field-theory-lectures}
+
+https://www.youtube.com/playlist?list=PL138995FAC49F5FB4
+
+10 2-hour lessons.
+
+Lecturer: \x[leonard-susskind].
+
+= David Tong's 2009 Quantum Field Theory lectures at the Perimeter Institute
+{c}
+{scope}
+{parent=quantum-field-theory-lectures}
+
+https://www.youtube.com/playlist?list=PLaNkJORnlhZlVkrpQVvCTVvGAMIlXL88Y
+
+Lecture notes: \x[quantum-field-theory-lecture-notes-by-david-tong-2007].
+
+By \x[david-tong]{parent}.
+
+14 1 hours 20 minute lectures.
+
+The video resolution is extremely low, with images glued as he moves away from what he wrote :-) The beauty of the early \x[internet].
+
+= Lecture 1
+{parent=david-tong-s-2009-quantum-field-theory-lectures-at-the-perimeter-institute}
+
+https://www.youtube.com/watch?v=H3AFzbrqH68
+
+= Quantum field theory courses by Tobias Osborne
+{parent=quantum-field-theory-lectures}
+
+= Quantum field theory lecture by Tobias Osborne (2017)
+{scope}
+{parent=quantum-field-theory-courses-by-tobias-osborne}
+
+https://www.youtube.com/playlist?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS
+
+This is a bit "\x[how-to-teach-and-learn-physics][formal hocus pocus first, action later]". But withing that category, it is just barely basic enough that 2021 Ciro can understand something.
+
+By: \x[tobias-j-osborne]{parent}.
+
+Lecture notes transcribed by a student: https://github.com/avstjohn/qft
+
+18 1h30 lectures.
+
+Followup course: \x[advanced-quantum-field-theory-lecture-by-tobias-osborne-2017].
+
+= Lecture 1
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=T58H6ofIOpE
+
+Bibliography review:
+* \x[quantum-field-theory-lecture-notes-by-david-tong-2007] is the course basis
+* \x[quantum-field-theory-in-a-nutshell-by-anthony-zee-2010] is a good quick and dirty book to start
+
+Course outline given:
+* classical field theory
+* quantum scalar field. Covers \x[boson]{p}, and is simpler to get intuition about.
+* quantum Dirac field. Covers \x[fermion]{p}
+* interacting fields
+* \x[perturbation-theory]
+* \x[renormalization]
+
+Non-relativistic \x[qft] is a limit of relativistic QFT, and can be used to describe for example \x[condensed-matter-physics] systems at very low temperature. But it is still very hard to make accurate measurements even in those experiments.
+
+Defines "relativistic" as: "the \x[lagrangian] is symmetric under the \x[poincare-group]".
+
+Mentions that "QFT is hard" because (a finite list follows???):
+\Q[There are no nontrivial finite-dimensional unitary \x[representation-theory][representations] of the \x[poincare-group].]
+But I guess that if you fully understand what that means precisely, QTF won't be too hard for you!
+
+Notably, this is stark contrast with rotation symmetry groups (\x[special-orthogonal-group][SO(3)]) which appears in space rotations present in \x[non-relativistic-quantum-mechanics].
+
+https://www.youtube.com/watch?v=T58H6ofIOpE&t=5097 describes the \x[relativistic-particle-in-a-box-thought-experiment] with shrinking walls
+
+= Lecture 2
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=bTcFOE5vpOA&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=2
+
+* the advantage of using \x[lagrangian-mechanics] instead of directly trying to work out the equations of motion is that it is easier to guess the Lagrangian correctly, while still imposing some fundamental constraints
+* https://youtu.be/bTcFOE5vpOA?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&t=3375
+  * \x[lagrangian-mechanics] is better for \x[path-integral-formulation]. But the \x[mathematics] of that is fuzzy, so not going in that path.
+  * \x[hamiltonian-mechanics] is better for non-\x[path-integral-formulation]
+* https://youtu.be/bTcFOE5vpOA?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&t=3449 Hamiltonian formalism requires finding conjugate pairs, and doing a 
+
+= Lecture 3
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=cj-QpsZsDDY&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=3
+
+* symmetry in classical field theory
+* from Lagrangian density we can algorithmically get equations of motion, but the Lagrangian density is a more compact way of representing the equations of motion
+* definition of symmetry in context: keeps Lagrangian unchanged up to a total derivative
+* \x[noether-s-theorem]
+* https://youtu.be/cj-QpsZsDDY?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&t=3062 Lagrangian and conservation example under translations
+* https://youtu.be/cj-QpsZsDDY?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&t=3394 same but for \x[poincare-transformation]{p} But now things are harder, because it is harder to describe general infinitesimal Poincare transforms than it was to describe the translations. Using constraints/definition of Lorentz transforms, also constricts the allowed infinitesimal symmetries to 6 independent parameters
+* https://youtu.be/cj-QpsZsDDY?list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&t=4525 brings out \x[poisson-bracket]{p}, and concludes that each conserved current maps to a \x[generator-of-a-lie-algebra][generator of the Lie algebra]
+
+  This allows you to build the symmetry back from the conserved charges, just as you can determine conserved charges starting from the symmetry.
+
+= Lecture 4
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=fnMcaq6QqTY&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=4
+
+* quantization. Uses a more or less standard way to guess the quantized system from the classical one using \x[hamiltonian-mechanics].
+* https://youtu.be/fnMcaq6QqTY?t=1179 remembers how to solve the non-field \x[quantum-harmonic-oscillator]
+* https://youtu.be/fnMcaq6QqTY?t=2008 puts hats on everything to make the field version of things. With the \x[klein-gordon-equation] \x[hamiltonian], everything is analogous to the harmonic oscilator
+
+= Lecture 5
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=fnMcaq6QqTY&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=5
+
+* something about finding a unitary representation of the poincare group
+
+= Lecture 8
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=ARes2YJNFds&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=8
+
+Interactions.
+
+= Lecture 9
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=zSSjgG9AbgM&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=9
+
+\x[feynman-diagram].
+
+= Lecture 14
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=zSSjgG9AbgM&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=9
+
+Dirac field.
+
+= Lecture 15
+{parent=quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=J2lV8uNx0LU&list=PLDfPUNusx1EpRs-wku83aqYSKfR5fFmfS&index=15
+
+Dirac equation.
+
+= Advanced quantum field theory lecture by Tobias Osborne (2017)
+{c}
+{scope}
+{parent=quantum-field-theory-courses-by-tobias-osborne}
+
+https://www.youtube.com/playlist?list=PLDfPUNusx1ErSu1JDVV1KKGQkJQCkzL9u
+
+Followup to \x[quantum-field-theory-lecture-by-tobias-osborne-2017].
+
+When the word "advanced" precedes QFT, you know that the brainrape is imminent!!!
+
+Big goal: explain the \x[standard-model].
+
+= Lecture 2
+{parent=advanced-quantum-field-theory-lecture-by-tobias-osborne-2017}
+
+https://www.youtube.com/watch?v=hapYr6rX4JM&list=PLDfPUNusx1ErSu1JDVV1KKGQkJQCkzL9u&index=2
+
+Gaussian path integrals.
+
+= Quantum field theory book
+{c}
+{parent=quantum-field-theory-bibliography}
+
+* https://web.archive.org/web/20150623011722/http://users.physik.fu-berlin.de/~kleinert/b6/psfiles/qft.pdf by https://en.wikipedia.org/wiki/Hagen_Kleinert[Hagen Kleinert] (2015). 1500 pages!
+* The Quantum Theory of Fields by Steven Weinberg (2013) https://www.cambridge.org/core/books/quantum-theory-of-fields/22986119910BF6A2EFE42684801A3BDF 
+* Quantum Field Theory by Lewis H. Ryder 2nd edition (1996) https://www.amazon.co.uk/Quantum-Field-Theory-Lewis-Ryder/dp/0521478146
+* Lectures of Quantum Field Theory by Ashok Das (2018) https://www.amazon.co.uk/Lectures-Quantum-Field-Theory-Ashok-ebook/dp/B07CL8Y3KY
+* A Modern Introduction to Quantum Field Theory by Michele Maggiore (2005) https://www.amazon.co.uk/Modern-Introduction-Quantum-Theory-Physics/dp/0198520743
+
+= No-Nonsense Quantum Field Theory: A Student-Friendly Introduction by Jakob Schwichtenberg (2020)
+{parent=quantum-field-theory-book}
+
+This book really tries to recall basic things to ensure that the reader will be able to understand the more advanced ones.
+
+Sometimes it goes a little bit overboard, like defining what a\x[function] does several times.
+
+But \x[ciro-santilli] really prefers it when authors error on the side of obvious.
+
+= Quantum Field Theory for The Gifted Amateur by Tom Lancaster (2015)
+{parent=quantum-field-theory-book}
+
+https://www.amazon.co.uk/Quantum-Field-Theory-Gifted-Amateur/dp/019969933X
+
+People are mostly saying you have to be a more of a genius amateur to read it.
+
+= Student Friendly Quantum Field Theory by Robert D Klauber (2013)
+{parent=quantum-field-theory-book}
+
+http://www.quantumfieldtheory.info/
+
+https://www.quora.com/Whats-an-expert-opinion-on-Robert-Klaubers-Student-Friendly-Quantum-Field-Theory
+
+https://www.amazon.co.uk/Student-Friendly-Quantum-Field-Theory/dp/0984513957
+
+= Quantum field theory in a nutshell by Anthony Zee (2010)
+{parent=quantum-field-theory-book}
+
+Author: https://en.wikipedia.org/wiki/Anthony_Zee from \x[university-of-california-santa-barbara].
+
+ISBN-13: 978-0691140346
+
+\x[amazon-company]: https://www.amazon.com/dp/0691140340
+
+\x[quantum-field-theory-lecture-by-tobias-osborne-2017/lecture-1] mentions that this book is quick and dirty, as one might guess from the title. \x[ciro-santilli] thinks he's gonna like this one.
+
+First edition: from 2003, https://www.amazon.com/dp/0691010196[], ISBN-13: 978-0691010199.
+
+Summary:
+* page 8: \x[infinitely-many-slits-thought-experiment]
+
+= Problem Book in Quantum Field Theory by Voja Radovanovic (2008)
+{parent=quantum-field-theory-book}
+
+https://www.springer.com/gp/book/9783540770138
+
+= Quantum Field Theory Demystified by David McMahon (2008)
+{parent=quantum-field-theory-book}
+
+This didn't really deliver. It does start from the basics, but it is often hard to link those basics to more interesting or deeper points. Also like many other \x[quantum-field-theory-book], it does not seem to contain a single comparison between a theoretical result and an experiment.
+
+= An Introduction To Quantum Field Theory by Peskin and Schroeder (1995)
+{parent=quantum-field-theory-book}
+
+https://www.amazon.co.uk/Introduction-Quantum-Theory-Frontiers-Physics/dp/0201503972
+
+This is very widely used in courses as of 2020, it became kind of the default book.
+
+Unfortunately, this approach bores \x[ciro-santilli] to death. Or perhaps is too \x[the-missing-link-between-basic-and-advanced][just advanced for him to appreciate]. Either of those.
+
+800+ pages.
+
+= Quantization
+{disambiguate=physics}
+{parent=quantum-mechanics}
+{wiki}
+
+= Quantized
+{disambiguate=physics}
+{synonym}
+
+\x[quantum-field-theory-lecture-by-tobias-osborne-2017] mentions that quantization is a guess.
+
+We make observations
+
+= Quantization of a real scalar field
+{parent=quantization-physics}
+
+This is one of the first examples in most \x[quantum-field-theory].
+
+It usually does not involve any forces, just the interpretation of what the \x[quantum-field] is.
+
+https://www.youtube.com/watch?v=zv94slY6WqY&list=PLSpklniGdSfSsk7BSZjONcfhRGKNa2uou&index=2 Quantization Of A Free Real Scalar Field by Dietterich Labs (2019)
+
+= Quantum superposition
+{parent=quantum-mechanics}
+{wiki}
+
+Quantum superposition is really weird because it is fundamentally different than "either definite state but I don't know which", because the superposition state leads to different measurements than the non-superposition state.
+
+Examples:
+* https://www.youtube.com/watch?v=tt8gVXDsh7Q "Interference in quantum mechanics" by \x[looking-glass-universe] (2015) shows how a left-right \x[spin-physics] measurement has a defined value for a superposed half up half down state, but not for a pure up state.
+
+  TODO can this be conducted? As mentioned in the video, this is closely linked to the fact that you can describe the wave function in multiple different bases (up/down or left/right), which is also at the root of the \x[uncertainty-principle].
+* \x[video-quantum-mechanics-9b-photon-spin-and-schrodinger-s-cat-ii-by-viascience-2013] gives a similar photon version
+* it seems that the \x[single-particle-double-slit-experiment] can also be thought of as in terms of a superposition of "the particle goes through the right" and "the particle goes through the right", although it is a bit harder to thing about as it is not a \x[discrete] process
+
+= Quantum entanglement
+{parent=quantum-mechanics}
+{wiki}
+
+= Entangled particle
+{synonym}
+
+= Entanglement
+{synonym}
+
+Quantum entanglement is often called spooky/surprising/unintuitive, but they key question is to understand why.
+
+To understand that, you have to understand why it is fundamentally impossible for the entangled particle pair be in a predefined state \x[bell-test-experiment][according to experiments done] e.g. where one is deterministically yes and the other deterministically down.
+
+In other words, why \x[local-hidden-variable-theory] is not valid.
+
+How to generate entangled particles:
+* \x[particle-decay], notably \x[pair-production]
+* for \x[photon]{p}, notably: \x[spontaneous-parametric-down-conversion], e.g.: https://www.youtube.com/watch?v=tn1sEaw1K2k "Shanni Prutchi Construction of an Entangled Photon Source" by HACKADAY (2015). Estimatd price: 5000 USD.
+
+\Video[https://www.youtube.com/watch?v=zcqZHYo7ONs]
+{title=Bell's Theorem: The Quantum Venn Diagram Paradox by \x[minutephysics] (2017)}
+{description=Contains the clearest \x[bell-test-experiment] description seen so far.
+
+It clearly describes the \x[photon]-based 22.5, 45 degree/85%/15% probability \x[photon-polarization] experiment and its result conceptually.
+
+It does not mention \x[spontaneous-parametric-down-conversion] but that's what they likely hint at.
+
+Done in Collaboration with \x[3blue1brown].
+
+Question asking further clarification on why the 100/85/50 thing is surprising: https://physics.stackexchange.com/questions/357039/why-is-the-quantum-venn-diagram-paradox-considered-a-paradox/597982#597982
+}
+
+\Video[https://www.youtube.com/watch?v=sAXxSKifgtU]
+{title=Bell's Inequality I by \x[viascience] (2014)}
+
+\Video[https://www.youtube.com/watch?v=ZuvK-od647c]
+{title=Quantum Entanglement & Spooky Action at a Distance by \x[veritasium] (2015)}
+{description=Gives a clear explanation of a thought \x[bell-test-experiment]{p} with \x[electron] \x[spin-physics] of electron pairs from photon decay with three 120-degree separated slits. The downside is that he does not clearly describe an experimental setup, it is quite generic.}
+
+\Video[https://www.youtube.com/watch?v=iVpXrbZ4bnU]
+{title=Quantum Mechanics: Animation explaining quantum physics by \x[physics-videos-by-eugene-khutoryansky] (2013)}
+{description=Usual Eugene, good animations, and not too precise explanations :-) https://youtu.be/iVpXrbZ4bnU?t=922 describes a conceptual spin entangled electron-positron \x[pair-production] \x[stern-gerlach-experiment] as a \x[bell-test-experiment]{p}. The 85% is mentioned, but not explained at all.}
+
+\Video[https://www.youtube.com/watch?v=JFozGfxmi8A]
+{title=Quantum Entanglement: Spooky Action at a Distance by \x[don-lincoln] (2020)}
+{description=This only has two merits compared to \x[video-quantum-entanglement-and-spooky-action-at-a-distance-by-veritasium-2015]: it mentions the Aspect et al. (1982) \x[bell-test-experiment], and it shows the continuous curve similar to https://en.wikipedia.org/wiki/File:Bell.svg[]. But it just does not clearly explain the bell test.}
+
+\Video[https://www.youtube.com/watch?v=Z34ugMy1QaA]
+{title=Quantum Entanglement Lab by \x[scientific-american] (2013)}
+{description=The hosts interview Professor Enrique Galvez of Colgate University who shows briefly the \x[optical-table] setup without great details, and then moves to a whiteboard explanation. Treats the audience as stupid, doesn't say the keywords \x[spontaneous-parametric-down-conversion] and \x[bell-s-theorem] which they clearly allude to. You can even them showing a two second footage of the professor explaining the rotation experiments and the data for it, but that's all you get.}
+
+= Bell's theorem
+{c}
+{parent=quantum-entanglement}
+{wiki}
+
+Basically a precise statement of "\x[quantum-entanglement] is spooky".
+
+= Bell test experiment
+{c}
+{parent=bell-s-theorem}
+{wiki=Bell_test_experiments}
+
+Some of the most remarkable ones seem to be:
+* Alain Aspect 1982
+* Hensen et al., Giustina et al., Shalm et al. (2015): "\x[loopholes-in-bell-test-experiments][loophole]-free" Bell tests
+
+= Loopholes in Bell test experiments
+{parent=bell-test-experiment}
+{wiki}
+
+= Local hidden-variable theory
+{parent=bell-s-theorem}
+{wiki}
+
+= EPR paradox
+{c}
+{parent=bell-s-theorem}
+{wiki}
+
