@@ -21,11 +21,18 @@ Here we list only examples which we believe are standard SQL, and should therefo
 * \a[nodejs/sequelize/raw/many_to_many.js]: illustrates \x[many-to-many-relation]{p}:
   * \x[join-sql]
   * \x[group-by-sql]
-  * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it:
-    * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
-    * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in \x[sql-1999] when there are no ambiguities due to constraints, e.g. when grouping by unique columns
-    * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that \x[postgresql] wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
-    * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to rationale mailing list thread: 
+    * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, \x[sqlite3-node-js-package] allows it:
+      * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
+      * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in \x[sql-1999] when there are no ambiguities due to constraints, e.g. when grouping by unique columns
+      * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that \x[postgresql] wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
+      * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to rationale mailing list thread: 
+    * \a[nodejs/sequelize/raw/group_by_max_full_row.js]: here we try to get the full row of each group at which a given column reaches the max of the group
+      * \x[postgres]: has `SELECT DISCINTCT ON` which works perfectly if you only want one row in case of multiple rows attaining the max. `ON` is an extension to the standard unfortunately: https://www.postgresql.org/docs/9.3/sql-select.html#SQL-DISTINCT[] Docs specify that it always respects `ORDER BY` when selecting the row.
+        * https://stackoverflow.com/questions/586781/postgresql-fetch-the-row-which-has-the-max-value-for-a-column asks it without the multiple matches use case
+        * https://dba.stackexchange.com/questions/171938/get-only-rows-with-max-group-value asks specifically the case of multiple matches to the max
+      * \x[sqlite]: https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON` unfortunately
+      * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres 
+      * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243 teaches us that in SQLite min and max are magic and guarantee that the matching row is returned. This allows us to answer: https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 with a deterministic version.
 * \x[sql-transaction] examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on \x[postgresql], once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for \x[sqlite], SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * \x[sql-isolation-level-example]{child}
@@ -273,7 +280,7 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 {title2}
 {synonym}
 
-`UPSERT` is extremelly handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both \x[sqlite] and \x[postgres] support it with similar syntax thankfully.
+`UPSERT` is extremely handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both \x[sqlite] and \x[postgres] support it with similar syntax thankfully.
 
 \a[nodejs/sequelize/raw/upsert.js]
 
@@ -416,7 +423,13 @@ Dude's a legend. Sells company for a few million. Then forks the open source pro
 {title2}
 {synonym}
 
-PostgreSQL feels good. Had a look at the source tree, and also felt good. If \x[oracle] is the \x[microsoft] of database, Postgres is the \x[linux], and \x[mysql] (or more precisely \x[mariadb]) is the \x[freebsd] (i.e. the one that got delayed by legal issues). Excepts that their \x[software-license]{p} were accidentally swapped.
+PostgreSQL feels good.
+
+Its feature set is insane! Just look at stuff like: https://stackoverflow.com/questions/1986491/sql-split-string-by-space-into-table-in-postgresql/1993058#1993058
+
+Had a look at the source tree, and also felt good.
+
+If \x[oracle] is the \x[microsoft] of database, Postgres is the \x[linux], and \x[mysql] (or more precisely \x[mariadb]) is the \x[freebsd] (i.e. the one that got delayed by legal issues). Except that their \x[software-license]{p} were accidentally swapped.
 
 The only problem with Postgres is its name. PostgreSQL is so unpronounceable and so untypeable that you should just call it "Postgres" like everyone else.
 
@@ -686,7 +699,7 @@ Related questions:
 {parent=sql-implementation}
 {wiki}
 
-The minimalimsm, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil \x[version-control]https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
+The minimalism, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil \x[version-control]https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
 
 Official \x[git] mirror: https://github.com/sqlite/sqlite
 

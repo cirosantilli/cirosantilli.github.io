@@ -158,8 +158,8 @@ assert.strictEqual(rows.length, 3)
 // which is possible because we are grouping by the PRIMARY KEY.
 // https://dba.stackexchange.com/a/141600/33332
 //
-// If we grouped by "Tag".id it would fail on Postgres 13.5 with:
-// > SequelizeDatabaseError: column "Tag.id" must appear in the GROUP BY clause or be used in an aggregate function
+// If we grouped by "Tag".name it would fail on Postgres 13.5 with:
+// > SequelizeDatabaseError: column "Tag.name" must appear in the GROUP BY clause or be used in an aggregate function
 //
 // Related example without JOIN: group_by_extra_column.js
 //

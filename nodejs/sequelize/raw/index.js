@@ -31,25 +31,25 @@ let rows, meta
 
 // SELECT all.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 2)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows[1].value, 3)
-assert.strictEqual(rows[1].name, 'three')
-assert.strictEqual(rows[2].value, 5)
-assert.strictEqual(rows[2].name, 'five')
-assert.strictEqual(rows.length, 3)
+common.assertEqual(rows, [
+  { value: 2, name: 'two', },
+  { value: 3, name: 'three', },
+  { value: 5, name: 'five', },
+])
 
 // SELECT with a WHERE condition.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE value > 2 ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 5 },
+])
 
 // SELECT with a WHERE IN condition.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE value IN (3, 5) ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3, },
+  { value: 5, },
+])
 
 // Example of using bind to let sequelize/the database worry about proper value quoting.
 // https://sequelize.org/master/manual/raw-queries.html#replacements
@@ -60,8 +60,9 @@ assert.strictEqual(rows.length, 2)
     bind: { value: 3, name: 'three' },
   }
 )
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows.length, 1)
+common.assertEqual(rows, [
+  { value: 3, },
+])
 
 // With replacement instead.
 // https://sequelize.org/master/manual/raw-queries.html#replacements
@@ -71,8 +72,9 @@ assert.strictEqual(rows.length, 1)
     replacements: { value: 3, name: 'three' },
   }
 )
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows.length, 1)
+common.assertEqual(rows, [
+  { value: 3, },
+])
 
 // Array example with replacement.
 ;[rows, meta] = await sequelize.query(
@@ -81,9 +83,10 @@ assert.strictEqual(rows.length, 1)
     replacements: { value: [3, 5] },
   }
 )
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3, },
+  { value: 5, },
+])
 
 //// TODO array example with bind
 //// https://github.com/sequelize/sequelize/issues/8140
