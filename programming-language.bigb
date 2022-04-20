@@ -237,7 +237,11 @@ However, it is also \x[hell]: \x[how-to-convert-async-to-sync-in-javascript].
 = How to convert `async` to sync in JavaScript
 {parent=async-javascript}
 
-God, it's impossible! You just have to convert the entire fucking call stack all the way up to async functions.
+God, it's impossible! You just have to convert the entire fucking call stack all the way up to async functions. It could mean refactoring hundreds of functions.
+
+To be fair, there is a logic to this, if you put yourself within the crappiness of the JavaScript threading model. And \x[python] is not that much better with its \x[global-interpreter-lock].
+
+The problem is that async was introduced relatively late, previously we just had to use infinitely deep callback trees, which was worse. But now we are in an endless period of transition between both worlds.
 
 * https://stackoverflow.com/questions/21819858/how-to-wrap-async-function-calls-into-a-sync-function-in-node-js-or-javascript
 * https://stackoverflow.com/questions/9121902/call-an-asynchronous-javascript-function-synchronously
@@ -246,6 +250,8 @@ God, it's impossible! You just have to convert the entire fucking call stack all
 * https://stackoverflow.com/questions/6921895/synchronous-delay-in-code-execution
 
 And then, after many many hours of this work, you might notice that the new code is way, way way slower than before, because making small functions `async` has a large performance impact: https://madelinemiller.dev/blog/javascript-promise-overhead/[]. Real world case with a 4x slowdown: https://github.com/cirosantilli/ourbigbook/tree/async-slow[].
+
+Anyways, since you Googled here, you might as well learn the standard pattern to convert callbacks functions into async functions using a promise: https://stackoverflow.com/questions/4708787/get-password-from-input-using-node-js/71868483#71868483
 
 = Node.js
 {c}
@@ -352,7 +358,7 @@ But it is in itself a completely boring app with a single splash page, and no da
 
 And there is no official example of the chat app that is immediately deployable to \x[heroku]: \x[feathersjs-heroku-deployment], all setups require thinking.
 
-Global source entrypoint: determine on `package.json` as usual, defaults to `src/index.js`.
+Global source entry point: determine on `package.json` as usual, defaults to `src/index.js`.
 
 = FeatherJS demo apps
 {c}
@@ -683,7 +689,7 @@ The best way to install Node.js:
 {title2=UMD}
 {wiki}
 
-Since \x[javascript] devs are uncapable of defining an unified import standard, this design pattern emerged where you just check every magic global one by one. Here's a demo where a Js library works on both the \x[browser] and from \x[node-js]:
+Since \x[javascript] devs are incapable of defining an unified import standard, this design pattern emerged where you just check every magic global one by one. Here's a demo where a Js library works on both the \x[browser] and from \x[node-js]:
 * \a[web-cheat/umd_my_lib.js]: the library
 * \a[web-cheat/umd.js]: \x[node-js] user
 * \a[web-cheat/umd.html]: \x[browser] user
@@ -716,6 +722,17 @@ Damn right, girl, damn right.
 Ciro remembers hearing about \x[python] online briefly. It seemed like a distant thing from the \x[java]/\x[c-programming-language] dominated (and outdated) university courses. Then some teaching assistant mentioned during some course when Ciro was at \x[ecole-polytechnique] that Python was a great integration tool. That sounded cool.
 
 Then finally, \x[when-the-ecole-polytechnique-mathematics-department-didn-t-let-ciro-santilli-do-his-internship-of-choice-due-to-grades] and Ciro was at an useless last moment backup internship, he learned more Python instead of doing his internship job, and was hooked.
+
+= CPython
+{c}
+{parent=python-programming-language}
+{wiki}
+
+= Global Interpreter Lock
+{parent=cpython}
+{wiki}
+
+https://stackoverflow.com/questions/1294382/what-is-the-global-interpreter-lock-gil-in-cpython
 
 = pip
 {disambiguate=package manager}
