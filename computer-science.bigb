@@ -1,0 +1,636 @@
+= Computer science
+{wiki}
+
+A branch of \x[mathematics] that attempts to prove stuff about \x[computer]{p}.
+
+Unfortunately, all \x[software-engineer]{p} already know the answer to the useful theorems though (except perhaps notably for \x[cryptography]), e.g. all programmers obviously know that iehter \x[p-versus-np-problem][P != NP] or that this is \x[independence-mathematical-logic][unprovable or some other "for all practical purposes practice P != NP"], even though they don't have proof.
+
+And 99% of their time, software engineers are not dealing with mathematically formulatable problems anyways, which is sad.
+
+The only useful "computer science" subset every programmer ever needs to know is:
+* for arrays: \x[dynamic-array] vs \x[linked-list]
+* for \x[associative-array]: \x[binary-search-tree] vs \x[hash-table]. See also https://stackoverflow.com/questions/6147242/heap-vs-binary-search-tree-bst/29548834#29548834[Heap vs Binary Search Tree (BST)]. No need to understand the algorithmic details of the hash function, the \x[nsa] has already done that for you.
+* don't use https://en.wikipedia.org/wiki/Bubble_sort[Bubble sort] for sorting
+* you can't parse HTML with regular expressions: https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454[] because of \x[formal-language-theory]
+
+Funnily, due to the \x[formalization-of-mathematics], \x[mathematics] can be seen as a branch of computer science, just like computer science can be seen as a branch of Mathematics!
+
+= Turing machine
+{c}
+{parent=computer-science}
+{wiki}
+
+The dominating model of a computer.
+
+The model is extremely simple, but has been proven to be able to solve all the problems that any reasonable computer model can solve, thus its adoption as the "default model".
+
+The smallest known Turing machine that cannot be proven to halt or not as of 2019 is 7,918-states: https://www.scottaaronson.com/blog/?p=2725[]. https://www.scottaaronson.com/[Shtetl-Optimized] by Scott Aaronson is just the best website.
+
+A bunch of non-reasonable-looking computers have also been proven to be Turing complete for fun, e.g. \x[magic-the-gathering].
+
+= Universal Turing machine
+{c}
+{parent=turing-machine}
+{wiki}
+
+A Turing machine that simulates another Turing machine/input pair that has been encoded as a string.
+
+In other words: an \x[emulator]!
+
+The concept is fundamental to state several key results in \x[computer-science], notably the \x[halting-problem].
+
+= Turing complete
+{c}
+{parent=turing-machine}
+{wiki=Turing_completeness}
+
+A computer model that is as powerful as the most powerful computer model we have: \x[turing-machine]!
+
+= Formal language theory
+{parent=computer-science}
+
+= Formal language
+{parent=formal-language-theory}
+{wiki}
+
+= Recursively enumerable language
+{parent=formal-language-theory}
+{wiki}
+
+There is a \x[turing-machine] that halts for every member of the language with the answer yes, but does not necessarily halt for non-members.
+
+Non-examples: https://cs.stackexchange.com/questions/52503/non-recursively-enumerable-languages
+
+= RE
+{disambiguate=complexity}
+{parent=recursively-enumerable-language}
+{wiki}
+
+= Recursive language
+{parent=formal-language-theory}
+{wiki}
+
+Subset of \x[recursively-enumerable-language]{parent} as explained at: \x[difference-between-recursive-language-and-recursively-enumerable-language].
+
+= R
+{disambiguate=complexity}
+{parent=recursive-language}
+{wiki}
+
+Set of all \x[decision-problem]{p} solvable by a \x[turing-machine], i.e. that decide if a string belongs to a \x[recursive-language].
+
+= Undecidable problem
+{parent=recursive-language}
+{wiki}
+
+Is a \x[decision-problem]{parent} of determining if something belongs to a non-\x[recursive-language].
+
+Or in other words: there is no \x[turing-machine] that always halts for every input with the yes/no output.
+
+Every undecidable problem must obviously have an infinite number of "possibilities of stuff you can try": if there is only a finite number, then you can brute-force it.
+
+Some undecidable problems are of \x[recursively-enumerable-language], e.g. the \x[halting-problem].
+
+Lists of undecidable problems.
+* https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics
+* https://en.wikipedia.org/wiki/List_of_undecidable_problems
+
+Coolest ones besides the obvious boring \x[halting-problem]:
+* \x[mortal-matrix-problem]
+* \x[diophantine-equation] existence of solutions: \x[undecidable-diophantine-equation-problems]{child}
+
+= Mortal matrix problem
+{parent=undecidable-problem}
+
+https://en.wikipedia.org/wiki/Zero_matrix#Occurrences
+
+One of the most simple to state \x[undecidable-problem]{p}.
+
+= Computable problem
+{parent=undecidable-problem}
+{wiki}
+
+= Uncomputable problem
+{synonym}
+
+= Uncomputable
+{synonym}
+
+A:
+* \x[undecidable-problem][decidable problem] is to a \x[decision-problem]
+* like a computable problem is to a \x[function-problem]
+
+= Computable number
+{parent=undecidable-problem}
+{wiki}
+
+= Uncomputable number
+{synonym}
+
+https://math.stackexchange.com/questions/462790/are-there-any-examples-of-non-computable-real-numbers
+
+There are only boring exampes of taking an uncomputable language and converting it into a number?
+
+= Difference between recursive language and recursively enumerable language
+{parent=recursive-language}
+{wiki}
+
+https://stackoverflow.com/questions/33467040/what-is-the-difference-between-recursive-and-recursively-enumerable-languages/65455863#65455863
+
+= Recursive set
+{parent=recursive-language}
+{wiki}
+
+Same as \x[recursive-language] but in the context of the \x[integer]{p}.
+
+= Chomsky hierarchy
+{c}
+{parent=formal-language-theory}
+{wiki}
+
+This is the classic result of \x[formal-language-theory], but there is too much slack between context free and context sensitive, which is PSPACE (larger than \x[np-complexity]!).
+
+By \x[noam-chomsky].
+
+TODO had seen a good table on Wikipedia with an expanded hierarchy, but lost it!
+
+= Computational problem
+{parent=computer-science}
+{wiki}
+
+The list: https://complexityzoo.uwaterloo.ca/Complexity_Zoo
+
+= Decision problem
+{parent=computational-problem}
+{wiki}
+
+\x[computational-problem] where the solution is either yes or no.
+
+When there are more than two possible answers, it is called a \x[function-problem]{parent}.
+
+Decision problems come up often in \x[computer-science] because many important problems are often stated in terms of "decide if a given string belongs to given \x[formal-language]".
+
+= Halting problem
+{parent=decision-problem}
+{wiki}
+
+The canonical \x[undecidable-problem]{parent}.
+
+= Function problem
+{parent=computational-problem}
+{wiki}
+
+A problem that has more than two possible yes/no outputs.
+
+It is therefore a generalization of a \x[decision-problem].
+
+= Busy beaver
+{parent=function-problem}
+{title2=$BB(n)$}
+{wiki}
+
+= Busy beaver game
+{synonym}
+
+$BB(n)$ is the largest number of 1's written by a \x[halting-problem][halting] $n$-state \x[turing-machine].
+
+Some variant definitions define it as the number of time steps taken by the machine instead. Wikipedia talks about their relationship, but no patience right now.
+
+Overviews:
+* https://www.scottaaronson.com/blog/?p=4916
+* https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
+
+This problem is theoretically interesting because many important mathematical \x[conjecture]{p} have been proved to be equivalent to whether a given Turing machine halts or not, this is notably the case for:
+* \x[goldbach-s-conjecture]: 27 states
+* \x[riemann-hypothesis]: 744 states
+* the \x[consistency] of \x[zermelo-fraenkel-set-theory]: 7910 states
+
+Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
+
+Of course, in practice, $BB$ is generally \x[uncomputable], so we will never know it. And furthermore, even if it were, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
+
+However, philosophically speaking at least, the number of states of the equivalent \x[turing-machine] gives us a philosophical idea of the complexity of the problem.
+
+= Integer multiplication
+{parent=function-problem}
+
+https://cs.stackexchange.com/questions/16226/what-is-the-fastest-algorithm-for-multiplication-of-two-n-digit-numbers
+
+= Integer factorization
+{parent=function-problem}
+{wiki}
+
+Complexity: \x[np-intermediate] as of 2020:
+* expected not to be \x[np-complete] because it would imply NP != \x[co-np]: https://cstheory.stackexchange.com/questions/167/what-are-the-consequences-of-factoring-being-np-complete#comment104849_169
+* expected not to be in \x[p-complexity] because "could we be that dumb that we haven't found a solution after having tried for that long?
+
+The basis of RSA: \x[rsa-cryptosystem]. But not proved \x[np-complete], which leads to:
+
+= NP-hard cryptosystems
+{c}
+{parent=integer-factorization}
+
+This is natural question because both \x[integer-factorization] and \x[discrete-logarithm] are the basis for the most popular \x[public-key-cryptography] systems as of 2020 (\x[rsa-cryptosystem] and \x[diffie-hellman-key-exchange] respectively), and both are \x[np-intermediate]. Why not use something more provenly hard?
+* https://cs.stackexchange.com/questions/356/why-hasnt-there-been-an-encryption-algorithm-that-is-based-on-the-known-np-hard "Why hasn't there been an encryption algorithm that is based on the known NP-Hard problems?"
+
+= Discrete logarithm
+{parent=function-problem}
+{wiki}
+
+\x[logarithm] but for \x[discrete] \x[group-mathematics][groups].
+
+\x[np-intermediate] as of 2020 for similar reasons as \x[integer-factorization].
+
+= Algorithm
+{parent=computational-problem}
+{wiki}
+
+A solution to a \x[computational-problem]!
+
+= Data structure
+{parent=algorithm}
+{wiki}
+
+= Associative array
+{parent=data-structure}
+{title2=map, dictionary}
+{wiki}
+
+More commonly known as a map or dictionary.
+
+= Binary search tree
+{parent=associative-array}
+{tag=binary-tree}
+{tag=ordered-tree}
+{wiki}
+
+= Hash table
+{parent=associative-array}
+{wiki}
+
+= Hash map
+{title2}
+{synonym}
+
+= Tree
+{disambiguate=data-structure}
+{parent=data-structure}
+{wiki}
+
+= Binary tree
+{parent=tree-data-structure}
+{wiki}
+
+= K-ary tree
+{parent=binary-tree}
+{wiki}
+
+= Ordered tree
+{parent=tree-data-structure}
+{wiki=Tree_(data_structure)#Ordered_tree}
+
+= Unordered tree
+{parent=ordered-tree}
+{wiki=Tree_(data_structure)#Ordered_tree}
+
+= Tree traversal
+{parent=tree-data-structure}
+{wiki}
+
+= Depth-first search
+{parent=tree-traversal}
+{wiki}
+
+= Pre-order depth-first search
+{parent=depth-first-search}
+{title2=NLR}
+{wiki}
+
+Like \x[breadth-first-search], this also has the property of visiting parents before any children.
+
+= Interative pre-order
+{parent=pre-order-depth-first-search}
+
+This is the easiest one to do iteratively:
+* pop and visit
+* push right to stack
+* push left to stack
+
+= In-order depth-first search
+{parent=depth-first-search}
+{title2=LNR}
+{wiki}
+
+Only makes sense for \x[binary-tree] because if there are more nodes it is not clear what the top node should go in the middle of.
+
+This is unlike \x[pre-order-depth-first-search] and \x[post-order-depth-first-search] which generalize obviously to general trees.
+
+= Interative in-order
+{parent=in-order-depth-first-search}
+
+This is a bit harder than \x[interative-pre-order]: now we have to check if there is a left or right element or not:
+* (START) push current
+* if there is left:
+  * move left
+* else:
+  * (ELSE) pop
+  * visit
+  * if there is right
+    * move right
+    * GOTO START
+  * else:
+    * GOTO ELSE
+
+The control flow can be slightly simplified if we allow NULLs: https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+
+= Post-order depth-first search
+{parent=depth-first-search}
+{title2=LRN}
+{wiki}
+
+Has the property of visiting all children before the parent.
+
+= Interative post-order
+{parent=post-order-depth-first-search}
+
+This is the hardest one to do iteratively.
+
+Bibliography:
+* https://stackoverflow.com/questions/1294701/post-order-traversal-of-binary-tree-without-recursion
+* https://stackoverflow.com/questions/50645284/non-recursive-post-order-graph-traversal
+
+= Interative post-order with two stacks
+{parent=interative-post-order}
+
+https://www.geeksforgeeks.org/iterative-postorder-traversal/
+
+= Interative post-order with one stack
+{parent=interative-post-order}
+
+https://www.geeksforgeeks.org/iterative-postorder-traversal-using-stack/
+
+= Breadth-first search
+{parent=tree-traversal}
+{wiki}
+
+= Dynamic array
+{parent=data-structure}
+{wiki}
+
+= Linked list
+{parent=data-structure}
+{wiki}
+
+= Recursion
+{disambiguate=computer science}
+{parent=algorithm}
+{wiki}
+
+= Recursion
+{synonym}
+
+= Recursive algorithm
+{synonym}
+
+= Iteration
+{parent=recursion-computer-science}
+{wiki}
+
+= Iterative algorithm
+{parent=iteration}
+{wiki}
+
+= String-search algorithm
+{parent=algorithm}
+{wiki}
+
+= Complexity class
+{parent=computational-problem}
+{wiki}
+
+= Big O notation family
+{parent=complexity-class}
+
+This is a family of notations related to the \x[big-o-notation]. A good mnemonic summary of all notations would be:
+* \x[big-o-notation]: $|f| \le g$
+* \x[little-o-notation]: $|f| \lt g$
+
+= Big O notation
+{parent=big-o-notation-family}
+{title2=$O(n)$}
+{wiki}
+
+Module bound above, possibly multiplied by a constant:
+$$f(x) = O(g(x))$$
+is defined as:
+$$
+\exists M > 0 \exists x_0  \forall x > x_0 \colon |f(x)| \leq M g(x)
+$$
+
+E.g.:
+* $\forall c \in \R x + c = O(x)$. For $c < 0$, $M = 1$ is enough. Otherwise, any $M > 1$ will do, the bottom line will always catch up to the top one eventually.
+
+= Little-o notation
+{parent=big-o-notation-family}
+{title2=$o(n)$}
+
+Stronger version of the \x[big-o-notation], basically means that ratio goes to zero. In \x[big-o-notation], the ratio does not need to go to zero.
+
+So in informal terms, \x[big-o-notation] means $\leq$, and \x[little-o-notation] means $<$.
+
+E.g.:
+* $x = O(x)$
+* $x \ne o(x)$K does not tend to zero
+* $x = O(x^2)$
+* $x = o(x^2)$
+
+= P
+{c}
+{disambiguate=complexity}
+{parent=complexity-class}
+{wiki}
+
+= NP
+{c}
+{disambiguate=complexity}
+{parent=complexity-class}
+{wiki}
+
+Strictly speaking, only defined for decision problems: https://cs.stackexchange.com/questions/9664/is-it-necessary-for-np-problems-to-be-decision-problems/128702#128702
+
+= NP-complete
+{c}
+{parent=np-complexity}
+{wiki=NP-completeness}
+
+A problem that is both \x[np-complexity] and \x[np-hard].
+
+= Cook-Levin theorem
+{c}
+{parent=np-complete}
+{wiki=Cook–Levin_theorem}
+
+= P versus NP problem
+{parent=np-complete}
+{wiki}
+
+= P vs NP
+{c}
+{synonym}
+{title2}
+
+Interesting because of the \x[cook-levin-theorem]: if only a single \x[np-complete] problem were in \x[p-complexity], then all NP-complete problems would also be P!
+
+We all know the answer for this: either false or \x[independent-mathematical-logic].
+
+= Ladner's Theorem
+{c}
+{parent=p-versus-np-problem}
+
+= NP-hard
+{c}
+{parent=np-complexity}
+{wiki=NP-hardness}
+
+A problem such that all NP problems can be reduced in polynomial time to it.
+
+= NP-intermediate
+{c}
+{parent=np-complexity}
+{wiki}
+
+This is the most interesting class of problems for \x[bqp] as we haven't proven that they are neither:
+* \x[p-complexity]: would be boring on quantum computer
+* \x[np-complete]: would likely be impossible on a quantum computer
+
+Big list: https://cstheory.stackexchange.com/questions/79/problems-between-p-and-npc/460#460
+
+= BQP
+{c}
+{parent=np-intermediate}
+{wiki}
+
+\x[p-complexity] for \x[quantum-computing]!
+
+Heck, we know nothing about this class yet related to non quantum classes!
+* conjectured not to intersect with \x[np-complete], because if it were, all NP-complete problems could be solved efficiently on quantum computers, and none has been found so far as of 2020.
+* conjectured to be larger than \x[p-complexity], but we don't have a single algorithm provenly there:
+  * it is believed that the NP complete ones can't be solved
+  * if they were neither NP-complete nor P, it would imply \x[p-versus-np-problem][P != NP]
+* we just don't know if it is even contained inside \x[np-complexity]!
+
+= Co-NP
+{c}
+{parent=np-complexity}
+{wiki}
+
+* https://math.stackexchange.com/questions/361422/why-isnt-np-conp "Why isn't NP = coNP?"
+* https://stackoverflow.com/questions/17046440/whats-the-difference-between-np-and-co-np
+* https://cs.stackexchange.com/questions/9795/is-the-open-question-np-co-np-the-same-as-p-np
+* https://mathoverflow.net/questions/31821/problems-known-to-be-in-both-np-and-conp-but-not-known-to-be-in-p
+
+= Optimization problem
+{parent=computational-problem}
+{wiki}
+
+= Linear programming
+{parent=optimization-problem}
+{wiki}
+
+= Logistics
+{parent=optimization-problem}
+{wiki}
+
+= Last mile problem
+{parent=logistics}
+
+The exact same problem appears over and over, e.g.:
+* https://en.wikipedia.org/wiki/Last_mile_(transportation)[transportaion]: the last mile of the trip when everyone leaves the train and goes to their different respective offices is the most expensive
+* https://en.wikipedia.org/wiki/Last_mile_(telecommunications)[telecommunications]: the last mile of wire linking local hubs to actual homes is the most expensive
+* electrical grid: same as telecommunications
+
+\x[ciro-santilli] also identified knowledge version of this problem: \x[the-missing-link-between-basic-and-advanced].
+
+= Optimization software
+{parent=optimization-problem}
+{tag=software}
+
+* https://en.wikipedia.org/wiki/List_of_optimization_software
+* https://en.wikipedia.org/wiki/Comparison_of_optimization_software
+
+= CPLEX
+{c}
+{parent=optimization-software}
+
+= Limiting factor
+{parent=optimization-problem}
+{wiki}
+
+= Critical path method
+{parent=limiting-factor}
+{wiki}
+
+= Critical path
+{parent=limiting-factor}
+
+= Value function
+{parent=optimization-problem}
+{wiki}
+
+The function being maximized in a \x[optimization-problem].
+
+\Include[cryptography]{parent=computer-science}
+
+= Hash function
+{parent=computer-science}
+{wiki}
+
+= Hash
+{synonym}
+
+Applications:
+* https://en.wikipedia.org/wiki/Hash_table[hash map] which is a O(1) amortized implementation of a map
+* creating unbreakable chains of data, e.g. for https://stackoverflow.com/questions/22968856/what-is-the-file-format-of-a-git-commit-object-data-structure/37438460#37438460[Git commits] or \x[bitcoin]. 
+* storing passwords on a server in a way that if the password database is stolen, attackers can't reuse them on other websites where the user used the same password: https://security.blogoverflow.com/2013/09/about-secure-password-hashing/
+
+= Secure Hash Algorithms
+{c}
+{parent=hash-function}
+{wiki}
+
+= SHA-1
+{c}
+{parent=secure-hash-algorithms}
+{wiki}
+
+= SHA-2
+{c}
+{parent=secure-hash-algorithms}
+{wiki}
+
+= Merkle tree
+{c}
+{parent=hash-function}
+
+= Hash tree
+{synonym}
+
+= Computer scientist
+{parent=computer-science}
+{wiki}
+
+= Alan Turing
+{c}
+{parent=computer-scientist}
+{wiki}
+
+= Noam Chomsky
+{c}
+{parent=computer-scientist}
+{tag=cool-person}
+{wiki}
+
+= Scott Aaronson
+{c}
+{parent=computer-scientist}
+{wiki}

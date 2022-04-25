@@ -1,0 +1,2577 @@
+= Software
+{wiki}
+
+= Cloud computing
+{parent=software}
+{wiki}
+
+= Platform as a service
+{parent=cloud-computing}
+{title2=PaaS}
+{wiki}
+
+Highly managed, you don't even see the \x[docker-software] images, only some higher level \x[json] configuration file.
+
+These setups are really convenient and cheap, and form a decent way to try out a new website with simple requirements.
+
+= AWS Elastic Beanstalk
+{c}
+{parent=platform-as-a-service}
+{wiki}
+
+= Heroku
+{c}
+{parent=platform-as-a-service}
+{wiki}
+
+This feels good.
+
+One problem though is that Heruku is very opinionated, a likely like other PaaSes. So if you are trying something that is slightly off the mos common use case, you might be fucked.
+
+Deployment:
+``
+git push heroku HEAD:master
+``
+
+View \x[stdout] logs:
+``
+heroku logs --tail
+``
+
+\x[postgresql] database, it seems to be delegated to \x[aws]. How to browse database: https://stackoverflow.com/questions/20410873/how-can-i-browse-my-heroku-database
+``
+heroku pg:psql
+``
+
+Drop and recreate database:
+``
+heroku pg:reset --confirm <app-name>
+``
+All tables are destroyed.
+
+Restart app:
+``
+heroku restart
+``
+
+= Send free emails from Heroku
+{parent=heroku}
+
+Arghh, why so hard... tested 2021:
+* Mailgun: the Heroku add-on creates a free plan. This is smaller than the flex plan and does not allow custom domains, and is not available when signing up on mailgun.com directly: https://help.mailgun.com/hc/en-us/articles/203068914-What-Are-the-Differences-Between-the-Free-and-Flex-Plans- And without custom domains you cannot send emails to anyone, only to people in the 5 manually whitelisted list, thus making this worthless. Also, gmail is not able to verify the DNS of the sandbox emails, and they go to spam.
+
+  Mailgun does feel good otherwise if you are willing to pay. Their Heroku integration feels great, exposes everything you need on environment variables straight away.
+* CloudMailin: does not feel as well developed as Mailgun. More focus on receiving. Tried adding TXT xxx._domainkey.ourbigbook.com and CNAME mta.ourbigbook.com entires with custom domain to see if it works, took forever to find that page... https://www.cloudmailin.com/outbound/domains/xxx Domain verification requires a bit of human contact via email.
+
+  They also don't document their Heroku usage well. The envvars generated on Heroku are useless, only to login on their web UI. The send username and password must be obtained on their confusing web ui.
+* Sendgrid: OK, this one is the first one I got working on free tier. Saw the email on gmail!!! Just verified automatically after adding like 5 DNS records, but everything just worked. \x[microsoft-outlook] did put it into junk though, but I had a more or less random test message, maybe it was their stupid AI? Yahoo also worked fine. 100 emails a day is not insane, but it is forever, I'm happy with that.
+
+= Compiler
+{parent=software}
+{wiki}
+
+= Compile
+{synonym}
+
+= Compiles
+{synonym}
+
+= Compiler toolchain
+{parent=compiler}
+{wiki}
+
+\x[compiler]{c} + other closely related crap like \x[linker-computing].
+
+= Linker
+{disambiguate=computing}
+{parent=compiler-toolchain}
+{wiki}
+
+Some linker related ansewrs by \x[ciro-santilli]:
+* https://stackoverflow.com/questions/3322911/what-do-linkers-do/33690144#33690144[How do linkers and address relocation work?]
+* https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker/53959624#53959624[What is incremental linking or partial linking?]
+* https://stackoverflow.com/questions/3476093/replacing-ld-with-gold-any-experience/53921263#53921263[GOLD (`-fuse-ld=gold`) linker vs the traditional GNU ld and LLVM ldd]
+* https://stackoverflow.com/questions/2463150/what-is-the-fpie-option-for-position-independent-executables-in-gcc-and-ld/51308031#51308031[What is the -fPIE option for position-independent executables in GCC and ld?]
+
+= Binutils
+{c}
+{parent=compiler}
+
+= Automatic programming
+{parent=compiler}
+{wiki}
+
+"automatic programming has always been a euphemism for programming in a higher-level language than was then available to the programmer" sums it up.
+
+The ultimate high level is of course to program with: "computer, make \x[money]", which is the goal of \x[artificial-general-intelligence].
+
+= Automatic code generation
+{parent=automatic-programming}
+
+= Code generation
+{synonym}
+
+= GNU Compiler Collection
+{c}
+{parent=compiler}
+
+= gcc
+{c}
+{synonym}
+{title2}
+
+= Reproducible builds
+{c}
+{parent=compiler}
+{wiki}
+
+Reproducible builds allow anyone to verify that a \x[binary-large-object] contains what it claims to contain!
+
+Bibliography:
+* https://stackoverflow.com/questions/14653874/how-to-produce-deterministic-binary-output-with-g/31019307#31019307
+* https://stackoverflow.com/questions/19511356/how-to-make-android-applications-with-reproducible-builds
+
+= Source-to-source compiler
+{parent=compiler}
+{wiki}
+
+= Transpiler
+{synonym}
+
+= Transpilation
+{synonym}
+
+= Transpile
+{synonym}
+
+= Transpiles
+{synonym}
+
+= Computer-aided design
+{parent=software}
+{wiki}
+
+= CAD
+{c}
+{synonym}
+{title2}
+
+= Open source CAD software
+{parent=computer-aided-design}
+
+= FreeCAD
+{c}
+{parent=open-source-cad-software}
+{wiki}
+
+= Computer graphics
+{parent=software}
+{wiki}
+
+https://en.wikipedia.org/wiki/List_of_information_graphics_software
+
+= Mathematics illustration software
+{parent=computer-graphics}
+
+= Software for drawing geometry diagrams
+{title2}
+{synonym}
+
+Survey by \x[ciro-santilli]: https://math.stackexchange.com/questions/1985/software-for-drawing-geometry-diagrams/3938216#3938216
+
+Many \x[plotting-software] can be used to create \x[mathematics] illustrations. They just tend to have more data-oriented rather than explanatory-oriented output.
+
+Some notable ones:
+* \x[inkscape]{child}
+
+= OpenGL
+{c}
+{parent=computer-graphics}
+{wiki}
+
+\x[ciro-santilli] has some good related articles listed under: \x[articles].
+
+= Freetype GL
+{parent=opengl}
+{c}
+
+https://github.com/rougier/freetype-gl
+
+Good library to render text in \x[opengl], see also: https://stackoverflow.com/questions/8847899/opengl-how-to-draw-text-using-only-opengl-methods/36065835#36065835
+
+= Khronos Group
+{c}
+{parent=opengl}
+{wiki}
+
+= Khronos
+{c}
+{synonym}
+
+The fact that they kept the standard \x[open-source] makes them huge heroes, see also: \x[closed-standard].
+
+= opengl-tutorial.org
+{parent=opengl}
+
+https://github.com/opengl-tutorials/ogl/
+
+Good modern \x[opengl] tutorial in retained mode with shaders, see also: https://stackoverflow.com/questions/6733934/what-does-immediate-mode-mean-in-opengl/36166310#36166310
+
+= JavaScript graphics library
+{parent=computer-graphics}
+
+= Paper.js
+{c}
+{parent=javascript-graphics-library}
+
+https://github.com/paperjs/paper.js
+
+= Pixi.js
+{c}
+{parent=javascript-graphics-library}
+
+https://github.com/pixijs/pixi.js
+
+= Two.js
+{c}
+{parent=javascript-graphics-library}
+
+https://github.com/jonobr1/two.js
+
+Examples at: \a[two-js/].
+
+\x[javascript] library, works both on browser and headless with node.js to SVG.
+
+Feels good. Maybe not ultra featured, and could have more simple examples in docs, but still good.
+
+Vs \x[paper-js] https://github.com/jonobr1/two.js/issues/319
+
+One of the main features of Two.js appears to be the fact that it can natively render to either SVG and canvas, rather than creating SVG through DOM hacks as done by other projects.
+
+= Computer program
+{parent=software}
+{wiki}
+
+= Program
+{synonym}
+
+One specific \x[software] project, typically with a single \x[executable-file-format] entry point.
+
+= Computer security
+{parent=software}
+{wiki}
+
+As mentioned at \x[computer-security-researcher]{full}, \x[ciro-santilli] really tends to like people from this area.
+
+Also, the type of programming Ciro used to do, \x[systems-programming], is particularly useful to security researchers, e.g. \x[linux-kernel-module-cheat].
+
+The reason he does not go into this is that Ciro would rather fight against the more eternal \x[laws-of-physics] rather than with some typo some dude at \x[apple] did last week and which will be patched in a month.
+
+= Arbitrary code execution
+{parent=computer-security}
+{title2=ACE}
+{wiki}
+
+= Computer security conference
+{parent=computer-security}
+
+= DEF CON
+{c}
+{parent=computer-security-conference}
+{title2=1993-}
+{wiki}
+
+= Black Hat Briefings
+{c}
+{parent=def-con}
+{title2=1997-}
+{wiki}
+
+= BlackHat
+{c}
+{synonym}
+
+= Computer security researcher
+{parent=computer-security}
+{wiki}
+
+\x[ciro-santilli] found out that he likes computer security researchers and vice versa.
+
+It's a bit the same reason why he likes \x[physicist]{p}: you can't bullshit with security.
+
+You can't just talk nice and hope for people to belive you.
+
+You can't not try to break things and just \x[security-through-obscurity][keep everyone happy in their false illusion of safety].
+
+You can't do a half job.
+
+If you do any of that, you \i[will] get your ass handed to you in a little gift bag.
+
+All of this is closely linked to \x[ciro-santilli-s-self-perceived-creative-personality] and \x[being-naughty-and-creative-are-correlated].
+
+= Dan Kaminsky
+{c}
+{parent=computer-security-researcher}
+{title2=1979-2021}
+{wiki}
+
+A superstar security researcher with some major exploits from in the 2000's.
+
+= Dan Kaminsky approves Linux Kernel Module Cheat
+{c}
+{parent=dan-kaminsky}
+
+https://twitter.com/dakami/status/1344853681749934080
+
+Oh yeah, that felt good. A few months before he died.
+
+= Len Sassaman
+{c}
+{parent=computer-security-researcher}
+{wiki}
+
+= Data erasure
+{parent=computer-security}
+{wiki}
+
+= Multi-factor authentication
+{parent=computer-security}
+{wiki}
+
+= 2FA
+{c}
+{synonym}
+{title2}
+
+= 2FA app
+{parent=multi-factor-authentication}
+
+= Google 2FA app token can be updated without checking the old 2FA
+{parent=multi-factor-authentication}
+
+Ermm, as of February 2021, I was able to update my 2FA app token with the password alone, it did not ask for the old 2FA.
+
+So what's the fucking point of 2FA then? An attacker with my password would be able to login by doing that!
+
+Is it that Google trusts that particular action because I used the same phone/known IP or something like that?
+
+= OAuth
+{c}
+{parent=computer-security}
+{wiki}
+
+= Password
+{parent=computer-security}
+{wiki}
+
+= Password manager
+{parent=password}
+{wiki}
+
+= Plausible deniability
+{parent=computer-security}
+{wiki}
+
+= Privacy
+{parent=computer-security}
+{wiki}
+
+= Security through obscurity
+{parent=computer-security}
+{wiki}
+
+https://stackoverflow.com/questions/533965/why-is-security-through-obscurity-a-bad-idea
+
+Do as I say, not as I do: \x[ciro-santilli-s-stack-overflow-suspension-for-vote-fraud-script-2019], https://meta.stackoverflow.com/questions/381577/is-it-ok-to-have-links-on-how-to-create-sock-puppets-and-gain-rep-fraudulently-i/381635#381635[].
+
+\Video[https://www.youtube.com/watch?v=IH0GXWQDk0Q]
+{title=LockPickingLawyer SAINTCON keynote (2021)}
+{description=SAINTCON is "Utah's Premiere Security Conference".
+* https://youtu.be/IH0GXWQDk0Q?t=900 mentions that https://en.wikipedia.org/wiki/Alfred_Charles_Hobbs[Alfred Charles Hobbs] commented in 1853:
+  \Q[Rogues are very keen in their profession, and know already much more than we can teach them]
+}
+
+= Kerckhoffs's principle
+{c}
+{parent=security-through-obscurity}
+{wiki}
+
+Basically the opposite of \x[security-through-obscurity], though slightly more focused on \x[cryptography].
+
+= Malware
+{parent=computer-security}
+{wiki}
+
+= Ransomware
+{parent=computer-security}
+{wiki}
+
+= Data breach
+{parent=computer-security}
+{wiki}
+
+= WikiLeaks
+{c}
+{parent=data-breach}
+{tag=wiki}
+{wiki}
+
+= List of data breaches
+{parent=data-breach}
+
+= United States diplomatic cables leak
+{c}
+{parent=list-of-data-breaches}
+{title2=2010}
+{wiki}
+
+= Cablegate
+{c}
+{synonym}
+
+= Computer user-interface
+{parent=software}
+
+= Application programming interface
+{parent=computer-user-interface}
+{wiki}
+
+= API
+{c}
+{synonym}
+{title2}
+
+= REST API
+{c}
+{parent=application-programming-interface}
+{wiki}
+
+= GraphQL
+{c}
+{parent=application-programming-interface}
+{wiki}
+
+This is really good.
+
+It allows the client to prepare a single request that gets all the data it wants to fill up a given webpage, rather than doing several separate requests.
+
+So it only gets exactly what it needs, and in a single request.
+
+Very sweet. This is the future of the web.
+
+= Command-line interface
+{parent=computer-user-interface}
+{title2=CLI}
+{wiki}
+
+= Desktop environment
+{parent=command-line-interface}
+{wiki}
+
+\x[tmux] for newbs.
+
+= Graphical user interface
+{parent=computer-user-interface}
+{wiki}
+
+= GUI
+{c}
+{synonym}
+{title2}
+
+= Splash screen
+{parent=graphical-user-interface}
+{wiki}
+
+= Qt
+{c}
+{parent=graphical-user-interface}
+{disambiguate=software}
+{wiki}
+
+= Data compression
+{parent=software}
+{wiki}
+
+= Lossless compression
+{parent=data-compression}
+{wiki}
+
+= Database
+{parent=software}
+{wiki}
+
+= ACID
+{c}
+{disambiguate=database}
+{parent=database}
+{wiki}
+
+= Atomicity
+{disambiguate=database systems}
+{parent=acid-database}
+
+This means that e.g. if you do an `UPDATE` query on multiple rows, and power goes out half way, either all update, or none update.
+
+This is different from \x[isolation-database-systems], which considers instead what can or cannot happen when multiple queries are running in parallel.
+
+= Isolation
+{disambiguate=database systems}
+{parent=acid-database}
+
+Determines what can or cannot happen when multiple queries are running in parallel.
+
+See \x[sql-transaction-isolation-level]{full} for the most common context under which this is discussed: \x[sql].
+
+= Database management system
+{parent=database}
+{wiki}
+
+= DBMS
+{c}
+{synonym}
+
+A \x[software] that implements some database system, e.g. \x[postgresql] or \x[mysql] are two (widely extended) \x[sql] implementations.
+
+= NoSQL
+{c}
+{parent=database}
+{wiki}
+
+= MongoDB
+{c}
+{parent=database}
+{wiki}
+
+List databases:
+``
+echo 'show dbs' | mongo
+``
+
+Delete database:
+``
+use mydb
+db.dropDatabase()
+``
+or:
+``
+echo 'db.dropDatabase()' | mongo mydb
+``
+
+View collections within a database:
+``
+echo 'db.getCollectionNames()' | mongo mydb
+``
+
+Show all data from one of the collections: https://stackoverflow.com/questions/24985684/mongodb-show-all-contents-from-all-collections
+``
+echo 'db.collectionName.find()' | mongo mydb
+``
+
+= Install MongoDB on Ubuntu
+{parent=mongodb}
+
+Tested as of Ubuntu 20.04, there is no Mongo package available by default due to their change to \x[server-side-public-license], which Debian opposed. Therefore, you have to add their custom PPA as mentioned at: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+= Object-relational mapping
+{parent=database}
+{wiki=Object–relational_mapping}
+
+= ORM
+{c}
+{synonym}
+{title2}
+
+Per language:
+* \x[node-js-orm-library]
+
+= How to decide if an ORM is good?
+{parent=object-relational-mapping}
+
+How to decide if an ORM is decent? Just try to replicate every \x[sql] query from \a[nodejs/sequelize/raw/many_to_many.js] on \x[postgresql] and \x[sqlite].
+
+There is only a very finite number of possible reasonable queries on a two table many to many relationship with a join table. A decent ORM \i[has] to be able to do them all.
+
+If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer. E.g. \x[sequelize] v5 is such an ORM that makes you suffer.
+
+The next thing to check are transactions.
+
+Basically, all of those come up if you try to implement a blog \x[hello-world] world such as \x[gothinkster-realworld] \i[correctly], i.e. without unnecessary inefficiencies due to your ORM on top of underlying SQL, and dealing with concurrency.
+
+= Relational database
+{parent=database}
+{wiki}
+
+= Relational database management system
+{parent=relational-database}
+{tag=database-management-system}
+
+= RDBMS
+{c}
+{synonym}
+{title2}
+
+\Include[sql]{parent=relational-database-management-system}
+
+= Table relationship
+{parent=database}
+{wiki=Associative_entity}
+
+= One-to-one
+{disambiguate=data-model}
+{parent=table-relationship}
+{wiki}
+
+= One-to-many
+{parent=table-relationship}
+{wiki=One-to-many_(data_model)}
+
+= Many-to-one
+{synonym}
+{title2}
+
+= Many-to-many
+{parent=table-relationship}
+{wiki=Many-to-many_(data_model)}
+
+= Many-to-many relation
+{synonym}
+
+= File manager
+{parent=software}
+{wiki}
+
+\x[ciro-santilli] used to use file managers in the past.
+
+But he finally converted to a shell `cd` aliases that auto-`ls`: https://github.com/cirosantilli/dotfiles/blob/a51bcc324f0cff0eddd4c3bb8654ec223a0adb7b/home/.bashrc#L1058
+
+= Krusader
+{parent=file-manager}
+{wiki}
+
+The most powerful \x[gui] \x[file-manager] ever?? Infinite configurability??
+
+\x[ciro-santilli] wasted some time on it before he gave up on file managers altogether.
+
+= Ranger
+{disambiguate=file manager}
+{parent=file-manager}
+{wiki}
+
+\x[ciro-santilli] considered it before he stopped using file managers altogether, it is not bad.
+
+= File sharing
+{parent=software}
+{wiki}
+
+= BitTorrent
+{c}
+{parent=file-sharing}
+{wiki}
+
+= Game engine
+{parent=software}
+{wiki}
+
+A library to make \x[game]{p}{parent}.
+
+= Cocos2d
+{c}
+{parent=game-engine}
+{wiki}
+
+\x[ciro-santilli] considered this as the basis for \x[ciro-s-2d-reinforcement-learning-games], but ultimately decided it was a bit too messy. Nice overall though.
+
+= Urho3D
+{c}
+{parent=game-engine}
+{wiki}
+
+Their project lead as of 2018 was pro-CCP: https://github.com/cirosantilli/china-dictatorship/blob/aa1176c57fc2929465294e520b43b50d44e202ba/communities-that-censor-politics.md
+
+= Geographic information system
+{parent=software}
+{title2=GIS}
+{wiki}
+
+= Geographic information system file format
+{parent=geographic-information-system}
+
+= Keyhole Markup Language
+{c}
+{parent=geographic-information-system-file-format}
+{title2=KML}
+{wiki}
+
+Originally by \x[keyhole-inc], which the nbecame \x[google-maps], but the format seems standardized and has non-Google support, so should be OK.
+
+= List of geographic information systems
+{parent=geographic-information-system}
+
+= Google Maps
+{c}
+{parent=list-of-geographic-information-systems}
+{tag=google-product}
+{wiki}
+
+Owned/developed by \x[google]{parent} as of 2020.
+
+Early on jumpstarted from several acquisitions, notably \x[keyhole-inc].
+
+= Keyhole Inc.
+{c}
+{parent=google-maps}
+
+= Google Street View
+{c}
+{parent=google-maps}
+{wiki}
+
+Street View's go into the past mode is the dream of every archaeologist. Ciro can only dream of a magic street view that allows going back to earlier centuries and beyond... isn't it amazing to think that people in the future will have that ability to time travel back to around the year 2006? Ciro wonders how long \x[google] will be able to keep storing data like that.
+
+Thanks, \x[keyhole-inc][CIA].
+
+= OpenStreetMaps
+{c}
+{parent=list-of-geographic-information-systems}
+{title2=OSM}
+{wiki}
+
+It is rare to find a project with such a ridiculously high importance over funding ratio.
+
+E.g., as of 2020, their help login https://help.openstreetmap.org/ shows MyOpenID as an option, which was discontinued in 2014, and not \x[google] \x[oauth].
+
+They do still seem to have a bit more activity than https://gis.stackexchange.com/questions/tagged/openstreetmap on \x[stack-exchange].
+
+Complaints:
+* \x[transliteration]{c} is off by default!...... https://wiki.openstreetmap.org/wiki/Translation You just have to learn all scripts ever. Good luck with the \x[chinese-character]{p}. Genius.
+* In order to see information about places, you have to click "Query features" on the toolbar first. Who made such a terrible UI? Direct click is a much, and so easy to implement?
+* It is impossible to discern different types of paths and other walking path symbols, the symbols are too small, and just scale down to a line no matter how much you zoom in.
+* Power lines are way too visible. While that is kind of cool, it is useless and distracting to most people most of the time.
+* No street-level imagery...: https://help.openstreetmap.org/questions/1178/adding-photos
+* No aerial imagery: https://help.openstreetmap.org/questions/6849/how-can-i-see-the-aerial-imagery-without-editing-the-map But that is kind of understandable, as that one might not be free.
+* No restaurant ratings: https://help.openstreetmap.org/questions/64852/ratings-for-pois because it is "Subjective". OMG those people, such a huge value powerhouse wasted.
+
+  Not just for restaurants, but for other things as well, e.g. sharing of good cycle circuits.
+
+All of this is a shame, because they do have some incredible data that you cannot find easily on other maps because people just edited it up.
+
+= OsmAnd
+{c}
+{parent=openstreetmaps}
+{wiki}
+
+https://github.com/osmandapp/Osmand
+
+Kind of works! Notably, has the amazing cycling database offline for you, if you fall within the 6 area downloads. It is worth supporting these people beyond the 6 free downloads however.
+
+= Ordnance Survey
+{c}
+{parent=list-of-geographic-information-systems}
+{wiki}
+
+Has some of the best map data available for the \x[united-kingdom], but their data appears to be proprietary?
+
+= Integrated development environment
+{parent=software}
+{wiki}
+
+= IDE
+{c}
+{synonym}
+{title2}
+
+IDEs are absolutely essential for developing complex software.
+
+The funny thing is that you don't notice this until someone shows it to you. But once you see it, there is not turning back, just like \x[steve-jobs-customers-don-t-know-what-they-want-quote].
+
+Unfortunately, after the https://movingfulcrum.com/the-fall-of-eclipse/[Fall of Eclipse] (https://web.archive.org/web/20190824081229/https://movingfulcrum.com/the-fall-of-eclipse/[archive]), the IDE landscape in 2019 is horrible and split between:
+* highly buggy but still feature rich Eclipse
+* many may many other feature lacking options using possibly more trendy and forward lasting implementations like https://en.wikipedia.org/wiki/Electron_(software_framework)[Electron]
+* awesome cross-platform proprietary https://en.wikipedia.org/wiki/JetBrains[JetBrains] IDEs
+* the God-like Windows-only proprietary language-lacking Visual Studio
+
+Programmers of the world: unite! Focus on one IDE, and make it work for all languages and all build systems. Give it all the features that Eclipse has, but none of the bugginess. Work with top project to make sure the IDE works for all top projects.
+
+Projects of the world: support one IDE, with in-tree configuration. Complex integration is often required between the IDE and the build system, and successful projects must to that once for all developers. Either do this, or watch you complex project wither away.
+
+Build tool maintainers: make it possible for IDEs to support your tool! E.g., implement https://clang.llvm.org/docs/JSONCompilationDatabase.html[JSON Compilation Database] output so that IDEs can read the exact compiler commands from that, in order to automatically determine how files should be parsed! Or better, just use libllvm in your IDE itself as the main parser.
+
+Ciro is evaluating some IDEs at: https://github.com/cirosantilli/ide-test-projects
+
+= Vim
+{c}
+{parent=integrated-development-environment}
+{wiki=Vim_(text_editor)}
+
+Before we get a decent open source \x[integrated-development-environment], what else can you do?
+
+But also perfect for small one-off files when you don't have the patience to setup said \x[ide].
+
+vim's defaults are atrocious for the 21st century! Vundle is reasonable as an ad-hoc package manager, but it can't set fixed versions of packages:
+* https://stackoverflow.com/questions/15259868/vundle-plugin-install-concrete-version-of-plugin/67870413#67870413
+* https://github.com/VundleVim/Vundle.vim/pull/681
+
+= vader.vim
+{parent=integrated-development-environment}
+
+https://github.com/junegunn/vader.vim
+
+Vimscript unit testing!!!
+
+= plasticboy/vim-markdown
+{parent=vader-vim}
+
+https://github.com/plasticboy/vim-markdown
+
+\x[ciro-santilli] contributed a bit to this, and was even given push rights, see also: see also: \x[ciro-santilli-s-minor-projects].
+
+= honza/vim-snippets
+{parent=vader-vim}
+
+https://github.com/honza/vim-snippets
+
+= Vimium
+{parent=vader-vim}
+
+https://vimium.github.io/
+
+Since you can't escape \x[shitty] browser \x[gui]{p} and live in the command line, the next best thing you can do is to bring Vim bindings to your browser :-)
+
+There is one major annoyance: you can't use ESC to leave the address bar focus, but using Tab as a workaround works:
+* https://superuser.com/a/1560178/128124
+
+= Memory management
+{parent=software}
+{wiki}
+
+= Garbage collection
+{disambiguate=computer science}
+{parent=software}
+{wiki}
+
+= Garbage collection
+{synonym}
+
+= Messaging software
+{parent=software}
+
+= Messaging software that force you to have a mobile phone
+{parent=messaging-software}
+
+Chat programs that don't have a proper web-only operation and force you to have a mobile phone, e.g. \x[whatsapp]{child}.
+
+Heck, even \x[signal-software]{child}, which is supposed to be super secure and good for your privacy, forces you to disclose your freaking cell phone to all contacts! https://lifehacker.com/how-to-use-signal-without-revealing-your-private-phone-1818996580
+
+What is my phone breaks? What if I don't want to have a \x[fucking] phone? What if I move countries and have to change the \x[fucking] number? Also evil but less because done by all: chat programs that can't send you an email https://webapps.stackexchange.com/questions/41528/how-can-i-automatically-forward-facebook-messages-to-my-email-or-phone[if you don't see the message in X minutes].
+
+\x[europe][European Union], time to force those evil \x[company]{p} to use support open standards like \x[xmpp]?
+
+The solution to "how to prevent spam" is simple: your ID is a public key that you own the private key for. If you start getting spammed, generate a new public key, and send it to all contacts, and dump the previous ID.
+
+= Messaging software that force you to share your mobile phone with contacts
+{parent=messaging-software-that-force-you-to-have-a-mobile-phone}
+
+OK, you have to share your phone with the company to prevent spam, but why do you also have to share your phone with contacts? So you are then forced to give your phone number away on the \x[internet].
+
+= Serverless browser P2P chat
+{parent=messaging-software}
+
+* https://stackoverflow.com/questions/2463665/how-create-a-p2p-web-chat-without-any-server
+
+It seems impossible to avoid the signaling server. With signaling server:
+* https://github.com/tom-james-watson/p2p.chat
+* https://github.com/OTRMan/otr.to-chat
+* maybe \x[jitsi]
+
+Games:
+* https://github.com/rameshvarun/netplayjs
+
+= Email
+{parent=messaging-software}
+{wiki}
+
+\x[ciro-santilli]'s email can be found by cloning one of his repositories on \x[github]. It is also given at: \x[how-to-contact-ciro-santilli]{full}.
+
+= Plausible deniability of email password handover
+{parent=email}
+
+https://protonmail.uservoice.com/forums/284483-feedback/suggestions/39962275-plausible-deniability
+
+You need a secondary password that when used leads to an empty inbox with a setting set where message are deleted after 2 days.
+
+This way, if the attacker sends a test email, it will still show up, but being empty is also plausible.
+
+Of course, this means that any new emails received will be visible by the attacker, so you have to find a way to inform senders that the account has been compromised.
+
+So you have to find a way to inform senders that the account has been compromised, e.g. a secret pre-agreed canary that must be checked each time as part of the contact protocol.
+
+= Privacy focused email provider
+{parent=email}
+
+* https://github.com/cirosantilli/cirosantilli.github.io/issues/66
+* https://www.privacytools.io/providers/email/
+
+= ProtonMail
+{c}
+{parent=privacy-focused-email-provider}
+{wiki}
+
+https://www.privacytools.io/providers/email/
+
+https://techcrunch.com/2021/09/06/protonmail-logged-ip-address-of-french-activist-after-order-by-swiss-authorities/ you've fucking got to use \x[tor-browser] with it if you want your IP to remain hidden, learn that...
+
+= List of email providers
+{parent=email}
+
+= Gmail
+{c}
+{parent=list-of-email-providers}
+{wiki}
+
+= Dots in Gmail address
+{parent=gmail}
+
+Ignored: https://support.google.com/mail/answer/7436150?hl=en-GB
+
+This allows you to create multiple non-anonymous accounts on any website that doesn't account for it, as this is not part of the \x[email] protocols in general.
+
+= Guerrilla Mail
+{c}
+{parent=list-of-email-providers}
+{wiki}
+
+OMG those devs are brutes, it's beautiful.
+
+https://www.guerrillamail.com/
+
+https://github.com/flashmob/go-guerrilla
+
+= Microsoft Outlook
+{c}
+{parent=list-of-email-providers}
+{tag=microsoft-product}
+{wiki}
+
+= Instant messaging
+{parent=messaging-software}
+{wiki}
+
+= Instant messaging vs email
+{parent=instant-messaging}
+{wiki}
+
+* https://github.com/cirosantilli/cirosantilli.github.io/issues/69
+* https://www.quora.com/unanswered/Why-were-protocols-like-IRC-and-XMPP-created-after-email-if-both-can-send-messages
+
+= The perfect privacy messaging software features
+{parent=instant-messaging}
+
+Haven't found the one yet:
+* \x[open-source-software], doh
+* \x[end-to-end-encryption]...
+* has browser frontend and \x[android] app
+* public URL without sharing your mobile phone: \x[messaging-software-that-force-you-to-have-a-mobile-phone]
+* self-destroying messages (turned on by default please)
+* user base large enough to give some confidence that it was reviewed for security issues
+* easy/built-in setup over \x[tor-anonymity-network]
+
+Optional but really \x[ideal]:
+* can delete messages from the device of the person you sent it to, no matter how old
+* decentralized, your username is a public key
+
+The state of messaging is ridiculous as of 2020.
+
+= Open instant messaging protocols
+{parent=instant-messaging}
+{wiki}
+
+\x[internet-relay-chat] vs \x[xmpp]: https://stackoverflow.com/questions/4149380/whats-the-best-open-protocol-for-chat-room-software
+
+= Internet Relay Chat
+{c}
+{parent=open-instant-messaging-protocols}
+{wiki}
+
+= IRC
+{c}
+{synonym}
+{title2}
+
+= Signal protocol
+{c}
+{parent=open-instant-messaging-protocols}
+{wiki}
+
+= XMPP
+{c}
+{parent=open-instant-messaging-protocols}
+{wiki}
+
+= List of instant messaging software
+{parent=instant-messaging}
+
+= Bitmessage
+{c}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+https://github.com/Bitmessage/PyBitmessage
+
+TODO evaluate. No `pip install`???
+
+= Discord
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+= Discord
+{c}
+{synonym}
+
+\x[ciro-santilli]'s discord ID: `cirosantilli#8921`. See also: \x[contact].
+
+You gotta be born after the year 2000 to understand it.
+
+This is becoming more and more popular as a group chat with channels and threads possibility as of 2020.
+
+Very similar to \x[slack-software].
+
+No user URLs? https://support.discord.com/hc/en-us/community/posts/360041519131-UserProfilesLinks
+
+They force your username to have 4 random digits? https://www.reddit.com/r/discordapp/comments/43kjdl/whats_the_number_next_to_the_username/
+
+Not possible to anonymously join just one server without creating a new account? What's the point of servers then! https://www.reddit.com/r/discordapp/comments/6gmjl7/changing_nick_before_joining_a_new_server/ Oh, also nicks don't hide your username from the server in any way, you can get the original username by just clicking on the person's username.
+
+No proper threaded discussion without creating new channels? As of 2022 there is kind of a way, but it was a bit obtuse.
+
+As of 2022 they also have a school hub: https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ which auto creates groups by university email access. Good idea, and shows popularity amongst that user group.
+
+Servers don't have an ID to join them? https://www.reddit.com/r/discordapp/comments/b9zdt6/join_discord_server_from_id/
+
+Can only make public servers if you have 1000 members?? https://support.discord.com/hc/en-us/articles/360023968311 Why so much bullshit?? https://www.reddit.com/r/discordapp/comments/6jouf8/how_do_i_make_my_server_public/
+
+Also asked at: https://webapps.stackexchange.com/questions/163441/how-to-create-a-public-discord-server-that-anyone-can-join-without-an-invite
+
+No way to get email notifications for missed activity? https://support.discord.com/hc/en-us/community/posts/360041806392-Can-we-get-an-email-notification-option-for-messages-
+
+= Jami
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{title2=Ring}
+{wiki}
+
+\x[ciro-santilli] worked on it for a brief time in 2016, when it was still called Ring, before he got fired. :-)
+
+The people were quite nice and the project idea is fine, Ciro hopes they succeed.
+
+\Video[https://www.youtube.com/watch?v=xAyIHhbQt3A]
+{title=Ring - Peer to peer network for real time communication - FOSDEM 2016 by \x[ciro-santilli]}
+
+= Jitsi
+{c}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+No chat only? .... https://community.jitsi.org/t/chat-function-only/79067
+
+As of 2020: \x[end-to-end-encryption] optional and turned off as default, and marked as experimental...
+
+Appears to be based on \x[xmpp]: https://community.jitsi.org/t/jitsi-users-is-jitsi-a-regular-xmpp-server/13211
+
+= Pidgin
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+= Signal
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+Basic must haves:
+* \x[end-to-end-encryption]: yes
+* \x[open-source-software]: yes
+
+Other cool stuff:
+* sealed sender: https://signal.org/blog/sealed-sender/ Nice!
+
+Missing:
+* remove the need to share your phone number with contacts: \x[messaging-software-that-force-you-to-share-your-mobile-phone-with-contacts]{parent}. This is a deal breaker for online acquaintances:
+  * https://security.stackexchange.com/questions/231637/signal-contact-people-or-have-people-contact-me-without-revealing-phone-numbe/245665#245665
+  * https://community.signalusers.org/t/have-option-to-set-up-username/8723
+  * https://www.reddit.com/r/signal/comments/8kybil/is_signal_ever_going_to_include_usernames/
+  * remove need for phone completely:
+    * https://community.signalusers.org/t/a-proposal-for-alternative-primary-identifiers/3023
+    * https://community.signalusers.org/t/remove-the-need-for-a-mobile-phone/1543
+    * https://community.signalusers.org/t/registering-with-an-email-address/919
+    * https://community.signalusers.org/t/username-id-registration-without-phone-number/9800
+    * https://community.signalusers.org/t/more-reasons-why-signal-should-ditch-phone-numbers-the-guardian-confirmed-the-identity-of-those-in-the-chat-by-cross-checking-phone-numbers-attached-to-the-signal-accounts/7311
+    * https://community.signalusers.org/t/why-is-phone-and-phone-number-required/1425 https://community.signalusers.org/t/what-is-the-technical-reason-that-i-cannot-use-signal-without-a-phone-number-and-that-i-cannot-use-signal-desktop-without-signal-on-my-phone/11400
+* \x[tor-anonymity-network] routing by default:
+  * https://community.signalusers.org/t/use-the-built-in-tor-project-in-the-program-source/26291
+* option to enable disappearing messages by default:
+  * https://community.signalusers.org/t/ability-to-set-your-own-default-timer-for-disappearing-messages-on-all-new-conversations/5144 "Ability to set your own default timer for disappearing messages on all new conversations"
+  * https://www.reddit.com/r/signal/comments/jhknuz/default_disappearing_messages_timeout_for_new/
+* messages are not encrypted on desktop via the \x[password-manager]!?!?
+  * https://github.com/signalapp/Signal-Desktop/issues/549
+  * https://github.com/signalapp/Signal-Desktop/issues/1318
+  * https://www.reddit.com/r/privacy/comments/fwux29/signal_desktop_stores_the_encryption_key_in_a/
+  * https://whispersystems.discoursehosting.net/t/improve-security-of-desktop-apps-encryption-of-data-at-rest/26494
+  * https://community.signalusers.org/t/why-cant-we-lock-the-desktop-app-with-a-password/1383
+* web client:
+  * https://security.stackexchange.com/questions/238011/why-is-there-no-web-client-for-signal
+* secure anti-forensic \x[data-erasure] to attain \x[plausible-deniability] of disappearing messages:
+  * https://www.reddit.com/r/signal/comments/ki5mbn/how_well_does_signal_delete_old_messages/
+  * https://community.signalusers.org/t/is-deleting-secure-in-its-current-form/908
+  * https://community.signalusers.org/t/traces-of-messages-that-have-disappeared/5049
+
+TODO what's the fucking official discussion/feature request forum?
+* https://community.signalusers.org appears to be the de-facto non-official one.
+* https://github.com/signalapp/Signal-Android/issues/5372
+* https://whispersystems.discoursehosting.net
+* https://github.com/signalapp/Signal-Desktop/issues/1318 closes and points to discoursehosting
+* https://github.com/signalapp/Signal-Desktop/issues/549
+* https://www.reddit.com/r/signal/comments/lipo6z/community_signal_forum_vs_reddit/ gives some good history, says they pay for https://community.signalusers.org/ and have admin powers there.
+
+Feature overview:
+* https://security.stackexchange.com/questions/139493/is-signal-still-more-secure-than-whatsapp
+
+= Slack
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+= Skype
+{c}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+= Telegram
+{c}
+{disambiguate=software}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+Not \x[end-to-end-encrypted] by default, WTF... you have to create "secret chats" for that:
+* https://www.quora.com/Why-does-Telegram-not-use-end-to-end-encryption-by-default-so-that-there-are-not-keys-to-give-to-the-government
+
+You can't sync secret chats across devices, \x[signal-software] handles that perfectly by sending E2EE messages across devices:
+* https://www.reddit.com/r/Telegram/comments/7hx8vd/when_will_telegram_get_secret_chats_crossdevices/
+This is a deal breaker because Ciro needs to type with his keyboard.
+
+Desktop does not have secret chats: https://www.reddit.com/r/Telegram/comments/9beku1/telegram_desktop_secret_chat/ This is likey because it does not store chats locally, it just loads from \x[server] every time as of 2019: https://www.reddit.com/r/Telegram/comments/baqs63/where_are_chats_stored_on_telegram_desktop/ just like the web version. So it cannot have a private key.
+
+Allows you to register a public username and not have to share phone number with contacts: https://telegram.org/blog/usernames-and-secret-chats-v2.
+
+Has \x[reproducible-builds] on Android and iOS: https://core.telegram.org/reproducible-builds 
+
+Self deleting messages added to secret chats in Q1 2021: https://telegram.org/blog/autodelete-inv2
+
+Can delete messages from the device of the person you sent it to, no matter how old.
+
+= WhatsApp
+{c}
+{parent=list-of-instant-messaging-software}
+{wiki}
+
+Claimed to remove metadata from servers unless \x[legally] obliged to collect it: https://www.quora.com/Does-WhatsApp-store-messages-on-its-servers-or-is-all-deleted-after-delivery-and-only-stored-on-recipients-phones/answer/Ciro-Santilli
+
+They've had a few breaches: https://www.whatsapp.com/security/advisories/
+
+They claim to delete metadata: https://www.quora.com/Does-WhatsApp-store-messages-on-its-servers-or-is-all-deleted-after-delivery-and-only-stored-on-recipients-phones/answer/Ciro-Santilli
+
+\Video[https://www.youtube.com/watch?v=X4YsJt4rIOI]
+{title=WhatsApp founder Jan Koum talks about their Journey by Roots (2017)}
+{description=Good talk, explains how everything happened in the perfect location at the perfect time: unemployed people who knew how to code, bought an iPhone, the next big platform, at its very beginning, they had just release the required push notifications \x[api], and he travelled a lot and knew how much SMS sucked, especially international.}
+
+= Why did Facebook buy WhatsApp?
+{parent=whatsapp}
+
+Obviously with the single intention of killing a competitor.
+
+It is impossible to make money off WhatsApp as it is because of \x[end-to-end-encryption].
+
+Facebook just clearly bought it to prevent it from actually growing further and killing facebook.
+
+It is mindblowing that the sale wasn't cancelled due to anti trust.
+
+The outcome of this is that WhatApp will remain with the same feature set forever, while other competitors have been growing, notably \x[discord] and \x[slack-software].
+
+It seems that there is a case looming 10 years after the fact: https://www.cityam.com/facebook-fails-to-block-antitrust-lawsuit-over-whatsapp-and-instagram-ownership/ Wake up???
+
+= WhatsApp profile information is public by default
+{parent=whatsapp}
+{tag=privacy}
+
+Your profile picture, name and status are public by default as of 2022!!! OMG!!!
+
+This means that all secret services in the world have alrady scraped this information for everyone that uses WhatsApp!!!
+
+They just have to go incrementally through the list of all phone numbers... 001 0000 0000, 001 0000 0001, 001 0000 0002, etc. and then you can deduce who has which phone number.
+
+OMG... it is analogous to the \x[facebook-profile-face-dump].
+
+Sure, it is forbidden in theory: https://faq.whatsapp.com/general/security-and-privacy/about-harvesting-personal-information/[].
+
+= Multimedia software
+{parent=software}
+
+= FFmpeg
+{c}
+{parent=multimedia-software}
+{wiki}
+
+FFmpeg is the \x[assembler-computing] of audio and video.
+
+As a result, \x[ciro-santilli] who likes "lower level stuff", has had many many hours if image manipulation fun with this software, see e.g.:
+* the "Media" section of \x[articles].
+* \x[image-ciro-knows-how-to-convert-videos-to-gifs]
+
+As older Ciro grows, the more he notices that FFmpeg can do basically any lower level audio video task. It is just an amazing piece of software, the immediate go-to for any low level operation.
+
+FFmpeg was created by \x[fabrice-bellard], which Ciro deeply respects.
+
+Resize a video: https://superuser.com/questions/624563/how-to-resize-a-video-to-make-it-smaller-with-ffmpeg[]:
+``
+ffmpeg -i input.avi -filter:v scale=720:-1 -c:a copy output.mkv
+``
+Unlike every other convention under the sun, the height in `scale` is the first number.
+
+= FFmpeg is the backend of YouTube
+{c}
+{parent=ffmpeg}
+
+FFmpeg is likely the backend of \x[youtube] through \x[reverse-engineering]: https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html (https://web.archive.org/web/20190519135210/https://streaminglearningcenter.com/blogs/youtube-uses-ffmpeg-for-encoding.html[archive])
+
+On \x[quora]: https://www.quora.com/What-does-YouTube-use-for-encoding-video/answer/Ciro-Santilli
+
+= Concatenate two videos with ffmpeg
+{parent=ffmpeg}
+
+https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg
+
+= ImageMagick
+{c}
+{parent=multimedia-software}
+{wiki}
+
+Crop `20` pixels from the bottom of the image:
+``
+convert image.png -gravity East -chop 20x0 result.png
+``
+
+= Join two images side-by-side
+{parent=imagemagick}
+
+https://stackoverflow.com/questions/20737061/merge-images-side-by-sidehorizontally/63575228#63575228
+
+= Open source software
+{parent=software}
+{wiki}
+
+= Open source
+{synonym}
+
+What happens when https://en.wikipedia.org/wiki/OpenCL[the underdogs] get https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755[together] and try to factor out their efforts to beat some https://en.wikipedia.org/wiki/CUDA[evil] dominant \x[microsoft-windows][power], sometimes \x[linux][victoriously].
+
+Or when https://github.com/facebook[startups] use the cheapest stuff available and randomly become the https://github.com/google[next big thing], and decide to keep maintaining the open stuff to get features for free from other companies, or because they are \x[linux][forced by the Holy GPL].
+
+Open source frees employees. When you change jobs, a large part of the specific knowledge you acquired about closed source a project with your blood and tears goes to the trash. When companies get bought, projects get shut down, and closed source code goes to the trash. What sane non desperate person would sell their life energy into such closed source projects that could die at any moment? Working on open source is the single most important non money perk a company can have to attract the best employees.
+
+Open source is worth more than the mere pragmatic financial value of not having to pay for software or the ability to freely add new features.
+
+Its greatest value is perhaps the fact that it allows people study it, to appreciate the beauty of the code, and feel empowered by being able to add the features that they want.
+
+That is why \x[ciro-santilli] thought:
+\Q[Life is too short for closed source.]
+
+But quoting Ciro's colleague S.:
+\Q[Every software is open source when you read https://en.wikipedia.org/wiki/Assembly_language[assembly code].]
+
+And https://computergraphics.stackexchange.com/questions/7809/what-does-gpu-assembly-look-like["can \x[reverse-engineering][reverse engineer] the undocumented GPU hardware APIs"], \x[ciro-santilli][Ciro] would add.
+
+While software is the most developed open source technology available in the 2010's, due to the https://www.vox.com/recode/2019/6/24/18715421/internet-free-data-ads-cost["zero cost"] of copying it over the Internet, Ciro also believes that \x[open-knowledge][the world would benefit enormously from open source knowledge in all areas on science and engineering], for the same reasons as open source.
+
+= Free and open-source software
+{parent=open-source-software}
+{wiki}
+
+= FOSS
+{c}
+{synonym}
+{title2}
+
+A more precise term for those in the know: \x[open-source-software] that also has a liberal license, for some definition of liberal.
+
+\x[ciro-santilli] defines liberal as: "can be commercialized without paying anything back" (but possibly subject to other restrictions).
+
+He therefore does not consider \x[creative-commons-license]{p} with NC to be FOSS.
+
+For the newbs, the term \x[open-source-software] is good enough, since most open source software is also FOSS.
+
+But when it's not, it's crucial to know.
+
+= Models for financing open source software
+{parent=free-and-open-source-software}
+
+* \x[sponsorware]{child}
+
+= Software developer collective
+{parent=models-for-financing-open-source-software}
+
+This model can work well when there is a set of commonly used libraries that some developers often use together, but such that there isn't enough maintenance work for each one individually.
+
+So what people do is to create a group that maintains all those projects, to try and get enough money to survive from the contributions done primarily for each one individually.
+
+Examples:
+* https://github.com/pmndrs
+
+= Open source software that is not-FOSS
+{parent=free-and-open-source-software}
+{wiki}
+
+* \x[gitlab]{child}
+
+= Source code leaks
+{parent=open-source-software}
+
+* \x[nintendo]
+  * 2020-05-04 leaks via the BroadOn company
+  * items
+    * Wii \x[verilog]
+  * coverage
+    * https://www.ladbible.com/technology/gaming-the-biggest-nintendo-hack-in-history-leaks-console-source-codes-20200504
+  * fake leak commentary
+    * "Sebastian" is apparently reuploaded devkit demos claiming that they are from this leak, if that is correct, \x[fuck] him:
+      * https://www.youtube.com/watch?v=6FSOFrgbi4I&lc=UgwWEWT3oyxf85J0PQB4AaABAg
+      * https://www.youtube.com/watch?v=teRRcouGxwc&list=PL8Yms2YDl4qOXI99jpI8oH75d3X2oxnBM&index=14
+
+= Open knowledge
+{parent=open-source-software}
+{wiki}
+
+\x[ciro-santilli]'s raison d'etre, one of his attempts: \x[ourbigbook-com].
+
+The outcome of closed knowledge is \x[reverse-engineering].
+
+= Open educational resources
+{parent=open-knowledge}
+{title2=OER}
+{wiki}
+
+Projects:
+* \x[mit-opencourseware]
+* several \x[e-learning-website]{p}, e.g. \x[openstax]
+
+= Horrors of open source
+{parent=open-source-software}
+
+Not everything is perfect.
+
+One big problem of many big open source projects is that they are contributed to by separate selfish organizations, that have private information. Then what happens is that:
+* people implement the same thing twice, or one change makes the other completely unmergeable
+* you get bugs but can't share your closed source test cases, and then you can't automate tests for them, or clearly demonstrate the problem
+* other contributors don't see your full semi secret important motivation, and may either nitpick too much or take too long to review your stuff
+
+Another common difficulty is that open source maintainers may simply not care enough about their own project (maybe they did in the past but lost interest) to review external patches by people they don't know.
+
+This is understandable: a new patch, is a new risk of things breaking.
+
+Therefore, if you ever submit patches and they get ignore, don't be too sad. It just comes down to a question of maintenance cost, and means that you will waste some extra time on the next rebase. You just have to decide your goals and be cold about it:
+* are you doing the right thing and going for a specific goal \x[backward-design]? Then just fork, run as fast as possible towards a minimum viable product, and if you start to feel that rebase is costing you a lot, or feel you could get some open source fame for cheap, open reviews and see what upstream says. If they ignore you, politely tell yourself in your mind silently "\x[fuck] them", and carry on with the MVP
+* otherwise, e.g. you just want to randomly help out, you have to ask them before doing anything big "how can I be of help". If I propose a patch for this issue, do you promise to review it?
+
+Writing documentation in an open source project in which you don't have immediate push rights is another major pain due to code reviews. Code code reviews tend to be much less subjective, because if you do something wrong, stuff crashes, runs slower, or you need more lines of code to reach the same goal. There are tradeoffs, but in a limited number. Documentation code reviews on the other hand, are an open invitation to https://en.wikipedia.org/wiki/Law_of_triviality[infinite bike-shedding], since you can't "run" documentation through a standardized \x[brain][brain model]. Much better is for one good documenter person to just make one cohesive \x[stack-overflow] post, and ping others with more knowledge to review details or add any missing pieces :-)
+
+= Code drop
+{parent=open-source-software}
+
+\x[open-source]{c} development model in which developers develop in private, and only release code to the public during releases.
+
+Notable example project: \x[android-open-source-project].
+
+This development model basically makes reporting bugs and sending patches a waste of time, because many of them will already have been solved, which is why this development model is \x[evil]{parent}.
+
+= Closed source is less bad on online services
+{parent=open-source-software}
+
+\x[ciro-santilli] can accept closed source on \x[server] products more easily than offline, because the servers have to be paid for somehow (by stealing your private data).
+
+= Closed source offline software used by millions
+{parent=closed-source-is-less-bad-on-online-services}
+
+Closed source on offline products used by millions of people is \x[evil], when you could just have those for free with \x[open-source-software]! Thus Ciro's hatred for \x[microsoft-windows]{child} and \x[macos]{child} (at \x[is-the-macos-kernel-open-source][least userland, maybe]).
+
+= Closed source software
+{parent=open-source-software}
+
+= Closed source
+{synonym}
+
+The opposite of \x[open-source-software].
+
+= Closed standard
+{parent=closed-source-software}
+
+\x[iso] is the main culprit of this \x[bullshit], some notable examples related to \x[open-source-software]:
+* \x[ansi-c]
+* \x[sql-standard]
+* \x[verilog]
+
+The only low level thing that escaped this was \x[opengl] via \x[khronos], what heroes those people are.
+
+How the hell are you supposed to develop an open source implementation of something that has a closed standard?
+
+Not to mention open source test suites, that would be way too much to ask for, those always end up being made by some shady small companies that go bankrupt from time to time, see e.g. .
+
+= International Organization for Standardization
+{c}
+{parent=closed-standard}
+{wiki}
+
+= ISO
+{c}
+{synonym}
+
+= Inner source
+{parent=closed-source-software}
+{wiki}
+
+If you are going to do \x[closed-source], at least do it like this.
+
+Basically the opposite of \x[need-to-know] for \x[software].
+
+= Personal information management
+{parent=software}
+{wiki}
+
+= Productivity software
+{parent=software}
+{wiki}
+
+= LibreOffice
+{c}
+{parent=productivity-software}
+{wiki}
+
+These people are heroes. There's nothing else to say.
+
+= Program optimization
+{parent=software}
+{wiki}
+
+= Benchmark
+{parent=program-optimization}
+{wiki}
+
+= Profiling
+{disambiguate=computer programming}
+{parent=program-optimization}
+{wiki}
+
+= Profile
+{disambiguate=computer programming}
+{synonym}
+
+\Include[programming-language]{parent=software}
+
+= Recreational programming
+{parent=software}
+
+= Code golf
+{parent=recreational-programming}
+{wiki}
+
+= Search engine
+{parent=software}
+{wiki}
+
+= Reverse image search
+{parent=software}
+{wiki}
+
+= Scientific computing
+{parent=software}
+{wiki}
+
+= Computer simulation
+{parent=scientific-computing}
+{wiki}
+
+= Computer algebra system
+{parent=scientific-computing}
+{wiki}
+
+= SymPy
+{parent=computer-algebra-system}
+{wiki}
+
+This is the dream \x[exam][cheating] software every student should know about.
+
+It also has serious applications obviously. https://www.sympy.org/scipy-2017-codegen-tutorial/ mentions \x[code-generation] capabilities, which sounds super cool!
+
+The code in this section was tested on `sympy==1.8` and \x[python] 3.9.5.
+
+Let's start with some basics. \x[fraction]{p}:
+``
+from sympy import *
+sympify(2)/3 + sympify(1)/2
+``
+outputs:
+``
+7/6
+``
+Note that this is an exact value, it does not get converted to \x[floating-point-number]{p} where precision could be lost!
+
+We can also do everything with symbols:
+``
+from sympy import *
+x, y = symbols('x y')
+expr = x/3 + y/2
+print(expr)
+``
+outputs:
+``
+x/3 + y/2
+``
+We can now evaluate that expression object at any time:
+``
+expr.subs({x: 1, y: 2})
+``
+outputs:
+``
+4/3
+``
+
+How about a square root?
+``
+x = sqrt(2)
+print(x)
+``
+outputs:
+``
+sqrt(2)
+``
+so we understand that the value was kept without simplification. And of course:
+``
+sqrt(2)**2
+``
+outputs `2`. Also:
+``
+sqrt(-1)
+``
+outputs:
+``
+I
+``
+`I` is the \x[imaginary-unit]. We can use that symbol directly as well, e.g.:
+``
+I*I
+``
+gives:
+``
+-1
+``
+
+Let's do some trigonometry:
+``
+cos(pi)
+``
+gives:
+``
+-1
+``
+and:
+``
+cos(pi/4)
+``
+gives:
+``
+sqrt(2)/2
+``
+The exponential also works:
+``
+exp(I*pi)
+``
+gives;
+``
+-1
+``
+
+Now for some \x[calculus]. To find the \x[derivative] of the \x[natural-logarithm]:
+``
+from sympy import *
+x = symbols('x')
+diff(ln(x), x)
+``
+outputs:
+``
+1/x
+``
+Just read that. One over x. Beauty.
+
+Let's do some more. Let's solve a simple \x[differential-equation]:
+``
+y''(t) - 2y'(t) + y(t) = sin(t)
+``
+Doing:
+``
+from sympy import *
+x = symbols('x')
+f, g = symbols('f g', cls=Function)
+diffeq = Eq(f(x).diff(x, x) - 2*f(x).diff(x) + f(x), sin(x)**4)
+print(dsolve(diffeq, f(x)))
+``
+outputs:
+``
+Eq(f(x), (C1 + C2*x)*exp(x) + cos(x)/2)
+``
+which means:
+$$
+f(x) = C_1 + C_2x e^x + cos(x)/2
+$$
+To be fair though, it can't do anything crazy, it likely just goes over known patterns that it has solvers for, e.g. if we change it to:
+``
+diffeq = Eq(f(x).diff(x, x)**2 + f(x), 0)
+``
+it just blows up:
+``
+NotImplementedError: solve: Cannot solve f(x) + Derivative(f(x), (x, 2))**2
+``
+Sad.
+
+Let's try some \x[polynomial-equation]{p}:
+``
+from sympy import *
+x, a, b, c = symbols('x a b c d e f')
+eq = Eq(a*x**2 + b*x + c, 0)
+sol = solveset(eq, x)
+print(sol)
+``
+which outputs:
+``
+FiniteSet(-b/(2*a) - sqrt(-4*a*c + b**2)/(2*a), -b/(2*a) + sqrt(-4*a*c + b**2)/(2*a))
+``
+which is a not amazingly nice version of the \x[quadratic-formula]. Let's evaluate with some specific constants after the fact:
+``
+sol.subs({a: 1, b: 2, c: 3})
+``
+which outputs
+``
+FiniteSet(-1 + sqrt(2)*I, -1 - sqrt(2)*I)
+``
+Let's see if it handles the \x[quartic-equation]:
+``
+x, a, b, c, d, e, f = symbols('x a b c d e f')
+eq = Eq(e*x**4 + d*x**3 + c*x**2 + b*x + a, 0)
+solveset(eq, x)
+``
+Something comes out. It takes up the entire terimnal. Naughty. And now let's try to \x[abel-ruffini-theorem][mess with it]:
+``
+x, a, b, c, d, e, f = symbols('x a b c d e f')
+eq = Eq(f*x**5 + e*x**4 + d*x**3 + c*x**2 + b*x + a, 0)
+solveset(eq, x)
+``
+and this time it spits out something more magic:
+``
+ConditionSet(x, Eq(a + b*x + c*x**2 + d*x**3 + e*x**4 + f*x**5, 0), Complexes)
+``
+Oh well.
+
+Let's try some \x[linear-algebra].
+``
+m = Matrix([[1, 2], [3, 4]])
+``
+Let's invert it:
+``
+m**-1
+``
+outputs:
+``
+Matrix([
+[ -2,    1],
+[3/2, -1/2]])
+``
+
+= Scientific visualization software
+{parent=scientific-computing}
+
+https://en.wikipedia.org/wiki/Scientific_visualization
+
+\x[ciro-santilli][Ciro's] large dataset survey: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]{full}.
+
+= Open source scientific computing consultancies
+{parent=scientific-visualization-software}
+
+Huge respect to this companies.
+
+= Enthought
+{c}
+{parent=open-source-scientific-computing-consultancies}
+{wiki}
+
+= Kitware
+{c}
+{parent=open-source-scientific-computing-consultancies}
+{wiki}
+
+= Plotting software
+{parent=scientific-visualization-software}
+
+= Survey of open source interactive plotting software with a 10 million point scatter plot benchmark by Ciro Santilli
+{c}
+{parent=plotting-software}
+
+https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461
+
+By \x[ciro-santilli].
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/VisIt_zoom_in_10_million_straight_line_plot_with_some_marked_points.png]
+{source=https://stackoverflow.com/questions/5854515/large-plot-20-million-samples-gigabytes-of-data/55967461#55967461}
+
+= Matplotlib
+{c}
+{parent=plotting-software}
+{wiki}
+
+It does a huge percentage of what you want easily, and from \x[python][the language that you want to use].
+
+Tends to be \x[ciro-santilli][Ciro]'s pick if \x[gnuplot] can't handle the use case, or if the project is really really serious.
+
+Couldn't handle exploration of large datasets though: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
+
+Examples:
+* \a[matplotlib/hello.py]
+* \a[matplotlib/educational2d.py]
+* \a[matplotlib/axis.py]
+* \a[matplotlib/label.py]
+* Line style
+  * \a[matplotlib/line_points.py]
+  * \a[matplotlib/tick.py]
+  * \a[matplotlib/prop_cycle.py]
+* Subplots
+  * \a[matplotlib/subplots.py]
+  * \a[matplotlib/subplots_add.py]
+* \a[matplotlib/two_lines.py]
+  * \a[matplotlib/plot_matrix.py]
+  * \a[matplotlib/plot_matrix_x.py]
+  * \a[matplotlib/legend_outside.py]
+* Data from files
+  * \a[matplotlib/plotfile.py]
+* Specialized
+  * \a[matplotlib/bloch_sphere_walk.py]
+  * \a[matplotlib/bloch_sphere.py]
+
+= gnuplot
+{c}
+{parent=plotting-software}
+{wiki=Gnuplot}
+
+Tends to be \x[ciro-santilli]'s first attempt for quick and dirty graphing: https://github.com/cirosantilli/gnuplot-cheat[].
+
+\x[domain-specific-language]. When it get the jobs done, it is in 3 lines and it feels great.
+
+When it doesn't, you Google for an hours, and then you give up in frustration, and fall back to \x[matplotlib].
+
+Couldn't handle exploration of large datasets though: \x[survey-of-open-source-interactive-plotting-software-with-a-10-million-point-scatter-plot-benchmark-by-ciro-santilli]
+
+= Software bug
+{parent=software}
+{wiki}
+
+= Glitch
+{parent=software-bug}
+{wiki}
+
+A glitch is more precisely a \x[software-bug] that is hard to reproduce. But it has also been used to mean a software bug that is not very serious.
+
+= Debugging
+{parent=software-bug}
+{wiki}
+
+Related:
+
+* \x[keep-debug-notes]{child}
+
+= Bisection
+{disambiguate=software engineering}
+{parent=debugging}
+
+One of the Holiest age old debugging techniques!
+
+\x[git] has some helpers to help you achieve bisection Nirvana: https://stackoverflow.com/questions/4713088/how-to-use-git-bisect/22592593#22592593
+
+Obviously not restricted to software engineering alone, and used in all areas of engineering, e.g. \x[video-air-tight-vs-vacuum-tight-by-alphaphoenix-2020] uses it in \x[vacuum-engineering].
+
+The cool thing about bisection is that it is a brainless process: unlike when using a \x[debugger], you don't have to understand anything about the system, and it incredibly narrows down the problem cause for you. Not having to think is great!
+
+= Debugger
+{parent=debugging}
+{wiki}
+
+= GNU Debugger
+{c}
+{parent=debugger}
+
+= GDB
+{c}
+{synonym}
+{title2}
+
+Just add \x[gdb-dashboard], and you're good to go.
+
+= Reverse debugging
+{parent=gnu-debugger}
+
+Nirvana!!!
+
+The best open source implementation as of 2020 seems to be: \x[mozilla-rr].
+
+* https://stackoverflow.com/questions/1206872/go-to-previous-line-in-gdb/46996380#46996380
+* https://stackoverflow.com/questions/1470434/how-does-reverse-debugging-work/53063242#53063242
+* https://stackoverflow.com/questions/3649468/setting-breakpoint-in-gdb-where-the-function-returns/46116927#46116927
+* https://stackoverflow.com/questions/27770896/how-to-debug-a-rare-deadlock/50073993#50073993
+* https://stackoverflow.com/questions/522619/how-to-do-bidirectional-or-reverse-debugging-of-programs/50074106#50074106 link only, marked as duplicate of go to previous line
+* https://softwareengineering.stackexchange.com/questions/181527/why-is-reverse-debugging-rarely-used
+
+= Mozilla rr
+{c}
+{parent=reverse-debugging}
+
+https://github.com/mozilla/rr
+
+= GDB Dashboard
+{c}
+{parent=gnu-debugger}
+
+https://github.com/cyrus-and/gdb-dashboard
+
+\x[gdb] Nirvana?
+
+https://stackoverflow.com/questions/10115540/gdb-split-view-with-code/51301717#51301717
+
+\Image[https://web.archive.org/web/20200504130959if_/https://i.stack.imgur.com/mHC8f.png]
+{height=600}
+{title=Screenshot of terminal running GDB Dashboard.}
+{source=https://github.com/cyrus-and/gdb-dashboard/tree/2d31a3b391e5d0e032b791e1fb7172338b02cecb}
+
+= Minimal working example
+{parent=software-bug}
+{wiki}
+
+The \x[musical-study] of \x[software-engineering].
+
+\x[ciro-santilli] is obsessed by those in order to learn any new concept, not just for bug reporting.
+
+This includes to learn more theoretical subjects like \x[physics] and \x[mathematics].
+
+= Software company
+{parent=software}
+{tag=company}
+{wiki}
+
+= Software documentation
+{parent=software}
+{wiki}
+
+= README
+{c}
+{parent=software-documentation}
+{wiki}
+
+Please, use \x[asciidoc] and \x[one-page-to-rule-them-all].
+
+= Software engineering
+{parent=software}
+{wiki}
+
+= Software development
+{parent=software-engineering}
+{wiki}
+
+= Software development principle
+{parent=software-development}
+
+= Don't repeat yourself
+{parent=software-development-principle}
+{wiki}
+
+= Yet another
+{parent=don-t-repeat-yourself}
+{wiki}
+
+The mandatory \x[xkcd]: \x[xkcd-927-standards].
+
+= DRY
+{c}
+{synonym}
+
+= Ciro Santilli's software engineering wisdom
+{c}
+{parent=software-engineering}
+{tag=essays-by-ciro-santilli}
+
+Of course, "\x[ciro-santilli]" with quotes, since all of those are either taken directly from others, or had been previously formulated by others.
+
+= Excessive encapsulation is the root of much evil
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+Some anecdotes.
+
+\x[ciro-santilli] never splits up functions unless there is more than one calling point. If you split early, the chances that the interface will be wrong are huge, and a much larger refactoring follows.
+
+If you just want to separate variables, just use a scope e.g.:
+
+``
+int cross_block_var;
+
+// First step.
+{
+    int myvar;
+}
+
+// Second step.
+{
+    int myvar;
+}
+``
+
+Ciro has seen and had to deal with in his lifetime with two projects that had like 3 to 10 git separate Git repositories, all created and maintained by the same small group of developers of the same organization, even though one could not build without the other. Keeping everything in sync was Hell! Why not just have three directories inside a single repository with a single source of truth?
+
+Another important case: \x[linux][Linux] should have at least a C standard library, init system, and shell in-tree, like \x[bsd-operating-system]{p}, as mentioned at: \x[linux][Linux]{full}.
+
+= The development cycle time is your God
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+A slow development test cycle will kill your software.
+
+New developers won't want to learn your project, because they would rather shoot themselves.
+
+This means that build time, and the time to run tests, must be short.
+
+5 seconds to rebuild is the maximum upper limit.
+
+Of course, at some point software gets large enough that things won't fit anymore in 5 seconds. But then you \i[must] have either some kind of build caching, or options to do partial builds/tests that will bring things down to that 5 second mark.
+
+You also have to spend some time profiling execution and build from scratch times.
+
+A slow build from scratch will mean that your \x[continuous-integration] costs a lot, money that could be invested in a new developer!
+
+It also means that people won't bother to reproduce bugs on given commits, or \x[bisection-software-engineering][bisect stuff].
+
+One anecdote comes to mind. \x[ciro-santilli] was trying to debug something, and more experience colleague came over.
+
+To reproduce a problem, ciro was running one command, wait 5 seconds, run a second command, wait 5 seconds, run a third command:
+``
+cmd1
+# wait 5 seconds
+cmd2
+# wait 5 seconds
+cmd3
+``
+
+The first thing the colleague said: join those three commands into one:
+``
+cmd1;cmd2;cmd3
+``
+And so, \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
+
+= Everything that is not tested breaks
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+= Everything can break everything
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+Whenever someone asks:
+\Q[I can only see this one thing different our setups, do you think it could be the cause of our different behaviour?]
+you don't need to read anymore, just point them to this page immediately. \x[virtualization]{c} for the win.
+
+= You aren't gonna need it
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+= YAGNI
+{c}
+{synonym}
+{title2}
+
+Sometimes you are really certain that something is a required substep for another thing that is coming right afterwards. 
+
+When things are this concrete, fine, just do the substep.
+
+But you have to always beware of cases where "I'm sure this will be needed at some unspecified point in the future", because such points tends to never happen.
+
+YAGNI is so fundamental, there are several closely related concepts to it:
+* \x[backward-design]
+* \x[assign-the-hard-task-to-the-lazy-person]
+
+= KISS principle
+{c}
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{tag=simplicity-is-the-ultimate-sophistication}
+{wiki}
+
+= Keep it simple, stupid
+{synonym}
+{title2}
+
+The software engineer phrasing of \x[simplicity-is-the-ultimate-sophistication].
+
+Like all other principles, it is not absolute.
+
+But it is something that you should always have on the back of your mind.
+
+\x[you-aren-t-gonna-need-it] is closely related, as generally the extra unnecessary complications are set in place to accommodate useless features that will never be needed.
+
+= Hofstadter's law
+{c}
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+= It is impossible to predict how long it will take to do something
+{synonym}
+
+The trivial takes a few hours.
+
+The easy takes a week.
+
+And what seemed hard takes a few hours.
+
+As "deadlines" approach, feature sets get cut down, then there are delays, and finally a feasible feature set is delivered some time after the deadline.
+
+The only deadlines that can be met are those of tasks which have already been done but not announced.
+
+This is of course \x[hofstadter-s-law].
+
+On the other hand, it is also known that the time it takes for a task to be done expands without limits to match the deadline. And therefore, without deadlines, tasks will take forever and never get done.
+
+And so, in a moment, perceiving \x[koan][this paradox], \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
+
+= Brooks's law
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+= Sometimes you can debug software by staring at the code for long enough
+{parent=ciro-santilli-s-software-engineering-wisdom}
+{wiki}
+
+Once upon a time, when \x[ciro-santilli] had a job, he had a programming problem.
+
+A senior developer came over, and rather than trying to run and modify the code like an idiot, which is what \x[ciro-santilli] usually does (see also experimentalism remarks at \x[ciro-santilli-s-bad-old-event-memory]{full}), he just stared at the code for about 10 minutes.
+
+We knew that the problem was likely in a particular function, but it was really hard to see why things were going wrong.
+
+After the 10 minutes of examining every line in minute detail, he said:
+\Q[I think this function call has such or such weird edge case]
+and truly, that was the cause.
+
+And so, \x[the-correlation-between-software-engineers-and-buddhism][Ciro was enlightened].
+
+= Office space design and remote work
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+Working remotely is hard if you don't already highly master the software and enterprise systems used.
+
+Also you don't feel people's love as strongly, and usefulness is built on love, see also \x[steve-jobs]'s Pixar office space design philosophy.
+
+But please, give workers a small silent office so that we can concentrate instead of a silly open space, and create an internal social network so people can see what others are doing.
+
+Remote working is much better if the majority of the team also does it, otherwise you will get excluded. Maybe after VR...
+
+= Keep debug notes
+{parent=ciro-santilli-s-software-engineering-wisdom}
+
+When \x[debugging] complex software, make sure to keep notes of every interesting find you make in a note file, as you extract it from the \x[integrated-development-environment] or \x[debugger].
+
+Especially if your \x[ciro-santilli-s-bad-old-event-memory][memory sucks like Ciro's].
+
+This is incredibly helpful in fully understanding and then solving complex bugs.
+
+= "Hello, World!" program
+{parent=software-engineering}
+{wiki}
+
+= Hello world
+{synonym}
+
+The most important \x[program] ever written!!!
+
+Other programs that can be considered "hello worlds" in different contexts:
+
+* \x[web-development]
+  * \x[a-blog-in-every-web-framework]
+* \x[video-game]
+  * Doom is the hello world \x[shooter-game]
+
+= Time to Hello World
+{parent=hello-world-program}
+
+= Software engineer
+{parent=software-engineering}
+{wiki}
+
+= Programmer
+{synonym}
+
+Poet warriors monkeys? Or Code peasants (https://baike.baidu.com/item/码农/10262742[码农]) according to the Chinese.
+
+\x[ciro-santilli] claims to be one of them.
+
+Much like a pianist plays his piano, a software engineer plays his \x[computer].
+
+= The correlation between software engineers and Buddhism
+{parent=software-engineer}
+
+= A correlation between software engineers and Buddhism
+{synonym}
+
+\x[ciro-santilli] believes that there is a positive correlation between being a \x[software-engineer][software engineer] and liking \x[buddhist]-like things.
+
+Maybe it is linked to minimalism and \x[dry], which software engineers value so greatly.
+
+Even Ciro had to try an unoriginal Buddhist joke intro in https://stackoverflow.com/questions/572897/how-does-javascript-prototype-work/23877420#23877420[one of this Stack Overflow answers].
+
+Ciro also feels that his https://github.com/cirosantilli/linux-kernel-module-cheat/tree/e1d0a2fafbb35c9e65c1a8a0b6d46df3e9161461/userland["minimal reproducible example" scientific language/concept learning method obsession] of breaking things into tiny sub-problems has a strong link with \x[koan]{p}.
+
+Other programmers are equally obsessed by koans:
+* http://www.catb.org/~esr/writings/unix-koans/ "The Unix Koans of Master Foo - Rootless Root (无根的根)" by the legendary https://en.wikipedia.org/wiki/Eric_S._Raymond[Eric Steven Raymond] is notable
+* http://thecodelesscode.com/ "The Codeless Code" by anonymous Qi.
+* http://canonical.org/~kragen/tao-of-programming.html
+* https://wiki.c2.com/?MysticalProgrammingKoans
+* http://rubykoans.com/[] even \x[evil] programming languages adopt them!
+
+Another thing that points the correlation out is the existence of https://wattsalan.github.io/ on a `github.io` about \x[alan-watts].
+
+= List of software engineers
+{parent=software-engineer}
+
+= Aaron Swartz
+{c}
+{parent=list-of-software-engineers}
+{wiki}
+
+Aaron, \x[ciro-santilli] will complete \x[ourbigbook-com][your quest to make eduction free]. Just \x[legally] this time, with the and with the \x[creative-commons-license] you helped to create.
+
+Ciro likes how \x[the-internet-s-own-boy-2014] explains how Aaron felt like high school was \x[bullshit], and that he could \x[autodidacticism][learn whatever he wanted from books], \x[ourbigbook-com/motivation][which is one of Ciro's key feelings].
+
+It also mentions how he was a natural teacher from a very early age.
+
+= Guerilla Open Access Manifesto by Aaron Swartz (2008)
+{parent=aaron-swartz}
+{wiki}
+
+https://gist.github.com/briandoll/4522952
+
+Hmmm, he does not know how to spell guerilla? \x[sic]? https://www.quora.com/What-is-the-correct-spelling-guerilla-or-guerrilla
+
+Note to self: if you are going to commit a \x[crime], don't publish your plans online.
+
+\x[ross-ulbricht]'s diaries come to mind.
+
+That's how \x[russian] \x[shadow-library] maintainers do it, they know how to crime good old Russians. Maybe there is a good thing about having \x[dictatorship]{p} in the world that give zero fucks about \x[american] copyright laws. There will always be some random \x[russian] academic who will implement this and not go to jail. Maybe it's even \x[government][state] sponsored.
+
+= The Internet's Own Boy (2014)
+{parent=aaron-swartz}
+{wiki}
+
+= Sandy Maguire
+{c}
+{parent=list-of-software-engineers}
+{wiki}
+
+* https://sandymaguire.me
+* https://github.com/isovector/
+
+Lots of similar ideologies to \x[ciro-santilli], love it:
+* https://sandymaguire.me/about/[]:
+  * he's an \x[idealist]
+  \Q[I might best be described somewhere between independent researcher and voluntarily-unemployed bum. At the ripe old age of 27 I decided to quit my highly-lucrative engineering job and decide to focus more on living than on grinding for the man. It's what you might call a work in progress.]
+* https://sandymaguire.me/blog/reaching-climbing/[]: \x[don-t-be-a-pussy]
+  \Q[Last Friday was my final day at work. According to my facebook profile, I am now "happily retired." As of today, I don't plan to do another day of "traditional work" in my life. That's not to say that I'll be sitting idle playing tiddly winks. I want to build things, to dedicate my life to independent study, and to get really, really good with building communities. I don't have time for any of this "work" stuff that somehow pervades our entire culture, choking our inspiration and sapping our energy away from the things we'd rather be doing.]
+  One is also reminded of \x[gwern-branwen]. Sandy is also into self-improvement stuff, so even more like Gwern. This is a point Ciro diverges on. Ciro works actively on self-worsening.
+* he thinks \x[university] is useless:
+  * https://sandymaguire.me/blog/where-uni-fails/ Where University Fails (2018), mostly talking about \x[backward-design]
+  * https://sandymaguire.me/blog/gatekept/ rejected from \x[imperial-college] \x[phd] program due to \x[grade-exam]{p} being slightly too low for their stupid requirements, even though he had a referral already, and an amazing CV
+* he likes \x[jazz]: https://sandymaguire.me/blog/too-smart/
+
+Other interesting points:
+* https://sandymaguire.me/blog/sandy-runback/ he changed his own name to Sandy because he didn't like it, he was born Alexander
+* https://algebradriven.design/ \x[closed-source] books though, ouch. At least they seem to have been made with \x[leanpub] though, could be worse.
+
+He's a \x[haskell] person.
+
+= Dan Dascalescu
+{c}
+{parent=list-of-software-engineers}
+
+His website is down as of 2020, shame: https://wiki.dandascalescu.com/essays/english-universal-language
+
+= English as a universal language by Dan Dascalescu (2008)
+{c}
+{parent=dan-dascalescu}
+
+https://wiki.dandascalescu.com/essays/english-universal-language
+
+https://web.archive.org/web/20200317221752/https://wiki.dandascalescu.com/essays/english-universal-language
+
+\x[dan-dascalescu]'s version of \x[having-more-than-one-natural-language-is-bad-for-the-world].
+
+= Donald Knuth
+{c}
+{parent=list-of-software-engineers}
+{wiki}
+
+= Knuth reward check
+{c}
+{parent=donald-knuth}
+{wiki}
+
+* https://tex.stackexchange.com/questions/110586/327-68-knuth-reward-check
+* https://www.quora.com/What-is-it-like-to-receive-a-Knuth-reward-check
+* https://www-cs-faculty.stanford.edu/~knuth/boss.html
+
+= Eli Benderski
+{c}
+{parent=list-of-software-engineers}
+
+Homepage: https://eli.thegreenplace.net/
+
+Amazing \x[systems-programming] tutorials. Whenever you \x[google] a hard topic, his blog comes up.
+
+Also has many great contributions on \x[stack-overflow]: https://stackoverflow.com/users/8206/eli-bendersky[]
+
+As of 2016, Eli worked at \x[google] (https://dl.acm.org/citation.cfm?doid=2854038.2854041[reference]). TODO before that, I had found his earlier info previously but lost it.
+
+Eli focuses mostly on \x[compiler-toolchain]{p}, apparently with specific focus on  
+
+He also has some \x[mathematics] stuff, so cute: https://eli.thegreenplace.net/2015/change-of-basis-in-linear-algebra/
+
+= Fabrice Bellard
+{c}
+{parent=list-of-software-engineers}
+{wiki}
+
+Creator of \x[qemu] and \x[ffmpeg], both of which \x[ciro-santilli] deeply respects. And a bunch other random stuff.
+
+What is shocking about Fabrice this is that both are insanely important software that \x[ciro-santilli] really likes, and both seem to be completely unrelated subjects!
+
+\x[google] made billions on top of this dude:
+* \x[ffmpeg-is-the-backend-of-youtube]
+* \x[qemu] is the default emulator for https://en.wikipedia.org/wiki/Android_Studio[Android Studio] as of 2019, which \x[android] developers use by default under the hood to develop Android Apps on their desktop without the need for a real device.
+
+At last but not least, Fabrice also studied in the same school that Ciro studied in France, \x[ecole-polytechnique].
+
+It is a shame that he keeps such a low profile, there are no videos of him on the web, and he https://smartbear.com/blog/test-and-monitor/fabrice-bellard-portrait-of-a-super-productive-pro/[declines interviews].
+
+Another surprising fact is that Fabrice has not worked for the "Big Tech Companies" as far as can be publicly seen, but rather mostly on smaller companies that he co-founded: https://www.quora.com/Computer-Programmers/Computer-Programmers-Where-is-Fabrice-Bellard-employed
+
+= Gwern Branwen
+{c}
+{parent=software-engineer}
+
+A \x[lesswrong] person.
+
+= gwern.net
+{c}
+{parent=gwern-branwen}
+{tag=the-best-personal-webpages-of-all-time}
+
+https://www.gwern.net/
+
+One thing that annoys \x[ciro-santilli] about that website are the footnote overload. Ciro likes linear things.
+
+= Richard Stallman
+{c}
+{parent=software-engineer}
+{wiki}
+
+TODO find the best source for the amazing "I have done your mother" quote.
+
+= Linus Torvalds
+{c}
+{parent=software-engineer}
+{wiki}
+
+= Tim O'Reilly
+{c}
+{parent=software-engineer}
+{wiki}
+
+= Computer programming
+{parent=software-engineering}
+{wiki}
+
+= Programming
+{synonym}
+
+Programming is hard. To \x[ciro-santilli], it's almost masochistic.
+
+What makes Ciro especially mad when programming is not the hard things.
+
+It is the things that should be easy, but aren't, and which take up a lot of your programming time.
+
+Especially when you are already a few levels of "simple problems" down from your original goal, and another one of them shows up.
+
+This is basically the cause of \x[hofstadter-s-law].
+
+But of course, it is because it is hard that it feels amazing when you achieve your goal.
+
+Putting a complex and useful program together is like composing a symphony, or reaching the summit of a hard \x[rock-climbing] proble.
+
+= Software portability
+{parent=software}
+{wiki}
+
+= Porting
+{parent=software-portability}
+{wiki}
+
+= Port
+{disambiguate=software-portability}
+{synonym}
+
+= Software quality assurance
+{parent=software}
+{wiki}
+
+= Static program analysis
+{parent=software-quality-assurance}
+{wiki}
+
+= Linting
+{parent=static-program-analysis}
+{wiki=Lint (software)}
+
+= Linter
+{synonym}
+
+= Software testing
+{parent=software-quality-assurance}
+{wiki}
+
+= test_executables.js
+{file}
+{parent=software-testing}
+
+This script tests all executables under a selected directory.
+
+\x[ciro-santilli] has been writing scripts of that type for a long time in order to test his \x[ciro-santilli-s-documentation-superpowers][programming self-learning setups with asserts].
+
+The most advanced of those being the https://github.com/cirosantilli/linux-kernel-module-cheat/blob/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/test[test system] of \x[linux-kernel-module-cheat].
+
+But had too much stuff that would be specific to that project, so Ciro decided to start this new one in \x[node-js], hopefully it will also be the last he ever writes.
+
+A sample usage of the test library can be seen at: \a[nodejs/sequelize/test].
+
+= Assertion
+{disambiguate=software development}
+{parent=software-testing}
+{wiki}
+
+= Continuous integration
+{parent=software-testing}
+{wiki}
+
+= CI
+{c}
+{title2}
+{synonym}
+
+= Test driven development
+{parent=software-testing}
+{wiki}
+
+This is a good approach. The downside is that while you are developing the implementation and testing interactively you might notice that the requirements are wrong, and then the tests have to change.
+
+One intermediate approach \x[ciro-santilli] likes is to do the implementation and be happy with interactive usage, then create the test, make it pass, then remove the code that would make it pass, and see it fail. This does have a risk that you will forget to test something, but Ciro finds it is a worth it generally. Unless it really is one of those features that you are unable to develop without an automated test, generally more "logical/mathematical" stuff. This is a sort of \x[laziness-driven-development].
+
+= Laziness Driven Development
+{parent=test-driven-development}
+
+= Source code
+{parent=software}
+{wiki}
+
+= The best code is no code at all
+{parent=source-code}
+
+Some \x[blog]{p}:
+* https://blog.codinghorror.com/the-best-code-is-no-code-at-all/ The Best Code is No Code At All (2007)
+* http://www.skrenta.com/2007/05/code_is_our_enemy.html Code is our enemy (2007)
+
+Also resonates with \x[backward-design].
+
+= Use The Source Luke
+{parent=source-code}
+
+https://wiki.c2.com/?UseTheSourceLuke
+
+\Include[systems-programming]{parent=software}
+
+= Terminal emulator
+{parent=software}
+{wiki}
+
+Terminals don't really matter. Just use \x[tmux].
+
+= Yakuake
+{parent=terminal-emulator}
+
+https://github.com/KDE/yakuake
+
+= Terminal multiplexer
+{parent=terminal-emulator}
+{wiki}
+
+= tmux
+{c}
+{parent=terminal-multiplexer}
+{wiki}
+
+https://github.com/tmux/tmux
+
+If session autosave was finally mainlined, this would be Nirvana.
+
+= Version control
+{parent=software}
+{wiki}
+
+= Concurrent Versions System
+{c}
+{parent=version-control}
+{title2=CSV}
+{wiki}
+
+It is said, that once upon a time, programmers used CSV and collaborated on \x[sourceforge], and that everyone was happy.
+
+These days, are however, long gone in the mists of time as of 2020, and beyond \x[ciro-santilli]'s programming birth.
+
+= Git
+{c}
+{parent=version-control}
+{wiki}
+
+= Git UI
+{parent=git}
+
+Perfect Git integration belongs in \x[integrated-development-environment]{p} :-)
+
+= tig
+{disambiguate=git UI}
+{parent=git-ui}
+
+https://github.com/jonas/tig
+
+This is good. But it misses some key operations, so much so that makes Ciro not want to learn/use it daily.
+
+= Pro Git book
+{parent=git}
+{c}
+
+https://github.com/progit/progit2
+
+= libgit2
+{parent=git}
+{c}
+
+https://github.com/libgit2/libgit2
+
+= libgit2/rugged
+{parent=libgit2}
+{c}
+
+https://github.com/libgit2/rugged
+
+= Git web interface
+{parent=git}
+{c}
+
+= GitHub
+{c}
+{parent=git-web-interface}
+{wiki}
+
+This is where \x[ciro-santilli] stored his code since he started coding nonstop in 2013.
+
+He \x[closed-source-is-less-bad-on-online-services][does not like the closed source aspect of it], but hey, there are more important things to worry about, the network effect is just too strong.
+
+= GitHub users deleted by GitHub
+{c}
+{parent=github}
+
+https://stackoverflow.com/questions/50720844/can-github-delete-your-account/66105692#66105692
+
+= GitHub Pages
+{c}
+{parent=github}
+
+https://pages.github.com/
+
+The cheapest and most resilient way to publish \x[how-to-teach/text-is-cheaper-than-video][text content] humanity has achieved so far.
+
+= GitHub Sponsors
+{c}
+{parent=github}
+
+= Who are the developers that are making the most money through GitHub sponsors?
+{c}
+{parent=github-sponsors}
+
+https://github.com/isaacs/github/issues/1824
+
+= Octokat.js
+{parent=github}
+{c}
+
+https://github.com/philschatz/octokat.js
+
+= octokit.js
+{parent=octokat-js}
+{c}
+
+https://github.com/philschatz/octokit.js
+
+= GitLab
+{c}
+{parent=git-web-interface}
+{wiki}
+
+GitLab was very important to Ciro because he wanted to base https://github.com/booktree/booktree[Booktree] on it.
+
+See also: \x[ciro-santilli-s-minor-projects].
+
+= GitLab CI
+{c}
+{parent=gitlab}
+{tag=continuous-integration}
+
+https://github.com/gitlabhq/gitlab-ci
+
+= GitLab cookbook
+{parent=gitlab}
+{c}
+
+https://gitlab.com/gitlab-org/cookbook-gitlab
+
+= SourceForge
+{c}
+{parent=git-web-interface}
+{wiki}
+
+RIP: https://www.quora.com/Is-SourceForge-still-relevant-to-open-source-projects/answer/Ciro-Santilli
+
+\Include[web-technology]{parent=software}
+
+= Software bibliography
+{parent=software}
+
+= EbookFoundation/free-programming-books
+{parent=software-bibliography}
+
+https://github.com/EbookFoundation/free-programming-books

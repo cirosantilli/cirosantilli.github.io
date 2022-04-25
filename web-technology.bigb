@@ -1,0 +1,393 @@
+= Web technology
+
+= Web cheat
+{synonym}
+
+Cheatsheet on \x[html], \x[cascading-style-sheets] and \x[javascript]{child}.
+
+Old cheat on separate repo: \a[web/]{check=0}.
+
+Now moving to either:
+* separate files under: \a[web-cheat/] for the boring stuff
+* subsections under this section for the more exciting stuff!
+
+Index:
+* \x[html]
+  * \a[web-cheat/min.html]: minimal valid HTML document. It is insane however.
+  * \a[web-cheat/min-sane.html]: minimal sane HTML document. There are smaller valid ones, but they are insane.
+  * \a[web-cheat/img.html]
+  * \a[web-cheat/img-broken.html]: https://stackoverflow.com/questions/22051573/how-to-hide-image-broken-icon-using-only-css-html
+* \x[youtube] embeds
+  * \a[web-cheat/youtube-embed.html]
+  * \a[web-cheat/youtube-embed-lazy.html]: https://stackoverflow.com/questions/7154958/lazy-load-iframe-delay-src-http-call-with-jquery/62523325#62523325
+* External libraries
+  * Text editors
+    * \a[web-cheat/monaco-editor.html]:
+      * https://github.com/microsoft/monaco-editor
+      * https://stackoverflow.com/questions/63179813/how-to-run-the-monaco-editor-from-a-cdn-like-cdnjs/63179814#63179814
+  * Interactive HTML table sorting
+    * \a[web-cheat/tablesort.html]: https://github.com/tristen/tablesort
+    * \a[web-cheat/sortable.html]: https://github.com/HubSpot/sortable
+
+= HTML
+{c}
+{parent=web-technology}
+{tag=markup-language}
+{wiki}
+
+= HTML canvas
+{c}
+{parent=html}
+
+https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+Allows us to draw with JavaScript pixel by pixel! Great way to create \x[computational-physics] demos!
+
+Here is an animation demo with some useful controls:
+\JsCanvasDemo[[
+new class extends OurbigbookCanvasDemo {
+  init() {
+    super.init('hello');
+    this.pixel_size_input = this.addInputAfterEnable(
+      'Pixel size',
+      {
+        'min': 1,
+        'type': 'number',
+        'value': 1,
+      }
+    );
+  }
+  draw() {
+    var pixel_size = parseInt(this.pixel_size_input.value);
+    for (var x = 0; x < this.width; x += pixel_size) {
+      for (var y = 0; y < this.height; y += pixel_size) {
+        var b = ((1.0 + Math.sin(this.time * Math.PI / 16)) / 2.0);
+        this.ctx.fillStyle =
+          'rgba(' +
+          (x / this.width) * 255 + ',' +
+          (y / this.height) * 255 + ',' +
+          b * 255 +
+          ',255)'
+        ;
+        this.ctx.fillRect(x, y, pixel_size, pixel_size);
+      }
+    }
+  }
+}
+]]
+
+Bibliography: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations
+
+= WebGL
+{c}
+{parent=html-canvas}
+
+https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example
+
+\JsCanvasDemo[[
+new class extends OurbigbookCanvasDemo {
+  init() {
+    super.init('webgl', {context_type: 'webgl'});
+    this.ctx.viewport(0, 0, this.ctx.drawingBufferWidth, this.ctx.drawingBufferHeight);
+    this.ctx.clearColor(0.0, 0.0, 0.0, 1.0);
+    this.vertexShaderSource = `
+#version 100
+precision highp float;
+attribute float position;
+void main() {
+  gl_Position = vec4(position, 0.0, 0.0, 1.0);
+  gl_PointSize = 64.0;
+}
+`;
+
+    this.fragmentShaderSource = `
+#version 100
+precision mediump float;
+void main() {
+  gl_FragColor = vec4(0.18, 0.0, 0.34, 1.0);
+}
+`;
+    this.vertexShader = this.ctx.createShader(this.ctx.VERTEX_SHADER);
+    this.ctx.shaderSource(this.vertexShader, this.vertexShaderSource);
+    this.ctx.compileShader(this.vertexShader);
+    this.fragmentShader = this.ctx.createShader(this.ctx.FRAGMENT_SHADER);
+    this.ctx.shaderSource(this.fragmentShader, this.fragmentShaderSource);
+    this.ctx.compileShader(this.fragmentShader);
+    this.program = this.ctx.createProgram();
+    this.ctx.attachShader(this.program, this.vertexShader);
+    this.ctx.attachShader(this.program, this.fragmentShader);
+    this.ctx.linkProgram(this.program);
+    this.ctx.detachShader(this.program, this.vertexShader);
+    this.ctx.detachShader(this.program, this.fragmentShader);
+    this.ctx.deleteShader(this.vertexShader);
+    this.ctx.deleteShader(this.fragmentShader);
+    if (!this.ctx.getProgramParameter(this.program, this.ctx.LINK_STATUS)) {
+      console.log('error ' + this.ctx.getProgramInfoLog(this.program));
+      return;
+    }
+    this.ctx.enableVertexAttribArray(0);
+    var buffer = this.ctx.createBuffer();
+    this.ctx.bindBuffer(this.ctx.ARRAY_BUFFER, buffer);
+    this.ctx.vertexAttribPointer(0, 1, this.ctx.FLOAT, false, 0, 0);
+    this.ctx.useProgram(this.program);
+  }
+  draw() {
+    this.ctx.clear(this.ctx.COLOR_BUFFER_BIT);
+    this.ctx.bufferData(this.ctx.ARRAY_BUFFER, new Float32Array([Math.sin(this.time / 60.0)]), this.ctx.STATIC_DRAW);
+    this.ctx.drawArrays(this.ctx.POINTS, 0, 1);
+  }
+}
+]]
+
+= Cascading Style Sheets
+{c}
+{parent=web-technology}
+{wiki}
+
+= CSS
+{c}
+{synonym}
+{title2}
+
+* \a[web-cheat/image-table-vertical-center.html]
+* \a[web-cheat/viewport-height.html]: a div that is a tall as the viewport, and does not generate a toplevel scrollbar
+* \a[web-cheat/responsive-image-max-height.html]: here we try to create an image that is never wider than the screen. If the screen is less wide than the image, then the image scales down proportionally. Otherwise, the image has a user determined fixed by the CSS or the HTML `height` property. Related:
+  * https://stackoverflow.com/questions/13632985/limit-the-height-of-a-responsive-image-with-css
+  * https://stackoverflow.com/questions/50193946/responsive-image-with-max-height-max-width/50194061
+  TODO I'm unable to do this....... https://stackoverflow.com/questions/69964332/how-to-set-the-default-height-of-responsive-images-when-screen-is-wide-and-have The objective was to implement: https://github.com/cirosantilli/ourbigbook/issues/168
+
+= CSS flex
+{parent=cascading-style-sheets}
+{wiki=CSS_Flexible_Box_Layout}
+
+* \a[css/flex.html]: illustrates basic flex usage, including:
+* `flex-grow`: if there's space left, this determines how much extra space will be given to each.
+* `flex-basis`: the size the items want to be. But if there isnt' enough space, this can be cut up.
+
+  Note that the minimal space required by children of the flex children cannot be necessarily cut up, and might lead things to overflow out of the container.
+* `flex-shrink`: if there's space missing, this determines how much extra space will be removed from each `flex-basis`
+
+That example calculates and displays the final widths via \x[javascript], making it easier to understand the calculations being done.
+
+Answers: https://stackoverflow.com/questions/28473807/how-does-flex-grow0-get-interpreted/69995712#69995712
+
+Bibliography:
+* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout
+
+= Sass
+{disambiguate=stylesheet language}
+{parent=cascading-style-sheets}
+{wiki}
+
+= Sass
+{c}
+{synonym}
+
+The more of their syntax gets merged into mainline \x[cascading-style-sheets], the better the world will be.
+
+= Asset bundler
+{parent=web-technology}
+
+In order to make websites efficient and portable, a lot of \x[transpilation] is needed.
+
+\Include[webpack]{parent=asset-bundler}
+
+= Push technology
+{parent=web-technology}
+{title2=Bi-directional communication}
+{wiki}
+
+= Web browser
+{parent=web-technology}
+{wiki}
+
+= Browser
+{synonym}
+
+= Chromium
+{c}
+{disambiguate=web-browser}
+{parent=web-browser}
+{wiki}
+
+\x[google] is trying to kill it as of 2021: https://www.omgubuntu.co.uk/2021/01/chromium-sync-google-api-removed The lack of sync is a major major blow. So selfish. Google makes billions, and it won't give in a little bit of settings storage...
+
+= Disable JavaScript on Chromium
+{parent=chromium-web-browser}
+
+https://stackoverflow.com/questions/13405383/how-to-disable-javascript-in-chrome-developer-tools
+
+= Firefox
+{c}
+{parent=web-browser}
+{wiki}
+
+= Web development
+{parent=web-technology}
+
+= Web framework
+{c}
+{parent=web-technology}
+{wiki}
+
+Per \x[programming-language]:
+* \x[node-js-web-framework]{child}{p}
+* \x[python-web-framework]{child}{p}
+
+How to select one:
+* https://insights.stackoverflow.com/trends?tags=django%2Cruby-on-rails%2Cexpress%2Csails.js%2Cflask%2Cnestjs
+* \x[gothinkster-realworld]
+
+= Hello world website
+{parent=web-framework}
+
+= A blog in every web framework
+{c}
+{parent=hello-world-website}
+{wiki}
+
+A (multi-user) \x[blog] is the \x[hello-world] of the web, so creating one of those is the best way to quickly evaluate web technology, i.e. \x[time-to-hello-world].
+
+Some new frameworks like \x[feathersjs] are making a chat app instead, as that highlights the push notifications a bit better.
+
+= gothinkster/realworld
+{parent=a-blog-in-every-web-framework}
+
+https://github.com/gothinkster/realworld
+
+\x[ciro-santilli]'s implementation: \x[node-express-sequelize-next-js-realworld-example-app].
+
+Ahh, you \x[a-blog-in-every-web-framework][can't have new ideas anymore]!
+
+Basically puts together every backend with \x[front-end-web-framework] to create the exact same website.
+
+The reference live demo can be found at: https://demo.realworld.io/#/ It is based on \x[angular-js] as it links to: https://github.com/gothinkster/angularjs-realworld-example-app TODO backend?
+
+There are however also live demos of other frontends, e.g.:
+* \x[react]: https://react-redux.realworld.io[]. But note that tag addition at post creation is broken there as of March 2021, but not on master: https://github.com/gothinkster/react-redux-realworld-example-app/issues/151#issuecomment-808417846 so they forgot to update the live \x[server].
+* \x[vue-js]: https://vue-vuex-realworld.netlify.app[]
+Note that all those frontends communicate with the same backend.
+
+As of 2021 Devs are seemed a bit too focused on monetizing the project through their "how to use this project" premium tutorial, and documentation could be better: just getting the \x[hello-world] of the most popular backend with the most popular frontend is not easy... come on.
+
+https://github.com/gothinkster/realworld/issues/578 asks for community support, as devs have moved on since unfortunately.
+
+Remember:
+* by default, the frontends hardcode the upstream public data \x[api]: `https://conduit.productionready.io/api` so you have to hack their code to match the port of the backend. And each backend can have a different port.
+* when you switch between backends, you must first manually \x[clear-client-side-storage] cookies/local new run will fail due to authentication issues!
+
+Important missing things from the minimum base app:
+* \x[server-side-rendering]:
+  * https://github.com/arrlancore/nextjs-ssr-real-world-app-example[]. As advertised, that global instance does render with \x[javascript] disabled! Proposed for upstream at: https://github.com/gothinkster/realworld/issues/423
+  * https://github.com/gothinkster/realworld/issues/266
+* no \x[javascript-bi-directional-communication-library] built-in... come on: https://github.com/gothinkster/realworld/issues/107
+* \x[email] notifications however as tested on the live demo: https://demo.realworld.io/#/
+* error handling is broken/missing/inconsistent across apps
+
+First you should the most popular backend/frontend combination running, which is the most likely to be working. We managed to run on \x[ubuntu] 20.10, \x[react] + \x[node-js] \x[express-js] as described at https://github.com/gothinkster/node-express-realworld-example-app/pull/116[]:
+* https://github.com/cirosantilli/node-express-realworld-example-app/tree/mongo4 which has a simple patch on top of https://github.com/gothinkster/node-express-realworld-example-app/tree/ba04b70c31af81ca7935096740a6e083563b3a4a for MongoDB 4 support
+
+  This requires you to first \x[install-mongodb-on-ubuntu] and ensure you can login to it from the command line.
+* https://github.com/gothinkster/react-redux-realworld-example-app/tree/9186292054dc37567e707602a15a0884d6bdae35 patched to use the correct server host/port `localhost:3000`:
+  ``
+  diff --git a/src/agent.js b/src/agent.js
+  index adfbd72..e3cdc7f 100644
+  --- a/src/agent.js
+  +++ b/src/agent.js
+  @@ -3,7 +3,7 @@ import _superagent from 'superagent';
+
+   const superagent = superagentPromise(_superagent, global.Promise);
+
+  -const API_ROOT = 'https://conduit.productionready.io/api';
+  +const API_ROOT = 'http://localhost:3030/api';
+
+   const encode = encodeURIComponent;
+   const responseBody = res => res.body;
+  ``
+Then just:
+``
+npm install
+npm start
+``
+on both \x[server] and \x[client-computing], and then visit the client URL: http://localhost:4100/
+
+You have to hit the Enter key to add tags, it's terrible: https://github.com/gothinkster/react-redux-realworld-example-app/issues/151#issuecomment-808417846
+
+One cool thing is that the main repo has unified backend API tests:
+``
+git clone https://github.com/gothinkster/realworld
+cd realworld
+git checkout e7adc6b06b459e578d7d4a6738c1c050598ba431
+cd api
+APIURL=http://localhost:3000/api USERNAME="u$(date +%s)" ./run-api-tests.sh
+``
+so the per-repository tests are basically useless, and that single test can test everything for any backend! There is no frontend testing however: https://github.com/gothinkster/realworld/issues/269 so newb.
+
+= gothinkster/realworld implementation
+{parent=gothinkster-realworld}
+
+Setups we've tried:
+* backend:
+  * \x[randyscotsmithey-feathers-realworld-example-app]{child} worked with \x[react] and \x[vue-js]
+  * the \x[react] setup failed as shown at: https://github.com/gothinkster/react-redux-realworld-example-app/issues/187
+  * \x[gothinkster-django-realworld-example-app]{child}
+  * the \x[nest-js] failed on Ubuntu 20.10 as per https://github.com/lujakob/nestjs-realworld-example-app/issues/19
+* frontend:
+
+= TodoMVC
+{c}
+{parent=hello-world-website}
+{wiki}
+
+https://todomvc.com/
+
+\x[front-end-web-framework][Front-end] only, so infinitely simpler, and generally much less useful than \x[gothinkster-realworld].
+
+= Front-end web framework
+{c}
+{parent=web-framework}
+
+You need those because it is hard to do the following:
+* client \x[javascript] sends a request to \x[server]
+* server sends back data
+* client updates what the user sees
+
+This is hard to do notably because when the update happens, several things might need to change on the webpage at the same time.
+
+Notably, new elements might need to be added to the webpage, which in turn means that new bindings such as button clicks have to be added to those, in a way that keeps the page working.
+
+The only way to do this basically is to have a functional dependency graph that keeps everything in the page in working state as updates come.
+
+= Single page application
+{parent=front-end-web-framework}
+{title2=SPA}
+{wiki}
+
+= Isomorphic JavaScript
+{parent=single-page-application}
+{wiki}
+
+= Server-side rendering
+{parent=isomorphic-javascript}
+{title2=SSR}
+
+= List of front-end web frameworks
+{parent=front-end-web-framework}
+
+= Angular.js
+{c}
+{parent=list-of-front-end-web-frameworks}
+{wiki}
+
+\x[react-js]
+
+\Include[react]{parent=list-of-front-end-web-frameworks}
+
+= Vue.js
+{c}
+{parent=list-of-front-end-web-frameworks}
+{wiki}
+
+= Nuxt.js
+{c}
+{parent=vue-js}
