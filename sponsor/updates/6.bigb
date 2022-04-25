@@ -12,10 +12,30 @@
 = Advances
 {parent=ourbigbook-com}
 
-* made the website navbar and article lists more mobile friendly. Main motivation: improvised demos to people I meet IRL!
+= cirosantilli.com content uploaded to ourbigbook.com/cirosantilli
+{parent=advances}
+
+Managed to upload the content from the static website https://cirosantilli.com (OurBigBook Markup source at https://github.com/cirosantilli/cirosantilli.github.io[]) to https://ourbigbook.com/cirosantilli[].
+
+Although most of the key requirements were already in place since the last update, as usual doing things with the complex reference content stresses the system further and leads to the exposition of several new bugs.
+
+The upload of OurBigBook Markup files to ourbigbook.com was done with the newly added \x[ourbigbook-cli] `ourbigbook --web` option. Although fully exposed to end users, the setup is not super efficient: a trully decent implementation should only upload changed files, and would basically mean reimplementing/using \x[git], since version diffing is what Git shines at. But I've decided not to put much emphasis on CLI upload for now, since it is expected that initially the majority of users will use the Web UI only. The functionality was added primarily to upload the reference content.
+
+This is a major milestone, as the new content can start attracting new users, and makes the purpose of the website much clearer. Just having this more realistic content also immediately highlighted what the next development steps need to be.
+
+Once v1.0 is reached, I will actually make all internal links of https://cirosantilli.com to point to https://ourbigbook.com/cirosantilli[] to try and drive some more traffic.
+
+The new content blows up by far the limit of the free \x[heroku] \x[postgresql] database of 10k lines. This meant that I needed to upgrade the Heroku Postgres plugin from the free Hobby Dev to the 9 USD/month Hobby Basic: https://elements.heroku.com/addons/heroku-postgresql[], so now hosting costs will increase from 7 USD/month for the dyno to 7 + 9 = 16 UDS/month.
+
+= Misc advances
+{parent=advances}
+
+made the website navbar and article lists more mobile friendly. Main motivation: improvised demos to people I meet IRL!
 
 = Next steps
 {parent=ourbigbook-com}
+
+Make article editing more reasonble. Several bugs in the area.
 
 = Misc tech
 {parent=6}
