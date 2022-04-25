@@ -1,0 +1,625 @@
+= Systems programming
+{wiki}
+
+\x[ciro-santilli]'s definition: https://softwareengineering.stackexchange.com/questions/151610/what-exactly-is-system-programming/399625#399625
+
+Ciro's tutorial: \x[linux-kernel-module-cheat].
+
+Ciro's word of caution for 2019 aspiring system programmers: https://cirosantilli.com/linux-kernel-module-cheat/#should-you-waste-your-life-with-systems-programming[Should you waste your life with systems programming?]
+
+= Operating system
+{parent=systems-programming}
+{title2=OS}
+{wiki}
+
+Magic software that allows you to write a single program that runs on a wide range of hardware.
+
+= Driver
+{disambiguate=software}
+{parent=operating-system}
+{wiki}
+
+= UNIX
+{c}
+{parent=operating-system}
+{wiki}
+
+= Linux
+{c}
+{parent=operating-system}
+{wiki}
+
+It ain't perfect, but it's decent enough.
+
+From a technical point of view, it can do anything that \x[microsoft-windows] can. Except being forcefully installed on every non-\x[macos] 2019 computer you can buy.
+
+\x[ciro-santilli]'s conversion to Linux happened around 2012, and was a central part of \x[ciro-santilli-s-open-source-enlightenment], since it fundamentally enables the discovery and contribution to \x[open-source-software]. Because what awesome open source person would waste time porting their amazing projects to closed source OSes?
+
+Ciro's modest nature can be seen as he likes to compare this event https://en.wikipedia.org/wiki/Great_Renunciation[Buddha's Great Renunciation].
+
+Linux should track glibc and \x[posix-command-line-utility]{p} in-tree like \x[bsd-operating-system], otherwise people have \x[linux-kernel-module-cheat][no way to get the thing running in the first place without blobs or large out-of-tree scripts]! https://blog.farhan.codes/2018/06/25/linux-maintains-bugs-the-real-reason-ifconfig-on-linux-is-deprecated/[Another enlightened soul] who agrees.
+
+Particularly interesting in the history of Linux is how it won out over the open competitors that were coming up in the time: https://en.wikipedia.org/wiki/MINIX[MINIX] (see https://ponderwall.com/index.php/2019/04/02/linux-tanenbaum-newsgroup-linus-torvalds/[the chat]) and \x[bsd-operating-system] that got https://en.wikipedia.org/wiki/UNIX_System_Laboratories,_Inc._v._Berkeley_Software_Design,_Inc.[legally bogged down] at the critical growth moment.
+
+You must watch this: \x[truth-happens-advertisement-by-red-hat].
+
+\Image[https://web.archive.org/web/20210129024945if_/https://imgs.xkcd.com/comics/supported_features.png]
+{title=\x[xkcd] 619: Supported Features.}
+{description=This perfectly illustrates Linux development. First features that matter. Then useless features.}
+{source=https://xkcd.com/619/}
+
+\Video[http://youtube.com/watch?v=njos57IJf-0]
+{title=\x[bill-gates] vs \x[steve-jobs] by \x[epic-rap-battles-of-history] (2012)}
+{description=Just stop whatever you are doing, and watch this right now. "I'm on Linux, bitch, I thought you GNU". https://epicrapbattlesofhistory.fandom.com/wiki/Steve_Jobs_vs_Bill_Gates/Rap_Meanings[Fandom explanations]. It is just a shame that the Bill Gates actor looks absolutely nothing like the real gates. Actually, the entire Gates/Jobs parts are good, but not genial. But the Linux one is.}
+
+= Tux
+{c}
+{disambiguate=mascot}
+{parent=linux}
+{wiki}
+
+= Linux kernel
+{c}
+{parent=linux}
+{wiki}
+
+\x[ciro-santilli] has a tutorial at \x[linux-kernel-module-cheat].
+
+= Linux Foundation
+{c}
+{parent=linux-kernel}
+
+The fact that this foundation has a bunch of paid, closed, certification courses makes \x[ciro-santilli] not respect them at all. They should be making \x[open-access] content instad!
+
+= Linux insides
+{parent=linux-kernel}
+{c}
+
+https://github.com/0xAX/linux-insides
+
+Documents the \x[linux-kernel]. Somewhat of a competitor to \x[linux-kernel-module-cheat], but more wordy and less automated.
+
+= Linux distribution
+{c}
+{parent=linux}
+{wiki}
+
+= Distro
+{synonym}
+
+= Linux distribution buildable from source
+{c}
+{parent=linux-distribution}
+
+= Linux distributions buildable from source
+{c}
+{synonym}
+
+As of 2020, no one knows how to build the major desktop distros fully from source into the ISO, and especially so in a reproducible build way. Everything is done in build servers somewhere with complicated layers of prebuilds. It's crap.
+
+See also: https://cirosantilli.com/linux-kernel-module-cheat/#linux-distro-choice
+
+Yes:
+* \x[buildroot]{child}
+* \x[nixos]{child}
+
+No:
+* \x[ubuntu]: https://askubuntu.com/questions/82302/how-to-compile-ubuntu-from-source-code source: https://quoteinvestigator.com/2010/07/08/laws-sausages/[sausage factory]
+
+= Package manager
+{parent=linux-distribution}
+
+= Cross distro package manager
+{parent=linux-distribution}
+
+= Flatpak
+{c}
+{parent=cross-distro-package-manager}
+{wiki}
+
+= Snap
+{c}
+{disambiguate=package manager}
+{parent=cross-distro-package-manager}
+{wiki}
+
+https://merlijn.sebrechts.be/blog/2020-08-02-why-one-snap-store/ has some very good comments on how `snap` is more closed than \x[flatpak].
+
+= List of Linux distributions
+{c}
+{parent=linux}
+{wiki}
+
+= Android
+{c}
+{disambiguate=operating system}
+{parent=list-of-linux-distributions}
+
+= Android
+{synonym}
+
+* the best full featured free OS we have today, since POSIX gave up short of any UI specification, and Chrome OS is not there yet
+* usable and likely efficient \x[java] \x[api] for apps if https://en.wikipedia.org/wiki/Google_v._Oracle_America[Oracle doesn't manage to destroy it with its lawsuit]
+
+However, many, many, many terrible horrors come with it:
+* it hasn't made the move to desktop for too many years. It could destroy \x[microsoft-windows] and replace it with open source, but they just won't budge towards an unified mobile/desktop setup.
+* vendors litter it with uninstallable bloatware that should be \x[illegal]. \x[european-union] to the rescue!!! https://www.cnbc.com/2020/12/15/digital-markets-act-eus-new-rules-on-big-tech.html
+* vendors lock down devices so it is very hard to get sudo, let alone to modify their images!
+* there isn't enough hardware standardization for open source distros to thrive like on desktop
+* code drops mean that "master" is useless and trying to contribute from outside vendors' closed walls is a waste of time: https://stackoverflow.com/questions/1809774/how-to-compile-the-android-aosp-kernel-and-test-it-with-the-android-emulator/48310014#48310014
+* if you ever go below the Java API, e.g. to \x[c-plus-plus] or AOSP build, everything is horrendous and https://unix.stackexchange.com/questions/122787/how-to-compile-extra-files-into-the-root-directory-of-an-android-rom[undocumented]
+* \x[google] doesn't care about the CLI, even the \x[hello-world] requires creating infinite out-of-control boilerplate from a \x[gui]: https://stackoverflow.com/questions/20801042/how-to-create-android-project-with-gradle-from-command-line/46994747#46994747
+* the boot is uber bloated and takes forever in cycle simulators
+
+= Android Open Source Project
+{c}
+{parent=android-operating-system}
+{title2=AOSP}
+{wiki}
+
+= Transfer Android 11 camera videos to Ubuntu 20.10
+{c}
+{parent=android-operating-system}
+
+https://android.stackexchange.com/questions/66385/how-to-transfer-files-from-an-android-phone-to-a-ubuntu-pc-by-using-a-usb-cable/194107#194107
+
+The video folder is `DCIM/Camera`.
+
+= F-Droid
+{c}
+{parent=android-operating-system}
+{wiki}
+
+= Arch Linux
+{c}
+{parent=list-of-linux-distributions}
+{tag=linux-distribution-buildable-from-source}
+{wiki}
+
+Respect. Big respect. Those people are hardcore from scratch hackers, and their wiki is amazing: https://wiki.archlinux.org/
+
+It's just that \x[buildroot] is more hardcore ;-)
+
+But can you build the ISO full from source: \x[linux-distribution-buildable-from-source]
+
+= Buildroot
+{c}
+{parent=list-of-linux-distributions}
+{tag=linux-distribution-buildable-from-source}
+{wiki}
+
+The basis for \x[linux-kernel-module-cheat].
+
+Buildroot is \x[good].
+
+= BusyBox
+{c}
+{parent=buildroot}
+{wiki}
+
+= NixOS
+{c}
+{parent=list-of-linux-distributions}
+{tag=linux-distribution-buildable-from-source}
+{wiki}
+
+This thing is sexy.
+
+= Ubuntu
+{c}
+{parent=list-of-linux-distributions}
+{wiki}
+
+\x[ciro-santilli]'s Linux distro of choice as of 2019.
+
+It ain't perfect, but it's decent enough.
+
+The greatest advantage of it being that it has the likely largest desktop user base, and therefore the highest likelihood that your problems are solved on https://askubuntu.com/users/52975[Ask Ubuntu], and goes together with Ciro's philosophy that \x[having-more-than-one-natural-language-is-bad-for-the-world]["people should do everything in the same way to factor stuff out"], especially the \x[open-source-software][open source losers].
+
+Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: \x[linux-distribution-buildable-from-source]. This is why Ciro based the \x[linux-kernel-module-cheat] on \x[buildroot], see also: \x[linux-distribution-buildable-from-source].
+
+= How to report Ubuntu crashes
+{parent=ubuntu}
+{wiki}
+
+Their crash system does not have an amazing user interface.
+
+Tested on \x[ubuntu-21-10].
+
+After something crashes, look under `/var/crash` for a crash file, which helps to determine which package to report under on \x[launchpad-website].
+
+E.g. a file `/var/crash/_usr_sbin_gdm3.0.crash` makes you want to file the bug under gdm at: https://bugs.launchpad.net/ubuntu/+source/gdm/+filebug
+
+Then, while reporting the bug, you want to give the developpers access to that `.crash` file. But you can't publicly upload it because it contains memory dumps and could contain secret information. The way to do it is to look at the ID under:
+``
+sudo cat /var/crash/_usr_sbin_gdm3.0.uploaded
+``
+Ubuntu's crash report system has already uploaded the `.crash` for you, so you just have to confirm it and give the ID on the ticket.
+
+You can view a list of all your uploaded errors at:
+``
+xdg-open https://errors.ubuntu.com/user/$(sudo cat /var/lib/whoopsie/whoopsie-id)
+``
+and each of those contain a link to:
+``
+https://errors.ubuntu.com/oops/<.uloaded error id>
+``
+which you yourself cannot see.
+
+https://askubuntu.com/questions/434431/how-can-i-read-a-crash-file-from-var-crash asks how to read the `.crash` files.
+
+Running:
+``
+sudo apport-unpack /var/crash/_usr_sbin_gdm3.0.crash /tmp/app
+``
+splits it up into a few files, but does not make any major improvements.
+
+`apport-retrace`
+``
+sudo apt install apport-retrace
+sudo chmod 666 /var/crash/_usr_sbin_gdm3.0.crash
+apport-retrace -g /var/crash/_usr_sbin_gdm3.0.crash
+``
+opens GDB with the core dump. Debug symbols are supplied as separate packages, which is a really cool idea: so you should be able to download them after the crash to see symbols. https://askubuntu.com/questions/487222/how-to-install-debug-symbols-for-installed-packages mentions how to install them. Official docs at: https://wiki.ubuntu.com/DebuggingProgramCrash#Debug_Symbol_Packages
+
+Tried:
+``
+echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ddebs.list
+echo -e "deb http://ddebs.ubuntu.com $(lsb_release -cs)-updates main restricted universe multiverse\ndeb http://ddebs.ubuntu.com $(lsb_release -cs)-proposed main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ddebs.list
+sudo apt install ubuntu-dbgsym-keyring
+``
+but then `sudo apt update` fails with:
+``
+E: The repository 'http://ddebs.ubuntu.com impish-security Release' does not have a Release file.
+``
+
+= Ubuntu release
+{c}
+{parent=ubuntu}
+{wiki}
+
+= Ubuntu 21.10
+{c}
+{parent=ubuntu-release}
+
+GDM crashes sometimes when switching windows right after opening a new window: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/1956299
+
+= Ubuntu 21.10 does not wake up from suspend
+{parent=ubuntu-21-10}
+{title2=`nv_set_system_power_state`}
+
+Please refer to \x[video-linus-torvalds-saying-nvidia-fuck-you-2012].
+
+https://askubuntu.com/questions/1032633/18-04-screen-remains-blank-after-wake-up-from-suspend/1391917#1391917
+
+Reported at: https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-470/+bug/1953674
+
+On \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017].
+
+Does not happen every time, only some times. Can't figure out why. Usually happens when has suspended for a longer time.
+
+https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-470/+bug/1946303 sounds like a likely report, \x[nvidia] driver version 470, but can't find those error messages anywhere. The last line of:
+``
+journalctl -o short-precise -k -b -1
+``
+once was:
+``
+PM: suspend entry (deep)
+``
+which is when sleep starts.
+
+This suggests that it is not a video bug then, seems that it is not waking up at all? Gotta try to SSH into it. OK. I did SSH into it, and that was fine, so it is just the video that won't start.
+
+``
+PM: suspend exit
+``
+
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1949977 is another possible bug, based on kernel version. I'm running 5.13, which is one of the failing versions on the report. Can't find any interesting dmesg though.
+
+In another crash:
+``
+journalctl -o short-precise -k -b -1
+``
+had the following interesting lines:
+``
+nvidia-modeset: WARNING: GPU:0: Lost display notification (0:0x00000000); continuing.
+[24307.640014] NVRM: GPU at PCI:0000:01:00: GPU-18af74bb-7c72-ff70-e447-87d48378ea20
+[24307.640018] NVRM: Xid (PCI:0000:01:00): 79, pid=8828, GPU has fallen off the bus.
+[24307.640021] NVRM: GPU 0000:01:00.0: GPU has fallen off the bus.
+[24328.054022] nvidia-modeset: ERROR: GPU:0: The requested configuration of display devices (LGD (DP-4)) is not supported on this GPU.
+[repeats several more times]
+[24328.056767] nvidia-modeset: ERROR: GPU:0: The requested configuration of display devices (LGD (DP-4)) is not supported on this GPU.
+[24328.056951] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:0:0:0x0000000f
+[24328.056955] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:1:0:0x0000000f
+[24328.056959] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:2:0:0x0000000f
+[24328.056962] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000927c:3:0:0x0000000f
+[24328.056983] nvidia-modeset: ERROR: GPU:0: DP-4: Failed to disable DisplayPort audio stream-0
+[24328.056992] nvidia-modeset: ERROR: GPU:0: Failed to query display engine channel state: 0x0000947d:0:0:0x0000000f
+``
+and there was a corresponding `/var/crash/_usr_sbin_gdm3.0.crash`.
+
+Related "GPU has fallen off the bus": https://askubuntu.com/questions/868321/gpu-has-fallen-off-the-bus-nvidia
+
+= Ubuntu 20.04
+{c}
+{parent=ubuntu-release}
+
+= Launchpad
+{c}
+{disambiguate=website}
+{parent=ubuntu}
+{wiki}
+
+= BSD Operating System
+{c}
+{parent=operating-system}
+
+https://en.wikipedia.org/wiki/List_of_BSD_operating_systems
+
+\x[legal]{c} issues stalled them at the turning point of the \x[internet], and \x[linux] won. Can't change \x[history].
+
+Did \x[apple] just fork it and made Mac OS X without giving anything back?
+
+= FreeBSD
+{c}
+{parent=bsd-operating-system}
+{wiki}
+
+= Microsoft
+{c}
+{parent=operating-system}
+{tag=software-company}
+
+They are \x[evil] because they produce \x[closed-source-offline-software-used-by-millions]: \x[microsoft-windows].
+
+And also their monopolistic practices: \x[united-states-v-microsoft-corp].
+
+So, as put in \x[video-bill-gates-vs-steve-jobs-by-epic-rap-battles-of-history-2012] by fake \x[steve-jobs] to fake \x[bill-gates]:
+\Q[Why'd you name your company after your \x[dick]?]
+
+However, like all \x[big-tech] companies with infinite money, they do end up doing some cool things in their research department, \x[microsoft-research], notably for \x[ciro-santilli] being:
+* \x[lean-proof-assistant]
+* their \x[quantum-computing] work. C# is of course a bad idea, we don't need \x[yet-another] \x[domain-specific-language], \x[python] library based solutions like \x[qiskit] are obviously the way to go
+
+= United States v. Microsoft Corp
+{c}
+{parent=microsoft}
+{wiki}
+
+= Microsoft Research
+{c}
+{parent=microsoft}
+{wiki}
+
+= Microsoft product
+{c}
+{parent=microsoft}
+{wiki}
+
+= Microsoft Windows
+{c}
+{parent=microsoft-product}
+{tag=closed-source-offline-software-used-by-millions}
+{wiki}
+
+A monopolistic operating system that only exists in the 2010's because of the \x[ibm]-linked historical lock-in and constant useless changes of the Microsoft Word document format to prevent cross operability.
+
+It offers no technical advantages over free \x[linux] distros in the late 2010's, and it is barely impossible to buy a non-Mac computer without paying for it, which should be \x[illegal]. \x[european-union], time to use your \x[europe-cookie-law][regulatory powers].
+
+The following anecdote illustrates Windows' pervasiveness. \x[ciro-santilli] was once tutoring a high school student in Brazil, and decided to try and get her into programming. When the "Windows is not free" subject came up, the high school student was shocked: "I paid 100 dollars for this?". She never even knew it was there. To her, it was "just a computer".
+
+Laws should really be passed forcing OEMs to allow you to not buy Microsoft Windows when buying a computer, \x[europe-cookie-law][European Union], why have you failed me in 2016??? https://en.wikipedia.org/wiki/Bundling_of_Microsoft_Windows
+
+http://blog.zorinaq.com/i-contribute-to-the-windows-kernel-we-are-slower-than-other-oper/ I Contribute to the Windows Kernel. We Are Slower Than Other Operating Systems. Here Is Why. by Marc Bevand (2013) has some interesting remarks:
+\Q[There's also little incentive to create changes in the first place. On linux-kernel, if you improve the performance of directory traversal by a consistent 5%, you're praised and thanked. Here, if you do that and you're not on the object manager team, then even if you do get your code past the Ob owners and into the tree, your own management doesn't care. Yes, making a massive improvement will get you noticed by senior people and could be a boon for your career, but the improvement has to be very large to attract that kind of attention.]
+
+\Video[https://www.youtube.com/watch?v=Uh64nPT7JWk]
+{title=Bomb disposal robot by \x[the-it-crowd].}
+
+= DOS
+{c}
+{parent=microsoft-windows}
+{wiki}
+
+= Bill Gates
+{parent=microsoft}
+{c}
+{wiki}
+
+The enemy?
+
+You must watch this: \x[video-bill-gates-vs-steve-jobs-by-epic-rap-battles-of-history-2012].
+
+It does not matter how many trillions you donate to charity, Bill. If you want to prove your point, make MS Word free and open source and port it to Linux. And then Window implements \x[posix]-compatible APIs and then deprecate non-POSIX APIs.
+
+= Quote by Bill Gates
+{parent=bill-gates}
+
+= Assign the hard task to the lazy person
+{parent=bill-gates}
+{tag=you-aren-t-gonna-need-it}
+
+https://quoteinvestigator.com/2014/02/26/lazy-job/ (http://archive.is/kcXuQ[archive]):
+\Q[I will always choose a lazy person to do a difficult job because a lazy person will find an easy way to do it.]
+
+See also: \x[effortless-effort].
+
+= POSIX
+{c}
+{parent=operating-system}
+{wiki}
+
+The real explanation: https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix/31865755#31865755
+
+= Environment variable
+{parent=posix}
+{wiki}
+
+= GNU Core Utils
+{c}
+{parent=posix}
+{wiki}
+
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html
+
+= Non-POSIX GNU Core Utils command line utility
+{parent=gnu-core-utils}
+
+= sha1sum
+{parent=non-posix-gnu-core-utils-command-line-utility}
+{wiki}
+
+= shred
+{disambiguate=UNIX}
+{parent=non-posix-gnu-core-utils-command-line-utility}
+{wiki}
+
+= Non-POSIX command line utility
+{parent=posix}
+
+* \x[non-posix-gnu-core-utils-command-line-utility]{child}
+
+= rsync
+{c}
+{parent=non-posix-command-line-utility}
+{wiki}
+
+= sudo
+{c}
+{parent=non-posix-command-line-utility}
+{wiki}
+
+Availability: https://unix.stackexchange.com/questions/48522/how-universal-is-sudo
+
+https://xkcd.com/149/
+
+= POSIX command line utility
+{c}
+{parent=posix}
+
+= `diff`
+{c}
+{parent=posix}
+{wiki}
+
+= `grep`
+{c}
+{parent=posix}
+{wiki}
+
+If you are a programmer, `grep` becomes a verb: "to grep" means "to search text files".
+
+= `wc`
+{c}
+{disambiguate=unix}
+{parent=posix}
+{wiki}
+
+= Standard streams
+{parent=posix}
+{wiki}
+
+= Standard output
+{parent=standard-streams}
+
+= stdout
+{synonym}
+
+= TempleOS
+{c}
+{parent=operating-system}
+{wiki}
+
+The OS that the \x[god]{p} ordered be made.
+
+One is reminded of https://ulillillia.fandom.com/wiki/Ulillillia[Ulillillia], see also: https://www.youtube.com/watch?v=9-79yOZ13qg The Story of Ulillillia by Atrocity Guide (2019)
+
+We are \x[autism][all somewhere in the spectrum].
+
+= Executable file format
+{parent=systems-programming}
+
+* https://en.wikipedia.org/wiki/Executable
+* https://en.wikipedia.org/wiki/Comparison_of_executable_file_formats
+* https://en.wikipedia.org/wiki/Object_file
+
+= Executable and Linkable Format
+{parent=executable-file-format}
+{title2=ELF}
+{wiki}
+
+For a quick and dirty introduction to the format, see: \x[elf-hello-world].
+
+\Include[elf-hello-world]
+
+= Virtualization
+{parent=systems-programming}
+{wiki}
+
+= Docker
+{c}
+{disambiguate=software}
+{parent=virtualization}
+{wiki}
+
+= Docker
+{c}
+{synonym}
+
+Docker is good.
+
+As a lightweight virtualization however, it does break more often than full proper virtualization like \x[qemu] after some updates.
+
+The images also appear to randomly update slightly and break things, even though you've specified e.g.:
+``
+FROM ubuntu:20.04
+``
+
+Also, we need more \x[linux-distributions-buildable-from-source], especially with \x[reproducible-builds].
+
+= Emulator
+{parent=virtualization}
+{wiki}
+
+= Emulate
+{synonym}
+
+One of the things \x[ciro-santilli] really likes, see: \x[linux-kernel-module-cheat].
+
+If \x[computational-physics] simulates physics, emulators simulates \x[computer]{p}.
+
+= gem5
+{c}
+{parent=emulator}
+{wiki}
+
+https://cirosantilli.com/linux-kernel-module-cheat/gem5
+
+= QEMU
+{c}
+{parent=emulator}
+{wiki}
+
+https://cirosantilli.com/linux-kernel-module-cheat/introduction-to-qemu
+
+The leading open source cross architecture and KVM emulator of the 2010's.
+
+Great way to understand how operating systems work, which \x[ciro-santilli] used extensively in his \x[linux-kernel-module-cheat].
+
+\x[ciro-santilli] has some good related articles listed under: \x[articles].
+
+= Systems programming software engineer
+{parent=systems-programming}
+
+= The most awesome systems programming software engineers
+{parent=systems-programming-software-engineer}
+
+* \x[eli-benderski]{child}
+* \x[fabrice-bellard]{child}
+* \x[linus-torvalds]{child}
+
+Other notable people that are likely also awesome but Ciro has less familiarity with their contributions:
+* https://en.wikipedia.org/wiki/D._Richard_Hipp[Dwayne Richard Hipp] from \x[sqlite]
+* https://en.wikipedia.org/wiki/Daniel_Stenberg[Daniel Stenberg] from cURL
+* Michael Niedermayer also from \x[ffmpeg]. http://ikaruga.co.uk/~snacky/mn.html highlights his brutal directness and efficiency, and sometimes sense of humour
+

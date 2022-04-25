@@ -1,0 +1,628 @@
+= Computer hardware
+{wiki}
+
+= Moore's law
+{c}
+{parent=computer-hardware}
+{wiki}
+
+Born: 1965
+
+Died: 2010+-ish
+
+= Semiconductor physical implementation
+{parent=computer-hardware}
+
+https://en.wikipedia.org/wiki/Semiconductor_device
+
+This is the lowest level of abstraction computer, at which the basic gates and power are described.
+
+At this level, you are basically thinking about the 3D layered structure of a chip, and how to make machines that will allow you to create better, usually smaller, gates.
+
+= Company that makes semiconductor production equipment
+{parent=semiconductor-physical-implementation}
+
+= ASML Holding
+{c}
+{parent=company-that-makes-semiconductor-production-equipment}
+{wiki}
+
+= ASML
+{c}
+{synonym}
+
+* https://www.youtube.com/watch?v=CFsn1CUyXWs ASML: TSMC's Critical Supplier, Explained by asianometry (2021)
+* https://www.youtube.com/watch?v=SB8qIO6Ti_M How ASML Won Lithography (& Why Japan Lost) by asianometry (2021)
+* https://www.youtube.com/watch?v=XLNsYecX_2Q ASML: Chip making goes vacuum with EUV (2009) Self promotional video, some good shots of their buildings.
+
+= Power, performance and area
+{parent=semiconductor-physical-implementation}
+{title2=PPA}
+
+https://en.wikichip.org/wiki/power-performance-area
+
+This is the mantra of the \x[semiconductor-industry]:
+* power and area are the main limiting factors of chips, i.e., your budget:
+  * chip area is ultra expensive because there are sporadic errors in the fabrication process, and each error in any part of the chip can potentially break the entire chip. Although there are 
+
+    The percentage of working chips is called the yield.
+
+    In some cases however, e.g. if the error only affects single CPU of a multi-core CPU, then they actually deactivate the broken CPU after testing, and sell the worse CPU cheaper with a clear branding of that: this is called binning https://www.tomshardware.com/uk/reviews/glossary-binning-definition,5892.html
+  * power is a major semiconductor limit as of 2010's and onwards. If everything turns on at once, the chip would burn. Designs have to account for that.
+* performance is the goal.
+
+  Conceptually, this is basically a set of algorithms that you want your hardware to solve, each one with a respective weight of importance.
+
+  Serial performance is fundamentally limited by the \x[critical-path][longest path] that electrons have to travel in a given clock cycle.
+
+  The way to work around it is to create pipelines, splitting up single operations into multiple smaller operations, and storing intermediate results in memories.
+
+= Wafer
+{disambiguate=electronics}
+{parent=semiconductor-physical-implementation}
+
+= Czochralski method
+{c}
+{parent=wafer-electronics}
+{wiki}
+
+= Semiconductor fabrication plant
+{parent=semiconductor-physical-implementation}
+{title2=foundry}
+{wiki}
+
+= Fab
+{synonym}
+{title2}
+
+They put a lot of expensive equipment together, much of it \x[company-that-makes-semiconductor-production-equipment][made by other companies], and they make the entire chip for companies ordering them.
+
+= Company with a semiconductor fabrication plant
+{parent=semiconductor-fabrication-plant}
+
+A list of \x[semiconductor-fabrication-plant][fabs] can be seen at: https://en.wikipedia.org/wiki/List_of_semiconductor_fabrication_plants and basically summarizes all the companies that have fabs.
+
+= Fairchild Semiconductor
+{c}
+{parent=company-with-a-semiconductor-fabrication-plant}
+{wiki}
+
+Some nice insights at: \x[robert-noyce-the-man-behind-the-microchip-by-leslie-berlin-2006].
+
+= TSMC
+{c}
+{parent=company-with-a-semiconductor-fabrication-plant}
+{wiki}
+
+One of the companies that has fabs, which buys machines from companies such as ASML and puts them together in so called "silicon fabs" to make the chips
+
+= Photolithography
+{parent=semiconductor-fabrication-plant}
+{wiki}
+
+= Photomask
+{parent=photolithography}
+{wiki}
+
+= Standard cell library
+{parent=semiconductor-physical-implementation}
+{wiki}
+
+Basically what \x[register-transfer-level] compiles to in order to achieve a real chip implementation.
+
+After this is done, the final step is \x[place-and-route].
+
+They can be designed by third parties besides the \x[semiconductor-fabrication-plant]{p}. E.g. \x[arm-ltd] markets its \x[arm-artisan][Artisan] Standard Cell Libraries as mentioned e.g. at: https://web.archive.org/web/20211007050341/https://developer.arm.com/ip-products/physical-ip/logic This came from a 2004 acquisition: https://www.eetimes.com/arm-to-acquire-artisan-components-for-913-million/[], \x[if-a-product-of-a-big-company-has-a-catchy-name-it-came-from-an-acquisition][obviously].
+
+The standard cell library is typically composed of a bunch of versions of somewhat simple gates, e.g.:
+* AND with 2 inputs
+* AND with 3 inputs
+* AND with 4 inputs
+* OR with 2 inputs
+* OR with 3 inputs
+and so on.
+
+Each of those gates has to be designed by hand as a \x[3d] structure that can be produced in a given \x[fab].
+
+Simulations are then carried out, and the electric properties of those structures are characterized in a standard way as a bunch of tables of numbers that specify things like:
+* how long it takes for electrons to pass through
+* how much heat it produces
+Those are then used in \x[power-performance-and-area] estimates.
+
+= Open source standard cell library
+{parent=standard-cell-library}
+
+Open source ones:
+* https://www.quora.com/Are-there-good-open-source-standard-cell-libraries-to-learn-IC-synthesis-with-EDA-tools/answer/Ciro-Santilli Are there good open source standard cell libraries to learn IC synthesis with EDA tools?
+
+= Electronic design automation
+{parent=semiconductor-physical-implementation}
+{title2=EDA}
+{wiki}
+
+A set of software programs that \x[compile] high level \x[register-transfer-level] languages such as \x[verilog] into something that a \x[fab] can actually produce. One is reminded of a \x[compiler-toolchain] but on a lower level.
+
+The most important steps of that include:
+* \x[logic-synthesis]: mapping the \x[verilog] to a \x[standard-cell-library]
+* \x[place-and-route]: mapping the synthesis output into the 2D surface of the chip
+
+= Electronic design automation phase
+{parent=electronic-design-automation}
+
+= Logic synthesis
+{parent=electronic-design-automation-phase}
+{wiki}
+
+Step of \x[electronic-design-automation] that maps the \x[register-transfer-level] input (e.g. \x[verilog]) to a \x[standard-cell-library].
+
+The output of this step is another \x[verilog] file, but one that exclusively uses interlinked cell library components.
+
+= Place and route
+{parent=electronic-design-automation-phase}
+{wiki}
+
+Given a bunch of interlinked \x[standard-cell-library] elements from the \x[logic-synthesis] step, actually decide where exactly they are going to go on 2D (stacked 2D) \x[integrated-circuit] surface.
+
+= EDA company
+{c}
+{parent=electronic-design-automation}
+{tag=technology-company}
+
+The main ones as of 2020 are:
+* \x[mentor-graphics], which was bought by \x[siemens] in 2017
+* \x[cadence-design-systems]
+* \x[synopsys]
+
+= Cadence Design Systems
+{c}
+{parent=eda-company}
+{wiki}
+
+= Mentor Graphics
+{c}
+{parent=eda-company}
+{wiki}
+
+= Synopsys
+{c}
+{parent=eda-company}
+{wiki}
+
+= Open source EDA tool
+{parent=electronic-design-automation}
+
+= qflow
+{parent=open-source-eda-tool}
+
+Cool looking \x[open-source-eda-tool][open source EDA toolchain]:
+* http://opencircuitdesign.com/qflow/
+* https://github.com/RTimothyEdwards/qflow
+
+They apparently even produced a real working small \x[risc-v] chip with the flow, not bad.
+
+= Integrated circuit
+{parent=computer-hardware}
+{title2=IC}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=z47Gv2cdFtA]
+{title=A briefing on semiconductors by \x[fairchild-semiconductor] (1967)}
+{description=Uploaded by the \x[computer-history-museum]. \x[there-is-value-in-tutorials-written-by-early-pioneers-of-the-field]{c}, this is pure \x[gold].
+
+Shows:
+* \x[photomask]{p}
+* \x[silicon] \x[ingot]{p} and \x[wafer-electronics] processing
+}
+
+= Application-specific integrated circuit
+{parent=computer-hardware}
+{wiki}
+
+= ASIC
+{c}
+{synonym}
+{title2}
+
+= Register transfer level
+{parent=computer-hardware}
+{title2=RTL}
+{wiki}
+
+Register transfer level is the abstraction level at which computer chips are mostly designed.
+
+The only two truly relevant RTL languages as of 2020 are: \x[verilog] and \x[vhdl]. Everything else compiles to those, because that's all that EDA vendosr support.
+
+Much like a C compiler abstracts away the \x[cpu] assembly to:
+* increase portability across ISAs
+* do optimizations that programmers can't feasibly do without going crazy
+
+Compilers for RTL languages such as Verilog and \x[vhdl] abstract away the details of the specific \x[semiconductor-physical-implementation][semiconductor technology] used for those exact same reasons.
+
+The compilers essentially compile the RTL languages into a \x[standard-cell-library].
+
+Examples of companies that work at this level include:
+* https://en.wikipedia.org/wiki/Intel[Intel]. Intel also has \x[semiconductor-fabrication-plant]{p} however.
+* https://en.wikipedia.org/wiki/Arm_Holdings[Arm Holdings], which does not have fabs, and is therefore called a "\x[fabless]" company.
+
+= Fabless manufacturing
+{parent=register-transfer-level}
+{wiki}
+
+= Fabless
+{synonym}
+
+= Logic gate
+{parent=register-transfer-level}
+{wiki}
+
+= Truth table
+{parent=logic-gate}
+{wiki}
+
+= Verilog
+{c}
+{parent=register-transfer-level}
+{wiki}
+
+= Verilator
+{parent=verilog}
+{wiki}
+
+\x[verilog] simulator that \x[transpile]{p} to \x[c-plus-plus].
+
+= VHDL
+{c}
+{parent=register-transfer-level}
+{wiki}
+
+= GHDL
+{c}
+{parent=vhdl}
+
+https://github.com/ghdl/ghdl
+
+= Processor
+{disambiguate=computing}
+{parent=computer-hardware}
+
+= Central processing unit
+{parent=processor-computing}
+{wiki}
+
+= CPU
+{c}
+{synonym}
+{title2}
+
+= Microarchitecture
+{parent=central-processing-unit}
+
+= Microprocessor
+{parent=central-processing-unit}
+{wiki}
+
+Basically a synonym for \x[central-processing-unit] nowadays: https://electronics.stackexchange.com/questions/44740/whats-the-difference-between-a-microprocessor-and-a-cpu
+
+= Graphics processing unit
+{parent=processor-computing}
+{wiki}
+
+= GPU
+{c}
+{synonym}
+{title2}
+
+= Computer data storage
+{parent=computer-hardware}
+{wiki}
+
+= Volatile memory
+{parent=computer-data-storage}
+{wiki}
+
+= Random-access memory
+{parent=volatile-memory}
+{wiki}
+
+= RAM
+{c}
+{synonym}
+{title2}
+
+In conventional speech of the early 2000's, is basically a synonym for \x[dynamic-random-access-memory].
+
+= Static random-access memory
+{parent=random-access-memory}
+{title2=SRAM}
+{wiki}
+
+= Dynamic random-access memory
+{parent=random-access-memory}
+{wiki}
+
+= DRAM
+{c}
+{synonym}
+{title2}
+
+DRAM is often shortened to just \x[random-access-memory].
+
+= Synchronous dynamic random-access memory
+{parent=dynamic-random-access-memory}
+{title2=SDRAM}
+{wiki}
+
+= DDR SDRAM
+{parent=synchronous-dynamic-random-access-memory}
+{title2=DDR SDRAM}
+{wiki}
+
+= Magnetoresistive RAM
+{parent=random-access-memory}
+{tag=non-volatile-memory}
+{title2=MRAM}
+{wiki}
+
+= Non-volatile memory
+{parent=computer-data-storage}
+
+The opposite of \x[volatile-memory].
+
+= Disk storage
+{parent=non-volatile-memory}
+{wiki}
+
+= Disk read-and-write head
+{parent=disk-storage}
+{wiki}
+
+= Magnetoresistive disk head
+{parent=disk-read-and-write-head}
+{wiki=Disk_read-and-write_head#Magnetoresistive_heads_(MR_heads)}
+
+= Solid-state storage
+{parent=non-volatile-memory}
+{wiki}
+
+= SSD
+{synonym}
+{title2}
+
+= Erase SSD securely
+{parent=solid-state-storage}
+
+You can't just \x[shred-unix] individual \x[ssd] files because SSD writes only at large granularities, so hardware/drivers have to copy stuff around all the time to compact it. This means that leftover copies are left around everywhere.
+
+What you can do however is to erase the entire thing with vendor support, which most hardware has support for. On hardware encrypted disks, you can even just erase the keys:
+* ATA: https://www.thomas-krenn.com/en/wiki/Perform_a_SSD_Secure_Erase for ATA.
+* NVMe: http://forum.notebookreview.com/threads/secure-erase-hdds-ssds-sata-nvme-using-hdparm-nvme-cli-on-linux.827525/
+
+TODO does shredding the
+
+= Solid-state drive
+{parent=computer-data-storage}
+{title2=SSD}
+{wiki}
+
+= Flash memory
+{parent=solid-state-drive}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=5f2xOxRGKqk]
+{title=The Engineering Puzzle of Storing Trillions of Bits in your Smartphone / SSD using Quantum Mechanics by Branch Education (2020)}
+{description=Nice animations show how \x[quantum-tunnelling] is used to set bits in \x[flash-memory].}
+
+= Display device
+{parent=computer-hardware}
+
+= E Ink
+{c}
+{parent=display-device}
+{wiki}
+
+Electronic Ink such as that found on Amazon Kindle is the greatest invention ever made by man.
+
+Once E Ink reaches reasonable refresh rates to replace liquid crystal displays, the world will finally be saved.
+
+It would allow \x[ciro-santilli] to spend his entire life in front of a screen rather in the real world without getting tired eyes, and even if it is sunny outside.
+
+Ciro stopped reading non-code non-news a while back though, so the current refresh rates are useless, what a shame.
+
+OMG, this is amazing: https://getfreewrite.com/
+
+= Amazon Kindle
+{c}
+{parent=e-ink}
+{wiki}
+
+\x[pdf] table of contents feature requests: https://twitter.com/cirosantilli/status/1459844683925008385
+
+= Remarkable
+{c}
+{disambiguate=tablet}
+{parent=e-ink}
+{wiki}
+
+\x[remarkable-2] is really, really good. Relatively fast refresh + touchscreen is amazing.
+
+No official public feedback forum unfortunately:
+* https://twitter.com/cirosantilli/status/1459844683925008385
+* https://www.reddit.com/r/RemarkableTablet/comments/7h341m/official_remarkable_feedback_ideas_and/
+* https://www.reddit.com/r/RemarkableTablet/comments/7hxu70/link_for_remarkable_support_and_feature_requests/
+
+\x[pdf] table of contents could be better: https://twitter.com/cirosantilli/status/1459844683925008385
+
+= Remarkable 2
+{c}
+{parent=remarkable-tablet}
+
+Display size: 10.3 inches. Perfect size
+
+= Instruction set architecture
+{parent=computer-hardware}
+{wiki}
+
+The main interface between the \x[central-processing-unit] and \x[software].
+
+= Assembly language
+{parent=instruction-set-architecture}
+{wiki}
+
+= Assembly
+{synonym}
+
+A human readable way to write instructions for an \x[instruction-set-architecture].
+
+One of the topics covered in \x[ciro-santilli]'s \x[linux-kernel-module-cheat].
+
+= Assembler
+{disambiguate=computing}
+{parent=assembly-language}
+
+= List of instruction set architectures
+{parent=instruction-set-architecture}
+
+List of \x[instruction-set-architecture].
+
+= x86
+{c}
+{parent=list-of-instruction-set-architectures}
+{wiki}
+
+\Include[x86-paging]
+
+= PowerPC
+{c}
+{parent=list-of-instruction-set-architectures}
+{wiki}
+
+= RISC-V
+{c}
+{parent=list-of-instruction-set-architectures}
+{wiki}
+
+The leading no-royalties options as of 2020.
+
+= SiFive
+{c}
+{parent=risc-v}
+{wiki}
+
+Leading \x[risc-v] consultants as of 2020, they are basically trying to become the \x[red-hat] of the \x[semiconductor-industry].
+
+\x[china] has been a major client, since the country is trying to increase its \x[semiconductor-industry] independence, especially given economic sanctions imposed by the \x[usa].
+
+As a result, \x[sifive] moved its legal headquarters to \x[switzerland] in 2019 to try and overcome some of the sanctions.
+
+= Computer manufacturer
+{parent=computer-hardware}
+
+= Lenovo
+{c}
+{parent=computer-manufacturer}
+{wiki}
+
+Their websites a bit \x[shitty], clearly a non cohesive amalgamation of several different groups.
+
+E.g. you have to create several separate accounts, and different regions have completely different accounts and websites.
+
+The \x[europe] replacement part website for example is clearly made by a third party called https://flex.com/ and has Flex written all over it, and the header of the home page has a slightly broken but very obviously broken CSS. And you can't create an account without a VAT number... and they confirmed by email that they don't sell to non-corporate entities without a VAT number. What a \x[bullshit]!
+
+= ThinkPad
+{c}
+{parent=lenovo}
+{wiki}
+
+This is \x[ciro-santilli]'s favorite laptop brand. He's been on it since the early 2010's after he saw his \x[ciro-santilli-s-wife][then-girlfriend-later-wife] using it.
+
+Ciro doesn't know how to explain it, but ThinkPads just feel... right. The screen, the keyboard, the lid, the touchpad are all exactly what Ciro likes.
+
+The only problem with ThinkPad is that it is owned by \x[lenovo] which is a \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][Chinese company], and that makes Ciro feel bad. But he likes it too much to quit... what to do?
+
+Ciro is also reassured to see that in every enterprise he's been so far as of 2020, ThinkPads are very dominant. And the same when you see internal videos from other big tech enterprises, all those nerds are running... Ubuntu on ThinkPads! And the https://en.wikipedia.org/wiki/File:ISS-38_EVA-1_Laptops.jpg[ISS].
+
+Those nerds like their ThinkPads so much, that Ciro has seen some acquaintances with crazy old ThinkPad machines, missing keyboard buttons or the like. They just like their machines that much.
+
+ThinkPads are are also designed for repairability, and it is easy to buy replacement parts, and there are OEM part replacement video tutorials: https://www.youtube.com/watch?v=vseFzFFz8lY No visible \x[planned-obsolescence] here! With the caveat that the official online part stores can be \x[shit] as mentioned at \x[lenovo]{full}.
+
+Further more, in 2020 Lenovo is announced full certification for \x[ubuntu] https://www.forbes.com/sites/jasonevangelho/2020/06/03/lenovos-massive-ubuntu-and-red-hat-announcement-levels-up-linux-in-2020/#28a8fd397ae0 which \i[fantastic] news!
+
+The only thing Ciro never understood is the trackpoint: https://superuser.com/questions/225059/how-to-get-used-of-trackpoint-on-a-thinkpad Why would you use that with such an amazing touchpad? And \x[vimium].
+
+= Raspberry Pi Foundation
+{c}
+{parent=computer-manufacturer}
+{wiki}
+
+= Raspberry Pi
+{c}
+{parent=raspberry-pi-foundation}
+{wiki}
+
+= Raspberry Pi 2
+{c}
+{parent=raspberry-pi-foundation}
+
+Model B V 1.1.
+
+SoC: BMC2836
+
+https://www.raspberrypi.org/products/raspberry-pi-2-model-b/
+
+= Raspberry Pi 3
+{c}
+{parent=raspberry-pi-foundation}
+
+Model B V 1.2.
+
+SoC: BCM2837
+
+Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
+
+= Peripheral
+{parent=computer-hardware}
+{wiki}
+
+= Computer keyboard
+{parent=peripheral}
+{wiki}
+
+= Kinesis Advantage 2 keyboard
+{c}
+{parent=computer-keyboard}
+
+https://kinesis-ergo.com/shop/advantage2/
+
+For \x[ciro-santilli], this is not a \x[computer-keyboard]. It is a \x[fetish].
+
+= Semiconductor industry
+{parent=computer-hardware}
+{wiki}
+
+= Semiconductor company
+{parent=semiconductor-industry}
+
+= Arm Ltd.
+{c}
+{parent=semiconductor-company}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=FCmnWTlDK6M]
+{title=Arm 30 Years On: Episode One by \x[arm-ltd] (2022)}
+
+\Video[https://www.youtube.com/watch?v=w_CiSKUFvcg]
+{title=Arm 30 Years On: Episode Two by \x[arm-ltd] (2022)}
+
+\Video[https://www.youtube.com/watch?v=QmHpoi4BVwM]
+{title=Arm 30 Years On: Episode Three by \x[arm-ltd] (2022)}
+{description=This one is boring US expansion. Other two are worth it.}
+
+= Arm Artisan
+{c}
+{parent=arm-ltd}
+{wiki}
+
+= Intel
+{c}
+{parent=semiconductor-company}
+{wiki}
