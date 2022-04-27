@@ -1,0 +1,499 @@
+= Node.js
+{c}
+{wiki}
+
+Wellhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync], if you are gonna usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-jsp[Sync] this \x[javascript][wonky language] thing inhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] one place, you might as well usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] it everywherehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] and make it more decent. See also: \x[how-to-convert-async-to-sync-in-javascript].
+
+Their CLI debugger is a bit crap compared to GDB, basic functionality is either lacking or too verbose:
+* https://stackoverflow.com/questions/65493221/how-to-break-at-a-specific-function-or-line-with-the-node-js-node-inspect-comman
+* https://stackoverflow.com/questions/70486188/how-to-break-on-uncaught-exception-on-the-node-js-node-inspect-command-line-debu Some operations are only possible on the browser debug UI...
+Documentation at: https://nodejs.org/dist/latest-v16.x/docs/api/debugger.html
+
+Examples:
+* \a[nodejs/bench_mem.js]. Must be run with `node --expose-gc bench_mem.js`. Outcome on Node.js v16.14.2 for the default size of 1 million, the value for `process.memoryUsage()`:
+  ``
+  {
+    rss: 39280640,
+    heapTotal: 48623616,
+    heapUsed: 14106592,
+    external: 285296,
+    arrayBuffers: 10422
+  }
+  ``
+  So 1 million integers allocates 14 million memory of used heap, so even at 8 bytes per integer to reach the https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER[MAX_SAFE_INTEGER] it is already wasteful. Actually rss 39M which is insane. If we deallocate the array with:
+  ``
+  a = undefined
+  ``
+  by running:
+  ``
+  node --expose-gc bench_mem.js dealloc
+  ``
+  the result is that now only 3 MB of heap was used:
+  ``
+  {
+    rss: 30257152,
+    heapTotal: 38182912,
+    heapUsed: 3726176,
+    external: 285296,
+    arrayBuffers: 10422
+  }
+  ``
+  We understand that about 4 MB is a minimum heap size always maintained. The same result is obtained by reducing the array size to just 1:
+  ``
+  node --expose-gc bench_mem.js n 1
+  ``
+  Therefore, from 14 MB we can take out about 4 and so the 1 million rows took about 10 MB, so a bit closer to the 8 that we might otherwise have expected.
+
+  If we use an `Int32Array` array buffers instead of a simple `Array`:
+  ``
+  node --expose-gc bench_mem.js array-buffer
+  ``
+  we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers`:
+  ``
+  {
+    rss: 31776768,
+    heapTotal: 6463488,
+    heapUsed: 3674520,
+    external: 4285296,
+    arrayBuffers: 4010422
+  }
+  ``
+  and we are very close to the 4 million expected value, so this mode is actually efficient.
+
+  Now let's try one million objects of type `{ a: 1, b: -1 }`:
+  ``
+  node --expose-gc bench_mem.js obj
+  ``
+  gives:
+  ``
+  {
+    rss: 138969088,
+    heapTotal: 105246720,
+    heapUsed: 70103896,
+    external: 285296,
+    arrayBuffers: 10422
+  }
+  ``
+  Disaster! Memory usage is up to 70 MB! Why?? We were expecting only about 24, 4 baseline + 2 * 10 for each million int?!
+
+  And now an equivalent version using `class`:
+  ``
+  node --expose-gc bench_mem.js class
+  ``
+  gives the same result.
+
+= Node.js library
+{c}
+{parent=node-js}
+
+= Node.js standard library
+{c}
+{parent=node-js-library}
+
+= Node.js `worker_threads`
+{c}
+{parent=node-js-standard-library}
+
+= Node.js database bindings
+{parent=node-js-library}
+
+* \x[node-js-sqlite-bindings]
+
+= Node.js ORM library
+{parent=node-js-library}
+{tag=object-relational-mapping}
+
+\Include[sequelize]
+
+= Node.js web framework
+{c}
+{parent=node-js}
+
+= Express.js
+{c}
+{parent=node-js-web-framework}
+
+This doesn't do a hole lot. \x[ciro-santilli] wouldn't really call it a web framework. It's more like a middleware. Real web frameworks are built on top of it.
+
+Examples under: \a[nodejs/express]:
+* \a[nodejs/express/min.js]: minimal example. Visit http://localhost:3000 and it shows `hello world`. It is a bit wrong because the headers say HTML but we return plaintext.
+* \a[nodejs/express/index.js]: example dump with automated tests where possible. The automated tests are run at startup after the server launches. Then the server keeps running so you can interact with it.
+
+A live example on \x[heroku] can be seen at: https://github.com/cirosantilli/heroku-node-min
+
+= Realworld app written in Express
+{c}
+{parent=express-js}
+
+\x[gothinkster-realworld] implementations based on \x[express-js].
+
+= gothinkster/node-express-realworld-example-app
+{parent=realworld-app-written-in-express}
+
+https://github.com/gothinkster/node-express-realworld-example-app
+
+= sigoden/node-express-realworld-example-app
+{parent=realworld-app-written-in-express}
+
+Appears to be a port of \x[gothinkster-node-express-realworld-example-app] to \x[sequelize].
+
+Seemed to just work at 68bbadfd77f679f0df0fcd0de5bceb9c37b1144a Ubuntu 20.10, was forked from parent project in 2018.
+
+= Varun-Hegde/Conduit_NodeJS
+{parent=realworld-app-written-in-express}
+
+Very raw. Easy to understand. Relatively well organiezd. But also very buggy at 3ab8d9f849a1cdf2985a8d123b1893f0fd4e79ab: https://github.com/Varun-Hegde/Conduit_NodeJS/issues/3[], I just can't trust it. There must be several helper libraries that would greatly DRY up the repetitive CRUD. Ciro hates the style :-) 4 space indents, no space after commas, no semicolon. Not based on https://github.com/gothinkster/node-express-realworld-example-app[] which is essentially one of the reference implementations, so from scratch apparently, which is a bad sign.
+
+= FeathersJS
+{c}
+{parent=node-js-web-framework}
+
+* https://feathersjs.com
+* https://github.com/feathersjs/feathers
+* https://stackoverflow.com/questions/tagged/feathersjs
+
+Looks interesting.
+
+It seems to abstract the part about the client messaging the backend, which focuses on being able to easily plug in a number of \x[front-end-web-framework] to manage client state.
+
+Has the "main web \x[api] is the same as the REST API" focus, which is fundamental 2020-nowadays.
+
+Uses \x[socket-io], which allows the client Javascript to register callbacks when data is updated to achieve \x[socket-io], e.g. their default chat app does:
+``
+client.service('messages').on('created', addMessage);
+``
+so that message appear immediately as they are sent.
+
+Their standard template from `feathers generate app` on `@feathersjs/cli@4.5.0` includes:
+* several authentication methods, including \x[oauth]
+* testing
+* backend \x[database] with one of several \x[object-relational-mapping]! However, they don't abstract across them. E.g., the default Chat example uses NeDB, but a real app will likely use \x[sequelize], and a \x[port-software-portability] is needed
+which looks promising! They don't have a default template for a \x[front-end-web-framework] however unfortunately: https://docs.feathersjs.com/guides/frameworks.html#the-feathers-chat lists a few chat app versions, which is their \x[hello-world]:
+* \x[front-end-web-framework]: not built-in on generator, but there are some sample repos pointed from the documentation, and they did work out-of-box:
+  * \x[feathers-chat-react]
+But it is in itself a completely boring app with a single splash page, and no database interaction, so not a good showcase. The actual showcase app is \x[feathersjs-feathers-chat].
+
+And there is no official example of the chat app that is immediately deployable to \x[heroku]: \x[feathersjs-heroku-deployment], all setups require thinking.
+
+Global source entry point: determine on `package.json` as usual, defaults to `src/index.js`.
+
+= FeatherJS demo apps
+{c}
+{parent=feathersjs}
+
+https://github.com/feathersjs/awesome-feathersjs#projects-using-feathers
+
+= feathersjs/feathers-chat
+{c}
+{parent=featherjs-demo-apps}
+
+https://github.com/feathersjs/feathers-chat
+
+The main \x[feathersjs] \x[hello-world] demo. Notable missing things...
+* instant \x[heroku] deployability: \x[feathersjs-heroku-deployment]
+* no \x[front-end-web-framework] which sucks, but there are basically official demos that worked e.g. \x[feathers-chat-react]
+* \x[feathersjs-signup-email-verification]
+
+= feathers-chat PostgreSQL
+{c}
+{parent=feathersjs-feathers-chat}
+
+The default feathers-chat app runs on NeDB (local filesystem \x[json] database).
+
+\x[ciro-santilli] managed to port it to \x[sequelize] for \x[postgresql] as shown at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
+
+= feathers-chat-react
+{c}
+{parent=feathersjs-feathers-chat}
+
+https://github.com/feathersjs-ecosystem/feathers-chat-react
+
+Last updated 2018 as of 2021, but still just worked.
+
+Also uses \x[webpack] which is fantastic.
+
+Gotta run https://github.com/feathersjs/feathers-chat[] first: https://github.com/feathersjs-ecosystem/feathers-chat-react/issues/5[], then it worked:
+``
+git clone https://github.com/feathersjs/feathers-chat
+cd feathers-chat
+git checkout fd729a47c57f9e6170cc1fa23cee0c84a004feb5
+npm install
+npm start
+``
+and on the other terminal:
+``
+git clone https://github.com/feathersjs-ecosystem/feathers-chat-react
+cd feathers-chat-react
+git checkout 36d56cbe80bbd5596f6a108b1de9db343b33dac3
+npm install
+npm start
+``
+then visit http://localhost:3000/ and you can create an account and login, tested on Ubuntu 20.10. Data is stored on persistently.
+
+TODO how to merge those two repos into a single repo.
+
+If you \x[disable-javascript-on-chromium], it stops working completely. There is a section on how to solve that at: https://docs.feathersjs.com/cookbook/express/view-engine.html[] but it does not cover React specifically. \x[codaisseur-feathersjs-react-redux-ssr] might be good to look into.
+
+= Codaisseur/feathersjs-react-redux-ssr
+{c}
+{parent=featherjs-demo-apps}
+
+https://github.com/Codaisseur/feathersjs-react-redux-ssr
+
+Also \x[webpack] and \x[babel-transcompiler], looks promising!
+
+As of 2021, last commit from 2017.
+
+Running:
+``
+git clone https://github.com/Codaisseur/feathersjs-react-redux-ssr
+cd feathersjs-react-redux-ssr
+npm install
+``
+failed on Ubuntu 20.10 \x[node-js] v14.15.3 with:
+``
+../src/create_string.cpp:17:37: error: no matching function for call to ‘v8::String::Utf8Value::Utf8Value(v8::Local<v8::Value>&)’
+   17 |   v8::String::Utf8Value string(value);
+      |                                     ^
+``
+Likely similar \x[bullshit] from: https://stackoverflow.com/questions/50111688/node-sqlite-node-gyp-build-error-no-member-named-forceset-in-v8object because the Node.js version is too new.
+
+If I try `nvm install v10`
+
+I \x[google] error messages until reaching:
+``
+diff --git a/gulpfile.js b/gulpfile.js
+index b931e06..24d2cc8 100644
+--- a/gulpfile.js
++++ b/gulpfile.js
+@@ -14,34 +14,34 @@ gulp.task('css', function() {
+            .pipe(gulp.dest('./dist'))
+ })
+ 
+-gulp.task('css:watch', ['css'], function() {
++gulp.task('css:watch', gulp.series('css', function() {
+   gulp.watch('app/styles/**/*.sass', ['css'])
+-})
++}))
+ 
+ gulp.task('moveAssets', function() {
+   return gulp.src('./app/assets/**/*')
+              .pipe(gulp.dest('./dist/assets'))
+ })
+ 
+-gulp.task('build:revAssets', ['css', 'moveAssets'], function() {
++gulp.task('build:revAssets', gulp.series('css', 'moveAssets', function() {
+   var rev = new $.revAll()
+   return gulp.src('./dist/**/*')
+              .pipe(rev.revision())
+              .pipe(gulp.dest('./dist/public'))
+              .pipe(rev.manifestFile())
+              .pipe(gulp.dest('./dist'))
+-})
++}))
+ 
+ gulp.task('build:cpServer', function() {
+   return gulp.src('./app/**/*.{js,ejs}')
+              .pipe(gulp.dest('./dist/server-build'))
+ })
+-gulp.task('build:revServer', ['build:cpServer'], function() {
++gulp.task('build:revServer', gulp.series('build:cpServer', function() {
+   var manifest = gulp.src('./dist/rev-manifest.json')
+   return gulp.src('./dist/server-build/{components,containers}/**/*')
+              .pipe($.revReplace({ manifest: manifest }))
+              .pipe(gulp.dest('./dist/server-build'))
+-})
++}))
+ 
+ gulp.task('build', function() {
+   runSequence('build:revAssets', 'build:revServer')
+diff --git a/package.json b/package.json
+index bcb29c3..86bd593 100644
+--- a/package.json
++++ b/package.json
+@@ -67,7 +67,7 @@
+     "redux-thunk": "^0.1.0",
+     "request": "^2.79.0",
+     "rewire": "^2.3.4",
+-    "run-sequence": "^1.2.2",
++    "run-sequence": "^2.2.1",
+     "serve-favicon": "^2.3.2",
+     "socket.io-client": "^1.7.2",
+     "superagent": "^1.4.0",
+@@ -86,16 +86,16 @@
+     "concurrently": "^2.0.0",
+     "cross-env": "^1.0.7",
+     "enzyme": "^2.3.0",
+-    "gulp": "^3.9.0",
++    "gulp": "^4.0.2",
+     "gulp-autoprefixer": "^3.1.0",
+     "gulp-load-plugins": "^1.2.0",
+     "gulp-rev": "^6.0.1",
+-    "gulp-sass": "^2.1.1",
++    "gulp-sass": "4.1.0",
+     "gulp-sourcemaps": "^1.6.0",
+     "jsdom": "^7.0.1",
+     "mocha": "^2.4.5",
+     "nock": "^2.17.0",
+-    "node-sass": "^3.4.2",
++    "node-sass": "^5.0.0",
+     "nodemon": "^1.6.0",
+     "react-addons-test-utils": "^15.3.2",
+     "react-transform-catch-errors": "^1.0.0",
+``
+and the next problem is: https://stackoverflow.com/questions/48513573/gulp-error-gulp-hastask-is-not-a-function
+
+= randyscotsmithey/feathers-realworld-example-app
+{parent=featherjs-demo-apps}
+
+\x[feathersjs] entry for \x[gothinkster-realworld].
+
+\x[mongodb]-based.
+
+So once you install MongoDB, run with:
+``
+MONGODB_FEATHERS_REALWORLD=mongodb://localhost:27017/mydb npm start
+``
+
+Got it working on \x[ubuntu] 20.10 with both \x[react] and \x[vue-js] front-ends at https://github.com/randyscotsmithey/feathers-realworld-example-app/commit/8bc3a09242285de624c75bb8345630df499a7d07[] as mentioned at https://github.com/randyscotsmithey/feathers-realworld-example-app/issues/2 except for bad error reporting on UI.
+
+Tests can be run with:
+``
+MONGODB_FEATHERS_REALWORLD=mongodb://localhost:27017/mydb npm run test
+``
+but there were 10 failures and 55 passes: https://github.com/randyscotsmithey/feathers-realworld-example-app/issues/3
+
+= FeathersJS Heroku deployment
+{c}
+{parent=feathersjs}
+
+Got it working as mentioned at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
+
+One major step was to \x[port-software-portability] to \x[postgresql] as shown at \x[feathers-chat-postgresql].
+
+Bibliography:
+* https://stackoverflow.com/questions/47270219/deploy-feathersjs-app-on-heroku/66723974#66723974
+* https://github.com/feathersjs/feathers/issues/1647
+* https://medium.com/@mattchewone/feathersjs-deployment-gitlab-ci-cd-heroku-4ea9e34ab129
+
+There's also a `heroku` branch at: https://github.com/feathersjs/feathers-chat/tree/heroku[], but it also seems to use NeDB? So you can have a filesystem in Heroku? Doesn't seem so: https://stackoverflow.com/questions/42775418/heroku-local-persistent-storage
+
+= FeathersJS signup email verification
+{c}
+{parent=feathersjs}
+
+* https://github.com/feathersjs/feathers/issues/1514
+* https://blog.feathersjs.com/how-to-setup-email-verification-in-feathersjs-72ce9882e744
+
+= Meteor
+{c}
+{disambiguate=web framework}
+{parent=node-js-web-framework}
+
+https://github.com/meteor/meteor
+
+The idea is cool. It really unifies front-and back end.
+
+But \x[ciro-santilli] feels the approach proposed by \x[feathersjs] of being a glue between bigger third-party \x[front-end-web-framework]{p} like \x[react] and backend (\x[object-relational-mapping]) is more promising and flexible.
+
+= Nest.js
+{c}
+{parent=node-js-web-framework}
+
+* https://github.com/lujakob/nestjs-realworld-example-app
+* \x[object-relational-mapping]: https://docs.nestjs.com/techniques/database
+* \x[front-end-web-framework]: looks weak:
+  * https://github.com/yemiwebby/nest-react-project
+
+= lujakob/nestjs-realworld-example-app
+{c}
+{parent=nest-js}
+
+\x[nest-js] entry for \x[gothinkster-realworld].
+
+Didn't manage to get it to work perfectly on \x[ubuntu] 20.10: https://github.com/lujakob/nestjs-realworld-example-app/issues/57
+
+= lujakob/nestjs-realworld-example-app SQLite port
+{parent=lujakob-nestjs-realworld-example-app}
+
+Tried a quick port to \x[sqlite] to get rid of annoying local databases for development, but failed, at c1c2cc4e448b279ff083272df1ac50d20c3304fa
+``
+npm install sqlite3 --save-dev
+``
+and
+``
+{
+  "type": "sqlite",
+  "database": "db.sqlite3",
+  "entities": ["src/**/**.entity{.ts,.js}"],
+  "synchronize": true
+}
+``
+then:
+``
+npm start
+``
+fails with:
+``
+DataTypeNotSupportedError: Data type "timestamp" in "ArticleEntity.created" is not supported by "sqlite" database.
+``
+Attempt to hack it:
+``
+--- a/src/article/article.entity.ts
++++ b/src/article/article.entity.ts
+@@ -20,10 +20,10 @@ export class ArticleEntity {
+   @Column({default: ''})
+   body: string;
+
+-  @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
++  @Column({ default: () => "CURRENT_TIMESTAMP"})
+   created: Date;
+
+-  @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
++  @Column({ default: () => "CURRENT_TIMESTAMP"})
+   updated: Date;
+``
+and after that it seems to run.
+
+I can signup and login, terrible error reporting as usual, make sure to use long enough usernames/passwords.
+
+However, article creation fails with:
+``
+Unhandled Rejection (TypeError): Cannot read property 'slug' of undefined
+``
+
+= Sails.js
+{c}
+{parent=node-js-web-framework}
+
+https://github.com/balderdashy/sails
+
+\x[front-end-web-framework] integration: no native one:
+* \x[react]:
+  * https://github.com/markmur/sails-react-webpack
+  * https://github.com/sepineda/sails-react-webpack Last updated as of 2021: 2018
+  * https://stackoverflow.com/questions/28331032/sails-js-with-react-js-how-to-do-it-correctly
+* \x[vue-js]:
+  * https://github.com/mikermcneil/ration Issue tracker disabled...
+    * live at: https://ration.io/
+    * selling a course at: https://courses.platzi.com/courses/sails-js/
+  * https://platzi.com/cursos/javascript-pro/ non-free and in Spanish pointed to from official README...
+  * \x[nuxt-js]:
+    * https://github.com/AngelMunoz/sails-nuxt
+
+TODO \x[server-side-rendering] anyone??
+* https://stackoverflow.com/questions/32412590/how-to-use-react-js-to-render-server-side-template-on-sails-js
+* https://stackoverflow.com/questions/54217147/ssr-for-react-redux-application-with-sails
+* https://gist.github.com/duffpod/746a660bcddfd986878c92dde1a04f06
+* https://www.reddit.com/r/reactjs/comments/7saoqm/sailsjs_or_adonisjs_designed_for_server_side/
+
+= NVM
+{c}
+{parent=node-js}
+
+https://github.com/nvm-sh/nvm
+
+The best way to install Node.js:
+* https://askubuntu.com/questions/49390/how-do-i-install-the-latest-version-of-node-js/425888#425888
+* https://askubuntu.com/questions/594656/how-to-install-the-latest-versions-of-nodejs-and-npm/971612#971612
+* https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version/1115255#1115255

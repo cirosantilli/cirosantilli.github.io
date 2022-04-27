@@ -25,7 +25,13 @@ This is a major milestone, as the new content can start attracting new users, an
 
 Once v1.0 is reached, I will actually make all internal links of https://cirosantilli.com to point to https://ourbigbook.com/cirosantilli[] to try and drive some more traffic.
 
-The new content blows up by far the limit of the free \x[heroku] \x[postgresql] database of 10k lines. This meant that I needed to upgrade the Heroku Postgres plugin from the free Hobby Dev to the 9 USD/month Hobby Basic: https://elements.heroku.com/addons/heroku-postgresql[], so now hosting costs will increase from 7 USD/month for the dyno to 7 + 9 = 16 UDS/month.
+The new content blows up by far the limit of the free \x[heroku] \x[postgresql] database of 10k lines. This meant that I needed to upgrade the Heroku Postgres plugin from the free Hobby Dev to the 9 USD/month Hobby Basic: https://elements.heroku.com/addons/heroku-postgresql[], so now hosting costs will increase from 7 USD/month for the dyno to 7 + 9 = 16 UDS/month. After this upgrade and uploading all of cirosantilli.com to ourbigbook.com, Heroku dashboard reads reads:
+* 30,918 rows out of 10,000,000
+* 61.0 MB (out of 10 GB)
+so clearly if we are ever forced to upgrade plans again, it means that a bunch of people are using the website and that things are going very very well! Happy how this storage cost turned out so far.
+
+Some key bugs that were encoutered with the new content include:
+* Heroku RAM memory is quite limited at 512MB, and JavaScript is not exactly the most memory economical language out there. Started investigation at: https://github.com/cirosantilli/ourbigbook/issues/230 Initially \x[fix-it-twice][working around that by simply splitting the largest files]. We were just on the verge of what could be ran however luckily, so a few dozen splits was enough, it managed to handle 70 kB \x[ourbigbook-markup] inputs. So hopefully if we manage to optimize a bit more we will be able to set a maximum size of 100 kB and still have a good safety margin.
 
 = Misc advances
 {parent=advances}
