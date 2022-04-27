@@ -1,0 +1,301 @@
+= cirosantilli.com
+{c}
+{tag=personal-website}
+
+= Ciro Santilli's website
+{c}
+{synonym}
+{title2}
+
+\x[ciro-santilli]'s \x[website] is a dump of his \x[brain], see also: \x[braindumping].
+
+However it won't remain like that for long, because it will be migrated to \x[ourbigbook-com], and therefore become a brain dump of society itself.
+
+\Video[https://www.youtube.com/watch?v=_Jtpf8N5IDE]
+{title=Who Wants To Live Forever by Queen (1986)}
+
+= Unmigrated sections of the old version of Ciro Santilli's website
+{parent=cirosantilli-com}
+
+It is interesting to see how your own ideas shift with time, and \x[ciro-santilli] doesn't think the following are very important anymore, so he was lazy to migrate them.
+
+When he did the original website Ciro was in a "I must show off my skills to get a job mindset", but then after he landed a few jobs he moved to a "CV websites are useless, just do amazing projects and showcase them on your website to help them succeed" mindset.
+
+\Include[interests]
+\Include[projects]
+\Include[skills]
+
+= Why Ciro Santilli removed Disqus comments from his website in 2019-05-04
+{parent=cirosantilli-com}
+
+Commit: https://github.com/cirosantilli/cirosantilli.github.io/commit/794705a201a79b5128934e69df85e3511655c03f
+
+As Ciro started getting a lot of comments on his home page \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][about China], he decided that \x[disqus] does not scale, and that it would be more productive long term to remove it and point people to \x[github] issues instead.
+
+Upsides of removal:
+* Disqus discoverability is bad:
+  * there is no decent way to search existing issues, you have to do \x[javascript] infinite loading + Ctrl + F. So every reply that he wrote is a waste of time, as it will never be seen again.
+  * comments don't have: decent URLs, titles, metadata like tags or open / close
+* Disqus archival is bad: http://web.archive.org/ does not work, and no one knows how to export the issues: https://www.archiveteam.org/index.php?title=Disqus
+* before, there were two places where people could comment, Disqus and \x[github] issues. Now there is just one.
+* Disqus has ads if you ever reach enough traffic, which unacceptable, especially if the website owner don't get paid for them! It also makes page loads slower, although that likely does not matter much.
+
+Downsides:
+* people are more likely to comment on Disqus than to create an issue on GitHub, especially because most people use GitHub professionally. But this has the upside that there will be less shitposts as well.
+* with Disqus you can see all issues attached to a page automatically, which is nice. But for as long as Ciro is alive, he intends to just solve the issues, cross link between content and issues and tag things appropriately.
+
+Ciro's stance towards China hasn't changed, and China comments and corrections about his website are still welcome as always.
+
+Related issue: https://github.com/cirosantilli/cirosantilli.github.io/issues/37
+
+= DNS configuration of Ciro Santilli's website
+{c}
+{parent=cirosantilli-com}
+
+AKA how this https://github.com/cirosantilli/cirosantilli.github.io[GitHub page] gets served under the domain: https://cirosantilli.com
+
+Ciro only touches this very rarely, and always forgets and go into great pain whenever a change needs to done, so it is important to document it.
+
+The last change was of 2019-07-07, when Ciro moved from the www subdomain https://www.cirosantilli.com to the APEX https://cirosantilli.com[]. A redirect is setup from the www subdomain to APEX.
+
+https://en.wikipedia.org/wiki/GoDaddy[GoDaddy] DNS entries:
+
+``
+Type    Name    Value                   TTL
+A       @       185.199.108.153         1 Hour
+A       @       185.199.109.153         1 Hour
+A       @       185.199.110.153         1 Hour
+A       @       185.199.111.153         1 Hour
+CNAME   www     cirosantilli.github.io  1 Hour
+``
+
+Moved cirosantilli.com to Porkbun 2022-02, unfortunatly records were not automatically updated and domain went down for a bit, upadded to new entries for IPv6 as well which are not documented by GitHub:
+
+``
+TYPE 	HOST	ANSWER	TTL	PRIORITY	OPTIONS
+A	cirosantilli.com	185.199.108.153	600
+A	cirosantilli.com	185.199.109.153	600
+A	cirosantilli.com	185.199.110.153	600
+A	cirosantilli.com	185.199.111.153	600
+AAAA	cirosantilli.com	2606:50c0:8000::153	600
+AAAA	cirosantilli.com	2606:50c0:8001::153	600
+AAAA	cirosantilli.com	2606:50c0:8002::153	600
+AAAA	cirosantilli.com	2606:50c0:8003::153	600
+CNAME	www.cirosantilli.com	cirosantilli.github.io	600
+``
+
+where the IPs are obtained from: https://help.github.com/en/articles/setting-up-an-apex-domain#configuring-a-records-with-your-dns-provider (http://web.archive.org/web/20190707085154/https://help.github.com/en/articles/setting-up-an-apex-domain#configuring-a-records-with-your-dns-provider[archive]).
+
+Under https://github.com/cirosantilli/cirosantilli.github.io/settings
+
+* Custom domain: `cirosantilli.com`
+* Enforce HTTPS: checked
+
+And the CNAME file is tracked in this repository: \a[CNAME].
+
+= The CSS of Ciro Santilli's website looks broken
+{parent=cirosantilli-com}
+
+That which does not exist, cannot be broken.
+
+And of course:
+* \x[one-page-to-rule-them-all]
+* https://motherfuckingwebsite.com
+
+= Ciro Santilli's website is not mobile friendly
+{parent=cirosantilli-com}
+{c}
+
+True \x[art] cannot be consumed in mobile format.
+
+= Mathematics typesetting setup of Ciro Santilli's website
+{parent=cirosantilli-com}
+
+\x[katex] is automatically used in \x[ourbigbook-markup].
+
+= Media rationale of Ciro Santilli's website
+{parent=cirosantilli-com}
+
+= One page to rule them all
+{parent=media-rationale-of-ciro-santilli-s-website}
+
+It is true that one image is worth a thousand words, but unfortunately it is also true that one image takes up at least as much bytes as a thousand words!
+
+Having one single page to rule them all is of course the \x[ideal] setup for a website, as you can Ctrl + F one ToC and quickly find what you want.
+
+And, with \x[linux-kernel-module-cheat] Ciro noticed that it is very hard to write so much intelligent prose that becomes larger than reasonable to load on a single webpage.
+
+He then started using this technique for everything he writes, including this page and \x[ciro-santilli-s-campaign-for-freedom-of-speech-in-china][Chinese government].
+
+However, if there are too many images on the page, the loading of the last images would take forever in case users want to view the last sections.
+
+There are two solutions to that:
+* be traditional and create separate web pages
+* be bold and load images as they appear on the viewport: https://stackoverflow.com/questions/2321907/how-do-you-make-images-load-only-when-they-are-in-the-viewport/57389607#57389607
+
+  Edit: OK, it was standardized with `loading=lazy`, without need \x[javascript]!
+
+  Now the last awesome thing would be a method that loads first images in viewport, then those below, and then those above, that would be the ultimate solution.
+
+  This question comes close: https://stackoverflow.com/questions/7906348/change-loading-order-of-images-already-on-page
+
+Ciro is still deciding between those two. The traditional approach works for sure but loses the one page to rule them all benefits.
+
+The innovative approach will work for interactive viewing, but archive.org will fail to load the images for example, and there may be other unforseen consequences.
+
+Wikimedia Commons is awesome and automatically converts and serves smaller versions of images, so always choose the smallest images size needed by the output document. Readers can then find the higher resolution versions by following the page source.
+
+This also comes to mind: https://motherfuckingwebsite.com
+
+https://zettelkasten.de/posts/overview/ from \x[zettelkasten]:
+\Q[How many Zettelkästen should I have? The answer is, most likely, only one for the duration of your life. But there are exceptions to this rule.]
+
+= Where to store images
+{parent=media-rationale-of-ciro-santilli-s-website}
+{id=media-rationale-of-ciro-santilli-s-website/where-to-store-images}
+
+Since images are large, they bring the following challenges:
+* keeping images in the main Git repository with text content makes the repository huge and slow to clone, and should not be done
+* storing and serving images could cost us, which we want to avoid
+
+To solve those problems, the following alternatives appear to be stable enough and should be used decreasing preference:
+* for all images, use the separate GitHub repository: https://github.com/cirosantilli/media
+
+  This way, the entire website is relies on a single third party: GitHub, so we have a simple https://en.wikipedia.org/wiki/Single_point_of_failure[single point of failure].
+
+  We are at the mercy of GitHub's 1GB size policy: https://help.github.com/en/articles/what-is-my-disk-quota[], but it will take a while to hit that.
+
+  GitLab however has a 10Gb maximum size: https://about.gitlab.com/2015/04/08/gitlab-dot-com-storage-limit-raised-to-10gb-per-repo/ so we could move there is we ever blow up 1Gb on GitHub.
+
+  Both GitLab and GitHub allow uploading files through the web UI, so downloading a large repo is never needed to contribute.
+
+  GitHub does not serve videos like it does images however as of 2019.
+* https://commons.wikimedia.org/wiki/Main_Page[Wikimedia Commons] for videos if the following conditions are met:
+
+  * https://commons.wikimedia.org/wiki/Commons:Project_scope[in scope]: "educational material in a broad sense", but not e.g. "Private image collections, e.g. private party photos, photos of yourself and your friends, your collection of holiday snaps and so on.". I don't think they will be too picky even with low quality photos.
+  * allowed format, e.g. images or videos, but not ZIPs
+  * allowed license: CC BY SA, but no fair use
+
+  Since Wikimedia Commons has a higher level of curation and is an educational not-for-profit, it is the method most likely to remain available for the longest time.
+
+  For this reason, we highly recommend uploading any acceptable files there as well as an additional backup.
+
+  The downside is that its tooling is not as good, e.g. https://webapps.stackexchange.com/questions/135251/how-to-download-all-files-from-an-uploader-on-wikimedia-commons[there are a bunch of messy unofficial tools for batch operations], and upload takes more effort.
+
+  Another downside of Wikimedia Commons is that while we can choose the basename of files, it also adds some extra SHA crap to the beginning of URLs, making them harder to predict.
+
+  Another serious downside is that they randomly rename images without redirects... e.g. they renamed https://upload.wikimedia.org/wikipedia/en/0/03/STJ_SVG_file.svg to https://upload.wikimedia.org/wikipedia/commons/8/81/Superconducting_tunnel_junction.svg
+
+  Another "downside" is that they are extremely strict about copyright compliance. This is good because you can be pretty sure that they are correct in general, but it also means that they are very conservative, and delete things where fair use would be OK. And if those fair uses have no Wikipedia page, they won't show up anywhere.
+* https://archive.org for anything else, e.g. videos that Wikimedia commons does not accept.
+
+  All content will be tracked under the `cirosantilli` collection: https://archive.org/details/cirosantilli
+
+  archive.org has a very convenient upload and lax requirements. The generated URLs are predictable (single SHA prefix for the entire collection).
+
+  Never trust a website that is not on \x[github-pages], for-profit companies will take down everything immediately as soon as it stops making them money.
+
+  Every external link to non-GitHub pages must be archived. And GitHub links must be forked.
+
+  We should also backup images that Wikimedia Commons does not accept here in addition to the https://github.com/cirosantilli/media repository.
+
+The following alternatives seem impossible because Ciro could not find if they expose direct links to the images:
+* \x[google-photos] https://webapps.stackexchange.com/questions/92777/how-to-get-the-direct-link-to-an-image-in-my-google-photos
+* Imgur https://webapps.stackexchange.com/questions/84535/has-imgur-stopped-giving-direct-links
+
+The following do have direct links:
+* https://www.flickr.com e.g. https://live.staticflickr.com/7437/27402357162_7d91b73cd5_z.jpg documented at https://help.flickr.com/en_us/get-the-url-of-a-flickr-photo-S1Hnnmjym Also does automatic image size conversion. But only provides ugly autogenerated URLs.
+* \x[instagram] does not support upload from computer? Lol?
+
+For videos, \x[youtube] does not allow download, even of Creative Commons videos so uploading only there is not acceptable as it prevents reuse:
+* https://law.stackexchange.com/questions/8033/is-it-legal-to-download-and-modify-videos-from-youtube-licensed-under-creative-c
+* https://www.quora.com/Can-I-download-Creative-Commons-licensed-YouTube-videos-to-edit-them-and-use-them
+
+= Download Ciro's website for offline viewing
+{parent=cirosantilli-com}
+
+First install \x[nvm]/NPM as shown at and then:
+``
+git clone https://github.com/cirosantilli/cirosantilli.github.io
+cd cirosantilli.github.io
+npm install
+ourbigbook .
+xdg-open index.html
+``
+
+= Why Ciro Santilli refers to himself in the third person
+{parent=cirosantilli-com}
+
+Because when this gets converted to a \x[ourbigbook-com] page, it will be easier for people to copy paragraphs/fork and write a canonical page about Ciro.
+
+What do you do when creating a pull request? Do you say "I", which is not true because Ciro did not say that, or do you say "John Doe thinks" bla bla?
+
+And because \x[ciro-santilli-s-selfish-desires][his name is awesome]! :-) Just kidding.
+
+This became a micro-\x[meme] in \x[4chan]:
+* 2020-09-21 https://archive.vn/wip/Zz7fx (https://boards.4channel.org/g//thread/77842524/itt-weird-sites-you-found-by-accident[original]) "ITT: weird sites you found by accident" a comment reads:
+  \Q[https://cirosantilli.com/ this is some guys resume who repeats his own name well over 1,000 times.]
+* 2020-04-30 http://archive.is/LgDbK (https://boards.4channel.org/g/thread/75687327/interesting-website-thread[original]) "Interesting Website thread" a comment reads:
+  \Q[https://cirosantilli.com/ What is even this?
+
+  "a guy who says his name over 500 times in his resume."
+  ]
+Correction: cirosantilli.com is not Ciro Santili's resume. It is \x[cirism][your life].
+
+= How to develop Ciro Santilli's website before the OurBigBook migration
+{parent=cirosantilli-com}
+
+The website moved from \x[asciidoctor] to \x[ourbigbook-markup] in 2020, making this section mostly useless. But hey, history!
+
+Ciro's website is powered by \x[github-pages] and https://github.com/asciidoctor/jekyll-asciidoc[Jekyll Asciidoc].
+
+The source code is located at: https://github.com/cirosantilli/cirosantilli.github.io
+
+Build locally, watch for changes and rebuild automatically, and start a local server with:
+``
+git clone --recursive https://github.com/cirosantilli/cirosantilli.github.io
+cd cirosantilli.github.io
+bundle install
+npm install
+./run
+``
+
+Source: `./run`.
+
+The website will be visible at: http://localhost:4000[].
+
+Tested on the latest Ubuntu.
+
+Publish changes to \x[github-pages]:
+``
+git add -u
+git commit -m 'make yourself look sillier'
+./publish
+``
+
+Source: `./publish`.
+
+GitHub forces us to use the master branch for the build output... so the actual source is in the branch `dev`.
+
+Update the gems with:
+``
+bundle update
+git add Gemfile.lock
+git commit -m 'update gems'
+``
+
+His website was originally written in \x[markdown], however those were deprecated in favour of \x[asciidoctor] when Ciro saw the light, rationale shown at: \a[markdown-style-guide#use-asciidoc]{check=0}
+
+GitHub pages is chosen instead of a single page GitHub README.adoc for the following reasons:
+* Ciro will want some unsupported extensions, notably mathematics, likely with \x[mathematics-typesetting-setup-of-ciro-santilli-s-website][KaTeX server side]:
+  * https://github.com/asciidoctor/asciidoctor/pull/3338
+  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
+  * https://g14n.info/2014/09/math-on-github-pages/
+  * https://stackoverflow.com/questions/11256433/how-to-show-math-equations-in-general-githubs-markdownnot-githubs-blog
+  * https://www.quora.com/How-can-I-combine-latex-and-markdown-in-GitHub
+* when GitHub dies, Ciro's website URL still lives and retains the \x[pagerank]!
+
+= Why Ciro Santilli uses excessive ammounts of links even to things everyone knows what they are
+{parent=cirosantilli-com}
+
+This website is written for \x[alien]{p}, not \x[human]{p}.
