@@ -9,78 +9,149 @@ Their CLI debugger is a bit crap compared to GDB, basic functionality is either 
 * https://stackoverflow.com/questions/70486188/how-to-break-on-uncaught-exception-on-the-node-js-node-inspect-command-line-debu Some operations are only possible on the browser debug UI...
 Documentation at: https://nodejs.org/dist/latest-v16.x/docs/api/debugger.html
 
-Examples:
-* \a[nodejs/bench_mem.js]. Must be run with `node --expose-gc bench_mem.js`. Outcome on Node.js v16.14.2 for the default size of 1 million, the value for `process.memoryUsage()`:
-  ``
-  {
-    rss: 39280640,
-    heapTotal: 48623616,
-    heapUsed: 14106592,
-    external: 285296,
-    arrayBuffers: 10422
-  }
-  ``
-  So 1 million integers allocates 14 million memory of used heap, so even at 8 bytes per integer to reach the https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER[MAX_SAFE_INTEGER] it is already wasteful. Actually rss 39M which is insane. If we deallocate the array with:
-  ``
-  a = undefined
-  ``
-  by running:
-  ``
-  node --expose-gc bench_mem.js dealloc
-  ``
-  the result is that now only 3 MB of heap was used:
-  ``
-  {
-    rss: 30257152,
-    heapTotal: 38182912,
-    heapUsed: 3726176,
-    external: 285296,
-    arrayBuffers: 10422
-  }
-  ``
-  We understand that about 4 MB is a minimum heap size always maintained. The same result is obtained by reducing the array size to just 1:
-  ``
-  node --expose-gc bench_mem.js n 1
-  ``
-  Therefore, from 14 MB we can take out about 4 and so the 1 million rows took about 10 MB, so a bit closer to the 8 that we might otherwise have expected.
+= Node.js example
+{parent=node-js}
 
-  If we use an `Int32Array` array buffers instead of a simple `Array`:
-  ``
-  node --expose-gc bench_mem.js array-buffer
-  ``
-  we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers`:
-  ``
-  {
-    rss: 31776768,
-    heapTotal: 6463488,
-    heapUsed: 3674520,
-    external: 4285296,
-    arrayBuffers: 4010422
-  }
-  ``
-  and we are very close to the 4 million expected value, so this mode is actually efficient.
+= JavaScript memory usage benchmark
+{parent=node-js-example}
 
-  Now let's try one million objects of type `{ a: 1, b: -1 }`:
-  ``
-  node --expose-gc bench_mem.js obj
-  ``
-  gives:
-  ``
-  {
-    rss: 138969088,
-    heapTotal: 105246720,
-    heapUsed: 70103896,
-    external: 285296,
-    arrayBuffers: 10422
-  }
-  ``
-  Disaster! Memory usage is up to 70 MB! Why?? We were expecting only about 24, 4 baseline + 2 * 10 for each million int?!
+In this section we will use the file \a[nodejs/bench_mem.js], tests are run on Node.js v16.14.2 from NVM, Ubuntu 21.10, on \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017] which has 32 GB RAM.
 
-  And now an equivalent version using `class`:
-  ``
-  node --expose-gc bench_mem.js class
-  ``
-  gives the same result.
+Must be run with:
+``
+node --expose-gc bench_mem.js
+``
+Outcome on  for the default size of 1 million, the value for `process.memoryUsage()`:
+``
+{
+  rss: 39280640,
+  heapTotal: 48623616,
+  heapUsed: 14106592,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+So 1 million integers allocates 14 million memory of "used heap", so even at 8 bytes per integer to reach the https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER[MAX_SAFE_INTEGER] it is already wasteful. Actually rss 39M which is insane.
+
+If we deallocate the array with:
+``
+a = undefined
+``
+by running:
+``
+node --expose-gc bench_mem.js dealloc
+``
+the result is that now only 3 MB of heap was used:
+``
+{
+  rss: 30257152,
+  heapTotal: 38182912,
+  heapUsed: 3726176,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+We understand that about 4 MB is a minimum heap size always maintained. The same result is obtained by reducing the array size to just 1:
+``
+node --expose-gc bench_mem.js n 1
+``
+Therefore, from 14 MB we can take out about 4 and so the 1 million rows took about 10 MB, so a bit closer to the 8 that we might otherwise have expected.
+
+Let's increase `n` a bit to 100 million:
+``
+node --expose-gc bench_mem.js n 100000000
+``
+outcome:
+``
+{
+  rss: 960307200,
+  heapTotal: 940437504,
+  heapUsed: 906074624,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+so now things look a bit more reasonable, with `heapUsed`, `heapTotal` and `rss` much closer to each other at 906 MB, 940 MB and 960 MB respectively. and about 9 bytes per integer on average.
+
+If we use `Int32Array` typed array buffers instead of a simple `Array`:
+``
+node --expose-gc bench_mem.js array-buffer
+``
+we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers`:
+``
+{
+  rss: 31776768,
+  heapTotal: 6463488,
+  heapUsed: 3674520,
+  external: 4285296,
+  arrayBuffers: 4010422
+}
+``
+and we are very close to the 4 million expected value, so this mode might be actually efficient. However, `rss` is still unchanged at around 30 MB. So maybe there is a lower bound to the `rss` that we are just not hitting.
+
+Now let's try one million objects of type `{ a: 1, b: -1 }`:
+``
+node --expose-gc bench_mem.js obj
+``
+gives:
+``
+{
+  rss: 138969088,
+  heapTotal: 105246720,
+  heapUsed: 70103896,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+Disaster! Memory usage is up to 70 MB! Why?? We were expecting only about 24, 4 baseline + 2 * 10 for each million int?!
+
+And now an equivalent version using `class`:
+``
+node --expose-gc bench_mem.js class
+``
+gives the same result.
+
+Let's try Array:
+``
+node --expose-gc bench_mem.js arr
+``
+is even worse at 78 MB!! OMG why.
+``
+{
+  rss: 164597760,
+  heapTotal: 129363968,
+  heapUsed: 78117008,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+
+Let's change the number of fields on the object? First as a sanity check:
+``
+node --expose-gc bench_mem.js obj 2
+``
+produces as expected the smae result as:
+``
+node --expose-gc bench_mem.js obj
+``
+so adding properties one by one doesn't change anything from creating the literal all at once. Good.
+
+Now:
+``
+node --expose-gc bench_mem.js obj N
+``
+gives `heapUsed`:
+* 1: 70M
+* 2: 70M
+* 3: 70M
+* 4: 70M
+* 5: 110M
+* 6: 110M
+* 7: 110M
+* 8: 134M
+* 9: 134M
+* 10: 134M
+* 11: 158M
 
 = Node.js library
 {c}

@@ -3,13 +3,18 @@
 // https://cirosantilli.com/node-js
 
 // CLI arguments.
-let dealloc = false
+let arr = false
 let array_buffer = false
+let dealloc = false
 let klass = false
 let obj = false
 let n = 1000000
+let objn = 0
 for (let i = 2; i < process.argv.length; i++) {
   switch (process.argv[i]) {
+    case 'arr':
+      arr = true
+    break
     case 'array-buffer':
       array_buffer = true
     break
@@ -25,6 +30,10 @@ for (let i = 2; i < process.argv.length; i++) {
     case 'n':
       i++
       n = parseInt(process.argv[i], 10)
+    break
+    case 'objn':
+      i++
+      objn = parseInt(process.argv[i], 10)
     break
     default:
       console.error(`unknown option: ${process.argv[i]}`);
@@ -50,6 +59,15 @@ if (array_buffer) {
   for (let i = 0; i < n; i++) {
     a.push({ a: i, b: -i })
   }
+} else if (objn) {
+  a = []
+  for (let i = 0; i < n; i++) {
+    const obj = {}
+    for (let j = 0; j < objn; j++) {
+      obj[String.fromCharCode(65 + j)] = i
+    }
+    a.push(obj)
+  }
 } else if (klass) {
   a = []
   for (let i = 0; i < n; i++) {
@@ -58,7 +76,12 @@ if (array_buffer) {
 } else if (klass) {
   a = []
   for (let i = 0; i < n; i++) {
-    a.push(new MyClass(i, i))
+    a.push(new MyClass(i, -i))
+  }
+} else if (arr) {
+  a = []
+  for (let i = 0; i < n; i++) {
+    a.push([i, -i])
   }
 } else {
   a = []
@@ -79,6 +102,13 @@ while (true) {
     for (let i = 0; i < n; i++) {
       if (obj || klass) {
         j += a[i].a + a[i].b
+      } else if (objn) {
+        const obj = a[i]
+        for (let k = 0; k < objn; k++) {
+          j += obj[String.fromCharCode(65 + k)]
+        }
+      } else if (arr) {
+        j += a[i][0] + a[i][1]
       } else {
         j += a[i]
       }
