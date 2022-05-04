@@ -12,72 +12,133 @@ Documentation at: https://nodejs.org/dist/latest-v16.x/docs/api/debugger.html
 = Node.js example
 {parent=node-js}
 
+* \a[nodejs/infinite_loop.js]
+* \a[nodejs/infinite_hello.js]
+
 = JavaScript memory usage benchmark
 {parent=node-js-example}
 
 In this section we will use the file \a[nodejs/bench_mem.js], tests are run on Node.js v16.14.2 from NVM, Ubuntu 21.10, on \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017] which has 32 GB RAM.
 
-Must be run with:
-``
-node --expose-gc bench_mem.js
-``
-Outcome on  for the default size of 1 million, the value for `process.memoryUsage()`:
-``
-{
-  rss: 39280640,
-  heapTotal: 48623616,
-  heapUsed: 14106592,
-  external: 285296,
-  arrayBuffers: 10422
-}
-``
-So 1 million integers allocates 14 million memory of "used heap", so even at 8 bytes per integer to reach the https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER[MAX_SAFE_INTEGER] it is already wasteful. Actually rss 39M which is insane.
+Related answer: https://stackoverflow.com/questions/12023359/what-do-the-return-values-of-node-js-process-memoryusage-stand-for/72043884#72043884
 
-If we deallocate the array with:
+First using `topp` from https://stackoverflow.com/questions/1221555/retrieve-cpu-usage-and-memory-usage-of-a-single-process-on-linux/40576129#40576129 let's observe the memory usage of some baseline cases.
+
+A C hello world with an infinite loop at the end has:
+* 2.7 MB
+* 770 KB
+
+For a Node.js infinite loop \a[nodejs/infinite_loop.js]
 ``
-a = undefined
+topp infinite_loop.js
 ``
-by running:
+This gives approximately:
+* RSS: 20 MB
+* VSZ: 230 MB
+
+Adding a single hello world to it as in \a[nodejs/infinite_hello.js] and running:
 ``
-node --expose-gc bench_mem.js dealloc
+topp infinite_hello.js
 ``
-the result is that now only 3 MB of heap was used:
+leads to:
+* RSS: 26 MB
+* VSZ: 580 MB
+We understand that Node.js preallocates VSZ wildly. No big deal, but it does mean that VSZ is a useless measure for Node.js.
+
+Forcing garbage collection as in \a[nodejs/infinite_hello.js] brings it down to 20 MB however:
+``
+topp node --expose-gc infinite_hello_gc.js
+``
+
+Finally let's see a baseline for `process.memoryUsage` \a[nodejs/infinite_memoryusage.js]:
+``
+node --expose-gc infinite_memoryusage.js
+``
+which gives initially:
 ``
 {
-  rss: 30257152,
-  heapTotal: 38182912,
-  heapUsed: 3726176,
+  rss: 23851008,
+  heapTotal: 6987776,
+  heapUsed: 3674696,
   external: 285296,
   arrayBuffers: 10422
 }
 ``
-We understand that about 4 MB is a minimum heap size always maintained. The same result is obtained by reducing the array size to just 1:
+but after a few seconds randomly jumps to:
+``
+{
+  rss: 26005504,
+  heapTotal: 9084928,
+  heapUsed: 3761240,
+  external: 285296,
+  arrayBuffers: 10422
+}
+``
+so we understand that
+* `heapUsed` seems constant at 3.7 MB
+* `heapTotal` is a very noisy, as it starts at 7 MB, but randomly jumps to 9 MB at one point without apparent reason
+
+Now let's run our main test program.
+
+First a baseline case with an array of length 1:
 ``
 node --expose-gc bench_mem.js n 1
 ``
-Therefore, from 14 MB we can take out about 4 and so the 1 million rows took about 10 MB, so a bit closer to the 8 that we might otherwise have expected.
+This gives the same results as `node --expose-gc infinite_memoryusage.js`. The same result is obtained by doing:
+``
+a = undefined
+``
+with:
+``
+node --expose-gc bench_mem.js dealloc
+``
 
-Let's increase `n` a bit to 100 million:
+Not let's vary the size of `n` a bit with:
 ``
-node --expose-gc bench_mem.js n 100000000
+node --expose-gc bench_mem.js n N
 ``
-outcome:
-``
-{
-  rss: 960307200,
-  heapTotal: 940437504,
-  heapUsed: 906074624,
-  external: 285296,
-  arrayBuffers: 10422
-}
-``
-so now things look a bit more reasonable, with `heapUsed`, `heapTotal` and `rss` much closer to each other at 906 MB, 940 MB and 960 MB respectively. and about 9 bytes per integer on average.
+which gives:
+|| N
+|| `heapUsed`
+|| `heapTotal`
+|| `rss`
+|| `heapUsed` per elem
+|| `rss` per elem
+
+| 1 M
+| 14 MB
+| 48 MB
+| 56 MB
+| 10
+| 30
+
+| 10 M
+| 122 MB
+| 157 MB
+| 176 MB
+| 18
+| 15
+
+| 100 M
+| 906 MB
+| 940 MB
+| 960 MB
+| 9
+| 9.3
+
+"`rss` per elem" is calculated as: `rss` - 26 MB, where 26 MB is the baseline RSS seen on `n 1`.
+
+Similarly "`heapUsed` per elem" deduces the 4 MB (approximation of the above 3.7 MB) seen on `n 1`.
+
+Note that to reach https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER[MAX_SAFE_INTEGER] we would need 8 bytes per elem worst case.
+
+Everything below 100 million (8) is therefore very memory wasteful in terms of RSS.
 
 If we use `Int32Array` typed array buffers instead of a simple `Array`:
 ``
-node --expose-gc bench_mem.js array-buffer
+node --expose-gc bench_mem.js array-buffer n N
 ``
-we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers`:
+we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers`, e.g. for `N` 1 million:
 ``
 {
   rss: 31776768,
@@ -87,7 +148,29 @@ we see that the memory is now, unsurprisingly, accounted for under `arrayBuffers
   arrayBuffers: 4010422
 }
 ``
-and we are very close to the 4 million expected value, so this mode might be actually efficient. However, `rss` is still unchanged at around 30 MB. So maybe there is a lower bound to the `rss` that we are just not hitting.
+Results for different N:
+``
+|| N
+|| `arrayBuffers`
+|| `rss`
+|| `rss` per elem
+
+| 1 M
+| 4 MB
+| 31 MB
+| 5
+
+| 10 M
+| 40 MB
+| 67 MB
+| 4.6
+
+| 100 M
+| 40 MB
+| 427 MB
+| 4
+``
+We see therefore that typed arrays are much closer to what they advertise (4 bytes per element), even for smaller element counts, as expected.
 
 Now let's try one million objects of type `{ a: 1, b: -1 }`:
 ``
