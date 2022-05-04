@@ -12,7 +12,7 @@ const Integer = sequelize.define('Integer',
   {
     value: {
       type: DataTypes.INTEGER,
-      unique: true, // mandatory
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -46,6 +46,7 @@ if (sequelize.options.dialect === 'postgres') {
     { id: 1, value: 2, name: 'TWO', inverse: -2 },
   ])
 } else {
+  // Unexpected ID returned due to the lack of RETURNING, we wanted it to be 1.
   common.assertEqual(rows, [
     { id: 3, value: 2, name: 'TWO', inverse: undefined },
   ])
