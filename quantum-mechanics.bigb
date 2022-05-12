@@ -548,13 +548,20 @@ The general \x[schrodinger-equation] can be broken up into a trivial time-depend
 
 Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-and-uniqueness-for-two-dimensional-time-dependent-schr%C3%B6dinger-equation
 
-= Time-independent Schrodinger equation
+= Time-independent Schrödinger equation
 {parent=schrodinger-equation}
 {wiki=Schrödinger_equation#Time-independent_equation}
 
-As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] from \x[quantum-physics-by-jim-branson-2003], using \x[separation-of-variables] we can break up the general \x[schrodinger-equation] into:
-* a time-only part that does not depend on space and does not depend on the potential
-* a space-only part that does not depend on time:
+The cool thing about the <Time-independent Schrödinger equation> is that we can always reduce solving the full <schrodinger equation> to solving this slightly simpler time-independent version.
+
+This is actually the approach that we will always take <solutions of the Schrodinger equation>[when solving the schrodinger equation], see e.g. <quantum harmonic oscillator>.
+
+Before reading any further, you \i[must] understand <heat equation solution with Fourier series>, which uses <separation of variables>.
+
+Once that example is clear, we see that the exact same <separation of variables> can be done to the <schrodinger equation>. If we name the constant of the separation of variables $E$ for energy, we get::
+* a time-only part that does not depend on space and does not depend on the <hamiltonian> at all. The solution for this part is therefore always the same exponentials for any problem, and this part is therefore "boring":
+  $$e^{-iEt/\hbar}$$
+* a space-only part that does not depend on time, bud does depend on the hamiltonian:
 
   $$\hat{H}[\psi(\vv{x})] = E \psi{\vv{x}}$$
   {title=Time-independent Schrodinger equation}
@@ -563,19 +570,31 @@ As shown at https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html[] fr
 
   Note that the $\psi$ here is not the same as the $\psi$ in the \x[equation-schrodinger-equation][time-dependent Schrodinger equation] of course, as that psi is the result of the multiplication of the time and space parts. This is a bit of imprecise terminology, but hey, physics.
 
-The key initial example to have in mind is the \x[time-independent-schrodinger-equation-for-a-free-one-dimensional-particle].
+Because the time part of the equation is always the same and always trivial to solve, all we have to do to actually solve the Schrodinger equation is to solve the time independent one, and then we can construct the full solution trivially.
 
-It is interesting to note that the time-independent Schrodinger equation can also be seen exactly as an \x[eigenvalue] equation, since the value of the energy `E` can be any fixed value that can satisfy the \x[boundary-condition]{p} conditions imposed. The only difference from usual \x[matrix] \x[eigenvector]{p} is that we are now dealing with an \x[infinite-dimensional] vector space.
+Once we've solve the time-independent part, call it for each discrete energy $E_i$ as $E_i\psi_i(x)$, we proceed exactly as we did in <heat equation solution with Fourier series>: we make a weighted sum over all possible $E$ to match the initial condition, which is analogous to the <fourier series> in the case of the heat equation to reach a final full solution:
+$$
+\sum_{i=0}^{\infty} e^{-iEt/\hbar} E_i\psi_i(x)
+$$
+{title=Solution of the Schrodinger equation in terms of the time-independent and time dependent parts}
+and this is a solution by selecting $E_i$ such that at time $t = 0$ we match the intial condition:
+$$
+\sum_{i=0}^{\infty} e^{-iE0/\hbar} E_i\psi_i(x) = \sum_{i=0}^{\infty} E_i\psi_i(x) = initial condition
+$$
 
-Then, just like in \x[solving-partial-differential-equations-with-the-fourier-series] of the \x[heat-equation], the boundary conditions may make it so that only certain \x[discrete] values of `E` are possible solutions.
+The fact that this approximation of the initial condition is always possible from is mathematically proven by some version of the <spectral theorem> bsaed on the fact that <The Schrodinger equation Hamiltonian has to be Hermitian> and therefore behaves nicely.
 
-Then, the time part o the equation can be solved explicitly in the general case, as it does not depend on the potential $V(x)$, and it is just an exponential.
-
-Therefore, all we need to do to solve the general Schrodinger equation is to solve the time-independent version, and then decompose the initial condition in terms of it like as done in \x[solving-partial-differential-equations-with-the-fourier-series]{full}.
+It is interesting to note that solving the time-independent Schrodinger equation can also be seen exactly as an \x[eigenvalue] equation where:
+* the <hamiltonian> is a linear operator
+* the value of the energy `E` is an <eigenvalue>
+The only difference from usual \x[matrix] <eigenvectors> is that we are now dealing with an \x[infinite-dimensional] vector space.
 
 Furthermore:
 * we immediately see from the equation that the time-independent solutions are states of deterministic energy because the energy is an \x[eigenvalue] of the Hamiltonian operator
-* the probability density of such a state does not change with time because the exponential time part cancels out on the conjugate
+* by looking at <equation Solution of the Schrodinger equation in terms of the time-independent and time dependent parts>{full}, it is obvious that if we take an energy measurement, the probability of each result never changes with time, because it is only multiplied by a constant
+
+Bibliography:
+* https://quantummechanics.ucsd.edu/ph130a/130_notes/node124.html from \x[quantum-physics-by-jim-branson-2003]
 
 = Derivation of the Schrodinger equation
 {parent=schrodinger-equation}
@@ -603,6 +622,15 @@ Why is there a \x[complex-number] in the equation? Intuitively and mathematicall
 
 Some ideas:
 * \x[explicit-scalar-form-of-the-maxwell-s-equations]
+
+= Schrodinger equation Hamiltonian
+{parent=schrodinger-equation}
+{tag=hamiltonian}
+
+= The Schrodinger equation Hamiltonian has to be Hermitian
+{parent=schrodinger-equation}
+
+The <schrodinger equation> Hamiltonian has to be a <hermitian> so we will have only positive energies I think: https://quantumcomputing.stackexchange.com/questions/12113/why-does-a-hamiltonian-have-to-be-hermitian
 
 = Solutions of the Schrodinger equation
 {parent=schrodinger-equation}
@@ -669,7 +697,7 @@ $$
 
 \x[schrodinger-equation-for-a-one-dimensional-particle] with $V = 0$.
 
-= Time independent Schrodinger equation for a free one dimensional particle
+= Time-independent Schrödinger equation for a free one dimensional particle
 {parent=schrodinger-equation-for-a-free-one-dimensional-particle}
 
 = Particle in a box
