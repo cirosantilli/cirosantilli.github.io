@@ -15,6 +15,9 @@ Unlike other humans, computers are mindless slaves that do exactly what they are
 {parent=computer}
 {tag=essays-by-ciro-santilli}
 
+= Computer abstraction layer
+{synonym}
+
 A computer is a highly layered system, and so you have to decide which layers you are the most interested in studying.
 
 Although the layer are somewhat independent, they also sometimes interact, and when that happens it usually hurts your brain. E.g., if \x[compiler]{p} were perfect, no one optimizing software would have to know anything about \x[microarchitecture]. But if you want to go hardcore enough, you might have to learn some lower layer.
@@ -69,9 +72,7 @@ Here's a summary from low-level to high-level:
       * https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-driver/44640466#44640466
       * https://github.com/cirosantilli/linux-kernel-module-cheat/tree/9b6552ab6c66cb14d531eff903c4e78f3561e9ca/kernel_modules
     * learn how to do a minimal Linux kernel disk image/boot to userland hello world: https://unix.stackexchange.com/questions/2692/what-is-the-smallest-possible-linux-implementation/203902#203902[What is the smallest possible Linux implementation?]
-    * learn how to GDB step debug the Linux kernel itself. Once you know this, you will feel that "given enough patience, I could understand anything that I wanted about the kernel", and you can then proceed to not learn almost anything about it and carry on with your life:
-      * https://cirosantilli.com/linux-kernel-module-cheat/gdb
-      * https://stackoverflow.com/questions/11408041/how-to-debug-the-linux-kernel-with-gdb-and-qemu/33203642#33203642[How to debug the Linux kernel with GDB and QEMU?]
+    * learn how to GDB <step debug the Linux kernel> itself. Once you know this, you will feel that "given enough patience, I could understand anything that I wanted about the kernel", and you can then proceed to not learn almost anything about it and carry on with your life
   * write your own (mini-) OS, or study a minimal educational OS, e.g. as in:
     * \x[x86-bare-metal-examples]
     * https://stackoverflow.com/questions/22054578/how-to-run-a-program-without-an-operating-system/32483545#32483545
@@ -85,6 +86,38 @@ Here's a summary from low-level to high-level:
 \Video[https://youtube.com/watch?v=_6D05gCWh_I]
 {title=How low can you go video by \x[ciro-santilli] (2017)}
 {description=In this infamous video Ciro has summarized the computer hierarchy.}
+
+= The lower level you go into a computer, the harder it is to observe things
+{parent=how-computers-work}
+{wiki}
+
+This is a general principle of software/hardware design that Ciro feels holds wide applicability.
+
+The most extreme case of this is of course the <integrated circuit> itself, in which it is essentially impossible (?) to observe the specific value of some indidual wire at some point.
+
+Somewhat on the other extreme, we have high level programming languages running on top of an <operating system>: at this point, you can just <GDB step debug> your program, print the value of any variable/memory location, and fully understand anything that you want. Provided that you manage to easily reach that point of interest.
+
+And for anything in between we have various intermediate levels of complication. The most notable perhaps being developing the operating system itself. At this level, you can't so easily step debug (although <step debug the Linux kernel>[techniques do exist]). For early boot or <bootloaders> for example, you might want to use <JTAG> for example on real hardware.
+
+In parallel to this, there is also another very important pair of closely linked tradeoffs:
+* the lower level at which something is implemented, the faster it runs
+* <emulation> gives you observability back, at the cost of slower runtime
+
+Emulation also has another potential downside: unless you are very careful at implementing things correctly, your model might not be representative of the real thing. Also, there may be important tradeoffs between how much the model looks like the real thing, and how fast it runs. For example, <QEMU>'s use of <binary translation> allows it to run orders of magnitude faster than <gem5>. However, you are unable to make any predictions about system performance with QEMU, since you are not modelling key elements like the cache or CPU pipeline.
+
+<Instrumentation computer programming> is another technique that has can be considered to achieve greater observability.
+
+= Instrumentation
+{disambiguate=computer programming}
+{parent=the-lower-level-you-go-into-a-computer-the-harder-it-is-to-observe-things}
+
+Instrumentation basically means adding loggers/print statements to certain points of interest of your hardware/software.
+
+Instrumentation tends to slow exectution down a bit, but way less than <emulation>.
+
+The downside is that if the instrumentation does not provide you the data you need to debug, there's not much you can do, you will need to modify it, i.e. you don't get full visibility from instrumention.
+
+This is unlike emulation that provides full observability.
 
 = Computer form factor
 {parent=computer}
