@@ -37,6 +37,14 @@ common.assertEqual(rows, [
   { value: 5, name: 'five', },
 ])
 
+// Use expression in order.
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY -value ASC`)
+common.assertEqual(rows, [
+  { value: 5, name: 'five', },
+  { value: 3, name: 'three', },
+  { value: 2, name: 'two', },
+])
+
 // SELECT with a WHERE condition.
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE value > 2 ORDER BY value ASC`)
 common.assertEqual(rows, [
