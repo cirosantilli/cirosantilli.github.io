@@ -77,92 +77,103 @@ async function reset() {
 let i2, i3, i5
 ;[i2, i3, i5] = await reset()
 
-let integerNames;
+let row, rows;
 
 // SELECT all
-integerNames = await IntegerNames.findAll();
-assert.strictEqual(integerNames[0].id, 1);
-assert.strictEqual(integerNames[0].name, 'two');
-assert.strictEqual(integerNames[0].value, 2);
-assert.strictEqual(integerNames[1].id, 2);
-assert.strictEqual(integerNames[1].name, 'three');
-assert.strictEqual(integerNames[1].value, 3);
-assert.strictEqual(integerNames[2].id, 3);
-assert.strictEqual(integerNames[2].name, 'five');
-assert.strictEqual(integerNames[2].value, 5);
-assert.strictEqual(integerNames.length, 3);
+rows = await IntegerNames.findAll({ order: [['value', 'ASC']] });
+common.assertEqual(rows, [
+  { id: 1, value: 2, name: 'two',   },
+  { id: 2, value: 3, name: 'three', },
+  { id: 3, value: 5, name: 'five',  },
+])
 
 // SELECT OFFSET without LIMIT. Non-SQL standard, but Sequelize implements it for us.
-integerNames = await IntegerNames.findAll({ offset: 1 });
-assert.strictEqual(integerNames[0].value, 3);
-assert.strictEqual(integerNames[1].value, 5);
-assert.strictEqual(integerNames.length, 2);
+rows = await IntegerNames.findAll({ offset: 1, order: [['value', 'ASC']] });
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 5 },
+])
+
+// ORDER as expression.
+rows = await IntegerNames.findAll({ order: [[sequelize.fn('-', sequelize.col('value')), 'ASC']] });
+common.assertEqual(rows, [
+  { value: 5 },
+  { value: 3 },
+  { value: 2 },
+])
 
 // SELECT WHERE
-integerNames = await IntegerNames.findAll({
+rows = await IntegerNames.findAll({
   where: {
     value: 2
-  }
+  },
+  order: [['value', 'ASC']],
 });
-assert.strictEqual(integerNames[0].id, 1);
-assert.strictEqual(integerNames[0].name, 'two');
-assert.strictEqual(integerNames[0].value, 2);
-assert.strictEqual(integerNames.length, 1);
+common.assertEqual(rows, [
+  { id: 1, value: 2, name: 'two',   },
+])
 
 // SELECT WHERE IN
-integerNames = await IntegerNames.findAll({
+rows = await IntegerNames.findAll({
   where: {
     id: [1, 2],
-  }
+  },
+  order: [['value', 'ASC']],
 });
-assert.strictEqual(integerNames[0].value, 2);
-assert.strictEqual(integerNames[1].value, 3);
-assert.strictEqual(integerNames.length, 2);
+common.assertEqual(rows, [
+  { value: 2 },
+  { value: 3 },
+])
 
 // It is a bit annoying though that it makes IN NULL queries when the list is empty.
-integerNames = await IntegerNames.findAll({
-  where: { id: [], }
+rows = await IntegerNames.findAll({
+  where: { id: [], },
 });
-assert.strictEqual(integerNames.length, 0);
+common.assertEqual(rows, [])
 
-// SELECT WHERE IN LIMIT 1
-integerNames = await IntegerNames.findOne({
+// findOne: SELECT WHERE IN LIMIT 1
+row = await IntegerNames.findOne({
   where: { value: { [Op.gt]: 2 }, },
   order: [['value', 'ASC']]
 });
-assert.strictEqual(integerNames.value, 3);
+assert.strictEqual(row.value, 3);
 
-// SELECT WHERE IN id =
-integerNames = await IntegerNames.findByPk(i3.id)
-assert.strictEqual(integerNames.value, 3);
+// findByPk: SELECT WHERE IN id =
+row = await IntegerNames.findByPk(i3.id)
+assert.strictEqual(row.value, 3);
 
-// Returns null if does not exist.
-integerNames = await IntegerNames.findByPk(666)
-assert.strictEqual(integerNames, null);
+// findByPk: returns NULL if does not exist.
+row = await IntegerNames.findByPk(666)
+assert.strictEqual(row, null);
 
 // attributes: SELECT only specified columns instead of the default of selecting all of them.
-// Rename value to myvalue
 //
-// TODO why is get('myvalue') needed to get the value? Does not work with direct .myvalue access...
+// Also rename value to myvalue with an AS.
+//
+// Also add a new demo calculated column.
+//
+// TODO why is get('myvalue') needed to get the value, only for the AS alias? Does not work with direct .myvalue access...
 // https://stackoverflow.com/questions/45681000/sequelize-cannot-access-alias-alias-is-undefined
 // Docs say they are the same however...
 // https://web.archive.org/web/20210506230920/https://sequelize.org/master/class/lib/model.js~Model.html#static-method-getTableName
 // ah, some of the docs say that you need .get(): https://github.com/sequelize/sequelize/issues/10592 terrible interface and docs as usual.
 // https://stackoverflow.com/questions/32649218/how-do-i-select-a-column-using-an-alias
-integerNames = await IntegerNames.findAll({
+rows = await IntegerNames.findAll({
   attributes: [
     'name',
+    // value AS myvalue
     ['value', 'myvalue'],
+    // -value AS "myvalueMinus"
+    [sequelize.fn('-', sequelize.col('value')), 'myvalueMinus'],
   ],
   where: {
     value: 2
-  }
+  },
+  order: [['value', 'ASC']],
 });
-assert.strictEqual(integerNames[0].id, undefined);
-assert.strictEqual(integerNames[0].name, 'two');
-assert.strictEqual(integerNames[0].value, undefined);
-assert.strictEqual(integerNames[0].get('myvalue'), 2);
-assert.strictEqual(integerNames.length, 1);
+common.assertEqual(rows, [
+  { id: undefined, value: undefined, myvalue: 2, myvalueMinus: -2 },
+])
 
 // DELETE WHERE: https://stackoverflow.com/questions/8402597/sequelize-js-delete-query
 await IntegerNames.destroy({
@@ -175,10 +186,11 @@ await IntegerNames.destroy({
   // https://stackoverflow.com/questions/56377593/complex-destroy-query
   limit: 1,
 });
-integerNames = await IntegerNames.findAll({order: [['value', 'ASC']]})
-assert.strictEqual(integerNames[0].name, 'two');
-assert.strictEqual(integerNames[1].name, 'five');
-assert.strictEqual(integerNames.length, 2);
+rows = await IntegerNames.findAll({order: [['value', 'ASC']]})
+common.assertEqual(rows, [
+  { name: 'two'   },
+  { name: 'five'  },
+])
 ;[i2, i3, i5] = await reset()
 
 // Truncate all tables.
@@ -187,7 +199,7 @@ await sequelize.truncate();
 assert.strictEqual(await IntegerNames.count(), 0);
 ;[i2, i3, i5] = await reset()
 
-// bulkdreate
+// bulkCreate
 await sequelize.truncate();
 const date = new Date(2000, 0, 1, 2, 3, 4, 5)
 await IntegerNames.bulkCreate([
