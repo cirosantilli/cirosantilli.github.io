@@ -1,28 +1,28 @@
 = E. Coli Whole Cell Model by Covert Lab
 {c}
-{scope}
 {numbered}
+{scope}
 {title2=CovertLab/WholeCellEcoliRelease}
 
-https://github.com/CovertLab/WholeCellEcoliRelease is a \x[whole-cell-simulation] model created by \x[covert-lab] and other collaborators.
+https://github.com/CovertLab/WholeCellEcoliRelease is a <whole cell simulation> model created by <covert lab> and other collaborators.
 
-The project is written in \x[python], hurray! But according to te \x[readme], it seems to be the use a \x[code-drop] model with on-request access to master, very \x[meh], asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion], and they confirmed as expected that it is to:
-* to prevent their \x[academic-publishing][publication] ideas from being stolen. Who would steal publication ideas with public proof in an issue tracker without crediting original authors?
+The project is written in <python>, hurray! But according to te <readme>, it seems to be the use a <code drop> model with on-request access to master, very <meh>, asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion], and they confirmed as expected that it is to:
+* to prevent their <academic publishing>[publication] ideas from being stolen. Who would steal publication ideas with public proof in an issue tracker without crediting original authors?
 * to prevent noise from non collaborators. They do only get like 2 issues as year though, people forget that it is legal to ignore other people :-)
 Oh well.
 
-The project is a followup to the earlier \x[m-genitalium-whole-cell-model-by-covert-lab] which modelled \x[mycoplasma-genitalium]. \x[e-coli] has 8x more genes (500 vs 4k), but it the undisputed \x[bacterial] \x[model-organism] and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few hours), which is a huge advantages for validation/exploratory \x[experiment]{p}.
+The project is a followup to the earlier <m genitalium whole cell model by covert lab> which modelled <mycoplasma genitalium>. <e coli> has 8x more genes (500 vs 4k), but it the undisputed <bacterial> <model organism> and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few hours), which is a huge advantages for validation/exploratory <experiments>.
 
-The project has a partial dependency on the \x[proprietary-software][proprietary] \x[optimization-software] \x[cplex] which is \x[freeware], for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
+The project has a partial dependency on the <proprietary software>[proprietary] <optimization software> <cplex> which is <freeware>, for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
 
-This project makes \x[ciro-santilli] think of the \x[e-coli] as an \x[optimization-problem]. Given such external nutrient/temperature condition, which \x[dna] sequence makes the cell grow the fastest? Balancing \x[metabolite]{p} feels like designing a \x[factorio] speedrun.
+This project makes <ciro santilli> think of the <e coli> as an <optimization problem>. Given such external nutrient/temperature condition, which <dna> sequence makes the cell grow the fastest? Balancing <metabolites> feels like designing a <factorio> speedrun.
 
-Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on \x[ubuntu] 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
+Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on <ubuntu> 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
 
 = Install and first run
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
-At https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4] you basically need to use the \x[docker] image on \x[ubuntu] 21.04 due to \x[pip-package-manager] breaking changes... (not their fault). Perhaps \x[pyenv] would solve things, but who has the patience for that?!?!
+At https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4] you basically need to use the <docker> image on <ubuntu> 21.04 due to <pip package manager> breaking changes... (not their fault). Perhaps <pyenv> would solve things, but who has the patience for that?!?!
 
 The Docker setup from README does just work. The image download is a bit tedius, as it requires you to create a GitHub API key as described in the README, but there must be reasons for that.
 
@@ -40,9 +40,9 @@ python runscripts/manual/analysisCohort.py &&
 python runscripts/manual/analysisMultigen.py &&
 python runscripts/manual/analysisSingle.py
 ``
-The meaning of each of the analysis commands is described at \x[output-overview]{full}.
+The meaning of each of the analysis commands is described at <output overview>{full}.
 
-As a \x[docker] refresher, after you stop the container, e.g. by restarting your computer or running `sudo docker stop wcm`, you can get back into it with:
+As a <docker> refresher, after you stop the container, e.g. by restarting your computer or running `sudo docker stop wcm`, you can get back into it with:
 ``
 sudo docker start wcm
 sudo docker run -it wcm bash
@@ -58,7 +58,7 @@ Time (s)  Dry mass     Dry mass      Protein          RNA    Small mol     Expec
     0.00    403.09        1.000        1.000        1.000        1.000        1.000
     0.20    403.18        1.000        1.000        1.000        1.000        1.000
 ``
-and then it ended on the \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017] at:
+and then it ended on the <ciro santilli s hardware/lenovo thinkpad p51 2017> at:
 ``
  2569.18    783.09        1.943        1.910        2.005        1.950        1.963
 
@@ -79,18 +79,18 @@ We can list all the plots that have been produced under `out/` with
 ``
 find -name '*.png'
 ``
-Plots are also available in \x[svg] and \x[pdf] formats, e.g.:
-* \x[png]: `./out/manual/plotOut/low_res_plots/massFractionSummary.png`
-* \x[svg]: `./out/manual/plotOut/svg_plots/massFractionSummary.svg` The SVGs write text as polygons, see also: \x[svg-fonts].
-* \x[pdf]: `./out/manual/plotOut/massFractionSummary.pdf`
+Plots are also available in <svg> and <pdf> formats, e.g.:
+* <png>: `./out/manual/plotOut/low_res_plots/massFractionSummary.png`
+* <svg>: `./out/manual/plotOut/svg_plots/massFractionSummary.svg` The SVGs write text as polygons, see also: <svg fonts>.
+* <pdf>: `./out/manual/plotOut/massFractionSummary.pdf`
 
 The output directory has a hierarchical structure of type:
-```
+``
 ./out/manual/wildtype_000000/000000/generation_000000/000000/
-```
+``
 where:
-* `wildtype_000000`: variant conditions. `wildtype` is a human readable label, and `000000` is an index amongst the possible `wildtype` conditions. For example, we can have different simulations with different nutrients, or different \x[dna] sequences. An example of this is shown at \x[run-variants].
-* `000000`: initial random seed for the initial cell, likely fed to \x[numpy]'s `np.random.seed`
+* `wildtype_000000`: variant conditions. `wildtype` is a human readable label, and `000000` is an index amongst the possible `wildtype` conditions. For example, we can have different simulations with different nutrients, or different <dna> sequences. An example of this is shown at <run variants>.
+* `000000`: initial random seed for the initial cell, likely fed to <numpy>'s `np.random.seed`
 * `genereation_000000`: this will increase with generations if we simulate multiple cells, which is supported by the model
 * `000000`: this will presumably contain the cell index within a generation
 
@@ -103,7 +103,7 @@ We also understand that some of the top level directories contain summaries over
 ``
 
 Each of thoes four levels of `plotOut` is generated by a different one of the analysis scripts:
-* `./out/manual/plotOut`: generated by `python runscripts/manual/analysisVariant.py`. Contains comparisons of different variant conditions. We confirm this by looking at the results of \x[run-variants].
+* `./out/manual/plotOut`: generated by `python runscripts/manual/analysisVariant.py`. Contains comparisons of different variant conditions. We confirm this by looking at the results of <run variants>.
 * `./out/manual/wildtype_000000/plotOut`: generated by `python runscripts/manual/analysisCohort.py --variant_index 0`. TODO not sure how to differentiate between two different labels e.g. `wildtype_000000` and `somethingElse_000000`. If `-v` is not given, a it just picks the first one alphabetically. TODO not sure how to automatically generate all of those plots without inspecting the directories.
 * `./out/manual/wildtype_000000/000000/plotOut`: generated by `python runscripts/manual/analysisMultigen.py --variant_index 0 --seed 0`
 * `./out/manual/wildtype_000000/000000/generation_000000/000000/plotOut`: generated by `python runscripts/manual/analysisSingle.py --variant_index 0 --seed 0 --generation 0 --daughter 0`. Contains information about a single specific cell.
@@ -115,12 +115,12 @@ Let's look into a sample plot, `out/manual/plotOut/svg_plots/massFractionSummary
 
 This plot contains how much of each type of mass is present in all cells. Since we simulated just one cell, it will be the same as the results for that cell.
 
-We can see that all of them grow more or less \x[linearly], perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential.
-* total dry mass (mass excluding \x[water])
-* \x[protein] mass
-* \x[rrna] mass
-* \x[mrna] mass
-* \x[dna] mass. The last label is not very visible on the plots, but we can deduce it from the source code.
+We can see that all of them grow more or less <linearly>, perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential.
+* total dry mass (mass excluding <water>)
+* <protein> mass
+* <rrna> mass
+* <mrna> mass
+* <dna> mass. The last label is not very visible on the plots, but we can deduce it from the source code.
 By grepping the title "Cell mass fractions" in the source code, we see the files:
 ``
 models/ecoli/analysis/cohort/massFractionSummary.py
@@ -130,41 +130,41 @@ models/ecoli/analysis/variant/massFractionSummary.py
 which must correspond to the different `massFractionSummary` plots throughout different levels of the hierarchy.
 
 By reading `models/ecoli/analysis/variant/massFractionSummary.py` a little bit, we see that:
-* the plotting is done with \x[matplotlib], hurray
+* the plotting is done with <matplotlib>, hurray
 * it is reading its data from files under `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/`, more precisely `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/columns/<column-name>/data`. They are binary files however.
 
-  Looking at the source for `wholecell/io/tablereader.py` shows that those are just a standard \x[numpy] serialization mechanism. Maybe they should have used the \x[hierarchical-data-format] instead.
+  Looking at the source for `wholecell/io/tablereader.py` shows that those are just a standard <numpy> serialization mechanism. Maybe they should have used the <hierarchical data format> instead.
 
-  We can also take this opportunity to try and find where the data is coming from. `Mass` from the `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/` looks like an ID, so we \x[grep] that and we reach `models/ecoli/listeners/mass.py`.
+  We can also take this opportunity to try and find where the data is coming from. `Mass` from the `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/` looks like an ID, so we <grep> that and we reach `models/ecoli/listeners/mass.py`.
 
   From this we understand that all data that is to be saved from a simulation must be coming from listeners: likely nothing, or not much, is dumped by default, because otherwise it would take up too much disk space. You have to explicitly say what it is that you want to save via a listener that acts on each time step.
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/9/94/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_mass_fraction_summary.svg]
+{height=600}
 {title=Minimal condition mass fraction plot.}
 {description=File name: `out/manual/plotOut/svg_plots/massFractionSummary.svg`}
-{height=600}
 
-More plot types will be explored at \x[time-series-run-variant], where we will contrast two runs with different \x[growth-medium]{p}.
+More plot types will be explored at <time series run variant>, where we will contrast two runs with different <growth mediums>.
 
 = Run variants
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
-It would be boring if we could only simulate the same condition all the time, so let's have a look at the different \x[boundary-condition]{p} that we can apply to the cell!
+It would be boring if we could only simulate the same condition all the time, so let's have a look at the different <boundary conditions> that we can apply to the cell!
 
 We are able to alter things like the composition of the external medium, and the genome of the bacteria, which will make the bacteria behave differently.
 
 The variant selection is a bit cumbersome as we have to use indexes instead of names, but one you know what you are doing, it is fine.
 
-Of course, genetic modification is limited only to experimentally known protein interactions due to the intractability of \x[computational-protein-folding] and \x[computational-chemistry] in general, solving those would bsai.
+Of course, genetic modification is limited only to experimentally known protein interactions due to the intractability of <computational protein folding> and <computational chemistry> in general, solving those would bsai.
 
 = Default run variant
 {parent=run-variants}
 
-The default run variant, if you don't pass any options, just has the minimal growth conditions set. What this means can be seen at \x[condition].
+The default run variant, if you don't pass any options, just has the minimal growth conditions set. What this means can be seen at <condition>.
 
-Notably, this implies a \x[growth-medium] that includes \x[glucose] and \x[salt-chemistry]. It also includes \x[oxygen], which is not strictly required, but greatly benefits cell growth, and is of course easier to have than not have as it is part of the atmosphere!
+Notably, this implies a <growth medium> that includes <glucose> and <salt chemistry>. It also includes <oxygen>, which is not strictly required, but greatly benefits cell growth, and is of course easier to have than not have as it is part of the atmosphere!
 
-But the medium does not include \x[amino-acid]{p}, which the bacteria will have to produce by itself.
+But the medium does not include <amino acids>, which the bacteria will have to produce by itself.
 
 = Time series run variant
 {parent=run-variants}
@@ -183,7 +183,7 @@ The timeseries with index 25 is `reconstruction/ecoli/flat/condition/timeseries/
 0 "minimal_plus_amino_acids"
 1200 "minimal"
 ``
-so we understand that it starts with extra \x[amino-acid]{p} in the medium, which benefit the cell, and half way through those are removed at time 1200s = 20 minutes. We would therefore expect the cell to start expressing amino acid production genes exactly at that point.
+so we understand that it starts with extra <amino acids> in the medium, which benefit the cell, and half way through those are removed at time 1200s = 20 minutes. We would therefore expect the cell to start expressing amino acid production genes exactly at that point.
 
 `nutrients` likely means `condition` in that file however, see bug report with `1 1` failing:  https://github.com/CovertLab/WholeCellEcoliRelease/issues/24
 
@@ -193,7 +193,7 @@ Simulation finished:
  - Length: 0:34:23
  - Runtime: 0:08:03
 ``
-so we see that the doubling time was faster than the one with minimal conditions of `0:42:49`, which makes sense, since during the first 20 minutes the cell had extra \x[amino-acid] nutrients at its disposal.
+so we see that the doubling time was faster than the one with minimal conditions of `0:42:49`, which makes sense, since during the first 20 minutes the cell had extra <amino acid> nutrients at its disposal.
 
 The output directory now contains simulation output data under `out/manual/nutrientTimeSeries_000025/`. Let's run analysis and plots for that:
 ``
@@ -203,7 +203,7 @@ python runscripts/manual/analysisMultigen.py --variant 25 &&
 python runscripts/manual/analysisSingle.py --variant 25
 ``
 
-We can now compare the outputs of this run to the default `wildtype_000000` run from \x[install-and-first-run]{full}.
+We can now compare the outputs of this run to the default `wildtype_000000` run from <install and first run>{full}.
 
 * `out/manual/plotOut/svg_plots/massFractionSummary.svg`: because we now have two variants in the same `out/` folder, `wildtype_000000` and `nutrientTimeSeries_000025`, we now see a side by side comparision of both on the same graph!
 
@@ -212,9 +212,9 @@ We can now compare the outputs of this run to the default `wildtype_000000` run 
   Then, at 20 minutes, which is about 0.3 hours, we see that the cell starts growing a bit less fast as the slope of the curve decreases a bit, because we removed that free amino acid supply.
 
   \Image[https://upload.wikimedia.org/wikipedia/commons/5/5f/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_acids_mass_fraction_summary.svg]
-  {title=Minimal condition vs \x[amino-acid] cut mass fraction plot.}
-  {description=From file `out/manual/plotOut/svg_plots/massFractionSummary.svg`.}
   {height=600}
+  {title=Minimal condition vs <amino acid> cut mass fraction plot.}
+  {description=From file `out/manual/plotOut/svg_plots/massFractionSummary.svg`.}
 
 The following plots from under `out/manual/wildtype_000000/000000/{generation_000000,nutrientTimeSeries_000025}/000000/plotOut/svg_plots` have been manually joined side-by-side with:
 ``
@@ -230,39 +230,40 @@ done
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/e/e1/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_acids_amino_acid_counts.svg]
 {title=Amino acid counts.}
-{description=`aaCounts.svg`:
+{description=
+`aaCounts.svg`:
 * default: quantities just increase
 * amino acid cut: there is an abrupt fall at 20 minutes when we cut off external supply, presumably because it takes some time for the cell to start producing its own
 }
-
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7e/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes_of_amino_acids.svg]
 {title=External exchange fluxes of amino acids.}
-{description=`aaExchangeFluxes.svg`:
+{description=
+`aaExchangeFluxes.svg`:
 * default: no exchanges
-* amino acid cut: for all graphs except \x[phenylalanine] (PHE), either the cell was intaking the AA (negative flux), and that intake goes to 0 when the supply is cut, or the flux is always 0.
+* amino acid cut: for all graphs except <phenylalanine> (PHE), either the cell was intaking the AA (negative flux), and that intake goes to 0 when the supply is cut, or the flux is always 0.
 
   For PHE however, the flux is at all times, except shortly after the cut. Why? And why there was no excretion on the default conditions?
 }
-
 \Image[https://upload.wikimedia.org/wikipedia/commons/d/d6/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_evaluation_time.svg]
 {title=Evaluation time.}
-{description=`evaluationTime.svg`: this has nothing to do with biology, but it is rather a \x[profile-computer-programming] of the program runtime. We can see that the simulation gets slower and slower as time passes, presumably because there are more and more molecules to simulate.}
+{description=`evaluationTime.svg`: this has nothing to do with biology, but it is rather a <profile computer programming> of the program runtime. We can see that the simulation gets slower and slower as time passes, presumably because there are more and more molecules to simulate.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7a/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_mrna_count_of_highly_expressed_mRNAs.svg]
-{title=\x[mrna] count of highly expressed mRNAs.}
-{description=From file `expression_rna_03_high.svg`. Each of the entries is a \x[gene] using the conventional gene naming convention of `xyzW`, e.g. here's the \x[biocyc] for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the \x[ef-tu] of the \x[e-coli], which is an important part of \x[translation-biology].}
+{title=<mrna> count of highly expressed mRNAs.}
+{description=From file `expression_rna_03_high.svg`. Each of the entries is a <gene> using the conventional gene naming convention of `xyzW`, e.g. here's the <biocyc> for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the <ef tu> of the <e coli>, which is an important part of <translation biology>.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/4/49/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes.svg]
 {title=External exchange fluxes.}
-{description=`mediaExcange.svg`: this one is similar to `aaExchangeFluxes.svg`, but it also tracks other substances. The color version makes it easier to squeeze more substances in a given space, but you lose the shape of curves a bit. The title seems reversed: red must be excretion, since that's where \x[glucose] (GLC) is.
+{description=
+`mediaExcange.svg`: this one is similar to `aaExchangeFluxes.svg`, but it also tracks other substances. The color version makes it easier to squeeze more substances in a given space, but you lose the shape of curves a bit. The title seems reversed: red must be excretion, since that's where <glucose> (GLC) is.
 
-The substances are different between the default and amino acid cut graphs, they seem to be the most exchanged substances. On the amino cut graph, first we see the cell intaking most (except \x[phenylalanine], which is excreted for some reason). When we cut amino acids, the uptake of course stops.
+The substances are different between the default and amino acid cut graphs, they seem to be the most exchanged substances. On the amino cut graph, first we see the cell intaking most (except <phenylalanine>, which is excreted for some reason). When we cut amino acids, the uptake of course stops.
 }
 
 = Other run variants
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
-Besides \x[time-series-run-variant]{p}, conditions can also be selected directly without a time series as in:
+Besides <time series run variants>, conditions can also be selected directly without a time series as in:
 ``
 python runscripts/manual/runSim.py --variant condition 1 1
 ``
@@ -280,13 +281,13 @@ so `1` means `no_oxygen`.
 
 The key model database is located in the source code at `reconstruction/ecoli/flat`.
 
-Let's try to understand some interesting looking, with a special focus on our understanding of the tiny \x[e-coli-k-12-mg1655-operon-thrlabc] part of the metabolism, which we have well understood at \x[e-coli-k-12-mg1655-operon-thrlabc]{full}.
+Let's try to understand some interesting looking, with a special focus on our understanding of the tiny <e coli k 12 mg1655 operon thrlabc> part of the metabolism, which we have well understood at <e coli k 12 mg1655 operon thrlabc>{full}.
 
-We'll realize that a lot of data and IDs come from/match \x[biocyc] quite closely.
+We'll realize that a lot of data and IDs come from/match <biocyc> quite closely.
 
-Before we start, there is one major thing missing thing in the current model: \x[promoter]{p}/\x[transcription-factor] interactions are not modelled due to lack/low quality of experimental data: https://github.com/CovertLab/WholeCellEcoliRelease/issues/21[]. They just have a magic direct "\x[transcription-factor] to \x[gene]" relationship, encoded at https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/reconstruction/ecoli/flat/foldChanges.tsv[reconstruction/ecoli/flat/foldChanges.tsv] in terms of type "if this is present, such protein is expressed 10x more". \x[transcription-unit]{c}{p} are not implemented at all it appears.
+Before we start, there is one major thing missing thing in the current model: <promoters>/<transcription factor> interactions are not modelled due to lack/low quality of experimental data: https://github.com/CovertLab/WholeCellEcoliRelease/issues/21[]. They just have a magic direct "<transcription factor> to <gene>" relationship, encoded at https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/reconstruction/ecoli/flat/foldChanges.tsv[reconstruction/ecoli/flat/foldChanges.tsv] in terms of type "if this is present, such protein is expressed 10x more". <Transcription units> are not implemented at all it appears.
 
-* `reconstruction/ecoli/flat/compartments.tsv` contains \x[cellular-compartment] information:
+* `reconstruction/ecoli/flat/compartments.tsv` contains <cellular compartment> information:
   ``
   "abbrev" "id"
   "n" "CCO-BAC-NUCLEOID"
@@ -301,30 +302,30 @@ Before we start, there is one major thing missing thing in the current model: \x
   "i" "CCO-PM-BAC-NEG"
   ``
   * `CCO`: "Celular COmpartment"
-  * `BAC-NUCLEOID`: \x[nucleoid]
-  * `CELL-PROJECTION`: \x[cell-projection]
-  * `CW-BAC-NEG`: TODO confirm: \x[cell-wall] (of a \x[gram-negative-bacteria])
-  * `CYTOSOL`: \x[cytosol]
+  * `BAC-NUCLEOID`: <nucleoid>
+  * `CELL-PROJECTION`: <cell projection>
+  * `CW-BAC-NEG`: TODO confirm: <cell wall> (of a <gram negative bacteria>)
+  * `CYTOSOL`: <cytosol>
   * `EXTRACELLULAR`: outside the cell
-  * `MEMBRANE`: \x[cell-membrane]
-  * `OUTER-MEM`: \x[bacterial-outer-membrane]
-  * `PERI-BAC`: \x[periplasm]
-  * `PILUS`: \x[pilus]
-  * `PM-BAC-NEG`: TODO: \x[plasma-membrane], but that is the same as \x[cell-membrane] no?
-* `reconstruction/ecoli/flat/promoters.tsv` contains \x[promoter] information. Simple file, sample lines:
+  * `MEMBRANE`: <cell membrane>
+  * `OUTER-MEM`: <bacterial outer membrane>
+  * `PERI-BAC`: <periplasm>
+  * `PILUS`: <pilus>
+  * `PM-BAC-NEG`: TODO: <plasma membrane>, but that is the same as <cell membrane> no?
+* `reconstruction/ecoli/flat/promoters.tsv` contains <promoter> information. Simple file, sample lines:
   ``
   "position" "direction" "id" "name"
   148 "+" "PM00249" "thrLp"
   ``
-  corresponds to \x[e-coli-k-12-mg1655-promoter-thrlp], which starts as position 148.
-* `reconstruction/ecoli/flat/proteins.tsv` contains \x[protein] information. Sample line corresponding to \x[e-coli-k-12-mg1655-gene-thra]:
+  corresponds to <e coli k 12 mg1655 promoter thrlp>, which starts as position 148.
+* `reconstruction/ecoli/flat/proteins.tsv` contains <protein> information. Sample line corresponding to <e coli k 12 mg1655 gene thra>:
   ``
   "aaCount" "name" "seq" "comments" "codingRnaSeq" "mw" "location" "rnaId" "id" "geneId"
   [91, 46, 38, 44, 12, 53, 30, 63, 14, 46, 89, 34, 23, 30, 29, 51, 34, 4, 20, 0, 69] "ThrA" "MRVL..." "Location information from Ecocyc dump." "AUGCGAGUGUUG..." [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 89103.51099999998, 0.0, 0.0, 0.0, 0.0] ["c"] "EG10998_RNA" "ASPKINIHOMOSERDEHYDROGI-MONOMER" "EG10998"
   ``
   so we understand that:
-  * `aaCount`: \x[amino-acid] count, how many of each of the 20 \x[proteinogenic-amino-acid] are there
-  * `seq`: full sequence, using the single letter abbreviation of the \x[proteinogenic-amino-acid]{p}
+  * `aaCount`: <amino acid> count, how many of each of the 20 <proteinogenic amino acid> are there
+  * `seq`: full sequence, using the single letter abbreviation of the <proteinogenic amino acids>
   * `mw`; molecular weight? The 11 components appear to be given at `reconstruction/ecoli/flat/scripts/unifyBulkFiles.py`:
     ``
     molecular_weight_keys = [
@@ -342,31 +343,31 @@ Before we start, there is one major thing missing thing in the current model: \x
       ]
     ``
     so they simply classify the weight? Presumably this exists for complexes that have multiple classes?
-    * `23srRNA`, `16srRNA`, `5srRNA` are the three structural \x[rna]{p} present in the \x[ribosome]: \x[23s-ribosomal-rna], \x[16s-ribosomal-rna], \x[5s-ribosomal-rna], all others are obvious:
-    * \x[trna]
-    * \x[mrna]
-    * \x[protein]. This is the seventh class, and this enzyme only contains mass in this class as expected.
-    * \x[metabolite]
-    * \x[water]
-    * \x[dna]
-    * \x[rna]: TODO `rna` vs `miscRNA`
-  * `location`: \x[cell-compartment] where the protein is present, `c` defined at `reconstruction/ecoli/flat/compartments.tsv` as \x[cytoplasm], as expected for something that will make an \x[amino-acid]
+    * `23srRNA`, `16srRNA`, `5srRNA` are the three structural <rnas> present in the <ribosome>: <23s ribosomal rna>, <16s ribosomal rna>, <5s ribosomal rna>, all others are obvious:
+    * <trna>
+    * <mrna>
+    * <protein>. This is the seventh class, and this enzyme only contains mass in this class as expected.
+    * <metabolite>
+    * <water>
+    * <dna>
+    * <rna>: TODO `rna` vs `miscRNA`
+  * `location`: <cell compartment> where the protein is present, `c` defined at `reconstruction/ecoli/flat/compartments.tsv` as <cytoplasm>, as expected for something that will make an <amino acid>
 * `reconstruction/ecoli/flat/rnas.tsv`: TODO vs `transcriptionUnits.tsv`. Sample lines:
   ``
   "halfLife" "name" "seq" "type" "modifiedForms" "monomerId" "comments" "mw" "location" "ntCount" "id" "geneId" "microarray expression"
   174.0 "ThrA [RNA]" "AUGCGAGUGUUG..." "mRNA" [] "ASPKINIHOMOSERDEHYDROGI-MONOMER" "" [0.0, 0.0, 0.0, 0.0, 790935.00399999996, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] ["c"] [553, 615, 692, 603] "EG10998_RNA" "EG10998" 0.0005264904
   ``
-  * `halfLife`: \x[half-life]
-  * `mw`: molecular weight, same as in `reconstruction/ecoli/flat/proteins.tsv`. This \x[molecule] only have weight in the `mRNA` class, as expected, as it just codes for a protein
+  * `halfLife`: <half life>
+  * `mw`: molecular weight, same as in `reconstruction/ecoli/flat/proteins.tsv`. This <molecule> only have weight in the `mRNA` class, as expected, as it just codes for a protein
   * `location`: same as in `reconstruction/ecoli/flat/proteins.tsv`
-  * `ntCount`: \x[nucleotide] count for each of the ATGC
-  * `microarray expression`: presumably refers to \x[dna-microarray] for \x[gene-expression-profiling], but what measure exactly?
-* `reconstruction/ecoli/flat/sequence.fasta`: \x[fasta] \x[dna] sequence, first two lines:
+  * `ntCount`: <nucleotide> count for each of the ATGC
+  * `microarray expression`: presumably refers to <dna microarray> for <gene expression profiling>, but what measure exactly?
+* `reconstruction/ecoli/flat/sequence.fasta`: <fasta> <dna> sequence, first two lines:
   ``
   >E. coli K-12 MG1655 U00096.2 (1 to 4639675 = 4639675 bp)
   AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTG
   ``
-* `reconstruction/ecoli/flat/transcriptionUnits.tsv`: \x[transcription-unit]{p}. We can observe for example the two different transcription units of the \x[e-coli-k-12-mg1655-operon-thrlabc] in the lines:
+* `reconstruction/ecoli/flat/transcriptionUnits.tsv`: <transcription units>. We can observe for example the two different transcription units of the <e coli k 12 mg1655 operon thrlabc> in the lines:
   ``
   "expression_rate" "direction" "right" "terminator_id"  "name"    "promoter_id" "degradation_rate" "id"       "gene_id"                                   "left"
   0.0               "f"         310     ["TERM0-1059"]   "thrL"    "PM00249"     0.198905992329492 "TU0-42486" ["EG11277"]                                  148
@@ -374,7 +375,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   ``
   * `promoter_id`: matches promoter id in `reconstruction/ecoli/flat/promoters.tsv`
   * `gene_id`: matches id in `reconstruction/ecoli/flat/genes.tsv`
-  * `id`: matches exactly those used in \x[biocyc], which is quite nice, might be more or less standardized:
+  * `id`: matches exactly those used in <biocyc>, which is quite nice, might be more or less standardized:
     * https://biocyc.org/ECOLI/NEW-IMAGE?object=TU0-42486
     * https://biocyc.org/ECOLI/NEW-IMAGE?type=OPERON&object=TU00178
 * `reconstruction/ecoli/flat/genes.tsv`
@@ -383,7 +384,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   66       "thr operon leader peptide" "ATGAAACGCATT..." "EG11277_RNA" 189         "+"         "thrL"   "mRNA" "EG11277" "EG11277-MONOMER"
   2463     "ThrA"                      "ATGCGAGTGTTG"    "EG10998_RNA" 336         "+"         "thrA"   "mRNA" "EG10998" "ASPKINIHOMOSERDEHYDROGI-MONOMER"
   ``
-* `reconstruction/ecoli/flat/metabolites.tsv` contains \x[metabolite] information. Sample lines:
+* `reconstruction/ecoli/flat/metabolites.tsv` contains <metabolite> information. Sample lines:
   ``
   "id"                       "mw7.2" "location"
   "HOMO-SER"                 119.12  ["n", "j", "w", "c", "e", "m", "o", "p", "l", "i"]
@@ -395,7 +396,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   * https://biocyc.org/compound?orgid=ECOLI&id=L-ASPARTATE-SEMIALDEHYDE: "L-aspartate 4-semialdehyde" has ID `L-ASPARTATE-SEMIALDEHYDE`
   * https://biocyc.org/compound?orgid=ECOLI&id=HOMO-SER: "Homoserine" has ID `HOMO-SER`
   so these are the compounds that we care about.
-* `reconstruction/ecoli/flat/reactions.tsv` contains \x[chemical-reaction] information. Sample lines:
+* `reconstruction/ecoli/flat/reactions.tsv` contains <chemical reaction> information. Sample lines:
   ``
   "reaction id" "stoichiometry" "is reversible" "catalyzed by"
 
@@ -409,8 +410,8 @@ Before we start, there is one major thing missing thing in the current model: \x
     false
     ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]
   ``
-  * `catalized by`: here we see `ASPKINIHOMOSERDEHYDROGI-CPLX`, which we can guess is a \x[protein-complex] made out of `ASPKINIHOMOSERDEHYDROGI-MONOMER`, which is the ID for the `thrA` we care about! This is confirmed in `complexationReactions.tsv`.
-* `reconstruction/ecoli/flat/complexationReactions.tsv` contains information about \x[chemical-reaction]{p} that produce \x[protein-complex]{p}:
+  * `catalized by`: here we see `ASPKINIHOMOSERDEHYDROGI-CPLX`, which we can guess is a <protein complex> made out of `ASPKINIHOMOSERDEHYDROGI-MONOMER`, which is the ID for the `thrA` we care about! This is confirmed in `complexationReactions.tsv`.
+* `reconstruction/ecoli/flat/complexationReactions.tsv` contains information about <chemical reactions> that produce <protein complexes>:
   ``
   "process" "stoichiometry" "id" "dir"
   "complexation"
@@ -436,7 +437,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   The `coeff` is how many monomers need to get together for form the final complex. This can be seen from the Summary section of https://ecocyc.org/gene?orgid=ECOLI&id=ASPKINIHOMOSERDEHYDROGI-MONOMER[]:
   \Q[Aspartate kinase I / homoserine dehydrogenase I comprises a dimer of ThrA dimers. Although the dimeric form is catalytically active, the binding equilibrium dramatically favors the tetrameric form. The aspartate kinase and homoserine dehydrogenase activities of each ThrA monomer are catalyzed by independent domains connected by a linker region.]
   Fantastic literature summary! Can't find that in database form there however.
-* `reconstruction/ecoli/flat/proteinComplexes.tsv` contains \x[protein-complex] information:
+* `reconstruction/ecoli/flat/proteinComplexes.tsv` contains <protein complex> information:
   ``
   "name" "comments" "mw" "location" "reactionId" "id"
   "aspartate kinase / homoserine dehydrogenase"
@@ -446,8 +447,8 @@ Before we start, there is one major thing missing thing in the current model: \x
   "ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
   "ASPKINIHOMOSERDEHYDROGI-CPLX"
   ``
-* `reconstruction/ecoli/flat/protein_half_lives.tsv` contains the \x[half-life] of \x[protein]{p}. Very few proteins are listed however for some reason.
-* `reconstruction/ecoli/flat/tfIds.csv`: \x[transcription-factor]{p} information:
+* `reconstruction/ecoli/flat/protein_half_lives.tsv` contains the <half life> of <proteins>. Very few proteins are listed however for some reason.
+* `reconstruction/ecoli/flat/tfIds.csv`: <transcription factors> information:
   ``
   "TF"   "geneId"  "oneComponentId"  "twoComponentId" "nonMetaboliteBindingId" "activeId" "notes"
   "arcA" "EG10061" "PHOSPHO-ARCA"    "PHOSPHO-ARCA"
@@ -485,7 +486,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   "GLC-D-LACTONE[c]" NaN NaN
   "CYTOSINE[c]" NaN NaN
   ``
-  If we compare that to `reconstruction/ecoli/flat/condition/nutrient/minimal_plus_amino_acids.tsv`, we see that it adds the 20 \x[amino-acid]{p} on top of the minimal condition:
+  If we compare that to `reconstruction/ecoli/flat/condition/nutrient/minimal_plus_amino_acids.tsv`, we see that it adds the 20 <amino acids> on top of the minimal condition:
   ``
   "L-ALPHA-ALANINE[p]" NaN NaN
   "ARG[p]" NaN NaN
@@ -514,31 +515,33 @@ Before we start, there is one major thing missing thing in the current model: \x
   We can try to understand the less obvious ones:
   * `ADP`: TODO
   * `PI`: TODO
-  * `PROTON[c]`: presumably a measure of \x[ph]
-  * `GLC[p]`: \x[glucose], this can be seen by comparing `minimal.tsv` with `minimal_no_glucose.tsv`
-  * `AMMONIUM`: \x[ammonium]. This appears to be the primary source of \x[nitrogen] \x[atom]{p} for producing \x[amino-acid]{p}.
-  * `CYTOSINE[c]`: hmmm, why is external \x[cytosine] needed? Weird.
-* ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/` contains sequences of conditions for each time. For example:
-  * ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000000_basal.tsv` contains:
-    ``
-    "time (units.s)" "nutrients"
+  * `PROTON[c]`: presumably a measure of <ph>
+  * `GLC[p]`: <glucose>, this can be seen by comparing `minimal.tsv` with `minimal_no_glucose.tsv`
+  * `AMMONIUM`: <ammonium>. This appears to be the primary source of <nitrogen> <atoms> for producing <amino acids>.
+  * `CYTOSINE[c]`: hmmm, why is external <cytosine> needed? Weird.
+* ``
+  reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/` contains sequences of conditions for each time. For example:
+  * 
+  ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000000_basal.tsv` contains:
+    ``  "time (units.s)" "nutrients"
     0 "minimal"
-    ``
-    which means just using `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` until infinity. That is the default one used by `runSim.py`, as can be seen from `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Environment/attributes/nutrientTimeSeriesLabel` which contains just `000000_basal`.
+    ``  which means just using `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` until infinity. That is the default one used by `runSim.py`, as can be seen from `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Environment/attributes/nutrientTimeSeriesLabel` which contains just `000000_basal`.
   * ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000001_cut_glucose.tsv` is more interesting and contains:
     ``
     "time (units.s)" "nutrients"
     0 "minimal"
     1200 "minimal_no_glucose"
-    ``
-    so we see that this will shift the conditions half-way to a condition that will eventually kill the bacteria because it will run out of \x[glucose] and thus energy!
+    
+  ``
+    so we see that this will shift the conditions half-way to a condition that will eventually kill the bacteria because it will run out of <glucose> and thus energy!
 
-    Timeseries can be selected with `--variant nutrientTimeSeries X Y`, see also: \x[run-variants].
+    Timeseries can be selected with `--variant nutrientTimeSeries X Y`, see also: <run variants>.
 
     We can use that variant with:
     ``
     VARIANT="condition" FIRST_VARIANT_INDEX=1 LAST_VARIANT_INDEX=1 python runscripts/manual/runSim.py
-    ``
+    
+  ``
 * `reconstruction/ecoli/flat/condition/condition_defs.tsv` contains lines of form:
   ``
   "condition" "nutrients"                "genotype perturbations" "doubling time (units.min)" "active TFs"
@@ -550,7 +553,7 @@ Before we start, there is one major thing missing thing in the current model: \x
   * `nutrients` refers to entries under `reconstruction/ecoli/flat/condition/nutrient/`, e.g. `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` or `reconstruction/ecoli/flat/condition/nutrient/minimal_plus_amino_acids.tsv`
   * `genotype perturbations`: there aren't any in the file, but this suggests that genotype modifications can also be incorporated here
   * `doubling time`: TODO experimental data? Because this should be a simulation output, right? Or do they cheat and fix doubling by time?
-  * `active TFs`: this suggests that they are cheating \x[transcription-factor]{p} here, as those would ideally be functions of other more basic inputs
+  * `active TFs`: this suggests that they are cheating <transcription factors> here, as those would ideally be functions of other more basic inputs
 
 = Model validation
 {parent=e-coli-whole-cell-model-by-covert-lab}
@@ -560,6 +563,6 @@ TODO compare with actual datasetes.
 = Publications
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
-Unfortunately, due to lack of \x[one-page-to-rule-them-all], the https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/docs/README.md#relevant-papers[on-Git tree publication list is meager], some of the most relevant ones seems to be:
-* 2021 \x[open-access] \x[review-paper]: https://journals.asm.org/doi/full/10.1128/ecosalplus.ESP-0001-2020 "The E. coli Whole-Cell Modeling Project". They should just past that stuff in a \x[readme] :-) The article mentions that it is a follow up to the previous \x[m-genitalium-whole-cell-model-by-covert-lab]. Only 43% of known genes modelled at this point however, a shame.
-* 2020 under \x[science-journal] \x[paywall]: https://www.science.org/doi/10.1126/science.aav3751 "Simultaneous cross-evaluation of heterogeneous E. coli datasets via mechanistic simulation"
+Unfortunately, due to lack of <one page to rule them all>, the https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/docs/README.md#relevant-papers[on-Git tree publication list is meager], some of the most relevant ones seems to be:
+* 2021 <open access> <review paper>: https://journals.asm.org/doi/full/10.1128/ecosalplus.ESP-0001-2020 "The E. coli Whole-Cell Modeling Project". They should just past that stuff in a <readme> :-) The article mentions that it is a follow up to the previous <m genitalium whole cell model by covert lab>. Only 43% of known genes modelled at this point however, a shame.
+* 2020 under <science journal> <paywall>: https://www.science.org/doi/10.1126/science.aav3751 "Simultaneous cross-evaluation of heterogeneous E. coli datasets via mechanistic simulation"

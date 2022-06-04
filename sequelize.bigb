@@ -3,7 +3,7 @@
 
 Source code: https://github.com/sequelize/sequelize
 
-Some usage examples under: \x[sequelize-example]{full}.
+Some usage examples under: <sequelize example>{full}.
 
 As of 2021, this library is extremely painful to use. It does feel semi-mature, but there are just too much horrible things going on;
 * the documentation is a bit messy and misses a lot of stuff. The examples are often too short, and it is hard to understand what specific options they are talking about do because they lack clear input/expected output pairs. Examples:
@@ -11,14 +11,14 @@ As of 2021, this library is extremely painful to use. It does feel semi-mature, 
   * https://github.com/sequelize/sequelize/issues/1775#issuecomment-360028396
 * the implementation has several inelegant/unintuitive annoyances/requirements of code repetition that drive you mad.
 
-  The association API feels notably bad, it took a few days for \x[ciro-santilli] to learn to do what he considers "basic" association operations, knowledge which he dumped to: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+  The association API feels notably bad, it took a few days for <ciro santilli> to learn to do what he considers "basic" association operations, knowledge which he dumped to: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
 
-  See also: \x[how-to-decide-if-an-orm-is-good].
+  See also: <how to decide if an orm is good>.
 * bugs are piling up. It appears that many key devs left, and current maintainers are just not being able to keep up.
 
   And they have setup a stupid bot that closes every thread automatically after a few days, what's the point... valid bugs are being closed due to this, and it is impossible to distinguish what is solved and what isn't since everything gets closed.
 
-Some glaring issues are listed at \x[the-horrors-of-sequelize].
+Some glaring issues are listed at <the horrors of sequelize>.
 
 = The horrors of Sequelize
 {parent=sequelize}
@@ -41,7 +41,7 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
 * `.id` gets added to `SELECT` no matter what, breaking `GROUP BY` unless you do horrible workarounds:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
-* no simple built-in mechanism for transaction retries: \x[sequelize-transaction-retry]{p}
+* no simple built-in mechanism for transaction retries: <sequelize transaction retries>
 * impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[nodejs/sequelize/raw/many_to_many.js]:
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
@@ -62,8 +62,8 @@ Some glaring issues are listed at \x[the-horrors-of-sequelize].
 {parent=sequelize}
 
 To run examples on a specific database:
-* `./index.js` or `./index.js l`: \x[sqlite]
-* `./index.js p`: \x[postgresql]. You must manually create a database called `tmp` and ensure that peer authentication works for it
+* `./index.js` or `./index.js l`: <sqlite>
+* `./index.js p`: <postgresql>. You must manually create a database called `tmp` and ensure that peer authentication works for it
 All examples can be tested on all databases with:
 ``
 cd sequelize
@@ -72,18 +72,18 @@ cd sequelize
 
 Overview of the examples:
 * \a[nodejs/sequelize/index.js]: a bunch of basic examples
-* \a[nodejs/sequelize/raw/index.js]: raw query \x[hello-world]. Ideally one should never use a raw query in a real project. We use raw examples mostly as a \x[sql] tutorial under \x[sql-example], and will not comment on them much further on this section.
+* \a[nodejs/sequelize/raw/index.js]: raw query <hello world>. Ideally one should never use a raw query in a real project. We use raw examples mostly as a <sql> tutorial under <sql example>, and will not comment on them much further on this section.
 * \a[nodejs/sequelize/update.js]: https://stackoverflow.com/questions/54898994/bulkupdate-in-sequelize-orm/69044138#69044138[]. This file is also where we are storing our expression-foo for now, e.g. how to do stuff like `col1 + col2`. Such knowledge can however be used basically anywhere else however, e.g. in `AS` or `WHERE` clauses, not just in `UPDATE`.
-* \a[nodejs/sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with \x[join-sql] queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
+* \a[nodejs/sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with <join sql> queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
 * \a[nodejs/sequelize/date.js]: automatic date typecasts
 * \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
-* \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does \x[sqlite] `INSERT OR IGNORE INTO` or \x[postgresql] `ON CONFLICT DO NOTHING`. Closely related \x[upsert] versions:
+* \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does <sqlite> `INSERT OR IGNORE INTO` or <postgresql> `ON CONFLICT DO NOTHING`. Closely related <upsert> versions:
   * upsert
     * \a[nodejs/sequelize/upsert.js]
     * \a[nodejs/sequelize/update_on_duplicate.js]
     * https://stackoverflow.com/questions/29063232/how-to-get-the-id-of-an-inserted-or-updated-record-in-sequelize-upsert/72092277#72092277
     * https://stackoverflow.com/questions/55531860/sequelize-bulkcreate-updateonduplicate-for-postgresql
-* \a[nodejs/sequelize/inc.js]: demonstrate the `increment` method. In \x[sqlite], it produces a statement of type:
+* \a[nodejs/sequelize/inc.js]: demonstrate the `increment` method. In <sqlite>, it produces a statement of type:
   ``
   UPDATE `IntegerNames` SET `value`=`value`+ 1,`updatedAt`='2021-11-03 10:23:45.409 +00:00' WHERE `id` = 3
   ``
@@ -95,19 +95,19 @@ Overview of the examples:
 * \a[nodejs/sequelize/composite_index.js]: https://stackoverflow.com/questions/34664853/sequelize-composite-unique-constraint
 * \a[nodejs/sequelize/indent_log.js]: https://stackoverflow.com/questions/34664853/sequelize-composite-unique-constraint
 * association examples:
-  * \a[nodejs/sequelize/one_to_many.js]: basic \x[one-to-many] examples.
+  * \a[nodejs/sequelize/one_to_many.js]: basic <one to many> examples.
     * \a[nodejs/sequelize/one_to_many_custom_column_name.js]:
       * https://stackoverflow.com/questions/43025861/sequelize-association-is-referencing-to-wrong-foreignkey-column-name
       * https://stackoverflow.com/questions/49818406/sequelize-targetkey-not-working/59953948#59953948
-  * \a[nodejs/sequelize/many_to_many.js]: basic \x[many-to-many] examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
-    * \a[nodejs/sequelize/many_to_many_custom_table.js]: \x[many-to-many] example, but where we craft our own table which can hold extra data. In our case, users can like posts, but likes have a integer weight associated with them. Related threads:
+  * \a[nodejs/sequelize/many_to_many.js]: basic <many to many> examples, each user can like multiple posts. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
+    * \a[nodejs/sequelize/many_to_many_custom_table.js]: <many to many> example, but where we craft our own table which can hold extra data. In our case, users can like posts, but likes have a integer weight associated with them. Related threads:
       * https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
       * https://stackoverflow.com/questions/30308217/sequelize-find-by-association-through-manually-defined-join-table/69899876#69899876
     * \a[nodejs/sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Answers: https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
     * \a[nodejs/sequelize/many_to_many_same_model_super.js]
       * \a[nodejs/sequelize/find_duplicates.js]: https://stackoverflow.com/questions/71235548/how-to-find-all-rows-that-have-certain-columns-duplicated-in-sequelize/71235550#71235550
     * \a[nodejs/sequelize/many_to_many_super.js]: "Super many to many": https://sequelize.org/master/manual/advanced-many-to-many.html This should not exist and shows how bad this library is for associations, you need all that boilerplate in order to expose certain relationships that aren't otherwise exposed by a direct `hasMany` with implicit join table.
-  * nested includes to produce queries with multiple \x[join-sql]{p}:
+  * nested includes to produce queries with multiple <join sqls>:
     * \a[nodejs/sequelize/nested_include.js]: find all posts by users that a given user follows. Answers: https://stackoverflow.com/questions/42632943/sequelize-multiple-where-clause/68018083#68018083
     * \a[nodejs/sequelize/nested_include_super.js]: like \a[nodejs/sequelize/nested_include.js] but with a super many to many. We should move this to \a[nodejs/sequelize/many_to_many_super.js].
   * two relationships between two specific tables: we need to use `as:` to disambiguate them
@@ -124,7 +124,7 @@ Overview of the examples:
   * \a[nodejs/sequelize/common.js]: common utilities used across examples, most notably:
     * to easily setup different DBRM
     * do a lot more stuff under \a[nodejs/sequelize/raw] to have a little bit of DBRM portability where we need it, notably transactions
-  * \a[nodejs/sequelize/min_nocommon.js]: to copy paste to \x[stack-overflow]
+  * \a[nodejs/sequelize/min_nocommon.js]: to copy paste to <stack overflow>
   * \a[nodejs/sequelize/min.js]: template for new exapmles in the folder
 
 = Sequelize parallel example
@@ -134,7 +134,7 @@ Overview of the examples:
 {file}
 {parent=sequelize-parallel-example}
 
-This example is the same as \x[file/nodejs/sequelize/raw/parallel_select_and_update.js], but going through \x[sequelize] rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
+This example is the same as <file/nodejs/sequelize/raw/parallel_select_and_update.js>, but going through <sequelize> rather than with raw queries. `NONE` is not supported for now to not have a transaction at all because lazy.
 
 The examples illustrates: https://stackoverflow.com/questions/55452441/for-share-and-for-update-statements-in-sequelize
 
@@ -143,18 +143,18 @@ Sample invocation:
 node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ_COMMITTED UPDATE
 ``
 where:
-* `READ_COMMITTED`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html which correspond to the standard \x[sql-isolation-level]{p}. It not given, don't set one, defaulting to the database's/sequelize's default level.
-* `UPDATE`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html#static-get-LOCK[]. Update generates a `SELECT FOR UPDATE` in \x[postgresql] for example. If not given, don't use any `FOR xxx` explicit locking.
+* `READ_COMMITTED`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html which correspond to the standard <sql isolation levels>. It not given, don't set one, defaulting to the database's/sequelize's default level.
+* `UPDATE`: one of the keys documented at: https://sequelize.org/master/class/lib/transaction.js~Transaction.html#static-get-LOCK[]. Update generates a `SELECT FOR UPDATE` in <postgresql> for example. If not given, don't use any `FOR xxx` explicit locking.
 
 Other examples:
 * `node --unhandled-rejections=strict ./parallel_select_and_update.js p 10 100 READ_COMMITTED UPDATE`
 
-Then, the outcome is exactly as described at: \x[file/nodejs/sequelize/raw/parallel_select_and_update.js]:
+Then, the outcome is exactly as described at: <file/nodejs/sequelize/raw/parallel_select_and_update.js>:
 * `READ_COMMITTED`: fails
 * `READ_COMMITTED UPDATE`: works
 * `REPEATABLE_READ`: works, but is a bit slower, as it does rollbacks
 
-  This case also illustrates \x[sequelize-transaction-retry]{p}, since in this transaction isolation level transactions may fail:
+  This case also illustrates <sequelize transaction retries>, since in this transaction isolation level transactions may fail:
   * https://stackoverflow.com/questions/68427796/sequelize-transaction-retry-doenst-work-as-expected
   * https://github.com/sequelize/sequelize/issues/1478
   * https://github.com/sequelize/sequelize/issues/8294
@@ -162,7 +162,7 @@ Then, the outcome is exactly as described at: \x[file/nodejs/sequelize/raw/paral
 = Sequelize transaction retry
 {parent=sequelize}
 
-Transaction retries are inevitable, as some \x[sql-isolation-level]{p}
+Transaction retries are inevitable, as some <sql isolation levels>
 
 Doesn't seem to have any simple built-in mechanism?
 * https://stackoverflow.com/questions/68427796/sequelize-transaction-retry-doenst-work-as-expected

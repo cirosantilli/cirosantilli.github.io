@@ -6,8 +6,8 @@
 {wiki}
 
 = Encryption algorithm
-{title2}
 {synonym}
+{title2}
 
 = Random number generation
 {parent=cryptography}
@@ -35,7 +35,7 @@
 {parent=symmetric-key-algorithm}
 {wiki}
 
-There aren't any 2020, except in the trivial \x[one-time-pad] case where the key is as large as the message: https://crypto.stackexchange.com/questions/10815/how-do-we-prove-that-aes-des-etc-are-secure
+There aren't any 2020, except in the trivial <one time pad> case where the key is as large as the message: https://crypto.stackexchange.com/questions/10815/how-do-we-prove-that-aes-des-etc-are-secure
 
 = One-time pad
 {parent=symmetric-key-algorithm}
@@ -43,9 +43,9 @@ There aren't any 2020, except in the trivial \x[one-time-pad] case where the key
 
 The only perfect cryptosystem!
 
-The problem is that you need a shared \x[key-cryptography] as large as the message.
+The problem is that you need a shared <key cryptography> as large as the message.
 
-Systems like \x[advanced-encryption-standard] allow us to encrypt things larger than the key, but the tradeoff is that they could be possibly broken, as don't have any \x[provably-secure-symmetric-key-algorithm]{p} as of 2020.
+Systems like <advanced encryption standard> allow us to encrypt things larger than the key, but the tradeoff is that they could be possibly broken, as don't have any <provably secure symmetric key algorithms> as of 2020.
 
 = Advanced Encryption Standard
 {parent=symmetric-key-algorithm}
@@ -56,7 +56,7 @@ Systems like \x[advanced-encryption-standard] allow us to encrypt things larger 
 {parent=advanced-encryption-standard}
 {tag=quantum-resistant-cryptosystem}
 
-2020-so-far yes, \x[grover-s-algorithm] would only effectively reduce key sizes by half:
+2020-so-far yes, <grover s algorithm> would only effectively reduce key sizes by half:
 * https://crypto.stackexchange.com/questions/6712/is-aes-256-a-post-quantum-secure-cipher-or-not
 * https://qvault.io/cryptography/is-aes-256-quantum-resistant/
 but there isn't a mathematical proof either.
@@ -69,52 +69,52 @@ but there isn't a mathematical proof either.
 {synonym}
 
 It allows you to do two things:
-* \x[encryption]
-* \x[digital-signature]
+* <encryption>
+* <digital signature>
 
 = Digital signature
 {parent=public-key-cryptography}
 {wiki}
 
-One notable application: \x[cryptocurrency], see e.g. \x[how-bitcoin-works].
+One notable application: <cryptocurrency>, see e.g. <how bitcoin works>.
 
 = Ring signature
 {parent=public-key-cryptography}
 {wiki}
 
 Used for example:
-* by \x[monero] to hide the input of a transaction
-* anonymous \x[electronic-voting]
+* by <monero> to hide the input of a transaction
+* anonymous <electronic voting>
 
 = Public-key cryptosystem
 {parent=public-key-cryptography}
 {tag=cryptosystem}
 
 = RSA
-{c}
 {disambiguate=cryptosystem}
+{c}
 {parent=public-key-cryptosystem}
 {wiki}
 
-Based on the fact that we don't have a \x[p-complexity] algorithm for \x[integer-factorization] as of 2020. But nor proof that one does not exist!
+Based on the fact that we don't have a <p complexity> algorithm for <integer factorization> as of 2020. But nor proof that one does not exist!
 
-The private key is made of two randomly generated prime numbers: $p$ and $q$. How such large primes are found: \x[how-large-primes-are-found-for-rsa].
+The private key is made of two randomly generated prime numbers: $p$ and $q$. How such large primes are found: <how large primes are found for rsa>.
 
 The public key is made of:
 * `n = p*q`
-* a randomly chosen integer exponent $e$ between `1` and `e_max = lcm(p -1, q -1)`, where `lcm` is the \x[least-common-multiple]
+* a randomly chosen integer exponent $e$ between `1` and `e_max = lcm(p -1, q -1)`, where `lcm` is the <least common multiple>
 
 Given a plaintext message `m`, the encrypted cyphertext version is:
 ``
 c = m^e mod n
 ``
-This operation is called \x[modular-exponentiation] can be calculated efficiently with the \x[extended-euclidean-algorithm].
+This operation is called <modular exponentiation> can be calculated efficiently with the <extended euclidean algorithm>.
 
 The inverse operation of finding the private `m` from the public `c`, `e` and $n$ is however believed to be a hard problem without knowing the factors of `n`.
 
 However, if we know the private `p` and `q`, we can solve the problem. As follows.
 
-First we calculate the \x[modular-multiplicative-inverse]. TODO continue.
+First we calculate the <modular multiplicative inverse>. TODO continue.
 
 Bibliography:
 * https://www.comparitech.com/blog/information-security/rsa-encryption/ has a numeric example
@@ -125,9 +125,9 @@ Bibliography:
 * https://crypto.stackexchange.com/questions/1970/how-are-primes-generated-for-rsa
 * https://crypto.stackexchange.com/questions/690/can-i-select-a-large-random-prime-using-this-procedure/693#693
 
-Answers suggest hat you basically pick a random large odd number, and add 2 to it until your selected \x[primality-test] passes.
+Answers suggest hat you basically pick a random large odd number, and add 2 to it until your selected <primality test> passes.
 
-The \x[prime-number-theorem] tells us that the probability that a number between 1 and $N$ is a prime number is $1/log(N)$.
+The <prime number theorem> tells us that the probability that a number between 1 and $N$ is a prime number is $1/log(N)$.
 
 Therefore, for an N-bit integer, we only have to run the test N times on average to find a prime.
 
@@ -137,7 +137,7 @@ Since say, A 512-bit integer is already humongous and sufficiently large, we wou
 {c}
 {parent=rsa-cryptosystem}
 
-\x[rsa-cryptosystem] vs \x[diffie-hellman-key-exchange] are the dominant \x[public-key-cryptography] systems as of 2020, so it is natural to ask how they compare:
+<rsa cryptosystem> vs <diffie hellman key exchange> are the dominant <public key cryptography> systems as of 2020, so it is natural to ask how they compare:
 * https://security.stackexchange.com/questions/35471/is-there-any-particular-reason-to-use-diffie-hellman-over-rsa-for-key-exchange
 * https://crypto.stackexchange.com/questions/2867/whats-the-fundamental-difference-between-diffie-hellman-and-rsa
 * https://crypto.stackexchange.com/questions/797/is-diffie-hellman-mathematically-the-same-as-rsa
@@ -147,7 +147,7 @@ Since say, A 512-bit integer is already humongous and sufficiently large, we wou
 {parent=public-key-cryptography}
 {wiki=Diffie–Hellman_key_exchange}
 
-Based on the fact that we don't have a \x[p-complexity] algorithm for \x[discrete-logarithm] as of 2020. But nor proof that one does not exist!
+Based on the fact that we don't have a <p complexity> algorithm for <discrete logarithm> as of 2020. But nor proof that one does not exist!
 
 = Elliptic curve cryptography
 {parent=public-key-cryptography}
@@ -162,7 +162,7 @@ Based on the fact that we don't have a \x[p-complexity] algorithm for \x[discret
 {synonym}
 {title2}
 
-Variant of \x[diffie-hellman-key-exchange]{parent} based on \x[elliptic-curve-cryptography].
+Variant of <diffie hellman key exchange>{parent} based on <elliptic curve cryptography>.
 
 = Encryption
 {parent=cryptography}
@@ -202,7 +202,7 @@ https://stackoverflow.com/questions/20505942/how-does-perfect-forward-secrecy-pf
 
 https://security.stackexchange.com/questions/202174/can-a-smartphones-pin-or-password-be-brute-forced-in-an-offline-attack
 
-\x[ciro-santilli] has a hard time understanding why this is possible, e.g. many people use short 4 digit pins, or a short swipe pattern. Why can't this be cracked easily offline?
+<ciro santilli> has a hard time understanding why this is possible, e.g. many people use short 4 digit pins, or a short swipe pattern. Why can't this be cracked easily offline?
 
 = Linux Unified Key Setup
 {c}
@@ -286,8 +286,8 @@ diff -u hello.decrypt.txt hello.txt
 {title2}
 
 = Tor
-{c}
 {disambiguate=anonymity network}
+{c}
 {parent=internet-privacy}
 {wiki}
 
@@ -313,9 +313,9 @@ diff -u hello.decrypt.txt hello.txt
 {c}
 {synonym}
 
-This is a way to host a server that actually hide the \x[ip] of the server from the client, just like \x[tor-anonymity-network] hides the \x[ip] of the client from the server. Amazing tecnology!
+This is a way to host a server that actually hide the <ip> of the server from the client, just like <tor anonymity network> hides the <ip> of the client from the server. Amazing tecnology!
 
-This is why it enables hosting \x[illegal] things like the \x[silk-road-marketplace]: \x[law-enforcement] is not able find where the server is hosted, and take it down or identify the owner.
+This is why it enables hosting <illegal> things like the <silk road marketplace>: <law enforcement> is not able find where the server is hosted, and take it down or identify the owner.
 
 Bibliography:
 * https://security.stackexchange.com/questions/38194/how-can-i-get-the-ip-address-for-a-tor-hidden-service-hs-with-a-onion-address
@@ -353,9 +353,9 @@ https://security.stackexchange.com/questions/237632/can-isp-deanonymize-telegram
 {wiki}
 
 An overview of what you can do with a pre-shared key with tradeoffs can be found at: https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 The options are:
-* \x[one-time-pad]
-* \x[symmetric-encryption]
-* authentication with some \x[message-authentication-code] protocol
+* <one time pad>
+* <symmetric encryption>
+* authentication with some <message authentication code> protocol
 
 = Message authentication code
 {parent=pre-shared-key}
@@ -373,8 +373,8 @@ Bibliography:
 
 = MITM
 {c}
-{title2=MITM}
 {synonym}
+{title2=MITM}
 
 = Authentication
 {disambiguate=cryptography}
@@ -382,6 +382,6 @@ Bibliography:
 
 In the context of cryptography, authentication means "ensuring that the message you got comes from who you think it did".
 
-Authentication is how we prevent the \x[man-in-the-middle-attack].
+Authentication is how we prevent the <man in the middle attack>.
 
-Authentication is one of the hardest parts of cryptography, because the only truly secure way to do it is by driving to the other party yourself to establish a \x[pre-shared-key] so you can do \x[message-authentication-code]. Or to share your \x[public-key] with them if you are satisfied with the safety of \x[post-quantum-cryptography].
+Authentication is one of the hardest parts of cryptography, because the only truly secure way to do it is by driving to the other party yourself to establish a <pre shared key> so you can do <message authentication code>. Or to share your <public key> with them if you are satisfied with the safety of <post quantum cryptography>.

@@ -3,7 +3,7 @@
 {numbered}
 {scope}
 
-Introductory analysis of a simple example of the \x[executable-and-linkable-format].
+Introductory analysis of a simple example of the <executable and linkable format>.
 
 Extracted from https://stackoverflow.com/a/30648229/895245[this Stack Overflow answer].
 
@@ -40,7 +40,7 @@ man elf
 
 Spin like mad between:
 * standards
-* high level generators. We use the \x[assembler-computing] `as` and \x[linker-computing] `ld`.
+* high level generators. We use the <assembler computing> `as` and <linker computing> `ld`.
 * hexdumps
 * file decompilers. We use `readelf`. It makes it faster to read the ELF file by turning it into human readable output. But you must have seen one byte-by-byte example first, and think how `readelf` output maps to the standard.
 * low-level generators: stand-alone libraries that let you control every field of the ELF files you generated. https://github.com/BR903/ELFkickers, https://github.com/sqall01/ZwoELF and many more on GitHub.
@@ -314,9 +314,7 @@ An ELF file contains the following parts:
 * N segments, with `N <= e_phnum` (only on executable)
 
 The order of those parts is \i[not] fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
-\Q[
-Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.
-]
+\Q[Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.]
 
 In pictures: sample object file with three sections:
 ``
@@ -363,9 +361,9 @@ But nothing (except sanity) prevents the following topology:
 But some newbies may prefer PNGs :-)
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/ELF_Executable_and_Linkable_Format_diagram_by_Ange_Albertini.png/1280px-ELF_Executable_and_Linkable_Format_diagram_by_Ange_Albertini.png]
+{height=900}
 {title=ELF Executable and Linkable Format diagram by Ange Albertini}
 {source=https://github.com/corkami/pics/blob/28cb0226093ed57b348723bc473cea0162dad366/binary/elf101/elf101.pdf}
-{height=900}
 
 = Section vs segment
 {parent=elf-hello-world}
