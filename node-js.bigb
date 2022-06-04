@@ -2,7 +2,7 @@
 {c}
 {wiki}
 
-Wellhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync], if you are gonna usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-jsp[Sync] this \x[javascript][wonky language] thing inhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] one place, you might as well usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] it everywherehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] and make it more decent. See also: \x[how-to-convert-async-to-sync-in-javascript].
+Wellhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync], if you are gonna usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-jsp[Sync] this <javascript>[wonky language] thing inhttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] one place, you might as well usehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] it everywherehttps://stackoverflow.com/questions/8775262/synchronous-requests-in-node-js[Sync] and make it more decent. See also: <how to convert async to sync in javascript>.
 
 Their CLI debugger is a bit crap compared to GDB, basic functionality is either lacking or too verbose:
 * https://stackoverflow.com/questions/65493221/how-to-break-at-a-specific-function-or-line-with-the-node-js-node-inspect-comman
@@ -18,7 +18,7 @@ Documentation at: https://nodejs.org/dist/latest-v16.x/docs/api/debugger.html
 = JavaScript memory usage benchmark
 {parent=node-js-example}
 
-In this section we will use the file \a[nodejs/bench_mem.js], tests are run on Node.js v16.14.2 from NVM, Ubuntu 21.10, on \x[ciro-santilli-s-hardware/lenovo-thinkpad-p51-2017] which has 32 GB RAM.
+In this section we will use the file \a[nodejs/bench_mem.js], tests are run on Node.js v16.14.2 from NVM, Ubuntu 21.10, on <ciro santilli s hardware/lenovo thinkpad p51 2017> which has 32 GB RAM.
 
 Related answer: https://stackoverflow.com/questions/12023359/what-do-the-return-values-of-node-js-process-memoryusage-stand-for/72043884#72043884
 
@@ -251,7 +251,7 @@ gives `heapUsed`:
 = Node.js database bindings
 {parent=node-js-library}
 
-* \x[node-js-sqlite-bindings]
+* <node js sqlite bindings>
 
 = Node.js ORM library
 {parent=node-js-library}
@@ -267,19 +267,19 @@ gives `heapUsed`:
 {c}
 {parent=node-js-web-framework}
 
-This doesn't do a hole lot. \x[ciro-santilli] wouldn't really call it a web framework. It's more like a middleware. Real web frameworks are built on top of it.
+This doesn't do a hole lot. <ciro santilli> wouldn't really call it a web framework. It's more like a middleware. Real web frameworks are built on top of it.
 
 Examples under: \a[nodejs/express]:
 * \a[nodejs/express/min.js]: minimal example. Visit http://localhost:3000 and it shows `hello world`. It is a bit wrong because the headers say HTML but we return plaintext.
 * \a[nodejs/express/index.js]: example dump with automated tests where possible. The automated tests are run at startup after the server launches. Then the server keeps running so you can interact with it.
 
-A live example on \x[heroku] can be seen at: https://github.com/cirosantilli/heroku-node-min
+A live example on <heroku> can be seen at: https://github.com/cirosantilli/heroku-node-min
 
 = Realworld app written in Express
 {c}
 {parent=express-js}
 
-\x[gothinkster-realworld] implementations based on \x[express-js].
+<gothinkster realworld> implementations based on <express js>.
 
 = gothinkster/node-express-realworld-example-app
 {parent=realworld-app-written-in-express}
@@ -289,7 +289,7 @@ https://github.com/gothinkster/node-express-realworld-example-app
 = sigoden/node-express-realworld-example-app
 {parent=realworld-app-written-in-express}
 
-Appears to be a port of \x[gothinkster-node-express-realworld-example-app] to \x[sequelize].
+Appears to be a port of <gothinkster node express realworld example app> to <sequelize>.
 
 Seemed to just work at 68bbadfd77f679f0df0fcd0de5bceb9c37b1144a Ubuntu 20.10, was forked from parent project in 2018.
 
@@ -308,26 +308,26 @@ Very raw. Easy to understand. Relatively well organiezd. But also very buggy at 
 
 Looks interesting.
 
-It seems to abstract the part about the client messaging the backend, which focuses on being able to easily plug in a number of \x[front-end-web-framework] to manage client state.
+It seems to abstract the part about the client messaging the backend, which focuses on being able to easily plug in a number of <front end web framework> to manage client state.
 
-Has the "main web \x[api] is the same as the REST API" focus, which is fundamental 2020-nowadays.
+Has the "main web <api> is the same as the REST API" focus, which is fundamental 2020-nowadays.
 
-Uses \x[socket-io], which allows the client Javascript to register callbacks when data is updated to achieve \x[socket-io], e.g. their default chat app does:
+Uses <socket io>, which allows the client Javascript to register callbacks when data is updated to achieve <socket io>, e.g. their default chat app does:
 ``
 client.service('messages').on('created', addMessage);
 ``
 so that message appear immediately as they are sent.
 
 Their standard template from `feathers generate app` on `@feathersjs/cli@4.5.0` includes:
-* several authentication methods, including \x[oauth]
+* several authentication methods, including <oauth>
 * testing
-* backend \x[database] with one of several \x[object-relational-mapping]! However, they don't abstract across them. E.g., the default Chat example uses NeDB, but a real app will likely use \x[sequelize], and a \x[port-software-portability] is needed
-which looks promising! They don't have a default template for a \x[front-end-web-framework] however unfortunately: https://docs.feathersjs.com/guides/frameworks.html#the-feathers-chat lists a few chat app versions, which is their \x[hello-world]:
-* \x[front-end-web-framework]: not built-in on generator, but there are some sample repos pointed from the documentation, and they did work out-of-box:
-  * \x[feathers-chat-react]
-But it is in itself a completely boring app with a single splash page, and no database interaction, so not a good showcase. The actual showcase app is \x[feathersjs-feathers-chat].
+* backend <database> with one of several <object relational mapping>! However, they don't abstract across them. E.g., the default Chat example uses NeDB, but a real app will likely use <sequelize>, and a <port software portability> is needed
+which looks promising! They don't have a default template for a <front end web framework> however unfortunately: https://docs.feathersjs.com/guides/frameworks.html#the-feathers-chat lists a few chat app versions, which is their <hello world>:
+* <front end web framework>: not built-in on generator, but there are some sample repos pointed from the documentation, and they did work out-of-box:
+  * <feathers chat react>
+But it is in itself a completely boring app with a single splash page, and no database interaction, so not a good showcase. The actual showcase app is <feathersjs feathers chat>.
 
-And there is no official example of the chat app that is immediately deployable to \x[heroku]: \x[feathersjs-heroku-deployment], all setups require thinking.
+And there is no official example of the chat app that is immediately deployable to <heroku>: <feathersjs heroku deployment>, all setups require thinking.
 
 Global source entry point: determine on `package.json` as usual, defaults to `src/index.js`.
 
@@ -343,18 +343,18 @@ https://github.com/feathersjs/awesome-feathersjs#projects-using-feathers
 
 https://github.com/feathersjs/feathers-chat
 
-The main \x[feathersjs] \x[hello-world] demo. Notable missing things...
-* instant \x[heroku] deployability: \x[feathersjs-heroku-deployment]
-* no \x[front-end-web-framework] which sucks, but there are basically official demos that worked e.g. \x[feathers-chat-react]
-* \x[feathersjs-signup-email-verification]
+The main <feathersjs> <hello world> demo. Notable missing things...
+* instant <heroku> deployability: <feathersjs heroku deployment>
+* no <front end web framework> which sucks, but there are basically official demos that worked e.g. <feathers chat react>
+* <feathersjs signup email verification>
 
 = feathers-chat PostgreSQL
 {c}
 {parent=feathersjs-feathers-chat}
 
-The default feathers-chat app runs on NeDB (local filesystem \x[json] database).
+The default feathers-chat app runs on NeDB (local filesystem <json> database).
 
-\x[ciro-santilli] managed to port it to \x[sequelize] for \x[postgresql] as shown at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
+<ciro santilli> managed to port it to <sequelize> for <postgresql> as shown at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
 
 = feathers-chat-react
 {c}
@@ -364,7 +364,7 @@ https://github.com/feathersjs-ecosystem/feathers-chat-react
 
 Last updated 2018 as of 2021, but still just worked.
 
-Also uses \x[webpack] which is fantastic.
+Also uses <webpack> which is fantastic.
 
 Gotta run https://github.com/feathersjs/feathers-chat[] first: https://github.com/feathersjs-ecosystem/feathers-chat-react/issues/5[], then it worked:
 ``
@@ -386,7 +386,7 @@ then visit http://localhost:3000/ and you can create an account and login, teste
 
 TODO how to merge those two repos into a single repo.
 
-If you \x[disable-javascript-on-chromium], it stops working completely. There is a section on how to solve that at: https://docs.feathersjs.com/cookbook/express/view-engine.html[] but it does not cover React specifically. \x[codaisseur-feathersjs-react-redux-ssr] might be good to look into.
+If you <disable javascript on chromium>, it stops working completely. There is a section on how to solve that at: https://docs.feathersjs.com/cookbook/express/view-engine.html[] but it does not cover React specifically. <codaisseur feathersjs react redux ssr> might be good to look into.
 
 = Codaisseur/feathersjs-react-redux-ssr
 {c}
@@ -394,7 +394,7 @@ If you \x[disable-javascript-on-chromium], it stops working completely. There is
 
 https://github.com/Codaisseur/feathersjs-react-redux-ssr
 
-Also \x[webpack] and \x[babel-transcompiler], looks promising!
+Also <webpack> and <babel transcompiler>, looks promising!
 
 As of 2021, last commit from 2017.
 
@@ -404,17 +404,17 @@ git clone https://github.com/Codaisseur/feathersjs-react-redux-ssr
 cd feathersjs-react-redux-ssr
 npm install
 ``
-failed on Ubuntu 20.10 \x[node-js] v14.15.3 with:
+failed on Ubuntu 20.10 <node js> v14.15.3 with:
 ``
 ../src/create_string.cpp:17:37: error: no matching function for call to ‘v8::String::Utf8Value::Utf8Value(v8::Local<v8::Value>&)’
    17 |   v8::String::Utf8Value string(value);
       |                                     ^
 ``
-Likely similar \x[bullshit] from: https://stackoverflow.com/questions/50111688/node-sqlite-node-gyp-build-error-no-member-named-forceset-in-v8object because the Node.js version is too new.
+Likely similar <bullshit> from: https://stackoverflow.com/questions/50111688/node-sqlite-node-gyp-build-error-no-member-named-forceset-in-v8object because the Node.js version is too new.
 
 If I try `nvm install v10`
 
-I \x[google] error messages until reaching:
+I <google> error messages until reaching:
 ``
 diff --git a/gulpfile.js b/gulpfile.js
 index b931e06..24d2cc8 100644
@@ -500,16 +500,16 @@ and the next problem is: https://stackoverflow.com/questions/48513573/gulp-error
 = randyscotsmithey/feathers-realworld-example-app
 {parent=featherjs-demo-apps}
 
-\x[feathersjs] entry for \x[gothinkster-realworld].
+<feathersjs> entry for <gothinkster realworld>.
 
-\x[mongodb]-based.
+<mongodb>-based.
 
 So once you install MongoDB, run with:
 ``
 MONGODB_FEATHERS_REALWORLD=mongodb://localhost:27017/mydb npm start
 ``
 
-Got it working on \x[ubuntu] 20.10 with both \x[react] and \x[vue-js] front-ends at https://github.com/randyscotsmithey/feathers-realworld-example-app/commit/8bc3a09242285de624c75bb8345630df499a7d07[] as mentioned at https://github.com/randyscotsmithey/feathers-realworld-example-app/issues/2 except for bad error reporting on UI.
+Got it working on <ubuntu> 20.10 with both <react> and <vue js> front-ends at https://github.com/randyscotsmithey/feathers-realworld-example-app/commit/8bc3a09242285de624c75bb8345630df499a7d07[] as mentioned at https://github.com/randyscotsmithey/feathers-realworld-example-app/issues/2 except for bad error reporting on UI.
 
 Tests can be run with:
 ``
@@ -523,7 +523,7 @@ but there were 10 failures and 55 passes: https://github.com/randyscotsmithey/fe
 
 Got it working as mentioned at: https://github.com/cirosantilli/feathers-chat/tree/sequelize-pg
 
-One major step was to \x[port-software-portability] to \x[postgresql] as shown at \x[feathers-chat-postgresql].
+One major step was to <port software portability> to <postgresql> as shown at <feathers chat postgresql>.
 
 Bibliography:
 * https://stackoverflow.com/questions/47270219/deploy-feathersjs-app-on-heroku/66723974#66723974
@@ -540,37 +540,37 @@ There's also a `heroku` branch at: https://github.com/feathersjs/feathers-chat/t
 * https://blog.feathersjs.com/how-to-setup-email-verification-in-feathersjs-72ce9882e744
 
 = Meteor
-{c}
 {disambiguate=web framework}
+{c}
 {parent=node-js-web-framework}
 
 https://github.com/meteor/meteor
 
 The idea is cool. It really unifies front-and back end.
 
-But \x[ciro-santilli] feels the approach proposed by \x[feathersjs] of being a glue between bigger third-party \x[front-end-web-framework]{p} like \x[react] and backend (\x[object-relational-mapping]) is more promising and flexible.
+But <ciro santilli> feels the approach proposed by <feathersjs> of being a glue between bigger third-party <front end web frameworks> like <react> and backend (<object relational mapping>) is more promising and flexible.
 
 = Nest.js
 {c}
 {parent=node-js-web-framework}
 
 * https://github.com/lujakob/nestjs-realworld-example-app
-* \x[object-relational-mapping]: https://docs.nestjs.com/techniques/database
-* \x[front-end-web-framework]: looks weak:
+* <object relational mapping>: https://docs.nestjs.com/techniques/database
+* <front end web framework>: looks weak:
   * https://github.com/yemiwebby/nest-react-project
 
 = lujakob/nestjs-realworld-example-app
 {c}
 {parent=nest-js}
 
-\x[nest-js] entry for \x[gothinkster-realworld].
+<nest js> entry for <gothinkster realworld>.
 
-Didn't manage to get it to work perfectly on \x[ubuntu] 20.10: https://github.com/lujakob/nestjs-realworld-example-app/issues/57
+Didn't manage to get it to work perfectly on <ubuntu> 20.10: https://github.com/lujakob/nestjs-realworld-example-app/issues/57
 
 = lujakob/nestjs-realworld-example-app SQLite port
 {parent=lujakob-nestjs-realworld-example-app}
 
-Tried a quick port to \x[sqlite] to get rid of annoying local databases for development, but failed, at c1c2cc4e448b279ff083272df1ac50d20c3304fa
+Tried a quick port to <sqlite> to get rid of annoying local databases for development, but failed, at c1c2cc4e448b279ff083272df1ac50d20c3304fa
 ``
 npm install sqlite3 --save-dev
 ``
@@ -622,20 +622,20 @@ Unhandled Rejection (TypeError): Cannot read property 'slug' of undefined
 
 https://github.com/balderdashy/sails
 
-\x[front-end-web-framework] integration: no native one:
-* \x[react]:
+<front end web framework> integration: no native one:
+* <react>:
   * https://github.com/markmur/sails-react-webpack
   * https://github.com/sepineda/sails-react-webpack Last updated as of 2021: 2018
   * https://stackoverflow.com/questions/28331032/sails-js-with-react-js-how-to-do-it-correctly
-* \x[vue-js]:
+* <vue js>:
   * https://github.com/mikermcneil/ration Issue tracker disabled...
     * live at: https://ration.io/
     * selling a course at: https://courses.platzi.com/courses/sails-js/
   * https://platzi.com/cursos/javascript-pro/ non-free and in Spanish pointed to from official README...
-  * \x[nuxt-js]:
+  * <nuxt js>:
     * https://github.com/AngelMunoz/sails-nuxt
 
-TODO \x[server-side-rendering] anyone??
+TODO <server side rendering> anyone??
 * https://stackoverflow.com/questions/32412590/how-to-use-react-js-to-render-server-side-template-on-sails-js
 * https://stackoverflow.com/questions/54217147/ssr-for-react-redux-application-with-sails
 * https://gist.github.com/duffpod/746a660bcddfd986878c92dde1a04f06

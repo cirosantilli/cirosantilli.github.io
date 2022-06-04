@@ -1,9 +1,9 @@
 = Ciro's Edict #6
-{title2=2022-04-29}
 {numbered}
 {scope}
+{title2=2022-04-29}
 
-\x[cirist]{p},
+<cirists>,
 
 = ourbigbook.com
 {parent=6}
@@ -18,18 +18,18 @@ Managed to upload the content from the static website https://cirosantilli.com (
 
 Although most of the key requirements were already in place since the last update, as usual doing things with the complex reference content stresses the system further and leads to the exposition of several new bugs.
 
-The upload of OurBigBook Markup files to ourbigbook.com was done with the newly added \x[ourbigbook-cli] `ourbigbook --web` option. Although fully exposed to end users, the setup is not super efficient: a trully decent implementation should only upload changed files, and would basically mean reimplementing/using \x[git], since version diffing is what Git shines at. But I've decided not to put much emphasis on CLI upload for now, since it is expected that initially the majority of users will use the Web UI only. The functionality was added primarily to upload the reference content.
+The upload of OurBigBook Markup files to ourbigbook.com was done with the newly added <ourbigbook cli> `ourbigbook --web` option. Although fully exposed to end users, the setup is not super efficient: a trully decent implementation should only upload changed files, and would basically mean reimplementing/using <git>, since version diffing is what Git shines at. But I've decided not to put much emphasis on CLI upload for now, since it is expected that initially the majority of users will use the Web UI only. The functionality was added primarily to upload the reference content.
 
 This is a major milestone, as the new content can start attracting new users, and makes the purpose of the website much clearer. Just having this more realistic content also immediately highlighted what the next development steps need to be.
 
 Once v1.0 is reached, I will actually make all internal links of https://cirosantilli.com to point to https://ourbigbook.com/cirosantilli[] to try and drive some more traffic.
 
-The new content blows up by far the limit of the free \x[heroku] \x[postgresql] database of 10k lines. This meant that I needed to upgrade the Heroku Postgres plugin from the free Hobby Dev to the 9 USD/month Hobby Basic: https://elements.heroku.com/addons/heroku-postgresql[], so now hosting costs will increase from 7 USD/month for the dyno to 7 + 9 = 16 UDS/month. After this upgrade and uploading all of cirosantilli.com to ourbigbook.com, Heroku dashboard reads reads:
+The new content blows up by far the limit of the free <heroku> <postgresql> database of 10k lines. This meant that I needed to upgrade the Heroku Postgres plugin from the free Hobby Dev to the 9 USD/month Hobby Basic: https://elements.heroku.com/addons/heroku-postgresql[], so now hosting costs will increase from 7 USD/month for the dyno to 7 + 9 = 16 UDS/month. After this upgrade and uploading all of cirosantilli.com to ourbigbook.com, Heroku dashboard reads reads:
 * 30,918 rows out of 10,000,000
 * 61.0 MB (out of 10 GB)
 so clearly if we are ever forced to upgrade plans again, it means that a bunch of people are using the website and that things are going very very well! Happy how this storage cost turned out so far.
 
-One key limitation found was that Heroku RAM memory is quite limited at 512MB, and JavaScript is not exactly the most memory economical language out there. Started investigation at: https://github.com/cirosantilli/ourbigbook/issues/230 Initially \x[fix-it-twice][working around that by simply splitting the largest files]. We were just on the verge of what could be ran however luckily, so a few dozen splits was enough, it managed to handle 70 kB \x[ourbigbook-markup] inputs. So hopefully if we manage to optimize a bit more we will be able to set a maximum size of 100 kB and still have a good safety margin.
+One key limitation found was that Heroku RAM memory is quite limited at 512MB, and JavaScript is not exactly the most memory economical language out there. Started investigation at: https://github.com/cirosantilli/ourbigbook/issues/230 Initially <fix it twice>[working around that by simply splitting the largest files]. We were just on the verge of what could be ran however luckily, so a few dozen splits was enough, it managed to handle 70 kB <ourbigbook markup> inputs. So hopefully if we manage to optimize a bit more we will be able to set a maximum size of 100 kB and still have a good safety margin.
 
 = Misc advances
 {parent=advances}
@@ -45,9 +45,9 @@ Make article editing more reasonable. Several bugs in the area.
 {c}
 {parent=6}
 
-I've started rewatching \x[the-water-margin-1998-tv-series], it is just so good. I'm taking some reasonable notes this time however, because due to \x[ciro-santilli-s-bad-old-event-memory] I'll forget the details again otherwise.
+I've started rewatching <the water margin 1998 tv series>, it is just so good. I'm taking some reasonable notes this time however, because due to <ciro santilli s bad old event memory> I'll forget the details again otherwise.
 
-That type of rebellion symbology could also be useful against the \x[chinese-government]. It is interesting that \x[mao-zedong] loved the novel.
+That type of rebellion symbology could also be useful against the <chinese government>. It is interesting that <mao zedong> loved the novel.
 
 \Video[https://www.youtube.com/watch?v=P7-OYQatYvA]
 {title=Water Margin tribute to Chinese dissidents}

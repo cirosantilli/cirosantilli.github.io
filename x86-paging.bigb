@@ -3,7 +3,7 @@
 {numbered}
 {scope}
 
-This tutorial explains the very basics of how paging works, with focus on \x[x86], although most high level concepts will also apply to other \x[instruction-set-architecture]{p}, e.g. \x[arm].
+This tutorial explains the very basics of how paging works, with focus on <x86>, although most high level concepts will also apply to other <instruction set architectures>, e.g. <arm>.
 
 The goals are to:
 * demonstrate minimal concrete simplified paging examples that will be useful to those learning paging for the first time
@@ -18,7 +18,7 @@ Minimal example: https://github.com/cirosantilli/x86-bare-metal-examples/blob/5c
 
 Like everything else in programming, the only way to really understand this is to play with minimal examples.
 
-What makes this a "hard" subject is that the minimal example is large because you need to make your own small \x[operating-system][OS].
+What makes this a "hard" subject is that the minimal example is large because you need to make your own small <operating system>[OS].
 
 = Intel manual
 {parent=x86-paging}
@@ -36,7 +36,7 @@ Paging makes it easier to compile and run two programs or threads at the same ti
 
 For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.
 
-So nothing prevents it from using the same \x[ram] address, say, `0x1234`, to store a global variable.
+So nothing prevents it from using the same <ram> address, say, `0x1234`, to store a global variable.
 
 And thread https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[stacks], that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!
 
@@ -60,7 +60,7 @@ Where:
   * https://en.wikipedia.org/wiki/Memory-mapped_I/O[memory-mapped I/O regions]
   * https://en.wikipedia.org/wiki/Multi-channel_memory_architecture[multi channel memory]
 
-\x[compiler]{c}{p} don't need to worry about other programs: they just use simple logical addresses.
+<Compilers> don't need to worry about other programs: they just use simple logical addresses.
 
 As far as programs are concerned, they think they can use any address between 0 and 4GiB (2^32, `FFFFFFFF`) on 32-bit systems.
 
@@ -78,13 +78,13 @@ Paging achieves that goal, and in addition:
 Or if you like non-funny jokes:
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png]
-{title=Comparison between the \x[linux-kernel] userland memory virtualization and \x[the-matrix].}
+{title=Comparison between the <linux kernel> userland memory virtualization and <the matrix>.}
 {description=Is this RAM real?}
 
 = Hardware implementation
 {parent=x86-paging}
 
-Paging is implemented by the \x[central-processing-unit][CPU] hardware itself.
+Paging is implemented by the <central processing unit>[CPU] hardware itself.
 
 Paging could be implemented in software, but that would be too slow, because every single RAM memory access uses it!
 
@@ -359,9 +359,10 @@ All real page table entries have other fields, notably fields to set pages to re
 
 It would be impractical to align things at 21 bits since memory is addressable by bytes and not bits. Therefore, even in only 21 bits are needed in this case, hardware designers would probably choose 32 to make access faster, and just reserve bits the remaining bits for later usage. The actual value on x86 is 32 bits.
 
-Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory: \x[image-x86-page-entry-format]{full}.
+Here is a screenshot from the Intel manual image "Formats of CR3 and Paging-Structure Entries with 32-Bit Paging" showing the structure of a page table in all its glory: <image x86 page entry format>{full}.
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_entry_format.png]{height=300}
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_entry_format.png]
+{height=300}
 {title=x86 page entry format}
 
 The fields are explained in the manual just after.
@@ -403,7 +404,7 @@ The downside of this system is that is has a slightly higher access time, as we 
 {c}
 {parent=example-multi-level-paging-scheme}
 
-The algorithmically minded will have noticed that paging requires \x[associative-array] (like Java `Map` of Python `dict()`) abstract data structure where:
+The algorithmically minded will have noticed that paging requires <associative array> (like Java `Map` of Python `dict()`) abstract data structure where:
 * the keys are linear pages addresses, thus of integer type
 * the values are physical page addresses, also of integer type
 
@@ -420,9 +421,9 @@ linear_address[2]      = physical_address_2
 linear_address[2^20-1] = physical_address_N
 ``
 
-But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) \x[k-ary-tree].
+But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <k ary tree>.
 
-A K-ary tree, is just like a \x[binary-tree], but with K children instead of 2.
+A K-ary tree, is just like a <binary tree>, but with K children instead of 2.
 
 Using a K-ary tree instead of an array implementation has the following trade-offs:
 * it uses way less memory
@@ -581,9 +582,10 @@ Let's translate the linear address `0x00801004` step by step:
 
 Page faults occur if either a page directory entry or a page table entry is not present.
 
-The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": \x[image-x86-page-translation-process]{full}
+The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": <image x86 page translation process>{full}
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png]{height=300}
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png]
+{height=300}
 {title=x86 page translation process.}
 
 = 64-bit architectures
