@@ -6,36 +6,36 @@
 {c}
 {parent=sql}
 
-We have some runnable <sql> examples with <assertion software developments> under the `sequelize/raw` directory.
+We have some runnable <sql> examples with <assertion (software development)> under the `sequelize/raw` directory.
 
 These examples are written in the <sequelize> library using raw queries.
 
-Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard <javascript>. The queries themselves are all written by hand.
+Sequelize is used minimally, just to feed raw queries in transparently to any underlying database, and get minimally parsed results out for us, which we then assert with standard <JavaScript>. The queries themselves are all written by hand.
 
-By default the examples run on <sqlite>. Just like the examples from <sequelize example>, you can set the database at runtime as:
-* `./index.js` or `./index.js l`: <sqlite>
-* `./index.js p`: <postgresql>. You must manually create a database called `tmp` and ensure that peer authentication works for it
+By default the examples run on <SQLite>. Just like the examples from <sequelize example>, you can set the database at runtime as:
+* `./index.js` or `./index.js l`: <SQLite>
+* `./index.js p`: <PostgreSQL>. You must manually create a database called `tmp` and ensure that peer authentication works for it
 
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
 * \a[nodejs/sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
-* \a[nodejs/sequelize/raw/many_to_many.js]: illustrates <many to many relations>:
-  * <join sql>
-  * <group by sql>
-    * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, <sqlite3 node js package> allows it:
+* \a[nodejs/sequelize/raw/many_to_many.js]: illustrates <many-to-many relations>:
+  * <JOIN (SQL)>
+  * <GROUP BY (SQL)>
+    * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, <sqlite3 Node.js package> allows it:
       * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
-      * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in <sql 1999> when there are no ambiguities due to constraints, e.g. when grouping by unique columns
-      * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that <postgresql> wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
+      * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in <SQL:1999> when there are no ambiguities due to constraints, e.g. when grouping by unique columns
+      * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that <PostgreSQL> wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
       * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to rationale mailing list thread: 
     * \a[nodejs/sequelize/raw/group_by_max_full_row.js]: here we try to get the full row of each group at which a given column reaches the max of the group
-      * <postgres>: has `SELECT DISCINTCT ON` which works perfectly if you only want one row in case of multiple rows attaining the max. `ON` is an extension to the standard unfortunately: https://www.postgresql.org/docs/9.3/sql-select.html#SQL-DISTINCT[] Docs specify that it always respects `ORDER BY` when selecting the row.
+      * <Postgres>: has `SELECT DISCINTCT ON` which works perfectly if you only want one row in case of multiple rows attaining the max. `ON` is an extension to the standard unfortunately: https://www.postgresql.org/docs/9.3/sql-select.html#SQL-DISTINCT[] Docs specify that it always respects `ORDER BY` when selecting the row.
         * https://stackoverflow.com/questions/586781/postgresql-fetch-the-row-which-has-the-max-value-for-a-column asks it without the multiple matches use case
         * https://dba.stackexchange.com/questions/171938/get-only-rows-with-max-group-value asks specifically the case of multiple matches to the max
-      * <sqlite>: https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON` unfortunately
+      * <SQLite>: https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON` unfortunately
       * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres 
       * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243 teaches us that in SQLite min and max are magic and guarantee that the matching row is returned. This allows us to answer: https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 with a deterministic version.
-* <sql transaction> examples:
-  * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on <postgresql>, once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for <sqlite>, SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
-  * <sql isolation level example>{child}
+* <SQL transaction> examples:
+  * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on <PostgreSQL>, once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for <SQLite>, SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
+  * <SQL isolation level example>{child}
 
 = SQL aggregate function
 {c}
@@ -60,12 +60,12 @@ Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_m
 
 Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the <memory semantics> of the system.
 
-Remember that queries can affects thousands of rows, and database systems like <postgresql> can run multiple such queries at the same time.
+Remember that queries can affects thousands of rows, and database systems like <PostgreSQL> can run multiple such queries at the same time.
 
-Good summary on the <postgresql> page: https://www.postgresql.org/docs/14/transaction-iso.html
+Good summary on the <PostgreSQL> page: https://www.postgresql.org/docs/14/transaction-iso.html
 
 Implementation specifics:
-* <sqlite isolation levels>{child}
+* <SQLite isolation levels>{child}
 
 = SQL READ UNCOMMITTED isolation level
 {c}
@@ -81,11 +81,11 @@ Example where this level is sufficient: <file/nodejs/sequelize/raw/parallel_upda
 {c}
 {parent=sql-transaction-isolation-level}
 
-Vs <sql serializable isolation level> on <postgresql>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
+Vs <SQL SERIALIZABLE isolation level> on <PostgreSQL>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
 
-<file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js> is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <sql read committed isolation level>.
+<file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js> is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <SQL READ COMMITTED isolation level>.
 
-In <postgresql>, this is the first isolation level which can lead to <postgresql serialization failures>, this does not happen to <sql read committed isolation level> in that <dbms>. You then have to retry the transaction.
+In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL serialization failures>, this does not happen to <SQL READ COMMITTED isolation level> in that <DBMS>. You then have to retry the transaction.
 
 = SQL SERIALIZABLE isolation level
 {c}
@@ -105,11 +105,11 @@ In <postgresql>, this is the first isolation level which can lead to <postgresql
 
 This section is about: \a[nodejs/sequelize/raw/parallel_update_async.js]
 
-\a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a <sqlite3 node js package> bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
+\a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a <sqlite3 Node.js package> bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
 
-\a[nodejs/sequelize/raw/parallel_update_async.js] is an <async javascript> version of it. It should be just parallel enough to allow observing the same effects.
+\a[nodejs/sequelize/raw/parallel_update_async.js] is an <async (JavaScript)> version of it. It should be just parallel enough to allow observing the same effects.
 
-This is an example of a transaction where the <sql read committed isolation level> if sufficient.
+This is an example of a transaction where the <SQL READ COMMITTED isolation level> if sufficient.
 
 These examples run queries of type:
 ``
@@ -121,16 +121,16 @@ Sample execution:
 node --unhandled-rejections=strict ./parallel_update_async.js p 10 100
 ``
 which does:
-* <postgresql>, see other databases options at <sql example>
+* <PostgreSQL>, see other databases options at <SQL example>
 * 10 threads
 * 100 increments on each thread
 
-The fear then is that of a classic <read modify write> failure.
+The fear then is that of a classic <read-modify-write> failure.
 
-But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, <sql read committed isolation level>, already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
+But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, <SQL READ COMMITTED isolation level>, already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
 \Q[If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row]
 
-Since in <postgresql> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
+Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
 
 <file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js> contains an example where things can actually blow up in read committed.
 
@@ -150,7 +150,7 @@ Sample execution:
 node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED'
 ``
 which does:
-* <postgresql>, see other databases options at <sql example>
+* <PostgreSQL>, see other databases options at <SQL example>
 * 2 threads
 * 10 increments on each thread
 
@@ -158,9 +158,9 @@ Another one:
 ``
 node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED' 'FOR UPDATE'
 ``
-this will run <select for update> rather than just <select sql>
+this will run <SELECT FOR UPDATE> rather than just <SELECT (SQL)>
 
-Observed behaviour under different <sql transaction isolation levels>:
+Observed behaviour under different <SQL transaction isolation levels>:
 * `READ COMMITTED`: fails. Nothing in this case prevents:
   * thread 1: SELECT, obtains i = 0
   * thread 2: SELECT, obtains i = 0
@@ -169,7 +169,7 @@ Observed behaviour under different <sql transaction isolation levels>:
   * thread 1: newI = 1
   * thread 1: UPDATE i = 1
 * `REPEATABLE READ`: works. the manual mentions that if multiple concurrent updates would happen, only the first commit succeeds, and the following ones fail and rollback and retry, therefore preventing the loss of an update.
-* `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on <ciro santilli s hardware/lenovo thinkpad p51 2017>.
+* `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
 
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
   \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
@@ -182,9 +182,9 @@ A non-raw version of this example can be seen at: <file/nodejs/sequelize/paralle
 
 This section is about the file: \a[nodejs/sequelize/raw/parallel_select_and_update_deterministic.js]
 
-This example contains a deterministic demo of when <postgresql serialization failures> may happen.
+This example contains a deterministic demo of when <postgreSQL serialization failures> may happen.
 
-Tested on <postgresql> 13.5.
+Tested on <PostgreSQL> 13.5.
 
 = nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
 {file}
@@ -200,7 +200,7 @@ Failure case 1:
 * thread 2: delete old post
 * thread 2: find all tags with 0 posts. Finds `tag0` from the deleted old post which is now empty.
 * thread 1: create new post, which we want to have tag `tag0`
-* thread 1: try to create a new tag `tag0`, but don't because it already exists, this is done using <sqlite>'s `INSERT OR IGNORE INTO` or <postgresql>'s `INSERT ... ON CONFLICT DO NOTHING`
+* thread 1: try to create a new tag `tag0`, but don't because it already exists, this is done using <SQLite>'s `INSERT OR IGNORE INTO` or <PostgreSQL>'s `INSERT ... ON CONFLICT DO NOTHING`
 * thread 1: assign `tag0` to the new post by adding an entry to the join table
 * thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it, which then cascades into the join table
 which would result in the new post incorrectly not having the `tag0`.
@@ -224,7 +224,7 @@ Failure case 3:
 which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
 
 Sample executions:
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: <postgresql>, 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: <PostgreSQL>, 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
 
   Execution often fails, although not always. The failure is always:
   ``
@@ -246,7 +246,7 @@ Sample executions:
 
   We've never observed any failures with this level. This should likely fix the foreign key issue according to the PostgreSQL docs, since:
   * the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
-  * and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: <postgresql serialization failure>.
+  * and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: <postgreSQL serialization failure>.
 * `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'`: serializable
 * `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Can blow up of course, since even less restrictions than `READ COMMITTED`
 All executions use 2 threads.
@@ -254,7 +254,7 @@ All executions use 2 threads.
 Some theoretical notes:
 * Failure case 3 is averted by a `READ COMMITTED` transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it
 
-https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from <select for update> also talks about a similar example, and has relevant answers.
+https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from <SELECT FOR UPDATE> also talks about a similar example, and has relevant answers.
 
 = SQL keyword
 {parent=sql}
@@ -280,7 +280,7 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 {synonym}
 {title2}
 
-`UPSERT` is extremely handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both <sqlite> and <postgres> support it with similar syntax thankfully.
+`UPSERT` is extremely handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both <SQLite> and <Postgres> support it with similar syntax thankfully.
 
 \a[nodejs/sequelize/raw/upsert.js]
 
@@ -314,14 +314,14 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 
 An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <file/nodejs/sequelize/raw/parallel_select_and_update.js>.
 
-`SELECT FOR UPDATE` vs/together with the <sql transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
+`SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
 = SQL standard
 {c}
 {parent=sql}
 {wiki}
 
-A quick look at <postgresql>'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
+A quick look at <PostgreSQL>'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
 
 = SQL standard version
 {c}
@@ -345,7 +345,7 @@ Login without password: https://askubuntu.com/questions/915585/how-to-login-mysq
 ``
 sudo mysql
 ``
-works on <ubuntu> 20.10.
+works on <Ubuntu> 20.10.
 
 Run command from CLI https://stackoverflow.com/questions/1602904/how-do-you-run-a-single-query-through-mysql-from-the-command-line
 ``
@@ -429,7 +429,7 @@ Its feature set is insane! Just look at stuff like: https://stackoverflow.com/qu
 
 Had a look at the source tree, and also felt good.
 
-If <oracle> is the <microsoft> of database, Postgres is the <linux>, and <mysql> (or more precisely <mariadb>) is the <freebsd> (i.e. the one that got delayed by legal issues). Except that their <software licenses> were accidentally swapped.
+If <Oracle> is the <Microsoft> of database, Postgres is the <Linux>, and <MySQL> (or more precisely <MariaDB>) is the <FreeBSD> (i.e. the one that got delayed by legal issues). Except that their <software licenses> were accidentally swapped.
 
 The only problem with Postgres is its name. PostgreSQL is so unpronounceable and so untypeable that you should just call it "Postgres" like everyone else.
 
@@ -653,14 +653,14 @@ PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'SELECT * FROM table0;'
 
 https://www.postgresql.org/docs/13/auth-peer.html
 
-Uses the name of the current <linux> user to login without a <password>.
+Uses the name of the current <Linux> user to login without a <password>.
 
 = PostgreSQL logging
 {parent=postgresql}
 
 https://stackoverflow.com/questions/722221/how-to-log-postgresql-queries
 
-<ubuntu 21 10> has a certain default level of logging by default to:
+<Ubuntu 21.10> has a certain default level of logging by default to:
 ``
 /var/log/postgresql/postgresql-13-main.log
 ``
@@ -685,7 +685,7 @@ Realtime monitoring for long queries instead: https://stackoverflow.com/question
 = PostgreSQL serialization failure
 {parent=postgresql}
 
-When using <sql repeatable read isolation level> and <sql serializable isolation level>, concurrent transactions may fail with a serialization failure, and then you might need to retry them. You server code or your ORM must always account for that.
+When using <SQL REPEATABLE READ isolation level> and <SQL SERIALIZABLE isolation level>, concurrent transactions may fail with a serialization failure, and then you might need to retry them. You server code or your ORM must always account for that.
 
 A good way to explore when it happens is to use the example
 
@@ -701,7 +701,7 @@ Related questions:
 
 The minimalism, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil <version control>https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
 
-Official <git> mirror: https://github.com/sqlite/sqlite
+Official <Git> mirror: https://github.com/sqlite/sqlite
 
 Create a table
 ``
@@ -765,20 +765,20 @@ https://www.sqlite.org/isolation.html
 * https://github.com/mapbox/node-sqlite3
 * https://www.npmjs.com/package/sqlite3
 
-Includes its own copy of sqlite3, you don't use the system one, which is good to ensure compatibility. The version is shown at: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/common-sqlite.gypi#L3 <sqlite> source is tracked compressed in-tree: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/sqlite-autoconf-3360000.tar.gz horrendous. This explains why it takes forever to clone that repository. People who don't believe in git submodules, there's even an official Git mirror at: https://github.com/sqlite/sqlite
+Includes its own copy of sqlite3, you don't use the system one, which is good to ensure compatibility. The version is shown at: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/common-sqlite.gypi#L3 <SQLite> source is tracked compressed in-tree: https://github.com/mapbox/node-sqlite3/blob/918052b538b0effe6c4a44c74a16b2749c08a0d2/deps/sqlite-autoconf-3360000.tar.gz horrendous. This explains why it takes forever to clone that repository. People who don't believe in git submodules, there's even an official Git mirror at: https://github.com/sqlite/sqlite
 
-It appears to spawn its own <threads> via its <c programming language> extension (since <javascript is single threaded> and and <sqlite> is not <server>-based), which allows for parallel queries using multiple threads: https://github.com/mapbox/node-sqlite3/blob/v5.0.2/src/threading.h
+It appears to spawn its own <threads> via its <C (programming language)> extension (since <JavaScript is single threaded> and and <SQLite> is not <server>-based), which allows for parallel queries using multiple threads: https://github.com/mapbox/node-sqlite3/blob/v5.0.2/src/threading.h
 
 Hello world example: \a[nodejs/node-sqlite3/index.js].
 
-As of 2021, this had slumped back a bit, as maintainers got tired. Unmerged pull requests started piling more, and <better sqlite3 node js package> started pulling ahead a little.
-* https://github.com/mapbox/node-sqlite3/issues/1381 `FATAL ERROR: Error::ThrowAsJavaScriptException napi_throw` with <node js worker threads> vs <better sqlite3 node js package> https://github.com/JoshuaWise/better-sqlite3/issues/237
+As of 2021, this had slumped back a bit, as maintainers got tired. Unmerged pull requests started piling more, and <better-sqlite3 Node.js package> started pulling ahead a little.
+* https://github.com/mapbox/node-sqlite3/issues/1381 `FATAL ERROR: Error::ThrowAsJavaScriptException napi_throw` with <Node.js worker_threads> vs <better-sqlite3 Node.js package> https://github.com/JoshuaWise/better-sqlite3/issues/237
 
 = `better-sqlite3` Node.js package
 {parent=node-js-sqlite-bindings}
 
 As claimed on their README, their operation truly appears to be 10x faster than the node-sqlite package!! It is insane!! How can that other package still exist at all?
 
-The only big problem was the lack of <orm>, but people are looking into that by adding it to <sequelize>:
+The only big problem was the lack of <ORM>, but people are looking into that by adding it to <sequelize>:
 * https://github.com/JoshuaWise/better-sqlite3/issues/23
 * https://github.com/sequelize/sequelize/issues/11400

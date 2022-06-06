@@ -13,7 +13,7 @@
 
 Website: https://reactjs.org
 
-React officially recommends that you use <next js>https://reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains{ref}, so just do it. It just sets up obvious missing functionality from raw React.
+React officially recommends that you use <Next.js>https://reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains{ref}, so just do it. It just sets up obvious missing functionality from raw React.
 
 React feels like a good. But it also feels impossible to use/learn sometimes.
 
@@ -27,13 +27,13 @@ and then the new comment easily gets the callback attached to it.
 And it also ends up naturally doubling as a template engine.
 
 But React can also be extremelly hard to use. It can be very hard to know what you can and cannot do sometimes, then you have to stop and try to understand how react works things better:
-* <cannot update a component while rendering a different component warning in react>
+* <cannot update a component while rendering a different component warning in React>
 * Rendered more hooks than during the previous render.
 * cannot use hooks from helpers:
   * https://www.benmvp.com/blog/helper-functions-react-useeffect-hook/
   * https://stackoverflow.com/questions/68273638/using-hooks-inside-helper-functions
   * https://stackoverflow.com/questions/64689409/helper-function-using-hooks-inside-a-functional-component
-The biggest problem is that it is hard to automatically detect such errors, but perhaps this is the same for other frontend stuff. Though when doing <server side rendering>, the setup should really tell you about such errors, so you don't just discover them in production later on.
+The biggest problem is that it is hard to automatically detect such errors, but perhaps this is the same for other frontend stuff. Though when doing <server-side rendering>, the setup should really tell you about such errors, so you don't just discover them in production later on.
 
 Is is also very difficult to understand precisely why hooks run a certain number of times.
 
@@ -41,7 +41,7 @@ Examples under: \a[web-cheat/react].
 * \a[web-cheat/react/hello.html]: minimal example. As you click:
   * one counter increments every time
   * the other increments every two clicks
-  By opening a web inspector, you can see that only modified elements get updated. So we understand that <jsx> parses its "HTML-like" into a tree, and then propagates updates on that tree.
+  By opening a web inspector, you can see that only modified elements get updated. So we understand that <JSX> parses its "HTML-like" into a tree, and then propagates updates on that tree.
 
   By looking at the terminal, we see that `render()` does get called every time the button is clicked, so the tree gets recreated every time.
 * \a[web-cheat/react/hello-hook.html]: Hello World with hooks instead of classes, but also  that is fully correct and optimized. Exactly equivalent to \a[web-cheat/react/hello.html].
@@ -53,7 +53,7 @@ Examples under: \a[web-cheat/react].
   It appears that the hello world in the React.js docs is wrong though, you need functional sets to update values based on their current value: https://stackoverflow.com/questions/375913/how-can-i-profile-c-code-running-on-linux/60265409#60265409[], otherwise you could lose updates. The `setTimeout` example from https://stackoverflow.com/questions/57828368/why-react-usestate-with-functional-update-form-is-needed/65306828#65306828 is particularly relevant. A real world case would be that but waiting for network requests to update.
 
   We cannot reproduce a quick double click faliure without the functional update however, not even with `e = document.getElementById('button');e.click();e.click()`.
-* \a[web-cheat/react/hello-without-jsx.html]: Hello World in pure <javascript>, without <jsx>. Exactly equivalent to \a[web-cheat/react/hello.html]. Documented at: https://reactjs.org/docs/react-without-jsx.html Understanding this is fundamental to understanding React.
+* \a[web-cheat/react/hello-without-jsx.html]: Hello World in pure <JavaScript>, without <JSX>. Exactly equivalent to \a[web-cheat/react/hello.html]. Documented at: https://reactjs.org/docs/react-without-jsx.html Understanding this is fundamental to understanding React.
 * \a[web-cheat/react/prop-change.html]: shows what gets called as parameters flow down through the tree.
 
   By looking at the console, we see all `render` get called every time, even if `props` didn't change, but not the constructors.
@@ -133,18 +133,18 @@ Minimal reproduction: https://stackoverflow.com/questions/62336340/cannot-update
 {parent=react}
 {wiki}
 
-Framework built on top of <react javascript library>.
+Framework built on top of <React (JavaScript library)>.
 
-Officially recommended by <react javascript library>https://reactjs.org/docs/create-a-new-react-app.html{ref}:
+Officially recommended by <React (JavaScript library)>https://reactjs.org/docs/create-a-new-react-app.html{ref}:
 \Q[
 Recommended Toolchains
 
 If you’re building a server-rendered website with Node.js, try Next.js.
 ]
 
-<gothinkster realworld> blog example by <ciro santilli>: <node express sequelize next js realworld example app>.
+<gothinkster realworld> blog example by <ciro santilli>: <node Express Sequelize Next.js realworld example app>.
 
-Basically what this does is to get <server side rendering> just working by <react javascript library>, including hydration, which is a good thing.
+Basically what this does is to get <server-side rendering> just working by <React (JavaScript library)>, including hydration, which is a good thing.
 
 Next.js sends the first pre-rendered HTML page along with the JavaScript code. Then, JavaScript page switches just load the API data.
 
@@ -180,7 +180,7 @@ Can't ISR prerenter by URL query parameters:
 * https://github.com/vercel/next.js/discussions/17269
 That plus the requirement to have one page per file under `pages/` leads to a lot of useless duplication, because then you are forced to place the URL parameters on the pathnames.
 
-"Module not found: Can't resolve 'fs'" <hell>. The main reason this happens seems to be the that in a higher order component, <webpack> can't determine if callbacks use the require or not to remove it from frontend code. Fully investigated and solved at:
+"Module not found: Can't resolve 'fs'" <Hell>. The main reason this happens seems to be the that in a higher order component, <webpack> can't determine if callbacks use the require or not to remove it from frontend code. Fully investigated and solved at:
 * https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application/70363153#70363153
 
 Overviews:

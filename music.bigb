@@ -1,7 +1,7 @@
 = Music
 {wiki}
 
-<ciro santilli> took courses once upon a time, maybe that has influenced his passion? <ciro santilli s musical education>.
+<ciro santilli> took courses once upon a time, maybe that has influenced his passion? <Ciro Santilli's musical education>.
 
 = Computer music
 {parent=music}
@@ -14,15 +14,15 @@
 
 http://lilypond.org/
 
-Music notation engine. <domain specific language> input. The <latex> of music.
+Music notation engine. <domain-specific language> input. The <LaTeX> of music.
 
 = Computer music file format
 {parent=computer-music}
 
 Looking for formats that:
 * are human readable <plaintext files>
-* can be converted/played as <midi>
-* can be converted to sheet music <pdfs>
+* can be converted/played as <MIDI>
+* can be converted to sheet music <PDFS>
 * supports basic guitar effects (bends and slides)
 
 Bibliography:
@@ -39,7 +39,7 @@ Standard from 2011: http://abcnotation.com/wiki/abc:standard:v2.1
 
 A decent way to write diatonic music as plaintext!
 
-Conversion to <midi> with <abcmidi>.
+Conversion to <MIDI> with <abcmidi>.
 
 No bend/vibratto/slides :-(
 
@@ -56,9 +56,9 @@ https://sound.stackexchange.com/questions/39457/how-to-open-midi-file-in-text-ed
 {parent=computer-music-file-format}
 {wiki}
 
-Higher level than <csound>: describes the notes only, not the exact waveforms it seems.
+Higher level than <Csound>: describes the notes only, not the exact waveforms it seems.
 
-Therefore also a bit harder to convert to actual sound: https://stackoverflow.com/questions/33775336/convert-musicxml-to-wav but possibly easier to convert to <lilypond>.
+Therefore also a bit harder to convert to actual sound: https://stackoverflow.com/questions/33775336/convert-musicxml-to-wav but possibly easier to convert to <LilyPond>.
 
 Now they need to create a "MusicCSS" that gives the waveforms! :-)
 
@@ -78,14 +78,14 @@ The usual "let's make a standard without a reference implementation" W3C approac
 ALSA can be thought as analogous to  physical wires linking up machines.
 
 Except that instead of machines, you have separate programs. One such typical link is:
-* from a MIDI source, e.g. <vmpk> or a <midi> editor with playback like <ardour software>
-* to a synthesizer like <fluidsynth> or <zynaddsubfx>
+* from a MIDI source, e.g. <vmpk> or a <MIDI> editor with playback like <Ardour (software)>
+* to a synthesizer like <FluidSynth> or <ZynAddSubFX>
 
 The advantage of this setup is that separate programs can collaborate to make complex sounds. 
 
-The disadvantage of this setup is that it makes it very hard to reproduce results, you basically need a <docker software> image with the exact same version of everything. And some script to launch and connect all programs correctly.
+The disadvantage of this setup is that it makes it very hard to reproduce results, you basically need a <Docker (software)> image with the exact same version of everything. And some script to launch and connect all programs correctly.
 
-Some composition systems like <lmms> reduce that problem by having synthesizers as plugins, so that you don't have to setup any connections yourself.
+Some composition systems like <LMMS> reduce that problem by having synthesizers as plugins, so that you don't have to setup any connections yourself.
 
 `aconnect` <vmpk> <hello world>: https://askubuntu.com/questions/34391/virtual-midi-piano-keyboard-setup/1298026#1298026
 
@@ -95,7 +95,7 @@ Some composition systems like <lmms> reduce that problem by having synthesizers 
 
 Dominating awesome list: https-github-com-nodiscc-awesome-linuxaudio
 
-A large part of these projects are on <sourceforge> as of 2020, it is scary. They just die.
+A large part of these projects are on <SourceForge> as of 2020, it is scary. They just die.
 
 = Bristol
 {disambiguate=synthesizer}
@@ -107,28 +107,28 @@ Simulates vintage <hardware synthesizers>, and includes some pretty complex ones
 
 Aims to show an UI that looks exactly like the synthesizers in question.
 
-For example for the <minimoog> on <ubuntu> 20.04:
+For example for the <Minimoog> on <Ubuntu> 20.04:
 ``
 sudo apt install bristol
 startBristol -mini -alsa
 ``
 
-This is a really good piece of software. You can search on <youtube> how some classic synths, work, and the immediately start playing them!
+This is a really good piece of software. You can search on <YouTube> how some classic synths, work, and the immediately start playing them!
 
 = FluidSynth
 {c}
 {parent=software-synthesizer}
 {wiki}
 
-Synthesizes MIDI input. <vmpk> + `aconnect` + <advanced linux sound architecture> <hello world>: https://askubuntu.com/questions/34391/virtual-midi-piano-keyboard-setup/1298026#1298026
+Synthesizes MIDI input. <vmpk> + `aconnect` + <Advanced Linux Sound Architecture> <hello world>: https://askubuntu.com/questions/34391/virtual-midi-piano-keyboard-setup/1298026#1298026
 
-Supports only very basic effects it seems: <chorus effect> and <reverberation>. The main way to add instruments to it is via <soundfont> files.
+Supports only very basic effects it seems: <chorus effect> and <reverberation>. The main way to add instruments to it is via <SoundFont> files.
 
 = Qsynth
 {c}
 {parent=fluidsynth}
 
-<qt software> front-end for <fluidsynth>.
+<Qt (software)> front-end for <FluidSynth>.
 
 = ZynAddSubFX
 {c}
@@ -139,7 +139,7 @@ https://askubuntu.com/questions/220802/no-sound-zynaddsubfx-and-jack-wont-run/12
 
 Contains a large database of instruments, and allows you to edit them. This is a fun toy.
 
-Instruments are edited on a <gui>. It is a multi-window program, and you open new windows from new windows from new windows, all filled with hundreds of virtual knobs that you drag with your keyboard, and which would be better done from textual software like <csound>. It is a thing of beauty.
+Instruments are edited on a <GUI>. It is a multi-window program, and you open new windows from new windows from new windows, all filled with hundreds of virtual knobs that you drag with your keyboard, and which would be better done from textual software like <Csound>. It is a thing of beauty.
 
 It does not seem possible to program arbitrary <modular synthesizer> circuits therefore. But if you understand <additive synthesis> and <subtractive synthesis> well, you can make some funky sounds with it.
 
@@ -196,9 +196,9 @@ Lists:
 {parent=gui-music-editor}
 {wiki}
 
-Basically a <gui music editor> where you can specifically see and export classical music notation instead of tablature-style notation.
+Basically a <GUI music editor> where you can specifically see and export classical music notation instead of tablature-style notation.
 
-Best open source one found so far as of 2020: <musescore>.
+Best open source one found so far as of 2020: <MuseScore>.
 
 = MuseScore
 {c}
@@ -212,8 +212,8 @@ This software feels amazing. You can really start composing very quickly, lots o
 GPL, and there's a backing company that makes money with an online and mobile version of it.
 
 Can export to:
-* <midi>
-* <pdf>
+* <MIDI>
+* <PDF>
 
 Ubuntu 20.04: sound preview worked, first hat that trailing Contra-like sound artifacts (like `spd-say`), but then it went away?
 
@@ -226,18 +226,18 @@ Glissando: yes: https://musescore.org/en/handbook/arpeggios-and-glissandi
 {parent=scorewriter}
 {wiki}
 
-Just use <musescore> instead.
+Just use <MuseScore> instead.
 
 Weight: light.
 
-Can import from: <midi>.
+Can import from: <MIDI>.
 
 Can export to:
-* <midi>
-* <musicxml>
-* <lilypond>
+* <MIDI>
+* <MusicXML>
+* <LilyPond>
 
-<ubuntu> 20.04:
+<Ubuntu> 20.04:
 ``
 sudo apt install tuxguitar tuxguitar-alsa tuxguitar-jsa tuxguitar-oss
 ``
@@ -263,11 +263,11 @@ Drum notation is also atrocious, you have to go to the top chord, and use high n
 
 Weight: heavy.
 
-<midi> support is kind of secondary: https://www.youtube.com/watch?v=vnkJ0uYXMG8[], e.g. how to export MIDI? https://discourse.ardour.org/t/export-an-entire-project-into-a-midi-file/88116
+<MIDI> support is kind of secondary: https://www.youtube.com/watch?v=vnkJ0uYXMG8[], e.g. how to export MIDI? https://discourse.ardour.org/t/export-an-entire-project-into-a-midi-file/88116
 
 \Video[https://www.youtube.com/watch?v=bfTAKv4htDE]
 {title=Ardour 6 Quickstart (recording, editing, mixing and exporting) by unfa (2020)}
-{description=unfa is a helpful Ardour master and <open source software> junkie at your <youtube> service.}
+{description=unfa is a helpful Ardour master and <open source software> junkie at your <YouTube> service.}
 
 Ardour <vmpk> input: https://askubuntu.com/questions/709673/save-as-midi-when-playing-from-vmpk-qsynth/1298231#1298231
 
@@ -276,13 +276,13 @@ Ardour <vmpk> input: https://askubuntu.com/questions/709673/save-as-midi-when-pl
 {parent=gui-music-editor}
 {wiki}
 
-Very easy to use and pretty powerful <midi> creator!!!
+Very easy to use and pretty powerful <MIDI> creator!!!
 
 One of the rare audio applications actually works with PulseAudio on Ubuntu 20.04 out-of-the-box, so you don't have to turn off every other audio application!!!
 
-Has lot's of plugins built-in just working out of the box, e.g. <zynaddsubfx> out-of-the-box without doing a gazillion complex setup connections.
+Has lot's of plugins built-in just working out of the box, e.g. <ZynAddSubFX> out-of-the-box without doing a gazillion complex setup connections.
 
-Most plugins are just simple toys however, <zynaddsubfx> is the only super powerful one. The others are more LMMS integrate however, and seem to use a more dedicated LMMS <gui> style.
+Most plugins are just simple toys however, <ZynAddSubFX> is the only super powerful one. The others are more LMMS integrate however, and seem to use a more dedicated LMMS <GUI> style.
 
 TODO can you do liver performance with a virtual instrument?
 * https://lmms.io/forum/viewtopic.php?t=27428
@@ -300,20 +300,20 @@ TODO: what about recording the input MIDI? Yes, there is a record button on the 
 
 Weight: medium.
 
-Can import from: <midi>.
+Can import from: <MIDI>.
 
 Can export to:
-* <csound>
-* <musicxml>
-* <midi>
-* <lilypond>
+* <Csound>
+* <MusicXML>
+* <MIDI>
+* <LilyPond>
 
-Cannot hear any sound from it on <ubuntu> 20.04: https://askubuntu.com/questions/510052/how-do-you-get-rosegarden-to-play-sound-when-playing-a-midi-in-it
+Cannot hear any sound from it on <Ubuntu> 20.04: https://askubuntu.com/questions/510052/how-do-you-get-rosegarden-to-play-sound-when-playing-a-midi-in-it
 
 = Text-based music synthesizer
 {parent=software-synthesizer}
 
-So we can track the music in <git>!
+So we can track the music in <Git>!
 
 * https://www.reddit.com/r/Python/comments/1mvx4u/using_python_to_create_music/
 
@@ -326,7 +326,7 @@ https://www.csounds.com/
 
 https://github.com/csound/csound
 
-<xml> file format (but with 99% of the action of interest in a <domain specific language> on the `CsInstruments` and `CsScore` elements) that can be played and the reference implementation. Offers complex effects out-of-box apparently.
+<XML> file format (but with 99% of the action of interest in a <domain-specific language> on the `CsInstruments` and `CsScore` elements) that can be played and the reference implementation. Offers complex effects out-of-box apparently.
 
 Allows you to easily define instruments with seemingly arbitrary mathematical functions, and then use them to play notes at given time intervals.
 
@@ -336,13 +336,13 @@ The instrument definition actually defines a block diagram graph, much like a ha
 
 Csound is so not-bloated that it contains an UI system. And it includes an interactive virtual MIDI keyboard that interacts with parameter knobs: http://www.csounds.com/manual/html/MidiTop.html
 
-But hey, it's fun. And like any other good <domain specific language>, <debugging> it is barbaric of course.
+But hey, it's fun. And like any other good <domain-specific language>, <debugging> it is barbaric of course.
 
-If only it had been written in <python>... the array manipulation boilerplate would be likely perfect for <numpy>, and this would have been exactly what <ciro santilli> wanted!
+If only it had been written in <Python>... the array manipulation boilerplate would be likely perfect for <NumPy>, and this would have been exactly what <ciro santilli> wanted!
 
 CSound states that one of its design goals is backward compatibility, and it shows. Some of the stuff is utterly arcane, e.g. you have to remember what `GEN10`, `GEN11`, etc. mean instead of having named enums.
 
-It just worked on <ubuntu> 20.04 no questions asked:
+It just worked on <Ubuntu> 20.04 no questions asked:
 ``
 sudo apt install csound
 git clone https://github.com/csound/csound
@@ -362,15 +362,15 @@ or direct ogg output:
 ``
 csound --ogg -o xanadu.ogg xanadu.csd
 ``
-or pipe to stdout to <ffmpeg> TODO: https://stackoverflow.com/questions/64970503/how-to-pipe-csound-output-to-ffmpeg-for-conversion-without-an-intermediate-file
+or pipe to stdout to <FFmpeg> TODO: https://stackoverflow.com/questions/64970503/how-to-pipe-csound-output-to-ffmpeg-for-conversion-without-an-intermediate-file
 
 TODO find the most amazing set of songs made with it on GitHub? Some examples:
 * http://www.csounds.com/toots/index.html has a good 101 on instrument design
-* <csound floss manual>
-* http://iainmccurdy.org/csound.html about 100 <cc by sa> examples. Each is a minimal study showing a specific technique, not a full composition, some seem advanced. Dude's a beast.
+* <Csound FLOSS manual>
+* http://iainmccurdy.org/csound.html about 100 <CC BY-SA> examples. Each is a minimal study showing a specific technique, not a full composition, some seem advanced. Dude's a beast.
 * https://github.com/csound/csound/tree/f2e70825fb543a6b15011c6984371f61ab2a00dd/tests/soak in-tree minimal examples
 * https://github.com/csound/manual/tree/4049b286493d972ff7248b5596e47e7ae97a0cf9/examples contains the examples for the manual which is rendered at: It's insane, but it's fun!  Ah those newbs who separate manuals from main tree.
-* http://linuxsynths.com/CsoundPatchesDemos/csound.html on <linuxsynths>
+* http://linuxsynths.com/CsoundPatchesDemos/csound.html on <LinuxSynths>
 * https://github.com/csound/examples/tree/ae578159328178142c1055c7f78e28b42eb29774/csd as a few dozen examples
 * http://freaknet.org/martin/audio/csound/ 10 pieces with source
 
@@ -379,7 +379,7 @@ Documentation-wise, it's a bit lacking. The only dude who can explain it really 
 Examples:
 * \a[csound/sine.csd]
 * \a[csound/amplitude_frequency.csd]
-* \a[csound/linen.csd]: simple attack/release <envelope music>, documented at: http://www.csounds.com/manual/html/linen.html
+* \a[csound/linen.csd]: simple attack/release <envelope (music)>, documented at: http://www.csounds.com/manual/html/linen.html
 * \a[csound/chorus.csd]: <chorus effect>
 * \a[csound/bend.csd]: bend using `linseg`
 * \a[csound/vibrato.csd]
@@ -395,13 +395,13 @@ https://flossmanual.csound.com/introduction/preface
 
 Very good open source book: https://github.com/csound-flossmanual/csound-floss[]
 
-Includes introduction to the basic <sound synthesis> and their implementation in <csound>.
+Includes introduction to the basic <sound synthesis> and their implementation in <Csound>.
 
-Examples run on browser via <emscripten> and just worked on <ubuntu> 20.04!
+Examples run on browser via <Emscripten> and just worked on <Ubuntu> 20.04!
 
 Examples can also be downloaded all at once from: http://www.csound-tutorial.net/floss_manual/ Shame not in Git as standalone files.
 
-https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <minimoog>-like <subtractive synthesis>.
+https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <Minimoog>-like <subtractive synthesis>.
 
 = CsoundQt
 {c}
@@ -426,7 +426,7 @@ Their docs are a reasonable way to learn Csound: https://cabbageaudio.com/docs/i
 {c}
 {parent=text-based-music-synthesizer}
 
-<python> library, therefore the nicest possible type of text interface.
+<Python> library, therefore the nicest possible type of text interface.
 
 https://stackoverflow.com/questions/32445375/pyo-server-boot-returns-error-on-ubuntu-14-04/64960589#64960589 God how to get it to <fucking> play a sine sound?!?!
 
@@ -437,15 +437,15 @@ https://stackoverflow.com/questions/32445375/pyo-server-boot-returns-error-on-ub
 
 https://github.com/supercollider/supercollider
 
-<domain specific language> unfortunately, but at least it's on <github>, looks promising.
+<domain-specific language> unfortunately, but at least it's on <GitHub>, looks promising.
 
 How to play scores and save them to files is discussed at: https://doc.sccode.org/Guides/Non-Realtime-Synthesis.html
 
-They have a nice looking <ide>, but running anything from the <command line interface> is super hard, much unlike <csound>. How to get a decent <hello world>: https://stackoverflow.com/questions/65360414/how-to-play-a-supercollider-file-non-interactively-from-the-terminal-command-lin
+They have a nice looking <IDE>, but running anything from the <command-line interface> is super hard, much unlike <Csound>. How to get a decent <hello world>: https://stackoverflow.com/questions/65360414/how-to-play-a-supercollider-file-non-interactively-from-the-terminal-command-lin
 
 Sample composition with custom synths + notes: http://sccode.org/1-5cl
 
-https://leanpub.com/ScoringSound looks like a decent tutorial, it is basically the <csound floss manual> for <supercollider>.
+https://leanpub.com/ScoringSound looks like a decent tutorial, it is basically the <Csound FLOSS manual> for <SuperCollider>.
 
 = Computer music bibliography
 {parent=computer-music}
@@ -495,14 +495,14 @@ Lots of demos.
 
 God, <ciro santilli> respects this guy.
 
-Watching https://www.youtube.com/watch?v=-SbZZPX-y9g[] in 2022, who was one of his inspirations, <ciro santilli s musical education>[made Ciro miss his guitar so much]... one day, maybe, one day.
+Watching https://www.youtube.com/watch?v=-SbZZPX-y9g[] in 2022, who was one of his inspirations, <Ciro Santilli's musical education>[made Ciro miss his guitar so much]... one day, maybe, one day.
 
 \Video[https://www.youtube.com/watch?v=VKtAhJPZS6o]
-{title=https://en.wikipedia.org/wiki/Bulerías[Bulerias] by Camaron de La Isla and <paco de lucia>.}
+{title=https://en.wikipedia.org/wiki/Bulerías[Bulerias] by Camaron de La Isla and <Paco de Lucía>.}
 {description=TODO date and location. }
 
 \Video[https://www.youtube.com/watch?v=VKtAhJPZS6o]
-{title=https://en.wikipedia.org/wiki/Bulerías[Rondeña] by Camaron de La Isla and <paco de lucia>.}
+{title=https://en.wikipedia.org/wiki/Bulerías[Rondeña] by Camaron de La Isla and <Paco de Lucía>.}
 {description=TODO date and location}
 
 = Jazz
@@ -521,7 +521,7 @@ Watching https://www.youtube.com/watch?v=-SbZZPX-y9g[] in 2022, who was one of h
 
 <ciro santilli>'s favorite musical genre.
 
-Ciro's 2020 perfect Friday evening: jazz fusion + study <quantum field theory> on an <amazon kindle>. Ahhhhhh.
+Ciro's 2020 perfect Friday evening: jazz fusion + study <quantum field theory> on an <Amazon Kindle>. Ahhhhhh.
 
 = Jazz fusion band
 {parent=jazz-fusion}
@@ -534,7 +534,7 @@ Ciro's 2020 perfect Friday evening: jazz fusion + study <quantum field theory> o
 {parent=jazz-fusion-band}
 {wiki}
 
-<scientology> music! So good.
+<Scientology> music! So good.
 
 = Return to Forever album
 {c}
@@ -559,10 +559,10 @@ Good ones:
 Not in other sections:
 * Grant Green: https://en.wikipedia.org/wiki/Idle_Moments[Idle Moments] (1963)
 * John Abercrombie: https://en.wikipedia.org/wiki/Timeless_(John_Abercrombie_album)[Timeless] (1975). Just close your eyes, and imagine.
-* <paco de lucia>: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
+* <Paco de Lucía>: https://en.wikipedia.org/wiki/Almoraima[Almoraima (1976)]
 * Modern Jazz Quartet: https://en.wikipedia.org/wiki/Django_(album)[Django] (1956)
-* Bill Bruford https://en.wikipedia.org/wiki/Feels_Good_to_Me[Feels Good to Me (1978)]. Well, with <allan holdsworth> on the g
-* <jean luc ponty>
+* Bill Bruford https://en.wikipedia.org/wiki/Feels_Good_to_Me[Feels Good to Me (1978)]. Well, with <Allan Holdsworth> on the g
+* <Jean-Luc Ponty>
 
 = The best modern instrumental Western musicians
 {parent=the-best-modern-instrumental-western-music}
@@ -636,7 +636,7 @@ K-pop is even more evil than <pop music>: https://www.youtube.com/watch?v=KdOA5B
 = Chinese traditional music
 {parent=music-genre}
 
-The best: <the best chinese traditional instrumental music of all time>{full}
+The best: <the best Chinese traditional instrumental music of all time>{full}
 
 https://cirosantilli.com/china-dictatorship/music
 
@@ -665,7 +665,7 @@ https://cirosantilli.com/china-dictatorship/music
 
 \Video[https://www.youtube.com/watch?v=eGjgLrWbIfQ]
 {title=Rorogwela by Afunakwa (1970)}
-{description=Later used as a vocal sample in the https://en.wikipedia.org/wiki/Sweet_Lullaby[Sweet Lullaby] by Deep Forest (1992), which notably featured in https://en.wikipedia.org/wiki/Where_the_Hell_is_Matt[Where the hell is Matt (2006)], an early <youtube> viral video. The original destroys the Deep Forest version however.}
+{description=Later used as a vocal sample in the https://en.wikipedia.org/wiki/Sweet_Lullaby[Sweet Lullaby] by Deep Forest (1992), which notably featured in https://en.wikipedia.org/wiki/Where_the_Hell_is_Matt[Where the hell is Matt (2006)], an early <YouTube> viral video. The original destroys the Deep Forest version however.}
 
 = The best Chinese traditional instrumental music of all time
 {parent=chinese-traditional-music}
@@ -685,7 +685,7 @@ Country at: <china>.
 Technique to make cool sound instruments mathematically, either with electronic hardware components, or with a <software synthesizer>.
 
 Good tutorials:
-* <csound floss manual>
+* <Csound FLOSS manual>
 
 Best known techniques:
 * <additive synthesis>
@@ -729,8 +729,8 @@ Best known techniques:
 https://www.youtube.com/watch?v=0hfdSrK46EE How To Use A Minimoog Synthesizer by Doctor Mix (2020)
 
 Software emulators:
-* <bristol synthesizer>
-* https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <minimoog>-like <subtractive synthesis> in <csound>
+* <Bristol (synthesizer)>
+* https://flossmanual.csound.com/sound-synthesis/subtractive-synthesis covers <Minimoog>-like <subtractive synthesis> in <Csound>
 
 = The best modern sung Western music of all time
 {parent=music}
@@ -776,12 +776,12 @@ For those reasons, the <electric guitar> is Ciro's favorite <musical instrument>
 {parent=guitar}
 {wiki}
 
-See also some remarks of <ciro santilli>'s thoughts on the instrument <ciro santilli s musical education>.
+See also some remarks of <ciro santilli>'s thoughts on the instrument <Ciro Santilli's musical education>.
 
 = Electric guitar player
 {parent=electric-guitar}
 
-* <allan holdsworth>{child}
+* <Allan Holdsworth>{child}
 
 = Guitarist
 {parent=guitar}
@@ -822,7 +822,7 @@ See also some remarks of <ciro santilli>'s thoughts on the instrument <ciro sant
 
 OMG this is sick.
 
-Full official album on <youtube>: https://www.youtube.com/playlist?list=OLAK5uy_myUBkJ0UJbkV7O1q-hg7ONxxGBLGz4SzU[]. so glad he managed to upload it...
+Full official album on <YouTube>: https://www.youtube.com/playlist?list=OLAK5uy_myUBkJ0UJbkV7O1q-hg7ONxxGBLGz4SzU[]. so glad he managed to upload it...
 
 = Jean-Luc Ponty
 {c}
@@ -834,4 +834,4 @@ Many good albums, <ciro santilli>'s favorites:
 * https://en.wikipedia.org/wiki/Enigmatic_Ocean[Enigmatic ocean (1977)]
 
 \Video[http://youtube.com/watch?v=VTrWQN1hRZk]
-{title=<jean luc ponty> Live in Chicago on "Soundstage" (1976)}
+{title=<Jean-Luc Ponty> Live in Chicago on "Soundstage" (1976)}
