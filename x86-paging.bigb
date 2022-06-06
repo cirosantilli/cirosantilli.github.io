@@ -3,7 +3,7 @@
 {numbered}
 {scope}
 
-This tutorial explains the very basics of how paging works, with focus on <x86>, although most high level concepts will also apply to other <instruction set architectures>, e.g. <arm>.
+This tutorial explains the very basics of how paging works, with focus on <x86>, although most high level concepts will also apply to other <instruction set architectures>, e.g. <ARM>.
 
 The goals are to:
 * demonstrate minimal concrete simplified paging examples that will be useful to those learning paging for the first time
@@ -36,7 +36,7 @@ Paging makes it easier to compile and run two programs or threads at the same ti
 
 For example, when you compile two programs, the compiler does not know if they are going to be running at the same time or not.
 
-So nothing prevents it from using the same <ram> address, say, `0x1234`, to store a global variable.
+So nothing prevents it from using the same <RAM> address, say, `0x1234`, to store a global variable.
 
 And thread https://stackoverflow.com/questions/4584089/what-is-the-function-of-the-push-pop-instructions-used-on-registers-in-x86-ass/33583134#33583134[stacks], that must be contiguous and keep growing down until they overwrite each other, are an even bigger issue!
 
@@ -78,7 +78,7 @@ Paging achieves that goal, and in addition:
 Or if you like non-funny jokes:
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/5/59/Funny_comparison_between_the_Linux_Kernel_and_The_Matrix_due_to_userland_memory_virtualization.png]
-{title=Comparison between the <linux kernel> userland memory virtualization and <the matrix>.}
+{title=Comparison between the <Linux kernel> userland memory virtualization and <The Matrix>.}
 {description=Is this RAM real?}
 
 = Hardware implementation
@@ -421,7 +421,7 @@ linear_address[2]      = physical_address_2
 linear_address[2^20-1] = physical_address_N
 ``
 
-But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <k ary tree>.
+But there another simple associative array implementation that overcomes the memory problem: an (unbalanced) <k-ary tree>.
 
 A K-ary tree, is just like a <binary tree>, but with K children instead of 2.
 
@@ -582,7 +582,7 @@ Let's translate the linear address `0x00801004` step by step:
 
 Page faults occur if either a page directory entry or a page table entry is not present.
 
-The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": <image x86 page translation process>{full}
+The Intel manual gives a picture of this translation process in the image "Linear-Address Translation to a 4-KByte Page using 32-Bit Paging": <image x86 page translation process.>{full}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/x86_page_translation_process.png]
 {height=300}

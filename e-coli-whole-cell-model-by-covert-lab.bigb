@@ -4,25 +4,25 @@
 {scope}
 {title2=CovertLab/WholeCellEcoliRelease}
 
-https://github.com/CovertLab/WholeCellEcoliRelease is a <whole cell simulation> model created by <covert lab> and other collaborators.
+https://github.com/CovertLab/WholeCellEcoliRelease is a <whole cell simulation> model created by <Covert Lab> and other collaborators.
 
-The project is written in <python>, hurray! But according to te <readme>, it seems to be the use a <code drop> model with on-request access to master, very <meh>, asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion], and they confirmed as expected that it is to:
+The project is written in <Python>, hurray! But according to te <README>, it seems to be the use a <code drop> model with on-request access to master, very <meh>, asked https://github.com/CovertLab/WholeCellEcoliRelease/discussions/23[rationale on GitHub discussion], and they confirmed as expected that it is to:
 * to prevent their <academic publishing>[publication] ideas from being stolen. Who would steal publication ideas with public proof in an issue tracker without crediting original authors?
 * to prevent noise from non collaborators. They do only get like 2 issues as year though, people forget that it is legal to ignore other people :-)
 Oh well.
 
-The project is a followup to the earlier <m genitalium whole cell model by covert lab> which modelled <mycoplasma genitalium>. <e coli> has 8x more genes (500 vs 4k), but it the undisputed <bacterial> <model organism> and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few hours), which is a huge advantages for validation/exploratory <experiments>.
+The project is a followup to the earlier <M. genitalium whole cell model by Covert lab> which modelled <Mycoplasma genitalium>. <E. Coli> has 8x more genes (500 vs 4k), but it the undisputed <bacterial> <model organism> and as such has been studied much more thoroughly. It also reproduces faster than Mycoplasma (20 minutes vs a few hours), which is a huge advantages for validation/exploratory <experiments>.
 
-The project has a partial dependency on the <proprietary software>[proprietary] <optimization software> <cplex> which is <freeware>, for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
+The project has a partial dependency on the <proprietary software>[proprietary] <optimization software> <CPLEX> which is <freeware>, for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
 
-This project makes <ciro santilli> think of the <e coli> as an <optimization problem>. Given such external nutrient/temperature condition, which <dna> sequence makes the cell grow the fastest? Balancing <metabolites> feels like designing a <factorio> speedrun.
+This project makes <ciro santilli> think of the <E. Coli> as an <optimization problem>. Given such external nutrient/temperature condition, which <dna> sequence makes the cell grow the fastest? Balancing <metabolites> feels like designing a <Factorio> speedrun.
 
-Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on <ubuntu> 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
+Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on <Ubuntu> 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
 
 = Install and first run
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
-At https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4] you basically need to use the <docker> image on <ubuntu> 21.04 due to <pip package manager> breaking changes... (not their fault). Perhaps <pyenv> would solve things, but who has the patience for that?!?!
+At https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4] you basically need to use the <Docker> image on <Ubuntu> 21.04 due to <pip (package manager)> breaking changes... (not their fault). Perhaps <pyenv> would solve things, but who has the patience for that?!?!
 
 The Docker setup from README does just work. The image download is a bit tedius, as it requires you to create a GitHub API key as described in the README, but there must be reasons for that.
 
@@ -42,7 +42,7 @@ python runscripts/manual/analysisSingle.py
 ``
 The meaning of each of the analysis commands is described at <output overview>{full}.
 
-As a <docker> refresher, after you stop the container, e.g. by restarting your computer or running `sudo docker stop wcm`, you can get back into it with:
+As a <Docker> refresher, after you stop the container, e.g. by restarting your computer or running `sudo docker stop wcm`, you can get back into it with:
 ``
 sudo docker start wcm
 sudo docker run -it wcm bash
@@ -58,7 +58,7 @@ Time (s)  Dry mass     Dry mass      Protein          RNA    Small mol     Expec
     0.00    403.09        1.000        1.000        1.000        1.000        1.000
     0.20    403.18        1.000        1.000        1.000        1.000        1.000
 ``
-and then it ended on the <ciro santilli s hardware/lenovo thinkpad p51 2017> at:
+and then it ended on the <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)> at:
 ``
  2569.18    783.09        1.943        1.910        2.005        1.950        1.963
 
@@ -79,10 +79,10 @@ We can list all the plots that have been produced under `out/` with
 ``
 find -name '*.png'
 ``
-Plots are also available in <svg> and <pdf> formats, e.g.:
-* <png>: `./out/manual/plotOut/low_res_plots/massFractionSummary.png`
-* <svg>: `./out/manual/plotOut/svg_plots/massFractionSummary.svg` The SVGs write text as polygons, see also: <svg fonts>.
-* <pdf>: `./out/manual/plotOut/massFractionSummary.pdf`
+Plots are also available in <SVG> and <PDF> formats, e.g.:
+* <PNG>: `./out/manual/plotOut/low_res_plots/massFractionSummary.png`
+* <SVG>: `./out/manual/plotOut/svg_plots/massFractionSummary.svg` The SVGs write text as polygons, see also: <SVG fonts>.
+* <PDF>: `./out/manual/plotOut/massFractionSummary.pdf`
 
 The output directory has a hierarchical structure of type:
 ``
@@ -90,7 +90,7 @@ The output directory has a hierarchical structure of type:
 ``
 where:
 * `wildtype_000000`: variant conditions. `wildtype` is a human readable label, and `000000` is an index amongst the possible `wildtype` conditions. For example, we can have different simulations with different nutrients, or different <dna> sequences. An example of this is shown at <run variants>.
-* `000000`: initial random seed for the initial cell, likely fed to <numpy>'s `np.random.seed`
+* `000000`: initial random seed for the initial cell, likely fed to <NumPy>'s `np.random.seed`
 * `genereation_000000`: this will increase with generations if we simulate multiple cells, which is supported by the model
 * `000000`: this will presumably contain the cell index within a generation
 
@@ -118,8 +118,8 @@ This plot contains how much of each type of mass is present in all cells. Since 
 We can see that all of them grow more or less <linearly>, perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential. We can see that all of them grow more or less linearly, perhaps as the start of an exponential.
 * total dry mass (mass excluding <water>)
 * <protein> mass
-* <rrna> mass
-* <mrna> mass
+* <rRNA> mass
+* <mRNA> mass
 * <dna> mass. The last label is not very visible on the plots, but we can deduce it from the source code.
 By grepping the title "Cell mass fractions" in the source code, we see the files:
 ``
@@ -130,10 +130,10 @@ models/ecoli/analysis/variant/massFractionSummary.py
 which must correspond to the different `massFractionSummary` plots throughout different levels of the hierarchy.
 
 By reading `models/ecoli/analysis/variant/massFractionSummary.py` a little bit, we see that:
-* the plotting is done with <matplotlib>, hurray
+* the plotting is done with <Matplotlib>, hurray
 * it is reading its data from files under `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/`, more precisely `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/columns/<column-name>/data`. They are binary files however.
 
-  Looking at the source for `wholecell/io/tablereader.py` shows that those are just a standard <numpy> serialization mechanism. Maybe they should have used the <hierarchical data format> instead.
+  Looking at the source for `wholecell/io/tablereader.py` shows that those are just a standard <NumPy> serialization mechanism. Maybe they should have used the <Hierarchical Data Format> instead.
 
   We can also take this opportunity to try and find where the data is coming from. `Mass` from the `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Mass/` looks like an ID, so we <grep> that and we reach `models/ecoli/listeners/mass.py`.
 
@@ -162,7 +162,7 @@ Of course, genetic modification is limited only to experimentally known protein 
 
 The default run variant, if you don't pass any options, just has the minimal growth conditions set. What this means can be seen at <condition>.
 
-Notably, this implies a <growth medium> that includes <glucose> and <salt chemistry>. It also includes <oxygen>, which is not strictly required, but greatly benefits cell growth, and is of course easier to have than not have as it is part of the atmosphere!
+Notably, this implies a <growth medium> that includes <glucose> and <salt (chemistry)>. It also includes <oxygen>, which is not strictly required, but greatly benefits cell growth, and is of course easier to have than not have as it is part of the atmosphere!
 
 But the medium does not include <amino acids>, which the bacteria will have to produce by itself.
 
@@ -246,11 +246,11 @@ done
 }
 \Image[https://upload.wikimedia.org/wikipedia/commons/d/d6/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_evaluation_time.svg]
 {title=Evaluation time.}
-{description=`evaluationTime.svg`: this has nothing to do with biology, but it is rather a <profile computer programming> of the program runtime. We can see that the simulation gets slower and slower as time passes, presumably because there are more and more molecules to simulate.}
+{description=`evaluationTime.svg`: this has nothing to do with biology, but it is rather a <profile (computer programming)> of the program runtime. We can see that the simulation gets slower and slower as time passes, presumably because there are more and more molecules to simulate.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7a/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_mrna_count_of_highly_expressed_mRNAs.svg]
-{title=<mrna> count of highly expressed mRNAs.}
-{description=From file `expression_rna_03_high.svg`. Each of the entries is a <gene> using the conventional gene naming convention of `xyzW`, e.g. here's the <biocyc> for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the <ef tu> of the <e coli>, which is an important part of <translation biology>.}
+{title=<mRNA> count of highly expressed mRNAs.}
+{description=From file `expression_rna_03_high.svg`. Each of the entries is a <gene> using the conventional gene naming convention of `xyzW`, e.g. here's the <BioCyc> for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the <EF-Tu> of the <E. Coli>, which is an important part of <translation (biology)>.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/4/49/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes.svg]
 {title=External exchange fluxes.}
@@ -281,9 +281,9 @@ so `1` means `no_oxygen`.
 
 The key model database is located in the source code at `reconstruction/ecoli/flat`.
 
-Let's try to understand some interesting looking, with a special focus on our understanding of the tiny <e coli k 12 mg1655 operon thrlabc> part of the metabolism, which we have well understood at <e coli k 12 mg1655 operon thrlabc>{full}.
+Let's try to understand some interesting looking, with a special focus on our understanding of the tiny <E. Coli K-12 MG1655 operon thrLABC> part of the metabolism, which we have well understood at <E. Coli K-12 MG1655 operon thrLABC>{full}.
 
-We'll realize that a lot of data and IDs come from/match <biocyc> quite closely.
+We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
 
 Before we start, there is one major thing missing thing in the current model: <promoters>/<transcription factor> interactions are not modelled due to lack/low quality of experimental data: https://github.com/CovertLab/WholeCellEcoliRelease/issues/21[]. They just have a magic direct "<transcription factor> to <gene>" relationship, encoded at https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/reconstruction/ecoli/flat/foldChanges.tsv[reconstruction/ecoli/flat/foldChanges.tsv] in terms of type "if this is present, such protein is expressed 10x more". <Transcription units> are not implemented at all it appears.
 
@@ -304,7 +304,7 @@ Before we start, there is one major thing missing thing in the current model: <p
   * `CCO`: "Celular COmpartment"
   * `BAC-NUCLEOID`: <nucleoid>
   * `CELL-PROJECTION`: <cell projection>
-  * `CW-BAC-NEG`: TODO confirm: <cell wall> (of a <gram negative bacteria>)
+  * `CW-BAC-NEG`: TODO confirm: <cell wall> (of a <Gram-negative bacteria>)
   * `CYTOSOL`: <cytosol>
   * `EXTRACELLULAR`: outside the cell
   * `MEMBRANE`: <cell membrane>
@@ -317,8 +317,8 @@ Before we start, there is one major thing missing thing in the current model: <p
   "position" "direction" "id" "name"
   148 "+" "PM00249" "thrLp"
   ``
-  corresponds to <e coli k 12 mg1655 promoter thrlp>, which starts as position 148.
-* `reconstruction/ecoli/flat/proteins.tsv` contains <protein> information. Sample line corresponding to <e coli k 12 mg1655 gene thra>:
+  corresponds to <E. Coli K-12 MG1655 promoter thrLp>, which starts as position 148.
+* `reconstruction/ecoli/flat/proteins.tsv` contains <protein> information. Sample line corresponding to <e. Coli K-12 MG1655 gene thrA>:
   ``
   "aaCount" "name" "seq" "comments" "codingRnaSeq" "mw" "location" "rnaId" "id" "geneId"
   [91, 46, 38, 44, 12, 53, 30, 63, 14, 46, 89, 34, 23, 30, 29, 51, 34, 4, 20, 0, 69] "ThrA" "MRVL..." "Location information from Ecocyc dump." "AUGCGAGUGUUG..." [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 89103.51099999998, 0.0, 0.0, 0.0, 0.0] ["c"] "EG10998_RNA" "ASPKINIHOMOSERDEHYDROGI-MONOMER" "EG10998"
@@ -343,31 +343,31 @@ Before we start, there is one major thing missing thing in the current model: <p
       ]
     ``
     so they simply classify the weight? Presumably this exists for complexes that have multiple classes?
-    * `23srRNA`, `16srRNA`, `5srRNA` are the three structural <rnas> present in the <ribosome>: <23s ribosomal rna>, <16s ribosomal rna>, <5s ribosomal rna>, all others are obvious:
-    * <trna>
-    * <mrna>
+    * `23srRNA`, `16srRNA`, `5srRNA` are the three structural <RNAS> present in the <ribosome>: <23S ribosomal RNA>, <16S ribosomal RNA>, <5S ribosomal RNA>, all others are obvious:
+    * <tRNA>
+    * <mRNA>
     * <protein>. This is the seventh class, and this enzyme only contains mass in this class as expected.
     * <metabolite>
     * <water>
     * <dna>
-    * <rna>: TODO `rna` vs `miscRNA`
+    * <RNA>: TODO `rna` vs `miscRNA`
   * `location`: <cell compartment> where the protein is present, `c` defined at `reconstruction/ecoli/flat/compartments.tsv` as <cytoplasm>, as expected for something that will make an <amino acid>
 * `reconstruction/ecoli/flat/rnas.tsv`: TODO vs `transcriptionUnits.tsv`. Sample lines:
   ``
   "halfLife" "name" "seq" "type" "modifiedForms" "monomerId" "comments" "mw" "location" "ntCount" "id" "geneId" "microarray expression"
   174.0 "ThrA [RNA]" "AUGCGAGUGUUG..." "mRNA" [] "ASPKINIHOMOSERDEHYDROGI-MONOMER" "" [0.0, 0.0, 0.0, 0.0, 790935.00399999996, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] ["c"] [553, 615, 692, 603] "EG10998_RNA" "EG10998" 0.0005264904
   ``
-  * `halfLife`: <half life>
+  * `halfLife`: <half-life>
   * `mw`: molecular weight, same as in `reconstruction/ecoli/flat/proteins.tsv`. This <molecule> only have weight in the `mRNA` class, as expected, as it just codes for a protein
   * `location`: same as in `reconstruction/ecoli/flat/proteins.tsv`
   * `ntCount`: <nucleotide> count for each of the ATGC
-  * `microarray expression`: presumably refers to <dna microarray> for <gene expression profiling>, but what measure exactly?
-* `reconstruction/ecoli/flat/sequence.fasta`: <fasta> <dna> sequence, first two lines:
+  * `microarray expression`: presumably refers to <DNA microarray> for <gene expression profiling>, but what measure exactly?
+* `reconstruction/ecoli/flat/sequence.fasta`: <FASTA> <dna> sequence, first two lines:
   ``
   >E. coli K-12 MG1655 U00096.2 (1 to 4639675 = 4639675 bp)
   AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTG
   ``
-* `reconstruction/ecoli/flat/transcriptionUnits.tsv`: <transcription units>. We can observe for example the two different transcription units of the <e coli k 12 mg1655 operon thrlabc> in the lines:
+* `reconstruction/ecoli/flat/transcriptionUnits.tsv`: <transcription units>. We can observe for example the two different transcription units of the <E. Coli K-12 MG1655 operon thrLABC> in the lines:
   ``
   "expression_rate" "direction" "right" "terminator_id"  "name"    "promoter_id" "degradation_rate" "id"       "gene_id"                                   "left"
   0.0               "f"         310     ["TERM0-1059"]   "thrL"    "PM00249"     0.198905992329492 "TU0-42486" ["EG11277"]                                  148
@@ -375,7 +375,7 @@ Before we start, there is one major thing missing thing in the current model: <p
   ``
   * `promoter_id`: matches promoter id in `reconstruction/ecoli/flat/promoters.tsv`
   * `gene_id`: matches id in `reconstruction/ecoli/flat/genes.tsv`
-  * `id`: matches exactly those used in <biocyc>, which is quite nice, might be more or less standardized:
+  * `id`: matches exactly those used in <BioCyc>, which is quite nice, might be more or less standardized:
     * https://biocyc.org/ECOLI/NEW-IMAGE?object=TU0-42486
     * https://biocyc.org/ECOLI/NEW-IMAGE?type=OPERON&object=TU00178
 * `reconstruction/ecoli/flat/genes.tsv`
@@ -447,7 +447,7 @@ Before we start, there is one major thing missing thing in the current model: <p
   "ASPKINIHOMOSERDEHYDROGI-CPLX_RXN"
   "ASPKINIHOMOSERDEHYDROGI-CPLX"
   ``
-* `reconstruction/ecoli/flat/protein_half_lives.tsv` contains the <half life> of <proteins>. Very few proteins are listed however for some reason.
+* `reconstruction/ecoli/flat/protein_half_lives.tsv` contains the <half-life> of <proteins>. Very few proteins are listed however for some reason.
 * `reconstruction/ecoli/flat/tfIds.csv`: <transcription factors> information:
   ``
   "TF"   "geneId"  "oneComponentId"  "twoComponentId" "nonMetaboliteBindingId" "activeId" "notes"
@@ -515,7 +515,7 @@ Before we start, there is one major thing missing thing in the current model: <p
   We can try to understand the less obvious ones:
   * `ADP`: TODO
   * `PI`: TODO
-  * `PROTON[c]`: presumably a measure of <ph>
+  * `PROTON[c]`: presumably a measure of <pH>
   * `GLC[p]`: <glucose>, this can be seen by comparing `minimal.tsv` with `minimal_no_glucose.tsv`
   * `AMMONIUM`: <ammonium>. This appears to be the primary source of <nitrogen> <atoms> for producing <amino acids>.
   * `CYTOSINE[c]`: hmmm, why is external <cytosine> needed? Weird.
@@ -564,5 +564,5 @@ TODO compare with actual datasetes.
 {parent=e-coli-whole-cell-model-by-covert-lab}
 
 Unfortunately, due to lack of <one page to rule them all>, the https://github.com/CovertLab/WholeCellEcoliRelease/blob/7e4cc9e57de76752df0f4e32eca95fb653ea64e4/docs/README.md#relevant-papers[on-Git tree publication list is meager], some of the most relevant ones seems to be:
-* 2021 <open access> <review paper>: https://journals.asm.org/doi/full/10.1128/ecosalplus.ESP-0001-2020 "The E. coli Whole-Cell Modeling Project". They should just past that stuff in a <readme> :-) The article mentions that it is a follow up to the previous <m genitalium whole cell model by covert lab>. Only 43% of known genes modelled at this point however, a shame.
-* 2020 under <science journal> <paywall>: https://www.science.org/doi/10.1126/science.aav3751 "Simultaneous cross-evaluation of heterogeneous E. coli datasets via mechanistic simulation"
+* 2021 <open access> <review paper>: https://journals.asm.org/doi/full/10.1128/ecosalplus.ESP-0001-2020 "The E. coli Whole-Cell Modeling Project". They should just past that stuff in a <README> :-) The article mentions that it is a follow up to the previous <M. genitalium whole cell model by Covert lab>. Only 43% of known genes modelled at this point however, a shame.
+* 2020 under <Science (journal)> <paywall>: https://www.science.org/doi/10.1126/science.aav3751 "Simultaneous cross-evaluation of heterogeneous E. coli datasets via mechanistic simulation"

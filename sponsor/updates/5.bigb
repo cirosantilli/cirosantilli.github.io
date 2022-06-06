@@ -3,7 +3,7 @@
 {scope}
 {title2=2022-03-28}
 
-<cirists>,
+<Cirists>,
 
 = ourbigbook.com
 {parent=5}
@@ -14,7 +14,7 @@
 = `\Include` and `\x` and working on dynamic website
 {parent=advances}
 
-This was the major final step of fully integrating the <ourbigbook cli> into the dynamic website (besides fixing some nasty bugs that escaped passed by me from the previous newsletter).
+This was the major final step of fully integrating the <OurBigBook CLI> into the dynamic website (besides fixing some nasty bugs that escaped passed by me from the previous newsletter).
 
 The implementation was done by "simply" reusing https://cirosantilli.com/ourbigbook/h-scope-argument[scopes], e.g.: `cirosantilli`'s article about `mathematics` has scope `cirosantilli` and full ID `cirosantilli/mathematics`.
 
@@ -43,7 +43,7 @@ Didn't manage to subset, but so be it for now: https://stackoverflow.com/questio
 
 Now that we can reliably split files at will with `\Include`, I finally added this feature.
 
-This means while developing a website locally with the <ourbigbook cli>, if you have a bunch of files with an error in one of them, your first run will run slowly until the error:
+This means while developing a website locally with the <OurBigBook CLI>, if you have a bunch of files with an error in one of them, your first run will run slowly until the error:
 ``
 extract_ids README.ciro
 extract_ids README.ciro finished in 73.82836899906397 ms
@@ -105,7 +105,7 @@ But the website runs on PostgreSQL, so it is fundamental to test things in Postg
 = Make `\Include` headers show on table of contents work for cirosantilli.com
 {parent=advances}
 
-One of the <4/the table of contents shows across different files via include>[key advances of the previous update] was to show include headers on the table of contents.
+One of the <4/the table of contents shows across different files via \Include>[key advances of the previous update] was to show include headers on the table of contents.
 
 This was to allow splitting source files freely.
 
@@ -129,7 +129,7 @@ If you visited https://cirosantilli.com/quantum-electrodynamics[], you would see
 After the split, `= Quantum electrodynamics` is present under `science.ciro`, and the nosplit version is the more manageable https://cirosantilli.com/science#quantum-electrodynamics[].
 
 The key changes that were missing for that to happen were:
-* <link to an image or video in another file that has an x on title from another file>
+* <link to an image or video in another file that has an \x on title from another file>
 
 = Link to an image or video in another file that has an `\x` on title from another file
 {parent=make-include-headers-show-on-table-of-contents-work-for-cirosantilli-com}
@@ -161,16 +161,16 @@ Now, when rendering `\x[image-the-python-logo]`, we would need to fetch two IDs:
 * `image-the-python-logo` for the `The ` and ` logo` part
 * `python-programming-language` itself, to know that `\x[python-programming-language]` should render as `Python`
 
-But after <4/group all sql queries together> was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
+But after <4/group all SQL queries together> was done, there was no way to know that rendering `image-the-python-logo` would imply also fetching `python-programming-language`.
 
 This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` to the existing References table, which tracks dependencies between IDs.
 
-After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single <join sql>.
+After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single <JOIN (SQL)>.
 
 = Next steps
 {parent=ourbigbook-com}
 
-* upload all of https://cirosantilli.com to https://ourbigbook.com[]. I will do this by implementing an import from filesystem functionality based on the <ourbigbook cli>. This will also require implementing slit headeres on the server to work well, I'll need to create one `Article` for every header on render.
+* upload all of https://cirosantilli.com to https://ourbigbook.com[]. I will do this by implementing an import from filesystem functionality based on the <OurBigBook CLI>. This will also require implementing slit headeres on the server to work well, I'll need to create one `Article` for every header on render.
 * get `\x` and `\Include` working on the live web preview editor. This will require creating a new simple API, currently the editor jus shows broken references, but final render works because it goes through the database backend
 * implement email verification signup. Finally! Maybe add some notifications too, e.g. on new comments or likes.
 
@@ -186,9 +186,9 @@ Some smart people just brought up to my attention that OurBigBook.com is a bit l
 {c}
 {parent=5}
 
-The <china> front was of course the <russia> front this time: https://stackoverflow.com/users/895245 (https://web.archive.org/web/20220322230513/https://stackoverflow.com/users/895245/ciro-santilli-Путлер-Капут-六四事[])
+The <china> front was of course the <Russia> front this time: https://stackoverflow.com/users/895245 (https://web.archive.org/web/20220322230513/https://stackoverflow.com/users/895245/ciro-santilli-Путлер-Капут-六四事[])
 
 = Not work
 {parent=5}
 
-I read <human compatible by stuart j russell 2019>. Some <ai safety> people were actually giving out free copies after a talk, can you believe it! <Good book>.
+I read <Human compatible by Stuart J. Russell (2019)>. Some <AI safety> people were actually giving out free copies after a talk, can you believe it! <Good book>.
