@@ -15,7 +15,7 @@ The project is a followup to the earlier <M. genitalium whole cell model by Cove
 
 The project has a partial dependency on the <proprietary software>[proprietary] <optimization software> <CPLEX> which is <freeware>, for students, not sure what it is used for exactly, from the comment in the `requirements.txt` the dependency is only partial.
 
-This project makes <ciro santilli> think of the <E. Coli> as an <optimization problem>. Given such external nutrient/temperature condition, which <dna> sequence makes the cell grow the fastest? Balancing <metabolites> feels like designing a <Factorio> speedrun.
+This project makes <Ciro Santilli> think of the <E. Coli> as an <optimization problem>. Given such external nutrient/temperature condition, which <DNA> sequence makes the cell grow the fastest? Balancing <metabolites> feels like designing a <Factorio> speedrun.
 
 Everything in this section refers to version https://github.com/CovertLab/WholeCellEcoliRelease/tree/7e4cc9e57de76752df0f4e32eca95fb653ea64e4[7e4cc9e57de76752df0f4e32eca95fb653ea64e4], the code drop from November 2020, and was tested on <Ubuntu> 21.04 with a docker install of `docker.pkg.github.com/covertlab/wholecellecolirelease/wcm-full` with image id 502c3e604265, unless otherwise noted.
 
@@ -89,7 +89,7 @@ The output directory has a hierarchical structure of type:
 ./out/manual/wildtype_000000/000000/generation_000000/000000/
 ``
 where:
-* `wildtype_000000`: variant conditions. `wildtype` is a human readable label, and `000000` is an index amongst the possible `wildtype` conditions. For example, we can have different simulations with different nutrients, or different <dna> sequences. An example of this is shown at <run variants>.
+* `wildtype_000000`: variant conditions. `wildtype` is a human readable label, and `000000` is an index amongst the possible `wildtype` conditions. For example, we can have different simulations with different nutrients, or different <DNA> sequences. An example of this is shown at <run variants>.
 * `000000`: initial random seed for the initial cell, likely fed to <NumPy>'s `np.random.seed`
 * `genereation_000000`: this will increase with generations if we simulate multiple cells, which is supported by the model
 * `000000`: this will presumably contain the cell index within a generation
@@ -120,7 +120,7 @@ We can see that all of them grow more or less <linearly>, perhaps as the start o
 * <protein> mass
 * <rRNA> mass
 * <mRNA> mass
-* <dna> mass. The last label is not very visible on the plots, but we can deduce it from the source code.
+* <DNA> mass. The last label is not very visible on the plots, but we can deduce it from the source code.
 By grepping the title "Cell mass fractions" in the source code, we see the files:
 ``
 models/ecoli/analysis/cohort/massFractionSummary.py
@@ -349,7 +349,7 @@ Before we start, there is one major thing missing thing in the current model: <p
     * <protein>. This is the seventh class, and this enzyme only contains mass in this class as expected.
     * <metabolite>
     * <water>
-    * <dna>
+    * <DNA>
     * <RNA>: TODO `rna` vs `miscRNA`
   * `location`: <cell compartment> where the protein is present, `c` defined at `reconstruction/ecoli/flat/compartments.tsv` as <cytoplasm>, as expected for something that will make an <amino acid>
 * `reconstruction/ecoli/flat/rnas.tsv`: TODO vs `transcriptionUnits.tsv`. Sample lines:
@@ -362,7 +362,7 @@ Before we start, there is one major thing missing thing in the current model: <p
   * `location`: same as in `reconstruction/ecoli/flat/proteins.tsv`
   * `ntCount`: <nucleotide> count for each of the ATGC
   * `microarray expression`: presumably refers to <DNA microarray> for <gene expression profiling>, but what measure exactly?
-* `reconstruction/ecoli/flat/sequence.fasta`: <FASTA> <dna> sequence, first two lines:
+* `reconstruction/ecoli/flat/sequence.fasta`: <FASTA> <DNA> sequence, first two lines:
   ``
   >E. coli K-12 MG1655 U00096.2 (1 to 4639675 = 4639675 bp)
   AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTG
