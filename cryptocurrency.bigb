@@ -75,7 +75,7 @@ Here is a very direct description of the system:
 * each output specifies the <public key> of the receiver and the value being sent
 * the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.
 * once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.
-<code Sample Bitcoin transaction graph.> illustrates these concepts:
+<code Sample Bitcoin transaction graph> illustrates these concepts:
 * `tx0`: magic transaction without any inputs, i.e. either <Genesis block> or a coinbase mining reward. Since it is a magic transaction, it produces 3 Bitcoins from scratch: 1 in `out0` and 2 in `out1`
 * `tx1`: regular transaction that takes:
   * a single input from `tx0 out0`, with value 1
@@ -111,7 +111,7 @@ Here is a very direct description of the system:
                  | value: 2      |
                  +---------------+
 ``
-{title=Sample <Bitcoin> transaction <graph>.}
+{title=Sample <Bitcoin> transaction <graph>}
 
 Since every input must come from a previous output, there must be some magic way of generating new coins from scratch to bootstrap the system. This mechanism is that when the miner mines successfully, they get a mining fee, which is a magic transaction without any valid inputs and a pre-agreed value, and an incentive to use their power/compute resources to mine. This magic transaction is called a "https://en.bitcoin.it/wiki/Coinbase[coinbase transaction]".
 
@@ -132,7 +132,7 @@ A block contains:
 
 For a block to be valid, besides not containing easy to check stuff like double spending, the miner must also select a nonce such that the hash of the block starts with N zeroes.
 
-For example, considering the transactions from <code Sample Bitcoin transaction graph.>, the block structure shown at <code Sample Bitcoin blockchain.> would be valid. In it `block0` contains two transactions: `tx0` and `tx1`, and `block1` also contains two transactions: `tx2` and `tx3`.
+For example, considering the transactions from <code Sample Bitcoin transaction graph>, the block structure shown at <code Sample Bitcoin blockchain> would be valid. In it `block0` contains two transactions: `tx0` and `tx1`, and `block1` also contains two transactions: `tx2` and `tx3`.
 
 ``
  block0           block1             block2
@@ -147,7 +147,7 @@ For example, considering the transactions from <code Sample Bitcoin transaction 
 +------------+   +--------------+   +--------------+
 
 ``
-{title=Sample <Bitcoin> blockchain.}
+{title=Sample <Bitcoin> blockchain}
 The `nonce`s are on this example arbitrary chosen numbers that would lead to a desired hash for the block.
 
 `block0` is the <Genesis block>, which is magic and does not have a previous block, because we have to start from somewhere. The network is hardcoded to accept that as a valid starting point.
