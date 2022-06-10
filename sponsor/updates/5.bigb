@@ -9,10 +9,10 @@
 {parent=5}
 
 = Advances
-{parent=ourbigbook-com}
+{parent=ourbigbook.com}
 
 = `\Include` and `\x` and working on dynamic website
-{parent=advances}
+{parent=Advances}
 
 This was the major final step of fully integrating the <OurBigBook CLI> into the dynamic website (besides fixing some nasty bugs that escaped passed by me from the previous newsletter).
 
@@ -26,7 +26,7 @@ cirodown/mathematics.bigb
 The problem is that a bunch of subdirectory scope operations were broken locally as well, as it simply wasn't a major use case. But now they became a major use case for , so I fixed them.
 
 = Improve header summary display
-{parent=advances}
+{parent=Advances}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/cirodown-metadata-before-fontawesome.png]
 {title=Before}
@@ -39,7 +39,7 @@ Added font awesome icons. https://github.com/cirosantilli/ourbigbook/issues/151
 Didn't manage to subset, but so be it for now: https://stackoverflow.com/questions/62395038/how-can-i-export-only-one-character-from-ttf-woff-file-to-avoid-load-unnecessa/71197892#71197892
 
 = Skip ID extraction and rendering based on database timestamps
-{parent=advances}
+{parent=Advances}
 
 Now that we can reliably split files at will with `\Include`, I finally added this feature.
 
@@ -76,7 +76,7 @@ But now that we are not necessarily extracing IDs from every file, we can't just
 Managed to do that with a single query as documented at: https://stackoverflow.com/questions/71235548/how-to-find-all-rows-that-have-certain-columns-duplicated-in-sequelize/71235550#71235550
 
 = Completely rebrand Cirodown to OurBigBook
-{parent=advances}
+{parent=Advances}
 
 The name cirodown should not appear anywhere now, except with very few exceptions, e.g.:
 * https://github.com/cirosantilli/cirodown to https://github.com/cirosantilli/ourbigbook
@@ -89,12 +89,12 @@ I have also squatted `OurBigBook` on all major social media handles for near fut
 I was going to do this sooner or later, it was inevitable, but the timing was partly triggered due to noticing that English speakers (and likely many other nationalities) are not able to easily read/hear/pronounce "Ciro".
 
 = Staging server
-{parent=advances}
+{parent=Advances}
 
 After breaking production and sweating for a bit hotfixing (not that anyone uses the website yet), I decided to be smart and created a staging server: https://ourbigbook-staging.herokuapp.com[]. Now I can blow that server up as I wish without afecting users. Documented at: https://cirosantilli.com/ourbigbook/staging-deployment
 
 = OurBigBook Library tested on PostgreSQL
-{parent=advances}
+{parent=Advances}
 
 After something broke on the website due to SQLite vs PostgreSQL inconsistencies and took me a day to figure it out, I finally decided to update the test system so that `OURBIGBOOK_POSTGRES=true npm test` will run the tests on PostgreSQL.
 
@@ -103,7 +103,7 @@ Originally, these were being run only on SQLite, which is the major use case for
 But the website runs on PostgreSQL, so it is fundamental to test things in PostgreSQL as well.
 
 = Make `\Include` headers show on table of contents work for cirosantilli.com
-{parent=advances}
+{parent=Advances}
 
 One of the <4/the table of contents shows across different files via \Include>[key advances of the previous update] was to show include headers on the table of contents.
 
@@ -132,7 +132,7 @@ The key changes that were missing for that to happen were:
 * <link to an image or video in another file that has an \x on title from another file>
 
 = Link to an image or video in another file that has an `\x` on title from another file
-{parent=make-include-headers-show-on-table-of-contents-work-for-cirosantilli-com}
+{parent=Make Include headers show on table of contents work for cirosantilli.com}
 
 Issue report at:  https://github.com/cirosantilli/ourbigbook/issues/198 Suppose you had:
 
@@ -168,14 +168,14 @@ This was solved by adding a new database entry type, `REFS_TABLE_X_TITLE_TITLE` 
 After this was setup, we can now know that `image-the-python-logo` depends on `image-the-python-logo`, and then fetch both of them together in a single <JOIN (SQL)>.
 
 = Next steps
-{parent=ourbigbook-com}
+{parent=ourbigbook.com}
 
 * upload all of https://cirosantilli.com to https://ourbigbook.com[]. I will do this by implementing an import from filesystem functionality based on the <OurBigBook CLI>. This will also require implementing slit headeres on the server to work well, I'll need to create one `Article` for every header on render.
 * get `\x` and `\Include` working on the live web preview editor. This will require creating a new simple API, currently the editor jus shows broken references, but final render works because it goes through the database backend
 * implement email verification signup. Finally! Maybe add some notifications too, e.g. on new comments or likes.
 
 = Misc OurBigBook.com
-{parent=ourbigbook-com}
+{parent=ourbigbook.com}
 
 Some smart people just brought up to my attention that OurBigBook.com is a bit like: https://roamresearch.com/ and other graph knowledges. I feel ashemed for not having seen this software and its alternatives before. I was so focused on the "book aspect" of it that I didn't search much in there. I couldn't find an immediate project killer superset from the options in that area, but maybe one exists. We'll see.
 

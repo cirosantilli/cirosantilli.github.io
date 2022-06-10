@@ -4,7 +4,7 @@
 
 = SQL example
 {c}
-{parent=sql}
+{parent=SQL}
 
 We have some runnable <SQL> examples with <assertion (software development)> under the `sequelize/raw` directory.
 
@@ -39,21 +39,21 @@ Here we list only examples which we believe are standard SQL, and should therefo
 
 = SQL aggregate function
 {c}
-{parent=sql}
+{parent=SQL}
 
 = SQL `COUNT` function
 {c}
-{parent=sql-aggregate-function}
+{parent=SQL aggregate function}
 
 Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_many.js].
 
 = SQL transaction
 {c}
-{parent=sql}
+{parent=SQL}
 
 = SQL transaction isolation level
 {c}
-{parent=sql-transaction}
+{parent=SQL transaction}
 
 = SQL isolation level
 {synonym}
@@ -69,17 +69,17 @@ Implementation specifics:
 
 = SQL READ UNCOMMITTED isolation level
 {c}
-{parent=sql-transaction-isolation-level}
+{parent=SQL transaction isolation level}
 
 = SQL READ COMMITTED isolation level
 {c}
-{parent=sql-transaction-isolation-level}
+{parent=SQL transaction isolation level}
 
 Example where this level is sufficient: <file/nodejs/sequelize/raw/parallel_update_async.js>.
 
 = SQL REPEATABLE READ isolation level
 {c}
-{parent=sql-transaction-isolation-level}
+{parent=SQL transaction isolation level}
 
 Vs <SQL SERIALIZABLE isolation level> on <PostgreSQL>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
 
@@ -89,19 +89,19 @@ In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL
 
 = SQL SERIALIZABLE isolation level
 {c}
-{parent=sql-transaction-isolation-level}
+{parent=SQL transaction isolation level}
 
 = SQL isolation level example
 {c}
-{parent=sql-transaction-isolation-level}
+{parent=SQL transaction isolation level}
 
 = SQL parallel update example
 {c}
-{parent=sql-isolation-level-example}
+{parent=SQL isolation level example}
 
 = nodejs/sequelize/raw/parallel_update_async.js
 {file}
-{parent=sql-parallel-update-example}
+{parent=SQL parallel update example}
 
 This section is about: \a[nodejs/sequelize/raw/parallel_update_async.js]
 
@@ -136,7 +136,7 @@ Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "
 
 = nodejs/sequelize/raw/parallel_select_and_update.js
 {file}
-{parent=sql-parallel-update-example}
+{parent=SQL parallel update example}
 
 This example is similar to <file/nodejs/sequelize/raw/parallel_update_async.js>, but now we are doing a separate SELECT, later followed by an update:
 * `SELECT FROM` to get i
@@ -188,7 +188,7 @@ Tested on <PostgreSQL> 13.5.
 
 = nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
 {file}
-{parent=sql-parallel-update-example}
+{parent=SQL parallel update example}
 
 In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
 
@@ -257,23 +257,23 @@ Some theoretical notes:
 https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from <SELECT FOR UPDATE> also talks about a similar example, and has relevant answers.
 
 = SQL keyword
-{parent=sql}
+{parent=SQL}
 
 = GROUP BY
 {disambiguate=SQL}
 {c}
-{parent=sql-keyword}
+{parent=SQL keyword}
 {wiki=Group_by_(SQL)}
 
 = INSERT
 {disambiguate=SQL}
 {c}
-{parent=sql-keyword}
+{parent=SQL keyword}
 {wiki=Insert_(SQL)}
 
 = UPSERT
 {c}
-{parent=insert-sql}
+{parent=INSERT (SQL)}
 
 = ON CONFLICT UPDATE
 {c}
@@ -290,12 +290,12 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 = JOIN
 {disambiguate=SQL}
 {c}
-{parent=sql-keyword}
+{parent=SQL keyword}
 {wiki=Join_(SQL)}
 
 = SQL prefix column names with the table they came from
 {c}
-{parent=join-sql}
+{parent=JOIN (SQL)}
 
 It is mind blowing that this is not possible... the only way to avoid ambiguity in JOINs with column name conflicts is to give aliases to each column...
 
@@ -305,12 +305,12 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 = SELECT
 {disambiguate=SQL}
 {c}
-{parent=sql-keyword}
+{parent=SQL keyword}
 {wiki=Select_(SQL)}
 
 = SELECT FOR UPDATE
 {c}
-{parent=select-sql}
+{parent=SELECT (SQL)}
 
 An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <file/nodejs/sequelize/raw/parallel_select_and_update.js>.
 
@@ -318,27 +318,27 @@ An example where `SELECT FOR UPDATE` is a good solution to an use case can be se
 
 = SQL standard
 {c}
-{parent=sql}
+{parent=SQL}
 {wiki}
 
 A quick look at <PostgreSQL>'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
 
 = SQL standard version
 {c}
-{parent=sql-standard}
+{parent=SQL standard}
 
 = SQL:1999
 {c}
-{parent=sql-standard-version}
+{parent=SQL standard version}
 
 = SQL implementation
 {c}
-{parent=sql}
+{parent=SQL}
 {wiki}
 
 = MySQL
 {c}
-{parent=sql-implementation}
+{parent=SQL implementation}
 {wiki}
 
 Login without password: https://askubuntu.com/questions/915585/how-to-login-mysql-shell-when-mysql-have-no-password
@@ -408,14 +408,14 @@ sudo mysql -e 'SHOW TABLES FROM mydb0'
 
 = MariaDB
 {c}
-{parent=mysql}
+{parent=MySQL}
 {wiki}
 
 Dude's a legend. Sells company for a few million. Then forks the open source project next year. Love it.
 
 = PostgreSQL
 {c}
-{parent=sql-implementation}
+{parent=SQL implementation}
 {wiki}
 
 = Postgres
@@ -435,7 +435,7 @@ The only problem with Postgres is its name. PostgreSQL is so unpronounceable and
 
 = PostgreSQL getting started
 {c}
-{parent=postgresql}
+{parent=PostgreSQL}
 
 On Ubuntu 20.10 PostgreSQL 12.6, login with `psql` on my default username without <sudo> fails with: https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist
 
@@ -592,7 +592,7 @@ psql testdb0 -c 'DROP TABLE table0;'
 ``
 
 = Create a test user in PostgreSQL
-{parent=postgresql}
+{parent=PostgreSQL}
 
 In order to create a test user with password instead of <peer authentication>, let's create test user:
 ``
@@ -649,14 +649,14 @@ PGPASSWORD=a psql -U user0 -h localhost user0db0 -c 'SELECT * FROM table0;'
 ``
 
 = Peer authentication
-{parent=postgresql}
+{parent=PostgreSQL}
 
 https://www.postgresql.org/docs/13/auth-peer.html
 
 Uses the name of the current <Linux> user to login without a <password>.
 
 = PostgreSQL logging
-{parent=postgresql}
+{parent=PostgreSQL}
 
 https://stackoverflow.com/questions/722221/how-to-log-postgresql-queries
 
@@ -683,7 +683,7 @@ just works.
 Realtime monitoring for long queries instead: https://stackoverflow.com/questions/8597516/app-to-monitor-postgresql-queries-in-real-time
 
 = PostgreSQL serialization failure
-{parent=postgresql}
+{parent=PostgreSQL}
 
 When using <SQL REPEATABLE READ isolation level> and <SQL SERIALIZABLE isolation level>, concurrent transactions may fail with a serialization failure, and then you might need to retry them. You server code or your ORM must always account for that.
 
@@ -696,7 +696,7 @@ Related questions:
 
 = SQLite
 {c}
-{parent=sql-implementation}
+{parent=SQL implementation}
 {wiki}
 
 The minimalism, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil <version control>https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
@@ -743,7 +743,7 @@ output:
 
 = SQLite isolation levels
 {c}
-{parent=sqlite}
+{parent=SQLite}
 {wiki}
 
 https://www.sqlite.org/pragma.html#pragma_read_uncommitted mentions:
@@ -757,10 +757,10 @@ It does not appear possible to achieve the other two levels besides SERIALIZABLE
 https://www.sqlite.org/isolation.html
 
 = Node.js SQLite bindings
-{parent=sqlite}
+{parent=SQLite}
 
 = `sqlite3` Node.js package
-{parent=node-js-sqlite-bindings}
+{parent=Node.js SQLite bindings}
 
 * https://github.com/mapbox/node-sqlite3
 * https://www.npmjs.com/package/sqlite3
@@ -775,7 +775,7 @@ As of 2021, this had slumped back a bit, as maintainers got tired. Unmerged pull
 * https://github.com/mapbox/node-sqlite3/issues/1381 `FATAL ERROR: Error::ThrowAsJavaScriptException napi_throw` with <Node.js worker_threads> vs <better-sqlite3 Node.js package> https://github.com/JoshuaWise/better-sqlite3/issues/237
 
 = `better-sqlite3` Node.js package
-{parent=node-js-sqlite-bindings}
+{parent=Node.js SQLite bindings}
 
 As claimed on their README, their operation truly appears to be 10x faster than the node-sqlite package!! It is insane!! How can that other package still exist at all?
 
