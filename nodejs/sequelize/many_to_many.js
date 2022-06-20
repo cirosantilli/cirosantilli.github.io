@@ -64,16 +64,16 @@ let rows;
 
 // Get tags that a animal has.
 
-const batTags = await bat.getTags({order: [['name', 'ASC']]})
+const batTags = await bat.getTags({ order: [['name', 'ASC']] })
 assert.strictEqual(batTags[0].name, 'flying');
 assert.strictEqual(batTags[1].name, 'mammal');
 assert.strictEqual(batTags.length, 2);
 assert.strictEqual(await bat.countTags(), 2)
 
-const frogTags = await frog.getTags({order: [['name', 'ASC']]})
+const frogTags = await frog.getTags({ order: [['name', 'ASC']] })
 assert.strictEqual(frogTags.length, 0);
 
-const dogTags = await dog.getTags({order: [['name', 'ASC']]})
+const dogTags = await dog.getTags({ order: [['name', 'ASC']] })
 assert.strictEqual(dogTags[0].name, 'mammal');
 assert.strictEqual(dogTags.length, 1);
 
@@ -83,7 +83,7 @@ assert.strictEqual(dogTags.length, 1);
 // TODO I don't even know to how access that data when joinTableAttributes
 // is not given. At many_to_many_custom_table.js, we are able to do that,
 // but it doesn't seem to be populated when the implicit table is used.
-const batTagsNoJoin = await bat.getTags({order: [['name', 'ASC']], joinTableAttributes: []})
+const batTagsNoJoin = await bat.getTags({ order: [['name', 'ASC']], joinTableAttributes: [] })
 assert.strictEqual(batTagsNoJoin[0].name, 'flying');
 assert.strictEqual(batTagsNoJoin[1].name, 'mammal');
 assert.strictEqual(batTagsNoJoin.length, 2);
