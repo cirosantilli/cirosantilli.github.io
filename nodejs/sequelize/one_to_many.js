@@ -16,7 +16,7 @@ const User = sequelize.define('User', {
 });
 User.hasMany(Comment)
 Comment.belongsTo(User)
-let u0, u1
+let u0, u1, rows
 async function reset(UserModel=User, CommentModel=Comment) {
   await sequelize.sync({force: true});
   u0 = await UserModel.create({name: 'u0'})
@@ -71,6 +71,43 @@ await reset()
   assert.strictEqual(u0Comments[1].body, 'u0c1');
   assert.strictEqual(u0Comments[0].User.name, 'u0');
   assert.strictEqual(u0Comments[1].User.name, 'u0');
+}
+
+// order in include.
+// https://stackoverflow.com/questions/29995116/ordering-results-of-eager-loaded-nested-models-in-node-sequelize
+{
+  let u0WithComments = await User.findOne({
+    where: { id: u0.id },
+    order: [[
+      'Comments', 'body', 'DESC'
+      // Also works.
+      //sequelize.col('Comments.body'), 'DESC'
+    ]],
+    include: [{
+      model: Comment,
+    }],
+  })
+  common.assertEqual(u0WithComments.Comments, [
+    { body: 'u0c1' },
+    { body: 'u0c0' },
+  ])
+
+  // Also limit.
+  u0WithComments = await User.findOne({
+    where: { id: u0.id },
+    order: [[
+      'Comments', 'body', 'DESC'
+    ]],
+    limit: 1,
+    // TODO why needed.
+    subQuery: false,
+    include: [{
+      model: Comment,
+    }],
+  })
+  common.assertEqual(u0WithComments.Comments, [
+    { body: 'u0c1' },
+  ])
 }
 
 // If you REALLY wanted to not repeat the UserId magic constant everywhere, you could use User.associations.Comments.foreignKey

@@ -1,0 +1,395 @@
+= Electronics
+{wiki}
+
+= Alternating and direct current
+{parent=Electronics}
+
+= Alternating current
+{parent=Alternating and direct current}
+{title2=AC}
+{wiki}
+
+= Alternating current source
+{parent=Alternating current}
+{tag=Electronic component}
+
+= AC source
+{c}
+{synonym}
+{title2}
+
+= Direct current
+{parent=Alternating and direct current}
+{title2=DC}
+{wiki}
+
+= DC voltage
+{c}
+{synonym}
+
+= Direct current source
+{parent=Direct current}
+{tag=Electronic component}
+
+= DC source
+{c}
+{synonym}
+{title2}
+
+= Circuit diagram
+{parent=Electronics}
+{wiki}
+
+= ASCII art circuit diagram
+{c}
+{parent=Circuit diagram}
+{tag=ASCII art}
+
+* https://github.com/Blokkendoos/AACircuit
+* https://hackaday.com/2021/04/29/ascii-schematic-diagrams/
+* https://www.qsl.net/yo5ofh/hobby%20circuits/ascii.htm
+
+= Ciro's ASCII art circuit diagram notation
+{c}
+{parent=ASCII art circuit diagram}
+
+This notation is designed to be relatively easy to write. This is achieved by not drawing ultra complex ASCII art boxes of every component. It would be slightly more readable if we did that, but prioritizing the writer here.
+
+Two wires are only joined if `+` is given. E.g. the following two wires are not joined:
+``
+  |
+--|--
+  |
+``
+but the following are:
+``
+  |
+--+--
+  |
+``
+
+Simple symmetric components:
+* `-`, `+` and `|`: wire
+* `A`: <AC source>. Parameters:
+  * `Hz`: frequency
+  * `V`: peak voltage
+* `C`: <capacitor>
+* `D`: <DC source>. If only one side is given, the other is assumed to be at a ground
+* `G`: ground. Often used together with `D`, e.g.:
+  ``
+  D_10---R_10---G
+  ``
+  means applying a voltage of 10 V across a 10 Ohm <resistor>, which would lead to a current of 1 A
+* `L`: <inductor>
+* `R`: <resistor>
+* `V`: <Voltmeter> without explicit positive and negative sides
+* `X`: <Josephson junction>
+
+Asymmetric components have multiple letters indicating different ports. The capital letter indicates the device, and lower case letters the ports. The wires then go into the ports:
+* `aDc`: <diode>
+  * `a`: anode (where electrons can come in from)
+  * `c`: cathode
+  Sample usage in a circuit:
+  ``
+  --aDc--
+  ``
+  Can also be used vertically:
+  ``
+  |
+  a
+  D
+  c
+  |
+  ``
+  We can also change the port order, the device is still the same due to capital `D`:
+  ``
+  --cDa--
+
+   |
+  Dac--
+
+   |
+  Dca--
+
+     |
+  --caD
+  ``
+* `sgTd`: <transistor>
+  * `s`: source
+  * `g`: gate
+  * `d`: gate
+  Sample usage in a circuit:
+  ``
+  ---+
+     |
+  --sgTd--
+  ``
+  All the following are also equivalent:
+  ``
+     |
+     g
+  --sTd--
+  ``
+  ``
+      |
+  --Tsgd--
+     |
+  ``
+* `pVn`: <Voltmeter> with explicit positive and negative sides
+* `dIs`: <electric current> source. Electrons leave from `s` and go into `d`
+
+Numbers characterizing components are put just next to each component with an underscore. When there is only one parameter, standard units are assumed, e.g.:
+``
++-----+
+|     |
+C_1p  R_2k
+|     |
++-----+
+``
+means:
+* a capacitor with 1 pico Faraday
+* a resistor with 2 k Ohms
+Micro is denoted as `u`.
+
+Wires can just freely come in and out of specs of a component, they are then just connected to the component, e.g.:
+``
+D_10---R_10---G
+``
+means applying a voltage of 10 V across a 10 Ohm <resistor>, which would lead to a current of 1 A
+
+If a component has more than two parameters, units are used to distinguish them when possible, e.g.:
+``
+A_1kV_2MHz
+``
+means an <AC source> with:
+* 1 kV <voltage>
+* 1 MHz frequency
+
+= Electronic component
+{parent=Electronics}
+{wiki}
+
+= Current source
+{parent=Electronic component}
+{wiki}
+
+= Current-voltage characteristic
+{parent=Electronic component}
+{wiki}
+
+= I-V curve
+{c}
+{synonym}
+{title2}
+
+= Amplifier
+{parent=Electronic component}
+{wiki}
+
+Main implementations: the same as <electronic switches>: <vacuum tubes> in the past, and <transistors> in the second half of the 20th century.
+
+= Capacitor
+{parent=Electronic component}
+{wiki}
+
+= Diode
+{parent=Electronic component}
+{wiki}
+
+= Inductor
+{parent=Electronic component}
+{wiki}
+
+It resists to change in <electric current>. Well seen at: <LC circuit by Eugene Khutoryansky (2016)>.
+
+= Resistor
+{parent=Electronic component}
+{wiki}
+
+= Electrical resistance
+{parent=Resistor}
+{wiki=Electrical_resistance_and_conductance}
+
+= Transformer
+{parent=Electronic component}
+{wiki}
+
+= Electronic switch
+{parent=Electronic component}
+{wiki}
+
+= Vacuum tube
+{parent=Electronic switch}
+{wiki}
+
+= Transistor
+{parent=Electronic switch}
+{wiki}
+
+A <solid-state> <electronic switch> and <amplifier>.
+
+Although transistors were revolutionary, it is fun to note that they were just "way cheaper and more reliable and smaller" versions of exactly the main functions that a <vacuum tube> could achieve
+* <amplifier>
+* <electronic switch>
+
+= Point-contact transistor
+{parent=Transistor}
+{title2=BJT, 1947}
+{wiki}
+
+The first working one in 1947 by <John Bardeen> and <walter Brattain> in <Bell Labs Murray Hill>.
+
+People had already <patented> a lot of stuff before without being able to make them work. Nonsense.
+
+As the name suggests, this is not very sturdy, and was quickly replaced by <bipolar junction transistor>.
+
+= Bipolar junction transistor
+{parent=Transistor}
+{title2=BJT, 1948}
+{wiki}
+
+By <William Shockley> in 1948 also at <Bell Labs Murray Hill>.
+
+As of 2020, not used anymore in <logic gates>, but still used in <amplifiers>.
+
+= Field-effect transistor
+{parent=Transistor}
+{title2=FET}
+{wiki}
+
+= MOSFET
+{c}
+{parent=Field-effect transistor}
+{title2=1959}
+{wiki}
+
+= CMOS
+{c}
+{parent=MOSFET}
+{wiki}
+
+= Electronic test equipment
+{parent=Electronics}
+{wiki}
+
+= Electronics vendor
+{parent=Electronics}
+{tag=Company}
+
+= Agilent Technologies
+{c}
+{parent=Electronics vendor}
+{wiki}
+
+= Agilent Technologies oscilloscope
+{c}
+{parent=Agilent Technologies}
+
+= Rohde & Schwarz
+{c}
+{parent=Electronics vendor}
+{wiki}
+
+= STAR Cryoelectronics
+{c}
+{parent=Electronics vendor}
+
+https://starcryo.com/
+
+= Mr. SQUID
+{c}
+{parent=STAR Cryoelectronics}
+{tag=SQUID device}
+
+https://starcryo.com/mr-squid/
+
+This is the cutest product name ever.
+
+\Q[Since 1992, Mr. SQUID has been the standard educational demonstration system for undergraduate physics lab courses.]
+
+Used e.g. at <video Superconducting Quantum Interference Devices by UNSW Physics (2020)}>
+
+Their manual: https://www.phys.ksu.edu/personal/cocke/classes/phys506/squidman.pdf
+
+<YCBO> device, runs on <liquid nitrogen>.
+
+= Oscilloscope
+{parent=Electronic test equipment}
+{wiki}
+
+= Electronic circuit
+{parent=Electronics}
+{wiki}
+
+= Breadboard
+{parent=Electronic circuit}
+{wiki}
+
+= Digital electronic circuit
+{parent=Electronic circuit}
+
+= Frequency divider
+{parent=Digital electronic circuit}
+{wiki}
+
+= LC circuit
+{c}
+{parent=Electronic circuit}
+{wiki}
+
+When <Ciro Santilli> was studying electronics at the <University of São Paulo>, the courses, which were heavily inspired from the <USA> 50's were obsessed by this one! Thinking about it, it is kind of a cool thing though.
+
+That https://en.wikipedia.org/w/index.php?title=LC_circuit&oldid=1085148789[Wikipedia page] is the epitome of <it is not possible to teach natural sciences on Wikipedia>[Wikipedia failure to explain things in a way that is of any interest to any learner]. <video Tutorial on LC resonant circuits by w2aew (2012)}> is the opposite.
+
+\Video[https://www.youtube.com/watch?v=hqhV50852jA]
+{title=Tutorial on LC resonant circuits by w2aew (2012)}
+{description=
+* https://youtu.be/hqhV50852jA?t=239 <series LC circuit> on a <breadboard> driven by an <AC source>. Shows behaviour on <oscilloscope> as source frequency is modified. We clearly see voltage going to zero at resonance. This is why thie circuit can be seen as a <filter (signal processing)>.
+* https://youtu.be/hqhV50852jA?t=489 shows the <parallel LC circuit>. We clearly see current reaching a maximum on resonance.
+}
+
+\Video[https://www.youtube.com/watch?v=XSUiCeCHAvw]
+{title=LC circuit dampened oscillations on an oscilloscope by Queuerious Guy (2014)}
+{description=Finally a video that shows the oscillations without a driving <AC source>. The dude just move wires around on his <breadboard> manually, first charging the <capacitor> and then closing the LC circuit, and is able to see damped oscillations on the <oscilloscope>.}
+
+\Video[https://www.youtube.com/watch?v=W31CCN_ZF34]
+{title=Introduction to LC Oscillators by <USAF> (1974)}
+{description=* https://youtu.be/W31CCN_ZF34?t=740 mentions that <LC circuit> formation is the root cause for <audio feedback> with a quick demo. Not very scientific, but cool.}
+
+\Video[https://www.youtube.com/watch?v=Mq-PF1vo9QA]
+{title=<LC circuit> by <Eugene Khutoryansky> (2016)}
+{description=Exactly what you would expect from an <Eugene Khutoryansky> video. The key insight is that the <inductor> resists to changes in current. So when current is zero, it slows down the current. And when current is high, it tries to keep it going, which recharges the other side of the <capacitor>.}
+
+= An LC circuit is analogous to a spring-mass system
+{parent=LC circuit}
+{tag=spring-mass system}
+
+Both are <harmonic oscillators>.
+
+In the <LC circuit>:
+* the current current may be seen as the velocity and containing the <kinetic energy>
+* the charge stored in the capacitor as the <potential energy>
+
+= Series LC circuit
+{parent=LC circuit}
+
+= Parallel LC circuit
+{parent=LC circuit}
+
+= Audio feedback
+{c}
+{parent=LC circuit}
+{wiki}
+
+= RLC circuit
+{c}
+{parent=LC circuit}
+{wiki}
+
+= Semiconductor package
+{parent=Electronics}
+{wiki}
+
+= Dual in-line package
+{parent=Semiconductor package}
+{wiki}

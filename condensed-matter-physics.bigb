@@ -163,7 +163,13 @@ Transition into superconductivity can be seen as a <phase transition>, which hap
 
 = High-temperature superconductivity
 {parent=Superconducting material}
+{title2=HTS}
 {wiki}
+
+= High-temperature superconductor
+{synonym}
+
+As of 2020, basically means "<liquid nitrogen> temperature", which is much cheaper than <liquid helium>.
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/b/bb/Timeline_of_Superconductivity_from_1900_to_2015.svg]
 {height=600}
@@ -203,7 +209,7 @@ Superconductivity is one of the key advances of 21st century technology:
 * can be used to produce powerful magnetic fields, which in turn can be used to:
   * <magnetic confinement fusion>
 
-= Superconductor IV curve
+= Superconductor I-V curve
 {parent=Superconductivity}
 
 TODO, come on, <Internet>!
@@ -211,14 +217,18 @@ TODO, come on, <Internet>!
 Bibliography.
 
 = Do superconductors carry infinite current?
-{parent=Superconductor IV curve}
+{parent=Superconductor I-V curve}
 
-No, see: <superconductor IV curve>.
+No, see: <superconductor I-V curve>.
 
 Bibliography:
 * https://physics.stackexchange.com/questions/62664/how-can-ohms-law-be-correct-if-superconductors-have-0-resistivity on <Physics Stack Exchange>
 * https://www.quora.com/Do-superconductors-produce-infinite-current-I-V-R-R-0-How-do-they-fit-into-quantum-theory
 * https://www.reddit.com/r/askscience/comments/dcgdf/does_superconductivity_imply_infinite_current/
+
+\Video[https://www.youtube.com/watch?v=v8iD_waF_kM]
+{title=Superconducting Short Circuits across Batteries by <Eugene Khutoryansky> (2020)}
+{description=Well, internal battery resistance acts as the only resistor, and voltage drops to zero immediately outside of the battery. And you get a huge current.}
 
 = BCS Theory
 {c}
@@ -237,16 +247,116 @@ High level concepts:
 = Josephson effect
 {c}
 {parent=Superconductivity}
+{tag=1973 Nobel Prize in Physics}
 {wiki}
 
-<discretes> <quantum> effect observed in <superconductors> with a small insulating layer.
+<Discrete> <quantum> effect observed in <superconductors> with a small insulating layer, a device known as a <Josephson junction>.
 
-TODO: curves showing the effect.
+To understand the behaviour effect, it is important to look at the <Josephson equations> consider two cases separately:
+* <AC Josephson effect>
 
-The effect is likely mentioned in Leitner's video at: https://www.youtube.com/watch?v=BFdq6IecUJc&t=2290s
+A good summary from Wikipedia by physicist Andrew Whitaker:
+\Q[at a junction of two superconductors, a current will flow even if there is no drop in voltage; that when there is a voltage drop, the current should oscillate at a frequency related to the drop in voltage; and that there is a dependence on any magnetic field]
 
 Bibliography:
-* https://www.youtube.com/watch?v=cnZ6exn2CkE "Superconductivity: Professor Brian Josephson". Several random excerpts from Cambridge people talking about the Josephson effect
+* https://www.youtube.com/watch?v=cnZ6exn2CkE "Superconductivity: Professor <Brian Josephson>". Several random excerpts from Cambridge people talking about the Josephson effect
+
+= AC Josephson effect
+{c}
+{parent=Josephson effect}
+
+This is what happens when you apply a <DC voltage> across a <Josephson junction>.
+
+It is called "AC effect" because when we apply a <DC voltage>, it produces an <alternating current> on the device.
+
+By looking at the <Josephson equations>, we see that $V(t) = k$ a positive constant, then $\varphi$ just increases linearly without bound.
+
+Therefore, from the first equation:
+$$
+I(t) = I_c \sin (\varphi (t))
+$$
+we see that the current will just vary sinusoidally between $\pm I_c$.
+
+Wikipedia mentions that this frequency is $484 GHz/mV$, so it is very very high, so we are not able to view individual points of the sine curve separately with our instruments.
+
+An <I-V curve> can also be seen at: <image Electron microscope image of a Josephson junction its I-V curve>.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/d/dd/I-V_characteristics_of_Josephson_Junction.JPG]
+{title=<I-V curve> of the <AC Josephson effect>}
+{description=
+Voltage is horizontal, current vertical. The vertical bar in the middle is the effect of interest: the current is going up and down very quickly between $\pm I_c$, the <Josephson current> of the device. Because it is too quick for the <oscilloscope>, we just see a solid vertical bar.
+
+The non vertical curves at right and left are just other effects we are not interested in.
+
+TODO what does it mean that there is no line at all near the central vertical line? What happens at those voltages?
+}
+
+\Video[https://www.youtube.com/watch?v=FYnDcWFYyVA]
+{title=Superconducting Transition of Josephson Junction by Christina Wicker (2016})
+{description=Amazing video that presumably shows the screen of a digital <oscilloscope> doing a voltage sweep as temperature is reduced and superconductivity is reached.}
+
+\Image[https://en.wikipedia.org/wiki/File:STJ_IV_Curve.jpg]
+{title=<I-V Curve> of a <superconducting tunnel junction>}
+{description=So it appears that there is a zero current between $V=0$ and $V=2\Delta/e$. Why doesn't it show up on the <oscilloscope> sweeps, e.g. <superconducting Transition of Josephson Junction by Christina Wicker (2016}>?}
+
+= Inverse AC Josephson effect
+{parent=AC Josephson effect}
+{wiki=Josephson_effect#The_inverse_AC_Josephson_effect}
+
+If you shine <microwave> radiation on a Josephson junction, it produces a fixed average voltage that depends only on the frequency of the microwave. It acts therefore as a frequency to voltage converter.
+
+The Wiki page gives the formula: https://en.wikipedia.org/wiki/Josephson_effect#The_inverse_AC_Josephson_effect You get several sinusoidal harmonics, so the output is not a perfect sine. But the infinite sum of the harmonics has a fixed average voltage value. 
+
+And https://en.wikipedia.org/wiki/Josephson_voltage_standard#Josephson_effect mentions that the effect is independent of the junction material, physical dimension or temperature.
+
+All of the above, compounded with the fact that we are able to generate microwaves with extremely precise frequency with an <atomic clock> makes this phenomenon perfect as a <Volt> standard, the <Josephson voltage standard>.
+
+= Shapiro steps
+{c}
+{parent=Inverse AC Josephson effect}
+
+= Josephson equations
+{c}
+{parent=Josephson effect}
+{wiki}
+
+Two equations derived <from first principles> by <Brian Josephson> that characterize the device, somewhat like an <I-V curve>:
+$$
+I(t) = I_c \sin (\varphi (t)) \\
+\dv{\varphi(t)}{t} = \frac{2 e V(t)}{\hbar}
+$$
+where:
+* $I_c$: <Josephson current>
+* $\varphi$: the <Josephson phase>, a function $\R \to \R$ defined by the second equation plus initial conditions
+* $V(t)$: input voltage of the system
+* $I(t)$: current across the junction, determined by the input voltage
+
+Note how these equations are not a typical <I-V curve>, as they are not an instantaneous dependency between voltage and current: the history of the voltage matters! Or in other words, the system has an internal state, represented by the <Josephson phase> at a given point in time.
+
+They give the <I-V curve> of the device, i.e. what current you get when you apply a given <voltage> across the device.
+
+To understand them better, it is important to look at some important cases separately:
+* <DC Josephson effect>: V is a fixed <DC current>
+
+= Josephson current
+{c}
+{parent=Josephson equations}
+{title2=$I_c$}
+{wiki}
+
+Maximum current that can flow across a <Josephson junction>, as can be directly seen from the <Josephson equations>.
+
+Is a fixed characteristic value of the physical construction of the junction.
+
+= Josephson phase
+{c}
+{parent=Josephson phase}
+{title2=$\varphi$}
+{wiki}
+
+A function $\R \to \R$ defined by the second of the <Josephson equation> plus initial conditions.
+
+It represents an internal state of the junction.
 
 = Josephson junction
 {c}
@@ -255,8 +365,16 @@ Bibliography:
 
 A device that exhibits the <Josephson effect>.
 
-= Magnetic flux quantum
+\Image[https://web.archive.org/web/20220615163007im_/https://www.researchgate.net/publication/330223210/figure/fig9/AS:606819705688070@1521688500497/FIG-S2-Josephson-junction-of-a-second-sample-a-Scanning-electron-micrograph-of-sample.png]
+{title=<Electron microscope> image of a <Josephson junction> its <I-V curve>}
+{source=https://www.researchgate.net/figure/FIG-S2-Josephson-junction-of-a-second-sample-a-Scanning-electron-micrograph-of-sample_fig9_330223210}
+
+= Pi Josephson junction
 {c}
+{parent=Josephson junction}
+{wiki}
+
+= Magnetic flux quantum
 {parent=Josephson effect}
 {wiki}
 
@@ -264,16 +382,27 @@ A device that exhibits the <Josephson effect>.
 {c}
 {parent=Magnetic flux quantum}
 
-The inverse of the <Magnetic flux quantum>.
+The inverse of the <magnetic flux quantum>.
 
 = Applications of Josephson Junctions
 {parent=Josephson effect}
 
 * the basis for the most promising 2019 <quantum computing> implementation: <superconducting quantum computer>
-* offers https://en.wikipedia.org/wiki/Josephson_voltage_standard[the most practical/precise volt standard], which motivated the definition of the <ampere in the 2019 redefinition of the SI base units>
-
-  Quick NIST article about it: https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world (https://web.archive.org/web/20190410011041/https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world[archive])
+* <Josephson voltage standard>: the most practical/precise volt standard, which motivated the definition of the <ampere in the 2019 redefinition of the SI base units>
 * <SQUID device>
+
+= Josephson voltage standard
+{c}
+{parent=Josephson effect}
+{wiki}
+
+The most practical/precise volt standard.
+
+It motivated the definition of the <ampere in the 2019 redefinition of the SI base units>
+
+Quick <NIST> article about it: https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world (https://web.archive.org/web/20190410011041/https://www.nist.gov/news-events/news/2013/04/primary-voltage-standard-whole-world[archive])
+
+The wiki page https://en.wikipedia.org/wiki/Josephson_voltage_standard contains amazing schematics of the device, apparently made by the <US government>.
 
 = SQUID device
 {c}
@@ -283,6 +412,57 @@ The inverse of the <Magnetic flux quantum>.
 Can be used as a very precise <magnetometer>.
 
 There are high temperature <yttrium barium copper oxide> ones that work on <liquid nitrogen>.
+
+\Video[https://www.youtube.com/watch?v=d_vrhzX3VcE]
+{title=Superconducting Quantum Interference Device by Felipe Contipelli (2019)}
+{description=Good intuiotionistic video. Some points deserved a bit more detail.}
+
+\Video[https://www.youtube.com/watch?v=0kl3ucjh2Uw]
+{title=Mishmash of SQUID interviews and talks by Bartek Glowaki}
+{description=
+The videos come from: https://www.ascg.msm.cam.ac.uk/lectures/[]. Vintage.
+
+Mentions that the <SQUID device> is analogous to a <double-slit experiment>.
+
+One of the segments is by John Clarke.
+}
+
+\Video[https://www.youtube.com/watch?v=ql2Yo5LgU8M]
+{title=Superconducting Quantum Interference Devices by <UNSW> Physics (2020)}
+{description=
+An experimental lab video for <COVID-19> lockdown. Thanks, <COVID-19>. Presented by a cute and awkward Adam Stewart.
+
+Uses a <SQUID device> and control system made by <STAR Cryoelectronics>. We can see <Mr. SQUID> EB-03 written on the probe and control box, that is their educational product.
+
+As mentioned on the Mr. SQUID specs, it is a <high temperature superconductor>, so <liquid nitrogen> is used.
+
+He then measures the <I-V curve> on an <Agilent Technologies oscilloscope>.
+
+Unfortunately, the video doesn't explain very well what is happening behind the scenes, e.g. with a <circuit diagram>. That is the curse of university laboratory videos: some of them assume that students will have material from other internal sources.
+
+* https://youtu.be/ql2Yo5LgU8M?t=211 shows the classic voltage oscillations, presumably on a magnetic field sweep, and then he puts a <magnet> next to the device from outside the <Dewar>
+* https://youtu.be/ql2Yo5LgU8M?t=253 demonstrates the formation of <Shapiro steps>. Inserts a <Rohde & Schwarz> signal generator into the Dewar to vary the flux. The result is not amazing, but they are visible somewhat.
+}
+
+\Video[https://www.youtube.com/watch?v=7PJguB3Y8L8]
+{title=The Ubiquitous SQUID by John Clarke (2018)}
+
+= DC SQUID
+{parent=SQUID device}
+{wiki=SQUID#DC_SQUID}
+
+Two parallel <Josephson junctions>.
+
+In <Ciro's ASCII art circuit diagram notation>:
+``
+  |
++-+-+
+|   |
+X   X
+|   |
++-+-+
+  |
+``
 
 = Superconducting tunnel junction
 {parent=Condensed matter physics}
@@ -298,7 +478,7 @@ Specific type of <Josephson junction>. Probably can be made tiny and in huge num
 
 \Video[http://youtube.com/watch?v=-HUVGWTfaSI]
 {title=Quantum Transport, Lecture 14: Josephson effects by Sergey Frolov (2013)}
-{description=https://youtu.be/-HUVGWTfaSI?t=878 mentions https://en.wikipedia.org/wiki/Electron-beam_lithography[maskless electron beam litograpy] being used to produce STJs.}
+{description=https://youtu.be/-HUVGWTfaSI?t=878 mentions https://en.wikipedia.org/wiki/Electron-beam_lithography[maskless electron beam lithography] being used to produce STJs.}
 
 = Superfluidity
 {parent=Condensed matter physics}
@@ -336,6 +516,12 @@ Specific type of <Josephson junction>. Probably can be made tiny and in huge num
 = Quantum dot
 {parent=Type of material}
 {wiki}
+
+= Artificial quantum atom
+{synonym}
+{title2}
+
+Mentioned a lot in the context of <superconducting quantum computers>, e.g. https://youtu.be/t5nxusm_Umk?t=268 from <video Quantum Computing with Superconducting Qubits by Alexandre Blais (2012)>,
 
 = Quantum dot single photon source
 {parent=Quantum dot}
