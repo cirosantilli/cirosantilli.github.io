@@ -209,6 +209,10 @@ They apparently even produced a real working small <RISC-V> chip with the flow, 
 {title2=IC}
 {wiki}
 
+It is quite amazing to read through books such as <The Supermen: The Story of Seymour Cray by Charles J. Murray (1997)>, as it makes you notice that earlier <CPUs> (all before the 70's) were not made with <integrated circuits>, but rather smaller pieces glued up on <PCBs>! E.g. the <arithmetic logic unit> was actually a discrete component at one point.
+
+The reason for this can also be understood quite clearly by reading books such as <Robert Noyce: The Man Behind the Microchip by Leslie Berlin (2006)>. The first <integrated circuits> were just too small for this. It was initially unimaginable that a CPU would fit in a single chip! Even just having a very small number of components on a chip was already revolutionary and enough to kick-start the industry. Just imagine how much money any level of integration saved in those early days for production, e.g. as opposed to manually soldering <point-to-point constructions>. Also the reliability, size an weight gains were amazing. In particular for military and spacial applications originally.
+
 \Video[https://www.youtube.com/watch?v=z47Gv2cdFtA]
 {title=A briefing on semiconductors by <Fairchild Semiconductor> (1967)}
 {description=
@@ -220,11 +224,15 @@ Shows:
 }
 
 = Application-specific integrated circuit
-{parent=Computer hardware}
+{parent=Integrated circuit}
 {wiki}
 
 = ASIC
 {c}
+{synonym}
+{title2}
+
+= Hardware acceleration
 {synonym}
 {title2}
 
@@ -246,8 +254,8 @@ Compilers for RTL languages such as Verilog and <VHDL> abstract away the details
 The compilers essentially compile the RTL languages into a <standard cell library>.
 
 Examples of companies that work at this level include:
-* https://en.wikipedia.org/wiki/Intel[Intel]. Intel also has <semiconductor fabrication plants> however.
-* https://en.wikipedia.org/wiki/Arm_Holdings[Arm Holdings], which does not have fabs, and is therefore called a "<fabless>" company.
+* <Intel>. Intel also has <semiconductor fabrication plants> however.
+* <Arm Company> which does not have <fabs>, and is therefore called a "<fabless>" company.
 
 = Fabless manufacturing
 {parent=Register transfer level}
@@ -303,8 +311,13 @@ https://github.com/ghdl/ghdl
 {c}
 {synonym}
 
+= Arithmetic logic unit
+{parent=Central processing unit}
+{wiki}
+
 = Microarchitecture
 {parent=Central processing unit}
+{wiki}
 
 = Microprocessor
 {parent=Central processing unit}
@@ -320,6 +333,123 @@ Basically a synonym for <central processing unit> nowadays: https://electronics.
 {c}
 {synonym}
 {title2}
+
+= AI accelerator
+{c}
+{parent=Processor (computing)}
+{wiki}
+
+= Amazon AI accelerator silicon
+{c}
+{parent=AI accelerator}
+{tag=Amazon custom silicon}
+
+* 2020: Traininum in 2020, e.g. https://techcrunch.com/2020/12/01/aws-launches-trainium-its-new-custom-ml-training-chip/
+* 2018: AWS Inferentia, mentioned at https://en.wikipedia.org/wiki/Annapurna_Labs
+
+= Tensor Processing Unit
+{c}
+{parent=AI accelerator}
+{tag=Google custom hardware}
+{title2=TPU, 2015, Google AI accelerator}
+{wiki}
+
+= Computer form factor
+{parent=Computer hardware}
+{wiki}
+
+= Distributed computing
+{parent=Computer form factor}
+{wiki}
+
+= Fog computing
+{parent=Distributed computing}
+{wiki}
+
+Our definition of fog computing: a system that uses the computational resources of individuals who voluenteer their own devices, in which you give each of the volunteers part of a computational problem that you want to solve.
+
+<Folding@home> and <SETI@home> are perfect example of that definition.
+
+= Folding@home
+{c}
+{parent=Fog computing}
+{wiki}
+
+= SETI@home
+{c}
+{parent=Fog computing}
+{wiki}
+
+= Is fog computing more efficient than cloud computing?
+{parent=Fog computing}
+{wiki}
+
+Advantages of fog: there is only one, reusing hardware that would be otherwise idle.
+
+Disadvantages:
+* in cloud, you can put your datacenter on the location with the cheapest possible power. On fog you can't.
+* on fog there is some waste due to network communication.
+* you will likely optimize code less well because you might be targeting a wide array of different types of hardware, so more power (and time) wastage. Furthermore, some of the hardware used will not not be optimal for the task, e.g. <CPU> instead of <GPU>.
+
+All of this makes <Ciro Santilli> doubtful if it wouldn't be more efficient for volunteers simply to donate money rather than inefficient power usage.
+
+Bibliography:
+* https://greenfoldingathome.com/2018/05/28/is-foldinghome-a-waste-of-electricity/[]: useless article, does not compare to centralize, asks if folding the proteins is worth the power usage...
+
+= Mainframe computer
+{parent=Computer form factor}
+{wiki}
+
+= Supercomputer
+{parent=Computer form factor}
+{wiki}
+
+Some good insights on the earlier history of the industry at: <The Supermen: The Story of Seymour Cray by Charles J. Murray (1997)>.
+
+= TOP500
+{c}
+{parent=Supercomputer}
+{wiki}
+
+= Intel supercomputer market share
+{c}
+{parent=Supercomputer}
+{tag=Intel}
+
+\Image[https://web.archive.org/web/20210908201649im_/https://3s81si1s5ygj3mzby34dq6qf-wpengine.netdna-ssl.com/wp-content/uploads/2020/06/top500-june-2020-chip-technology.jpg]
+{title=<Intel> <supercomputer> market share from 1993 to 2020}
+{description=This graph is shocking, they just took over the entire market! Some good pre-Intel context at <The Supermen: The Story of Seymour Cray by Charles J. Murray (1997)>, e.g. in those earlier days, custom architectures like <Cray>'s and many others dominated.}
+{source=https://www.nextplatform.com/2020/06/22/arm-and-japan-get-their-day-in-the-hpc-sun/}
+
+= Personal computer
+{parent=Computer form factor}
+{wiki}
+
+= Laptop
+{parent=Personal computer}
+{wiki}
+
+= Mobile phone
+{parent=Personal computer}
+{wiki}
+
+= Cell phone
+{synonym}
+
+= Smartphone
+{parent=Mobile phone}
+{wiki}
+
+= Mobile app
+{parent=Mobile phone}
+{wiki}
+
+= App
+{synonym}
+
+= Workstation
+{parent=Computer form factor}
+{wiki}
 
 = Computer data storage
 {parent=Computer hardware}
@@ -418,7 +548,7 @@ TODO does shredding the
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=5f2xOxRGKqk]
-{title=The Engineering Puzzle of Storing Trillions of Bits in your Smartphone / SSD using Quantum Mechanics by Branch Education (2020)}
+{title=The Engineering Puzzle of Storing Trillions of Bits in your <Smartphone> / SSD using Quantum Mechanics by Branch Education (2020)}
 {description=Nice animations show how <quantum tunnelling> is used to set bits in <flash memory>.}
 
 = Display device
@@ -471,6 +601,11 @@ Display size: 10.3 inches. Perfect size
 {parent=Computer hardware}
 {wiki}
 
+= ISA
+{c}
+{synonym}
+{title2}
+
 The main interface between the <central processing unit> and <software>.
 
 = Assembly language
@@ -520,6 +655,21 @@ TODO better sources.
 = ARM instruction set
 {c}
 {synonym}
+
+= ARM
+{c}
+{disambiguate=ISA}
+{synonym}
+
+This <ISA> basically completely dominated the <smartphone> market of the 2010s and beyond, but it started appearing in other areas as the end of <Moore's law> made it more economical logical for large companies to start developing their own semiconductor, e.g. <Google custom silicon>, <Amazon custom silicon>.
+
+Basically, as long as were a huge company seeking to develop a <CPU> and able to control your own ecosystem independently of <Windows>' desktop domination (held by the need for backward compatibility with a billion end user programs), ARM would be a possibility on your mind.
+
+Examples:
+* the most powerful supercomputer in the world as of November 2021 was Fugaku by Fujitsu and used an <ARM ISA> according to <TOP500> https://www.top500.org/lists/top500/2021/11/ 
+
+  It was later beaten by another <x86> supercomputer https://www.top500.org/lists/top500/2022/06/[], but the message was clearly heard.
+* <AWS Graviton>
 
 = PowerPC
 {c}
