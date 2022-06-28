@@ -12,8 +12,11 @@ To get a feeling of this, just have a look at the insane number of startups that
 
 To get a basic idea of what programming a quantum computer looks like start by reading: <quantum computing is just matrix multiplication>{full}.
 
-= Quantum computing is just matrix multiplication
+= How to program a quantum computer
 {parent=Quantum computing}
+
+= Quantum computing is just matrix multiplication
+{synonym}
 
 = Programmer's model of quantum computers
 {synonym}
@@ -41,9 +44,9 @@ The way quantum programmers think about a quantum computer in order to program c
 * the output of a N qubit computer is also a vector of dimension N containing classic bits 0 and 1
 
 To operate a quantum computer, you:
-* set the classic input bits
+* set the input <qubits> to classic input bits (state initialization)
 * press a "RUN" button
-* read the classic output bits
+* read the classic output bits (<readout quantum computing>)
 
 Each time you do this, you are literally conducting a physical experiment of the specific <quantum computer physical implementations>[physical implementation] of the computer:
 * setup your physical system to represent the classical 0/1 inputs
@@ -157,6 +160,9 @@ Consider reading the following next:
   * <universal quantum gates>{full}
   * <quantum circuits vs classical circuits>{full}
 
+Bibliography:
+* https://arxiv.org/pdf/1804.03719.pdf Quantum Algorithm Implementations for Beginners by Abhijith et al. 2020
+
 = Quantum algorithm
 {parent=Quantum computing}
 
@@ -199,8 +205,33 @@ Source on <GitHub>: https://github.com/stephenjordan/stephenjordan.github.io
 
 The most comprehensive list is the amazing curated and commented list of <quantum algorithms> as of 2020.
 
-= Grover's algorithm
+= List of quantum algorithms
 {parent=Quantum algorithm}
+
+= Bernstein-Vazirani algorithm
+{c}
+{parent=List of quantum algorithms}
+{wiki=Bernstein–Vazirani algorithm}
+
+Toy/test/tought experiment algorithm.
+
+= Grover's algorithm
+{c}
+{parent=List of quantum algorithms}
+{wiki}
+
+= Hiden shift algorithm
+{parent=List of quantum algorithms}
+
+= Hidden shift problem
+{parent=Hiden shift algorithm}
+{wiki}
+
+= Schor's algorithm
+{c}
+{parent=List of quantum algorithms}
+{tag=Integer factorization algorithm}
+{title2=1994}
 {wiki}
 
 = Quantum error correction
@@ -338,7 +369,7 @@ This is a good read: https://quantumai.google/hardware/datasheet/weber.pdf May 1
 {parent=Organization developing superconducting quantum computer}
 {tag=IBM}
 
-= IBM quantum computing hardware
+= IBM quantum computer
 {c}
 {parent=IBM quantum computing}
 
@@ -414,6 +445,17 @@ Merged into <Quantinuum> later on in 2021.
 = Quantum computing hardware
 {parent=Quantum computing}
 
+= Step of operation of a quantum computer
+{parent=Quantum computing hardware}
+
+= State initialization
+{disambiguate=quantum computing}
+{parent=Step of operation of a quantum computer}
+
+= Readout
+{disambiguate=quantum computing}
+{parent=Step of operation of a quantum computer}
+
 = Quantum computer physical implementations
 {synonym}
 
@@ -450,15 +492,34 @@ Mentioned e.g. at:
 These are two conflicting constraints:
 
 * long coherence times: require isolation from external world, otherwise observation destroys quantum state
-* fast control and readout: require coupling with external world
+* fast control and <readout quantum computing>: require coupling with external world
+
+= Quantum computer type
+{parent=Quantum computing hardware}
+{wiki}
+
+= Diamond vacancy quantum computer
+{parent=Quantum computer type}
+
+https://thequantuminsider.com/2022/03/31/5-quantum-computing-companies-working-with-nv-centre-in-diamond-technology/
+
+5 Companies Working With Diamond NV Quantum Computing Technology.
+
+= N-V center quantum computer
+{c}
+{parent=Diamond vacancy quantum computer}
+
+= Nitrogen-vacancy center
+{parent=Diamond vacancy quantum computer}
+{wiki}
 
 = Superconducting quantum computer
-{parent=Quantum computing hardware}
+{parent=Quantum computer type}
 {wiki}
 
 Based on the <Josephson effect>. Yet another application of that phenomenal idea!
 
-Philosophically, <superconducting qubit are cool because superconductivity is macroscopic>.
+Philosophically, <superconducting qubits are good because superconductivity is macroscopic>.
 
 Downsides:
 * requires refrigeration
@@ -493,7 +554,7 @@ Input:
 {title=Building a quantum computer with superconducting qubits by <Daniel Sank> (2019)}
 {description=
 Daniel wears a "Google SB" t-shirt, which either means <shabi> in <Chinese (language)>, or <Santa Barbara>. <Google Quantum AI> is based in <Santa Barbara>, with links to <UCSB>.
-* https://youtu.be/uPw9nkJAwDY?t=293 <superconducting qubit are cool because superconductivity is macroscopic>. Explains how in non superconducting metal, each electron moves separatelly, and can hit atoms and leak vibration/photos, which lead to observation and quantum error
+* https://youtu.be/uPw9nkJAwDY?t=293 <superconducting qubits are good because superconductivity is macroscopic>. Explains how in non superconducting metal, each electron moves separatelly, and can hit atoms and leak vibration/photos, which lead to observation and quantum error
 * https://youtu.be/uPw9nkJAwDY?t=429 made of <aluminium>
 * https://youtu.be/uPw9nkJAwDY?t=432 shows the <circuit diagram>, and notes that the thing is basically a <LC circuit>
   ``
@@ -539,10 +600,18 @@ Non-linearity is needed otherwise the input energy would just make the state go 
 
 The way this is modelled in by starting from a pure <LC circuit>, which is an harmonaic oscillator, see also <quantum LC circuit>, and then replacing the linear <inductor> with a <SQUID device>, e.g. mentioned at: https://youtu.be/eZJjQGu85Ps?t=1655 <video Superconducting Qubits I by Zlatko Minev (2020)}>.
 
-= Superconducting qubit are cool because superconductivity is macroscopic
+= Pros and cons of superconducting qubits
 {parent=Superconducting quantum computer}
 
+= Superconducting qubits are good because superconductivity is macroscopic
+{parent=Pros and cons of superconducting qubits}
+
 Superconducting qubits are regarded as promising because superconductivity is a <macroscopic quantum phenomena> of <Bose-Einstein condensate>[Bose Einstein condensation], and so as a macroscopic phenomena, it is easier to control and observe.
+
+= Superconducting qubits are bad because it is harder to ensure that they are all the same
+{parent=Pros and cons of superconducting qubits}
+
+This is unlike atomic systems like <trapped ion quantum computers>, where each atom is necessarily exactly the same as the other.
 
 = Transmon
 {parent=Superconducting quantum computer}
@@ -560,7 +629,7 @@ Used e.g. in the <Sycamore processor>.
 {parent=Superconducting quantum computing hardware organization}
 
 = Trapped ion quantum computer
-{parent=Quantum computing hardware}
+{parent=Quantum computer type}
 {wiki}
 
 TODO understand.
@@ -574,20 +643,55 @@ A basic introduction, but very concrete, with only a bit of math it might be ama
 * https://youtu.be/j1SKprQIkyE?t=289 you need <lasers>. You shine the laser on the calcium atom to eject one of the two valence electrons from it. Though e.g. <Universal Quantum> is trying to do away with them, because alignment for thousands or millions of particles would be difficult.
 * https://youtu.be/j1SKprQIkyE?t=518 keeping all surrounding electrodes positive would be unstable. So they instead alternate electrode quickly between plus and minus
 * https://youtu.be/j1SKprQIkyE?t=643 talks about the alternative, of doing it just with electrodes on a chip, which is easier to manufacture. They fly at about 100 microns above the trap. And you can have multiple ions per chip.
-* https://youtu.be/j1SKprQIkyE?t=1165 using <microwaves> you can flip the <spin> of the <electron>, or put it into a superposition
+* https://youtu.be/j1SKprQIkyE?t=1165 using <microwaves> you can flip the <spin> of the <electron>, or put it into a superposition. From more reading, we understand that she is talking about a <hyperfine transition>, which often happen in the <microwave> area.
 * https://youtu.be/j1SKprQIkyE?t=1210 talks about making <quantum gates>. You have to put the ions into a <magnetic field> at one of the two <resonance frequencies> of the system. Presumably what is meant is an inhomogenous magnetic field as in the <Stern-Gerlach experiment>.
 
   This is the hard and interesting part. It is not clear why the atoms become coupled in any way. Is it due to electric repulsion?
 Sounds complicated, several technologies need to work together for that to work! Videos of ions moving are from https://www.physics.ox.ac.uk/research/group/ion-trap-quantum-computing[].
+
+A major flaw of this presentation is not explaining the <readout quantum computing> process.
 }
 
 = Ion trap
 {parent=Trapped ion quantum computer}
 {wiki}
 
+= Modular trapped ion quantum computer
+{parent=Quantum computer type}
+
+Trapped ion people acknowledge that they can't put a million qubits in on chip (TODO why) so they are already thinking of ways to entangle separate chips. Thinking is maybe the key word here. One of the propoesd approaches inolves optical links. <Universal Quantum> for example explicitly rejects that idea in favor of electric field link modularity.
+
 = Organization developing trapped ion quantum computer
 {parent=Trapped ion quantum computer}
 {tag=Organization developing quantum hardware}
+
+= IonQ
+{c}
+{parent=Organization developing trapped ion quantum computer}
+{tag=Company}
+{title2=2015}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=9aOLwjUZLm0]
+{title=Quantum Computing with Trapped Ions by Christopher Monroe (2018)}
+{description=
+Co-founder of <IonQ>. Cool dude. Starts with basic background we already know now. Mentions that there is some relationship between <atomic clocks> and <trapped ion quantum computers>, which is interesting. Then he goes into turbo mode, and you get lost unless you're an expert!
+* https://youtu.be/9aOLwjUZLm0?t=1216 <superconducting qubits are bad because it is harder to ensure that they are all the same>
+* https://youtu.be/9aOLwjUZLm0?t=1270 our wires are provided by <lasers>. Gives example of <ytterbium>$^{+1}$, which has nice frequencies for practical <laser> choice. Ytterbium ends in 6s2 5d1, so they must remove the 5d1 electron? But then you are left with 2 electrons in 6s2, can you just change their spins at will without problem?
+* https://youtu.be/9aOLwjUZLm0?t=1391 a single atom actually reflects 1% of the input laser, not bad!
+* https://youtu.be/9aOLwjUZLm0?t=1475 a transition that they want to drive in Ytterbium has 355 nm, which is easy to generate TODO why.
+* https://youtu.be/9aOLwjUZLm0?t=1520 mentions that 351 would be much harder, e.g. as used in inertially confied fusion, takes up a room
+* https://youtu.be/9aOLwjUZLm0?t=1539 what they use: a <pulsed laser>. It is made primarily for <photolithography>, <Coherent, Inc.> makes 200 of them a year, so it is reliable stuff and easy to operate. At https://www.coherent.com/lasers/nanosecond/avia-nx we can see some of their 355 offers. https://archive.ph/wip/JKuHI shows a used system going for 4500 USD.
+* https://youtu.be/9aOLwjUZLm0?t=1584 Cirac and Zoller proposed the idea of using entangled ions soon after they heard about <Schor's algorithm> in 1995
+* https://youtu.be/9aOLwjUZLm0?t=1641 you use <optical tweezers> to move the pairs of ions you want to entangle. This means shining a <laser> on two ions at the same time. Their movement depends on their <spin>, which is already in a superposition. If both move up, their distance stats the same, so the <Coulomb interaction> is unchanged. But if they are different, then one goes up and the other down, distance increases due to the diagonal, and energy is lower.
+* https://youtu.be/9aOLwjUZLm0?t=1939 S. Debnah 2016 Nature experiment with a pentagon. Well, it is not a pentagon, they are just in a linear chain, the pentagon is just to convey the full connectivity. Maybe also <Satanism>. Anyways. This point also mentions usage of an <acousto-optic modulator> to select which atoms we want to act on. On the other side, a simpler wide laser is used that hits all atoms (<optical tweezers> are literally like tweezers in the sense that you use two lasers). Later on mentions that the modulator is from Harris, later merged with L3, so: https://www.l3harris.com/all-capabilities/acousto-optic-solutions
+* https://youtu.be/9aOLwjUZLm0?t=2119 <Bernstein-Vazirani algorithm>. This to illustrate better connectivity of their ion approach compared to an <IBM quantum computer>, which is a <superconducting quantum computer>
+* https://youtu.be/9aOLwjUZLm0?t=2354 <hiden shift algorithm>
+* https://youtu.be/9aOLwjUZLm0?t=2740 Zhang et al. Nature 2017 paper about a 53 ion system that calculates something that cannot be classically calculated. Not fully controllable though, so more of a <continuous-variable quantum information> operation.
+* https://youtu.be/9aOLwjUZLm0?t=2923 usage of cooling to 4 K to get lower pressures on top of vacuum. Before this point all experiments were room temperature. Shows image of refrigerator labelled Janis cooler, presumably something like: https://qd-uki.co.uk/cryogenics/janis-recirculating-gas-coolers/
+* https://youtu.be/9aOLwjUZLm0?t=2962 qubit vs gates plot by H. Neven
+* https://youtu.be/9aOLwjUZLm0?t=3108 <modular trapped ion quantum computer> ideas. Mentions experiment with 2 separate systems with optical link. Miniaturization and their black box. Mentions again that their chip is from <Sandia>. Amazing how you pronounce that.
+}
 
 = NQIT
 {c}
@@ -675,7 +779,7 @@ Very basic target audience:
 }
 
 = Neutral atom quantum computer
-{parent=Quantum computing hardware}
+{parent=Quantum computer type}
 
 = Organization developing neutral atom quantum computer
 {parent=Neutral atom quantum computer}
@@ -690,8 +794,15 @@ These people are cool.
 
 They use <optical tweezers> to place individual atoms floating in midair, and then do stuff to entangle their <nuclear spins>.
 
+= Pasqal
+{c}
+{parent=Organization developing neutral atom quantum computer}
+{tag=Company}
+
+https://pasqal.io/
+
 = Photonic quantum computer
-{parent=Quantum computing hardware}
+{parent=Quantum computer type}
 {wiki=Linear optical quantum computing}
 
 = Linear optical quantum computing
@@ -789,7 +900,7 @@ Other good lists:
 {parent=Quantum software}
 {wiki}
 
-Python library, claims multiple backends, including simulation and real <iBM quantum computing hardware>
+Python library, claims multiple backends, including simulation a real <IBM quantum computer>.
 
 = Classical computer
 {parent=Quantum computing}
@@ -1023,6 +1134,20 @@ Set of <quantum logic gate> composed of the <Clifford gates> plus the <Toffoli g
 {parent=Quantum supremacy}
 
 Similar to <quantum supremacy>, but add the goal that the computation must be useful, i.e. make money or solve some open <mathematical> problem, <Ciro Santilli's wife> was quite excited about the possibility of finding some counter examples in <number theory> with quantum computers.
+
+= Qubit
+{parent=Quantum computing}
+{wiki}
+
+= Continuous-variable quantum information
+{parent=Qubit}
+{wiki}
+
+It is also possible to carry out <quantum computing> without <qubits> using processes with a <continuous spectrum> of measurement.
+
+As of 2020, these approaches seem less developed/promising, but who knows.
+
+These computers can be seen as analogous to classical non-quantum <analog computers>.
 
 = Post-quantum cryptography
 {parent=Quantum computing}

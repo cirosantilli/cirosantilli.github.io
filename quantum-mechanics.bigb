@@ -131,11 +131,11 @@ see for example example: <hydrogen 1-2 spectral line>.
 
 = Hydrogen 1-2 spectral line
 {parent=Gross hydrogen emission spectrum}
-{title2=121.6 nm}
+{title2=121.6 nm, 10.2e V}
 
 <equation Hydrogen spectral series mnemonic> gives for example from <principal quantum number> 1 to 2 a difference:
 $$
-E_n = -13.6eV\left[\frac{1}{2^2} - \frac{1}{1^2}\right] = 10.2eV
+E_n = -13.6eV\left[\frac{1}{2^2} - \frac{1}{1^2}\right] = 10.2 eV
 $$
 which with <Planck-Einstein relation> gives about 121.6 <nm> ($2.47 \times 10^15$ <Hz>), which is a reasonable match with the value of 121.567... from the <NIST Atomic Spectra Database>.
 
@@ -184,16 +184,30 @@ Numerically explained by the <Dirac equation> when <Dirac equation solution for 
 {parent=Fine structure}
 {wiki}
 
+= Hyperfine transition
+{synonym}
+
 Small splits present in all levels due to interaction between the electron spin and the <nuclear spin> if it is present, i.e. the nucleus has an even number of nucleons.
 
 As the name suggests, this energy split is very small, since the influence of the nucleus spin on the electron spin is relatively small compared to other <fine structure>.
 
-For example, for the <hydrogen emission spectrum>:
-* <hydrogen 1-2 spectral line>: 10.2eV
-
 TODO confirm: does it need <quantum electrodynamics> or is the <Dirac equation> enough?
 
-Notable application: <caesium standard>, which is used to define the <second> in the <International System of Units> since 1967.
+The most important examples:
+* <hydrogen line> useful in astronomy, and also the simplest possible case between 1s
+* <caesium standard>, which is used to define the <second> in the <International System of Units> since 1967.
+
+= Hydrogen line
+{parent=Hyperfine structure}
+{tag=Hydrogen emission spectrum}
+
+= 21 centimeter line
+{synonym}
+{title2}
+
+21 cm is very long and very low energy, because he energy split is very small!
+
+Compare it e.g. with the <hydrogen 1-2 spectral line> which is 121.6 nm!
 
 = Zeeman effect
 {c}
@@ -924,11 +938,15 @@ This is the table that you should have in mind to visualize them: https://en.wik
 
 Quantum numbers appear directly in the <Schrödinger equation solution for the hydrogen atom>.
 
-However, it very cool that they are actually discovered before the the <Schrödinger equation>, and are present in the <Bohr model> (<principal quantum number>) and the <Bohr-Sommerfeld model> (<azimuthal quantum number> and <magnetic quantum number>) of the atom. This must be because they observed direct effects of those numbers in some experiments. TODO which experiments.
+However, it very cool that they are actually discovered before the <Schrödinger equation>, and are present in the <Bohr model> (<principal quantum number>) and the <Bohr-Sommerfeld model> (<azimuthal quantum number> and <magnetic quantum number>) of the atom. This must be because they observed direct effects of those numbers in some experiments. TODO which experiments.
 
 E.g. <The Quantum Story by Jim Baggott (2011)> page 34 mentions:
-\Q[As the various lines in the spectrum were identiﬁed with different quantum jumps between different orbits, it was soon discovered that not all the possible jumps were appearing. Some lines were missing. For some reason certain jumps were forbidden. An elaborate scheme of ‘selection rules’ was established by Bohr and Sommerfeld to account for those jumps that were allowed and those that were forbidden.]
+\Q[As the various lines in the spectrum were identified with different quantum jumps between different orbits, it was soon discovered that not all the possible jumps were appearing. Some lines were missing. For some reason certain jumps were forbidden. An elaborate scheme of ‘selection rules’ was established by Bohr and Sommerfeld to account for those jumps that were allowed and those that were forbidden.]
 This refers to <forbidden mechanism>. TODO concrete example, ideally the first one to be noticed. How can you notice this if the energy depends only on the <principal quantum number>?
+
+\Video[https://www.youtube.com/watch?v=Aoi4j8es4gQ]
+{title=Quantum Numbers, Atomic Orbitals, and <Electron Configurations> by Professor Dave Explains (2015)}
+{description=He does not say the key words "Eigenvalues of the <Schrodinger Equation>" (Which solve it), but the summary of results is good enough.}
 
 = Principal quantum number
 {parent=Quantum number}
@@ -944,6 +962,10 @@ Determines energy. This comes out directly from the resolution of the <Schrödin
 
 Fixed <total angular momentum>.
 
+The direction however is not specified by this number.
+
+To determine the <quantum angular momentum>, we need the <magnetic quantum number>, which then selects which orbital exactly we are talking about.
+
 = s-orbital
 {parent=Azimuthal quantum number}
 
@@ -958,20 +980,49 @@ Fixed <total angular momentum>.
 
 = Magnetic quantum number
 {parent=Quantum number}
-{title2=m_l}
+{title2=$m_l$}
 {wiki}
 
-Fixed <angular momentum operator>[angular momentum in a given direction].
+Fixed <quantum angular momentum> in a given direction.
+
+Can range between $\pm l$.
+
+E.g. consider <gallium> which is 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p1:
+* the electrons in <s-orbitals> such as 1s, 2d, and 3d are $l=0$, and so the only value for $m_l$ is 0
+* the electrons in <p-orbitals> such as 2p, 3p and 4p are $l=1$, and so the possible values for $m_l$ are -1, 0 and 1
+* the electrons in <d-orbitals> such as 2d are $l=2$, and so the possible values for $m_l$ are -2, -1, 0 and 1 and 2
+
+The z component of the <quantum angular momentum> is simply:
+$$
+L_z = m_l \hbar
+$$
+so e.g. again for gallium:
+* <s-orbitals>: necessarily have 0 z angular momentum
+* <p-orbitals>: have either 0, $- \hbar$ or $+ \hbar$ z angular momentum
 
 Note that this direction is arbitrary, since for a fixed <azimuthal quantum number> (and therefore fixed total angular momentum), we can only know one direction for sure. $z$ is normally used by convention.
+
+= Spin quantum number
+{parent=Quantum number}
+{title2=$m_s$}
+{wiki}
+
+= Spectroscopic notation
+{parent=Spin quantum number}
+{wiki}
+
+This notation is cool as it gives the <spin quantum number>, which is important e.g. when talking about <hyperfine structure>.
+
+But it is a bit crap that the spin is not given simply as $\pm 1/2$ but rather mixes up both the <azimuthal quantum number> and spin. What is the reason?
+
+\Video[https://www.youtube.com/watch?v=aehyxwC0KC8]
+{title=<Spectroscopic notation> by Andre K (2014)}
 
 = Solutions for the Schrodinger equation with multiple particles
 {parent=Solutions of the Schrodinger equation}
 
-Quantum Mechanics for Engineers by Leon van Dommelen (2011)
-
 Bibliography:
-* <quantum Mechanics for Engineers by Leon van Dommelen (2011)> "5. Multiple-Particle Systems"
+* <Quantum Mechanics for Engineers by Leon van Dommelen (2011)> "5. Multiple-Particle Systems"
 
 = Solutions of the Schrodinger equation for two electrons
 {parent=Solutions for the Schrodinger equation with multiple particles}
@@ -990,6 +1041,15 @@ Bibliography:
 * https://www.youtube.com/watch?v=Og13-bSF9kA&list=PLDfPUNusx1Eo60qx3Od2KLUL4b7VDPo9F "Advanced quantum theory" by <Tobias J. Osborne> says that the course will essentially cover multi-particle quantum mechanics!
 * https://physics.stackexchange.com/questions/54854/equivalence-between-qft-and-many-particle-qm "Equivalence between QFT and many-particle QM"
 * Course: Quantum Many-Body Physics in Condensed Matter by Luis Gregorio Dias (2020) from <course: Quantum Many-Body Physics in Condensed Matter by Luis Gregorio Dias (2020)> give a good introduction to non-interacting particles
+
+= Orbital approximation
+{c}
+{parent=Solutions for the Schrodinger equation with multiple particles}
+
+Just ignore the electron electron interactions.
+
+Bibliography:
+* https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Book%3A_Quantum_States_of_Atoms_and_Molecules_(Zielinksi_et_al)/10%3A_Theories_of_Electronic_Molecular_Structure/10.02%3A_The_Orbital_Approximation_and_Orbital_Configurations
 
 = Schrödinger equation solution for the helium atom
 {c}
@@ -1036,6 +1096,28 @@ Boring rule that says that less energetic atomic orbitals are filled first.
 
 Much more interesting is actually determining that order, which the <Madelung energy ordering rule> is a reasonable approximation to.
 
+= Electron configuration
+{parent=Aufbau principle}
+{wiki}
+
+= Electron configuration notation
+{parent=Aufbau principle}
+{title2=$1s^2 2s^2 2p^6$, 1s2 2s2 2p6}
+{wiki}
+
+We will sometimes just write them without superscript, as it saves typing and is useless.
+
+= Why does 2s have less energy than 1s if they have the same principal quantum number?
+{parent=Aufbau principle}
+
+https://chemistry.stackexchange.com/questions/152/why-is-the-2s-orbital-lower-in-energy-than-the-2p-orbital-when-the-electrons-in
+
+The <principal quantum number> thing fully determining energy is only true for the <hydrogen emission spectrum> for which we can solve the <Schrodinger equation> explicitly.
+
+For other atoms with more than one electron, the orbital names are just a very good approximation/perturbation, as we don't have an explicit solution. And the internal electrons do change energy levels.
+
+Note however that due to the more complex effect of the <Lamb shift> from <QED>, there is actually a very small 2p/2s shift even in hydrogen.
+
 = Madelung energy ordering rule
 {c}
 {parent=Aufbau principle}
@@ -1064,6 +1146,176 @@ Bibliography:
 {synonym}
 
 The most notable exception is the borrowing of 3<d-orbital> electrons to 4<s-orbital>[s] as in <chromium>, leading to a 3d5 4s1 configuration instead of the 3d4 4s2 we would have with the rule. TODO how is that observed observed experimentally?
+
+= Term symbol
+{parent=Spin quantum number}
+{title2=$^{2}S_{1/2}}$, $^{2}P_{1/2}}$, $^{2}P_{3/2}}$}
+{wiki}
+
+This notation is so confusing! People often don't manage to explain the intuition behind it, why this is an useful notation. When you see Indian university entry exam level memorization classes about this, it makes you want to cry.
+
+The key reason why term symbols matter are <Hund's rules>, which allow us to predict with some accuracy which <electron configurations> of those states has more energy than the other.
+
+https://web.chem.ucsb.edu/~devries/chem218/Term%20symbols.pdf puts it well: <electron configuration notation> is not specific enough, as each such notation e.g. 1s2 2s2 2p2 contains several options of spins and z angular momentum. And those affect energy.
+
+This is why those symbols are often used when talking about energy differences: they specify more precisely which levels you are talking about.
+
+Basically, each term symbol appears to represent a group of possible electron configurations with a given <quantum angular momentum>.
+
+We first fix the energy level by saying at which orbital each electron can be (<hyperfine structure> is ignored). It doesn't even have to be the ground state: we can make some electrons excited at will. 
+
+The best thing to learn this is likely to draw out all the possible configurations explicitly, and then understand what is the term symbol for each possible configuration, see e.g. <term symbols for carbon ground state>.
+
+It also confusing how uppercase letters S, P and D are used, when they do not refer to orbitals s, p and d, but rather to states which have the same angular momentum as individual electrons in those states.
+
+It is also very confusing how extremelly close it looks to <spectroscopic notation>!
+
+The form of the term symbol is:
+$$
+^{2S + 1}L_J
+$$
+
+The $2S + 1$ can be understood directly as the degeneracy, how many configurations we have in that state.
+
+\Video[https://www.youtube.com/watch?v=dhARbw8cdDE]
+{title=Atomic Term Symbols by TMP Chem (2015)}
+
+\Video[https://www.youtube.com/watch?v=DAgEmLWpYjs]
+{title=Atomic Term Symbols by T. Daniel Crawford (2016)}
+{description=
+* https://youtu.be/DAgEmLWpYjs?t=2675 <term symbols for carbon ground state>
+}
+
+Bibliography:
+* https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Spectroscopy/Electronic_Spectroscopy/Spin-orbit_Coupling/Atomic_Term_Symbols
+* https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/08%3A_Multielectron_Atoms/8.08%3A_Term_Symbols_Gives_a_Detailed_Description_of_an_Electron_Configuration The PDF origin: https://web.chem.ucsb.edu/~devries/chem218/Term%20symbols.pdf
+* https://chem.libretexts.org/Bookshelves/Inorganic_Chemistry/Inorganic_Coordination_Chemistry_(Landskron)/08%3A_Coordination_Chemistry_III_-_Electronic_Spectra/8.01%3A_Quantum_Numbers_of_Multielectron_Atoms
+* https://physics.stackexchange.com/questions/8567/how-do-electron-configuration-microstates-map-to-term-symbols How do electron configuration microstates map to term symbols?
+
+= Hund's rules
+{c}
+{parent=Term symbol}
+{title2=1927}
+{wiki}
+
+Allow us to determine with good approximation in a multi-electron atom which <electron configuration> have more energy. It is a bit like the <Aufbau principle>, but at a finer resolution.
+
+Note that this is not trivial since there is no explicit solution to the <Schrodinger equation> for multi-electron atoms <Schrödinger equation solution for the hydrogen atom>[like there is for hydrogen].
+
+For example, consider carbon which has <electron configuration> 1s2 2s2 2p2.
+
+If we were to populate the 3 <p orbitals> with two electrons with spins either up or down, which has more energy? E.g. of the following two:
+``
+m_L -1  0  1
+    u_ u_ __
+    u_ __ u_
+    __ ud __
+``
+
+= Hund's first rule
+{c}
+{parent=Hund's rules}
+
+Higher spin multiplicity means lower energy. I.e.: you want to keep all spins pointin in the same direction.
+
+= Hund's second rule
+{c}
+{parent=Hund's rules}
+
+= Term symbols for carbon ground state
+{parent=Solutions for the Schrodinger equation with multiple particles}
+
+This example covered for example at <video Term Symbols Example 1 by TMP Chem (2015)}>.
+
+<Carbon> has electronic structure 1s2 2s2 2p2.
+
+For term symbols we only care about unfilled layers, because in every filled layer the total z angular momentum is 0, as one electron necessarily cancels out each other:
+* <magnetic quantum number> varies from -l to +l, each with z angular momentum $-l \hbar$ to $+l \hbar$ and so each cancels the other out
+* <spin quantum number> is either + or minus half, and so each pair of electron cancels the other out
+
+So in this case, we only care about the 2 electrons in 2p2. Let's list out all possible ways in which the 2p2 electrons can be.
+
+There are 3 p orbitals, with three different <magnetic quantum numbers>, each representing a different possible z <quantum angular momentum>.
+
+We are going to distribute 2 electrons with 2 different spins across them. All the possible distributions that don't violate the <Pauli exclusion principle> are:
+
+``
+m_l  +1  0 -1  m_L  m_S
+     u_ u_ __    1    1
+     u_ __ u_    0    1
+     __ u_ u_   -1    1
+     d_ d_ __    1   -1
+     d_ __ d_    0   -1
+     __ d_ d_   -1   -1
+     u_ d_ __    1    0
+     d_ u_ __    1    0
+     u_ __ d_    0    0
+     d_ __ u_    0    0
+     __ u_ d_   -1    0
+     __ d_ u_   -1    0
+     ud __ __    2    0
+     __ ud __    0    0
+     __ __ ud   -2    0
+``
+
+where:
+* `m_l` is $m_l$, the <magnetic quantum number> of each electron. Remember that this gives a orbital (non-spin) <quantum angular momentum> of $m_l \bar$ to each such electron
+* `m_L` with a capital L is the sum of the $m_l$ of each electron
+* `m_S` with a capital S is the sum of the spin angular momentum of each electron
+
+For example, on the first line:
+``
+m_l  +1  0 -1  m_L  m_S
+     u_ u_ __    1    1
+``
+we have:
+* one electron with $m_l = +1$, and so angular momentum $\hbar$
+* one electron with $m_l = +0$, and so angular momentum 0
+and so the sum of them has angular momentum $0 + 1 \hbar = 1 \hbar$. So the value of $m_L$ is 1, we just omit the $\hbar$.
+
+TODO now I don't understand the logic behind the next steps... I understand how to mechanically do them, but what do they mean? Can you determine the <term symbol> for individual microstates at all? Or do you have to group them to get the answer? Since there are multiple choices in some steps, it appears that you can't assign a specific term symbol to an individual microstate. And it has something to do with the <Slater determinant>. The previous lecture mentions it: https://www.youtube.com/watch?v=7_8n1TS-8Y0 more precisely https://youtu.be/7_8n1TS-8Y0?t=2268 about carbon.
+
+https://youtu.be/DAgEmLWpYjs?t=2675 mentions that $^{3}D$ is not allowed because it would imply $L = 2, S = 1$, which would be a state `uu __ __` which violates the <Pauli exclusion principle>, and so was not listed on our list of 15 states.
+
+He then goes for $^{1}D$ and mentions:
+* S = 1 so $m_S$ can only be 0
+* L = 2 (D) so $m_L$ ranges in -2, -1, 0, 1, 2
+and so that corresponds to states on our list:
+``
+ud __ __    2    0
+u_ d_ __    1    0
+u_ __ d_    0    0
+__ u_ d_   -1    0
+__ __ ud   -2    0
+``
+Note that for some we had a two choices, so we just pick any one of them and tick them off off from the table, which now looks like:
+``
+ +1  0 -1  m_L  m_S
+ u_ u_ __    1    1
+ u_ __ u_    0    1
+ __ u_ u_   -1    1
+ d_ d_ __    1   -1
+ d_ __ d_    0   -1
+ __ d_ d_   -1   -1
+ d_ u_ __    1    0
+ d_ __ u_    0    0
+ __ d_ u_   -1    0
+ __ ud __    0    0
+``
+
+Then for $^{3}P$ the choices are:
+* S = 2 so $m_S$ is either -1, 0  or 1
+* L = 1 (P) so $m_L$ ranges in -1, 0, 1
+so we have 9 possibilities for both together. We again verify that 9 such states are left matching those criteria, and tick them off, and so on.
+
+For the $m_S$, we have two electrons with spin up. The angular momentum of each electron is $1/2 \hbar$, and so given that we have two, the total is $1 \hbar$, so again we omit $\hbar$ and $m_S$ is 1.
+
+\Video[https://www.youtube.com/watch?v=doC9Z2S7lm8]
+{title=Term Symbols Example 1 by TMP Chem (2015)}
+{description=Carbon atom.}
+
+Bibliography:
+* https://youtu.be/DAgEmLWpYjs?t=1962 from <video Atomic Term Symbols by T. Daniel Crawford (2016)}>
 
 = Schrödinger equation solution for molecule
 {c}
@@ -1311,6 +1563,10 @@ There is also a time-energy <uncertainty principle>, because those two operators
 = Angular momentum operator
 {parent=Uncertainty principle}
 {wiki}
+
+= Quantum angular momentum
+{title2}
+{synonym}
 
 Basically the operators are just analogous to the classical ones e.g. the classical:
 $$
