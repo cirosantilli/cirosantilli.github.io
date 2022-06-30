@@ -33,6 +33,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
       * <SQLite>: https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON` unfortunately
       * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres 
       * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243 teaches us that in SQLite min and max are magic and guarantee that the matching row is returned. This allows us to answer: https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 with a deterministic version.
+      * https://stackoverflow.com/questions/586781/postgresql-fetch-the-rows-which-have-the-max-value-for-a-column-in-each-group/587209#587209 also present in simpler form at https://stackoverflow.com/questions/121387/fetch-the-rows-which-have-the-max-value-for-a-column-for-each-distinct-value-of/123481#123481 gives a very nice <OUTER JOIN> only solution! Incredible, very elegant.
 * <SQL transaction> examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on <PostgreSQL>, once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for <SQLite>, SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * <SQL isolation level example>{child}
@@ -301,6 +302,14 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 
 * https://stackoverflow.com/questions/329931/sql-select-join-is-it-possible-to-prefix-all-columns-as-prefix
 * https://stackoverflow.com/questions/13153344/in-a-join-how-to-prefix-all-column-names-with-the-table-it-came-from
+
+= INNER JOIN
+{c}
+{parent=JOIN (SQL)}
+
+= OUTER JOIN
+{c}
+{parent=JOIN (SQL)}
 
 = SELECT
 {disambiguate=SQL}
