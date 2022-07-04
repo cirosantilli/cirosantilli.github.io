@@ -12,10 +12,20 @@ Since TypeScript is not the default form of the language however, it inevitably 
 
 But in the end, as with other type of static linters, TypeScript generally transforms a few hard to debug runtime issues, into a bunch of stupid to solve compile time issues, which is generally a good thing.
 
-Examples under \a[typescript]. Run with:
+Examples under \a[typescript]. Run each one of them with:
 ``
 npx tsc example.ts
 node example.js
+``
+Helper:
+``
+tsr() (
+  # ts Run
+  f="$1"
+  npx tsc "$f"
+  node "${f%.*}.js"
+)
+tsr example.ts
 ``
 * \a[typescript/inferFromInit.ts]. Should fail with:
   \Q[hello.ts:2:1 - error TS2322: Type 'string' is not assignable to type 'number]
@@ -26,7 +36,7 @@ node example.js
   npx tsc jsFromTs.ts && node jsFromTs.js
   ``
   TODO we are unable to make it typecheck that require, i.e. make that fail, but we've seen cases in complex codebases where that did happen and https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html has infinite information on supporting it. So... how to make it fail??
-* \a[typescript/functionArguments.ts]: basic argument tests
+* \a[typescript/functionArgument.ts]: basic argument tests
   * \a[typescript/functionOptionalArgument.ts]: `f(n?: number)`
 * \a[typescript/functionOptions.ts]: `f({n, s}: {n: number, s: string})`
 
