@@ -60,13 +60,13 @@ heroku restart
 {parent=Heroku}
 
 Arghh, why so hard... tested 2021:
+* <Sendgrid>: this one is the first one I got working on free tier!
 * Mailgun: the Heroku add-on creates a free plan. This is smaller than the flex plan and does not allow custom domains, and is not available when signing up on mailgun.com directly: https://help.mailgun.com/hc/en-us/articles/203068914-What-Are-the-Differences-Between-the-Free-and-Flex-Plans- And without custom domains you cannot send emails to anyone, only to people in the 5 manually whitelisted list, thus making this worthless. Also, gmail is not able to verify the DNS of the sandbox emails, and they go to spam.
 
   Mailgun does feel good otherwise if you are willing to pay. Their Heroku integration feels great, exposes everything you need on environment variables straight away.
 * CloudMailin: does not feel as well developed as Mailgun. More focus on receiving. Tried adding TXT xxx._domainkey.ourbigbook.com and CNAME mta.ourbigbook.com entires with custom domain to see if it works, took forever to find that page... https://www.cloudmailin.com/outbound/domains/xxx Domain verification requires a bit of human contact via email.
 
   They also don't document their Heroku usage well. The envvars generated on Heroku are useless, only to login on their web UI. The send username and password must be obtained on their confusing web ui.
-* Sendgrid: OK, this one is the first one I got working on free tier. Saw the email on gmail!!! Just verified automatically after adding like 5 DNS records, but everything just worked. <Microsoft Outlook> did put it into junk though, but I had a more or less random test message, maybe it was their stupid AI? Yahoo also worked fine. 100 emails a day is not insane, but it is forever, I'm happy with that.
 
 = Compiler
 {parent=Software}
