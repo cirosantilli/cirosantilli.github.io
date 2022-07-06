@@ -11,6 +11,28 @@
 = Advances
 {parent=ourbigbook.com}
 
+= Email verification and reCAPTCHA signup protection
+{parent=Advances}
+
+Added this basic but fundamental protection layer to the website.
+
+The email setup will of course be reused when notifications are eventually implemented.
+
+Currently using <SendGrid> as the email provider. Very easy to setup, and has a free plan.
+
+Adding <reCAPTCHA> immediately after email is a must otherwise an attacker could send infinitely many emails to random addresses, which would lead to the domain being marked as spam. I was pleasantly surprised about how easy the integration ended up being.
+
+= Issue tracker
+{parent=Advances}
+
+Every article now has a (very basic) GitHub-like issue tracker. Comments now go under issues, and issues go under articles. Issues themselves are very similar to articles, with a title and a body.
+
+This was part of 1.0, but not the first priority, but I did it now anyways because I'm trying to do all the database changes ASAP as I'm not in the mood to write database migrations.
+
+Here's an example:
+* https://ourbigbook.com/donald-trump/atomic-orbital a specific issue about the article "Atomic Orbital" by Donald Trump
+* https://ourbigbook.com/go/issues/0/donald-trump/atomic-orbital list of issues about the article "Atomic Orbital" by Donald Trump
+
 = Insane links and parents
 {parent=Advances}
 
@@ -50,19 +72,14 @@ This seemed somewhat easy at first, so I started it as a way of procrastinating 
 
 But well, it is done!
 
-= Issue tracker
-{parent=Advances}
-
-Every article now has a (very basic) GitHub-like issue tracker. Comments now go under issues, and issues go under articles. Issues themselves are very similar to articles, with a title and a body.
-
-This was part of 1.0, but not the first priority, but I did it now anyways because I'm trying to do all the database changes ASAP as I'm not in the mood to write database migrations.
-
 = Next steps
 {parent=ourbigbook.com}
 
-Email verification for signup. This will also get an emailing basis going, which will later be used for a later implementation of notifications. Notifications not for next sprint though.
+Improve article editing which is very buggy and inconvenient!
 
-Then improve the article editing process.
+I'll also look into some more likely easy but very important topic improvements:
+* https://github.com/cirosantilli/ourbigbook/issues/256
+* https://github.com/cirosantilli/ourbigbook/issues/255
 
 = Misc tech
 {parent=7}
