@@ -8,18 +8,18 @@ Quantum is getting hot in 2019, and even <Ciro Santilli> got a bit excited: <qua
 
 No useful algorithm has been economically accelerated by quantum yet as of 2019, only <quantum supremacy>[useless ones], but <quantum computing player>[the bets are on, big time].
 
-To get a feeling of this, just have a look at the insane number of startups that are already developing <quantum algorithms> for hardware that doesn't/barely exists! https://quantumcomputingreport.com/players/privatestartup (https://web.archive.org/web/20191223175204/https://quantumcomputingreport.com/players/privatestartup/[archive]). Some feared we might be in a bubble: https://www.reddit.com/r/QuantumComputing/comments/lf1vp2/comment/ibuukcq/?utm_source=reddit&utm_medium=web2x&context=3[].
+To get a feeling of this, just have a look at the insane number of startups that are already developing <quantum algorithms> for hardware that doesn't/barely exists! https://quantumcomputingreport.com/players/privatestartup (https://web.archive.org/web/20191223175204/https://quantumcomputingreport.com/players/privatestartup/[archive]). Some feared we might be in a bubble: <Are we in a quantum computing bubble?
 
 To get a basic idea of what programming a quantum computer looks like start by reading: <quantum computing is just matrix multiplication>{full}.
 
-= How to program a quantum computer
+= Programmer's model of quantum computers
 {parent=Quantum computing}
 
-= Quantum computing is just matrix multiplication
+= How to program a quantum computer
 {synonym}
 {title2}
 
-= Programmer's model of quantum computers
+= Quantum computing is just matrix multiplication
 {synonym}
 {title2}
 
@@ -31,7 +31,7 @@ a concrete and precise <hello world> operation can be understood in 30 minutes.
 
 Although there are several <quantum computer physical implementations>[types of quantum computer] under development, there exists a single high level model that represents what any of those computers can do, and we are going to explain that model here.
 
-Beyond that basic model, programmers only may have to consider the <quantum logic gates are needed for physical implementation>[imperfections of their hardware], but the starting point will almost always be this basic model, and tooling that automates mapping the high level model to real hardware considering those imperfections (i.e. compilers) is already getting better and better.
+Beyond that basic model, programmers only may have to consider the <quantum logic gates are needed for physical implementation>[imperfections of their hardware], but the starting point will almost always be this basic model, and tooling that automates mapping the high level model to real hardware considering those imperfections (i.e. <quantum compilers>) is already getting better and better.
 
 This model is very simple to understand, being only marginally more complex than that of a classical computer, see also: https://quantumcomputing.stackexchange.com/questions/6639/is-my-background-sufficient-to-start-quantum-computing/14317#14317
 
@@ -236,8 +236,17 @@ Toy/test/tought experiment algorithm.
 {title2=1994}
 {wiki}
 
-= Quantum error correction
+= Quantum compilation
 {parent=Quantum computing}
+{wiki}
+
+= Quantum compiler
+{synonym}
+
+Software that maps higher level languages like <Qiskit> into actual quantum circuits.
+
+= Quantum error correction
+{parent=Quantum compilation}
 {wiki}
 
 Technique that uses multiple non-<ideal> qubits (physical qubits) to simulate/produce one perfect qubit (logical).
@@ -366,10 +375,16 @@ This is a good read: https://quantumai.google/hardware/datasheet/weber.pdf May 1
 {title=Google Sycamore Weber quantum computer connectivity graph}
 {description=Weber is a specific processor of the Sycamore family. From this we see it clearly that qubits are connected to at most 4 other qubits, and that the full topology is not just a simple rectangle.}
 
-= IBM quantum computing
+= IBM Quantum Computing
 {c}
 {parent=Organization developing superconducting quantum computer}
 {tag=IBM}
+
+= IBM Q
+{title2}
+{synonym}
+
+The term "IBM Q" has been used in some promotional material as of 2020, e.g.: https://www.ibm.com/mysupport/s/topic/0TO50000000227pGAA/ibm-q-quantum-computing?language=en_US though the fuller form "IBM Quantum Computing" is somewhat more widely used.
 
 = IBM quantum computer
 {c}
@@ -735,6 +750,20 @@ Co-founder of <IonQ>. Cool dude. Starts with basic background we already know no
 
 Merger between <Cambridge Quantum Computing>, which does <quantum software>, and <Honeywell Quantum Solutions>, which does the hardware.
 
+= Quantinuum hardware
+{c}
+{parent=Quantinuum}
+
+= Quantinuum H1
+{c}
+{parent=Quantinuum hardware}
+
+= Quantinuum H1-2
+{c}
+{parent=Quantinuum hardware}
+
+E.g.: https://www.quantinuum.com/pressrelease/demonstrating-benefits-of-quantum-upgradable-design-strategy-system-model-h1-2-first-to-prove-2-048-quantum-volume from 2021.
+
 = Cambridge Quantum Computing
 {c}
 {parent=quantinuum}
@@ -1055,7 +1084,7 @@ So for example in the case of a <photonic quantum computer>, you are not able to
 
 One direct practical reason is that we need to map the matrix to real quantum hardware somehow, and all quantum hardware designs so far and likely in the future are gate-based: you manipulate a small number of qubits at a time (2) and add more and more of such operations.
 
-While there are "quantum compilers" to increase the portability of quantum programs, it is to be expected that programs manually crafted for a specific hardware will be more efficient just like in classic computers.
+While there are "<quantum compilers>" to increase the portability of quantum programs, it is to be expected that programs manually crafted for a specific hardware will be more efficient just like in classic computers.
 
 TODO: is there any clear reason why computers can't beat humans in approximating any unitary matrix with a gate set?
 
@@ -1197,6 +1226,37 @@ It is also possible to carry out <quantum computing> without <qubits> using proc
 As of 2020, these approaches seem less developed/promising, but who knows.
 
 These computers can be seen as analogous to classical non-quantum <analog computers>.
+
+= Quantum computer benchmark
+{parent=Quantum computing}
+{wiki}
+
+One important area of research and development of <quantum computing> is the development of benchmarks that allow us to compare different quantum computers to decide which one is more powerful than the other.
+
+Ideally, we would like to be able to have a single number that predicts which computer is more powerful than the other for a wide range of algorithms.
+
+However, much like in <CPU> benchmarking, this is a very complex problem, since different algorithms might perform differently in different architectures, making it very hard to sum up the architecture's capabilities to a single number as we would like.
+
+The only thing that is directly comparable across computers is how two machines perform for a single algorithm, but we want a single number that is representative of many algorithms.
+
+For example, the number of qubits would be a simple naive choice of such performance predictor number. But it is very imprecise, since other factors are also very important:
+* qubit error rate
+* coherence time, which determines the maximum circuit depth
+* qubit connectivity. Can you only connect to 4 neighbouring qubits in a 2D plane? Or to every other qubit equally as well?
+
+<Quantum volume> is another less naive attempt at such metric.
+
+= Quantum volume
+{parent=Quantum computer benchmark}
+{wiki}
+
+= Quantum computing market
+{parent=Quantum computing}
+
+= Are we in a quantum computing bubble?
+{parent=Quantum computing market}
+
+
 
 = Post-quantum cryptography
 {parent=Quantum computing}
