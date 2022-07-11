@@ -66,7 +66,7 @@ const user3Follows = await user3.getFollows({order: [['name', 'ASC']]})
 assert.strictEqual(user3Follows[0].name, 'user0');
 assert.strictEqual(user3Follows.length, 1);
 
-// Same but with explicit id.
+// Find all users that a user follows with explicit id.
 {
   const user0Follows = (await User.findOne({
     where: {id: user0.id},
