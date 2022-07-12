@@ -89,31 +89,56 @@ assert.strictEqual(batTagsNoJoin[1].name, 'mammal');
 assert.strictEqual(batTagsNoJoin.length, 2);
 assert.strictEqual(await bat.countTags(), 2)
 
-// Same as get but with the animal ID instead of the model object.
+// Same as get but with the animal name instead of the model object.
+// This is almost always what you want to use in a website query,
+// where the input is usually some unique name.
 {
-  const batTags = await Tag.findAll({
-    include: [{
-      model: Animal,
-      where: { id: bat.id },
-    }],
-    order: [['name', 'ASC']],
-  })
-  assert.strictEqual(batTags[0].name, 'flying');
-  assert.strictEqual(batTags[0].Animals[0].species, 'bat');
-  assert.strictEqual(batTags[0].Animals.length, 1);
-  assert.strictEqual(batTags[1].name, 'mammal');
+  async function getTags(species, opts={}) {
+    return Tag.findAll(
+      Object.assign({
+        include: [{
+          model: Animal,
+          where: { species },
+        }],
+        order: [['name', 'ASC']],
+      }, opts)
+    )
+  }
+  rows = await getTags('bat')
+  common.assertEqual(rows, [
+    { name: 'flying' },
+    { name: 'mammal' },
+  ])
   // We can aslo access bat data here.
   // But note that dog, who also has tag mammal, is missing
-  // because the where selects it out.
-  assert.strictEqual(batTags[1].Animals[0].species, 'bat');
-  assert.strictEqual(batTags[1].Animals.length, 1);
-  assert.strictEqual(batTags.length, 2);
+  // because the where selects it out. So we generally never want to do that.
+  // like this.
+  assert.strictEqual(rows[0].Animals[0].species, 'bat');
+  assert.strictEqual(rows[0].Animals.length, 1);
+  assert.strictEqual(rows[1].Animals[0].species, 'bat');
+  assert.strictEqual(rows[1].Animals.length, 1);
+
+  // TODO is subQuery: false ever needed in the following cases? It was in some other related cases witih limit.
+  // Would need to understand the subQuery break a bit better to deciede.
+  rows = await getTags('bat', { limit: 1 })
+  common.assertEqual(rows, [
+    { name: 'flying' },
+  ])
+  rows = await getTags('bat', { order: [['name', 'DESC']] })
+  common.assertEqual(rows, [
+    { name: 'mammal' },
+    { name: 'flying' },
+  ])
+  rows = await getTags('dog', { limit: 1 })
+  common.assertEqual(rows, [
+    { name: 'mammal' },
+  ])
 }
 
-// Yet another way that can be more useful in nested includes.
+// Yet another way that can be useful in nested includes.
 {
   const batTags = (await Animal.findOne({
-    where: {id: bat.id},
+    where: { id: bat.id },
     include: [{
       model: Tag,
     }],
