@@ -28,7 +28,7 @@ Some glaring issues are listed at <the horrors of Sequelize>.
   * https://github.com/sequelize/sequelize/issues/5828
 * you must give `foreignKey` when using aliases, otherwise it fails subtely. That would be derived automatically.
 * https://stackoverflow.com/questions/41502699/return-flat-object-from-sequelize-with-association can't auto-flatten to reuse the database's `ORDER`
-* `limit` and `offset` don't work without `subQuery: false`
+* `limit` and `offset` don't work without `subQuery: false` when doing includes! It is just too buggy. Examples of this can be found e.g. under \a[nodejs/sequelize/many_to_many_same_model.js].
 * https://stackoverflow.com/questions/34059081/how-do-i-reference-an-association-when-creating-a-row-in-sequelize-without-assum hard to not duplicate foreign keys values everywhere
 * stack traces permanently broken or requiring non-obvious configs:
   * https://github.com/sequelize/sequelize/issues/8199#issuecomment-863943835
@@ -104,8 +104,9 @@ Overview of the examples:
       * https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
       * https://stackoverflow.com/questions/30308217/sequelize-find-by-association-through-manually-defined-join-table/69899876#69899876
     * \a[nodejs/sequelize/many_to_many_same_model.js]: association between a model and itself: users can follow other users. Related:
-      * https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize/67973948#67973948
       * https://stackoverflow.com/questions/43152180/node-sequelize-followering-following-relationship
+      * https://stackoverflow.com/questions/27065154/how-to-get-all-children-or-parents-in-a-many-to-many-association-if-one-model-re
+      * https://github.com/sequelize/sequelize/issues/8263
     * \a[nodejs/sequelize/many_to_many_same_model_super.js]
       * \a[nodejs/sequelize/find_duplicates.js]: https://stackoverflow.com/questions/71235548/how-to-find-all-rows-that-have-certain-columns-duplicated-in-sequelize/71235550#71235550
     * \a[nodejs/sequelize/many_to_many_super.js]: "Super many to many": https://sequelize.org/master/manual/advanced-many-to-many.html This should not exist and shows how bad this library is for associations, you need all that boilerplate in order to expose certain relationships that aren't otherwise exposed by a direct `hasMany` with implicit join table.
