@@ -1,5 +1,9 @@
 #!/usr/bin/env node
+
 // https://cirosantilli.com/sql-example
+//
+// We try to find the city of each country that has the most sales.
+
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common')
 const sequelize = common.sequelize(__filename, process.argv[2])
@@ -7,8 +11,6 @@ const sequelize = common.sequelize(__filename, process.argv[2])
 
 // Create tables and data.
 await common.drop(sequelize, `CitySales`)
-// This would normally be done with many to many since tagid and tagName are redundant.
-// We are doing it like this just to illustrate a post JOIN table state.
 await sequelize.query(`
 CREATE TABLE "CitySales" (
   "country" TEXT,

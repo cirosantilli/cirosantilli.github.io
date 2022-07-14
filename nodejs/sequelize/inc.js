@@ -27,4 +27,14 @@ console.error(integerName5.value);
 // So we do another find to get the updated value.
 const integerName6 = await IntegerNames.findOne({ where: { value: 6 } });
 assert.strictEqual(integerName6.name, 'five')
+
+// Can also do mass operation.
+await IntegerNames.increment('value', { where: {} })
+let rows = await IntegerNames.findAll({ order: [['value', 'ASC']] })
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 4 },
+  { value: 7 },
+])
+
 })().finally(() => { return sequelize.close() });

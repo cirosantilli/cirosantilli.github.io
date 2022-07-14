@@ -7,8 +7,6 @@ const sequelize = common.sequelize(__filename, process.argv[2])
 
 // Create tables and data.
 await common.drop(sequelize, `MyTable`)
-// This would normally be done with many to many since tagid and tagName are redundant.
-// We are doing it like this just to illustrate a post JOIN table state.
 await sequelize.query(`
 CREATE TABLE "MyTable" (
   "a" INTEGER PRIMARY KEY,
