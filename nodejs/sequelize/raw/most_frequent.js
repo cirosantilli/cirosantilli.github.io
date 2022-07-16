@@ -197,7 +197,7 @@ INSERT INTO "Sales" VALUES
 }
 
 // Find the city with the most sales in a given country, but considering
-// only the top n highest valued sales. Sort ties alphabetically.
+// only the top n highest valued sales in the country. Sort ties alphabetically.
 async function cityWithMostSalesInTopNForCountry(country, n) {
   return (await sequelize.query(`
 SELECT
@@ -206,22 +206,76 @@ SELECT
 FROM (
   SELECT *
   FROM "Sales"
-  WHERE "country" = '${country}'
+  WHERE "country" = :country
   ORDER BY "price" DESC
-  LIMIT ${n}
+  LIMIT :n
 ) AS "sub"
 GROUP BY "city"
 ORDER BY
   "cnt" DESC,
   "city" ASC
 LIMIT 1;
-`))[0]
+`,
+    {
+      replacements: {
+        country,
+        n,
+      }
+    }
+  ))[0]
 }
 await resetMostSalesInTopN()
+console.error(await cityWithMostSalesInTopNForCountry('uk', 3))
 common.assertEqual(await cityWithMostSalesInTopNForCountry('uk', 3), [
   // London has 2 total sales, Cambridge has 3. But over the top 3 highest valued sales,
   // London has 2 and Cambridge only 1, so London wins.
   { city: 'london', cnt: 2 },
+])
+common.assertEqual(await cityWithMostSalesInTopNForCountry('usa', 3), [
+  { city: 'cambridge', cnt: 2 },
+])
+
+// Find the city with the most sales for each country, but considering
+// only the top n highest valued sales in the country. Sort ties alphabetically.
+async function cityWithMostSalesInTopN(n) {
+  return (await sequelize.query(`
+SELECT "country", "city", "cnt"
+  FROM (
+    SELECT
+      "country",
+      "city",
+      COUNT(*) AS "cnt",
+      ROW_NUMBER() OVER (
+        PARTITION BY "country"
+        ORDER BY COUNT(*) DESC
+      ) AS "freqRank"
+    FROM (
+      SELECT
+        ROW_NUMBER() OVER (
+          PARTITION BY "country"
+          ORDER BY "price" DESC
+        ) AS "priceRank",
+        *
+      FROM "Sales"
+    ) AS "TopSales"
+    WHERE "TopSales"."priceRank" <= :n
+    GROUP BY "country", "city"
+  ) AS "TopCities"
+WHERE "TopCities"."freqRank" = 1
+ORDER BY
+  "country" ASC
+`,
+    {
+      replacements: {
+        n,
+      }
+    }
+  ))[0]
+}
+await resetMostSalesInTopN()
+common.assertEqual(await cityWithMostSalesInTopN(3), [
+  { country: 'uk',  city: 'london',    cnt: 2 },
+  { country: 'usa', city: 'cambridge', cnt: 2 },
 ])
 
 await sequelize.close();

@@ -2,7 +2,7 @@
 
 // https://cirosantilli.com/sql-example
 //
-// We try to find the city of each country that has the most sales.
+// We try to find the city of each country that has the highest individual sale.
 
 const { DataTypes, Op } = require('sequelize');
 const common = require('../common')
@@ -10,18 +10,18 @@ const sequelize = common.sequelize(__filename, process.argv[2])
 ;(async () => {
 
 // Create tables and data.
-await common.drop(sequelize, `CitySales`)
+await common.drop(sequelize, `Sales`)
 await sequelize.query(`
-CREATE TABLE "CitySales" (
+CREATE TABLE "Sales" (
   "country" TEXT,
   "city"    TEXT,
-  "sales"   INTEGER
+  "price"   INTEGER
 )
 `)
 async function reset() {
-  await sequelize.query(`DELETE FROM "CitySales"`)
+  await sequelize.query(`DELETE FROM "Sales"`)
   return sequelize.query(`
-INSERT INTO "CitySales" VALUES
+INSERT INTO "Sales" VALUES
   ('uk',     'london',     10),
   ('uk',     'manchester', 20),
   ('france', 'paris',      30),
@@ -31,6 +31,30 @@ INSERT INTO "CitySales" VALUES
 await reset()
 let rows, meta
 
+// Most powerful method with `ROW_NUMBER`, and works on both SQLite and PostgreSQL.
+// Results are returned by country alphabetically.
+// Resolves city ties by taking the first one alphabetically.
+;[rows, meta] = await sequelize.query(`
+SELECT *
+FROM (
+    SELECT
+      ROW_NUMBER() OVER (
+        PARTITION BY "country"
+        ORDER BY "price" DESC, "city" ASC
+      ) AS "rnk",
+      *
+    FROM "Sales"
+  ) sub
+WHERE
+  "sub"."rnk" = 1
+ORDER BY
+  "sub"."country" ASC
+`)
+common.assertEqual(rows, [
+  { city: 'lyon'      , price: 30 },
+  { city: 'manchester', price: 20 },
+])
+
 // DISTINCT ON
 if (sequelize.options.dialect === 'postgres') {
   // The ORDER BY must start with "country", otherwise in Postgres 13.5 it fails with
@@ -38,8 +62,8 @@ if (sequelize.options.dialect === 'postgres') {
   // https://www.reddit.com/r/PostgreSQL/comments/i79jph/help_understanding_select_distinct_on_expressions/
   ;[rows, meta] = await sequelize.query(`
 SELECT DISTINCT ON ("country") *
-FROM "CitySales"
-ORDER BY "country" ASC, "sales" DESC, "city" ASC
+FROM "Sales"
+ORDER BY "country" ASC, "price" DESC, "city" ASC
 `)
   common.assertEqual(rows, [
     // The city from France. We had two tied for the max, paris and lyon,
@@ -59,8 +83,8 @@ ORDER BY "country" ASC, "sales" DESC, "city" ASC
   // add a second min() to achieve that either because the docs mention:
   // > Only the built-in min() and max() functions work this way.
   ;[rows, meta] = await sequelize.query(`
-SELECT *, max("sales")
-FROM "CitySales"
+SELECT *, max("price")
+FROM "Sales"
 GROUP BY "country"
 ORDER BY "country" ASC
 `)
@@ -79,8 +103,8 @@ if (sequelize.options.dialect === 'postgres') {
   ;[rows, meta] = await sequelize.query(`
 SELECT * FROM (
   SELECT DISTINCT ON ("country") *
-  FROM "CitySales"
-  ORDER BY "country" ASC, "sales" DESC, "city" ASC
+  FROM "Sales"
+  ORDER BY "country" ASC, "price" DESC, "city" ASC
 ) AS t ORDER BY "t"."city" DESC
 `)
   common.assertEqual(rows, [
