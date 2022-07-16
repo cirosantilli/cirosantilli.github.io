@@ -56,18 +56,18 @@ ON CONFLICT ("value") DO UPDATE SET "name"=EXCLUDED."name"
 RETURNING "id", "value", "name", "inverse"
 `)
   common.assertEqual(rows, [
-    { id: 1, value: 2, name: 'TWO',    inverse: -2 },
-    { id: 2, value: 3, name: 'THREE',  inverse: -3 },
-    { id: 6, value: 7, name: 'SEVEN',  inverse: null },
+    { id: 1, value: 2, name: 'TWO',   inverse: -2 },
+    { id: 2, value: 3, name: 'THREE', inverse: -3 },
+    { id: 6, value: 7, name: 'SEVEN', inverse: null },
   ])
 
   // Final state.
   ;[rows, meta] = await sequelize.query(`SELECT * FROM "Integer" ORDER BY value ASC`)
   common.assertEqual(rows, [
-    { id: 1, value: 2, name: 'TWO',    inverse: -2 },
-    { id: 2, value: 3, name: 'THREE',  inverse: -3 },
-    { id: 3, value: 5, name: 'five',   inverse: -5 },
-    { id: 6, value: 7, name: 'SEVEN',  inverse: null },
+    { id: 1, value: 2, name: 'TWO',   inverse: -2 },
+    { id: 2, value: 3, name: 'THREE', inverse: -3 },
+    { id: 3, value: 5, name: 'five',  inverse: -5 },
+    { id: 6, value: 7, name: 'SEVEN', inverse: null },
   ])
 }
 

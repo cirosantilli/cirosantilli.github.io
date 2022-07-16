@@ -50,11 +50,17 @@ FROM (
     FROM "Sales"
   ) sub
 WHERE
-  "sub"."rnk" <= ${n}
+  "sub"."rnk" <= :n
 ORDER BY
   "sub"."country" ASC,
   "sub"."price" DESC
-`))[0]
+`,
+    {
+      replacements: {
+        n
+      }
+    }
+  ))[0]
 }
 common.assertEqual(await topSalesPerCountry(2), [
   { country: 'france', city: 'paris',  price: 30 },

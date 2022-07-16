@@ -31,11 +31,16 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * \a[nodejs/sequelize/raw/group_by_max_full_row.js]: here we try to get the full row of each group at which a given column reaches the max of the group
     * <Postgres>: has `SELECT DISCINTCT ON` which works perfectly if you only want one row in case of multiple rows attaining the max. `ON` is an extension to the standard unfortunately: https://www.postgresql.org/docs/9.3/sql-select.html#SQL-DISTINCT[] Docs specify that it always respects `ORDER BY` when selecting the row.
       * https://stackoverflow.com/questions/586781/postgresql-fetch-the-row-which-has-the-max-value-for-a-column asks it without the multiple matches use case
+        * https://stackoverflow.com/questions/586781/postgresql-fetch-the-rows-which-have-the-max-value-for-a-column-in-each-group/587209#587209 also present in simpler form at https://stackoverflow.com/questions/121387/fetch-the-rows-which-have-the-max-value-for-a-column-for-each-distinct-value-of/123481#123481 gives a very nice <OUTER JOIN> only solution! Incredible, very elegant.
       * https://dba.stackexchange.com/questions/171938/get-only-rows-with-max-group-value asks specifically the case of multiple matches to the max
-    * <SQLite>: https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON` unfortunately
+    * <SQLite>:
+      * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite
+        * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243 teaches us that in SQLite min and max are magic and guarantee that the matching row is returned
+        * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/72996649#72996649 <Ciro Santilli> uses the magic of `ROW_NUMBER`
+      * https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 get any full row without specifying which, we teach how to specify
+      * https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON`
+        * https://stackoverflow.com/questions/50846722/what-is-the-difference-between-postgres-distinct-vs-distinct-on/72997494#72997494 `DISTINCT` vs `DISTINCT ON`, somewhat related question
     * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres 
-    * https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243 teaches us that in SQLite min and max are magic and guarantee that the matching row is returned. This allows us to answer: https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 with a deterministic version.
-    * https://stackoverflow.com/questions/586781/postgresql-fetch-the-rows-which-have-the-max-value-for-a-column-in-each-group/587209#587209 also present in simpler form at https://stackoverflow.com/questions/121387/fetch-the-rows-which-have-the-max-value-for-a-column-for-each-distinct-value-of/123481#123481 gives a very nice <OUTER JOIN> only solution! Incredible, very elegant.
   * \a[nodejs/sequelize/raw/most_frequent.js]: illustrates a few variants of findind the <mode (statistics)>, including across GROUP
     * https://stackoverflow.com/questions/12235595/find-most-frequent-value-in-sql-column/72979899#72979899
   * \a[nodejs/sequelize/raw/group_by_max_n.js]: get the top N in each group
