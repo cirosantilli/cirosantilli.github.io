@@ -111,20 +111,23 @@ common.assertEqual(rows, [
 // WHERE IN pair. VALUES thing likely makes a temporary database.
 // https://stackoverflow.com/questions/10725901/select-query-by-pair-of-fields-using-an-in-clause
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE (value, name) IN (VALUES (3, 'three'), (5, 'five')) ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 5 },
+])
 
 // SELECT LIMIT
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT 2`)
-assert.strictEqual(rows[0].value, 2)
-assert.strictEqual(rows[1].value, 3)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 2 },
+  { value: 3 },
+])
 
 // SELECT LIMIT OFFSET
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT 1 OFFSET 2`)
-assert.strictEqual(rows[0].value, 5)
-assert.strictEqual(rows.length, 1)
+common.assertEqual(rows, [
+  { value: 5 },
+])
 
 // OFFSET without LIMIT.
 // Once again, SQL standard, why are you so worthless? Basic functionality not available.
@@ -135,9 +138,10 @@ if (sequelize.options.dialect === 'postgres') {
 } else if (sequelize.options.dialect === 'sqlite') {
   ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC LIMIT -1 OFFSET 1`)
 }
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 5 },
+])
 
 // COUNT and rename.
 ;[rows, meta] = await sequelize.query(`
@@ -162,32 +166,28 @@ assert.strictEqual(rows.length, 1)
 SELECT * FROM "IntegerNames" where value =
   (SELECT MAX(value) FROM "IntegerNames")
 `)
-assert.strictEqual(rows[0].value, 5)
-assert.strictEqual(rows[0].name, 'five')
-assert.strictEqual(rows.length, 1)
+common.assertEqual(rows, [
+  { value: 5, name: 'five' },
+])
 
 // UPDATE one row.
 await sequelize.query(`UPDATE "IntegerNames" SET value = 55 WHERE value = 5`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 2)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows[1].value, 3)
-assert.strictEqual(rows[1].name, 'three')
-assert.strictEqual(rows[2].value, 55)
-assert.strictEqual(rows[2].name, 'five')
-assert.strictEqual(rows.length, 3)
+common.assertEqual(rows, [
+  { value: 2, name: 'two' },
+  { value: 3, name: 'three' },
+  { value: 55, name: 'five' },
+])
 await reset()
 
 // UPDATE multiple rows.
 await sequelize.query(`UPDATE "IntegerNames" SET value = value + 1`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows[1].value, 4)
-assert.strictEqual(rows[1].name, 'three')
-assert.strictEqual(rows[2].value, 6)
-assert.strictEqual(rows[2].name, 'five')
-assert.strictEqual(rows.length, 3)
+common.assertEqual(rows, [
+  { value: 3, name: 'two' },
+  { value: 4, name: 'three' },
+  { value: 6, name: 'five' },
+])
 await reset()
 
 // UPDATE CASE WHEN
@@ -201,21 +201,19 @@ SET value = CASE
   ELSE value + 1 END
 `)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 1)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows[1].value, 3)
-assert.strictEqual(rows[1].name, 'three')
-assert.strictEqual(rows[2].value, 6)
-assert.strictEqual(rows[2].name, 'five')
-assert.strictEqual(rows.length, 3)
+common.assertEqual(rows, [
+  { value: 1, name: 'two' },
+  { value: 3, name: 'three' },
+  { value: 6, name: 'five' },
+])
 await reset()
 
 // DELETE rows that match some criteria.
 await sequelize.query(`DELETE FROM "IntegerNames" WHERE value > 2`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 2)
-assert.strictEqual(rows[0].name, 'two')
-assert.strictEqual(rows.length, 1)
+common.assertEqual(rows, [
+  { value: 2, name: 'two' },
+])
 await reset()
 
 // DELETE LIMIT.
@@ -227,9 +225,48 @@ await reset()
 await sequelize.query(`DELETE FROM "IntegerNames" WHERE id IN
   ( SELECT id FROM "IntegerNames" ORDER BY value ASC LIMIT 1 )`)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
-assert.strictEqual(rows[0].value, 3)
-assert.strictEqual(rows[1].value, 5)
-assert.strictEqual(rows.length, 2)
+common.assertEqual(rows, [
+  { value: 3 },
+  { value: 5 },
+])
+await reset()
+
+// Test without using the table.
+;[rows, meta] = await sequelize.query(`SELECT 1 AS "n"`)
+common.assertEqual(rows, [
+  { n: 1 },
+])
+
+// Multiple selects.
+;[rows, meta] = await sequelize.query(`SELECT 1 AS "n"; SELECT 2 AS "n";`)
+if (sequelize.options.dialect === 'postgres') {
+  common.assertEqual(rows, [
+    { n: 1 },
+    { n: 2 },
+  ])
+} else {
+  common.assertEqual(rows, [
+    { n: 1 },
+  ])
+}
+
+// Multiple updates. So here we understand that SQLite actually
+// only runs the first query if we give it multiple ones.
+await sequelize.query(`UPDATE "IntegerNames" SET value = 33 WHERE value = 3;UPDATE "IntegerNames" SET value = 55 WHERE value = 5;`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" ORDER BY value ASC`)
+if (sequelize.options.dialect === 'postgres') {
+  common.assertEqual(rows, [
+    { value: 2, name: 'two', },
+    { value: 33, name: 'three', },
+    { value: 55, name: 'five', },
+  ])
+} else {
+  common.assertEqual(rows, [
+    { value: 2, name: 'two', },
+    { value: 5, name: 'five', },
+    { value: 33, name: 'three', },
+  ])
+}
 await reset()
 
 })().finally(() => { return sequelize.close() });
