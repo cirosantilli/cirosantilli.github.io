@@ -52,6 +52,16 @@
 {synonym}
 {title2}
 
+= Biasing
+{parent=Electronics}
+{wiki}
+
+= Bias current
+{synonym}
+
+= Bias voltage
+{synonym}
+
 = Circuit diagram
 {parent=Electronics}
 {wiki}
@@ -89,16 +99,30 @@ Simple symmetric components:
 * `A`: <AC source>. Parameters:
   * `Hz`: frequency
   * `V`: peak voltage
+  e.g.:
+  ``
+  A_1Hz_2V
+  ``
+  If only one side is given, the other is assumed to be at a ground `G`.
 * `C`: <capacitor>
-* `D`: <DC source>. If only one side is given, the other is assumed to be at a ground
 * `G`: ground. Often used together with `D`, e.g.:
   ``
   D_10---R_10---G
   ``
   means applying a voltage of 10 V across a 10 Ohm <resistor>, which would lead to a current of 1 A
 * `L`: <inductor>
+* `MICROPHONE`. As a multi-letter symmetric component, you can connect the two wires anywhere, e.g.
+  ```
+  ---MICROPHONE---
+  ```
+  or:
+  ```
+  |
+  MICROPHONE
+      |
+  ```
+* `SPEAKER`
 * `R`: <resistor>
-* `V`: <Voltmeter> without explicit positive and negative sides
 * `X`: <Josephson junction>
 
 Asymmetric components have multiple letters indicating different ports. The capital letter indicates the device, and lower case letters the ports. The wires then go into the ports:
@@ -130,6 +154,19 @@ Asymmetric components have multiple letters indicating different ports. The capi
      |
   --caD
   ``
+* `pDn`: <DC source>. Ports:
+  * `p`: positive
+  * `n`: negative
+  E.g. a 10 V source with a 10 Ohm resistor would be:
+  ``
+  +---pD_10_m---+
+  |             |
+  +----R_10-----+
+  ``
+  If only one side is given, the other is assumed to be at a the ground `G`. We can also omit `p` and `m` in that case and assume that `p` is the one used, e.g. the above would be equivalent to:
+  ``
+  D_10---R_10---G
+  ``
 * `sgTd`: <transistor>
   * `s`: source
   * `g`: gate
@@ -151,8 +188,17 @@ Asymmetric components have multiple letters indicating different ports. The capi
   --Tsgd--
      |
   ``
-* `pVn`: <Voltmeter> with explicit positive and negative sides
 * `dIs`: <electric current> source. Electrons leave from `s` and go into `d`
+* `pVn`: <Voltmeter>. Ports:
+  * `p`: positive
+  * `n`: negative
+  If we don't need to specify explicit positive and negative sides, we can just use:
+  ```
+  ---V---
+  ```
+  without any ports. This is notably often the case for AC circuits.
+
+  Optionaly, we can also add the sides as in:
 
 Numbers characterizing components are put just next to each component with an underscore. When there is only one parameter, standard units are assumed, e.g.:
 ``
@@ -203,6 +249,10 @@ means an <AC source> with:
 {wiki}
 
 Main implementations: the same as <electronic switches>: <vacuum tubes> in the past, and <transistors> in the second half of the 20th century.
+
+\Video[https://www.youtube.com/watch?v=4ObzEft2R_g]
+{title=How to make an LM386 audio amplifier circuit by Afrotechmods (2017)}
+{description=Builds the curcuit on a <breadboard> from minimal components, including one discrete <transistor>. Then plays music from phone through headset cables into a <speaker>.}
 
 = Capacitor
 {parent=Electronic component}
