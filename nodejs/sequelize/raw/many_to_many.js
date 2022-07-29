@@ -15,7 +15,13 @@ await common.drop(sequelize, 'AnimalTag')
 await common.drop(sequelize, 'Animal')
 await common.drop(sequelize, 'Tag')
 await Promise.all([
-  `CREATE TABLE "Animal" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
+  `
+CREATE TABLE "Animal" (
+id INTEGER PRIMARY KEY,
+name TEXT NOT NULL UNIQUE,
+color TEXT NOT NULL
+)
+`,
   `CREATE TABLE "Tag" (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE)`,
 ].map(s => sequelize.query(s)))
 await sequelize.query(`
@@ -40,10 +46,10 @@ async function reset() {
   await Promise.all([
     `
 INSERT INTO "Animal" VALUES
-(0, 'dog'),
-(1, 'cat'),
-(2, 'hawk'),
-(3, 'bee')
+(0, 'dog',  'white'),
+(1, 'cat',  'black'),
+(2, 'hawk', 'yellow'),
+(3, 'bee',  'yellow')
 `,
     `
 INSERT INTO "Tag" VALUES
@@ -286,6 +292,115 @@ common.assertEqual(rows, [
   { name: 'mammal', cnt: 2 },
 ])
 
+// Get all animals that have both of the tags 'mammal' and 'vertebrate'.
+// https://stackoverflow.com/questions/3798355/sql-query-for-multiple-tag-inclusion
+// https://stackoverflow.com/questions/3119840/selecting-an-item-matching-multiple-tags
+// https://stackoverflow.com/questions/3876240/need-help-with-sql-query-to-find-things-tagged-with-all-specified-tags
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Animal".*
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id AND
+  "Tag".name IN ('mammal', 'vertebrate')
+GROUP BY
+  "Animal".id
+HAVING
+  COUNT("Tag".id) = 2
+ORDER BY "Animal".id ASC
+`)
+common.assertEqual(rows, [
+  { name: 'dog', color: 'white' },
+  { name: 'cat', color: 'black' },
+])
+
+// Get all animals with the tag "vertebrate".
+// Then, for each of them, also then check if each of them also has the tag "flying".
+//
+// The Animals with tag "vertebrate" are returned even if they don't have the tag "flying".
+// "flying" is ony additionally indicated somehow.
+//
+// This database model is not very natural for this query. A more natural use case would be something like:
+// * list all users that a given user follows
+// * and then tell me if I, the logged in user, follow each one of those followed users or not
+// Or equivalently with the same difficulty but one less join:
+// * list the 10 newest users
+// * second step same as above
+// But both cases are analogous I believe.
+//
+// The hard part about this query is how to not get multiple Animal entries for each Tag2.
+//
+// What we woule really like to write would be something like:
+//
+//     LEFT OUTER JOIN "AnimalTag" AS "AnimalTag2"
+//       ON "Animal"."id" = "AnimalTag2"."animalId"
+//       AND "Tag2".name = 'flying'
+//     LEFT OUTER JOIN "Tag" AS "Tag2"
+//       ON "AnimalTag2"."tagId" = "Tag2".id
+//
+// to get the NULL immmediately on the expansion, but we can't use Tag2 before defining
+// it in the following AS.
+//
+// TODO any way to do it without either subquery or GROUP BY? Could not find a JOIN-only way.
+//
+// TODO stack exchange questions? Beyond my Google-fu!
+
+// Solution 1: subquery.
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Animal".name AS "Animal_name",
+  "AnimalTag2"."id" AS "Tag2_id"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+  AND "Tag".name = 'vertebrate'
+LEFT OUTER JOIN (
+  SELECT *
+  FROM "AnimalTag"
+  INNER JOIN "Tag"
+    ON "AnimalTag"."tagId" = "Tag".id
+    AND "Tag".name = 'flying'
+) AS "AnimalTag2"
+  ON "Animal"."id" = "AnimalTag2"."animalId"
+ORDER BY "Animal".id ASC
+`)
+console.error(rows);
+common.assertEqual(rows, [
+  { Animal_name: 'dog',  Tag2_id: null },
+  { Animal_name: 'cat',  Tag2_id: null },
+  { Animal_name: 'hawk', Tag2_id: 0 },
+])
+
+// Solution 2: GROUP BY and MAX to ignore the NULLs when there is one non-NULL present.
+;[rows, meta] = await sequelize.query(`
+SELECT
+  "Animal".name AS "Animal_name",
+  MAX("Tag2".name) AS "Tag2_name"
+FROM "Animal"
+INNER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+INNER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag".id
+  AND "Tag".name = 'vertebrate'
+LEFT OUTER JOIN "AnimalTag" AS "AnimalTag2"
+  ON "Animal"."id" = "AnimalTag2"."animalId"
+LEFT OUTER JOIN "Tag" AS "Tag2"
+  ON "AnimalTag2"."tagId" = "Tag2".id
+GROUP BY
+  "Animal"."id"
+ORDER BY "Animal".id ASC
+`)
+console.error(rows);
+common.assertEqual(rows, [
+  { Animal_name: 'dog',  Tag2_name: null },
+  { Animal_name: 'cat',  Tag2_name: null },
+  { Animal_name: 'hawk', Tag2_name: 'flying' },
+])
+
 // Queries that modify data.
 
 // UPDATE all tags of dog to uppercase.
@@ -342,7 +457,7 @@ await reset()
 }
 
 // UPDATE all tags of dog to uppercase.
-// This is a simpler type of UPDATE where we just select what ill be updated,
+// This is a simpler type of UPDATE where we just select what will be updated,
 // we don't need data from the JOIN for the update.
 //
 // Portable subquery version.
