@@ -314,6 +314,7 @@ assert.strictEqual(await flying.countAnimals(), 1)
 // Count how many tags each animal has: GROUP BY + COUNT aggregate.
 // Order return by animals with most tags first.
 // INNER JOIN due to `required: true`, so 0 counts are not present.
+// https://stackoverflow.com/questions/29869077/how-to-count-a-group-by-query-in-nodejs-sequelize
 rows = await Animal.findAll({
   attributes: [
     'species',

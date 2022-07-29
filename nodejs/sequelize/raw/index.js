@@ -169,6 +169,17 @@ SELECT * FROM "IntegerNames" where value =
 common.assertEqual(rows, [
   { value: 5, name: 'five' },
 ])
+if (sequelize.options.dialect === 'sqlite') {
+  // I think this is guaranteed to work as an SQLite extension.
+  // https://stackoverflow.com/questions/48326957/row-with-max-value-per-group-sqlite/48328243#48328243
+  ;[rows, meta] = await sequelize.query(`
+SELECT *, MAX(value) FROM "IntegerNames"
+`)
+  common.assertEqual(rows, [
+    { value: 5, name: 'five' },
+  ])
+}
+
 
 // UPDATE one row.
 await sequelize.query(`UPDATE "IntegerNames" SET value = 55 WHERE value = 5`)
