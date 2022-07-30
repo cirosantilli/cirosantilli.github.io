@@ -218,11 +218,24 @@ Also worth checking:
 {parent=Alternatives}
 
 TODO gotta research those more:
-* https://roamresearch.com/ no open graphs
-* https://nesslabs.com/roam-research-alternatives a bunch of open source alternatives to it:
+* https://roamresearch.com/ no public graphs
+* https://nesslabs.com/roam-research-alternatives a bunch of open source alternatives to it
+  * Trilium Notes https://github.com/zadam/trilium[]. Notable project. Tree based organization at last. Amazing WYSIWYG, including maths and tables, plus insane plugins like canvas mode, and specific file formats like code/mermaid diagrams/drawing mode. Version history. No multiuser features. Except for that, could have been a good starting point of an online multiuser thing! Only possible to see one page at a time on output? HTML export? There is a hosted way: https://github.com/zadam/trilium/wiki/Sharing
+
+    Architecture: runs on local SQLite database via better-sqlite3. Data apparently stored in SQLite database at `~/.local/share/trilium-data`, no raw files. Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_contents'`. WYSIWYG based on https://ckeditor.com/ which is a dependency. It is kind of cool that the view in which you view the output is exactly the same as the one you edit in, and there is no intermediate format, just the HTML.
+
+    Their tree based approach does have a problem however for our use case: every level forces is a scope. Which makes it basically impossible to reliably match topics across users.
+  * Stroll https://giffmex.org/stroll/stroll.html[]. How to publish? How to see tree?
+  * tiddlyroam https://joekroese.github.io/tiddlyroam/ graph rather than text searchable ToC. Public instance? Multiuser?
+  * Athens https://github.com/athensresearch/athens rudimentary WYSIWYG
+  * Logseq https://github.com/logseq/logseq no web interface/centralized server?
+  * Zim https://zim-wiki.org/ Local only. WYSIWYG.
 * https://itsfoss.com/obsidian-markdown-editor[]. Closed source.
 * https://www.notion.so/
-One major point is that most of those personal knowledge databases have very little/no focus on public publishing, which is the primary focus of OurBigBook.com.
+Major downsides that most of those personal knowledge databases have:
+* very little/no focus on public publishing, which is the primary focus of OurBigBook.com
+* either limited or no multiuser features, e.g. edit protection and cross user topics
+* graph based instead of tree based. For books we need a single clear ordering of a tree. Graph should come as a secondary thing through tags.
 
 = Learning management systems
 {parent=Alternatives}
