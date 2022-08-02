@@ -1,15 +1,63 @@
-= Ciro's Edict 8
+= Ciro's Edict #8
 {numbered}
 {scope}
 {title2=2022-08-02}
 
 <Cirists>,
 
+This month included several exciting extremelly user visible web developments.
+
+I can't help to feel how the speed of developments reflects my relative mastery of the stack, I'm very happy about how it went.
+
 = OurBigBook.com
 {parent=8}
 
 = Advances
 {parent=OurBigBook.com}
+
+= Article metadata shown next to every header
+{parent=Advances}
+
+This is a major feature: we have now started to inject the following buttons next to every single pre-rendered header:
+* "Like"
+* "By Other On The Same Topic"
+* "Discussions", i.e. the issue tracker for the header
+* "Create my own version" or "View my version of the page" or "Edit" button depending on wether the user can edit or already has a version of the article or not
+
+This crucial feature makes it clear to every new user that every single header has its own separate metadata, which is a crucial idea of the website.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_metadata_on_every_header.png]
+{title=Screenshot showing metadata next to each header}
+{description=The page is: https://ourbigbook.com/donald-trump/chemistry[]. Note how even the subheaders "Chemical element" and "Hydrogen" show the metadata.}
+{height=800}
+
+= List topics on home page
+{parent=Advances}
+
+The new default homepage for a logged out user how shows a list of the topics with the most articles.
+
+This is a reasonable choice for default homepage, and it immediately exposes users to this central feature of the website: the topic system.
+
+Doing this required in particular calculating the best title for a topic, since it is possible to have different titles with the same ID, the most common way being with capitalization changes, e.g.:
+``
+JavaScript
+Javascript
+``
+would both have topic ID `javascript`.
+
+With this in place we also added the preferred topic title to the top topic page.
+
+The algorithm chosen is to pick the top 10 most upvoted topics, and select the most common title from amongst them. This should make topic title vandalism quite hard. This was made in a single <SQL> query, and became the most complext SQL query <Ciro Santilli> has ever written so far: https://twitter.com/cirosantilli2/status/1549721815832043522
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_topic_index_page.png]
+{title=Screenshot showing the list of topics}
+{description=The page is: https://ourbigbook.com[] for the logged out user, https://ourbigbook.com/go/topics[] for the logged in user.}
+{height=800}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/OurBigBook_topic_page_with_title.png]
+{title=Screenshot showing a topic page}
+{description=The page is: https://ourbigbook.com/go/topic/vector-space[]. Before this sprint, we didn't have the "Vector Space" at the top, as it wasn't necessarily trivial to determine what the preferred title would be.}
+{height=400}
 
 = Article size and count limits
 {parent=Advances}
@@ -23,8 +71,10 @@ The limits can be increased by admin users from the web UI, and will be done gen
 
 Editor. As last time. And the one before. But now it is for real.
 
-I guess ended up doing all the "how things should look like" features because they clarify what the website is supposed to do, and I already have my own data to bring it alive.
+I guess ended up doing all the "how things should look like" features because they clarify what the website is supposed to do, and I already have my own content to bring it alive via `ourbigbook --web` upload.
 
-But yeah, nobody else is never going to contribute as things are! <WYSIWYG> is a must.
+But now I honestly feel that all the major elements of "how things should look like" have fallen into place.
 
-I was really impressed by <Trillium Notes>. I should have checked it long ago. The UI is amazing, and being all Js-based, could potentially be reused for our purposes. Single-person/full trust notetaking only for now however.
+And yeah, nobody else is never going to contribute as things are! <WYSIWYG> is a must.
+
+I was really impressed by <Trillium Notes>. I should have checked it long ago. The UI is amazing, and being all Js-based, could potentially be reused for our purposes. The project itself is a single-person/full trust notetaking only for now however, so not a direct replacement to OurBigBook.
