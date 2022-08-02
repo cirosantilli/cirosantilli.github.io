@@ -711,15 +711,22 @@ Version history.
 
 No multiuser features. Except for that, could have been a good starting point of an online multiuser thing such as <OurBigBook.com>!
 
-Only possible to see one page at a time on output? HTML export? There is a hosted way: https://github.com/zadam/trilium/wiki/Sharing
+Only possible to see one page at a time on output? Output chunking is a major feature of <OurBigBook>, I'm so proud.
 
- heir tree based approach does have a problem however for the <OurBigBook.com> use case of sharing topics across users: every level forces is a scope. Which makes it basically impossible to reliably match topics across users.
+Their tree based approach does have a problem however for the <OurBigBook.com> use case of sharing topics across users: every level forces is a scope. Which makes it basically impossible to reliably match topics across users.
+
+HTML export keeps all data as HTMl is their native format. The files are mostly visible, but there is some CSS missing, it is not 100% like editor, notaby math is broken. There is also a hosted way of exposing: https://github.com/zadam/trilium/wiki/Sharing[].
+
+Markdown export warns:
+\Q[this preserves most of the formatting.]
 
 Architecture: runs on local SQLite database via better-sqlite3. Data apparently stored in SQLite database at `~/.local/share/trilium-data`, no raw files.
 
-Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_contents'`.
+Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_contents'`. HTML is their native storage format, quite interesting.
 
 WYSIWYG based on https://ckeditor.com/ which is a dependency. It is kind of cool that the view in which you view the output is exactly the same as the one you edit in, and there is no intermediate format, just the HTML.
+
+Math is <KaTeX> based.
 
 = HyperCard
 {c}
