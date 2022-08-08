@@ -243,10 +243,10 @@ common.assertEqual(rows, [
 await reset()
 
 // Test without using the table.
+
+// Minimal.
 ;[rows, meta] = await sequelize.query(`SELECT 1 AS "n"`)
-common.assertEqual(rows, [
-  { n: 1 },
-])
+common.assertEqual(rows, [ { n: 1 }, ])
 
 // Multiple selects.
 ;[rows, meta] = await sequelize.query(`SELECT 1 AS "n"; SELECT 2 AS "n";`)
@@ -279,5 +279,71 @@ if (sequelize.options.dialect === 'postgres') {
   ])
 }
 await reset()
+
+// Add
+;[rows, meta] = await sequelize.query(`SELECT 2 + 3 AS "n"`)
+common.assertEqual(rows, [ { n: 5 }, ])
+
+// Multiply
+;[rows, meta] = await sequelize.query(`SELECT 2 * 3 AS "n"`)
+common.assertEqual(rows, [ { n: 6 }, ])
+
+// Subtract
+;[rows, meta] = await sequelize.query(`SELECT 2 - 3 AS "n"`)
+common.assertEqual(rows, [ { n: -1 }, ])
+
+// Divide
+;[rows, meta] = await sequelize.query(`SELECT 5 / 2 AS "n"`)
+common.assertEqual(rows, [ { n: 2 }, ])
+
+// String
+;[rows, meta] = await sequelize.query(`SELECT 'abc' AS "n"`)
+common.assertEqual(rows, [ { n: 'abc' }, ])
+
+// String concatenation
+;[rows, meta] = await sequelize.query(`SELECT 'ab' || 'cd' AS "n"`)
+common.assertEqual(rows, [ { n: 'abcd' }, ])
+
+// LIKE
+;[rows, meta] = await sequelize.query(`SELECT 'abcd' LIKE 'ab%' AS "n"`)
+if (sequelize.options.dialect === 'postgres') {
+  common.assertEqual(rows, [ { n: true }, ])
+} else {
+  common.assertEqual(rows, [ { n: 1 }, ])
+}
+;[rows, meta] = await sequelize.query(`SELECT 'abcd' LIKE 'a' AS "n"`)
+if (sequelize.options.dialect === 'postgres') {
+  common.assertEqual(rows, [ { n: false }, ])
+} else {
+  common.assertEqual(rows, [ { n: 0 }, ])
+}
+
+// REPLACE
+;[rows, meta] = await sequelize.query(`SELECT REPLACE('aabbccbb', 'bb', 'B') AS "n"`)
+common.assertEqual(rows, [ { n: 'aaBccB' }, ])
+
+// LENGTH
+;[rows, meta] = await sequelize.query(`SELECT LENGTH('abca') AS "n"`)
+common.assertEqual(rows, [ { n: 4 }, ])
+
+// SUBSTR(string, start, length)
+;[rows, meta] = await sequelize.query(`SELECT SUBSTR('abcde', 3, 2) AS "n"`)
+common.assertEqual(rows, [ { n: 'cd' }, ])
+;[rows, meta] = await sequelize.query(`SELECT SUBSTR('abcde', 3) AS "n"`)
+common.assertEqual(rows, [ { n: 'cde' }, ])
+
+// Remove last n chars.
+
+  // https://stackoverflow.com/questions/52647648/remove-last-n-chars-of-a-varchar-column/73262779#73262779
+
+  // SUBSTR + LENGTH to remove a known suffix of length 2.
+  ;[rows, meta] = await sequelize.query(`SELECT SUBSTR('abcde', 1, LENGTH('abcde') - 2) AS "n"`)
+  common.assertEqual(rows, [ { n: 'abc' }, ])
+
+  // LEFT PostgreSQL function
+  if (sequelize.options.dialect === 'postgres') {
+    ;[rows, meta] = await sequelize.query(`SELECT LEFT('abcde', -2) AS "n"`)
+    common.assertEqual(rows, [ { n: 'abc' }, ])
+  }
 
 })().finally(() => { return sequelize.close() });
