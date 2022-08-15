@@ -1355,13 +1355,21 @@ See: https://math.stackexchange.com/questions/579453/real-world-application-of-f
 
 Describes perfect lossless waves on the surface of a string, or on a water surface.
 
+Uniqueness: https://math.stackexchange.com/questions/1113622/uniqueness-of-solutions-to-the-wave-equation
+
+As mentioned at: https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366[] from <solving partial differential equations with the Fourier series> citing https://courses.maths.ox.ac.uk/node/view_material/1720[], analogously to the <heat equation>, the wave linear equation can be be solved nicely with <separation of variables>.
+
+= Wave equation solver
+{parent=Wave equation}
+
+This section talks about solvers/simulators dedicated solving the <wave equation>. Of course, any serious solver will likely be able to solve a wider range of PDE, so this section contains mostly fun toys. For more serious stuff see: <PDE solver>{full}.
+
 <JavaScript> toy solvers:
 * https://jtiscione.github.io/webassembly-wave/index.html circular domain, create waves with mouse click
 * https://dionyziz.com/graphics/wave-experiment/ with useless 3D <WebGL> visualization :-), waves with mouse click. Solving itself done on <CPU>, not GPU.
 
-Uniqueness: https://math.stackexchange.com/questions/1113622/uniqueness-of-solutions-to-the-wave-equation
-
-As mentioned at: https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366[] from <solving partial differential equations with the Fourier series> citing https://courses.maths.ox.ac.uk/node/view_material/1720[], analogously to the <heat equation>, the wave linear equation can be be solved nicely with <separation of variables>.
+Related:
+* https://stackoverflow.com/questions/69949335/how-to-simulate-a-wave-equation
 
 = Wave equation solution with Fourier series
 {parent=Wave equation}
@@ -1375,6 +1383,12 @@ https://web.archive.org/web/20200621205928/https://courses.maths.ox.ac.uk/node/v
 TODO confirm, see also: <coupled oscillators>. And then this idea can be used to define/motivate <quantum field theory> in terms of <quantum harmonic oscillators> with <second quantization>.
 
 * https://youtu.be/SMmFgIEGYtw?t=324 Quantum Field Theory 2a - Field Quantization I by <ViaScience> (2018)
+
+= Lossy 1D Wave Equation
+{parent=Wave equation}
+{wiki}
+
+https://ccrma.stanford.edu/~jos/pasp/Lossy_1D_Wave_Equation.html
 
 = Wave
 {parent=Wave equation}
@@ -1440,8 +1454,20 @@ Near field approximation to <Kirchhoff's diffraction formula>, i.e. when the pla
 = Resonates
 {synonym}
 
+Resonance is a really cool thing.
+
 Examples:
-* <mechanical resonance>
+* <mechanical resonance>, notably:
+  * pipe instruments
+* <electronic oscillators>, notably:
+  * <LC oscillator>, and notably the lossy version <RLC circuit>
+
+Perhaps a key insight of resonance is that the reonant any lossy system tends to look like the resonance frequency quite quickly even if the initial condition is not the resonant condition itself, because everything that is not the resonant frequency interferes destructively and becomes noise. Some examples of that:
+* striking a bell or drum can be modelled by applying an impuse to the system
+* playing a pipe instrument comes down to blowing a piece that vibrates randomly, and then leads the pipe to vibrate mostly in the resonant frequency. Likely the same applies to bowed string instruments, the bow must be creating a random vibration.
+* playing a plucked string instrument comes down to initializing the system to an triangular wave form and then letting it evolve. TODO find a simulation of that!
+
+Another cool aspect of resonance is that it was kind of the motivation for <de Broglie hypothesis>, as <de Broglie> was kind of thinking that electroncs might show discrete jumps on <atomic spectra> because of constructive interference.
 
 = Wave interference
 {parent=Wave equation}
@@ -1495,6 +1521,10 @@ For example, <Navier-Stokes existence and smoothness>{child} was one of the <Mil
 
 = Partial differential equation solver
 {parent=Partial differential equation}
+
+= PDE solver
+{c}
+{synonym}
 
 = FreeFem
 {c}

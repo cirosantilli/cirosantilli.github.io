@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+exe="$1"
+shift
+fail=false
+for t in "$@"; do
+  if ! ./"$exe" ./"$t"; then
+    fail=true
+    break
+  fi
+done
+if $fail; then
+  echo "ERROR: $$t"
+  exit 1
+fi

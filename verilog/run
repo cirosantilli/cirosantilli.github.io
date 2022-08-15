@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Yosys ------------------------------------------------
+
+mkdir -p yosys_syn
+yosys \
+  -o yosys_syn/counter.v \
+  -p hierarchy \
+  -p proc \
+  -p opt \
+  -p techmap \
+  -p opt \
+  counter.v
+
+# Show the design. Neat.
+yosys \
+  -p hierarchy \
+  -p proc \
+  -p opt \
+  -p show \
+  counter.v
+
+cd yosys_syn
+cp ../counter.cpp .
+# TODO -Wall fails, uninitialized variable.
+verilator --cc counter.v --exe counter.cpp
+make -C obj_dir -f Vcounter.mk Vcounter
+# TODO assert fails.
+#./obj_dir/Vcounter
+
+# TODO errors:
+# ./counter.v:29: syntax error
+# ./counter.v:29: error: syntax error in continuous assignment
+# Looks like it does not understand the inline attributes:
+# assign _01_[1] = out[1] ^(* src = "<techmap.v>:263" *)  out[0];
+# assign _01_[0] = out[0] ^(* src = "<techmap.v>:262" *)  1'b1;
+# If I manually remove those, it works.
+#cp ../counter_tb.v .
+#iverilog -o counter_tb.vvp counter_tb.v
+#vvp counter_tb.vvp
