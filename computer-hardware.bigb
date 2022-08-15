@@ -376,22 +376,105 @@ It is in this point of time that <TSMC> came along, and benefied and helped esta
 {parent=Register transfer level}
 {wiki}
 
+Examples under \a[verilog], more details at <Verilator>.
+
 = Verilator
+{c}
 {parent=Verilog}
 {wiki}
 
 <Verilog> simulator that <transpiles> to <C++>.
+
+One very good thing about this is that it makes it easy to create test cases directly in C++. You just supply inputs and clock the simulation directly in a C++ loop. You can inspect variables by printing them or with GDB. This is infinitely more convenient than doing these IO jobs in <Verilog> itself.
+
+Some simulation examples under \a[verilog].
+
+First install <Verilator>. On <Ubuntu>:
+``
+sudo apt install verilator
+``
+Tested on Verilator 4.038, <Ubuntu 22.04>.
+
+Run all examples, which have assertions in them:
+``
+cd verilator
+make run
+``
+
+File structure is for example:
+* \a[verilog/counter.v]: <Verilog> file
+* \a[verilog/counter.cpp]: <C++> loop which clocks the design and runs tests with assertions on the outputs
+* \a[verilog/counter.params]: <GCC> compilation flags for this example
+* \a[verilog/counter_tb.v]: <Verilog> version of the <C++> test. Not used by Verilator. Verilator can't actually run out `_tb` files, because they do in Verilog IO things that we do better from <C++> in Verilator, so Verilator didn't bother implementing them. This is a good thing.
+
+Example list:
+* \a[verilog/negator.v], \a[verilog/negator.cpp]: the simplest non-identity combinatorial circuit!
+* \a[verilog/counter.v], \a[verilog/counter.cpp]: sequential hello world. Synchronous active high reset with active high enable signal. Adapted from: http://www.asic-world.com/verilog/first1.html
+* \a[verilog/subleq.v], \a[verilog/subleq.cpp]: subleq <one instruction set computer> with separated instruction and data RAMs
 
 = VHDL
 {c}
 {parent=Register transfer level}
 {wiki}
 
+Examples under \a[vhdl], more details at: <GHDL>.
+
 = GHDL
 {c}
 {parent=VHDL}
 
 https://github.com/ghdl/ghdl
+
+Examples under \a[vhdl].
+
+First install <GHDL>. On <Ubuntu>:
+``
+sudo apt install verilator
+``
+Tested on Verilator 1.0.0, <Ubuntu 22.04>.
+
+Run all examples, which have assertions in them:
+``
+cd vhdl
+./run
+``
+
+Files:
+* Examples
+  * Basic
+    * \a[vhdl/hello_world_tb.vhdl]: hello world
+    * \a[vhdl/min_tb.vhdl]: min
+    * \a[vhdl/assert_tb.vhdl]: assert
+  * Lexer
+    * \a[vhdl/comments_tb.vhdl]: comments
+    * \a[vhdl/case_insensitive_tb.vhdl]: case insensitive
+    * \a[vhdl/whitespace_tb.vhdl]: whitespace
+    * \a[vhdl/literals_tb.vhdl]: literals
+  * Flow control
+    * \a[vhdl/procedure_tb.vhdl]: procedure
+    * \a[vhdl/function_tb.vhdl]: function
+  * \a[vhdl/operators_tb.vhdl]: operators
+  * Types
+    * \a[vhdl/integer_types_tb.vhdl]: integer types
+    * \a[vhdl/array_tb.vhdl]: array
+    * \a[vhdl/record_tb.vhdl.bak]: record. TODO fails with "GHDL Bug occurred" on GHDL 1.0.0
+    * \a[vhdl/generic_tb.vhdl]: generic
+  * \a[vhdl/package_test_tb.vhdl]: Packages
+    * \a[vhdl/standard_package_tb.vhdl]: standard package
+    * textio
+        * \a[vhdl/write_tb.vhdl]: write
+        * \a[vhdl/read_tb.vhdl]: read
+    * \a[vhdl/std_logic_tb.vhdl]: std_logic
+  * \a[vhdl/stop_delta_tb.vhdl]: `--stop-delta`
+* Applications
+  * Combinatoric
+    * \a[vhdl/adder.vhdl]: adder
+    * \a[vhdl/sqrt8_tb.vhdl]: sqrt8
+  * Sequential
+    * \a[vhdl/clock_tb.vhdl]: clock
+    * \a[vhdl/counter.vhdl]: counter
+* Helpers
+    * \a[vhdl/template_tb.vhdl]: template
 
 = Processor
 {disambiguate=computing}
@@ -529,6 +612,112 @@ Bibliography:
 = Mainframe computer
 {parent=Computer form factor}
 {wiki}
+
+= Cloud computing
+{parent=Computer form factor}
+{wiki}
+
+= Hyperscale computing
+{parent=Cloud computing}
+{wiki}
+
+= Hyperscaler
+{synonym}
+
+Basically means "company with huge server farms, and which usually rents them out like <Amazon AWS> or <Google Cloud Platform>
+
+\Image[https://web.archive.org/web/20220803073556im_/https://energyinnovation.org/wp-content/uploads/2020/03/Estimated-global-data-electricity-use-by-data-center-type.png]
+{title=Global electricity use by data center type: 2010 vs 2018}
+{description=The growth of <hyperscaler> cloud vs smaller cloud and private deployments was incredible in that period!}
+{source=https://energyinnovation.org/2020/03/17/how-much-energy-do-data-centers-really-use/}
+
+= Cloud computing platform
+{parent=Cloud computing}
+
+= Amazon Web Services
+{c}
+{parent=Cloud computing platform}
+{tag=Amazon product}
+{wiki}
+
+= AWS
+{c}
+{synonym}
+
+= Amazon AWS
+{c}
+{synonym}
+
+= Google Cloud Platform
+{c}
+{parent=Cloud computing platform}
+{tag=Google product}
+{title2=GCP}
+{wiki}
+
+= Platform as a service
+{parent=Cloud computing}
+{title2=PaaS}
+{wiki}
+
+Highly managed, you don't even see the <Docker (software)> images, only some higher level <JSON> configuration file.
+
+These setups are really convenient and cheap, and form a decent way to try out a new website with simple requirements.
+
+= AWS Elastic Beanstalk
+{c}
+{parent=Platform as a service}
+{tag=Amazon Web Services}
+{wiki}
+
+= Heroku
+{c}
+{parent=Platform as a service}
+{wiki}
+
+This feels good.
+
+One problem though is that Heroku is very opinionated, a likely like other PaaSes. So if you are trying something that is slightly off the mos common use case, you might be fucked.
+
+Another problem with Heroku is that it is extremely difficult to debug a build that is broken on Heroku but not locally. We needed a way to be able to drop into a shell in the middle of build in case of failure. Otherwise it is impossible.
+
+Deployment:
+``
+git push heroku HEAD:master
+``
+
+View <stdout> logs:
+``
+heroku logs --tail
+``
+
+<PostgreSQL> database, it seems to be delegated to <AWS>. How to browse database: https://stackoverflow.com/questions/20410873/how-can-i-browse-my-heroku-database
+``
+heroku pg:psql
+``
+
+Drop and recreate database:
+``
+heroku pg:reset --confirm <app-name>
+``
+All tables are destroyed.
+
+Restart app:
+``
+heroku restart
+``
+
+= Send free emails from Heroku
+{parent=Heroku}
+
+Arghh, why so hard... tested 2021:
+* <Sendgrid>: this one is the first one I got working on free tier!
+* Mailgun: the Heroku add-on creates a free plan. This is smaller than the flex plan and does not allow custom domains, and is not available when signing up on mailgun.com directly: https://help.mailgun.com/hc/en-us/articles/203068914-What-Are-the-Differences-Between-the-Free-and-Flex-Plans- And without custom domains you cannot send emails to anyone, only to people in the 5 manually whitelisted list, thus making this worthless. Also, gmail is not able to verify the DNS of the sandbox emails, and they go to spam.
+
+  Mailgun does feel good otherwise if you are willing to pay. Their Heroku integration feels great, exposes everything you need on environment variables straight away.
+* CloudMailin: does not feel as well developed as Mailgun. More focus on receiving. Tried adding TXT xxx._domainkey.ourbigbook.com and CNAME mta.ourbigbook.com entires with custom domain to see if it works, took forever to find that page... https://www.cloudmailin.com/outbound/domains/xxx Domain verification requires a bit of human contact via email.
+
+  They also don't document their Heroku usage well. The envvars generated on Heroku are useless, only to login on their web UI. The send username and password must be obtained on their confusing web ui.
 
 = Supercomputer
 {parent=Computer form factor}
@@ -829,6 +1018,13 @@ One of the topics covered in <Ciro Santilli>'s <Linux Kernel Module Cheat>.
 
 List of <instruction set architecture>.
 
+= One instruction set computer
+{parent=List of instruction set architectures}
+{title2=OISC}
+{wiki}
+
+https://stackoverflow.com/questions/3711443/minimal-instruction-set-to-solve-any-problem-with-a-computer-program/38523869#38523869
+
 = x86
 {c}
 {parent=List of instruction set architectures}
@@ -890,16 +1086,25 @@ Basically, as long as were a huge company seeking to develop a <CPU> and able to
 
 The leading no-royalties options as of 2020.
 
+<China> has been a major <RISC-V> potential user in the late 2010s, since the country is trying to increase its <semiconductor industry> independence, especially given economic sanctions imposed by the <USA>.
+
+E.g. a result of this, the <RISC-V Foundation> moved its legal headquarters to <Switzerland> in 2019 to try and overcome some of the sanctions.
+
+= RISC-V International
+{c}
+{parent=RISC-V}
+
+= RISC-V Foundation
+{c}
+{synonym}
+{title2}
+
 = SiFive
 {c}
 {parent=RISC-V}
 {wiki}
 
 Leading <RISC-V> consultants as of 2020, they are basically trying to become the <Red Hat> of the <semiconductor industry>.
-
-<China> has been a major client, since the country is trying to increase its <semiconductor industry> independence, especially given economic sanctions imposed by the <USA>.
-
-As a result, <SiFive> moved its legal headquarters to <Switzerland> in 2019 to try and overcome some of the sanctions.
 
 = Computer manufacturer
 {parent=Computer hardware}
@@ -1108,6 +1313,26 @@ Open source <driver (software)>/hardware interface specification??? E.g. on <Ubu
 {wiki}
 
 <Ciro Santilli> has always had a good impression of these people.
+
+= Silicon Graphics
+{c}
+{parent=Semiconductor company}
+{title2=1981-2009}
+{wiki}
+
+This company is a bit like <Sun Microsystems>, you can hear a note of awe in the voice of those who knew it at its peak. This was a bit before <Ciro Santilli>'s awakening.
+
+Those people created <OpenGL> for <God>'s sake! Venerable.
+
+Both of them and Sun kind of died in the same way, unable to move from the <workstation> to the <personal computer> fast enough, and just got killed by the scale of competitors who did, notably <NVIDIA> for graphics cards.
+
+Some/all <Nintendo 64 games> were developed on it, e.g. it is well known that this was the case for <Super Mario 64>.
+
+Also they were a big <UNIX> vendor, which is another kudos to the company.
+
+\Video[https://www.youtube.com/watch?v=Oy-kE0dq1cE]
+{title=<Silicon Graphics> Promo (1987)}
+{description=Highlights that this was one of the first widely available options for professional engineers/designers to do real-time 3D rendering for their designs. Presumably before it, you had to do use scripting to CPU render and do any changes incrementally by modifying the script.}
 
 = Chinese semiconductor industry
 {c}

@@ -1,0 +1,47 @@
+-- TODO GHDL 1.0.0: "GHDL Bug occurred"
+-- Like C struct: named fields of arbitrary types.
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity record_tb is
+end record_tb;
+
+architecture behav of record_tb is
+    type bit2_t is array (0 to 1) of bit;
+    type record0 is record
+        abit : bit;
+        anint : integer;
+        areal : real;
+        bit2 : bit2_t;
+        my_std_logic_vector : std_logic_vector(0 to 1);
+    end record;
+    constant arecord0 : record0 := ('1', 1, 1.0, B"01", B"01");
+    constant arecord1 : record0 := ('1', 1, 1.0, B"01", B"01");
+
+    -- http://stackoverflow.com/questions/37924463/how-to-instantiate-a-record-that-has-a-only-a-single-field-in-vhdl
+    type record_one_field_t is record
+        abit : bit;
+    end record;
+    -- Fails because of ambiguity with the `'0'` constant.
+    --constant record_one_field : record_one_field_t := ('0');
+    constant record_one_field : record_one_field_t := (abit => '0');
+
+begin
+    process is
+    begin
+        -- Field access.
+        assert arecord0.abit = '1';
+        assert arecord0.anint = 1;
+        assert arecord0.areal = 1.0;
+        assert arecord0.bit2 = B"01";
+        assert arecord0.my_std_logic_vector = B"01";
+
+        -- = operator.
+        assert arecord0 = arecord1;
+
+        assert record_one_field.abit = '0';
+
+        wait;
+    end process;
+end behav;

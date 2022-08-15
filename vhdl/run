@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# No point in using Makefile, since we don't have
+# one generated output per input without GCC.
+
+set -e
+
+cc='ghdl'
+cflags='--std=08'
+in_ext='.vhdl'
+in_suffix='_tb'
+
+get_prefix() {
+  prefix="$1"
+  prefix="${prefix%$in_ext}"
+  prefix="${prefix%$in_suffix}"
+  echo "$prefix"
+}
+
+analyze_or_run() {
+  prefix="$(get_prefix "$1")"
+  if [ -r "${prefix}${in_ext}" ]; then
+    $cc -a $cflags "${prefix}${in_ext}"
+  fi
+  if [ -r "${prefix}${in_suffix}${in_ext}" ]; then
+    $cc -a $cflags "${prefix}${in_suffix}${in_ext}"
+    $cc -e $cflags "${prefix}${in_suffix}"
+    $cc -r $cflags "${prefix}${in_suffix}" --assert-level=error --vcd="${prefix}.vcd"
+  fi
+}
+
+$cc -a $cflags "common${in_ext}"
+if [ $# -gt 0 ]; then
+  analyze_or_run "$1"
+else
+  for f in *${in_suffix}${in_ext}; do
+    echo "$f"
+    analyze_or_run "$f"
+  done
+fi
