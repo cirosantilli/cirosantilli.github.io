@@ -23,13 +23,18 @@ This is the lowest level of abstraction computer, at which the basic gates and p
 
 At this level, you are basically thinking about the 3D layered structure of a chip, and how to make machines that will allow you to create better, usually smaller, gates.
 
-= Company that makes semiconductor production equipment
+= Semiconductor equipment maker
 {parent=Semiconductor device fabrication}
+
+= Company that makes semiconductor production equipment
+{synonym}
+
+As mentioned at https://youtu.be/16BzIG0lrEs?t=397 from <video Applied Materials by Asianometry (2021)}>, originally the companies <fabs> would make their own equipment. But eventually things got so complicated that it became worth it for separate companies to focus on equipment, which then then sell to the fabs.
 
 = ASML Holding
 {c}
-{parent=Company that makes semiconductor production equipment}
-{title2=1984}
+{parent=Semiconductor equipment maker}
+{title2=1984-}
 {wiki}
 
 = ASML
@@ -64,6 +69,17 @@ https://youtu.be/SB8qIO6Ti_M?t=240 In 1995, ASML had reached 25% market share. T
 {parent=ASML Holding}
 {title2=1964}
 {wiki}
+
+Parent/predecessor of <ASML>.
+
+= Applied Materials
+{c}
+{parent=Semiconductor equipment maker}
+{title2=1967-}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=16BzIG0lrEs]
+{title=<Applied Materials> by <Asianometry> (2021)}
 
 = Power, performance and area
 {parent=Semiconductor device fabrication}
@@ -277,6 +293,9 @@ Cool looking <open source EDA tool>[open source EDA toolchain]:
 
 They apparently even produced a real working small <RISC-V> chip with the flow, not bad.
 
+= Semiconductor process node
+{parent=Semiconductor device fabrication}
+
 = Semiconductor device fabrication bibilography
 {parent=Semiconductor device fabrication}
 
@@ -385,7 +404,7 @@ Examples under \a[verilog], more details at <Verilator>.
 
 <Verilog> simulator that <transpiles> to <C++>.
 
-One very good thing about this is that it makes it easy to create test cases directly in C++. You just supply inputs and clock the simulation directly in a C++ loop. You can inspect variables by printing them or with GDB. This is infinitely more convenient than doing these IO jobs in <Verilog> itself.
+One very good thing about this is that it makes it easy to create test cases directly in C++. You just supply inputs and clock the simulation directly in a C++ loop, then read outputs and assert them with `assert()`. And you can inspect variables by printing them or with GDB. This is infinitely more convenient than doing these IO-type tasks in <Verilog> itself.
 
 Some simulation examples under \a[verilog].
 
@@ -411,6 +430,40 @@ Example list:
 * \a[verilog/negator.v], \a[verilog/negator.cpp]: the simplest non-identity combinatorial circuit!
 * \a[verilog/counter.v], \a[verilog/counter.cpp]: sequential hello world. Synchronous active high reset with active high enable signal. Adapted from: http://www.asic-world.com/verilog/first1.html
 * \a[verilog/subleq.v], \a[verilog/subleq.cpp]: subleq <one instruction set computer> with separated instruction and data RAMs
+
+= Verilator interactive example
+{c}
+{parent=Verilator}
+
+The example under \a[verilog/interactive] showcases how to create a simple interactive visual <verilog> example using <verilator> and <sdl>.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/verilog-interactive.gif]
+
+You could e.g. expand such an example to create a simple (or complex) <video game> for example if you were insane enough. But please don't waste your time doing that, <backward design>[Ciro Santilli begs you].
+
+The example is also described at: https://stackoverflow.com/questions/38108243/is-it-possible-to-do-interactive-user-input-and-output-simulation-in-vhdl-or-ver/38174654#38174654
+
+Usage: install dependencies:
+``
+sudo apt install libsdl2-dev verilator
+``
+then run as either:
+``
+make run RUN=and2
+make run RUN=move
+``
+Tested on Verilator 4.038, Ubuntu 22.04.
+
+File overview:
+* and2
+  * \a[verilog/interactive/and2.cpp]
+  * \a[verilog/interactive/and2.v]
+* move
+  * \a[verilog/interactive/move.cpp]
+  * \a[verilog/interactive/move.v]
+* \a[verilog/interactive/display.cpp]
+
+In those examples, the more interesting application specific logic is delegated to Verilog (e.g.: move game character on map), while boring timing and display matters can be handled by SDL and C++.
 
 = VHDL
 {c}
@@ -1230,6 +1283,19 @@ For companies that manufature semiconductors, see also: <company with a semicond
 \Video[https://www.youtube.com/watch?v=QmHpoi4BVwM]
 {title=Arm 30 Years On: Episode Three by <Arm Ltd.> (2022)}
 {description=This one is boring US expansion. Other two are worth it.}
+
+= Allen Wu
+{c}
+{parent=Arm (company)}
+
+https://www.linkedin.com/in/allenxwu
+
+This situation is the most bizarre thing ever. The dude was fired in 2020, but he refused to be fired, and because he has the company seal, they can't fire him. He is still going to the office as of 2022. It makes one wonder what are the true political causes for this situation. A big warning sign to all companies tring to setup joint ventures in <China>!
+
+* 2022 https://www.reuters.com/technology/arm-china-says-its-ousted-ceo-wu-is-refusing-pack-up-2022-05-05/
+
+\Video[https://www.youtube.com/watch?v=uLzjZoS-jCs]
+{title=ARM Fired ARM China’s CEO But He Won’t Go by <Asianometry> (2021)}
 
 = Arm Artisan
 {c}
