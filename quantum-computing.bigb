@@ -45,8 +45,8 @@ The way quantum programmers think about a quantum computer in order to program c
 * the quantum program, also known as circuit, is a $2^n \times 2^n$ <unitary matrix> of <complex numbers> $Q \in \C^{2^n} \times \C^{2^n}$ that operates on the input to generate the output
 * the output of a N qubit computer is also a vector of dimension N containing classic bits 0 and 1
 
-To operate a quantum computer, you:
-* set the input <qubits> to classic input bits (state initialization)
+To operate a quantum computer, you follow the <step of operation of a quantum computer>:
+* set the input <qubits> to classic input bits (<state initialization (quantum computing)>)
 * press a "RUN" button
 * read the classic output bits (<readout quantum computing>)
 
@@ -251,6 +251,8 @@ Software that maps higher level languages like <Qiskit> into actual quantum circ
 
 Technique that uses multiple non-<ideal> qubits (physical qubits) to simulate/produce one perfect qubit (logical).
 
+One is philosophically reminded of classical <error correction codes>, where we also have multiple input bits per actual information bit.
+
 TODO understand in detail. This appears to be a fundamental technique since all physical systems we can manufacture are imperfect.
 
 Part of the fundamental interest of this technique is due to the <quantum threshold theorem>.
@@ -276,7 +278,7 @@ This algorithm provides the conceptual division between <noisy intermediate-scal
 {synonym}
 {title2}
 
-Era of <quantum computing> before we reach physical errors small enough to perfectly error correct, <quantum threshold theorem>.
+Era of <quantum computing> before we reach physical errors small enough to do perfect <quantum error correction> as demonstrated by the <quantum threshold theorem>.
 
 = Quantum computing player
 {parent=Quantum computing}
@@ -392,6 +394,9 @@ https://uknqt.ukri.org/wp-content/uploads/2021/10/UKNQTP-Strategic-Intent-2020.p
 = Step of operation of a quantum computer
 {parent=Quantum computing hardware}
 
+= Steps of operation of a quantum computer
+{synonym}
+
 = State initialization
 {disambiguate=quantum computing}
 {parent=Step of operation of a quantum computer}
@@ -434,8 +439,8 @@ Mentioned e.g. at:
 * https://youtu.be/xjlGL4Mvq7A?t=169
 
 These are two conflicting constraints:
-* long coherence times: require isolation from external world, otherwise observation destroys quantum state
-* fast control and <readout quantum computing>: require coupling with external world
+* long <coherence times>: require isolation from external world, otherwise observation destroys quantum state
+* <state initialization (quantum computing)>[fast control] and <readout (quantum computing)>: require coupling with external world
 
 = Quantum computer type
 {parent=Quantum computing hardware}
@@ -1276,6 +1281,12 @@ Set of <quantum logic gate> composed of the <Clifford gates> plus the <Toffoli g
 {parent=Quantum logic gate}
 {wiki}
 
+= Quantum circuit
+{parent=Quantum computing}
+{wiki}
+
+A <graph> of <quantum logic gates>.
+
 = Quantum state
 {parent=Quantum computing}
 {wiki}
@@ -1332,10 +1343,16 @@ The only thing that is directly comparable across computers is how two machines 
 
 For example, the number of qubits would be a simple naive choice of such performance predictor number. But it is very imprecise, since other factors are also very important:
 * qubit error rate
-* coherence time, which determines the maximum circuit depth
+* <coherence time>, which determines the maximum circuit depth
 * qubit connectivity. Can you only connect to 4 neighbouring qubits in a 2D plane? Or to every other qubit equally as well?
 
 <Quantum volume> is another less naive attempt at such metric.
+
+= Coherence time
+{parent=Quantum computer benchmark}
+{wiki}
+
+It takes time for the quantum state to evolve. So in order to have a deep <quantum circuit>, we need longer <coherence times>.
 
 = Quantum volume
 {parent=Quantum computer benchmark}
