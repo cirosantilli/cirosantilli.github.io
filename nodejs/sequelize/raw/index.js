@@ -12,7 +12,7 @@ await sequelize.query(`
 CREATE TABLE "IntegerNames" (
   id INTEGER PRIMARY KEY,
   value INTEGER NOT NULL,
-  name TEXT NOT NULL
+  name TEXT
 )
 `)
 await sequelize.query(`CREATE INDEX "valueIdx" ON "IntegerNames" (value)`)
@@ -58,6 +58,53 @@ common.assertEqual(rows, [
   { value: 3, },
   { value: 5, },
 ])
+
+// Just the WHERE IN in isolation.
+;[rows, meta] = await sequelize.query(`SELECT 3 IN (3, 5) AS "ret"`)
+if (sequelize.options.dialect === 'postgres') {
+  assert.strictEqual(rows[0].ret, true)
+} else if (sequelize.options.dialect === 'sqlite') {
+  assert.strictEqual(rows[0].ret, 1)
+}
+;[rows, meta] = await sequelize.query(`SELECT 1 IN (3, 5) AS "ret"`)
+if (sequelize.options.dialect === 'postgres') {
+  assert.strictEqual(rows[0].ret, false)
+} else if (sequelize.options.dialect === 'sqlite') {
+  assert.strictEqual(rows[0].ret, 0)
+}
+
+// NULL IN in isolation. TODO understand these results.
+;[rows, meta] = await sequelize.query(`SELECT NULL IN (3, 5) AS "ret"`)
+console.error(rows);
+assert.strictEqual(rows[0].ret, null)
+;[rows, meta] = await sequelize.query(`SELECT NULL NOT IN (3, 5) AS "ret"`)
+assert.strictEqual(rows[0].ret, null)
+
+// NULL IN in column.
+await sequelize.query(`
+INSERT INTO "IntegerNames" VALUES
+(3, 7, NULL),
+(4, 11, NULL)
+`)
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE "name" IN ('three', 'five') ORDER BY "value" ASC`)
+common.assertEqual(rows, [
+  { value: 3, },
+  { value: 5, },
+])
+// Very confusing, since NULL = and NULL <> is always false. So we need an explicit OR IS NULL.
+// * https://stackoverflow.com/questions/9581745/sql-is-null-and-null
+// * https://stackoverflow.com/questions/6362112/in-clause-with-null-or-is-null
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE "name" NOT IN ('three', 'five') ORDER BY "value" ASC`)
+common.assertEqual(rows, [
+  { value: 2, name: 'two', },
+])
+;[rows, meta] = await sequelize.query(`SELECT * FROM "IntegerNames" WHERE "name" NOT IN ('three', 'five') OR "name" IS NULL ORDER BY "value" ASC`)
+common.assertEqual(rows, [
+  { value: 2, name: 'two', },
+  { value: 7, name: null, },
+  { value: 11, name: null, },
+])
+await reset()
 
 // Example of using bind to let sequelize/the database worry about proper value quoting.
 // https://sequelize.org/master/manual/raw-queries.html#replacements

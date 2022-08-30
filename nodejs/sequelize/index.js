@@ -217,6 +217,31 @@ assert.strictEqual(rows[0].createdAt.getTime(), date.getTime())
 assert.strictEqual(rows[0].updatedAt.getTime(), date.getTime())
 ;[i2, i3, i5] = await reset()
 
+await IntegerNames.bulkCreate([
+  { value: 7, },
+  { value: 11 },
+])
+// Produces IS NOT NULL
+rows = await IntegerNames.findAll({
+  where: { name: { [Op.ne]: null } },
+  order: [['value', 'ASC']],
+})
+common.assertEqual(rows, [
+  { value: 2, name: 'two',   },
+  { value: 3, name: 'three', },
+  { value: 5, name: 'five',  },
+])
+// Produces IS NULL
+rows = await IntegerNames.findAll({
+  where: { name: null },
+  order: [['value', 'ASC']],
+})
+common.assertEqual(rows, [
+  { value: 7,  name: null,  },
+  { value: 11, name: null,  },
+])
+;[i2, i3, i5] = await reset()
+
 // .close Otherwise it hangs for 10 seconds, it seems that it keeps the connection alive.
 // https://stackoverflow.com/questions/28253831/recreating-database-sequelizejs-is-slow
 // https://github.com/sequelize/sequelize/issues/8468
