@@ -124,4 +124,17 @@ common.assertEqual(rows, [
 ])
 await reset()
 
+// With a literal multiplier instead.
+await Inverses.update(
+  { inverse: sequelize.where(sequelize.col('myValue'), '*', -2), },
+  { where: { myValue: { [Op.gt]: 2 } } },
+);
+rows = await Inverses.findAll({ order: [['myValue', 'ASC']]})
+common.assertEqual(rows, [
+  { myValue: 2, inverse:  -2, name: 'two'   },
+  { myValue: 3, inverse:  -6, name: 'three' },
+  { myValue: 5, inverse: -10, name: 'five'  },
+])
+await reset()
+
 })().finally(() => { return sequelize.close() });
