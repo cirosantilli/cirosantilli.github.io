@@ -22,9 +22,8 @@ require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-e
 require(["vs/editor/editor.main"], () => {
   const editor = monaco.editor.create(document.getElementById('container'), {});
   const model = editor.getModel()
-  console.error(`monaco.editor.EndOfLinePreference.LF ${monaco.editor.EndOfLinePreference.LF}`);
-  console.error(`monaco.editor.EndOfLinePreference.CRLF ${monaco.editor.EndOfLinePreference.CRLF}`);
-  model.pushEOL(monaco.editor.EndOfLinePreference.LF);
+  model.setEOL(monaco.editor.EndOfLineSequence.LF);
+  //model.setEOL(monaco.editor.EndOfLineSequence.CRLF);
   editor.onDidChangeModelContent(async (e) => {
     outputElem.innerHTML = JSON.stringify(editor.getValue());
   });

@@ -1,5 +1,5 @@
 start
-break my_func_2
+break print_stacktrace
 commands
   silent
   backtrace
