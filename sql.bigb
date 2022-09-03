@@ -95,7 +95,7 @@ Implementation specifics:
 {c}
 {parent=SQL transaction isolation level}
 
-Example where this level is sufficient: <file/nodejs/sequelize/raw/parallel_update_async.js>.
+Example where this level is sufficient: <nodejs/sequelize/raw/parallel_update_async.js>{file}.
 
 = SQL REPEATABLE READ isolation level
 {c}
@@ -103,7 +103,7 @@ Example where this level is sufficient: <file/nodejs/sequelize/raw/parallel_upda
 
 Vs <SQL SERIALIZABLE isolation level> on <PostgreSQL>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
 
-<file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js> is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <SQL READ COMMITTED isolation level>.
+<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <SQL READ COMMITTED isolation level>.
 
 In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL serialization failures>, this does not happen to <SQL READ COMMITTED isolation level> in that <DBMS>. You then have to retry the transaction.
 
@@ -122,8 +122,6 @@ In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL
 = nodejs/sequelize/raw/parallel_update_async.js
 {file}
 {parent=SQL parallel update example}
-
-This section is about: \a[nodejs/sequelize/raw/parallel_update_async.js]
 
 \a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a <sqlite3 Node.js package> bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
 
@@ -152,18 +150,18 @@ But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very c
 
 Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
 
-<file/nodejs/sequelize/raw/parallel_create_delete_empty_tag.js> contains an example where things can actually blow up in read committed.
+<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} contains an example where things can actually blow up in read committed.
 
 = nodejs/sequelize/raw/parallel_select_and_update.js
 {file}
 {parent=SQL parallel update example}
 
-This example is similar to <file/nodejs/sequelize/raw/parallel_update_async.js>, but now we are doing a separate SELECT, later followed by an update:
+This example is similar to <nodejs/sequelize/raw/parallel_update_async.js>{file}, but now we are doing a separate SELECT, later followed by an update:
 * `SELECT FROM` to get i
 * update on Js code `newI = i + 1`
 * `UPDATE SET` the `newI`
 
-Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in <file/nodejs/sequelize/raw/parallel_update_async.js>, which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
+Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in <nodejs/sequelize/raw/parallel_update_async.js>{file}, which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
 
 Sample execution:
 ``
@@ -194,13 +192,11 @@ Observed behaviour under different <SQL transaction isolation levels>:
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
   \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
 
-A non-raw version of this example can be seen at: <file/nodejs/sequelize/parallel_select_and_update.js>.
+A non-raw version of this example can be seen at: <nodejs/sequelize/parallel_select_and_update.js>{file}.
 
 = nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
 {file}
-{parent=file/nodejs/sequelize/raw/parallel_select_and_update.js}
-
-This section is about the file: \a[nodejs/sequelize/raw/parallel_select_and_update_deterministic.js]
+{parent=SQL parallel update example}
 
 This example contains a deterministic demo of when <postgreSQL serialization failures> may happen.
 
@@ -351,7 +347,7 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 {c}
 {parent=SELECT (SQL)}
 
-An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <file/nodejs/sequelize/raw/parallel_select_and_update.js>.
+An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <nodejs/sequelize/raw/parallel_select_and_update.js>{file}.
 
 `SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
