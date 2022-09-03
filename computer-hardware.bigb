@@ -1404,6 +1404,94 @@ Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
 {tag=Microcontroller}
 {title2=2021}
 
+Some key specs:
+* <SoC>:
+  * name: RP2040. Custom designed by <Raspberry Pi Foundation>, likely the first they make themselves rather than using a <Broadcom> chip. But the design still is closed source, likely wouldn't be easy to open source due to the usage of closed proprietary IP like the <ARM ISA>
+  * dual core <ARM Cortex-M0+>
+  * frequency: 2 kHz to 133 MHz, 125 MHz by default
+
+\Image[https://web.archive.org/web/20220808214856im_/https://twilio-cms-prod.s3.amazonaws.com/images/6ofE97USO9rBn4LidgxTgfrAqK0UiI3v524IPNHc7ac3SA.width-800.png]
+{source=https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf}
+
+= Raspberry Pi Pico variant
+{c}
+{parent=Raspberry Pi Pico}
+{title2=2022}
+
+= Raspberry Pi Pico H
+{c}
+{parent=Raspberry Pi Pico variant}
+
+Has <serial wire debug> debug. Why would you ever get one without unless you are a clueless newbie like <Ciro Santilli>?!?!
+
+= Raspberry Pi Pico W
+{c}
+{parent=Raspberry Pi Pico variant}
+{title2=2022}
+
+= Program Raspberry Pi Pico W with MicroPython
+{parent=Raspberry Pi Pico W}
+{tag=MicroPython}
+
+= Raspberry Pi Pico W freezes a few seconds after after screen disconnects from UART
+{c}
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+* https://stackoverflow.com/questions/74081960/raspberry-pico-w-micropython-execution-freezes-a-few-seconds-after-disconnecting
+* https://github.com/orgs/micropython/discussions/9633
+
+= Program Raspberry Pi Pico W with MicroPython code from the command line
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+https://stackoverflow.com/questions/66183596/how-can-you-make-a-micropython-program-on-a-raspberry-pi-pico-autorun/74078142#74078142
+
+Examples at: <Raspberry Pi Pico W example>.
+
+= Program the Raspberry Pi Pico W with MicroPython from Thonny
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+https://stackoverflow.com/questions/66183596/how-can-you-make-a-micropython-program-on-a-raspberry-pi-pico-autorun/74078142#74078142
+
+Examples at: <Raspberry Pi Pico W example>.
+
+= Raspberry Pi Pico W MicroPython example
+{c}
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+Examples under \a[rpi-pico-w/upython].
+
+Examples can be run as described at <Program Raspberry Pi Pico W with MicroPython>.
+
+* \a[rpi-pico-w/upython/blink.py]: blink on-board <LED>. Note that they broke the LED hello world compatibility from non-W to W for God's sake!!!
+* \a[rpi-pico-w/upython/led_on.py]: turn on-board LED on and leave it on forever
+* \a[rpi-pico-w/upython/uart.py]: has automatic <UART> via USB. Any `print()` command ends up on the UART! Is is just like with <Micro Bit>, must be a standard Micro Python thing. Connect form an <Ubuntu 22.04> host as:
+  ``
+  screen /dev/ttyACM0 115200
+  ``
+  When in `screen`, you can Ctrl + C to kill `main.py`, and then execution stops and you are left in a Python shell. From there:
+  * Ctrl + D: reboots
+  * Ctrl + A K: kills the <GNU screen> window. Execution continues normally
+
+= Program Raspberry Pi Pico W with C
+{parent=Raspberry Pi Pico W}
+{tag=MicroPython}
+
+* https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html
+* https://github.com/raspberrypi/pico-sdk
+* https://github.com/raspberrypi/pico-examples The key hello world examples are:
+  * https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/hello_world/usb
+  * https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/blink
+
+<Ubuntu 22.04> TODO:
+
+``
+sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+git clone https://github.com/raspberrypi/pico-sdk
+git clone https://github.com/raspberrypi/pico-examples
+export PICO_SDK_PATH="$(pwd)/pico-sdk"
+cd pico-exampes/hello_world/usb
+``
+
 = Peripheral
 {parent=Computer hardware}
 {wiki}
@@ -1550,9 +1638,28 @@ This situation is the most bizarre thing ever. The dude was fired in 2020, but h
 \Video[https://www.youtube.com/watch?v=uLzjZoS-jCs]
 {title=ARM Fired ARM China’s CEO But He Won’t Go by <Asianometry> (2021)}
 
-= Arm Artisan
+= Arm product
 {c}
 {parent=Arm (company)}
+
+= Arm Artisan
+{c}
+{parent=Arm product}
+{wiki}
+
+= ARM CPU
+{c}
+{parent=Arm product}
+{wiki}
+
+= ARM Cortex-M
+{c}
+{parent=Arm CPU}
+{wiki}
+
+= ARM Cortex-M0+
+{c}
+{parent=ARM Cortex-M}
 {wiki}
 
 = Graphcore

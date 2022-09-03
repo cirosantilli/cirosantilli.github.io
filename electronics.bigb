@@ -61,6 +61,12 @@ Operated by a hand crank.
 {synonym}
 {title2}
 
+= 5v vs 3.3V
+{parent=DC source}
+
+* https://electronics.stackexchange.com/questions/186353/which-is-better-5v-or-3-3v-as-the-supply-voltage#:~:text=3.3V%20has%20a%20lower,ICs%20still%20target%205V%20systems.
+* https://forum.arduino.cc/t/5v-vs-3-3v-really-whats-the-difference/648063
+
 = AC adapter
 {parent=Direct current source}
 {title2=AC to DC}
@@ -799,7 +805,7 @@ https://python.microbit.org/v/3/reference
 
 https://makecode.microbit.org
 
-Microbit simulator using some <Microsoft> framework.:
+Microbit simulator using some <Microsoft> framework.
 
 TODO the Python code from there does not seem to run on the microbit via `uflash`, because it is not <MicroPython>.
 
@@ -855,7 +861,7 @@ You can restart the program by clicking the reset button near the USB. When you 
 * https://stackoverflow.com/questions/73425359/is-it-possible-to-compile-microbit-python-code-locally
 * https://stackoverflow.com/questions/52691853/generating-micropython-python-code-hex-file-from-commandline
 
-To you a prebuilt firmware, you can just use `uflash`, tested on <Ubuntu 22.04>:
+To use a prebuilt firmware, you can just use `uflash`, tested on <Ubuntu 22.04>:
 ``
 git clone https://github.com/bbcmicrobit/micropython
 cd micropython
@@ -1033,8 +1039,17 @@ Identification: https://kitronik.co.uk/blogs/resources/explore-micro-bit-v1-micr
 
 * \a[microbit/micropython/uart.py]: the Micro BIt comes with a <UART> simulator via the USB connection, it is very convenient: https://support.microbit.org/support/solutions/articles/19000022103-outputing-serial-data-from-the-micro-bit-to-a-computer To output data to the computer simply use Python `print`. To receive you can e.g. use <GNU screen>:
   ``
-  sudo screen /dev/ttyACM0 115200
+  screen /dev/ttyACM0 115200
   ``
+  It appears to be very unreliable however, some times it shows up, sometimes it doesn't.
+
+= Micro Bit GPIO
+{c}
+{parent=Micro Bit}
+
+Pinout overview: https://makecode.microbit.org/device/pins Basically 0, 1, and 2 are the truly generic ones. They can also serve as <ADCs>.
+
+Micropython documentation: https://microbit-micropython.readthedocs.io/en/latest/pin.html
 
 = It is hard to do something useful with a devboard
 {parent=Microprocessor development board}
@@ -1075,6 +1090,24 @@ For battery power you need a <transformer>.
 
 = Digital and analog electronics
 {parent=Electronic circuit}
+
+= Analog-to-digital converter
+{parent=Digital and analog electronics}
+{wiki}
+
+= ADC
+{c}
+{synonym}
+{title2}
+
+= Digital-to-analog converter
+{parent=Digital and analog electronics}
+{wiki}
+
+= DAC
+{c}
+{synonym}
+{title2}
 
 = Digital electronics
 {parent=Digital and analog electronics}
