@@ -1030,6 +1030,17 @@ Bibliography:
 {synonym}
 {title2}
 
+= vscode
+{c}
+{synonym}
+{title2}
+
+= vscode Vim
+{c}
+{parent=Visual Studio Code}
+
+* `undo` is broken beyond belief: https://github.com/VSCodeVim/Vim/issues/1490
+
 = Killer application
 {parent=Software}
 {wiki}
@@ -2537,6 +2548,46 @@ Except for hardware developers of course. The are still happily using <Perforce>
 {c}
 {parent=List of version control systems}
 {wiki}
+
+= Git design rationale
+{c}
+{parent=Git}
+
+The fundamental insight of Git design is: a <SHA> represents not only current state, but also the full history due to the <Merkle tree> implementation, see notably: 
+
+This makes it so that you will always notice if you are overwriting history on the remote, even if you are developing from two separate local computers (or more commonly, two people in two different local computers) and therefore will never lose any work accidentally.
+
+It is very hard to achieve that without the <Merkle tree>.
+
+Consider for example the most naive approach possible of marking versions with consecutive numbers:
+* Local 1:
+  * 0: root commit
+  * 1: commit 1
+  * 2: commit 2 by local 1
+* Local 2:
+  * 0: root commit
+  * 1: commit 1
+  * 2: commit 2 by local 2
+  * 3: commit 3 by local 2
+* Remote
+  * 0: root commit
+  * 1: commit 1
+
+If Local 1 were to push to Remote first, how could Local 2 notice that when it tries to push itself? The navie method of just checking: "does Remote have commit "2"" does not work, because Local 2 has a different version of commit 2 than local 1.
+
+= Git internals
+{c}
+{parent=Git}
+
+= Git object
+{c}
+{parent=Git internals}
+
+= Git commit object
+{c}
+{parent=Git object}
+
+https://stackoverflow.com/questions/22968856/what-is-the-file-format-of-a-git-commit-object-data-structure
 
 = Git UI
 {parent=Git}
