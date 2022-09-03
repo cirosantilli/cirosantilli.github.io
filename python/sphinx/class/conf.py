@@ -7,4 +7,6 @@ autodoc_default_options = {
     # Does now show base classes otherwise... why such bad defaults?
     # But with this it does show useless bases like `object`. What is one to do?
     'show-inheritance': True,
+    'special-members': True,
+    #'private-members': True,
 }

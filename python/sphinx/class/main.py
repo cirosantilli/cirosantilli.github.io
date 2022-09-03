@@ -2,45 +2,42 @@
 
 from typing import Protocol
 
-class CanFly(Protocol):
-    '''
-    doc
-    '''
-    def fly(self) -> str:
-        '''
-        doc
-
-        :abstractmethod:
-        '''
-        raise NotImplementedError()
-
-class Bird(CanFly):
+class Base:
     '''
     doc
     '''
 
-
-    def fly(self):
+    def __init__(self, i: int):
         '''
         doc
         '''
-        return 'Bird.fly'
+        #: doc
+        self.i = i
+        #: doc
+        self.__private: int = 1
 
-class Bat(CanFly):
-    '''
-    doc
-    '''
-    def fly(self):
+    def method(self, i: int) -> int:
         '''
         doc
         '''
-        return 'Bat.fly'
+        return i + 1
 
-def send_mail(flyer: CanFly) -> str:
-    '''
-    doc
-    '''
-    return flyer.fly()
+    def __getelem__(self, i: int) -> int:
+        '''
+        doc
+        '''
+        return i + 1
 
-assert send_mail(Bird()) == 'Bird.fly'
-assert send_mail(Bat()) == 'Bat.fly'
+    def __private(self, i: int) -> int:
+        '''
+        doc
+        '''
+        return i + 1
+
+    def private_no_underscore(self, i: int) -> int:
+        '''
+        doc
+
+        :meta private:
+        '''
+        return i + 1

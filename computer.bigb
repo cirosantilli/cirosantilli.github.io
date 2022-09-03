@@ -375,6 +375,17 @@ Crays work philosophy is is highlighted many times in the book, and it is someth
 
 Cray's final downfall was when he opted to try to use a promising but hard to work with material <gallium arsenide> instead of <silicon> as his way to try and speed up computers, see also: <gallium arsenide vs silicon>. Also, he went against the extremely current of the late 80's early 90's pointing rather towards using massively parallel systems based on <silicon> off-the-shelf <Intel> processors, a current that had <DARPA> support, and which by far the path that won very dramatically as of 2020, see: <Intel supercomputer market share>.
 
+= Computer graphics
+{parent=Computer}
+
+= 2D computer graphics
+{parent=Computer graphics}
+{wiki}
+
+= 3D computer graphics
+{parent=Computer graphics}
+{wiki}
+
 = Computer network
 {parent=Computer}
 {wiki}
@@ -1584,6 +1595,76 @@ TODO how close does it get to Shannon's limit?
 = Signal-to-noise
 {synonym}
 
+= Quantum information
+{parent=Information}
+{wiki}
+
+\Include[quantum-computing]{parent=quantum-information}
+
+= Quantum key distribution
+{parent=Quantum information}
+{tag=Cryptography}
+{wiki}
+
+= QKD
+{c}
+{synonym}
+{title2}
+
+Man-in-the-middle attack
+
+https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 Advantage of quantum key distribution over post-quantum cryptography has <Ciro Santilli>'s comparison to classical encryption.
+
+<BB84> is a good first algorithm to look into.
+
+Long story short:
+* QKD allows you to generate shared keys without <public-key cryptography>. You can then use thses shared keys
+* QKD requires authentication on a classical channel, exactly like a classical <public-key cryptography> <forward secrecy> would. The simplest way to do this is a with a <pre-shared key>, just like in classical public key cryptography. If that key is compromised at any point, your future messages can get <man-in-the-middle>'d, exactly like in classical cryptography.
+
+QKD uses <quantum mechanics> stuff to allow sharing unsnoopable keys: you can detect any snooping and abort communication. Unsnoopability is guaranteed by the known <laws of physics>, up only to engineering imperfections.
+
+Furthermore, it allows this <key (cryptography)> distribution without having to physically take a box by car somewhere: once the channel is established, e.g. <optical fiber>, you can just keep generating perfect keys from it. Otherwise it would be pointless, as you could just drive your <one-time pad> key every time.
+
+However, the keys likely have a limited rate of generation, so you can't just <one-time pad> the entire message, except for small text messages. What you would then do is to use the shared key with <symmetric encryption>.
+
+Therefore, this setup usually ultimately relies on the idea that we believe that <symmetric encryption> is safer than , even though there aren't mathematical safety proofs of either as of 2020.
+
+= Quantum key distribution protocol
+{parent=Quantum key distribution}
+
+= BB84
+{c}
+{parent=Quantum key distribution protocol}
+{wiki}
+
+Does not require <entangled particles>, unlike <E91> which does.
+
+https://en.wikipedia.org/w/index.php?title=Quantum_key_distribution&oldid=1079513227#BB84_protocol:_Charles_H._Bennett_and_Gilles_Brassard_(1984) explains it well. Basically:
+* Alice and Bob randomly select a measurement basis of either 90 degrees and 45 degrees for each <photon>
+* Alice measures each photon. There are two possible results to either measurement basis: parallel or perpendicular, representing values 0 or 1. TODO understand better: weren't the possible results supposed to be pass or non-pass? She writes down the results, and sends the (now <wave function collapse>[collapsed]) photons forward to Bob.
+* Bob measures the photons and writes down the results
+* Alice and Bob communicate to one another their randomly chosen measurement bases over the unencrypted classic channel.
+
+  This channel must be authenticated to prevent <man-in-the-middle>. The only way to do this authentication that makes sense is to use a <pre-shared key> to create <message authentication codes>. Using <public-key cryptography> for a <digital signature> would be pointless, since the only advantage of <QKD> is to avoid using <public-key cryptography> in the first place.
+* they drop all photons for which they picked different basis. The measurements of those which were in the same basis are the key. Because they are in the same basis, their results must always be the same in an ideal system.
+* if there is an eavesdropper on the line, the results of measurements on the same basis can differ.
+
+  Unfortunately, this can also happen due to imperfections in the system.
+
+  Alice and Bob must decide what level of error is above the system's imperfections and implies that an attacker is listening.
+
+= BB86 vs E91
+{c}
+{parent=BB84}
+
+https://physics.stackexchange.com/questions/441870/bb84-protocol-vs-e91-protocol
+
+= E91
+{c}
+{parent=Quantum key distribution protocol}
+
+Requires <entangled particles>, unlike <BB84> which does not.
+
 = Markup language
 {parent=Computer}
 {wiki}
@@ -1736,9 +1817,11 @@ That's what usually fucks up parallel programs.
 = Hyperthread
 {synonym}
 
-https://superuser.com/questions/133082/what-is-the-difference-between-hyper-threading-and-multiple-cores/995858#995858
+* https://superuser.com/questions/133082/what-is-the-difference-between-hyper-threading-and-multiple-cores/995858#995858
+* https://stackoverflow.com/questions/680684/what-are-the-differences-between-multi-cpu-multi-core-and-hyper-thread/73405312#73405312
+* https://unix.stackexchange.com/questions/88283/so-what-are-logical-cpu-cores-as-opposed-to-physical-cpu-cores/739296#739296
 
-Hyperthreding is the <Intel> name.
+Hyperthreding is the <Intel> brand-name, TODO generic name.
 
 = History of computers
 {parent=Computer}
@@ -1748,76 +1831,6 @@ Hyperthreding is the <Intel> name.
 {parent=History of computers}
 {title2=ENIAC}
 {wiki}
-
-= Quantum information
-{parent=Computer}
-{wiki}
-
-\Include[quantum-computing]{parent=quantum-information}
-
-= Quantum key distribution
-{parent=Quantum information}
-{tag=Cryptography}
-{wiki}
-
-= QKD
-{c}
-{synonym}
-{title2}
-
-Man-in-the-middle attack
-
-https://quantumcomputing.stackexchange.com/questions/142/advantage-of-quantum-key-distribution-over-post-quantum-cryptography/25727#25727 Advantage of quantum key distribution over post-quantum cryptography has <Ciro Santilli>'s comparison to classical encryption.
-
-<BB84> is a good first algorithm to look into.
-
-Long story short:
-* QKD allows you to generate shared keys without <public-key cryptography>. You can then use thses shared keys
-* QKD requires authentication on a classical channel, exactly like a classical <public-key cryptography> <forward secrecy> would. The simplest way to do this is a with a <pre-shared key>, just like in classical public key cryptography. If that key is compromised at any point, your future messages can get <man-in-the-middle>'d, exactly like in classical cryptography.
-
-QKD uses <quantum mechanics> stuff to allow sharing unsnoopable keys: you can detect any snooping and abort communication. Unsnoopability is guaranteed by the known <laws of physics>, up only to engineering imperfections.
-
-Furthermore, it allows this <key (cryptography)> distribution without having to physically take a box by car somewhere: once the channel is established, e.g. <optical fiber>, you can just keep generating perfect keys from it. Otherwise it would be pointless, as you could just drive your <one-time pad> key every time.
-
-However, the keys likely have a limited rate of generation, so you can't just <one-time pad> the entire message, except for small text messages. What you would then do is to use the shared key with <symmetric encryption>.
-
-Therefore, this setup usually ultimately relies on the idea that we believe that <symmetric encryption> is safer than , even though there aren't mathematical safety proofs of either as of 2020.
-
-= Quantum key distribution protocol
-{parent=Quantum key distribution}
-
-= BB84
-{c}
-{parent=Quantum key distribution protocol}
-{wiki}
-
-Does not require <entangled particles>, unlike <E91> which does.
-
-https://en.wikipedia.org/w/index.php?title=Quantum_key_distribution&oldid=1079513227#BB84_protocol:_Charles_H._Bennett_and_Gilles_Brassard_(1984) explains it well. Basically:
-* Alice and Bob randomly select a measurement basis of either 90 degrees and 45 degrees for each <photon>
-* Alice measures each photon. There are two possible results to either measurement basis: parallel or perpendicular, representing values 0 or 1. TODO understand better: weren't the possible results supposed to be pass or non-pass? She writes down the results, and sends the (now <wave function collapse>[collapsed]) photons forward to Bob.
-* Bob measures the photons and writes down the results
-* Alice and Bob communicate to one another their randomly chosen measurement bases over the unencrypted classic channel.
-
-  This channel must be authenticated to prevent <man-in-the-middle>. The only way to do this authentication that makes sense is to use a <pre-shared key> to create <message authentication codes>. Using <public-key cryptography> for a <digital signature> would be pointless, since the only advantage of <QKD> is to avoid using <public-key cryptography> in the first place.
-* they drop all photons for which they picked different basis. The measurements of those which were in the same basis are the key. Because they are in the same basis, their results must always be the same in an ideal system.
-* if there is an eavesdropper on the line, the results of measurements on the same basis can differ.
-
-  Unfortunately, this can also happen due to imperfections in the system.
-
-  Alice and Bob must decide what level of error is above the system's imperfections and implies that an attacker is listening.
-
-= BB86 vs E91
-{c}
-{parent=BB84}
-
-https://physics.stackexchange.com/questions/441870/bb84-protocol-vs-e91-protocol
-
-= E91
-{c}
-{parent=Quantum key distribution protocol}
-
-Requires <entangled particles>, unlike <BB84> which does not.
 
 \Include[software]{parent=computer}
 \Include[computer-hardware]{parent=computer}
