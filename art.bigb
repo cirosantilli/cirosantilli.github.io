@@ -416,11 +416,168 @@ So we just use the precise <Non-deterministic game> term instead for any game th
 
 = Computer chess
 {parent=Chess}
+{tag=Game AI}
+
+= Computer chess competition
+{c}
+{parent=Computer chess}
+{wiki}
+
+* https://www.reddit.com/r/chess/comments/20lgck/why_do_chess_engines_opt_out_of_competing_in_the/
+* https://en.wikipedia.org/wiki/Top_Chess_Engine_Championship
+* https://en.wikipedia.org/wiki/World_Computer_Chess_Championship
+
+= Computer chess interface
+{c}
+{parent=Computer chess}
+{wiki}
+
+= Forsyth-Edwards Notation
+{c}
+{parent=Computer chess interface}
+{wiki}
+
+= FEN notation
+{c}
+{synonym}
+{title2}
+
+= Universal Chess Interface
+{c}
+{parent=Computer chess interface}
+{wiki}
+
+Bibliography:
+* https://stackoverflow.com/questions/17003561/using-the-universal-chess-interface
+
+= Chess engine
+{parent=Computer chess}
 
 = Stockfish
 {disambiguate=chess}
-{parent=Computer chess}
+{parent=Chess engine}
 {wiki}
+
+<CLI> program implementing <Universal Chess Interface>: https://www.reddit.com/r/ComputerChess/comments/b6rdez/commandline_options_for_stockfish/ 
+
+https://chess.stackexchange.com/questions/4353/how-to-install-stockfish-on-ubuntu
+
+= Stockfish CLI
+{c}
+{parent=Stockfish (chess)}
+
+https://www.maketecheasier.com/use-stockfish-cli-master-chess is a good source.
+
+After starting `stockfish` on the command line, `d` (presumably display) contains:
+``
+ +---+---+---+---+---+---+---+---+
+ | r | n | b | q | k | b | n | r | 8
+ +---+---+---+---+---+---+---+---+
+ | p | p | p | p | p | p | p | p | 7
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 6
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 5
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   | P |   |   |   | 4
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 3
+ +---+---+---+---+---+---+---+---+
+ | P | P | P | P |   | P | P | P | 2
+ +---+---+---+---+---+---+---+---+
+ | R | N | B | Q | K | B | N | R | 1
+ +---+---+---+---+---+---+---+---+
+   a   b   c   d   e   f   g   h
+
+Fen: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1
+Key: B46022469E3DD31B
+``
+Sweet <ASCII art>. Here:
+* `Fen`: <FEN notation>
+* `Key`: TODO
+
+Move white king's pawn:
+``
+position startpos move e2e4
+``
+Then display again:
+``
+d
+``
+gives:
+``
+ +---+---+---+---+---+---+---+---+
+ | r | n | b | q | k | b | n | r | 8
+ +---+---+---+---+---+---+---+---+
+ | p | p | p | p | p | p | p | p | 7
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 6
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 5
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   | P |   |   |   | 4
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 3
+ +---+---+---+---+---+---+---+---+
+ | P | P | P | P |   | P | P | P | 2
+ +---+---+---+---+---+---+---+---+
+ | R | N | B | Q | K | B | N | R | 1
+ +---+---+---+---+---+---+---+---+
+   a   b   c   d   e   f   g   h
+
+Fen: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1
+Key: B46022469E3DD31B
+``
+so we see that the pawn moved.
+
+Now let's make Stockfish think for one second what is the next best move for black:
+```
+go movetime 1000
+```
+gives as the last line:
+```
+bestmove c7c5 ponder g1f3
+```
+TODO what is ponder? Something to do with thinking on the opponent's turn: <permanent brain>.
+
+Make the move it suggested for black:
+``
+position startpos move e2e4 c7c5
+``
+`d`:
+``
++---+---+---+---+---+---+---+---+
+| r | n | b | q | k | b | n | r | 8
++---+---+---+---+---+---+---+---+
+| p | p |   | p | p | p | p | p | 7
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   | 6
++---+---+---+---+---+---+---+---+
+|   |   | p |   |   |   |   |   | 5
++---+---+---+---+---+---+---+---+
+|   |   |   |   | P |   |   |   | 4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   | 3
++---+---+---+---+---+---+---+---+
+| P | P | P | P |   | P | P | P | 2
++---+---+---+---+---+---+---+---+
+| R | N | B | Q | K | B | N | R | 1
++---+---+---+---+---+---+---+---+
+  a   b   c   d   e   f   g   h
+``
+alternatively:
+``
+position fen rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 move c7c3
+``
+
+Let's move white again with our brain:
+``
+position startpos move e2e4 c7c5 d2d3
+``
+
+The other alternative
+
+TODO: how to not type every move every time?
 
 = First-move advantage in chess
 {parent=Chess}
@@ -441,6 +598,7 @@ So we just use the precise <Non-deterministic game> term instead for any game th
 
 = Computer Go
 {parent=Go (game)}
+{tag=Game AI}
 
 = List of board games
 {c}
