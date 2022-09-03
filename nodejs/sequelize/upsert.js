@@ -39,7 +39,7 @@ common.assertEqual(rows, [
   { id: 3, value: 5, name: 'five',  inverse: -5 },
 ])
 
-// Update.
+// Update existing rows.
 rows = [(await Integer.upsert({ value: 2, name: 'TWO' }))[0]]
 if (sequelize.options.dialect === 'postgres') {
   common.assertEqual(rows, [
@@ -61,6 +61,8 @@ if (sequelize.options.dialect === 'postgres') {
     { id: 3, value: 3, name: 'THREE', inverse: undefined },
   ])
 }
+
+// Insert a new item with upsert.
 rows = [(await Integer.upsert({ value: 7, name: 'SEVEN' }))[0]]
 if (sequelize.options.dialect === 'postgres') {
   common.assertEqual(rows, [
