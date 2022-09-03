@@ -291,7 +291,7 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 {parent=SQL keyword}
 {wiki=Insert_(SQL)}
 
-= UPSERT
+= Upsert
 {c}
 {parent=INSERT (SQL)}
 
@@ -306,6 +306,17 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 
 * https://www.postgresql.org/docs/14/sql-insert.html#SQL-ON-CONFLICT
 * https://www.sqlite.org/lang_returning.html
+
+= Upsert with `NOT NULL` column
+{parent=UPSERT}
+
+Attempt at \a[nodejs/sequelize/raw/upsert.js]:
+* https://stackoverflow.com/questions/48816629/on-conflict-do-nothing-in-postgres-with-a-not-null-constraint OP unable to provide a minimal exampe, but it is likely the problem
+* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
+
+Related on more complex constraints:
+* https://dba.stackexchange.com/questions/175182/on-conflict-on-two-columns-where-one-can-be-null
+* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
 
 = JOIN
 {disambiguate=SQL}
@@ -345,10 +356,21 @@ An example where `SELECT FOR UPDATE` is a good solution to an use case can be se
 `SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
 = UPDATE
-{disambiguate=SQL}
 {c}
+{disambiguate=SQL}
 {parent=SQL keyword}
 {wiki=Update_(SQL)}
+
+= Update multiple rows with different values in a single SQL query
+{parent=UPDATE (SQL)}
+
+This happens when you calculate a bunch of values on your program, and then want to save the to SQL.
+
+<Upsert> is an option, but it fails if you have a `NOT NULL` column: <Upsert with `NOT NULL` column>
+
+Bibliography:
+* https://stackoverflow.com/questions/11563869/update-multiple-rows-with-different-values-in-a-single-sql-query
+* https://dba.stackexchange.com/questions/69269/updating-multiple-rows-with-different-values-in-one-query
 
 = UPDATE with JOIN
 {c}

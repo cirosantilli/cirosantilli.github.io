@@ -41,6 +41,7 @@ common.assertEqual(rows, [
   { id: 3, value: 5, name: 'five',  inverse: -5 },
 ])
 
+// Update name.
 if (sequelize.options.dialect !== 'sqlite') {
   // Update.
   // Doesn't work on sqlite3 node.js package latest version 5.0.2,
@@ -69,6 +70,25 @@ RETURNING "id", "value", "name", "inverse"
     { id: 3, value: 5, name: 'five',  inverse: -5 },
     { id: 6, value: 7, name: 'SEVEN', inverse: null },
   ])
+}
+await reset()
+
+// Update inverse to bulk insert. Hard because "name" is "NOT NULL".
+// https://cirosantilli.com/upsert-with-not-null-column
+if (false) {
+  ;[rows, meta] = await sequelize.query(
+    `INSERT INTO "Integer" ("value", "inverse") VALUES
+(2,-3),
+(3,-4)
+ON CONFLICT ("value") DO UPDATE SET "inverse"=EXCLUDED."inverse"
+  `)
+  ;[rows, meta] = await sequelize.query(`SELECT * FROM "Integer" ORDER BY value ASC`)
+  common.assertEqual(rows, [
+    { id: 1, value: 2, name: 'two',   inverse: -3 },
+    { id: 2, value: 3, name: 'three', inverse: -4 },
+    { id: 3, value: 5, name: 'five',  inverse: -5 },
+  ])
+  await reset()
 }
 
 })().finally(() => { return sequelize.close() });

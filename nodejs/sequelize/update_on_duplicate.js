@@ -19,6 +19,7 @@ const Integer = sequelize.define('Integer',
     },
     inverse: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
