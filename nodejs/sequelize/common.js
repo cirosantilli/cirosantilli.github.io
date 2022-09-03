@@ -54,7 +54,9 @@ function sequelize(filename, dialect, opts) {
     dialect = 'l'
   }
   opts = Object.assign({
-    logQueryParameters: true
+    logQueryParameters: true,
+    // https://stackoverflow.com/questions/52260934/how-to-measure-query-execution-time-in-seqilize
+    benchmark: true,
   }, opts)
   if (dialect === 'l') {
     const pathParse = path.parse(filename)
