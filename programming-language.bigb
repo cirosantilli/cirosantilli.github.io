@@ -286,12 +286,31 @@ However, it is also <Hell>: <how to convert async to sync in JavaScript>.
 = How to convert `async` to sync in JavaScript
 {parent=async (JavaScript)}
 
-God, it's impossible! You just have to convert the entire fucking call stack all the way up to async functions. It could mean refactoring hundreds of functions.
+<God>, it's impossible! You just have to convert the entire fucking call stack all the way up to async functions. It could mean refactoring hundreds of functions.
 
-To be fair, there is a logic to this, if you put yourself within the crappiness of the JavaScript threading model. And <Python> is not that much better with its <Global Interpreter Lock>.
+To be fair, there is a logic to this, if you put yourself within the crappiness of the <JavaScript> threading model. And <Python> is not that much better with its <Global Interpreter Lock>.
 
-The problem is that async was introduced relatively late, previously we just had to use infinitely deep callback trees, which was worse. But now we are in an endless period of transition between both worlds.
+The problem is that async was introduced relatively late, previously we just had to use infinitely deep callback <tree (data structure)>[trees], which was worse:
+``
+myAsync().then(ret => myAsync2(ret).then(ret2 => myAsync3(re3)))
+``
+compared to the new infinitely more readable:
+``
+ret = await myAsync()
+ret2 = await myAsync2(ret)
+ret3 = await myAsync3(ret3)
+``
+But now we are in an endless period of transition between both worlds.
 
+It is also worth mentioning that callbacks are still inescapable if you really want to fan out into a non-linear dependency graph, usually with `Promise.all`:
+``
+await Promise.all([
+  myAsync(1).then(ret => myAsync2(ret)),
+  myAsync(2).then(ret => myAsync2(ret)),
+])
+``
+
+Bibliography:
 * https://stackoverflow.com/questions/21819858/how-to-wrap-async-function-calls-into-a-sync-function-in-node-js-or-javascript
 * https://stackoverflow.com/questions/9121902/call-an-asynchronous-javascript-function-synchronously
 * https://stackoverflow.com/questions/47227550/using-await-inside-non-async-function

@@ -418,10 +418,17 @@ So we just use the precise <Non-deterministic game> term instead for any game th
 {parent=Chess}
 {tag=Game AI}
 
-= Computer chess competition
-{c}
+= Human vs computer chess
 {parent=Computer chess}
+
+As of 2020's and earlier, humans were far far behind.
+
+= Human-computer chess matches
+{parent=Human vs computer chess}
 {wiki}
+
+= Computer chess competition
+{parent=Computer chess}
 
 * https://www.reddit.com/r/chess/comments/20lgck/why_do_chess_engines_opt_out_of_competing_in_the/
 * https://en.wikipedia.org/wiki/Top_Chess_Engine_Championship
@@ -442,6 +449,12 @@ So we just use the precise <Non-deterministic game> term instead for any game th
 {synonym}
 {title2}
 
+The cool thing about this notation is that is showed to <Ciro Santilli> that there is more state to a chess game than just the board itself! Notably:
+* whose move it is next
+* castling availability
+* en passant availability
+plus some other boring draw rules counters.
+
 = Universal Chess Interface
 {c}
 {parent=Computer chess interface}
@@ -450,23 +463,81 @@ So we just use the precise <Non-deterministic game> term instead for any game th
 Bibliography:
 * https://stackoverflow.com/questions/17003561/using-the-universal-chess-interface
 
+= Chess UI
+{parent=Computer chess}
+
+A Chess UI is a program that interfaces with a <chess engine> in order using a <computer chess interface> to allow human players to interact conveniently with the engine.
+
+Bibliography:
+* https://wiki.gentoo.org/wiki/Chess
+* https://chess.stackexchange.com/questions/1600/chess-program-for-linux-unix-console
+
+= GNOME Chess
+{c}
+{parent=Chess UI}
+{tag=GNOME Project}
+{wiki}
+
+The user friendly <Chess UI>! Exactly what you would expect from a <GNOME Project> package. But also packs some punch via the <Universal Chess Interface>, e.g. <Stockfish> just works.
+
+= GNU Chess
+{c}
+{parent=Chess UI}
+{tag=GNU package}
+{title2=`gnuchess`}
+{wiki}
+
+Both <chess engine> and a <CLI> <chess UI>. As an engine it is likely irrelevant compared to <Stockfish> as of 2020. TODO: does the UI support <Universal Chess Interface>?
+
+Cool project history though. Started before the <GNU Project> itself, and became one of the first packages.
+
+= Shane's Chess Information Database
+{c}
+{parent=Chess UI}
+{title2=scid}
+{wiki}
+
+Advanced. Not beginner friendly, very clunky.
+
 = Chess engine
 {parent=Computer chess}
 
+= Leela Chess Zero
+{c}
+{parent=Chess engine}
+{tag=Open source software}
+{wiki}
+
+= Lc0
+{c}
+{synonym}
+{titl2}
+
+<Deep learning> implementation, a bit analogous to <AlphaZero>, but for <chess> only.
+
 = Stockfish
+{c}
 {disambiguate=chess}
 {parent=Chess engine}
+{tag=Open source software}
 {wiki}
+
+One of the most powerful chess engine as of 2023: <computer chess competition>.
+
+As of 2023, apparently does not use <deep learning> nor <GPUs>:
+* https://www.reddit.com/r/chess/comments/u5012z/can_stockfish_141_utilize_my_gpu_in_addition_to/
 
 <CLI> program implementing <Universal Chess Interface>: https://www.reddit.com/r/ComputerChess/comments/b6rdez/commandline_options_for_stockfish/ 
 
-https://chess.stackexchange.com/questions/4353/how-to-install-stockfish-on-ubuntu
+How to actually play against it: https://chess.stackexchange.com/questions/4353/how-to-install-stockfish-on-ubuntu So hard!
 
 = Stockfish CLI
 {c}
 {parent=Stockfish (chess)}
 
 https://www.maketecheasier.com/use-stockfish-cli-master-chess is a good source.
+
+Most of what follows is part of the <Universal Chess Interface>. Tested on <Ubuntu 22.10>, <Stockfish> 14.1.
 
 After starting `stockfish` on the command line, `d` (presumably display) contains:
 ``
@@ -479,26 +550,26 @@ After starting `stockfish` on the command line, `d` (presumably display) contain
  +---+---+---+---+---+---+---+---+
  |   |   |   |   |   |   |   |   | 5
  +---+---+---+---+---+---+---+---+
- |   |   |   |   | P |   |   |   | 4
+ |   |   |   |   |   |   |   |   | 4
  +---+---+---+---+---+---+---+---+
  |   |   |   |   |   |   |   |   | 3
  +---+---+---+---+---+---+---+---+
- | P | P | P | P |   | P | P | P | 2
+ | P | P | P | P | P | P | P | P | 2
  +---+---+---+---+---+---+---+---+
  | R | N | B | Q | K | B | N | R | 1
  +---+---+---+---+---+---+---+---+
    a   b   c   d   e   f   g   h
 
-Fen: rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1
-Key: B46022469E3DD31B
+Fen: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+Key: 8F8F01D4562F59FB
 ``
-Sweet <ASCII art>. Here:
+Sweet <ASCII art>. where:
 * `Fen`: <FEN notation>
 * `Key`: TODO
 
-Move white king's pawn:
+Move white king's pawn from e2 to e4:
 ``
-position startpos move e2e4
+position startpos moves e2e4
 ``
 Then display again:
 ``
@@ -538,46 +609,54 @@ gives as the last line:
 ```
 bestmove c7c5 ponder g1f3
 ```
-TODO what is ponder? Something to do with thinking on the opponent's turn: <permanent brain>.
+TODO:
+* what is ponder? Something to do with thinking on the opponent's turn: <permanent brain>.
+* understand the previous lines
 
-Make the move it suggested for black:
+To make the move it as suggested for black, we have to either repeat the entire sequence of movements:
 ``
-position startpos move e2e4 c7c5
+position startpos moves e2e4 c7c5
 ``
 `d`:
 ``
-+---+---+---+---+---+---+---+---+
-| r | n | b | q | k | b | n | r | 8
-+---+---+---+---+---+---+---+---+
-| p | p |   | p | p | p | p | p | 7
-+---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   | 6
-+---+---+---+---+---+---+---+---+
-|   |   | p |   |   |   |   |   | 5
-+---+---+---+---+---+---+---+---+
-|   |   |   |   | P |   |   |   | 4
-+---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   | 3
-+---+---+---+---+---+---+---+---+
-| P | P | P | P |   | P | P | P | 2
-+---+---+---+---+---+---+---+---+
-| R | N | B | Q | K | B | N | R | 1
-+---+---+---+---+---+---+---+---+
-  a   b   c   d   e   f   g   h
+ +---+---+---+---+---+---+---+---+
+ | r | n | b | q | k | b | n | r | 8
+ +---+---+---+---+---+---+---+---+
+ | p | p |   | p | p | p | p | p | 7
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 6
+ +---+---+---+---+---+---+---+---+
+ |   |   | p |   |   |   |   |   | 5
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   | P |   |   |   | 4
+ +---+---+---+---+---+---+---+---+
+ |   |   |   |   |   |   |   |   | 3
+ +---+---+---+---+---+---+---+---+
+ | P | P | P | P |   | P | P | P | 2
+ +---+---+---+---+---+---+---+---+
+ | R | N | B | Q | K | B | N | R | 1
+ +---+---+---+---+---+---+---+---+
+   a   b   c   d   e   f   g   h
+
+Fen: rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2
+Key: 4CA78BCE9C2980B0
 ``
-alternatively:
+or alternatively we could also use the previous <FEN notation> as a starting point;
 ``
-position fen rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 move c7c3
+position fen rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 moves c7c5
+``
+Note how the <Universal Chess Interface> interface is very simple: we just load a state and then decide what to do next for that one state. The engine holds only one and exactly one state at a time, and you can't even modify it differentially without loading new one from scratch.
+
+Let's move white again with our brain with either:
+``
+position startpos moves e2e4 c7c5 d2d3
+position fen rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2 moves d2d3
 ``
 
-Let's move white again with our brain:
+Set a specific position from `fen`:
 ``
-position startpos move e2e4 c7c5 d2d3
+position fen rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1
 ``
-
-The other alternative
-
-TODO: how to not type every move every time?
 
 = First-move advantage in chess
 {parent=Chess}
@@ -599,6 +678,9 @@ TODO: how to not type every move every time?
 = Computer Go
 {parent=Go (game)}
 {tag=Game AI}
+
+= Go engine
+{parent=Computer Go}
 
 = List of board games
 {c}
