@@ -409,6 +409,15 @@ Shows:
 = Hardware accelerator
 {synonym}
 
+= System on a chip
+{parent=Integrated circuit}
+{wiki}
+
+= SoC
+{c}
+{synonym}
+{title2}
+
 = Register transfer level
 {parent=Computer hardware}
 {title2=RTL}
@@ -1006,8 +1015,12 @@ In conventional speech of the early 2000's, is basically a synonym for <dynamic 
 
 = Static random-access memory
 {parent=Random-access memory}
-{title2=SRAM}
 {wiki}
+
+= SRAM
+{c}
+{synonym}
+{title2}
 
 = Dynamic random-access memory
 {parent=Random-access memory}
@@ -1409,6 +1422,7 @@ Some key specs:
   * name: RP2040. Custom designed by <Raspberry Pi Foundation>, likely the first they make themselves rather than using a <Broadcom> chip. But the design still is closed source, likely wouldn't be easy to open source due to the usage of closed proprietary IP like the <ARM ISA>
   * dual core <ARM Cortex-M0+>
   * frequency: 2 kHz to 133 MHz, 125 MHz by default
+  * memory: 264KB on-chip <SRAM>
 
 \Image[https://web.archive.org/web/20220808214856im_/https://twilio-cms-prod.s3.amazonaws.com/images/6ofE97USO9rBn4LidgxTgfrAqK0UiI3v524IPNHc7ac3SA.width-800.png]
 {source=https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf}
@@ -1445,14 +1459,14 @@ Has <serial wire debug> debug. Why would you ever get one without unless you are
 
 https://stackoverflow.com/questions/66183596/how-can-you-make-a-micropython-program-on-a-raspberry-pi-pico-autorun/74078142#74078142
 
-Examples at: <Raspberry Pi Pico W example>.
+Examples at: <Raspberry Pi Pico W MicroPython example>.
 
 = Program the Raspberry Pi Pico W with MicroPython from Thonny
 {parent=Program Raspberry Pi Pico W with MicroPython}
 
 https://stackoverflow.com/questions/66183596/how-can-you-make-a-micropython-program-on-a-raspberry-pi-pico-autorun/74078142#74078142
 
-Examples at: <Raspberry Pi Pico W example>.
+Examples at: <Raspberry Pi Pico W MicroPython example>.
 
 = Raspberry Pi Pico W MicroPython example
 {c}
@@ -1482,15 +1496,49 @@ Examples can be run as described at <Program Raspberry Pi Pico W with MicroPytho
   * https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/hello_world/usb
   * https://github.com/raspberrypi/pico-examples/tree/a7ad17156bf60842ee55c8f86cd39e9cd7427c1d/blink
 
-<Ubuntu 22.04> TODO:
-
+<Ubuntu 22.04> build just worked, nice! Much feels much cleaner than the <Micro Bit> C setup:
 ``
 sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
 git clone https://github.com/raspberrypi/pico-sdk
+cd pico-sdk
+git checkout 2e6142b15b8a75c1227dd3edbe839193b2bf9041
+cd ..
+
 git clone https://github.com/raspberrypi/pico-examples
+cd pico-examples
+git checkout a7ad17156bf60842ee55c8f86cd39e9cd7427c1d
+cd ..
+
 export PICO_SDK_PATH="$(pwd)/pico-sdk"
-cd pico-exampes/hello_world/usb
+cd pico-exampes
+mkdir build
+cd build
+# Board selection.
+# https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html also says you can give wifi ID and password here for W.
+cmake -DPICO_BOARD=pico_w ..
+make -j
 ``
+
+Then we install the programs just like any other <UF2> but plugging it in with BOOTSEL pressed and copying the UF2 over, e.g.:
+``
+cp pico_w/blink/picow_blink.uf2 /media/$USER/RPI-RP2/
+``
+Note that there is a separate example for the W and non W LED, for non-W it is:
+``
+cp blink/blink.uf2 /media/$USER/RPI-RP2/
+``
+
+Also tested the UART over USB example:
+``
+cp hello_world/usb/hello_usb.uf2 /media/$USER/RPI-RP2/
+``
+You can then see the UART messages with:
+``
+screen /dev/ttyACM0 115200
+``
+
+TODO understand the proper debug setup, and a flash setup that doesn't require us to plug out and replug the thing every two seconds. https://www.electronicshub.org/programming-raspberry-pi-pico-with-swd/ appears to describe it, with SWD to do both debug and flash. To do it, you seem need another board with <GPIO>, e.g. a <Raspberry Pi>, the laptop alone is not enough.
 
 = Peripheral
 {parent=Computer hardware}
@@ -1660,6 +1708,12 @@ This situation is the most bizarre thing ever. The dude was fired in 2020, but h
 = ARM Cortex-M0+
 {c}
 {parent=ARM Cortex-M}
+{wiki}
+
+= Broadcom
+{c}
+{parent=Semiconductor company}
+{tag=HP spinoff}
 {wiki}
 
 = Graphcore
