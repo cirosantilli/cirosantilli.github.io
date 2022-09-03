@@ -1,9 +1,6 @@
 = Computer
 
-The artistic instrument that enables the ultimate <art>: coding, in particular:
-* <computational physics>[physics simulations]
-* <formalization of mathematics>
-* the persuit of <AGI>
+The artistic instrument that enables the ultimate <art>: coding, See also: <the art of programming>{full}.
 
 Much more useful than instruments used in inferior arts, such as pianos or paintbrushes.
 
@@ -25,7 +22,7 @@ Computers basically have two applications:
 * computation
 * communication. Notably, computers through the <Internet> allow for modes of communication where:
   * both people don't have to be on the same phone line at the exact same time, a server can relay your information to other people
-  * anyone can broadcast informatoin easily and for almost free, again due to servers being so good at handling that
+  * anyone can broadcast information easily and for almost free, again due to servers being so good at handling that
 Generally, the smaller a computer, the more it gets used for communication rather than computing.
 
 The early computers were large and expensive, and basically only used for computing. E.g. <ENIAC> was used for calculating ballistic tables.
@@ -34,6 +31,23 @@ Communication only came later, and it was not obvious to people at first how inc
 
 This is also well illustrated in the documentary <Glory of the Geeks>. Full interview at: https://www.youtube.com/watch?v=TRZAJY23xio[]. It is apparently known as the "Lost Interview" and it was by Cringely himself: https://www.youtube.com/watch?v=bfgwCFrU7dI[] for his <Triumph of the Nerds> documentary.
 }
+
+= The art of programming
+{parent=Computer}
+{tag=Essays by Ciro Santilli}
+
+Big goals:
+* the pursuit of <AGI>
+* <computational physics>[physics simulations], including <scientific visualization software>
+* <formalization of mathematics>
+
+Just <art>:
+* useless mathy stuff
+* incredibly nifty little tools that are just so satisfying to use it is mind blowing:
+  * <ncdu>
+  * <GNU parallel>
+* media related stuff
+  * <ffmpeg> one liners!
 
 = How computers work?
 {parent=Computer}
@@ -167,6 +181,32 @@ As of the 2010's and forward, with the limit of <Moore's law> and the rise of <m
 As an example, the <Lightmatter> company was trying to implement <silicon photonics>-based matrix multiplication.
 
 A general intuition behind this type of development is that the <human brain>, the holy grail of <machine learning>, is itself an <analog computer>.
+
+= Computer benchmark
+{parent=Computer}
+{wiki}
+
+* <CPU> benchmark: https://askubuntu.com/questions/634513/cpu-benchmarking-utility-for-linux/701532#701532
+* <GPU> benchmark: https://askubuntu.com/questions/31913/how-to-perform-a-detailed-and-quick-3d-performance-test
+
+= stress-ng
+{parent=Computer benchmark}
+
+The interface is a bit annoying, but the tool is really cool.
+
+100 cycles of `matrixprod`:
+``
+stress-ng -c1 --cpu-ops 100 --cpu-method matrixprod
+``
+`man stress-ng` gives the list of possible `--cpu-method`. It documents `matrixprod` as:
+\Q[<matrix product> of two 128 × 128 matrices of double floats. Testing on 64 bit <x86> hardware shows that this is provides a good mix of memory, cache and floating point operations and is probably the best CPU method to use to make a CPU run hot.]
+
+If you don't specify the `--cpu-method` it apparently loops through every method one by one.
+
+Limit time to 1s instead of limiting cycles:
+``
+stress-ng -c1 -t1 --cpu-method matrixprod
+``
 
 = Computer company
 {parent=Computer}
@@ -318,7 +358,7 @@ It is funny to see how the first computers were very artisanal, made on a one-of
 
 Amazing how Control Data Corporation raised capital IPO style as a startup without a product. The dude was selling shares at dinner parties in his home.
 
-Very interesting mention on page 70 of how <Israel> bought CDC's https://en.wikipedia.org/wiki/UNIVAC_1103[UNIVAC 1103] which Cray contributed greatly to design, and everyone knew that it was to make <thermonuclear weapons>, since that was what the big American labs like  this mention should be added to: https://en.wikipedia.org/wiki/Nuclear_weapons_and_Israel but that's Extended Protected... the horrors of <Wikipedia>.
+Very interesting mention on page 70 of how <Israel> bought CDC's https://en.wikipedia.org/wiki/UNIVAC_1103[UNIVAC 1103] which Cray contributed greatly to design, and everyone knew that it was to make <thermonuclear weapons>, since that was what the big American labs like this mention should be added to: https://en.wikipedia.org/wiki/Nuclear_weapons_and_Israel but that's Extended Protected... the horrors of <Wikipedia>.
 
 Another interesting insight is how "unintegrated" computers were back then. They were literally building computers out of individual <vacuum tubes>, then individual semiconducting transistors, a gate at a time. Then things got more and more integrated as time went. That is why the now outdated word "microprocessor" existed. When processors start to fit into a single <integrated circuit>, they were truly micro compared to the monstrosities that existed previously.
 
