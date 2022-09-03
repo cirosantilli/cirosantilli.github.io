@@ -61,7 +61,7 @@ if (sequelize.options.dialect === 'postgres') {
   // SELECT DISTINCT ON expressions must match initial ORDER BY expressions
   // https://www.reddit.com/r/PostgreSQL/comments/i79jph/help_understanding_select_distinct_on_expressions/
   ;[rows, meta] = await sequelize.query(`
-SELECT DISTINCT ON ("country") *
+SELECT DISTINCT ON ("country") "price", "city"
 FROM "Sales"
 ORDER BY "country" ASC, "price" DESC, "city" ASC
 `)

@@ -403,14 +403,13 @@ common.assertEqual(rows, [
 
 // Queries that modify data.
 
-// UPDATE all tags of dog to uppercase.
-// This is a simpler type of UPDATE where we just select what ill be updated,
+// UPDATE with JOIN: UPDATE all tags of dog to uppercase.
+// https://cirosantilli.com/updqte-with-join-sql
+//
+// This is a simpler type of UPDATE where we just select what will be updated,
 // we don't need data from the JOIN for the update.
 //
 // Portable subquery version.
-//
-// Bibliography:
-// * PostgreSQL https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
 ;[rows, meta] = await sequelize.query(`
 UPDATE "Tag"
   SET "name" = UPPER(name)
@@ -455,31 +454,6 @@ common.assertEqual(rows, [
 await reset()
 }
 }
-
-// UPDATE all tags of dog to uppercase.
-// This is a simpler type of UPDATE where we just select what will be updated,
-// we don't need data from the JOIN for the update.
-//
-// Portable subquery version.
-;[rows, meta] = await sequelize.query(`
-UPDATE "Tag"
-  SET "name" = UPPER(name)
-WHERE "id" IN (
-  SELECT "AnimalTag"."tagId"
-  FROM "Animal"
-  INNER JOIN "AnimalTag"
-    ON "AnimalTag"."animalId" = "Animal"."id"
-    AND "Animal"."name" = 'dog'
-)
-`)
-;[rows, meta] = await sequelize.query(`SELECT * FROM "Tag" ORDER BY id ASC`)
-common.assertEqual(rows, [
-  { name: 'flying'     },
-  { name: 'MAMMAL'     },
-  { name: 'VERTEBRATE' },
-  { name: 'aquatic'    },
-])
-await reset()
 
 // ON DELETE CASCADE action: if we delete the 'vertebrate' tag,
 // corresponding relations are also deleted.

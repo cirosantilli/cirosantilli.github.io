@@ -18,7 +18,7 @@ By default the examples run on <SQLite>. Just like the examples from <sequelize 
 
 Here we list only examples which we believe are standard SQL, and should therefore work across different SQL implementations:
 * \a[nodejs/sequelize/raw/index.js]: basic hello world to demonstrate the setup and very simple functionality
-* \a[nodejs/sequelize/raw/many_to_many.js]: illustrates <many-to-many relations>: * <JOIN (SQL)>
+* \a[nodejs/sequelize/raw/many_to_many.js]: illustrates <many-to-many relations> with <JOIN (SQL)>. Contains:
 * <SQL transaction> examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on <PostgreSQL>, once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for <SQLite>, SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
   * <SQL isolation level example>{child}
@@ -55,8 +55,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * PostgreSQL:
     * https://stackoverflow.com/questions/866465/order-by-the-in-value-list
     * https://dba.stackexchange.com/questions/59394/order-of-returned-rows-with-in-statement
-* LIMIT by a running total:
-  * https://stackoverflow.com/questions/17109602/limit-sql-by-the-sum-of-the-rows-value/17109881
+* LIMIT by a running total: TODO links
 
 = SQL aggregate function
 {c}
@@ -344,6 +343,21 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <file/nodejs/sequelize/raw/parallel_select_and_update.js>.
 
 `SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
+
+= UPDATE
+{disambiguate=SQL}
+{c}
+{parent=SQL keyword}
+{wiki=Update_(SQL)}
+
+= UPDATE with JOIN
+{c}
+{disambiguate=SQL}
+{parent=UPDATE (SQL)}
+
+Not possible without subqueries in the standard syntax, a huge shame:
+* https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
+* <PostgreSQL> https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
 
 = SQL standard
 {c}
