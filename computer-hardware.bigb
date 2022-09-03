@@ -687,6 +687,9 @@ One limitation is that it only handles digital electronics: https://electronics.
 \Video[https://www.youtube.com/watch?v=0zrqYy369NQ]
 {title=FPGA Dev Board Tutorial by Ben Heck (2016)}
 
+\Video[https://www.youtube.com/watch?v=m-8G1Yixb34]
+{title=The History of the FPGA by <Asianometry> (2022)}
+
 = FPGA company
 {c}
 {parent=Field-programmable gate array}
@@ -1423,6 +1426,9 @@ Some key specs:
   * dual core <ARM Cortex-M0+>
   * frequency: 2 kHz to 133 MHz, 125 MHz by default
   * memory: 264KB on-chip <SRAM>
+* GPIO voltage: 3.3V
+
+Datasheet: https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 
 \Image[https://web.archive.org/web/20220808214856im_/https://twilio-cms-prod.s3.amazonaws.com/images/6ofE97USO9rBn4LidgxTgfrAqK0UiI3v524IPNHc7ac3SA.width-800.png]
 {source=https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf}
@@ -1443,9 +1449,64 @@ Has <serial wire debug> debug. Why would you ever get one without unless you are
 {parent=Raspberry Pi Pico variant}
 {title2=2022}
 
+Datasheet: https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
+
+= Raspberry Pi Pico W UART
+{tag=UART}
+
+You can connect form an <Ubuntu 22.04> host as:
+``
+screen /dev/ttyACM0 115200
+``
+When in `screen`, you can Ctrl + C to kill `main.py`, and then execution stops and you are left in a Python shell. From there:
+* Ctrl + D: reboots
+* Ctrl + A K: kills the <GNU screen> window. Execution continues normally
+but be aware of: <Raspberry Pi Pico W freezes a few seconds after after screen disconnects from UART>.
+
+Other options:
+* <ampy> `run` command, which solves <How to run a MicroPython script from a file on the Raspberry Pi Pico W from the command line?>
+
 = Program Raspberry Pi Pico W with MicroPython
 {parent=Raspberry Pi Pico W}
 {tag=MicroPython}
+
+= How to run a MicroPython script from a file on the Raspberry Pi Pico W from the command line?
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+The first/only way Ciro could find was with <ampy>: https://stackoverflow.com/questions/74150782/how-to-run-a-micropython-host-script-file-on-the-raspbery-pi-pico-from-the-host/74150783#74150783 That just worked and it worked perfectly!
+``
+python3 -m pip install --user adafruit-ampy
+ampy --port /dev/ttyACM0 run blink.py
+``
+
+TODO: possible with <rshell>?
+
+= MicroPython connection tool
+{c}
+{parent=Program Raspberry Pi Pico W with MicroPython}
+
+= ampy
+{parent=MicroPython connection tool}
+
+Source: https://github.com/scientifichackers/ampy
+
+Install on <Ubuntu 22.04>:
+``
+python3 -m pip install --user adafruit-ampy
+``
+
+Bibliography:
+* https://www.digikey.co.uk/en/maker/projects/micropython-basics-load-files-run-code/fb1fcedaf11e4547943abfdd8ad825ce
+
+= rshell
+{parent=MicroPython connection tool}
+
+https://github.com/dhylands/rshell
+
+= How to exit from repl in rshell?
+{parent=rshell}
+
+Ctrl + X. Documented by running `help repl` from the main shell.
 
 = Raspberry Pi Pico W freezes a few seconds after after screen disconnects from UART
 {c}
@@ -1472,19 +1533,17 @@ Examples at: <Raspberry Pi Pico W MicroPython example>.
 {c}
 {parent=Program Raspberry Pi Pico W with MicroPython}
 
-Examples under \a[rpi-pico-w/upython].
+An upstream repo at: https://github.com/raspberrypi/pico-micropython-examples
 
-Examples can be run as described at <Program Raspberry Pi Pico W with MicroPython>.
+Our examples at: \a[rpi-pico-w/upython].
 
+The examples can be run as described at <Program Raspberry Pi Pico W with MicroPython>.
 * \a[rpi-pico-w/upython/blink.py]: blink on-board <LED>. Note that they broke the LED hello world compatibility from non-W to W for God's sake!!!
 * \a[rpi-pico-w/upython/led_on.py]: turn on-board LED on and leave it on forever
-* \a[rpi-pico-w/upython/uart.py]: has automatic <UART> via USB. Any `print()` command ends up on the UART! Is is just like with <Micro Bit>, must be a standard Micro Python thing. Connect form an <Ubuntu 22.04> host as:
-  ``
-  screen /dev/ttyACM0 115200
-  ``
-  When in `screen`, you can Ctrl + C to kill `main.py`, and then execution stops and you are left in a Python shell. From there:
-  * Ctrl + D: reboots
-  * Ctrl + A K: kills the <GNU screen> window. Execution continues normally
+* \a[rpi-pico-w/upython/uart.py]: has automatic <UART> via USB. Any `print()` command ends up on the <Raspberry Pi Pico W UART>! Is is just like with <Micro Bit>, must be a standard Micro Python thing. The onboard LED is blinked as a <heartbeat (computing)>.
+* \a[rpi-pico-w/upython/blink_gpio.py]: toggle GPIO pin 0 on and off twice a second. Also toggle the on-board LED and print to UART for correlation. You can see this in action e.g. by linking an LED between pin 0 and one of the GND pins of the Pi, and the LED will blink.
+* \a[rpi-pico-w/upython/pwm.py]: <pulse width modulation>. Using the same circuit as the \a[rpi-pico-w/upython/blink_gpio.py] example, you will now see the external LED go from dark to bright continuously  and then back
+* \a[rpi-pico-w/upython/adc.py]: <analog-to-digital converter>. The program prints to the <UART> the value of the ADC on GPIO 26 once every 0.2 seconds. The onboard LED is blinked as a <heartbeat (computing)>. The hello world is with a <potentiometer>: extremes on GND and VCC pins of the Pi, and middle output on pin 26, then as you turn the knob, the uart value goes from about 0 to about 64k.
 
 = Program Raspberry Pi Pico W with C
 {parent=Raspberry Pi Pico W}
