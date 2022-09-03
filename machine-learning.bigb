@@ -178,9 +178,71 @@ Ciro's motivation/push for this can be seen e.g. at: <Ciro's 2D reinforcement le
 {parent=Neural network}
 {wiki}
 
+= Trained artificial neural network
+{parent=Artificial neural network}
+{tag=Training (ML)}
+
 = Deep learning
 {parent=Artificial neural network}
 {wiki}
+
+Deep learning is the name <artificial neural networks> basically converged to in the 2010s/2020s.
+
+It is a bit of an unfortunate as it suggests something like "deep understanding", but at least it sounds good.
+
+= Backpropagation
+{parent=Deep learning}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Ilg3gGewQ5U]
+{title=What is backpropagation really doing? by <3Blue1Brown> (2017)}
+{description=Good <hand wave> intuition, but does not describe the exact <algorithm>.}
+
+= Deep learning is mostly matrix multiplication
+{parent=Deep learning}
+
+= Deep learning framework
+{parent=Deep learning}
+{wiki}
+
+= PyTorch
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+= python/pytorch/matmul.py
+{file}
+{parent=PyTorch}
+
+<Matrix multiplication> example.
+
+Fundamental since <deep learning is mostly matrix multiplication>.
+
+<NumPy> does not automatically use the <GPU> for it: https://stackoverflow.com/questions/49605231/does-numpy-automatically-detect-and-use-gpu[], and PyTorch is one of the most notable compatible implementations, as it uses the same memory structure as NumPy arrays.
+
+Sample runs on <Ciro Santilli's hardware/P51> to observe the <GPU> speedup:
+``
+$ time ./matmul.py g 10000 1000 10000 100
+real    0m22.980s
+user    0m22.679s
+sys     0m1.129s
+$ time ./matmul.py c 10000 1000 10000 100
+real    1m9.924s
+user    4m16.213s
+sys     0m17.293s
+``
+
+= TensorFlow
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+= TensorFlow quantum
+{c}
+{parent=TensorFlow}
+{tag=Quantum computing}
+
+Version of TensorFlow with a <Cirq> backend that can run in either <quantum computers> or <classical computer> simulations, with the goal of potentially speeding up <deep learning> applications on a <quantum computer> some day.
 
 = Computer vision
 {parent=Machine learning}
