@@ -40,6 +40,8 @@ common.assertEqual(rows, [
 ])
 
 // Update existing rows.
+// sqlite:  INSERT INTO `Integers` (`value`,`name`) VALUES ($1,$2) ON CONFLICT (`value`) DO UPDATE SET `value`=EXCLUDED.`value`,`name`=EXCLUDED.`name`; {"$1":2,"$2":"TWO"}
+// postgre: INSERT INTO "Integers" ("value","name") VALUES ($1,$2) ON CONFLICT ("value") DO UPDATE SET "value"=EXCLUDED."value","name"=EXCLUDED."name" RETURNING "id","value","name","inverse"; 2, "TWO"
 rows = [(await Integer.upsert({ value: 2, name: 'TWO' }))[0]]
 if (sequelize.options.dialect === 'postgres') {
   common.assertEqual(rows, [

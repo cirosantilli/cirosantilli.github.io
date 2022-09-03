@@ -53,11 +53,13 @@ function sequelize(filename, dialect, opts) {
   if (dialect === undefined) {
     dialect = 'l'
   }
+  opts = Object.assign({
+    logQueryParameters: true
+  }, opts)
   if (dialect === 'l') {
     const pathParse = path.parse(filename)
     return new Sequelize(Object.assign({
       dialect: 'sqlite',
-      logQueryParameters: true,
       storage: path.join(pathParse.dir, pathParse.name) + '.sqlite'
     }, opts));
   } else if (dialect === 'p') {

@@ -46,8 +46,7 @@ Some glaring issues are listed at <the horrors of Sequelize>.
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
   Also, you can't get query strings either: https://github.com/sequelize/sequelize/issues/2325
-* SQLite `changeColumn` migrations do on delete cascades of other tables. SQLite does not have change column statements, so they have to drop and recreate tables, but they don't temporarily remove cascades, so you lose data.
-* migrations
+* migrations. Generally speaking, anything but the simplest migrations are exceedingly hard to get right, as you have to go very low level when doing migrations. Syntax can be very different from regular DB operations.
   * no way to do (non-raw) queries during migrations, e.g. to update fields based on other fields in a complex way?
     * https://github.com/sequelize/cli/issues/862
     * https://stackoverflow.com/questions/18742962/add-data-in-sequelize-migration-script
@@ -58,6 +57,7 @@ Some glaring issues are listed at <the horrors of Sequelize>.
 
     Edit: actually things will likely just work if immediately after making table changes you just instantiate a new sequelize and do any data changes.
   * https://stackoverflow.com/questions/56043246/node-js-sequelize-no-primary-keys-when-migrating/56046101#56046101
+  * SQLite `changeColumn` migrations do on delete cascades of other tables. SQLite does not have change column statements, so they have to drop and recreate tables, but they don't temporarily remove cascades, so you lose data: https://stackoverflow.com/questions/62667269/sequelize-js-how-do-we-change-column-type-in-migration/70486686#70486686
 
 = Sequelize example
 {parent=Sequelize}
@@ -81,9 +81,11 @@ Overview of the examples:
 * \a[nodejs/sequelize/date.js]: automatic date typecasts
 * \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
 * \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does <SQLite> `INSERT OR IGNORE INTO` or <PostgreSQL> `ON CONFLICT DO NOTHING`. Closely related <UPSERT> versions:
-  * upsert
-    * \a[nodejs/sequelize/upsert.js]
-    * \a[nodejs/sequelize/update_on_duplicate.js]
+  * <upsert>
+    * \a[nodejs/sequelize/upsert.js]: `.upsert` selects the conflict column automatically by unique columns. Both <SQLite> and <PostgreSQL> do `INSERT INTO ON CONFLICT`. PostgreSQL uses `RETURNING`, which was added too recently to SQLite: https://www.sqlite.org/lang_returning.html
+
+      At \a[nodejs/sequelize/composite_index.js] we have a `.upsert` test with a composite index. Works just fine as you'd expect with a composite `ON CONFLICT`. Well done.
+    * \a[nodejs/sequelize/update_on_duplicate.js]: `.bulkCreate({}, { updateOnDuplicate: ['col1', col2'] }`. Produces queries analogous to `.upsert`. This method is cool because it can upsert multiple columns at once. But it is annoying that you have to specify all fields to be updated one by one manually.
     * https://stackoverflow.com/questions/29063232/how-to-get-the-id-of-an-inserted-or-updated-record-in-sequelize-upsert/72092277#72092277
     * https://stackoverflow.com/questions/55531860/sequelize-bulkcreate-updateonduplicate-for-postgresql
 * \a[nodejs/sequelize/inc.js]: demonstrate the `increment` method. In <SQLite>, it produces a statement of type:
