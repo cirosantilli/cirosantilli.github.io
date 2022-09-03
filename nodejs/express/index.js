@@ -50,6 +50,9 @@ const tests = [
   ['/dontexist', 'GET', 404],
 
   ['/query?aa=000&bb=111', 'GET', 200, 'aa: 000 bb: 111'],
+  // Repeated params becomes lists instead of strings. Type safety is for the weak.
+  // https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
+  ['/query?aa=000&aa=111', 'GET', 200, 'aa: 000,111 bb: undefined'],
 
   // https://stackoverflow.com/questions/10020099/express-js-routing-optional-splat-param
   // https://stackoverflow.com/questions/16829803/express-js-route-parameter-with-slashes
