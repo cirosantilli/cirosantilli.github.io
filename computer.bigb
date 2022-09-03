@@ -1268,6 +1268,8 @@ For <PNG> export:
 {parent=Video editing software}
 {wiki}
 
+This seems like a decent option, although sometimes buggy.
+
 Preview has no sound on <Ubuntu> 20.10. Fixed as of <Ubuntu 22.04>.
 
 Sound worked on Ubuntu 21.04 though, but it then soon crashed with:
@@ -1283,6 +1285,19 @@ qrc:/qml/EffectToolBar.qml:80: function() { [native code] }
 Killed
 ``
 amazing.
+
+On Ubuntu 22.04 haven't crashed yet.
+
+To get started:
+* import a clip
+* drag it onto the track area
+
+To cut tracks at current point: Ctrl + R.
+
+Add subtitles:
+* Effects
+* Dynamic text
+then drag on top of the video track. To add only to part of the video, cut it up first.
 
 = ShotCut
 {c}
@@ -1341,8 +1356,19 @@ ffmpeg -i input.mp4 -vf "subtitles=subtitle.srt:force_style='Fontsize=64'" outpu
 ``
 The default appears to be 24, so just multiply that by whatever seems like a reasonable factor.
 
+Note howver that <.ass subtitle files> can contain style information, which ffmpeg respects. <Aegisub> can produce and preview such styles, making .ass one of the best options.
+
 = Subtitle file format
 {parent=Subtitle}
+
+= SubStation Alpha
+{c}
+{parent=Subtitle file format}
+{wiki}
+
+= .ass subtitle file
+{synonym}
+{title2}
 
 = Subtitle editor
 {parent=Subtitle file format}
@@ -1360,6 +1386,25 @@ Written in <c sharp>.
 https://github.com/Aegisub/Aegisub
 
 This worked well on 3.2.2 <Ubuntu> 20.10. Recommended.
+
+First import video with:
+``
+aegisub-3.2 ourbigbook-parent.mkv
+``
+They don't have an `aegisub` executable without the version number. Amazing.
+
+If you already have a subtitle file that you want to edit, then just pass it on as well:
+``
+aegisub-3.2 ourbigbook-parent.mkv ourbigbook-parent.ass
+``
+
+Ctrl + P: play and pause video.
+
+Ctrl + 3: set current substitle start time.
+
+Ctrl + 4: set current substitle end time.
+
+Enter: finish editing the current entry and start a new one.
 
 = Gaupol
 {c}
