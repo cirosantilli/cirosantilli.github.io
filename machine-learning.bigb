@@ -50,12 +50,14 @@ The hyperplane choice is done as follows:
 * then we pick a second axis, orthogonal to the first one, and on the direction of second largest variance
 * and so on until $p$ orthogonal axes are taken
 
-https://www.sartorius.com/en/knowledge/science-snippets/what-is-principal-component-analysis-pca-and-how-it-is-used-507186 provides an OK-ish example with a concrete context. In there, we each point is a country, and the input data is the consumption of different kinds of foods per year, e.g.:
+https://www.sartorius.com/en/knowledge/science-snippets/what-is-principal-component-analysis-pca-and-how-it-is-used-507186 provides an OK-ish example with a concrete context. In there, each point is a country, and the input data is the consumption of different kinds of foods per year, e.g.:
 * flour
 * dry codfish
 * olive oil
 * sausage
 so in this example, we would have input points in 4D.
+
+The question is then: we want to be able to identify the country by what they eat.
 
 Suppose that every country consumes the same amount of flour every year. Then, that number doesn't tell us much about which country each point represents (has the least <variance>), and the first PCA axes would basically never point anywhere near that direction.
 
@@ -65,6 +67,8 @@ However, suppose that dry codfish consumption is also directly proportional to o
 * dry codfish as the first axis
 * olive oil as the second axis
 since the information about codfish already tells us the olive oil. PCA apparently recognizes this, and instead picks the first axis at a 45 degree angle to both dry codfish and olive oil, and then moves on to something else for the second axis.
+
+We can see that much like the rest of <machine learning>, PCA can <Machine learning as a form of data compression>[be seen as a form of compression].
 
 = Hyperparameter
 {parent=Machine learning}
@@ -80,6 +84,20 @@ Hyperparameters can also be considered in domains outside of <machine learning> 
 = Overfitting
 {parent=Hyperparameter}
 {wiki}
+
+= Machine learning as a form of data compression
+{parent=Overfitting}
+{tag=Overfitting}
+
+Philosophically, machine learning can be seen as a form of <lossy compression>.
+
+And if we make it too <lossless>, then we are basically <overfitting>.
+
+Bibliography:
+* https://bair.berkeley.edu/blog/2019/09/19/bit-swap/
+* https://www.eecs.tufts.edu/~dsculley/papers/compressionAndVectors.pdf
+* https://arxiv.org/abs/2202.06533
+* https://towardsdatascience.com/ai-based-image-compression-the-state-of-the-art-fb5aa6042bfa
 
 = Natural language processing
 {parent=Machine learning}
@@ -210,8 +228,71 @@ It is a bit of an unfortunate as it suggests something like "deep understanding"
 {parent=Deep learning}
 {wiki}
 
+= YOLO model
+{c}
+{parent=Convolutional neural network}
+{wiki}
+
+Object detection model.
+
+You can get some really sweet pre-trained versions of this, typically trained on the <COCO dataset>.
+
+= Deep learning benchmark
+{parent=Deep learning}
+
+= MLperf
+{c}
+{parent=Deep learning benchmark}
+
+https://mlcommons.org/en/ Their homepage is not amazingly organized, but it does the job.
+
+Benchmark focused on <deep learning>. It has two parts:
+* <training (ML)>: produces a trained network
+* <inference (ML)>: uses the trained network
+Furthermore, a specific network model is specified for each benchmark in the closed category: so it goes beyond just specifying the dataset.
+
+Results can be seen e.g. at:
+* training: https://mlcommons.org/en/training-normal-21/
+* inference: https://mlcommons.org/en/inference-datacenter-21/
+
+And there are also separate repositories for each:
+* https://github.com/mlcommons/inference
+* https://github.com/mlcommons/training
+
+E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the benchmarks are:
+
+|| Dataset
+|| Model
+
+| <ImageNet>
+| ResNet
+
+| KiTS19
+| 3D U-Net
+
+| OpenImages
+| RetinaNet
+
+| <COCO dataset>
+| Mask R-CNN
+
+| LibriSpeech
+| RNN-T
+
+| Wikipedia
+| BERT [1]
+
+| 1TB Clickthrough
+| DLRM
+
+| <Go (game)>
+| <MiniGo>
+
 = Deep learning is mostly matrix multiplication
 {parent=Deep learning}
+
+* https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+* https://math.stackexchange.com/questions/41706/practical-uses-of-matrix-multiplication/4647422#4647422
 
 = Deep learning framework
 {parent=Deep learning}
@@ -260,6 +341,28 @@ Version of TensorFlow with a <Cirq> backend that can run in either <quantum comp
 {parent=Machine learning}
 {wiki}
 
+= Pre-trained computer vision model
+{parent=Computer vision}
+
+= Pre-trained computer vision model CLI
+{parent=Pre-trained computer vision model}
+
+= yolov5-pip
+{c}
+{parent=Pre-trained computer vision model CLI}
+{tag=YOLO model}
+
+https://github.com/fcakyon/yolov5-pip
+
+OK, now we're talking, two liner and you get a window showing <bounding box> object detection from your <webcam> feed!
+``
+python -m pip install -U yolov5==7.0.9
+yolov5 detect --source 0
+``
+The accuracy is crap for anything but people. But still. Well done. Tested on <Ubuntu 22.10>, <Ciro Santilli's hardware/P51>.
+
+\Video[https://www.youtube.com/watch?v=1MD3Wn7e6OE]
+
 = Computer vision dataset
 {parent=Computer vision}
 
@@ -273,11 +376,22 @@ Version of TensorFlow with a <Cirq> backend that can run in either <quantum comp
 {c}
 {synonym}
 
-60,000 28x28 grayscale images of hand-written digits 0-9.
+60,000 28x28 grayscale images of hand-written digits 0-9, i.e. 10 categories.
 
 This is THE "<OG>" <computer vision dataset>.
 
 Playing with it is the de-facto <computer vision> <hello world>.
+
+But it is important to note that as of the 2010's, the benchmark had become too easy for many application.
+
+The dataset can be downloaded from http://yann.lecun.com/exdb/mnist/[], e.g. training:
+``
+wget http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+wget http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+``
+but doing so is kind of pointless as both files use some crazy single-file custom binary format to store all images and labels. OMG!
+
+OK-ish data explorer: https://knowyourdata-tfds.withgoogle.com/#tab=STATS&dataset=mnist
 
 = Fashion MNIST
 {c}
@@ -286,6 +400,73 @@ Playing with it is the de-facto <computer vision> <hello world>.
 {wiki}
 
 Same style as <MINST>, but with clothes. Designed to be much harder, and more representative of modern applications, while still retaining the low resolution of <MNIST> for simplicity of training.
+
+= ImageNet
+{c}
+{parent=Computer vision dataset}
+{tag=Closed standard}
+{title2=2009}
+{wiki}
+
+14 million images, more than 20k categories, typically denoting prominent objects in the image, either common daily objects, or a wild range of animals. About 1 million of them also have <bounding boxes> for the objects.
+
+Each image appears to have a single label associated to it. Care must have been taken somehow with categories, since some images contain severl possible objects, e.g. a person and some object.
+
+In practice however, the <ILSVRC> subset is more commonly used.
+
+Official project page: https://www.image-net.org/
+
+The data license is restrictive and forbids commercial usage: https://www.image-net.org/download.php[].
+
+https://datascience.stackexchange.com/questions/111756/where-can-i-view-the-imagenet-classes-as-a-hierarchy-on-wordnet
+
+The categories are all part of <WordNet>, which means that there are several parent/child categories such as dog vs type of dog available. <ImageNet1k> only appears to have leaf nodes however (i.e. no "dog" label, just specific types of dog).
+
+= ImageNet Large Scale Visual Recognition Challenge dataset
+{c}
+{parent=ImageNet}
+
+= ILSVRC
+{c}
+{synonym}
+{title2}
+
+= ImageNet1k
+{c}
+{synonym}
+{title2}
+
+Subset of <ImageNet>. TODO size. Apparently 1k categories, and about 1,281,167 images, so this dataset is also known as ImageNet1k: https://datascience.stackexchange.com/questions/47458/what-is-the-difference-between-imagenet-and-imagenet1k-how-to-download-it
+
+The official page: https://www.image-net.org/challenges/LSVRC/index.php points to a download link on <Kaggle>: https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data Kaggle says that the size is 167.62 GB!
+
+Another download location appears to be: https://huggingface.co/datasets/imagenet-1k on <Hugging Face>, but you have to login due to their license terms. Once you login you have a very basic data explorer available: https://huggingface.co/datasets/imagenet-1k/viewer/default/train[].
+
+https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file.
+
+= COCO dataset
+{c}
+{parent=Computer vision dataset}
+{wiki}
+
+From https://cocodataset.org/[]:
+* 330K images (>200K labeled)
+* 1.5 million object instances
+* 80 object categories
+* 91 stuff categories
+* 5 captions per image. A caption is a short textual description of the image.
+
+So they have relatively few object labels, but their focus seems to be putting a bunch of objects on the same image. E.g. they have 13 cat plus pizza photos. Searching for such weird combinations is kind of fun.
+
+Their official dataset explorer is actually good: https://cocodataset.org/#explore
+
+And the objects don't just have bounding boxes, but detailed polygons.
+
+Also, images have captions describing the relation between objects:
+\Q[a black and white cat standing on a table next to a pizza.]
+Epic.
+
+This dataset is kind of cool.
 
 = Optical character recognition
 {parent=Computer vision}
@@ -314,6 +495,25 @@ Very useful for idiotic websites that require real photos!
 
 * https://deepai.org/machine-learning-model/text2img
 * https://openai.com/blog/dall-e/
+
+= Machine learning company
+{parent=Machine learning}
+
+= Hugging Face
+{c}
+{parent=Machine learning company}
+{wiki}
+
+https://huggingface.co/
+
+= Ontology
+{parent=Machine learning company}
+{wiki}
+
+= WordNet
+{c}
+{parent=Ontology}
+{wiki}
 
 = Machine learning bibliography
 {parent=Machine learning}

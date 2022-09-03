@@ -1,4 +1,6 @@
-def main(i):
+#!/usr/bin/env python
+
+def main(i: int) -> int:
     '''
     Mydoc!
     '''
