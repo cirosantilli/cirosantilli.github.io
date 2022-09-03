@@ -310,6 +310,19 @@ More commonly known as a map or dictionary.
 {parent=Tree (data-structure)}
 {wiki}
 
+The summary from https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/ is a winner:
+``
+    1
+   / \
+  2   3
+ / \
+4   5
+``
+* <inorder DFS>: 4 2 5 1 3
+* <preorder DFS>: 1 2 4 5 3
+* <postorder DFS>: 4 5 2 3 1
+* <breadth-first search>: 1 2 3 4 5
+
 = Depth-first search
 {parent=Tree traversal}
 {wiki}
@@ -319,9 +332,15 @@ More commonly known as a map or dictionary.
 {title2=NLR}
 {wiki}
 
+= Preorder DFS
+{synonym}
+{title2}
+
+This is the order in which you would want to transverse
+
 Like <breadth-first search>, this also has the property of visiting parents before any children.
 
-= Interative pre-order
+= Iterative pre-order
 {parent=Pre-order depth-first search}
 
 This is the easiest one to do iteratively:
@@ -334,14 +353,22 @@ This is the easiest one to do iteratively:
 {title2=LNR}
 {wiki}
 
-Only makes sense for <binary tree> because if there are more nodes it is not clear what the top node should go in the middle of.
+= Inorder DFS
+{synonym}
+{title2}
+
+This is the order in which a <binary search tree> should be traversed for ordered output, i.e.:
+* everything to the left is smaller than parent
+* everything to the right is larger than parent
+
+This ordering makes sense for <binary trees> and not <k-ary trees> in general because if there are more than two nodes it is not clear what the top node should go in the middle of.
 
 This is unlike <pre-order depth-first search> and <post-order depth-first search> which generalize obviously to general trees.
 
-= Interative in-order
+= Iterative in-order
 {parent=In-order depth-first search}
 
-This is a bit harder than <interative pre-order>: now we have to check if there is a left or right element or not:
+This is a bit harder than <iterative pre-order>: now we have to check if there is a left or right element or not:
 * (START) push current
 * if there is left:
   * move left
@@ -361,9 +388,13 @@ The control flow can be slightly simplified if we allow NULLs: https://www.geeks
 {title2=LRN}
 {wiki}
 
-Has the property of visiting all children before the parent.
+= Postorder DFS
+{synonym}
+{title2}
 
-= Interative post-order
+Has the property of visiting all descendants before the parent.
+
+= Iterative post-order
 {parent=Post-order depth-first search}
 
 This is the hardest one to do iteratively.
@@ -372,13 +403,13 @@ Bibliography:
 * https://stackoverflow.com/questions/1294701/post-order-traversal-of-binary-tree-without-recursion
 * https://stackoverflow.com/questions/50645284/non-recursive-post-order-graph-traversal
 
-= Interative post-order with two stacks
-{parent=Interative post-order}
+= Iterative post-order with two stacks
+{parent=Iterative post-order}
 
 https://www.geeksforgeeks.org/iterative-postorder-traversal/
 
-= Interative post-order with one stack
-{parent=Interative post-order}
+= Iterative post-order with one stack
+{parent=Iterative post-order}
 
 https://www.geeksforgeeks.org/iterative-postorder-traversal-using-stack/
 
