@@ -55,6 +55,8 @@ Here we list only examples which we believe are standard SQL, and should therefo
   * PostgreSQL:
     * https://stackoverflow.com/questions/866465/order-by-the-in-value-list
     * https://dba.stackexchange.com/questions/59394/order-of-returned-rows-with-in-statement
+* LIMIT by a running total:
+  * https://stackoverflow.com/questions/17109602/limit-sql-by-the-sum-of-the-rows-value/17109881
 
 = SQL aggregate function
 {c}
@@ -721,6 +723,17 @@ Related questions:
 * https://stackoverflow.com/questions/59351109/error-could-not-serialize-access-due-to-concurrent-update
 * https://stackoverflow.com/questions/50797097/postgres-could-not-serialize-access-due-to-concurrent-update/51932824
 
+= Microsoft SQL Server
+{c}
+{parent=SQL implementation}
+{wiki}
+
+= SQL Server
+{c}
+{synonym}
+
+Often known simply as SQL Server, a terrible thing that makes it impossible to find portable SQL answers on <Google>! You just have to Google by specific <SQL implementation> unfortunately to find anything about the open source ones.
+
 = SQLite
 {c}
 {parent=SQL implementation}
@@ -809,3 +822,57 @@ As claimed on their README, their operation truly appears to be 10x faster than 
 The only big problem was the lack of <ORM>, but people are looking into that by adding it to <Sequelize>:
 * https://github.com/JoshuaWise/better-sqlite3/issues/23
 * https://github.com/sequelize/sequelize/issues/11400
+
+= SQL tree traversal
+{c}
+{parent=SQL}
+{tag=Tree traversal}
+
+Example: \a[nodejs/sequelize/raw/tree.js]
+
+* Implementation agnostic
+  * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree
+  * https://stackoverflow.com/questions/5508985/recursive-query-for-adjacency-list-to-preorder-tree-traversal-in-sql DBMS anostic specifically asking not to modify adjacenty list data structure
+* <Postgres>
+  * https://stackoverflow.com/questions/67848017/simple-recursive-sql-query
+  * https://stackoverflow.com/questions/28688264/how-to-traverse-a-hierarchical-tree-structure-structure-backwards-using-recursiv
+  * https://stackoverflow.com/questions/51822070/how-can-postgres-represent-a-tree-of-row-ids
+* <MySQL>
+  * https://stackoverflow.com/questions/8252323/mysql-closure-table-hierarchical-database-how-to-pull-information-out-in-the-c asks how to use a specific order (<preorder DFS>) with <closure table>
+* <Microsoft SQL Server>
+  * https://stackoverflow.com/questions/14274942/sql-server-cte-and-recursion-example
+
+= Closure table
+{parent=SQL tree traversal}
+{wiki}
+
+= Nested set model
+{parent=SQL tree traversal}
+{wiki}
+
+* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
+* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
+
+The <ASCII ART> visualizations from https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 are worth reproducing.
+
+As a tree:
+* Root 1
+  * Child 1.1
+    * Child 1.1.1
+    * Child 1.1.2
+  * Child 1.2
+    * Child 1.2.1
+    * Child 1.2.2
+
+As the sets:
+``
+ __________________________________________________________________________
+|  Root 1                                                                  |
+|   ________________________________    ________________________________   |
+|  |  Child 1.1                     |  |  Child 1.2                     |  |
+|  |   ___________    ___________   |  |   ___________    ___________   |  |
+|  |  |  C 1.1.1  |  |  C 1.1.2  |  |  |  |  C 1.2.1  |  |  C 1.2.2  |  |  |
+1  2  3___________4  5___________6  7  8  9___________10 11__________12 13 14
+|  |________________________________|  |________________________________|  |
+|__________________________________________________________________________|
+``

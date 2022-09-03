@@ -3,6 +3,10 @@ const path = require('path');
 
 const { Sequelize } = require('sequelize');
 
+function arrayEqual(a1, a2) {
+  return a1.length === a2.length && a1.every((v, i) => v === a2[i])
+}
+
 function assertEqual(rows, rowsExpect) {
   if (assertEqual.typecast === undefined) {
     assertEqual.typecast = {}
@@ -14,15 +18,21 @@ function assertEqual(rows, rowsExpect) {
     for (let key in rowExpect) {
       // raw queries return raw Object without the .get method.
       // But when we have .get, use it, because certain queries require it.
-      let rowval = typeof row.get === 'function' ? row.get(key) : row[key]
+      const rowval = typeof row.get === 'function' ? row.get(key) : row[key]
       const cur_typecast = assertEqual.typecast[key]
       if (cur_typecast) {
         rowval = cur_typecast(rowval)
       }
-      if (rowval !== rowExpect[key]) {
-        console.error({ i, key });
+      let equal
+      const expect = rowExpect[key]
+      if (Array.isArray(rowval)) {
+        equal = arrayEqual(rowval, expect)
+      } else {
+        equal = rowval === expect
       }
-      assert.strictEqual(rowval, rowExpect[key])
+      if (!equal) {
+        throw new Error(`assert failed: row ${i} column "${key}" actual "${rowval}" !== expect "${expect}"`)
+      }
     }
   }
 }

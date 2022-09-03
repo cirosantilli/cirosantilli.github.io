@@ -202,9 +202,23 @@ assert.strictEqual(parseInt(rows[0].count, 10), 2)
 assert.strictEqual(rows.length, 1)
 
 // SUM aggregate query.
-;[rows, meta] = await sequelize.query(`SELECT SUM(value) AS "sum" FROM "IntegerNames"`)
+;[rows, meta] = await sequelize.query(`SELECT SUM("value") AS "sum" FROM "IntegerNames"`)
 assert.strictEqual(parseInt(rows[0].sum, 10), 10)
 assert.strictEqual(rows.length, 1)
+
+// String concatenation aggregate.
+if (sequelize.options.dialect === 'postgres') {
+  // https://stackoverflow.com/questions/43870/how-to-concatenate-strings-of-a-string-field-in-a-postgresql-group-by-query
+  ;[rows, meta] = await sequelize.query(`SELECT string_agg("name", '-' ORDER BY "value" ASC) AS "res" FROM "IntegerNames"`)
+} else {
+  // SQLite
+  // * https://stackoverflow.com/questions/3515267/string-aggregation-in-sqlite generic:
+  // * https://stackoverflow.com/questions/1897352/sqlite-group-concat-ordering ordering specific
+
+  // The ordering may be undefined by the docs on this version:
+  ;[rows, meta] = await sequelize.query(`SELECT group_concat("name", '-') AS "res" FROM "IntegerNames"`)
+}
+assert.strictEqual(rows[0].res, 'two-three-five')
 
 // Find the entire rows that reaches the MAX of the aggregate query.
 // We need the subquery as mentioned at:
@@ -351,6 +365,23 @@ common.assertEqual(rows, [ { n: 'abc' }, ])
 ;[rows, meta] = await sequelize.query(`SELECT 'ab' || 'cd' AS "n"`)
 common.assertEqual(rows, [ { n: 'abcd' }, ])
 
+// format
+// https://www.sqlite.org/lang_corefunc.html#format
+// https://www.postgresql.org/docs/14/functions-string.html
+if (sequelize.options.dialect === 'sqlite') {
+  ;[rows, meta] = await sequelize.query(`SELECT printf('a%04db', 13) AS "n"`)
+
+  // Will also work from sqlite 3.38
+  // https://stackoverflow.com/questions/6576343/how-to-emulate-lpad-rpad-with-sqlite/62361301#62361301
+  //;[rows, meta] = await sequelize.query(`SELECT format('a%04db', 13) AS "n"`)
+} else if (sequelize.options.dialect === 'postgres') {
+  // PostgreSQL 14 format only supports %s no %d...
+  // https://www.postgresql.org/docs/14/functions-string.html#FUNCTIONS-STRING-FORMAT
+  // Pointless!
+  ;[rows, meta] = await sequelize.query(`SELECT format('a%sb', lpad(cast(13 as text), 4, '0')) AS "n"`)
+}
+common.assertEqual(rows, [ { n: 'a0013b' }, ])
+
 // LIKE
 ;[rows, meta] = await sequelize.query(`SELECT 'abcd' LIKE 'ab%' AS "n"`)
 if (sequelize.options.dialect === 'postgres') {
@@ -392,5 +423,35 @@ common.assertEqual(rows, [ { n: 'cde' }, ])
     ;[rows, meta] = await sequelize.query(`SELECT LEFT('abcde', -2) AS "n"`)
     common.assertEqual(rows, [ { n: 'abc' }, ])
   }
+
+if (sequelize.options.dialect === 'postgres') {
+  // Array data type. Quite cool.
+  // https://www.postgresql.org/docs/current/arrays.html
+
+  // Create.
+  ;[rows, meta] = await sequelize.query(`SELECT ARRAY[10, 20, 30] AS "n"`)
+  // Sequelize actually parses it out. Amazing.
+  common.assertEqual(rows, [ { n: [10, 20, 30] } ])
+
+  // Access. 1-based index.
+  ;[rows, meta] = await sequelize.query(`SELECT (ARRAY[10, 20, 30])[1] AS "n"`)
+  common.assertEqual(rows, [ { n: 10 } ])
+  ;[rows, meta] = await sequelize.query(`SELECT (ARRAY[10, 20, 30])[2] AS "n"`)
+  common.assertEqual(rows, [ { n: 20 } ])
+  ;[rows, meta] = await sequelize.query(`SELECT (ARRAY[10, 20, 30])[3] AS "n"`)
+  common.assertEqual(rows, [ { n: 30 } ])
+
+  // Append.
+  ;[rows, meta] = await sequelize.query(`SELECT array_append(ARRAY[10, 20, 30], 40) AS "n"`)
+  common.assertEqual(rows, [ { n: [10, 20, 30, 40] } ])
+
+  // Compare.
+  ;[rows, meta] = await sequelize.query(`SELECT ARRAY[10, 20] < ARRAY[10, 21] AS "n"`)
+  common.assertEqual(rows, [ { n: true } ])
+  ;[rows, meta] = await sequelize.query(`SELECT ARRAY[10, 20] < ARRAY[10, 19] AS "n"`)
+  common.assertEqual(rows, [ { n: false } ])
+  ;[rows, meta] = await sequelize.query(`SELECT ARRAY[10, 20] < ARRAY[11, 19] AS "n"`)
+  common.assertEqual(rows, [ { n: true } ])
+}
 
 })().finally(() => { return sequelize.close() });
