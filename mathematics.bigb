@@ -50,6 +50,9 @@ The most beautiful things in mathematics are results that are:
   * unpredictable magic constants:
     * why is the lowest dimension for an <exotic sphere> 7?
     * why is 4 the largest degree of an equation with explicit solution? <Abel-Ruffini theorem>
+  Lists:
+  * https://math.stackexchange.com/questions/139699/what-are-some-examples-of-a-mathematical-result-being-counterintuitive
+  * https://math.stackexchange.com/questions/2040811/what-are-some-counter-intuitive-results-in-mathematics-that-involve-only-finite/2055458#2055458
 * applications: make life easier and/or modeling some phenomena well, e.g. in <physics>. See also: <how to teach/explain how to make money with the lesson>
 
 Good lists of such problems <Lists of mathematical problems>.
@@ -510,6 +513,19 @@ Some related ideas:
 {synonym}
 {title2}
 
+= Polymath project
+{c}
+{parent=Group of mathematicians}
+{wiki}
+
+= D.H.J Polymath
+{c}
+{synonym}
+{title2}
+
+Bibliography:
+* https://www.galoisrepresentations.com/2013/10/20/who-is-d-h-j-polymath/
+
 = List of mathematicians
 {parent=Mathematician}
 
@@ -665,6 +681,10 @@ These are not in the <Greek alphabet>:
 
 Definition: "easy" number theory learnt in <primary school>, notably the operations of <addition>, <subtraction>, <multiplication> and <division>.
 
+= Computational number theory
+{parent=Number theory}
+{wiki}
+
 = Modular arithmetic
 {parent=Number theory}
 {wiki}
@@ -756,6 +776,25 @@ Also, if 70 million could be reduced down to 2, we would have a proof of the <Tw
 {tag=Prime k-tuple conjecture}
 {wiki}
 
+Let's show them how it's done with <primes (bsdgames)> + <awk>. Edit. They have a `-d` option which also shows gaps!!! Too strong:
+``
+sudo apt install bsdgames
+primes -d 1 100 | awk '/\(2\)/{print $1 - 2, $1 }'
+``
+gives us the list of all twin primes up to 100:
+``
+0 2
+3 5
+5 7
+11 13
+17 19
+29 31
+41 43
+59 61
+71 73
+``
+Tested on <Ubuntu 22.10>.
+
 = Goldbach's conjecture
 {c}
 {parent=Prime number}
@@ -765,6 +804,45 @@ Also, if 70 million could be reduced down to 2, we would have a proof of the <Tw
 = Prime number theorem
 {parent=Prime number}
 {wiki}
+
+= prime-number-theorem
+{file}
+{parent=Prime number theorem}
+
+Consider this is a study in failed <computational number theory>.
+
+The $n/ln(n)$ approximation converges really slowly, and we can't easy go far enough to see that the ration converges to 1 with only <awk> and <primes (bsdgames)>:
+``
+sudo apt intsall bsdgames
+cd prime-number-theorem
+./main.py 100000000
+``
+Runs in 30 minutes tested on <Ubuntu 22.10> and <Ciro Santilli's hardware/p51>, producing:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi.png]
+{title=Linear $\pi(n)$ vs $n/ln(n)$ approximation plot}
+{description=$f(n) = n$ and $f(n) = log(n)$ are added to give a better sense of scale. $log(n)$ is too close to 0 and not visible, and the approximation almost overlaps entirely with $pi$.}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-minus.png]
+{title=$\pi(n) - n/ln(n)$}
+{description=It is clear that the difference diverges, albeit very slowly.}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-over.png]
+{title=$\pi(n)/(n/ln(n))$}
+{description=We just don't have enough points to clearly see that it is converging to 1.0, the convergence truly is very slow. The <logarithm integral> approximation is much much better, but we can't calculate it in <awk>, sadface.}
+
+But looking at: https://en.wikipedia.org/wiki/File:Prime_number_theorem_ratio_convergence.svg we see that it takes way longer to get closer to 1, even at $10^24$ it is still not super close. Inspecting the code there we see:
+``
+(* Supplement with larger known PrimePi values that are too large for \
+Mathematica to compute *)
+LargePiPrime = {{10^13, 346065536839}, {10^14, 3204941750802}, {10^15,
+     29844570422669}, {10^16, 279238341033925}, {10^17,
+    2623557157654233}, {10^18, 24739954287740860}, {10^19,
+    234057667276344607}, {10^20, 2220819602560918840}, {10^21,
+    21127269486018731928}, {10^22, 201467286689315906290}, {10^23,
+    1925320391606803968923}, {10^24, 18435599767349200867866}};
+``
+so OK, it is not something doable on a <personal computer> just like that.
 
 = Prime power
 {parent=Prime number}
@@ -861,6 +939,14 @@ And when <Ciro Santilli> see the closed source ones like <MATLAB> being used, it
 {c}
 {parent=Numerical computing language}
 {wiki}
+
+= MATLAB methlab pun
+{c}
+{parent=MATLAB}
+
+\Image[https://web.archive.org/web/20171026130800im_/http://www.allafinedelpalo.it/wp-content/uploads/2016/03/methlab2.png]
+{title=MATLAB <Breaking Bad> crossover}
+{source=http://www.allafinedelpalo.it/methlab-il-toolbox-di-matlab-ispirato-a-breaking-bad/}
 
 = Perturbation theory
 {parent=Numerical analysis}
@@ -1117,6 +1203,11 @@ TODO how to calculate
 
 = Mathematics website
 {parent=Mathematics bibliography}
+
+= Visual math HTML book
+{parent=Mathematics website}
+
+When you see some tagged examples, you will immediately know what this means.
 
 = Theorem of the Day
 {parent=Mathematics website}
