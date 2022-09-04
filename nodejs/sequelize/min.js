@@ -9,7 +9,7 @@ const IntegerNames = sequelize.define('IntegerNames', {
   value: { type: DataTypes.INTEGER },
   name: { type: DataTypes.STRING },
 })
-await IntegerNames.sync({ force: true })
+await sequelize.sync({ force: true })
 async function reset() {
   await sequelize.truncate({ cascade: true })
   await IntegerNames.create({ value: 2, name: 'two' })
@@ -18,10 +18,10 @@ async function reset() {
 }
 await reset()
 let rows
-rows = await IntegerNames.findAll()
+rows = await IntegerNames.findAll({ order: [['value', 'ASC']] })
 common.assertEqual(rows, [
-  { id: 1, value: 2, name: 'two',   },
-  { id: 2, value: 3, name: 'three', },
-  { id: 3, value: 5, name: 'five',  },
+  { value: 2, name: 'two',   },
+  { value: 3, name: 'three', },
+  { value: 5, name: 'five',  },
 ])
 })().finally(() => { return sequelize.close() })

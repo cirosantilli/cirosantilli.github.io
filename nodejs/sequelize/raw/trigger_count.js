@@ -90,7 +90,7 @@ CREATE TRIGGER User_postCount_update
   AFTER UPDATE OF "author"
   ON "Post"
   FOR EACH ROW
-  WHEN (OLD."author" IS DISTINCT FROM NEW."author")
+  WHEN (OLD."author" <> NEW."author")
   EXECUTE PROCEDURE User_postCount_update_fn();
 `)
 } else if (sequelize.options.dialect === 'sqlite') {
@@ -120,6 +120,7 @@ CREATE TRIGGER User_postCount_update
   AFTER UPDATE
   ON "Post"
   FOR EACH ROW
+  WHEN (OLD."author" <> NEW."author")
   BEGIN
     UPDATE "User" SET "postCount" = "postCount" - 1 WHERE id = OLD."author";
     UPDATE "User" SET "postCount" = "postCount" + 1 WHERE id = NEW."author";
