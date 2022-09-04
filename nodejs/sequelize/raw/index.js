@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// https://cirosantilli.com/sequelize
+// https://cirosantilli.com/sequelize-raw-query
 // https://cirosantilli.com/sql-example
 const assert = require('assert')
 const common = require('../common')

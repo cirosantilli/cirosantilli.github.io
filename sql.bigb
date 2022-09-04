@@ -275,6 +275,13 @@ https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from 
 = SQL keyword
 {parent=SQL}
 
+= SQL CASCADE
+{c}
+{parent=SQL keyword}
+{wiki}
+
+https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-server
+
 = GROUP BY
 {disambiguate=SQL}
 {c}
@@ -370,7 +377,11 @@ An example where `SELECT FOR UPDATE` is a good solution to an use case can be se
 {tag=Database trigger}
 {wiki}
 
-<SQL>'s implementation of <database triggers>. This feature is really cool, as it allows you to keep caches up to date!
+<SQL>'s implementation of <database triggers>.
+
+This feature is really cool, as it allows you to keep caches up to date!
+
+In particular, everything that happens in a trigger happens as if it were in a transaction. This way, you can do less explicit transactions when you use triggers. It is a bit like the advantages of <SQL CASCADE>.
 
 <DBMS>:
 * <PostgreSQL>:
@@ -429,8 +440,30 @@ Bibliography:
 {disambiguate=SQL}
 {parent=UPDATE (SQL)}
 
-Not possible without subqueries in the standard syntax, a huge shame:
-* <PostgreSQL> can do it with the `UPDATE` + `FROM` extension; https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
+Dumping examples under \a[nodejs/sequelize/raw/many_to_many.js].
+
+Not possible without subqueries in the standard syntax, a huge shame: https://stackoverflow.com/questions/1293330/how-can-i-do-an-update-statement-with-join-in-sql-server
+
+The `UPDATE` + `FROM` extension exists in a few <DBMS>s:
+* <PostgreSQL>: https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
+* <SQLite>: https://stackoverflow.com/questions/19270259/update-with-join-in-sqlite/69831549#69831549
+
+<ORM>:
+* <Sequelize>: <UPDATE with JOIN in Sequelize>
+
+= DELETE with JOIN
+{c}
+{disambiguate=SQL}
+{parent=UPDATE with JOIN (SQL)}
+
+Demo under: \a[nodejs/sequelize/raw/many_to_many.js].
+
+NO way in the <SQL standard> apparently, but you'd hope that implementation status would be similar to <UPDATE with JOIN (sql)>, but not even!
+* <PostgreSQL>: possible with `DELETE FROM USING`: https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
+* <SQLite>: not possible without subqueries as of 3.35 far: https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite[], Does not appear to have any relevant features at: https://www.sqlite.org/lang_delete.html
+
+<ORM>
+* <Sequelize>: no support of course: https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
 
 = SQL standard
 {c}

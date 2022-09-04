@@ -75,9 +75,23 @@ The ultimate high level is of course to program with: "computer, make <money>", 
 = Code generation
 {synonym}
 
+= Lowering and raising
+{parent=Compiler}
+
+Lowering means translating to a lower level representation.
+
+Raising means translating to a higher level representation.
+
+<Decompilation> is basically a synonym, or subset, of raising.
+
+= Lower
+{c}
+{parent=Lowering and raising}
+{disambiguate=compilation}
+
 = Decompiler
 {c}
-{parent=Compiler}
+{parent=Lowering and raising}
 {tag=Reverse engineering}
 
 = Decompilation
@@ -128,7 +142,54 @@ Saves preprocessor output and generated assembly to separate files.
 {synonym}
 {title2}
 
-Very hot stuff! It's like <ISA>-portable <assembly>!
+Very hot stuff! It's like <ISA>-portable <assembly>, but with <type (programming)>[types]! In particular it also it deals with <calling conventions> for us (since it is ISA-portable). TODO: isn't that exactly what <C> does? :-) <LLVM IR vs C>
+
+Documentation: https://llvm.org/docs/LangRef.html
+
+= LLVM IR vs C
+{parent=LLVM Intermediate Representation}
+
+* https://www.reddit.com/r/ProgrammingLanguages/comments/72cl28/is_c_still_the_best_target_for_new_languages/
+* https://stackoverflow.com/questions/10264635/compiler-output-language-llvm-ir-vs-c
+
+= LLVM IR hello world
+{parent=LLVM Intermediate Representation}
+
+Example: \a[llvm/hello.ll] adapted from: https://llvm.org/docs/LangRef.html#module-structure but without double newline.
+
+To execute it as mentioned at https://github.com/dfellis/llvm-hello-world[] we can either use their crazy assembly interpreter, tested on <Ubuntu 22.10>:
+``
+sudo apt install llvm-runtime
+lli hello.ll
+``
+This seems to use `puts` from the <C standard library>.
+
+Or we can <lower (compilation)> it to <assembly> of the local machine:
+``
+sudo apt install llvm
+llc hello.ll
+``
+which produces:
+``
+hello.s
+``
+and then we can assemble link and run with <GCC>:
+``
+gcc -o hello.out hello.s -no-pie
+./hello.out
+``
+or with <clang>:
+``
+clang -o hello.out hello.s -no-pie
+./hello.out
+``
+`hello.s` uses the <GNU GAS> format, which <clang> is highly compatible with, so both should work in general.
+
+= clang
+{c}
+{parent=LLVM}
+
+<LLVM> front-end for <C> and related language like <C++> etc.
 
 = Reproducible builds
 {c}

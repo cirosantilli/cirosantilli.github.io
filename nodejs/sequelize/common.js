@@ -18,7 +18,7 @@ function assertEqual(rows, rowsExpect) {
     for (let key in rowExpect) {
       // raw queries return raw Object without the .get method.
       // But when we have .get, use it, because certain queries require it.
-      const rowval = typeof row.get === 'function' ? row.get(key) : row[key]
+      let rowval = typeof row.get === 'function' ? row.get(key) : row[key]
       const cur_typecast = assertEqual.typecast[key]
       if (cur_typecast) {
         rowval = cur_typecast(rowval)

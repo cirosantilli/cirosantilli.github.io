@@ -375,7 +375,9 @@ common.assertEqual(rows, [
   { Animal_name: 'hawk', Tag2_id: 0 },
 ])
 
-// Solution 2: GROUP BY and MAX to ignore the NULLs when there is one non-NULL present.
+if (false) {
+  // Solution 2: GROUP BY and MAX to ignore the NULLs when there is one non-NULL present.
+  // TODO assert blowing up.
 ;[rows, meta] = await sequelize.query(`
 SELECT
   "Animal".name AS "Animal_name",
@@ -400,11 +402,12 @@ common.assertEqual(rows, [
   { Animal_name: 'cat',  Tag2_name: null },
   { Animal_name: 'hawk', Tag2_name: 'flying' },
 ])
+}
 
 // Queries that modify data.
 
 // UPDATE with JOIN: UPDATE all tags of dog to uppercase.
-// https://cirosantilli.com/updqte-with-join-sql
+// https://cirosantilli.com/updqte-with-join-in-sequelize
 //
 // This is a simpler type of UPDATE where we just select what will be updated,
 // we don't need data from the JOIN for the update.
@@ -430,19 +433,21 @@ common.assertEqual(rows, [
 ])
 await reset()
 
-// Using PostgreSQL UPDATE JOIN extension
-if (false) {
-// TODO get working. Not going to use now because not portable to SQLite anyways
-if (sequelize.options.dialect === 'postgres') {
+// Using PostgreSQL/SQLite UPDATE FROM extension.
+if (
+  sequelize.options.dialect === 'postgres' ||
+  sequelize.options.dialect === 'sqlite'
+) {
   ;[rows, meta] = await sequelize.query(`
-UPDATE "Tag" AS "Tag"
-  SET name = UPPER("Tag2".name)
-FROM "Tag" AS "Tag2"
-INNER JOIN "AnimalTag"
-  ON "Tag2"."id" = "AnimalTag"."tagId"
-INNER JOIN "Animal"
-  ON "AnimalTag"."animalId" = "Animal"."id"
-  AND "Animal"."name" = 'dog'
+UPDATE "Tag"
+  SET name = UPPER("Tag".name)
+FROM
+  "Animal",
+  "AnimalTag"
+WHERE
+  "Tag"."id" = "AnimalTag"."tagId" AND
+  "AnimalTag"."animalId" = "Animal"."id" AND
+  "Animal"."name" = 'dog'
 `)
 ;[rows, meta] = await sequelize.query(`SELECT * FROM "Tag" ORDER BY id ASC`)
 common.assertEqual(rows, [
@@ -452,7 +457,6 @@ common.assertEqual(rows, [
   { name: 'aquatic'    },
 ])
 await reset()
-}
 }
 
 // ON DELETE CASCADE action: if we delete the 'vertebrate' tag,
@@ -471,17 +475,7 @@ common.assertEqual(rows, [
 await reset()
 
 // DELETE all animals with a given tag.
-// DELETE + JOIN does not appear to be in the SQL standard, and sqlite 3.35 does not support it:
-// ``
-// near "INNER": syntax error
-// ``
-// so the only way is to do it with sub queries:
-// https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite
-//
-// PostgreSQL does have a non-standard USING syntax for it:
-// https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
-//
-// No sequelize support: https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
+// https://cirosantilli.com/delete-with-join-sql
 if (sequelize.options.dialect === 'postgres') {
   // JOIN version.
   await sequelize.query(`

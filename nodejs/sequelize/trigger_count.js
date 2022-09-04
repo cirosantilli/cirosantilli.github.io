@@ -8,7 +8,10 @@ const force = process.argv.length <= 3 || process.argv[3] !== '0'
 ;(async () => {
 
 // on: lowercase 'insert', 'delete' or 'update'
-async function createTrigger(sequelize, model, on, action, { when, nameExtra } = {}) {
+async function createTrigger(sequelize, model, on, action, { after, when, nameExtra } = {}) {
+  if (after === undefined) {
+    after = 'AFTER'
+  }
   if (nameExtra) {
     nameExtra = `_${nameExtra})`
   } else {
@@ -37,7 +40,7 @@ $$
     // https://stackoverflow.com/questions/35927365/create-or-replace-trigger-postgres
     await sequelize.query(`DROP TRIGGER IF EXISTS ${triggerName} ON "${model.tableName}"`)
     await sequelize.query(`CREATE TRIGGER ${triggerName}
-  AFTER ${on.toUpperCase()}
+  ${after} ${on.toUpperCase()}
   ON "${model.tableName}"
   FOR EACH ROW${when}
   EXECUTE PROCEDURE ${functionName}();
@@ -45,8 +48,8 @@ $$
   } else if (sequelize.options.dialect === 'sqlite') {
     await sequelize.query(`
 CREATE TRIGGER IF NOT EXISTS ${triggerName}
-  AFTER ${on.toUpperCase()}
-  ON "${sequelize.models.Post.tableName}"
+  ${after} ${on.toUpperCase()}
+  ON "${model.tableName}"
   FOR EACH ROW${when}
   BEGIN
     ${action};
