@@ -351,27 +351,57 @@ An example where `SELECT FOR UPDATE` is a good solution to an use case can be se
 
 `SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
 
+= SQL stored procedure
+{c}
+{parent=SQL keyword}
+{tag=Stored procedure}
+
+= SQL FUNCTION
+{c}
+{parent=SQL stored procedure}
+
+= SQL PRODCEDURE
+{c}
+{parent=SQL stored procedure}
+
 = SQL TRIGGER
 {c}
 {disambiguate=SQL}
 {parent=SQL keyword}
 {wiki=Update_(SQL)}
 
+This feature is really cool, as it allows you to keep caches up to date!
+
 * <PostgreSQL>:
   * https://stackoverflow.com/questions/24870416/counter-cache-column-in-postgresql
 * <SQLite>
   * https://stackoverflow.com/questions/35255304/sqlite-create-trigger-for-insert-or-update
 
-= nodejs/sequelize/raw/parallel_select_and_update.js
+= ISO SQL TRIGGER syntax
+{c}
+{parent=SQL keyword}
+{tag=Database trigger}
+{tag=SQL standard}
+
+TODO what is the standard compliant syntax?
+
+<PostgreSQL> requires you to define a <SQL function>: https://stackoverflow.com/questions/28149494/is-it-possible-to-create-trigger-without-execute-procedure-in-postgresql Their syntax may be standard compliant, not sure about the `EXECUTE` part. Their docs: https://www.postgresql.org/docs/current/sql-createtrigger.html
+
+<SQLite> does not support <SQL stored procedures> at all, so maybe that's why they can't be standard compliant here: https://stackoverflow.com/questions/3335162/creating-stored-procedure-in-sqlite
+
+<SQL:1999> 11.38 covers "Trigger definition". The <Abstract syntax tree> starts with the `CREATE TRIGGER` and ends in:
+``
+<triggered SQL statement> ::=
+  <SQL procedure statement>
+``
+
+This is defined at 13.5 "SQL procedure statement", but that is humongous and I'm not sure what it is at all.
+
+= nodejs/sequelize/raw/trigger_count.js
 {file}
+{parent=ISO SQL TRIGGER syntax}
 
 In this example we cache track the number of posts per user on a cache column.
-
-= Database trigger
-{parent=SQL TRIGGER}
-{wiki}
-
-The cros-database name of the concept of <SQL TRIGGER>.
 
 = UPDATE
 {c}

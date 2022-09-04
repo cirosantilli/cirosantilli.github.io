@@ -263,7 +263,7 @@ pip install
 
 time python run.py
 ``
-This throws a billion exceptions because we didn't start the visdom server, but nevermind that.
+This throws a billion exceptions because we didn't start the visdom server, but never mind that.
 
 The scrip does a fixed 15 <epoch (deep learning)>[epochs].
 
@@ -294,51 +294,26 @@ This doesn't seem to conform to the original <LeNet-5> however?
 {parent=activatedgeek LeNet-5}
 
 Now let's try and use the trained <ONNX> file for inference on some manually drawn images on <GIMP>:
-``
-pip install onnxruntime==1.14.1 opencv-python==4.7.0.72
-``
+
 Note that the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
 
-We can try the code from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[]
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/python/pytorch/resnet_demo_out.jpg]
+{title=Number 9 drawn with mouse on <GIMP> by <Ciro Santilli> (2023)}
 
-onnx_infer.py
+We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[python/onnx_cheat/infer_mnist.py]:
 ``
-#!/usr/bin/env python
-
-import json
-import sys
-import os
-import time
-import numpy as np
-import cv2
-import onnx
-import onnxruntime
-from onnx import numpy_helper
-
-model="lenet.onnx"
-path=sys.argv[1]
-img = cv2.imread(path)
-img = np.dot(img[...,:3], [0.299, 0.587, 0.114])
-img = cv2.resize(img, dsize=(32, 32), interpolation=cv2.INTER_AREA)
-img.resize((1, 1, 32, 32))
-data = json.dumps({'data': img.tolist()})
-data = np.array(json.loads(data)['data']).astype('float32')
-session = onnxruntime.InferenceSession(model, None)
-input_name = session.get_inputs()[0].name
-output_name = session.get_outputs()[0].name
-result = session.run([output_name], {input_name: data})
-prediction=int(np.argmax(np.array(result).squeeze(), axis=0))
-print(prediction)
+cd python/onnx_cheat
+./infer_mnist.py lenet.onnx infer_mnist_9.png
 ``
-and then:
+and it works pretty well! The protram outputs:
 ``
-./onnx_infer.py ~/img.png
+9
 ``
-and it works pretty well!
+as desired.
 
 We can also try with images directly from <Extract MNIST images>.
 ``
-for f in /home/ciro/git/mnist_png/out/testing/1/*.png; do echo $f; ./onnx_infer.py $f ; done
+for f in /home/ciro/git/mnist_png/out/testing/1/*.png; do echo $f; infer.py $f ; done
 ``
 and the accuracy is great as expected.
 
@@ -421,8 +396,24 @@ Apparently destroyed <ImageNet 2015> and became very very famous as such.
 
 * <torchvision ResNet>
 
+= ResNet variant
+{c}
+{parent=Residual neural network}
+
+= ResNet v1 vs v1.5
+{c}
+{parent=ResNet variant}
+
+https://catalog.ngc.nvidia.com/orgs/nvidia/resources/resnet_50_v1_5_for_pytorch explains:
+\Q[
+The difference between v1 and v1.5 is that, in the bottleneck blocks which requires downsampling, v1 has stride = 2 in the first 1x1 convolution, whereas v1.5 has stride = 2 in the 3x3 convolution.
+
+This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a smallperformance drawback (~5% imgs/sec).
+]
+
 = Convolutional neural network
 {parent=ANN model}
+{tag=Convolution}
 {title2=CNN}
 {wiki}
 
@@ -434,6 +425,8 @@ CNN convolution kernels are not hardcoded. They are learnt and optimized via <ba
 nn.Conv2d(1, 6, kernel_size=(5, 5))
 ``
 as used for example at: <activatedgeek LeNet-5>.
+
+This can also be inferred from: https://stackoverflow.com/questions/55594969/how-to-visualise-filters-in-a-cnn-with-pytorch where we see that the kernels are not perfectly regular as you'd expected from something hand coded.
 
 = YOLO model
 {c}
@@ -465,7 +458,7 @@ It is a bit of an unfortunate as it suggests something like "deep understanding"
 {description=Good <hand wave> intuition, but does not describe the exact <algorithm>.}
 
 = Epoch and batch size
-{parent=Deep learning}
+{parent=Backpropagation}
 {tag=Hyperparameter}
 
 = Epoch
@@ -475,6 +468,10 @@ It is a bit of an unfortunate as it suggests something like "deep understanding"
 = Batch size
 {disambiguate=deep learning}
 {parent=Epoch and batch size}
+
+= Learning rate
+{parent=Backpropagation}
+{tag=Hyperparameter}
 
 = Deep learning benchmark
 {parent=Deep learning}
@@ -711,6 +708,10 @@ TODO lower `qps` on GPU!
 * https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
 * https://math.stackexchange.com/questions/41706/practical-uses-of-matrix-multiplication/4647422#4647422
 
+Notably, <convolution> can be implemented in terms of <GEMM>:
+* https://stackoverflow.com/questions/64506489/what-does-it-mean-to-say-convolution-implementation-is-based-on-gemm-matrix-mul
+* https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+
 = Deep learning framework
 {parent=Deep learning}
 {wiki}
@@ -774,20 +775,33 @@ sys     0m17.293s
 = torchvision
 {c}
 {parent=PyTorch}
+{tag=Pre-trained computer vision model}
 
-Contains several <computer vision> models, e.g. <ResNet>, including pre-trained.
+Contains several <computer vision> models, e.g. <ResNet>, all of them including <pre-trained computer vision model>[pre-trained] versions on some dataset, which is quite sweet.
 
 Documentation: https://pytorch.org/vision/stable/index.html
 
 = torchvision ResNet
+{parent=torchvision}
 
-https://pytorch.org/vision/0.13/models.html has a minimal runnable example adapted to \a[python/pytorch/resnet_demo.py], usage:
+https://pytorch.org/vision/0.13/models.html has a minimal runnable example adapted to \a[python/pytorch/resnet_demo.py].
+
+That example uses a <ResNet> pre-trained on the <COCO dataset> to do some inference, tested on <Ubuntu 22.10>:
 ``
 cd python/pytorch
 wget -O resnet_demo_in.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg
 ./resnet_demo.py resnet_demo_in.jpg resnet_demo_out.jpg
 ``
 This first downloads the model, which is currently 167 MB.
+
+We know it is COCO because of the docs: https://pytorch.org/vision/0.13/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html which explains that 
+``
+FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+``
+is an alias for:
+``
+FasterRCNN_ResNet50_FPN_V2_Weights.COCO_V1
+``
 
 The runtime is relatively slow on <Ciro Santilli's hardware/P51>, about 4.7s.
 
@@ -802,11 +816,9 @@ By looking at the output image with bounding boxes, we understand where the bana
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg]
 {title=python/pytorch/resnet_demo_in.jpg}
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/site/python/pytorch/resnet_demo_out.jpg]
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/python/pytorch/resnet_demo_out.jpg]
 {title=python/pytorch/resnet_demo_out.jpg}
 {description=The beak was of course a banana, not a beak!}
-
-Tested on <Ubuntu 22.10>.
 
 = TensorFlow
 {c}
@@ -845,6 +857,7 @@ yolov5 detect --source 0
 The accuracy is crap for anything but people. But still. Well done. Tested on <Ubuntu 22.10>, <Ciro Santilli's hardware/P51>.
 
 \Video[https://www.youtube.com/watch?v=1MD3Wn7e6OE]
+{title=fcakyon/yolov5-pip webcam object detection demo by <Ciro Santilli> (2023)}
 
 = Computer vision dataset
 {parent=Computer vision}
@@ -894,6 +907,12 @@ OK-ish data explorer: https://knowyourdata-tfds.withgoogle.com/#tab=STATS&datase
 
 * https://stackoverflow.com/questions/40427435/extract-images-from-idx3-ubyte-file-or-gzip-via-python/75993239#75993239
 * https://stackoverflow.com/questions/55049511/how-to-download-mnist-images-as-pngs/75993252#75993252
+
+= Best algorithm for MNIST
+{c}
+{parent=MNIST database}
+
+The table: https://en.wikipedia.org/w/index.php?title=MNIST_database&oldid=1152541822#Classifiers
 
 = Fashion MNIST
 {c}
