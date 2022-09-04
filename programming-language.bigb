@@ -320,7 +320,35 @@ Likely the best <JavaScript> <2D> game engine as of 2023.
 * https://phaser.io/
 Uses <Matter.js> as a <physics engine> if enabled. There's also an alternative (in-house?) "arcade" engine: https://photonstorm.github.io/phaser3-docs/Phaser.Physics.Arcade.ArcadePhysics.html but it appears to be simpler/less robust (but also possibly faster).
 
-The documentation is a bit lacking, e.g. no "getting started" tutorial in sight? https://labs.phaser.io/index.html?dir=games/firstgame/&q= seems to be a reasonable <hello world> however. TODO any 2D first person examples?
+TODO any 2D first person examples a bit like <Ciro's 2D reinforcement learning games>?
+
+The examples are present under:
+``
+git clone https://github.com/photonstorm/phaser3-examples
+``
+but note that that repo is huge, about 4.5 GiB on local disk, as is has tons of assets.
+
+The demos also include a <Monaco (editor)>-editor based sandbox mode where you can edit code directly on the web and see the game update which is a really sweet addition.
+
+= Phaser hello world
+{c}
+{parent=Phaser.js}
+{tag=Hello world}
+
+* \a[phaser/hello.html]: a minimal hello world adapted from https://web.archive.org/web/20230323212804/https://phaser.io/tutorials/getting-started-phaser3/part5[]. Not an actual game strictly speaking though, just shows the phaser logo bouncing around the screen.
+
+  Fully contained in a single HTML file, except that it loads the phaser library and image assets from the web.
+* \a[phaser/hello-game.html]: an actually hello world game where you have to collect stars and avoid bombs.
+
+  Based on https://labs.phaser.io/index.html?dir=games/firstgame/&q=[]:
+  * finished version: https://labs.phaser.io/view.html?src=src/games/firstgame/part10.js[]
+  * corresponding tutorial: https://web.archive.org/web/20230323210501/https://phaser.io/tutorials/making-your-first-phaser-3-game/part10[].
+
+A web server is mandatory for assets, unless you embed them in data URLs, `file://` access is not possible:
+* https://web.archive.org/web/20230323212818/https://phaser.io/tutorials/getting-started-phaser3
+* https://stackoverflow.com/questions/39565296/cors-issue-with-html5-canvas-javascript
+* https://stackoverflow.com/questions/59362232/i-cannot-load-images-from-my-pc-in-phaser-3
+* https://github.com/photonstorm/phaser/issues/3464
 
 = JavaScript physics engine
 {c}
