@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from typing import Protocol
-
 class Base:
     '''
     doc
@@ -11,9 +9,9 @@ class Base:
         '''
         doc
         '''
-        #: doc
-        self.i = i
-        #: doc
+        #: my doc for i
+        self.i: int = i
+        #: my doc for __private
         self.__private: int = 1
 
     def method(self, i: int) -> int:

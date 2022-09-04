@@ -204,28 +204,64 @@ Ciro's motivation/push for this can be seen e.g. at: <Ciro's 2D reinforcement le
 {parent=Neural network}
 {wiki}
 
-= Trained artificial neural network
-{parent=Artificial neural network}
-{tag=Training (ML)}
+= ANN
+{c}
+{synonym}
+{title2}
 
-= Deep learning
+= ANN model
+{c}
 {parent=Artificial neural network}
+
+= ANN architecture
+{c}
+{synonym}
+{title2}
+
+https://modelzoo.co/
+
+= LeNet
+{c}
+{parent=ANN model}
+{title2=1998}
 {wiki}
 
-Deep learning is the name <artificial neural networks> basically converged to in the 2010s/2020s.
+= LeNet-5
+{c}
+{synonym}
+{title2}
 
-It is a bit of an unfortunate as it suggests something like "deep understanding", but at least it sounds good.
+\Image[https://upload.wikimedia.org/wikipedia/commons/c/cc/Comparison_image_neural_networks.svg]
 
-= Backpropagation
-{parent=Deep learning}
+= LeNet implementation
+{c}
+{parent=LeNet}
+
+= activatedgeek/LeNet-5
+{parent=LeNet implementation}
+
+https://github.com/activatedgeek/LeNet-5
+
+Very good packaging!
+
+= Residual neural network
+{parent=ANN model}
+{title2=2015}
 {wiki}
 
-\Video[https://www.youtube.com/watch?v=Ilg3gGewQ5U]
-{title=What is backpropagation really doing? by <3Blue1Brown> (2017)}
-{description=Good <hand wave> intuition, but does not describe the exact <algorithm>.}
+= ResNet
+{c}
+{synonym}
+{title2}
+
+Interesting layer skip architecture thing.
+
+Apparently destroyed <ImageNet 2015> and became very very famous as such.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/255px-ResNets.svg.png]
 
 = Convolutional neural network
-{parent=Deep learning}
+{parent=ANN model}
 {wiki}
 
 = YOLO model
@@ -236,6 +272,26 @@ It is a bit of an unfortunate as it suggests something like "deep understanding"
 Object detection model.
 
 You can get some really sweet pre-trained versions of this, typically trained on the <COCO dataset>.
+
+= Trained artificial neural network
+{parent=Artificial neural network}
+{tag=Training (ML)}
+
+= Deep learning
+{parent=Artificial neural network}
+{wiki}
+
+Deep learning is the name <artificial neural networks> basically converged to in the 2010s/2020s.
+
+It is a bit of an unfortunate as it suggests something like "deep understanding" and even reminds one of <AGI>, which it almost certainly will not attain on its own. But at least it sounds good.
+
+= Backpropagation
+{parent=Deep learning}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=Ilg3gGewQ5U]
+{title=What is backpropagation really doing? by <3Blue1Brown> (2017)}
+{description=Good <hand wave> intuition, but does not describe the exact <algorithm>.}
 
 = Deep learning benchmark
 {parent=Deep learning}
@@ -265,7 +321,7 @@ E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the ben
 || Model
 
 | <ImageNet>
-| ResNet
+| <ResNet>
 
 | KiTS19
 | 3D U-Net
@@ -288,6 +344,114 @@ E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the ben
 | <Go (game)>
 | <MiniGo>
 
+= MLperf v2.1 ResNet
+{parent=MLperf}
+
+Instructions at:
+* https://github.com/mlcommons/inference/blob/v2.1/vision/classification_and_detection
+* https://github.com/mlcommons/inference/blob/v2.1/vision/classification_and_detection/GettingStarted.ipynb
+
+<Ubuntu 22.10> setup with tiny dummy manually generated <ImageNet> and run on <ONNX>:
+``
+sudo apt install pybind11-dev
+
+git clone https://github.com/mlcommons/inference
+cd inference
+git checkout v2.1
+
+virtualenv -p python3 .venv
+. .venv/bin/activate
+pip install numpy==1.24.2 pycocotools==2.0.6 onnxruntime==1.14.1 opencv-python==4.7.0.72 torch==1.13.1
+
+cd loadgen
+CFLAGS="-std=c++14" python setup.py develop
+cd -
+
+cd vision/classification_and_detection
+python setup.py develop
+wget -q https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx
+export MODEL_DIR="$(pwd)"
+export EXTRA_OPS='--time 10 --max-latency 0.2'
+
+tools/make_fake_imagenet.sh
+export DATA_DIR="$(pwd)/fake_imagenet"
+./run_local.sh onnxruntime mobilenet cpu --accuracy
+``
+
+Output on <Ciro Santilli's hardware/P51>:
+``
+TestScenario.SingleStream qps=58.85, mean=0.0138, time=0.136, acc=62.500%, queries=8, tiles=50.0:0.0129,80.0:0.0137,90.0:0.0155,95.0:0.0171,99.0:0.0184,99.9:0.0187
+``
+
+Running:
+``
+tools/make_fake_imagenet.sh
+``
+produces a tiny <ImageNet subset> with 8 images under `fake_imagenet/`.
+
+`fake_imagenet/val_map.txt` contains:
+``
+val/800px-Porsche_991_silver_IAA.jpg 817
+val/512px-Cacatua_moluccensis_-Cincinnati_Zoo-8a.jpg 89
+val/800px-Sardinian_Warbler.jpg 13
+val/800px-7weeks_old.JPG 207
+val/800px-20180630_Tesla_Model_S_70D_2015_midnight_blue_left_front.jpg 817
+val/800px-Welsh_Springer_Spaniel.jpg 156
+val/800px-Jammlich_crop.jpg 233
+val/782px-Pumiforme.JPG 285
+``
+where the numbers are the category indices from <ImageNet1k>. At https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a see e.g.:
+* 817: 'sports car, sport car',
+* 89: 'sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita',
+and so on, so they are coherent with the image names. By quickly looking at the script we see that it just downloads from Wikimedia and manually creates the file.
+
+TODO prepare and test on the actual <ImageNet> validation set, README says:
+\Q[Prepare the imagenet dataset to come.]
+
+Since that one is undocumented, let's try the <COCO dataset> instead, which uses <COCO 2017> and is also a bit smaller. Note that his is not part of MLperf anymore since v2.1, only <ImageNet> and open images are used. But still:
+``
+wget https://zenodo.org/record/4735652/files/ssd_mobilenet_v1_coco_2018_01_28.onnx
+DATA_DIR_BASE=/mnt/data/coco
+export DATA_DIR="${DATADIR_BASE}/val2017-300"
+mkdir -p "$DATA_DIR_BASE"
+cd "$DATA_DIR_BASE"
+wget http://images.cocodataset.org/zips/val2017.zip
+wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip
+unzip val2017.zip
+unzip annotations_trainval2017.zip
+mv annotations val2017
+cd -
+cd "$(git-toplevel)"
+python tools/upscale_coco/upscale_coco.py --inputs "$DATA_DIR_BASE" --outputs "$DATA_DIR" --size 300 300 --format png
+cd -
+``
+
+Now:
+``
+./run_local.sh onnxruntime mobilenet cpu --accuracy
+``
+fails immediately with:
+``
+No such file or directory: '/path/to/coco/val2017-300/val_map.txt
+``
+The more plausible looking:
+``
+./run_local.sh onnxruntime mobilenet cpu --accuracy --dataset coco-300
+``
+first takes a while to preprocess something most likely, which it does only one, and then fails:
+``
+Traceback (most recent call last):
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/main.py", line 596, in <module>
+    main()
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/main.py", line 468, in main
+    ds = wanted_dataset(data_path=args.dataset_path,
+  File "/home/ciro/git/inference/vision/classification_and_detection/python/coco.py", line 115, in __init__
+    self.label_list = np.array(self.label_list)
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 2 dimensions. The detected shape was (5000, 2) + inhomogeneous part.
+``
+
+TODO!
+
 = Deep learning is mostly matrix multiplication
 {parent=Deep learning}
 
@@ -297,6 +461,18 @@ E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the ben
 = Deep learning framework
 {parent=Deep learning}
 {wiki}
+
+= ONNX
+{c}
+{parent=Deep learning framework}
+{wiki}
+
+The most important thing this project provides appears to be the `.onnx` file format, which represents <ANN models>, pre-trained or not.
+
+<Deep learning frameworks> can then output such `.onnx` files for interchangeability and serialization.
+
+Some examples:
+* <MLperf v2.1 ResNet> can use `.onnx` as a pre-trained model
 
 = PyTorch
 {c}
@@ -422,9 +598,19 @@ https://datascience.stackexchange.com/questions/111756/where-can-i-view-the-imag
 
 The categories are all part of <WordNet>, which means that there are several parent/child categories such as dog vs type of dog available. <ImageNet1k> only appears to have leaf nodes however (i.e. no "dog" label, just specific types of dog).
 
-= ImageNet Large Scale Visual Recognition Challenge dataset
+= ImageNet subset
 {c}
 {parent=ImageNet}
+
+Subset generators:
+* https://github.com/mf1024/ImageNet-datasets-downloader[] generates on download, very good. As per https://github.com/mf1024/ImageNet-Datasets-Downloader/issues/14 counts go over the limit due to bad multithreading. Also unfortunately it does not start with a subset of 1k.
+* https://github.com/BenediktAlkin/ImageNetSubsetGenerator
+
+Unfortunately, since <ImageNet> is a <closed standard> no one can upload such pre-made subsets, forcing everybody to download the full dataset, in <ImageNet1k>, which is huge!
+
+= ImageNet Large Scale Visual Recognition Challenge dataset
+{c}
+{parent=ImageNet subset}
 
 = ILSVRC
 {c}
@@ -436,13 +622,50 @@ The categories are all part of <WordNet>, which means that there are several par
 {synonym}
 {title2}
 
-Subset of <ImageNet>. TODO size. Apparently 1k categories, and about 1,281,167 images, so this dataset is also known as ImageNet1k: https://datascience.stackexchange.com/questions/47458/what-is-the-difference-between-imagenet-and-imagenet1k-how-to-download-it
+Subset of <ImageNet>. About 167.62 GB in size according to https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data[].
+
+Contains 1,281,167 images and exactly 1k categories which is why this dataset is also known as ImageNet1k: https://datascience.stackexchange.com/questions/47458/what-is-the-difference-between-imagenet-and-imagenet1k-how-to-download-it
+
+https://www.kaggle.com/competitions/imagenet-object-localization-challenge/overview clarifies a bit further how the categories are inter-related according to <WordNet> relationships:
+\Q[The 1000 object categories contain both internal nodes and leaf nodes of ImageNet, but do not overlap with each other.]
+An unofficial list of the 1k categories can be seen at: https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a
+
+https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file with their benchmark IDs.
+
+https://image-net.org/challenges/LSVRC/2012/browse-synsets.php lists all 1k labels with their <WordNet> IDs.
+
+https://huggingface.co/datasets/imagenet-1k also has some useful metrics on the split:
+* train: 1,281,167 images, 145.7 GB zipped
+* validation: 50,000 images, 6.67 GB zipped
+* test: 100,000 images, 13.5 GB zipped
+
+= ImageNet1k download
+{parent=imagenet}
 
 The official page: https://www.image-net.org/challenges/LSVRC/index.php points to a download link on <Kaggle>: https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data Kaggle says that the size is 167.62 GB!
 
+To download from Kaggle, create an API token on kaggle.com, which downloads a `kaggle.json` file then:
+``
+mkdir -p ~/.kaggle
+mv ~/down/kaggle.json ~/.kaggle
+python3 -m pip install kaggle
+kaggle competitions download -c imagenet-object-localization-challenge
+``
+The download speed is wildly server/limited and take A LOT of hours. Also, the tool does not seem able to pick up where you stopped last time.
+
 Another download location appears to be: https://huggingface.co/datasets/imagenet-1k on <Hugging Face>, but you have to login due to their license terms. Once you login you have a very basic data explorer available: https://huggingface.co/datasets/imagenet-1k/viewer/default/train[].
 
-https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file.
+Bibliography:
+* http://www.adeveloperdiary.com/data-science/computer-vision/how-to-prepare-imagenet-dataset-for-image-classification/
+* https://stackoverflow.com/questions/65685437/access-to-imagenet-data-download
+
+= ImageNet competition
+{c}
+{parent=ImageNet}
+
+= ImageNet 2015
+{c}
+{parent=ImageNet competition}
 
 = COCO dataset
 {c}
@@ -471,6 +694,21 @@ Epic.
 This dataset is kind of cool.
 
 Original 2014 <paper> by <Microsoft>: https://arxiv.org/abs/1405.0312
+
+= COCO subset
+{c}
+{parent=COCO dataset}
+
+= COCO 2017
+{c}
+{parent=COCO subset}
+
+This is the one used on <MLperf v2.1 ResNet>, likely one of the most popular choices out there.
+
+2017 challenge subset:
+* train: 118k images, 18GB
+* validation: 5k images, 1GB
+* test: 41k images, 6GB
 
 = Open Images dataset
 {c}
@@ -527,6 +765,11 @@ Very useful for idiotic websites that require real photos!
 {wiki}
 
 https://huggingface.co/
+
+Interesting website, hosts mostly:
+* datasets
+* <ANN models>
+* some live running demos called "apps": e.g. https://huggingface.co/spaces/ronvolutional/ai-pokemon-card
 
 = Ontology
 {parent=Machine learning company}
