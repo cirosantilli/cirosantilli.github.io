@@ -17,6 +17,7 @@ async function createTrigger(sequelize, model, on, action, { after, when, nameEx
   } else {
     nameExtra = ''
   }
+  const oldnew = on === 'delete' ? 'OLD' : 'NEW'
   const triggerName = `${model.tableName}_${on}${nameExtra}`
   if (when) {
     when = `\n  WHEN (${when})`
@@ -32,7 +33,7 @@ async function createTrigger(sequelize, model, on, action, { after, when, nameEx
 $$
 BEGIN
   ${action};
-  RETURN NEW;
+  RETURN ${oldnew};
 END;
 $$
 `)
@@ -98,6 +99,12 @@ common.assertEqual(rows, [
   { username: 'user0', postCount: 2 },
   { username: 'user1', postCount: 1 },
 ])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user0 post1' },
+  { title: 'user1 post0' },
+])
 
 // UPDATE the author of a post and check counts again.
 await Post.update({ UserId: user1.id }, { where: { title: 'user0 post1' } })
@@ -105,6 +112,12 @@ rows = await User.findAll({ order: [['username', 'ASC']] })
 common.assertEqual(rows, [
   { username: 'user0', postCount: 1 },
   { username: 'user1', postCount: 2 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user0 post1' },
+  { title: 'user1 post0' },
 ])
 
 // DELETE some posts.
@@ -115,12 +128,21 @@ common.assertEqual(rows, [
   { username: 'user0', postCount: 1 },
   { username: 'user1', postCount: 1 },
 ])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user0 post0' },
+  { title: 'user1 post0' },
+])
 
 await Post.destroy({ where: { title: 'user0 post0' } })
 rows = await User.findAll({ order: [['username', 'ASC']] })
 common.assertEqual(rows, [
   { username: 'user0', postCount: 0 },
   { username: 'user1', postCount: 1 },
+])
+rows = await Post.findAll({ order: [['title', 'ASC']] })
+common.assertEqual(rows, [
+  { title: 'user1 post0' },
 ])
 
 })().finally(() => { return sequelize.close() })

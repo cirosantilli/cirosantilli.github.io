@@ -292,8 +292,19 @@ The greatest advantage of it being that it has the likely largest desktop user b
 
 Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: <Linux distribution buildable from source>. This is why Ciro based the <Linux Kernel Module Cheat> on <Buildroot>, see also: <Linux distribution buildable from source>.
 
-= How to report Ubuntu crashes
+= Ubuntu HOWTO
+{c}
 {parent=Ubuntu}
+
+= Find GPU information in Ubuntu
+{parent=Ubuntu HOWTO}
+
+* https://askubuntu.com/questions/5417/how-to-get-the-gpu-info/692858#692858
+* https://askubuntu.com/questions/68028/how-do-i-check-if-ubuntu-is-using-my-nvidia-graphics-card/692412#692412
+* https://askubuntu.com/questions/524242/how-to-find-out-which-nvidia-gpu-i-have/1469351#1469351
+
+= How to report Ubuntu crashes
+{parent=Ubuntu HOWTO}
 {wiki}
 
 Their crash system does not have an amazing user interface.
@@ -351,6 +362,45 @@ E: The repository 'http://ddebs.ubuntu.com impish-security Release' does not hav
 {c}
 {parent=Ubuntu}
 {wiki}
+
+= Ubuntu 23.04
+{c}
+{parent=Ubuntu release}
+
+= Ubuntu 23.04 boot broken on kernel 6.2
+{c}
+{parent=Ubuntu 23.04}
+
+On <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
+
+Switching to the other installed kernel, 5.9 made boot work.
+
+The solution on kernel 6.2 was:
+``
+sudo apt instal nvidia-driver-515
+``
+as per comments under: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2012559[]. This also made the nvidia driver work: <Find GPU information in Ubuntu>.
+
+Previously I had:
+``
+nvidia-driver-510
+``
+and it blew up before reaching disk decryption.
+
+I also tried:
+``
+nvidia-driver-525
+``
+but that broke in a different way:
+``
+Finished apport-autoreport.service - Process error reports when automatic reporting is enabled.
+nvidia-modeset: ERROR: GPU:0: Idling display engine timed out: 0x0000947d:0:0:407
+(1 of 2) Job systemd-backlight@backlight: nvidia_e.service/start running (32s no limit)
+``
+
+Some threads:
+* https://askubuntu.com/questions/1465606/kubuntu-23-04-not-booting-with-the-6-2-kernel
+* https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2012559
 
 = Ubuntu 22.10
 {c}
@@ -440,6 +490,42 @@ Related "GPU has fallen off the bus": https://askubuntu.com/questions/868321/gpu
 = Ubuntu 16.04
 {c}
 {parent=Ubuntu release}
+
+= Ubuntu feature request
+{parent=Ubuntu}
+
+Sometimes it just feels like Ubuntu devs don't actually use Ubuntu as a desktop.
+
+Some extremelly anoying problems are introduced and just never get fixed, even though they feel so obvious!
+
+Would never happen on <Mac>...
+
+= couldn't save system state: Minimum free space to take a snapshot and preserve ZFS performance is
+{parent=Ubuntu feature request}
+
+This BS started after the move to ZFS. The temporary solution appears to be: https://askubuntu.com/questions/1293685/out-of-space-on-boot-zpool-and-cant-run-updates-anymore/1374204#1374204
+
+And then this to disable automatic snapshots in the future: https://askubuntu.com/questions/1233049/disable-automatic-zsys-snapshots-zfs-on-root/1279593#1279593
+``
+sudo mv /etc/apt/apt.conf.d/90_zsys_system_autosnapshot /etc/apt/apt.conf.d/90_zsys_system_autosnapshot.disabled
+``
+
+God, this is so annoying:
+* https://askubuntu.com/questions/1382986/zfs-bpool-is-almost-full-how-can-i-free-up-space-so-i-can-keep-updating-my-syst
+* https://askubuntu.com/questions/1233049/disable-automatic-zsys-snapshots-zfs-on-root
+* https://askubuntu.com/questions/1246232/ubuntu-20-04-thinks-its-out-of-free-space-but-it-isnt
+
+= Hide top bar on Ubuntu
+{parent=Ubuntu feature request}
+
+This has annoyed <Ciro Santilli> for many years, it is just too wasteful of screen space on <laptops>!
+
+Or likely more generally, on <GNOME desktop>, which is the default <desktop environment> as of <Ubuntu 22.10>.
+
+Issues:
+* https://askubuntu.com/questions/1029881/how-to-hide-top-bar-in-ubuntu-18-04
+* https://stackoverflow.com/questions/71204126/how-to-remove-the-title-bar-of-gnome-applications
+* https://superuser.com/questions/1764903/am-i-able-to-hide-the-gnome-title-bar-for-applications
 
 = Launchpad
 {disambiguate=website}
@@ -548,6 +634,12 @@ We are <autism>[all somewhere in the spectrum].
 
 \Video[https://www.youtube.com/watch?v=FoTYV22qZTg]
 {title=I like elephants and <God> likes elephants}
+
+= Terry A. Davis
+{c}
+{parent=TempleOS}
+{title2=Creator of TempleOS}
+{wiki}
 
 = Executable file format
 {parent=Systems programming}
@@ -676,7 +768,7 @@ Notable mentions:
 * Tom Tromey from <Red Hat>: https://www.youtube.com/watch?v=RwDA3oIOtWw Dude's a <GDB> God! He might be gay from that talk.
 
 Other notable people that are likely also awesome but Ciro has less familiarity with their contributions:
-* https://en.wikipedia.org/wiki/D._Richard_Hipp[Dwayne Richard Hipp] from <SQLite>
+* <Dwayne Richard Hipp> from <SQLite>
 * https://en.wikipedia.org/wiki/Daniel_Stenberg[Daniel Stenberg] from cURL
 * Michael Niedermayer also from <FFmpeg>. http://ikaruga.co.uk/~snacky/mn.html highlights his brutal directness and efficiency, and sometimes sense of humour
 
@@ -701,6 +793,19 @@ Looking at Bert just brings the <Dutch Golden Age>, and more in particular <Anto
 \Video[https://www.youtube.com/watch?v=8aVBAcwDY7g]
 {title=How life is Digital by <Bert Hubert> (2021)}
 {description=Just a "boring" overview of the <central dogma of molecular biology> ;-)}
+
+= D. Richard Hipp
+{c}
+{parent=List of systems programmers}
+{tag=The most awesome systems programmers}
+{tag=SQLite}
+{title2=Creator of SQLite}
+
+= Dwayne Richard Hipp
+{synonym}
+{title2}
+
+\Image[https://upload.wikimedia.org/wikipedia/en/e/e7/Richard_hipp.jpeg]
 
 = Eli Benderski
 {c}
@@ -756,3 +861,20 @@ Bibliography:
 {parent=List of systems programmers}
 {tag=The most awesome systems programmers}
 {wiki}
+
+= Robert O'Callahan
+{c}
+{parent=List of systems programmers}
+
+Creator of <Mozilla rr>, of which <Ciro Santilli> is a huge fan of!
+
+He quit Mozilla in 2016 to try and commercialize an `rr` extension called <Pernosco>.
+
+But as of 2022, he advertised himself as part of "<Google> Research", so maybe that went under, sample source: https://archive.ph/o9622[]. TODO when did he start? There's apparently an unrelated homonym: https://www.linkedin.com/in/rob-ocallahan/
+
+He's apparently very religious, and very New Zelandish, https://twitter.com/rocallahan[] auto-describes:
+\Q[Christian. Repatriate Kiwi.]
+<Terry A. Davis> and <D. Richard Hipp> come to mind. One is tempted to speculate a correlation even, the proportion amongst systems programmers feels so much higher than in other areas of programming! Maybe it is because you have to be a God to do it in the first place.
+
+\Video[https://www.youtube.com/watch?v=dMroSfg9kio]
+{title=Robert O'Callahan interview by Toby Ho (2022)}
