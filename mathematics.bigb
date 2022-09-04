@@ -226,20 +226,81 @@ https://www.youtube.com/watch?v=R9FKN9MIHlE&t=938s Birch and Swinnerton-Dyer Con
 {tag=Directed acyclic graph}
 {wiki}
 
-= Binary tree
+= Tree representation
 {parent=Tree (data-structure)}
+{wiki}
+
+= Nested set model
+{parent=Tree representation}
+{wiki}
+
+This is particularly important in <SQL>: <Nested set model in SQL>, as it is an efficient way to transverse trees there, since querrying parents every time would require multiple disk accesses.
+
+The <ASCII ART> visualizations from https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 are worth reproducing.
+
+As a tree:
+* Root 1
+  * Child 1.1
+    * Child 1.1.1
+    * Child 1.1.2
+  * Child 1.2
+    * Child 1.2.1
+    * Child 1.2.2
+
+As the sets:
+``
+ __________________________________________________________________________
+|  Root 1                                                                  |
+|   ________________________________    ________________________________   |
+|  |  Child 1.1                     |  |  Child 1.2                     |  |
+|  |   ___________    ___________   |  |   ___________    ___________   |  |
+|  |  |  C 1.1.1  |  |  C 1.1.2  |  |  |  |  C 1.2.1  |  |  C 1.2.2  |  |  |
+1  2  3___________4  5___________6  7  8  9___________10 11__________12 13 14
+|  |________________________________|  |________________________________|  |
+|__________________________________________________________________________|
+``
+
+Consider the following nested set:
+``
+0, 8, root
+  1, 7, mathematics
+    2, 3, geometry
+      3, 6, calculus
+        4, 5, derivative
+        5, 6, integral
+      6, 7, algebra
+  7, 8, physics
+``
+
+When we want to insert one element, e.g. `limit`, normally under `calculus`, we have to specify:
+* parent
+* index within parent
+so we have a method:
+``
+insert(parent, previousSibling)
+``
+
+= Tree type
+{parent=Tree (data-structure)}
+{wiki}
+
+= Binary tree
+{parent=Tree type}
 {wiki}
 
 = K-ary tree
 {parent=Binary tree}
 {wiki}
 
+= Ordered and unordered trees
+{parent=Tree type}
+
 = Ordered tree
-{parent=Tree (data-structure)}
+{parent=Ordered and unordered trees}
 {wiki=Tree_(data_structure)#Ordered_tree}
 
 = Unordered tree
-{parent=Ordered tree}
+{parent=Ordered and unordered trees}
 {wiki=Tree_(data_structure)#Ordered_tree}
 
 = Tree traversal

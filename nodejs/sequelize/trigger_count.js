@@ -26,7 +26,7 @@ async function createTrigger(sequelize, model, on, action, { after, when, nameEx
   }
   if (sequelize.options.dialect === 'postgres') {
     const functionName = `${triggerName}_fn`
-    await sequelize.query(`CREATE OR REPLACE FUNCTION ${functionName}()
+    await sequelize.query(`CREATE OR REPLACE FUNCTION "${functionName}"()
   RETURNS TRIGGER
   LANGUAGE PLPGSQL
   AS
@@ -44,7 +44,7 @@ $$
   ${after} ${on.toUpperCase()}
   ON "${model.tableName}"
   FOR EACH ROW${when}
-  EXECUTE PROCEDURE ${functionName}();
+  EXECUTE PROCEDURE "${functionName}"();
 `)
   } else if (sequelize.options.dialect === 'sqlite') {
     await sequelize.query(`

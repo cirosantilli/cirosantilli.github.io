@@ -973,33 +973,14 @@ Example: \a[nodejs/sequelize/raw/tree.js]
 {parent=SQL tree traversal}
 {wiki}
 
-= Nested set model
+= Nested set model in SQL
 {parent=SQL tree traversal}
 {wiki}
 
+= Nested set index
+{title2}
+{synonym}
+
+How to implement <Nested set model> on SQL:
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
-
-The <ASCII ART> visualizations from https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 are worth reproducing.
-
-As a tree:
-* Root 1
-  * Child 1.1
-    * Child 1.1.1
-    * Child 1.1.2
-  * Child 1.2
-    * Child 1.2.1
-    * Child 1.2.2
-
-As the sets:
-``
- __________________________________________________________________________
-|  Root 1                                                                  |
-|   ________________________________    ________________________________   |
-|  |  Child 1.1                     |  |  Child 1.2                     |  |
-|  |   ___________    ___________   |  |   ___________    ___________   |  |
-|  |  |  C 1.1.1  |  |  C 1.1.2  |  |  |  |  C 1.2.1  |  |  C 1.2.2  |  |  |
-1  2  3___________4  5___________6  7  8  9___________10 11__________12 13 14
-|  |________________________________|  |________________________________|  |
-|__________________________________________________________________________|
-``
