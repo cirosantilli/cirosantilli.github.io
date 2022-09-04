@@ -541,7 +541,19 @@ https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
 {tag=Inscription (blockchain)}
 {wiki}
 
-https://blockchain.info/block-height/0?format=json
+<Inscription (blockchain)> added by <Satoshi Nakamoto> on the <Genesis block> containing:
+\Q[
+The Times 03/Jan/2009 Chancellor on brink of second bailout for banks
+]
+which is a reference to: https://www.thetimes.co.uk/article/chancellor-alistair-darling-on-brink-of-second-bailout-for-banks-n9l382mn62h wihch is fully titled:
+\Q[Chancellor Alistair Darling on brink of second bailout for banks]
+The "Alistair" was slikely removed due to limited payload concerns.
+
+Through the newspaper reference, the message proves a minimal starting date for the first mine.
+
+And it hints that one of <Bitcoin>'s motivation was the <financial crisis of 2007-2008>, where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place. A notable related stab is taken at <cool data embedded in the bitcoin blockchain/len Sassaman tribute>.
+
+We can extract the image from the blockchain ourselves by starting from: https://blockchain.info/block-height/0?format=json[].
 
 From that page we manually extract the hash `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f` and then:
 ``
@@ -567,17 +579,18 @@ where:
 * `54` is `T`
 * the `04ffff001d0104` part just doesn't show up on the terminal because it is not made of any printable characters.
 
-The initial `04` is `OP_RETURN`
+The initial `04` is `OP_RETURN`.
 
-TODO what is actual the meaning of the `ffff001d010445` part?
+TODO what is actual the meaning of the `ffff001d010445` part? `@defango` https://twitter.com/defango/status/1642750851134652417 comments:
+\Q[
+04ffff001d0104 is a hexadecimal string. It is commonly used in the Bitcoin network as a part of the mining process. Specifically, it is used as the target value for a block to be considered valid by the Bitcoin network.
+
+This value represents the level of difficulty required for a miner to generate a block that meets the network's criteria. The first four bytes, 04ffff, represent the maximum possible target value. The next three bytes, 001d01, represent the current difficulty level
+
+while the final byte, 04, is a padding byte. In summary, this value sets the difficulty level for mining a new block in the Bitcoin network.
+]
 
 TODO the `output` of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.
-
-The message proves a minimal starting date for the first mine.
-
-And it hints that one of <Bitcoin>'s motivation was the <financial crisis of 2007-2008>, where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place.
-
-A notable related stab is taken at <cool data embedded in the bitcoin blockchain/len Sassaman tribute>.
 
 = Satoshi tribute
 {c}
