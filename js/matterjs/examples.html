@@ -10,7 +10,7 @@
 <div id="demo"></div>
 <div id="demo-doc"></div>
 <div id="doc">
-<p>Global shortcuts: R: restart scenario | N: next scenario | P: previous scenario</p>
+<p>Global controls: R: restart scenario | N: next scenario | P: previous scenario</p>
 <p><a href="http://cirosantilli.com/_file/js/matterjs/example.html">More information.</a></p>
 </div>
 <div id="demo-debug"></div>
@@ -75,6 +75,7 @@ const Runner = Matter.Runner
 const Bodies = Matter.Bodies
 const Composite = Matter.Composite
 const World = Matter.World
+const V = Matter.Vector
 
 // Scenarios.
 const scenarios = [
@@ -157,7 +158,7 @@ const scenarios = [
       const h = 600
 
       // Ciro
-      const moveForce = 0.01
+      const ciroMoveForce = 0.01
       const ciroScale = 0.1
       const ciroW = w * ciroScale
       const ciroH = h * ciroScale
@@ -177,6 +178,48 @@ const scenarios = [
         }
       )
 
+      // Stone
+      const stoneR = w/40
+      const stoneMap = new Map()
+      function addStone(engine, retries=10) {
+        for (let i = 0; i < retries; i++) {
+          const otherBodies = Composite.allBodies(engine.world)
+          const newStone = Bodies.circle(
+            Math.random() * w, Math.random() * h, stoneR,
+            {
+              render: { fillStyle: 'gray' },
+            }
+          )
+          Composite.add(engine.world, [newStone])
+          if (Matter.Query.collides(newStone, otherBodies).length) {
+            Composite.remove(engine.world, newStone)
+          } else {
+            stoneMap.set(newStone, undefined)
+            return newStone
+          }
+        }
+      }
+
+      // Bin
+      const buttonR = w/20
+      function makeButton(x, y) {
+        return Bodies.circle(
+          x, y, buttonR,
+          {
+            isStatic: true,
+            render: { fillStyle: 'purple' },
+          }
+        )
+      }
+      const buttons = [
+        makeButton(w/4, h/4),
+        makeButton(3*w/4, 3*h/4),
+      ]
+      const buttonMap = new Map()
+      for (const button of buttons) {
+        buttonMap.set(button, { count: 0, })
+      }
+
       // Wall
       const wallExtra = 0.1
       const wallOpts = {
@@ -184,9 +227,23 @@ const scenarios = [
         render: { fillStyle: 'brown', },
       }
 
-      demoDocElement.innerHTML = '<p>Shortcuts: W: up | S: down | A: left | D: right</p>'
+      demoDocElement.innerHTML = '<p>Controls: W: up | S: down | A: left | D: right | Mouse drag: move objects</p>'
 
       return {
+        afterRender: () => {
+          const context = render.context
+          context.font = "bold 24px verdana, sans-serif "
+          context.textAlign = "center"
+          context.textBaseline = "bottom"
+          context.fillStyle = "#ffffff"
+          context.fillText('Ciro', ciro.position.x, ciro.position.y - ciroH/2);
+          for (const button of buttons) {
+            context.fillText(`Bin ${buttonMap.get(button).count}`, button.position.x, button.position.y - buttonR)
+          }
+          for (const [stone, _] of stoneMap) {
+            context.fillText('Stone', stone.position.x, stone.position.y - stoneR)
+          }
+        },
         beforeUpdate: () => {
           demoDebugElement.innerHTML = `<p>` +
             `x: ${ciro.position.x.toFixed(2)} | y: ${ciro.position.y.toFixed(2)}` +
@@ -200,25 +257,25 @@ const scenarios = [
             Matter.Body.applyForce(ciro, {
               x: ciro.position.x,
               y: ciro.position.y
-            }, { x: 0, y: -moveForce } )
+            }, { x: 0, y: -ciroMoveForce } )
           },
           KeyS: () => {
             Matter.Body.applyForce(ciro, {
               x: ciro.position.x,
               y: ciro.position.y
-            }, { x: 0, y: moveForce } )
+            }, { x: 0, y: ciroMoveForce } )
           },
           KeyA: () => {
             Matter.Body.applyForce(ciro, {
               x: ciro.position.x,
               y: ciro.position.y
-            }, { x: -moveForce, y: 0 } )
+            }, { x: -ciroMoveForce, y: 0 } )
           },
           KeyD: () => {
             Matter.Body.applyForce(ciro, {
               x: ciro.position.x,
               y: ciro.position.y
-            }, { x: moveForce, y: 0 } )
+            }, { x: ciroMoveForce, y: 0 } )
           },
         },
         renderOpts: {
@@ -227,23 +284,237 @@ const scenarios = [
           wireframes: false,
         },
         setup: (engine, render) => {
+          // Two things touch each other, e.g. something and a button.
+          Matter.Events.on(engine, 'collisionStart', function(event) {
+            const pairs = event.pairs
+            for (let i = 0, j = pairs.length; i != j; ++i) {
+              const pair = pairs[i]
+
+              // Button collision.
+              let button, stone
+              if (buttonMap.has(pair.bodyA)) { button = pair.bodyA }
+              if (buttonMap.has(pair.bodyB)) { button = pair.bodyB }
+              if (stoneMap.has(pair.bodyA)) { stone = pair.bodyA }
+              if (stoneMap.has(pair.bodyB)) { stone = pair.bodyB }
+              if (button && stone) {
+                buttonMap.get(button).count++
+                Composite.remove(engine.world, stone)
+                stoneMap.delete(stone)
+                addStone(engine)
+              }
+            }
+          })
           Render.lookAt(render, {
             min: { x: 0, y: 0 },
             max: { x: w, y: h },
           })
-          Composite.add(engine.world, [
-            ciro,
+          Composite.add(
+            engine.world,
+            [
+              ciro,
 
-            // Walls
-            // N
-            Bodies.rectangle(w/2, 0, w * (1 + wallExtra), h * wallExtra, wallOpts),
-            // S
-            Bodies.rectangle(w/2, h, w * (1 + wallExtra), h * wallExtra, wallOpts),
-            // W
-            Bodies.rectangle(0, h/2, w * wallExtra, h  * (1 + wallExtra), wallOpts),
-            // E
-            Bodies.rectangle(w, h/2, w * wallExtra, h  * (1 + wallExtra), wallOpts),
-          ])
+              // Walls
+              // N
+              Bodies.rectangle(w/2, 0, w * (1 + wallExtra), h * wallExtra, wallOpts),
+              // S
+              Bodies.rectangle(w/2, h, w * (1 + wallExtra), h * wallExtra, wallOpts),
+              // W
+              Bodies.rectangle(0, h/2, w * wallExtra, h  * (1 + wallExtra), wallOpts),
+              // E
+              Bodies.rectangle(w, h/2, w * wallExtra, h  * (1 + wallExtra), wallOpts),
+            ].concat(buttons)
+          )
+          for (let i = 0; i < 4; i++) {
+            addStone(engine)
+          }
+
+          // Add mouse control
+          const mouse = Matter.Mouse.create(render.canvas)
+          const mouseConstraint = Matter.MouseConstraint.create(engine, {
+            mouse,
+            constraint: {
+              angularStiffness: 0,
+              render: {
+                visible: true
+              }
+            }
+          })
+          Composite.add(engine.world, mouseConstraint)
+          render.mouse = mouse;
+        },
+      }
+    },
+  },
+  {
+    id: 'top-down-asdw-fps',
+    scene: () => {
+      // Viewport width/height.
+      const w = 600
+      const h = 600
+      // World width/height.
+      const ww = 6000
+      const wh = 6000
+
+      // Ciro
+      const ciroMoveForce = 0.01
+      const ciroTorque = 0.1
+      const ciroScale = 0.1
+      const ciroW = w * ciroScale
+      const ciroH = h * ciroScale
+      const ciro = Bodies.rectangle(
+        w/2, h/2, ciroW, ciroH,
+        {
+          density: 0.001,
+          friction: 0,
+          frictionAir: 0.04,
+          render: {
+            sprite: {
+              texture: 'https://raw.githubusercontent.com/cirosantilli/media/master/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg',
+              xScale: ciroW/400,
+              yScale: ciroH/400,
+            }
+          }
+        }
+      )
+
+      // Stone
+      const stoneR = w/40
+      const stoneMap = new Map()
+      function addStone(engine, retries=10) {
+        for (let i = 0; i < retries; i++) {
+          const otherBodies = Composite.allBodies(engine.world)
+          const newStone = Bodies.circle(
+            Math.random() * ww, Math.random() * wh, stoneR,
+            {
+              render: { fillStyle: 'gray' },
+            }
+          )
+          Composite.add(engine.world, [newStone])
+          if (Matter.Query.collides(newStone, otherBodies).length) {
+            Composite.remove(engine.world, newStone)
+          } else {
+            stoneMap.set(newStone, undefined)
+            return newStone
+          }
+        }
+      }
+
+      // Wall
+      const wallExtra = 0.1
+      const wallOpts = {
+        isStatic: true,
+        render: { fillStyle: 'brown', },
+      }
+
+      demoDocElement.innerHTML = '<p>Controls: W: forward | S: backwards | A: strafe left | D: strafe right | Q: rotate left | E: rotate right | Mouse drag: move objects</p>'
+
+      Matter.Render.startViewTransform = function(render) {
+        var boundsWidth = render.bounds.max.x - render.bounds.min.x,
+            boundsHeight = render.bounds.max.y - render.bounds.min.y,
+            boundsScaleX = boundsWidth / render.options.width,
+            boundsScaleY = boundsHeight / render.options.height;
+
+        // add lines:
+        var w2 = render.canvas.width / 2;
+        var h2 = render.canvas.height / 2;
+        render.context.translate(w2, h2);
+        render.context.rotate(-ciro.angle);
+        render.context.translate(-w2, -h2);
+        // /add lines.
+
+        render.context.scale(1 / boundsScaleX, 1 / boundsScaleY);
+        render.context.translate(-render.bounds.min.x, -render.bounds.min.y);
+      }
+
+      return {
+        beforeRender: () => {
+          Render.lookAt(render, {
+            min: { x: ciro.position.x - w/2, y: ciro.position.y - h/2 },
+            max: { x: ciro.position.x + w/2, y: ciro.position.y + h/2 },
+          })
+        },
+        beforeUpdate: () => {
+          demoDebugElement.innerHTML = `<p>` +
+            `x: ${ciro.position.x.toFixed(2)} | y: ${ciro.position.y.toFixed(2)} | angle: ${((360 * ciro.angle/Math.PI) % 360).toFixed(2)}°` +
+            ` | vx: ${ciro.velocity.x.toFixed(2)} | vy: ${ciro.velocity.y.toFixed(2)}` +
+            `</p>`
+        },
+        // https://stackoverflow.com/questions/29466684/disabling-gravity-in-matter-js
+        engineOpts: { gravity: { y: 0 } },
+        keyHandlers: {
+          KeyW: () => {
+            Matter.Body.applyForce(ciro, {
+              x: ciro.position.x,
+              y: ciro.position.y
+            }, V.rotate({ x: 0, y: -ciroMoveForce }, ciro.angle) )
+          },
+          KeyS: () => {
+            Matter.Body.applyForce(ciro, {
+              x: ciro.position.x,
+              y: ciro.position.y
+            }, V.rotate({ x: 0, y: ciroMoveForce }, ciro.angle) )
+          },
+          KeyA: () => {
+            Matter.Body.applyForce(ciro, {
+              x: ciro.position.x,
+              y: ciro.position.y
+            }, V.rotate({ x: -ciroMoveForce, y: 0 }, ciro.angle) )
+          },
+          KeyD: () => {
+            Matter.Body.applyForce(ciro, {
+              x: ciro.position.x,
+              y: ciro.position.y
+            }, V.rotate({ x: ciroMoveForce, y: 0 }, ciro.angle) )
+          },
+          KeyQ: () => {
+            ciro.torque = -ciroTorque
+          },
+          KeyE: () => {
+            ciro.torque = ciroTorque
+          },
+        },
+        renderOpts: {
+          height: w,
+          width: h,
+          wireframes: false,
+          showPerformance: true
+        },
+        setup: (engine, render) => {
+          Composite.add(
+            engine.world,
+            [
+              ciro,
+
+              // Walls
+              // N
+              Bodies.rectangle(ww/2, 0, ww * (1 + wallExtra), wh * wallExtra, wallOpts),
+              // S
+              Bodies.rectangle(ww/2, wh, ww * (1 + wallExtra), wh * wallExtra, wallOpts),
+              // W
+              Bodies.rectangle( 0, wh/2, ww * wallExtra, wh  * (1 + wallExtra), wallOpts),
+              // E
+              Bodies.rectangle(ww, wh/2, ww * wallExtra, wh  * (1 + wallExtra), wallOpts),
+            ]
+          )
+          const nStones = Math.floor(ww*wh/(50*stoneR*stoneR))
+          console.log(`nStones = ${nStones}`);
+          for (let i = 0; i < nStones; i++) {
+            addStone(engine)
+          }
+
+          // Add mouse control
+          const mouse = Matter.Mouse.create(render.canvas)
+          const mouseConstraint = Matter.MouseConstraint.create(engine, {
+            mouse,
+            constraint: {
+              angularStiffness: 0,
+              render: {
+                visible: true
+              }
+            }
+          })
+          Composite.add(engine.world, mouseConstraint)
+          render.mouse = mouse;
         },
       }
     },
@@ -280,6 +551,14 @@ function run(element, scenarioIdx) {
   Render.run(render)
   Runner.run(Runner.create(), engine)
   const keyHandlers = Object.assign({}, scene.keyHandlers || {}, globalKeyHandlers)
+  const afterRender = scene.afterRender
+  if (afterRender) {
+    Matter.Events.on(render, 'afterRender', afterRender)
+  }
+  const beforeRender = scene.beforeRender
+  if (beforeRender) {
+    Matter.Events.on(render, 'beforeRender', beforeRender)
+  }
   Matter.Events.on(engine, 'beforeUpdate', event => {
     scene.beforeUpdate?.()
     ;[...keysDown].forEach(k => {
@@ -298,7 +577,27 @@ function reset(element, render, engine, scenarioIdx) {
   render.canvas = null
   render.context = null
   render.textures = {}
+  Matter.Events.off(engine, 'afterRender')
+  Matter.Events.off(engine, 'beforeRender')
   Matter.Events.off(engine, 'beforeUpdate')
+  // https://stackoverflow.com/questions/38237506/rotate-camera-in-matter-js/60267606#60267606
+  Matter.Render.startViewTransform = function(render) {
+      var boundsWidth = render.bounds.max.x - render.bounds.min.x,
+          boundsHeight = render.bounds.max.y - render.bounds.min.y,
+          boundsScaleX = boundsWidth / render.options.width,
+          boundsScaleY = boundsHeight / render.options.height;
+
+      // add lines:
+      var w2 = render.canvas.width / 2;
+      var h2 = render.canvas.height / 2;
+      render.context.translate(w2, h2);
+      render.context.rotate(0);
+      render.context.translate(-w2, -h2);
+      // /add lines.
+
+      render.context.scale(1 / boundsScaleX, 1 / boundsScaleY);
+      render.context.translate(-render.bounds.min.x, -render.bounds.min.y);
+  };
 
   return run(element, scenarioIdx)
 }
