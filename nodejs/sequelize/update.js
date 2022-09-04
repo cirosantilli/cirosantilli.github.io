@@ -68,6 +68,7 @@ common.assertEqual(rows, [
 await reset()
 
 // Update to match another column with modification.
+// https://stackoverflow.com/questions/55646233/updating-with-calculated-values-in-sequelize
 await Inverses.update(
   { inverse: sequelize.fn('1 + ', sequelize.col('myValue')), },
   { where: { myValue: { [Op.gt]: 2 } } },

@@ -415,6 +415,12 @@ Apparently destroyed <ImageNet 2015> and became very very famous as such.
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/255px-ResNets.svg.png]
 
+= ResNet implementation
+{c}
+{parent=Residual neural network}
+
+* <torchvision ResNet>
+
 = Convolutional neural network
 {parent=ANN model}
 {title2=CNN}
@@ -764,6 +770,43 @@ sys     0m17.293s
 = PyTorch model
 {c}
 {parent=PyTorch}
+
+= torchvision
+{c}
+{parent=PyTorch}
+
+Contains several <computer vision> models, e.g. <ResNet>, including pre-trained.
+
+Documentation: https://pytorch.org/vision/stable/index.html
+
+= torchvision ResNet
+
+https://pytorch.org/vision/0.13/models.html has a minimal runnable example adapted to \a[python/pytorch/resnet_demo.py], usage:
+``
+cd python/pytorch
+wget -O resnet_demo_in.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg
+./resnet_demo.py resnet_demo_in.jpg resnet_demo_out.jpg
+``
+This first downloads the model, which is currently 167 MB.
+
+The runtime is relatively slow on <Ciro Santilli's hardware/P51>, about 4.7s.
+
+After it finishes, the program prints the recognized classes:
+``
+['bird', 'banana']
+``
+so we get the expected `bird`, but also the more intriguing `banana`.
+
+By looking at the output image with bounding boxes, we understand where the banana came from!
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rooster_portrait2.jpg/400px-Rooster_portrait2.jpg]
+{title=python/pytorch/resnet_demo_in.jpg}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/site/python/pytorch/resnet_demo_out.jpg]
+{title=python/pytorch/resnet_demo_out.jpg}
+{description=The beak was of course a banana, not a beak!}
+
+Tested on <Ubuntu 22.10>.
 
 = TensorFlow
 {c}
