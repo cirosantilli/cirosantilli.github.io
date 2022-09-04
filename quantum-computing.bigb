@@ -175,20 +175,25 @@ Bibliography:
 
 = Quantum algorithm
 {parent=Quantum computing}
+{wiki}
 
 This is the true key question: what are the most important algorithms that would be accelerated by quantum computing?
+
+Some candidates:
+* <Shor's algorithm>: this one will actually make humanity worse off, as we will be forced into <post-quantum cryptography> that will likely be less efficient than existing classical <cryptography> to implement
+* <quantum algorithm for linear systems of equations>, and related <application of systems of linear equations>
+* <Grover's algorithm>: speedup not exponential. Still useful for anything?
+* https://en.wikipedia.org/wiki/Quantum_Fourier_transform[Quantum Fourier transform]: TODO is the speedup exponential or not?
+* Deutsch: solves an useless problem
+* <NISQ algorithms>
+
+Do you have proper optimization or <quantum chemistry> algorithms that will make trillions?
 
 Maybe there is some room for doubt because some applications might be way better in some <quantum computer physical implementations>[implementations], but we should at least have a good general idea.
 
 However, clear information on this really hard to come by, not sure why.
 
 Whenever asked e.g. at: https://physics.stackexchange.com/questions/3390/can-anybody-provide-a-simple-example-of-a-quantum-computer-algorithm/3407 on <Physics Stack Exchange> people say the infinite mantra:
-* <grover's algorithm>[Grover]: speedup not exponential
-* Deutsch: solves an useless problem
-* Shor: cryptography is boring, do you have proper optimization or <quantum chemistry> algorithms that will make trillions?
-* https://en.wikipedia.org/wiki/Quantum_Fourier_transform[Quantum Fourier transform]: TODO is the speedup exponential or not?
-
-<Ciro Santilli> wonders if there is any understandable algorithm that meets the above criteria.
 
 Lists:
 * <Quantum Algorithm Zoo>: the leading list as of 2020
@@ -215,6 +220,22 @@ Source on <GitHub>: https://github.com/stephenjordan/stephenjordan.github.io
 
 The most comprehensive list is the amazing curated and commented list of <quantum algorithms> as of 2020.
 
+= Quantum algorithm by problem
+{parent=Quantum algorithm}
+
+= Quantum matrix multiplication
+{parent=Quantum algorithm by problem}
+
+https://cstheory.stackexchange.com/questions/2951/quantum-matrix-multiplication
+
+= Quantum algorithm for linear systems of equations
+{parent=Quantum algorithm by problem}
+{tag=System of linear equations algorithm}
+
+= HHL algorithm
+{c}
+{parent=Quantum algorithm for linear systems of equations}
+
 = List of quantum algorithms
 {parent=Quantum algorithm}
 
@@ -237,7 +258,7 @@ Toy/test/tought experiment algorithm.
 {parent=Hiden shift algorithm}
 {wiki}
 
-= Schor's algorithm
+= Shor's algorithm
 {c}
 {parent=List of quantum algorithms}
 {tag=Integer factorization algorithm}
@@ -245,10 +266,15 @@ Toy/test/tought experiment algorithm.
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=lvTqbM5Dq4Q]
-{title=<Schor's Algorithm> Explained by <minutephysics> (2019)}
+{title=<Shor's Algorithm> Explained by <minutephysics> (2019)}
 
-= Integer factorization algorithms better than Schor's algorithm
-{parent=Schor's algorithm}
+= How many logical qubits are needed to run Shor's algorithm?
+{parent=Shor's algorithm}
+
+https://quantumcomputing.stackexchange.com/questions/5048/how-many-logical-qubits-are-needed-to-run-shors-algorithm-efficiently-on-large
+
+= Integer factorization algorithms better than Shor's algorithm
+{parent=Shor's algorithm}
 
 * 2023 https://www.schneier.com/blog/archives/2023/01/breaking-rsa-with-a-quantum-computer.html comments on "Factoring integers with sublinear resources on a superconducting quantum processor” https://arxiv.org/pdf/2212.12372.pdf
 \Q[
@@ -312,6 +338,35 @@ This algorithm provides the conceptual division between <noisy intermediate-scal
 {title2}
 
 Era of <quantum computing> before we reach physical errors small enough to do perfect <quantum error correction> as demonstrated by the <quantum threshold theorem>.
+
+= NISQ algorithm
+{c}
+{parent=Noisy intermediate-scale quantum era}
+{tag=Quantum algorithm}
+
+A <quantum algorithm> that is thought to be more likely to be useful in the <NISQ> era of <quantum computing>.
+
+= Variational quantum eigensolver
+{parent=NISQ algorithm}
+{title2=VQE}
+{wiki}
+
+TODO clear example of the <computational problem> that it solves.
+
+= Quantum optimization algorithm
+{parent=NISQ algorithm}
+{wiki=Quantum_optimization_algorithms}
+
+= Quantum approximate optimization algorithm
+{parent=Quantum optimization algorithm}
+{title2=QAOA}
+
+TODO clear example of the <computational problem> that it solves.
+
+= Quadratic unconstrained binary optimization
+{parent=Quantum optimization algorithm}
+{title2=QUBO}
+{wiki}
 
 = High level quantum synthesis
 {parent=Quantum compilation}
@@ -396,6 +451,14 @@ https://www.youtube.com/@QuTechAcademy
 {wiki}
 
 <Vaporware>?
+
+= ColdQuanta
+{c}
+{parent=Organization developing quantum hardware}
+{tag=American company}
+{title2=2007}
+
+Not a <quantum computing> pure-play, they also do sensing.
 
 = Organization developing quantum software
 {parent=Quantum computing player}
@@ -945,7 +1008,7 @@ Co-founder of <IonQ>. Cool dude. Starts with basic background we already know no
 * https://youtu.be/9aOLwjUZLm0?t=1475 a transition that they want to drive in Ytterbium has 355 nm, which is easy to generate TODO why.
 * https://youtu.be/9aOLwjUZLm0?t=1520 mentions that 351 would be much harder, e.g. as used in inertially confied fusion, takes up a room
 * https://youtu.be/9aOLwjUZLm0?t=1539 what they use: a <pulsed laser>. It is made primarily for <photolithography>, <Coherent, Inc.> makes 200 of them a year, so it is reliable stuff and easy to operate. At https://www.coherent.com/lasers/nanosecond/avia-nx we can see some of their 355 offers. https://archive.ph/wip/JKuHI shows a used system going for 4500 USD.
-* https://youtu.be/9aOLwjUZLm0?t=1584 Cirac and Zoller proposed the idea of using entangled ions soon after they heard about <Schor's algorithm> in 1995
+* https://youtu.be/9aOLwjUZLm0?t=1584 Cirac and Zoller proposed the idea of using entangled ions soon after they heard about <Shor's algorithm> in 1995
 * https://youtu.be/9aOLwjUZLm0?t=1641 you use <optical tweezers> to move the pairs of ions you want to entangle. This means shining a <laser> on two ions at the same time. Their movement depends on their <spin>, which is already in a superposition. If both move up, their distance stats the same, so the <Coulomb interaction> is unchanged. But if they are different, then one goes up and the other down, distance increases due to the diagonal, and energy is lower.
 * https://youtu.be/9aOLwjUZLm0?t=1939 S. Debnah 2016 Nature experiment with a pentagon. Well, it is not a pentagon, they are just in a linear chain, the pentagon is just to convey the full connectivity. Maybe also <Satanism>. Anyways. This point also mentions usage of an <acousto-optic modulator> to select which atoms we want to act on. On the other side, a simpler wide laser is used that hits all atoms (<optical tweezers> are literally like tweezers in the sense that you use two lasers). Later on mentions that the modulator is from Harris, later merged with L3, so: https://www.l3harris.com/all-capabilities/acousto-optic-solutions
 * https://youtu.be/9aOLwjUZLm0?t=2119 <Bernstein-Vazirani algorithm>. This to illustrate better connectivity of their ion approach compared to an <IBM quantum computer>, which is a <superconducting quantum computer>
@@ -1324,6 +1387,8 @@ It seems that all/almost all of them do. Quite cool.
 {parent=Quantum control system}
 {tag=Organization developing quantum software}
 
+https://github.com/m-labs/artiq
+
 = M-Labs
 {c}
 {parent=Organization developing quantum control systems}
@@ -1335,25 +1400,25 @@ It seems that all/almost all of them do. Quite cool.
 {tag=Open source software}
 {wiki}
 
-https://github.com/m-labs/artiq
-
 = Duke ARTIQ extensions
 {c}
 {parent=ARTIQ}
 
 https://gitlab.com/duke-artiq/dax
 
+= Q-CTRL
+{c}
+{parent=Organization developing quantum control systems}
+{tag=Australian company}
+
+https://q-ctrl.com/
+
+Someone attempted a <Wikipedia> page apparently: https://en.wikipedia.org/wiki/Q-CTRL[]. <Deletionism on Wikipedia>[Nice try, nice try].
+
 = QuantrolOx
 {c}
 {parent=Organization developing quantum control systems}
 {tag=University of Oxford spinout company}
-
-https://q-ctrl.com/
-
-= Q-CTRL
-{c}
-{parent=Organization developing quantum control systems}
-{tag=Australia}
 
 https://q-ctrl.com/
 
@@ -1671,6 +1736,12 @@ For example, the number of qubits would be a simple naive choice of such perform
 {wiki}
 
 It takes time for the quantum state to evolve. So in order to have a deep <quantum circuit>, we need longer <coherence times>.
+
+= Depth of a quantum circuit
+{parent=Quantum computer benchmark}
+{wiki}
+
+https://quantumcomputing.stackexchange.com/questions/14431/whats-meant-by-the-depth-of-a-quantum-circuit
 
 = Quantum volume
 {parent=Quantum computer benchmark}
