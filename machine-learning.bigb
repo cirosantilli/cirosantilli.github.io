@@ -239,10 +239,165 @@ https://modelzoo.co/
 
 = activatedgeek/LeNet-5
 {parent=LeNet implementation}
+{tag=PyTorch model}
 
 https://github.com/activatedgeek/LeNet-5
 
-Very good packaging!
+Good packaging! Tested on <Ubuntu 22.10>:
+``
+git clone https://github.com/activatedgeek/LeNet-5
+cd LeNet-5
+git checkout 95b55a838f9d90536fd3b303cede12cf8b5da47f
+virtualenv -p python3 .venv
+. .venv/bin/activate
+
+# Their requirements.txt uses >= and some == are incompatible with our Ubuntu.
+pip install
+  Pillow==6.2.0 \
+  numpy==1.24.2 \
+  onnx==1.13.1 \
+  torch==2.0.0 \
+  torchvision==0.15.1 \
+  visdom==0.2.4 \
+;
+
+time python run.py
+``
+This throws a billion exceptions because we didn't start the visdom server, but nevermind that.
+
+The scrip does a fixed 15 <epoch (deep learning)>[epochs].
+
+Output on <Ciro Santilli's hardware/P51>:
+``
+real    2m10.262s
+user    11m9.771s
+sys     0m26.368s
+``
+
+The run also produces a `lenet.onnx` <onnx> file, which is pretty neat, and allows us for example to visualize it on <Netron>:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/e9225ddf4bb8ce4bad8cc2a9d6503d683dec5db6/activatedgeek_LeNet-5_onnx.svg]
+{title=<Netron> visualization of the <activatedgeek LeNet-5> <ONNX> output}
+{description=
+From this we can see the bifurcation on the computational graph as done in the code at:
+``
+output = self.c1(img)
+x = self.c2_1(output)
+output = self.c2_2(output)
+output += x
+output = self.c3(output)
+``
+This doesn't seem to conform to the original <LeNet-5> however?
+}
+
+= activatedgeek/LeNet-5 use ONNX for inference
+{parent=activatedgeek LeNet-5}
+
+Now let's try and use the trained <ONNX> file for inference on some manually drawn images on <GIMP>:
+``
+pip install onnxruntime==1.14.1 opencv-python==4.7.0.72
+``
+Note that the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
+
+We can try the code from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[]
+
+onnx_infer.py
+``
+#!/usr/bin/env python
+
+import json
+import sys
+import os
+import time
+import numpy as np
+import cv2
+import onnx
+import onnxruntime
+from onnx import numpy_helper
+
+model="lenet.onnx"
+path=sys.argv[1]
+img = cv2.imread(path)
+img = np.dot(img[...,:3], [0.299, 0.587, 0.114])
+img = cv2.resize(img, dsize=(32, 32), interpolation=cv2.INTER_AREA)
+img.resize((1, 1, 32, 32))
+data = json.dumps({'data': img.tolist()})
+data = np.array(json.loads(data)['data']).astype('float32')
+session = onnxruntime.InferenceSession(model, None)
+input_name = session.get_inputs()[0].name
+output_name = session.get_outputs()[0].name
+result = session.run([output_name], {input_name: data})
+prediction=int(np.argmax(np.array(result).squeeze(), axis=0))
+print(prediction)
+``
+and then:
+``
+./onnx_infer.py ~/img.png
+``
+and it works pretty well!
+
+We can also try with images directly from <Extract MNIST images>.
+``
+for f in /home/ciro/git/mnist_png/out/testing/1/*.png; do echo $f; ./onnx_infer.py $f ; done
+``
+and the accuracy is great as expected.
+
+= activatedgeek/LeNet-5 run on GPU
+{parent=activatedgeek LeNet-5}
+
+By default, the setup runs on <CPU> only, not <GPU>, as could be seen by running <htop>. But by the magic of <PyTorch>, modifying the program to run on the <GPU> is trivial:
+``
+cat << EOF | patch
+diff --git a/run.py b/run.py
+index 104d363..20072d1 100644
+--- a/run.py
++++ b/run.py
+@@ -24,7 +24,8 @@ data_test = MNIST('./data/mnist',
+ data_train_loader = DataLoader(data_train, batch_size=256, shuffle=True, num_workers=8)
+ data_test_loader = DataLoader(data_test, batch_size=1024, num_workers=8)
+
+-net = LeNet5()
++device = 'cuda'
++net = LeNet5().to(device)
+ criterion = nn.CrossEntropyLoss()
+ optimizer = optim.Adam(net.parameters(), lr=2e-3)
+
+@@ -43,6 +44,8 @@ def train(epoch):
+     net.train()
+     loss_list, batch_list = [], []
+     for i, (images, labels) in enumerate(data_train_loader):
++        labels = labels.to(device)
++        images = images.to(device)
+         optimizer.zero_grad()
+
+         output = net(images)
+@@ -71,6 +74,8 @@ def test():
+     total_correct = 0
+     avg_loss = 0.0
+     for i, (images, labels) in enumerate(data_test_loader):
++        labels = labels.to(device)
++        images = images.to(device)
+         output = net(images)
+         avg_loss += criterion(output, labels).sum()
+         pred = output.detach().max(1)[1]
+@@ -84,7 +89,7 @@ def train_and_test(epoch):
+     train(epoch)
+     test()
+
+-    dummy_input = torch.randn(1, 1, 32, 32, requires_grad=True)
++    dummy_input = torch.randn(1, 1, 32, 32, requires_grad=True).to(device)
+     torch.onnx.export(net, dummy_input, "lenet.onnx")
+
+     onnx_model = onnx.load("lenet.onnx")
+EOF
+``
+and leads to a faster runtime, with less `user` as now we are spending more time on the GPU than CPU:
+``
+real    1m27.829s
+user    4m37.266s
+sys     0m27.562s
+
+``
 
 = Residual neural network
 {parent=ANN model}
@@ -262,7 +417,17 @@ Apparently destroyed <ImageNet 2015> and became very very famous as such.
 
 = Convolutional neural network
 {parent=ANN model}
+{title2=CNN}
 {wiki}
+
+= CNN convolution kernels are also learnt
+{parent=Convolutional neural network}
+
+CNN convolution kernels are not hardcoded. They are learnt and optimized via <backpropagation>. You just specify their size! Example in <PyTorch> you'd do just:
+``
+nn.Conv2d(1, 6, kernel_size=(5, 5))
+``
+as used for example at: <activatedgeek LeNet-5>.
 
 = YOLO model
 {c}
@@ -292,6 +457,18 @@ It is a bit of an unfortunate as it suggests something like "deep understanding"
 \Video[https://www.youtube.com/watch?v=Ilg3gGewQ5U]
 {title=What is backpropagation really doing? by <3Blue1Brown> (2017)}
 {description=Good <hand wave> intuition, but does not describe the exact <algorithm>.}
+
+= Epoch and batch size
+{parent=Deep learning}
+{tag=Hyperparameter}
+
+= Epoch
+{disambiguate=deep learning}
+{parent=Epoch and batch size}
+
+= Batch size
+{disambiguate=deep learning}
+{parent=Epoch and batch size}
 
 = Deep learning benchmark
 {parent=Deep learning}
@@ -346,6 +523,7 @@ E.g. on https://mlcommons.org/en/training-normal-21/ we can see what the the ben
 
 = MLperf v2.1 ResNet
 {parent=MLperf}
+{tag=ResNet}
 
 Instructions at:
 * https://github.com/mlcommons/inference/blob/v2.1/vision/classification_and_detection
@@ -374,14 +552,14 @@ export MODEL_DIR="$(pwd)"
 export EXTRA_OPS='--time 10 --max-latency 0.2'
 
 tools/make_fake_imagenet.sh
-export DATA_DIR="$(pwd)/fake_imagenet"
-./run_local.sh onnxruntime mobilenet cpu --accuracy
+DATA_DIR="$(pwd)/fake_imagenet" ./run_local.sh onnxruntime mobilenet cpu --accuracy
 ``
 
-Output on <Ciro Santilli's hardware/P51>:
+Last line of output on <Ciro Santilli's hardware/P51>, which appears to contain the benchmark results
 ``
 TestScenario.SingleStream qps=58.85, mean=0.0138, time=0.136, acc=62.500%, queries=8, tiles=50.0:0.0129,80.0:0.0137,90.0:0.0155,95.0:0.0171,99.0:0.0184,99.9:0.0187
 ``
+where presumably `qps` means queries per second, and is the main results we are interested in, the more the better.
 
 Running:
 ``
@@ -452,6 +630,75 @@ ValueError: setting an array element with a sequence. The requested array has an
 
 TODO!
 
+= Run MLperf v2.1 ResNet on Imagenette
+{c}
+{parent=MLperf v2.1 ResNet}
+
+Let's run on this Imagenet10 subset, <Imagenette>.
+
+First ensure that you get the dummy test data run working as per <MLperf v2.1 ResNet>.
+
+Next, in the `imagenette2` directory, first let's create a 224x224 scaled version of the inputs as required by the benchmark at https://mlcommons.org/en/inference-datacenter-21/[]:
+``
+#!/usr/bin/env bash
+rm -rf val224x224
+mkdir -p val224x224
+for syndir in val/*: do
+  syn="$(dirname $syndir)"
+  for img in "$syndir"/*; do
+    convert "$img" -resize 224x224 "val224x224/$syn/$(basename "$img")"
+  done
+done
+``
+and then let's create the `val_map.txt` file to match the format expected by MLPerf:
+``
+#!/usr/bin/env bash
+wget https://gist.githubusercontent.com/aaronpolhamus/964a4411c0906315deb9f4a3723aac57/raw/aa66dd9dbf6b56649fa3fab83659b2acbf3cbfd1/map_clsloc.txt
+i=0
+rm -f val_map.txt
+while IFS="" read -r p || [ -n "$p" ]; do
+  synset="$(printf '%s\n' "$p" | cut -d ' ' -f1)"
+  if [ -d "val224x224/$synset" ]; then
+    for f in "val224x224/$synset/"*; do
+      echo "$f $i" >> val_map.txt
+    done
+  fi
+  i=$((i + 1))
+done < <( sort map_clsloc.txt )
+``
+then back on the mlperf directory we download our model:
+``
+wget https://zenodo.org/record/4735647/files/resnet50_v1.onnx
+``
+and finally run!
+``
+DATA_DIR=/mnt/sda3/data/imagenet/imagenette2 time ./run_local.sh onnxruntime resnet50 cpu --accuracy
+``
+which gives on <Ciro Santilli's hardware/P51>:
+``
+TestScenario.SingleStream qps=164.06, mean=0.0267, time=23.924, acc=87.134%, queries=3925, tiles=50.0:0.0264,80.0:0.0275,90.0:0.0287,95.0:0.0306,99.0:0.0401,99.9:0.0464
+``
+where `qps` presumably means "querries per second". And the `time` results:
+``
+446.78user 33.97system 2:47.51elapsed 286%CPU (0avgtext+0avgdata 964728maxresident)k
+``
+The `time=23.924` is much smaller than the `time` executable because of some lengthy pre-loading (TODO not sure what that means) that gets done every time:
+``
+INFO:imagenet:loaded 3925 images, cache=0, took=52.6sec
+INFO:main:starting TestScenario.SingleStream
+``
+
+Let's try on the <GPU> now:
+``
+DATA_DIR=/mnt/sda3/data/imagenet/imagenette2 time ./run_local.sh onnxruntime resnet50 gpu --accuracy
+``
+which gives:
+``
+TestScenario.SingleStream qps=130.91, mean=0.0287, time=29.983, acc=90.395%, queries=3925, tiles=50.0:0.0265,80.0:0.0285,90.0:0.0405,95.0:0.0425,99.0:0.0490,99.9:0.0512
+455.00user 4.96system 1:59.43elapsed 385%CPU (0avgtext+0avgdata 975080maxresident)k
+``
+TODO lower `qps` on GPU!
+
 = Deep learning is mostly matrix multiplication
 {parent=Deep learning}
 
@@ -472,7 +719,20 @@ The most important thing this project provides appears to be the `.onnx` file fo
 <Deep learning frameworks> can then output such `.onnx` files for interchangeability and serialization.
 
 Some examples:
+* <activatedgeek LeNet-5> produces a trained `.onnx` from <PyTorch>
 * <MLperf v2.1 ResNet> can use `.onnx` as a pre-trained model
+
+= Netron
+{c}
+{parent=ONNX}
+
+https://netron.app/
+
+<ONNX> visualizer.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/e9225ddf4bb8ce4bad8cc2a9d6503d683dec5db6/activatedgeek_LeNet-5_onnx.svg]
+{title=<Netron> visualization of the <activatedgeek LeNet-5> <ONNX> output}
+{disambiguate=netron}
 
 = PyTorch
 {c}
@@ -500,6 +760,10 @@ real    1m9.924s
 user    4m16.213s
 sys     0m17.293s
 ``
+
+= PyTorch model
+{c}
+{parent=PyTorch}
 
 = TensorFlow
 {c}
@@ -560,14 +824,24 @@ Playing with it is the de-facto <computer vision> <hello world>.
 
 But it is important to note that as of the 2010's, the benchmark had become too easy for many application.
 
-The dataset can be downloaded from http://yann.lecun.com/exdb/mnist/[], e.g. training:
+The dataset can be downloaded from http://yann.lecun.com/exdb/mnist/[]:
 ``
-wget http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
-wget http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+wget \
+ http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz \
+ http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz \
+ http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz \
+ http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
 ``
 but doing so is kind of pointless as both files use some crazy single-file custom binary format to store all images and labels. OMG!
 
 OK-ish data explorer: https://knowyourdata-tfds.withgoogle.com/#tab=STATS&dataset=mnist
+
+= Extract MNIST images
+{c}
+{parent=MNIST database}
+
+* https://stackoverflow.com/questions/40427435/extract-images-from-idx3-ubyte-file-or-gzip-via-python/75993239#75993239
+* https://stackoverflow.com/questions/55049511/how-to-download-mnist-images-as-pngs/75993252#75993252
 
 = Fashion MNIST
 {c}
@@ -605,9 +879,19 @@ The categories are all part of <WordNet>, which means that there are several par
 Subset generators:
 * https://github.com/mf1024/ImageNet-datasets-downloader[] generates on download, very good. As per https://github.com/mf1024/ImageNet-Datasets-Downloader/issues/14 counts go over the limit due to bad multithreading. Also unfortunately it does not start with a subset of 1k.
 * https://github.com/BenediktAlkin/ImageNetSubsetGenerator
-* https://github.com/fastai/imagenette an imagenet10 subset by <fast.ai>
 
 Unfortunately, since <ImageNet> is a <closed standard> no one can upload such pre-made subsets, forcing everybody to download the full dataset, in <ImageNet1k>, which is huge!
+
+= Imagenette
+{c}
+{parent=ImageNet subset}
+{title2=Imagenet10}
+
+https://github.com/fastai/imagenette
+
+An imagenet10 subset by <fast.ai>.
+
+Size of full sized image version: 1.5 GB.
 
 = ImageNet Large Scale Visual Recognition Challenge dataset
 {c}
@@ -629,11 +913,50 @@ Contains 1,281,167 images and exactly 1k categories which is why this dataset is
 
 https://www.kaggle.com/competitions/imagenet-object-localization-challenge/overview clarifies a bit further how the categories are inter-related according to <WordNet> relationships:
 \Q[The 1000 object categories contain both internal nodes and leaf nodes of ImageNet, but do not overlap with each other.]
-An unofficial list of the 1k categories can be seen at: https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a
-
-https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file with their benchmark IDs.
 
 https://image-net.org/challenges/LSVRC/2012/browse-synsets.php lists all 1k labels with their <WordNet> IDs.
+``
+n02119789: kit fox, Vulpes macrotis
+n02100735: English setter
+n02096294: Australian terrier
+``
+There is a bug on that page however towards the middle:
+``
+n03255030: dumbbell
+href="ht:
+n02102040: English springer, English springer spaniel
+``
+and there is one missing label if we ignore that dummy `href=` line. A thinkg of beauty!
+
+Also the lines are not sorted by synset, if we do then the first three lines are:
+``
+n01440764: tench, Tinca tinca
+n01443537: goldfish, Carassius auratus
+n01484850: great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias
+``
+
+https://gist.github.com/aaronpolhamus/964a4411c0906315deb9f4a3723aac57 has lines of type:
+``
+n02119789 1 kit_fox
+n02100735 2 English_setter
+n02110185 3 Siberian_husky
+``
+therefore numbered on the exact same order as https://image-net.org/challenges/LSVRC/2012/browse-synsets.php
+
+https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a lists all 1k labels as a plaintext file with their benchmark IDs.
+``
+{0: 'tench, Tinca tinca',
+ 1: 'goldfish, Carassius auratus',
+ 2: 'great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias',
+``
+therefore numbered on sorted order of https://image-net.org/challenges/LSVRC/2012/browse-synsets.php
+
+The official line numbering in-benchmark-data can be seen at `LOC_synset_mapping.txt`, e.g. https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data?select=LOC_synset_mapping.txt
+``
+n01440764 tench, Tinca tinca
+n01443537 goldfish, Carassius auratus
+n01484850 great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias
+``
 
 https://huggingface.co/datasets/imagenet-1k also has some useful metrics on the split:
 * train: 1,281,167 images, 145.7 GB zipped
@@ -788,6 +1111,12 @@ Interesting website, hosts mostly:
 
 = List of ontologies
 {parent=Ontology}
+
+= Cyc
+{c}
+{parent=List of ontologies}
+{title2=1984}
+{wiki}
 
 = WordNet
 {c}

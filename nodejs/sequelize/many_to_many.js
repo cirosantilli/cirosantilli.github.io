@@ -486,6 +486,26 @@ assert( await bat.hasTag(reptile))
 assert(!await bat.hasTag(tag3))
 await reset()
 
+// DELETE all animals with tag mammal.
+// https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
+await Animal.findAll({
+  attributes: ['id'],
+  raw: true,
+  include: [
+    {
+      model: Tag,
+      where: { name: 'mammal' },
+      attributes: [],
+      through: { attributes: [] },
+    }
+  ],
+}).then(ids => Animal.destroy({ where: { id: ids.map(id => id.id) } }))
+rows = await sequelize.models.Animal.findAll({ order: [['species', 'ASC']] })
+common.assertEqual(rows, [
+  { species: 'frog' },
+])
+await reset()
+
 // Access join table.
 rows = await sequelize.models.AnimalTag.findAll({order: [
   ['AnimalId', 'ASC'], ['TagId', 'ASC'],

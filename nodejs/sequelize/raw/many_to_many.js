@@ -480,6 +480,8 @@ await reset()
 //
 // PostgreSQL does have a non-standard USING syntax for it:
 // https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
+//
+// No sequelize support: https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
 if (sequelize.options.dialect === 'postgres') {
   // JOIN version.
   await sequelize.query(`
