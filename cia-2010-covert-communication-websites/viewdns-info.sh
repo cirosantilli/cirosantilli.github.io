@@ -2,7 +2,8 @@
 #APIKEY=98e6028acec4f0c4b147b839e54c3a957e24b671
 set -eu
 
-n=20
+# These logs were +-n.
+#n=20
 #'iraniangoals.com 69.65.33 21' \
 #'iraniangoalkicks.com 68.178.232 100' \
 #'activegaminginfo.com 66.175.106 148' \
@@ -29,7 +30,7 @@ n=20
 #'beyondnetworknews.com 66.104.175 30'
 #'worldnewsandent.com 208.254.40 130' \
 
-n=5
+#n=5
 #driversinternationalgolf.com 208.254.41 251
 #driversinternationalgolf.com 208.254.42 183
 #driversinternationalgolf.com 208.254.42 194
@@ -37,27 +38,29 @@ n=5
 #driversinternationalgolf.com 208.254.42 216
 #driversinternationalgolf.com 208.254.42 222
 #driversinternationalgolf.com 208.254.42 228
+#
+#iranfootballsource.com 50.18.223 191
 
-for line in \
-  'driversinternationalgolf.com 208.254.42 183'
-do
-  a=( $line )
-  domain=${a[0]}
-  ip_base=${a[1]}
-  ip_end=${a[2]}
-  i=-$n
-  echo "$domain $ip_base.$ip_end"
-  while [ $i -le $n ]; do
-    ip_end_new=$(($ip_end + $i))
-    if [ $ip_end_new -ge 0 ] && [ $ip_end_new -le 255 ]; then
-      ip2="$ip_base.$ip_end_new"
-      #echo curl --silent "https://api.viewdns.info/reverseip/?host=$ip2&apikey=$APIKEY&output=json"
-      curl --silent "https://api.viewdns.info/reverseip/?host=$ip2&apikey=$1&output=json" | jq -r '.response | select(.domains != null) | .domains[] | .name + " " + .last_resolved' | \
-        while IFS="" read -r p || [ -n "$p" ]; do
-          echo "* $i $ip2: $p"
-        done
-    fi
-    i=$((i+1))
-  done
-  echo
-done
+
+# Args from now on are start/end.
+
+# thegraceofislam.com
+# 66.45.179.187 66.45.179.217
+# 66.45.179.218 66.45.179.223
+
+apikey="$1"
+begin="$2"
+end="$3"
+ip_base="${begin%.*}"
+i="${begin##*.}"
+endi="${end##*.}"
+while [ $i -le $endi ]; do
+  ip="$ip_base.$i"
+  echo $ip >&2
+  #echo curl --silent "https://api.viewdns.info/reverseip/?host=$ip&apikey=$apikey&output=json"
+  curl --silent "https://api.viewdns.info/reverseip/?host=$ip&apikey=$apikey&output=json" | jq -r '.response | select(.domains != null) | .domains[] | .name + " " + .last_resolved' | \
+    while IFS="" read -r p || [ -n "$p" ]; do
+      echo "* $ip: $p"
+    done
+  i=$((i+1))
+done | tee "$begin.txt"

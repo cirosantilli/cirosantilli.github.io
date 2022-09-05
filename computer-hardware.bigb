@@ -620,6 +620,11 @@ Files:
 {disambiguate=computing}
 {parent=Computer hardware}
 
+= Microarchitecture
+{parent=Processor (computing)}
+{tag=Computer architecture}
+{wiki}
+
 = Central processing unit
 {parent=Processor (computing)}
 {wiki}
@@ -659,8 +664,65 @@ As a result, it is both very convenient, as it does not require a C toolchain to
 * https://electronics.stackexchange.com/questions/1092/whats-the-difference-between-a-microcontroller-and-a-microprocessor
 * https://electronics.stackexchange.com/questions/227796/why-are-relatively-simpler-devices-such-as-microcontrollers-so-much-slower-than
 
-= Microarchitecture
+= CPU architecture
+{c}
 {parent=Central processing unit}
+{tag=Microarchitecture}
+{wiki}
+
+= Instruction pipelining
+{parent=CPU architecture}
+
+The first thing you must understand is the <Classic RISC pipeline> with a concrete example.
+
+= JavaScript CPU simulator
+{c}
+{parent=Instruction pipelining}
+{tag=JavaScript library}
+
+= y86.js.org
+{c}
+{parent=JavaScript CPU simulator}
+{tag=Y86}
+
+* https://y86.js.org/
+* https://github.com/shuding/y86
+
+The good:
+* slick <UI>! But very hard to read characters, they're way too small.
+* attempts to show state diffs with a flash. But it goes by too fast, would be better if it were more permanent
+* <Reverse debugging>
+
+The bad:
+* educational <ISA>
+* unclear what flags mean from UI, no explanation on hover. Likely the authors assume knowledge of the <Y86> book.
+
+= WebRISC-V
+{c}
+{parent=JavaScript CPU simulator}
+{tag=RISC-V}
+
+https://webriscv.dii.unisi.it/
+
+The good:
+* <Reverse debugging>
+* circuit diagram
+
+The bad:
+* Clunky <UI>
+* circuit diagram doesn't show any state??
+
+= Hazard
+{disambiguate=computer architecture}
+{parent=Instruction pipelining}
+{wiki}
+
+= Pipeline stall
+{parent=Hazard (computer architecture)}
+{wiki}
+
+= Classic RISC pipeline
+{parent=Instruction pipelining}
 {wiki}
 
 = Microprocessor
@@ -1314,25 +1376,6 @@ List of <instruction set architecture>.
 
 https://stackoverflow.com/questions/3711443/minimal-instruction-set-to-solve-any-problem-with-a-computer-program/38523869#38523869
 
-= x86
-{c}
-{parent=List of instruction set architectures}
-{wiki}
-
-\Include[x86-paging]
-
-= x86 custom instructions
-{c}
-{parent=x86}
-
-<Intel> is known to have created customized chips for very large clients.
-
-This is mentioned e.g. at: https://www.theregister.com/2021/03/23/google_to_build_server_socs/
-\Q[Intel is known to do custom-ish cuts of Xeons for big customers.]
-Those chips are then used only in large scale server deployments of those very large clients. <Google> is one of them most likely, given their penchant for <Google custom hardware>.
-
-TODO better sources.
-
 = ARM architecture family
 {c}
 {parent=List of instruction set architectures}
@@ -1394,6 +1437,34 @@ E.g. a result of this, the <RISC-V Foundation> moved its legal headquarters to <
 {wiki}
 
 Leading <RISC-V> consultants as of 2020, they are basically trying to become the <Red Hat> of the <semiconductor industry>.
+
+= x86
+{c}
+{parent=List of instruction set architectures}
+{wiki}
+
+\Include[x86-paging]
+
+= x86 custom instructions
+{c}
+{parent=x86}
+
+<Intel> is known to have created customized chips for very large clients.
+
+This is mentioned e.g. at: https://www.theregister.com/2021/03/23/google_to_build_server_socs/
+\Q[Intel is known to do custom-ish cuts of Xeons for big customers.]
+Those chips are then used only in large scale server deployments of those very large clients. <Google> is one of them most likely, given their penchant for <Google custom hardware>.
+
+TODO better sources.
+
+= Y86
+{c}
+{parent=List of instruction set architectures}
+
+https://esolangs.org/wiki/Y86 mentions:
+\Q[Y86 is a toy RISC CPU instruction set for education purpose.]
+
+One specification at: http://web.cse.ohio-state.edu/~reeves.92/CSE2421sp13/PracticeProblemsY86.pdf
 
 = Computer manufacturer
 {parent=Computer hardware}

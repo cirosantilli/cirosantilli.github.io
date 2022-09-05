@@ -288,6 +288,11 @@ https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-serve
 {parent=SQL keyword}
 {wiki=Group_by_(SQL)}
 
+= HAVING
+{c}
+{disambiguate=SQL}
+{parent=GROUP BY (SQL)}
+
 = INSERT
 {disambiguate=SQL}
 {c}
@@ -908,6 +913,15 @@ output:
 7|seven
 ``
 
+= SQLite C extension
+{c}
+{parent=SQLite}
+{wiki}
+
+Example: \a[sqlite/ip.c], adapted from https://www.sqlite.org/loadext.html[], also mentioned explained at: https://stackoverflow.com/questions/7638238/sqlite-ip-address-storage/76520885#76520885[].
+
+Docs: https://www.sqlite.org/loadext.html
+
 = SQLite isolation levels
 {c}
 {parent=SQLite}
@@ -950,9 +964,14 @@ The only big problem was the lack of <ORM>, but people are looking into that by 
 * https://github.com/JoshuaWise/better-sqlite3/issues/23
 * https://github.com/sequelize/sequelize/issues/11400
 
-= SQL tree traversal
+= SQL feature
 {c}
 {parent=SQL}
+{tag=Tree traversal}
+
+= SQL tree traversal
+{c}
+{parent=SQL feature}
 {tag=Tree traversal}
 
 Example: \a[nodejs/sequelize/raw/tree.js]
@@ -984,3 +1003,97 @@ Example: \a[nodejs/sequelize/raw/tree.js]
 How to implement <Nested set model> in <SQL>:
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
+
+= Window function
+{disambiguate=SQL}
+{parent=SQL feature}
+
+= SQL window `RANGE`
+{c}
+{parent=Window function (SQL)}
+
+* <SQLite>: https://www.sqlite.org/windowfunctions.html#exprrange
+
+``
+rm -f tmp.sqlite
+sqlite3 tmp.sqlite "create table t (id integer, val integer)"
+sqlite3 tmp.sqlite "insert into t values
+  (0, 0),
+  (1, 5),
+  (2, 10),
+  (3, 14),
+  (4, 15),
+  (5, 16),
+  (6, 20),
+  (7, 25),
+  (8, 29),
+  (9, 30),
+  (10, 31),
+  (11, 35),
+  (12, 40)
+"
+``
+
+Show how many neighbours each column has with `val` between `val - 2` and `val + 2` inclusive:
+``
+sqlite3 tmp.sqlite "SELECT id, COUNT(*) OVER (
+  ORDER BY val RANGE BETWEEN 2 PRECEDING AND 2 FOLLOWING
+) FROM t;
+"
+``
+Output:
+``
+0|1
+1|1
+2|1
+3|3
+4|3
+5|3
+6|1
+7|1
+8|3
+9|3
+10|3
+11|1
+12|1
+``
+
+`val - 1` and `val + 1` inclusive instead:
+``
+sqlite3 tmp.sqlite "SELECT id, COUNT(*) OVER (
+  ORDER BY val RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING
+) FROM t;
+"
+``
+Output:
+``
+0|1
+1|1
+2|1
+3|2
+4|3
+5|2
+6|1
+7|1
+8|2
+9|3
+10|2
+11|1
+12|1
+``
+
+There seems to be no analogue to <HAVING (SQL)> for window functions, so we can just settle for a subquery for once, e.g.
+``
+sqlite3 tmp.sqlite "
+SELECT * FROM (
+  SELECT id, COUNT(*) OVER (
+    ORDER BY val RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING
+  ) as c FROM t
+) WHERE c > 2
+"
+``
+which outputs:
+``
+4|3
+9|3
+``
