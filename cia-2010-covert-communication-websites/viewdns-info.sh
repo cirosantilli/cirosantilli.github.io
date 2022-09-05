@@ -30,11 +30,16 @@ n=20
 #'worldnewsandent.com 208.254.40 130' \
 
 n=5
+#driversinternationalgolf.com 208.254.41 251
+#driversinternationalgolf.com 208.254.42 183
+#driversinternationalgolf.com 208.254.42 194
 #driversinternationalgolf.com 208.254.42 205
 #driversinternationalgolf.com 208.254.42 216
+#driversinternationalgolf.com 208.254.42 222
+#driversinternationalgolf.com 208.254.42 228
 
 for line in \
-  'driversinternationalgolf.com 208.254.42 216'
+  'driversinternationalgolf.com 208.254.42 183'
 do
   a=( $line )
   domain=${a[0]}
