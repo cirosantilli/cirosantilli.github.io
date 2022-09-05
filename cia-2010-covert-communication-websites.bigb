@@ -42,7 +42,7 @@ If you want to go into one of the best <OSINT> <capture the flag (cybersecurity)
 
 As a <CSV>: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/hits.csv
 
-Hit criteria: has <Wayback Machine> archive, and clear indication of a known <communication mechanism>. The mechanism itself doesn't need to be archived however, a link to it is enough given other supporting elements: IP range, site style, date, web archive date pattern. JS commons are always quickly visually inspected, other mechanisms we look only at filename patterns.
+Hit criteria: has <Wayback Machine> archive, and clear indication of a known <communication mechanism>. The mechanism itself doesn't need to be archived however, a link to it is enough given other supporting elements: IP range, site style, date, web archive date pattern. JS commons are always quickly visually inspected, other mechanisms we look only at filename patterns. Commented edge cases that didn't make the cut can be found mostly under <IP range search>{full} and <2013 DNS Census virtual host cleanup heuristic keyword searches>{full}.
 
 || ip
 || domain
@@ -489,7 +489,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | golf-on-holiday.com
 | https://web.archive.org/web/20110201200208/http://golf-on-holiday.com/[2011]
 | English
-| https://web
+|
 | https://web.archive.org/web/20110201200242/http://golf-on-holiday.com/golf.jar[JAR]
 | sports, golf
 |
@@ -510,7 +510,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110207095057/https://disciples.dojo-temple.com/cgi-bin/kama.cgi[CGI]
 | sports, martial arts
-| TODO meaning of "kama"
+| TODO meaning of "kama"? https://en.wikipedia.org/wiki/Kama[Kama] lol?
 
 | 66.104.169.180
 | medicatechinfo.com
@@ -1558,6 +1558,7 @@ In 2013 https://en.wikipedia.org/wiki/Glenn_Greenwald[Glen Greenwald] claimed th
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/screenshots/tee-shot.net.jpg]
 {title=2011 <Wayback Machine> archive of https://web.archive.org/web/20110107045521/http://tee-shot.net[tee-shot.net]}
+{description=One of the many golf-themed sites. Golf appears to be quite popular over in Langley. It's exactly what you'd expect for a mid-level spook to do in their free time!}
 {height=900}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/screenshots/information-junky.com.jpg]
@@ -2271,7 +2272,17 @@ Many hits appear to happen on the same days, and per-day data does exist: https:
 = viewdns.info
 {parent=Data sources}
 
-Their historic DNS and reverse DNS info was very valuable. It is also quite distinct from the data of the <2013 DNS Census>.
+Their historic DNS and reverse DNS info was very valuable, and served as Ciro's the initial entrypoint to finding hits in the IP ranges given by Reuters.
+
+Their data is also quite disjoint from the data of the <2013 DNS Census>. There is some overlap, but clearly their methodology is very different.
+
+You can only get about 250 queries on the web interface, then 250 queries per free account via API.
+
+We do API access to IP ranges with this simple helper: \a[cia-2010-covert-communication-websites/viewdns-info.sh].
+
+They check your IP when you signup, and you can't sign in twice from the same IP. They also state that Tor addresses are blacklisted.
+
+They also normalize dots in gmail addresses, so you need more diverse email accounts.
 
 = 2013 DNS Census
 {parent=Data sources}
