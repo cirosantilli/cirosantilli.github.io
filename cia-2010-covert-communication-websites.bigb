@@ -12,7 +12,7 @@ Then in September 2022 a few specific websites were reported by Reuters in Septe
 
 <Ciro Santilli> was already curious about those websites after hearing about the 2018 news, and even asked on <Quora>: https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks[] but there were no publicly known domains at the time to serve as a starting point.
 
-So <Ciro Santilli> heard about the 2022 article almost a year after publication, he <Ciro Santilli's naughty projects>[knew he had to try] and find some of the domains himself using the newly available information! Given that it was reported that there were "more than 350" such websites, it would be really cool if we could uncover more of those websites ourselves beyond the 8 domains reported by Reuters! Notably, being <Brazilian>, <Ciro Santilli> is particularly curious about the existence of a Brazilian-focused website one mentioned in the article, as well as in other <democracies>. WTF the <CIA> was doing in Brazil in the early 2010s! Wasn't the <Military dictatorship in Brazil> enough!
+So <Ciro Santilli> heard about the 2022 article almost a year after publication, he <Ciro Santilli's naughty projects>[knew he had to try] and find some of the domains himself using the newly available information! Given that it was reported that there were "more than 350" such websites, it would be really cool if we could uncover more of those websites ourselves beyond the 9 domains reported by Reuters! Notably, being <Brazilian>, <Ciro Santilli> is particularly curious about the existence of a Brazilian-focused website one mentioned in the article, as well as in other <democracies>. WTF the <CIA> was doing in Brazil in the early 2010s! Wasn't the <Military dictatorship in Brazil> enough!
 
 Here's the list of probable candidates Ciro has found so far using only rudimentary IP range search on https://viewdns.info[] starting from the websites reported by Reuters, more details on methods below. It is nothing compared to the hundreds of websites reported, so there must be key techniques missing. But the fact that there are no <Google Search> hits for the domains or IPs indicates that these might not have been previously clearly publicly disclosed. Ciro's initial investigation added 15 new websites to the original 8 published by Reuters.
 
@@ -411,16 +411,7 @@ The full lits of domains from screenshots is:
 
   <Java> JAR file: https://web.archive.org/web/20110203021403/http://fightwithoutrules.com/boxing.jar[].
 
-Failed attempts at guessing the Johnny Carson domain:
-* https://johnnycarson.com[]: official
-* https://johnnycarson.net[]: fan site: https://web.archive.org/web/20010501225614/http://johnnycarson.net/
-* http://johnnycarsontonight.com
-* http://heresjohnny.com[]: squat https://web.archive.org/web/20130607145841/http://heresjohnny.com/
-* text visible on page:
-  * "Your Favorite Host and Comedic Genius"
-  * "Submit Your Favorite Carson Moment"
-
-This brings up to 8 known <domain names> with <Wayback Machine> archives, plus the yet unidentified Johnny Carlson one, which is also almost certainly is on Wayback Machine somewhere given that they have a screenshot of it.
+This brings up to 8 known <domain names> with <Wayback Machine> archives, plus the yet unidentified Johnny Carlson one, see also: <Searching for Carson>{full}, which is also almost certainly is on Wayback Machine somewhere given that they have a screenshot of it.
 
 From this we can establish see some clear stylistic trends across the websites which would allow us to find other likely candidates upon inspection:
 * natural sounding, sometimes long-ish, English language domain names with 2 or 3 full words
@@ -541,8 +532,34 @@ fitness-dawg.com 219.90.62.243:
 * +6 219.90.62.249: forensic-exchange.com. 2013 archive: https://web.archive.org/web/20130714094026/http://forensic-exchange.com/[]. Appears to be a buggy <Wayback Machine> archive somehow, so inconclusive.
 * no more viewdns.info hits up to 219.90.62.255
 
+= Searching for Carson
+{parent=Methodology}
+
+The fact that Reuters has a screenshot of it, and therefore a <Wayback Machine> link, plus the specificity of the website topic, will likely keep Ciro awake at night for a while until someone finds that domain.
+
+Some text visible on the Reuters screenshot:
+* \Q[Johnny Carson and The Tonight Show]
+* \Q[Your Favorite Host and Comedic Genius]
+* \Q[Submit Your Favorite Carson Moment]
+* \Q[Heeere's Johnny!]. Holy crap, the "Here's Johnny" line from The Shining (1980) is a reference to Johnny Carson: https://www.youtube.com/watch?v=WDpipB4yehk[], https://www.youtube.com/watch?v=aYnyPAkgyvc[], Ciro never knew that... but every American would have understood it at the time.
+It is unclear however if this text is plaintext or part of a an image.
+
+Failed dry guess attempts at guessing the Johnny Carson domain:
+* https://johnnycarson.com[]: official
+* https://johnnycarson.net[]: fan site: https://web.archive.org/web/20010501225614/http://johnnycarson.net/
+* http://johnnycarsontonight.com
+* http://heresjohnny.com[]: squat https://web.archive.org/web/20130607145841/http://heresjohnny.com/
+
+Searching the <Wayback Machine> proved fruitless. There is no full text search: <Wayback Machine full text search>, and a heuristic http://web.archive.org/web/20230000000000*/Johnny%20Carson search has relevant hits but not the one we want.
+
+Another attempt was to search for "carson" on webmasterhome.cn which lists expired domains in bulk by expiration day, and it search engine friendly. It contains most of the domains we've found so far. <Google> either doesn't support partial word search or requires you to be a <God> to find it
+* https://stackoverflow.com/questions/73371842/how-to-run-partial-word-search-on-google-com-and-find-all-words-containing-joh
+* https://booleanstrings.com/2021/03/07/how-to-google-for-partial-words-in-urls-osint/
+* https://stackoverflow.com/questions/28220652/google-custom-search-engine-and-partial-matching
+so we settle for DuckDuckGo which supports it: https://duckduckgo.com/?q=site%3Awebmasterhome.cn+%22carson%22&t=h_&ia=web Adding years also helps: https://duckduckgo.com/?q=site%3Awebmasterhome.cn+%22carson%22+2011&ia=web with this we might be getting all possible results. Ciro went through all in 2011, 2012 and 2013 but no luck. Also fuck https://en.wikipedia.org/wiki/Carson_City,_Nevada[] and https://en.wikipedia.org/wiki/Carson,_California[] :-)
+
 = Reverse engineering
-{parent=CIA 2010 covert communication websites}
+{parent=Methodology}
 
 In this section we document the outcomes of more detailed inspection of both the communication mechanisms (<JavaScript>, <JAR (file format)>, swf) and HTML that might help to better fingerprint the websites.
 
