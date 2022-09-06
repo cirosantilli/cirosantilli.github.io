@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+domain_only=false
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d)
+      # Do CDX on domains only without any filters to count how many archives there are for a given domain,
+      # and thus remove anything with too many hits as an unlikely CIA website.
+      domain_only=true
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
 # Input: domain list, one per line.
 domains=$1
 
@@ -36,7 +52,11 @@ dowork() (
     retry=0
     while :; do
       err=false
-      response="$(torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
+      if $domain_only; then
+        response="$(torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain" 2>&1 )"
+      else
+        response="$(torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
+      fi
       if [ "$?" -ne 0 ]; then
         echo $i $j $domain err
         echo $domain >> "$out_err"
@@ -63,11 +83,14 @@ dowork() (
       fi
       if $err; then
         kill -HUP $pid
+        if [ $retry -eq 10 ]; then
+          break
+        fi
         echo "$i $j $domain retry=$retry pid=$pid new ip: $(torsocks -P $port curl -s http://checkip.amazonaws.com)"
       else
         break
       fi
-      sleep 1
+      #sleep 1
       retry=$((retry+1))
     done
     echo "$j" > "$nfile"

@@ -956,7 +956,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20110202124357/http://thecricketfan.com/[2011]
 | <English (language)>
 |
-| https://web.archive.org/web/20100512125808/http://kanata-news.com/feeds.js[JS]
+| https://web.archive.org/web/20110202124437/http://thecricketfan.com/Sports.jar[JAR]
 | news
 |
 
@@ -1488,7 +1488,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110202083428/http://rakotafootball.com/ball.jar[JAR]
 | sports, <football>
-|
+| "Rakota" is an Indian family name
 
 | 204.176.38.143
 | noticiassofisticadas.com
@@ -2682,6 +2682,12 @@ This brings up to 8 known <domain names> with <Wayback Machine> archives, plus t
 From <The Reuters websites> and others we've found, we can establish see some clear stylistic trends across the websites which would allow us to find other likely candidates upon inspection:
 * natural sounding, sometimes long-ish, <domain names> generally with 2 or 3 full words. Most in English language, but a few in Spanish, and very few in other languages like French.
 * shallow websites with a few tabs, many external links, sometimes many images, and few internal pages
+* lots of rectangular images make up the top bar banner image. Stock images are often used to make the full image, and then the full image is split. An example
+  * http://classicalmusicboxonline.com/images/banner_01.jpg
+  * http://classicalmusicboxonline.com/images/banner_02.jpg
+  * ...
+  * http://classicalmusicboxonline.com/images/banner_19.jpg
+  * http://classicalmusicboxonline.com/images/banner_20.jpg
 * common themes include:
   * news
   * hobbies, notably sports, travel and photography. Golf seems overrepresented. Must be a thing over there in Langley.
@@ -3291,6 +3297,8 @@ There were also some other reverse IP hits for fightwithoutrules.com, but no CIA
 * 216.105.98.157: delacorne.com. No archives.
 * 216.105.98.161: kstcloud.com. No archives.
 
+* 219.90.61.123
+
 219.90.62.243 fitness-dawg.com. https://whois.arin.net/rest/net/NET-219-0-0-0-1/pft?s=219.90.62.243[]. Net Type: Allocated to https://en.wikipedia.org/wiki/APNIC[APNIC]. Tested viewdns.info range: unknown - 219.90.62.255
 * 219.90.62.173:
   * dominatingduos.com: 2013-08-12T17:53:09. No archive
@@ -3476,9 +3484,57 @@ Since archive is so abysmal in its data access, e.g. a <Google BigQuery> would s
 
 The <CIA> doesn't play fair. They're actually the exact opposite of fair. So neither shall we.
 
-This should allow a full sweep of the 4.5M records in <2013 DNS Census virtual host cleanup> in a reasonable amount of time.
-
 Distilled into an answer at: https://stackoverflow.com/questions/14321214/how-to-run-multiple-tor-processes-at-once-with-different-exit-ips/76749983#76749983
+
+This should allow a full sweep of the 4.5M records in <2013 DNS Census virtual host cleanup> in a reasonable amount of time. After JAR/SWF/CGI filtering we obtained 5.8k domains, so a reduction factor of about 1 million with likely very few losses. Not bad.
+
+5.8k is still abit annoying to fully go over however, so we can also try to count CDX hits to the domains and remove anything with too many hits, sicne the CIA websites basically have very few archives:
+``
+cd 2013-dns-census-a-novirt-domains.txt.cdx
+cdx-tor.sh -d out.post
+cd out.post.cdx
+cut -d' ' -f1 out | uniq -c | sort -k1 -n | awk 'match($2, /([^,]+),([^)]+)/, a) {printf("%s.%s %d\n", a[2], a[1], $1)}' > out.count
+``
+This gives us something like:
+``
+12654montana.com 1
+aeronet-news.com 1
+atohms.com 1
+av3net.com 1
+beechstreetas400.com 1
+``
+sorted by increasing hit counts, so we can go down as far as patience allows for!
+
+New results from a full CDX scan of 2013-dns-census-a-novirt.csv:
+
+219.90.61.123 journeystravelled.com. viewdns.info range: 219.90.61.100 to 219.90.61.133
+* 219.90.61.103: bet2plays.com. "Under construction". Unlikely thematic, too spicy.
+* 219.90.61.110: surya-brahma.com. Hit. https://web.archive.org/web/20110128142444/http://surya-brahma.com/[2011]. Spanish. . https://web.archive.org/web/20110128142511/http://surya-brahma.com/surya.jar[JAR]. news. https://en.wikipedia.org/wiki/Surya[Surya] and https://en.wikipedia.org/wiki/Brahman[Brahman] are Hindu concepts, but the website appears to have nothing to do with India or Hinduism. Interesting.
+* 219.90.61.111: classicalmusicboxonline.com. Hit. https://web.archive.org/web/20101028135047/http://classicalmusicboxonline.com/[2010]. English. . https://web.archive.org/web/20101028135047/https://cello.classicalmusicboxonline.com/cgi-bin/musicbox.cgi[CGI]. music.
+* 219.90.61.116: athletepro.net. Hit. https://web.archive.org/web/20101229003425/http://athletepro.net/[2010]. English. . https://web.archive.org/web/20101229003434/http://athletepro.net/athletes.jar[JAR]. sports.
+* 219.90.61.117: lajornadanow.com. Hit. https://web.archive.org/web/20100513135348/http://lajornadanow.com/[2010]. Spanish. . https://web.archive.org/web/20100513135549/http://lajornadanow.com/noticias.jar[JAR]. news.
+* 219.90.61.119: aviation-navigation.com. No archives.
+* 219.90.61.122: iran-newslink-today.com. Hit. https://web.archive.org/web/20110202092016/http://iran-newslink-today.com/[2011]. Farsi. Iran. https://web.archive.org/web/20110202092053/http://iran-newslink-today.com/today.jar[JAR]. news.
+* 219.90.61.123 journeystravelled.com. Hit. https://web.archive.org/web/20110208052713/http://journeystravelled.com/[2011]. English. . https://web.archive.org/web/20110208052755/http://journeystravelled.com/time.jar[JAR]. travel.
+
+= JS CDX scanning
+{parent=Wayback Machine CDX scanning}
+
+JAR, SWF and CGI-bin scanning by path only is fine, since there are relatively few of those. But .js scanning by path only is too broad.
+
+One option would be to filter out by size, an information that is contained on the CDX. Let's check typical ones:
+``
+grep -f <(jq -r '.[]|select(select(.comms)|.comms|test("\\.js"))|.host' ../cia-2010-covert-communication-websites/hits.json) out | out.jshits.cdx
+sort -n -k7 out.jshits.cdx
+``
+Ignoring some obvious unrelated non-comms files visually we get a range of about 2732 to 3632:
+``
+net,hollywoodscreen)/current.js 20110106082232 http://hollywoodscreen.net/current.js text/javascript 200 XY5NHVW7UMFS3WSKPXLOQ5DJA34POXMV 2732
+com,amishkanews)/amishkanewss.js 20110208032713 http://amishkanews.com/amishkanewss.js text/javascript 200 S5ZWJ53JFSLUSJVXBBA3NBJXNYLNCI4E 3632
+``
+This ignores the obviously atypical <JavaScript with SHAs> from iranfootballsource, and the particularly small old menu.js from cutabovenews.com, which we embed into \a[cia-2010-covert-communication-websites/cdx-post-js.sh].
+
+The size helps a bit, but it's not insanely good unfortunately, only about 3x, these are some common JS sizes right there!
 
 = Wayback Machine crawl date search
 {parent=Wayback Machine}
