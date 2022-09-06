@@ -485,6 +485,13 @@ output:
 7|seven
 ``
 
+= SQLite benchmark
+{c}
+{parent=SQLite}
+{wiki}
+
+Python sequence test data generation: https://stackoverflow.com/questions/18219779/bulk-insert-huge-data-into-sqlite-using-python/76659706#76659706
+
 = SQLite C extension
 {c}
 {parent=SQLite}
@@ -845,7 +852,7 @@ A quick look at <PostgreSQL>'s compliance notes: https://www.postgresql.org/docs
 
 OK, there's a billion questions:
 * <SQL Server>
-  * https://stackoverflow.com/questions/485409/generating-a-histogram-from-column-values-in-a-database OP did not know the difference between count and histogram :-) <SQL Server>.
+  * https://stackoverflow.com/questions/485409/generating-a-histogram-from-column-values-in-a-database OP did not know the difference between count and histogram :-) But it's the number one Google result.
   * https://stackoverflow.com/questions/19103991/create-range-bins-from-sql-server-table-for-histograms has a minor extra group by twist, but otherwise fine
   * https://stackoverflow.com/questions/16268441/generate-histogram-in-sql-server
 * <SQLite>
@@ -908,7 +915,7 @@ select x, sum(cnt) from (
 group by x
 EOF
 ``
-which outputs the desired`:
+which outputs the desired:
 ``
 0|4
 5|5
@@ -987,7 +994,7 @@ select x, y, sum(cnt) from (
 group by x, y
 EOF
 ``
-which outputs the desired`:
+which outputs the desired:
 ``
 0|0|5
 0|5|0
@@ -1006,6 +1013,7 @@ which outputs the desired`:
 15|10|0
 15|15|5
 ``
+
 = SQL tree traversal
 {c}
 {parent=SQL application}
@@ -1044,6 +1052,50 @@ How to implement <Nested set model> in <SQL>:
 = SQL feature
 {c}
 {parent=SQL}
+
+= SQL spatial index
+{c}
+{parent=SQL feature}
+
+= PostgreSQL spatial index
+{c}
+{parent=SQL spatial index}
+
+= PostgreSQL GIST
+{c}
+{parent=PostgreSQL spatial index}
+
+* https://www.postgresql.org/docs/15/gist.html
+* https://www.postgresql.org/docs/15/datatype-geometric.html
+* https://medium.com/postgres-professional/indexes-in-postgresql-5-gist-86e19781b5db the only example on the net! 
+
+The highly underdocumented built-in module, that supports <SQL spatial index> and a lot more.
+
+Quite horrendous as it only seems to work on geometric types and not existing columns. But why.
+
+And it uses custom operatores, where standard operators would have been just fine for points...
+
+Minimal runnable example with points:
+``
+set -x
+time psql -c 'drop table if exists t'
+time psql -c 'create table t(p point)'
+time psql -c "insert into t select (point ('(' || generate_series || ',' || generate_series || ')')) from generate_series(1, 10000000)"
+time psql -c 'create index on t using gist(p)'
+time psql -c "select count(*) from t where p <@ box '(1000000,1000000),(9000000,2000000)'"
+``
+The index creation unfortunately took 100s, so it will not scale to 1B points very well whic his a shame.
+
+Some sources about it:
+* https://stackoverflow.com/questions/28292198/how-to-port-simple-spatial-index-using-sqlite-r-trees-to-postgres
+
+= PostGIS
+{c}
+{parent=PostgreSQL spatial index}
+
+http://postgis.net/
+
+The third part module, which clutters up any serches you make for the built-in one.
 
 = SQL subquery
 {parent=SQL feature}
@@ -1475,7 +1527,6 @@ EOF
 ``
 
 Output:
-
 ``
 1|100|103|4
 7|106|107|2

@@ -742,7 +742,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | Spain
 | https://web.archive.org/web/20110210114225/http://armashoy.com/armashoy.swf[SWF]
 | guns
-| in <First World> countries the <CIA> felt it would be safe to touch edgier subjects like guns
+| meaning: "Weapons Today". In <First World> countries the <CIA> felt it would be safe to touch edgier subjects like guns
 
 | 66.104.173.185
 | baocontact.com
@@ -3428,6 +3428,10 @@ Others in IP ranges by unarchived:
 
 This is a dark art, and many of the sources are shady as fuck! We often have no idea of their methodology. Also no source is fully complete. We just piece up as best we can.
 
+Some links of interest:
+* https://bushart.org/topic/ip
+* https://archive.org/details/internet-mapping
+
 = Wayback Machine
 {parent=Data sources}
 
@@ -3488,10 +3492,13 @@ For domain to IP queries from the API you should use "iphistory" https://viewdns
 curl 'https://api.viewdns.info/iphistory/?domain=todaysengineering.com&apikey=$APIKEY&output=json'
 ``
 
-= 2013 DNS Census
+= DNS Census 2013
 {parent=Data sources}
 
-Main article: </2013 DNS Census>.
+= 2013 DNS Census
+{synonym}
+
+Main article: </DNS Census 2013>.
 
 This data source was very valuable, and led to many hits, and to finding the first non Reuters ranges with <secure subdomain search on 2013 DNS Census>{full}.
 
@@ -3549,7 +3556,7 @@ Hits as of 69 hits:
 ``
 
 = 2013 DNS Census virtual host cleanup
-{parent=2013 DNS Census}
+{parent=DNS Census 2013}
 
 We've noticed that often when there is a hit range:
 * there is only one IP for each domain
@@ -3568,6 +3575,21 @@ Let's start with the 208 subset to see how it goes:
 time sqlite3 av.sqlite -cmd "attach 'u.sqlite' as u" "insert into u.t select min(d) as d, min(i) as i from t where i glob '208.*' and d not like '%.%.%' and (d like '%.com' or d like '%.net') group by i having count(distinct d) = 1"
 ``
 OK, after we fixed bugs with the above we are down to 4 million lines with unique domain/IP pairs and which contains all of the original hits! Almost certainly more are to be found!
+
+This data is so valuable that we've decided to upload it to: https://archive.org/details/2013-dns-census-a-novirt.csv Format:
+``
+8,chrisjmcgregor.com
+11,80end.com
+28,fine5.net
+38,bestarabictv.com
+49,xy005.com
+50,cmsasoccer.com
+80,museemontpellier.net
+100,newtiger.com
+108,lps-promptservice.com
+111,bridesmaiddressesshow.com
+``
+The numbers of the first column are the IPs as a 32-bit integer representation, which is more useful to search for ranges in.
 
 = 2013 DNS Census virtual host cleanup heuristic keyword searches
 {parent=2013 DNS Census virtual host cleanup}
@@ -3617,7 +3639,7 @@ OK, I've decided to do a complete <Wayback Machine CDX scanning> of `news`... Se
 Maybe we should have been broader with "global", "international", and spanish/portuguese/French versions like "mondo", "mundo", etc.
 
 = 2013 DNS census MX records
-{parent=2013 DNS Census}
+{parent=DNS Census 2013}
 
 Let' see if there's anything in records/mx.xz.
 
@@ -3701,7 +3723,7 @@ grep -f <(awk -F, 'NR>1{print $2}' /home/ciro/bak/git/media/cia-2010-covert-comm
 At 267 hits we got 81, so all are still present.
 
 = 2013 DNS census NS records
-{parent=2013 DNS Census}
+{parent=DNS Census 2013}
 
 ns.csv is 57 GB. This file is too massive, working with it is a pain.
 
@@ -3764,7 +3786,7 @@ awk -F, '{print $1}' ns.csv | uniq | wc
 so it accounts for 1/4 of the total.
 
 = 2013 DNS census SOA records
-{parent=2013 DNS Census}
+{parent=DNS Census 2013}
 
 Same as <2013 DNS census NS records> basically, nothing came out.
 
@@ -3903,8 +3925,12 @@ select * from "ccindex"."ccindex" WHERE
 ``
 Still nothing found... they don't seem to have any of the URLs of interest?
 
-= 2012 Internet Census
+= Internet Census 2012
+{c}
 {parent=Data sources}
+
+= 2012 Internet Census
+{synonym}
 
 Does not appear to have any reverse IP hits unfortunately: https://opendata.stackexchange.com/questions/1951/dataset-of-domain-names/21077#21077[]. Likely only has domains that were explicitly advertised.
 
@@ -3924,7 +3950,7 @@ tcpip_fp:
   * 66.175.106.155: atomworldnews.com:         1345562100 SCAN(V=5.51%D=8/21%OT=22%CT=443%CU=%PV=N%DC=I%G=N%TM=5033A5F2%P=mips-openwrt-linux-gnu),SEQ(SP=FB%GCD=1%ISR=FC%TI=Z%TS=A),ECN(R=Y%DF=Y%TG=40%W=1540%O=M550NNSNW6%CC=N%Q=),T1(R=Y%DF=Y%TG=40%S=O%A=S+%F=AS%RD=0%Q=),T2(R=N),T3(R=N),T4(R=N),T5(R=Y%DF=Y%TG=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=),T6(R=N),T7(R=N),U1(R=N),IE(R=N)
 
 = 2012 Internet Census hostprobes
-{parent=2012 Internet Census}
+{parent=Internet Census 2012}
 
 Hostprobes quick look on two ranges:
 
@@ -4099,7 +4125,7 @@ not representative at all... e.g. several convfirmed hits are down:
 ``
 
 = 2012 Internet Census icmp_ping
-{parent=2012 Internet Census}
+{parent=Internet Census 2012}
 
 Let's check relevancy of known hits:
 ``
