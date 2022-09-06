@@ -82,12 +82,45 @@ Let's start with the <hello world> example on an x86 target:
 cd ~/zephyrproject/zephyr
 zephyr west build -b qemu_x86 samples/hello_world -t run
 ``
-and it outputs hello world. The `qemu_x86` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html
+and it outputs:
+``
+Hello World! qemu_x86
+``
+The `qemu_x64` on the output comes from the `CONFIG_BOARD` macro https://github.com/zephyrproject-rtos/zephyr/blob/c15ff103001899ba0321b2c38013d1008584edc0/samples/hello_world/src/main.c#L11
+``
+#include <zephyr/kernel.h>
+
+int main(void)
+{
+	printk("Hello World! %s\n", CONFIG_BOARD);
+	return 0;
+}
+``
+
+The `qemu_x86` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html
+
+You can also first `cd` into the directory that you want to build in to avoid typing `samples/hello_world` all the time:
+``
+cd ~/zephyrproject/zephyr/samples/hello_world
+zephyr west build -b qemu_x86 -t run
+``
+
+You can also build and run separately with:
+``
+west build -b qemu_x86
+west build -t run
+``
+
+Another important option is:
+``
+west build -t menuconfig
+``
+But note that it does not modify your `prj.conf` automatically for you.
 
 Let's try on another target:
 ``
 rm -rf build
-zephyr west build -b qemu_cortex_a53 samples/hello_world -t run
+zephyr west build -b qemu_cortex_a53 -t run
 ``
 and same output, but on a completely different board! The `qemu_cortex_a53` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/arm64/qemu_cortex_a53/doc/index.html
 

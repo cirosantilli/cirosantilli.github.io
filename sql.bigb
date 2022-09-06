@@ -57,434 +57,6 @@ Here we list only examples which we believe are standard SQL, and should therefo
     * https://dba.stackexchange.com/questions/59394/order-of-returned-rows-with-in-statement
 * LIMIT by a running total: TODO links
 
-= SQL aggregate function
-{c}
-{parent=SQL}
-
-= SQL `COUNT` function
-{c}
-{parent=SQL aggregate function}
-
-Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_many.js].
-
-= SQL transaction
-{c}
-{parent=SQL}
-
-= SQL transaction isolation level
-{c}
-{parent=SQL transaction}
-
-= SQL isolation level
-{synonym}
-
-Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the <memory semantics> of the system.
-
-Remember that queries can affects thousands of rows, and database systems like <PostgreSQL> can run multiple such queries at the same time.
-
-Good summary on the <PostgreSQL> page: https://www.postgresql.org/docs/14/transaction-iso.html
-
-Implementation specifics:
-* <SQLite isolation levels>{child}
-
-= SQL READ UNCOMMITTED isolation level
-{c}
-{parent=SQL transaction isolation level}
-
-= SQL READ COMMITTED isolation level
-{c}
-{parent=SQL transaction isolation level}
-
-Example where this level is sufficient: <nodejs/sequelize/raw/parallel_update_async.js>{file}.
-
-= SQL REPEATABLE READ isolation level
-{c}
-{parent=SQL transaction isolation level}
-
-Vs <SQL SERIALIZABLE isolation level> on <PostgreSQL>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
-
-<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <SQL READ COMMITTED isolation level>.
-
-In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL serialization failures>, this does not happen to <SQL READ COMMITTED isolation level> in that <DBMS>. You then have to retry the transaction.
-
-= SQL SERIALIZABLE isolation level
-{c}
-{parent=SQL transaction isolation level}
-
-= SQL isolation level example
-{c}
-{parent=SQL transaction isolation level}
-
-= SQL parallel update example
-{c}
-{parent=SQL isolation level example}
-
-= nodejs/sequelize/raw/parallel_update_async.js
-{file}
-{parent=SQL parallel update example}
-
-\a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a <sqlite3 Node.js package> bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
-
-\a[nodejs/sequelize/raw/parallel_update_async.js] is an <async (JavaScript)> version of it. It should be just parallel enough to allow observing the same effects.
-
-This is an example of a transaction where the <SQL READ COMMITTED isolation level> if sufficient.
-
-These examples run queries of type:
-``
-UPDATE "MyInt" SET i = i + 1
-``
-
-Sample execution:
-``
-node --unhandled-rejections=strict ./parallel_update_async.js p 10 100
-``
-which does:
-* <PostgreSQL>, see other databases options at <SQL example>
-* 10 threads
-* 100 increments on each thread
-
-The fear then is that of a classic <read-modify-write> failure.
-
-But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, <SQL READ COMMITTED isolation level>, already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
-\Q[If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row]
-
-Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
-
-<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} contains an example where things can actually blow up in read committed.
-
-= nodejs/sequelize/raw/parallel_select_and_update.js
-{file}
-{parent=SQL parallel update example}
-
-This example is similar to <nodejs/sequelize/raw/parallel_update_async.js>{file}, but now we are doing a separate SELECT, later followed by an update:
-* `SELECT FROM` to get i
-* update on Js code `newI = i + 1`
-* `UPDATE SET` the `newI`
-
-Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in <nodejs/sequelize/raw/parallel_update_async.js>{file}, which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
-
-Sample execution:
-``
-node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED'
-``
-which does:
-* <PostgreSQL>, see other databases options at <SQL example>
-* 2 threads
-* 10 increments on each thread
-
-Another one:
-``
-node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED' 'FOR UPDATE'
-``
-this will run <SELECT FOR UPDATE> rather than just <SELECT (SQL)>
-
-Observed behaviour under different <SQL transaction isolation levels>:
-* `READ COMMITTED`: fails. Nothing in this case prevents:
-  * thread 1: SELECT, obtains i = 0
-  * thread 2: SELECT, obtains i = 0
-  * thread 2: newI = 1
-  * thread 2: UPDATE i = 1
-  * thread 1: newI = 1
-  * thread 1: UPDATE i = 1
-* `REPEATABLE READ`: works. the manual mentions that if multiple concurrent updates would happen, only the first commit succeeds, and the following ones fail and rollback and retry, therefore preventing the loss of an update.
-* `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
-
-  `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
-  \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
-
-A non-raw version of this example can be seen at: <nodejs/sequelize/parallel_select_and_update.js>{file}.
-
-= nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
-{file}
-{parent=SQL parallel update example}
-
-This example contains a deterministic demo of when <postgreSQL serialization failures> may happen.
-
-Tested on <PostgreSQL> 13.5.
-
-= nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
-{file}
-{parent=SQL parallel update example}
-
-In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
-
-If we are creating and deleting posts concurrently, a naive implementation might wrongly delete the tags of a newly created post.
-
-This could be due to a concurrency issue of the following types.
-
-Failure case 1:
-* thread 2: delete old post
-* thread 2: find all tags with 0 posts. Finds `tag0` from the deleted old post which is now empty.
-* thread 1: create new post, which we want to have tag `tag0`
-* thread 1: try to create a new tag `tag0`, but don't because it already exists, this is done using <SQLite>'s `INSERT OR IGNORE INTO` or <PostgreSQL>'s `INSERT ... ON CONFLICT DO NOTHING`
-* thread 1: assign `tag0` to the new post by adding an entry to the join table
-* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it, which then cascades into the join table
-which would result in the new post incorrectly not having the `tag0`.
-
-Failure case 2:
-* thread 2: delete old post
-* thread 2: find all tags with 0 posts
-* thread 1: create new post
-* thread 1: try to create a new tag `tag0`, but don't because it already exists
-* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it
-* thread 1: assign `tag0` to the new post
-which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
-
-Failure case 3:
-* thread 2: delete old post
-* thread 1: create new post, which we want to have tag `tag0`
-* thread 1: try to create a new tag `tag0`, and succeed because it wasn't present
-* thread 2: find all tags with 0 posts, finds the tag that was just created
-* thread 2: delete all tags with 0 posts, deleting the new tag
-* thread 1: assign `tag0` to the new post
-which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
-
-Sample executions:
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: <PostgreSQL>, 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
-
-  Execution often fails, although not always. The failure is always:
-  ``
-  error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"
-  ``
-  because the:
-  ``
-  INSERT INTO "PostTag"
-  ``
-  tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.
-
-  TODO: we've never managed to observe the failure case in which `tag0` is deleted. Is it truly possible? And if not, by which guarantee?
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED' 'FOR UPDATE'`: do a `SELECT ... FOR UPDATE` before trying to `INSERT`.
-
-  This is likely correct and the fastest correct method according to our quick benchmarking, about 20% faster than `REPEATABLE READ`.
-
-  We are just now 100% sure it is corret becase we can't find out if the `SELECT` in the `DELETE` subquery could first select some rows, which are then locked by the tag creator, and only then locked by `DELETE` after selection. Or does it re-evaludate the `SELECT` even though it is in a subquery?
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'REPEATABLE READ'`: repeatable read
-
-  We've never observed any failures with this level. This should likely fix the foreign key issue according to the PostgreSQL docs, since:
-  * the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
-  * and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: <postgreSQL serialization failure>.
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'`: serializable
-* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Can blow up of course, since even less restrictions than `READ COMMITTED`
-All executions use 2 threads.
-
-Some theoretical notes:
-* Failure case 3 is averted by a `READ COMMITTED` transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it
-
-https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from <SELECT FOR UPDATE> also talks about a similar example, and has relevant answers.
-
-= SQL keyword
-{parent=SQL}
-
-= SQL CASCADE
-{c}
-{parent=SQL keyword}
-{wiki}
-
-https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-server
-
-= GROUP BY
-{disambiguate=SQL}
-{c}
-{parent=SQL keyword}
-{wiki=Group_by_(SQL)}
-
-= HAVING
-{c}
-{disambiguate=SQL}
-{parent=GROUP BY (SQL)}
-
-= INSERT
-{disambiguate=SQL}
-{c}
-{parent=SQL keyword}
-{wiki=Insert_(SQL)}
-
-= Upsert
-{c}
-{parent=INSERT (SQL)}
-
-= ON CONFLICT UPDATE
-{c}
-{synonym}
-{title2}
-
-`UPSERT` is extremely handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both <SQLite> and <Postgres> support it with similar syntax thankfully.
-
-\a[nodejs/sequelize/raw/upsert.js]
-
-* https://www.postgresql.org/docs/14/sql-insert.html#SQL-ON-CONFLICT
-* https://www.sqlite.org/lang_returning.html
-
-= Upsert with `NOT NULL` column
-{parent=UPSERT}
-
-Attempt at \a[nodejs/sequelize/raw/upsert.js]:
-* https://stackoverflow.com/questions/48816629/on-conflict-do-nothing-in-postgres-with-a-not-null-constraint OP unable to provide a minimal exampe, but it is likely the problem
-* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
-
-Related on more complex constraints:
-* https://dba.stackexchange.com/questions/175182/on-conflict-on-two-columns-where-one-can-be-null
-* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
-
-= JOIN
-{disambiguate=SQL}
-{c}
-{parent=SQL keyword}
-{wiki=Join_(SQL)}
-
-= SQL prefix column names with the table they came from
-{c}
-{parent=JOIN (SQL)}
-
-It is mind blowing that this is not possible... the only way to avoid ambiguity in JOINs with column name conflicts is to give aliases to each column...
-
-* https://stackoverflow.com/questions/329931/sql-select-join-is-it-possible-to-prefix-all-columns-as-prefix
-* https://stackoverflow.com/questions/13153344/in-a-join-how-to-prefix-all-column-names-with-the-table-it-came-from
-
-= INNER JOIN
-{c}
-{parent=JOIN (SQL)}
-
-= OUTER JOIN
-{c}
-{parent=JOIN (SQL)}
-
-= SELECT
-{disambiguate=SQL}
-{c}
-{parent=SQL keyword}
-{wiki=Select_(SQL)}
-
-= SELECT FOR UPDATE
-{c}
-{parent=SELECT (SQL)}
-
-An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <nodejs/sequelize/raw/parallel_select_and_update.js>{file}.
-
-`SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
-
-= SQL stored procedure
-{c}
-{parent=SQL keyword}
-{tag=Stored procedure}
-
-= SQL FUNCTION
-{c}
-{parent=SQL stored procedure}
-
-= SQL PRODCEDURE
-{c}
-{parent=SQL stored procedure}
-
-= SQL TRIGGER
-{c}
-{parent=SQL keyword}
-{tag=Database trigger}
-{wiki}
-
-<SQL>'s implementation of <database triggers>.
-
-This feature is really cool, as it allows you to keep caches up to date!
-
-In particular, everything that happens in a trigger happens as if it were in a transaction. This way, you can do less explicit transactions when you use triggers. It is a bit like the advantages of <SQL CASCADE>.
-
-<DBMS>:
-* <PostgreSQL>:
-  * https://stackoverflow.com/questions/24870416/counter-cache-column-in-postgresql
-* <SQLite>
-  * https://stackoverflow.com/questions/35255304/sqlite-create-trigger-for-insert-or-update
-
-<ORM>:
-* <sequelize>: <SQL TRIGGER in Sequelize>
-
-= ISO SQL TRIGGER syntax
-{c}
-{parent=SQL keyword}
-{tag=Database trigger}
-{tag=SQL standard}
-
-TODO what is the standard compliant syntax?
-
-<PostgreSQL> requires you to define a <SQL function>: https://stackoverflow.com/questions/28149494/is-it-possible-to-create-trigger-without-execute-procedure-in-postgresql Their syntax may be standard compliant, not sure about the `EXECUTE` part. Their docs: https://www.postgresql.org/docs/current/sql-createtrigger.html
-
-<SQLite> does not support <SQL stored procedures> at all, so maybe that's why they can't be standard compliant here: https://stackoverflow.com/questions/3335162/creating-stored-procedure-in-sqlite
-
-<SQL:1999> 11.38 covers "Trigger definition". The <Abstract syntax tree> starts with the `CREATE TRIGGER` and ends in:
-``
-<triggered SQL statement> ::=
-  <SQL procedure statement>
-``
-
-This is defined at 13.5 "SQL procedure statement", but that is humongous and I'm not sure what it is at all.
-
-= nodejs/sequelize/raw/trigger_count.js
-{file}
-{parent=ISO SQL TRIGGER syntax}
-
-In this example we cache track the number of posts per user on a cache column.
-
-= UPDATE
-{c}
-{disambiguate=SQL}
-{parent=SQL keyword}
-{wiki=Update_(SQL)}
-
-= Update multiple rows with different values in a single SQL query
-{parent=UPDATE (SQL)}
-
-This happens when you calculate a bunch of values on your program, and then want to save the to SQL.
-
-<Upsert> is an option, but it fails if you have a `NOT NULL` column: <Upsert with `NOT NULL` column>
-
-Bibliography:
-* https://stackoverflow.com/questions/11563869/update-multiple-rows-with-different-values-in-a-single-sql-query
-* https://dba.stackexchange.com/questions/69269/updating-multiple-rows-with-different-values-in-one-query
-
-= UPDATE with JOIN
-{c}
-{disambiguate=SQL}
-{parent=UPDATE (SQL)}
-
-Dumping examples under \a[nodejs/sequelize/raw/many_to_many.js].
-
-Not possible without subqueries in the standard syntax, a huge shame: https://stackoverflow.com/questions/1293330/how-can-i-do-an-update-statement-with-join-in-sql-server
-
-The `UPDATE` + `FROM` extension exists in a few <DBMS>s:
-* <PostgreSQL>: https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
-* <SQLite>: https://stackoverflow.com/questions/19270259/update-with-join-in-sqlite/69831549#69831549
-
-<ORM>:
-* <Sequelize>: <UPDATE with JOIN in Sequelize>
-
-= DELETE with JOIN
-{c}
-{disambiguate=SQL}
-{parent=UPDATE with JOIN (SQL)}
-
-Demo under: \a[nodejs/sequelize/raw/many_to_many.js].
-
-NO way in the <SQL standard> apparently, but you'd hope that implementation status would be similar to <UPDATE with JOIN (sql)>, but not even!
-* <PostgreSQL>: possible with `DELETE FROM USING`: https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
-* <SQLite>: not possible without subqueries as of 3.35 far: https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite[], Does not appear to have any relevant features at: https://www.sqlite.org/lang_delete.html
-
-<ORM>
-* <Sequelize>: no support of course: https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
-
-= SQL standard
-{c}
-{parent=SQL}
-{wiki}
-
-A quick look at <PostgreSQL>'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
-
-= SQL standard version
-{c}
-{parent=SQL standard}
-
-= SQL:1999
-{c}
-{parent=SQL standard version}
-
 = SQL implementation
 {c}
 {parent=SQL}
@@ -966,10 +538,512 @@ The only big problem was the lack of <ORM>, but people are looking into that by 
 * https://github.com/JoshuaWise/better-sqlite3/issues/23
 * https://github.com/sequelize/sequelize/issues/11400
 
+= SQL function
+{c}
+{parent=SQL}
+
+= SQL set returning function
+{c}
+{parent=SQL function}
+
+<PostgreSQL>: https://www.postgresql.org/docs/current/functions-srf.html
+
+= SQL `genenerate_series`
+{c}
+{parent=SQL set returning function}
+
+= SQL aggregate function
+{c}
+{parent=SQL function}
+
+= SQL `COUNT` function
+{c}
+{parent=SQL aggregate function}
+
+Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_many.js].
+
+= SQL keyword
+{parent=SQL}
+
+= SQL CASCADE
+{c}
+{parent=SQL keyword}
+{wiki}
+
+https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-server
+
+= DELETE
+{c}
+{disambiguate=SQL}
+{parent=SQL keyword}
+
+= Delete all duplicate rows in SQL
+{parent=DELETE (SQL)}
+
+* <sqlite> with `rowid`: https://stackoverflow.com/questions/8190541/deleting-duplicate-rows-from-sqlite-database
+  * <postgresql> is `ctid`: https://stackoverflow.com/questions/14626481/rowid-equivalent-in-postgres-9-2
+* <sql server> has crazy "CTEs" change backing table extension: https://stackoverflow.com/questions/18390574/how-to-delete-duplicate-rows-in-sql-server
+
+= GROUP BY
+{disambiguate=SQL}
+{c}
+{parent=SQL keyword}
+{wiki=Group_by_(SQL)}
+
+= HAVING
+{c}
+{disambiguate=SQL}
+{parent=GROUP BY (SQL)}
+
+= INSERT
+{disambiguate=SQL}
+{c}
+{parent=SQL keyword}
+{wiki=Insert_(SQL)}
+
+= Upsert
+{c}
+{parent=INSERT (SQL)}
+
+= ON CONFLICT UPDATE
+{c}
+{synonym}
+{title2}
+
+`UPSERT` is extremely handy, and reduces the number of find, check on server, update loops. But `RETURNING` is a fundamental part of that (to get the updated/existing) ID. Can't believe SQL hasn't standardized it yet as of 2022. But both <SQLite> and <Postgres> support it with similar syntax thankfully.
+
+\a[nodejs/sequelize/raw/upsert.js]
+
+* https://www.postgresql.org/docs/14/sql-insert.html#SQL-ON-CONFLICT
+* https://www.sqlite.org/lang_returning.html
+
+= Upsert with `NOT NULL` column
+{parent=UPSERT}
+
+Attempt at \a[nodejs/sequelize/raw/upsert.js]:
+* https://stackoverflow.com/questions/48816629/on-conflict-do-nothing-in-postgres-with-a-not-null-constraint OP unable to provide a minimal exampe, but it is likely the problem
+* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
+
+Related on more complex constraints:
+* https://dba.stackexchange.com/questions/175182/on-conflict-on-two-columns-where-one-can-be-null
+* https://dba.stackexchange.com/questions/292428/postgresql-upsert-issue-with-not-null-columns
+
+= JOIN
+{disambiguate=SQL}
+{c}
+{parent=SQL keyword}
+{wiki=Join_(SQL)}
+
+= SQL prefix column names with the table they came from
+{c}
+{parent=JOIN (SQL)}
+
+It is mind blowing that this is not possible... the only way to avoid ambiguity in JOINs with column name conflicts is to give aliases to each column...
+
+* https://stackoverflow.com/questions/329931/sql-select-join-is-it-possible-to-prefix-all-columns-as-prefix
+* https://stackoverflow.com/questions/13153344/in-a-join-how-to-prefix-all-column-names-with-the-table-it-came-from
+
+= INNER JOIN
+{c}
+{parent=JOIN (SQL)}
+
+= OUTER JOIN
+{c}
+{parent=JOIN (SQL)}
+
+= SELECT
+{disambiguate=SQL}
+{c}
+{parent=SQL keyword}
+{wiki=Select_(SQL)}
+
+= SELECT FOR UPDATE
+{c}
+{parent=SELECT (SQL)}
+
+An example where `SELECT FOR UPDATE` is a good solution to an use case can be seen at: <nodejs/sequelize/raw/parallel_select_and_update.js>{file}.
+
+`SELECT FOR UPDATE` vs/together with the <SQL transaction isolation level> is commented at: https://stackoverflow.com/questions/10935850/when-to-use-select-for-update[].
+
+= SQL stored procedure
+{c}
+{parent=SQL keyword}
+{tag=Stored procedure}
+
+= SQL FUNCTION keyword
+{c}
+{parent=SQL stored procedure}
+
+= SQL PROCEDURE
+{c}
+{parent=SQL stored procedure}
+
+= SQL TRIGGER
+{c}
+{parent=SQL keyword}
+{tag=Database trigger}
+{wiki}
+
+<SQL>'s implementation of <database triggers>.
+
+This feature is really cool, as it allows you to keep caches up to date!
+
+In particular, everything that happens in a trigger happens as if it were in a transaction. This way, you can do less explicit transactions when you use triggers. It is a bit like the advantages of <SQL CASCADE>.
+
+<DBMS>:
+* <PostgreSQL>:
+  * https://stackoverflow.com/questions/24870416/counter-cache-column-in-postgresql
+* <SQLite>
+  * https://stackoverflow.com/questions/35255304/sqlite-create-trigger-for-insert-or-update
+
+<ORM>:
+* <sequelize>: <SQL TRIGGER in Sequelize>
+
+= ISO SQL TRIGGER syntax
+{c}
+{parent=SQL keyword}
+{tag=Database trigger}
+{tag=SQL standard}
+
+TODO what is the standard compliant syntax?
+
+<PostgreSQL> requires you to define a <SQL stored procedure>: https://stackoverflow.com/questions/28149494/is-it-possible-to-create-trigger-without-execute-procedure-in-postgresql Their syntax may be standard compliant, not sure about the `EXECUTE` part. Their docs: https://www.postgresql.org/docs/current/sql-createtrigger.html
+
+<SQLite> does not support <SQL stored procedures> at all, so maybe that's why they can't be standard compliant here: https://stackoverflow.com/questions/3335162/creating-stored-procedure-in-sqlite
+
+<SQL:1999> 11.38 covers "Trigger definition". The <Abstract syntax tree> starts with the `CREATE TRIGGER` and ends in:
+``
+<triggered SQL statement> ::=
+  <SQL procedure statement>
+``
+
+This is defined at 13.5 "SQL procedure statement", but that is humongous and I'm not sure what it is at all.
+
+= nodejs/sequelize/raw/trigger_count.js
+{file}
+{parent=ISO SQL TRIGGER syntax}
+
+In this example we cache track the number of posts per user on a cache column.
+
+= UNION
+{c}
+{disambiguate=SQL}
+{parent=SQL keyword}
+{wiki=Set_operations_(SQL)#UNION_operator}
+
+Basic example tested on <SQLite> 3.40.1, <Ubuntu 23.04>:
+``
+sqlite3 :memory: 'select 1 union select 2'
+``
+output:
+``
+1
+2
+``
+
+Two columns two rows:
+``
+sqlite3 :memory: <<EOF
+select * from (values (1, 2), (2, 3))
+union
+select * from (values (2, 3), (3, 4))
+EOF
+``
+output:
+``
+1|2
+2|3
+3|4
+``
+
+Note how duplicates are removed, to keep them we `UNION ALL` instead:
+``
+sqlite3 :memory: <<EOF
+select * from (values (1, 2), (2, 3))
+union all
+select * from (values (2, 3), (3, 4))
+EOF
+``
+output:
+``
+1|2
+2|3
+2|3
+3|4
+``
+
+= UPDATE
+{c}
+{disambiguate=SQL}
+{parent=SQL keyword}
+{wiki=Update_(SQL)}
+
+= Update multiple rows with different values in a single SQL query
+{parent=UPDATE (SQL)}
+
+This happens when you calculate a bunch of values on your program, and then want to save the to SQL.
+
+<Upsert> is an option, but it fails if you have a `NOT NULL` column: <Upsert with `NOT NULL` column>
+
+Bibliography:
+* https://stackoverflow.com/questions/11563869/update-multiple-rows-with-different-values-in-a-single-sql-query
+* https://dba.stackexchange.com/questions/69269/updating-multiple-rows-with-different-values-in-one-query
+
+= UPDATE with JOIN
+{c}
+{disambiguate=SQL}
+{parent=UPDATE (SQL)}
+
+Dumping examples under \a[nodejs/sequelize/raw/many_to_many.js].
+
+Not possible without subqueries in the standard syntax, a huge shame: https://stackoverflow.com/questions/1293330/how-can-i-do-an-update-statement-with-join-in-sql-server
+
+The `UPDATE` + `FROM` extension exists in a few <DBMS>s:
+* <PostgreSQL>: https://stackoverflow.com/questions/7869592/how-to-do-an-update-join-in-postgresql
+* <SQLite>: https://stackoverflow.com/questions/19270259/update-with-join-in-sqlite/69831549#69831549
+
+<ORM>:
+* <Sequelize>: <UPDATE with JOIN in Sequelize>
+
+= DELETE with JOIN
+{c}
+{disambiguate=SQL}
+{parent=UPDATE with JOIN (SQL)}
+{tag=DELETE (SQL)}
+
+Demo under: \a[nodejs/sequelize/raw/many_to_many.js].
+
+NO way in the <SQL standard> apparently, but you'd hope that implementation status would be similar to <UPDATE with JOIN (sql)>, but not even!
+* <PostgreSQL>: possible with `DELETE FROM USING`: https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
+* <SQLite>: not possible without subqueries as of 3.35 far: https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite[], Does not appear to have any relevant features at: https://www.sqlite.org/lang_delete.html
+
+<ORM>
+* <Sequelize>: no support of course: https://stackoverflow.com/questions/40890131/sequelize-destroy-record-with-join
+
+= SQL standard
+{c}
+{parent=SQL}
+{wiki}
+
+A quick look at <PostgreSQL>'s compliance notes: https://www.postgresql.org/docs/13/features.html shows the complete utter mess that this standard is. Multiple compliance levels that no one fully implements and optional features everywhere.
+
+= SQL standard version
+{c}
+{parent=SQL standard}
+
+= SQL:1999
+{c}
+{parent=SQL standard version}
+
+= SQL application
+{c}
+{parent=SQL}
+
+= SQL histogram
+{c}
+{parent=SQL application}
+
+OK, there's a billion questions:
+* <SQL Server>
+  * https://stackoverflow.com/questions/485409/generating-a-histogram-from-column-values-in-a-database OP did not know the difference between count and histogram :-) <SQL Server>.
+  * https://stackoverflow.com/questions/19103991/create-range-bins-from-sql-server-table-for-histograms has a minor extra group by twist, but otherwise fine
+  * https://stackoverflow.com/questions/16268441/generate-histogram-in-sql-server
+* <SQLite>
+  * https://stackoverflow.com/questions/67514208/how-to-optimise-creating-histogram-bins-in-sqlite perf only, benchmarking would be needed. <SQLite>.
+  * https://stackoverflow.com/questions/32155449/create-a-histogram-with-a-dynamic-number-of-partitions-in-sqlite variable bin size, same number of entries per bin
+  * https://stackoverflow.com/questions/60348109/histogram-for-time-periods-using-sqlite-regular-buckets-1h-wide time
+* <MySQL>: https://stackoverflow.com/questions/1764881/getting-data-for-histogram-plot MySQL appears to extend `ROUND` to also round by integers: `ROUND(numeric_value, -2)`, but this is not widely portable which is a shame
+* https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql specifically asks about empty bins, which is amazing. <Amazon Redshift> dialect unfortunately, but answer provided works widely, and Redshift was forked from <PostgreSQL>, so there's hope. Those newb <open source> server focused projects that don't use <AGPL>!
+
+Let's try it on <SQLite> 3.40.1, <Ubuntu 23.04>. Data setup:
+``
+sqlite3 tmp.sqlite 'create table t(x integer)'
+sqlite3 tmp.sqlite <<EOF
+insert into t values (
+  0,
+  2,
+  2,
+  3,
+
+  5,
+  6,
+  6,
+  8,
+  9,
+
+  17,
+)
+EOF
+sqlite3 tmp.sqlite 'create index tx on t(x)'
+``
+
+For a bin size of 5 ignoring empty ranges we can:
+``
+sqlite3 tmp.sqlite <<EOF
+select floor(x/5)*5 as x,
+       count(*) as cnt
+from t
+group by 1
+order by 1
+EOF
+``
+which produces the desired:
+``
+0|4
+5|5
+15|1
+``
+
+And to consider empty ranges we can use <SQL `genenerate_series`> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
+``
+sqlite3 tmp.sqlite <<EOF
+select x, sum(cnt) from (
+  select floor(x/5)*5 as x,
+         count(*) as cnt
+    from t
+    group by 1
+  union
+  select *, 0 as cnt from generate_series(0, 15, 5)
+)
+group by x
+EOF
+``
+which outputs the desired`:
+``
+0|4
+5|5
+10|0
+15|1
+``
+
+= SQL 2D histogram
+{parent=SQL histogram}
+
+Let's try it on <SQLite> 3.40.1, <Ubuntu 23.04>. Data setup:
+``
+sqlite3 tmp.sqlite 'create table t(x integer, y integer)'
+sqlite3 tmp.sqlite <<EOF
+insert into t values
+  (0, 0),
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5),
+  (6, 6),
+  (7, 7),
+  (8, 8),
+  (9, 9),
+  (10, 10),
+  (11, 11),
+  (12, 12),
+  (13, 13),
+  (14, 14),
+  (15, 15),
+  (16, 16),
+  (17, 17),
+  (18, 18),
+  (19, 19),
+
+  (2, 18)
+EOF
+sqlite3 tmp.sqlite 'create index txy on t(x, y)'
+``
+
+For a bin size of 5 ignoring empty ranges we can:
+``
+sqlite3 tmp.sqlite <<EOF
+select
+  floor(x/5)*5 as x,
+  floor(y/5)*5 as y,
+  count(*) as cnt
+from t
+group by 1, 2
+order by 1, 2
+EOF
+``
+which produces the desired:
+``
+0|0|5
+0|15|1
+5|5|5
+10|10|5
+15|15|5
+``
+
+And to consider empty ranges we can use <SQL `genenerate_series`> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
+``
+sqlite3 tmp.sqlite <<EOF
+select x, y, sum(cnt) from (
+  select
+      floor(x/5)*5 as x,
+      floor(y/5)*5 as y,
+      count(*) as cnt
+    from t
+    group by 1, 2
+  union
+  select *, 0 as cnt from generate_series(0, 15, 5) inner join (select * from generate_series(0, 15, 5))
+)
+group by x, y
+EOF
+``
+which outputs the desired`:
+``
+0|0|5
+0|5|0
+0|10|0
+0|15|1
+5|0|0
+5|5|5
+5|10|0
+5|15|0
+10|0|0
+10|5|0
+10|10|5
+10|15|0
+15|0|0
+15|5|0
+15|10|0
+15|15|5
+``
+= SQL tree traversal
+{c}
+{parent=SQL application}
+{tag=Tree traversal}
+
+Example: \a[nodejs/sequelize/raw/tree.js]
+
+* Implementation agnostic
+  * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree
+  * https://stackoverflow.com/questions/5508985/recursive-query-for-adjacency-list-to-preorder-tree-traversal-in-sql DBMS agnostic specifically asking not to modify adjacenty list data structure
+* <Postgres>
+  * https://stackoverflow.com/questions/67848017/simple-recursive-sql-query
+  * https://stackoverflow.com/questions/28688264/how-to-traverse-a-hierarchical-tree-structure-structure-backwards-using-recursiv
+  * https://stackoverflow.com/questions/51822070/how-can-postgres-represent-a-tree-of-row-ids
+* <MySQL>
+  * https://stackoverflow.com/questions/8252323/mysql-closure-table-hierarchical-database-how-to-pull-information-out-in-the-c asks how to use a specific order (<preorder DFS>) with <closure table>
+* <Microsoft SQL Server>
+  * https://stackoverflow.com/questions/14274942/sql-server-cte-and-recursion-example
+
+= Closure table
+{parent=SQL tree traversal}
+{wiki}
+
+= Nested set model in SQL
+{parent=SQL tree traversal}
+{wiki}
+
+= Nested set index
+{title2}
+{synonym}
+
+How to implement <Nested set model> in <SQL>:
+* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
+* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
+
 = SQL feature
 {c}
 {parent=SQL}
-{tag=Tree traversal}
 
 = SQL subquery
 {parent=SQL feature}
@@ -998,44 +1072,240 @@ Useful for testing: https://stackoverflow.com/questions/21819183/how-to-use-ctes
 sqlite3 :memory: 'WITH t (i, j) AS (VALUES (1, -1), (2, -2)) SELECT * FROM t'
 ``
 
-= SQL tree traversal
+= SQL transaction
 {c}
 {parent=SQL feature}
-{tag=Tree traversal}
 
-Example: \a[nodejs/sequelize/raw/tree.js]
+= SQL transaction isolation level
+{c}
+{parent=SQL transaction}
 
-* Implementation agnostic
-  * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree
-  * https://stackoverflow.com/questions/5508985/recursive-query-for-adjacency-list-to-preorder-tree-traversal-in-sql DBMS anostic specifically asking not to modify adjacenty list data structure
-* <Postgres>
-  * https://stackoverflow.com/questions/67848017/simple-recursive-sql-query
-  * https://stackoverflow.com/questions/28688264/how-to-traverse-a-hierarchical-tree-structure-structure-backwards-using-recursiv
-  * https://stackoverflow.com/questions/51822070/how-can-postgres-represent-a-tree-of-row-ids
-* <MySQL>
-  * https://stackoverflow.com/questions/8252323/mysql-closure-table-hierarchical-database-how-to-pull-information-out-in-the-c asks how to use a specific order (<preorder DFS>) with <closure table>
-* <Microsoft SQL Server>
-  * https://stackoverflow.com/questions/14274942/sql-server-cte-and-recursion-example
-
-= Closure table
-{parent=SQL tree traversal}
-{wiki}
-
-= Nested set model in SQL
-{parent=SQL tree traversal}
-{wiki}
-
-= Nested set index
-{title2}
+= SQL isolation level
 {synonym}
 
-How to implement <Nested set model> in <SQL>:
-* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
-* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
+Each transaction isolation level specifies what can or cannot happen when two queries are being run in parallel, i.e.: the <memory semantics> of the system.
+
+Remember that queries can affects thousands of rows, and database systems like <PostgreSQL> can run multiple such queries at the same time.
+
+Good summary on the <PostgreSQL> page: https://www.postgresql.org/docs/14/transaction-iso.html
+
+Implementation specifics:
+* <SQLite isolation levels>{child}
+
+= SQL READ UNCOMMITTED isolation level
+{c}
+{parent=SQL transaction isolation level}
+
+= SQL READ COMMITTED isolation level
+{c}
+{parent=SQL transaction isolation level}
+
+Example where this level is sufficient: <nodejs/sequelize/raw/parallel_update_async.js>{file}.
+
+= SQL REPEATABLE READ isolation level
+{c}
+{parent=SQL transaction isolation level}
+
+Vs <SQL SERIALIZABLE isolation level> on <PostgreSQL>: https://dba.stackexchange.com/questions/284744/postgres-repeatable-read-vs-serializable
+
+<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} is an example which experimentally seems to be solved by `REAPEATABLE READ`, although we are not sure that this is truly the case and why. What is clear is that that example is not solved by the <SQL READ COMMITTED isolation level>.
+
+In <PostgreSQL>, this is the first isolation level which can lead to <postgreSQL serialization failures>, this does not happen to <SQL READ COMMITTED isolation level> in that <DBMS>. You then have to retry the transaction.
+
+= SQL SERIALIZABLE isolation level
+{c}
+{parent=SQL transaction isolation level}
+
+= SQL isolation level example
+{c}
+{parent=SQL transaction isolation level}
+
+= SQL parallel update example
+{c}
+{parent=SQL isolation level example}
+
+= nodejs/sequelize/raw/parallel_update_async.js
+{file}
+{parent=SQL parallel update example}
+
+\a[nodejs/sequelize/raw/parallel_update_worker_threads.js] contains a base example that can be used to test what can happen when queries are being run in parallel. But it is broken due to a <sqlite3 Node.js package> bug: https://github.com/mapbox/node-sqlite3/issues/1381[]...
+
+\a[nodejs/sequelize/raw/parallel_update_async.js] is an <async (JavaScript)> version of it. It should be just parallel enough to allow observing the same effects.
+
+This is an example of a transaction where the <SQL READ COMMITTED isolation level> if sufficient.
+
+These examples run queries of type:
+``
+UPDATE "MyInt" SET i = i + 1
+``
+
+Sample execution:
+``
+node --unhandled-rejections=strict ./parallel_update_async.js p 10 100
+``
+which does:
+* <PostgreSQL>, see other databases options at <SQL example>
+* 10 threads
+* 100 increments on each thread
+
+The fear then is that of a classic <read-modify-write> failure.
+
+But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, <SQL READ COMMITTED isolation level>, already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
+\Q[If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row]
+
+Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
+
+<nodejs/sequelize/raw/parallel_create_delete_empty_tag.js>{file} contains an example where things can actually blow up in read committed.
+
+= nodejs/sequelize/raw/parallel_select_and_update.js
+{file}
+{parent=SQL parallel update example}
+
+This example is similar to <nodejs/sequelize/raw/parallel_update_async.js>{file}, but now we are doing a separate SELECT, later followed by an update:
+* `SELECT FROM` to get i
+* update on Js code `newI = i + 1`
+* `UPDATE SET` the `newI`
+
+Although this specific example is useless in itself, as we could just use `UPDATE "MyInt" SET i = i + 1` as in <nodejs/sequelize/raw/parallel_update_async.js>{file}, which automatically solves any concurrency issue, this kind of code could be required for example if the update was a complex function not suitably implemented in SQL, or if the update depends on some external data source.
+
+Sample execution:
+``
+node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED'
+``
+which does:
+* <PostgreSQL>, see other databases options at <SQL example>
+* 2 threads
+* 10 increments on each thread
+
+Another one:
+``
+node --unhandled-rejections=strict ./parallel_select_and_update.js p 2 10 'READ COMMITTED' 'FOR UPDATE'
+``
+this will run <SELECT FOR UPDATE> rather than just <SELECT (SQL)>
+
+Observed behaviour under different <SQL transaction isolation levels>:
+* `READ COMMITTED`: fails. Nothing in this case prevents:
+  * thread 1: SELECT, obtains i = 0
+  * thread 2: SELECT, obtains i = 0
+  * thread 2: newI = 1
+  * thread 2: UPDATE i = 1
+  * thread 1: newI = 1
+  * thread 1: UPDATE i = 1
+* `REPEATABLE READ`: works. the manual mentions that if multiple concurrent updates would happen, only the first commit succeeds, and the following ones fail and rollback and retry, therefore preventing the loss of an update.
+* `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
+
+  `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
+  \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
+
+A non-raw version of this example can be seen at: <nodejs/sequelize/parallel_select_and_update.js>{file}.
+
+= nodejs/sequelize/raw/parallel_select_and_update_deterministic.js
+{file}
+{parent=SQL parallel update example}
+
+This example contains a deterministic demo of when <postgreSQL serialization failures> may happen.
+
+Tested on <PostgreSQL> 13.5.
+
+= nodejs/sequelize/raw/parallel_create_delete_empty_tag.js
+{file}
+{parent=SQL parallel update example}
+
+In this example, posts have tags. When a post is deleted, we check to see if there are now any empty tags, and now we want to delete any empty tags that the post deletion may have created.
+
+If we are creating and deleting posts concurrently, a naive implementation might wrongly delete the tags of a newly created post.
+
+This could be due to a concurrency issue of the following types.
+
+Failure case 1:
+* thread 2: delete old post
+* thread 2: find all tags with 0 posts. Finds `tag0` from the deleted old post which is now empty.
+* thread 1: create new post, which we want to have tag `tag0`
+* thread 1: try to create a new tag `tag0`, but don't because it already exists, this is done using <SQLite>'s `INSERT OR IGNORE INTO` or <PostgreSQL>'s `INSERT ... ON CONFLICT DO NOTHING`
+* thread 1: assign `tag0` to the new post by adding an entry to the join table
+* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it, which then cascades into the join table
+which would result in the new post incorrectly not having the `tag0`.
+
+Failure case 2:
+* thread 2: delete old post
+* thread 2: find all tags with 0 posts
+* thread 1: create new post
+* thread 1: try to create a new tag `tag0`, but don't because it already exists
+* thread 2: delete all tags with 0 posts. It still sees from its previous search that `tag0` is empty, and deletes it
+* thread 1: assign `tag0` to the new post
+which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
+
+Failure case 3:
+* thread 2: delete old post
+* thread 1: create new post, which we want to have tag `tag0`
+* thread 1: try to create a new tag `tag0`, and succeed because it wasn't present
+* thread 2: find all tags with 0 posts, finds the tag that was just created
+* thread 2: delete all tags with 0 posts, deleting the new tag
+* thread 1: assign `tag0` to the new post
+which leads to a foreign key failure, because the tag does not exist anymore when the assignment happens.
+
+Sample executions:
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED'`: <PostgreSQL>, 9 tags, DELETE/CREATE the `tag0` test tag 1000 times, use `READ COMMITTED`
+
+  Execution often fails, although not always. The failure is always:
+  ``
+  error: insert or update on table "PostTag" violates foreign key constraint "PostTag_tagId_fkey"
+  ``
+  because the:
+  ``
+  INSERT INTO "PostTag"
+  ``
+  tries to insert a tag that was deleted in the other thread, as it didn't have any corresponding posts, so this is the foreign key failure.
+
+  TODO: we've never managed to observe the failure case in which `tag0` is deleted. Is it truly possible? And if not, by which guarantee?
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'READ COMMITTED' 'FOR UPDATE'`: do a `SELECT ... FOR UPDATE` before trying to `INSERT`.
+
+  This is likely correct and the fastest correct method according to our quick benchmarking, about 20% faster than `REPEATABLE READ`.
+
+  We are just now 100% sure it is corret becase we can't find out if the `SELECT` in the `DELETE` subquery could first select some rows, which are then locked by the tag creator, and only then locked by `DELETE` after selection. Or does it re-evaludate the `SELECT` even though it is in a subquery?
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'REPEATABLE READ'`: repeatable read
+
+  We've never observed any failures with this level. This should likely fix the foreign key issue according to the PostgreSQL docs, since:
+  * the `DELETE "Post"` commit cannot start to be seen only in the middle of the thread 1 transaction
+  * and then if DELETE happened, the thread 1 transaction will detect it, ROLLBACK, and re-run. TODO how does it detect the need rollback? Is it because of the foreign key? It is very hard to be sure about this kind of thing, just can't find the information. Related: <postgreSQL serialization failure>.
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'SERIALIZABLE'`: serializable
+* `node --unhandled-rejections=strict ./parallel_create_delete_empty_tag.js p 9 1000 'NONE'`: magic value, don't use any transaction. Can blow up of course, since even less restrictions than `READ COMMITTED`
+All executions use 2 threads.
+
+Some theoretical notes:
+* Failure case 3 is averted by a `READ COMMITTED` transaction, because thread 2 won't see the uncommitted tag that thread 1 created, and therefore won't be able to delete it
+
+https://stackoverflow.com/questions/10935850/when-to-use-select-for-update from <SELECT FOR UPDATE> also talks about a similar example, and has relevant answers.
 
 = Window function
 {disambiguate=SQL}
 {parent=SQL feature}
+
+= `ROW_NUMBER`
+{c}
+{parent=Window function (SQL)}
+
+``
+sqlite3 ':memory:'  'WITH t (i) AS (VALUES (-1), (-1), (-2)) SELECT *, row_number() over () FROM t'
+``
+Possible output:
+``
+-1|1
+-1|2
+-2|3
+``
+Gives them unique IDs.
+
+With a `partition by`:
+``
+sqlite3 ':memory:'  'WITH t (i) AS (VALUES (-1), (-1), (-2)) SELECT *, row_number() over ( partition by i ) FROM t'
+``
+possible output:
+``
+-2|1
+-1|1
+-1|2
+``
 
 = SQL window `RANGE`
 {c}
