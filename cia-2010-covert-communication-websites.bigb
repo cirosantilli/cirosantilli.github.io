@@ -2879,6 +2879,15 @@ Possible hits without any nearby IP hits follow. These are highly suspicious, bu
 * 62.22.61.220: newsjaka.com. Hit.
 * 62.22.61.221: biochemresource.com. Archive broken/empty. One archive: contains an epically long URL that might shed light into something:  https://web.archive.org/web/20120529121245/http://www.biochemresource.com/?fp=iboHtuxnjLG66y52DkK1xCFuZDBnVC8wovQepLt2Tk%2Bo1JIgIdVb6WL8kv6sSOEtxwcq4EbiJ0GxFY9N6HSWlg%3D%3D&prvtof=97vgfKVqt1Sd68qgNDPXB0o7Rwo%2FO3GKiiMG7fane6A%3D&poru=Zd9DHFaHFZ6ZrRLm8SW3egagqvdpzHhWb%2FoulRGeEYIUSVATB5gwTIDhluetONjG7xovtb%2FrvDStoqiAF1O8wA%3D%3D&[]. Asked at: https://stackoverflow.com/questions/47310661/any-idea-what-are-fp-prvtof-poru-in-a-url but no reply so far. One day my friend, one day.
 
+63.130.160.50 theglobalheadlines.com. Found with: <2013 DNS census secureserver.net MX records intersection 2013 DNS Census virtual host cleanup>. Tested viewdns.info range: 63.130.160.35 - 63.130.160.75
+* 63.130.160.50: theglobalheadlines.com. Hit. https://web.archive.org/web/20100323000936/http://theglobalheadlines.com/[2010]. English. . https://web.archive.org/web/20110202161018/http://theglobalheadlines.com/anchorage.jar[JAR]. News. This has several archives from 2013, marked as Live Web Proxy Crawls and explained "mostly by the Save Page Now", so presumably by the counter-intelligence or amateurs.
+* 63.130.160.51:
+  * hai-pow.com. Hit. https://web.archive.org/web/20110204045740/http://hai-pow.com/[2011]. English. . https://web.archive.org/web/20110204050101/http://hai-pow.com/haipow.jar[JAR]. sports, martial arts.
+  * secudenetworksecurity.com. No archives.
+* 63.130.160.59: technologiewissen.com. No archives from the time. Would be Technology knowledge in German, so another likely German hit. Shame.
+* 63.130.160.60: boxingstop.net. Hit. https://web.archive.org/web/20101229154411/http://boxingstop.net/[2010]. Polish. Poland. https://web.archive.org/web/20101229154458/http://boxingstop.net/championship.jar[JAR]. sports, boxing.
+* 63.130.160.61: bookmarksthis.com. No archives.
+
 64.16.204.55 holein1news.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 64.16.204.50 - 64.16.204.63. With did Wayback Machine have so few archives here? TODO stopping viewdns.info exploration a bit short due to that.
 * 64.16.204.35: ironcityfootball.com. Legit/broke.
 * 64.16.204.51: africannewsandsports.com. No archives. rdns source: <viewdns.info>
@@ -3721,6 +3730,16 @@ Let's check that we still have most our hits in there:
 grep -f <(awk -F, 'NR>1{print $2}' /home/ciro/bak/git/media/cia-2010-covert-communication-websites/hits.csv) avm.csv
 ``
 At 267 hits we got 81, so all are still present.
+
+= 2013 DNS census secureserver.net MX records intersection 2013 DNS Census virtual host cleanup
+{parent=DNS Census 2013}
+
+We intersect <2013 DNS Census virtual host cleanup> with <2013 DNS census MX records> and that leaves 460k hits. We did lose a third on the the MX records as of 260 hits since secureserver.net is only used in 1/3 of sites, but we also concentrate 9x, so it may be worth it.
+
+Then we <Wayback machine CDX scanning>. it takes about 5 days, but it is manageale.
+
+This actually revealed some hits!
+* 63.130.160.50 theglobalheadlines.com. Just barely missed with our <2013 DNS Census virtual host cleanup heuristic keyword searches> as we did think of both "global" and "headlines" in the "news" themes!
 
 = 2013 DNS census NS records
 {parent=DNS Census 2013}
