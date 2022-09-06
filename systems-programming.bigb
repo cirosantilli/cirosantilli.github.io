@@ -62,6 +62,49 @@ Or in other words, it is basically implementing an <operating system>/<firmware>
 {c}
 {synonym}
 
+= Run Zephyr on QEMU
+{parent=Zephyr (Operating system)}
+{tag=QEMU}
+
+Real hardware is for newbs. Real hardware is for newbs.
+
+Follow all the installation instructions from: https://docs.zephyrproject.org/3.4.0/develop/getting_started/index.html stopping before the "Flash the sample" section, as we don't flash QEMU. We just run it.
+
+The installation procedure install all <compiler toolchains> for us, so we can then basically compile for any target. It also fetches the latest Git source code of Zephyr under:
+``
+~/zephyrproject/zephyr
+``
+
+The "most default" blinky hello world example which blinks an LED is a bit useless for us because QEMU doesn't have LEDs, so instead we are going to use one of the <UART> examples which will print characters we can see on QEMU stdout.
+
+Let's start with the <hello world> example on an x86 target:
+``
+cd ~/zephyrproject/zephyr
+zephyr west build -b qemu_x86 samples/hello_world -t run
+``
+and it outputs hello world. The `qemu_x86` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/x86/qemu_x86/doc/index.html
+
+Let's try on another target:
+``
+rm -rf build
+zephyr west build -b qemu_cortex_a53 samples/hello_world -t run
+``
+and same output, but on a completely different board! The `qemu_cortex_a53` board is documented at: https://docs.zephyrproject.org/3.4.0/boards/arm64/qemu_cortex_a53/doc/index.html
+
+The list of all examples can be seen under:
+``
+ls ~/zephyrproject/zephyr/samples
+``
+which for example contains:
+``
+zephyrproject/zephyr/samples/hello_world
+``
+
+So run another sample simply select it, e.g. to run `zephyrproject/zephyr/samples/synchronization`:
+``
+west build -b qemu_cortex_a53 samples/synchronization -t run
+``
+
 = Firmware
 {parent=Operating system}
 {tag=Software}

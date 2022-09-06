@@ -11,7 +11,8 @@ SQLITE_EXTENSION_INIT1
 
 #include <arpa/inet.h> /* pton, ntop */
 
-static void str2ipv4(
+/** ipv4 String to Integer */
+static void ips2i(
   sqlite3_context *context,
   int argc,
   sqlite3_value **argv
@@ -31,7 +32,8 @@ static void str2ipv4(
   sqlite3_result_int64(context, ntohl(addr.s_addr));
 }
 
-static void ipv42str(
+/** ipv4 Integer to String */
+static void ipi2s(
   sqlite3_context *context,
   int argc,
   sqlite3_value **argv
@@ -55,14 +57,13 @@ int sqlite3_ip_init(
   int rc = SQLITE_OK;
   SQLITE_EXTENSION_INIT2(pApi);
   (void)pzErrMsg;
-  rc = sqlite3_create_function(db, "str2ipv4", 1,
+  rc = sqlite3_create_function(db, "ips2i", 1,
                    SQLITE_UTF8|SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC,
-                   0, str2ipv4, 0, 0);
+                   0, ips2i, 0, 0);
   if (rc == 0) {
-    rc = sqlite3_create_function(db, "ipv42str", 1,
+    rc = sqlite3_create_function(db, "ipi2s", 1,
                     SQLITE_UTF8|SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC,
-                    0, ipv42str, 0, 0);
+                    0, ipi2s, 0, 0);
   }
   return rc;
 }
-
