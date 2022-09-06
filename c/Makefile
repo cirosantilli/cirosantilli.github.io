@@ -2,7 +2,7 @@
 
 # Input parameters
 CC = gcc
-CFLGS = -ggdb3 -O0 -pedantic-errors -std=c89 -Wall -Wextra
+CFLGS = -ggdb3 -O0 -pedantic-errors -std=c99 -Wall -Wextra
 IN_EXT = .c
 OUT_DIR = .
 OUT_EXT = .out
