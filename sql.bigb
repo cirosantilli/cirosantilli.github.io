@@ -969,6 +969,33 @@ The only big problem was the lack of <ORM>, but people are looking into that by 
 {parent=SQL}
 {tag=Tree traversal}
 
+= SQL subquery
+{parent=SQL feature}
+{title2=CTE}
+
+= Common Table Expression
+{parent=SQL subquery}
+{title2=CTE}
+
+Similar to <SQL subquery>, but with some differences: https://stackoverflow.com/questions/706972/difference-between-cte-and-subquery
+
+``
+rm -f tmp.sqlite
+sqlite3 tmp.sqlite 'create table t(i integer)'
+sqlite3 tmp.sqlite 'insert into t values (1), (2)'
+sqlite3 tmp.sqlite 'with mycte as ( select * from t ) delete from mycte where i = 1'
+sqlite3 tmp.sqlite 'select * from t'
+``
+
+= CTE insert values
+{parent=Common Table Expression}
+
+Useful for testing: https://stackoverflow.com/questions/21819183/how-to-use-ctes-with-update-delete-on-sqlite
+
+``
+sqlite3 :memory: 'WITH t (i, j) AS (VALUES (1, -1), (2, -2)) SELECT * FROM t'
+``
+
 = SQL tree traversal
 {c}
 {parent=SQL feature}
