@@ -80,15 +80,6 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | marked copyright 2009
 
 | <Hits without nearby IP hits>[?]
-| inews-today.com
-| https://web.archive.org/web/20110125190345/http://inews-today.com/[2011]
-| English
-| Egypt
-| https://web.archive.org/web/20110201140115/http://inews-today.com/headlines.jar[JAR]
-| news
-| Marked copyright 2008
-
-| <Hits without nearby IP hits>[?]
 | iranfootballsource.com
 | https://web.archive.org/web/20110202091611/http://iranfootballsource.com/[2011]
 | Farsi
@@ -762,6 +753,15 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20100512125808/http://kanata-news.com/feeds.js[JS]
 | news
 |
+
+| 66.175.106.146
+| inews-today.com
+| https://web.archive.org/web/20110125190345/http://inews-today.com/[2011]
+| English
+| Egypt
+| https://web.archive.org/web/20110201140115/http://inews-today.com/headlines.jar[JAR]
+| news
+| Marked copyright 2008
 
 | 66.175.106.147
 | starwarsweb.net
@@ -2003,7 +2003,7 @@ From this we can establish see some clear stylistic trends across the websites w
 * common themes include:
   * news
   * hobbies, notably sports, travel and photography. Golf seems overrepresented. Must be a thing over there in Langley.
-* .com and .net <top-level domains>. <.org hits> is an open question.
+* .com and .net <top-level domains>, plus a few other very rare <non .com .net TLDs>, notably .info and .org
 * each one has one "communication mechanism file": <communication mechanisms>
 * narrow page width like in the days of old, lots of images
 * each hit domain is the only domain for its IP, i.e. the websites are all private hosted, no https://en.wikipedia.org/wiki/Shared_web_hosting_service[shared web hosting service] examples have been found so far
@@ -2059,13 +2059,19 @@ Here we list domains for which the correct IP was apparently not found since the
 
 These are suspicious, and suggest either that we didn't obtain the correct reverse IP, or a change in CIA methodology from an older time at which they were not yet using the obscene IP ranges.
 
+For example, in the case of inews-today.com, <2013 DNS Census> gave one IP 193.203.49.212, but then <viewdns.info> gave another one 66.175.106.146 which fit into an existing IP range, and which assumed to be the correct IP of interest.
+
 It is interesting to note that Reuters seems to have featured disproportionately many hits from that range, one wonders why that happened. It is possible that they chose these because they actually didn't have any nearby hits to give away less obvious information, though they did pick some from the ranges as wel.
 
 In what follows we list the domains with possible reverse IPs and what was explored so far for each. We consider IPs not in a range to be uncertain, and that instead their domains might have been previously in a range which we 
 
-dailynewsandsports.com:
-* 216.119.129.114 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
-  * 216.119.129.111 dailybeatz.com: legit
+dailynewsandsports.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>
+* 216.119.129.94. rdns source: <viewdns.info> "location": "United States", "owner": "A2 Hosting, Inc.", "lastseen": "2012-04-13". Tested viewdns.info range: 216.119.129.85 - 216.119.129.86, 216.119.129.89 - 216.119.129.99, ran out of queries for 87 and 88
+  * 216.119.129.90: eastdairies.com 2011-04-04. Promising name and date, but no archives alas.
+  * 216.119.129.97: miideaco.com 2016-02-01
+* 216.119.129.114 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>, also present on viewdns.info but at a later date from previous "location": "United States", "owner": "A2 Hosting, Inc.", "lastseen": "2013-11-29". Tested viewdns.info range: 216.119.129.109 - 216.119.129.119
+  * 216.119.129.110: dommoejmechty.com.ua. Legit.
+  * 216.119.129.111 dailybeatz.com: Legit
   * 216.119.129.114 dailynewsandsports.com. hit.
   * 216.119.129.115 afxchange.com legit/broken
   * 216.119.129.116 danafunkfinancial.com: legit
@@ -2077,15 +2083,6 @@ headlines2day.com. Found with: Reuters article.
   * nothing else on the +-20 range
 * 184.168.221.91. Reverse IP source: <2013 DNS Census>
   * 184.168.221.91: 40k hits on <2013 DNS Census>
-
-inews-today.com:
-* 193.203.49.212 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
-  * 193.203.49.211 datingso.com: legit? Russian dating website
-  * 193.203.49.212 inews-today.com. Hit.
-  * 193.203.49.223 zatysi.net: legit
-  * 193.203.49.226 kinotopik.com: legit? Russian
-  * 193.203.49.229 rotor-volgograd.com. Legit.
-  * 193.203.49.233 ordercytotec.com. Broken.
 
 iranfootballsource.com
 * 34.98.99.30	Kansas City - United States	Google LLC	2021-05-24
@@ -2110,8 +2107,8 @@ iraniangoals.com
   * 69.65.33.6: 4 domains but recent resolutions only
   * similar status for everything else withing +-20. A couple of domains, no easy hits
 
-just-kidding-news.com:
-* 199.85.212.118 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
+just-kidding-news.com: viewdns.info rdns: TODO
+* 199.85.212.118 rdns source: <2013 DNS Census virtual host cleanup heuristic keyword searches> and <viewdns.info>: "location": "United States", "owner": "VIMRO, LLC", "lastseen": "2012-01-11". Tested viewdns.info range: TODO none
   * 199.85.212.98  colorsxpress.com legit
   * 199.85.212.109 game2be.com. Infinite load loop: https://web.archive.org/web/20080102074404/http://www.game2be.com/
   * 199.85.212.115 veryperi.com Legit? https://web.archive.org/web/20110202094958/http://veryperi.com/[2011]. Style is similar.
@@ -2126,17 +2123,23 @@ just-kidding-news.com:
   * 199.85.212.134 mywellnessminder.com: legit?
   * 199.85.212.138 crystalglassinc.com
   * 199.85.212.140 davistech-llc.com
+* 68.178.232.100: see rastadirect.net. rdns source: <viewdns.info>: "location": "United States", "owner": "GoDaddy.com, LLC", "lastseen": "2012-06-29"
 
 mynewscheck.com:
-* 212.4.16.232 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
+* 212.4.16.232 Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches> and viewdns.info, which also states: "location" : "Milan - Italy", "owner" : "MCI Worldcom Italy Spa", "lastseen" : "2013-06-30"  Tested viewdns.info range: 212.4.16.227 - 212.4.16.237
   * 212.4.16.232 mynewscheck.com. Hit.
+* 208.91.197.132. rdns source: viewdns.info: "location" : "British Virgin Islands", "owner" : "Confluence Networks Inc", "lastseen" : "2013-09-26". So this is after the previous one, unlikely to be correct.
 
 rastadirect.net:
 * 68.178.232.100 - United States - GoDaddy.com - 2011-05-02. Reverse IP source: <viewdns.info>
   * +-20 range: several domains on each IP, but can't find any hits easily
+  There are actualy talk pages about this IP
+  * https://community.spiceworks.com/
+  * https://talk.plesk.com/threads/warning-the-domain-resolves-to-another-ip-address.77764/
+  * https://support.google.com/cloudidentity/answer/2579934?hl=en actually used as an example here?
 
 todaysengineering.com:
-* 208.254.38.39
+* 208.254.38.39. rdns source: both <viewdns.info> and <2013 DNS Census>. Tested viewdns.info range: 208.254.38.34 - 208.254.38.44. Weirdly empty, doesn't even show the domain iteslf!
 
 = Hits with nearby IP hits
 {parent=IP range search}
@@ -2300,6 +2303,13 @@ todaysengineering.com:
 * 66.175.106.140: aroundthemiddleeast.com. No <Wayback Machine> hits. Last resolved: 2012-06-29.
 * 66.175.106.142: kanata-news.com. Hit.
 * 66.175.106.143: thecricketfan.com. Hit.
+* 66.175.106.146: inews-today.com. Initially found with <2013 DNS Census virtual host cleanup heuristic keyword searches> which gave IP address 193.203.49.212. But that has no nearby hits. 66.175.106.146 was later found on <viewdns.info>, and slotted into this other existing IP range.
+  * 193.203.49.211 datingso.com: legit? Russian dating website
+  * 193.203.49.212 inews-today.com. Hit.
+  * 193.203.49.223 zatysi.net: legit
+  * 193.203.49.226 kinotopik.com: legit? Russian
+  * 193.203.49.229 rotor-volgograd.com. Legit.
+  * 193.203.49.233 ordercytotec.com. Broken.
 * 66.175.106.147: starwarsweb.net. Hit.
 * 66.175.106.149: feedsdemexicoyelmundo.com. Hit.
 * 66.175.106.150: noticiasmusica.net. Hit.
@@ -2366,15 +2376,23 @@ todaysengineering.com:
 * 74.116.72.249: round-trip-travel.com. Hit.
 * 74.116.72.250: arabicnewsource.com. Hit. https://web.archive.org/web/20110210072414/http://arabicnewsource.com/[2011]. Arabic. . https://web.archive.org/web/20110210072414/https://ssl.arabicnewsource.com/cgi-bin/face.cgi[CGI]. news.
 
-74.254.12.168 non-stop-news.net. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 74.254.12.158 - 74.254.12.174. TODO ran out, expand a bit. This domain exceptionally also has a second IP also with multihits: 207.239.196.230. The fact that the range has rdns sources with hits from both <2013 DNS Census> and <viewdns.info> suggests this range is correct.
+74.254.12.168 non-stop-news.net. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 74.254.12.158 - 74.254.12.195. This domain exceptionally also has a second IP also with multihits: 207.239.196.230. The fact that the range has rdns sources with hits from both <2013 DNS Census> and <viewdns.info> suggests this range is correct.
 * 74.254.12.163: half-court.net. Hit. rdns source: <2013 DNS Census>
 * 74.254.12.165: dylandon.net. rdns source: <viewdns.info> Hit. https://web.archive.org/web/20110106021052/http://dylandon.net/[2011]. Chinese. . https://web.archive.org/web/20110106023855/http://dylandon.net/dylandon.swf[SWF]. music. "Dylan" presumably a reference to https://en.wikipedia.org/wiki/Bob_Dylan[Bob Dylan]? "Don" unclear. Maybe https://en.wikipedia.org/wiki/Don_McLean[Don McLean]?
 * 74.254.12.166: afghanpoetry.net. Hit. rdns source: <2013 DNS Census>
 * 74.254.12.168: non-stop-news.net. Hit. rdns source: <2013 DNS Census>
 * 74.254.12.170: greek-news.info. https://web.archive.org/web/20130714231117/http://greek-news.info/[2013]. Welcome to the US Petabox. rdns source: <viewdns.info>
 * 74.254.12.172: thesportsguidebook.com. rdns source: <2013 DNS Census>. Only has archive of one subpage: https://web.archive.org/web/20091124114840/http://thesportsguidebook.com:80/swimming_clubs2.html[2009]. English. sports.
+* 74.254.12.176: pakcricketgrd.com. Hit. https://web.archive.org/web/20110203101410/http://pakcricketgrd.com/[2011]. Urdu. . https://web.archive.org/web/20110203101539/http://pakcricketgrd.com/places.jar[JAR]. sports, cricket. TODO meaning of "grd"
+* 74.254.12.179: wineconnaisseur.net. Hit. https://web.archive.org/web/20101230072458/http://wineconnaisseur.net/[2010]. English. . https://web.archive.org/web/20101230072512/http://wineconnaisseur.net/catavino.js[JS]. wine.
+* 74.254.12.180: helpinghandssite.com. Hit. https://web.archive.org/web/20110208042144/http://helpinghandssite.com/[2011]. English. . https://web.archive.org/web/20110208042200/http://helpinghandssite.com/globalization.jar[JAR]. news.
+* 74.254.12.185: newskwest.com. No archives.
+* 74.254.12.187: efiinvestment.com. No archives.
+* 74.254.12.188: first-tee-golf.com. Hit. https://web.archive.org/web/20110203073359/http://first-tee-golf.com/[2011]. English. . https://web.archive.org/web/20110203073503/http://first-tee-golf.com/golf.jar[JAR]. sports, golf.
+* 74.254.12.189: fabu-foto.com. Hit. https://web.archive.org/web/20110203073359/http://first-tee-golf.com/[2011]. English. . https://web.archive.org/web/20110202114501/https://secure.fabu-foto.com/cgi-bin/photos.cgi[CGI]. photography.
+* 74.254.12.190: viptravelabroad.com. Hit. https://web.archive.org/web/20110202122211/http://viptravelabroad.com/[2011]. English. . https://web.archive.org/web/20110202122218/http://viptravelabroad.com/getaway.js[JS]. travel.
 
-204.176.38.143 noticiassofisticadas.com. Found with: <2013 DNS Census virtual host cleanup>. Tested viewdns.info range: 204.176.38.125 to 204.176.38.154
+204.176.38.143 noticiassofisticadas.com. Found with: <2013 DNS Census virtual host cleanup>. Tested viewdns.info range: 204.176.38.125 - 204.176.38.154
 * 204.176.38.130: i-pressnews.com. Hit.
 * 204.176.38.132: turkishnewslinks.com. Hit.
 * 204.176.38.134: photographyarecord.com. Hit.
@@ -2390,7 +2408,7 @@ todaysengineering.com:
 * 204.176.38.146: dps-digitalphotosharing.com. Hit.
 * 204.176.38.147: theputtingreen.com. Hit.
 
-204.176.39.115 globalprovincesnews.com. Tested viewdns.info range: 204.176.39.93 to 204.176.39.124
+204.176.39.115 globalprovincesnews.com. Tested viewdns.info range: 204.176.39.93 - 204.176.39.124
 * 204.176.39.98: cubriendonoticias.com. Hit. https://web.archive.org/web/20110930125207/http://www.cubriendonoticias.com/[2011]. Spanish. . https://web.archive.org/web/20120627023603oe_/http://www.cubriendonoticias.com/cubriendo.jar[JAR]. news. archive quite broken. JAR unarchived
 * 204.176.39.100: rowleyworldpost.com. Hit.
 * 204.176.39.101: noticiastopicas.com. No archives.
@@ -2404,7 +2422,7 @@ todaysengineering.com:
 * 204.176.39.116: mahparah-news.com. Hit.
 * 204.176.39.119: commercialspacedesign.com. Hit.
 
-207.210.250.132 aeronet-news.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
+207.210.250.132 aeronet-news.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 207.210.250.126 - 207.210.250.157
 * 207.210.250.131: starrynightnews.com. Hit.
 * 207.210.250.132: aeronet-news.com. Hit.
 * 207.210.250.133: bakaribulletin.com. Hit.
@@ -2413,7 +2431,19 @@ todaysengineering.com:
 * 207.210.250.139: thefairwaysaregreen.com. Hit.
 * 207.210.250.152: al-rashidrealestate.com. Hit.
 
-207.239.196.230 non-stop-news.net. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none. This domain exceptionally also has a second IP also with multihits: 74.254.12.168
+TODO
+* 207.210.250.134: deprensaenlarevisiondehoy.com 2012-09-21
+* 207.210.250.138: inquiry-human-past.com 2011-09-08 https://web.archive.org/web/20110201203700/http://inquiry-human-past.com/
+* 207.210.250.142: russiaupdate.com 2011-11-13. No archives of the time, only older unrelated archives: https://web.archive.org/web/20010429003443/http://russiaupdate.com/[]. 
+* 207.210.250.143: archaeologyreview.net 2011-09-07
+* 207.210.250.144: highspeed-news.com 2012-03-03
+* 207.210.250.146: noticias-caracas.com 2013-06-30
+* 207.210.250.147: bailandstump.com 2012-04-13
+* 207.210.250.148: classicalmusic4arab.com 2011-09-08
+* 207.210.250.149: globalventurestat.com 2012-06-29
+* 207.210.250.153: newsintheworld-ru.com 2012-01-11 https://web.archive.org/web/20110208064919/http://newsintheworld-ru.com/
+
+207.239.196.230 non-stop-news.net. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 207.239.196.220 - 207.239.196.235. This domain exceptionally also has a second IP also with multihits: 74.254.12.168
 * 207.239.196.226: soldiersofsouthasia.com. Hit.
 * 207.239.196.230: non-stop-news.net. Hit.
 
@@ -2438,7 +2468,7 @@ todaysengineering.com:
 * 208.254.44.155: brandimpact.com. Legit/broken: https://web.archive.org/web/20070801000000*/brandimpact.com
 * 208.254.45.105: operatorenum.com. Legit/broken: https://web.archive.org/web/20100301000000*/operatorenum.com
 
-210.80.75.55 philippinenewsonline.net. Tested viewdns.info range: 210.80.75.30 to 210.80.75.67
+210.80.75.55 philippinenewsonline.net. Tested viewdns.info range: 210.80.75.30 - 210.80.75.67
 * 210.80.75.35: aroundtheworldnews.net. No archives.
 * 210.80.75.36: e-commodities.net. Hit.
 * 210.80.75.41: multinews-33.com. Hit.
@@ -2467,26 +2497,47 @@ There were also some other reverse IP hits for fightwithoutrules.com, but no CIA
 * 204.11.56.25 - British Virgin Islands - Confluence Networks Inc - 2013-09-26. Many domains.
 * 208.91.197.19 - British Virgin Islands - Confluence Networks Inc - 2013-05-20. Many domains.
 
-212.4.18.129 sightseeingnews.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none. Interesting wide/sparse range? Or perhaps it's two separate ranges?
-* 212.4.18.14:  football-enthusiast.com. Hit.
+212.4.18.129 sightseeingnews.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 212.4.18.9 - 212.4.18.19, 212.4.18.122 - 212.4.18.138. TODO expand. Interesting wide/sparse range? Or perhaps it's two separate ranges?
+* 212.4.18.14: football-enthusiast.com. Hit.
 * 212.4.18.129: sightseeingnews.com. Hit.
 * 212.4.18.133: fgnl.net. Hit.
 * 212.4.30.210: iprintitaly.com. Legit: https://web.archive.org/web/20230000000000*/http://www.iprintitaly.com/
 
-212.209.74.105 globalbaseballnews.com. TODO Tested viewdns.info range: NONE. Ran out. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>
+212.209.74.105 globalbaseballnews.com. Tested <viewdns.info> range: 212.209.74.100 - 212.209.74.132. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>
 * 212.209.74.105: globalbaseballnews.com. Hit.
 * 212.209.74.112: developmental-league.com. Unclear. <CGI comms variant>? https://web.archive.org/web/20100507132004/http://www.developmental-league.com/[2010]. English. https://web.archive.org/web/20100507132004/https://secure.developmental-league.com/login.html[CGI]. American football.
 * 212.209.74.125: avoilurefixe.com. Hit.
 * 212.209.74.127: construction-zones.com. Unclear. <CGI comms variant>? https://web.archive.org/web/20091001211418/http://www.construction-zones.com/[2009]. No known comms found. English. construction. Has a login page: https://web.archive.org/web/20091130144158/http://construction-zones.com/login.html[] so maybe <CGI comms variant>
 
-212.209.79.40 hydradraco.com. Found with: visual inspection of full <2013 DNS Census virtual host cleanup> list just after globalbaseballnews.com. Tested viewdns.info range: TODO none
+TODO
+* 212.209.74.106: football-de-luxe.com. Hit. https://web.archive.org/web/20110207184615/http://myengineeringaffinity.com/[2011]. French. France.
+* 212.209.74.111: worldconcerns.info 2012-01-18
+* 212.209.74.112: developmental-league.com 2012-03-03
+* 212.209.74.115: mediocampodefutbol.com 2012-11-12
+* 212.209.74.117: myengineeringaffinity.com. Hit. https://web.archive.org/web/20110207184615/http://myengineeringaffinity.com/[2011]. English. . tech.
+* 212.209.74.122: atthemovies.biz 2012-03-17
+* 212.209.74.123: worldfinancialexchangenews.com 2011-11-13
+* 212.209.74.124: urouttahere.com. No archives.
+
+212.209.79.40 hydradraco.com. Found with: visual inspection of full <2013 DNS Census virtual host cleanup> list just after globalbaseballnews.com. Tested viewdns.info range: 212.209.79.35 - 212.209.79.63
 * 212.209.79.40: hydradraco.com. Hit.
 * 212.209.79.44: myigadgets.net. Unclear. https://web.archive.org/web/20101005140629/http://www.myigadgets.net/[2010]. tech. Contains some helpers to: https://en.wikipedia.org/wiki/IGoogle[iGoogle]. This page is very interesting. and quite different from the others, as it contains highly specialized functionality. No known comms found. The choice of homepage languages is also very suspicious: Arabic, Farsi, French, Chinese and Spanish.
 * 212.209.79.47: willtoworship.com. Hit.
 * 212.209.79.51: pi-resources.net. Hit.
 * 212.209.79.58: tech-love-home.com. Hit.
 
-212.209.90.84 thenewseditor.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: TODO none
+TODO
+* 212.209.79.37: fitness-sources.com
+* 212.209.79.41: noticiasdelmundolatino.com
+* 212.209.79.42: suparakuvi.com. Hit. https://web.archive.org/web/20110128111638/http://suparakuvi.com/[2011]. French. France.
+* 212.209.79.46: cetusdelph.com
+* 212.209.79.48: themvconnection.com
+* 212.209.79.52: newel-adserver.com. Hit. https://web.archive.org/web/20110208032944/http://newel.com/[2011]
+* 212.209.79.53: ourscubaworld.com
+* 212.209.79.60: first-solo-aviation.com
+* 212.209.79.61: china-destinations.org. Hit. https://web.archive.org/web/20110626214916/http://china-destinations.org/[2011]. Chinese.
+
+212.209.90.84 thenewseditor.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 212.209.90.64 - 212.209.90.99
 * 212.209.90.77: energy-bulb.com https://web.archive.org/web/20110128182345/http://energy-bulb.com/[2011]. English. energy. Comms not found, but has unarchived link to: https://web.archive.org/web/20110128182345/https://webmail.energy-bulb.com/login.html[]. <CGI comms variant>?
 * 212.209.90.79: freeblink.com. No archives for timerange, then legit.
 * 212.209.90.82: middleeastjournal.net. Hit.
@@ -2496,6 +2547,15 @@ There were also some other reverse IP hits for fightwithoutrules.com, but no CIA
 * 212.209.90.92: amishkanews.com. Hit.
 * 212.209.90.94: eurosportssummary.com. Hit.
 * 212.209.91.14: teracom.net. Legit
+
+TODO
+* 212.209.90.69: worldedgenews.com 2011-11-13
+* 212.209.90.72: talkingpointnews.info. No archives.
+* 212.209.90.75: prebitinvestment.com 2011-11-13
+* 212.209.90.80: nsmovies.net 2012-03-12
+* 212.209.90.90: vriha-aesthetics.com 2011-09-08
+* 212.209.90.93: theentertainbiz.com 2011-09-08
+* 212.209.90.94: eurosportssummary.com 2014-07-05
 
 219.90.62.243 fitness-dawg.com. https://whois.arin.net/rest/net/NET-219-0-0-0-1/pft?s=219.90.62.243[]. Net Type: Allocated to https://en.wikipedia.org/wiki/APNIC[APNIC]. Tested viewdns.info range: unknown - 219.90.62.255
 * 219.90.62.173:
@@ -2608,7 +2668,8 @@ Whatever they did, we are so so glad that they did!
   * unarchived <comms>:
     * crickettoday.info
   * unarchived:
-    * theventurenews.info 2013-01-02
+    * talkingpointnews.info
+    * theventurenews.info
 * `.org`: has a least one hit, see: <Are there .org hits?>
 
 = Are there .org hits?
@@ -2681,6 +2742,11 @@ e.g.:
 They check your IP when you signup, and you can't sign in twice from the same IP. They also state that Tor addresses are blacklisted.
 
 They also normalize dots in gmail addresses, so you need more diverse email accounts. But they haven't covered the `.gmail` vs `.googlemail` trick.
+
+For domain to IP queries from the API you should use "iphistory" https://viewdns.info/api/docs/ip-history.php[]:
+``
+curl 'https://api.viewdns.info/iphistory/?domain=todaysengineering.com&apikey=$APIKEY&output=json'
+``
 
 = 2013 DNS Census
 {parent=Data sources}

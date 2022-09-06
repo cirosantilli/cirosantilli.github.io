@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#APIKEY=98e6028acec4f0c4b147b839e54c3a957e24b671
 set -eu
 
 # These logs were +-n.
