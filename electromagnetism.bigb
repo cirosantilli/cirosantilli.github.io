@@ -243,12 +243,28 @@ After the <2019 redefinition of the SI base units> it is by definition exactly $
 = Hall effect
 {c}
 {parent=Maxwell's equations}
+{wiki}
 
-* https://en.wikipedia.org/wiki/Hall_effect
-* http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/Hall.html
+The voltage changes perpendicular to the current when magnetic field is applied.
 
-The voltage changes perpendicular to the current when magnetic field is applied, Just watch this:
+\Image[https://upload.wikimedia.org/wikipedia/commons/1/19/Hall_Effect_Measurement_Setup_for_Electrons.png]
+{title=<Hall effect> experimental diagram}
+{description=The <Hall effect> refers to the produced voltage $V_H$, AKA $V_y$ on this setup.}
+
+An intuitive video is:
+
 \Video[https://upload.wikimedia.org/wikipedia/commons/transcoded/7/77/Hall_Sensor.webm/Hall_Sensor.webm.480p.vp9.webm]
+
+The key formula for it is:
+$$
+V_{H} = \frac{I_x B_z}{n t e}
+$$
+where:
+* $I_x$: current on x direction, which we can control by changing the voltage $V_x$
+* $B_z$: strength of transversal <magnetic field> applied
+* $n$: <charge carrier density>, a property of the material used
+* $t$: height of the plate
+* $e$: <electron charge>
 
 Applications:
 * the direction of the effect proves that electric currents in common electrical conductors are made up of negative charged particles
@@ -256,6 +272,37 @@ Applications:
 
 Other more precise non-classical versions:
 * <quantum Hall effect>{child}
+
+Bibliography:
+* http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/Hall.html
+
+= Hall resistance
+{parent=Hall effect}
+{title2=$R_{xy}$}
+{title2=$R_H$}
+
+In some contexts, we want to observe what happens for a given fixed <magnetic field> strength on a specific plate (thus $t$ and $n$ are also fixed).
+
+In those cases, it can be useful to talk about the "Hall resistance" defined as:
+$$
+R_{xy} = \frac{V_y}{I_x}
+$$
+So note that it is not a "regular resistance", it just has the same dimensions, and is more usefully understood as a proportionality constant for the voltage given an input $I_x$ current:
+$$
+V_y = R_{xy} I_x
+$$
+
+This notion can be useful because everything else being equal, if we increase the current $I_x$, then $V_y$ also increases proportionally, making this a way to talk about the voltage in a current independent manner.
+
+And this is particularly the case for the <quantum Hall effect>, where $R_{xy}$ is constant for wide ranges of applied <magnetic field> and TODO presumably the height $t$ can be made to a single molecular layer with <chemical vapor deposition> of the like, and if therefore fixed.
+
+= Charge carrier density
+{parent=Hall effect}
+{title2=$n$}
+
+= Hall effect sensor
+{c}
+{parent=Hall effect}
 
 = Electromagnetic four-potential
 {parent=Maxwell's equations}
@@ -317,7 +364,7 @@ Alternative to the <Lorentz gauge>, but less used in general as it is not as nic
 {wiki}
 
 Implementations:
-* <Hall effect> based
+* <Hall effect> based, i.e. a <Hall effect sensor>
 * <SQUID device>
 
 = Magnetic flux
