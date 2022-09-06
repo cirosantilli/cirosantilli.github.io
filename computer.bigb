@@ -1215,6 +1215,29 @@ The fact that you cannot have trailing commans in lists or dicts as in `3,` at:
 ``
 is one of the most infuriating design choices of all time!!!
 
+= jq
+{c}
+{parent=JSON}
+{title2=2012-}
+{wiki}
+
+= jq ignore missing attribute
+{c}
+{parent=jq}
+
+
+``
+echo '[{"a": 1, "b": 2}, {"b": 3}]' | jq '.[] | select(.a) | .a'
+``
+Output:
+``
+1
+``
+and no empty lines as desired.
+
+Bibliography:
+* https://stackoverflow.com/questions/42097410/how-to-check-for-presence-of-key-in-jq-before-iterating-over-the-values
+
 = Hierarchical Data Format
 {c}
 {parent=Data file format}

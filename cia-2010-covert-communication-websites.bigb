@@ -3457,7 +3457,7 @@ CDX + <2013 DNS Census> + heuristics however has been fruitful however.
 = Wayback Machine CDX scanning
 {parent=Wayback Machine}
 
-THe wayback machine has an endpoint to query cralwed pages called the CDX server. It is documented at: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md[].
+The wayback machine has an endpoint to query cralwed pages called the CDX server. It is documented at: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md[].
 
 This allows to filter down 10 thousands of possible domains in a few hours. But 100s of thousands would be too much. This is because you have to query exactly one URL at a time, and they possibly rate limit IPs. But no IP blacklisting so far after several hours, so it's not that bad.
 
@@ -3466,6 +3466,19 @@ Once you have a heuristic to narrow down some domains, you can use this helper: 
 We then post process the results of cdx.sh with \a[cia-2010-covert-communication-websites/cdx-post.sh] to drill them down from from thousands to dozens, and manually inspect everything.
 
 From then on, you can just manually inspect for hist on your browser.
+
+= Wayback Machine CDX scanning with Tor parallelization
+{parent=Wayback Machine CDX scanning}
+
+Dire times require dire methods: \a[cia-2010-covert-communication-websites/cdx-tor.sh].
+
+Since archive is so abysmal in its data access, e.g. a <Google BigQuery> would solve our issues in seconds, we have to come up with creative ways of getting around their IP throttling.
+
+The <CIA> doesn't play fair. They're actually the exact opposite of fair. So neither shall we.
+
+This should allow a full sweep of the 4.5M records in <2013 DNS Census virtual host cleanup> in a reasonable amount of time.
+
+Distilled into an answer at: https://stackoverflow.com/questions/14321214/how-to-run-multiple-tor-processes-at-once-with-different-exit-ips/76749983#76749983
 
 = Wayback Machine crawl date search
 {parent=Wayback Machine}
@@ -3602,6 +3615,37 @@ This data is so valuable that we've decided to upload it to: https://archive.org
 ``
 The numbers of the first column are the IPs as a 32-bit integer representation, which is more useful to search for ranges in.
 
+To make a <histogram> with the distribution of the single hostname IPs:
+``
+#!/usr/bin/env bash
+bin=$((2**24))
+sqlite3 2013-dns-census-a-novirt.sqlite -cmd '.mode csv' >2013-dns-census-a-novirt-hist.csv <<EOF
+select i, sum(cnt) from (
+  select floor(i/${bin}) as i,
+         count(*) as cnt
+    from t
+    group by 1
+  union
+  select *, 0 as cnt from generate_series(0, 255)
+)
+group by i
+EOF
+gnuplot \
+  -e 'set terminal svg size 1200, 800' \
+  -e 'set output "2013-dns-census-a-novirt-hist.svg"' \
+  -e 'set datafile separator ","' \
+  -e 'set tics scale 0' \
+  -e 'unset key' \
+  -e 'set xrange[0:255]' \
+  -e 'set title "Counts of IPs with a single hostname"' \
+  -e 'set xlabel "IPv4 first byte"' \
+  -e 'set ylabel "count"' \
+  -e 'plot "2013-dns-census-a-novirt-hist.csv" using 1:2:1 with labels' \
+;
+``
+Which gives the following useless noise, there is basically no pattern:
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/2013-dns-census-a-novirt-hist.svg]
+
 = 2013 DNS Census virtual host cleanup heuristic keyword searches
 {parent=2013 DNS Census virtual host cleanup}
 
@@ -3643,11 +3687,16 @@ OK, I've decided to do a complete <Wayback Machine CDX scanning> of `news`... Se
 * 207.210.250.132 aeronet-news.com
 * 212.4.18.129 sightseeingnews.com
 * 212.209.90.84 thenewseditor.com
-* 216.105.98.152: modernarabicnews.com
+* 216.105.98.152 modernarabicnews.com
 
 <Wayback Machine CDX scanning> of "world":
 * 66.104.173.186 myworldlymusic.com
-Maybe we should have been broader with "global", "international", and spanish/portuguese/French versions like "mondo", "mundo", etc.
+
+"headline": only 140 matches in 2013-dns-census-a-novirt.csv and 3 hits out of 269 hits. Full inspection without CDX led to no new hits.
+
+"today": only 3.5k matches in 2013-dns-census-a-novirt.csv and 12 hits out of 269 hits, TODO how many on those on 2013-dns-census-a-novirt? No new hits.
+
+"world", "global", "international", and spanish/portuguese/French versions like "mondo", "mundo", "mondi": 15k matches in 2013-dns-census-a-novirt.csv. No new hits.
 
 = 2013 DNS census MX records
 {parent=DNS Census 2013}
@@ -3733,6 +3782,9 @@ grep -f <(awk -F, 'NR>1{print $2}' /home/ciro/bak/git/media/cia-2010-covert-comm
 ``
 At 267 hits we got 81, so all are still present.
 
+secureserver is a hosting provider, we can see their blank page e.g. at: https://web.archive.org/web/20110128152204/http://emmano.com/[]. https://security.stackexchange.com/questions/12610/why-did-secureserver-net-godaddy-access-my-gmail-account/12616#12616 comments:
+\Q[secureserver.net is the name GoDaddy use as the reverse DNS for IP addresses used for dedicated/virtual server hosting]
+
 = 2013 DNS census secureserver.net MX records intersection 2013 DNS Census virtual host cleanup
 {parent=DNS Census 2013}
 
@@ -3740,7 +3792,7 @@ We intersect <2013 DNS Census virtual host cleanup> with <2013 DNS census MX rec
 
 Then we <Wayback machine CDX scanning>. it takes about 5 days, but it is manageale.
 
-This actually revealed some hits!
+We did a full <Wayback Machine CDX scanning> for JAR, SWF and cgi-bin in those, but only found a single new hit:
 * 63.130.160.50 theglobalheadlines.com. Just barely missed with our <2013 DNS Census virtual host cleanup heuristic keyword searches> as we did think of both "global" and "headlines" in the "news" themes!
 
 = 2013 DNS census NS records
@@ -3825,9 +3877,13 @@ but I don't wee how to actually it.
 Owner replied, you can't:
 \Q[At the moment you can only do this for current not historical records]
 
+In principle, we could obtain this data from search engines, but Google doesn't track that entire website well, e.g. no hits for `site:dnshistory.org "62.22.60.48"`
+
 Homepage https://dnshistory.org/ gives date starting in 2009:
 \Q[Here at DNS History we have been crawling DNS records since 2009, our database currently contains over 1 billion domains and over 12 billion DNS records.]
 and it is true that they do have some hits from that useful era.
+
+Any data that we have the patience of extracting from this we will dump under https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/hits.json[].
 
 = securitytrails.com
 {parent=Data sources}
