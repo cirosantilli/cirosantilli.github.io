@@ -32,7 +32,7 @@ This is a quick tutorial on how a <quantum computer> programmer thinks about how
 * what is a <probability>
 a concrete and precise <hello world> operation can be understood in 30 minutes.
 
-Although there are several <quantum computer physical implementations>[types of quantum computer] under development, there exists a single high level model that represents what any of those computers can do, and we are going to explain that model here.
+Although there are several <quantum computer physical implementations>[types of quantum computer] under development, there exists a single high level model that represents what most of those computers can do, and we are going to explain that model here. This model is the is the <digital quantum computer> model, which uses a <quantum circuit>, that is made up of many <quantum gates>.
 
 Beyond that basic model, programmers only may have to consider the <quantum logic gates are needed for physical implementation>[imperfections of their hardware], but the starting point will almost always be this basic model, and tooling that automates mapping the high level model to real hardware considering those imperfections (i.e. <quantum compilers>) is already getting better and better.
 
@@ -50,7 +50,7 @@ The way quantum programmers think about a quantum computer in order to program c
 
 To operate a quantum computer, you follow the <step of operation of a quantum computer>:
 * set the input <qubits> to classic input bits (<state initialization (quantum computing)>)
-* press a "RUN" button
+* press a big red "RUN" button
 * read the classic output bits (<readout quantum computing>)
 
 Each time you do this, you are literally conducting a physical experiment of the specific <quantum computer physical implementations>[physical implementation] of the computer:
@@ -497,6 +497,9 @@ https://www.phasecraft.io
 
 The co-founder's name, Toby Cubitt, is the mos awesome thing ever (Cubitt -> <qubit>). From <UCL>.
 
+Funding:
+* 2023: £13m: https://www.uktech.news/deep-tech/phasecraft-quantum-computing-20230816
+
 = Quantum computing paradigm
 {parent=Quantum computing}
 
@@ -558,14 +561,19 @@ These are two conflicting constraints:
 {parent=Quantum computing hardware}
 {wiki}
 
-= Measurement and circuit based quantum computers
+= Model of quantum computing
 {parent=Quantum computer type}
+
+= Measurement and circuit based quantum computers
+{parent=Model of quantum computing}
 
 = Circuit-based quantum computer
-{parent=Quantum computer type}
+{parent=Measurement and circuit based quantum computers}
+
+Synonym to <gate-based quantum computer>/<digital quantum computer>?
 
 = Measurement-based quantum computer
-{parent=Quantum computer type}
+{parent=Measurement and circuit based quantum computers}
 {wiki=One-way quantum computer}
 
 TODO confirm: apparently in the paradigm you can choose to measure only certain output <qubits>.
@@ -579,18 +587,224 @@ TODO what is the advantage?
 {title2}
 
 = Analog and digital quantum computers
-{parent=Quantum computer type}
+{parent=Model of quantum computing}
 
 = Digital quantum computer
 {parent=Analog and digital quantum computers}
 
-= Gate based quantum computer
+= Gate-based quantum computer
 {synonym}
 {title2}
 
 As of 2022, this tends to be the more "default" when you talk about a quantum computer.
 
 But there are some serious <analog quantum computer> contestants in the field as well.
+
+= Quantum circuit
+{parent=Digital quantum computer}
+{wiki}
+
+A <quantum circuit> is a <graph> of <quantum logic gates>.
+
+<Quantum circuits> are the prevailing <model of quantum computing> as of the 2010's - 2020's
+
+= Quantum circuits vs classical circuits
+{parent=Quantum circuit}
+
+Just like a classic <software engineer>[programmer] does not need to understand the intricacies of how transistors are implemented and CMOS semiconductors, the quantum programmer does not understand physical intricacies of the underlying <quantum computer physical implementations>[physical implementation].
+
+The main difference to keep in mind is that quantum computers cannot https://en.wikipedia.org/wiki/Observer_effect_(physics)[save and observe intermediate quantum state], so programming a quantum computer is basically like programming a combinatorial-like circuit with gates that operate on (qu)bits:
+* https://quantumcomputing.stackexchange.com/questions/8441/does-a-quantum-computer-have-a-clock-signal-and-if-yes-how-big-is-it/9383#9383
+* https://quantumcomputing.stackexchange.com/questions/8849/quantum-circuits-explain-algorithms-why-didnt-classical-circuits/8869#8869
+
+For this reason programming a quantum computer is much like programming a classical combinatorial circuit as you would do with https://en.wikipedia.org/wiki/SPICE[SPICE], <register transfer level>[verilog-or-vhdl], in which you are basically describing a graph of gates that goes from the input to the output
+
+For this reason, we can use the words "program" and "circuit" interchangeably to refer to a quantum program
+
+Also remember that and there is no no clocks in combinatorial circuits because there are no registers to drive; and so there is no analogue of clock in the quantum system either,
+
+Another consequence of this is that programming quantum computers does not look like programming the more "common" procedural programming languages such as C or Python, since those fundamentally rely on processor register / memory state all the time.
+
+Quantum programmers can however use classic languages to help describe their quantum programs more easily, for example this is what happens in <Qiskit>, where you write a Python program that makes Qiskit library calls that describe the quantum program.
+
+= Quantum logic gate
+{parent=Digital quantum computer}
+{wiki}
+
+= Quantum gate
+{synonym}
+
+At <quantum computing is just matrix multiplication>{full} we saw that making a quantum circuit actually comes down to designing one big <unitary matrix>.
+
+We have to say though that that was a bit of a lie.
+
+Quantum programmers normally don't just produce those big matrices manually from scratch.
+
+Instead, they use </quantum logic gates>.
+
+The following are the main reasons for that:
+* <quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially>{full}
+* <quantum logic gates are needed for physical implementation>{full}
+
+= Quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially
+{parent=Quantum logic gate}
+
+One key insight, is that the matrix of a non-trivial quantum circuit is going to be huge, and won't fit into any amount classical memory that can be present in this universe.
+
+This is because the matrix is exponential in the number qubits, and $2^{100}$ is more than the number of atoms in the universe!
+
+Therefore, off the bat we know that we cannot possibly describe those matrices in an explicit form, but rather must use some kind of shorthand.
+
+But it gets worse.
+
+Even if we had enough memory, the act of explicitly computing the matrix is not generally possible.
+
+This is because knowing the matrix, basically means knowing the probability result for all possible $2^{N}$ outputs for each of the $2^{N}$ possible inputs.
+
+But if we had those probabilities, our algorithmic problem would already be solved in the first place! We would "just" go over each of those output probabilities (OK, there are $2^{N}$ of those, which is also an insurmountable problem in itself), and the largest probability would be the answer.
+
+So if we could calculate those probabilities on a classical machine, we would also be able to simulate the quantum computer on the classical machine, and quantum computing would not be able to give exponential speedups, which we know it does.
+
+To see this, consider that for a given input, say `000` on a 3 qubit machine, the corresponding 8-sized quantum state looks like:
+``
+000 -> 1000 0000 == (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+``
+and therefore when you multiply it by the unitary matrix of the quantum circuit, what you get is the first column of the unitary matrix of the quantum circuit. And `001`, gives the second column and so on.
+
+As a result, to prove that a quantum algorithm is correct, we need to be a bit smarter than "just calculate the full matrix".
+
+Which is why you should now go and read: <quantum algorithm>{full}.
+
+This type of thinking links back to how physical experiments relate to quantum computing: a quantum computer realizes a physical experiment to which we cannot calculate the probabilities of outcomes without exponential time.
+
+So for example in the case of a <photonic quantum computer>, you are not able to calculate from theory the probability that photons will show up on certain wires or not.
+
+= Quantum logic gates are needed for physical implementation
+{parent=Quantum logic gate}
+
+One direct practical reason is that we need to map the matrix to real quantum hardware somehow, and all quantum hardware designs so far and likely in the future are gate-based: you manipulate a small number of qubits at a time (2) and add more and more of such operations.
+
+While there are "<quantum compilers>" to increase the portability of quantum programs, it is to be expected that programs manually crafted for a specific hardware will be more efficient just like in classic computers.
+
+TODO: is there any clear reason why computers can't beat humans in approximating any unitary matrix with a gate set?
+
+This is analogous to what classic circuit programmers will do, by using smaller <logic gates> to create complex circuits, rather than directly creating one huge <truth table>.
+
+The most commonly considered quantum gates take 1, 2, or 3 qubits as input.
+
+The gates themselves are just unitary matrices that operate on the input qubits and produce the same number of output qubits.
+
+For example, the matrix for the <CNOT gate>, which takes 2 qubits as input is:
+``
+1 0 0 0
+0 1 0 0
+0 0 0 1
+0 0 1 0
+``
+
+The final question is then: if I have a 2 qubit gate but an input with more qubits, say 3 qubits, then what does the 2 qubit gate (4x4 matrix) do for the final big 3 qubit matrix (8x8)? In order words, how do we scale quantum gates up to match the total number of qubits?
+
+The intuitive answer is simple: we "just" extend the small matrix with a larger identity matrix so that the sum of the probabilities third bit is unaffected.
+
+More precisely, we likely have to extend the matrix in a way such that the https://cs.stackexchange.com/questions/71462/how-are-partial-measurements-performed-on-a-n-qubit-quantum-circuit[partial measurement] of the original small gate qubits leaves all other qubits unaffected.
+
+For example, if the circuit were made up of a CNOT gate operating on the first and second qubits as in:
+``
+0 ----+----- 0
+      |
+1 ---CNOT--- 1
+
+2 ---------- 2
+``
+
+then we would just extend the 2x2 CNOT gate to:
+
+TODO lazy to properly learn right now. Apparently you have to use the https://en.wikipedia.org/wiki/Kronecker_product[Kronecker product] by the identity matrix. Also, <zX-calculus> appears to provide a powerful alternative method in some/all cases.
+
+Bibliography:
+* https://quantumcomputing.stackexchange.com/questions/2299/how-to-interpret-a-quantum-circuit-as-a-matrix
+
+= Universal quantum gates
+{parent=Quantum logic gate}
+{wiki=Quantum_logic_gate#Universal_quantum_gates}
+
+Just https://en.wikipedia.org/wiki/Functional_completeness[like as for classic gates], we would like to be able to select <quantum computer physical implementations> that can represent one or a few gates that can be used to create \i[any] quantum circuit.
+
+Unfortunately, in the case of quantum circuits this is obviously impossible, since the space of N x N unitary matrices is infinite and continuous.
+
+Therefore, when we say that certain gates form a "set of universal quantum gates", we actually mean that "any unitary matrix can be approximated to arbitrary precision with enough of these gates".
+
+Or if you like fancy Mathy words, you can say that the subgroup of the <unitary group> <subgroup generated by a group>[generated by] our basic gate set is a <dense set>[dense subset] of the unitary group.
+
+= Single qubit quantum gate
+{parent=Quantum logic gate}
+{wiki}
+
+= Multi qubit quantum gate
+{parent=Single qubit quantum gate}
+
+= Controlled quantum gate
+{parent=Multi qubit quantum gate}
+{wiki=Quantum_logic_gate#Controlled_gates}
+
+<Controlled quantum gates> are gates that have two types of input qubits:
+* control qubits
+* operand qubits (terminology made up by <Ciro Santilli> just now)
+These gates can be understood as doing a certain <unitary operation> only if the control qubits are enabled or disabled.
+
+The first example to look at is the <CNOT gate>.
+
+= CNOT gate
+{c}
+{parent=Controlled quantum gate}
+{wiki=Controlled_NOT_gate}
+
+The <CNOT gate> is a <controlled quantum gate> that operates on two <qubits>, flipping the second (operand) <qubit> if the first (control) <qubit> is set.
+
+Matrix:
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+$$
+
+= Toffoli gate
+{c}
+{parent=Multi qubit quantum gate}
+{wiki}
+
+= Clifford gates
+{c}
+{parent=Quantum logic gate}
+{wiki}
+
+This gate set alone is not a set of <universal quantum gates>.
+
+Notably, circuits containing those gates alone can be fully simulated by classical computers according to the <Gottesman-Knill theorem>, so there's no way they could be universal.
+
+This means that if we add any number of Clifford gates to a quantum circuit, we haven't really increased the complexity of the algorithm, which can be useful as a transformational device.
+
+A popular set of <universal quantum gates> derived from <Clifford gates> is <Clifford plus T>.
+
+= Clifford plus T
+{c}
+{parent=Clifford gates}
+{tag=Universal quantum gates}
+
+Set of <quantum logic gate> composed of the <Clifford gates> plus the <Toffoli gate>. It forms a set of <universal quantum gates>.
+
+= Gottesman-Knill theorem
+{c}
+{parent=Clifford gates}
+{wiki}
+
+= List of quantum logic gates
+{c}
+{parent=Quantum logic gate}
+{wiki}
 
 = Analog quantum computer
 {parent=Analog and digital quantum computers}
@@ -606,8 +820,23 @@ But there are some serious <analog quantum computer> contestants in the field as
 {title=<TensorFlow Quantum> by Masoud Mohseni (2020)}
 {description=At the timestamp, Masoud gives a <thought experiment> example of the perhaps simplest to understand <analog quantum computer>: chained <double-slit experiments> with carefully calculated distances between slits. Calulating the final propability distribution of that grows exponentially.}
 
-= Diamond vacancy quantum computer
+= Continuous-variable quantum information
+{parent=Analog quantum computer}
+{wiki}
+
+TODO synonym to <analog quantum computer>?
+
+It is also possible to carry out <quantum computing> without <qubits> using processes with a <continuous spectrum> of measurement.
+
+As of 2020, these approaches seem less developed/promising, but who knows.
+
+These computers can be seen as analogous to classical non-quantum <analog computers>.
+
+= Quantum computer physical implementation
 {parent=Quantum computer type}
+
+= Diamond vacancy quantum computer
+{parent=Quantum computer physical implementation}
 
 https://thequantuminsider.com/2022/03/31/5-quantum-computing-companies-working-with-nv-centre-in-diamond-technology/ on <The Quantum Insider>
 
@@ -622,7 +851,7 @@ https://thequantuminsider.com/2022/03/31/5-quantum-computing-companies-working-w
 {wiki}
 
 = Electron on helium quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 {wiki=Electron-on-helium qubit}
 
 = eHe quantum computer
@@ -640,7 +869,8 @@ https://thequantuminsider.com/2022/03/31/5-quantum-computing-companies-working-w
 https://eeroq.com/
 
 = Quantum dot quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
+{tag=Quantum dot}
 
 = Organization developing quantum dot quantum computer
 {parent=Quantum dot quantum computer}
@@ -664,7 +894,7 @@ Funding:
 {title=Architecture All Access: Quantum Computing by James Clarke (2021)}
 
 = Superconducting quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 {wiki}
 
 Based on the <Josephson effect>. Yet another application of that phenomenal idea!
@@ -924,7 +1154,7 @@ https://oxfordquantumcircuits.com/story mentions that the core patent was by Dr.
 {description=The title of the talk is innapropriate, this is a very basic overview of the entire <Rigetti Computing> stack. Still some fine mentions. Her name is so long, TODO origin? She later moved to <Microsoft Quantum>: https://www.linkedin.com/in/gueneverep/[].}
 
 = Topological quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=igPXzKjqrNg]
@@ -934,7 +1164,7 @@ https://oxfordquantumcircuits.com/story mentions that the core patent was by Dr.
 {title=Topological Quantum Computation by Jason Alicea (2021)}
 
 = Trapped ion quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 {wiki}
 
 TODO understand.
@@ -1173,7 +1403,7 @@ Very basic target audience:
 }
 
 = Neutral atom quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 
 * https://quantumtech.blog/2023/01/17/quantum-computing-with-neutral-atoms/
 
@@ -1212,7 +1442,7 @@ Funding:
 * 2023: \x[\$]100m https://techcrunch.com/2023/01/23/pasqal-raises-100m-to-build-a-neutral-atom-based-quantum-computer/
 
 = Photonic quantum computer
-{parent=Quantum computer type}
+{parent=Quantum computer physical implementation}
 {wiki=Linear optical quantum computing}
 
 = Linear optical quantum computing
@@ -1515,180 +1745,6 @@ $$
 $$
 because it is a Z spider with $m = 3$ and $n = 1$.
 
-= Quantum logic gate
-{parent=Quantum computing}
-{wiki}
-
-= Quantum gate
-{synonym}
-
-At <quantum computing is just matrix multiplication>{full} we saw that making a quantum circuit actually comes down to designing one big <unitary matrix>.
-
-We have to say though that that was a bit of a lie.
-
-Quantum programmers normally don't just produce those big matrices manually from scratch.
-
-Instead, they use </quantum logic gates>.
-
-The following are the main reasons for that:
-* <quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially>{full}
-* <quantum logic gates are needed for physical implementation>{full}
-
-= Quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially
-{parent=Quantum logic gate}
-
-One key insight, is that the matrix of a non-trivial quantum circuit is going to be huge, and won't fit into any amount classical memory that can be present in this universe.
-
-This is because the matrix is exponential in the number qubits, and $2^{100}$ is more than the number of atoms in the universe!
-
-Therefore, off the bat we know that we cannot possibly describe those matrices in an explicit form, but rather must use some kind of shorthand.
-
-But it gets worse.
-
-Even if we had enough memory, the act of explicitly computing the matrix is not generally possible.
-
-This is because knowing the matrix, basically means knowing the probability result for all possible $2^{N}$ outputs for each of the $2^{N}$ possible inputs.
-
-But if we had those probabilities, our algorithmic problem would already be solved in the first place! We would "just" go over each of those output probabilities (OK, there are $2^{N}$ of those, which is also an insurmountable problem in itself), and the largest probability would be the answer.
-
-So if we could calculate those probabilities on a classical machine, we would also be able to simulate the quantum computer on the classical machine, and quantum computing would not be able to give exponential speedups, which we know it does.
-
-To see this, consider that for a given input, say `000` on a 3 qubit machine, the corresponding 8-sized quantum state looks like:
-``
-000 -> 1000 0000 == (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-``
-and therefore when you multiply it by the unitary matrix of the quantum circuit, what you get is the first column of the unitary matrix of the quantum circuit. And `001`, gives the second column and so on.
-
-As a result, to prove that a quantum algorithm is correct, we need to be a bit smarter than "just calculate the full matrix".
-
-Which is why you should now go and read: <quantum algorithm>{full}.
-
-This type of thinking links back to how physical experiments relate to quantum computing: a quantum computer realizes a physical experiment to which we cannot calculate the probabilities of outcomes without exponential time.
-
-So for example in the case of a <photonic quantum computer>, you are not able to calculate from theory the probability that photons will show up on certain wires or not.
-
-= Quantum logic gates are needed for physical implementation
-{parent=Quantum logic gate}
-
-One direct practical reason is that we need to map the matrix to real quantum hardware somehow, and all quantum hardware designs so far and likely in the future are gate-based: you manipulate a small number of qubits at a time (2) and add more and more of such operations.
-
-While there are "<quantum compilers>" to increase the portability of quantum programs, it is to be expected that programs manually crafted for a specific hardware will be more efficient just like in classic computers.
-
-TODO: is there any clear reason why computers can't beat humans in approximating any unitary matrix with a gate set?
-
-This is analogous to what classic circuit programmers will do, by using smaller <logic gates> to create complex circuits, rather than directly creating one huge <truth table>.
-
-The most commonly considered quantum gates take 1, 2, or 3 qubits as input.
-
-The gates themselves are just unitary matrices that operate on the input qubits and produce the same number of output qubits.
-
-For example, the matrix for the <CNOT gate>, which takes 2 qubits as input is:
-``
-1 0 0 0
-0 1 0 0
-0 0 0 1
-0 0 1 0
-``
-
-The final question is then: if I have a 2 qubit gate but an input with more qubits, say 3 qubits, then what does the 2 qubit gate (4x4 matrix) do for the final big 3 qubit matrix (8x8)? In order words, how do we scale quantum gates up to match the total number of qubits?
-
-The intuitive answer is simple: we "just" extend the small matrix with a larger identity matrix so that the sum of the probabilities third bit is unaffected.
-
-More precisely, we likely have to extend the matrix in a way such that the https://cs.stackexchange.com/questions/71462/how-are-partial-measurements-performed-on-a-n-qubit-quantum-circuit[partial measurement] of the original small gate qubits leaves all other qubits unaffected.
-
-For example, if the circuit were made up of a CNOT gate operating on the first and second qubits as in:
-``
-0 ----+----- 0
-      |
-1 ---CNOT--- 1
-
-2 ---------- 2
-``
-
-then we would just extend the 2x2 CNOT gate to:
-
-TODO lazy to properly learn right now. Apparently you have to use the https://en.wikipedia.org/wiki/Kronecker_product[Kronecker product] by the identity matrix. Also, <zX-calculus> appears to provide a powerful alternative method in some/all cases.
-
-Bibliography:
-* https://quantumcomputing.stackexchange.com/questions/2299/how-to-interpret-a-quantum-circuit-as-a-matrix
-
-= Quantum circuits vs classical circuits
-{parent=Quantum logic gate}
-
-Just like a classic <software engineer>[programmer] does not need to understand the intricacies of how transistors are implemented and CMOS semiconductors, the quantum programmer does not understand physical intricacies of the underlying <quantum computer physical implementations>[physical implementation].
-
-The main difference to keep in mind is that quantum computers cannot https://en.wikipedia.org/wiki/Observer_effect_(physics)[save and observe intermediate quantum state], so programming a quantum computer is basically like programming a combinatorial-like circuit with gates that operate on (qu)bits:
-* https://quantumcomputing.stackexchange.com/questions/8441/does-a-quantum-computer-have-a-clock-signal-and-if-yes-how-big-is-it/9383#9383
-* https://quantumcomputing.stackexchange.com/questions/8849/quantum-circuits-explain-algorithms-why-didnt-classical-circuits/8869#8869
-
-For this reason programming a quantum computer is much like programming a classical combinatorial circuit as you would do with https://en.wikipedia.org/wiki/SPICE[SPICE], <register transfer level>[verilog-or-vhdl], in which you are basically describing a graph of gates that goes from the input to the output
-
-For this reason, we can use the words "program" and "circuit" interchangeably to refer to a quantum program
-
-Also remember that and there is no no clocks in combinatorial circuits because there are no registers to drive; and so there is no analogue of clock in the quantum system either,
-
-Another consequence of this is that programming quantum computers does not look like programming the more "common" procedural programming languages such as C or Python, since those fundamentally rely on processor register / memory state all the time.
-
-Quantum programmers can however use classic languages to help describe their quantum programs more easily, for example this is what happens in <Qiskit>, where you write a Python program that makes Qiskit library calls that describe the quantum program.
-
-= Universal quantum gates
-{parent=Quantum logic gate}
-{wiki=Quantum_logic_gate#Universal_quantum_gates}
-
-Just https://en.wikipedia.org/wiki/Functional_completeness[like as for classic gates], we would like to be able to select <quantum computer physical implementations> that can represent one or a few gates that can be used to create \i[any] quantum circuit.
-
-Unfortunately, in the case of quantum circuits this is obviously impossible, since the space of N x N unitary matrices is infinite and continuous.
-
-Therefore, when we say that certain gates form a "set of universal quantum gates", we actually mean that "any unitary matrix can be approximated to arbitrary precision with enough of these gates".
-
-Or if you like fancy Mathy words, you can say that the subgroup of the <unitary group> <subgroup generated by a group>[generated by] our basic gate set is a <dense set>[dense subset] of the unitary group.
-
-= Clifford gates
-{c}
-{parent=Quantum logic gate}
-{wiki}
-
-This gate set alone is not a set of <universal quantum gates>.
-
-Notably, circuits containing those gates alone can be fully simulated by classical computers according to the <Gottesman-Knill theorem>, so there's no way they could be universal.
-
-This means that if we add any number of Clifford gates to a quantum circuit, we haven't really increased the complexity of the algorithm, which can be useful as a transformational device.
-
-A popular set of <universal quantum gates> derived from <Clifford gates> is <Clifford plus T>.
-
-= Clifford plus T
-{c}
-{parent=Clifford gates}
-{tag=Universal quantum gates}
-
-Set of <quantum logic gate> composed of the <Clifford gates> plus the <Toffoli gate>. It forms a set of <universal quantum gates>.
-
-= Gottesman-Knill theorem
-{c}
-{parent=Clifford gates}
-{wiki}
-
-= Toffoli gate
-{c}
-{parent=Quantum logic gate}
-{wiki}
-
-= List of quantum logic gates
-{c}
-{parent=Quantum logic gate}
-{wiki}
-
-= CNOT gate
-{c}
-{parent=List of quantum logic gates}
-{wiki=Controlled_NOT_gate}
-
-= Quantum circuit
-{parent=Quantum computing}
-{wiki}
-
-A <graph> of <quantum logic gates>.
-
 = Quantum state
 {parent=Quantum computing}
 {wiki}
@@ -1720,16 +1776,6 @@ Similar to <quantum supremacy>, but add the goal that the computation must be us
 = Qubit
 {parent=Quantum computing}
 {wiki}
-
-= Continuous-variable quantum information
-{parent=Qubit}
-{wiki}
-
-It is also possible to carry out <quantum computing> without <qubits> using processes with a <continuous spectrum> of measurement.
-
-As of 2020, these approaches seem less developed/promising, but who knows.
-
-These computers can be seen as analogous to classical non-quantum <analog computers>.
 
 = Quantum computer benchmark
 {parent=Quantum computing}

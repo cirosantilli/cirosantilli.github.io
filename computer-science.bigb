@@ -127,6 +127,15 @@ A:
 * <undecidable problem>[decidable problem] is to a <decision problem>
 * like a computable problem is to a <function problem>
 
+= Computable function
+{parent=Undecidable problem}
+{wiki}
+
+= Uncomputable function
+{parent=Computable function}
+
+The prototypical example is the <Busy beaver function>, which is the easiest example to reach from the <halting problem>.
+
 = Computable number
 {parent=Undecidable problem}
 {wiki}
@@ -183,6 +192,79 @@ Decision problems come up often in <computer science> because many important pro
 
 The canonical <undecidable problem>{parent}.
 
+= Busy beaver
+{parent=Halting problem}
+{tag=Function problem}
+{wiki}
+
+= Busy beaver game
+{synonym}
+
+The busy beaver game consists in finding, for a given $n$, the turing machine with $n$ states that writes the largest possible number of 1's on a tape initially filled with 0's. In other words, computing the <busy beaver function> for a given $n$.
+
+There are only finitely many Turing machines with $n$ states, so we are certain that there exists such a maxium. Computing the <Busy beaver function> for a given $n$ then comes down to solving the halting problem for every single machine with $n$ states.
+
+Some variant definitions define it as the number of time steps taken by the machine instead. Wikipedia talks about their relationship, but no patience right now.
+
+The Busy Beaver problem is cool because it puts the <halting problem> in a more precise numerical light, e.g.:
+* the <Busy beaver function> is the most obvious <uncomputable function> one can come up with starting from the <halting problem>
+* the <Busy beaver scale> allows us to gauge the difficulty of proving certain (yet unproven!) mathematical <conjectures>
+
+Bibliography:
+* https://www.scottaaronson.com/blog/?p=4916
+* https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
+
+= Busy beaver function
+{parent=Busy beaver}
+{tag=Uncomputable function}
+{title2=$BB(n)$}
+
+$BB(n)$ is the largest number of 1's written by a <halting problem>[halting] $n$-state <Turing machine> on a tape initially filled with 0's.
+
+= BB(5)
+{c}
+{parent=Busy beaver function}
+
+= Busy beaver function of 5
+{synonym}
+{title2}
+
+The last value we will likely every know for the <busy beaver function>! BB(6) is likely completely out of reach forever.
+
+As of 2023 still undecided, it is going to be one of those highly computational proofs that will be needed to be <formally verified> for people to finally settle.
+
+The <The Busy Beaver Challenge> project is trying to settle it once and for all, and is likely the best bet we've got so far.
+
+= The Busy Beaver Challenge
+{c}
+{parent=BB(5)}
+
+https://bbchallenge.org/story
+
+Project trying to compute <BB(5)> once and for all.
+
+= Busy beaver scale
+{parent=Busy beaver}
+
+The <Busy beaver scale> allows us to gauge the difficulty of proving certain (yet unproven!) mathematical <conjectures>!
+
+To to this, people have reduced certain mathematical problems to deciding the <halting problem> of a specific <Turing machine>.
+
+A good example is perhaps the <Goldbach's conjecture>. We just make a <Turing machine> that successively checks for each even number of it is a sum of two primes by naively looping down and trying every possible pair. Let the machine halt if the check fails. So this machine halts <iff> the <Goldbach's conjecture> is false!
+
+https://bbchallenge.org/story#what-is-known-about-bb lists some cool examples:
+* BB(15): <Erdos' conjecture on powers of 2>, which has some relation to <Collatz conjecture>
+* BB(27): <Goldbach's conjecture>
+* BB(744): <Riemann hypothesis>
+* BB(748): <independent (mathematical logic)> from the <Zermelo-Fraenkel axioms>
+* BB(7910): <independent (mathematical logic)> from the <ZFC>
+
+Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
+
+Of course, in practice, $BB$ is generally <uncomputable>, so we will never know it. And furthermore, even if it were, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
+
+However, philosophically speaking at least, the number of states of the equivalent <Turing machine> gives us a philosophical idea of the complexity of the problem.
+
 = Function problem
 {parent=Computational problem}
 {wiki}
@@ -190,33 +272,6 @@ The canonical <undecidable problem>{parent}.
 A problem that has more than two possible yes/no outputs.
 
 It is therefore a generalization of a <decision problem>.
-
-= Busy beaver
-{parent=Function problem}
-{title2=$BB(n)$}
-{wiki}
-
-= Busy beaver game
-{synonym}
-
-$BB(n)$ is the largest number of 1's written by a <halting problem>[halting] $n$-state <Turing machine>.
-
-Some variant definitions define it as the number of time steps taken by the machine instead. Wikipedia talks about their relationship, but no patience right now.
-
-Overviews:
-* https://www.scottaaronson.com/blog/?p=4916
-* https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
-
-This problem is theoretically interesting because many important mathematical <conjectures> have been proved to be equivalent to whether a given Turing machine halts or not, this is notably the case for:
-* <Goldbach's conjecture>: 27 states
-* <Riemann hypothesis>: 744 states
-* the <consistency> of <Zermelo-Fraenkel set theory>: 7910 states
-
-Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
-
-Of course, in practice, $BB$ is generally <uncomputable>, so we will never know it. And furthermore, even if it were, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
-
-However, philosophically speaking at least, the number of states of the equivalent <Turing machine> gives us a philosophical idea of the complexity of the problem.
 
 = Integer multiplication
 {parent=Function problem}
@@ -604,4 +659,15 @@ Applications:
 = Computerphile
 {c}
 {parent=Computer science YouTube channel}
+{tag=Brady Haran production}
 {wiki}
+
+= Brady Haran
+{c}
+{parent=Computerphile}
+{wiki}
+
+= Brady Haran production
+{c}
+{parent=Brady Haran}
+{tag=Science communicator}
