@@ -195,6 +195,55 @@ Decision problems come up often in <computer science> because many important pro
 
 The canonical <undecidable problem>{parent}.
 
+= Turing machine decider
+{c}
+{parent=Halting problem}
+
+A turing machine decider is a program that decides if one or more <Turing machines> halts of not.
+
+Of course, because what we know about the <halting problem>, there cannot exist a single decider that decies all <Turing machines>.
+
+E.g. <The Busy Beaver Challenge> has a set of deciders clearly published, which decide a large part of <BB(5)>. Their proposed deciders are listed at: https://discuss.bbchallenge.org/c/deciders/5[] and actually applied ones at: https://bbchallenge.org[].
+
+But there are deciders that can decide large classes of turing machines.
+
+Many (all/most?) deciders are based on simulation of machines with arbitrary cutoff <hyperparameters>, e.g. the cutoff space/time of a <Turing machine cycler decider>.
+
+The simplest and most obvious example is the <Turing machine cycler decider>
+
+= Cycler Turing machine
+{parent=Turing machine decider}
+
+= Turing machine cycler decider
+{c}
+{synonym}
+
+Bibliography: https://discuss.bbchallenge.org/t/decider-cyclers/33[]
+
+Example: https://bbchallenge.org/279081[].
+
+These are very simple, they just check for exact state repetitions, which obviously imply that they will run forever.
+
+Unfortunately, cyclers may need to run throun an initial setup phase before reaching the initial cycle point, which is not very elegant.
+
+Also, we have no way of knowing the initial setup length of the actual cycle length, so we just need an arbitrary cutoff value.
+
+And unfortunatly, this can lead to misses, e.g. <Skelet machine #1>, a 5 state machine, has a (translated) cycle that starts at around 50-200M styeps, and takes 8 trillion steps to repeat.
+
+= Translated cycler Turing machine
+{parent=Turing machine decider}
+
+Bibliography: https://discuss.bbchallenge.org/t/decider-translated-cyclers/34
+
+Like a cycler, but the cycle starts at an offset.
+
+To see infinity, we check that if the machine only goes left N squares until reaching the repetition, then repetition must only be N squares long.
+
+= Closed Tape Language decider
+{parent=Turing machine decider}
+
+Described at: https://www.sligocki.com/2022/06/10/ctl.html
+
 = Busy beaver
 {parent=Halting problem}
 {tag=Function problem}
@@ -217,6 +266,13 @@ Bibliography:
 * https://www.scottaaronson.com/blog/?p=4916
 * https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
 
+= Step busy beaver
+{parent=Busy beaver}
+
+The <step busy beaver> is a variant of the <busy beaver game> counts the number of steps before halt, instead of the number of 1's written to the tape.
+
+As of 2023, it appears that <BB(5)> the same machine, , will win both for 5 states. But this is not always necessarily the case.
+
 = Busy beaver function
 {parent=Busy beaver}
 {tag=Uncomputable function}
@@ -224,9 +280,26 @@ Bibliography:
 
 $BB(n)$ is the largest number of 1's written by a <halting problem>[halting] $n$-state <Turing machine> on a tape initially filled with 0's.
 
+= Specific values of the Busy beaver function
+{parent=Busy beaver function}
+
+The following things come to mind when you look into research in this area, especially the search for <BB(5)> which was hard but doable:
+* it is largely <recreational mathematics>, i.e. done by non-professionals, a bit like the <aperiodic tiling>. Humbly, they tend to call their results <lemma (mathematics)>[lemmas]
+* complex structure emerges from simple rules, leading to a complex <classification (mathematics)> with a few edge cases, much like the <classification of finite simple groups>
+
+= Turing machine acceleration
+{c}
+{parent=Specific values of the Busy beaver function}
+
+<Turing machine acceleration> refers to using high level understanding of specific properties of specific Turing machines to be able to simulate them much fatser than naively running the simulation as usual.
+
+Acceleration allows one to use simulation to find infinite loops that might be very long, and would not be otherwise spotted without acceleration.
+
+This is for example the case of https://www.sligocki.com/2023/03/13/skelet-1-infinite.html proof of <Skelet Machine #1>.
+
 = BB(5)
 {c}
-{parent=Busy beaver function}
+{parent=Specific values of the Busy beaver function}
 
 = Busy beaver function of 5
 {synonym}
@@ -241,6 +314,51 @@ The <The Busy Beaver Challenge> project is trying to settle it once and for all,
 As that project beautifully puts it, as of 2023 prior to full resolution, this can be considered the:
 \Q[simplest open problem in mathematics]
 on the <Busy beaver scale>.
+
+= Marxen-Buntrock machine
+{parent=BB(5)}
+{title2=1989}
+{title2=4098 1's}
+{title2=~47M steps}
+
+Best <busy beaver> machine known since 1989 as of 2023, before a full proof of all 5 state machines had been carried out.
+
+Entry on <The Busy Beaver Challenge>: https://bbchallenge.org/1RB1LC_1RC1RB_1RD0LE_1LA1LD_1RZ0LA
+
+Paper: http://turbotm.de/~heiner/BB/mabu90.html
+
+= Skelet’s machines
+{c}
+{parent=BB(5)}
+{title2=2003}
+
+List on <The Busy Beaver Challenge>: https://bbchallenge.org/skelet
+
+Bibliography:
+* https://bbchallenge.org/story#skelets-43-undecided-machines
+* https://skelet.ludost.net/bb/nreg.html
+
+= Skelet machine #1
+{c}
+{parent=Skelet’s machines}
+{tag=Translated cycler Turing machine}
+{title2=proved 2023}
+{title2=cyclel start: 50-200M}
+{title2=period: ~8B}
+
+On <The Busy Beaver Challenge>: https://bbchallenge.org/68329601
+
+= Skelet machine #1 is infinite
+{c}
+{parent=Skelet machine #1}
+
+Non formal proof with a program March 2023: https://www.sligocki.com/2023/03/13/skelet-1-infinite.html Awesome article that describes the proof procedure.
+
+<Formal proof> August 2023: https://discuss.bbchallenge.org/t/skelet-1-is-a-translated-cycler-coq-agrees/166
+
+The proof uses <Turing machine acceleration> to show that <Skelet machine #1> is a <Translated cycler Turing machine> with humongous cycle paramters:
+* start between 50-200 M steps, not calculated precisely on the original post
+* period: ~8 billion steps
 
 = The Busy Beaver Challenge
 {c}
@@ -259,14 +377,7 @@ The <Busy beaver scale> allows us to gauge the difficulty of proving certain (ye
 
 To to this, people have reduced certain mathematical problems to deciding the <halting problem> of a specific <Turing machine>.
 
-A good example is perhaps the <Goldbach's conjecture>. We just make a <Turing machine> that successively checks for each even number of it is a sum of two primes by naively looping down and trying every possible pair. Let the machine halt if the check fails. So this machine halts <iff> the <Goldbach's conjecture> is false!
-
-https://bbchallenge.org/story#what-is-known-about-bb lists some cool examples:
-* BB(15): <Erdos' conjecture on powers of 2>, which has some relation to <Collatz conjecture>
-* BB(27): <Goldbach's conjecture>
-* BB(744): <Riemann hypothesis>
-* BB(748): <independent (mathematical logic)> from the <Zermelo-Fraenkel axioms>
-* BB(7910): <independent (mathematical logic)> from the <ZFC>
+A good example is perhaps the <Goldbach's conjecture>. We just make a <Turing machine> that successively checks for each even number of it is a sum of two primes by naively looping down and trying every possible pair. Let the machine halt if the check fails. So this machine halts <iff> the <Goldbach's conjecture> is false! See also <conjecture reduction to a halting problem>.
 
 Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
 
@@ -276,9 +387,55 @@ However, philosophically speaking at least, the number of states of the equivale
 
 The <busy beaver scale> is likely mostly useless, since we are able to prove that many non-trivial <Turing machines> do halt, often by reducing problems to simpler known cases. But still, it is cute.
 
-But maybe, just maybe, reduction to Turing machine form could be useful. E.g. <The Busy Beaver Challenge> and other attempts to solve <BB(5)> have come up with large number of automated (usually parametrized up to a certain threshold) decider programs that automatically determine if certain (often large numbers of) Turing machines run forever.
+But maybe, just maybe, reduction to Turing machine form could be useful. E.g. <The Busy Beaver Challenge> and other attempts to solve <BB(5)> have come up with large number of automated (usually parametrized up to a certain threshold) <Turing machine decider> programs that automatically determine if certain (often large numbers of) Turing machines run forever.
 
 So it it not impossible that after some reduction to a standard <Turing machine> form, some conjecture just gets automatically brute-forced by one of the deciders, this is a path to
+
+= Turing machine compiler
+{c}
+{parent=Busy beaver scale}
+
+https://cs.stackexchange.com/questions/50815/compiler-that-compiles-to-a-turing-machine/161872#161872
+
+= Automated theorem proving by halting problem reduction
+{parent=Busy beaver scale}
+{tag=Automated theorem proving}
+
+If you can reduce a mathematical problem to the <Halting problem> of a specific turing machine, as in the case of a few machines of the <Busy beaver scale>, then using <Turing machine deciders> could serve as a method of <automated theorem proving>.
+
+That feels like it could be an elegant proof method, as you reduce your problem to one of the most well studied representations that exists: a <Turing machine>.
+
+However it also appears that certain problems cannot be reduced to a <halting problem>... OMG life sucks (or is awesome?): <Turing machine that halts if and only if Collatz conjecture is false>{full}.
+
+= Conjecture reduction to a halting problem
+{c}
+{parent=Automated theorem proving by halting problem reduction}
+
+https://bbchallenge.org/story#what-is-known-about-bb lists some (all?) cool examples, 
+* BB(15): <Erdos' conjecture on powers of 2>, which has some relation to <Collatz conjecture>
+* BB(27): <Goldbach's conjecture>
+* BB(744): <Riemann hypothesis>
+* BB(748): <independent (mathematical logic)> from the <Zermelo-Fraenkel axioms>
+* BB(7910): <independent (mathematical logic)> from the <ZFC>
+
+= Turing machine that halts if and only if the Goldbach conjecture is false
+{c}
+{parent=Conjecture reduction to a halting problem}
+{tag=Goldbach conjecture}
+{title2=27-state}
+
+https://www.scottaaronson.com/papers/bb.pdf
+
+= Turing machine that halts if and only if Collatz conjecture is false
+{c}
+{parent=Conjecture reduction to a halting problem}
+{tag=Collatz conjecture}
+
+https://mathoverflow.net/questions/309044/is-there-a-known-turing-machine-which-halts-if-and-only-if-the-collatz-conjectur suggests one does not exist. Amazing.
+
+Intuitively we see that the situation is fundamentally different from the <Turing machine that halts if and only if the Goldbach conjecture is false> because for Collatz the counter example must go off into infinity, while in Goldbach conjecture we can finitely check any failures.
+
+Amazing.
 
 = Function problem
 {parent=Computational problem}

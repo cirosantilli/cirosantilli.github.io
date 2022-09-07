@@ -148,6 +148,11 @@ west build -b qemu_cortex_a53 samples/synchronization -t run
 {parent=Firmware}
 {wiki}
 
+= System call
+{c}
+{parent=Operating system}
+{wiki}
+
 = UNIX
 {c}
 {parent=Operating system}
@@ -731,8 +736,11 @@ We are <autism>[all somewhere in the spectrum].
 
 = Executable and Linkable Format
 {parent=Executable file format}
-{title2=ELF}
 {wiki}
+
+= ELF
+{c}
+{synonym}
 
 For a quick and dirty introduction to the format, see: <elf hello world>.
 
@@ -826,6 +834,33 @@ The leading open source cross architecture and KVM emulator of the 2010's.
 Great way to understand how operating systems work, which <Ciro Santilli> used extensively in his <Linux Kernel Module Cheat>.
 
 <Ciro Santilli> has some good related articles listed under: <articles>.
+
+= User mode emulation
+{parent=QEMU}
+
+<User mode emulation> refers to the ability of certain <emulators> to emulate userland code running on top of a specific <operating system>, usually <Linux>.
+
+For example, <QEMU> allows you to run a variety of userland <ELF> programs directly on it, without an underlying <Linux kernel> running.
+
+User mode emulation is achieved by implementing <system calls> and special filesystems such as `/dev` manually on the emulator one by one.
+
+The general tradeoff is that simulation is less acurate as it may lack certain highly advanced kernel functionality you haven't implemented yet. But it is much easier to run executables with it, and you don't have to wait for boot to finish before running, you just run executables directly from the command line.
+
+= QEMU JavaScript port
+{parent=QEMU}
+{tag=JavaScript library}
+
+This is especially interesting for <user mode emulation>.
+
+= QEMU.js
+{c}
+{parent=QEMU JavaScript port}
+
+Stopped 2019 apparently. Shame. We need something to be upstreamed!
+
+* source code: https://github.com/atrosinenko/qemujs
+* demo: https://atrosinenko.github.io/qemujs-demo/
+* demo source code: https://github.com/atrosinenko/qemujs-demo
 
 = Binary translation
 {parent=QEMU}
