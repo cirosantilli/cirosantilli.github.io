@@ -803,6 +803,38 @@ Some other basic hits due to how bad Jupyter is:
 
 The people who work on this will <good>[go straight to heaven], no questions asked.
 
+= numpy.fft
+{parent=NumPy}
+{tag=Discrete Fourier transform}
+
+https://numpy.org/doc/1.24/reference/routines.fft.html
+
+= python/numpy/fft_cheat.py
+{file}
+{parent=numpy.fft}
+
+Output:
+``
+sin(t)
+fft
+real 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10
+rfft
+real 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 0 0 0 0 0 0 0
+
+sin(t) + sin(4t)
+fft
+real 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 -10 0 0 0 0 0 0 0 0 0 0 0 10 0 0 10
+rfft
+real 0 0 0 0 0 0 0 0 0 0 0
+imag 0 -10 0 0 -10 0 0 0 0 0 0
+``
+With our understanding of the <discrete fourier transform> we see clearly that:
+* the signal is being decomposed into <sinusoidal> components
+* because we are doing the <Discrete Fourier transform of a real signal>, for the `fft`, $X_k = \conj{X_{N-k}}$ so there is redundancy in the. We also understand that `rfft` simply cuts off and only keeps half of the coefficientsx
+
 = Scikit-learn
 {c}
 {parent=Python scientific library}

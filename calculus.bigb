@@ -478,6 +478,52 @@ Other basis besides the Fourier series show up for other equations, e.g.:
 {title2=DFT}
 {wiki}
 
+Input: a sequence of $N$ <complex numbers> $x_k$.
+
+Output: another sequence of $N$ <complex numbers> $X_k$ such that:
+$$
+x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k e^{i 2 \pi \frac{k n}{N}}
+$$
+Intuitively, this means that we are braking up the complex signal into $N$ <sinusoidal> frequencies:
+* $X_0$: is kind of magic and ends up being a constant added to the signal because $e^{i 2 \pi \frac{k n}{N}} = e^{0} = 1$
+* $X_1$: <sinusoidal> that completes one cycle over the signal. The larger the $N$, the larger the resolution of that <sinusoidal>. But it completes one cycle regardless.
+* $X_2$: <sinusoidal> that completes two cycles over the signal
+* ...
+* $X_{N-1}$: <sinusoidal> that completes $N-1$ cycles over the signal
+and  is the amplitude of each sine.
+
+We use <Zero-based numbering> in our definitions because it just makes every formula simpler.
+
+Motivation: similar to the <Fourier transform>:
+* compression: a <sine> would use N points in the time domain, but in the frequency domain just one, so we can throw the rest away. A sum of two sines, only two. So if your signal has periodicity, in general you can compress it with the transform
+* noise removal: many systems add noise only at certain frequencies, which are hopefully different from the main frequencies of the actual signal. By doing the transform, we can remove those frequencies to attain a better <signal-to-noise>
+In particular, the <discrete Fourier transform> is used in <signal processing> after a <analog-to-digital converter>. <Digital signal processing> historically likely grew more and more over analog processing as digital <processor (computing)>[processors] got faster and faster as it gives more flexibility in algorithm design.
+
+Sample software implementations:
+* <numpy.fft>, notably see the example: <python/numpy/fft_cheat.py>{file}
+
+= Discrete Fourier transform of a real signal
+{parent=Discrete Fourier transform}
+
+See sections: "Example 1 - N even", "Example 2 - N odd" and "Representation in terms of sines and cosines" of https://www.statlect.com/matrix-algebra/discrete-Fourier-transform-of-a-real-signal
+
+Summary:
+* $X_0$ is real
+* $X_1 = \conj{X_{N-1}}$
+* $X_2 = \conj{X_{N-2}}$
+* $X_k = \conj{X_{N-k}}$
+Therefore, we only need about half of $X_k$ to represent the signal, as the other half can be derived by conjugation.
+
+"Representation in terms of sines and cosines" from https://www.statlect.com/matrix-algebra/discrete-Fourier-transform-of-a-real-signal then gives explicit formulas in terms of $X_k$.
+
+<NumPy> for example has "Real FFTs" for this: https://numpy.org/doc/1.24/reference/routines.fft.html#real-ffts
+
+= Fast Fourier transform
+{parent=Discrete Fourier transform}
+{wiki}
+
+An efficient <algorithm> to calculate the <discrete Fourier transform>.
+
 = Fourier transform
 {c}
 {parent=Fourier series}
@@ -491,7 +537,7 @@ Of course, every function defined on a finite line segment (i.e. a <compact spac
 
 Therefore, the <Fourier transform> can be seen as a generalization of the <Fourier series> that can also decompose functions defined on the entire <real line>.
 
-As a more concrete example, just like the <Fourier series> is how you solve a the <heat equation> on a line segment with <Dirichlet boundary conditions> as shown at: <solving partial differential equations with the Fourier series>{full}, the <Fourier transform> is what you need to solve the problem when the <domain (function)> is the entire <real line>.
+As a more concrete example, just like the <Fourier series> is how you solve the <heat equation> on a line segment with <Dirichlet boundary conditions> as shown at: <solving partial differential equations with the Fourier series>{full}, the <Fourier transform> is what you need to solve the problem when the <domain (function)> is the entire <real line>.
 
 = Multidimensional Fourier transform
 {parent=Fourier transform}
