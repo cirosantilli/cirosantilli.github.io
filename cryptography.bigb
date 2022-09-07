@@ -142,12 +142,22 @@ Since say, A 512-bit integer is already humongous and sufficiently large, we wou
 * https://crypto.stackexchange.com/questions/2867/whats-the-fundamental-difference-between-diffie-hellman-and-rsa
 * https://crypto.stackexchange.com/questions/797/is-diffie-hellman-mathematically-the-same-as-rsa
 
+As its name indicates, <Diffie-Hellman key exchange> is a <key exchange> algorithm. TODO verify: this means that in order to transmit a message, both parties must first send data to one another to reach a shared secret key. For RSA on the other hand, you can just take the public key of the other party and send encrypted data to them, the receiver does not need to send you any data at any point.
+
 = Diffie-Hellman key exchange
 {c}
 {parent=Public-key cryptography}
 {wiki=Diffie–Hellman_key_exchange}
 
+= DHKE
+{c}
+{synonym}
+{title2}
+
 Based on the fact that we don't have a <P (complexity)> algorithm for <discrete logarithm> as of 2020. But nor proof that one does not exist!
+
+= Key exchange
+{parent=Diffie-Hellman key exchange}
 
 = Elliptic curve cryptography
 {parent=Public-key cryptography}
@@ -156,19 +166,34 @@ Based on the fact that we don't have a <P (complexity)> algorithm for <discrete 
 {wiki}
 
 = Elliptic-curve Diffie-Hellman
+{c}
 {parent=Elliptic curve cryptography}
 {wiki}
-
-\Video[https://www.youtube.com/watch?v=NF1pwjL9-DE]
-{title=<Elliptic Curves> by <Computerphile> (2018)}
-{description=https://youtu.be/NF1pwjL9-DE?t=143 shows the continuous group well, but then fails to explain the discrete part.}
 
 = ECDH
 {c}
 {synonym}
 {title2}
 
+The algorithm is completely analogous to <Diffie-Hellman key exchange> in that you efficiently raise a number to a power $n$ times and send the result over while keeping $n$ as private key.
+
+The only difference is that a different group is used: instead of using the <cyclic group>, we use the <elliptic curve group> of a given elliptic curve.
+
+\Video[https://www.youtube.com/watch?v=NF1pwjL9-DE]
+{title=<Elliptic Curves> by <Computerphile> (2018)}
+{description=https://youtu.be/NF1pwjL9-DE?t=143 shows the continuous group well, but then fails to explain the discrete part.}
+
 Variant of <Diffie-Hellman key exchange>{parent} based on <elliptic curve cryptography>.
+
+= Diffie-Hellman vs ECDH
+{c}
+{parent=Elliptic-curve Diffie-Hellman}
+
+https://crypto.stackexchange.com/questions/29906/how-does-diffie-hellman-differ-from-elliptic-curve-diffie-hellman
+
+<ECDH> has smaller keys. https://youtu.be/gAtBM06xwaw?t=634 mentions some interesting downsides:
+* bad curves exist, while in modular, any number seems to work well. TODO why?
+* TODO can't find this mentioned anywher else: <Diffie-Hellman key exchange> has a proof that there is no algorithm, <ECDH> doesn't. Which proof?
 
 = Encryption
 {parent=Cryptography}

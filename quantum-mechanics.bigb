@@ -737,41 +737,55 @@ Existence and uniqueness: https://mathoverflow.net/questions/212913/existence-an
 {parent=Schrödinger equation}
 {wiki=Schrödinger_equation#Time-independent_equation}
 
-The cool thing about the <Time-independent Schrödinger equation> is that we can always reduce solving the full <Schrödinger equation> to solving this slightly simpler time-independent version.
+The <time-independent Schrödinger equation> is a variant of the <Schrödinger equation> defined as:
+$$
+\hat{H}[\psi_x(E, \vv{x})] = E \psi_x{\vv{x}}
+$$
+{title=Time-independent Schrodinger equation}
 
-This is actually the approach that we will always take <solutions of the Schrodinger equation>[when solving the schrodinger equation], see e.g. <quantum harmonic oscillator>.
+So we see that for any <Schrödinger equation>, which is fully defined by the <Hamiltonian> $\hat{H}$, there is a corresponding <time-independent Schrödinger equation>, which is also uniquely defined by the same <Hamiltonian>.
+
+The cool thing about the <Time-independent Schrödinger equation> is that we can always reduce solving the full <Schrödinger equation> to solving this slightly simpler time-independent version, as described at: <Solving the Schrodinger equation with the time-independent Schrödinger equation>{full}.
+
+Because this method is fully general, and it simplifies the initial time-dependent problem to a time independent one, it is the approach that we will always take <solutions of the Schrodinger equation>[when solving the Schrodinger equation], see e.g. <quantum harmonic oscillator>.
+
+= Solving the Schrodinger equation with the time-independent Schrödinger equation
+{parent=Time-independent Schrödinger equation}
 
 Before reading any further, you \i[must] understand <heat equation solution with Fourier series>, which uses <separation of variables>.
 
-Once that example is clear, we see that the exact same <separation of variables> can be done to the <Schrödinger equation>. If we name the constant of the separation of variables $E$ for energy, we get::
+Once that example is clear, we see that the exact same <separation of variables> can be done to the <Schrödinger equation>. If we name the constant of the separation of variables $E$ for energy, we get:
 * a time-only part that does not depend on space and does not depend on the <Hamiltonian> at all. The solution for this part is therefore always the same exponentials for any problem, and this part is therefore "boring":
   $$
-  e^{-iEt/\hbar}
+  \psi_t(E, t) = e^{-iEt/\hbar}
   $$
-* a space-only part that does not depend on time, bud does depend on the hamiltonian:
-
+* a space-only part that does not depend on time, bud does depend on the Hamiltonian:
   $$
-  \hat{H}[\psi(\vv{x})] = E \psi{\vv{x}}
+  \hat{H}[\psi_x(E, \vv{x})] = E \psi_x{\vv{x}}
   $$
-  {title=Time-independent Schrodinger equation}
-
   Since this is the only non-trivial part, unlike the time part which is trivial, this spacial part is just called "the time-independent Schrodinger equation".
 
   Note that the $\psi$ here is not the same as the $\psi$ in the <equation Schrodinger equation>[time-dependent Schrodinger equation] of course, as that psi is the result of the multiplication of the time and space parts. This is a bit of imprecise terminology, but hey, physics.
 
 Because the time part of the equation is always the same and always trivial to solve, all we have to do to actually solve the Schrodinger equation is to solve the time independent one, and then we can construct the full solution trivially.
 
-Once we've solve the time-independent part, call it for each discrete energy $E_i$ as $E_i\psi_i(x)$, we proceed exactly as we did in <heat equation solution with Fourier series>: we make a weighted sum over all possible $E$ to match the initial condition, which is analogous to the <Fourier series> in the case of the heat equation to reach a final full solution:
-$$
-\sum_{i=0}^{\infty} e^{-iEt/\hbar} E_i\psi_i(x)
-$$
-{title=Solution of the Schrodinger equation in terms of the time-independent and time dependent parts}
-and this is a solution by selecting $E_i$ such that at time $t = 0$ we match the intial condition:
-$$
-\sum_{i=0}^{\infty} e^{-iE0/\hbar} E_i\psi_i(x) = \sum_{i=0}^{\infty} E_i\psi_i(x) = initial condition
-$$
+Once we've solved the time-independent part for each possible $E$, we can construct a solution exactly as we did in <heat equation solution with Fourier series>: we make a weighted sum over all possible $E$ to match the initial condition, which is analogous to the <Fourier series> in the case of the heat equation to reach a final full solution:
+* if there are only discretely many possible values of $E$, each possible energy $E_i$. we proceed 
+  $$
+  \sum_{i=0}^{\infty} =  \psi_t(E_i, t) \psi_x(E_i, x) = e^{-iE_i t/\hbar} \psi_x(E_i, x)
+  $$
+  {title=Solution of the Schrodinger equation in terms of the time-independent and time dependent parts}
+  and this is a solution by selecting $E_i$ such that at time $t = 0$ we match the initial condition:
+  $$
+  \sum_{i=0}^{\infty} e^{-iE0/\hbar} E_i\psi_i(x) = \sum_{i=0}^{\infty} E_i\psi_i(x) = initial condition
+  $$
+  A finite spectrum shows up in many incredibly important cases:
+  * <particle in a box>
+  * <quantum harmonic oscillator>
+  * <Schrödinger equation solution for the hydrogen atom>
+* if there are infinitely many values of E, we do something analogous but with an integral instead of a sum. This is called the <continuous spectrum (functional analysis)>. One notable
 
-The fact that this approximation of the initial condition is always possible from is mathematically proven by some version of the <spectral theorem> bsaed on the fact that <The Schrodinger equation Hamiltonian has to be Hermitian> and therefore behaves nicely.
+The fact that this approximation of the initial condition is always possible from is mathematically proven by some version of the <spectral theorem> based on the fact that <The Schrodinger equation Hamiltonian has to be Hermitian> and therefore behaves nicely.
 
 It is interesting to note that solving the time-independent Schrodinger equation can also be seen exactly as an <eigenvalue> equation where:
 * the <Hamiltonian> is a linear operator
@@ -884,9 +898,10 @@ $$
 i\hbar\pdv{\psi(x, t)}{t} = \left[ -\frac{\hbar^2}{2m}\pdv{^2}{x^2} + V(x, t) \right]\psi(x, t)
 $$
 {title=<Schrödinger equation> for a one dimensional particle}
+
 The corresponding <time-independent Schrödinger equation> for this equation is:
 $$
-\left[-\frac{\hbar}{2m} \pdv{^2}{x} + V(x)\right]\psi = E \psi(x)
+\left[-\frac{\hbar^2}{2m} \pdv{^2}{x^2} + V(x)\right]\psi(x) = E \psi(x)
 $$
 {title=<time-independent Schrödinger equation> for a one dimensional particle}
 
@@ -895,10 +910,32 @@ $$
 {parent=Solutions of the Schrodinger equation}
 {wiki=Free_particle#Quantum_free_particle}
 
-<Schrödinger equation for a one dimensional particle> with $V = 0$.
+<Schrödinger equation for a one dimensional particle> with $V = 0$. The first step is to calculate the <time-independent Schrödinger equation for a free one dimensional particle>
+
+Then, for each energy $E$, from the discussion at <solving the Schrodinger equation with the time-independent Schrödinger equation>{full}, the solution is:
+$$
+\psi(x) = \int_{E=-\infty}^{\infty} e^{\frac{\sqrt{2mE} i x}{\hbar}} e^{-iE t/\hbar} = e^{i\frac{\sqrt{2mE}x - E t}{\hbar}}
+$$
+Therefore, we see that the solution is made up of infinitely many <plane wave functions>.
+
+= Plane wave function
+{parent=Schrödinger equation for a free one dimensional particle}
+
+In this solution, by the <uncertainty principle>, position is completely unknown, and momentum is perfectly known.
+
+The <plane wave function> appears for example in the solution of the <Schrödinger equation for a free one dimensional particle>.
 
 = Time-independent Schrödinger equation for a free one dimensional particle
 {parent=Schrödinger equation for a free one dimensional particle}
+
+$$
+\pdv{^2}{x^2} \psi(x) = -\frac{2mE}{\hbar^2} \psi(x)
+$$
+so the solution is:
+$$
+\psi(x) = e^{\frac{\sqrt{2mE} i x}{\hbar}}
+$$
+We notice that the solution has <continuous spectrum (functional analysis)>, since any value of $E$ can provide a solution.
 
 = Particle in a box
 {parent=Solutions of the Schrodinger equation}
