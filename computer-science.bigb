@@ -120,6 +120,9 @@ The reason that it is undecidable is that you can repeat each matrix any number 
 = Uncomputable problem
 {synonym}
 
+= Computable
+{synonym}
+
 = Uncomputable
 {synonym}
 
@@ -235,13 +238,19 @@ As of 2023 still undecided, it is going to be one of those highly computational 
 
 The <The Busy Beaver Challenge> project is trying to settle it once and for all, and is likely the best bet we've got so far.
 
+As that project beautifully puts it, as of 2023 prior to full resolution, this can be considered the:
+\Q[simplest open problem in mathematics]
+on the <Busy beaver scale>.
+
 = The Busy Beaver Challenge
 {c}
 {parent=BB(5)}
 
 https://bbchallenge.org/story
 
-Project trying to compute <BB(5)> once and for all.
+Project trying to compute <BB(5)> once and for all. Notably it has better presentation and organization than any other previous effort, and appears to have grouped everyone who cares about the topic as of the early 2020s.
+
+Very cool initiative!
 
 = Busy beaver scale
 {parent=Busy beaver}
@@ -261,9 +270,15 @@ https://bbchallenge.org/story#what-is-known-about-bb lists some cool examples:
 
 Therefore, if we were able to compute $BB(n)$, we would be able to prove those conjectures automatically, by letting the machine run up to $BB(n)$, and if it hadn't halted by then, we would know that it would never halt.
 
-Of course, in practice, $BB$ is generally <uncomputable>, so we will never know it. And furthermore, even if it were, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
+Of course, in practice, $BB$ is generally <uncomputable>, so we will never know it. And furthermore, even if it were computable, it would take a lot longer than the age of the universe to compute any of it, so it would be useless.
 
 However, philosophically speaking at least, the number of states of the equivalent <Turing machine> gives us a philosophical idea of the complexity of the problem.
+
+The <busy beaver scale> is likely mostly useless, since we are able to prove that many non-trivial <Turing machines> do halt, often by reducing problems to simpler known cases. But still, it is cute.
+
+But maybe, just maybe, reduction to Turing machine form could be useful. E.g. <The Busy Beaver Challenge> and other attempts to solve <BB(5)> have come up with large number of automated (usually parametrized up to a certain threshold) decider programs that automatically determine if certain (often large numbers of) Turing machines run forever.
+
+So it it not impossible that after some reduction to a standard <Turing machine> form, some conjecture just gets automatically brute-forced by one of the deciders, this is a path to
 
 = Function problem
 {parent=Computational problem}
@@ -401,6 +416,9 @@ Like <Binary search tree>, but each node can have multiple objects and more than
 {parent=Computational problem}
 {wiki}
 
+= Complexity
+{synonym}
+
 = Big O notation family
 {parent=Complexity class}
 
@@ -439,19 +457,70 @@ E.g.:
 * $x = O(x^2)$
 * $x = o(x^2)$
 
-= P
-{disambiguate=complexity}
-{c}
+= Primitive recursive function
 {parent=Complexity class}
+{wiki}
+
+= Primitive recursive
+{synonym}
+
+In intuitive terms it consists of all integer functions, possibly with multiple input arguments, that can be written only with a sequence of:
+* variable assignments
+* addition and subtraction
+* integer comparisons and if/else
+* <for loops>
+``
+for (i = 0; i < n; i++)
+``
+and such that `n` does not change inside the loop body, i.e. no <while loops> with arbitrary conditions.
+
+`n` does not have to be a constant, it may come from previous calculations. But it must not change inside the loop body.
+
+<Primitive recursive functions> basically include every integer function that comes up in practice. Primitive recursive functions can have huge complexity, and it strictly contains <EXPTIME>. As such, they mostly only come up in <foundation of mathematics> contexts.
+
+The cool thing about <primitive recursive functions> is that the number of iterations is always bound, so we are certain that they terminate and are therefore <computable>.
+
+This also means that there are necessarily functions which are not <primitive recursive>, as we know that there must exist <uncomputable> functions, e.g. the <busy beaver function>.
+
+Adding unbounded <while loops> of course enables us to simulate arbitrary <Turing machines>, and therefore increases the <complexity class>.
+
+More finely, there are <non primitive total recursive functions>, e.g. most famously the <Ackermann function>.
+
+= Non-primitive total recursive function
+{parent=Primitive recursive function}
+
+= Ackermann function
+{c}
+{parent=Non-primitive total recursive function}
+{wiki}
+
+To get an intuition for it, see the sample computation at: https://en.wikipedia.org/w/index.php?title=Ackermann_function&oldid=1170238965#TRS,_based_on_2-ary_function where $S(n) = n + 1$ in this context. From this, we immediately get the intuition that these functions are recursive somehow.
+
+= ELEMENTARY
+{c}
+{disambiguate=complexity}
+{parent=Complexity class}
+{title2=$2^n$, $2^{2^n}$, ...}
+{wiki=EXPTIME}
+
+= EXPTIME
+{c}
+{parent=ELEMENTARY (complexity)}
 {wiki}
 
 = NP
-{disambiguate=complexity}
 {c}
-{parent=Complexity class}
+{disambiguate=complexity}
+{parent=EXPTIME}
 {wiki}
 
 Strictly speaking, only defined for decision problems: https://cs.stackexchange.com/questions/9664/is-it-necessary-for-np-problems-to-be-decision-problems/128702#128702
+
+= P
+{c}
+{disambiguate=complexity}
+{parent=NP (complexity)}
+{wiki}
 
 = NP-complete
 {c}
