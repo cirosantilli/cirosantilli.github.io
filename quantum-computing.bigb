@@ -15,6 +15,33 @@ To get a basic idea of what programming a quantum computer looks like start by r
 
 Some people <quantum computing skepticism>[have their doubts], and that is not unreasonable, it might truly not work out. We could be on the verge of an <AI Winter> of quantum computing. But <Ciro Santilli> feels that it is genuinely impossible to tell as of 2020 if something will work out or not. We really just have to try it out and see. There must have been skeptics before every single <next big thing>.
 
+= Introduction to quantum computing
+{parent=Quantum computing}
+
+Course plan:
+* <Programmer's model of quantum computers>{full}
+* look at a <Qiskit hello world>
+  * e.g. ours: <qiskit/hello.py>{file}
+* learn about <quantum circuits>.
+  * <tensor product in quantum computing>
+  * First we learn some <quantum logic gates>. This shows an alternative, and extremely important view of a quantum computer besides a matrix multiplication: as a circuit. Fundamental subsections:
+    * <quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially>{full}
+    * <quantum logic gates are needed for physical implementation>{full}
+    * <universal quantum gates>{full}
+    * <quantum circuits vs classical circuits>{full}
+    * Examples of specific gates:
+      * <Single-qubit gates>:
+        * <Pauli gate>
+          * <Pauli-X gate>
+        * <Hadamard gate>
+      * <Controlled quantum gate>
+        * <CNOT gate>
+      * <Bell state>
+        * <Bell state circuit
+  * <quantum algorithms>
+    * <Quantum Fourier transform>{full}
+    * <Shor's algorithm>{full}
+
 = Programmer's model of quantum computers
 {parent=Quantum computing}
 
@@ -164,15 +191,12 @@ This interpretation of the quantum state vector clarifies a few things:
 
   If we are able to encode our algorithm in that matrix multiplication, considering the probabilistic interpretation of the output, then we stand a chance of getting that speedup.
 
-Consider reading the following next:
-* <quantum logic gate>{full} shows an alternative, and extremely important view of a quantum computer besides a matrix multiplication: as a circuit. Fundamental subsections:
-  * <quantum logic gates are needed because you can't compute the matrix explicitly as it grows exponentially>{full}
-  * <quantum logic gates are needed for physical implementation>{full}
-  * <universal quantum gates>{full}
-  * <quantum circuits vs classical circuits>{full}
-
 Bibliography:
 * https://arxiv.org/pdf/1804.03719.pdf Quantum Algorithm Implementations for Beginners by Abhijith et al. 2020
+
+= Timeline of quantum computing
+{parent=Quantum computing}
+{wiki}
 
 = Quantum algorithm
 {parent=Quantum computing}
@@ -307,6 +331,12 @@ We have long known from Shor’s algorithm that factoring with a quantum compute
 
 Software that maps higher level languages like <Qiskit> into actual quantum circuits.
 
+= Quantum compiler benchmark
+{parent=Quantum compilation}
+
+These appear to be benchmarks that don't involve running anything concretely, just compiling and likely then counting <quantum gates>[gates]:
+* https://github.com/ArlineQ/arline_benchmarks
+
 = Quantum Intermediate Representation
 {parent=Quantum compilation}
 {tag=LLVM Intermediate Representation}
@@ -334,6 +364,9 @@ Part of the fundamental interest of this technique is due to the <quantum thresh
 For example, when https://www.bloomberg.com/news/articles/2020-04-06/quantum-computing-startup-raises-215-million-for-faster-device[PsiQuantum raised 215M in 2020], they announced that they intended to reach 1 million physical qubits, which would achieve between 100 and 300 logical qubits.
 
 <video Jeremy O'Brien: "Quantum Technologies" by GoogleTechTalks (2014)> https://youtu.be/7wCBkAQYBZA?t=2778 describes an error correction approach for a <photonic quantum computer>.
+
+Bibliography:
+* https://errorcorrectionzoo.org/domain/quantum_domain
 
 = Quantum threshold theorem
 {parent=Quantum error correction}
@@ -610,6 +643,38 @@ A <quantum circuit> is a <graph> of <quantum logic gates>.
 
 <Quantum circuits> are the prevailing <model of quantum computing> as of the 2010's - 2020's
 
+= Tensor product in quantum computing
+{parent=Quantum circuit}
+{tag=Tensor product}
+
+We don't need to understand a super generalized version of <tensor products> to know what they mean in basic <quantum computing>!
+
+Intuitively, taking a <tensor product> of two <qubits> simply means putting them together on the same quantum system/computer.
+
+When we write the <bra-ket notation>: $\ket{00}$ that is the same as $\ket{0} \otimes \ket{0}$.
+
+The tensor product is called a "product" because it distributes over addition.
+
+E.g. consider:
+$$
+(\frat{\ket{0} + \ket{1}}{\sqrt{2}}) \otimes \ket{0} =
+\frat{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{0}}{\sqrt{2}} =
+\frat{\ket{00} + \ket{10}}{\sqrt{2}}
+$$
+
+Intuitively, in this operation we just put a <Hardmard gate> qubit together with a second pure $\ket{0}$ qubit.
+
+And the outcome still has the second qubit as always 0, because we haven't made them interact.
+
+The <quantum state> $\frat{\ket{00} + \ket{10}}{\sqrt{2}}$ is called a <separable state>, because it can be written as a single product of two different qubits. We have simply brought two qubits together, without making them interact.
+
+If we then add a <CNOT gate> to make a <Bell state>:
+$$
+\frat{\ket{00} + \ket{11}}{\sqrt{2}} =
+\frat{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{1}}{\sqrt{2}}
+$$
+we can now see that the <Bell state> is <non-separable>: we've made the two qubits interact, and there is no way to write this state with a single <tensor product>. The qubits are fundamentally <entangled>.
+
 = Quantum circuits vs classical circuits
 {parent=Quantum circuit}
 
@@ -754,7 +819,7 @@ The first two that you should study are:
 {parent=Single qubit gate}
 {wiki=Quantum_logic_gate#Hadamard_gate}
 
-The <Hadamard gate> takes $\ket{0}$ or $\ket{1}$ (<quantum states> with probability 1.0 of measuring either 0 or 1), and produces states that have equal probability of 0 or 1. of 0 or 1.
+The <Hadamard gate> takes $\ket{0}$ or $\ket{1}$ (<quantum states> with probability 1.0 of measuring either 0 or 1), and produces states that have equal probability of 0 or 1.
 
 $$
 H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
@@ -943,6 +1008,8 @@ $$
 Therefore, in that case, what happened is that the probabilities of $\ket{10}$ and $\ket{11}$ were swapped from $x$ and $y$ to $y$ and $x$ respectively, which is exactly what the <quantum NOT gate> does.
 
 So from this we understand more concretelly what "the gate only operates if the first <qubit> is set to one" means.
+
+Now go and study the <Bell state> and understand intuitively how this gate is used to produce it.
 
 = Toffoli gate
 {c}
@@ -1775,10 +1842,6 @@ https://www.youtube.com/watch?v=v7iAqcFCTQQ shows their base technology:
 * <laser> beam comes in
 * input set via of <optical ring resonators> that form a <squeezed state of light>. Does not seem to rely on <single photon production and detection experiments>?
 
-= Timeline of quantum computing
-{parent=Quantum computing}
-{wiki}
-
 = Quantum computer simulator
 {parent=Quantum computing}
 
@@ -1792,8 +1855,6 @@ Other good lists:
 * <JavaScript>
   * https://algassert.com/quirk demo: https://github.com/Strilanc/Quirk drag-and-drop, by a 2019-quantum-computing-<Googler>, impressive. You can create gates. State store in URL.
   * https://github.com/stewdio/q.js/ demo: https://quantumjavascript.app/
-
-Krizhevsky et al., which won the ImageNet
 
 Bibliography:
 * https://www.epcc.ed.ac.uk/whats-happening/articles/energy-efficient-quantum-computing-simulations mentions two types of <quantum computer simulation>:
@@ -1814,9 +1875,140 @@ Bibliography:
 = Qiskit
 {c}
 {parent=Quantum programming framework}
+{tag=Python library}
 {wiki}
 
-<Python> library, claims multiple backends, including simulation a real <IBM quantum computer>.
+<Python> library, claims multiple backends, including <Quantum computer simulator>[simulation] and real <IBM quantum computer>.
+
+= Qiskit hello world
+{c}
+{parent=Qiskit}
+{tag=Hello world}
+
+The official <hello world> is documented at: https://qiskit.org/documentation/intro_tutorial1.html and contains a <Bell state circuit>.
+
+Our version at <qiskit/hello.py>{file}.
+
+= qiskit/hello.py
+{parent=Qiskit hello world}
+
+Our example uses a <Bell state circuit> to illustrate all the fundamental <Qiskit> basics.
+
+Sample program output, `counts` are randomized each time.
+
+First we take the <state vector> immediately after the $\ket{00}$ input.
+``
+input:
+state:
+Statevector([1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j],
+            dims=(2, 2))
+probs:
+[1. 0. 0. 0.]
+``
+We understand that the first element of `Statevector` is $\ket{00}$, and has probability of 1.0.
+
+Next we take the state after a <Hadamard gate> on the first <qubit>:
+``
+h:
+state:
+Statevector([0.70710678+0.j, 0.70710678+0.j, 0.        +0.j,
+             0.        +0.j],
+            dims=(2, 2))
+probs:
+[0.5 0.5 0.  0. ]
+``
+We now understand that the second element of the `Statevector` is $\ket{01}$, and now we have a 50/50 propabability split for the first bit.
+
+Then we apply the <CNOT gate>:
+``
+cx:
+state:
+Statevector([0.70710678+0.j, 0.        +0.j, 0.        +0.j,
+             0.70710678+0.j],
+            dims=(2, 2))
+probs:
+[0.5 0.  0.  0.5]
+``
+which leaves us with the final $\frac{\ket{00} + \ket{11}}{\sqrt{2}}$.
+
+Then we print the circuit a bit:
+``
+qc without measure:
+     ┌───┐
+q_0: ┤ H ├──■──
+     └───┘┌─┴─┐
+q_1: ─────┤ X ├
+          └───┘
+c: 2/══════════
+
+qc with measure:
+     ┌───┐     ┌─┐
+q_0: ┤ H ├──■──┤M├───
+     └───┘┌─┴─┐└╥┘┌─┐
+q_1: ─────┤ X ├─╫─┤M├
+          └───┘ ║ └╥┘
+c: 2/═══════════╩══╩═
+                0  1
+qasm:
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+h q[0];
+cx q[0],q[1];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+``
+
+And finally we <quantum compilation>[compile] the circuit and do some sample measurements:
+``
+qct:
+     ┌───┐     ┌─┐
+q_0: ┤ H ├──■──┤M├───
+     └───┘┌─┴─┐└╥┘┌─┐
+q_1: ─────┤ X ├─╫─┤M├
+          └───┘ ║ └╥┘
+c: 2/═══════════╩══╩═
+                0  1
+counts={'11': 484, '00': 516}
+counts={'11': 493, '00': 507}
+``
+
+= Qiskit AER
+{c}
+{parent=Qiskit}
+{tag=Quantum computer simulator}
+
+https://github.com/Qiskit/qiskit-aer
+
+= Quantum circuit description language
+{parent=Quantum software}
+
+These are a bit like the <Verilog> of <quantum computing>.
+
+One would hope that they are not <Turing complete>, this way they may serve as a way to pass on data in such a way that the receiver knows they will only be doing so much computation in advance to unpack the circuit. So it would be like <JSON> is for <JavaScript>.
+
+= OpenQASM
+{c}
+{parent=Quantum software}
+{wiki}
+
+On <Qiskit> `qiskit==0.44.1`:
+``
+qc.qasm()
+``
+
+E.g. with our <qiskit/hello.py>, we obtain the <Bell state circuit>:
+``
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+h q[0];
+cx q[0],q[1];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+``
 
 = Quantum control system
 {parent=Quantum software}
@@ -1964,7 +2156,13 @@ because it is a Z spider with $m = 3$ and $n = 1$.
 
 \Video[https://www.youtube.com/watch?v=JafI_LZts2g]
 {title=Working with <PyZX> by Aleks Kissinger (2019)}
-{description=This video appears to give amazing motivation on why you should care about <ZX-calculus>.}
+{description=This video appears to give amazing motivation on why you should care about <ZX-calculus>, it mentions
+* <quantum compilation>
+* <quantum computer simulation>
+}
+
+Bibliography:
+* https://quantumcomputing.stackexchange.com/questions/9774/what-are-some-applications-of-the-zx-calculus
 
 = PyZX
 {c}
@@ -1980,6 +2178,48 @@ https://github.com/Quantomatic/pyzx
 {c}
 {parent=Quantum state}
 {wiki}
+
+One of the four following states:
+
+$$
+\begin{aligned}
+\ket{\Phi^+} &= \frac{1}{\sqrt{2}} (\ket{00} &+ \ket{11})
+\ket{\Phi^-} &= \frac{1}{\sqrt{2}} (\ket{00} &- \ket{11})
+\ket{\Psi^+} &= \frac{1}{\sqrt{2}} (\ket{01} &+ \ket{10})
+\ket{\Psi^-} &= \frac{1}{\sqrt{2}} (\ket{01} &- \ket{10})
+\end{aligned}
+$$
+
+When unqualified as in "the Bell state", it generally just means $\ket{\Phi^+}$.
+
+The Bell states are entangled and <non separable>. Intuitively, we can see that when we measure that state, the values of the first and second bit are strictly correlated. This is the hallmark of <quantum computation>: making up states where qubits are highly correlated to match a specific algorithmic answer, and opposed to uniformly random noise. For example, the <Bell state circuit> is a common <hello world>, e.g. it is used in the official <Qiskit hello world>.
+
+= Bell circuit
+{c}
+{parent=Bell state}
+{tag=Quantum circuit}
+
+= Bell state circuit
+{c}
+{synonym}
+
+A <quantum cirquit> which when fed with input $\ket{00}$ produces the <Bell state>.
+
+In <Qiskit> at: <qiskit/hello.py>{file}.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/f/fc/The_Hadamard-CNOT_transform_on_the_zero-state.png]
+{title=<Quantum circuit> that generates the <Bell state>}
+{description=
+The fundamental intuition for this circuit is as follows.
+
+First the <Hadamard gate> makes the first <qubit> be in a 50/50 state.
+
+Then, the <CNOT gate> gets controlled by that 50/50 value, and the controlled qubit also gets 50/50 chance as a result.
+
+However, both qubits are now <entangled>: the result of the second qubit depends on the result of the first one. Because:
+* if the first qubit is 0, cnot is not active, and so the second qubit remains 0 as its input
+* if the first qubit is 1, cnot is active, and so the second qubit is flipped to 1
+}
 
 = Greenberger-Horne-Zeilinger state
 {c}
@@ -2022,12 +2262,6 @@ For example, the number of qubits would be a simple naive choice of such perform
 * qubit connectivity. Can you only connect to 4 neighbouring qubits in a 2D plane? Or to every other qubit equally as well?
 
 <Quantum volume> is another less naive attempt at such metric.
-
-= Quantum compiler benchmark
-{parent=Quantum computer benchmark}
-
-These appear to be benchmarks that don't involve running anything concretely, just compiling and likely then counting <quantum gates>[gates]:
-* https://github.com/ArlineQ/arline_benchmarks
 
 = Algorithmic qubits
 {parent=Quantum computer benchmark}
