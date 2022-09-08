@@ -141,18 +141,18 @@ but the following are:
 
 Simple symmetric components:
 * `-`, `+` and `|`: wire
-* `A`: <AC source>. Parameters:
+* `AC`: <AC source>. Parameters:
   * `Hz`: frequency
   * `V`: peak voltage
   e.g.:
   ``
-  A_1Hz_2V
+  AC_1Hz_2V
   ``
   If only one side is given, the other is assumed to be at a ground `G`.
 * `C`: <capacitor>
-* `G`: ground. Often used together with `D`, e.g.:
+* `G`: ground. Often used together with `DC`, e.g.:
   ``
-  D_10---R_10---G
+  DC_10---R_10---G
   ``
   means applying a voltage of 10 V across a 10 Ohm <resistor>, which would lead to a current of 1 A
 * `L`: <inductor>
@@ -168,17 +168,18 @@ Simple symmetric components:
   ```
 * `SPEAKER`
 * `R`: <resistor>
+* `SQUID`: <SQUID device>
 * `X`: <Josephson junction>
 
 Asymmetric components have multiple letters indicating different ports. The capital letter indicates the device, and lower case letters the ports. The wires then go into the ports:
-* `aDc`: <diode>
+* `D`: <diode>
   * `a`: anode (where electrons can come in from)
   * `c`: cathode
   Sample usage in a circuit:
   ``
   --aDc--
   ``
-  Can also be used vertically:
+  Can also be used vertically like aany other circuit:
   ``
   |
   a
@@ -199,20 +200,21 @@ Asymmetric components have multiple letters indicating different ports. The capi
      |
   --caD
   ``
-* `pDn`: <DC source>. Ports:
+* `DC` <DC source>. Ports:
   * `p`: positive
   * `n`: negative
   E.g. a 10 V source with a 10 Ohm resistor would be:
   ``
-  +---pD_10_m---+
-  |             |
-  +----R_10-----+
+  +---pDC_10_n---+
+  |              |
+  +----R_10------+
   ``
   If only one side is given, the other is assumed to be at a the ground `G`. We can also omit `p` and `m` in that case and assume that `p` is the one used, e.g. the above would be equivalent to:
   ``
-  D_10---R_10---G
+  DC_10---R_10---G
   ``
-* `sgTd`: <transistor>
+  If the voltage is not given, it is assumed to be a <potentiometer>.
+* `T`: <transistor>. The ports are `sgTd`:
   * `s`: source
   * `g`: gate
   * `d`: gate
@@ -227,14 +229,15 @@ Asymmetric components have multiple letters indicating different ports. The capi
      |
      g
   --sTd--
-  ``
-  ``
+
       |
   --Tsgd--
      |
   ``
-* `dIs`: <electric current> source. Electrons leave from `s` and go into `d`
-* `pVn`: <Voltmeter>. Ports:
+* `I`: <electric current> source. Ports:
+  * `s`: electron source
+  * `d`: electron destination
+* `V`: <Voltmeter>. Ports:
   * `p`: positive
   * `n`: negative
   If we don't need to specify explicit positive and negative sides, we can just use:
@@ -260,13 +263,13 @@ Micro is denoted as `u`.
 
 Wires can just freely come in and out of specs of a component, they are then just connected to the component, e.g.:
 ``
-D_10---R_10---G
+DC_10---R_10---G
 ``
 means applying a voltage of 10 V across a 10 Ohm <resistor>, which would lead to a current of 1 A
 
 If a component has more than two parameters, units are used to distinguish them when possible, e.g.:
 ``
-A_1kV_2MHz
+AC_1kV_2MHz
 ``
 means an <AC source> with:
 * 1 kV <voltage>
