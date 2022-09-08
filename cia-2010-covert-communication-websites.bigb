@@ -1119,8 +1119,8 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | Spanish
 |
 | https://web.archive.org/web/20110128091410/https://buceo.sumerjaseahora.com/cgi-bin/oceano.cgi[CGI]
-| travel
-| todo translation/meaning of domain/title?
+| sports, SCUBA diving
+| submerge yourself now
 
 | 69.84.156.69
 | al-ashak-news-me.com
@@ -4460,17 +4460,23 @@ Domain hit count when we were at 69 hits: only 9, some of which had been since r
 When you <Google> most of the hit domains, many of them show up on "expired domain trackers", and above all Chinese expired domain trackers for some reason, notably e.g.:
 * https://hupo.com[]: e.g. http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt[]. Heavily IP throttled.
 
+  Scraping script: \a[cia-2010-covert-communication-websites/hupo.sh]. Does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad.
+
   Nice output format for scraping as the HTML is very minimal
 
-  They randomly changed their URL format to adding a space before .com after some point in 2012:
+  They randomly changed their URL format to adding a space before .com after some point around 2012-02-06, e.g.:
   * http://static.hupo.com/expdomain_myadmin/2012-01-01（国际域名）%20.txt
   * http://static.hupo.com/expdomain_myadmin/2013-01-01（国际域名）.txt
-* https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Heavily IP throttled.
+
+  Some of their files are simply missing however unfortunately, e.g. neither of the following exist:
+  * http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）%20.txt
+  * http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）.txt
+  webmasterhome.cn did contain that one however: http://domain.webmasterhome.cn/com/2012-07-01.asp[]. Hmm. we might have better luck over there then?
+* https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Appears to contain the exact same data as "static.hupo.com". Also heavily IP throttled.
 * https://justdropped.com[]: e.g. https://www.justdropped.com/drops/030612com.html[]
 This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".
 
 All of these sources seem to are in very good agreement and likely have the same source data, so we just have to pick the one with the greatest bandwidth. We've made some attempts at:
-* \a[cia-2010-covert-communication-websites/hupo.sh]
 * \a[cia-2010-covert-communication-websites/webmastercn.sh]
 but it was not trivial to overcome the heavy throtlling. Tor didn't immediately help either.
 
