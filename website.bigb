@@ -82,6 +82,35 @@ The best one is <OurBigBook Markup>{child} of course! :-)
 = List of static site generators
 {parent=Static site generator}
 
+= Bookdown
+{c}
+{parent=List of static site generators}
+{tag=R (programming language)}
+
+https://github.com/rstudio/bookdown
+
+Written in <R (programming language)>, but also relies on <pandoc>, so quite bad dependency wise.
+
+Cross files references to IDs: yes. But no check by default for duplicates when doing automatic ID from title. Just automatically disambiguates with `-1`, `-2` suffixes, and links take the last one available.
+
+Source page splitting: splits at h2 by default. If configurable, likely always af fixed level?
+
+Has some nice image generation from inline code from standard R plotting functions.
+
+<Hello world> documented at: https://bookdown.org/yihui/bookdown/get-started.html
+
+<Hello world> on <Ubuntu 23.04> after installing <R (programming language)>:
+``
+sudo R -e 'install.packages("bookdown")'
+git clone https://github.com/rstudio/bookdown-demo
+cd bookdown-demo
+Rscript -e 'bookdown::render_book("index.Rmd")'
+xdg-open _book/index.html
+``
+The build CLI comes from: https://stackoverflow.com/questions/50888871/how-to-use-rscript-command-line-tool-to-build-a-book-in-bookdown
+
+The installatoin `Rscript -e 'bookdown::render_book("index.Rmd")'` takes several minutes, it compiles a bunch of stuff from source apparently. but it did work.
+
 = Hugo
 {c}
 {disambiguate=static site generator}
