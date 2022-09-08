@@ -4460,7 +4460,12 @@ Domain hit count when we were at 69 hits: only 9, some of which had been since r
 When you <Google> most of the hit domains, many of them show up on "expired domain trackers", and above all Chinese expired domain trackers for some reason, notably e.g.:
 * https://hupo.com[]: e.g. http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt[]. Heavily IP throttled.
 
-  Scraping script: \a[cia-2010-covert-communication-websites/hupo.sh]. Does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad.
+  Scraping script: \a[cia-2010-covert-communication-websites/hupo.sh] and then postprocessing \a[cia-2010-covert-communication-websites/hupo-post.sh]. Scraping does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad:
+  ``
+  cd cia-2010-covert-communication-websites
+  ./hupo.sh
+  ./hupo-post.sh
+  ``
 
   Nice output format for scraping as the HTML is very minimal
 
@@ -4474,6 +4479,7 @@ When you <Google> most of the hit domains, many of them show up on "expired doma
   webmasterhome.cn did contain that one however: http://domain.webmasterhome.cn/com/2012-07-01.asp[]. Hmm. we might have better luck over there then?
 * https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Appears to contain the exact same data as "static.hupo.com". Also heavily IP throttled.
 * https://justdropped.com[]: e.g. https://www.justdropped.com/drops/030612com.html[]
+* http://yoid.com[]: e.g.: http://yoid.com/bydate.php?d=2016-06-03&a=a
 This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".
 
 All of these sources seem to are in very good agreement and likely have the same source data, so we just have to pick the one with the greatest bandwidth. We've made some attempts at:
