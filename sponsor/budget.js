@@ -30,7 +30,7 @@ const date_ioss = [
   //]],
 
   [[2023, 09], [
-    new IO(66375, 'anonymous one off', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%)' }),
+    new IO(66375, 'anonymous one off', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%). Transaction: https://www.blockchain.com/explorer/transactions/btc/c5fa598a6f283dbf1fb44233a91abf3f704d7fcd2d09b9bbb1a05e6018f3e53d' }),
     new IO(2114, 'GitHub sponsors', { note: 'one off extra donation received' }),
     new IO(-1339, 'Heroku'),
   ]],
