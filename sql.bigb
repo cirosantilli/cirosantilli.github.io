@@ -62,6 +62,11 @@ Here we list only examples which we believe are standard SQL, and should therefo
 {parent=SQL}
 {wiki}
 
+= IBM Db2
+{c}
+{parent=SQL implementation}
+{wiki}
+
 = MySQL
 {c}
 {parent=SQL implementation}
@@ -73,14 +78,14 @@ sudo mysql
 ``
 works on <Ubuntu> 20.10.
 
-Run command from CLI https://stackoverflow.com/questions/1602904/how-do-you-run-a-single-query-through-mysql-from-the-command-line
-``
-sudo mysql -e 'SHOW DATABASES'
-``
-
 Create user for further logins without `sudo` https://askubuntu.com/questions/915585/how-to-login-mysql-shell-when-mysql-have-no-password/1325689#1325689[]:
 ``
 sudo mysql -e "CREATE USER $USER"
+``
+
+Run command from CLI https://stackoverflow.com/questions/1602904/how-do-you-run-a-single-query-through-mysql-from-the-command-line
+``
+mysql -e 'SHOW DATABASES'
 ``
 
 Create test user with password:
@@ -132,6 +137,17 @@ or:
 sudo mysql -e 'SHOW TABLES FROM mydb0'
 ``
 
+= mysqldump
+{c}
+{parent=MySQL}
+
+https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
+
+= mysqldump to CSV
+{parent=mysqldump}
+
+Related: https://stackoverflow.com/questions/32026398/transform-sql-insert-script-into-csv-format
+
 = MariaDB
 {c}
 {parent=MySQL}
@@ -165,7 +181,7 @@ The only problem with Postgres is its name. PostgreSQL is so unpronounceable and
 
 On Ubuntu 20.10 PostgreSQL 12.6, login with `psql` on my default username without <sudo> fails with: https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist
 
-This is the one that worked on Ubuntu 21.04: https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152
+This is the one that worked on <Ubuntu 21.04>: https://stackoverflow.com/questions/11919391/postgresql-error-fatal-role-username-does-not-exist/38444152#38444152
 ``
 sudo -u postgres createuser -s $(whoami)
 createdb $(whoami)
@@ -432,6 +448,11 @@ Related questions:
 {parent=SQL implementation}
 {wiki}
 
+= Oracle Database
+{c}
+{parent=SQL implementation}
+{wiki}
+
 = SQL Server
 {c}
 {synonym}
@@ -484,6 +505,14 @@ output:
 5|five
 7|seven
 ``
+
+= SQLite import CSV
+{c}
+{parent=SQLite}
+
+= SQLite import CSV from stdin
+{c}
+{parent=SQLite import CSV}
 
 = SQLite benchmark
 {c}
@@ -1028,6 +1057,15 @@ Example: \a[nodejs/sequelize/raw/tree.js]
   * https://stackoverflow.com/questions/67848017/simple-recursive-sql-query
   * https://stackoverflow.com/questions/28688264/how-to-traverse-a-hierarchical-tree-structure-structure-backwards-using-recursiv
   * https://stackoverflow.com/questions/51822070/how-can-postgres-represent-a-tree-of-row-ids
+  * depth first
+    * uspecified depth first variant
+      * https://stackoverflow.com/questions/50098759/postgres-nested-records-in-a-recursive-query-in-depth-first-manner
+      * https://stackoverflow.com/questions/59463176/how-to-perform-depth-first-search-in-postgresql
+      * https://stackoverflow.com/questions/30336265/postgresql-recursive-cte-results-ordering
+    * <preorder DFS>
+      * https://dba.stackexchange.com/questions/63153/how-do-i-sort-the-results-of-a-recursive-query-in-an-expanded-tree-like-fashion
+      * https://stackoverflow.com/questions/65247873/preorder-tree-traversal-using-recursive-ctes-in-sql/77276675#77276675
+  * <breadth-first> https://stackoverflow.com/questions/3709292/select-rows-from-table-using-tree-order
 * <MySQL>
   * https://stackoverflow.com/questions/8252323/mysql-closure-table-hierarchical-database-how-to-pull-information-out-in-the-c asks how to use a specific order (<preorder DFS>) with <closure table>
 * <Microsoft SQL Server>
@@ -1052,6 +1090,31 @@ How to implement <Nested set model> in <SQL>:
 = SQL feature
 {c}
 {parent=SQL}
+
+= SQL RECURSIVE query
+{c}
+{parent=SQL feature}
+
+Minimal example: \a[nodejs/sequelize/raw/recursive.js]
+
+More advanced <SQL tree traversal> examples: \a[nodejs/sequelize/raw/tree.js]
+
+<PostgreSQL> docs: https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-RECURSIVE
+
+= SQL RECURSIVE prevent infinite recursion
+{c}
+{parent=SQL RECURSIVE query}
+
+Example under: \a[nodejs/sequelize/raw/tree.js]
+
+* https://stackoverflow.com/questions/31739150/to-find-infinite-recursive-loop-in-cte Canon.
+* <SQL Server>:
+  * https://stackoverflow.com/questions/58326847/sql-recursion-cte-infinite-loop
+  * https://dba.stackexchange.com/questions/215426/simple-recursive-cte-stuck-in-infinite-loop
+  * https://stackoverflow.com/questions/13718168/infinite-loop-in-cte-when-parsing-self-referencing-table
+* <PostgreSQL>
+  * https://stackoverflow.com/questions/26671612/prevent-and-or-detect-cycles-in-postgres?noredirect=1&lq=1
+  * https://stackoverflow.com/questions/39555616/detect-cycles-using-sql#:~:text=A%20cycle%20is%20detected%20when,are%20added%20to%20the%20entry.
 
 = SQL spatial index
 {c}

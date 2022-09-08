@@ -322,6 +322,13 @@ if (sequelize.options.dialect === 'postgres') {
   ])
 }
 
+// Multiple result rows with WITH
+;[rows, meta] = await sequelize.query(`WITH "t" ("i", "j") AS (VALUES (1, -1), (2, -2)) SELECT * FROM "t" ORDER BY "i" ASC`)
+common.assertEqual(rows, [
+  { i: 1, j: -1 },
+  { i: 2, j: -2 }
+])
+
 // Multiple updates. So here we understand that SQLite actually
 // only runs the first query if we give it multiple ones.
 await sequelize.query(`UPDATE "IntegerNames" SET value = 33 WHERE value = 3;UPDATE "IntegerNames" SET value = 55 WHERE value = 5;`)

@@ -473,8 +473,207 @@ For these reasons reason why Ciro basically only contributes images to Wikipedia
 
 Wikipedia is perfect for things like biographies, geography, or history, which have a much more defined and subjective expository order. But when it comes to "tutorials of how to actually do stuff", which is what <mathematics> and <physics> are basically about, Wikipedia has a very hard time to go beyond dry definitions which are only useful for people who already half know the stuff. But to learn from zero, newbies need tutorials with intuition and examples.
 
+= Wikipedia dumps
+{parent=Wikipedia}
+
+Per-table dumps created with <mysqldump> and listed at: https://dumps.wikimedia.org/[]. Most notably, for the English Wikipedia: https://dumps.wikimedia.org/enwiki/latest/
+
+A few of the files are not actual tables but derived data, notably http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-all-titles-in-ns0.gz from <Download titles of all Wikipedia articles>
+
+The tables are "documented" under: https://www.mediawiki.org/wiki/Manual:Database_layout[], e.g. the central "page" table: https://www.mediawiki.org/wiki/Manual:Page_table[]. But in many cases it is impossible to deduce what fields are from those docs.
+
+= enwiki-latest-category.sql
+{parent=Download all Wikipedia categories}
+
+https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-category.sql.gz contains a list of categories. It only contains the categories and some counts, but it doesn't contain the subcategories and pages under each category, so it is a bit pointless.
+
+The schema is listed at: https://www.mediawiki.org/wiki/Manual:Category_table
+
+The SQL first defines the table:
+``
+CREATE TABLE `category` (
+  `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_title` varbinary(255) NOT NULL DEFAULT '',
+  `cat_pages` int(11) NOT NULL DEFAULT 0,
+  `cat_subcats` int(11) NOT NULL DEFAULT 0,
+  `cat_files` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`cat_id`),
+  UNIQUE KEY `cat_title` (`cat_title`),
+  KEY `cat_pages` (`cat_pages`)
+) ENGINE=InnoDB AUTO_INCREMENT=249228235 DEFAULT CHARSET=binary ROW_FORMAT=COMPRESSED;
+``
+followed by a few humongous inserts:
+``
+INSERT INTO `category` VALUES (2,'Unprintworthy_redirects',1597224,20,0),(3,'Computer_storage_devices',88,11,0)
+``
+which we can see at: https://en.wikipedia.org/wiki/Category:Computer_storage_devices
+
+Se see that https://en.wikipedia.org/wiki/Category:Computer_storage_devices_by_company
+* https://en.wikipedia.org/wiki/Category:Computer_storage_devices is a subcategory of that category and it appears in that file.
+* https://en.wikipedia.org/wiki/Acronis_Secure_Zone is a page of the category, and it does not appear
+so it contains only categories.
+
+We can check this with:
+``
+sed -s 's/),/\n/g' enwiki-latest-category.sql | grep Computer_storage_devices
+``
+and it shows:
+``
+(3,'Computer_storage_devices',88,11,0
+(521773,'Computer_storage_devices_by_company',6,6,0
+``
+There doesn't seem to be any interlink between the categories, only page and subcategory counts therefore.
+
+= enwiki-latest-categorylinks.sql
+{parent=Download all Wikipedia categories}
+
+https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-categorylinks.sql.gz
+
+The schema is listed at: https://www.mediawiki.org/wiki/Manual:Categorylinks_table
+
+On the SQL:
+``
+CREATE TABLE `categorylinks` (
+  `cl_from` int(8) unsigned NOT NULL DEFAULT 0,
+  `cl_to` varbinary(255) NOT NULL DEFAULT '',
+  `cl_sortkey` varbinary(230) NOT NULL DEFAULT '',
+  `cl_timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `cl_sortkey_prefix` varbinary(255) NOT NULL DEFAULT '',
+  `cl_collation` varbinary(32) NOT NULL DEFAULT '',
+  `cl_type` enum('page','subcat','file') NOT NULL DEFAULT 'page',
+  PRIMARY KEY (`cl_from`,`cl_to`),
+  KEY `cl_timestamp` (`cl_to`,`cl_timestamp`),
+  KEY `cl_sortkey` (`cl_to`,`cl_type`,`cl_sortkey`,`cl_from`),
+  KEY `cl_collation_ext` (`cl_collation`,`cl_to`,`cl_type`,`cl_from`)
+) ENGINE=InnoDB DEFAULT CHARSET=binary ROW_FORMAT=COMPRESSED;
+``
+
+TODO what is `cl_from`? We've tried:
+* `page_id`: nope, there is not `page_id` of 3
+
+`cl_to` appears to always be a category string name.
+
+The format appears to be described at: https://www.mediawiki.org/wiki/Manual:Categorylinks_table
+
+A sample INSERT entry is:
+``
+(3,'Computer_storage_devices',88,11,0)
+``
+
 = Wikipedia HOWTO
 {parent=Wikipedia}
+
+= Download titles of all Wikipedia articles
+{parent=Wikipedia HOWTO}
+
+https://stackoverflow.com/questions/24474288/how-to-obtain-a-list-of-titles-of-all-wikipedia-articles
+
+http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-all-titles-in-ns0.gz Characterization:
+* contains redirects, e.g. https://en.wikipedia.org/wiki/"Ampere_North" redirects to https://en.wikipedia.org/wiki/Ampere_North,_New_Jersey and both are present. Noted in this comment: https://stackoverflow.com/questions/24474288/how-to-obtain-a-list-of-titles-of-all-wikipedia-articles#comment136016773_24474476
+
+= Download titles of all Wikipedia articles without redirects
+{parent=Wikipedia HOWTO}
+
+* https://stackoverflow.com/questions/24474288/how-to-obtain-a-list-of-titles-of-all-wikipedia-articles/77248954#77248954
+* https://stackoverflow.com/questions/70777208/titles-of-all-wikipedia-articles-without-redirect
+
+= Download all Wikipedia categories
+{parent=Wikipedia HOWTO}
+
+Our WIP script: \a[wikipedia/import-categories.sh].
+
+Related:
+* https://opendata.stackexchange.com/questions/1533/download-wikipedia-articles-from-a-specific-category
+* https://webapps.stackexchange.com/questions/16359/is-there-a-way-to-download-a-list-of-all-wikipedia-categories
+* https://stackoverflow.com/questions/40119322/how-to-download-all-pages-inside-a-category-in-wikipedia
+* category tree on Stack Overflow
+  * https://stackoverflow.com/questions/17432254/wikipedia-category-hierarchy-from-dumps Canon but no good answers.
+  * https://stackoverflow.com/questions/12227134/how-to-fetch-category-tree-of-wiki
+  * https://stackoverflow.com/questions/21782410/finding-subcategories-of-a-wikipedia-category-using-category-and-categorylinks-t[]. Actually explains it: https://stackoverflow.com/questions/21782410/finding-subcategories-of-a-wikipedia-category-using-category-and-categorylinks-t/21798259#21798259
+  * https://stackoverflow.com/questions/27279649/how-to-build-wikipedia-category-hierarchy
+* https://mdkzaman.com/knowledge-graph-from-wikipedia-category-hierarchy/
+
+Consider:
+* https://en.wikipedia.org/wiki/Category:Computer_storage_devices
+* https://en.wikipedia.org/wiki/Category:Computer_data_storage
+* https://en.wikipedia.org/wiki/Computer_storage_devices which redirects to: https://en.wikipedia.org/wiki/Computer_data_storage
+
+Let's observe them in <MySQL>:
+``
+select page_id, page_namespace, page_title, page_is_redirect from page where page_namespace in (0, 14) and page_title in ('Computer_storage_devices', 'Computer_data_storage');
+``
+outputs:
+``
++----------+----------------+--------------------------+------------------+
+| page_id  | page_namespace | page_title               | page_is_redirect |
++----------+----------------+--------------------------+------------------+
+|     5300 |              0 | Computer_data_storage    |                0 |
+| 42371130 |              0 | Computer_storage_devices |                1 |
+|   711721 |             14 | Computer_data_storage    |                0 |
+|   895945 |             14 | Computer_storage_devices |                0 |
++----------+----------------+--------------------------+------------------+
+``
+
+``
+select cl_from, cl_to from categorylinks where cl_from in (5300, 711721, 895945, 42371130);
+``
+gives:
+``
++----------+-----------------------------------------------------------------------+
+| cl_from  | cl_to                                                                 |
++----------+-----------------------------------------------------------------------+
+|     5300 | All_articles_containing_potentially_dated_statements                  |
+|     5300 | Articles_containing_potentially_dated_statements_from_2009            |
+|     5300 | Articles_containing_potentially_dated_statements_from_2011            |
+|     5300 | Articles_with_GND_identifiers                                         |
+|     5300 | Articles_with_NKC_identifiers                                         |
+|     5300 | Articles_with_short_description                                       |
+|     5300 | Computer_architecture                                                 |
+|     5300 | Computer_data_storage                                                 |
+|     5300 | Short_description_matches_Wikidata                                    |
+|     5300 | Use_dmy_dates_from_June_2020                                          |
+|     5300 | Wikipedia_articles_incorporating_text_from_the_Federal_Standard_1037C |
+|   711721 | Computer_architecture                                                 |
+|   711721 | Computer_data                                                         |
+|   711721 | Computer_hardware_by_type                                             |
+|   711721 | Data_storage                                                          |
+|   895945 | Computer_data_storage                                                 |
+|   895945 | Computer_peripherals                                                  |
+|   895945 | Recording_devices                                                     |
+| 42371130 | Redirects_from_alternative_names                                      |
++----------+-----------------------------------------------------------------------+
+``
+
+So we see that `cl_from` encodes the parent categories:
+* parent categories of categories:
+  * https://en.wikipedia.org/wiki/Category:Computer_data_storage[] has parent categories: "Computer hardware by type", "Computer data", "Data storage", "Computer architecture". This matches exactly on the database. These are all encoded on the source code of the page:
+    ``
+    {{DEFAULTSORT:Storage}}
+    [[Category:Computer hardware by type]]
+    [[Category:Computer data|Storage]]
+    [[Category:Data storage|Computer]]
+    [[Category:Computer architecture]]
+    ``
+  * https://en.wikipedia.org/wiki/Category:Computer_storage_devices[] has parent categories: "Computer data storage", "Recording devices", "Computer peripherals". This matches exactly on the database.
+* parent categories of pages:
+  * https://en.wikipedia.org/wiki/Computer_storage_devices whish is a redirect gets the magic category "Redirects_from_alternative_names", a humongous placeholder with many thousands of pages: https://en.wikipedia.org/wiki/Category:Redirects_from_alternative_names
+  * https://en.wikipedia.org/wiki/Computer_data_storage shows only two categories onthe web UI: "Computer data storage" and "Computer architecture". Both of these are present on the database and at the end of the source code:
+    ``
+    {{DEFAULTSORT:Computer Data Storage}}
+    [[Category:Computer data storage| ]]
+    [[Category:Computer architecture]]
+    ``
+    The others appear to be more magic. Two of them we can guess from the templates:
+    ``
+    {{short description|Storage of digital data readable by computers}}
+    {{Use dmy dates|date=June 2020}}
+    ``
+    are likely `Use_dmy_dates_from_June_2020` and `Articles_with_short_description` but the rest is more magic and not necessarily present in-source.
+
+So to find all articls and categories under a given category title, say https://en.wikipedia.org/wiki/Category:Mathematics we can run:
+``
+mariadb enwiki -e "select cl_from, cl_to, page_namespace, page_title from categorylinks inner join page on page_namespace in (0, 14) and cl_from = page_id and cl_to = 'Mathematics'"
+``
 
 = How to use a single source multiple times in a Wikipedia article?
 {parent=Wikipedia HOWTO}
@@ -588,6 +787,7 @@ The homepage shows views of selected pages, e.g. when <Google> had their 25th bi
 = Wikidata
 {c}
 {parent=Wikimedia Foundation project}
+{tag=Ontology}
 {wiki}
 
 = It is not possible to teach natural sciences on Wikipedia

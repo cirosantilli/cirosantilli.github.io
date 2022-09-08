@@ -1271,6 +1271,74 @@ TODO how to save to a `.mid` file? https://askubuntu.com/questions/709673/save-a
 {synonym}
 {title2}
 
+= CSV CLI tool
+{c}
+{parent=Comma-separated values}
+{tag=CLI tool}
+
+The generic tool recommendation question: https://unix.stackexchange.com/questions/7425/is-there-a-robust-command-line-tool-for-processing-csv-files
+
+= csvkit
+{parent=CSV CLI tool}
+{tag=Python lirary}
+
+Lots of features, but slow because written in <Python>. A faster version may be <csvtools>. Also some annoyances like obtuse header handing and missing features like grep + cut in one go: <csvgrep and select column>.
+
+= csvgrep from csvkit
+{parent=csvkit}
+
+Simple example:
+``
+printf '00,11,22\n33,44,55\n' | csvgrep -H -c2 -r '^11$' | tail -n+2
+``
+output:
+```
+00,11,22
+```
+
+More verbose description:
+* https://stackoverflow.com/questions/19711723/awk-to-filter-csv-files/77273608#77273608
+* https://unix.stackexchange.com/questions/97070/filter-a-csv-file-based-on-the-5th-column-values-of-a-file-and-print-those-reco/758651#758651
+
+= csvgrep and select column in csvkit
+{parent=csvkit}
+
+There seems to be no way without a pipe, you seem to need to reparse the columns, e.g. the tutorial at: https://csvkit.readthedocs.io/en/latest/tutorial/2_examining_the_data.html#csvgrep-find-the-data-you-need does:
+``
+csvcut -c county,item_name,total_cost data.csv | csvgrep -c county -m LANCASTER
+``
+
+Asked at: https://stackoverflow.com/questions/77266699/how-to-fillter-a-csv-file-with-csvgrep-and-print-only-certain-columns
+
+= csvtool
+{parent=CSV CLI tool}
+
+A compiled executable under `/usr/bin/csvtool`, has an <Ubuntu 23.04> package: https://manpages.ubuntu.com/manpages/lunar/en/man1/csvtool.1.html
+
+There seems to be no sane filtering mechanism however: https://stackoverflow.com/questions/46540752/using-csvtool-call-to-filter-csv-in-bash
+
+= csvtools
+{parent=CSV CLI tool}
+{tag=C library}
+
+https://github.com/maroofi/csvtool
+
+A fast version of a somewhat subset of <csvkit>, written in <C (programming language)>.
+
+Build failed with `undefined reference to pcre_config` on <Ubuntu 23.04>: https://github.com/DavyLandman/csvtools/issues/18
+
+Unfortunately it is lacking some basic options, like optional header + selecting column by index on `csvgrep` (though `csvcut` has it). The project seems kind of dead.
+
+Also unclear if it allows to filter + print only selected columns.
+
+= xsv
+{parent=CSV CLI tool}
+{tag=Rust library}
+
+https://github.com/BurntSushi/xsv
+
+Is this the one?
+
 = JSON
 {c}
 {parent=Data file format}

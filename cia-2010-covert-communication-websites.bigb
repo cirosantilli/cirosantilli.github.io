@@ -3567,6 +3567,7 @@ This is a dark art, and many of the sources are shady as fuck! We often have no 
 Some links of interest:
 * https://bushart.org/topic/ip
 * https://archive.org/details/internet-mapping
+* https://stackoverflow.com/questions/307553/possible-to-download-entire-whois-database-list-of-registered-domains (deleted question, see archives)
 
 = Wayback Machine
 {parent=Data sources}
@@ -4449,9 +4450,34 @@ won't be able to find new ranges here.
 = tb0hdan/domains
 {parent=Data sources}
 
-Domain list only, no IPs. We haven't been able to extract anything of interest from this source so far.
+Domain list only, no IPs and no dates. We haven't been able to extract anything of interest from this source so far.
 
-Domain hit count when we were at 69 hits: 9, some of which had been since reused. Likely their data collection did not cover the dates of interest.
+Domain hit count when we were at 69 hits: only 9, some of which had been since reused. Likely their data collection did not cover the dates of interest.
+
+= Expired omain trackers
+{parent=Data sources}
+
+When you <Google> most of the hit domains, many of them show up on "expired domain trackers", and above all Chinese expired domain trackers for some reason, notably e.g.:
+* https://hupo.com[]: e.g. http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt[]. Heavily IP throttled.
+
+  Nice output format for scraping as the HTML is very minimal
+
+  They randomly changed their URL format to adding a space before .com after some point in 2012:
+  * http://static.hupo.com/expdomain_myadmin/2012-01-01（国际域名）%20.txt
+  * http://static.hupo.com/expdomain_myadmin/2013-01-01（国际域名）.txt
+* https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Heavily IP throttled.
+* https://justdropped.com[]: e.g. https://www.justdropped.com/drops/030612com.html[]
+This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".
+
+All of these sources seem to are in very good agreement and likely have the same source data, so we just have to pick the one with the greatest bandwidth. We've made some attempts at:
+* \a[cia-2010-covert-communication-websites/hupo.sh]
+* \a[cia-2010-covert-communication-websites/webmastercn.sh]
+but it was not trivial to overcome the heavy throtlling. Tor didn't immediately help either.
+
+Related:
+* https://stackoverflow.com/questions/928549/how-to-create-a-list-of-recently-expired-domains
+* https://webmasters.stackexchange.com/questions/33806/expired-domains-database
+* https://github.com/spaze/domains
 
 = Reverse engineering
 {parent=Methodology}
