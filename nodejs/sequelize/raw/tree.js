@@ -89,11 +89,11 @@ SELECT * FROM "TreeSearch"
 ORDER BY "level", "parentId", "childIndex"
 `)
 common.assertEqual(rows, [
-  { value: 1 },
-  { value: 2 },
-  { value: 3 },
-  { value: 4 },
-  { value: 5 },
+  { value: 1, level: 0 },
+  { value: 2, level: 1 },
+  { value: 3, level: 1 },
+  { value: 4, level: 2 },
+  { value: 5, level: 2 },
 ])
 
 // Breadth first prefix string approach, aka "Path Enumeration".
