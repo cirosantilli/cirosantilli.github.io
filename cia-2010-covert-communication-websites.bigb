@@ -27,7 +27,10 @@ This article documents the list of extremely likely candidates Ciro has found so
 * heuristic search for keywords in domains of the  <2013 DNS Census> plus <Wayback Machine CDX scanning>
 more details on methods also follow. It is still far from the https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[885 websites reported by citizenlabs], so there must be key techniques missing. But the fact that there are no <Google Search> hits for the domains or IPs indicates that these might not have been previously clearly publicly disclosed.
 
-If anyone can find others, or has better techniques: <contact>{full}. The techniques used so far have been very heuristic, and that added to the limited amount of data makes it almost certain that several <IP range search>[IP ranges] have been missed. Better IP to domain name database suggestions are also welcome to <Find missing hits in IP ranges>[fill in known gaps in existing IP ranges]. Perhaps the current heuristically obtained data can serve as a good starting for a more data-oriented search that will eventually find a valuable fingerprint which brings the entire network out.
+If anyone can find others, or has better techniques: <contact>{full}. The techniques used so far have been very heuristic, and that added to the limited amount of data makes it almost certain that several <IP range search>[IP ranges] have been missed. There are two types of contributions that would be possible:
+* finding new IP ranges: harder more exiting, and potentially requires more intelligence
+* better IP to domain name databases to <Find missing hits in IP ranges>[fill in known gaps in existing IP ranges]
+Perhaps the current heuristically obtained data can serve as a good starting for a more data-oriented search that will eventually find a valuable fingerprint which brings the entire network out.
 
 Disclaimer: the network fell in 2013, followed by fully public disclosures in 2018 and 2022, so we believe it is now more than safe for the public to know what can still be uncovered about the events that took place. The main author's political bias is <Ciro Santilli's campaign for freedom of speech in China>[strongly pro-democracy and anti-dictatorship].
 
@@ -3486,6 +3489,10 @@ Some failed attempts, either dry guesses or from DNS grepping dataset searches:
   * night:
     * johnnylatenight.com: https://web.archive.org/web/20150801132622/http://johnnylatenight.com/ Legit broken
     * https://web.archive.org/web/20110208161513/http://www.johnnysnight.com/
+* johnnycarson.org: squatted past 2013, nothing before
+* carsonshow.com: squat: http://web.archive.org/web/20110224211714/http://carsonshow.com/[]
+* tonightshow247.net: http://web.archive.org/web/20101226190209/http://tonightshow247.net/[]: squat
+* tonightshow.tv: http://web.archive.org/web/20141221222442/http://www.tonightshow.tv/[]: legit
 
 Searching the <Wayback Machine> proved fruitless. There is no full text search: <Wayback Machine full text search>, and a heuristic https://web.archive.org/web/20230000000000*/Johnny%20Carson search has relevant hits but not the one we want.
 
@@ -3635,7 +3642,7 @@ JAR, SWF and CGI-bin scanning by path only is fine, since there are relatively f
 
 One option would be to filter out by size, an information that is contained on the CDX. Let's check typical ones:
 ``
-grep -f <(jq -r '.[]|select(select(.comms)|.comms|test("\\.js"))|.host' ../cia-2010-covert-communication-websites/hits.json) out | out.jshits.cdx
+grep -f <(jq -r '.[]|select(select(.comms)|.comms|test("\\.js"))|.host' ../media/cia-2010-covert-communication-websites/hits.json) out | out.jshits.cdx
 sort -n -k7 out.jshits.cdx
 ``
 Ignoring some obvious unrelated non-comms files visually we get a range of about 2732 to 3632:
@@ -4454,18 +4461,28 @@ Domain list only, no IPs and no dates. We haven't been able to extract anything 
 
 Domain hit count when we were at 69 hits: only 9, some of which had been since reused. Likely their data collection did not cover the dates of interest.
 
-= Expired omain trackers
+= Expired domain trackers
 {parent=Data sources}
 
 When you <Google> most of the hit domains, many of them show up on "expired domain trackers", and above all Chinese expired domain trackers for some reason, notably e.g.:
-* https://hupo.com[]: e.g. http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt[]. Heavily IP throttled.
+* https://hupo.com[]: e.g. http://static.hupo.com/expdomain_myadmin/2012-03-06（国际域名）.txt[]. Heavily IP throttled. Tor hindered more than helped.
 
-  Scraping script: \a[cia-2010-covert-communication-websites/hupo.sh] and then postprocessing \a[cia-2010-covert-communication-websites/hupo-post.sh]. Scraping does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad:
+  Scraping script: \a[cia-2010-covert-communication-websites/hupo.sh]. Scraping does about 1 day every 5 minutes relatively reliably, so about 36 hours / year. Not bad.
+
+  TODO accidentally skipped over:
+  * 2012-02-03 to 2012-02-05
+  * everything before 2012-01-01
+  make sure to redo those!
+
+  Results are stored under `tmp/humo/<day>`.
+
+  Check for hit overlap:
   ``
-  cd cia-2010-covert-communication-websites
-  ./hupo.sh
-  ./hupo-post.sh
+  grep -Fx -f <( jq -r '.[].host' ../media/cia-2010-covert-communication-websites/hits.json ) cia-2010-covert-communication-websites/tmp/hupo/*
   ``
+  The hits are very well distributed amongst days and months, at least they did a good job hiding these potential timing fingerprints. This was explicitly designed.
+
+  There are lots of hits. The data set is very inclusive. Also we understand that it must have been obtains through means other than <Web crawling>, since it contains so many of the hits.
 
   Nice output format for scraping as the HTML is very minimal
 
@@ -4477,14 +4494,29 @@ When you <Google> most of the hit domains, many of them show up on "expired doma
   * http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）%20.txt
   * http://static.hupo.com/expdomain_myadmin/2012-07-01（国际域名）.txt
   webmasterhome.cn did contain that one however: http://domain.webmasterhome.cn/com/2012-07-01.asp[]. Hmm. we might have better luck over there then?
-* https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Appears to contain the exact same data as "static.hupo.com". Also heavily IP throttled.
+* https://webmasterhome.cn[]: e.g. http://domain.webmasterhome.cn/com/2012-03-06.asp[]. Appears to contain the exact same data as "static.hupo.com". Also heavily IP throttled. Scraper \a[cia-2010-covert-communication-websites/webmastercn.sh].
+
+  Also has some randomly missing dates like hupo.com. The best we can do is merge them it seems.
 * https://justdropped.com[]: e.g. https://www.justdropped.com/drops/030612com.html[]
 * http://yoid.com[]: e.g.: http://yoid.com/bydate.php?d=2016-06-03&a=a
 This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".
 
-All of these sources seem to are in very good agreement and likely have the same source data, so we just have to pick the one with the greatest bandwidth. We've made some attempts at:
-* \a[cia-2010-covert-communication-websites/webmastercn.sh]
-but it was not trivial to overcome the heavy throtlling. Tor didn't immediately help either.
+We've made the following pipelines for hupo.com + webmasterhome.cn merging:
+``
+./hupo.sh &
+./webmastercn.sh &
+wait
+./hupo-merge.sh
+# Export as small Google indexeable files in a Git repository.
+./hupo-repo.sh
+# Export as per year zips for Internet Archive.
+./hupo-zip.sh
+``
+
+Check for overlap:
+``
+grep -Fx -f <( jq -r '.[].host' ../media/cia-2010-covert-communication-websites/hits.json ) cia-2010-covert-communication-websites/tmp/merge/*
+``
 
 Related:
 * https://stackoverflow.com/questions/928549/how-to-create-a-list-of-recently-expired-domains
