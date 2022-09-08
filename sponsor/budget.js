@@ -1,10 +1,12 @@
-#!/usr3bin/env node
+#!/usr/bin/env node
 
+/** GBP in/out of bank account. */
 class IO {
   constructor(value, to, opts={}) {
     const { note, valueOrig, currencyOrig } = opts
-    // Pounds in final account after any currency conversions and transfer fees.
+    // GBP cents in final account after any currency conversions and transfer fees.
     this.value = value
+    // To or from which person or organization.
     this.to = to
     this.note = note
     // The original value on original currency noted on the respective dashboard.
@@ -14,13 +16,56 @@ class IO {
   }
 }
 
+/** Stack Overflow. */
+class SO {
+  constructor(yearRank, yearRankProof) {
+    this.yearRank = yearRank
+    this.yearRankProof = yearRankProof
+  }
+}
+
 const date_ioss = [
   //[[year, month], [
   //  IOs
   //]],
+
+  [[2023, 09], [
+    new IO(66375, 'anonymous one off', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%)' }),
+    new IO(2114, 'GitHub sponsors', { note: 'one off extra donation received' }),
+    new IO(-1339, 'Heroku'),
+  ]],
+  [[2023, 08], [
+    new IO(1006, 'GitHub sponsors'),
+    new IO(-1300, 'Heroku'),
+  ]],
+  [[2023, 07], [
+    new IO(1011, 'GitHub sponsors'),
+    new IO(-1293, 'Heroku'),
+  ]],
+  [[2023, 06], [
+    new IO(1032, 'GitHub sponsors'),
+    new IO(-1330, 'Heroku'),
+  ]],
+  [[2023, 05], [
+    new IO(1027, 'GitHub sponsors'),
+    new IO(-1319, 'Heroku'),
+  ]],
+  [[2023, 04], [
+    new IO(1041, 'GitHub sponsors'),
+    new IO(-1335, 'Heroku'),
+  ]],
+  [[2023, 03], [
+    new IO(1068, 'GitHub sponsors'),
+    new IO(-1393, 'Heroku'),
+  ]],
+  [[2023, 02], [
+    new IO(2096, 'GitHub sponsors'),
+    new IO(-1389, 'Heroku'),
+  ]],
   [[2023, 01], [
     new IO(1144, 'GitHub sponsors'),
     new IO(-1366, 'Heroku', { valueOrig: -1623, currencyOrig: 'usd' }),
+    new SO(45, 'https://stackexchange.com/leagues/1/year/stackoverflow/2022-01-01?sort=reputationchange&page=2'),
   ]],
   [[2022, 12], [
     new IO(1140, 'GitHub sponsors'),
@@ -72,6 +117,7 @@ const date_ioss = [
     new IO(761, 'Patreon'),
     new IO(292, 'GitHub sponsors'),
     new IO(-531, 'Heroku', { valueOrig: -700, currencyOrig: 'usd' }),
+    new SO(50, 'https://stackexchange.com/leagues/1/year/stackoverflow/2021-01-01?sort=reputationchange&page=2'),
   ]],
   [[2021, 12], [
     new IO(761, 'Patreon'),
@@ -112,16 +158,42 @@ const date_ioss = [
   ]],
   [[2021, 01], [
     new IO(437, 'GitHub sponsors'),
+    new SO(56, 'https://stackexchange.com/leagues/1/year/stackoverflow/2020-01-01?sort=reputationchange&page=2'),
+  ]],
+  [[2020, 01], [
+    new SO(59, 'https://stackexchange.com/leagues/1/year/stackoverflow/2019-01-01?sort=reputationchange&page=2'),
+  ]],
+  [[2019, 01], [
+    new SO(97, 'https://stackexchange.com/leagues/1/year/stackoverflow/2018-01-01?sort=reputationchange&page=2'),
+  ]],
+  [[2018, 01], [
+    new SO(127, 'https://stackexchange.com/leagues/1/year/stackoverflow/2017-01-01?sort=reputationchange&page=3'),
+  ]],
+  [[2017, 01], [
+    new SO(128, 'https://stackexchange.com/leagues/1/year/stackoverflow/2016-01-01?sort=reputationchange&page=3'),
+  ]],
+  [[2016, 01], [
+    new SO(426, 'https://stackexchange.com/leagues/1/year/stackoverflow/2015-01-01?sort=reputationchange&page=9'),
+  ]],
+  [[2015, 01], [
+    new SO(2614, 'https://stackexchange.com/leagues/1/year/stackoverflow/2014-01-01?sort=reputationchange&page=53'),
   ]],
 ]
 
+function centToDot(sum) {
+  return `${sum > 0 ? '+' : ''}${Math.floor(sum/100)}.${Math.floor(Math.abs(sum) % 100)}`
+}
+
 let total = 0
-for (const date_ios of date_ioss) {
+for (const date_ios of [...date_ioss].reverse()) {
   const [date, ios] = date_ios
   let sum = 0
   for (const io of ios) {
-    sum += io.value
-    total += io.value
+    if (io.constructor === IO) {
+      sum += io.value
+      total += io.value
+    }
   }
-  console.log(`${date[0]}-${date[1].toString().padStart(2, '0')} ${Math.floor(sum/100)}.${Math.floor(Math.abs(sum) % 100)}`);
+  console.log(`${date[0]}-${date[1].toString().padStart(2, '0')} ${centToDot(sum)}`);
 }
+console.log(`net profit: ${centToDot(total)}`);

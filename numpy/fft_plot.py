@@ -14,7 +14,7 @@ fig.suptitle('X = DFT(x)')
 fig.tight_layout(rect=[0, 0.03, 1, 0.94])
 
 ax = axs[0]
-ax.set_title('x(t) = 2 sin(t) + cos(4t)')
+ax.set_title('x(t) = 2 sin(2 $\\pi$ t / 25) + cos(8 $\\pi$ t / 25)')
 #ax.set_title('x(t) = 2 sin(t) + sin(4t) = $-25 e^{1 \\times 2\\pi i t/25} -12.5 e^{4 \\times 2\\pi i t/25} + 12.5 e^{21 \\times 2\\pi i t/25} + -25 e^{24 \\times 2\\pi i t/25}$')
 ax.plot(np.arange(0., N, 1.), x, '.')
 ax.axis([-0.5, N, -3.5, 3.5])
