@@ -60,6 +60,7 @@ A computer model that is as powerful as the most powerful computer model we have
 
 = Recursively enumerable language
 {parent=Formal language theory}
+{tag=Chomsky hierarchy}
 {wiki}
 
 There is a <Turing machine> that halts for every member of the language with the answer yes, but does not necessarily halt for non-members.
@@ -179,6 +180,14 @@ By <Noam Chomsky>.
 
 TODO had seen a good table on Wikipedia with an expanded hierarchy, but lost it!
 
+= Regular language
+{parent=Chomsky hierarchy}
+{wiki}
+
+= Regular expression
+{parent=Regular language}
+{wiki}
+
 = Computational problem
 {parent=Computer science}
 {wiki}
@@ -216,6 +225,34 @@ But there are deciders that can decide large classes of turing machines.
 Many (all/most?) deciders are based on simulation of machines with arbitrary cutoff <hyperparameters>, e.g. the cutoff space/time of a <Turing machine cycler decider>.
 
 The simplest and most obvious example is the <Turing machine cycler decider>
+
+= Turing machine acceleration
+{c}
+{parent=Specific values of the Busy beaver function}
+
+<Turing machine acceleration> refers to using high level understanding of specific properties of specific Turing machines to be able to simulate them much fatser than naively running the simulation as usual.
+
+Acceleration allows one to use simulation to find infinite loops that might be very long, and would not be otherwise spotted without acceleration.
+
+This is for example the case of https://www.sligocki.com/2023/03/13/skelet-1-infinite.html proof of <Skelet Machine #1>.
+
+= Turing machine regex tape notation
+{c}
+{parent=Turing machine decider}
+
+<Turing machine regex tape notation> is <Ciro Santilli>'s made up name for the notation used e.g. at:
+* https://www.sligocki.com/2023/02/02/skelet-34.html
+* https://www.sligocki.com/2022/06/10/ctl.html
+Most of it is just regular <regular expression> notation, with a few differences:
+* $0^{\inf}$ denotes the right or left edge of the (zero initialized) tape. It is often omitted as we always just assume it is always present on both sides of every regex
+* `A`, `B`, `C`, `D` and `E` denotes the current machine state. This is especially common notation in the context of the <BB(5)> problem
+* `<` and `>` next to the state indicate if the head is on top of the left or right element. E.g.:
+  ``
+  11 (01)^n <A 00 (0011)^{n+2}
+  ``
+  indicates that the head `A` is on top of the last `1` of the last sequence of n `01`s to the left of the head.
+
+This notation is very useful, as it helps compress long repeated sequences of <Turing machine> tape and extract higher level patterns from them, which is how you go about understanding a Turing machin in order to apply <Turing machine acceleration>.
 
 = Cycler Turing machine
 {parent=Turing machine decider}
@@ -271,6 +308,9 @@ The Busy Beaver problem is cool because it puts the <halting problem> in a more 
 Bibliography:
 * https://www.scottaaronson.com/blog/?p=4916
 * https://www.quantamagazine.org/the-busy-beaver-game-illuminates-the-fundamental-limits-of-math-20201210
+* https://cs.stackexchange.com/questions/59344/what-are-very-short-programs-with-unknown-halting-status
+  * https://cs.stackexchange.com/questions/44869/what-are-the-simplest-examples-of-programs-that-we-do-not-know-whether-they-term imprecise duplicate
+* https://cstheory.stackexchange.com/questions/20978/what-is-the-smallest-turing-machine-where-it-is-unknown-if-it-halts-or-not
 
 = Step busy beaver
 {parent=Busy beaver}
@@ -292,16 +332,6 @@ $BB(n)$ is the largest number of 1's written by a <halting problem>[halting] $n$
 The following things come to mind when you look into research in this area, especially the search for <BB(5)> which was hard but doable:
 * it is largely <recreational mathematics>, i.e. done by non-professionals, a bit like the <aperiodic tiling>. Humbly, they tend to call their results <lemma (mathematics)>[lemmas]
 * complex structure emerges from simple rules, leading to a complex <classification (mathematics)> with a few edge cases, much like the <classification of finite simple groups>
-
-= Turing machine acceleration
-{c}
-{parent=Specific values of the Busy beaver function}
-
-<Turing machine acceleration> refers to using high level understanding of specific properties of specific Turing machines to be able to simulate them much fatser than naively running the simulation as usual.
-
-Acceleration allows one to use simulation to find infinite loops that might be very long, and would not be otherwise spotted without acceleration.
-
-This is for example the case of https://www.sligocki.com/2023/03/13/skelet-1-infinite.html proof of <Skelet Machine #1>.
 
 = BB(5)
 {c}
@@ -669,6 +699,10 @@ More finely, there are <non primitive total recursive functions>, e.g. most famo
 {wiki}
 
 To get an intuition for it, see the sample computation at: https://en.wikipedia.org/w/index.php?title=Ackermann_function&oldid=1170238965#TRS,_based_on_2-ary_function where $S(n) = n + 1$ in this context. From this, we immediately get the intuition that these functions are recursive somehow.
+
+= Galactic algorithm
+{parent=Complexity class}
+{wiki}
 
 = ELEMENTARY
 {c}
