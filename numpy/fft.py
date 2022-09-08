@@ -18,7 +18,7 @@ def analyze(x):
     print('rfft')
     printi(Xr)
 
-N = 25
+N = 20
 
 print('sin(t)')
 x = np.array([math.sin(i * 2 * math.pi / N) for i in range(N)])

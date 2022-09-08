@@ -5,6 +5,9 @@
 = Quantum computer
 {synonym}
 
+= Quantum computation
+{synonym}
+
 Quantum is getting hot in 2019, and even <Ciro Santilli> got a bit excited: <quantum computing could be the next big thing>.
 
 No useful algorithm has been economically accelerated by quantum yet as of 2019, only <quantum supremacy>[useless ones], but <quantum computing player>[the bets are on, big time].
@@ -37,7 +40,7 @@ Course plan:
       * <Controlled quantum gate>
         * <CNOT gate>
       * <Bell state>
-        * <Bell state circuit
+        * <Bell circuit>
   * <quantum algorithms>
     * <Quantum Fourier transform>{full}
     * <Shor's algorithm>{full}
@@ -100,7 +103,7 @@ We then calculate the error bound for our circuit based on its design, and then 
 
 The probability of each output of a quantum computer is derived from the input and the circuit as follows.
 
-First we take the classic input vector of dimension N of 0's and 1's and convert it to a "quantum state vector" $\va{q_{in}}$ of dimension $2^n$:
+First we take the classic input vector of dimension N of 0's and 1's and convert it to a "<quantum state vector>" $\va{q_{in}}$ of dimension $2^n$:
 $$
 \va{q_{in}} \in \C^{2^n}
 $$
@@ -171,7 +174,7 @@ i.e. 75% for the first, and 25% for the third outcomes, where just like for the 
 
 All other outcomes have probability 0 and cannot occur, e.g.: `001` is impossible.
 
-Keep in mind that the quantum state vector can also contain <why are complex numbers used in the Schrodinger equation?>[complex numbers because we are doing quantum mechanics], but we just take their magnitude in that case, e.g. the following quantum state would lead to the same probabilities as the previous one:
+Keep in mind that the <quantum state vector> can also contain <why are complex numbers used in the Schrodinger equation?>[complex numbers because we are doing quantum mechanics], but we just take their magnitude in that case, e.g. the following quantum state would lead to the same probabilities as the previous one:
 $$
 \begin{aligned}
 \abs{\frac{1 + \sqrt{2}i}{2}}^2 &= \frac{1^2 + \sqrt{2^2}}{2^2} &= \frac{3}{4} \\
@@ -643,6 +646,9 @@ A <quantum circuit> is a <graph> of <quantum logic gates>.
 
 <Quantum circuits> are the prevailing <model of quantum computing> as of the 2010's - 2020's
 
+= Quantum state vector
+{parent=Quantum circuit}
+
 = Tensor product in quantum computing
 {parent=Quantum circuit}
 {tag=Tensor product}
@@ -657,21 +663,21 @@ The tensor product is called a "product" because it distributes over addition.
 
 E.g. consider:
 $$
-(\frat{\ket{0} + \ket{1}}{\sqrt{2}}) \otimes \ket{0} =
-\frat{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{0}}{\sqrt{2}} =
-\frat{\ket{00} + \ket{10}}{\sqrt{2}}
+(\frac{\ket{0} + \ket{1}}{\sqrt{2}}) \otimes \ket{0} =
+\frac{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{0}}{\sqrt{2}} =
+\frac{\ket{00} + \ket{10}}{\sqrt{2}}
 $$
 
-Intuitively, in this operation we just put a <Hardmard gate> qubit together with a second pure $\ket{0}$ qubit.
+Intuitively, in this operation we just put a <Hadamard gate> qubit together with a second pure $\ket{0}$ qubit.
 
 And the outcome still has the second qubit as always 0, because we haven't made them interact.
 
-The <quantum state> $\frat{\ket{00} + \ket{10}}{\sqrt{2}}$ is called a <separable state>, because it can be written as a single product of two different qubits. We have simply brought two qubits together, without making them interact.
+The <quantum state> $\frac{\ket{00} + \ket{10}}{\sqrt{2}}$ is called a <separable state>, because it can be written as a single product of two different qubits. We have simply brought two qubits together, without making them interact.
 
 If we then add a <CNOT gate> to make a <Bell state>:
 $$
-\frat{\ket{00} + \ket{11}}{\sqrt{2}} =
-\frat{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{1}}{\sqrt{2}}
+\frac{\ket{00} + \ket{11}}{\sqrt{2}} =
+\frac{\ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{1}}{\sqrt{2}}
 $$
 we can now see that the <Bell state> is <non-separable>: we've made the two qubits interact, and there is no way to write this state with a single <tensor product>. The qubits are fundamentally <entangled>.
 
@@ -1890,13 +1896,14 @@ The official <hello world> is documented at: https://qiskit.org/documentation/in
 Our version at <qiskit/hello.py>{file}.
 
 = qiskit/hello.py
+{file}
 {parent=Qiskit hello world}
 
 Our example uses a <Bell state circuit> to illustrate all the fundamental <Qiskit> basics.
 
 Sample program output, `counts` are randomized each time.
 
-First we take the <state vector> immediately after the $\ket{00}$ input.
+First we take the <quantum state vector> immediately after the $\ket{00}$ input.
 ``
 input:
 state:
@@ -1998,7 +2005,7 @@ On <Qiskit> `qiskit==0.44.1`:
 qc.qasm()
 ``
 
-E.g. with our <qiskit/hello.py>, we obtain the <Bell state circuit>:
+E.g. with our <qiskit/hello.py>{file}, we obtain the <Bell state circuit>:
 ``
 OPENQASM 2.0;
 include "qelib1.inc";
@@ -2203,7 +2210,7 @@ The Bell states are entangled and <non separable>. Intuitively, we can see that 
 {c}
 {synonym}
 
-A <quantum cirquit> which when fed with input $\ket{00}$ produces the <Bell state>.
+A <quantum circuit> which when fed with input $\ket{00}$ produces the <Bell state>.
 
 In <Qiskit> at: <qiskit/hello.py>{file}.
 
