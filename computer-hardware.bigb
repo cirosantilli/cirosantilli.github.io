@@ -797,9 +797,25 @@ One limitation is that it only handles digital electronics: https://electronics.
 {c}
 {synonym}
 
+= General-purpose computing on graphics processing units
+{parent=GPU}
+{wiki}
+
+= GPGPU
+{c}
+{synonym}
+{title2}
+
+= Open source GPU compute benchmark
+{c}
+{parent=General-purpose computing on graphics processing units}
+
+* https://github.com/ekondis/mixbench <GPL>
+* https://github.com/ProjectPhysX/OpenCL-Benchmark custom non-commercial, non-military license
+
 = GPU compute library
 {c}
-{parent=Graphics processing unit}
+{parent=General-purpose computing on graphics processing units}
 {wiki}
 
 = CUDA
@@ -969,6 +985,76 @@ Basically means "company with huge server farms, and which usually rents them ou
 
 They can't even make this basic stuff just work!
 * https://stackoverflow.com/questions/16784052/access-files-stored-on-amazon-s3-through-web-browser
+
+= Amazon Elastic Compute Cloud
+{c}
+{parent=AWS service}
+{tag=Platform as a service}
+{wiki}
+
+= AWS Elastic Compute
+{c}
+{synonym}
+
+= Amazon EC2
+{synonym}
+{title2}
+
+= Amazon EC2 hello world
+{C}
+{parent=Amazon Elastic Compute Cloud}
+{tag=Hello world}
+
+Let's get <SSH> access, instal a package, and run a server.
+
+As of December 2023 on a `t2.micro` instance, the only one part of free tier at the time with advertised 1 vCPU, 1 GiB RAM, 8 GiB disk for the first 12 months, on <Ubuntu 22.04>:
+``
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           949Mi       149Mi       210Mi       0.0Ki       590Mi       641Mi
+Swap:             0B          0B          0B
+$ nproc
+1
+$ df -h /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       7.6G  1.8G  5.8G  24% /
+``
+
+To install software:
+``
+sudo apt update
+sudo apt install cowsay
+cowsay asdf
+``
+
+Once HTTP inbound traffic is enabled on security rules for port 80, you can:
+``
+while true; do printf "HTTP/1.1 200 OK\r\n\r\n`date`: hello from AWS" | sudo nc -Nl 80; done
+``
+and then you are able to `curl` from your local computer and get the response.
+
+= Amazon EC2 GPU
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
+Some documentation can be seen at: https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html (https://web.archive.org/web/20231126224245/https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html[archive]) with a list of which GPUs they have at that random point in time. Can this ever change?
+
+When launching an instance however, this does not seem to show on the instance information page, just the number of GPUs, so it is a bit pointless...
+
+The cheapest GPU instance they had as of December 2023 was `g4ad.xlarge`, so let's give it a try.
+
+= Amazon Elastic Block Store
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
+= Amazon EBS
+{c}
+{synonym}
+{title2}
+
+The hot and more expensive sotorage for <Amazon EC2>, where e.g. your <Ubuntu> filesystem will lie.
+
+The cheaper and slower alternative is to use <Amazon S3>.
 
 = Alibaba Cloud
 {c}

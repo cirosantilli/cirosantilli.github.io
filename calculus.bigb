@@ -522,6 +522,24 @@ Therefore, we only need about half of $X_k$ to represent the signal, as the othe
 
 <NumPy> for example has "Real FFTs" for this: https://numpy.org/doc/1.24/reference/routines.fft.html#real-ffts
 
+= Normalized DFT
+{parent=Discrete Fourier transform}
+
+There are actually two possible definitions for the DFT:
+* 1/N, given as "the default" in many sources:
+  $$
+  x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k e^{i 2 \pi \frac{k n}{N}}
+  $$
+* $1/\sqrt{N}$, known as the "normalized DFT" by some sources: https://www.dsprelated.com/freebooks/mdft/Normalized_DFT.html[], definition which we adopt:
+  $$
+  x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k e^{i 2 \pi \frac{k n}{N}}
+  $$
+
+The $1/\sqrt{N}$ is nicer mathematically as the inverse becomse more symmetric, and power is conserved between time and frequency domains.
+* https://math.stackexchange.com/questions/3285758/scaling-magnitude-of-the-dft
+* https://dsp.stackexchange.com/questions/63001/why-should-i-scale-the-fft-using-1-n
+* https://www.dsprelated.com/freebooks/mdft/Normalized_DFT.html
+
 = Fast Fourier transform
 {parent=Discrete Fourier transform}
 {wiki}

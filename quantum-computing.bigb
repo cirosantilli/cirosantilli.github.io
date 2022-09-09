@@ -300,6 +300,9 @@ Toy/test/tought experiment algorithm.
 {title2=QFT}
 {wiki}
 
+Sample implementations:
+* <Qiskit>: <qiskit/qft.py>{file}
+
 = Shor's algorithm
 {c}
 {parent=List of quantum algorithms}
@@ -665,6 +668,9 @@ A <quantum circuit> is a <graph> of <quantum logic gates>.
 
 = Quantum state vector
 {parent=Quantum circuit}
+
+Sample implementations:
+* 
 
 = Tensor product in quantum computing
 {parent=Quantum circuit}
@@ -2121,31 +2127,89 @@ counts={'11': 484, '00': 516}
 counts={'11': 493, '00': 507}
 ``
 
-= qiskit/qft.py
-{file}
+= qiskit/initialize.py
+{c}
 {parent=Qiskit example}
+
+In this example we will initialize a quantum circuit with a single <CNOT gate> and see the output values.
+
+By default, <Qiskit> initializes every <qubit> to 0 as shown in the <qiskit/hello.py>{file}. But we can also initialize to arbitrary values as would be done when computing the output for various different inputs.
 
 Output:
 ``
+     ┌──────────────────────┐
+q_0: ┤0                     ├──■──
+     │  Initialize(1,0,0,0) │┌─┴─┐
+q_1: ┤1                     ├┤ X ├
+     └──────────────────────┘└───┘
+c: 2/═════════════════════════════
+
+init: [1, 0, 0, 0]
+probs: [1. 0. 0. 0.]
+
+init: [0, 1, 0, 0]
+probs: [0. 0. 0. 1.]
+
+init: [0, 0, 1, 0]
+probs: [0. 0. 1. 0.]
+
+init: [0, 0, 0, 1]
+probs: [0. 1. 0. 0.]
+
+     ┌──────────────────────────────────┐
+q_0: ┤0                                 ├──■──
+     │  Initialize(0.70711,0,0,0.70711) │┌─┴─┐
+q_1: ┤1                                 ├┤ X ├
+     └──────────────────────────────────┘└───┘
+c: 2/═════════════════════════════════════════
+
+init: [0.7071067811865475, 0, 0, 0.7071067811865475]
+probs: [0.5 0.5 0.  0. ]
+``
+which we should all be able to understand intuitively given our understanding of the <CNOT gate> and <quantum state vectors>.
+
+https://quantumcomputing.stackexchange.com/questions/13202/qiskit-initializing-n-qubits-with-binary-values-0s-and-1s describes how to initialize circuits qubits only with binary 0 or 1 to avoid dealing with the exponential number of elements of the <quantum state vector>.
+
+= qiskit/qft.py
+{file}
+{parent=Qiskit example}
+{tag=Quantum fourier transform}
+
+This is an example of the `qiskit.circuit.library.QFT` implementation of the <Quantum fourier transform> function which is documented at: https://docs.quantum.ibm.com/api/qiskit/0.44/qiskit.circuit.library.QFT
+
+Output:
+``
+init: [1, 0, 0, 0, 0, 0, 0, 0]
 qc
-     ┌──────┐
-q_0: ┤0     ├
-     │      │
-q_1: ┤1 QFT ├
-     │      │
-q_2: ┤2     ├
-     └──────┘
+     ┌──────────────────────────────┐┌──────┐
+q_0: ┤0                             ├┤0     ├
+     │                              ││      │
+q_1: ┤1 Initialize(1,0,0,0,0,0,0,0) ├┤1 QFT ├
+     │                              ││      │
+q_2: ┤2                             ├┤2     ├
+     └──────────────────────────────┘└──────┘
 transpiled qc
-                                          ┌───┐
-q_0: ────────────────────■────────■───────┤ H ├─X─
-                   ┌───┐ │        │P(π/2) └───┘ │
-q_1: ──────■───────┤ H ├─┼────────■─────────────┼─
-     ┌───┐ │P(π/2) └───┘ │P(π/4)                │
-q_2: ┤ H ├─■─────────────■──────────────────────X─
-     └───┘
+     ┌──────────────────────────────┐                                     ┌───┐   
+q_0: ┤0                             ├────────────────────■────────■───────┤ H ├─X─
+     │                              │              ┌───┐ │        │P(π/2) └───┘ │ 
+q_1: ┤1 Initialize(1,0,0,0,0,0,0,0) ├──────■───────┤ H ├─┼────────■─────────────┼─
+     │                              │┌───┐ │P(π/2) └───┘ │P(π/4)                │ 
+q_2: ┤2                             ├┤ H ├─■─────────────■──────────────────────X─
+     └──────────────────────────────┘└───┘
 Statevector([0.35355339+0.j, 0.35355339+0.j, 0.35355339+0.j,
              0.35355339+0.j, 0.35355339+0.j, 0.35355339+0.j,
              0.35355339+0.j, 0.35355339+0.j],
+            dims=(2, 2, 2))
+
+init: [0.0, 0.35355339059327373, 0.5, 0.3535533905932738, 6.123233995736766e-17, -0.35355339059327373, -0.5, -0.35355339059327384]
+Statevector([ 7.71600526e-17+5.22650714e-17j,
+              1.86749130e-16+7.07106781e-01j,
+             -6.10667421e-18+6.10667421e-18j,
+              1.13711443e-16-1.11022302e-16j,
+              2.16489014e-17-8.96726857e-18j,
+             -5.68557215e-17-1.11022302e-16j,
+             -6.10667421e-18-4.94044770e-17j,
+             -3.30200457e-16-7.07106781e-01j],
             dims=(2, 2, 2))
 ``
 So this also serves as a more interesting example of <quantum compilation>, mapping the `QFT` gate to <Qiskit Aer> primitives.
@@ -2155,9 +2219,41 @@ If we don't `transpile` in this example, then running blows up with:
 qiskit_aer.aererror.AerError: 'unknown instruction: QFT'
 ``
 
-= Qiskit Aer
+The second input is:
+$$
+x_i = \frac{1}{2) sin(2 * \pi * i / 8)
+$$
+and the output of that approximately:
+``
+[0, 1j/sqrt(2), 0, 0, 0, 0, 0, 1j/sqrt(2)]
+``
+which can be defined simply as the <normalized DFT> of the input <quantum state vector>.
+
+From this we see that the <Quantum fourier transform> is equivalent to a direct <discrete Fourier transform> on the <quantum state vector>, related: https://physics.stackexchange.com/questions/110073/how-to-derive-quantum-fourier-transform-from-discrete-fourier-transform-dft
+
+= Qiskit component
 {c}
 {parent=Qiskit}
+
+= `qiskit.transpile()`
+{c}
+{parent=Qiskit component}
+
+This function does <quantum compilation>. Shown e.g. at <qiskit/qft.py>.
+
+= AerError: 'unknown instruction
+{c}
+{parent=AerError: 'unknown instruction}
+
+You get an error like this if you forget to call <qiskit.transpile()>:
+``
+qiskit_aer.aererror.AerError: 'unknown instruction: QFT'
+``
+Related: https://quantumcomputing.stackexchange.com/questions/34396/aererror-unknown-instruction-c-unitary-while-using-control-unitary-operator/35132#35132
+
+= Qiskit Aer
+{c}
+{parent=Qiskit component}
 {tag=Quantum computer simulator}
 
 https://github.com/Qiskit/qiskit-aer

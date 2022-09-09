@@ -405,14 +405,60 @@ https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodie
 
 = Large language model
 {parent=Text-to-text model}
-{title2=LLM}
 {wiki}
+
+= LLM
+{c}
+{synonym}
+{title2}
 
 = LLM game
 {c}
 {parent=Large language model}
 
 * 2023 https://vimalabs.github.io/ VIMA: General Robot Manipulation with Multimodal Prompts
+
+= Open source LLM
+{parent=Large language model}
+
+= Ollama
+{c}
+{parent=Open source LLM}
+
+https://github.com/jmorganca/ollama
+
+Highly automated wrapper for various <open source> <LLMs>.
+
+``
+curl https://ollama.ai/install.sh | sh
+ollama run llama2
+``
+
+And bang, a download later, you get a prompt. On <Ciro Santilli's Hardware/p14s> it runs on <CPU> and generates a few tokens at a time, which is quite usable for a quick interactive play.
+
+As mentioned at https://github.com/jmorganca/ollama/blob/0174665d0e7dcdd8c60390ab2dd07155ef84eb3f/docs/faq.md the downloads to under `/usr/share/ollama/.ollama/models/` and <ncdu> tells me:
+``
+--- /usr/share/ollama ----------------------------------
+    3.6 GiB [###########################] /.ollama
+    4.0 KiB [                           ]  .bashrc
+    4.0 KiB [                           ]  .profile
+    4.0 KiB [                           ]  .bash_logout
+``
+
+We can also do it non-interactively with:
+``
+/bin/time ollama run llama2 'What is quantum field theory?'
+``
+which gave me:
+``
+0.13user 0.17system 2:06.32elapsed 0%CPU (0avgtext+0avgdata 17280maxresident)k
+0inputs+0outputs (0major+2203minor)pagefaults 0swaps
+``
+but note that there is a random seed that affects each run by default.
+
+It tends to babble quite a lot by default, but eventually decides to stop.
+
+TODO is it possible to make it deterministic on the CLI? There is a "seed" parameter somewhere: https://github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter
 
 = Stanford Smallville
 {c}

@@ -342,6 +342,24 @@ Here we list public domain <academic papers>. They must be public domain in the 
 {tag=Wikimedia Foundation project}
 {wiki}
 
+= Project Gutenberg remove line breaks
+{parent=Project Gutenberg}
+
+https://ubuntuforums.org/archive/index.php/t-1132578.html
+
+Their txt formats are so crap!
+
+E.g. for;
+``
+wget -O pap.txt https://www.gutenberg.org/ebooks/1342.txt.utf-8
+``
+a good one is:
+``
+perl -0777 -pe 's/(?<!\r\n)\r\n(?!\r\n)( +)?/ /g' pap.txt
+``
+
+The `( +)?` is for the endlessly many quoted letters they have, which use four leading spaces per line as a quote marker.
+
 = Wikisource
 {c}
 {parent=Public domain archive}
