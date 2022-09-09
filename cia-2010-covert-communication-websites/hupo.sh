@@ -26,12 +26,6 @@ while [ "$d" != 2023-01-01 ]; do
   stat=$?
   set -e
   if [ "$stat" -eq 0 ] && [ "$code" -eq 200 ]; then
-    # Because of course they use CR LF, of course!
-    # I kid you not ,some of them are invert sorted after some date.
-    dos2unix "$outfile"
-    # Some trash blanks are present.
-    sed -i -r '/^$/d' "$outfile"
-    sort -o "$outfile" "$outfile"
     echo sleep
     sleep 180
   else

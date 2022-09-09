@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+awk '
+/^\| / {
+  printf("{\n");
+  gsub(/^\| /, "");
+  printf("  \"ip\": \"%s\",\n", $0);
+  getline
+  gsub(/^\| /, "");
+  printf("  \"domain\": \"%s\",\n", $0);
+  getline
+  gsub(/^\|( |$)/, "");
+  gsub(/\[.*\]$/, "");
+  printf("  \"archive\": \"%s\",\n", $0);
+  getline
+  getline
+  getline
+  gsub(/^\| /, "");
+  gsub(/\[.*\]$/, "");
+  printf("  \"comms\": \"%s\"\n", $0);
+  getline
+  getline
+  printf("},\n");
+}
+' "$@"

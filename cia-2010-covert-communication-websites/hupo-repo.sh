@@ -4,17 +4,27 @@ indir=tmp/merge
 outdir=tmp/hupo-repo
 rm -rf "$outdir"
 mkdir -p "$outdir"
+from="${1:-2011}"
+to="${2:-2099}"
 ls -1 "$indir" | while IFS= read -r f; do
   echo "$f"
   y="${f%%-*}"
-  m="$(printf %s "$f" | sed -E 's/^[^-]+-//;s/-[^-]+$//')"
-  d="${f##*-}"
-  outdir_day="$outdir/$y/$m/$d"
-  mkdir -p "$outdir_day"
-  split -d -l 2000 "$indir/$f" "$outdir_day/"
+  if [ $y -ge "$from" ] && [ $y -le "$to" ]; then
+    m="$(printf %s "$f" | sed -E 's/^[^-]+-//;s/-[^-]+$//')"
+    d="${f##*-}"
+    outdir_day="$outdir/$y/$m/$d"
+    mkdir -p "$outdir_day"
+    split -d -l 2000 "$indir/$f" "$outdir_day/"
+  fi
 done
+export GIT_COMMITTER_EMAIL='a@a.a'
+export GIT_COMMITTER_NAME='a'
+export GIT_COMMITTER_DATE="2000-01-01T00:00:00+0000"
+export GIT_AUTHOR_EMAIL="$GIT_COMMITTER_EMAIL"
+export GIT_AUTHOR_NAME="$GIT_COMMITTER_NAME"
+export GIT_AUTHOR_DATE="$GIT_COMMITTER_DATE"
 ls -1 "$outdir" | while IFS= read -r y; do
-  if [ $y -lt 2015 ]; then
+  if [ $y -ge "$from" ] && [ $y -le "$to" ]; then
     cd "$outdir/$y"
     echo 'Methodology described at: https://cirosantilli.com/cia-2010-covert-communication-websites/expired-domain-trackers' > README.md
     git init

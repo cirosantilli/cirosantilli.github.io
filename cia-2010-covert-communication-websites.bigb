@@ -44,7 +44,10 @@ If you want to go into one of the best <OSINT> <capture the flag (cybersecurity)
 = List of websites
 {parent=CIA 2010 covert communication websites}
 
-As a <JSON>: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/hits.json
+As a <JSON>: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/hits.json[]. <OurBigBook Markup> to <JSON> conversion helper \a[cia-2010-covert-communication-websites/bigb-to-json]:
+``
+cia-2010-covert-communication-websites/bigb-to-json cia-2010-covert-communication-websites.bigb
+``
 
 Hit criteria: has <Wayback Machine> archive, and clear indication of a known <communication mechanism>. The mechanism itself doesn't need to be archived however, a link to it is enough given other supporting elements: IP range, site style, date, web archive date pattern. JS commons are always quickly visually inspected, other mechanisms we look only at filename patterns. Commented edge cases that didn't make the cut can be found mostly under <IP range search>{full} and <2013 DNS Census virtual host cleanup heuristic keyword searches>{full}.
 
@@ -73,7 +76,16 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110207232346/http://health-men-today.com/cardio.jar[JAR]
 | news
-| `ul.rss-items > li.rss-item`. Encoding broken.
+| `rss-items`. Encoding broken.
+
+| <Hits without nearby IP hits>[?]
+| firstnewssource.com
+| https://web.archive.org/web/20110203072201/http://firstnewssource.com/
+| Farsi
+| Iran
+| http://web.archive.org/web/20110203072529/http://firstnewssource.com/btools.jar[JAR]
+| news
+| Copyright 2009. Split images. `rss-items`.
 
 | <Hits without nearby IP hits>[?]
 | theworldnewsfeeds.com
@@ -82,7 +94,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110209183426/http://theworldnewsfeeds.com/feeds.jar[JAR]
 | news
-| `ul.rss-items > li.rss-item`. Split imageshttps://web.archive.org/web/20110209183352im_/http://theworldnewsfeeds.com/images/index_01.jpg{ref}https://web.archive.org/web/20110209183352im_/http://theworldnewsfeeds.com/images/index_02.jpg{ref}
+| `rss-items`. Split imageshttps://web.archive.org/web/20110209183352im_/http://theworldnewsfeeds.com/images/index_01.jpg{ref}https://web.archive.org/web/20110209183352im_/http://theworldnewsfeeds.com/images/index_02.jpg{ref}
 
 | <Hits without nearby IP hits>[?]
 | pars-technews.com
@@ -137,7 +149,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20101230175424/http://www.hassannews.net/hassannews.swf[SWF]
 | news
-| CSS or archive quite broken. Split imageshttps://web.archive.org/web/20101230175417/http://www.hassannews.net/images/aa_05.jpg{ref}https://web.archive.org/web/20101230175337/http://www.hassannews.net/images/aa_09.jpg{ref}. `ul.rss-items > li.rss-item`.
+| CSS or archive quite broken. Split imageshttps://web.archive.org/web/20101230175417/http://www.hassannews.net/images/aa_05.jpg{ref}https://web.archive.org/web/20101230175337/http://www.hassannews.net/images/aa_09.jpg{ref}. `rss-items`.
 
 | <Hits without nearby IP hits>[?]
 | weblognewsinfo.com
@@ -146,7 +158,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110207145431/http://weblognewsinfo.com/global.jar[JAR]
 | news
-|  Split images, `ul.rss-items > li.rss-item`.
+|  Split images, `rss-items`.
 
 | <Hits without nearby IP hits>[?]
 | newsincirculation.com
@@ -167,22 +179,13 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | split imageshttps://web.archive.org/web/20110228050927/http://todayoutdoors.com/images/index_01.jpg{ref}https://web.archive.org/web/20110228050935/http://todayoutdoors.com/images/index_02.jpg{ref}
 
 | <Hits without nearby IP hits>[?]
-| esmundonoticias.com
-| https://web.archive.org/web/20110201124007/http://esmundonoticias.com/[2011]
-| Spanish
-|
-| https://web.archive.org/web/20110201124235/http://esmundonoticias.com/anuncios.jar[JAR]
-| news
-| `ul.rss-items > li.rss-item`
-
-| <Hits without nearby IP hits>[?]
 | globaltourist.net
 | https://web.archive.org/web/20101024140137/http://globaltourist.net/[2010]
 | English
 |
 | https://web.archive.org/web/20101229090929/http://globaltourist.net/speed.jar[JAR]
 | travel
-| split imageshttps://web.archive.org/web/20101229090818/http://globaltourist.net/images/index_01.jpg{ref}https://web.archive.org/web/20101229090840/http://globaltourist.net/images/index_04.jpg{ref}, `ul.rss-items > li.rss-item`. speed.jar "speed test" JAR pattern. Seems to have been legit both before.
+| split imageshttps://web.archive.org/web/20101229090818/http://globaltourist.net/images/index_01.jpg{ref}https://web.archive.org/web/20101229090840/http://globaltourist.net/images/index_04.jpg{ref}, `rss-items`. speed.jar "speed test" JAR pattern. Seems to have been legit both before.
 
 | <Hits without nearby IP hits>[?]
 | all-sport-headlines.com
@@ -192,15 +195,6 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20110207144821/http://all-sport-headlines.com/birdie.jar[JAR]
 | news
 | split imageshttps://web.archive.org/web/20110207144942/http://all-sport-headlines.com/images/banner1.jpg{ref}https://web.archive.org/web/20110207144620/http://all-sport-headlines.com/images/banner2.jpg{ref}Arabic-looking alphabet, image only so can't Google translate easily.
-
-| <Hits without nearby IP hits>[?]
-| technologytodayandtomorrow.com
-| https://web.archive.org/web/20110201213000/http://technologytodayandtomorrow.com/[2011]
-| English
-|
-| https://web.archive.org/web/20110201213207/http://technologytodayandtomorrow.com/bluray.jar[JAR]
-| tech
-| `ul.rss-items > li.rss-item`
 
 | <Hits without nearby IP hits>[?]
 | terrain-news.com
@@ -218,7 +212,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110202053458/http://intlnewsdaily.com/region.jar[JAR]
 | news
-| `ul.rss-items > li.rss-item`
+| `rss-items`
 
 | <Hits without nearby IP hits>[?]
 | opensourcenewstoday.com
@@ -245,7 +239,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110129052501/http://www.cyhiraeth-intlnews.com/cyber.jar[JAR]
 | news
-| https://en.wikipedia.org/wiki/Cyhyraeth "The cyhyraeth is a ghostly spirit in Welsh mythology, a disembodied moaning voice that sounds before a person's death." WTF! So the serious looking black actress lady is meant to represent the voice of death?. Split imageshttps://web.archive.org/web/20110129052434/http://www.cyhiraeth-intlnews.com/images/index_02.jpg{ref}https://web.archive.org/web/20110129052457/http://www.cyhiraeth-intlnews.com/images/index_03.jpg{ref}. `ul.rss-items > li.rss-item`
+| https://en.wikipedia.org/wiki/Cyhyraeth "The cyhyraeth is a ghostly spirit in Welsh mythology, a disembodied moaning voice that sounds before a person's death." WTF! So the serious looking black actress lady is meant to represent the voice of death?. Split imageshttps://web.archive.org/web/20110129052434/http://www.cyhiraeth-intlnews.com/images/index_02.jpg{ref}https://web.archive.org/web/20110129052457/http://www.cyhiraeth-intlnews.com/images/index_03.jpg{ref}. `rss-items`
 
 | <Hits without nearby IP hits>[?]
 | 24hoursprimenews.com
@@ -317,7 +311,7 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 |
 | https://web.archive.org/web/20110210130707/http://mywebofnews.com/tools.jar[JAR]
 | news
-| Split imageshttps://web.archive.org/web/20110210130611/http://mywebofnews.com/images/web_01.jpg{ref}https://web.archive.org/web/20110210130506/http://mywebofnews.com/images/web_02.jpg{ref}. `ul.rss-items > li.rss-item`.
+| Split imageshttps://web.archive.org/web/20110210130611/http://mywebofnews.com/images/web_01.jpg{ref}https://web.archive.org/web/20110210130506/http://mywebofnews.com/images/web_02.jpg{ref}. `rss-items`.
 
 | <Hits without nearby IP hits>[?]
 | news-latina.com
@@ -641,6 +635,15 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20101229154458/http://boxingstop.net/championship.jar[JAR]
 | sports, boxing
 |
+
+| 63.130.160.62
+| azerinews.org
+| https://web.archive.org/web/20090730030548/http://azerinews.org/[2009]
+| Azerbaijani
+| Azerbaijan
+| https://web.archive.org/web/20110624214047/http://azerinews.org/cable.jar[JAR]
+| news
+| https://dnshistory.org/historical-dns-records/a/azerinews.org[rdns source]. Split images, `rss-items`.
 
 | 64.16.204.55
 | holein1news.com
@@ -1596,6 +1599,60 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | news
 |
 
+| 72.34.53.174
+| technologytodayandtomorrow.com
+| https://web.archive.org/web/20110201213000/http://technologytodayandtomorrow.com/[2011]
+| English
+|
+| https://web.archive.org/web/20110201213207/http://technologytodayandtomorrow.com/bluray.jar[JAR]
+| tech
+| `rss-items`
+
+| 72.34.53.174
+| electronictechreviews.com
+| https://web.archive.org/web/20110128093921/http://electronictechreviews.com/[2011]
+| English
+|
+| https://web.archive.org/web/20110128093921oe_/http://electronictechreviews.com/application.jar[JAR]
+| tech
+| JAR unarchived. Split images, `rss-items`.
+
+| 72.34.53.174
+| myonlinegamesource.com
+| https://web.archive.org/web/20110209004241/http://myonlinegamesource.com/[2011]
+| Russian
+| Russia
+|
+| gaming
+| Can't find comms, but stylistically perfect. `rss-items`.
+
+| 72.34.53.174
+| mytravelopian.com
+| https://web.archive.org/web/20110210072929/http://mytravelopian.com/
+| English
+|
+| https://web.archive.org/web/20110210073221/http://mytravelopian.com/explore.jar[JAR]
+| travel
+|
+
+| 72.34.53.174
+| recursosdenoticias.com
+| https://web.archive.org/web/20110202124725/http://recursosdenoticias.com/[2011]
+| Spanish
+|
+| https://web.archive.org/web/20110202124753/http://recursosdenoticias.com/banco.jar[JAR]
+| news
+| Split images, `rss-items`.
+
+| 72.34.53.174
+| todaysnewsandweather-ru.com
+| https://web.archive.org/web/20110207094714/http://todaysnewsandweather-ru.com/[2011]
+| Russian
+| Russia
+| https://web.archive.org/web/20110207094735/http://todaysnewsandweather-ru.com/blacksea.js[JS]
+| news
+| <JavaScript with SHAs>
+
 | 74.116.72.227
 | dayenews.com
 | https://web.archive.org/web/20110202024036/http://dayenews.com/[2011]
@@ -1784,6 +1841,15 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20110207203807/http://soldiersofsouthasia.com/war.jar[JAR]
 | history
 |
+
+| 74.254.12.171
+| autism-news.org
+| https://web.archive.org/web/20110624175332/http://autism-news.org/[2011]
+| English
+|
+| https://web.archive.org/web/20110624175425/http://autism-news.org/autism-news.swf[SWF]
+| health
+| copyright 2007. Split images. `rss-items`. Previously at 69.74.45.67.
 
 | 74.254.12.176
 | pakcricketgrd.com
@@ -2837,6 +2903,24 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | sports
 |
 
+| 216.93.248.194
+| esmundonoticias.com
+| https://web.archive.org/web/20110201124007/http://esmundonoticias.com/[2011]
+| Spanish
+|
+| https://web.archive.org/web/20110201124235/http://esmundonoticias.com/anuncios.jar[JAR]
+| news
+| `rss-items`. Shares IP with kukrinews.com.
+
+| 216.93.248.194
+| kukrinews.com
+| https://web.archive.org/web/20100513094901/http://kukrinews.com/[2010]
+| English
+|
+| https://web.archive.org/web/20100513094909/http://kukrinews.com/news.js[JS]
+| News
+| <JavaScript with SHAs>.  Talks to `/cgi-bin/news.cgi`. A https://en.wikipedia.org/wiki/Kukri[Kukri] is the national weapon of Nepal. Slogan: "Nepal's Sharp Edge", thus matching the website name. Split image header. Copyright 2009. Shares IP with esmundonoticias.com.
+
 | 216.105.98.139
 | cultura-digital.net
 | https://web.archive.org/web/20080907112020/http://www.cultura-digital.net/[2008]
@@ -2927,6 +3011,15 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | news
 |
 
+| 219.90.61.120
+| theinternationalworld.com
+| https://web.archive.org/web/20110202183115/http://theinternationalworld.com/[2011]
+| English
+|
+| https://web.archive.org/web/20110202183357/http://theinternationalworld.com/font.jar[JAR]
+| news
+| https://viewdns.info/iphistory/?domain=theinternationalworld.com[rdns source]. `rss-items`.
+
 | 219.90.61.121
 | thepyramidnews.com
 | https://web.archive.org/web/20110207105027/http://thepyramidnews.com/[2011]
@@ -3016,6 +3109,15 @@ Hit criteria: has <Wayback Machine> archive, and clear indication of a known <co
 | https://web.archive.org/web/20110207161832/https://secure.freshtechonline.com/cgi-bin/tech.cgi[CGI]
 | tech
 |
+
+| 219.90.62.241
+| newscentertoday.com
+| https://web.archive.org/web/20110208063554/http://newscentertoday.com/[2011]
+| English
+|
+| https://web.archive.org/web/20110208064052/http://newscentertoday.com/economy.jar[JAR]
+| news
+| Copyright 2008. https://dnshistory.org/historical-dns-records/a/newscentertoday.com[rdns source]. `rss-items`. https://web.archive.org/web/20180606122214/http://newscentertoday.com:80/[Later legit], with a pause https://web.archive.org/web/20161008072958/http://newscentertoday.com/[The domain name you have entered is not available. It has been taken down because the email address of the domain holder (Registrant) has not been verified.].
 
 | 219.90.62.243
 | fitness-dawg.com
@@ -3509,20 +3611,28 @@ farsi-newsandweather.com
 TODO start future viewdns.info sweeps here.
 
 global-view-news.com
-* https://dnshistory.org/historical-dns-records/a/global-view-news.com 2010-02-13 -> 2010-08-04 67.220.228.130
+* https://dnshistory.org/historical-dns-records/a/global-view-news.com 2010-02-13 -> 2010-08-04 67.220.228.130. Tested viewdns.info range: 67.220.228.120 - 67.220.228.160:
+  * 67.220.228.150: investfromhome.co.uk 2011-09-05. No archives.
 * https://viewdns.info/iphistory/?domain=global-view-news.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2012-01-11 virtual
-  * 69.90.161.195	Canada	COGECO-PEER1	2011-09-08
+  * 69.90.161.195	Canada	COGECO-PEER1	2011-09-08. Unknown. Tested viewdns.info range: 69.90.161.185 69.90.161.205. Some virtual misses.
 
 health-men-today.com
 * https://dnshistory.org/historical-dns-records/a/health-men-today.com
-  2009-11-30 -> 2010-05-27 67.220.228.224. New range with global-view-news.com?
-  2009-08-01 -> 2009-09-19 69.42.58.50
-  2011-01-07 -> 2011-01-07 69.90.162.165
+  * 2009-11-30 -> 2010-05-27 67.220.228.224. New range with global-view-news.com? Tested viewdns.info range: 67.220.228.214 67.220.228.234
+    * 67.220.228.223: stagedwithdistinction.com 2011-10-09. One archive of godaddy only.
+  * 2009-08-01 -> 2009-09-19 69.42.58.50. Tested viewdns.info range: 69.42.58.40 - 69.42.58.60. Virtuals, canada.
+  * 2011-01-07 -> 2011-01-07 69.90.162.165. Tested viewdns.info range: 69.90.162.155 - 69.90.162.175. Virtuals.
 * https://viewdns.info/iphistory/?domain=health-men-today.com
-  * 204.11.56.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2014-04-19
-  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20
-  * 69.90.162.165	Canada	COGECO-PEER1	2012-06-29
+  * 204.11.56.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2014-04-19. Virtuals.
+  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20. Unknown range.
+  * 69.90.162.165	Canada	COGECO-PEER1	2012-06-29. Tested.
+
+firstnewssource.com
+https://web.archive.org/web/20110203072201/http://firstnewssource.com/
+* https://dnshistory.org/historical-dns-records/a/firstnewssource.com
+  2010-02-09 -> 2010-02-09 67.220.228.150 TODO new range with global-view-news.com? Tested.
+  2010-08-03 -> 2010-08-03 69.90.162.70  TODO new range with global-view-news.com?
 
 theworldnewsfeeds.com
 * https://dnshistory.org/historical-dns-records/a/theworldnewsfeeds.com no hits
@@ -3531,38 +3641,44 @@ theworldnewsfeeds.com
   * 74.200.252.212	United States	RACKSPACE	2011-11-13 unknown range
 
 pars-technews.com
-* https://dnshistory.org/historical-dns-records/a/pars-technews.com 2009-08-08 -> 2011-02-13 74.220.219.104 unknown range
-* https://viewdns.info/iphistory/?domain=pars-technews.com 74.220.219.104	United States	UNIFIEDLAYER-AS-1	2012-11-12
+* https://dnshistory.org/historical-dns-records/a/pars-technews.com 2009-08-08 -> 2011-02-13 74.220.219.104 Tested viewdns.info range: 74.220.219.94 74.220.219.114. Virtuals.
+* https://viewdns.info/iphistory/?domain=pars-technews.com 74.220.219.104	United States	UNIFIEDLAYER-AS-1	2012-11-12. Tested.
 
 newdaynewsonline.com
-* https://dnshistory.org/historical-dns-records/a/newdaynewsonline.com 2010-03-10 -> 2010-08-15 76.163.54.16
+* https://dnshistory.org/historical-dns-records/a/newdaynewsonline.com 2010-03-10 -> 2010-08-15 76.163.54.16. Tested viewdns.info range: 76.163.54.6 76.163.54.26
+  * 76.163.54.23: leewoodwork.com 2014-07-05
 * https://viewdns.info/iphistory/?domain=newdaynewsonline.com
-  * 74.91.154.56	United States	INTERNAP-BLOCK-4	2012-11-12 unknown range
-  * 76.163.54.16	United States	WINDSTREAM	2011-09-08 unknown range
+  * 74.91.154.56	United States	INTERNAP-BLOCK-4	2012-11-12 unknown range. Tested viewdns.info range: 74.91.154.46 74.91.154.66
+    * 74.91.154.61: benefitsla.com 2013-04-21. Legit.
+  * 76.163.54.16	United States	WINDSTREAM	2011-09-08 unknown range. Tested.
 
 sportsnewsfinder.com
-* https://dnshistory.org/historical-dns-records/a/sportsnewsfinder.com 2009-08-11 -> 2011-02-24 66.113.196.128 unknown range
+* https://dnshistory.org/historical-dns-records/a/sportsnewsfinder.com 2009-08-11 -> 2011-02-24 66.113.196.128. Tested viewdns.info range: 66.113.196.118 66.113.196.138.
 * https://viewdns.info/iphistory/?domain=sportsnewsfinder.com
   * 50.63.202.58	United States	AS-26496-GO-DADDY-COM-LLC	2013-03-23 some similar hits on other sites, possibly all flukes
   * 207.150.219.159	United States	AFFINITY-INTER	2013-03-02
-  * 66.113.196.128	United States	NETNATION	2012-01-11
+  * 66.113.196.128	United States	NETNATION	2012-01-11. Tested.
 
 newsworldsite.com
 * https://viewdns.info/iphistory/?domain=newsworldsite.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2013-05-20 big virtual
-  * 204.93.159.80	Chicago - United States	SERVERCENTRAL	2013-04-21 unknown range
+  * 204.93.159.80	Chicago - United States	SERVERCENTRAL	2013-04-21. Tested viewdns.info range: 204.93.159.70 204.93.159.90
+    * 204.93.159.84: team-merk.com 2011-08-11. No archives.
 
 todaysnewsreports.net
 * https://viewdns.info/iphistory/?domain=todaysnewsreports.net
   * 208.91.197.132	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-07-01
   * 205.178.189.129	United States	NETWORK-SOLUTIONS-HOSTING	2013-05-20 likely virtual
-  * 173.255.131.72	Reno - United States	UK-2 Limited	2012-08-27 unknown
-  * 67.213.211.232	United States	UK-2 Limited	2011-09-07 unknown
+  * 173.255.131.72	Reno - United States	UK-2 Limited	2012-08-27. Tested viewdns.info range: 173.255.131.62 173.255.131.82. Virtual and modern hits only.
+  * 67.213.211.232	United States	UK-2 Limited	2011-09-07 unknown. Tested viewdns.info range: 67.213.211.222 67.213.211.242
+    * 67.213.211.236: icf-finan.com 2015-01-20
+    * 67.213.211.237: playinside.me 2016-02-04. Nice domain hack, but no.
+    * 67.213.211.239: reality-sexxx.com 2011-09-08
 
 hassannews.net
 * https://viewdns.info/iphistory/?domain=hassannews.net
   * 208.91.197.132	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-07-08
-  * 205.178.189.131	United States	NETWORK-SOLUTIONS-HOSTING	2013-07-01
+  * 205.178.189.131	United States	NETWORK-SOLUTIONS-HOSTING	2013-07-01. Likely virtual.
 
 weblognewsinfo.com
 * https://dnshistory.org/historical-dns-records/a/weblognewsinfo.com 2010-05-10 -> 2010-10-07 64.120.20.234
@@ -3576,60 +3692,99 @@ newsincirculation.com
   * 2013-11-26 -> 2013-11-26 70.32.43.226
 * https://viewdns.info/iphistory/?domain=newsincirculation.com
   * 70.32.43.226	Lombard - United States	LEASEWEB-USA-CHI	2014-01-31
-  * 50.63.202.77	United States	AS-26496-GO-DADDY-COM-LLC	2013-10-19
+  * 50.63.202.77	United States	AS-26496-GO-DADDY-COM-LLC	2013-10-19. virutal?
   * 70.32.43.226	Lombard - United States	LEASEWEB-USA-CHI	2013-09-26 virtual?
-  * 69.147.228.5	Chicago - United States	LEASEWEB-USA-CHI	2012-11-12 unknown
+  * 69.147.228.5	Chicago - United States	LEASEWEB-USA-CHI	2012-11-12 unknown. Tested viewdns.info range: 69.147.228.1 69.147.228.15. Nope.
   * 173.208.81.2	Lombard - United States	LEASEWEB-USA-CHI	2011-04-04 virtual
 
 todayoutdoors.com
 * https://dnshistory.org/historical-dns-records/a/todayoutdoors.com
-  * 2009-08-11 -> 2010-07-07 174.133.44.90
-  * 2011-03-01 -> 2011-03-01 174.123.172.82 unknown
+  * 2009-08-11 -> 2010-07-07 174.133.44.90. Tested viewdns.info range: 174.133.44.80 174.133.44.100. Virtual and modern.
+  * 2011-03-01 -> 2011-03-01 174.123.172.82 unknown. Tested viewdns.info range: 174.123.172.72 174.123.172.92. Virtuals.
 * https://viewdns.info/iphistory/?domain=todayoutdoors.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2011-07-02 virtual
-  * 174.123.172.82	United States	SOFTLAYER	2011-04-04
+  * 174.123.172.82	United States	SOFTLAYER	2011-04-04. Tested.
 
 esmundonoticias.com
-* https://dnshistory.org/historical-dns-records/a/esmundonoticias.com 2010-02-05 -> 2010-08-02 216.93.248.194 unknown
-* https://viewdns.info/iphistory/?domain=esmundonoticias.com 216.93.248.194	Malden - United States	TWDX	2012-01-11
+* https://dnshistory.org/historical-dns-records/a/esmundonoticias.com 2010-02-05 -> 2010-08-02 216.93.248.194. Tested viewdns.info range: 216.93.248.184 216.93.248.204
+  * 216.93.248.194: coxsackielive.com 2012-06-29. No archives.
+  * 216.93.248.194: datapakassociates.org 2012-04-27. No rachives.
+  * 216.93.248.194: easywebworld.net 2012-02-27. Broken: https://web.archive.org/web/20101229051406/http://easywebworld.net/
+  * 216.93.248.194: esmundonoticias.com 2012-01-11
+  * 216.93.248.194: kukrinews.com 2011-06-22. Hit.
+    * https://dnshistory.org/historical-dns-records/a/kukrinews.com 2010-02-26 -> 2010-08-07 216.93.248.194
+    * https://viewdns.info/iphistory/?domain=kukrinews.com 216.93.248.194	Malden - United States	TWDX	2011-06-22
+  * 216.93.248.194: librarianhelper.com 2013-06-30. <Parked domain girl>
+  * 216.93.248.194: tech-geek-news.com 2012-01-11. Very broken, Arabic script, but seems legit,
+  * 216.93.248.194: ualbanycornerstone.org 2012-04-13. Legit.
+* https://viewdns.info/iphistory/?domain=esmundonoticias.com 216.93.248.194	Malden - United States	TWDX	2012-01-11. Tested.
 
 globaltourist.net
-* https://dnshistory.org/historical-dns-records/a/ 2009-07-30 -> 2011-01-01 69.59.20.215 unknown
+* https://dnshistory.org/historical-dns-records/a/ 2009-07-30 -> 2011-01-01 69.59.20.215 unknown. Tested viewdns.info range: 69.59.20.205 69.59.20.225. Virtuals.
 * https://viewdns.info/iphistory/?domain=globaltourist.net
   * 216.172.170.14	United States	NETWORK-SOLUTIONS-HOSTING	2013-07-08
   * 216.21.239.197	United States	NETWORK-SOLUTIONS-HOSTING	2012-06-25
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2012-04-09 big virtual
-  * 174.136.34.154	United States	IHNET	2012-03-12 unknown
-  * 74.119.145.101	Frankfurt am Main - Germany	PERFORMIVE	2011-09-07 unknown
-  * 69.59.20.215	United States	ATLRETAIL	2011-06-22
+  * 174.136.34.154	United States	IHNET	2012-03-12 unknown. Tested viewdns.info range: 174.136.34.144 174.136.34.164
+  * 74.119.145.101	Frankfurt am Main - Germany	PERFORMIVE	2011-09-07. Tested viewdns.info range: 74.119.145.91 74.119.145.111. One virtual.
+  * 69.59.20.215	United States	ATLRETAIL	2011-06-22. Tested
 
 all-sport-headlines.com
 * https://viewdns.info/iphistory/?domain=all-sport-headlines.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2012-11-12 virtual
-  * 216.104.38.114	United States	SINGLEHOP-LLC	2012-09-21 unknown
+  * 216.104.38.114	United States	SINGLEHOP-LLC	2012-09-21. Tested viewdns.info range: 216.104.38.104 216.104.38.124
+    * 216.104.38.110: afterawhilecrocodile.info 2011-07-26. Legit.
 
 technologytodayandtomorrow.com
 * https://viewdns.info/iphistory/?domain=technologytodayandtomorrow.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2011-11-13 virtual
-  * 72.34.53.174	United States	IHNET	2011-09-08 unknown
+  * 72.34.53.174	United States	IHNET	2011-09-08. Tested viewdns.info range: 72.34.53.164 72.34.53.184
+    * 72.34.53.166: bjellaagency.com 2023-03-07
+    * 72.34.53.174: businesscardprinternyc.info 2012-04-18
+    * 72.34.53.174: dermozamsoe106.com 2011-07-02
+    * 72.34.53.174: electronictechreviews.com 2011-09-08. Hit.
+    * 72.34.53.174: glialcells2009paris.com 2012-11-12
+    * 72.34.53.174: hysfreedom.net 2013-07-08. Legit.
+    * 72.34.53.174: integrativetherapiesec.com 2013-06-30
+    * 72.34.53.174: intloil.org 2012-04-27. Possible hit, a bit off style, but possibly because too broken. Copyright 2005.
+    * 72.34.53.174: islamicnewsonline.com 2013-03-23. No archives in date range.
+    * 72.34.53.174: larumbaknox.com 2012-01-11. <Parked domain girl>
+    * 72.34.53.174: myonlinegamesource.com 2012-01-11
+    * 72.34.53.174: mytravelopian.com 2011-04-04
+    * 72.34.53.174: recursosdenoticias.com 2012-06-29. Hit.
+    * 72.34.53.174: todaysnewsandweather-ru.com 2012-01-11. Hit.
+    * 72.34.53.181: theebizguy.com 2022-12-26
+    * 72.34.53.183: nofatchics.com 2012-01-11
 
 terrain-news.com
 * https://web.archive.org/web/20110202060511/http://terrain-news.com/internetspeed.jar[JAR]
 * https://viewdns.info/iphistory/?domain=terrain-news.com None in simple ranges.
-  * 204.11.56.25	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-11-08
-  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20
-  * 208.187.167.20	United States	DATANOC	2012-01-11
+  * 204.11.56.25	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-11-08. Virtuals.
+  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20>. Virtual 167. https://viewdns.info/reverseip/?host=208.91.197.19&t=1 not very promising.
+  * 208.187.167.20	United States	DATANOC	2012-01-11. Tested viewdns.info range: 208.187.167.10 208.187.167.30. Newer domains.
 
 intlnewsdaily.com
 * https://dnshistory.org/historical-dns-records/a/intlnewsdaily.com 2010-02-21 -> 2010-08-06 75.126.136.179. unknown range.
 * https://viewdns.info/iphistory/?domain=intlnewsdaily.com
-  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20. Virtual.
-  * 63.247.95.50	Austell - United States	NTHL	2012-06-29 unknown
+  * 208.91.197.19	British Virgin Islands	CONFLUENCE-NETWORK-INC	2013-05-20. Virtual. Tested.
+  * 63.247.95.50	Austell - United States	NTHL	2012-06-29 unknown. Tested viewdns.info range: 63.247.95.40 63.247.95.60
+    * 63.247.95.50: 2b-sports.com 2013-04-21
+    * 63.247.95.50: caldentalinsurance.com 2014-07-05
+    * 63.247.95.50: cameronbal-photography.com 2012-06-29
+    * 63.247.95.50: congbetham.com 2014-07-05
+    * 63.247.95.50: essentialintelligenceagency.com 2023-03-07
+    * 63.247.95.50: isabellavalentina.com 2014-07-05
+    * 63.247.95.50: jhraccounting.com.au 2021-05-03
+    * 63.247.95.50: missouribreaks294.com 2012-06-29
+    * 63.247.95.50: startorganize.com 2011-08-11
+    * 63.247.95.50: tifocus.net 2011-08-11
+    * 63.247.95.50: tifocus.org 2011-08-10
+    * 63.247.95.50: whitepartyorlando.com 2012-01-11
 
 opensourcenewstoday.com
 * https://viewdns.info/iphistory/?domain=opensourcenewstoday.com
   * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2011-11-13 virtual
-  * 64.16.193.48	Riyadh - Saudi Arabia	Saudi Telecom Company JSC	2011-09-08 unknown
+  * 64.16.193.48	Riyadh - Saudi Arabia	Saudi Telecom Company JSC	2011-09-08. Tested viewdns.info range: 64.16.193.38 64.16.193.41. Ran out.
 
 techwatchtoday.com
 * https://dnshistory.org/historical-dns-records/a/techwatchtoday.com 2009-08-11 -> 2011-02-26 66.11.225.226 big shared host
@@ -3646,7 +3801,7 @@ Likely hits possible but whose archives is too broken to be easily certain. If:
 were to ever be found, these would be considered hits.
 
 * 216.97.231.56 nouvelles-d-aujourdhuis.com. https://web.archive.org/web/20110128173431/http://nouvelles-d-aujourdhuis.com/[2011]. Stylistically perfect, but no nearby IP hits. Maybe looking into HTML would help confirm:
-  * `ul.rss-items > li.rss-item`
+  * `rss-items`
   But wrong IP? likely <CGI comms variant> under the signup page: https://web.archive.org/web/20090405045548/http://nouvelles-d-aujourdhuis.com/members.html[].
 
   Tested <viewdns.info> range: 216.97.231.46 - 216.97.231.66. Not a single reverse IP hit in there.
@@ -3760,6 +3915,7 @@ todaysolar.com. This might just be legit, but keeping it around just in case.
 * 63.130.160.59: technologiewissen.com. No archives from the time. Would be Technology knowledge in German, so another likely German hit. Shame.
 * 63.130.160.60: boxingstop.net. Hit.
 * 63.130.160.61: bookmarksthis.com. No archives.
+* 63.130.160.62: azerinews.org. Hit.
 
 64.16.204.55 holein1news.com. Found with: <2013 DNS Census virtual host cleanup heuristic keyword searches>. Tested viewdns.info range: 64.16.204.50 - 64.16.204.63. With did Wayback Machine have so few archives here? TODO stopping viewdns.info exploration a bit short due to that.
 * 64.16.204.35: ironcityfootball.com. Legit/broke.
@@ -3979,6 +4135,7 @@ todaysolar.com. This might just be legit, but keeping it around just in case.
 * 74.254.12.168: non-stop-news.net. Hit.
 * 74.254.12.169: soldiersofsouthasia.com. Hit.
 * 74.254.12.170: greek-news.info. https://web.archive.org/web/20130714231117/http://greek-news.info/[2013]. Welcome to the US Petabox. rdns source: <viewdns.info>
+* 74.254.12.171: autism-news.org. Hit.
 * 74.254.12.172: thesportsguidebook.com. rdns source: <2013 DNS Census>. Only has archive of one subpage: https://web.archive.org/web/20091124114840/http://thesportsguidebook.com:80/swimming_clubs2.html[2009]. English. sports.
 * 74.254.12.176: pakcricketgrd.com. Hit.
 * 74.254.12.177: networkofnews.com. Hit.
@@ -4231,6 +4388,7 @@ There were also some other reverse IP hits for fightwithoutrules.com, but no CIA
 * 219.90.61.116: athletepro.net. Hit.
 * 219.90.61.117: lajornadanow.com. Hit.
 * 219.90.61.119: aviation-navigation.com. No archives.
+* 219.90.61.120: theinternationalworld.com. Hit.
 * 219.90.61.121: thepyramidnews.com. Hit.
 * 219.90.61.122: iran-newslink-today.com. Hit.
 * 219.90.61.123: journeystravelled.com. Hit.
@@ -4250,6 +4408,7 @@ There were also some other reverse IP hits for fightwithoutrules.com, but no CIA
 * 219.90.62.238: freshtechonline.com. Hit.
 * 219.90.62.240: cityworldnewsnow.com. Hit. No archives but has subdomain: secure.cityworldnewsnow.com so likely <CGI comms>.
 * 219.90.62.242: ride-captain.com. Hit.
+* 219.90.62.241: newscentertoday.com. Hit.
 * 219.90.62.244: easytraveleurope.com. Hit.
 * 219.90.62.245: world-news-now.net. Hit.
 * 219.90.62.246: negativeaperture.com. Hit.
@@ -4396,6 +4555,11 @@ Whatever they did, we are so so glad that they did!
 {synonym}
 
 Previously it was unclear if there were any .org hits, until we found the first one with clear <comms>: https://web.archive.org/web/20110624203548/http://awfaoi.org/hand.jar
+
+Later on, two more clear ones were found with <expired domain trackers>:
+* azerinews.org
+* autism-news.org
+further settling their existence.
 
 Others that had been previously found in IP ranges but without clear comms:
 * 65.61.127.177: material-science.org
@@ -4572,6 +4736,8 @@ We've noticed that often when there is a hit range:
 * there is only one IP for each domain
 * there is a range of about 20-30 of those
 and that this does not seem to be that common. Let's see if that is a reasonable fingerprint or not.
+
+Note that although this is the most common case, we have found multiple hits that <viewdns.info> maps to the same IP.
 
 First we create a table `u` (`unique`) that only have domains which are the only domain for an IP, let's see by how much that lowers the 191 M total unique domains:
 ``
@@ -5356,6 +5522,18 @@ When you <Google> most of the hit domains, many of them show up on "expired doma
   * Connection #0 to host domain.webmasterhome.cn left intact
   ``
   It is not fully clear if this is a throttling mechanism, or if the data is just missing entirely.
+
+  Starting around 2018, the IP limiting became very intense, 30 mins / 1 hour per URL, so we just gave up. Therefore, data from 2018 onwards does not contain webmasterhome.cn data.
+
+  Starting from `2013-05-10` the format changes randomly. This also shows us that they just have all the HTML pages as static files on their server. E.g. with:
+  ``
+  grep -a '<pre' * | s
+  ``
+  we see:
+  ``
+  2013-05-09:<pre style='font-family:Verdana, Arial, Helvetica, sans-serif; '><strong>2013<C4><EA>05<D4><C2>09<C8>յ<BD><C6>ڹ<FA><BC><CA><D3><F2><C3><FB></strong><br>0-3y.com
+  2013-05-10:<pre><strong>2013<C4><EA>05<D4><C2>10<C8>յ<BD><C6>ڹ<FA><BC><CA><D3><F2><C3><FB></strong>
+  ``
 * https://justdropped.com[]: e.g. https://www.justdropped.com/drops/030612com.html[]
 * http://yoid.com[]: e.g.: http://yoid.com/bydate.php?d=2016-06-03&a=a
 This suggests that scraping these lists might be a good starting point to obtaining "all expired domains ever".
@@ -5385,6 +5563,20 @@ The extracted data is present at:
   * https://github.com/cirosantilli/expired-domain-names-by-day-2016
   * https://github.com/cirosantilli/expired-domain-names-by-day-2017
   * https://github.com/cirosantilli/expired-domain-names-by-day-2018
+Soon after uploading, these repos started getting some interesting traffic, presumably started by security trackers going "bling bling" on certain malicious domain names in their databases:
+* GitHub trackers:
+  * security.ctrip.com	10	3
+  * tcthreatcompass05.blueliv.com	4	1
+  * pmp.beygoo.me	2	1
+  * ecall.beygoo.me	2	1
+  * penetration.houtai.io	2	1
+  * eos.vip.vip.com 1	1
+  * cbs.ctm360.com	17	2
+  * turbo.gwmdevops.com	18	2
+  * hive.telefonica.com.br	2	1
+  * spigotmc.org 2 1
+* LinkedIn profile views:
+  * "Information Security Specialist at Forcepoint"
 
 Check for overlap of the merge:
 ``
@@ -5596,11 +5788,18 @@ Let's try another one for secure.altworldnews.com: https://search.censys.io/cert
 {parent=JavaScript reverse engineering}
 
 There are two types of JavaScript found so far. The ones with SHA and the ones without. There are only 2 examples of JS with SHA:
-* iraniangoals.com, commented at: <iraniangoals.com JavaScript reverse engineering>
+* iraniangoals.com: https://web.archive.org/web/20110202091909/http://iraniangoals.com/journal.js[] Commented at: <iraniangoals.com JavaScript reverse engineering>
 * iranfootballsource.com: https://web.archive.org/web/20110202091901/http://iranfootballsource.com/futbol.js
+* kukrinews.com: https://web.archive.org/web/20100513094909/http://kukrinews.com/news.js
+* todaysnewsandweather-ru.com: https://web.archive.org/web/20110207094735/http://todaysnewsandweather-ru.com/blacksea.js
 Both files start with precisely the same string:
 ``
 var ms="\u062F\u0631\u064A\u0627\u0641\u062A\u06CC",lc="\u062A\u0647\u064A\u0647 \u0645\u062A\u0646",mn="\u0628\u0631\u062F\u0627\u0632\u0634 \u062F\u0631 \u062C\u0631\u064A\u0627\u0646 \u0627\u0633\u062A...\u0644\u0637\u0641\u0627 \u0635\u0628\u0631 \u0643\u0646\u064A\u062F",lt="\u062A\u0647\u064A\u0647 \u0645\u062A\u0646",ne="\u067E\u0627\u0633\u062E",kf="\u062E\u0631\u0648\u062C",mb="\u062D\u0630\u0641",mv="\u062F\u0631\u064A\u0627\u0641\u062A\u06CC",nt="\u0627\u0631\u0633\u0627\u0644",ig="\u062B\u0628\u062A \u063A\u0644\u0637. \u062C\u0647\u062A \u062A\u062C\u062F\u064A\u062F \u062B\u0628\u062A \u0635\u0641\u062D\u0647 \u0631\u0627 \u0628\u0627\u0632\u0622\u0648\u0631\u06CC \u06A9\u0646\u064A\u062F",hs="\u063A\u064A\u0631 \u0642\u0627\u0628\u0644 \u0627\u062C\u0631\u0627. \u062E\u0637\u0627 \u062F\u0631 \u0627\u062A\u0651\u0635\u0627\u0644",ji="\u063A\u064A\u0631 \u0642\u0627\u0628\u0644 \u0627\u062C\u0631\u0627. \u062E\u0637\u0627 \u062F\u0631 \u0627\u062A\u0651\u0635\u0627\u0644",ie="\u063A\u064A\u0631 \u0642\u0627\u0628\u0644 \u0627\u062C\u0631\u0627. \u062E\u0637\u0627 \u062F\u0631 \u0627\u062A\u0651\u0635\u0627\u0644",gc="\u0633\u0648\u0627\u0631 \u06A9\u0631\u062F\u0646 \u062A\u06A9\u0645\u064A\u0644 \u0634\u062F",gz="\u0645\u0637\u0645\u0626\u0646\u064A\u062F \u06A9\u0647 \u0645\u064A\u062E\u0648\u0627\u0647\u064A\u062F \u067E\u064A\u0627\u0645 \u0631\u0627 \u062D\u0630\u0641 \u06A9\u0646\u064A\u062F\u061F"
+``
+
+Good fingerprint present in all of them:
+``
+throw new Error("B64 D.1");};if(at[1]==-1){throw new Error("B64 D.2");};if(at[2]==-1){if(f<ay.length){throw new Error("B64 D.3");};dg=2;}else if(at[3]==-1){if(f<ay.length){throw new Error("B64 D.4")
 ``
 
 = iraniangoals.com JavaScript reverse engineering
@@ -5611,6 +5810,8 @@ var ms="\u062F\u0631\u064A\u0627\u0641\u062A\u06CC",lc="\u062A\u0647\u064A\u0647
 Some <reverse engineering> was done at: https://twitter.com/hackerfantastic/status/1575505438111571969?lang=en[].
 
 Notably, the password is hardcoded and its <hash> is stored in the JavaScript itself. The result is then submitted back via a POST request to `/cgi-bin/goal.cgi`.
+
+TODO: how is the SHA calculated? Appears to be manual.
 
 = feedsdemexicoyelmundo.com JavaScript reverse engineering
 {parent=JavaScript reverse engineering}

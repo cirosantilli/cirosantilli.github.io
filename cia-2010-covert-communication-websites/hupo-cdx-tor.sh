@@ -6,7 +6,6 @@ outdir_base="${script_dir}/tmp/hupo-cdx-tor"
 dirname="$1"
 grepterm="$2"
 outdir="$outdir_base/$dirname"
-rm -rf "$outdir"
 mkdir -p "$outdir"
 from="${3:-2011}"
 to="${4:-2099}"
@@ -14,6 +13,7 @@ ls -1 "$indir" | awk -F- '{print $1}' | uniq | while IFS= read -r y; do
   if [ "$y" -ge "$from" ] && [ "$y" -le "$to" ]; then
     echo $y
     grepfile="$outdir/$y"
+    rm -rf "$grepfile" "$grepfile.cdx"
     grep -E -h "$grepterm" "$indir/$y-"*  > "$grepfile"
     wc "$grepfile"
     cd "$outdir"

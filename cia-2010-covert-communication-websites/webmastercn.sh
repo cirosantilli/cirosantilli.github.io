@@ -23,7 +23,7 @@ while [ "$d" != 2023-01-01 ]; do
     echo sleep
     # Good.
     #sleep 300
-    sleep 180
+    sleep 240
   else
     rm -f "$d"
   fi
