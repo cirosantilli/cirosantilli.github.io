@@ -8,5 +8,11 @@ rm -rf "$outdir"
 mkdir -p "$outdir"
 ls -1 "$hupo_dir" | while IFS= read -r f; do
   echo "$f"
-  cat "$hupo_dir/$f" <( inf="$webmasterhome_dir/$f"; if [ -f "$inf" ]; then "${script_dir}/webmastercn-post.sh" "$inf"; fi ) | sort | uniq > "$outdir/$f"
+  (
+    cat "$hupo_dir/$f"
+    inf="$webmasterhome_dir/$f"
+    if [ -f "$inf" ]; then
+      "${script_dir}/webmastercn-post.sh" "$inf"
+    fi
+  ) | sort | uniq > "$outdir/$f"
 done

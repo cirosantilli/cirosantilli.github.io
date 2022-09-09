@@ -584,10 +584,10 @@ Our WIP script: \a[wikipedia/import-categories.sh].
 
 Related:
 * https://opendata.stackexchange.com/questions/1533/download-wikipedia-articles-from-a-specific-category
-* https://webapps.stackexchange.com/questions/16359/is-there-a-way-to-download-a-list-of-all-wikipedia-categories
+* https://webapps.stackexchange.com/questions/16359/is-there-a-way-to-download-a-list-of-all-wikipedia-categories/172480#172480
 * https://stackoverflow.com/questions/40119322/how-to-download-all-pages-inside-a-category-in-wikipedia
 * category tree on Stack Overflow
-  * https://stackoverflow.com/questions/17432254/wikipedia-category-hierarchy-from-dumps Canon but no good answers.
+  * https://stackoverflow.com/questions/17432254/wikipedia-category-hierarchy-from-dumps/77313490#77313490 Canon but no good answers.
   * https://stackoverflow.com/questions/12227134/how-to-fetch-category-tree-of-wiki
   * https://stackoverflow.com/questions/21782410/finding-subcategories-of-a-wikipedia-category-using-category-and-categorylinks-t[]. Actually explains it: https://stackoverflow.com/questions/21782410/finding-subcategories-of-a-wikipedia-category-using-category-and-categorylinks-t/21798259#21798259
   * https://stackoverflow.com/questions/27279649/how-to-build-wikipedia-category-hierarchy
@@ -598,9 +598,11 @@ Consider:
 * https://en.wikipedia.org/wiki/Category:Computer_data_storage
 * https://en.wikipedia.org/wiki/Computer_storage_devices which redirects to: https://en.wikipedia.org/wiki/Computer_data_storage
 
+Jewish_physicists
+
 Let's observe them in <MySQL>:
 ``
-select page_id, page_namespace, page_title, page_is_redirect from page where page_namespace in (0, 14) and page_title in ('Computer_storage_devices', 'Computer_data_storage');
+mysql enwiki -e "select page_id, page_namespace, page_title, page_is_redirect from page where page_namespace in (0, 14) and page_title in ('Computer_storage_devices', 'Computer_data_storage')"
 ``
 outputs:
 ``
@@ -615,7 +617,7 @@ outputs:
 ``
 
 ``
-select cl_from, cl_to from categorylinks where cl_from in (5300, 711721, 895945, 42371130);
+mysql enwiki -e "select cl_from, cl_to from categorylinks where cl_from in (5300, 711721, 895945, 42371130)"
 ``
 gives:
 ``
