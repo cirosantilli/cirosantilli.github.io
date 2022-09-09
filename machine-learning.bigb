@@ -1195,6 +1195,193 @@ Interesting website, hosts mostly:
 {parent=Machine learning company}
 {wiki}
 
+= Resource Description Framework
+{parent=Ontology}
+{wiki}
+
+= RDF
+{c}
+{synonym}
+{title2}
+
+This is one of those <idealistic> <W3C> specifications with super messy implementations all over.
+
+= RDF language
+{c}
+{parent=Resource Description Framework}
+
+= Terse RDF
+{parent=RDF language}
+{title2=.ttl}
+{wiki=Turtle_(syntax)}
+
+= Turtle RDF
+{synonym}
+
+= RDF Turtle
+{synonym}
+
+Example: \a[rdf/vcard.ttl].
+
+Implemented by:
+* <Apache Jena>
+
+= Semantic triple
+{parent=Resource Description Framework}
+{wiki}
+
+= Triplestore
+{parent=Semantic triple}
+{wiki}
+
+= SPARQL
+{c}
+{parent=Semantic triple}
+{wiki}
+
+= SPARQL tutorial
+{c}
+{parent=SPARQL}
+
+In this tutorial, we will use the <Jena SPARQL hello world> as a starting point. Tested on <Apache Jena> 4.10.0.
+
+Basic query on \a[rdf/vcard.ttl] <RDF Turtle> data to find the person with full name "John Smith":
+``
+sparql --data=rdf/vcard.ttl --query=<( printf '%s\n' 'SELECT ?x WHERE { ?x <http://www.w3.org/2001/vcard-rdf/3.0#FN> "John Smith" }')
+``
+Output:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+To avoid writing `http://www.w3.org/2001/vcard-rdf/3.0#` a billion times as queries grow larger, we can use the `PREFIX` syntax:
+``
+sparql --data=rdf/vcard.ttl --query=<( printf '%s\n' '
+PREFIX vc: <http://www.w3.org/2001/vcard-rdf/3.0#>
+SELECT ?x
+WHERE { ?x vc:FN "John Smith" }
+')
+``
+Output:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+Bibliography:
+* <UniProt> contains some amazing examples runnable on their servers: https://sparql.uniprot.org/.well-known/sparql-examples/
+
+= SPARQL implementation
+{c}
+{parent=SPARQL}
+
+= Apache Jena
+{c}
+{parent=SPARQL implementation}
+{tag=Java library}
+{wiki}
+
+Bibliography:
+* https://www.reddit.com/r/semanticweb/comments/131wzn1/whats_the_best_way_to_work_with_apache_jena/
+
+= Apache Jena CLI tools setup
+{parent=Apache Jena}
+
+The <CLI> tools don't appear to be packaged for <Ubuntu 23.10>? Annoying... There is a package `libapache-jena-java` but it doesn't contain any binaries, only <Java> library files.
+
+To run the CLI tools easily we can download the prebuilt:
+``
+sudo apt install openjdk-22-jre
+wget https://dlcdn.apache.org/jena/binaries/apache-jena-4.10.0.zip
+unzip apache-jena-4.10.0.zip
+cd apache-jena-4.10.0
+export JENA_HOME="$(pwd)"
+export PATH="$PATH:$(pwd)/bin"
+``
+and we can confirm it works with:
+``
+sparql -version
+``
+which outputs:
+``
+Apache Jena version 4.10.0
+``
+
+If your <Java> is too old then then running `sparql` with the prebuilts fails with:
+``
+Error: A JNI error has occurred, please check your installation and try again
+Exception in thread "main" java.lang.UnsupportedClassVersionError: arq/sparql has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+        at java.lang.ClassLoader.defineClass1(Native Method)
+        at java.lang.ClassLoader.defineClass(ClassLoader.java:756)
+        at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+        at java.net.URLClassLoader.defineClass(URLClassLoader.java:473)
+        at java.net.URLClassLoader.access$100(URLClassLoader.java:74)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:369)
+        at java.net.URLClassLoader$1.run(URLClassLoader.java:363)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:362)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+        at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:621)
+``
+
+Build from source is likely something like:
+``
+sudo apt install maven openjdk-22-jdk
+git clone https://github.com/apache/jena --branch jena-4.10.0 --depth 1
+cd jena
+mvn clean install
+``
+TODO test it.
+
+If you make the mistake of trying to run the source tree without build:
+``
+git clone https://github.com/apache/jena --branch jena-4.10.0 --depth 1
+cd jena
+export JENA_HOME="$(pwd)"
+export PATH="$PATH:$(pwd)/apache-jena/bin"
+``
+it fails with:
+``
+Error: Could not find or load main class arq.sparql
+``
+as per: https://users.jena.apache.narkive.com/T5TaEszT/sparql-tutorial-querying-datasets-error-unrecognized-option-graph
+
+= Jena SPARQL hello world
+{parent=Apache Jena}
+{tag=Hello world}
+
+They have a tutorial at: https://jena.apache.org/tutorials/sparql.html
+
+Once you've done the <Apache Jena CLI tools setup> we can query all users with Full Name (FN) "John Smith" directly fom the \a[rdf/vcard.ttl] <Turtle RDF> file with the \a[rdf/vcard-basic.rq] <SPARQL> query:
+``
+sparql --data=rdf/vcard.ttl --query=rdf/vcard-basic.rq
+``
+and that outputs:
+``
+---------------------------------
+| x                             |
+=================================
+| <http://somewhere/JohnSmith/> |
+---------------------------------
+``
+
+Bibliography:
+* https://stackoverflow.com/questions/41959550/cli-tool-ala-csvsql-for-sparql-and-ttl-n3-files-hello-world-example-for
+
+= Virtuoso Universal Server
+{c}
+{parent=SPARQL implementation}
+{wiki}
+
 = Hyponymy and hypernymy
 {parent=Ontology}
 {title2=is a}
