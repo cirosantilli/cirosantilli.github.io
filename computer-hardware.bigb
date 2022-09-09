@@ -1331,8 +1331,87 @@ Arghh, why so hard... tested 2021:
 
   They also don't document their Heroku usage well. The envvars generated on Heroku are useless, only to login on their web UI. The send username and password must be obtained on their confusing web ui.
 
-= Supercomputer
+= High performance computing
 {parent=Computer form factor}
+{wiki}
+
+= Job scheduler
+{parent=High performance computing}
+{wiki}
+
+= IBM Spectrum LSF
+{c}
+{parent=Job scheduler}
+{title2=LSF}
+
+= LSF get version
+{c}
+{parent=IBM Spectrum LSF}
+
+Most/all commands have the `-V` option which prints the version, e.g.:
+``
+bsub -V
+``
+
+= LSF command
+{c}
+{parent=IBM Spectrum LSF}
+
+= bsub
+{c}
+{parent=LSF command}
+
+Docs: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-options
+
+Submit a new job.
+
+= bsub get job stdout and stderr
+{parent=bsub}
+
+By default, LSF sends you an email with the stdout and stderr included in it.
+
+https://www.ibm.com/support/pages/include-only-job-stdout-lsf-job-output-file
+
+The other option is to use:
+``
+bsub -oo stdout.log -eo stderr.log 'echo myout; echo myerr 1>&2'
+``
+as documented at:
+* https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=options-eo
+* https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=options-oo
+Or to use files with the job id in them:
+``
+bsub -oo %J.out -eo %J.err 'echo myout; echo myerr 1>&2'
+``
+
+By default `bsub -oo`:
+* also contains the LSF metadata in addition to the actual submitted process stdout
+* prevents the completion email from being sent
+To get just the stdout to the file, use `bsub -N -oo` which:
+* stores only stdout on the file
+* re-enables the completion email
+as mentioned at:
+* https://www.ibm.com/support/pages/include-only-job-stdout-lsf-job-output-file
+* https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=o-n
+
+= bpeek
+{c}
+{parent=LSF command}
+
+View stdout/stderr of a running job.
+
+= Slurm Workload Manager
+{c}
+{parent=High performance computing}
+{wiki}
+
+= SLURM
+{c}
+{synonym}
+{title2}
+
+= Supercomputer
+{parent=High performance computing}
 {wiki}
 
 Some good insights on the earlier history of the industry at: <The Supermen: The Story of Seymour Cray by Charles J. Murray (1997)>.
