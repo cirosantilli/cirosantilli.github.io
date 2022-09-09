@@ -120,7 +120,7 @@ Here is a very direct description of the system:
 * each input is the output of a previous transaction. You verify your identity as the indented receiver by producing a <digital signature> for the <public key> specified on the output
 * each output specifies the <public key> of the receiver and the value being sent
 * the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.
-* once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as change. This is why the vast majority of transactions has two outputs: one "real", and the other change back to self.
+* once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 BTC to pay 0.1 BTC, what you do is to send 0.1 BTC to the receiver, and 0.9 BTC back to yourself as <change (Bitcoin)>. This is why the vast majority of transactions has two outputs: one "real", and the other <change (Bitcoin)> back to self.
 <code Sample Bitcoin transaction graph> illustrates these concepts:
 * `tx0`: magic transaction without any inputs, i.e. either <Genesis block> or a coinbase mining reward. Since it is a magic transaction, it produces 3 Bitcoins from scratch: 1 in `out0` and 2 in `out1`
 * `tx1`: regular transaction that takes:
@@ -233,10 +233,26 @@ The goal of having this mandatory 10 minutes block interval is to make it very u
 Bibliography:
 * https://arstechnica.com/tech-policy/2020/12/how-bitcoin-works/
 
+= Change
+{disambiguate=Bitcoin}
+{parent=How Bitcoin works}
+
+= Bitcoin mining reward
+{parent=How Bitcoin works}
+
+= Bitcoin halvening
+{parent=Bitcoin mining reward}
+
+https://cointelegraph.com/learn/bitcoin-halving-how-does-the-halving-cycle-work-and-why-does-it-matter Aimed at 4 year intervals. The historical dates were:
+* 50 BTC initially
+* 2012: down to 25 BTC
+* 2016: down to 12.5 BTC
+* 2020: down to 6.25 BTC
+
 = History of Bitcoin
 {parent=Bitcoin}
 
-= Laszlo's pizza
+= Laszlo's pizzas
 {c}
 {parent=History of Bitcoin}
 {title2=2010-05-18}
@@ -288,7 +304,7 @@ https://www.thesun.co.uk/news/15049566/other-bitcoin-pizza-jeremy-sturdivant-for
 \Image[https://web.archive.org/web/20200806030121im_/http://heliacal.net/~solar/bitcoin/pizza/.t/IMG_0984.small.jpg]
 {source=https://web.archive.org/web/20211219130004/http://heliacal.net/~solar/bitcoin/pizza/}
 {title=Laszlo first pizzas}
-{description=The most famous of Laszlo's pizzas. Ordered from Papa's Specialty}
+{description=The most famous of <Laszlo's pizzas>. Ordered from Papa's Specialty}
 
 \Image[https://web.archive.org/web/20211016070745im_/https://www.thesun.co.uk/wp-content/uploads/2021/05/COMP-CFP-BITCOIN-PIZZA.jpg?w=660]
 {title=Jeremy Sturdivant}
@@ -330,7 +346,7 @@ Bibliography:
 
 = Jeremy Sturdivant
 {c}
-{parent=Laszlo's pizza}
+{parent=Laszlo's pizzas}
 
 = jercos
 {synonym}
@@ -348,7 +364,7 @@ Bibliography:
 https://en.bitcoin.it/wiki/Jercos
 
 = Who bought Laszlo Hanyecz pizza?
-{parent=Laszlo's pizza}
+{parent=Laszlo's pizzas}
 
 TODO who bought the Bitcoins? Is anyone else besides <Jeremy Sturdivant>
 
@@ -364,14 +380,30 @@ https://web.archive.org/web/20210217220810/http://heliacal.net/~solar/bitcoin/li
 
 As per https://bitcoin.stackexchange.com/questions/113831/searching-the-blockchain-based-on-transaction-amount-and-or-date at https://blockchair.com/bitcoin/outputs?s=time(asc)&q=value(1000000000000),time(2010-05-18..2010-08-05) we can list all the transactions made between the offer and withdrawl dates for value exactly 10k. There are only about 20 of them, and including someon the 22nd of May, so it is extremelly likely that this will contain the hits. No repeated recipients however, so it is hard to progress with more advanced analytics tools
 
-The first transactions are:
-* 49d2adb6e476fa46d8357babf78b1b501fd39e177ac7833124b3f67b17c40c2a. This one has several mentions:
+Some of the transactions are:
+* https://www.blockchain.com/explorer/transactions/btc/49d2adb6e476fa46d8357babf78b1b501fd39e177ac7833124b3f67b17c40c2a[49d2adb6e476fa46d8357babf78b1b501fd39e177ac7833124b3f67b17c40c2a] (22 May 2010 06:17:59 GMT+1). This one has some <Google> mentions:
   * https://github.com/bitcoinbook/bitcoinbook/blob/6c472dd00b649b18b6ca6bbcc8ba23775619ce08/appdx-pycoin.asciidoc
   * https://github.com/richardkiss/pycoin/blob/367a58e25aacf85549a7335f7607ba8a53727c81/COMMAND-LINE-TOOLS.md
-* a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d also has several mentions:
-  * https://www.blockchain.com/explorer/transactions/btc/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d even specially marks it "Bitcoin Pizza" and "Notable"
+  This is a highly unusual transaction from a single address https://www.blockchain.com/explorer/addresses/btc/17WFx2GQZUmh6Up2NDNCEDk3deYomdNCfk[17WFx2GQZUmh6Up2NDNCEDk3deYomdNCfk] to a single address https://www.blockchain.com/explorer/addresses/btc/1CZDM6oTttND6WPdt3D6bydo7DYKzd9Qik[1CZDM6oTttND6WPdt3D6bydo7DYKzd9Qik] for the exact value with no <change (Bitcoin)>.
+
+  By digging a bit, we see that the input comes from exactly 20 outputs, e.g. https://www.blockchain.com/explorer/addresses/BTC/1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj[1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj], each of which is a block reward of 50 BTC, the <Bitcoin halvening>[reward value at those early times], thus satisfactorily explaining how the exact 10k value was obtained without <change (Bitcoin)>. Because we know that Laszlo was a big <GPU> miner, it is extremelly likely that this transaction was made by him.
+* https://www.blockchain.com/explorer/transactions/btc/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d[a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d] (22 May 2010 07:16:31 GMT+1) also has several <Google> mentions, e.g.:
   * https://tokenview.medium.com/bitcoin-pizza-day-the-story-of-buying-pizza-with-10-000-btc-54cd0896f9f1
-* d1a429c05868f9be6cf312498b77f4e81c2d4db3268b007b6b80716fb56a35ad
+
+  https://www.blockchain.com/explorer/transactions/btc/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d even specially marks it "Bitcoin Pizza" and "Notable". Furthermore, the receiving address https://www.blockchain.com/explorer/addresses/btc/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ[17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ] is even marked as verified an as belonging to <Jeremy Sturdivant>.
+
+  Furthermore this also shows us how Jeremy then transferred about half of Bitcoins 10 minutes later, but we can't know if it was to his own accounts or to cash out.
+
+  The nature of this transaction is very different from the previous one. It uses a bunch of inputs to a single address https://www.blockchain.com/explorer/addresses/btc/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4[1XPTgDRhN8RFnzniWCddobD9iKZatrvH4]. 1XPTgDRhN8RFnzniWCddobD9iKZatrvH4 contains a mixture of regular small inputs, but also a bunch of block rewards e.g. https://www.blockchain.com/explorer/addresses/btc/1MUoh2nJudSDdKu9NkcevaCG1Qe3nZHWFZ[], thus also clearly indicating Lsazlo ownership.
+* https://www.blockchain.com/explorer/transactions/btc/d1a429c05868f9be6cf312498b77f4e81c2d4db3268b007b6b80716fb56a35ad[d1a429c05868f9be6cf312498b77f4e81c2d4db3268b007b6b80716fb56a35ad] (29 May) is a common looking transaction with a single input from https://www.blockchain.com/explorer/addresses/btc/1Bc7T7ygkKKvcburmEg14hJKBrLD7BXCkX[1Bc7T7ygkKKvcburmEg14hJKBrLD7BXCkX] and two outputs, one likely being the change to https://www.blockchain.com/explorer/addresses/btc/1GH4dRUAagj67XVjr4TV6J9RFNmGYsLe7c[1GH4dRUAagj67XVjr4TV6J9RFNmGYsLe7c] and the other the actual value to https://www.blockchain.com/explorer/addresses/btc/138eoqfNcEdeU9EG9CKfAxnYYz62uHRNrA[138eoqfNcEdeU9EG9CKfAxnYYz62uHRNrA].
+
+  The input chain is complex, but it does contain one block reward on the third level: https://www.blockchain.com/explorer/addresses/BTC/17PBFeDzks3LzBTyt6bAMATNhowrvx5kBw[17PBFeDzks3LzBTyt6bAMATNhowrvx5kBw] + 79 rewards 4th level at https://www.blockchain.com/explorer/transactions/btc/045795627ca29ec72a94c23a65ee775ea1949d60b6fba0938b75e1cfe1e6643e[045795627ca29ec72a94c23a65ee775ea1949d60b6fba0938b75e1cfe1e6643e].
+* https://www.blockchain.com/btc/tx/d3498960e5f73031f726cb878382cc696938810fa43f918696cbf242afc9765e[d3498960e5f73031f726cb878382cc696938810fa43f918696cbf242afc9765e] (04 June): complex chain, unclear
+* https://www.blockchain.com/explorer/transactions/btc/2ea2914c131b2798041a80c00c44081a3559233d69d8b367e4244e6b12096610[2ea2914c131b2798041a80c00c44081a3559233d69d8b367e4244e6b12096610] (10 June): single input/single output. Complex input, but has some 2nd order mines e.g. https://www.blockchain.com/explorer/transactions/btc/e6393f613ef12f5708fa511875b8ff5080f6c8864709f8d92bd99435826a9d0d[e6393f613ef12f5708fa511875b8ff5080f6c8864709f8d92bd99435826a9d0d]
+* https://www.blockchain.com/explorer/transactions/btc/ea595789878b673776d0577cbc6063db611bb4e2954e226459d556995f547922[ea595789878b673776d0577cbc6063db611bb4e2954e226459d556995f547922] (24 June): single input/single output. Complex input, but has some 2nd order mines e.g. https://www.blockchain.com/explorer/transactions/btc/b9a0c2d24a744b79fe001a67468c456746b74e94a6ce68a2e5f80bf645d678b9[b9a0c2d24a744b79fe001a67468c456746b74e94a6ce68a2e5f80bf645d678b9]
+* https://www.blockchain.com/explorer/transactions/btc/461f91a98bbe2f269d8af938039e185287761677f0418fcc8238c5f3dca72935[461f91a98bbe2f269d8af938039e185287761677f0418fcc8238c5f3dca72935] (02 Jul 2010 08:39:17 GMT+1): single 20k input to two 10k outputs. Did he get 2x two pizzas at once? Complex input.
+* https://www.blockchain.com/explorer/transactions/btc/a47f927ca1adeeb4394200e8a37a9297b07e784a251569074a9fc2c04855560f[a47f927ca1adeeb4394200e8a37a9297b07e784a251569074a9fc2c04855560f] (02 Jul 2010 09:07:35 GMT+1): too close in time to the previous one, unless he was having a massive pizza party with invitees!
+* https://www.blockchain.com/explorer/transactions/btc/77036fa2ac75212be1ce93e8e1008d5cb2bcbb51aa560a5fe29c9c1423bbd00e[77036fa2ac75212be1ce93e8e1008d5cb2bcbb51aa560a5fe29c9c1423bbd00e] (02 Jul 2010 09:14:33 GMT+1): the party grows even larger
 
 = Bitcoin community
 {c}
@@ -391,7 +423,7 @@ Founded by <Satoshi Nakamoto>, making it the earliest and one of the most import
 Instance of <#Simple Machines Forum>, an <open source>, <PHP>-based forum system.
 
 Some notable appearances:
-* in 2010, it is where <Laszlo's pizza> offer was announced
+* in 2010, it is where <Laszlo's pizzas> offer was announced
 * it was used e.g. on the <Mt. Gox> investigation: https://youtu.be/tJ-TsrK6SuY?t=2018
 
 = Bitcoin Foundation
