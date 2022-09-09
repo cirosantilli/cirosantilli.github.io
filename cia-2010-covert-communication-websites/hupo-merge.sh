@@ -6,7 +6,11 @@ webmasterhome_dir="${script_dir}/tmp/webmasterhome"
 outdir="${script_dir}/tmp/merge"
 rm -rf "$outdir"
 mkdir -p "$outdir"
-d=2011-07-29
+if [ $# -gt 0 ]; then
+  d="$1-01-21"
+else
+  d=2011-07-29
+fi
 to="$(ls -1 "$hupo_dir" | tail -n1)"
 to2="$(ls -1 "$webmasterhome_dir" | tail -n1)"
 while [ "$d" \< "$to" ] || [ "$d" \< "$to2" ]; do

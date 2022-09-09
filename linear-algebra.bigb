@@ -1202,31 +1202,34 @@ which leads to the change of sign of some terms.
 = Einstein notation for partial derivatives
 {parent=Einstein notation}
 
-The <Einstein summation convention> works will with <partial derivative>, and this case is widely used in <particle physics>.
+The <Einstein summation convention> works will with <partial derivatives> and it is widely used in <particle physics>.
 
-<Partial index partial derivative notation> is the <partial derivative notation> commonly used in this context, as we want to do operations by index rather than by labels such as $x$, $y$, $z$.
+In particular, the <divergence> and the <Laplacian> can be succintly expressed in this notation:
+* <Divergence in Einstein notation>{full}
+* <Laplacian in Einstein notation>{full}
 
-This notation also allows us to have <raised and lowered indices> on the <partial derivative symbol> TODO how are they different?
+In order to expresse partial derivatives, we must use what <Ciro Santilli> calls the "<partial index partial derivative notation>", which refers to variales with indices such as $x_0$, $x_1$, $x_2$, $\partial_0$, $\partial_1$ and $\partial_2$  instead of the usual letters $x$, $y$ and $z$.
 
 = Divergence in Einstein notation
 {parent=Einstein notation for partial derivatives}
+{title2=$\partial_i$}
 
-Given a vector function of three variables:
+First we write a <vector field> as:
 $$
 F(x_0, x_1, x_2) = (F^0(x_0, x_1, x_2), F^1(x_0, x_1, x_2), F^2(x_0, x_1, x_2)) : \R^3 \to \R^3
 $$
-so note that we are denoting each component of $F$ as $F^i$ with a <raised index>.
+Note how we are denoting each component of $F$ as $F^i$ with a <raised index>.
 
 Then, the <divergence> can be written in <Einstein notation> as:
 $$
-\div{F} = \partial_i F^i(x_0, x_1, x_2) = \pdv{F^i(x_0, x_1, x_2)}{x^i} = \pdv{F^0(x_0, x_1, x_2)}{x_0} + \pdv{F^1(x_0, x_1, x_2)}{x_1} + \pdv{F^2(x_0, x_1, x_2)}{x_2}
+\div{F} = \pdv{F^0(x_0, x_1, x_2)}{x_0} + \pdv{F^1(x_0, x_1, x_2)}{x_1} + \pdv{F^2(x_0, x_1, x_2)}{x_2} = \partial_i F^i(x_0, x_1, x_2) = \pdv{F^i(x_0, x_1, x_2)}{x^i}
 $$
 
 It is common to just omit the variables of the function, so we tend to just say:
 $$
 \div{F} = \partial_i F^i
 $$
-or equivalently when referring just to the operation:
+or equivalently when referring just to the <operator>:
 $$
 \div{} = \partial_i
 $$
@@ -1236,22 +1239,24 @@ $$
 {parent=Einstein notation for partial derivatives}
 {title2=$\partial_i \partial^i$}
 
-Given a real function of three variables:
+Consider a real valued function of three variables:
 $$
 F(x_0, x_1, x_2) = : \R^3 \to \R
 $$
-its <Laplacian> can be written as:
+
+Its <Laplacian> can be written as:
 $$
-\laplacian{F(x_0, x_1, x_2)} = \partial_i \partial^i F(x_0, x_1, x_2) = \\
-\partial_0 \partial^0 F(x_0, x_1, x_2) + \partial_1 \partial^1 F(x_0, x_1, x_2) + \partial_2 \partial^2 F(x_0, x_1, x_2) \\
-\partial_0^2 F(x_0, x_1, x_2) + \partial_1^2 F(x_0, x_1, x_2) + \partial_2^2 F(x_0, x_1, x_2)
+\laplacian{F(x_0, x_1, x_2)} = \\
+\partial_0^2 F(x_0, x_1, x_2) + \partial_1^2 F(x_0, x_1, x_2) + \partial_2^2 F(x_0, x_1, x_2) = \\
+\partial_0 \partial^0 F(x_0, x_1, x_2) + \partial_1 \partial^1 F(x_0, x_1, x_2) + \partial_2 \partial^2 F(x_0, x_1, x_2) = \\
+\partial_i \partial^i F(x_0, x_1, x_2)
 $$
 
 It is common to just omit the variables of the function, so we tend to just say:
 $$
 \laplacian{F} = \partial_i \partial^i F
 $$
-or equivalently when referring just to the operation:
+or equivalently when referring just to the <operator>:
 $$
 \laplacian{} = \partial_i \partial^i
 $$

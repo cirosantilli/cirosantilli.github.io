@@ -9,7 +9,8 @@ if [ -z "$d" ]; then
 else
   d="$(date -I -d "$d + 1 day")"
 fi
-while [ "$d" != 2023-01-01 ]; do
+# Last known working datapoint.
+while [ "$d" != 2022-07-19 ]; do
   echo $d
   # Last known with space:
   # http://static.hupo.com/expdomain_myadmin/2012-01-23（国际域名）%20.txt

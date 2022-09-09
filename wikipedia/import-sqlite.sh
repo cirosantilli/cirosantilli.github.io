@@ -14,8 +14,8 @@ time sqlite3 "$db" 'create index "page_namespace_title" on "page"("page_namespac
 du -h "$db"
 
 # categorylinks
-sqlite3 "$db" 'create table categorylinks("cl_from" integer, "cl_to" text)'
+sqlite3 "$db" 'create table "categorylinks"("cl_from" integer, "cl_to" text)'
 time zcat enwiki-latest-categorylinks.sql.gz | python mysqldump-to-csv/mysqldump_to_csv.py | csvtool col 1,2 - | sqlite3 "$db" ".import --csv '|cat -' categorylinks"
 du -h "$db"
-time sqlite3 "$db" 'create index "categorylinks_to" on categorylinks("cl_to")'
+time sqlite3 "$db" 'create index "categorylinks_to" on "categorylinks"("cl_to")'
 du -h "$db"

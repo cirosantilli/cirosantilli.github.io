@@ -371,6 +371,17 @@ For example, when https://www.bloomberg.com/news/articles/2020-04-06/quantum-com
 Bibliography:
 * https://errorcorrectionzoo.org/domain/quantum_domain
 
+= Quantum error correction code
+{parent=Quantum error correction}
+{tag=Error correction code}
+
+= Surface code
+{parent=Quantum error correction code}
+
+* https://www.nature.com/articles/s41586-022-05434-1
+* https://www.qutube.nl/quantum-computer-12/surface-codes
+* https://quantumcomputing.stackexchange.com/questions/2106/what-is-the-surface-code-in-the-context-of-quantum-error-correction
+
 = Quantum threshold theorem
 {parent=Quantum error correction}
 {wiki}
@@ -478,10 +489,16 @@ Also of interest: https://quantumzeitgeist.com/interactive-map-of-quantum-comput
 {parent=Quantum computing research institute}
 {tag=Delft University of Technology}
 
-= QuTechAcademy
+= QuTech Academy
 {c}
 {parent=QuTech}
 {tag=Quantum computing outreach}
+
+One of their learning sites: https://www.qutube.nl/
+
+= QuTechAcademy
+{c}
+{synonym}
 
 The educational/outreach branch of <QuTech>.
 
@@ -875,6 +892,9 @@ $$
 {parent=Single qubit gate}
 
 = Multi-qubit quantum gate
+{synonym}
+
+= Two-qubit gate
 {synonym}
 
 The most common way to construct <multi=qubit gates> is to use <single-qubit gates> as part of a <controlled quantum gate>.
@@ -1283,19 +1303,84 @@ This is unlike atomic systems like <trapped ion quantum computers>, where each a
 
 Superconducting qubits are regarded as promising because superconductivity is a <macroscopic quantum phenomena> of <Bose-Einstein condensate>[Bose Einstein condensation], and so as a macroscopic phenomena, it is easier to control and observe.
 
-This is mentioned e.g. in this relatively eaerly: https://physicsworld.com/a/superconducting-quantum-bits/[]. While most quantum phenomena is observed at the atomic scale, <superconducting qubits> are micrometer scale, which is huge!
+This is mentioned e.g. in this relatively early: https://physicsworld.com/a/superconducting-quantum-bits/[]. While most quantum phenomena is observed at the atomic scale, <superconducting qubits> are micrometer scale, which is huge!
 \Q[Physicists are comfortable with the use of quantum mechanics to describe atomic and subatomic particles. However, in recent years we have discovered that micron-sized objects that have been produced using standard semiconductor-fabrication techniques – objects that are small on everyday scales but large compared with atoms – can also behave as quantum particles.]
+
+= Superconducting qubits are bad because of fabrication variation
+{parent=Pro of superconducting qubits}
+
+Atom-based <qubits> like <trapped ion quantum computers> have parameters fixed by the laws of physics.
+
+However superconducting qubits have a limit on how precise their parameters can be set based on how well we can fabricate devices. This may require per-device characterisation.
 
 = Superconducting qubit type
 {parent=Superconducting qubit}
 
+= Flux qubit
+{parent=Superconducting qubit type}
+{wiki}
+
+In <Ciro's ASCII art circuit diagram notation>, it is a loop with three <Josephson junctions>:
+``
++----X-----+
+|          |
+|          |
+|          |
++--X----X--+
+``
+
+\Image[https://upload.wikimedia.org/wikipedia/en/0/04/Flux_Qubit_-_Holloway.jpg]
+
+\Video[https://www.youtube.com/watch?v=daQJMwvxC_U]
+{title=Superconducting Qubit by NTT SCL (2015)}
+{description=
+Offers an interesting interpretation of <superposition> in that type of device (TODO precise name, seems to be a <flux qubit>): current going clockwise or current going counter clockwise at the same time.
+
+Their circuit is a loop with three <Josephson junctions>, in <Ciro's ASCII art circuit diagram notation>:
+``
++----X-----+
+|          |
+|          |
+|          |
++--X----X--+
+``
+
+They name the clockwise and counter clockwise states $\ket{L}$ and $\ket{R}$ (named for Left and Right).
+
+When half the <magnetic flux quantum> is applied as <microwaves>, this produces the ground state:
+$$
+\ket{0} = \ket{L} + \ket{R}
+$$
+where $L$ and $R$ cancel each other out. And the first excited state $\ket{1}$ is:
+$$
+\ket{0} = \ket{L} - \ket{R}
+$$
+Then he mentions that:
+* to go from 0 to 1, they apply the difference in energy
+* if the duration is reduced by half, it creates a superposition of $\ket{0} + \ket{1}$.
+}
+
 = Transmon
 {parent=Superconducting qubit type}
+{title2=2007}
 {wiki}
 
 Used e.g. in the <Sycamore processor>.
 
-https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)}> describes a (possibly simplified) physical model of it, as two superconducting metal plates linked up by a <Josephson junction> marked as `X` in the diagram as per-<Ciro's ASCII art circuit diagram notation>:
+The most basic type of transmon is in <Ciro's ASCII art circuit diagram notation>, an <LC circuit> e.g. as mentioned at https://youtu.be/cb_f9KpYipk?t=180[] from <video the transmon qubit by Leo Di Carlo (2018)>:
+``
++----------+
+| Island 1 |
++----------+
+   |   |
+   X   C
+   |   |
++----------+
+| Island 2 |
++----------+
+``
+
+https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)}> describes a (possibly simplified) physical model of it, as two superconducting metal islands linked up by a <Josephson junction> marked as `X` in the diagram as per-<Ciro's ASCII art circuit diagram notation>:
 ``
 +-------+       +-------+
 |       |       |       |
@@ -1303,10 +1388,58 @@ https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 
 |       |       |       |
 +-------+       +-------+
 ``
-The circuit is then analogous to a <LC circuit>, with the plates being the <capacitor>. The <Josephson junction> functions as a non-linear <inductor>.
+The circuit is then analogous to a <LC circuit>, with the islands being the <capacitor>. The <Josephson junction> functions as a non-linear <inductor>.
+
+Others define it with a <SQUID device> instead: https://youtu.be/cb_f9KpYipk?t=328 from <video the transmon qubit by Leo Di Carlo (2018)>. He mentions that this allows tuning the inductive element without creating a new device.
 
 \Video[https://www.youtube.com/watch?v=dKTNBN99xLw]
 {title=The superconducting <transmon> qubit as a microwave resonator by <Daniel Sank> (2021)}
+
+\Video[https://www.youtube.com/watch?v=5ggYJJjlw8o]
+{title=Calibration of Transmon Superconducting Qubits by Stefan Titus (2021)}
+{description=Possibly this <Keysight> which would make sense.}
+
+= Rabi cycle
+{c}
+{parent=Transmon}
+
+= Rabi oscillations
+{c}
+{synonym}
+{title2}
+
+= The Hardware of a Quantum Computer by TU Delft
+{parent=Transmon}
+{tag=TU Delft}
+
+<EdX> course. Meh! Just give me the <YouTube> list!!
+
+But seriously, this is a valuable little list.
+
+The course is basically exclusively about <transmons>.
+
+\Video[https://www.youtube.com/watch?v=cb_f9KpYipk]
+{title=The <transmon> qubit by Leo Di Carlo (2018)}
+{description=Via <QuTech Academy>.}
+
+\Video[https://www.youtube.com/watch?v=JmnpcWEuMJY]
+{title=Circuit QED by Leo Di Carlo (2018)}
+{description=Via <QuTech Academy>.}
+
+\Video[https://www.youtube.com/watch?v=KDANvtOkEc4]
+{title=Measurements on transmon qubits by Niels Bultink (2018)}
+{description=Via <QuTech Academy>. I wish someone would show some actual equipment running! But this is of interest.}
+
+\Video[https://www.youtube.com/watch?v=_MfABBLtBd0]
+{title=<Single-qubit gate> by Brian Taraskinki (2018)}
+{description=Good video! Basically you make a phase rotation by controlling the envelope of a pulse.}
+
+\Video[https://www.youtube.com/watch?v=vwjlEdwi2LU]
+{title=<Two-qubit gate>[Two qubit gates] by Adriaan Rol (2018)}
+
+\Video[https://www.youtube.com/watch?v=BA5thMaxkyY]
+{title=Assembling a Quantum Processor by Leo Di Carlo (2018)}
+{description=Via <QuTech Academy>.}
 
 = Organization developing superconducting quantum computer
 {parent=Superconducting quantum computing}
@@ -1458,6 +1591,9 @@ https://oxfordquantumcircuits.com/story mentions that the core patent was by Dr.
 
 \Video[https://www.youtube.com/watch?v=CnsQRValXdk]
 {title=Topological Quantum Computation by Jason Alicea (2021)}
+
+\Video[https://www.youtube.com/watch?v=LRrRgGmEeqA]
+{title=Anyons by Yuly Billig (2022)}
 
 = Trapped ion quantum computer
 {parent=Quantum computer physical implementation}

@@ -632,6 +632,57 @@ The author Ole Tange answers every question about it on <Stack Exchange>. What a
 
 This program makes you respect <GNU make> a bit more. Good old make with `-j` can not only parallelize, but also take in account a <dependency graph>.
 
+Some examples under:
+``
+man parallel_exampes
+``
+
+To get the input argument explicitly job number use the magic string `{}`, e.g.:
+``
+printf 'a\nb\nc\n' | parallel echo '{}'
+``
+sample output:
+``
+a
+b
+c
+``
+
+To get the job number use `{#}` as in:
+``
+printf 'a\nb\nc\n' | parallel echo '{} {#}'
+``
+sample output:
+``
+a 1
+b 2
+c 3
+c 3
+``
+
+`{%}` contains which thread the job running in, e.g. if we limit it to `2` threads with `-j2`:
+``
+printf 'a\nb\nc\nd\n' | parallel -j2 echo '{} {#} {%}'
+``
+sample output:
+``
+a 1 1
+b 2 1
+c 3 2
+d 4 1
+``
+The percent must be a reference to "split the inputs module the number of workers", and modulo uses the `%` symbol in many programming languages such as <C (language)>.
+
+To pass multiple CLI argments per command you can use `-X` e.g.:
+``
+printf 'a\nb\nc\nd\n' | parallel -j2 -X echo '{} {#} {%}'
+``
+sample output:
+``
+a b 1 1
+c d 2 2
+``
+
 = htop
 {c}
 {parent=List of command line utilities}
