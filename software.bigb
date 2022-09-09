@@ -1380,10 +1380,29 @@ Crop `20` pixels from the bottom of the image:
 convert image.png -gravity East -chop 20x0 result.png
 ``
 
-= Join two images side-by-side
+= ImageMagick HOWTO
 {parent=ImageMagick}
 
+= Join two images side-by-side
+{parent=ImageMagick HOWTO}
+
 https://stackoverflow.com/questions/20737061/merge-images-side-by-sidehorizontally/63575228#63575228
+
+= Crate solid color image in ImageMagick
+{parent=ImageMagick HOWTO}
+
+convert -size 512x512 xc:blue blue.png
+
+= Crate image with given text in ImageMagick
+{parent=ImageMagick HOWTO}
+
+Digits 0 to 9, white on black background:
+``
+for i in `seq 0 9`; do convert -size 512x512 xc:black -pointsize 500 -gravity center -fill white -draw "text 0,0 \"$i\"" $i.png; done
+``
+
+Bibliography:
+* https://stackoverflow.com/questions/67012057/how-to-generate-an-image-with-a-number-in-it
 
 = Open source software
 {parent=Software}

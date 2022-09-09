@@ -2022,9 +2022,13 @@ Bibliography:
 
 <Python> library, claims multiple backends, including <Quantum computer simulator>[simulation] and real <IBM quantum computer>.
 
-= Qiskit hello world
+= Qiskit example
 {c}
 {parent=Qiskit}
+
+= Qiskit hello world
+{c}
+{parent=Qiskit example}
 {tag=Hello world}
 
 The official <hello world> is documented at: https://qiskit.org/documentation/intro_tutorial1.html and contains a <Bell state circuit>.
@@ -2117,7 +2121,41 @@ counts={'11': 484, '00': 516}
 counts={'11': 493, '00': 507}
 ``
 
-= Qiskit AER
+= qiskit/qft.py
+{file}
+{parent=Qiskit example}
+
+Output:
+``
+qc
+     ┌──────┐
+q_0: ┤0     ├
+     │      │
+q_1: ┤1 QFT ├
+     │      │
+q_2: ┤2     ├
+     └──────┘
+transpiled qc
+                                          ┌───┐
+q_0: ────────────────────■────────■───────┤ H ├─X─
+                   ┌───┐ │        │P(π/2) └───┘ │
+q_1: ──────■───────┤ H ├─┼────────■─────────────┼─
+     ┌───┐ │P(π/2) └───┘ │P(π/4)                │
+q_2: ┤ H ├─■─────────────■──────────────────────X─
+     └───┘
+Statevector([0.35355339+0.j, 0.35355339+0.j, 0.35355339+0.j,
+             0.35355339+0.j, 0.35355339+0.j, 0.35355339+0.j,
+             0.35355339+0.j, 0.35355339+0.j],
+            dims=(2, 2, 2))
+``
+So this also serves as a more interesting example of <quantum compilation>, mapping the `QFT` gate to <Qiskit Aer> primitives.
+
+If we don't `transpile` in this example, then running blows up with:
+``
+qiskit_aer.aererror.AerError: 'unknown instruction: QFT'
+``
+
+= Qiskit Aer
 {c}
 {parent=Qiskit}
 {tag=Quantum computer simulator}
@@ -2433,7 +2471,14 @@ It takes time for the quantum state to evolve. So in order to have a deep <quant
 {parent=Quantum computer benchmark}
 {wiki}
 
-https://quantumcomputing.stackexchange.com/questions/14431/whats-meant-by-the-depth-of-a-quantum-circuit
+This is an important metric, because it takes some time for the quantum operations to propagate, and so the depth of a circuit gives you an idea of how long the <coherence time> a hardware needs to support a given circuit.
+
+Bibliography:
+* https://quantumcomputing.stackexchange.com/questions/14431/whats-meant-by-the-depth-of-a-quantum-circuit
+* https://quantumcomputing.stackexchange.com/questions/5769/how-to-calculate-circuit-depth-properly
+
+\Image[https://github.com/Qiskit/qiskit/blob/0.45.1/docs/source_images/depth.gif?raw=true]
+{source=https://github.com/Qiskit/qiskit/blob/0.45.1/docs/source_images/depth.gif}
 
 = Quantum volume
 {parent=Quantum computer benchmark}

@@ -7,8 +7,7 @@ from qiskit.visualization import plot_histogram
 
 def print_state(qc):
     # Get state vector
-    backend = Aer.get_backend('statevector_simulator')
-    state = backend.run(qc, shots=1).result().get_statevector()
+    state = Aer.get_backend('statevector_simulator').run(qc, shots=1).result().get_statevector()
     print('state:')
     print(state)
     probs = state.probabilities()
