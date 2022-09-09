@@ -26,7 +26,7 @@ Given that it was reported that there were "more than 350" such websites, it wou
 This article documents the list of extremely likely candidates Ciro has found so far, mostly using:
 * rudimentary IP range search on https://viewdns.info[] starting from the websites reported by Reuters
 * heuristic search for keywords in domains of the  <2013 DNS Census> plus <Wayback Machine CDX scanning>
-more details on methods also follow. It is still far from the https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[885 websites reported by citizenlabs], so there must be key techniques missing. But the fact that there are no <Google Search> hits for the domains or IPs indicates that these might not have been previously clearly publicly disclosed.
+more details on methods also follow. It is still far from the https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[885 websites reported by citizenlabs], so there must be key techniques missing. But the fact that there are no <Google Search> hits for the domains or IPs (except in bulk e.g. in <expired domain trackers>) indicates that these might not have been previously clearly publicly disclosed.
 
 If anyone can find others, or has better techniques: <contact>{full}. The techniques used so far have been very heuristic, and that added to the limited amount of data makes it almost certain that several <IP range search>[IP ranges] have been missed. There are two types of contributions that would be possible:
 * finding new IP ranges: harder more exiting, and potentially requires more intelligence
@@ -4485,6 +4485,7 @@ Some failed attempts, either dry guesses or from DNS grepping dataset searches:
     * heresjohnnyradioshow.com: https://web.archive.org/web/20130509042107/http://heresjohnnyradioshow.com/[], Legit most likely: https://web.archive.org/web/20140517103512/http://heresjohnnyradioshow.com/
     * wherejohnnylives.net: broken archives
     * http://heresjohnny.com[]: squat https://web.archive.org/web/20130607145841/http://heresjohnny.com/ Many other TlD like .net, .co.uk
+    * heeeeresjohnny.com: http://web.archive.org/web/20130612211448/http://heeeeresjohnny.com/[]: legit
   * night:
     * johnnylatenight.com: https://web.archive.org/web/20150801132622/http://johnnylatenight.com/ Legit broken
     * https://web.archive.org/web/20110208161513/http://www.johnnysnight.com/
@@ -4707,9 +4708,12 @@ For domain to IP queries from the API you should use "iphistory" https://viewdns
 curl 'https://api.viewdns.info/iphistory/?domain=todaysengineering.com&apikey=$APIKEY&output=json'
 ``
 
-very curiously, their reverse IP search appears to be somewhat broken, or not to be historic, e.g.
+Very curiously, their reverse IP search appears to be somewhat broken, or not to be historic, e.g.
 * https://viewdns.info/iphistory/?domain=vuvuzelanews.com hits 74.116.72.246 in 2011, later moved to others
 * https://viewdns.info/reverseip/?host=74.116.72.246&t=1 however does not contain `vuvuzelanews.com`
+We've contacted viewdns.info support and they replied:
+\Q[The reverse IP tool will only show a domain if that is it's current IP address.]
+This is likely not accurate, more precisely it likely only works if it was the last IP address, not necessarily a current one.
 
 = DNS Census 2013
 {parent=Data sources}
@@ -5569,34 +5573,35 @@ The extracted data is present at:
   * https://github.com/cirosantilli/expired-domain-names-by-day-2022
 Soon after uploading, these repos started getting some interesting traffic, presumably started by security trackers going "bling bling" on certain malicious domain names in their databases:
 * GitHub trackers:
-  * security.ctrip.com 10 3
-  * tcthreatcompass05.blueliv.com 4 1
-  * tcallzgroup.blueliv.com
-  * foradar.baimaohui.net 2 1
-  * pmp.beygoo.me 2 1
-  * ecall.beygoo.me 2 1
-  * fty.beygoo.me
-  * penetration.houtai.io 2 1
-  * eos.vip.vip.com 1 1
-  * cbs.ctm360.com 17 2
-  * turbo.gwmdevops.com 18 2
-  * hive.telefonica.com.br 2 1
-  * spigotmc.org 2 1
-  * app.rainforest.tech
-  * sec.welab-inc.com
-  * scan.huoban.com
-  * app.flare.io
-  * burn2give.vercel.app
-  * bo.serenety.xmco.fr 8 1
   * anquan.didichuxing.com
-  * platform.sec.corp.qihoo.net
+  * app.flare.io
+  * app.rainforest.tech
+  * bo.serenety.xmco.fr 8 1
+  * burn2give.vercel.app
+  * cbs.ctm360.com 17 2
   * code6.d1m.cn
-  * zelenka.guru. Looks like a Russian hacker forum.
-  * siem-gs.int.black-unique.com 2 1
-  * toucan.belcy.com 1 1
-  * soc-github.daojia-inc.com
-  * tix.testsite.woa.com 2 1
+  * ecall.beygoo.me 2 1
+  * eos.vip.vip.com 1 1
+  * foradar.baimaohui.net 2 1
+  * fty.beygoo.me
+  * hive.telefonica.com.br 2 1
+  * penetration.houtai.io 2 1
+  * platform.sec.corp.qihoo.net
+  * plus.k8s.onemt.co	4 1
+  * pmp.beygoo.me 2 1
   * qa-boss.amh-group.com
+  * scan.huoban.com
+  * sec.welab-inc.com
+  * security.ctrip.com 10 3
+  * siem-gs.int.black-unique.com 2 1
+  * soc-github.daojia-inc.com
+  * spigotmc.org 2 1
+  * tcallzgroup.blueliv.com
+  * tcthreatcompass05.blueliv.com 4 1
+  * tix.testsite.woa.com 2 1
+  * toucan.belcy.com 1 1
+  * turbo.gwmdevops.com 18 2
+  * zelenka.guru. Looks like a Russian hacker forum.
 * LinkedIn profile views:
   * "Information Security Specialist at Forcepoint"
 

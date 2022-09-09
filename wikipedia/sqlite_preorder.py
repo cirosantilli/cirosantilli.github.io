@@ -6,6 +6,7 @@ import sys
 import sqlite3
 import re
 import os.path
+from subprocess import Popen, PIPE, STDOUT
 import unicodedata
 from pathlib import Path
 
@@ -48,7 +49,7 @@ NORMALIZE_PUNCTUATION_CHARACTER_MAP = {
     '@': 'at',
 }
 
-def bigb_title_to_id(title):
+def bigb_title_to_id_native(title):
     l = []
     for c in title:
         if ord(c) < 128:
@@ -66,6 +67,12 @@ def bigb_title_to_id(title):
             else:
                 l.append(c)
     return strip_accents(re.sub('^-|-$', '', re.sub('-+', '-', ''.join(l)))).lower()
+
+def bigb_title_to_id(title):
+    global obb_title_to_id_process
+    obb_title_to_id_process.stdin.write(f'{title}\n'.encode())
+    obb_title_to_id_process.stdin.flush()
+    return obb_title_to_id_process.stdout.readline().decode()[:-1]
 
 NAMESPACE_TO_TEXT = {
     0: '',
@@ -89,7 +96,7 @@ parser.add_argument('-M', '--max', type=int, help='max number of categories and 
 parser.add_argument('-m', '--merge-article-and-category', default=False, action='store_true', help='place articles on the corresponding category of the same name if any, and omit the article in that case')
 parser.add_argument('-N', '--remove-namespace', default=False, action='store_true', help='remove namespace from the output')
 parser.add_argument('-O', '--output-format', action='append', default=[], help='which outputs formats to generate. Can be given multiple times to generate multiple formats.')
-parser.add_argument('-o', '--outdir', help='directory where to place output')
+parser.add_argument('-o', '--outdir', default='out', help='directory where to place output')
 parser.add_argument('-w', '--width', type=int, help='max number of categories and pages to consider. To speed up testing mostly.')
 parser.add_argument('db')
 parser.add_argument('titles', nargs='+')
@@ -110,11 +117,13 @@ for f in args.output_format:
         out_bigb = True
     else:
         raise f'Unknown format: "{f}"'
-outdir = 'out'
+outdir = args.outdir
 con = sqlite3.connect(args.db)
 cur = con.cursor()
 params_str = f'''{'' if args.depth_per_file is None else ' -D' + str(args.depth_per_file)}{'' if args.depth is None else ' -d' + str(args.depth)}{'' if args.max is None else ' -M' + str(args.max)}{' -m' if args.merge_article_and_category is None else ''}{'' if args.width is None else ' -w' + str(args.width)}'''
 Path(outdir).mkdir(parents=True, exist_ok=True)
+with open(os.path.join(outdir, '.gitignore'), 'w') as gitignore_f:
+    pass
 if out_html:
     if not args.index:
         with open(os.path.join(outdir, 'index.html'), 'w') as html_index_f:
@@ -136,6 +145,10 @@ if out_html:
 </html>
 ''')
 if out_bigb:
+    gitignore_f.write('out\n')
+    with open(os.path.join(outdir, 'CNAME'), 'w') as f:
+        f.write('''wikibot.ourbigbook.com\n''')
+    obb_title_to_id_process = Popen(['ourbigbook', '--title-to-id'], stdout=PIPE, stdin=PIPE)
     with open(os.path.join(outdir, 'ourbigbook.json'), 'w') as f:
         f.write('''{}''')
     with open(os.path.join(outdir, 'ourbigbook.liquid.html'), 'w') as f:
@@ -246,13 +259,16 @@ footer {
 ''')
     if not args.index:
         with open(os.path.join(outdir, 'index.bigb'), 'w') as bigb_index_f:
-            bigb_index_f.write(f'''= Wikipedia CatTree
+            bigb_index_f.write(f'''= OurBigBook Wikipedia Bot
 
-Methodology: https://stackoverflow.com/questions/17432254/wikipedia-category-hierarchy-from-dumps/77313490#77313490 Params: {params_str}
+Hello! I am a bot that scrapes the category graph from Wikipedia!
+
+Methodology: https://docs.ourbigbook.com/wikipedia-bot
+
+Params:{params_str}
 
 ''')
             for t in args.titles:
-                print(f'\\Include[{bigb_title_to_id(ns_to_txt(14, args.remove_namespace) + t)}]\n')
                 bigb_index_f.write(f'\\Include[{bigb_title_to_id(ns_to_txt(14, args.remove_namespace) + t)}]\n')
             # TODO remove, just for symmetry with other broken files with an extra \n at end.
             bigb_index_f.write('\n')
@@ -262,23 +278,27 @@ bigb_ids_repeated = []
 n = 0
 titles0_set = set(args.titles)
 for title in args.titles:
-    todo = [(14, title, 0, None, None, 14, title, 0)]
-    if args.index:
-        title = 'index'
-    title_human = to_title_human(title) + ' - Wikipedia CatTree'
-    basename = os.path.join(outdir, title)
     visited.add((14, title))
     if args.merge_article_and_category and \
             cur.execute('''select page_namespace from page where page_namespace = ? and page_title = ?''', (0, title,)).fetchone() is not None:
         visited.add((0, title))
-    if out_txt:
-        out_txt_f = open(f'{basename}.txt', 'w')
     if out_bigb:
+        bigb_ids.add(bigb_title_to_id(ns_to_txt(14, args.remove_namespace) + title))
+        if args.merge_article_and_category:
+            bigb_ids.add(bigb_title_to_id(ns_to_txt(0, args.remove_namespace) + title))
         if args.depth_per_file is None or args.index:
             out_bigb_f = open(get_bigb_filename(outdir, 14, title, args.remove_namespace), 'w')
         else:
             for title in args.titles:
                 Path.unlink(get_bigb_filename(outdir, 14, title, args.remove_namespace), missing_ok=True)
+for title in args.titles:
+    todo = [(14, title, 0, None, None, 14, title, 0)]
+    if args.index:
+        title = 'index'
+    title_human = to_title_human(title) + ' - Wikipedia CatTree'
+    basename = os.path.join(outdir, title)
+    if out_txt:
+        out_txt_f = open(f'{basename}.txt', 'w')
     if out_dot:
         out_dot_f = open(f'{basename}.dot', 'w')
         out_dot_f.write('digraph {\n')
