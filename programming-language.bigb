@@ -740,6 +740,27 @@ How many stupid bugs. How many stupid bugs do we need to face???
 {parent=Python package manager}
 {wiki}
 
+Conda is like <pip>, except that it also manages shared library dependencies, including providing prebuilts.
+
+This has made <Conda> very popular in the <deep learning> community around 2020, where using Python frontends like <PyTorch> to configure faster precompiled backends was extremelly common.
+
+= Install Conda on Ubuntu
+{parent=Python package manager}
+{wiki}
+
+Tested on <Ubuntu 20.04>:
+``
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-2-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+~/miniconda3/bin/conda init bash
+. ~/.bashrc
+``
+and from then on we can do `conda` commands normally.
+
+At that time, the exact installer under `latest` appears to have been: https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
+
 = Python Package Index
 {c}
 {parent=Python (programming language)}

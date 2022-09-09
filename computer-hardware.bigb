@@ -834,6 +834,35 @@ Example: https://github.com/cirosantilli/cpp-cheat/blob/d18a11865ac105507d036f8f
 {parent=GPU compute library}
 {wiki}
 
+= ROCm
+{c}
+{parent=GPU compute library}
+{wiki}
+
+Official hello world: https://github.com/ROCm/HIP-Examples/blob/ff8123937c8851d86b1edfbad9f032462c48aa05/HIP-Examples-Applications/HelloWorld/HelloWorld.cpp
+
+= ROCm on Ubuntu
+{c}
+{parent=ROCm}
+
+Tested on <Ubuntu 23.10> with <Ciro Santilli's hardware/p14s>:
+``
+sudo apt install hipcc
+git clone https://github.com/ROCm/HIP-Examples
+cd HIP-Examples/HIP-Examples-Applications/HelloWorld
+make
+``
+TODO fails with:
+``
+/bin/hipcc -g   -c -o HelloWorld.o HelloWorld.cpp
+clang: error: cannot find ROCm device library for gfx1103; provide its path via '--rocm-path' or '--rocm-device-lib-path', or pass '-nogpulib' to build without ROCm device library
+make: *** [<builtin>: HelloWorld.o] Error 1
+``
+
+Generic Ubuntu install bibliograpy:
+* https://askubuntu.com/questions/1429376/how-can-i-install-amd-rocm-5-on-ubuntu-22-04
+* https://www.reddit.com/r/ROCm/comments/1438p6t/how_to_install_rocm_opencl_on_ubuntu_2304_rx580/
+
 = AI accelerator
 {c}
 {parent=Processor (computing)}
@@ -1144,6 +1173,16 @@ so only marginally better than on <Ciro Santilli's hardware/p14s>. It would be f
 {synonym}
 {title2}
 
+= List of AWS AMIs
+{parent=Amazon Machine Image}
+
+= AWS Deep Learning Base GPU AMI (Ubuntu 20.04)
+{c}
+{parent=List of AWS AMIs}
+{tag=Ubuntu 20.04}
+
+These come with pre-installed drivers, so e.g. <nvidia-smi> just works on them out of the box, tested on <g5.xlarge> which has an <Nvidia A10G> GPU. Good choice as a starting point for <deep learning> experiments.
+
 = Amazon Elastic Block Store
 {c}
 {parent=Amazon Elastic Compute Cloud}
@@ -1190,7 +1229,7 @@ Large but ephemeral storage for EC2 instances. Predetermined by the <EC2 instanc
 {c}
 {parent=EC2 instance type}
 
-<NVIDIA> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+<NVIDIA T4> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
 
 = g5.xlarge
 {c}
@@ -2142,6 +2181,35 @@ This was the CPU architecure that saved AMD in the 2010's, see also: <video How 
 {parent=AMD product}
 {wiki}
 
+= AMD GPU driver
+{c}
+{parent=AMD GPU}
+
+= AMDGPU
+{c}
+{parent=AMD GPU driver}
+{wiki=AMDgpu_(Linux_kernel_module)}
+
+Bibliography:
+* https://wiki.archlinux.org/title/AMDGPU
+* https://gitlab.freedesktop.org/drm/amd an issue tracker
+* https://github.com/ROCm/ROCK-Kernel-Driver TODO vs the GitLab?
+
+= RDNA
+{c}
+{parent=AMD GPU}
+{wiki=RDNA_(microarchitecture)}
+
+= RDNA 3
+{c}
+{parent=RDNA}
+{title2=2022}
+
+= gfx1103
+{parent=RDNA 3}
+
+Mentioned e.g. at: https://videocardz.com/newz/amd-begins-rdna3-gfx11-graphics-architecture-enablement-for-llvm-project as being part of <RDNA 3>.
+
 = Radeon
 {c}
 {parent=AMD GPU}
@@ -2334,18 +2402,17 @@ Open source <driver (software)>/hardware interface specification??? E.g. on <Ubu
 \Video[https://www.youtube.com/watch?v=GuV-HyslPxk&list=WL]
 {title=How Nvidia Won AI by <Asianometry> (2022)}
 
+= nvidia-smi
+{c}
+{tag=Command line utility}
+
 = Nvidia GPU
 {c}
 {parent=Nvidia}
 
-= Nvidia product line
-{c}
-{parent=Nvidia}
-{wiki}
-
 = Nvidia Tesla
 {c}
-{parent=Nvidia product line}
+{parent=Nvidia GPU}
 {tag=GPGPU}
 {wiki}
 

@@ -1396,6 +1396,139 @@ ffmpeg -i input.avi -filter:v scale=720:-1 -c:a copy output.mkv
 ``
 Unlike every other convention under the sun, the height in `scale` is the first number.
 
+= FFmpeg filter graph
+{c}
+{parent=FFmpeg}
+
+Filter graphs are a thing of great beauty. What an amazingly obscure <domain-specific language>, but which can produce striking results with very little!!!
+
+A quick example from https://stackoverflow.com/questions/59551013/how-to-generate-stereo-sine-wave-using-ffmpeg-with-different-frequencies-for-eac/77730492#77730492 illustrates some of the fundamentals:
+
+``
+ffplay -autoexit -nodisp -f lavfi -i '
+sine=frequency=500[a];
+sine=frequency=1000[b];
+[a][b]amerge, atrim=end=2
+'
+``
+which creates a graph:
+``
+                              +--------+
+[sine=frequency=500]--->[a]-->|        |
+                              | amerge |-->[atrim]-->[output]
+[sine=frequency=1000]-->[b]-->|        |
+                              +--------+
+``
+and plays 500 Hz on the left channel and 1000 Hz on the right channel for 2 seconds.
+
+So we see the following syntax patterns:
+* `sine`, `amerge` and `atrim` are filters
+* `sine=frequency=500`: the first `=` says "araguments follow"
+  * `frequency=500` sets the `frequency` argument of the `sine` filter
+  * for multiple arguments the syntax is to separate arguments with colons e.g. `sine=frequency=500:duration=2`
+* `;`: separates statements
+* `[a]`, `[b]`: sets the name of an edge
+* `,`: creates unnamed edge between filters that have one input and one output
+
+A list of all filters can be obtained ith:
+``
+ffmpeg -filters
+``
+and parameters for a single filter can be obtained with:
+``
+ffmpeg --help filter=sine
+``
+Related question: https://stackoverflow.com/questions/69251087/in-ffmpeg-command-line-how-to-show-all-filter-settings-and-their-parameters-bef
+
+TODO dump graph to <ASCII art>? https://trac.ffmpeg.org/wiki/FilteringGuide#Visualizingfilters mentions a `-dumpgraph` option, but haven't managed to use it yet.
+
+Bibliography:
+* https://ffmpeg.org/ffmpeg-filters.html official documentation
+* https://trac.ffmpeg.org/wiki/FilteringGuide some handy tips from the FFMpeg Wiki
+
+= ffplay
+{c}
+{parent=FFmpeg}
+
+Awesome tool to view quick stuff quickly without generating files. Unfortunately it doesn't support all options that the ffmpeg CLI supports, e.g. <ffplay multiple input files>. One day, one day.
+
+= ffplay multiple input files
+{c}
+{parent=ffplay}
+
+TODO possible? https://superuser.com/questions/559768/ffplay-how-to-play-together-separate-video-and-audio-files
+
+For synthesized streams like `sine` we can do it e.g.
+``
+ffplay -autoexit -nodisp -f lavfi -i '
+sine=frequency=500[a];
+sine=frequency=1000[b];
+[a][b]amerge, atrim=end=2
+'
+``
+but it does not seem to accept multiple `-i` for some reason. So is there a way to open a file from some filter? E.g.:
+``
+ffplay -i tmp.wav -i tmp.mkv -filter_complex "[0:a]atrim=end=2[a];[1:v]trim=end=2[v]" -map '[a]' -map '[v]'
+``
+fails with:
+``
+Argument 'tmp.mkv' provided as input filename, but 'tmp.wav' was already specified.
+``
+
+= FFmpeg sound synthesis
+{c}
+{parent=FFmpeg}
+
+Simple <sines> and variants:
+* https://unix.stackexchange.com/questions/82112/stereo-tone-generator-for-linux/536860#536860
+* https://stackoverflow.com/questions/5109038/linux-sine-wave-audio-generator/57610684#57610684
+* https://superuser.com/questions/724391/how-to-generate-a-sine-wave-with-ffmpeg
+* https://stackoverflow.com/questions/59551013/how-to-generate-stereo-sine-wave-using-ffmpeg-with-different-frequencies-for-eac/77730492#77730492
+
+2 second 1000 Hz:
+``
+ffmpeg -f lavfi -i "sine=f=1000:d=2" out.wav
+``
+
+= FFmpeg video synthesis
+{c}
+{parent=FFmpeg}
+
+Video with a solid color:
+* 2 second white video:
+  ``
+  ffplay -autoexit -f lavfi -i 'color=white:640x480:d=3,format=rgb24,trim=end=2'
+  ``
+  Also add some audio:
+  ``
+  ffmpeg -lavfi "color=white:640x480:d=3,format=rgb24,trim=end=2[v];sine=f=1000:d=2[a]" -map '[a]' -map '[v]' out.mkv
+  ``
+  TODO how to ffplay the video + audio directly? `-map` does not seem to work unfortunately.
+* 2 second white followed by 2 second black video:
+  ``
+  ffplay -autoexit -f lavfi -i 'color=white:640x480:d=3,format=rgb24,trim=end=2[a];color=black:640x480:d=3,format=rgb24,trim=end=2[b];[a][b]concat=n=2:v=1:a=0'
+  ``
+* bibliography:
+  * https://superuser.com/questions/1153930/how-to-generate-a-pure-white-background-video-with-ffmpeg
+
+Display count in seconds on the video:
+* black text on white background. Start from 0 and count up to 2:
+  ``
+  ffplay -autoexit -f lavfi -i "
+  color=white:480x480:d=3,
+  format=rgb24,
+  drawtext=
+    fontcolor=black:
+    fontsize=600:
+    text='%{eif\:t\:d}':
+    x=(w-text_w)/2:
+    y=(h-text_h)/2
+  "
+  ``
+* bibliography:
+  * https://gist.github.com/derand/31b8312fd64156120cb8f45825a1f0f7
+  * https://www.reddit.com/r/ffmpeg/comments/11kxugt/make_a_video_timer_or_countdown/
+
 = FFmpeg is the backend of YouTube
 {c}
 {parent=FFmpeg}

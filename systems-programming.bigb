@@ -474,6 +474,46 @@ E: The repository 'http://ddebs.ubuntu.com impish-security Release' does not hav
 {c}
 {parent=Ubuntu release}
 
+= gfx_v11_0_priv_reg_irq: register access in command stream
+{c}
+{parent=Ubuntu 23.10}
+
+Had this happen on <ciro santilli s hardware/p14s> on <Ubuntu 23.10> while causally using <Chromium (web browser)>. The screen went blank for a few seconds, but it apparently managed to reboot itself, and things started working again, except that and most windows were killed:
+``
+[drm:gfx_v11_0_priv_reg_irq [amdgpu]] *ERROR* Illegal register access in command stream
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_0.0.0 timeout, signaled seq=5774109, emitted seq=5774111
+[drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process chrome pid 14023 thread chrome:cs0 pid 14087
+amdgpu 0000:64:00.0: amdgpu: GPU reset begin!
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:mes_v11_0_submit_pkt_and_poll_completion.constprop.0 [amdgpu]] *ERROR* MES failed to response msg=3
+[drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
+[drm:gfx_v11_0_cp_gfx_enable.isra.0 [amdgpu]] *ERROR* failed to halt cp gfx
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: MODE2 reset
+Dec 27 15:03:38 ciro-p14s kernel: amdgpu 0000:64:00.0: amdgpu: GPU reset succeeded, trying to resume
+Dec 27 15:03:38 ciro-p14s kernel: [drm] PCIE GART of 512M enabled (table at 0x0000008000900
+``
+It appears to be a bug in the <AMDGPU> open source driver.
+
+Related reports:
+* https://gitlab.freedesktop.org/drm/amd/-/issues/2451
+* https://gitlab.freedesktop.org/drm/amd/-/issues/475
+* https://github.com/ValveSoftware/csgo-osx-linux/issues/3386
+
 = Unable to lock screen on Ubuntu
 {c}
 {parent=Ubuntu 23.10}
