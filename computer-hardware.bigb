@@ -823,6 +823,12 @@ One limitation is that it only handles digital electronics: https://electronics.
 {parent=GPU compute library}
 {wiki}
 
+= CUDA hello world
+{c}
+{parent=CUDA}
+
+Example: https://github.com/cirosantilli/cpp-cheat/blob/d18a11865ac105507d036f8f12a457ad9686a664/cuda/inc.cu
+
 = OpenCL
 {c}
 {parent=GPU compute library}
@@ -1000,9 +1006,13 @@ They can't even make this basic stuff just work!
 {synonym}
 {title2}
 
+= Amazon EC2 HOWTO
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
 = Amazon EC2 hello world
 {C}
-{parent=Amazon Elastic Compute Cloud}
+{parent=Amazon EC2 HOWTO}
 {tag=Hello world}
 
 Let's get <SSH> access, instal a package, and run a server.
@@ -1035,17 +1045,116 @@ and then you are able to `curl` from your local computer and get the response.
 
 = Amazon EC2 GPU
 {c}
+{parent=Amazon EC2 HOWTO}
+
+As of December 2023, the cheapest instance with an <Nvidia GPU> is <g4nd.xlarge>, so let's try that out. In that instance, <lspci> contains:
+``
+00:1e.0 3D controller: NVIDIA Corporation TU104GL [Tesla T4] (rev a1)
+``
+TODO meaning of "nd"? "n" presumably means <Nvidia>, but what is the "d"?
+
+Be careful not to confuse it with <g4ad.xlarge>, which has an <AMD GPU> instead. TODO meaning of "ad"? "a" presumably means <AMD>, but what is the "d"?
+
+Some documentation on which GPU is in each instance can seen at: https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html (https://web.archive.org/web/20231126224245/https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html[archive]) with a list of which GPUs they have at that random point in time. Can the GPU ever change for a given instance name? Likely not. Also as of December 2023 the list is already outdated, e.g. P5 is now shown, though it is mentioned at: https://aws.amazon.com/ec2/instance-types/p5/
+
+When selecting the instance to launch, the GPU does not show anywhere apparently on the instance information page, it is so bad!
+
+Also note that this instance has 4 vCPUs, so on a new account you must first make a customer support request to Amazon to increase your limit from the default of 0 to 4, see also: https://stackoverflow.com/questions/68347900/you-have-requested-more-vcpu-capacity-than-your-current-vcpu-limit-of-0[], otherwise instance launch will fail with:
+\Q[You have requested more vCPU capacity than your current vCPU limit of 0 allows for the instance bucket that the specified instance type belongs to. Please visit http://aws.amazon.com/contact-us/ec2-request to request an adjustment to this limit.]
+
+When starting up the instance, also select:
+* image: <Ubuntu 22.04>
+* storage size: 30 GB (maximum free tier allowance)
+Once you finally managed to <SSH> into the instance, first we have to install drivers and reboot:
+``
+sudo apt update
+sudo apt install nvidia-driver-510 nvidia-utils-510 nvidia-cuda-toolkit
+sudo reboot
+``
+and now running:
+``
+nvidia-smi
+``
+shows something like:
+``
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.147.05   Driver Version: 525.147.05   CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla T4            Off  | 00000000:00:1E.0 Off |                    0 |
+| N/A   25C    P8    12W /  70W |      2MiB / 15360MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+``
+
+If we start from the raw <Ubuntu 22.04>, first we have to install drivers:
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/install-nvidia-driver.html official docs
+* https://stackoverflow.com/questions/63689325/how-to-activate-the-use-of-a-gpu-on-aws-ec2-instance
+* https://askubuntu.com/questions/1109662/how-do-i-install-cuda-on-an-ec2-ubuntu-18-04-instance
+* https://askubuntu.com/questions/1397934/how-to-install-nvidia-cuda-driver-on-aws-ec2-instance
+
+
+From basically everything should just work as normal. E.g. we were able to run a <CUDA hello world> just fine along:
+``
+nvcc inc.cu
+./a.out
+``
+
+One issue with this setup, besides the time it takes to setup, is that you might also have to pay some network charges as it downloads a bunch of stuff into the instance. We should try out some of the pre-built images. But it is also good to know this pristine setup just in case.
+
+Some stuff we then managed to run:
+``
+curl https://ollama.ai/install.sh | sh
+/bin/time ollama run llama2 'What is quantum field theory?'
+``
+which gave:
+``
+0.07user 0.05system 0:16.91elapsed 0%CPU (0avgtext+0avgdata 16896maxresident)k
+0inputs+0outputs (0major+1960minor)pagefaults 0swaps
+``
+so way faster than on my local desktop <CPU>, hurray.
+
+After setup from: https://askubuntu.com/a/1309774/52975 we were able to run:
+``
+head -n1000 pap.txt | ARGOS_DEVICE_TYPE=cuda time argos-translate --from-lang en --to-lang fr > pap-fr.txt
+``
+which gave:
+``
+77.95user 2.87system 0:39.93elapsed 202%CPU (0avgtext+0avgdata 4345988maxresident)k
+0inputs+88outputs (0major+910748minor)pagefaults 0swaps
+``
+so only marginally better than on <Ciro Santilli's hardware/p14s>. It would be fun to see how much faster we could make things on a more powerful GPU.
+
+= Amazon Machine Image
+{c}
 {parent=Amazon Elastic Compute Cloud}
 
-Some documentation can be seen at: https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html (https://web.archive.org/web/20231126224245/https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html[archive]) with a list of which GPUs they have at that random point in time. Can this ever change?
-
-When launching an instance however, this does not seem to show on the instance information page, just the number of GPUs, so it is a bit pointless...
-
-The cheapest GPU instance they had as of December 2023 was `g4ad.xlarge`, so let's give it a try.
+= AMI
+{c}
+{synonym}
+{title2}
 
 = Amazon Elastic Block Store
 {c}
 {parent=Amazon Elastic Compute Cloud}
+
+= Laucnh Amazin EC2 with existing EBS volume
+{parent=Amazon Elastic Block Store}
+
+Not possible directly without first creating an AMI image from snapshot? So annoying!
+* https://serverfault.com/questions/639537/booting-an-ec2-instance-from-an-existing-ebs-volume
+* https://stackoverflow.com/questions/71847637/aws-ec2-how-to-use-pre-existing-ebs-volume-as-main-bootable-disk
 
 = Amazon EBS
 {c}
@@ -1055,6 +1164,40 @@ The cheapest GPU instance they had as of December 2023 was `g4ad.xlarge`, so let
 The hot and more expensive sotorage for <Amazon EC2>, where e.g. your <Ubuntu> filesystem will lie.
 
 The cheaper and slower alternative is to use <Amazon S3>.
+
+= EC2 instance store volume
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
+Large but ephemeral storage for EC2 instances. Predetermined by the <EC2 instance type>. Stays in the local server disk. Not automatically mounted.
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html (https://web.archive.org/web/20231214213241/https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html[archive]) notably highlights what it persists, which is basically nothing
+* https://serverfault.com/questions/433703/how-to-use-instance-store-volumes-storage-in-amazon-ec2 mentions that you have to mount it
+
+= vCPU
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
+= EC2 instance type
+{c}
+{parent=Amazon Elastic Compute Cloud}
+
+= g4ad.xlarge
+{c}
+{parent=EC2 instance type}
+
+<AMD GPUs> as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+
+= g4nd.xlarge
+{c}
+{parent=EC2 instance type}
+
+<NVIDIA> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+
+= g5.xlarge
+{c}
+{parent=EC2 instance type}
+
+<Nvidia A10G> GPU, 4 <vCPUs>.
 
 = Alibaba Cloud
 {c}
@@ -1068,10 +1211,29 @@ The cheaper and slower alternative is to use <Amazon S3>.
 {title2=GCP}
 {wiki}
 
-= Platform as a service
+= Type of cloud computing
 {parent=Cloud computing}
-{title2=PaaS}
+
+= Infrastructure as a service
+{parent=Type of cloud computing}
 {wiki}
+
+= IaaS
+{parent=Cloud computing}
+{title2}
+{wiki}
+
+You <SSH> into a an OS like <Ubuntu> and do whatever you want from there. E.g. <Amazon EC2>.
+
+The OS is usually virualized, and you get only a certain share of the CPU by default.
+
+= Platform as a service
+{parent=Type of cloud computing}
+{wiki}
+
+= PaaS
+{synonym}
+{title2}
 
 Highly managed, you don't even see the <Docker (software)> images, only some higher level <JSON> configuration file.
 
@@ -1889,6 +2051,10 @@ For <Ciro Santilli>, this is not a <computer keyboard>. It is a <fetish>.
 \Video[https://www.youtube.com/watch?v=PrXwe21biJo]
 {title=PCIe computer explained by <ExplainingComputers> (2018)}
 
+= lspci
+{c}
+{parent=PCI}
+
 = USB
 {c}
 {parent=Peripheral interface}
@@ -2169,6 +2335,29 @@ Open source <driver (software)>/hardware interface specification??? E.g. on <Ubu
 
 \Video[https://www.youtube.com/watch?v=GuV-HyslPxk&list=WL]
 {title=How Nvidia Won AI by <Asianometry> (2022)}
+
+= Nvidia GPU
+{c}
+{parnet=Nvidia}
+
+= Nvidia product line
+{c}
+{parent=Nvidia}
+{wiki}
+
+= Nvidia Tesla
+{c}
+{parent=Nvidia product line}
+{tag=GPGPU}
+{wiki}
+
+= Nvidia T4
+{c}
+{parent=Nvidia Tesla}
+
+= Nvidia A10G
+{c}
+{parent=Nvidia Tesla}
 
 = Qualcomm
 {c}

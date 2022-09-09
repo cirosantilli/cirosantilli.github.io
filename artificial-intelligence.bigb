@@ -403,6 +403,29 @@ https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodie
 {parent=Generative AI by modality}
 {wiki}
 
+= Machine translation
+{parent=Text-to-text model}
+{wiki}
+
+= Open source machine translation
+{parent=Text-to-text model}
+{wiki}
+
+https://askubuntu.com/questions/380847/is-it-possible-to-translate-words-via-terminal/1309774#1309774
+
+= OpenNMT
+{c}
+{parent=Open source machine translation}
+
+= Argos Translate
+{c}
+{parent=OpenNMT}
+{tag=CLI tool}
+
+<OpenNMT> <CLI> front-end.
+
+Hello world: https://askubuntu.com/questions/380847/is-it-possible-to-translate-words-via-terminal/1309774#1309774
+
 = Large language model
 {parent=Text-to-text model}
 {wiki}
@@ -420,6 +443,7 @@ https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodie
 
 = Open source LLM
 {parent=Large language model}
+{tag=Open source software}
 
 = Ollama
 {c}
@@ -456,6 +480,20 @@ which gave me:
 ``
 but note that there is a random seed that affects each run by default.
 
+Some other quick benchmarks from <Amazon EC2 GPU>, on <Nvidia T4>:
+``
+0.07user 0.05system 0:16.91elapsed 0%CPU (0avgtext+0avgdata 16896maxresident)k
+0inputs+0outputs (0major+1960minor)pagefaults 0swaps
+``
+On <Nvidia A10G>:
+``
+
+0.03user 0.05system 0:09.59elapsed 0%CPU (0avgtext+0avgdata 17312maxresident)k
+8inputs+0outputs (1major+1934minor)pagefaults 0swaps
+``
+
+So it's not too bad, a small article in 10s.
+
 It tends to babble quite a lot by default, but eventually decides to stop.
 
 TODO is it possible to make it deterministic on the CLI? There is a "seed" parameter somewhere: https://github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter
@@ -479,6 +517,40 @@ Published as: https://arxiv.org/pdf/2304.03442.pdf Generative Agents: Interactiv
 = Text-to-image
 {synonym}
 
+= Open source text-to-image model
+{parent=time imagine "a house in the forest"}
+
+Bibliography:
+* https://www.edenai.co/post/top-free-image-generation-tools-apis-and-open-source-models
+
+= ludicrains/deep-gaze
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/lucidrains/deep-daze
+
+This just works, but it is also so incredibly slow that it is useless (or at least the quality it reaches in the time we have patience to wait from), at least on any setup we've managed to try, including e.g. on an <Nvidia A10G>. Running:
+``
+time imagine "a house in the forest"
+``
+would likely take hours to complete.
+
+= DeepFloyd IF
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/deep-floyd/IF
+
+= runwayml/stable-diffusion
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/runwayml/stable-diffusion?tab=readme-ov-file
+
+<Conda> install is a bit annoying, but gets the job done.
+
+TODO how to download the .ckpt file? We reach: https://huggingface.co/CompVis/stable-diffusion-v1-4 and then?? https://huggingface.co/CompVis/stable-diffusion-v1-4/discussions/149
+
 = Text-to-video
 {parent=Generative AI by modality}
 
@@ -489,7 +561,7 @@ This was the Holy Grail as of 2023, when <text-to-image> started to really take 
 {parent=Artificial intelligence}
 {wiki}
 
-As highlighted e.g. at <Human compatible by Stuart J. Russell (2019)>, this AI alignment intrisically linked to the idea of <utility> in <economy>.
+As highlighted e.g. at <Human compatible by Stuart J. Russell (2019)>, this AI alignment intrinsically linked to the idea of <utility> in <economy>.
 
 = Reward modeling
 {parent=AI alignment}
