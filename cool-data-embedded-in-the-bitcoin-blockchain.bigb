@@ -6,9 +6,9 @@
 {tag=Inscription (blockchain)}
 {scope}
 
-This is a list of cool stuff found using techniques mentioned at: <how to extract data from the Bitcoin blockchain>{full}.
+This is a list of cool stuff found using techniques mentioned at: <how to extract data from the Bitcoin blockchain>{full}. Notably, <Ciro Santilli> developed his own set of scripts at https://github.com/cirosantilli/bitcoin-strings-with-txids to find some of this data. This article was originally based on data analyzed going up to around block 668k (2021).
 
-Notably, <Ciro Santilli> developed his own set of scripts at https://github.com/cirosantilli/bitcoin-strings-with-txids to find some of this data. This article was originally based on data analyzed going up to around block 668k (2021).
+If you are loaded and like this article, consider dropping some coins at: 3KRk7f2JgekF6x7QBqPHdZ3pPDuMdY3eWR to support some much needed higher educational reform: <sponsor>{full}.
 
 <Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)> is a mandatory precursor to this article, and potentially contains some of the most interesting examples already. An attempt is made to not repeat stuff that is already said in that article. Some repetition happened by accident, as we explored and only later noticed it was already mentioned there. But this also managed to add some new aspects to points previously covered by Ken. This analysis is also a bit more data oriented through our scripting. And there are somethings that only showed up after that post was originally written in 2014, this one being originally written in 2021.
 
@@ -17,6 +17,8 @@ Notably, <Ciro Santilli> developed his own set of scripts at https://github.com/
 As of 2023:
 * this type of cool data had converged to the name "<inscription (blockchain)>", as seen e.g. at: <ordinal ruleset inscriptions>
 * the study or "early" inscriptions had been called a form of "archeology" e.g. at: https://docs.ordinals.com/overview.html
+
+It is really cool to see people treating the Bitcoin blockchain basically like a global social media feed!
 
 Cool stuff in other sections:
 * <Genesis block message>{child}
@@ -29,7 +31,16 @@ These can be viewed at https://bitcoinstrings.com/blk00052.txt[] and are mostly 
 
 Soon after block 229991 uploaded the <Satoshi uploader>, several interesting files were added to the blockchain using the uploader, and notably some containing content that might be <illegal> in certain <countries>, as a test to see if this type of content would make the Bitcoin blockchain illegal or not:
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0229.txt#L241[tx 08654f9dc9d673b3527b48ad06ab1b199ad47b61fd54033af30c2ee975c588bd] block 229999 contains a leaked private key and a link to: http://threatpost.com/en_us/blogs/ami-firmware-source-codAe-private-key-leaked-040513
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L1[tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7] block 230001 http://en.wikipedia.org/wiki/Illegal_prime followed presumably by one such prime
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L1[tx b96af3b69b48a82c5eae3e44ebb6ef93f30d7764b1d5b40243e11b0d374ac1b7] block 230001 contains the link:
+  \Q[http://en.wikipedia.org/wiki/Illegal_prime]
+  followed presumably by one such prime starting with:
+  \Q[4 85650 78965 73978 29309 84189 46942 86137 70744 20873 51357 92401 96520 73668]
+  The number is quoted e.g. at: https://www.computerforum.com/threads/illegal-prime-number.67782/
+  * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0233.txt#L2[tx 237783998a6799264983150187a73ab6d116f2ba78d3e1f88529e95229f59d67] https://www.blockchain.com/explorer/transactions/btc/237783998a6799264983150187a73ab6d116f2ba78d3e1f88529e95229f59d67[block 233620] contains another illegal prime starting with:
+  \Q[49310 83597 02850 19002 75777 67239 07649 57284]
+  This one is quoted in a few places online in blockchain illegality discussions:
+  * https://www.reddit.com/r/Bitcoin/comments/1akyy4/comment/c8yel60 "What happens if someone inserts illegal content into the block chain?" (2013-03-19)
+  * https://news.ycombinator.com/item?id=8055243 "Filecoin – Data storage network and crypto-currency based on Bitcoin" (2014-07-18)
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L7[tx 54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713] block 230009 contains the Bitcoin white paper: https://bitcoin.org/bitcoin.pdf More context: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0230.txt#L557[tx 691dd277dc0e90a462a3d652a1171686de49cf19067cd33c7df0392833fb986a] block 230203 <Cablegate> index. The announced filename is `cablegate-201012041811.7z`. As mentioned in <Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)>, it has an ASCII list of several other transactions, which presumably when downloaded with the <Satoshi uploader> can concatenated lead to the full 7z file. Also as mentioned by Ken, it is infinitely easier for the average user to just access the cables directly on <WikiLeaks> :-) The data is preceded by the message:
   ``
@@ -52,26 +63,52 @@ Furthermore, it is likely much easier to find much worse illegal content by brow
 
 <Ciro Santilli> estimates that perhaps the uploader didn't upload <child pornography>, which is basically the apex of illegality of this era, because they were afraid that their identities would one day be found.
 
+= Images
+{parent=Cool data embedded in the Bitcoin blockchain}
+
+Besides <ASCII art>, the huge majority of images is encoded with the <AtomSea & EMBII> system/format. All images in that system will be documented in that section.
+
 = ASCII art
 {c}
-{parent=Cool data embedded in the Bitcoin blockchain}
+{parent=Images}
 
 There are a few dozen </ASCII arts> in the blockchain.
 
 To be honest, almost all of them are copy pastes of stuff present elsewhere, or boring high resolution ones auto-generated from images. But hey, it's still fun to see.
 
 <ASCII porn>, all of them also reproduced at: https://asciiart.website/index.php?art=people/naked%20ladies[] therefore not blockchain original. Self-censored from <bitcoin-strings-with-txids> because <GitHub porn policy>[GitHub does not accept porn]:
-* tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f: <sexually aroused> naked woman sitting looking forward with legs open showing her <vagina>. Vagina row as an identifier for Ctrl + F:
+* tx 9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f (https://www.blockchain.com/explorer/transactions/btc/9206ec2a41846709a59cafb406dd7b07082bfc27664bbc5c6d4df310c1e1b91f[2014-03-16]): <sexually aroused> naked woman sitting looking forward with legs open showing her <vagina>. Vagina row as an identifier for Ctrl + F:
   ``
   .     `.    .\x./-`--...../'   ;   :
   ``
-  A bit bellow https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0291.txt#L28[tx 8367a48e4a863e37b3749bc9c111327b07a7c383ec9b3e7ce8d41949e71e1c10] has a large hand showing the middle finger
-* tx 0aab36554c2ac5ec23747e7f21f75dbe3f16739134cf44953ad7ac98927146d6: naked woman laying on her side showing her <vagina> from under her legs, signed `fsc`. TODO full author name?
+  A bit bellow https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0291.txt#L28[tx 8367a48e4a863e37b3749bc9c111327b07a7c383ec9b3e7ce8d41949e71e1c10] has a large hand showing the middle finger and wearing a watch:
+  ``
+           /"\
+          |\./|
+          |   |
+          |   |
+          |>~<|
+          |   |
+       /'\|   |/'\..
+   /~\|   |   |   | \
+  [   |   |   |  |   \
+  |   |   |   |   |   \
+  | ~   ~   ~   ~ |`   )
+  |                   /
+   \                 /
+    \               /
+     \             /
+      |--//''`\--|
+      | (( +==)) |
+      |--\_|_//--|
+  ``
+  Reproduced e.g. at: https://www.textartcopy.com/ascii-middle-finger.html
+* tx 0aab36554c2ac5ec23747e7f21f75dbe3f16739134cf44953ad7ac98927146d6 (https://www.blockchain.com/explorer/transactions/btc/0aab36554c2ac5ec23747e7f21f75dbe3f16739134cf44953ad7ac98927146d6[2014-09-28]): naked woman laying on her side showing her <vagina> from under her legs, signed `fsc`. TODO full author name?
 
 Decoded:
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0323.txt#L363[tx 09a5d5aaecdce1757e6ec713cc8a2201abca9acdb6fbadc7760e831cdad3d680] huge high resolution image of two men with the bitcoin logo on the background, followed by "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9w". TODO who do they represent?
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0325.txt#L16[tx 777db7bfbea2c525d5adb05a8fbf47736e2311492f4614e5d38ab199b4bbfac2] "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC" portrait of a young man
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0334.txt#L741[tx 57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe] (https://www.blockchain.com/explorer/transactions/btc/57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe[2014-12-19]) "MERRY CHRISTMAS! & HAPPY NEW YEAR!!" with a really ugly father Christmas with gift bag
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0323.txt#L363[tx 09a5d5aaecdce1757e6ec713cc8a2201abca9acdb6fbadc7760e831cdad3d680] (https://www.blockchain.com/explorer/transactions/btc/09a5d5aaecdce1757e6ec713cc8a2201abca9acdb6fbadc7760e831cdad3d680[2014-10-01]) high resolution image of two men wearing a suit with the bitcoin logo on the background, followed by "if you like it, leave a tip: 1MDBHLGV7WX9viRG9X4LfDQfCX8oZ9w". Both men look quite similar, so quite likely it's the <Winklevoss twins>, who had a <Winklevoss twins' involvement in Bitcoin>[big and later catastrphic involvement with Bitcoin]. The tip address appears to be cropped and is incorrect, ooops. 777db7bfbea2c525d5adb05a8fbf47736e2311492f4614e5d38ab199b4bbfac2 give the likely correct version of it "1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC".
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0325.txt#L16[tx 777db7bfbea2c525d5adb05a8fbf47736e2311492f4614e5d38ab199b4bbfac2] "if you like it, leave a tip: 1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC" portrait of a young man. TODO identify. They were tipped twice so far: https://www.blockchain.com/explorer/addresses/btc/1MDBHLgv7WX9viRG9X4LfDQfCX8oZ9wviC for 0.00240 BTC and 0.02490000 BTC in 2014.
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0334.txt#L741[tx 57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe] (https://www.blockchain.com/explorer/transactions/btc/57a4edce05dee9012ff5991532e9aa02aef82ee8d3ebecb9f833c12bfbc708fe[2014-12-19]) "MERRY CHRISTMAS! & HAPPY NEW YEAR!!" with a really ugly father Christmas with gift bag. Reproduced at: https://asciiart.website/index.php?art=holiday/christmas/santa where is is credited From: `Heather Classen <classen@aware.com>`, Date: 22 Dec 1994 17:00:58 -0600
   ``
     MERRY CHRISTMAS!              __ _ __ ___
           &                  _ __'.:;.:;.:;.:`
@@ -107,7 +144,7 @@ Decoded:
             #######HHOHHH###########################
             '::;;;.;; o  :;;;.:;.:;;.;;;;;;;;;;;.:;.:`  H.Classen
   ``
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0340.txt#L227[tx 69708943906eb32a320a5a450fed450b0f14b4e475a98bc74615962b68a0bc83] "All Glory to he HYPNO TOAD" signed "SSt" has an ASCII art of HypnoToad, a ficticius mind controlling frog creature from <Futurama>: https://futurama.fandom.com/wiki/Hypnotoad#Episodes[Fandom], https://knowyourmeme.com/memes/hypnotoad[KnowYourMeme]. The same ASCII art can be seen for example at: http://www.gotfuturama.com/Multimedia/AsciiArt/HypnoSebastian.shtml
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0340.txt#L227[tx 69708943906eb32a320a5a450fed450b0f14b4e475a98bc74615962b68a0bc83] (https://www.blockchain.com/explorer/transactions/btc/69708943906eb32a320a5a450fed450b0f14b4e475a98bc74615962b68a0bc83[2015-01-24]) "All Glory to he HYPNO TOAD" signed "SSt" has an ASCII art of HypnoToad, a ficticius mind controlling frog creature from <Futurama>: https://futurama.fandom.com/wiki/Hypnotoad#Episodes[Fandom], https://knowyourmeme.com/memes/hypnotoad[KnowYourMeme]. The same ASCII art can be seen for example at: http://www.gotfuturama.com/Multimedia/AsciiArt/HypnoSebastian.shtml
   ```````
         ,'``.._   ,'``.
       :,--._:)\,:,._,.:       All Glory to
@@ -129,7 +166,7 @@ Decoded:
         |/`.\`'        ,','); SSt
             `         (/  (/
   ```````
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0345.txt#L100[tx 43b0bb63fc50ad1edbb17486dc44825e4dd642a952c699cc13958e010ba3d8a5] has a star of David:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0345.txt#L100[tx 43b0bb63fc50ad1edbb17486dc44825e4dd642a952c699cc13958e010ba3d8a5] https://www.blockchain.com/explorer/transactions/btc/43b0bb63fc50ad1edbb17486dc44825e4dd642a952c699cc13958e010ba3d8a5[2015-02-26] has a star of David. Possibly related news from the day prior: https://www.theguardian.com/world/2015/jan/25/jewish-leaders-europe-legislation-outlawing-antisemitism "Jewish leaders call for Europe-wide legislation outlawing antisemitism"
   ``
              /\
             /  \
@@ -150,13 +187,23 @@ Decoded:
 
       HELLO FROM ZOG
   ``
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0351.txt#L94[tx 00d8871c1b3fb85912616bb2602b5a9869a345d9fa092f8454614c6158c83d10] "Muy feliz cumple Manu! ---- The Fantastic Four Gang :-D" followed by Manu's face in medium resolution
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0368.txt#L98[tx 0fc0c50e410b62ee3a316135711116db6b4e728841c976f29ab85e2a41e0dcc3] "if you like it, leave a tip: 1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz". Large portrait of a man in his 50's. Who is it?
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0369.txt#L79[tx 467c075ee6edaa60f184d0683655f1f6d267efd98061872f167ef7ca9ca7c50f] `!`/`R` pattern
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L28[tx 1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7] "Viva la Revolucion! Happy Birthday Santi! Manu, Santi, Demi, Esteban" starts a long chain of contiguous transactions with two peopled raw in low resolution. How did they manage to keep it contiguous? TODO forgot how I decoded it originally, does not show up nicely at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L28
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L2349[tx ddc39a3da0ee6f0651bdf0be7119b4db2612b19416e9128091b1f29cdfe2aa0d] "I Love You Forever". Large busts of a man and a woman looking forward.
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0409.txt#L697[tx f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f] (https://www.blockchain.com/explorer/transactions/btc/f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f[2016-04-27]) "vaardig regulerend de orde van de dag", really nice candles! TODO meaning? Is in <Dutch> of course, literally:
+  The signature however appears ironic and could stand for "https://en.wikipedia.org/wiki/Zionist_Occupation_Government_conspiracy_theory[Zionist Occupation Government]"
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0351.txt#L94[tx 00d8871c1b3fb85912616bb2602b5a9869a345d9fa092f8454614c6158c83d10] https://www.blockchain.com/explorer/transactions/btc/00d8871c1b3fb85912616bb2602b5a9869a345d9fa092f8454614c6158c83d10[2015-04-08]
+  \Q[Muy feliz cumple Manu! ---- The Fantastic Four Gang :-D]
+  which means "Happy birthday, Manu", in Spanish, followed by Manu's face in medium resolution
+
+  TODO identify them. 1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7 gives the given names of the other 3 in their "Fantastic Four Gang".
+
+  https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L28[tx 1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7] (https://www.blockchain.com/explorer/transactions/btc/1b35d4b9506ab80ec7fc5542f73271cbb72090aa3f70bfa77670f8bd43d072a7[2015-10-08])
+  \Q[Viva la Revolucion! Happy Birthday Santi! Manu, Santi, Demi, Esteban]
+  Starts a long chain of contiguous transactions with two peopled raw in low resolution. How did they manage to keep it contiguous? TODO forgot how I decoded it originally, does not show up nicely at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L28
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0368.txt#L98[tx 0fc0c50e410b62ee3a316135711116db6b4e728841c976f29ab85e2a41e0dcc3] (https://www.blockchain.com/explorer/transactions/btc/0fc0c50e410b62ee3a316135711116db6b4e728841c976f29ab85e2a41e0dcc3[2015-08-02]) "if you like it, leave a tip: 1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz    BM-2cUDAqyqcnksx7YDtgu2y72xDxcRjPeYfo". Large portrait of a man in his 50's. TODO identify, this one should be easy. <Noam Chomsky>?. 1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz was never tipped so far: https://www.blockchain.com/explorer/addresses/btc/1P675gRxNwhFXgfuDu5yXwGDgwLDbXNJqz TODO what is "BM-2cUDAqyqcnksx7YDtgu2y72xDxcRjPeYfo"?
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0369.txt#L79[tx 467c075ee6edaa60f184d0683655f1f6d267efd98061872f167ef7ca9ca7c50f] (https://www.blockchain.com/explorer/transactions/btc/467c075ee6edaa60f184d0683655f1f6d267efd98061872f167ef7ca9ca7c50f[2015-08-09]) <Mr. Spock>? The eyes are a bit wrong, and he is a bit too young for the original series. Minor manual fixes were applied by <Ciro Santilli>, it is unknown why this was needed.
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0409.txt#L697[tx f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f] (https://www.blockchain.com/explorer/transactions/btc/f6039915b829377849be87fc242303873e6574528db7916dd81ff44141b3560f[2016-04-27])
+  \Q[vaardig regulerend de orde van de dag]
+  Is in <Dutch> of course, literally:
   \Q[skillfully regulating the order of the day]
+  Given the date and language, it appears to be a reference to https://en.wikipedia.org/wiki/Koningsdag[Koningsdag], Dutch national holiday that celebrated the birthday of their King at the time, https://en.wikipedia.org/wiki/Willem-Alexander_of_the_Netherlands[King Willem-Alexander]. Born in 1956, he would have been turning 60 at the time, so a nice round number in 2016 when these birthday candles were <inscribed (blockchain)>.
   ``
                     )                    `
                   /(l                   /)
@@ -178,30 +225,59 @@ Decoded:
   |     |   |     |   |     |   |     |   |     x   |     |
   '-._,-'   '-._,-'   '-._,-'   '-._,-'   '-._,-"   '-._,-'
   ``
-* Batman symbols:
-  * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0409.txt#L807[tx a55e7587bb34a56ae1113b0848506ea2fcf0c0e1af8c241e76677eb2bcb727eb]
-  * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0410.txt#L1116[tx 959a19729ca02b1e06e600a331d7f4603669a7eaaa20b5cfb9f3528e3005a8f2]
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0409.txt#L807[tx a55e7587bb34a56ae1113b0848506ea2fcf0c0e1af8c241e76677eb2bcb727eb] (https://www.blockchain.com/explorer/transactions/btc/a55e7587bb34a56ae1113b0848506ea2fcf0c0e1af8c241e76677eb2bcb727eb[2016-04-27])
+  ``
+  /y            _,     _   _    ,_
+            o888P     Y8o8Y     Y888o.
+          d88888      88888      88888b
+        ,8888888b_  _d88888b_  _d8888888,
+        888888888888888888888888888888888
+        888888888888888888888888888888888
+          Y8888P"Y888P"Y888P-Y888P"Y88888'
+          Y888   '8'   Y8P   '8'   888Y
+            '8o          V          o8'
+              `                   `
+  ``
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0410.txt#L1116[tx 959a19729ca02b1e06e600a331d7f4603669a7eaaa20b5cfb9f3528e3005a8f2] (https://www.blockchain.com/explorer/transactions/btc/959a19729ca02b1e06e600a331d7f4603669a7eaaa20b5cfb9f3528e3005a8f2[2016-05-05]). This on includes the https://www.youtube.com/watch?v=mEUWbOLg0zI[lyrics "Denk niet wit, denk niet zwart." of a song] by Dutch artist https://nl.wikipedia.org/wiki/Zwart_wit[Zwart wit].
+  ``
+            _,     _   _    ,_
+          o888P     Y8o8Y     Y888o.
+        d88888      88888      88888b
+      ,8888888b_  _d88888b_  _d8888888,
+      888888888888888888888888888888888
+      888888888888888888888888888888888
+      Y8888P"Y888P"Y888P-Y888P"Y88888'
+      Y888   '8'   Y8P   '8'   888Y
+        '8o          V          o8'
+            `                   `
+  ``
+* \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/ascii-art/ddc39a3da0ee6f0651bdf0be7119b4db2612b19416e9128091b1f29cdfe2aa0d.png]
+  {title=I Love You Forever}
+  {description=https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0378.txt#L2349[tx ddc39a3da0ee6f0651bdf0be7119b4db2612b19416e9128091b1f29cdfe2aa0d] (https://www.blockchain.com/explorer/transactions/btc/eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b[2016-06-20]). Busts of a man and a woman looking forward.}
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0420.txt#L7059[tx 06d2528cfabf360c7a8f925d84207d47612cd0ac1ad2efd8aea9758263d9738b] (https://www.blockchain.com/explorer/transactions/btc/06d2528cfabf360c7a8f925d84207d47612cd0ac1ad2efd8aea9758263d9738b[2016-07-13]) "Dr. Bill Maurer Economic anthropologist". Reference image from his university home page: https://web.archive.org/web/20231109222608/https://faculty.sites.uci.edu/wmmaurer/ from https://faculty.sites.uci.edu/wmmaurer/
+  \Q[Professor Maurer is a cultural anthropologist and sociolegal scholar. His work explores the technological infrastructures and social relations of exchange and payment.]
+  His <Wikipedia> page: https://en.wikipedia.org/wiki/Bill_Maurer[].
+* \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/ascii-art/9caaa9f8d0e170bf6d73a722e9bb2e7e0d37577476d485bd3eeac09866f26345.png]
+  {title=Study Math and Computer Science at https://en.wikipedia.org/wiki/Augustana_College_(Illinois)[Augustana College]}
+  {description=
+  https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0440.txt#L816[tx 9caaa9f8d0e170bf6d73a722e9bb2e7e0d37577476d485bd3eeac09866f26345], https://www.blockchain.com/explorer/blocks/btc/420000[block 440620] (2016-11-26). <Input script inscription>.
 
-    This on includes the https://www.youtube.com/watch?v=mEUWbOLg0zI[lyrics "Denk niet wit, denk niet zwart." of a song] by Dutch artist https://nl.wikipedia.org/wiki/Zwart_wit[Zwart wit].
-    ``
-              _,     _   _    ,_
-           o888P     Y8o8Y     Y888o.
-         d88888      88888      88888b
-       ,8888888b_  _d88888b_  _d8888888,
-       888888888888888888888888888888888
-       888888888888888888888888888888888
-        Y8888P"Y888P"Y888P-Y888P"Y88888'
-        Y888   '8'   Y8P   '8'   888Y
-          '8o          V          o8'
-             `                   `
-    ``
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0413.txt#L2471[tx 90b663f380ed043a0c35aaeed5405b260545df991fed4bfff3d1386ecb256ce1] a low res man and a woman hugging looking forward, signed B&E April 9, Image repeated at: tx 47fafaa96c24d3f204658fb4bec34ab6f18df138084e04535ea60cce8c4e4857 without signature.
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0420.txt#L7059[tx 06d2528cfabf360c7a8f925d84207d47612cd0ac1ad2efd8aea9758263d9738b] "Dr. Bill Maurer Economic anthropologist" join every 5 lines, shows a man with a surfboard
+  Contains <ASCII art> of a large <letter A>. Has some custom encoding we didn't have the time to investigate which makes it deformed in our dumps, so we fixed it manually. The associated message reads:
+  \Q[!Study Math and Computer Science at https://en.wikipedia.org/wiki/Augustana_College_(Illinois)[Augustana College]!]
+  and so we understand that the <ASCII art> is formated to look like the font of the logo of that university from <Illinois>.
 
-<interesting input script data>[Transaction inputs] with ASCII art, some miners went all the way:
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0440.txt#L816[tx 9caaa9f8d0e170bf6d73a722e9bb2e7e0d37577476d485bd3eeac09866f26345] a large letter A. Has some custom encoding which makes it deformed, so possibly for download with <peter Todd's data upload scripts>
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0556.txt#L61[tx 75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4] two high res faces
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0559.txt#L316[tx 2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966] face of a woman with short hair
+  \Image[https://web.archive.org/web/20230906033358im_/https://www.augustana.edu/files/styles/inline_image_left_right/public/2023-03/CircleA_Blue.png?itok=Xvtinoe6]
+  {title="Augie A"}
+  {description=Reference image for the inscribed <image Study Math and Computer Science at Augustana College> <typeface> logo taken from the Augustana College website.}
+  {source=https://www.augustana.edu/communication-and-marketing/brandtoolbox}
+  }
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0413.txt#L2471[tx 90b663f380ed043a0c35aaeed5405b260545df991fed4bfff3d1386ecb256ce1] (https://www.blockchain.com/explorer/transactions/btc/90b663f380ed043a0c35aaeed5405b260545df991fed4bfff3d1386ecb256ce1[2017-05-27]) a low res man and a woman hugging looking forward, signed B&E April 9, Image repeated at: tx 47fafaa96c24d3f204658fb4bec34ab6f18df138084e04535ea60cce8c4e4857 without signature.
+* \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/ascii-art/75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4.png]
+  {title=<ASCII art> of two low resolution faces}
+  {description=https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0556.txt#L61[tx 75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4] (https://www.blockchain.com/explorer/transactions/btc/75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4[2018-12-30]). <Input script inscription>. Two low resolution faces}
+* \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/ascii-art/2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966.png]
+  {title=<ASCII art> of face of woman with short hair}
+  {description=https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0559.txt#L316[tx 2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966] (https://www.blockchain.com/explorer/transactions/btc/2b8f1275ec54f1586f0d13b3828400d9fba31f46f92e8e4515c2b2e93e3be966[2019-01-23]). <Input script inscription>.}
 
 = Len Sassaman tribute
 {c}
@@ -485,11 +561,6 @@ paystamper.com was some other blockchain service from circa 2015:
 * https://bitcointalk.org/index.php?action=profile;threads;u=412250;sa=showPosts
 * https://www.reddit.com/r/Bitcoin/comments/2p4on0/paystampercom_receive_unlimited_detailed_payments/
 
-= Images
-{parent=Cool data embedded in the Bitcoin blockchain}
-
-The huge majority of images is encoded with the <AtomSea & EMBII> system/format. All images in that system will be documented in that section.
-
 = Custom encoded images of unknown source
 {parent=Images}
 
@@ -634,6 +705,8 @@ The image shows showingAtomSea and EMBII together, presumably photographed by ht
 The filename is of course a reference to the quote/idea: <We Are Made of Star-Stuff> that was much popularized by <Carl Sagan>.
 
 https://www.blockchain.com/explorer/transactions/btc/8d1b3c094b782198deb7381efb57b1208244375e7a1029ec159306d6a8fd25d8[tx 81f6d302a0ed4ffefa674834d0c4a02cdc6639f213713d48946225956fc96d85], https://www.blockchain.com/explorer/blocks/btc/272592[block 272592] (2013-12-02)
+
+http://bitfossil.org/fac0b9a4f90414710b806fd286e020aea2404498946845ef3783f305dd4cd3a7 (2024-01-13) contains a crapped version with only AtomSea persent.
 }
 {source=http://bitfossil.org/8d1b3c094b782198deb7381efb57b1208244375e7a1029ec159306d6a8fd25d8}
 
@@ -653,10 +726,70 @@ Then there are two undecoded ones TODO investigate:
 * http://bitfossil.org/78f31f03da7d15db96dc824bf96b39f010bb733969c62f27f2f8fb2738e74557
 * http://bitfossil.org/4c8cf0e647e3b3e5878856b7057e625e0fcbb01d714a6a4eabb91ffc4495f0c3
 
+Then <Nelson-Mandela.jpg>.
+
 Then there's an approximation of <pi> as ASCII decimal fraction http://bitfossil.org/70fd289901bae0409f27237506c330588d917716944c6359a8711b0ad6b4ce76/[] from https://www.blockchain.com/explorer/blocks/btc/273522[block 273522] (2013-12-07):
 \Q[3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989]
 
-Then <Nelson-Mandela.jpg>.
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0273.txt#L48[tx b8b9f50a354166c46b69ecd47a0fbd20ee78c3471d2557bf275aff1b4cf4752d] (2013-12-07) contains https://en.wikipedia.org/wiki/Where_the_Sidewalk_Ends[Where the Sidewalk Ends by Shel Silverstein]. TODO find on bitfossil.org, toplevel, tx seemed like a likely toplevel, but not working: http://bitfossil.org/b8b9f50a354166c46b69ecd47a0fbd20ee78c3471d2557bf275aff1b4cf4752d
+\Q[
+There is a place where the sidewalk ends\br
+And before the street begins,\br
+And there the grass grows soft and white,\br
+And there the sun burns crimson bright,\br
+And there the moon-bird rests from his flight\br
+To cool in the peppermint wind.\br
+
+Let us leave this place where the smoke blows black\br
+And the dark street winds and bends.\br
+Past the pits where the asphalt flowers grow\br
+We shall walk with a walk that is measured and slow\br,
+And watch where the chalk-white arrowls go\br
+To the place where the sidewalk ends.
+
+Yes we'll walk with a walk that is measured and slow,\br
+And we'll go where the chalk-white arrows go,\br
+For the children, they mark, and the children, they know\br
+The place where the sidewalk ends.\br
+]
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0274.txt#L8[tx 56768b30dec33bd284223d85c23087975e2360b3391d20d505aa59a5675e5379] (2013-12-13) TODO find on bitfossil.org has the cutest message:
+\Q[
+Dear Aliens,
+
+Hey.
+
+Sincerely,
+EMBII & AtomSeaMBII
+]
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0274.txt#L28[tx 415c702759893c63b3a57a7d196b014e51b2a33d2396c74b8e71acfaff6b9360]  (https://www.blockchain.com/explorer/transactions/btc/415c702759893c63b3a57a7d196b014e51b2a33d2396c74b8e71acfaff6b9360[2013-12-14]) contains a poem by https://en.wikipedia.org/wiki/Rumi[13th century Persian poet Rumi] (TODO find bitfossil.org toplevel), starting with:
+\Q[
+My dear friend\br
+never lose hope\br
+when the Beloved\br
+sends you away.\br
+]
+Reproduced e.g. at: https://www.abuddhistlibrary.com/Buddhism/H%20-%20World%20Religions%20and%20Poetry/World%20Religions/Islam/Teachers/Rumi/My%20dear%20friend/Rumi%20-%20my%20dear%20friend.htm
+
+http://bitfossil.org/73ca50321147bac9010bec43d63f7f76857fe9ede240cc89710e28723fdb242f/ (https://www.blockchain.com/explorer/transactions/btc/73ca50321147bac9010bec43d63f7f76857fe9ede240cc89710e28723fdb242f/[2013-12-14]) has message:
+\Q[MULTIFILE SUPPORT TEST]
+and links to 3 .txt files `1.txt`, `2.txt`, `3.txt` containing single characters `1`, `2`, and `3`.
+
+\Image[https://web.archive.org/web/20240130020052im_/http://bitfossil.org/dd750b6dfc799ad63b450f3942a3d8739831a4a1a03ffea32531bc3539026af2/CompressedLogo.png]
+{title=CompressedLogo.png}
+{description=
+https://www.blockchain.com/explorer/transactions/btc/dd750b6dfc799ad63b450f3942a3d8739831a4a1a03ffea32531bc3539026af2[2013-12-20]. Message:
+\Q[
+Colby Nelson and myself burnt the midnight oils designing the APERTUS imagery last night....
+
+Thanks Colby for all your help.
+]
+Possibly https://www.linkedin.com/in/colby-nelson-59b538207/[].
+
+Contains an Apertus logo which is used on http://bitfossil.org/ itself, presumably they were designing that logo.
+}
+{source=http://bitfossil.org/dd750b6dfc799ad63b450f3942a3d8739831a4a1a03ffea32531bc3539026af2/}
 
 = ILoveYouMore.jpg
 {c}
@@ -1006,7 +1139,7 @@ Audio:
 * `OneGiantLeapForMankind.mp3` at https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0319.txt#915[tx 4f5b25fa8021c67235423930580e69121aa0d2c2bb779f75139bf442f8dc7297] EMBII-indexed at 743f3286b00fc96c13db4b16d5aead8a1e059fee9ce775b1761be9be5bdc2501 and then indexed at: 0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb
 
   The toplevel index does appear on Bitfossil: http://bitfossil.org/0427ec598df38b7d7dc75721316c0bbdec54de4871e11aff8ea64f3717c07efb/index.htm but the audio is not there as it was for Spock below, maybe a bug on upload/Bitfossil?
-* `Spock_Live_Long_And_Prosper.mp3` block 345858 http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
+* `Spock_Live_Long_And_Prosper.mp3` block 345858 http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm[]. Audio of <Mr. Spock> saying the Vulcan salute.
 * `OuterSpace.mp3` block 409471 http://bitfossil.org/c14c1bd862bab6269052bf0a2cda7a35940d7a2d9c3415d4fb8fb8dcb9394fae/ "Outer Space by embii 4MB Large file storage test Apertus 0.3.5-beta" OMG, I don't want to calculate how much it cost to upload this, it will make me sad.
 
   At https://twitter.com/EMBII4U/status/1655969645927563266 EMBII mentions that this inscription, made by him, is the largest inscription he knows of.
@@ -1249,30 +1382,29 @@ Other related transactions:
   ``
   so <cryptograffiti.info> must have some markdown rendering mechanism.
 
-= Rickrolling
-{c}
+= Text
 {parent=Cool data embedded in the Bitcoin blockchain}
 
-</Rickrolling> lyrics were mined several times into the blockchain as mentioned at <interesting input script data>.
+Here are some exceptionally interesting input data that are not mentioned in other sections:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0268.txt#L10[tx 61e26d407c17e8ee33a8b166c78f78c53cdcdc0078ae1f9405e6583cfb90eaf4], https://www.blockchain.com/explorer/transactions/btc/61e26d407c17e8ee33a8b166c78f78c53cdcdc0078ae1f9405e6583cfb90eaf4[block 268081] (2013-11-05). This is a very interesting transaction, it contains inscriptions both on the <input script> and on the <output script>. On the input:
+  \Q[I should not run the washing machine while listening to WZBC. I managed to convince myself that the machine was slowly failing -- that a rythmic, squeaking noise it had been making had gotten a little worse. Ten minutes later, though, the machine had paused. But the noise was still there.]
+  On the output:
+  ``
+  > Skynet went online on August 4th 1997, and began to learn at a geometric rate.
+  > It became self-aware on August 29th 1997 2:14 am Eastern Time. On August 29th
+  > 1997 2:15 am it discovered nihilism, and either shut itself down due to
+  > despair, or because it was logical. We're not sure which.
 
-The first known instance is as a link right during the <prayer wars> on https://www.blockchain.com/explorer/blocks/btc/142573[block 142573] (2011-08-25) as the <miner message>:
-\Q[Militant atheists, http://bit.ly/naNhG2 -- happy now?"]
-which redirects to https://www.youtube.com/watch?v=mGDuExhS6Nw&blockchain
-
-Around block https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0264.txt#L28[block 246k] (e.g. https://www.blockchain.com/explorer/transactions/btc/27b7c526489dac8245747fa1c425a2e3eb07dea57b294eb4ae583fec9b859fcf[27b7c526489dac8245747fa1c425a2e3eb07dea57b294eb4ae583fec9b859fcf], 2013-10-17) we note several transactions starting with a <XML> format `<CG SZ="1156"><MG>...` the first one being 0b4efe49ea1454020c4d51a163a93f726a20cd75ad50bb9ed0f4623c141a8008 As mentioned not very clearly at http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html#ref12 the content of the first `<MG><payload></MG>` is a <Base64> encoded string
-``
-Catagory: Poetry
-Title: Never Gonna Give You Up
-Performer: Rick Astley
-Writer: Mike Stock, Matt Aitken, Pete Waterman
-Label: RCA Records
-``
-followed by lyrics also base64 encoded as part of the XML metadata. <Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)> was not able to identify the exact format either. At https://twitter.com/EMBII4U/status/1655831533750562816 EMBII mentions that this was part of an upload test.
-
-https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0268.txt#L1[tx d29c9c0e8e4d2a9790922af73f0b8d51f0bd4bb19940d9cf910ead8fbe85bc9b] contains a plaintext Rickroll lyric in an output.
+  On August 4th, 1998, it failed to renew its domain name, which was promptly
+  squatted on by a link farmer pitching X10 cameras and singing electric fish.
+  ``
+  Feels like a <Koan>. I wish I knew who inscribed this.
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0386.txt#L785[tx 24e137d5b478d9a8b947e4f3f6130a86f2e0f6a2dda1cac1373b485c577f8ba7]: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt[]: "Once upon a time, in a kingdom not far from here" Electrical Engineer vs Software Developer tale. Possible original: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0456.txt#L1169[tx e450166eba552202fb6984867f2b851e2399c5a0ae05026bf6b056176491ec5d]: "Here are some of the reasons why Tau is better than Pi as a universal constant for circles."
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0396.txt#L61[tx e2c20c2977589240ad9486672a0273d340ed5f8b50a50071716d12035d7212e8]: has a large <Lorem ipsum>
 
 = Base58 messages
-{parent=Cool data embedded in the Bitcoin blockchain}
+{parent=Text}
 
 Bitcoin addresses are by convention expressed in <Base58>, which is a human readable <binary-to-text encoding> invented by Bitcoin. It is a bit like <Base64>, but obsessed with eliminating characters that look like one another in popular but stupid fonts like capital "I" and lower case ell "l".
 
@@ -1360,38 +1492,16 @@ The following transactions contain base58 encoded messages on addresses:
   11TransactionsThatAreXXXXXXVdZfnJ
   ``
 
-= Interesting input script data
+= Themes
 {parent=Cool data embedded in the Bitcoin blockchain}
-
-Data in input and output transactions are quite different because:
-* input transaction data can only be added by the miner who obtained the block.
-
-  Input script transactions can only contain arbitrary data when they are made by miners that obtained the block.
-
-  Therefore, except at the very early beginnings when random individuals could still mine without having a nuclear power station at their disposal, basically all input script transactions are boring ads made by mining pools or other souless companies.
-
-  As a result, inputs contain almost exclusively boring miner advertisements.
-* output transaction data however can be added by anyone who makes a transaction.
-
-  Therefore, although the large majority of it is also crap and spam like the rest of the <Internet>, there is much more interesting stuff to be found there in total.
-
-Here are some exceptionally interesting input data that are not mentioned in other sections:
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0268.txt#L10[tx 61e26d407c17e8ee33a8b166c78f78c53cdcdc0078ae1f9405e6583cfb90eaf4] has an is exceptionally cute miner message:
-  \Q[I should not run the washing machine while listening to WZBC. I managed to convince myself that the machine was slowly failing -- that a rythmic, squeaking noise it had been making had gotten a little worse. Ten minutes later, though, the machine had paused. But the noise was still there.]
-  Feels like a <Koan>.
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0307.txt#L61[tx 15b11e8d4e5b9425f024b381ba0cb7a54a35e52389bb4855f505772ce685b39c]: </Rickrolling> lyrics were mined several times starting with this block, see also: <Rickrolling>
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0386.txt#L785[tx 24e137d5b478d9a8b947e4f3f6130a86f2e0f6a2dda1cac1373b485c577f8ba7]: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt[]: "Once upon a time, in a kingdom not far from here" Electrical Engineer vs Software Developer tale. Possible original: https://www.cs.brandeis.edu/~hornby/amuse/vs_toast.txt
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0456.txt#L1169[tx e450166eba552202fb6984867f2b851e2399c5a0ae05026bf6b056176491ec5d]: "Here are some of the reasons why Tau is better than Pi as a universal constant for circles."
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0396.txt#L61[tx e2c20c2977589240ad9486672a0273d340ed5f8b50a50071716d12035d7212e8]: has a large <Lorem ipsum>
 
 = Events
-{parent=Cool data embedded in the Bitcoin blockchain}
+{synonym}
 
-In this section we document events that led to a large number of thematically related messages being added to the chain.
+In this section we document events that led to a large number of thematically related messages being added to the chain., e.g. referencing some current event that happened, as opposed to the media encoding/type like <images> and <text> sections.
 
 = Prayer wars
-{parent=Events}
-{tag=Interesting input script data}
+{parent=Themes}
 {title2=2011-08-05 - 2011-09-03}
 
 Starting at https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0139.txt#L1[tx cbbaa0a64924fe1d6ace3352f23242aa0028d4e0ff6ae8ed615244d66079cfb1] (https://www.blockchain.com/explorer/transactions/btc/cbbaa0a64924fe1d6ace3352f23242aa0028d4e0ff6ae8ed615244d66079cfb1[2011-08-05]), <Catholic> <Bitcoin developer> <Luke Dashjr> started to <inscription (blockchain)>[inscribe] prayers in the <miner messages> of his <mining pool> "<Eligius pool>", usually one verse per message.
@@ -1471,7 +1581,7 @@ Bibliography:
 * 2011-11-2 https://bitcointalk.org/index.php?topic=52979.0 "Mysterious transaction spotted in blockchain!" 
 
 = Protests against larger block sizes
-{parent=Events}
+{parent=Themes}
 {title2=May 2015}
 
 * https://en.bitcoin.it/wiki/Block_size_limit_controversy
@@ -1505,7 +1615,7 @@ TODO find original discussion location, these are almost certainly from one of t
 Part of the goal of this dump is that the Bitcoin developers have a policy of not allowing logging on their talk channel, and this released it all to the blockchain forever where it cannot be deleted. These might just be more of <protests against larger block sizes>.
 
 = 503: Bitcoin over capacity
-{parent=Events}
+{parent=Themes}
 {title2=March 2016}
 
 Starting https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0401.txt#L39214[tx a87d406fae047258a12923b3c11a797a5765bd8f868df5c7e9b1cead0e92c9c1]: the message:
@@ -1513,6 +1623,111 @@ Starting https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/
 503: Bitcoin over capacity!
 ``
 appears about 13 thousand times. WTF happened?
+
+= Rickrolling
+{c}
+{parent=Themes}
+
+</Rickrolling> lyrics were mined several times into the blockchain.
+
+The first currently known instance is as a link right during the <prayer wars> on https://www.blockchain.com/explorer/blocks/btc/142573[block 142573] (2011-08-25) as the <miner message>:
+\Q[Militant atheists, http://bit.ly/naNhG2 -- happy now?"]
+which redirects to https://www.youtube.com/watch?v=mGDuExhS6Nw&blockchain
+
+Around block https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0264.txt#L28[block 246k] (e.g. https://www.blockchain.com/explorer/transactions/btc/27b7c526489dac8245747fa1c425a2e3eb07dea57b294eb4ae583fec9b859fcf[27b7c526489dac8245747fa1c425a2e3eb07dea57b294eb4ae583fec9b859fcf], 2013-10-17) we note several transactions starting with a <XML> format `<CG SZ="1156"><MG>...` the first one being 0b4efe49ea1454020c4d51a163a93f726a20cd75ad50bb9ed0f4623c141a8008 As mentioned not very clearly at http://www.righto.com/2014/02/ascii-bernanke-wikileaks-photographs.html#ref12 the content of the first `<MG><payload></MG>` is a <Base64> encoded string
+``
+Catagory: Poetry
+Title: Never Gonna Give You Up
+Performer: Rick Astley
+Writer: Mike Stock, Matt Aitken, Pete Waterman
+Label: RCA Records
+``
+followed by lyrics also base64 encoded as part of the XML metadata. <Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)> was not able to identify the exact format either. At https://twitter.com/EMBII4U/status/1655831533750562816 EMBII mentions that this was part of an upload test.
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0268.txt#L1[tx d29c9c0e8e4d2a9790922af73f0b8d51f0bd4bb19940d9cf910ead8fbe85bc9b] (https://www.blockchain.com/explorer/transactions/btc/d29c9c0e8e4d2a9790922af73f0b8d51f0bd4bb19940d9cf910ead8fbe85bc9b[2013-11-13]) contains a plaintext Rickroll lyric in an <output script> via <OP_RETURN>.
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0307.txt#L61[tx 15b11e8d4e5b9425f024b381ba0cb7a54a35e52389bb4855f505772ce685b39c] (https://www.blockchain.com/explorer/transactions/btc/15b11e8d4e5b9425f024b381ba0cb7a54a35e52389bb4855f505772ce685b39c[2014-06-24]): starting from this transaction, the lyrics were inscribed several times via <input scripts>. Then again:
+* 8bb9db70e24202fdfd0e48b57a11a407e6c8c0e76d879634b801b4345b8810b2
+* b881afa519804a3c93a3c99481517ca8ae070b84c04e8e7a2bfb808e043f9771
+* 70c8405bd0ec10bea49b78a819dfbf46c1082e7e620588f9da65a90b71e52bbd
+* fc4e382793757858bec4b87527caa4bf2e6f71bb2f5a77bb41a45ddb9ed9d409
+* f011e71b711aa54a0c824244fff83fb8b1e1921804624fa0523a6e61612b7f6f
+* a8691cdbca5b82e4e48812e48b7a09e4757801fd3909a09975de957d1bfb52dc
+* d8946aa464be464674bba6d15729d75572ec75dda49fe7ff0ede1a25ca054941
+* d02864cd57c9d041dbd9d6f24327f347b92697a8bc3c86cdf8b738063c6ad002
+* 9b78962d840f1ff681e5042264e4d0359cda98ce49d97569df14ce956622b966
+* 7bdc22fb35f0a8eb6241782a306a8904fb6f793126ff106a04a96f9f223cb8e1
+* e24a4085c54a6362e615f8eab758c12d80e488b73757e6d2b8ab6bfc8be7007e
+* 4257f4980955d8376ee1c6bccb4396da726e4ae13d758e47dc4e0775019723f5
+* a09b49e9374d43386a6a986944e3dcf515c7e1c38324836df5333b8adbe57797
+* 03096688dbb874f7c571691e4241a298284bf4184be339b148f1b48f383a1d7c
+* 62f8b228b6126354736d36d9f3b91882bb81eca7702b74fba6471abc7db96a03 (https://www.blockchain.com/explorer/transactions/btc/62f8b228b6126354736d36d9f3b91882bb81eca7702b74fba6471abc7db96a03[2015-09-30])
+They were mega obnoxious!!! Who does this kind of crap for more than one year!!!
+
+= Halvening messages
+{parent=Themes}
+
+Each <Bitcoin halvening> event prompts a few commemorative messages, much like a New Year's even event in the real world.
+
+1st (2012):
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0209.txt[]: nothing
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0210.txt[]: nothing
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0209.txt#L1111[]: nothing, not even any ASCII
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0209.txt#L132a[]; void
+
+2nd (2016):
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0419.txt#L407[]: nothing
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0420.txt#L1[]:
+  * https://www.blockchain.com/explorer/blocks/btc/420000[block 420000]: "Chandler Guo loves YangYang Jin". Presumably this dude: https://twitter.com/ChandlerGuo[]. Noted e.g. at: https://www.reddit.com/r/Bitcoin/comments/4s14po/the_first_14_block_is_a_profession_of_love/
+  * https://www.blockchain.com/explorer/blocks/btc/420000[block 420001]: "/BTCC/ Welcome to 12.5 BTC blocks! BTCC & <Bitcoin> Forever!".
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0419.txt#L10011[]: a few
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0420.txt#L1[]: a few
+
+3rd (2020):
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0629.txt#L407[]
+  * https://www.blockchain.com/explorer/blocks/btc/629999[block 629999]: contains the <miner message> for: 
+    \Q[<NYTimes> 09/Apr/2020 With \$2.3T Injection, Fed's Plan Far Exceeds 2008 Rescue]
+    This quotes the title of: https://www.nytimes.com/2020/04/09/business/economy/fed-economic-rescue-coronavirus.html[] is of course a nod to the <Genesis block message>. Noted by <Forbes> at: https://www.forbes.com/sites/colinharper/2020/05/11/bitcoins-halving-block-includes-a-message-to-remind-us-why-it-was-created/?sh=130f001f656a It was mined by the <F2Pool> <Bitcoin mining pool>. A few halving output messages can be seen in nearby regular transactions:
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0630.txt#L1[]: nothing
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0629.txt#L1111[]: a few
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0630.txt#L1[]: a dozen such as:
+  * tx 0df655b7e50dc9a53c343308d1ca148d0bead993821dfe56a035aecd0c88b2ad "Happy 2020 Halving! Thank you <Satoshi>."
+  * tx 6c6c22b8fe87f1420df6d991f7b571fdaa29f7a95adbfbcfcb0644f1c8f7d82b "We love you forever @millsfogle"
+  * tx 70a8639bc9b743c0610d1231103a2f8e99f4a25670946b91f16c55a5373b37d1 "Happy 3rd halving! Thanks, <Satoshi> and <COVID-19> GO AWAY! Bulgaria \#1!!!"
+
+= Politics
+{parent=Themes}
+{tag=/politics}
+
+= China
+{parent=Politics}
+{tag=China}
+
+<Ciro Santilli's campaign for freedom of speech in China>[China stuff] is mentioned at: https://cirosantilli.com/china-dictatorship/bitcoin-blockchain[].
+
+= Trump
+{parent=Politics}
+{tag=Donald Trump}
+
+there's a bit of both sides in the 2016 race:
+* tx 3aaae4adc68b3768e1a6029987f2aca2479818495c9aee6a86067710806e9c4f: "bEW Trump 2016! Stop the TPP!"
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0408.txt#L4620[tx 202ceac7b3e7b990d1961fd2eab18ba5c80c99f10eacc783f14c53ebfdcaee00] "oEW Fuck Obama&Clinton Go <Trump>!!!!"
+* tx 53fcddaa69e79c0fdc4e2cd139bffef341a38d46bb653721d9adf42460b1afae "EW Trump will fail America, like all his businesses"
+* data/out/0433.txt:1752:EW FUCK Trump and his supporters. You ppl are the dumbest scum ever.
+* data/out/0435.txt:1904:EW TRUMP 2016 !!!!!!!!!!!!!!
+* data/out/0437.txt:1150:bjEW FuCk OfF TrUmP!
+* data/out/0439.txt:1017:EW trump will trample regulations justly
+* data/out/0443.txt:1281:L9,GOD EMPEROR TRUMP WINS THIRD TERM\`7
+* data/out/0444.txt:2102:L99,TRUMPPPPPPPPPPPPPPP
+* data/out/0445.txt:311:L127,TRUMP WILL SAVE THE WORLD.
+* data/out/0445.txt:1257:EW Howard not Trump is the actual 45th president.
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0457.txt#L6780[tx 2fb07a8f358d690d8717734a48e5daf0ef70ea2d0e3b7c88dace8a5818fcb168] "L299,<Trump> touched my no-no"
+* data/out/0457.txt:8677:EW All of the sheep think Donald Trump is literally Hitler.
+* data/out/0481.txt:11481:I kill donald trump!!!!!!
+* data/out/0545.txt:1239:\}fEW fuck donald trump
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0484.txt#L723[tx 05fce37228c732f4635f79e6f36d028be677404beab497ddace9024fe8e4b517] "EW Heil <Trump>!He's the true white leader our race need so much since <Adolf Hitler>[Adolph]"
+* data/out/0552.txt:14:Trump needs to get impeached and locked up!
+* data/out/0666.txt:56:(Trump was impeached for the second time in office.
 
 = Miscellaneous
 {parent=Cool data embedded in the Bitcoin blockchain}
@@ -1589,71 +1804,6 @@ we might as well give up.
 TODO
 * 4dd57f3e443ad1567a37beab8f6b31d8cb1328a26bac09e50ba96048ad07b8c1 long text in Italian starting with `E il cazzo non entr` looks vulgar/<porn>, identify
 
-= Halvening messages
-{parent=Miscellaneous}
-
-Each <Bitcoin halvening> event prompts a few commemorative messages, much like a New Year's even event in the real world.
-
-1st (2012):
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0209.txt[]: nothing
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0210.txt[]: nothing
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0209.txt#L1111[]: nothing, not even any ASCII
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0209.txt#L132a[]; void
-
-2nd (2016):
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0419.txt#L407[]: nothing
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0420.txt#L1[]:
-  * https://www.blockchain.com/explorer/blocks/btc/420000[block 420000]: "Chandler Guo loves YangYang Jin". Presumably this dude: https://twitter.com/ChandlerGuo[]. Noted e.g. at: https://www.reddit.com/r/Bitcoin/comments/4s14po/the_first_14_block_is_a_profession_of_love/
-  * https://www.blockchain.com/explorer/blocks/btc/420000[block 420001]: "/BTCC/ Welcome to 12.5 BTC blocks! BTCC & <Bitcoin> Forever!".
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0419.txt#L10011[]: a few
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0420.txt#L1[]: a few
-
-3rd (2020):
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0629.txt#L407[]
-  * https://www.blockchain.com/explorer/blocks/btc/629999[block 629999]: contains the <miner message> for: 
-    \Q[<NYTimes> 09/Apr/2020 With \$2.3T Injection, Fed's Plan Far Exceeds 2008 Rescue]
-    This quotes the title of: https://www.nytimes.com/2020/04/09/business/economy/fed-economic-rescue-coronavirus.html[] is of course a nod to the <Genesis block message>. Noted by <Forbes> at: https://www.forbes.com/sites/colinharper/2020/05/11/bitcoins-halving-block-includes-a-message-to-remind-us-why-it-was-created/?sh=130f001f656a It was mined by the <F2Pool> <Bitcoin mining pool>. A few halving output messages can be seen in nearby regular transactions:
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0630.txt#L1[]: nothing
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0629.txt#L1111[]: a few
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0630.txt#L1[]: a dozen such as:
-  * tx 0df655b7e50dc9a53c343308d1ca148d0bead993821dfe56a035aecd0c88b2ad "Happy 2020 Halving! Thank you <Satoshi>."
-  * tx 6c6c22b8fe87f1420df6d991f7b571fdaa29f7a95adbfbcfcb0644f1c8f7d82b "We love you forever @millsfogle"
-  * tx 70a8639bc9b743c0610d1231103a2f8e99f4a25670946b91f16c55a5373b37d1 "Happy 3rd halving! Thanks, <Satoshi> and <COVID-19> GO AWAY! Bulgaria \#1!!!"
-
-= Politics
-{parent=Miscellaneous}
-{tag=/politics}
-
-= China
-{parent=Politics}
-{tag=China}
-
-<Ciro Santilli's campaign for freedom of speech in China>[China stuff] is mentioned at: https://cirosantilli.com/china-dictatorship/bitcoin-blockchain[].
-
-= Trump
-{parent=Politics}
-{tag=Donald Trump}
-
-there's a bit of both sides in the 2016 race:
-* tx 3aaae4adc68b3768e1a6029987f2aca2479818495c9aee6a86067710806e9c4f: "bEW Trump 2016! Stop the TPP!"
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0408.txt#L4620[tx 202ceac7b3e7b990d1961fd2eab18ba5c80c99f10eacc783f14c53ebfdcaee00] "oEW Fuck Obama&Clinton Go <Trump>!!!!"
-* tx 53fcddaa69e79c0fdc4e2cd139bffef341a38d46bb653721d9adf42460b1afae "EW Trump will fail America, like all his businesses"
-* data/out/0433.txt:1752:EW FUCK Trump and his supporters. You ppl are the dumbest scum ever.
-* data/out/0435.txt:1904:EW TRUMP 2016 !!!!!!!!!!!!!!
-* data/out/0437.txt:1150:bjEW FuCk OfF TrUmP!
-* data/out/0439.txt:1017:EW trump will trample regulations justly
-* data/out/0443.txt:1281:L9,GOD EMPEROR TRUMP WINS THIRD TERM\`7
-* data/out/0444.txt:2102:L99,TRUMPPPPPPPPPPPPPPP
-* data/out/0445.txt:311:L127,TRUMP WILL SAVE THE WORLD.
-* data/out/0445.txt:1257:EW Howard not Trump is the actual 45th president.
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0457.txt#L6780[tx 2fb07a8f358d690d8717734a48e5daf0ef70ea2d0e3b7c88dace8a5818fcb168] "L299,<Trump> touched my no-no"
-* data/out/0457.txt:8677:EW All of the sheep think Donald Trump is literally Hitler.
-* data/out/0481.txt:11481:I kill donald trump!!!!!!
-* data/out/0545.txt:1239:\}fEW fuck donald trump
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0484.txt#L723[tx 05fce37228c732f4635f79e6f36d028be677404beab497ddace9024fe8e4b517] "EW Heil <Trump>!He's the true white leader our race need so much since <Adolf Hitler>[Adolph]"
-* data/out/0552.txt:14:Trump needs to get impeached and locked up!
-* data/out/0666.txt:56:(Trump was impeached for the second time in office.
-
 = Interesting transactions
 {parent=Cool data embedded in the Bitcoin blockchain}
 
@@ -1701,7 +1851,7 @@ TODO understand this new system in detail.
 
 = Taproot wizards
 {c}
-{parent=Ordinal ruleset inscriptions}
+{parent=Cool data embedded in the Bitcoin blockchain}
 {title2=2023-}
 
 https://taprootwizards.com/
@@ -1711,6 +1861,13 @@ They seem to be inscribing <JPEG>[JPEGs] with wizard faces on the <Bitcoin block
 TODO inscription method.
 
 https://www.coindesk.com/tech/2024/01/12/taproot-wizards-bitcoin-ordinals-project-that-raised-75m-to-sell-quantum-cats-collection/ "Taproot Wizards, Bitcoin Ordinals Project That Raised \$7.5M, to Sell 'Quantum Cats' Collection" OMG if only the worlds wouldn't invest in such useless crap... it would probably be a more boring world.
+
+= Quotes and threes
+{c}
+{parent=Cool data embedded in the Bitcoin blockchain}
+{title2}
+
+Starting with data/out/0784.txt, the chain if flooded with ASCII transactions containing many repeated double quotes `"` and characteres `3`, with some other characters interspersed in them, apparently at random. TODO what is up with that?
 
 = Bibliography
 {parent=Cool data embedded in the Bitcoin blockchain}

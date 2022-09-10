@@ -93,6 +93,16 @@ https://bitcoin.stackexchange.com/questions/20305/what-is-vanity-address
 {title2=2009}
 {wiki}
 
+= Bitcoin blockchain
+{c}
+{synonym}
+
+How it works: <how Bitcoin works>{full}.
+
+Official website: https://bitcoin.org/en/
+
+Reference implementation: <Bitcoin Core>.
+
 = Bitcoin hello world
 {c}
 {parent=Bitcoin}
@@ -132,16 +142,6 @@ For the love of God, on Ubuntu install from the official <AppImage> downloaded f
 
 * https://bitcoin.stackexchange.com/questions/52120/send-from-bitcoin-core-without-downloading-blockchain
 * https://www.reddit.com/r/Bitcoin/comments/5kmuya/is_it_possible_to_have_my_own_bitcoin_wallet/
-
-= Bitcoin blockchain
-{c}
-{synonym}
-
-How it works: <how Bitcoin works>{full}.
-
-Official website: https://bitcoin.org/en/
-
-Reference implementation: <Bitcoin Core>.
 
 = How Bitcoin works
 {parent=Bitcoin}
@@ -263,6 +263,64 @@ The goal of having this mandatory 10 minutes block interval is to make it very u
 
 Bibliography:
 * https://arstechnica.com/tech-policy/2020/12/how-bitcoin-works/
+
+= Bitcoin script
+{c}
+{parent=How Bitcoin works}
+
+= Bitcoin script type
+{parent=Bitcoin script}
+
+= Bitcoin non-standard transaction
+{c}
+{parent=Bitcoin script type}
+
+Full list at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/utxo_nonstandard
+
+Bibliography:
+* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions/105392#105392
+* https://bitcoin.stackexchange.com/questions/547/useful-alternative-bitcoin-transaction-scripts
+* https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples/36037#36037 notably provides the amazing https://www.quantabytes.com/articles/a-survey-of-bitcoin-transaction-types
+
+Interesting ones:
+
+* 77822fd6663c665104119cb7635352756dfc50da76a92d417ec1a12c518fad69 0 `OP_IF OP_INVALIDOPCODE None None OP_ENDIF`. The second constant contains an ASCII patch `Remove (SINGLE|DOUBLE)BYTE` so presumably this is a proof of concept.
++
+https://bitcointalk.org/index.php?topic=5231222.0 duscusses what happens if there is an invalid opcode in a branch that is not taken.
++
+Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples
+* 4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af 0 `OP_ADD OP_ADD None OP_EQUAL OP_NOTIF OP_RETURN OP_ENDIF OP_FROMALTSTACK None OP_DROP` is provably unspendable because it always falls on `OP_FROMALTSTACK` but nothing is ever placed in the ALTSTACK
+
+= Invalid Bitcoin script
+{c}
+{parent=Bitcoin script type}
+
+They appear to be included, with rationale that you can already include syntactically valid crap in an unprovable way: https://github.com/bitcoin/bitcoin/issues/320 Better then have syntactically invalid crap that is provable.
+
+The outputs of this transaction seem to be the first syntactically incorrect scripts of the blockchain: https://blockchain.info/tx/ebc9fa1196a59e192352d76c0f6e73167046b9d37b8302b6bb6968dfd279b767?format=json[], found by parsing everything locally. The transaction was made in 2013 for 0.1 BTC, which then became unspendable.
+
+The first invalid script is just e.g. "script":"01", which says will push one byte into the stack, but then ends prematurely.
+
+= Bitcoin script operator
+{parent=Bitcoin script}
+
+= OP_RETURN
+{c}
+{parent=Bitcoin script operator}
+
+= Bitcoin input script
+{c}
+{parent=Bitcoin script}
+
+= Input script
+{synonym}
+
+= Bitcoin output script
+{c}
+{parent=Bitcoin script}
+
+= Output script
+{synonym}
 
 = Change
 {disambiguate=Bitcoin}
@@ -732,6 +790,10 @@ Reuploaded into the blockchain itself: https://bitcoin.stackexchange.com/questio
 
 More conveniently available at: https://bitcoin.org/bitcoin.pdf nowadays.
 
+= Bitcoin entrepreneur
+{c}
+{parent=Bitcoin community}
+
 = Bitcoin investor
 {c}
 {parent=Bitcoin community}
@@ -776,40 +838,6 @@ https://github.com/embiimob/Sup
 \Video[https://www.youtube.com/watch?v=cr6XjUrmmNY]
 {title=Sup!? Buying, Listing and Offers by <EMBII>}
 
-= Bitcoin script
-{c}
-{parent=Bitcoin}
-
-= Bitcoin non-standard transaction
-{c}
-{parent=Bitcoin script}
-
-Full list at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/utxo_nonstandard
-
-Bibliography:
-* https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions/105392#105392
-* https://bitcoin.stackexchange.com/questions/547/useful-alternative-bitcoin-transaction-scripts
-* https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples/36037#36037 notably provides the amazing https://www.quantabytes.com/articles/a-survey-of-bitcoin-transaction-types
-
-Interesting ones:
-
-* 77822fd6663c665104119cb7635352756dfc50da76a92d417ec1a12c518fad69 0 `OP_IF OP_INVALIDOPCODE None None OP_ENDIF`. The second constant contains an ASCII patch `Remove (SINGLE|DOUBLE)BYTE` so presumably this is a proof of concept.
-+
-https://bitcointalk.org/index.php?topic=5231222.0 duscusses what happens if there is an invalid opcode in a branch that is not taken.
-+
-Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples
-* 4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af 0 `OP_ADD OP_ADD None OP_EQUAL OP_NOTIF OP_RETURN OP_ENDIF OP_FROMALTSTACK None OP_DROP` is provably unspendable because it always falls on `OP_FROMALTSTACK` but nothing is ever placed in the ALTSTACK
-
-= Invalid Bitcoin script
-{c}
-{parent=Bitcoin}
-
-They appear to be included, with rationale that you can already include syntactically valid crap in an unprovable way: https://github.com/bitcoin/bitcoin/issues/320 Better then have syntactically invalid crap that is provable.
-
-The outputs of this transaction seem to be the first syntactically incorrect scripts of the blockchain: https://blockchain.info/tx/ebc9fa1196a59e192352d76c0f6e73167046b9d37b8302b6bb6968dfd279b767?format=json[], found by parsing everything locally. The transaction was made in 2013 for 0.1 BTC, which then became unspendable.
-
-The first invalid script is just e.g. "script":"01", which says will push one byte into the stack, but then ends prematurely.
-
 = Bitcoin Core
 {c}
 {parent=Bitcoin}
@@ -822,6 +850,63 @@ Links:
 
 Executables provided:
 * `bitcoin-qt`
+
+= Bitcoin Core executable
+{parent=Bitcoin Core}
+
+= Bitcoin daemon
+{parent=Bitcoin Core executable}
+
+= bitcoind
+{synonym}
+{title2}
+
+Runs just a headless Bitcoin server.
+
+You can then interact with it via the <Bitcoin CLI client>.
+
+On <Bitcoin Core snap> 26.0, the executable is called `bitcoin-core.daemon` rather than `bitcoind`
+
+= Bitcoin RPC command
+{parent=Bitcoin daemon}
+
+These are commands that e.g. the <Bitcoin CLI client> can make to the server.
+
+https://bitcoincore.org/en/doc/22.0.0/rpc/rawtransactions/getrawtransaction/
+
+The commands can be briefly listed with:
+``
+bitcoin-core.daemon --help
+``
+
+For example. to run the <Bitcoin `getrawtransaction` command>, first in one shell we start <bitcoind>:
+``
+bitcoin-core.daemon
+``
+and then on another shell:
+``
+bitcoin-core.cli getrawtransaction 75b431e0a8c4617ca8adefe593ba66aa30907742b6dc8772761bfe7edabd74b4 true
+``
+
+= Bitcoin `getrawtransaction` command
+{parent=Bitcoin RPC command}
+
+= Bitcoin CLI client
+{c}
+{parent=Bitcoin Core executable}
+{tag=Command line utility}
+
+= `bitcoin-cli`
+{c}
+{synonym}
+{title2}
+
+On <Bitcoin Core snap> 26.0, the executable is called `bitcoin-core.cli` rather than `bitcoin-cli`.
+
+= Bitcoin Core snap
+{parent=Bitcoin Core executable}
+
+Officially supported installation method on <Ubuntu 23.10>.
 
 = How to store data in the Bitcoin blockchain
 {parent=Bitcoin}
@@ -1018,11 +1103,35 @@ Claims provably fair. https://satoshidice.com/fair clarifies what that means: th
 
 As mentioned in bitcoin.it, it functions basically as <cryptocurrency tumbler> in practice.
 
-\Include[cool-data-embedded-in-the-bitcoin-blockchain]{parent=bitcoin}
+= Bitcoin inscription
+{c}
+{parent=Bitcoin}
+{tag=Inscription (blockchain)}
+
+\Include[cool-data-embedded-in-the-bitcoin-blockchain]
+
+= Bitcoin inscription method
+{parent=Bitcoin inscription}
+
+= Input script inscription
+{parent=Bitcoin inscription method}
+
+Example: <cool data embedded in the bitcoin blockchain/image Study Math and Computer Science at Augustana College>.
+
+= Bitcoin miner inscription
+{c}
+{parent=Bitcoin inscription}
+{tag=Miner message}
+
+= Bitcoin block
+{c}
+{parent=Bitcoin}
+{title2=2009}
+{wiki}
 
 = Genesis block
 {c}
-{parent=Bitcoin}
+{parent=Bitcoin block}
 {title2=2009}
 {wiki}
 
