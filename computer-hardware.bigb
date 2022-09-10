@@ -1361,18 +1361,16 @@ bsub -V
 {c}
 {parent=LSF command}
 
-Docs: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-options
+Submit a new job. The most important command!
 
-Submit a new job.
+Docs: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-options
 
 = bsub get job stdout and stderr
 {parent=bsub}
 
-By default, LSF sends you an email with the stdout and stderr included in it.
+By default, LSF only sends you an email with the stdout and stderr included in it, and does not show or store anything locally.
 
-https://www.ibm.com/support/pages/include-only-job-stdout-lsf-job-output-file
-
-The other option is to use:
+One option to store things locally is to use:
 ``
 bsub -oo stdout.log -eo stderr.log 'echo myout; echo myerr 1>&2'
 ``
@@ -1394,11 +1392,59 @@ as mentioned at:
 * https://www.ibm.com/support/pages/include-only-job-stdout-lsf-job-output-file
 * https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=o-n
 
+Another option is to run with the <bsub `-I` option>:
+```
+bsub -I 'echo a;sleep 1;echo b;sleep 1;echo c'
+```
+This immediately prints stdout and stderr to the terminal.
+
+= bsub on foreground
+{parent=bsub}
+
+Run `bsub` on foreground, show stdout on host stdout live with an interactive with the <bsub `-I` option>:
+```
+bsub -I 'echo a;sleep 1;echo b;sleep 1;echo c'; echo done
+```
+Ctrl + C kills the job on remote as well as locally.
+
+Bibliography:
+* https://superuser.com/questions/46312/wait-for-one-or-all-lsf-jobs-to-complete
+
+= bsub option
+{parent=bsub}
+
+= bsub `-I` option
+{parent=bsub}
+
+https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=options-i
+
 = bpeek
 {c}
 {parent=LSF command}
 
 View stdout/stderr of a running job.
+
+Documented at: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=reference-bpeek
+
+Documented at:
+* https://www.bsc.es/support/LSF/9.1.2/lsf_command_ref/index.htm?bpeek.1.html~main
+
+= bkill
+{c}
+{parent=LSF command}
+
+Kill jobs.
+
+Documented at: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=reference-bkill
+
+= bkill all jobs
+{c}
+{parent=LSF command}
+
+By the current user:
+``
+bkill 0
+``
 
 = Slurm Workload Manager
 {c}
@@ -1822,6 +1868,44 @@ E.g. a result of this, the <RISC-V Foundation> moved its legal headquarters to <
 {wiki}
 
 Leading <RISC-V> consultants as of 2020, they are basically trying to become the <Red Hat> of the <semiconductor industry>.
+
+= RISC-V timer
+{parent=RISC-V}
+{tag=QEMU}
+
+= riscv/timer.S
+{parent=RISC-V timer}
+{file}
+
+TODO: the interrupt is firing only once:
+* https://www.reddit.com/r/RISCV/comments/ov4vhh/timer_interrupt/
+
+Adapted from: https://danielmangum.com/posts/risc-v-bytes-timer-interrupts/
+
+Tested on <Ubuntu 23.10>:
+``
+sudo apt install binutils-riscv64-unknown-elf qemu-system-misc gdb-multiarch
+cd riscv
+make
+``
+Then on shell 1:
+``
+qemu-system-riscv64 -machine virt -cpu rv64 -smp 1 -s -S -nographic -bios none -kernel timer.elf
+``
+and on shell 2:
+``
+gdb-multiarch timer.elf -nh -ex "target remote :1234" -ex 'display /i $pc' -ex 'break *mtrap' -ex 'display *0x2004000' -ex 'display *0x200BFF8'
+``
+<GDB> should break infinitel many times on `mtrap` as interrupts happen.
+
+= RISC-V priviledged ISA
+{parent=RISC-V}
+
+= RISC-V MSTATUS register
+{parent=RISC-V priviledged ISA}
+
+= RISC-V MSTATUS.MIE field
+{parent=RISC-V MSTATUS register}
 
 = x86
 {c}
