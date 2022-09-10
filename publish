@@ -2,3 +2,7 @@
 set -eu
 ourbigbook --web
 ourbigbook -p
+if [ -d "../ourbigbook" ]; then
+  cd ../ourbigbook
+  ./heroku run web/bin/normalize -c nested-set -u cirosantilli
+fi
