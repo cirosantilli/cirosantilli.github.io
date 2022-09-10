@@ -28,14 +28,21 @@ const date_ioss = [
   //[[year, month], [
   //  IOs
   //]],
+  [[2023, 12], [
+    new IO(1168652, 'anonymous donation', { valueOrig: 100, currencyOrig: 'xmr', note: 'Funds sent 2023-11-20, but only noticed several days later by chance. Announced at: https://twitter.com/cirosantilli/status/1744794993363993041 Transaction: https://localmonero.co/blocks/tx/cc894f58ebb14ade5020dcb5a5fa7986ac0d822896da5ecaf05e5d3bf0e37030' }),
+    new IO(939, 'GitHub sponsors'),
+    new IO(-1307, 'Heroku', { valueOrig: -1600, currencyOrig: 'usd' }),
+  ]],
   [[2023, 11], [
-    new IO(TODO, 'Heroku', { valueOrig: -1600, currencyOrig: 'usd' }),
+    new IO(978, 'GitHub sponsors'),
+    new IO(-1313, 'Heroku', { valueOrig: -1600, currencyOrig: 'usd' }),
   ]],
   [[2023, 10], [
-    new IO(TODO, 'Heroku', { valueOrig: -1623, currencyOrig: 'usd' }),
+    new IO(973, 'GitHub sponsors'),
+    new IO(-1364, 'Heroku', { valueOrig: -1623, currencyOrig: 'usd' }),
   ]],
   [[2023, 09], [
-    new IO(66375, 'anonymous one off', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%). Transaction: https://www.blockchain.com/explorer/transactions/btc/c5fa598a6f283dbf1fb44233a91abf3f704d7fcd2d09b9bbb1a05e6018f3e53d' }),
+    new IO(66375, 'anonymous donation', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%).  Announced at: https://twitter.com/cirosantilli/status/1706772529074032876 Transaction: https://www.blockchain.com/explorer/transactions/btc/c5fa598a6f283dbf1fb44233a91abf3f704d7fcd2d09b9bbb1a05e6018f3e53d' }),
     new IO(2114, 'GitHub sponsors', { note: 'one off extra donation received' }),
     new IO(-1339, 'Heroku'),
   ]],
@@ -114,23 +121,19 @@ const date_ioss = [
     new IO(-551, 'Heroku', { valueOrig: -700, currencyOrig: 'usd', notes: 'a bit higher than 700 because builds take up a separate dyno' }),
   ]],
   [[2022, 02], [
-    new IO(682, 'Patreon'),
     new IO(1907, 'GitHub sponsors'),
     new IO(-533, 'Heroku', { valueOrig: -700, currencyOrig: 'usd' }),
   ]],
   [[2022, 01], [
-    new IO(761, 'Patreon'),
     new IO(292, 'GitHub sponsors'),
     new IO(-531, 'Heroku', { valueOrig: -700, currencyOrig: 'usd' }),
     new SO(50, 'https://stackexchange.com/leagues/1/year/stackoverflow/2021-01-01?sort=reputationchange&page=2'),
   ]],
   [[2021, 12], [
-    new IO(761, 'Patreon'),
     new IO(296, 'GitHub sponsors'),
     new IO(-536, 'Heroku', { valueOrig: -429, currencyOrig: 'usd', note: '7 USD/month hobby dyno monthly. Partial initial month. Billing happens for usage on previous whole month, e.g. this one is for November 2021. Upgrade needed because HTTPS does not work on free plan: https://stackoverflow.com/questions/52185560/heroku-set-ssl-certificates-on-free-plan' }),
   ]],
   [[2021, 11], [
-    new IO(765, 'Patreon'),
     new IO(293, 'GitHub sponsors'),
     new IO(-704, 'Porkbun', { note: 'ourbigbook.com domain registration + annual cost', valueOrig: -913, currencyOrig: 'usd' }),
   ]],
@@ -190,15 +193,36 @@ function centToDot(sum) {
 }
 
 let total = 0
+let totalIn = 0
+let totalOut = 0
+let totalInSmall = 0
+let totalOutSmall = 0
+const SMALL_THRESHOLD = 10000
 for (const date_ios of [...date_ioss].reverse()) {
   const [date, ios] = date_ios
   let sum = 0
   for (const io of ios) {
     if (io.constructor === IO) {
-      sum += io.value
-      total += io.value
+      v = io.value
+      if (v > 0) {
+        totalIn += v
+        if (v < SMALL_THRESHOLD) {
+          totalInSmall += v
+        }
+      } else {
+        totalOut -= v
+        if (-SMALL_THRESHOLD < v) {
+          totalOutSmall -= v
+        }
+      }
+      sum += v
+      total += v
     }
   }
   console.log(`${date[0]}-${date[1].toString().padStart(2, '0')} ${centToDot(sum)}`);
 }
+console.log(`total in: ${centToDot(totalIn)}`);
+console.log(`total out: ${centToDot(totalOut)}`);
+console.log(`total in small: ${centToDot(totalInSmall)}`);
+console.log(`total out small: ${centToDot(totalOutSmall)}`);
 console.log(`net profit: ${centToDot(total)}`);
