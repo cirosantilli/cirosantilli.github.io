@@ -608,10 +608,71 @@ Source code: somewhere inside the main <Bullet Physics> source tree. Yay.
 {tag=C library}
 {tag=Deepmind project}
 {tag=Rigid body dynamics acceleration}
+{title2=2015-}
 
 https://github.com/deepmind/mujoco
 
-Announced 2021, <open sourced> March 2022: https://www.deepmind.com/blog/open-sourcing-mujoco
+Was a closed source project by "Roboti LLC", which was then acquired by <DeepMind> in October 2021 and <open sourced> March 2022: https://www.deepmind.com/blog/open-sourcing-mujoco
+
+This library is quite cool. Feel very brutally lean and mean.
+
+= MuJoCo getting started
+{parent=MuJoCo}
+
+Tested on <Ubuntu 23.10>;
+```
+git clone https://github.com/google-deepmind/mujoco
+cd mujoco
+git checkout 5d46c39529819d1b31249e249ca399f306a108ac
+mkdir -p build
+cd build
+cmake ..
+make -j
+```
+
+Now let's play. Minimal interactive <UI> simulation of a simple <MJCF> scene with one falling cube:
+``
+bin/basic ../doc/_static/hello.xml
+``
+Test soure code: https://github.com/google-deepmind/mujoco/blob/5d46c39529819d1b31249e249ca399f306a108ac/sample/basic.cc[]. The only thing you can do is <rotate> the scene with the <computer mouse> it seems. Mentioned at: https://mujoco.readthedocs.io/en/2.2.2/programming.html#sabasic
+
+Some more interesting models can be found under the `model/` directory: https://github.com/google-deepmind/mujoco/tree/5d46c39529819d1b31249e249ca399f306a108ac/model E.g. the imaginary humanoid robot <DeepMind> used in many demos can be seen with:
+``
+bin/basic ../model/humanoid/humanoid.xml
+``
+
+A more advanced <UI> with a few controls:
+``
+bin/simulate ../doc/_static/hello.xml
+``
+Test soure code: https://github.com/google-deepmind/mujoco/tree/5d46c39529819d1b31249e249ca399f306a108ac/simulate[]. Mentioned at: https://mujoco.readthedocs.io/en/2.2.2/programming.html#sasimulate
+
+A very cool thing about that UI is that you can manually control joints. There are no joints in the hello.xml, but e.g. with the humanoid model:
+``
+bin/simulate ../model/humanoid/humanoid.xml
+``
+under "Control" you move each joint of the robot separately which is quite cool.
+
+\Video[https://www.youtube.com/watch?v=0ORsj_E17B0]
+{title=Demo of MuJoCo's built-in `simulate` viewer by Yuval Tassa (2019)}
+
+There's also a `bin/record` test executable that presumably renders the simulation directl to a file:
+``
+bin/record ../doc/_static/hello.xml 5 60 rgb.out
+ffmpeg -f rawvideo -pixel_format rgb24 -video_size 800x800 -framerate 60 -i rgb.out -vf "vflip" video.mp4
+``
+Mentioned at: https://mujoco.readthedocs.io/en/2.2.2/programming.html#sarecord but TODO that produced a broken video, related issues:
+* https://github.com/google-deepmind/mujoco/issues/127
+* https://github.com/google-deepmind/mujoco/issues/824
+
+= MJCF
+{c}
+{parent=MuJoCo}
+
+= MuJoCo XML
+{c}
+{synonym}
+{title2}
 
 = PhysX
 {c}

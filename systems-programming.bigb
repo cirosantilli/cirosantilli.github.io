@@ -403,9 +403,33 @@ The greatest advantage of it being that it has the likely largest desktop user b
 
 Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: <Linux distribution buildable from source>. This is why Ciro based the <Linux Kernel Module Cheat> on <Buildroot>, see also: <Linux distribution buildable from source>.
 
+= apport
+{c}
+{disambiguate=software}
+{parent=Ubuntu}
+{wiki}
+
+<Source code>: https://github.com/canonical/apport
+
+= apport-cli
+{c}
+{parent=apport (software)}
+
 = Ubuntu HOWTO
 {c}
 {parent=Ubuntu}
+
+= Make a bug report for a crash on Ubuntu
+{parent=Ubuntu HOWTO}
+
+On <Ubuntu 23.10>, a crash led to the creation of:
+```
+/var/crash/_usr_bin_gnome-shell.1000.crash
+```
+After that simply running <apport-cli> as:
+``
+apport-cli gnome-shell
+`` led to the creation of: https://bugs.launchpad.net/ubuntu/+source/gnome-shell/+bug/2049368 a bug on the `gnome-shell` package.
 
 = Find GPU information in Ubuntu
 {parent=Ubuntu HOWTO}
@@ -517,6 +541,15 @@ Related reports:
 * https://gitlab.freedesktop.org/drm/amd/-/issues/2451
 * https://gitlab.freedesktop.org/drm/amd/-/issues/475
 * https://github.com/ValveSoftware/csgo-osx-linux/issues/3386
+
+I think this was on <Wayland>. Possibly relatd but on <X Window System>, crashed the UI, showed message "oh no! Something has gone wrong."
+``
+2024-01-13_21-55-07@ciro@ciro-p14s$ cat /var/log/apport.log
+ERROR: apport (pid 975172) 2024-01-13 21:41:02,087: host pid 3528 crashed in a separate mount namespace, ignoring
+INFO: apport (pid 975227) 2024-01-13 21:41:02,398: called for pid 2728, signal 5, core limit 0, dump mode 1
+INFO: apport (pid 975227) 2024-01-13 21:41:02,401: executable: /usr/bin/gnome-shell (command line "/usr/bin/gnome-shell")
+INFO: apport (pid 975227) 2024-01-13 21:41:12,667: wrote report /var/crash/_usr_bin_gnome-shell.1000.crash
+``
 
 = Unable to lock screen on Ubuntu
 {c}
