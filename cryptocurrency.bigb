@@ -430,10 +430,67 @@ Monday, January 29, 2024
 
 Interesting ones:
 
-* 77822fd6663c665104119cb7635352756dfc50da76a92d417ec1a12c518fad69 0 `OP_IF OP_INVALIDOPCODE None None OP_ENDIF`. The second constant contains an ASCII patch `Remove (SINGLE|DOUBLE)BYTE` so presumably this is a proof of concept.
-+
+= Invalid Bitcoin transaction script
+{parent=Bitcoin non-standard transaction}
+
+= OP_INVALIDOPCODE
+{parent=Invalid Bitcoin transaction script}
+
+= 77822fd6663c665104119cb7635352756dfc50da76a92d417ec1a12c518fad69
+{parent=OP_INVALIDOPCODE}
+{title2=2013-08-12}
+
+Ouptut 0 disassembles as:
+``
+OP_IF OP_INVALIDOPCODE 4effffffff <large constant> OP_ENDIF
+``
+The large constant contains an ASCII <Bitcoin Core> patch entitled `Remove (SINGLE|DOUBLE)BYTE` so presumably this is a proof of concept:
+``
+From a3a61fef43309b9fb23225df7910b03afc5465b9 Mon Sep 17 00:00:00 2001
+From: Satoshi Nakamoto <satoshin@gmx.com>
+Date: Mon, 12 Aug 2013 02:28:02 -0200
+Subject: [PATCH] Remove (SINGLE|DOUBLE)BYTE
+
+I removed this from Bitcoin in f1e1fb4bdef878c8fc1564fa418d44e7541a7e83
+in Sept 7 2010, almost three years ago. Be warned that I have not
+actually tested this patch.
+---
+ backends/bitcoind/deserialize.py |    8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/backends/bitcoind/deserialize.py b/backends/bitcoind/deserialize.py
+index 6620583..89b9b1b 100644
+--- a/backends/bitcoind/deserialize.py
++++ b/backends/bitcoind/deserialize.py
+@@ -280,10 +280,8 @@ opcodes = Enumeration("Opcodes", [
+     "OP_WITHIN", "OP_RIPEMD160", "OP_SHA1", "OP_SHA256", "OP_HASH160",
+     "OP_HASH256", "OP_CODESEPARATOR", "OP_CHECKSIG", "OP_CHECKSIGVERIFY", "OP_CHECKMULTISIG",
+     "OP_CHECKMULTISIGVERIFY",
+-    ("OP_SINGLEBYTE_END", 0xF0),
+-    ("OP_DOUBLEBYTE_BEGIN", 0xF000),
+     "OP_PUBKEY", "OP_PUBKEYHASH",
+-    ("OP_INVALIDOPCODE", 0xFFFF),
++    ("OP_INVALIDOPCODE", 0xFF),
+ ])
+ 
+ 
+@@ -293,10 +291,6 @@ def script_GetOp(bytes):
+         vch = None
+         opcode = ord(bytes[i])
+         i += 1
+-        if opcode >= opcodes.OP_SINGLEBYTE_END and i < len(bytes):
+-            opcode <<= 8
+-            opcode |= ord(bytes[i])
+-            i += 1
+ 
+         if opcode <= opcodes.OP_PUSHDATA4:
+             nSize = opcode
+-- 
+1.7.9.4
+``
+
 https://bitcointalk.org/index.php?topic=5231222.0 duscusses what happens if there is an invalid opcode in a branch that is not taken.
-+
+
 Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-with-obscure-op-codes-examples
 
 = Peter Todd's hash collision puzzles
@@ -460,6 +517,26 @@ Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-
 
 * https://www.reddit.com/r/Bitcoin/comments/67l7ox/does_the_stack_have_to_only_contain_true/
 * https://github.com/bitcoin/bitcoin/commit/39f0d9686095bce469dbfa52333331a5d15c6545
+
+= 3ad6677303fb6f700a4f2f977fe86e5324e0ddb0d3b33a649e513d7e88904e85
+{parent=Bitcoin script that terminates with multiple values on the stack}
+{title2=2023-09-11}
+
+This contains various outputs that seem trivially spendable in a made up of two non-zero constants, e.g.:
+``
+    {
+      "value": 0.00002000,
+      "n": 9,
+      "scriptPubKey": {
+        "asm": "1 8fe61f026c7545a99c6e0f37a5a7eceee5fdf6723c1994ccbfb740556632e9fe",
+        "desc": "rawtr(8fe61f026c7545a99c6e0f37a5a7eceee5fdf6723c1994ccbfb740556632e9fe)#lxgt8lak",
+        "hex": "51208fe61f026c7545a99c6e0f37a5a7eceee5fdf6723c1994ccbfb740556632e9fe",
+        "address": "bc1p3lnp7qnvw4z6n8rwpum6tflvamjlmanj8svefn9lkaq92e3ja8lqcc8mcx",
+        "type": "witness_v1_taproot"
+      }
+    },
+``
+Or are we missing something? The values are quite small and wouldn't be worth it the miner fees most likely. But is there a fundamental reason why this couldn't be spent by a non-standard miner?
 
 = Provably unspendable Bitcoin output script
 {parent=Bitcoin non-standard transaction}
