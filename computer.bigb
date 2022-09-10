@@ -466,21 +466,125 @@ https://gltf-viewer.donmccurdy.com/ is based on doesn't work with those examples
 {parent=Computer network software}
 {wiki}
 
-= `ip` CLi tool
+= `ip` CLI tool
 {parent=iproute2}
+
+= Find computer IP with the `ip` CLI tool
+{parent=`ip` CLI tool}
 
 = Nmap
 {c}
 {parent=Computer network software}
 {wiki}
 
-= Linux computer network HOWTO
+= tcpdump
+{c}
+{parent=Computer network software}
+{wiki}
+
+To test it, let's get two computers on the same <local area network>, e.g. connected to <Wi-Fi> on the same home <modem router>.
+
+On computer B:
+* <find computer IP with the `ip` CLI tool>. Suppose it is 192.168.1.102
+* then run <Ciro's `nc` HTTP test server>
+
+On computer A, run on terminal 1:
+``
+sudo tcpdump ip src 192.168.1.102 or dst 192.168.1.102
+``
+
+Then on terminal 2 make a test request:
+``
+curl 192.168.1.102:8000
+``
+
+Output on terminal 1:
+``
+17:14:22.017001 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [S], seq 2563867413, win 64240, options [mss 1460,sackOK,TS val 303966323 ecr 0,nop,wscale 7], length 0
+17:14:22.073957 IP 192.168.1.102.8000 > ciro-p14s.55798: Flags [S.], seq 1371418143, ack 2563867414, win 65160, options [mss 1460,sackOK,TS val 171832817 ecr 303966323,nop,wscale 7], length 0
+17:14:22.074002 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [.], ack 1, win 502, options [nop,nop,TS val 303966380 ecr 171832817], length 0
+17:14:22.074195 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [P.], seq 1:82, ack 1, win 502, options [nop,nop,TS val 303966380 ecr 171832817], length 81
+17:14:22.076710 IP 192.168.1.102.8000 > ciro-p14s.55798: Flags [P.], seq 1:80, ack 1, win 510, options [nop,nop,TS val 171832821 ecr 303966380], length 79
+17:14:22.076710 IP 192.168.1.102.8000 > ciro-p14s.55798: Flags [.], ack 82, win 510, options [nop,nop,TS val 171832821 ecr 303966380], length 0
+17:14:22.076727 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [.], ack 80, win 502, options [nop,nop,TS val 303966383 ecr 171832821], length 0
+17:14:22.077006 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [F.], seq 82, ack 80, win 502, options [nop,nop,TS val 303966383 ecr 171832821], length 0
+17:14:22.077564 IP 192.168.1.102.8000 > ciro-p14s.55798: Flags [F.], seq 80, ack 82, win 510, options [nop,nop,TS val 171832821 ecr 303966380], length 0
+17:14:22.077578 IP ciro-p14s.55798 > 192.168.1.102.8000: Flags [.], ack 81, win 502, options [nop,nop,TS val 303966384 ecr 171832821], length 0
+17:14:22.079429 IP 192.168.1.102.8000 > ciro-p14s.55798: Flags [.], ack 83, win 510, options [nop,nop,TS val 171832824 ecr 303966383], length 0
+``
+TODO understand them all! Possibly correlate with <Wireshark>, or use `-A` option to dump content.
+
+= Wireshark
+{c}
+{parent=Computer network software}
+{wiki}
+
+Amazing tool that captures packets and disassembles them. Allows you to click an interactive tree that represents <Ethernet>, <TCP IP> and application layer like <HTTP>.
+
+Start capture immediately from CLI, capture packets to/from 192.168.1.102:
+``
+sudo wireshark -f 'host 192.168.1.102' -k
+``
+
+= Wireshark capture filter
+{parent=Wireshark}
+
+Capture by instead:
+``
+sudo wireshark -f http -k
+sudo wireshark -f icmp -k
+``
+
+Filter by both protocol and host:
+``
+sudo wireshark -f 'host 192.168.1.102 and icmp' -k
+``
+
+For <application layer> capture filtering, the best you can do is by port:
+``
+sudo wireshark -f 'tcp port 80'
+``
+There is an `http` filter but only for as a <wireshark display filter>
+
+= Wireshark display filter
+{parent=Wireshark}
+
+= tshark
+{parent=Wireshark}
+{title2=Terminal Wireshark}
+
+Sample usage:
+``
+sudo tshark -f 'host 192.168.1.102
+``
+This produces simple one liners for each request.
+
+What you likely want is the `-V` option which fully disassembles each frame much as you can do in the <GUI> <Wireshark>:
+``
+sudo tshark -V -f 'host 192.168.1.102
+``
+
+= Linux networking HOWTO
 {c}
 {parent=Computer network}
 {tag=Linux}
 
+= Linux computer network HOWTO
+{c}
+{synonym}
+
+= Connect to other computer in LAN by hostname
+{parent=Linux networking HOWTO}
+
+= Connect to other computer in LAN by hostname with DHCP
+{parent=Linux networking HOWTO}
+
+https://unix.stackexchange.com/questions/16890/how-to-make-a-machine-accessible-from-the-lan-using-its-hostname
+
+TODO didn't manage to get it working with <Ciro Santilli's hardware/TP Link ARCHER VR2800> even though it shows DHCP as enabled and it also shows <MAC addresses> and corresponding hostnames in the router management interface.
+
 = Connect two computers directly without a router with an Ethernet cable
-{parent=Linux computer network HOWTO}
+{parent=Linux networking HOWTO}
 
 For <IP (protocol)>-level communication, https://askubuntu.com/questions/22835/how-to-network-two-ubuntu-computers-using-ethernet-without-a-router/116680#116680 just worked between <Ciro Santilli's hardware/P51> and <Ciro Santilli's hardware/P14s> both on <Ubuntu 23.10> connected with a regular <Cat 5e> cable.
 
@@ -549,30 +653,12 @@ TODO list and delete such manual assignments we've made.
 {parent=OSI model}
 {wiki}
 
-= Bluetooth
+= OSI layer 1
 {c}
-{parent=Physical layer}
-{title2=1997}
-{wiki}
+{synonym}
+{title2}
 
-= Ethernet
-{c}
-{parent=Physical layer}
-{title2=1980}
-{wiki}
-
-= Ethernet cable
-{c}
-{parent=Ethernet}
-
-https://en.wikipedia.org/wiki/Category:Ethernet_cables
-
-= Category 5 cable
-{parent=Ethernet cable}
-{wiki}
-
-= Cat 5e
-{parent=Category 5 cable}
+This one is not generally seen by software, which mostly operates starting from <OSI layer 2>.
 
 = Sneakernet
 {parent=Physical layer}
@@ -601,9 +687,43 @@ On <Ubuntu 22.04> you can screen without <sudo> by adding yourself to the `dialo
 sudo usermod -a -G dialout $USER
 ``
 
+= Data link layer
+{parent=OSI model}
+{wiki}
+
+= OSI layer 2
+{c}
+{synonym}
+{title2}
+
+= Bluetooth
+{c}
+{parent=Data link layer}
+{title2=1997}
+{wiki}
+
+= Ethernet
+{c}
+{parent=Data link layer}
+{title2=1980}
+{wiki}
+
+= Ethernet cable
+{c}
+{parent=Ethernet}
+
+https://en.wikipedia.org/wiki/Category:Ethernet_cables
+
+= Category 5 cable
+{parent=Ethernet cable}
+{wiki}
+
+= Cat 5e
+{parent=Category 5 cable}
+
 = Wi-Fi
 {c}
-{parent=Physical layer}
+{parent=Data link layer}
 {title2=2-6 GHz, 1997}
 {wiki}
 
@@ -617,6 +737,50 @@ The frequency range of Wi-Fi, which falls in the <microwave> range, is likely ch
 {c}
 {parent=Wi-Fi}
 {wiki}
+
+= Network layer
+{parent=OSI model}
+{wiki}
+
+= OSI layer 3
+{c}
+{synonym}
+{title2}
+
+= Internet Control Message Protocol
+{c}
+{parent=Network layer}
+
+= ICMP
+{synonym}
+{title2}
+
+= ICMP runs on top of IP
+{c}
+{parent=Internet Control Message Protocol}
+
+This can be seen with <wireshark> very clearly for example, just make a <ping (networking utility)> and disssemble it.
+
+= The Linux kernel responds to ICMP directly
+{c}
+{parent=Internet Control Message Protocol}
+
+There is no userland process for it, it is handled directly by the <Linux kernel>: https://unix.stackexchange.com/questions/439801/what-linux-process-is-responsible-for-responding-to-pings/768739#768739
+
+= ping
+{disambiguate=networking utility}
+{parent=Internet Control Message Protocol}
+{tag=Computer network software}
+{wiki}
+
+= Transport layer
+{parent=OSI model}
+{wiki}
+
+= OSI layer 4
+{c}
+{synonym}
+{title2}
 
 = Internet
 {c}
@@ -723,12 +887,6 @@ How they are assigned: https://www.quora.com/How-are-MAC-addresses-assigned Basi
 
 \Video[https://www.youtube.com/watch?v=rPoalUa4m8E]
 {title=The Internet Protocol by Ben Eater (2014)}
-
-= ping
-{disambiguate=networking utility}
-{parent=Internet Protocol}
-{tag=Computer network software}
-{wiki}
 
 = Transmission Control Protocol
 {c}
@@ -938,6 +1096,18 @@ https://www.urbandictionary.com/define.php?term=Netflix%20and%20Chill
 {synonym}
 {title2}
 
+= Computer network by scale
+{parent=Computer network}
+{wiki}
+
+= Local area network
+{parent=Computer network by scale}
+{wiki}
+
+= LAN
+{synonym}
+{title2}
+
 = Networking hardware
 {parent=Computer network}
 {wiki}
@@ -1108,6 +1278,21 @@ She's kind of lying on top of the horse's back, and you can't see much, just som
 
 \Video[https://www.youtube.com/watch?v=5eo8nz_niiM]
 {title=Visiting Hetzner in Falkenstein by der8auer (2022)}
+
+= Test server
+{parent=Server (computing)}
+
+= Ciro's `nc` HTTP test server
+{parent=Test server}
+
+As per https://stackoverflow.com/a/52351480/895245 our standard test setup is:
+``
+while true; do
+  resp=$"$(date): hello\n"
+  len="$(printf '%s' "$resp" | wc -c)"
+  printf "HTTP/1.1 200 OK\r\nContent-Length: $len\r\n\r\n${resp}\n" | nc -Nl 8000
+done
+``
 
 = Node
 {disambiguate=server}
