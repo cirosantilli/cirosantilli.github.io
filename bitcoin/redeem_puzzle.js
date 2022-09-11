@@ -5,12 +5,6 @@ from_txid = '0f2084be761e258f9bdb00d546b44a173cc31951a7f8d1f64b63c4c5da73cdb4'
 from_vout = 0
 to_ammount = 63800
 
-// Insane 6 btc one...
-// https://www.blockchain.com/explorer/transactions/btc/5660d06bd69326c18ec63127b37fb3b32ea763c3846b3334c51beb6a800c57d3
-from_txid = '5660d06bd69326c18ec63127b37fb3b32ea763c3846b3334c51beb6a800c57d3'
-from_vout = 0
-
-
 to_addr = '3KRk7f2JgekF6x7QBqPHdZ3pPDuMdY3eWR'
 to_ammount = 63800
 // https://bitcoinfees.gitlab.io/
@@ -18,7 +12,7 @@ to_fee = 27 * 255
 to_net = to_ammount - to_fee
 
 const bitcoin = require('bitcoinjs-lib')
-const { alice } = require('./wallets.json')
+//const { alice } = require('./wallets.json')
 const network = bitcoin.networks.bitcoin
 const redeemScript = bitcoin.script.compile([
   bitcoin.opcodes.OP_ADD,
