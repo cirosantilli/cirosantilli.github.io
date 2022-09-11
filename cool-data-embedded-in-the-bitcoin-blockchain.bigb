@@ -4,6 +4,7 @@
 {tag=Ciro Santilli's naughty projects}
 {tag=Ciro Santilli's data projects}
 {tag=Inscription (blockchain)}
+{tag=Digital preservation}
 {scope}
 
 = Ciro's Bitcoin Inscription Museum
@@ -147,7 +148,7 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-inscription-indexer/data/bin/a96bda1363e8968f45b05e3c1940ba37b18de53de0157d453ca9bfc44913768c.png]
   The last constant is then the only thing that matters and spends the incoming output.
 
-  The ASCII art and image are also inscribed 16 more times on the blockchain: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/hashling
+  The ASCII art and image are also inscribed 16 more times on the blockchain: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/hashling[]. 453c9511ca76361c8c44b4302ce1b5d8d5c98a938b548478ef931baaa7d70e62 also has the image without any ASCII strings.
 
   <Peter Todd> is the author of <Peter Todd's hash collision puzzles>. `@BraveTheWorld` is presumably https://twitter.com/BraveTheWorld[], but it is less clear what are they.
   }
@@ -1869,6 +1870,8 @@ More from their vacation:
 
 http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/ in block https://www.blockchain.com/explorer/transactions/btc/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e[273536] (2013-12-07).
 
+This is one of the <Early AtomSea & EMBII uploads>[earliest AtomSea & EMBII uploads].
+
 \Image[https://web.archive.org/web/20211017061608im_/http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/Nelson-Mandela.jpg]
 {title=`Nelson-Mandela.jpg`}
 {description=
@@ -1877,27 +1880,15 @@ Message:
 }
 {source=http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/}
 
-tx 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba contains a copy of part of his wiki page ending in an image:
-``
-There is nothing like returning to a place
- that remains unchanged to find the ways in
- which you yourself have altered.lson Mandela
+= Nelson-Mandela.jpg analysis
+{parent=Nelson-Mandela.jpg}
 
+The toplevel transaction is 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e
 
-Nelson Rolihlahla Mandela was a South African anti-apartheid revolutionary, politician and philanthropist who served as President of South Africa from 1994 to 1999. -Wikipedia
+Like all <AtomSea & EMBII> uploads, the data it is encoded as <P2FKH>.
 
-Born: July 18, 1918, Mvezo, South Africa
-Died: December 5, 2013Nelson-Mandela.jpg?14400/d-jpeg v1.0 (using IJG JPEG v80), quality = 40
-``
+The full concatenated payload contains the following <ASCII> characters:
 
-By inspecting the transaction, we see that the initial text is cut up because it starts in the middle of a script with line:
-``
-00000000  22 33 39 36 5c e2 80 9c  54 68 65 72 65 20 69 73  |"396\...There is|
-00000010  20 6e 6f 74 68 69 6e 67  20 6c 69 6b 65 20 72 65  | nothing like re|
-00000020  74 75 72 6e 69 6e 67 20  74 6f 20 61 20 70 6c 61  |turning to a pla|
-``
-
-The txid is the first of an index at https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/319.txt#L915[tx 78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e]:
 ``
 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba|396*8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba
 575061146335bd57f2dc132112152d0eeea44cf187ea6a52ac02435a7e5bea44
@@ -1905,95 +1896,49 @@ The txid is the first of an index at https://github.com/cirosantilli/bitcoin-ins
 8e2642416ad20924b43f51a633fa1c0a5ba8e4a7b631877db1c64540a42081c9
 a3084018096b92af04df57b6116e01ff4b7c7e8bd228235ed49e23f4a2817029
 39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091
-tomSea & EMBII
-``
-The `A` is really missing from `AtomSea`, it shows up as `AtomSea` almost in all other greps. This is presumably chopped to fit the 20-byte granularity without an extra output.
-
-We see that https://www.blockchain.com/btc/tx/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e starts with:
-* 2 data txs encoding `8881a937a437ff6ce83be3a89d77ea88ee12315f` in hex ascii
-* a spent change tx
-* `37f7ef0dd3742c30eef9` on the next
-* `2dba|396*8881a937a43` on the next
-* the newlines from the ASCII dumps are encoded directly:
-
-  ``
-  00000000  34 32 63 33 30 65 65 66  39 32 64 62 61 0d 0a 35  |42c30eef92dba..5|
-  00000010  37 35 30 36                                       |7506|
-  00000014
-  ``
-* the last is:
-  ``
-  00000000  30 39 31 0d 0a 74 6f 6d  53 65 61 20 26 20 45 4d  |091..tomSea & EM|
-  00000010  42 49 49 00                                       |BII.|
-  00000014
-  ``
-  Yes, 2 char Windows newlines, even in one of the most expensive per-byte storage mechanisms ever invented!
-All non-change value are 0.00005500 BTC.
-
-Therefore, the rest of the transactions presumably contain the rest of the image!
-
-The bytes for the first one are:
-``
-         "n":21,
-         "script":"76a914334e656c736f6e2d4d616e64656c612e6a70673f88ac"
-``
-which is
+tomSea & EMBII 
 ``
 
-00000000  76 a9 14 33 4e 65 6c 73  6f 6e 2d 4d 61 6e 64 65  |v..3Nelson-Mande|
-00000010  6c 61 2e 6a 70 67 3f 88  ac                       |la.jpg?..|
-00000019
+Output 2 is a <change (Bitcoin)>, so it contains no data and has been excluded. Change appear to be randomly placed in the list of output of the uploads, but they can be easily removed because they are the only output with a different value.
+
+The newlines shown above are explicitly encoded as CR LF newlines with characters 0d 0a.
+
+`396` is the number of payload bytes between `396*8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba` and the last txid `39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091`, including newlines but exclusding the last line.
+
+The last line appears to contain arbitrary data to fill out the 20 byte payload granularity:
+* `A` is missing from `AtomSea`
+* there is a NUL character just after EMBII, possibly part of the protocol?
+
+Now let's inspect the transactions linked to from toplevel.
+
+tx 8881a937a437ff6ce83be3a89d77ea88ee12315f37f7ef0dd3742c30eef92dba contains only payloads without any change. It starts with the following <UTF-8> string with CR LF spaces;
+``
+"396\“There is nothing like returning to a place
+ that remains unchanged to find the ways in 
+ which you yourself have altered.”
+ -Nelson Mandela
+
+
+Nelson Rolihlahla Mandela was a South African anti-apartheid revolutionary, politician and philanthropist who served as President of South Afrd۽^2c'︨`ica from 1994 to 1999. -Wikipedia
+
+Born: July 18, 1918, Mvezo, South Africa
+Died: December 5, 2013
 ``
 
-And then the next one:
-``
-"n":22,
-"script":"76a91431343430302fffd8ffe000104a4649460001010088ac"
-``
-which is:
-``
-00000000  76 a9 14 31 34 34 30 30  2f ff d8 ff e0 00 10 4a  |v..14400/......J|
-00000010  46 49 46 00 01 01 00 88  ac                       |FIF......|
-``
-so unlike in <ILoveYouMore.jpg>, we do have the raw JPEG header data here starting with `ffd8`!
+`396` is once again the number of payload bytes present in that string.
 
-And there is a possible footer `ffd9` in the last file of the list 39348722b841afa0c5b67e5af10839afe965ed1b24874e89336bea9fa4ef3091!
-
-However, when I put everything together, cutting around delimiters, it gives only the top half of the head! My data is 14960, not 14400. So there must be 460 bytes of metadata in some of the blocks, possibly error checking.
-
-The actual data starting at `ffd8` and cutting off header/tails (20 bytes per transaction):
+This is immediately followed without any separator by a filename, and another size marker:
 ``
-ffd8ffe000104a46494600010100
-000100010000fffe003b43524541544f523a2067
-642d6a7065672076312e3020287573696e672049
-4a47204a50454720763830292c207175616c6974
-79203d2034300affdb004300140e0f120f0d1412
-1012171514181e32211e1c1c1e3d2c2e24324940
-4c4b47404645505a736250556d5645466488656d
-777b8182814e608d978c7d96737e817cffdb0043
-011517171e1a1e3b21213b7c5346537c7c7c7c7c
-7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c
+Nelson-Mandela.jpg?14400/
 ``
+then followed by all the `14400 - len(Nelson-Mandela.jpg?) + len(/)` JPEG bytes bytes, starting with the two <JPEG file signature> byte "FF D8".
 
-The above bytes are not contained at all in <Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)>[Ken's uploaded image].
-
-On a related note, https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0273.txt#L54[tx f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64] contains a speech from Mandela starting with:
+Further toplevel transaction payloads are then simply concatenated with the previous ones, until the last bytes of the image "FF D9" appears at the end of the payload.
 ``
-/1442:Nelson Mandela (1918-2013)
-
-"I am fundamentally an optimist ...
+00000430  d2 81 de 80 0c 52 f1 40  ea 29 68 03 ff d9 6f 6d  |.....R.@.)h...om|
+00000440  53 65 61 20 26 20 45 4d  42 49 49 00              |Sea & EMBII.|
 ``
-followed by lots of text.
-
-That transaction is also part of an index in the same file:
-``
-tx 9e2928e02e77ceffc217a6df1fc992be128f2188e691986cbb0df8a4207a492f
-7fad2fc0-2f51-44a0-9358-886262426359>462<f3c2e1178fa20a44e942e1137cd7125b376edaadb4fbd46be30b69fe89525d64
-27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8
-8ff79814c99b0e35ceeca86f22a7f41e94c7287ed4f4fc2cd5c747bd2c31cc8d
-3
-``
-The middle hash 27f4cc5c688e8V2b2347295ec3f071947bb847fb0cb2eb1a0fb9150040929e4e8 does not name any existing transaction however (it is one byte too long).
+padded once again by an `AtomSea & EMBII` string fragment terminated by a NUL character.
 
 = Interesting AtomSea & EMBII uploads
 {parent=AtomSea & EMBII}
@@ -2171,9 +2116,6 @@ Interesting text:
   Likely an obituary for: https://en.wikipedia.org/wiki/Tom_and_Ray_Magliozzi[Thomas L. Magliozzi]. Images show fine though.
 * block 401648 http://bitfossil.com/31c5e5336512568e4a1deb4bbf0e57c3565c32094c0e1a118c48e7929ab49e35/bong-ball.html another one! This one is full-screen, and does not have <JavaScript> `alert`s :-)
 * block 401657 http://bitfossil.org/03cb74f270d498302d4dd9cbe82c090d801c8840ab6cb26b71d862489b981db8/ has a <JavaScript> <Pac-Man>
-
-TODO why did we fail to index examples such as these:
-* http://bitfossil.com/b58e817c7fcd2552a6934cd64ff58d0405f81ea0786d3cd85c225ffe20b9018a
 
 = AtomSea & EMBII data format
 {c}

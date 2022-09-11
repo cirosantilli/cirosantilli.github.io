@@ -394,7 +394,7 @@ Front camera video on <android> 11: about 100MiB / minute. The encoding is howev
 
 For Fastboot mode: Power and Volume down simultaneously for 10-15s. It is OK if screen sleeps. On "no command", power then volume up to see options.
 
-2023-10: touchscreen not registering touches anymore. Still displays images. Manage to regain access with wired USB mouse + a simple USB-C adapter. RIP. Will attempt replacement: https://store.ifixit.co.uk/products/google-pixel-3a-screen-genuine?variant=42388954448071[], partly to get <Authy> access which I had never properly tested...
+2023-10: touchscreen not registering touches anymore. Still displays images. Manage to regain access with wired USB mouse + a simple USB-C adapter. RIP. Will attempt replacement: https://store.ifixit.co.uk/products/google-pixel-3a-screen-genuine?variant=42388954448071[], partly to get <Authy> access which I had never properly tested... Replaced screen, but at exact same status as before: shows image but no touch. thus I wasted my money and time (minus the learning) something else is broken.
 
 = Google Pixel 7a
 {c}
@@ -659,6 +659,47 @@ output:
 04:00.0 Network controller: Intel Corporation Wireless 8265 / 8275 (rev 78)
 3e:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller SM981/PM981/PM983
 3f:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS525A PCI Express Card Reader (rev 01)
+``
+
+``
+lspci -t
+``
+output:
+``
+-[0000:00]-+-00.0
+           +-00.2
+           +-01.0
+           +-02.0
+           +-02.1-[01]----00.0
+           +-02.2-[02]----00.0
+           +-02.4-[03]----00.0
+           +-03.0
+           +-04.0
+           +-04.1-[04-63]--
+           +-08.0
+           +-08.1-[64]--+-00.0
+           |            +-00.1
+           |            +-00.2
+           |            +-00.3
+           |            +-00.4
+           |            +-00.5
+           |            \-00.6
+           +-08.2-[65]--+-00.0
+           |            \-00.1
+           +-08.3-[66]--+-00.0
+           |            +-00.3
+           |            +-00.4
+           |            \-00.6
+           +-14.0
+           +-14.3
+           +-18.0
+           +-18.1
+           +-18.2
+           +-18.3
+           +-18.4
+           +-18.5
+           +-18.6
+           \-18.7
 ``
 
 = Samsung MZVLB512HAJQ-000L7 512GB SSD
