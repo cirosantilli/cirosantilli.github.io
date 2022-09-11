@@ -147,6 +147,28 @@ Reference implementation: <Bitcoin Core>.
 
 E.g.: <Coinbase Bitcoin hello world>.
 
+= Bitcoin HOWTO
+{c}
+{parent=Bitcoin}
+
+= Get transaction id from position in dat file
+{parent=Bitcoin HOWTO}
+
+Suppose we specify:
+* a .dat file
+* the offset in bytes within that file
+The question then is, which transaction is encoded at that position of the file?
+
+This would allow us to index inscriptions in the .dat files directly with fast C tools, and then retrive the transaction ID to get cleaner data and metadata.
+
+It should be possible if we managed to take the information from https://bitcoindev.network/understanding-the-data/[] and dump into an indexed <SQLite> database.
+
+I tried to start things off with <LevelDBDumper>:
+``
+LevelDBDumper -d ~/snap/bitcoin-core/common/.bitcoin/indexes/txindex -f btc.csv -q -o . -t csv
+``
+but that consumed all 64 GB of RAM on <Ciro Santilli's hardware/P51>... https://github.com/mdawsonuk/LevelDBDumper/issues/15
+
 = Bitcoin wallet
 {c}
 {parent=Bitcoin}
@@ -492,6 +514,19 @@ Discussed at: https://bitcoin.stackexchange.com/questions/35956/non-standard-tx-
 * https://bitcointalk.org/index.php?topic=293382.0
 * https://xiaohuiliu.medium.com/bitcoin-zk-bounty-series-part-2-finding-hash-collisions-5e3aa3eb3925
 * https://bitcoinjs-guide.bitcoin-studio.com/bitcoinjs-guide/v5/part-three-pay-to-script-hash/puzzles/computational_puzzle_sha1_collision_p2sh
+
+As mentioned at the prize was claimed at https://www.blockchain.com/explorer/transactions/btc/8d31992805518fd62daa3bdd2a5c4fd2cd3054c9b3dca1d78055e9528cff6adc[8d31992805518fd62daa3bdd2a5c4fd2cd3054c9b3dca1d78055e9528cff6adc] (2017-02-23) which spends several inputs with the same unlock script that presents two different constantants that have the same <SHA-1>:
+``
+printf 255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017f46dc93a6b67e013b029aaa1db2560b45ca67d688c7f84b8c4c791fe02b3df614f86db1690901c56b45c1530afedfb76038e972722fe7ad728f0e4904e046c230570fe9d41398abe12ef5bc942be33542a4802d98b5d70f2a332ec37fac3514e74ddc0f2cc1a874cd0c78305a21566461309789606bd0bf3f98cda8044629a1 | xxd -r -p | sha1sum
+printf 255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017346dc9166b67e118f029ab621b2560ff9ca67cca8c7f85ba84c79030c2b3de218f86db3a90901d5df45c14f26fedfb3dc38e96ac22fe7bd728f0e45bce046d23c570feb141398bb552ef5a0a82be331fea48037b8b5d71f0e332edf93ac3500eb4ddc0decc1a864790c782c76215660dd309791d06bd0af3f98cda4bc4629b1 | xxd -r -p | sha1sum
+``
+both giving
+``
+f92d74e3874587aaf443d1db961d4e26dde13e9c
+``
+It was claimed on the same day that <Google> disclosed the collision: https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html
+
+Both of these are <PDF> prefixes, so they start with the PDF <file signature>, but are not fully viewable PDFs on their own. 
 
 = Peter Todd
 {c}
@@ -1072,6 +1107,16 @@ Domain Registrar
 mweber@dosidos.net
 ]
 
+= Satoshi Nakamoto candidate
+{parent=Satoshi Nakamoto}
+
+= Craig Steven Wright
+{parent=Satoshi Nakamoto candidate}
+{tag=Fraudster}
+{wiki}
+
+The mere thought that Satoshi would attempt to copyright takedown the <Bitcoin whitepaper> makes on shrivel.
+
 = Adam Back
 {c}
 {parent=Satoshi Nakamoto}
@@ -1425,6 +1470,7 @@ Other known uploads in Satoshi format except from the first few:
 
 = Peter Todd's data upload scripts
 {parent=Satoshi uploader}
+{tag=Peter Todd}
 
 https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0349.txt#L1930[tx 243dea31863e94dc2f293489db02452e9bde279df1ab7feb6e456a4af672156a] contains another upload script. The help reads:
 \Q[Publish text in the blockchain, suitably padded for easy recovery with strings]
@@ -1472,6 +1518,7 @@ As mentioned in bitcoin.it, it functions basically as <cryptocurrency tumbler> i
 
 = Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl
 {parent=Bitcoin inscription bibliography}
+{title2=2017}
 
 * https://digitalcommons.augustana.edu/cscfaculty/1/ Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl from Augustana College (July 2017). Related inscription by the authors: <cool data embedded in the bitcoin blockchain/code Study Math and Computer Science at Augustana College>.
 
@@ -1480,6 +1527,22 @@ As mentioned in bitcoin.it, it functions basically as <cryptocurrency tumbler> i
 
 = Fake P2PKH address
 {parent=Bitcoin inscription method}
+
+= P2FKH
+{synonym}
+{title2}
+
+"P2FKH" terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>.
+
+= Two-stage P2SH inscription
+{parent=Bitcoin inscription method}
+
+To decode these, we throw away the last tx and the last constant of each input, e.g.:
+``
+btc getrawtransaction 033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49 true | jq -r '.vin[].scriptSig.asm' | head -n -1 | sed -r 's/ [^ ]+$//' | tr -d '\n'  | xxd -r -p > tmp.jpg
+``
+
+Terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>.
 
 = Input script inscription
 {parent=Bitcoin inscription method}
