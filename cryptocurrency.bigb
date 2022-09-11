@@ -314,20 +314,7 @@ Tested on <Ubuntu 23.10>:
 sudo apt install libtool
 git clone https://github.com/bitcoin-core/btcdeb
 cd btcdeb
-git patch <EOF
-diff --git a/support/lockedpool.cpp b/support/lockedpool.cpp
-index e48accf..64d0abc 100644
---- a/support/lockedpool.cpp
-+++ b/support/lockedpool.cpp
-@@ -19,6 +19,7 @@
- #endif
- 
- #include <algorithm>
-+#include <stdexcept>
- #ifdef ARENA_DEBUG
- #include <iomanip>
- #include <iostream>
-EOF
+git checkout 4fd007e57b79cba9b5ffdf5ffe599778c0d63b88
 ./autogen.sh
 ./configure
 make -j
