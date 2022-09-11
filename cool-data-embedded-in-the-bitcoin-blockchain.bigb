@@ -572,7 +572,13 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
               | o_o |
               \_^_/0
   ``
-* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0538.txt#L94[tx f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb] (https://www.blockchain.com/explorer/transactions/btc/f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb[2018-08-23]) contains a logo of the https://grrcon.com/[GrrCon], an annual <cybersecurity> conference. TODO: where is the actual code though that people were expected to find? This was uploaded one line per transaction with a few interruptions that we removed manually, and there were was a previous failed attempt a bit before: at tx f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb
+* https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0538.txt#L94[tx f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb] (https://www.blockchain.com/explorer/transactions/btc/f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb[2018-08-23]) contains a logo of the https://grrcon.com/[GrrCon], an annual <cybersecurity> conference. The actual code appears to be:
+  \Q[OPRETURNISMYFRIEND]
+  which is sealthly encoded diagonally across the eyes. <Ciro Santilli> only saw this after grepping:
+  ``
+  grep @ data/out/0538.txt
+  ``
+  which made all non `@` signs stand out due to the terminal's syntax highligh. This image was uploaded one line per transaction with a few interruptions that we removed manually, and there were was a previous failed attempt a bit before: at tx f8102999c0aaf7681deec383eb8e7946f093e94a116a21e367e9ed6b7c32d1fb
   ``
   @@@@@@@@@@@@@@@@@@@@@@@@YOUR@FREE@GRRCON@TICKET@CODE@@@@@@@@@@@@@@@@@@@@@@@@@@@
   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@,          *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -599,12 +605,6 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   @@@    @@           @#@%@/@         @@@*@@@R(      @@@&@              @@     @@
   @@@     @@         @@@@@@@@@%@@@%%@@@@@@@%%/I@  @@@@, @              @@      @@
   @@@.    @@         @@@@@@@*@&@@@@# @(@@@@@@@@E@@@@@@@&               @@     @@@
-  @@     @@           %((           @#@@@@M@@@@@&@    #./%&@@*          @@     %@
-  @@     @@           #&&@          @@@@&@@Y@@@@@     &@,@@@.(          @@     %@
-  @@,    @@           @@@@@@        *(@@%@@@F&@.      @@&%@@            @@     @@
-  @@@    @@           @#@%@/@         @@@*@@@R(      @@@&@              @@     @@
-  @@@     @@         @@@@@@@@@%@@@%%@@@@@@@%%/I@  @@@@, @              @@      @@
-  @@@.    @@         @@@@@@@*@&@@@@# @(@@@@@@@@E@@@@@@@&               @@     @@@
   @@@@     @@         @@@@&@@(@@@@@@.@# @@@ @@@@N@@@@,@(              @@      @@@
   @@@@@     @@            @@@*@@&@@*(@  @@@&@@&@@D@@@@&              @@      @@@@
   @@@@@.     @@                  @/@,@@@@@@@@@@@@@@%                @@      @@@@@
@@ -619,6 +619,48 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   @@@@@@@@@@@@@@@@@@@@@@         @  ,        .  @           @@@@@@@@@@@@@@@@@@@@@
   @@@@@@@@@@@@@@@@@@@@@@@@@@     @ @   @#   @  *, @     @@@@@@@@@@@@@@@@@@@@@@@@@
   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  ``
+  without `@`s to better highlight the code:
+  ``
+                          YOUR FREE GRRCON TICKET CODE
+                                    ,          *
+                            %
+                                                           .
+                               *                   ,
+                               (                   %
+                                                           &
+                                             , .
+                  %         .&      &%     &&&     #            /      /
+                             &  O                (    &
+                 .      .   ,%&  P     (,*&*        #(#.         (
+        *                ( %     &R    &       &      /
+       #                      ,, % E %           %     .
+                       .     ,   ( ,T
+                      &      / # ( & U        (      ., #
+     *                   &  &     #   R .     .       %  (
+                     /  *             /N/ ,                   ,
+                                      . I  ,                &
+    /                    ,           (# /S      .,      **  &,
+                      %((            #    M     &     #./%&  *                 %
+                      #&&               &  Y          & ,   .(                 %
+    ,                               *(  %   F& .        &%
+                       # % /             *   R(         &
+                              %   %%       %%/I       ,
+     .                      * &    #  (        E       &
+                          &  (      . #         N    , (
+                             *  &  *(      &  &  D    &
+       .                          / ,              %
+                                              ,                            %
+         ,       /              &  (                             &
+                             #% (,&,      (&   /,
+                  /            &     ,*    &                 .  .
+                                 (            . (  ,
+                       &                                   #
+
+                    #          .
+                                    ,        .
+                                        #      *,
+                                  &
   ``
   \Image[https://web.archive.org/web/20231222171731im_/https://grrcon.com/wp-content/uploads/2022/11/GrrCON_Skull2.png]
   {title=GrrCON logo}
