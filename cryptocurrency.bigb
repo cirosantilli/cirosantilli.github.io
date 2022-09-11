@@ -169,6 +169,18 @@ LevelDBDumper -d ~/snap/bitcoin-core/common/.bitcoin/indexes/txindex -f btc.csv 
 ``
 but that consumed all 64 GB of RAM on <Ciro Santilli's hardware/P51>... https://github.com/mdawsonuk/LevelDBDumper/issues/15
 
+= Get all Bitcoin transactions from and to a given address
+{parent=Bitcoin HOWTO}
+
+* https://bitcoin.stackexchange.com/questions/77984/find-all-transactions-for-a-bitcoin-address bad close
+* <Blockchair>
+  * https://stackoverflow.com/questions/28205667/list-transactions-from-given-address-in-bitcoind/78009760#78009760
+    * https://stackoverflow.com/questions/28205667/list-transactions-from-given-address-in-bitcoind/29244421#29244421 mentions --addrindex but that is dead now:
+      * https://github.com/btcsuite/btcd/pull/205
+      * https://github.com/btcsuite/btcd/issues/190
+  * https://bitcoin.stackexchange.com/questions/71019/filter-transactions-by-time-on-a-given-address/121720#121720
+  * https://bitcoin.stackexchange.com/questions/121718/fnd-the-most-valuable-transactions-made-to-a-given-address/121719#121719
+
 = Bitcoin wallet
 {c}
 {parent=Bitcoin}
@@ -396,7 +408,7 @@ btcdeb>
 {parent=Puzzle script}
 {title2=2023}
 
-https://github.com/cirosantilli/bitcoin-strings-with-txids?tab=readme-ov-file#utxo_nonstandard
+https://github.com/cirosantilli/bitcoin-inscription-indexer?tab=readme-ov-file#utxo_nonstandard
 
 = BSHUNTER: Detecting and Tracing Defects of Bitcoin Scripts
 {parent=Finding unspent puzzle scripts}
@@ -432,7 +444,7 @@ https://en.bitcoin.it/wiki/Multi-signature
 {c}
 {parent=Bitcoin script type}
 
-Full list at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/utxo_nonstandard
+Full list at: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/utxo_nonstandard
 
 Bibliography:
 * https://bitcoin.stackexchange.com/questions/5883/is-there-a-listing-of-strange-or-unusual-scripts-found-in-transactions/105392#105392
@@ -1255,6 +1267,11 @@ Implementations:
 {c}
 {parent=Bitcoin transaction}
 
+= 1MVpQJA7FtcDrwKC6zATkZvZcxqma4JixS
+{parent=Bitcoin address}
+
+The fee/change address of <Cool data embedded in the Bitcoin blockchain/cryptograffiti.info>.
+
 = Coinbase transaction
 {parent=Bitcoin transaction}
 
@@ -1489,7 +1506,7 @@ Bibliography:
 TODO: it would be cool to have something like https://bitcoinstrings.com[] but including the actual transactions:
 
 Local methods:
-* <bitcoin-strings-with-txids>
+* <bitcoin-inscription-indexer>
 * https://bitcoin.stackexchange.com/questions/30295/how-can-i-search-for-transaction-text-on-the-blockchain
 * https://bitcoin.stackexchange.com/questions/22500/is-there-a-lightweight-blockchain-parser-library-server/101472#101472
 * https://github.com/alecalve/python-bitcoin-blockchain-parser
@@ -1538,11 +1555,18 @@ bitcoin-tx-out-scripts() (
 )
 ``
 
-= bitcoin-strings-with-txids
+= Bitcoin Inscription Indexer
 {c}
 {parent=How to extract data from the Bitcoin blockchain}
 
-https://github.com/cirosantilli/bitcoin-strings-with-txids
+= bitcoin-strings-with-txids
+{c}
+{synonym}
+{title2}
+
+https://github.com/cirosantilli/bitcoin-inscription-indexer
+
+Previously called "bitcoin-strings-with-txids" since text was the initial focus, but <Ciro Santilli> decided to go for the more general name once images became more and more important to the project.
 
 Set of scripts b <Ciro Santilli>, primarily created while researching <Cool data embedded in the Bitcoin blockchain>.
 
@@ -1586,7 +1610,7 @@ These scripts were notably used for: <cool data embedded in the bitcoin blockcha
 
 Our choice of name as "Satoshi uploader" is copied from <cool data embedded in the bitcoin blockchain/A Quantitative Analysis of the Impact of Arbitrary Blockchain Content on Bitcoin by Matzutt et al. (2018)> because the scripts are Copyrighted Satoshi Nakamoto on the header comment, although as mentioned at <cool data embedded in the bitcoin blockchain/Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)> this feels very unlikely to be true.
 
-A more convenient version of those scripts that can download directly from <blockchain.info> without the need for a full local node can be found at: https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/download_tx_consts.py by using the `--satoshi` option. E.g. with it you can download the uploader script with:
+A more convenient version of those scripts that can download directly from <blockchain.info> without the need for a full local node can be found at: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/download_tx_consts.py by using the `--satoshi` option. E.g. with it you can download the uploader script with:
 ``
 ./download_tx_consts.py --satoshi 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17
 mv 4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17.bin uploader.py
@@ -1637,7 +1661,7 @@ Other known uploads in Satoshi format except from the first few:
 {parent=Satoshi uploader}
 {tag=Peter Todd}
 
-https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/in/0349.txt#L1930[tx 243dea31863e94dc2f293489db02452e9bde279df1ab7feb6e456a4af672156a] contains another upload script. The help reads:
+https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/in/0349.txt#L1930[tx 243dea31863e94dc2f293489db02452e9bde279df1ab7feb6e456a4af672156a] contains another upload script. The help reads:
 \Q[Publish text in the blockchain, suitably padded for easy recovery with strings]
 
 The script is: https://github.com/petertodd/python-bitcoinlib/blob/master/examples/publish-text.py
@@ -1681,11 +1705,20 @@ As mentioned in bitcoin.it, it functions basically as <cryptocurrency tumbler> i
 = Bitcoin inscription bibliography
 {parent=Bitcoin inscription}
 
+https://en.wikipedia.org/wiki/History_of_bitcoin#Arbitrary_blockchain_content
+
 = Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl
 {parent=Bitcoin inscription bibliography}
 {title2=2017}
 
 * https://digitalcommons.augustana.edu/cscfaculty/1/ Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl from Augustana College (July 2017). Related inscription by the authors: <cool data embedded in the bitcoin blockchain/code Study Math and Computer Science at Augustana College>.
+
+= A Quantitative Analysis of the Impact of Arbitrary Blockchain Content on Bitcoin
+{parent=Bitcoin inscription bibliography}
+{title2=2018}
+{tag=Paper without code}
+
+https://fc18.ifca.ai/preproceedings/6.pdf
 
 = Bitcoin inscription method
 {parent=Bitcoin inscription}
