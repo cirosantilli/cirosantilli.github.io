@@ -205,7 +205,56 @@ Some random generally less technical in-tree essays will be present at: <essays 
     {description=From: https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376[What do 'real', 'user' and 'sys' mean in the output of time?]}
     {height=800}
     {source=https://stackoverflow.com/questions/556405/what-do-real-user-and-sys-mean-in-the-output-of-time1/53937376#53937376}
-  * https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management/57453334#57453334[What are RSS and VSZ in Linux memory management?]
+  * ``
+    +--------+                  +------------+       +------+
+    | device |>---------------->| function 0 |>----->| BAR0 |
+    |        |                  |            |       +------+
+    |        |>------------+    |            |
+    |        |             |    |            |       +------+
+       ...        ...      |    |            |>----->| BAR1 |
+    |        |             |    |            |       +------+
+    |        |>--------+   |    |            |
+    +--------+         |   |         ...        ...    ...
+                       |   |    |            |
+                       |   |    |            |       +------+
+                       |   |    |            |>----->| BAR5 |
+                       |   |    +------------+       +------+
+                       |   |
+                       |   |
+                       |   |    +------------+       +------+
+                       |   +--->| function 1 |>----->| BAR0 |
+                       |        |            |       +------+
+                       |        |            |
+                       |        |            |       +------+
+                       |        |            |>----->| BAR1 |
+                       |        |            |       +------+
+                       |        |            |
+                       |             ...        ...    ...
+                       |        |            |
+                       |        |            |       +------+
+                       |        |            |>----->| BAR5 |
+                       |        +------------+       +------+
+                       |
+                       |
+                       |             ...
+                       |
+                       |
+                       |        +------------+       +------+
+                       +------->| function 7 |>----->| BAR0 |
+                                |            |       +------+
+                                |            |
+                                |            |       +------+
+                                |            |>----->| BAR1 |
+                                |            |       +------+
+                                |            |
+                                     ...        ...    ...
+                                |            |
+                                |            |       +------+
+                                |            |>----->| BAR5 |
+                                +------------+       +------+
+    ``
+    {title=Logical struture <PCIe> device, functions and BARs}
+    {description=From: https://stackoverflow.com/questions/30190050/what-is-the-base-address-register-bar-in-pcie/44716618#44716618[What is the Base Address Register (BAR) in PCIe?]}
 * <Electronics>
   * <Raspberry Pi>
     * \Image[https://web.archive.org/web/20200809024904im_/https://i.stack.imgur.com/8C0mJ.jpg]
