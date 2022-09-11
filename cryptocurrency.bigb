@@ -1224,9 +1224,159 @@ https://github.com/embiimob/Sup
 \Video[https://www.youtube.com/watch?v=cr6XjUrmmNY]
 {title=Sup!? Buying, Listing and Offers by <EMBII>}
 
-= Bitcoin Core
+= Bitcoin protocol
+{parent=Bitcoin}
+
+https://en.bitcoin.it/wiki/Protocol_documentation
+
+= Bitcoin protocol data type
+{c}
+{parent=Bitcoin protocol}
+
+= Bitcoin varint
+{c}
+{parent=Bitcoin protocol data type}
+
+https://en.bitcoin.it/wiki/Protocol_documentation#Variable_length_integer
+
+Implementations:
+* <Python>: https://github.com/alecalve/python-bitcoin-blockchain-parser/blob/c06f420995b345c9a193c8be6e0916eb70335863/blockchain_parser/utils.py#L41[]. Sample usage to extract 3 values from a `bytes` object:
+  ``
+  file, off = decode_varint(value)
+  blk_off, off = decode_varint(value[off:])
+  tx_off, off = decode_varint(value[off:])
+  ``
+
+= Bitcoin transaction
+{c}
+{parent=Bitcoin protocol}
+
+= Bitcoin address
+{c}
+{parent=Bitcoin transaction}
+
+= Coinbase transaction
+{parent=Bitcoin transaction}
+
+The first transaction of each <Bitcoin block> is called the "coinbase transaction", and it is magic as it does not need to point to a previous <output script> and have a valid <input script> as it serves as a <Block reward> for <miner (cryptocurrency)>[miners].
+
+= Coinbase message
+{parent=Coinbase transaction}
+{tag=Bitcoin inscription method}
+{tag=Miner message}
+
+The <input script> of the <Coinbase transaction> can be anything, and this can be used as a <Bitcoin inscription method>.
+
+Notable examples:
+* <Genesis block message>
+* Prayer side of the <Cool data embedded in the Bitcoin blockchain/Prayer wars>
+
+= Bitcoin block
+{c}
+{parent=Bitcoin protocol}
+{wiki}
+
+= List of bitcoin blocks
+{parent=Bitcoin block}
+
+= Genesis block
+{c}
+{parent=List of Bitcoin blocks}
+{title2=2009-01-03}
+{wiki}
+
+= Bitcoin block 0
+{synonym}
+{title2}
+
+* https://www.blockchain.com/explorer/blocks/btc/0
+* https://blockchain.info/block-height/0?format=json
+* https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
+
+= Genesis block message
+{c}
+{parent=Genesis block}
+{tag=Coinbase message}
+{wiki}
+
+<Inscription (blockchain)> added by <Satoshi Nakamoto> on the <Genesis block> containing:
+\Q[
+The Times 03/Jan/2009 Chancellor on brink of second bailout for banks
+]
+which is a reference to: https://www.thetimes.co.uk/article/chancellor-alistair-darling-on-brink-of-second-bailout-for-banks-n9l382mn62h wihch is fully titled:
+\Q[Chancellor Alistair Darling on brink of second bailout for banks]
+The "Alistair" was slikely removed due to limited payload concerns.
+
+Through the newspaper reference, the message proves a minimal starting date for the first mine.
+
+And it hints that one of <Bitcoin>'s motivation was the <financial crisis of 2007-2008>, where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place. A notable related stab is taken at <cool data embedded in the bitcoin blockchain/Len Sassaman tribute>.
+
+We can extract the image from the blockchain ourselves by starting from: https://blockchain.info/block-height/0?format=json[].
+
+From that page we manually extract the hash `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f` and then:
+``
+wget -O 0.hex https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f?format=hex
+xxd -p -r 0.hex
+``
+and that does contain the famous genesis block string:
+``
+EThe Times 03/Jan/2009 Chancellor on brink of second bailout for banks
+``
+The JSON clarifies that the data is encoded in the `script` field of the transaction `input`:
+``
+{
+      {
+         "script":"04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
+``
+
+The extra `E` (0x45 in <ASCII>) in `EThe Times` is just extra noise required by the script, we can break things up as:
+``
+04ffff001d0104 45 5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73
+``
+where:
+* `54` is `T`
+* the `04ffff001d0104` part just doesn't show up on the terminal because it is not made of any printable characters.
+
+The initial `04` is `OP_RETURN`.
+
+TODO what is actual the meaning of the `ffff001d010445` part? `@defango` https://twitter.com/defango/status/1642750851134652417 comments:
+\Q[
+04ffff001d0104 is a hexadecimal string. It is commonly used in the Bitcoin network as a part of the mining process. Specifically, it is used as the target value for a block to be considered valid by the Bitcoin network.
+
+This value represents the level of difficulty required for a miner to generate a block that meets the network's criteria. The first four bytes, 04ffff, represent the maximum possible target value. The next three bytes, 001d01, represent the current difficulty level
+
+while the final byte, 04, is a padding byte. In summary, this value sets the difficulty level for mining a new block in the Bitcoin network.
+]
+
+TODO the `output` of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.
+
+= Satoshi tribute
+{c}
+{parent=Genesis block}
+
+\Image[https://web.archive.org/web/20230214064329if_/https://miro.medium.com/v2/resize:fit:640/format:webp/1%2ABPzmT_vGzBiC1oAq0Fnvgw.jpeg]
+{source=https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1}
+
+* https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1 The Mystery Behind "Satoshi Tribute" Donations by Chain.Info (2020)
+
+= First block not mined by Satoshi
+{c}
+{parent=List of Bitcoin blocks}
+{wiki}
+
+= Bitcoin block 78
+{synonym}
+{title2}
+
+https://www.blockchain.com/explorer/blocks/btc/78
+
+= Bitcoin implementation
 {c}
 {parent=Bitcoin}
+
+= Bitcoin Core
+{c}
+{parent=Bitcoin implementation}
 
 Reference implementation?
 
@@ -1297,6 +1447,21 @@ On <Bitcoin Core snap> 26.0, the executable is called `bitcoin-core.cli` rather 
 {parent=Bitcoin Core executable}
 
 Officially supported installation method on <Ubuntu 23.10>.
+
+= Bitcoin Core data layout
+{c}
+{parent=Bitcoin Core executable}
+
+Bibliography:
+* https://bitcoindev.network/understanding-the-data/
+
+= Bitcoin Core txindex
+{c}
+{parent=Bitcoin Core data layout}
+
+TODO format???
+* https://bitcoin.stackexchange.com/questions/121888/what-is-the-data-format-layout-for-txindex-leveldb-values
+* https://bitcointalk.org/index.php?topic=1068721.0
 
 = How to store data in the Bitcoin blockchain
 {parent=Bitcoin}
@@ -1555,129 +1720,6 @@ A quick overview of some developments: https://research.aimultiple.com/ordinal-i
 {c}
 {parent=Bitcoin inscription}
 {tag=Miner message}
-
-= Bitcoin transaction
-{c}
-{parent=Bitcoin}
-
-= Bitcoin address
-{c}
-{parent=Bitcoin transaction}
-
-= Coinbase transaction
-{parent=Bitcoin transaction}
-
-The first transaction of each <Bitcoin block> is called the "coinbase transaction", and it is magic as it does not need to point to a previous <output script> and have a valid <input script> as it serves as a <Block reward> for <miner (cryptocurrency)>[miners].
-
-= Coinbase message
-{parent=Coinbase transaction}
-{tag=Bitcoin inscription method}
-{tag=Miner message}
-
-The <input script> of the <Coinbase transaction> can be anything, and this can be used as a <Bitcoin inscription method>.
-
-Notable examples:
-* <Genesis block message>
-* Prayer side of the <Cool data embedded in the Bitcoin blockchain/Prayer wars>
-
-= Bitcoin block
-{c}
-{parent=Bitcoin}
-{wiki}
-
-= List of bitcoin blocks
-{parent=Bitcoin block}
-
-= Genesis block
-{c}
-{parent=List of Bitcoin blocks}
-{title2=2009-01-03}
-{wiki}
-
-= Bitcoin block 0
-{synonym}
-{title2}
-
-* https://www.blockchain.com/explorer/blocks/btc/0
-* https://blockchain.info/block-height/0?format=json
-* https://en.bitcoin.it/wiki/Genesis_block contains some comments on the data.
-
-= Genesis block message
-{c}
-{parent=Genesis block}
-{tag=Coinbase message}
-{wiki}
-
-<Inscription (blockchain)> added by <Satoshi Nakamoto> on the <Genesis block> containing:
-\Q[
-The Times 03/Jan/2009 Chancellor on brink of second bailout for banks
-]
-which is a reference to: https://www.thetimes.co.uk/article/chancellor-alistair-darling-on-brink-of-second-bailout-for-banks-n9l382mn62h wihch is fully titled:
-\Q[Chancellor Alistair Darling on brink of second bailout for banks]
-The "Alistair" was slikely removed due to limited payload concerns.
-
-Through the newspaper reference, the message proves a minimal starting date for the first mine.
-
-And it hints that one of <Bitcoin>'s motivation was the <financial crisis of 2007-2008>, where banks were given bailouts by the government to not go under, which many people opposed as the crisis was their own fault in the first place. A notable related stab is taken at <cool data embedded in the bitcoin blockchain/Len Sassaman tribute>.
-
-We can extract the image from the blockchain ourselves by starting from: https://blockchain.info/block-height/0?format=json[].
-
-From that page we manually extract the hash `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f` and then:
-``
-wget -O 0.hex https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f?format=hex
-xxd -p -r 0.hex
-``
-and that does contain the famous genesis block string:
-``
-EThe Times 03/Jan/2009 Chancellor on brink of second bailout for banks
-``
-The JSON clarifies that the data is encoded in the `script` field of the transaction `input`:
-``
-{
-      {
-         "script":"04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"
-``
-
-The extra `E` (0x45 in <ASCII>) in `EThe Times` is just extra noise required by the script, we can break things up as:
-``
-04ffff001d0104 45 5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73
-``
-where:
-* `54` is `T`
-* the `04ffff001d0104` part just doesn't show up on the terminal because it is not made of any printable characters.
-
-The initial `04` is `OP_RETURN`.
-
-TODO what is actual the meaning of the `ffff001d010445` part? `@defango` https://twitter.com/defango/status/1642750851134652417 comments:
-\Q[
-04ffff001d0104 is a hexadecimal string. It is commonly used in the Bitcoin network as a part of the mining process. Specifically, it is used as the target value for a block to be considered valid by the Bitcoin network.
-
-This value represents the level of difficulty required for a miner to generate a block that meets the network's criteria. The first four bytes, 04ffff, represent the maximum possible target value. The next three bytes, 001d01, represent the current difficulty level
-
-while the final byte, 04, is a padding byte. In summary, this value sets the difficulty level for mining a new block in the Bitcoin network.
-]
-
-TODO the `output` of the transaction has a jumbled script, likely just a regular output to get things going, can't be arbitrary like input.
-
-= Satoshi tribute
-{c}
-{parent=Genesis block}
-
-\Image[https://web.archive.org/web/20230214064329if_/https://miro.medium.com/v2/resize:fit:640/format:webp/1%2ABPzmT_vGzBiC1oAq0Fnvgw.jpeg]
-{source=https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1}
-
-* https://medium.com/@chain.info1/the-mystery-behind-satoshi-tribute-donations-cf4ce28c56a1 The Mystery Behind "Satoshi Tribute" Donations by Chain.Info (2020)
-
-= First block not mined by Satoshi
-{c}
-{parent=List of Bitcoin blocks}
-{wiki}
-
-= Bitcoin block 78
-{synonym}
-{title2}
-
-https://www.blockchain.com/explorer/blocks/btc/78
 
 = Ethereum
 {c}
