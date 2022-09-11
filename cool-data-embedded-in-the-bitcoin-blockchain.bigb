@@ -618,7 +618,9 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   {description=Off-chain reference image for the inscribed <code Study Math and Computer Science at Augustana College> <typeface> logo taken from the Augustana College website.}
   {source=https://www.augustana.edu/communication-and-marketing/brandtoolbox}
 
-  At https://digitalcommons.augustana.edu/cscfaculty/1/ we see a <Bitcoin inscription> paper by Andrew Sward, Vecna OP_0 and Forrest Stonedahl, presumably our culprits. This was brought to our attention via: https://twitter.com/ottosch_/status/1735297943563837726
+  <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl> is a paper published by some people of the university, presumably the culprits. This was brought to our attention via: https://twitter.com/ottosch_/status/1735297943563837726[].
+
+  See also: <image Augustana College Old-Main.jpg>.
   }
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0517.txt#L202[tx fd739c26276ea81fea8210939d527fccd7c9622f93aa17d18ee0bd5321387fde], block 517406 (https://www.blockchain.com/explorer/transactions/btc/fd739c26276ea81fea8210939d527fccd7c9622f93aa17d18ee0bd5321387fde[2018-04-09]) contains the first line of an ad from American stockbroker company https://en.wikipedia.org/wiki/TD_Ameritrade[TD Ameritrade]. It is encoded one line per transaction with <OP_RETURN>, but the ordering is completely scrambled. A link is given: https://TDAmeritrade.com/Blockchain[] but it is 404 as of January 2024 of course, companies can't keep their pages up for more than 3 seconds, but there is an archive which decodes the indented picture for us, including the corresponding tx hashes for each line https://web.archive.org/web/20180902001329/https://www.tdameritrade.com/landing-pages/offer/blockchain/index.html?cid=TVTDACDDRTVJ64[], here is a copy from the website because we were lazy to double check each line:
   ``
@@ -2413,10 +2415,31 @@ Searching for the image hash ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f0
 https://www.blockchain.com/explorer/transactions/btc/ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e[tx ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e], https://www.blockchain.com/explorer/blocks/btc/458238[block 458238] (2017-03-21).
 }
 
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49.jpg]
+{title=Augustana College Old-Main.jpg}
+{description=
+https://www.blockchain.com/explorer/transactions/btc/033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49[tx 033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49, block 474586] (2017-07-07)
+
+First tx 1e347cf7521a1318ef31af4f5758efbc45f1bb2a7db9bc1cc469bfe93599eaf7 sets up 48 <P2SH> outputs and gives ASCII message
+\Q[Augustana College Old-Main.jpg Reconstruct with data preceding redeemscripts]
+
+Then tx 033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49 redeems those with 48 input scripts that encode the image with ASCII message:
+\Q[Augustana College Old-Main.jpg Reconstruct with data preceding redeemscripts]
+
+We've decoded it manually with:
+``
+btc getrawtransaction 033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f1a0e49 true| jq -r '.vin[].scriptSig.asm' | head -n -1 | sed -r 's/ [^ ]+$//' | tr -d '\n'  | xxd -r -p > tmp.jpg
+``
+
+See also: <code Study Math and Computer Science at Augustana College>.
+
+Previously mentioned at: https://twitter.com/ottosch_/status/1735297943563837726[]
+}
+
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14.png]
 {title=<PDF> demo}
 {height=600}
-{description=https://www.blockchain.com/explorer/transactions/btc/b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14[b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14] (2017-07-07) contains a single page 7.9 KB <PDF> sample file also present e.g. at: https://www.studocu.com/en-gb/document/harrow-college-uxbridge-college/assessing-risk-in-sport-unit/pdf-sample-its-nothing-dw/61244699[]. This is a screenshot of the PDF made manually to make it easier to view here. The first lines read:
+{description=https://www.blockchain.com/explorer/transactions/btc/b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14[b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14, block 474646] (2017-07-07) contains a single page 7.9 KB <PDF> sample file also present e.g. at: https://www.studocu.com/en-gb/document/harrow-college-uxbridge-college/assessing-risk-in-sport-unit/pdf-sample-its-nothing-dw/61244699[]. This image is a screenshot of the PDF made manually to make it easier to view here, the actual inscribed file has been uploaded to: https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/b4f537bc536c392d425af0693e3282bbf697df01debeeaf7f9918b93af6bdd14.pdf[]. The first lines of the document read:
 \Q[
 Adobe Acrobat PDF Files
 
@@ -2439,6 +2462,19 @@ Adobe® Portable Document Format (PDF) is a universal file format that preserves
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/546124c6ad55acc6e0cd00a66fbd29e9b7df5fe8505e2ebf8470bb44aa35bc16.jpg]
 {title=Teddy bear}
 {description=https://www.blockchain.com/explorer/transactions/btc/546124c6ad55acc6e0cd00a66fbd29e9b7df5fe8505e2ebf8470bb44aa35bc16[tx 546124c6ad55acc6e0cd00a66fbd29e9b7df5fe8505e2ebf8470bb44aa35bc16], https://www.blockchain.com/explorer/blocks/btc/654100[block 654100] (2020-10-24) Cost: ~0.002 BTC ~ \$25.77 at the time. Transaction made up of 339 * 550 SAT outputs.}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/4719e7252f4bdefd9f7bdf5058f17af28729b79c303b067eb01c107e57235754.jpg]
+{title=A man and his cactus}
+{description=
+https://www.blockchain.com/explorer/transactions/btc/4719e7252f4bdefd9f7bdf5058f17af28729b79c303b067eb01c107e57235754[tx 4719e7252f4bdefd9f7bdf5058f17af28729b79c303b067eb01c107e57235754] (2024-01-27). Encoded as a <data URL> for a <JPEG> image:
+``
+data:image/jpeg;base64
+``
+}
+
+TODO:
+* get all from <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>, some are missing
+* 6fa03193609f6506c2fa76540fa9930adf68d50b21c942434a90486a694ccacd-in.jpg contains something but a bit broken
 
 = cryptograffiti.info
 {parent=Raw images}
