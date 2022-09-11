@@ -545,7 +545,7 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   rule^you
   ``
   which reads:
-  \Q[kill your children, set them free. 666]
+  \Q[Kill your children, set them free. <666>. Evil bunny here to rule you.]
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0437.txt#L1937 tx eede99ab9b50aa5871fcb4b1d0d1a22ac2fa94b08172b1fa677f0b200e96f84a blk 437669 (https://www.blockchain.com/explorer/transactions/btc/eede99ab9b50aa5871fcb4b1d0d1a22ac2fa94b08172b1fa677f0b200e96f84a[2016-11-06]):
   ``
       __  / __
@@ -617,6 +617,8 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   {title="Augie A"}
   {description=Off-chain reference image for the inscribed <code Study Math and Computer Science at Augustana College> <typeface> logo taken from the Augustana College website.}
   {source=https://www.augustana.edu/communication-and-marketing/brandtoolbox}
+
+  At https://digitalcommons.augustana.edu/cscfaculty/1/ we see a <Bitcoin inscription> paper by Andrew Sward, Vecna OP_0 and Forrest Stonedahl, presumably our culprits. This was brought to our attention via: https://twitter.com/ottosch_/status/1735297943563837726
   }
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0517.txt#L202[tx fd739c26276ea81fea8210939d527fccd7c9622f93aa17d18ee0bd5321387fde], block 517406 (https://www.blockchain.com/explorer/transactions/btc/fd739c26276ea81fea8210939d527fccd7c9622f93aa17d18ee0bd5321387fde[2018-04-09]) contains the first line of an ad from American stockbroker company https://en.wikipedia.org/wiki/TD_Ameritrade[TD Ameritrade]. It is encoded one line per transaction with <OP_RETURN>, but the ordering is completely scrambled. A link is given: https://TDAmeritrade.com/Blockchain[] but it is 404 as of January 2024 of course, companies can't keep their pages up for more than 3 seconds, but there is an archive which decodes the indented picture for us, including the corresponding tx hashes for each line https://web.archive.org/web/20180902001329/https://www.tdameritrade.com/landing-pages/offer/blockchain/index.html?cid=TVTDACDDRTVJ64[], here is a copy from the website because we were lazy to double check each line:
   ``
@@ -1097,11 +1099,10 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/6ea24c417d60a1c5312ca8ec0ab44bbdba2d79d84ceffa4c9455e02f89831d7f.jpg]
   {title=keepcase.jpg}
   {description=
-  https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0720.txt#L757[tx 6ea24c417d60a1c5312ca8ec0ab44bbdba2d79d84ceffa4c9455e02f89831d7f] (https://www.blockchain.com/explorer/transactions/btc/6ea24c417d60a1c5312ca8ec0ab44bbdba2d79d84ceffa4c9455e02f89831d7f[2022-01-24]) contains data of type:
+  https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0720.txt#L757[tx 6ea24c417d60a1c5312ca8ec0ab44bbdba2d79d84ceffa4c9455e02f89831d7f] (https://www.blockchain.com/explorer/transactions/btc/6ea24c417d60a1c5312ca8ec0ab44bbdba2d79d84ceffa4c9455e02f89831d7f[2022-01-24]) contains a <data URL> for a <JPEG> image:
   ``
   /@@@@@@@@@@@@@@@@@@@data:image/jpeg;base64,<base64 image> \@@@@@@@@@@@@@@@@@@@
   ``
-  which is a standard way to encode images in <HTML>. We've opened it in the browser and downloaded the resulting image.
   }
 * https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0739.txt#L3953[tx 3c9216146bf1d9415ded8a1d03dd63fae8f0af2cbcaf68efaff4ad654a45b74d] (https://www.blockchain.com/explorer/transactions/btc/3c9216146bf1d9415ded8a1d03dd63fae8f0af2cbcaf68efaff4ad654a45b74d[2022-06-08]) tiny face. The `--BEGIN TRIBUTE--` format is a call back to <BitLen>, but they just don't do ASCII art like the old days anymore:
   ``
@@ -2142,9 +2143,19 @@ It is possible that some/most of those were uploaded via the <cryptograffiti.inf
 
 These images were indexed by looking for standard transaction output script hashes that contain <JPEG> or <PNG> images immediately on the first payload byte based on file signature bytes and indexed/easily downloaded at https://github.com/cirosantilli/bitcoin-strings-with-txids#image-indexing-and-download[].
 
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/bf7ef3216ae09f8252c76e7d0031bc4aa131a23a6900f8371c44ffde7957c8da.png]
+{title=<Super Mario> coin sprite}
+{description=
+https://github.com/cirosantilli/bitcoin-strings-with-txids/blob/master/data/out/0345.txt#L182[tx bf7ef3216ae09f8252c76e7d0031bc4aa131a23a6900f8371c44ffde7957c8da] (https://www.blockchain.com/explorer/transactions/btc/bf7ef3216ae09f8252c76e7d0031bc4aa131a23a6900f8371c44ffde7957c8da[2015-03-01]). Possibly from <Super Mario World> for the <SNES> (1990). No doubt a self-reference to <Bitcoin> itself. Encoded as a <data URL> for a <PNG> image:
+``
+<img src="data:image/png;base64,
+``
+Visible e.g. at https://www.pinterest.fr/pin/137993176075040653/[].
+}
+
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/515a95381e511141229966d722db19db7da66a0d629b1f883d296287632e72b3.jpg]
 {title=<JPG> thumbnail}
-{description=Presumably a <JPEG> upload test. https://www.blockchain.com/explorer/transactions/btc/515a95381e511141229966d722db19db7da66a0d629b1f883d296287632e72b3[tx 515a95381e511141229966d722db19db7da66a0d629b1f883d296287632e72b3], https://www.blockchain.com/explorer/blocks/btc/349362[block 349362] (2015-03-26)}
+{description=Presumably a <JPEG> upload test. https://www.blockchain.com/explorer/transactions/btc/515a95381e511141229966d722db19db7da66a0d629b1f883d296287632e72b3[tx 515a95381e511141229966d722db19db7da66a0d629b1f883d296287632e72b3], https://www.blockchain.com/explorer/blocks/btc/349362[block 349362] (2015-03-26). Inscribed with <fake P2PKH address>.}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b.jpg]
 {height=200}
@@ -2152,58 +2163,101 @@ These images were indexed by looking for standard transaction output script hash
 {description=
 A heart next to a bitcoin logo and written "we love bitcoin". Reproduced at: https://kryptomoney.com/grayscale-report-institutional-investors-retirement-funds-love-bitcoin/
 
-Embedded in the image itself, there's a message in the header comments: "Bitcoin uses peer-to-peer technology to operate with no central authority or banks" which is the opening paragraph of: https://bitcoin.org/en/
+Embedded in the image itself, there's a message in the header comments:
+\Q[Bitcoin uses peer-to-peer technology to operate with no central authority or banks]
+which is the opening paragraph of: https://bitcoin.org/en/
 
 https://www.blockchain.com/explorer/transactions/btc/9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b[tx 9bdb59a0f5858af670d9b412041b8918114d7c56cc637f57f1d8469f101a5d0b], https://www.blockchain.com/explorer/blocks/btc/351375[block 351375] (2015-04-09).
+
+Inscribed with <fake P2PKH address>.
 }
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f.jpg]
 {title=Erich Erstu}
-{description=Alias: 1Hyena. A well built man wearing a gas mask. Google image search leads to: https://github.com/1Hyena[] (https://web.archive.org/web/20201103193934/https://github.com/1Hyena[archive]), who is the creator of <cryptograffiti.info>. It was around after this time that the number of raw images surged dramatically in the blockchain, so it is possible that this is when the service started operating. This further suggests that most raw image uploads we found were made with <cryptograffiti.info>. https://www.blockchain.com/explorer/transactions/btc/c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f[tx c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f], https://www.blockchain.com/explorer/blocks/btc/416527[block 416527] (2016-06-16).}
+{description=Alias: 1Hyena. A well built man wearing a gas mask. Google image search leads to: https://github.com/1Hyena[] (https://web.archive.org/web/20201103193934/https://github.com/1Hyena[archive]), who is the creator of <cryptograffiti.info>. It was around after this time that the number of raw images surged dramatically in the blockchain, so it is possible that this is when the service started operating. This further suggests that most raw image uploads we found were made with <cryptograffiti.info>. https://www.blockchain.com/explorer/transactions/btc/c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f[tx c206e8fff656f07b27dac831ef9b956792bae4e76a2cb43f14f49f0298bf2c2f], https://www.blockchain.com/explorer/blocks/btc/416527[block 416527] (2016-06-16). Embedded text:
+\Q[Hyena was here on the 16th of June 2016.]
+and:
+\Q[Hi mom! I love you.]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183.jpg]
 {title=Water Deer}
-{description=https://badtaxidermy.com "Water Deer" image, visible at: https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3[]. https://www.blockchain.com/explorer/transactions/btc/357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183[tx 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183], https://www.blockchain.com/explorer/blocks/btc/416527[block 416735] (2016-06-16).}
+{description=https://badtaxidermy.com "Water Deer" image, visible at: https://web.archive.org/web/20200527070011/http://www.badtaxidermy.com/?page=3[]. https://www.blockchain.com/explorer/transactions/btc/357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183[tx 357e8ae080e5a1b554eaec2953e3e6e2e7955f3af4559dd0f1bc6381d56aa183], https://www.blockchain.com/explorer/blocks/btc/416527[block 416735] (2016-06-16). The file contains the strings:
+\Q[www.badtaxidermy.com]
+and:
+\Q[<CryptoGraffiti.info> now allows you to attach JPEG images to your messages.]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/8ec01c5e8f3b57adb13079af3b7e40e7acd3986a5ed14325388405771bd43f9b.png]
 {title=hotmine.io}
-{description=A mining supplier: https://hotmine.io/en[]. https://twitter.com/uahotmine[]. https://www.blockchain.com/explorer/transactions/btc/8ec01c5e8f3b57adb13079af3b7e40e7acd3986a5ed14325388405771bd43f9b[tx 8ec01c5e8f3b57adb13079af3b7e40e7acd3986a5ed14325388405771bd43f9b], https://www.blockchain.com/explorer/blocks/btc/416835[block 416835] (2016-06-18).}
+{description=A mining supplier: https://hotmine.io/en[]. https://twitter.com/uahotmine[]. https://www.blockchain.com/explorer/transactions/btc/8ec01c5e8f3b57adb13079af3b7e40e7acd3986a5ed14325388405771bd43f9b[tx 8ec01c5e8f3b57adb13079af3b7e40e7acd3986a5ed14325388405771bd43f9b], https://www.blockchain.com/explorer/blocks/btc/416835[block 416835] (2016-06-18). The file contains the following string embedded into it:
+\Q[Smart Heating, Bitcoin Mining For You - http://en.hotmine.io]}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/83df1e5ecc1c7ac455d2855e15cff8fa5771afe2ad1796c8b6b1a8e910e829c4.jpg]
 {title=Nada from https://en.wikipedia.org/wiki/They_Live[They Live (1988)]}
-{description=https://www.blockchain.com/explorer/transactions/btc/83df1e5ecc1c7ac455d2855e15cff8fa5771afe2ad1796c8b6b1a8e910e829c4[tx 83df1e5ecc1c7ac455d2855e15cff8fa5771afe2ad1796c8b6b1a8e910e829c4], https://www.blockchain.com/explorer/blocks/btc/416896[block 416896] (2016-06-18).}
+{description=https://www.blockchain.com/explorer/transactions/btc/83df1e5ecc1c7ac455d2855e15cff8fa5771afe2ad1796c8b6b1a8e910e829c4[tx 83df1e5ecc1c7ac455d2855e15cff8fa5771afe2ad1796c8b6b1a8e910e829c4], https://www.blockchain.com/explorer/blocks/btc/416896[block 416896] (2016-06-18). The file has the following string embedded into it:
+\Q[
+I have come here to chew bubble gum and dance on <Ethereum>'s grave.
+
+And I'm all out of bubble gum.
+]
+presumably a reference to Nada's dialogue.
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b.jpg]
 {title=Cryptocurrenty Minning ad}
-{description=Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm[]. https://www.blockchain.com/explorer/transactions/btc/eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b[tx eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b], https://www.blockchain.com/explorer/blocks/btc/417111[block 417111] (2016-06-20).}
+{description=Twitter "@dobcrypto": https://twitter.com/dobcrypto Reuploaded at: https://imgur.com/gallery/00oOuhm[]. https://www.blockchain.com/explorer/transactions/btc/eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b[tx eda07af9584391bb6f5ebb07ba57a51b610751fdf06ae49d9166225c36d97d0b], https://www.blockchain.com/explorer/blocks/btc/417111[block 417111] (2016-06-20). The file contains the following string:
+\Q[Subscribe, I will be glad to see you! http://www.youtube.com/c/dobcryptocurrency]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/609d5e0f968c0ab7abc2be21468cfd552483d38b08e6df23d27766eb61b9be3c.jpg]
 {title=Chinese wedding}
 {description=
-A white man and a <Chinese> <woman> both in Chinese traditional dressess holding hands, presumably a token from their wedding. TODO transcribe and translate the <Chinese (language)> text, <grass script>[cursive grass script] + traditional characters + ultra-low res put this beyond <Ciro Santilli>'s capabilities/patience ratio. Given the format, it is likely some well known beautiful old poem. <Ciro Santilli's wife>'s transcribed gave the first column as:
+https://www.blockchain.com/explorer/transactions/btc/609d5e0f968c0ab7abc2be21468cfd552483d38b08e6df23d27766eb61b9be3c[tx 609d5e0f968c0ab7abc2be21468cfd552483d38b08e6df23d27766eb61b9be3c], https://www.blockchain.com/explorer/blocks/btc/417131[block 417131] (2016-06-20).
+
+A white man and a <Chinese> <woman> wearing Chinese traditional dressess holding hands, presumably a token from their wedding. A Chinese poem is visible next to them, with four vertical setences made up of 7 characters each, to be read from right to left. This is a classic <Classical Chinese poetry form> known as <qijue>.
+
+A photo of a snowy mountain is shown in the background, fitting the theme of the poem. It looks like an European mountain, possibly Mont Blanc? TODO identify. Perhaps a reference to the nationality of the husband.
+
+TODO transcribe the <Chinese (language)> text, <grass script>[cursive grass script] + traditional characters + ultra-low res put this beyond <Ciro Santilli>'s capabilities/patience ratio. <Ciro Santilli's wife>'s transcribed gave the first column as:
 \Q[
 丹珍默然藏山中\br
+A scarlet gemstone hides quietly in the midst of the mountains.
+
 "Danzhen" (?) hides silently in the mountains
 ]
 and no <Google> hits, so maybe an original poem? What a hero. TODO transcribe the rest.
 
-If Danzhen is a proper noun, the only hit is https://zh.wikipedia.org/wiki/洛桑丹珍[洛桑丹珍] (pinyin: Luosang Danzhen), who appears to be a <Chinese Communist Party> official that worked in Tibet. So does not feel likely.
-
-https://www.blockchain.com/explorer/transactions/btc/609d5e0f968c0ab7abc2be21468cfd552483d38b08e6df23d27766eb61b9be3c[tx 609d5e0f968c0ab7abc2be21468cfd552483d38b08e6df23d27766eb61b9be3c], https://www.blockchain.com/explorer/blocks/btc/417131[block 417131] (2016-06-20).
+The image file contains the <English (language)> transalation of the Chinese poem embeded into it:
+\Q[
+A scarlet gemstone hides quietly in the midst of the mountains.\br
+Its beauty softly enters the wanderer's dreams.\br
+Fame and fortune become like drifting clouds\br
+But the gem endures like the constellations above.
+]
+TODO embedding method, does not show up on <ExifTool>.
 }
 {height=700}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/6240f61bbaeac66cd623e921a153addaf5f379a996f2de0f0c6506d628fe3812.jpg]
 {title=Superbuffo}
-{description=<Googling> gives a Toni Caradonna: https://twitter.com/superbuffo[]. At https://twitter.com/Superbuffo/status/1620900765014556672 that twitter account claimed the art or its depiction. https://www.imdb.com/name/nm9516368/[] has some obscure references to him. https://www.blockchain.com/explorer/transactions/btc/6240f61bbaeac66cd623e921a153addaf5f379a996f2de0f0c6506d628fe3812[tx 6240f61bbaeac66cd623e921a153addaf5f379a996f2de0f0c6506d628fe3812], https://www.blockchain.com/explorer/blocks/btc/417354[block 417354] (2016-06-21).}
+{description=<Googling> gives a Toni Caradonna: https://twitter.com/superbuffo[]. At https://twitter.com/Superbuffo/status/1620900765014556672 that twitter account claimed the art or its depiction. https://www.imdb.com/name/nm9516368/[] has some obscure references to him. https://www.blockchain.com/explorer/transactions/btc/6240f61bbaeac66cd623e921a153addaf5f379a996f2de0f0c6506d628fe3812[tx 6240f61bbaeac66cd623e921a153addaf5f379a996f2de0f0c6506d628fe3812], https://www.blockchain.com/explorer/blocks/btc/417354[block 417354] (2016-06-21). The file contains the following string embedded into it, in addition to a lot of <Adobe> boilerplate:
+\Q[Superbuffo the first comedian on the blockchain]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6.jpg]
 {title=Rene Angelil and Celine Dion}
-{description=Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces. https://www.blockchain.com/explorer/transactions/btc/e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6[tx e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6], https://www.blockchain.com/explorer/blocks/btc/417272[block 417272] (2016-06-21).}
+{description=
+Reproduced at: https://web.archive.org/web/20191130174338/https://people.com/celebrity/inside-celine-dion-and-rene-angelils-21-year-marriage/ but cropped to faces. https://www.blockchain.com/explorer/transactions/btc/e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6[tx e2e5b9cf04d93ae5fc1b54e9208b92b668823e014b251f57510e4702661fa1a6], https://www.blockchain.com/explorer/blocks/btc/417272[block 417272] (2016-06-21). Embedded text:
+\Q[You will be here forever]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/0602dd1b375bc71818db0a40d7a14f438499af3eda9056125eb5a1b74bed790b.jpg]
 {title=<New Age> dance}
-{description=<Woman> dancing a <New Age>-like dance with <New Age>-like <Indian> looking clothes, holding a lamp, and with a rose on her hair. TODO identify. https://www.blockchain.com/explorer/transactions/btc/0602dd1b375bc71818db0a40d7a14f438499af3eda9056125eb5a1b74bed790b[tx 0602dd1b375bc71818db0a40d7a14f438499af3eda9056125eb5a1b74bed790b], https://www.blockchain.com/explorer/blocks/btc/419676[block 419676] (2016-07-07).}
+{description=
+<Woman> dancing a <New Age>-like dance with <New Age>-like <Indian> looking clothes, holding a lamp, and with a rose on her hair. TODO identify. https://www.blockchain.com/explorer/transactions/btc/0602dd1b375bc71818db0a40d7a14f438499af3eda9056125eb5a1b74bed790b[tx 0602dd1b375bc71818db0a40d7a14f438499af3eda9056125eb5a1b74bed790b], https://www.blockchain.com/explorer/blocks/btc/419676[block 419676] (2016-07-07). The image contains the following text embedded into it (TODO unknown mechanism, does not show up on <exiftool>:
+\Q[No alcohol and smoking since 07.07.2016. Love girls!]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/83f412eb7ff40fe542901186a6d37cba0eb4f8458c574bc02a6f7236c599fe07.jpg]
 {title=Snake penetration sculputure}
@@ -2215,13 +2269,17 @@ https://www.blockchain.com/explorer/transactions/btc/609d5e0f968c0ab7abc2be21468
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/075d1c78883ccb237b374c7ed7f9ff0f90df3308c48f9e7a29348b815326b769.jpg]
 {title=Bitcoin love certificate}
-{description=Hard to make out due to ultra-low-res, and in <Cyrillic script>. Contains three dates: 8.02.1982, 16.07.1992 and 17.07.2016. https://www.blockchain.com/explorer/transactions/btc/075d1c78883ccb237b374c7ed7f9ff0f90df3308c48f9e7a29348b815326b769[tx 075d1c78883ccb237b374c7ed7f9ff0f90df3308c48f9e7a29348b815326b769], https://www.blockchain.com/explorer/blocks/btc/421151[block 421151] (2016-07-17).}
+{description=Hard to make out due to ultra-low-res, and in <Cyrillic script>. Contains three dates: 8.02.1982, 16.07.1992 and 17.07.2016. https://www.blockchain.com/explorer/transactions/btc/075d1c78883ccb237b374c7ed7f9ff0f90df3308c48f9e7a29348b815326b769[tx 075d1c78883ccb237b374c7ed7f9ff0f90df3308c48f9e7a29348b815326b769], https://www.blockchain.com/explorer/blocks/btc/421151[block 421151] (2016-07-17). The file contains the following text embedded into it:
+\Q[Wedding Wallled 15Nz214yv76BmkKLCi8kAVssa5C7nQHLjx]
+}
 {height=700}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a.jpg]
 {height=500}
 {title=Oles Slobodenyuk}
 {description=
+https://www.blockchain.com/explorer/transactions/btc/10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a[tx 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a], https://www.blockchain.com/explorer/blocks/btc/421280[Block 421280] (2016-07-18)
+
 Wedding picture with people holding "Blockchain" and "Ipa" signs.
 
 Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.com.ua/zapushhen-ukrainskij-bitkoin-pul-bitcoinukraine/ Google translate:
@@ -2229,12 +2287,20 @@ Reproduced at: https://web.archive.org/web/20200926150213/https://freebitcoins.c
 
 Oles is for example featured at: https://uk.sports.yahoo.com/news/bitcoin-miners-heating-homes-free-133053106.html Bitcoin Miners Are Heating Homes Free of Charge in Frigid Siberia by Anna Baydakova (2019)
 
-https://www.blockchain.com/explorer/transactions/btc/10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a[tx 10cc5d45396ba271659a4b00d2f70c433533227e5f7ea30bb5bd3c8563d7468a], https://www.blockchain.com/explorer/blocks/btc/421280[Block 421280] (2016-07-18).
+The image file contains the following text embedded into it:
+\Q[
+\<Wedding date: Jul 17, 2016 \b
+proof link https://goo.gl/photos/2GToBx1WqRyiQtxQ6
+]
+The link is dead of course.
 }
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b.png]
 {title=<Nematode>}
-{description=A... <nematode>-like shaped hand drawn extremely simple image. A test upload presumably? The squiggle outside of the worm might be a test direction marker. https://www.blockchain.com/explorer/transactions/btc/554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b[tx 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b], https://www.blockchain.com/explorer/blocks/btc/424414[block 424414] (2016-08-09).}
+{description=
+A... <nematode>-like shaped hand drawn extremely simple image? A test upload presumably? The squiggle outside of the worm might be a test direction marker. https://www.blockchain.com/explorer/transactions/btc/554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b[tx 554846025e808df7adec3b1d099e3d4d54b7367cddaa959939cb5ca0fc6abf7b], https://www.blockchain.com/explorer/blocks/btc/424414[block 424414] (2016-08-09). The image file contains the following string embedded into it:
+\Q[2016, painting, 135.7 x 130.7 cm (18 DPI)]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/cc9c0b95ac772515235147d8354ec8b8b0763bf842ad16b8b23f855c3dc6a57e.jpg]
 {height=600}
@@ -2254,14 +2320,21 @@ https://www.blockchain.com/explorer/transactions/btc/cc9c0b95ac772515235147d8354
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/693848d56098a0ad16736bea7f24336c9b47a7f0a6f776659e8d01f00b46af76.jpg]
 {title=Wedding on grass}
-{description=https://www.blockchain.com/explorer/transactions/btc/693848d56098a0ad16736bea7f24336c9b47a7f0a6f776659e8d01f00b46af76[tx 693848d56098a0ad16736bea7f24336c9b47a7f0a6f776659e8d01f00b46af76], https://www.blockchain.com/explorer/blocks/btc/426072[block 426072] (2016-08-20).}
+{description=https://www.blockchain.com/explorer/transactions/btc/693848d56098a0ad16736bea7f24336c9b47a7f0a6f776659e8d01f00b46af76[tx 693848d56098a0ad16736bea7f24336c9b47a7f0a6f776659e8d01f00b46af76], https://www.blockchain.com/explorer/blocks/btc/426072[block 426072] (2016-08-20). The file contains the following text embedded into it:
+\Q[Danila a Pavel se právě vzali!]
+which is Czech for:
+\Q[Danila and Pavel just got married!]
+So it is a followup to <image Hand written contract}>.
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/c0bb963cb3ceffc49059f09db94e3fd73caa3b7a8e005160d49e99020ff6b51a.png]
 {height=300}
 {title=Onshape ad}
 {description=
 Ad for https://www.onshape.com/en/[], an online <CAD> company:
-\Q[\#CAD users all over the world are designing in the cloud! Join them by creating a \#free Onshape account: http://hubs.ly/HO3vJ6tO[]. https://www.blockchain.com/explorer/transactions/btc/c0bb963cb3ceffc49059f09db94e3fd73caa3b7a8e005160d49e99020ff6b51a[tx c0bb963cb3ceffc49059f09db94e3fd73caa3b7a8e005160d49e99020ff6b51a], https://www.blockchain.com/explorer/blocks/btc/426832[block 426832] (2016-08-25).]
+\Q[\#CAD users all over the world are designing in the cloud! Join them by creating a \#free Onshape account: http://hubs.ly/HO3vJ6tO[]. https://www.blockchain.com/explorer/transactions/btc/c0bb963cb3ceffc49059f09db94e3fd73caa3b7a8e005160d49e99020ff6b51a[tx c0bb963cb3ceffc49059f09db94e3fd73caa3b7a8e005160d49e99020ff6b51a], https://www.blockchain.com/explorer/blocks/btc/426832[block 426832] (2016-08-25). Embedded text:
+\Q[\@Onshape - The Future of Professional CAD]
+]
 }
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/ca933de16b6466e40b37c7ee0ec0dcd9a56bc365a567a5fff81ba4927dd61e23.gif]
@@ -2274,7 +2347,15 @@ Ad for https://www.onshape.com/en/[], an online <CAD> company:
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511.jpg]
 {title=<Ross Ulbricht>}
-{description=Exact image also reproduced at: https://ethereumworldnews.com/ross-ulbricht-attorney-dismiss-2018/[]. https://www.blockchain.com/explorer/transactions/btc/b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511[tx b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511], https://www.blockchain.com/explorer/blocks/btc/442225[block 442225] (2016-12-06).}
+{description=Exact image also reproduced at: https://ethereumworldnews.com/ross-ulbricht-attorney-dismiss-2018/[]. https://www.blockchain.com/explorer/transactions/btc/b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511[tx b25ba2080d15c1277569bd2fee707a216c4e2ee0a1f479349c2309651c261511], https://www.blockchain.com/explorer/blocks/btc/442225[block 442225] (2016-12-06). Embedded text:
+\Q[
+<Silk Road> saved lives that would\br
+have otherwise been lost on the\br
+streets.
+
+https://freeross.org/
+]
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/c67dca17d3e5544d8d2c70d143196e1c1438a09c7371b80086d0a71ec5aec3c8.jpg]
 {title=Tuxedo and rose}
@@ -2282,7 +2363,45 @@ Ad for https://www.onshape.com/en/[], an online <CAD> company:
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/00a64f2ff9aae7a34c21d07b8fc9bad79989f25295ccbddc6fbe73b3685b65a9.jpg]
 {title=Couple on mountains}
-{description=Middle aged couple selfie in front of some mountains. https://www.blockchain.com/explorer/transactions/btc/00a64f2ff9aae7a34c21d07b8fc9bad79989f25295ccbddc6fbe73b3685b65a9[tx 00a64f2ff9aae7a34c21d07b8fc9bad79989f25295ccbddc6fbe73b3685b65a9], https://www.blockchain.com/explorer/blocks/btc/456370[block 456370] (2017-03-09).}
+{description=
+Middle aged couple selfie in front of some mountains. https://www.blockchain.com/explorer/transactions/btc/00a64f2ff9aae7a34c21d07b8fc9bad79989f25295ccbddc6fbe73b3685b65a9[tx 00a64f2ff9aae7a34c21d07b8fc9bad79989f25295ccbddc6fbe73b3685b65a9], https://www.blockchain.com/explorer/blocks/btc/456370[block 456370] (2017-03-09). The file contains the following <Spanish (language)> poem, whch confirms that their <Spanish> looking faces are actually <Spanish>, perhaps they are at the Pyrenees:
+\Q[
+Entre tus brazos y los míos\br
+no hay espacio, tan juntitos\br
+estamos que los pensamientos\br
+son uno.
+
+A veces somos casi dos desconocidos,\br
+raros tan raros cómo distintos,\br
+pero nos engañamos, tú lo sabes yo lo sé,\br
+en realidad somos muy dentro\br
+la misma verdad.
+
+Escondidos en tus ojitos\br
+duermen mis sueños más hermosos,\br
+cuándo los abres frente a mi\br
+se despiertan alegres y rumbosos.
+]
+Which translates as:
+\Q[
+Between your arms and mine\br
+there is no space, so close together\br
+we are the thoughts\br
+They are one.
+
+Sometimes we are almost two strangers,\br
+strange as strange as they are different,\br
+but we deceive ourselves, you know it, I know it,\br
+actually we are very inside\br
+the same truth.
+
+Hidden in your eyes\br
+my most beautiful dreams sleep,\br
+when do you open them in front of me\br
+They wake up happy and cheerful.
+]
+Not easy <Google> hits so possibly novel.
+}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-strings-with-txids/data/bin/ca4f11131eca6b4d61daf707a470cfccd1ef3d80a6f8b70f1f07616b451ca64e.jpg]
 {title=<Tank Man>}
@@ -2843,7 +2962,18 @@ If illegal porn were to ever be found, we would be unable to acknowledge that, a
 Another issue is that it can be quite hard to determine if porn is legal or illegal, e.g. it can be hard to distinguish legal an illegal ages or revenge vs consensual porn, especially at the low resolutions that you may expect to find embedded in the blockchain. We are generally going to be quite strict about this, and in case of uncertainty on porn legality we will censor first.
 
 OK the list:
-* https://www.blockchain.com/explorer/transactions/btc/4c903a377addab7c1e35a685d3dabc664199e406374b1e5ce2fc59e78fb5b754[tx 4c903a377addab7c1e35a685d3dabc664199e406374b1e5ce2fc59e78fb5b754] (2016-07-09) contains an animated <GIF> of a woman <#pole dancing>. She is seen from behind, in revealing blue clothes that show her buttocks. Reproduced at: TODO link on Twitter.
+* https://www.blockchain.com/explorer/transactions/btc/4c903a377addab7c1e35a685d3dabc664199e406374b1e5ce2fc59e78fb5b754[tx 4c903a377addab7c1e35a685d3dabc664199e406374b1e5ce2fc59e78fb5b754] (2016-07-09) contains an animated <GIF> of a woman <#pole dancing>. She is seen from behind, in revealing blue clothes that show her buttocks. Reproduced at: https://twitter.com/cirosantilli/status/1755378949117370668[]. The file contains the following strings embedded into it:
+  \Q[
+  This <GIF> file was assembled with <GIF> Construction Set from:\br
+  Alchemy Mindworks Inc.\br
+  This comment block will not appear in files created with a registered version of GIF Construction Set
+  ]
+  and:
+  \Q[
+  <CryptoGraffiti.info> messages now cheaper.
+  ]
+
+4c903a377addab7c1e35a685d3dabc664199e406374b1e5ce2fc59e78fb5b754.gif
 
 = ASCII porn
 {c}
@@ -3123,7 +3253,9 @@ Mentions some upload mechanisms, notably <AtomSea & EMBII> and <Satoshi uploader
 {parent=Cool data embedded in the Bitcoin blockchain}
 
 By <Ciro Santilli>:
-* 2021-04-13 https://twitter.com/cirosantilli/status/1382067162492366854 main announcement on <Twitter>. https://twitter.com/mikko[], who has 209.9K followers and a <Wikipedia> page: https://en.wikipedia.org/wiki/Mikko_Hyppönen[Mikko Hypponen] hearted the tweet s2
+* 2021-04-13 https://twitter.com/cirosantilli/status/1382067162492366854[]: main initial announcement on <Twitter>. https://twitter.com/mikko[], who has 209.9K followers and a <Wikipedia> page: https://en.wikipedia.org/wiki/Mikko_Hyppönen[Mikko Hypponen] hearted the tweet s2
+* 2023-01-21 https://twitter.com/cirosantilli/status/1749172304259535063[]: improvements to the <Prayer wars>
+* 2023-02-07 https://twitter.com/cirosantilli/status/1755378931446739373[]: large-ish update with new items and improved organization
 
 By others:
 * 2021-04-15 https://news.ycombinator.com/item?id=26801067[] (96 points) on <Hacker News>. Reached position 16 at one point: https://archive.ph/L0Fte and led to about 5k views total. Ah, Ciro could watch that <Google Analytics> realtime view go bling all day long. <Narcissism> is a bitch.
