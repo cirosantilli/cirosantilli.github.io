@@ -15,7 +15,7 @@ This is a collection of cool data found in the Bitcoin blockchain using techniqu
 
 Drop some <Bitcoins> at \b[3KRk7f2JgekF6x7QBqPHdZ3pPDuMdY3eWR] if you are loaded and like this article in order to support some much needed higher educational reform: <sponsor>{full}.
 
-When this kind of non-financial data is embedded into a blockchain some people called an "<inscription (blockchain)>". the study or "early" inscriptions had been called a form of "archeology"https://docs.ordinals.com/overview.html{ref}http://blockchainarchaeology.com/{ref}. Since this is a collection of archeological artifacts, we call it a "<museum>"!
+When this kind of non-financial data is embedded into a blockchain some people called an "<inscription (blockchain)>". the study or "early" inscriptions had been called a form of "archaeology"https://docs.ordinals.com/overview.html{ref}http://blockchainarchaeology.com/{ref}. Since this is a collection of archaelogical artifacts, we call it a "<museum>"!
 
 One really cool thing about inscriptions is that because blockchains are huge <Merkle trees>, it is impossible to censor any one inscription without censoring the entire blockchain. It is also really cool to see people treating the Bitcoin blockchain basically like a global social media feed!
 
@@ -2720,7 +2720,7 @@ Ordinals are inscriptions created with the protocol described at: https://docs.o
 
 The protocol also includes a way to have ownership over inscriptions, effectively creating an <NFT> system on top of the bitcoin blockchain. <AtomSea & EMBII> also already had such a system however. In either case, <Ciro Santilli> couldn't give less of a fuck about who owns some random publicly viewable digital asset.
 
-For whatever reason, orinals became extremelly popular compared to the <AtomSea & EMBII> format, leading to millions os inscriptions, and 10k+ images as of block 830k
+For whatever reason, orinals became extremelly popular compared to the <AtomSea & EMBII> format, leading to millions os inscriptions, and 10k+ images as of block 830k. They also started to take up a substatial portion of the available block space.
 
 This in turn led to a lot of <child porn> rediscussion, and people linking back to this page to view earlier inscriptions: <incoming links>.
 * https://www.reddit.com/r/Buttcoin/comments/10rbkas/ordinals_nft_was_used_to_store_terrible_porn/
@@ -2786,6 +2786,7 @@ These were found by running <porn image detection>[object detection software for
 * \#668 https://ordinals.com/inscription/bb6f577e30e6840dce0474f3c3c55134404688e844982a49161502d3d69e322di0 male asshole open shock porn, this realtively early inscription got some attention:
   * https://cointelegraph.com/news/bitcoin-ordinals-creators-look-for-fix-after-first-instance-of-shock-porn
   * https://www.reddit.com/r/Buttcoin/comments/10rbkas/ordinals_nft_was_used_to_store_terrible_porn/
+  It happened soon after the notable <image ordinal \#652>, and it likely tried to follow the surge of interest from its predecessor.
 * https://ordinals.com/inscription/31d03361ca6bf998e0623763a87d2f776b33a50504bc3a9bbf128e96d97418b9i0 female open blackhole
 
 <Boobs>:
@@ -2872,6 +2873,27 @@ Different `ord` markers:
   bitcoin-core.cli decodescript "$(bitcoin-core.cli getrawtransaction 71e85885522047240a9e70542145dbf2385e1bd468e6ac6002aa755422ea10f5 true | jq -r '.vin[0].txinwitness[1]')" | jq -r .asm | sed 's/.* 0 //;s/ OP_ENDIF//;s/ //g' | xxd -r -p > 71e85885522047240a9e70542145dbf2385e1bd468e6ac6002aa755422ea10f5.png
   ``
   gives the <PNG> of the wireframe draing of a washing machine with transparent background.
+
+= Largest ordinal inscription
+{parent=Technically interesting ordinal}
+
+We can get a list of the ordinals at: https://archive.org/details/bitcoin-ordinal-inscriptions.csv and then sort them by payload size with:
+``
+sort -k6 -n -t, ordinals.csv -o ordinals-sort-size.csv
+``
+
+This shows to us that as of block ~831k, there are 4 ordinals which are far far larger than any other between 3 MiB and 4 MiB, at about 10x larger than then 5th one d115a6e689086fd587e5032f24ba2a8c01f2f87cba758c9d5eb8cf7f6e9a816a
+
+In those cases, a single inscription takes almost the entire block, and the inscribers must have had direct dealings with their mining pool:
+* https://ordinals.com/inscription/4af9047d8b4b6ffffaa5c74ee36d0506a6741ba6fc6b39fe20e4e08df799cf99i0[]: 3946469 bytes (image/jpeg). <#Bitcoin Magazine> cover showing the face of <#Julian Assange>. https://www.blockchain.com/explorer/transactions/btc/4af9047d8b4b6ffffaa5c74ee36d0506a6741ba6fc6b39fe20e4e08df799cf99[tx 4af9047d8b4b6ffffaa5c74ee36d0506a6741ba6fc6b39fe20e4e08df799cf99, block 786501] (2023-04-22). Mined by <#Terra Pool>.
+* https://ordinals.com/inscription/0301e0480b374b32851a9462db29dc19fe830a7f7d7a88b81612b9d42099c0aei0[]: 3915537 bytes (image/jpeg). <Taproot Wizards> ad. This was apparently the largest block ever mined at the time: https://www.reddit.com/r/Bitcoin/comments/10r6t1l/the_first_4_mb_block_in_bitcoin_history_mined_by/[] and received some notice. https://www.blockchain.com/explorer/transactions/btc/0301e0480b374b32851a9462db29dc19fe830a7f7d7a88b81612b9d42099c0ae[tx 0301e0480b374b32851a9462db29dc19fe830a7f7d7a88b81612b9d42099c0ae, block 774628 (2023-02-01)]
+  \Image[https://web.archive.org/web/20240318015957/https://ordinals.com/inscription/0301e0480b374b32851a9462db29dc19fe830a7f7d7a88b81612b9d42099c0aei0]
+  {title=Ordinal \#652}
+  {source=https://ordinals.com/inscription/0301e0480b374b32851a9462db29dc19fe830a7f7d7a88b81612b9d42099c0aei0}
+* https://ordinals.com/inscription/79b91e594c03c8f06d70c44a288a88a413c540abca007829ca119686a7f979dai0[]: 3878842 bytes (image/webp). "Bitcoin War Bonds". A spoof of something. No time to understand now. https://www.blockchain.com/explorer/transactions/btc/79b91e594c03c8f06d70c44a288a88a413c540abca007829ca119686a7f979da[tx 79b91e594c03c8f06d70c44a288a88a413c540abca007829ca119686a7f979da, block 777945 (2023-02-23)]
+* https://ordinals.com/inscription/b5a7e05f28d00e4a791759ad7b6bd6799d856693293ceeaad9b0bb93c8851f7fi0[]: 3379682 bytes (video/mp4). Short looping video of a "purple frog drinking from a glass with a straw". Yes you heard that right. TODO context? https://www.blockchain.com/explorer/transactions/btc/b5a7e05f28d00e4a791759ad7b6bd6799d856693293ceeaad9b0bb93c8851f7f[tx b5a7e05f28d00e4a791759ad7b6bd6799d856693293ceeaad9b0bb93c8851f7f, block 776884 (2023-02-16 )] Despite being huge, this received very little attention, the only <Google> mention is at <An overview of recent non-standard Bitcoin transactions by 0xB10C>
+
+As of 2024, all of the big ones were made in early 2023, so it seems that the trend has died down a bit.
 
 = Cursed ordinal
 {parent=Technically interesting ordinal}
