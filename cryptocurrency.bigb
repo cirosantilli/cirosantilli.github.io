@@ -1088,11 +1088,23 @@ First archive 2009-01-31: https://web.archive.org/web/20090131115053/http://bitc
 
 https://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html
 
-= satoshi@vistomail.com
+= Satoshi's email address
 {c}
 {parent=Satoshi Nakamoto}
 
-Satoshi's official email, it's how he made the <first public announcement of Bitoin> on first public announcement of Bitcoin on 2008-10-31. 
+= satoshin@gmx.com
+{c}
+{parent=Satoshi's email address}
+
+One of <Satoshi's email addresses>, this one is given on the <Bitcoin whitepaper>.
+
+= satoshi@vistomail.com
+{c}
+{parent=Satoshi's email address}
+
+One of <Satoshi's email addresses>, it's how he made the <first public announcement of Bitoin> on first public announcement of Bitcoin on 2008-10-31. 
+
+At some point later on <vistomail.com> was discontinued and acquired by a super dodgy dude, <Alex Elbanna>, so it hasn't been Satoshi for a while.
 
 = vistomail.com
 {c}
@@ -1129,6 +1141,13 @@ Michael Weber
 Domain Registrar
 mweber@dosidos.net
 ]
+
+They updated the page to a more scammy one as of 2024: https://web.archive.org/web/20240310205138/https://www.vistomail.com/ mentioning https://x1coin.org[]. But still Alex no doubt: https://twitter.com/AlexElbanna/status/1763575552538001530 | https://github.com/bLeYeNk As of 2024-04-03, it was parked again on <GoDaddy>, and emails were bouncing.
+
+= Alex Elbanna
+{parent=Satoshi Nakamoto}
+
+https://twitter.com/AlexElbanna
 
 = Satoshi Nakamoto candidate
 {parent=Satoshi Nakamoto}
@@ -1843,9 +1862,13 @@ Terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew
 = Daisy chain Bitcoin inscription
 {parent=Bitcoin inscription method}
 
-This is a term invented by <Ciro Santilli>, and refers to a lose set of uncommon <Bitcoin inscription methods> that involve inscribing one or a small number of payloads per <Bitcoin transaction>.
+This is a term invented by <Ciro Santilli>, and refers to a loose set of uncommon <Bitcoin inscription methods> that involve inscribing one or a small number of payloads per <Bitcoin transaction>.
 
-These methods are both inneficient and hard to detect and decode, they are purpose made to be obscure. This makes finding them all that more rewarding however.
+These methods are both inefficient and hard to detect and decode, partly because <Bitcoin Core> does not index spending transactions: https://bitcoin.stackexchange.com/questions/61794/bitcoin-rpc-how-to-find-the-transaction-that-spends-a-txo[]. This makes finding them all that more rewarding however.
+
+On the other hand, they do have the advantage of not depending on any block size limits, as their individual transactions are very small.
+
+Inscribing anything large would however take a very long time, as you'd have to wait until the previous payload chunk is confirmed before going to the next one. This alone makes the format impractical perhaps.
 
 Known examples:
 * <cool data embedded in the bitcoin blockchain/image Iranian lady with polar bear hat>
