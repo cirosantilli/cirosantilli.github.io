@@ -28,8 +28,11 @@ const date_ioss = [
   //[[year, month], [
   //  IOs
   //]],
+  [[2024, 03], [
+    new IO(108000, 'anonymous donation', { valueOrig: 10, currencyOrig: 'xmr', note: 'Funds sent 2024-03-13 06:21:41 on transaction ID 5503d3548d251f07de6ee3187144a25a0e933ec440388b06157acd87d650f7ca to self custody wallet. Cashed 2024-03-17 with Agoradesk at 1.27 USD / GBP to ~1,375 USD.' }),
+  ]],
   [[2023, 12], [
-    new IO(1168652, 'anonymous donation', { valueOrig: 100, currencyOrig: 'xmr', note: 'Funds sent 2023-11-20, but only noticed several days later by chance. Announced at: https://twitter.com/cirosantilli/status/1744794993363993041 Transaction: https://localmonero.co/blocks/tx/cc894f58ebb14ade5020dcb5a5fa7986ac0d822896da5ecaf05e5d3bf0e37030' }),
+    new IO(1168652, 'anonymous donation', { valueOrig: 100, currencyOrig: 'xmr', note: 'Funds sent 2023-11-20 to Binance wallet, but only noticed several days later by chance. Cashed out 2024-01-07 at 1.2716 USD / GBP 1168652 totalling 14,860.58 USD. Announced at: https://twitter.com/cirosantilli/status/1744794993363993041 Transaction: https://localmonero.co/blocks/tx/cc894f58ebb14ade5020dcb5a5fa7986ac0d822896da5ecaf05e5d3bf0e37030' }),
     new IO(939, 'GitHub sponsors'),
     new IO(-1307, 'Heroku', { valueOrig: -1600, currencyOrig: 'usd' }),
   ]],
@@ -42,7 +45,7 @@ const date_ioss = [
     new IO(-1364, 'Heroku', { valueOrig: -1623, currencyOrig: 'usd' }),
   ]],
   [[2023, 09], [
-    new IO(66375, 'anonymous donation', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%).  Announced at: https://twitter.com/cirosantilli/status/1706772529074032876 Transaction: https://www.blockchain.com/explorer/transactions/btc/c5fa598a6f283dbf1fb44233a91abf3f704d7fcd2d09b9bbb1a05e6018f3e53d All inputs seem to have come from tumblers due to the large number of IOs present.' }),
+    new IO(66375, 'anonymous donation', { valueOrig: 0.03207618, currencyOrig: 'btc', note: 'Coinbase, Spot Price: 21326.66, subtotal: £687.54, total (fees/spread): £677.30, then £13.55 Coinbase cashout fee (~2%). Cashed out on 2023-09-26 at 1.2212 USD / GBP totalling 810.57 USD. Announced at: https://twitter.com/cirosantilli/status/1706772529074032876 Transaction: https://www.blockchain.com/explorer/transactions/btc/c5fa598a6f283dbf1fb44233a91abf3f704d7fcd2d09b9bbb1a05e6018f3e53d All inputs seem to have come from tumblers due to the large number of IOs present.' }),
     new IO(2114, 'GitHub sponsors', { note: 'one off extra donation received' }),
     new IO(-1339, 'Heroku'),
   ]],
