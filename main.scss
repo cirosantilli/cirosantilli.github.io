@@ -38,7 +38,6 @@ header {
     align-items: center;
     align-self: stretch;
     display: flex;
-    color: $h-color;
     font-size: 32px;
     font-weight: bold;
     margin-left: 0;
@@ -49,13 +48,6 @@ header {
     }
     padding-right: 10px;
     text-decoration: none;
-    &:visited {
-      color: $h-color;
-    }
-    &:hover {
-      color: $navbar-background-color;
-      background-color: $h-color;
-    }
     &.font-awesome-container {
       font-size: 28px;
       font-weight: normal;
@@ -65,6 +57,27 @@ header {
     img {
       height: 100%;
       margin-right: 0.1em;
+    }
+
+    // Color
+    $non-brand-color: $navbar-color-discrete;
+    color: $non-brand-color;
+    &:visited {
+      color: $non-brand-color;
+    }
+    &:hover {
+      color: $navbar-background-color;
+      background-color: $non-brand-color;
+    }
+    &.brand {
+      $brand-color: $h-color;
+      &:visited {
+        color: $brand-color;
+      }
+      &:hover {
+        color: $navbar-background-color;
+        background-color: $brand-color;
+      }
     }
   }
 }
