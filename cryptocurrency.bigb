@@ -1376,12 +1376,11 @@ Notable examples:
 {c}
 {parent=Genesis block}
 {tag=Coinbase message}
+{title2=2009-01-03}
 {wiki}
 
 <Inscription (blockchain)> added by <Satoshi Nakamoto> on the <Genesis block> containing:
-\Q[
-The Times 03/Jan/2009 Chancellor on brink of second bailout for banks
-]
+\Q[The Times 03/Jan/2009 Chancellor on brink of second bailout for banks ]
 which is a reference to: https://www.thetimes.co.uk/article/chancellor-alistair-darling-on-brink-of-second-bailout-for-banks-n9l382mn62h wihch is fully titled:
 \Q[Chancellor Alistair Darling on brink of second bailout for banks]
 The "Alistair" was slikely removed due to limited payload concerns.
@@ -1452,6 +1451,24 @@ https://www.blockchain.com/explorer/blocks/btc/78
 = Bitcoin implementation
 {c}
 {parent=Bitcoin}
+
+= Bitcoin blockchain parser
+{c}
+{parent=Bitcoin implementation}
+
+This section is about partial implementations that are only able to read the blocks, ususally coming from <Bitcoin Core>, to interpret the data.
+
+= python-bitcoin-blockchain-parser
+{c}
+{parent=Bitcoin blockchain parser}
+
+https://github.com/alecalve/python-bitcoin-blockchain-parser
+
+Is it mega fast? Nope
+
+Does it work? Yup.
+
+Used on <Bitcoin Inscription Indexer> for <Ciro's Bitcoin Inscription Museum>.
 
 = Bitcoin Core
 {c}
@@ -1661,6 +1678,7 @@ head -n-1 *.txt | grep -e '[. ]' | grep -iv 'mined by' | less
 = Satoshi uploader
 {c}
 {parent=How to extract data from the Bitcoin blockchain}
+{tag=P2FMS}
 
 See also: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/105574#105574
 
@@ -1690,7 +1708,7 @@ The scripts can be found in the blockchain at:
   The downloader just https://gist.github.com/shirriff/64f48fa09a61b56ffcf9#file-bitcoin-file-downloader-py-L32[strips all operands], and keeps all data, notably where public key hashes would be normally put.
 
 The uploader script uses its own cumbersome data encoding format, which we call the "Satoshi uploader format". The is as follows:
-* ignore all script operands and constants less than 20 bytes (40 hex characters). And there are a lot of small operands, e.g. the uploader itself uses format https://www.blockchain.com/btc/tx/4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17 has a `OP_1`, data, `OP_3`, `OP_CHECKMULTISIG` pattern on every output script, so the `OP_1` and `OP_3` are ignored
+* ignore all script operands and constants less than 20 bytes (40 hex characters). And there are a lot of small operands, e.g. the uploader itself uses format https://www.blockchain.com/btc/tx/4b72a223007eab8a951d43edc171befeabc7b5dca4213770c88e09ba5b936e17 has a `OP_1`, data, `OP_3`, `OP_CHECKMULTISIG` pattern on every output script, so the `OP_1` and `OP_3` are ignored. I.e., it is <P2FMS>.
 * ignore the last output, which contains a real change transaction instead of arbitrary data. TODO why not just do what with the length instead?
 * the first 4 bytes are the payload length, the next 4 bytes a <CRC-32> signature. The payload length is in particular useful because of possible granularity of transactions. But it is hard to understand why a CRC-32 is needed in the middle of the largest <hash tree> ever created by human kind!!! It does however have the adavantage that it allows us to more uniquely identify which transactions use the format or not.
 This means that if we want to index certain file types encoded in this format, a good heuristic is to skip the first 9 bytes (4 size, 4 CRC, 1 `OP_1`) and look for file signatures.
@@ -1800,6 +1818,15 @@ https://www.researchgate.net/publication/330385593_A_Journey_into_Bitcoin_Metada
 
 "P2FKH" terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>.
 
+= Pay-to-Fake-Multisig
+{parent=Bitcoin inscription method}
+
+= P2FMS
+{synonym}
+{title2}
+
+"P2FMS" terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>.
+
 = Two-stage P2SH inscription
 {parent=Bitcoin inscription method}
 
@@ -1809,6 +1836,17 @@ btc getrawtransaction 033d185d1a04c4bd6de9bb23985f8c15aa46234206ad29101c31f4b33f
 ``
 
 Terminology mentioned e.g. at: <Data Insertion in Bitcoin's Blockchain by Andrew Sward, Vecna OP_0 and Forrest Stonedahl>.
+
+= Daisy chain Bitcoin inscription
+{parent=Bitcoin inscription method}
+
+This is a term invented by <Ciro Santilli>, and refers to a lose set of uncommon <Bitcoin inscription methods> that involve inscribing one or a small number of payloads per <Bitcoin transaction>.
+
+These methods are both inneficient and hard to detect and decode, they are purpose made to be obscure. This makes finding them all that more rewarding however.
+
+Known examples:
+* <cool data embedded in the bitcoin blockchain/image Iranian lady with polar bear hat>
+* <cool data embedded in the bitcoin blockchain/image The Economist logo>
 
 = Input script inscription
 {parent=Bitcoin inscription method}
@@ -2011,6 +2049,12 @@ Their creation is clearly visible on the archive history of <bitcoin.org>: https
 {title=One Mistake Brought Down This <FBI> Most Wanted Hacker by Crumb (2023)}
 {description=Good overview of <Mt. Gox>.}
 
+= Jed McCaleb
+{c}
+{parent=Mt. Gox}
+
+Interesting dude.
+
 = FTX
 {c}
 {parent=List of cryptocurrency exchanges}
@@ -2050,3 +2094,13 @@ Unlike the endless mandatory corporate bullshit we usually get otherwise.
 {c}
 {synonym}
 {title2}
+
+= NFT Marketplace
+{c}
+{parent=Non-fungible token}
+
+= Magic Eden
+{c}
+{parent=NFT Marketplace}
+
+https://cryptopotato.com/this-bitcoin-ordinals-inscription-was-sold-for-the-highest-price-ever/
