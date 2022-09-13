@@ -10,19 +10,23 @@
 <p><a href="https://cirosantilli.com/react">https://cirosantilli.com/react</a></p>
 <div id="root"></div>
 <script type="text/babel">
-
 function Main(props) {
   console.log('Main');
   const [n, setN] = React.useState(0)
-  const handleClick = React.useCallback(() => {
+  React.useEffect(() => {
+    console.error('useEffect')
+  })
+  React.useEffect(() => {
+    console.error('useEffect2')
+  })
+  function handleClick() {
     console.log('handleClick');
     setN(n => n + 1)
-  }, [setN])
+  }
   return (
     <div>
       <div onClick={handleClick}>Click me</div>
       <div>{n}</div>
-      <div>{Math.floor(n / 2)}</div>
     </div>
   )
 }

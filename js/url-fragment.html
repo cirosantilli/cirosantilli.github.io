@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<style>
+a {
+  display: block;
+  border: 1px solid black;
+}
+:target {
+  background-color: red;
+}
+</style>
+</head>
+<body>
+  <p>Try: 1) click links 2) edit URL browser bar manually and enter 3) open new tab with a fragment 4) history</p>
+  <a id ="1" href="#1">1</a>
+  <a id ="2" href="#2">2</a>
+  <a id ="3" href="#3">3</a>
+  <p id="log"></p>
+<script>
+const log = document.getElementById('log')
+const a1 = document.getElementById('1')
+window.onhashchange = (e) => {
+  log.innerHTML += `<div>a1.target=${a1.target}</div>`
+}
+</script>
+</body>
+</html>
