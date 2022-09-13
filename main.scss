@@ -25,13 +25,13 @@ header, footer {
 header {
   $font-size: 32px;
   align-items: center;
-  margin-bottom: 0.8 * $header-font-size;
-  overflow-x: hidden;
-  white-space: nowrap;
+  display: flex;
   /* https://stackoverflow.com/questions/5078239/how-do-i-remove-the-space-between-inline-block-elements */
   font-size: 0;
   height: $font-size * 1.2;
-  display: flex;
+  margin-bottom: 0.8 * $header-font-size;
+  overflow-x: hidden;
+  white-space: nowrap;
   a {
     /* Make buttons occupy the full height of the header bar.
      * https://stackoverflow.com/questions/28254332/how-to-vertically-center-the-contents-of-a-flexbox-item/28254903#28254903 */
@@ -40,11 +40,12 @@ header {
     display: flex;
     font-size: 32px;
     font-weight: bold;
+    height: 1.2em;
     margin-left: 0;
     margin-right: 0;
     padding-left: 10px;
     &:first-child {
-      padding-left: $toplevel-horizontal-padding-left;
+      padding-left: 0;
     }
     padding-right: 10px;
     text-decoration: none;
@@ -86,6 +87,15 @@ header {
       }
     }
   }
+  .brand-group {
+    display: flex;
+    @media only screen and (max-width: $max-mobile-width) {
+      padding-left: $toplevel-horizontal-padding-mobile;
+    }
+    @media only screen and (min-width: $max-mobile-width + 1) {
+      padding-left: $toplevel-horizontal-padding-left;
+    }
+  }
 }
 footer {
   color: $color;
@@ -93,6 +103,7 @@ footer {
   font-size: 1.2em;
   a {
     color: $a-color;
+    text-decoration: none;
     &:visited {
       color: $a-color;
     }
