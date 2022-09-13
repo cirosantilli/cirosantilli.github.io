@@ -27,8 +27,15 @@ a {
 <script>
 const log = document.getElementById('log')
 window.onhashchange = (e) => {
-  log.innerHTML += `<div>window.location.hash=${window.location.hash}, e.newURL=${e.newURL}, e.oldURL=${e.oldURL}</div>`
+  log.innerHTML += `<div>hashchange window.location.hash=${window.location.hash}, e.newURL=${e.newURL}, e.oldURL=${e.oldURL}</div>`
 }
+// Trying to detect if user changed url manually or if they clicked a link.
+// https://stackoverflow.com/questions/42132733/how-to-trigger-an-event-only-when-the-user-changes-the-url
+// https://stackoverflow.com/questions/41254048/how-to-detect-hashchange-when-url-changes-from-dom-interaction
+// Only for extensions.
+//browser.webNavigation.onCommitted.addListener((ev) => {
+//  log.innerHTML += `<div>onCommitted ev=${ev}</div>`
+//})
 document.getElementById('hash-eq-empty').onclick = () => {
   window.location.hash = ''
 }

@@ -38,7 +38,7 @@ async function reset() {
 }
 await reset()
 let rows
-rows = await IntegerNames.findAll()
+rows = await IntegerNames.findAll({ order: [['value', 'ASC']] })
 assertEqual(rows, [
   { id: 1, value: 2, name: 'two',   },
   { id: 2, value: 3, name: 'three', },

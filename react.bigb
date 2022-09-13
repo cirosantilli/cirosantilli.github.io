@@ -265,7 +265,10 @@ Overviews:
 TODO answer:
 * https://stackoverflow.com/questions/59674496/how-to-pass-pageprops-in-next-js-from-a-child-component-to-app-js
 
-Our oxamples under \a[nodejs/next]:
+= Next.js example
+{parent=Next.js}
+
+Our oxamples are located under \a[nodejs/next]:
 * \a[nodejs/next/hello-world]: a hello world. There's an in-tree one at: https://github.com/vercel/next.js/tree/e75361fd03872b097e817634c049b3185f24cf56/examples/hello-world[], but ours is truly minimal
 * \a[nodejs/next/hoc]: shows how to use a higher order component (HOC) to factor out `getStaticProps` across two pages: \a[nodejs/next/hoc/pages/index.js] and \a[nodejs/next/hoc/pages/notindex.js]
 * \a[nodejs/next/typescript]: simple <TypeScript> example, minimized from: https://github.com/vercel/next.js/tree/d61b0761efae09bd9cb1201ff134ed8950d9deca/examples/with-typescript
@@ -277,6 +280,27 @@ Solved ones:
 * solved by https://nextjs.org/docs/advanced-features/preview-mode[preview mode] in Next.js 12:
   * ISR was basically unusable for CRUD websites because you can't force a one-off immediate page update:
     * https://github.com/vercel/next.js/discussions/25677
+
+= nodejs/next/posts
+{parent=Next.js example}
+
+The goal of this example is to understand when states and effects happen when changing between different routes that use the same component.
+
+Behaviour is follows:
+* visit: http://localhost:3001/1
+* click `count++`. This makes `count: 1`
+* click "2" to vist http://localhost:3001/2
+* outcome: count is still 1
+
+This is likely because in <React> the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchaged.
+
+Next if we click:
+* "Index" to go to http://localhost:3000
+* "1" to go to http://localhost:3001/1
+then the count is back to 0. This is because we changed the `Post` object in the DOM to `Index` and back, which resets everything.
+
+Bibliography:
+* https://stackoverflow.com/questions/63143334/how-to-not-persist-state-between-next-js-dynamic-routes
 
 = Node Express Sequelize Next.js realworld example app
 {parent=Next.js}

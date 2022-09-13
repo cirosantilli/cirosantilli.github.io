@@ -624,17 +624,204 @@ Files:
 * Helpers
     * \a[vhdl/template_tb.vhdl]: template
 
-= Processor
-{disambiguate=computing}
-{parent=Computer hardware}
-
 = Microarchitecture
-{parent=Processor (computing)}
+{parent=Computer hardware}
 {tag=Computer architecture}
 {wiki}
 
-= Central processing unit
+= Computer hardware component type
+{parent=Computer hardware}
+
+= Processor
+{disambiguate=computing}
+{parent=Computer hardware component type}
+
+= Instruction set architecture
 {parent=Processor (computing)}
+{wiki}
+
+= ISA
+{c}
+{synonym}
+{title2}
+
+The main interface between the <central processing unit> and <software>.
+
+= Assembly language
+{parent=Instruction set architecture}
+{wiki}
+
+= Assembly
+{synonym}
+
+A human readable way to write instructions for an <instruction set architecture>.
+
+One of the topics covered in <Ciro Santilli>'s <Linux Kernel Module Cheat>.
+
+= Assembler
+{disambiguate=computing}
+{parent=Assembly language}
+
+= GNU Assembler
+{c}
+{parent=Assembler (computing)}
+{tag=gcc}
+{wiki}
+
+= GNU GAS
+{c}
+{synonym}
+{title2}
+
+= Calling convention
+{parent=Instruction set architecture}
+{wiki}
+
+= List of instruction set architectures
+{parent=Instruction set architecture}
+
+List of <instruction set architecture>.
+
+= One instruction set computer
+{parent=List of instruction set architectures}
+{title2=OISC}
+{wiki}
+
+https://stackoverflow.com/questions/3711443/minimal-instruction-set-to-solve-any-problem-with-a-computer-program/38523869#38523869
+
+= ARM architecture family
+{c}
+{parent=List of instruction set architectures}
+{tag=Arm (company)}
+
+= ARM instruction set
+{c}
+{synonym}
+
+= ARM
+{c}
+{disambiguate=ISA}
+{synonym}
+
+This <ISA> basically completely dominated the <smartphone> market of the 2010s and beyond, but it started appearing in other areas as the end of <Moore's law> made it more economical logical for large companies to start developing their own semiconductor, e.g. <Google custom silicon>, <Amazon custom silicon>.
+
+It is exciting to see ARM entering the <server>, <desktop> and <supercomputer> market circa 2020, beyond its dominant mobile position and roots.
+
+<Ciro Santilli> likes <Ciro Santilli's self perceived creative personality>[to see the underdogs rise], and bite off dominant ones.
+
+The excitement also applies to <RISC-V> possibly over ARM mobile market one day conversely however.
+
+Basically, as long as were a huge company seeking to develop a <CPU> and able to control your own ecosystem independently of <Windows>' desktop domination (held by the need for backward compatibility with a billion end user programs), ARM would be a possibility on your mind.
+
+* in 2020, the Fugaku supercomputer, which uses an ARM-based <Fujitsu> designed chip, because the number 1 fastest supercomputer in <TOP500>: https://www.top500.org/lists/top500/2021/11/
+
+  It was later beaten by another <x86> supercomputer https://www.top500.org/lists/top500/2022/06/[], but the message was clearly heard.
+* 2012 https://hackaday.com/2012/07/09/pedal-powered-32-core-arm-linux-server/ pedal-powered 32-core Arm Linux server. A <publicity stunt>, but still, cool.
+* <AWS Graviton>
+
+= PowerPC
+{c}
+{parent=List of instruction set architectures}
+{wiki}
+
+= RISC-V
+{c}
+{parent=List of instruction set architectures}
+{wiki}
+
+The leading no-royalties options as of 2020.
+
+<China> has been a major <RISC-V> potential user in the late 2010s, since the country is trying to increase its <semiconductor industry> independence, especially given economic sanctions imposed by the <USA>.
+
+E.g. a result of this, the <RISC-V Foundation> moved its legal headquarters to <Switzerland> in 2019 to try and overcome some of the sanctions.
+
+= RISC-V International
+{c}
+{parent=RISC-V}
+
+= RISC-V Foundation
+{c}
+{synonym}
+{title2}
+
+= SiFive
+{c}
+{parent=RISC-V}
+{wiki}
+
+Leading <RISC-V> consultants as of 2020, they are basically trying to become the <Red Hat> of the <semiconductor industry>.
+
+= RISC-V timer
+{parent=RISC-V}
+{tag=QEMU}
+
+= riscv/timer.S
+{parent=RISC-V timer}
+{file}
+
+TODO: the interrupt is firing only once:
+* https://www.reddit.com/r/RISCV/comments/ov4vhh/timer_interrupt/
+
+Adapted from: https://danielmangum.com/posts/risc-v-bytes-timer-interrupts/
+
+Tested on <Ubuntu 23.10>:
+``
+sudo apt install binutils-riscv64-unknown-elf qemu-system-misc gdb-multiarch
+cd riscv
+make
+``
+Then on shell 1:
+``
+qemu-system-riscv64 -machine virt -cpu rv64 -smp 1 -s -S -nographic -bios none -kernel timer.elf
+``
+and on shell 2:
+``
+gdb-multiarch timer.elf -nh -ex "target remote :1234" -ex 'display /i $pc' -ex 'break *mtrap' -ex 'display *0x2004000' -ex 'display *0x200BFF8'
+``
+<GDB> should break infinitel many times on `mtrap` as interrupts happen.
+
+= RISC-V priviledged ISA
+{parent=RISC-V}
+
+= RISC-V MSTATUS register
+{parent=RISC-V priviledged ISA}
+
+= RISC-V MSTATUS.MIE field
+{parent=RISC-V MSTATUS register}
+
+= x86
+{c}
+{parent=List of instruction set architectures}
+{wiki}
+
+\Include[x86-paging]
+
+= x86 custom instructions
+{c}
+{parent=x86}
+
+<Intel> is known to have created customized chips for very large clients.
+
+This is mentioned e.g. at: https://www.theregister.com/2021/03/23/google_to_build_server_socs/
+\Q[Intel is known to do custom-ish cuts of Xeons for big customers.]
+Those chips are then used only in large scale server deployments of those very large clients. <Google> is one of them most likely, given their penchant for <Google custom hardware>.
+
+TODO better sources.
+
+= Y86
+{c}
+{parent=List of instruction set architectures}
+
+https://esolangs.org/wiki/Y86 mentions:
+\Q[Y86 is a toy RISC CPU instruction set for education purpose.]
+
+One specification at: http://web.cse.ohio-state.edu/~reeves.92/CSE2421sp13/PracticeProblemsY86.pdf
+
+= Type of processor
+{parent=Processor (computing)}
+
+= Central processing unit
+{parent=Type of processor}
 {wiki}
 
 = CPU
@@ -743,7 +930,7 @@ The bad:
 Basically a synonym for <central processing unit> nowadays: https://electronics.stackexchange.com/questions/44740/whats-the-difference-between-a-microprocessor-and-a-cpu
 
 = Field-programmable gate array
-{parent=Processor (computing)}
+{parent=Type of processor}
 {wiki}
 
 = FPGA
@@ -785,7 +972,7 @@ One limitation is that it only handles digital electronics: https://electronics.
 {wiki}
 
 = Graphics processing unit
-{parent=Processor (computing)}
+{parent=Type of processor}
 {wiki}
 
 = GPU
@@ -865,7 +1052,7 @@ Generic Ubuntu install bibliograpy:
 
 = AI accelerator
 {c}
-{parent=Processor (computing)}
+{parent=Type of processor}
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=L0948yq2Hqk]
@@ -892,6 +1079,347 @@ Generic Ubuntu install bibliograpy:
 {c}
 {parent=AI accelerator}
 {title2=2022}
+
+= I/O device
+{parent=Computer hardware component type}
+{wiki}
+
+= Punched card
+{parent=I O device}
+{tag=Display device}
+{wiki}
+
+= Punch card
+{synonym}
+
+= Punchcard
+{synonym}
+
+Served as both input, output and <storage> system in the eary days!
+
+\Video[https://www.youtube.com/watch?v=YnnGbcM-H8c]
+{title=1964 IBM 029 Keypunch Card Punching Demonstration by CuriousMarc (2014)}
+
+\Video[https://www.youtube.com/watch?v=L7jAOcc9kBU]
+{title=Using Punch Cards by Bubbles Whiting (2016)}
+{description=Interview at the <The Centre for Computing History>.}
+
+\Video[https://www.youtube.com/watch?v=BlUWg2nxCz0]
+{title=Once Upon A Punched Card by <IBM> (1964)}
+{description=Goes on and on a bit too long. But cool still.}
+
+= Hollerith tabulating machine
+{c}
+{parent=Punched card}
+
+\Video[https://www.youtube.com/watch?v=YBnBAzrWeF0]
+{title=The 1890 US Census and the history of punchcard computing by Stand-up Maths (2020)}
+{description=It was basically a counting machine! Shows a reconstruction at the <Computer History Museum>.}
+
+= Computer input device
+{parent=I O device}
+
+= Computer data storage
+{parent=I O device}
+{wiki}
+
+= Storage
+{synonym}
+
+= Computer data storage software
+{parent=Computer data storage}
+
+= Filesystem
+{parent=Computer data storage software}
+{wiki}
+
+= Computer file
+{parent=Filesystem}
+{wiki}
+
+= File signature
+{parent=Computer file}
+{wiki}
+
+= Computer data storage hardware
+{parent=Computer data storage}
+
+= Tape drive
+{parent=Computer data storage hardware}
+{title2=1950s-}
+{wiki}
+
+One of the most enduring forms of storage! Started in the 1950s, but still used in the 2020s as the cheapest (and slowest access) archival method. Robot arms are needed to load and read them nowadays.
+
+\Video[https://www.youtube.com/watch?v=sYgnCWOVysY]
+{title=Web camera mounted insite an IBM TS4500 tape library by lkaptoor (2020)}
+{description=Footage dated 2018.}
+
+= Volatile memory
+{parent=Computer data storage hardware}
+{wiki}
+
+= Random-access memory
+{parent=Volatile memory}
+{wiki}
+
+= RAM
+{c}
+{synonym}
+{title2}
+
+In conventional speech of the early 2000's, is basically a synonym for <dynamic random-access memory>.
+
+= Static random-access memory
+{parent=Random-access memory}
+{wiki}
+
+= SRAM
+{c}
+{synonym}
+{title2}
+
+= Dynamic random-access memory
+{parent=Random-access memory}
+{wiki}
+
+= DRAM
+{c}
+{synonym}
+{title2}
+
+DRAM is often shortened to just <random-access memory>.
+
+= Synchronous dynamic random-access memory
+{parent=Dynamic random-access memory}
+{title2=SDRAM}
+{wiki}
+
+= DDR SDRAM
+{parent=Synchronous dynamic random-access memory}
+{title2=DDR SDRAM}
+{wiki}
+
+= Magnetoresistive RAM
+{parent=Random-access memory}
+{tag=Non-volatile memory}
+{title2=MRAM}
+{wiki}
+
+= Non-volatile memory
+{parent=Computer data storage hardware}
+
+The opposite of <volatile memory>.
+
+= Disk storage
+{parent=Non-volatile memory}
+{wiki}
+
+= Disk read-and-write head
+{parent=Disk storage}
+{wiki}
+
+= Magnetoresistive disk head
+{parent=Disk read-and-write head}
+{{wiki=Disk_read-and-write_head#Magnetoresistive_heads_(MR_heads)}}
+
+= Solid-state storage
+{parent=Non-volatile memory}
+{wiki}
+
+= SSD
+{synonym}
+{title2}
+
+= Erase SSD securely
+{parent=Solid-state storage}
+
+You can't just <shred (UNIX)> individual <sSD> files because SSD writes only at large granularities, so hardware/drivers have to copy stuff around all the time to compact it. This means that leftover copies are left around everywhere.
+
+What you can do however is to erase the entire thing with vendor support, which most hardware has support for. On hardware encrypted disks, you can even just erase the keys:
+* ATA: https://www.thomas-krenn.com/en/wiki/Perform_a_SSD_Secure_Erase for ATA.
+* NVMe: http://forum.notebookreview.com/threads/secure-erase-hdds-ssds-sata-nvme-using-hdparm-nvme-cli-on-linux.827525/
+
+TODO does shredding the
+
+= Solid-state drive
+{parent=Computer data storage hardware}
+{title2=SSD}
+{wiki}
+
+= Flash memory
+{parent=Solid-state drive}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=5f2xOxRGKqk]
+{title=The Engineering Puzzle of Storing Trillions of Bits in your <Smartphone> / SSD using Quantum Mechanics by Branch Education (2020)}
+{description=Nice animations show how <quantum tunnelling> is used to set bits in <flash memory>.}
+
+= Peripheral
+{parent=I O device}
+{wiki}
+
+= Computer mouse
+{parent=Peripheral}
+{tag=I O device}
+{wiki}
+
+= Computer keyboard
+{parent=Peripheral}
+{tag=I O device}
+{wiki}
+
+= Keyboard layout
+{parent=Computer keyboard}
+{wiki}
+
+= QWERTY
+{c}
+{parent=Keyboard layout}
+{wiki}
+
+= Dvorak keyboard layout
+{c}
+{parent=Keyboard layout}
+{tag=Good}
+{tag=Idealism}
+{wiki}
+
+Dvorak users will automatically go to <Heaven>.
+
+= Computer keyboard model
+{parent=Computer keyboard}
+
+= Kinesis Advantage 2 keyboard
+{c}
+{parent=Computer keyboard model}
+
+https://kinesis-ergo.com/shop/advantage2/
+
+For <Ciro Santilli>, this is not a <computer keyboard>. It is a <fetish>.
+
+= Display device
+{parent=Peripheral}
+{wiki}
+
+= Blinkenlights
+{c}
+{parent=Display device}
+{wiki}
+
+= E Ink
+{c}
+{parent=Display device}
+{wiki}
+
+Electronic Ink such as that found on Amazon Kindle is the greatest invention ever made by man.
+
+Once E Ink reaches reasonable refresh rates to replace liquid crystal displays, the world will finally be saved.
+
+It would allow <Ciro Santilli> to spend his entire life in front of a screen rather in the real world without getting tired eyes, and even if it is sunny outside.
+
+Ciro stopped reading non-code non-news a while back though, so the current refresh rates are useless, what a shame.
+
+OMG, this is amazing: https://getfreewrite.com/
+
+= Amazon Kindle
+{c}
+{parent=E Ink}
+{wiki}
+
+<PDF> table of contents feature requests: https://twitter.com/cirosantilli/status/1459844683925008385
+
+= Remarkable
+{disambiguate=tablet}
+{c}
+{parent=E Ink}
+{wiki}
+
+<Remarkable 2> is really, really good. Relatively fast refresh + touchscreen is amazing.
+
+No official public feedback forum unfortunately:
+* https://twitter.com/cirosantilli/status/1459844683925008385
+* https://www.reddit.com/r/RemarkableTablet/comments/7h341m/official_remarkable_feedback_ideas_and/
+* https://www.reddit.com/r/RemarkableTablet/comments/7hxu70/link_for_remarkable_support_and_feature_requests/
+
+<PDF> table of contents could be better: https://twitter.com/cirosantilli/status/1459844683925008385
+
+= Remarkable 2
+{c}
+{parent=Remarkable (tablet)}
+
+Display size: 10.3 inches. Perfect size
+
+= Teleprinter
+{parent=Display device}
+{wiki}
+
+= Teletype
+{synonym}
+
+Way, way before <instant messaging>, there was... teletype!
+
+\Video[https://www.youtube.com/watch?v=2XLZ4Z8LpEE]
+{title=Using a 1930 Teletype as a Linux Terminal by <CuriousMarc> (2020)}
+
+= Webcam
+{parent=Peripheral}
+{wiki}
+
+= Peripheral interface
+{parent=Peripheral}
+
+= PCI
+{c}
+{parent=Peripheral interface}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=PrXwe21biJo]
+{title=PCIe computer explained by <ExplainingComputers> (2018)}
+
+= PCIe
+{c}
+{parent=PCI}
+{wiki}
+
+= lspci
+{c}
+{parent=PCI}
+
+`lspci` is the name of several versions of <CLI tools> used in <UNIX>-like systems to query information about <PCI> devices in the system.
+
+On <Ubuntu 23.10>, it is provided by the <pciutils> package, which is so dominant that when we say "lspci" without qualitication, that's what we mean.
+
+= pciutils
+{c}
+{parent=lspci}
+
+Sotware project that provides <lspci>.
+
+= Get vendor and device ID for each PCI device
+{parent=lspci}
+
+https://stackoverflow.com/questions/59010671/how-to-get-vendor-id-and-device-id-of-all-pci-devices
+``
+grep PCI_ID /sys/bus/pci/devices/*/uevent
+``
+
+<lspci> is missing such basic functionality!
+
+= USB
+{c}
+{parent=Peripheral interface}
+{wiki}
+
+= USB Micro-B
+{c}
+{parent=USB}
+
+= USB-C
+{c}
+{parent=USB}
+{tag=Good}
+{wiki}
 
 = Computer form factor
 {parent=Computer hardware}
@@ -1536,420 +2064,6 @@ First publicly reached by <Frontier (supercomputer)>.
 {parent=Computer form factor}
 {wiki}
 
-= Computer data storage
-{parent=Computer hardware}
-{wiki}
-
-= Storage
-{synonym}
-
-= Filesystem
-{parent=Computer data storage}
-{wiki}
-
-= Computer file
-{parent=Filesystem}
-{wiki}
-
-= File signature
-{parent=Computer file}
-{wiki}
-
-= Tape drive
-{parent=Computer data storage}
-{title2=1950s-}
-{wiki}
-
-One of the most enduring forms of storage! Started in the 1950s, but still used in the 2020s as the cheapest (and slowest access) archival method. Robot arms are needed to load and read them nowadays.
-
-\Video[https://www.youtube.com/watch?v=sYgnCWOVysY]
-{title=Web camera mounted insite an IBM TS4500 tape library by lkaptoor (2020)}
-{description=Footage dated 2018.}
-
-= Volatile memory
-{parent=Computer data storage}
-{wiki}
-
-= Random-access memory
-{parent=Volatile memory}
-{wiki}
-
-= RAM
-{c}
-{synonym}
-{title2}
-
-In conventional speech of the early 2000's, is basically a synonym for <dynamic random-access memory>.
-
-= Static random-access memory
-{parent=Random-access memory}
-{wiki}
-
-= SRAM
-{c}
-{synonym}
-{title2}
-
-= Dynamic random-access memory
-{parent=Random-access memory}
-{wiki}
-
-= DRAM
-{c}
-{synonym}
-{title2}
-
-DRAM is often shortened to just <random-access memory>.
-
-= Synchronous dynamic random-access memory
-{parent=Dynamic random-access memory}
-{title2=SDRAM}
-{wiki}
-
-= DDR SDRAM
-{parent=Synchronous dynamic random-access memory}
-{title2=DDR SDRAM}
-{wiki}
-
-= Magnetoresistive RAM
-{parent=Random-access memory}
-{tag=Non-volatile memory}
-{title2=MRAM}
-{wiki}
-
-= Non-volatile memory
-{parent=Computer data storage}
-
-The opposite of <volatile memory>.
-
-= Disk storage
-{parent=Non-volatile memory}
-{wiki}
-
-= Disk read-and-write head
-{parent=Disk storage}
-{wiki}
-
-= Magnetoresistive disk head
-{parent=Disk read-and-write head}
-{{wiki=Disk_read-and-write_head#Magnetoresistive_heads_(MR_heads)}}
-
-= Solid-state storage
-{parent=Non-volatile memory}
-{wiki}
-
-= SSD
-{synonym}
-{title2}
-
-= Erase SSD securely
-{parent=Solid-state storage}
-
-You can't just <shred (UNIX)> individual <sSD> files because SSD writes only at large granularities, so hardware/drivers have to copy stuff around all the time to compact it. This means that leftover copies are left around everywhere.
-
-What you can do however is to erase the entire thing with vendor support, which most hardware has support for. On hardware encrypted disks, you can even just erase the keys:
-* ATA: https://www.thomas-krenn.com/en/wiki/Perform_a_SSD_Secure_Erase for ATA.
-* NVMe: http://forum.notebookreview.com/threads/secure-erase-hdds-ssds-sata-nvme-using-hdparm-nvme-cli-on-linux.827525/
-
-TODO does shredding the
-
-= Solid-state drive
-{parent=Computer data storage}
-{title2=SSD}
-{wiki}
-
-= Flash memory
-{parent=Solid-state drive}
-{wiki}
-
-\Video[https://www.youtube.com/watch?v=5f2xOxRGKqk]
-{title=The Engineering Puzzle of Storing Trillions of Bits in your <Smartphone> / SSD using Quantum Mechanics by Branch Education (2020)}
-{description=Nice animations show how <quantum tunnelling> is used to set bits in <flash memory>.}
-
-= I/O device
-{parent=Computer hardware}
-{wiki}
-
-= Punched card
-{parent=I O device}
-{tag=Display device}
-{wiki}
-
-= Punch card
-{synonym}
-
-= Punchcard
-{synonym}
-
-Served as both input, output and <storage> system in the eary days!
-
-\Video[https://www.youtube.com/watch?v=YnnGbcM-H8c]
-{title=1964 IBM 029 Keypunch Card Punching Demonstration by CuriousMarc (2014)}
-
-\Video[https://www.youtube.com/watch?v=L7jAOcc9kBU]
-{title=Using Punch Cards by Bubbles Whiting (2016)}
-{description=Interview at the <The Centre for Computing History>.}
-
-\Video[https://www.youtube.com/watch?v=BlUWg2nxCz0]
-{title=Once Upon A Punched Card by <IBM> (1964)}
-{description=Goes on and on a bit too long. But cool still.}
-
-= Hollerith tabulating machine
-{c}
-{parent=Punched card}
-
-\Video[https://www.youtube.com/watch?v=YBnBAzrWeF0]
-{title=The 1890 US Census and the history of punchcard computing by Stand-up Maths (2020)}
-{description=It was basically a counting machine! Shows a reconstruction at the <Computer History Museum>.}
-
-= Display device
-{parent=I O device}
-{wiki}
-
-= Blinkenlights
-{c}
-{parent=Display device}
-{wiki}
-
-= E Ink
-{c}
-{parent=Display device}
-{wiki}
-
-Electronic Ink such as that found on Amazon Kindle is the greatest invention ever made by man.
-
-Once E Ink reaches reasonable refresh rates to replace liquid crystal displays, the world will finally be saved.
-
-It would allow <Ciro Santilli> to spend his entire life in front of a screen rather in the real world without getting tired eyes, and even if it is sunny outside.
-
-Ciro stopped reading non-code non-news a while back though, so the current refresh rates are useless, what a shame.
-
-OMG, this is amazing: https://getfreewrite.com/
-
-= Amazon Kindle
-{c}
-{parent=E Ink}
-{wiki}
-
-<PDF> table of contents feature requests: https://twitter.com/cirosantilli/status/1459844683925008385
-
-= Remarkable
-{disambiguate=tablet}
-{c}
-{parent=E Ink}
-{wiki}
-
-<Remarkable 2> is really, really good. Relatively fast refresh + touchscreen is amazing.
-
-No official public feedback forum unfortunately:
-* https://twitter.com/cirosantilli/status/1459844683925008385
-* https://www.reddit.com/r/RemarkableTablet/comments/7h341m/official_remarkable_feedback_ideas_and/
-* https://www.reddit.com/r/RemarkableTablet/comments/7hxu70/link_for_remarkable_support_and_feature_requests/
-
-<PDF> table of contents could be better: https://twitter.com/cirosantilli/status/1459844683925008385
-
-= Remarkable 2
-{c}
-{parent=Remarkable (tablet)}
-
-Display size: 10.3 inches. Perfect size
-
-= Computer input device
-{parent=I O device}
-
-= Teleprinter
-{parent=Computer hardware}
-{wiki}
-
-= Teletype
-{synonym}
-
-Way, way before <instant messaging>, there was... teletype!
-
-\Video[https://www.youtube.com/watch?v=2XLZ4Z8LpEE]
-{title=Using a 1930 Teletype as a Linux Terminal by <CuriousMarc> (2020)}
-
-= Instruction set architecture
-{parent=Computer hardware}
-{wiki}
-
-= ISA
-{c}
-{synonym}
-{title2}
-
-The main interface between the <central processing unit> and <software>.
-
-= Assembly language
-{parent=Instruction set architecture}
-{wiki}
-
-= Assembly
-{synonym}
-
-A human readable way to write instructions for an <instruction set architecture>.
-
-One of the topics covered in <Ciro Santilli>'s <Linux Kernel Module Cheat>.
-
-= Assembler
-{disambiguate=computing}
-{parent=Assembly language}
-
-= GNU Assembler
-{c}
-{parent=Assembler (computing)}
-{tag=gcc}
-{wiki}
-
-= GNU GAS
-{c}
-{synonym}
-{title2}
-
-= Calling convention
-{parent=Instruction set architecture}
-{wiki}
-
-= List of instruction set architectures
-{parent=Instruction set architecture}
-
-List of <instruction set architecture>.
-
-= One instruction set computer
-{parent=List of instruction set architectures}
-{title2=OISC}
-{wiki}
-
-https://stackoverflow.com/questions/3711443/minimal-instruction-set-to-solve-any-problem-with-a-computer-program/38523869#38523869
-
-= ARM architecture family
-{c}
-{parent=List of instruction set architectures}
-{tag=Arm (company)}
-
-= ARM instruction set
-{c}
-{synonym}
-
-= ARM
-{c}
-{disambiguate=ISA}
-{synonym}
-
-This <ISA> basically completely dominated the <smartphone> market of the 2010s and beyond, but it started appearing in other areas as the end of <Moore's law> made it more economical logical for large companies to start developing their own semiconductor, e.g. <Google custom silicon>, <Amazon custom silicon>.
-
-It is exciting to see ARM entering the <server>, <desktop> and <supercomputer> market circa 2020, beyond its dominant mobile position and roots.
-
-<Ciro Santilli> likes <Ciro Santilli's self perceived creative personality>[to see the underdogs rise], and bite off dominant ones.
-
-The excitement also applies to <RISC-V> possibly over ARM mobile market one day conversely however.
-
-Basically, as long as were a huge company seeking to develop a <CPU> and able to control your own ecosystem independently of <Windows>' desktop domination (held by the need for backward compatibility with a billion end user programs), ARM would be a possibility on your mind.
-
-* in 2020, the Fugaku supercomputer, which uses an ARM-based <Fujitsu> designed chip, because the number 1 fastest supercomputer in <TOP500>: https://www.top500.org/lists/top500/2021/11/
-
-  It was later beaten by another <x86> supercomputer https://www.top500.org/lists/top500/2022/06/[], but the message was clearly heard.
-* 2012 https://hackaday.com/2012/07/09/pedal-powered-32-core-arm-linux-server/ pedal-powered 32-core Arm Linux server. A <publicity stunt>, but still, cool.
-* <AWS Graviton>
-
-= PowerPC
-{c}
-{parent=List of instruction set architectures}
-{wiki}
-
-= RISC-V
-{c}
-{parent=List of instruction set architectures}
-{wiki}
-
-The leading no-royalties options as of 2020.
-
-<China> has been a major <RISC-V> potential user in the late 2010s, since the country is trying to increase its <semiconductor industry> independence, especially given economic sanctions imposed by the <USA>.
-
-E.g. a result of this, the <RISC-V Foundation> moved its legal headquarters to <Switzerland> in 2019 to try and overcome some of the sanctions.
-
-= RISC-V International
-{c}
-{parent=RISC-V}
-
-= RISC-V Foundation
-{c}
-{synonym}
-{title2}
-
-= SiFive
-{c}
-{parent=RISC-V}
-{wiki}
-
-Leading <RISC-V> consultants as of 2020, they are basically trying to become the <Red Hat> of the <semiconductor industry>.
-
-= RISC-V timer
-{parent=RISC-V}
-{tag=QEMU}
-
-= riscv/timer.S
-{parent=RISC-V timer}
-{file}
-
-TODO: the interrupt is firing only once:
-* https://www.reddit.com/r/RISCV/comments/ov4vhh/timer_interrupt/
-
-Adapted from: https://danielmangum.com/posts/risc-v-bytes-timer-interrupts/
-
-Tested on <Ubuntu 23.10>:
-``
-sudo apt install binutils-riscv64-unknown-elf qemu-system-misc gdb-multiarch
-cd riscv
-make
-``
-Then on shell 1:
-``
-qemu-system-riscv64 -machine virt -cpu rv64 -smp 1 -s -S -nographic -bios none -kernel timer.elf
-``
-and on shell 2:
-``
-gdb-multiarch timer.elf -nh -ex "target remote :1234" -ex 'display /i $pc' -ex 'break *mtrap' -ex 'display *0x2004000' -ex 'display *0x200BFF8'
-``
-<GDB> should break infinitel many times on `mtrap` as interrupts happen.
-
-= RISC-V priviledged ISA
-{parent=RISC-V}
-
-= RISC-V MSTATUS register
-{parent=RISC-V priviledged ISA}
-
-= RISC-V MSTATUS.MIE field
-{parent=RISC-V MSTATUS register}
-
-= x86
-{c}
-{parent=List of instruction set architectures}
-{wiki}
-
-\Include[x86-paging]
-
-= x86 custom instructions
-{c}
-{parent=x86}
-
-<Intel> is known to have created customized chips for very large clients.
-
-This is mentioned e.g. at: https://www.theregister.com/2021/03/23/google_to_build_server_socs/
-\Q[Intel is known to do custom-ish cuts of Xeons for big customers.]
-Those chips are then used only in large scale server deployments of those very large clients. <Google> is one of them most likely, given their penchant for <Google custom hardware>.
-
-TODO better sources.
-
-= Y86
-{c}
-{parent=List of instruction set architectures}
-
-https://esolangs.org/wiki/Y86 mentions:
-\Q[Y86 is a toy RISC CPU instruction set for education purpose.]
-
-One specification at: http://web.cse.ohio-state.edu/~reeves.92/CSE2421sp13/PracticeProblemsY86.pdf
-
 = Computer manufacturer
 {parent=Computer hardware}
 
@@ -2234,108 +2348,6 @@ screen /dev/ttyACM0 115200
 ``
 
 TODO understand the proper debug setup, and a flash setup that doesn't require us to plug out and replug the thing every two seconds. https://www.electronicshub.org/programming-raspberry-pi-pico-with-swd/ appears to describe it, with SWD to do both debug and flash. To do it, you seem need another board with <GPIO>, e.g. a <Raspberry Pi>, the laptop alone is not enough.
-
-= Peripheral
-{parent=Computer hardware}
-{wiki}
-
-= Computer mouse
-{parent=Peripheral}
-{tag=I O device}
-{wiki}
-
-= Computer keyboard
-{parent=Peripheral}
-{tag=I O device}
-{wiki}
-
-= Keyboard layout
-{parent=Computer keyboard}
-{wiki}
-
-= QWERTY
-{c}
-{parent=Keyboard layout}
-{wiki}
-
-= Dvorak keyboard layout
-{c}
-{parent=Keyboard layout}
-{tag=Good}
-{tag=Idealism}
-{wiki}
-
-Dvorak users will automatically go to <Heaven>.
-
-= Computer keyboard model
-{parent=Computer keyboard}
-
-= Kinesis Advantage 2 keyboard
-{c}
-{parent=Computer keyboard model}
-
-https://kinesis-ergo.com/shop/advantage2/
-
-For <Ciro Santilli>, this is not a <computer keyboard>. It is a <fetish>.
-
-= Webcam
-{parent=Peripheral}
-{wiki}
-
-= Peripheral interface
-{parent=Peripheral}
-
-= PCI
-{c}
-{parent=Peripheral interface}
-{wiki}
-
-\Video[https://www.youtube.com/watch?v=PrXwe21biJo]
-{title=PCIe computer explained by <ExplainingComputers> (2018)}
-
-= PCIe
-{c}
-{parent=PCI}
-{wiki}
-
-= lspci
-{c}
-{parent=PCI}
-
-`lspci` is the name of several versions of <CLI tools> used in <UNIX>-like systems to query information about <PCI> devices in the system.
-
-On <Ubuntu 23.10>, it is provided by the <pciutils> package, which is so dominant that when we say "lspci" without qualitication, that's what we mean.
-
-= pciutils
-{c}
-{parent=lspci}
-
-Sotware project that provides <lspci>.
-
-= Get vendor and device ID for each PCI device
-{parent=lspci}
-
-https://stackoverflow.com/questions/59010671/how-to-get-vendor-id-and-device-id-of-all-pci-devices
-``
-grep PCI_ID /sys/bus/pci/devices/*/uevent
-``
-
-<lspci> is missing such basic functionality!
-
-= USB
-{c}
-{parent=Peripheral interface}
-{wiki}
-
-= USB Micro-B
-{c}
-{parent=USB}
-
-= USB-C
-{c}
-{parent=USB}
-{tag=Good}
-{wiki}
 
 = Semiconductor industry
 {parent=Computer hardware}
