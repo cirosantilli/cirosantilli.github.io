@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<style>
+a {
+  display: block;
+  border: 1px solid black;
+}
+:target {
+  background-color: red;
+}
+</style>
+</head>
+<body>
+  <p>Try: 1) click links 2) edit URL browser bar manually and enter 3) open new tab with a fragment 4) history</p>
+  <a id ="1" href="#1">1</a>
+  <a id ="2" href="#2">2</a>
+  <a id ="3" href="#3">3</a>
+  <button id="hash-plus-one">window.location.hash++</button>
+  <button id="hash-eq-empty">window.location.hash = ''</button>
+  <button id="href-eq-empty">window.location.href = ''</button>
+  <button id="href-eq-hash">window.location.href = '#'</button>
+  <button id="href-plus-one">window.location.href = # + 1</button>
+  <button id="pushstate-plus-one">history.pushState(# + 1)</button>
+  <p id="log">onhashchange:</p>
+<script>
+const log = document.getElementById('log')
+window.onhashchange = (e) => {
+  log.innerHTML += `<div>window.location.hash=${window.location.hash}, e.newURL=${e.newURL}, e.oldURL=${e.oldURL}</div>`
+}
+document.getElementById('hash-eq-empty').onclick = () => {
+  window.location.hash = ''
+}
+document.getElementById('href-eq-empty').onclick = () => {
+  window.location.href = ''
+}
+document.getElementById('href-eq-hash').onclick = () => {
+  window.location.href = '#'
+}
+document.getElementById('href-plus-one').onclick = () => {
+  const h = window.location.hash
+  if (h) { window.location.href = '#' + ((parseInt(h.substr(1)) % 3) + 1).toString() }
+}
+document.getElementById('hash-plus-one').onclick = () => {
+  const h = window.location.hash
+  if (h) { window.location.hash = ((parseInt(h.substr(1)) % 3) + 1).toString() }
+}
+document.getElementById('pushstate-plus-one').onclick = () => {
+  const h = window.location.hash
+  if (h) { history.pushState(null, null, '#' + ((parseInt(h.substr(1)) % 3) + 1).toString()) }
+}
+</script>
+</body>
+</html>
