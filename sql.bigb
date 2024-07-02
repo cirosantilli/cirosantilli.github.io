@@ -21,7 +21,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
 * \a[nodejs/sequelize/raw/many_to_many.js]: illustrates <many-to-many relations> with <JOIN (SQL)>. Contains:
 * <SQL transaction> examples:
   * \a[nodejs/sequelize/raw/commit_error.js]: https://stackoverflow.com/questions/27245101/why-should-we-use-rollback-in-sql-explicitly/27245234#27245234 and https://stackoverflow.com/questions/48277519/how-to-use-commit-and-rollback-in-a-postgresql-function/48277708#48277708 suggest that on <PostgreSQL>, once something fails inside a transaction, all queries in the current transaction are ignored, and `COMMIT` simply does a `ROLLBACK`. Let's check. Yup, true for Postgres, but false for <SQLite>, SQLite just happily runs anything it can, you really need `ROLLBACK` for it.
-  * <SQL isolation level example>{child}
+  * <SQL isolation level example>
 * <GROUP BY (SQL)> and <SQL aggregate functions>:
   * \a[nodejs/sequelize/raw/group_by_extra_column.js]: let's see if it blows up or not on different DB systems, <sqlite3 Node.js package> allows it:
     * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
@@ -462,6 +462,7 @@ Often known simply as SQL Server, a terrible thing that makes it impossible to f
 = SQLite
 {c}
 {parent=SQL implementation}
+{tag=Good}
 {wiki}
 
 The minimalism, serverlessness/lack of temporary caches/lack of permission management, Hipp's religious obsession with efficiency, the use of their own pure Fossil <version control>https://sqlite.org/whynotgit.html{ref}. Wait, scrap that last one. Pure beauty!
@@ -535,7 +536,7 @@ Docs: https://www.sqlite.org/loadext.html
 = SQLite isolation levels
 {c}
 {parent=SQLite}
-{wiki}
+{tag=SQL transaction isolation level}
 
 https://www.sqlite.org/pragma.html#pragma_read_uncommitted mentions:
 
@@ -1205,7 +1206,7 @@ Remember that queries can affects thousands of rows, and database systems like <
 Good summary on the <PostgreSQL> page: https://www.postgresql.org/docs/14/transaction-iso.html
 
 Implementation specifics:
-* <SQLite isolation levels>{child}
+* <SQLite isolation levels>
 
 = SQL READ UNCOMMITTED isolation level
 {c}
