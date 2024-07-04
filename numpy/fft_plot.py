@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Python 3.12.3, Ubuntu 24.04.
 
 import math
 
@@ -36,7 +37,7 @@ ax.set_yticks([-25, -12.5, 0.0, 12.5, 25], minor=False)
 ax.grid()
 
 plt.savefig(
-    'fft.svg',
+    'fft_plot.svg',
     format='svg',
     dpi=1000/plt.gcf().get_size_inches()[1],
     bbox_inches='tight',

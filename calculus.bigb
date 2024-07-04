@@ -10,7 +10,7 @@ Well summarized as "the branch of mathematics that deals with <limit (mathematic
 = Analytical
 {synonym}
 
-An fancy name for <calculus>, with the "more advanced" connotation.
+A fancy name for <calculus>, with the "more advanced" connotation.
 
 = Limit
 {disambiguate=mathematics}
@@ -484,8 +484,12 @@ Other basis besides the Fourier series show up for other equations, e.g.:
 
 = Discrete Fourier transform
 {parent=Fourier series}
-{title2=DFT}
 {wiki}
+
+= DFT
+{c}
+{synonym}
+{title2}
 
 Input: a sequence of $N$ <complex numbers> $x_k$.
 
@@ -511,8 +515,6 @@ In particular, the <discrete Fourier transform> is used in <signal processing> a
 Sample software implementations:
 * <numpy.fft>, notably see the example: <numpy/fft.py>{file}
 
-\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/DFT_2sin%28t%29_%2B_cos%284t%29_25_points.svg/583px-DFT_2sin%28t%29_%2B_cos%284t%29_25_points.svg.png]
-
 = Discrete Fourier transform of a real signal
 {parent=Discrete Fourier transform}
 
@@ -530,6 +532,12 @@ Therefore, we only need about half of $X_k$ to represent the signal, as the othe
 "Representation in terms of sines and cosines" from https://www.statlect.com/matrix-algebra/discrete-Fourier-transform-of-a-real-signal then gives explicit formulas in terms of $X_k$.
 
 <NumPy> for example has "Real FFTs" for this: https://numpy.org/doc/1.24/reference/routines.fft.html#real-ffts
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/numpy/fft_plot.svg]
+{title=<DFT> of $2 \sin(t) + \cos(4t)$ with 25 points}
+{disambiguate=Discrete Fourier transform of a real signal}
+{description=Source at: <numpy/fft_plot.py>{file}. This plot illustrates how the DFT of a real signal is symmetric around the middle point, and so only half of the transform points are needed to reconstruct the original signal. We also see how the phase of the sinusoids determines if their DFT components are real or imaginary.}
+{height=600}
 
 = Normalized DFT
 {parent=Discrete Fourier transform}
@@ -1527,6 +1535,41 @@ Uniqueness: https://math.stackexchange.com/questions/1113622/uniqueness-of-solut
 
 As mentioned at: https://math.stackexchange.com/questions/579453/real-world-application-of-fourier-series/3729366#3729366[] from <solving partial differential equations with the Fourier series> citing https://courses.maths.ox.ac.uk/node/view_material/1720[], analogously to the <heat equation>, the wave linear equation can be be solved nicely with <separation of variables>.
 
+= Damped wave equation
+{parent=Wave equation}
+
+= Plucked string model
+{parent=Damped wave equation}
+
+Staring from a <#triangle wave>, this explains why we always get the same musical notes:
+* https://www.math.hmc.edu/~ajb/PCMI/lecture7.pdf "7.5.1. Musical instruments" is very good. Also mentions that in the <piano> it is more like an initial speed is applied, and it is not the same as plucking
+* https://music.stackexchange.com/questions/135635/confusion-about-overtones-and-a-slow-motion-video-of-a-plucked-string
+* https://music.stackexchange.com/questions/60833/what-determines-the-relative-volumes-of-the-harmonics-when-plucking-a-guitar-str
+See also: <solving partial differential equations with the Fourier series>.
+
+TODO: do higher overtones decay faster in time than the base ones?
+* https://www.physicsforums.com/threads/why-do-harmonics-decay-faster-than-the-fundamental.955731/ But presumaby yes, damping force is proportional to speed, and higher harmonics have higher speeds going up and down
+
+\Video[https://www.youtube.com/watch?v=_X72on6CSL0]
+{title=Motion of Plucked String by Dan Russell}
+
+\Video[https://www.youtube.com/watch?v=Qr_rxqwc1jE]
+{title=Slow motion: rubber string pulled and released by Pavel Radzivilovsky}
+{description=
+Good symmetric example. But unfortunately the video is too short.
+
+Featured at: https://www.reddit.com/r/Physics/comments/kyocxr/what_happens_when_a_plucked_string_is_released/
+}
+
+= Wave equation boundary condition
+{parent=Wave equation}
+
+= Wave equation on string with one vibrating side
+{parent=Wave equation}
+
+\Video[https://www.youtube.com/watch?v=cnH2ltfW48U]
+{title=Modes on a String by geoff martin}
+
 = Wave equation solver
 {parent=Wave equation}
 
@@ -1561,6 +1604,13 @@ https://ccrma.stanford.edu/~jos/pasp/Lossy_1D_Wave_Equation.html
 = Wave
 {parent=Wave equation}
 {wiki}
+
+= Standing wave
+{parent=Wave}
+{wiki}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/5/5d/Waventerference.gif]
+{title=Standing wave caused by <wave interference> of two waves}
 
 = Envelope
 {disambiguate=waves}
@@ -1910,7 +1960,7 @@ Can be used for <elliptic partial differential equations> and <parabolic partial
 
 Numerical examples:
 * with <FreeFem>:
-  * <heat-dirichlet.1d.freefem>
+  * <heat-dirichlet-1d-freefem>
   * <heat-dirichlet-2d-freefem>
 
 = Neumann boundary condition
