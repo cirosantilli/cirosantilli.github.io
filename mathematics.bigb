@@ -51,16 +51,19 @@ The most beautiful things in mathematics are results that are:
   * unpredictable magic constants:
     * why is the lowest dimension for an <exotic sphere> 7?
     * why is 4 the largest degree of an equation with explicit solution? <Abel-Ruffini theorem>
+  * <undecidable problems>, especially simple to state ones:
+    * <mortal matrix problem>
+    * sharp frontiers between solvable and unsolvable are also cool:
+      * attempts at determining <specific values of the Busy beaver function> for <Turing machines> with a given number of states and symbols
+      * related to <diophantine equations>:
+        * <decidability of Hilbert's tenth problem of a given degree and number of variables>
+        * <Hilbert's tenth problem over other rings>
   Lists:
   * https://math.stackexchange.com/questions/139699/what-are-some-examples-of-a-mathematical-result-being-counterintuitive
   * https://math.stackexchange.com/questions/2040811/what-are-some-counter-intuitive-results-in-mathematics-that-involve-only-finite/2055458#2055458
 * applications: make life easier and/or modeling some phenomena well, e.g. in <physics>. See also: <how to teach/explain how to make money with the lesson>
 
 Good lists of such problems <Lists of mathematical problems>.
-
-Specific examples:
-* from <computer science>:
-  * the existence of <undecidable problems>, especially simple to state ones, e.g. <mortal matrix problem>
 
 Whenever <Ciro Santilli> learns a bit of <mathematics>, he always wonders to himself:
 \Q[Am I achieving insight, or am I just memorizing definitions?]
@@ -72,6 +75,12 @@ Unfortunately, due to how man books are written, it is not really possible to re
 One of the most beautiful things in mathematics are theorems of conjectures that are very simple to state and understand (e.g. for <K-12>, lower <undergrad> levels), but extremely hard to prove.
 
 This is in contrast to conjectures in certain areas where you'd have to study for a few months just to precisely understand all the definitions and the interest of the problem statement.
+
+Bibliography:
+* https://mathoverflow.net/questions/75698/examples-of-seemingly-elementary-problems-that-are-hard-to-solve
+* https://www.reddit.com/r/mathematics/comments/klev7b/whats_your_favorite_easy_to_state_and_understand/
+* https://mathoverflow.net/questions/42512/awfully-sophisticated-proof-for-simple-facts this one is for proofs for which simpler proofs exist
+* https://math.stackexchange.com/questions/415365/it-looks-straightforward-but-actually-it-isnt this one is for "there is some reason it looks easy", whatever that means
 
 = The Hundred Greatest Theorems by Paul and Jack Abad (1999)
 {parent=The beauty of mathematics}
@@ -1030,11 +1039,22 @@ But it is better in practice than the <AKS primality test>, which is always <pol
 {title2=GCD}
 {wiki}
 
-= Coprime
-{parent=Greatest common divisor}
-{wiki}
+The "greatest common divisor" of two <integers> $x$ and $y$, denoted $\gdc(x, y)$ is the largest <natural number> that divides both of the integers.
 
-Two numbers such that the <greatest common divisor> is 1.
+For example, $\gdc(8, 12)$ is 4, because:
+* 4 divides both 8 and 12
+* and this is not the case for any number larger than 4. E.g.:
+  * 5 divides neither one
+  * 6 divides 12
+  * 7 divides neither
+  * 8 divides only 8
+  and so on.
+
+= Greatest common divisor algorithm
+{parent=Greatest common divisor}
+
+= Algorithm to find the greatest common divisor
+{synonym}
 
 = Euclidean algorithm
 {c}
@@ -1044,6 +1064,29 @@ Two numbers such that the <greatest common divisor> is 1.
 = Extended Euclidean algorithm
 {c}
 {parent=Euclidean algorithm}
+{wiki}
+
+= Coprime
+{parent=Greatest common divisor}
+{wiki}
+
+Two numbers such that the <greatest common divisor> is 1.
+
+= Euler's totient function
+{c}
+{parent=Coprime}
+{title2=$\varphi(n)$}
+{title2=varphi}
+
+= Totient function
+{synonym}
+
+TODO wtf is a "totient"? Where else is that word used besides in this concept?
+
+= Totient summatory function
+{parent=Euler's totient function}
+{title2=$\Phi(n)$}
+{title2=uppercase phi}
 {wiki}
 
 = Least common multiple
@@ -1154,6 +1197,18 @@ Let's gather some of the best results we come across here:
 {parent=Named algebraic equation}
 {wiki}
 
+= Quadratic equation modulo n
+{parent=Quadratic equation}
+
+= Quadratic formula modulo n
+{synonym}
+
+= Quadratic equation over a cyclic group
+{synonym}
+{title2}
+
+* https://math.stackexchange.com/questions/229218/modulo-version-of-the-quadratic-formula-and-eulers-criterion
+
 = Quadratic formula
 {parent=Quadratic equation}
 {wiki}
@@ -1173,6 +1228,15 @@ Let's gather some of the best results we come across here:
 = Abel-Ruffini theorem
 {c}
 {parent=Quintic equation}
+{wiki}
+
+= Algebraic equation over a field
+{parent=Algebraic equation}
+
+In this section we collect results about <algebraic equations> over more "exotic" <fields>
+
+= Algebraic equation modulo n
+{parent=Algebraic equation}
 {wiki}
 
 = Algebraic number
@@ -1286,14 +1350,48 @@ A generalization of the <Pythagorean triple> infinity question.
 {parent=Diophantine equation}
 {tag=Undecidable problem}
 {tag=Hilbert's problems}
-{title2=Determine if one Diophantine equation has a solution}
 {title2=1970}
 {wiki}
 
+= Determine if one Diophantine equation has a solution
+{synonym}
+{title2}
+
 Once you hear about the <uncomputability> of such problems, it makes you see that all <Diophantine equation> questions risk being <undecidable>, though in some simpler cases we manage to come up with answers. The feeling is similar to watching people trying to solve the <Halting problem>, e.g. in the effort to determine <BB(5)>.
 
-= Undecidable Diophantine equation example
+= Hilbert's tenth problem variant
 {parent=Hilbert's tenth problem}
+
+https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
+
+= Decidability of Hilbert's tenth problem in modular arithmetic
+{parent=Hilbert's tenth problem variant}
+
+https://www.jstor.org/stable/1970438 says for <prime> modulo there is an algorithm.
+
+Question for non-prime modulo: https://math.stackexchange.com/questions/4944623/are-diophantine-equations-decidable-in-modular-arithmetic
+
+= Decidability of Hilbert's tenth problem of a given degree and number of variables
+{parent=Hilbert's tenth problem variant}
+
+* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
+* https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
+
+= Quadratic Diophantine equation
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
+
+= Hilbert's tenth problem is decidable for quadratic equations
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
+{tag=Quadratic Diophantine equation}
+
+TODO is it or is not:
+* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
+* https://math.stackexchange.com/questions/181380/second-degree-diophantine-equations
+* https://mathoverflow.net/questions/142938/is-there-an-algorithm-to-solve-quadratic-diophantine-equations
+* https://math.stackexchange.com/questions/798609/is-there-any-solution-to-this-quadratic-diophantine-equation
+
+= Undecidable Diophantine equation example
+{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
 {tag=Undecidable problem}
 
 = Undecidable Diophantine equation problems
@@ -1301,11 +1399,15 @@ Once you hear about the <uncomputability> of such problems, it makes you see tha
 
 https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/103415#103415 provides a specific single undecidable <Diophantine equation>.
 
+= Hilbert's tenth problem over other rings
+{c}
+{parent=Hilbert's tenth problem variant}
+
 = Hilbert's tenth problem over other fields
 {c}
-{parent=Hilbert's tenth problem}
+{synonym}
 
-https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/11557#11557 contains a good overview of the decidability status of variants over <fields> other than the <integers>.
+https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/11557#11557 contains a good overview of the decidability status of variants over <rings> other than the <integers>.
 
 = Additive number theory
 {parent=Diophantine equation}
@@ -1410,8 +1512,11 @@ $$
 f(x) = x^2 + 2x + 1
 $$
 
-= Polynomial over a field
+= Domain of a polynomial
 {parent=Polynomial}
+
+= Polynomial over a field
+{parent=Domain of a polynomial}
 {title2=$Field[X]$}
 {wiki}
 
@@ -1450,7 +1555,7 @@ $$
 and multiplication works analogously.
 
 = Polynomial over a ring
-{parent=Polynomial over a field}
+{parent=Domain of a polynomial}
 {wiki}
 
 The usual definition of a <polynomial> is over a <field (mathematics)> as shown at <polynomial over a field>.
@@ -1469,6 +1574,16 @@ $$
 12x^2y
 $$
 so when considering a polynomial over a <ring (mathematics)> we end up with a lot more more possible terms.
+
+If the <ring> is a <commutative ring> however, polynomials do look like proper polynomials: <Polynomial over a commutative ring>{full}.
+
+= Polynomial over a commutative ring
+{parent=Domain of a polynomial}
+{wiki}
+
+Unlike <Polynomial over a ring>[over non-commutative rings], polynomials do look like proper <polynomials> over <commutative ring>.
+
+In particular, <Hilbert's tenth problem> is about <polynomials> over the <integers>, which is a <commutative ring>, and therefore brings mindshare to this definition.
 
 = Polynomial ring
 {parent=Polynomial}

@@ -2,10 +2,13 @@
 
 # Input parameters
 CC = gcc
-CFLGS = -ggdb3 -O0 -pedantic-errors -std=c99 -Wall -Wextra
+CFLGS = -ggdb3 -O$O -pedantic-errors -std=c11 -Wall -Wextra
 IN_EXT = .c
+O = 0
 OUT_DIR = .
 OUT_EXT = .out
+
+-include Makefile_params
 
 OUTS = $(addprefix $(OUT_DIR)/, $(addsuffix $(OUT_EXT), $(basename $(wildcard *$(IN_EXT)))))
 
@@ -14,7 +17,13 @@ OUTS = $(addprefix $(OUT_DIR)/, $(addsuffix $(OUT_EXT), $(basename $(wildcard *$
 all: mkdir $(OUTS)
 
 $(OUT_DIR)/%$(OUT_EXT): %$(IN_EXT)
-	$(CC) $(CFLGS) -o '$@' '$<'
+	$(CC) $(CFLGS) -o '$@' '$<' $(LIBS)
+
+$(OUT_DIR)%$(OUT_EXT): $(IN_DIR)%$(CXX_EXT) $(ALL_DEPEND)
+	$(CXX) $(CXXFLAGS) -o '$@' '$<' $(LIBS)
+
+$(OUT_DIR)%$(OUT_EXT): $(IN_DIR)%$(FF_EXT) $(ALL_DEPEND)
+	$(FF) $(FFLAGS) -o '$@' '$<' $(FFLIBS)
 
 clean:
 	if [ '$(OUT_DIR)' = '.' ]; then \
@@ -34,3 +43,5 @@ test: all
 		exit 1;\
 	  fi;\
 	done;\
+
+-include Makefile_targets

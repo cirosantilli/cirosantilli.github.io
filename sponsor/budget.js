@@ -28,6 +28,9 @@ const date_ioss = [
   //[[year, month], [
   //  IOs
   //]],
+  [[2024, 06], [
+    new IO(31, 'anonymous donation', { valueOrig: 0.0027575, currencyOrig: 'xmr', note: 'Funds sent 2024-06-28 16:24:04 to self custody wallet.' }),
+  ]],
   [[2024, 03], [
     new IO(9949018, 'anonymous donation', { valueOrig: 1000, currencyOrig: 'xmr', note: 'Funds sent 2024-03-18 20:46:38 on transaction ID 5c6af4df39021f3a4a053ef169c9b397e6d6bf6c7e557d3f08e4e1675d7d3eed to self custody wallet. Cashed out 811.5 XMR 2024-03-19/2024-03-20 for a total of 80736.28 GBP: 41183.68 (swapper + USDC Coinbase) + 19552.60 (Agoradesk + USCD Coinbase) + 20000 (Agoradesk -> Cash) = 80736.28 GBP, keeping 188.5 XMR for fun. On March 19, the exchange was 1.27 USD / GBP to ~1,375 USD, so cashed out 102535.08 USD, and total notation will be marked (1+188.5/811.5) * 99490.18 GBP = 126352.53 USD' }),
     new IO(108000, 'anonymous donation', { valueOrig: 10, currencyOrig: 'xmr', note: 'Funds sent 2024-03-13 06:21:41 on transaction ID 5503d3548d251f07de6ee3187144a25a0e933ec440388b06157acd87d650f7ca to self custody wallet. Cashed 2024-03-17 with Agoradesk at 1.27 USD / GBP to ~1,375 USD.' }),
