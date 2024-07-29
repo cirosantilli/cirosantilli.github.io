@@ -58,7 +58,7 @@ Some glaring issues are listed at <the horrors of Sequelize>.
     Edit: actually things will likely just work if immediately after making table changes you just instantiate a new sequelize and do any data changes.
   * https://stackoverflow.com/questions/56043246/node-js-sequelize-no-primary-keys-when-migrating/56046101#56046101
   * <SQLite> `changeColumn` migrations do on delete cascades of other tables. SQLite does not have change column statements, so they have to drop and recreate tables, but they don't temporarily remove cascades, so you lose data: https://stackoverflow.com/questions/62667269/sequelize-js-how-do-we-change-column-type-in-migration/70486686#70486686
-  * associations require full explicit index contruction: https://stackoverflow.com/questions/39651853/how-to-create-join-table-with-foreign-keys-with-sequelize-or-sequelize-cli
+  * associations require full explicit index construction: https://stackoverflow.com/questions/39651853/how-to-create-join-table-with-foreign-keys-with-sequelize-or-sequelize-cli
 * ability to iterate over a large result without blowing up memory and without using limit + offset (which is inneficient e.g. when looping over recursive queries). This is also known as cursor or streaming interfaces:
   * stack overflow
     * https://stackoverflow.com/questions/28787889/how-can-i-set-up-sequelize-js-to-stream-data-instead-of-a-promise-callback
@@ -91,6 +91,7 @@ Overview of the examples:
   * https://stackoverflow.com/questions/55646233/updating-with-calculated-values-in-sequelize
 * \a[nodejs/sequelize/count.js]: a simplified single-table count example. In practice, this will be usually done together with <JOIN (SQL)> queries across multiple tables. Answers: https://stackoverflow.com/questions/22627258/how-does-group-by-works-in-sequelize/69896449#69896449
 * \a[nodejs/sequelize/date.js]: automatic date typecasts
+* \a[nodejs/sequelize/like.js]: <LIKE (SQL)>
 * \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
 * \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does <SQLite> `INSERT OR IGNORE INTO` or <PostgreSQL> `ON CONFLICT DO NOTHING`. Closely related <UPSERT> versions:
   * <upsert>
