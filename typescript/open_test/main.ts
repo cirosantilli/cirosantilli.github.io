@@ -1,2 +1,2 @@
-import open = require('open')
+import open from 'open'
 open('http://example.com')
