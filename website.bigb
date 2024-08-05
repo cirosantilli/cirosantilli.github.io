@@ -501,7 +501,7 @@ Someone made and sold a helper for it:
 
 https://github.com/zadam/trilium[].
 
-Tree based organization at last.
+Tree based organization at last. Infinitely deep.
 
 Amazing <WYSIWYG>, including maths and tables, plus insane plugins like canvas mode, and specific file formats like code/mermaid diagrams/drawing mode.
 
@@ -509,18 +509,27 @@ Version history.
 
 No multiuser features. Except for that, could have been a good starting point of an online multiuser thing such as <OurBigBook.com>!
 
-Only possible to see one page at a time on output? Output chunking is a major feature of <OurBigBook>, I'm so proud.
+Only possible to see one page at a time on output? Output chunking is a major feature of <OurBigBook>, I'm so proud. No proper built-in HTML static website export? https://github.com/zadam/trilium/issues/558
 
-Their tree based approach does have a problem however for the <OurBigBook.com> use case of sharing topics across users: every level forces is a scope. Which makes it basically impossible to reliably match topics across users.
+No CLI to export to HTML? https://github.com/zadam/trilium/issues/3012
 
 HTML export keeps all data as HTMl is their native format. The files are mostly visible, but there is some CSS missing, it is not 100% like editor, notaby math is broken. There is also a hosted way of exposing: https://github.com/zadam/trilium/wiki/Sharing[].
+
+HTML export uses frame navigation, with a toc fixed on the left frame. Efficient, but not of this century.
+
+There is no concept of user created unique text IDs: you can have the same headers in the same folders in the UI. It's not even a matter of scopes. On exports they are differentiated as `1_name`, `2_name`, etc.
+``
+./Trilium Demo/Books/To read/1_HR.md
+./Trilium Demo/Books/To read/2_HR.md
+./Trilium Demo/Books/To read/HR.md
+``
 
 Markdown export warns:
 \Q[this preserves most of the formatting.]
 
 Architecture: runs on local SQLite database via better-sqlite3. Data apparently stored in SQLite database at `~/.local/share/trilium-data`, no raw files.
 
-Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_contents'`. HTML is their native storage format, quite interesting.
+Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_contents'`. HTML is their native storage format, quite interesting. But this means it is not source centric, so any source editing would have to go via import/export. It can be done apparently: https://github.com/zadam/trilium/wiki/Markdown but involves shoving a ZIP around.
 
 WYSIWYG based on https://ckeditor.com/ which is a dependency. It is kind of cool that the view in which you view the output is exactly the same as the one you edit in, and there is no intermediate format, just the HTML.
 
@@ -580,13 +589,17 @@ Of the tutorial-subjectivity type:
   \Q[remove non-helpful image]
   Thanks.
 
-  Maybe it is a common thread that these old "experts" keep removing anything that is actually intelligible by beginneres? <There is value in tutorials written by beginners>{full}
+  Maybe it is a common thread that these old "experts" keep removing anything that is actually intelligible by beginners? <There is value in tutorials written by beginners>{full}
 
   Also ranted at: https://x.com/cirosantilli/status/1808862417566290252
 
   \Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/numpy/fft_plot.svg]
   {title=<Ciro Santilli>'s awesome graph removed by Bob K. from the <Discrete Fourier Transform> page.}
   {description=Source at: <numpy/fft_plot.py>{file}.}
+* when <Ciro Santilli> created <Scott Hassan>'s page, he originally included mentions of his saucy divorce: https://en.wikipedia.org/w/index.php?title=Scott_Hassan&oldid=1091706391 These were reverted by Scott's puppets three times, and Ciro and two other editors fought back. Finally, Ciro understood that Hassan's puppets were likely right about the removal because you can't talk about private matters of someone who is low profile:
+  * https://en.wikipedia.org/wiki/Wikipedia:Biographies_of_living_persons
+  * https://en.wikipedia.org/wiki/Wikipedia:Who_is_a_low-profile_individual
+  even if it is published in well known and reliable publications like the bloody <New York Times>. In this case, it is clear that most people wanted to see this information summarized on Wikipedia since others fought back Hassan's puppet. This is therefore a failure of Wikipedia to show what the people actually want to read about.
 
 Notability constraints, which are are way too strict:
 * even information about important companies can be disputed. E.g. once <Ciro Santilli> tried to create a page for <PsiQuantum>, a startup with \$650m in funding, and there was a deletion proposal because it did not contain verifiable sources not linked directly to information provided by the company itself: https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/PsiQuantum Although this argument is correct, it is also true about 90% of everything that is on Wikipedia about any company. Where else can you get any information about a <B2B> company? Their clients are not going to say anything. Lawsuits and scandals are kind of the only possible source... In that case, the page was deleted with 2 votes against vs 3 votes for deletion.

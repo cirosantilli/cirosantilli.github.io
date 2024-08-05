@@ -175,6 +175,22 @@ common.assertEqual(rows, [
   { id: undefined, value: undefined, myvalue: 2, myvalueMinus: -2 },
 ])
 
+// Add extra attribute with attributes.include. Also show how to use custom attribute on sort.
+rows = await IntegerNames.findAll({
+  attributes: {
+    include: [[sequelize.fn('-', sequelize.col('value')), 'valueMinus']],
+  },
+  order: [
+    // Literal needed otherwise it searches for Integer.valueMinus which does not exist and blows up.
+    [sequelize.literal('valueMinus'), 'ASC']
+  ],
+});
+common.assertEqual(rows, [
+  { value: 5, valueMinus: -5 },
+  { value: 3, valueMinus: -3 },
+  { value: 2, valueMinus: -2 },
+])
+
 // DELETE WHERE: https://stackoverflow.com/questions/8402597/sequelize-js-delete-query
 await IntegerNames.destroy({
   where: {
