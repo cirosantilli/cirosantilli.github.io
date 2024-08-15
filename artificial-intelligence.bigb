@@ -389,6 +389,20 @@ That's <Ciro Santilli>'s favorite. Of course, there is a huge difference between
 <AGI-complete> in general? Obviously. But still, a lot can be done. See e.g.:
 * <The Busy Beaver Challenge> deciders
 
+= Statistical classification
+{parent=AI by capability}
+{wiki}
+
+= Classification problem
+{synonym}
+
+= Cluster analysis
+{parent=AI by capability}
+{wiki}
+
+= Clustering
+{synonym}
+
 = Generative AI
 {parent=AI by capability}
 {wiki=Generative_artificial_intelligence}
@@ -453,9 +467,148 @@ https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodie
 = Generative AI by modality
 {parent=Generative AI}
 
-= Text-to-text model
+= Image generation
 {parent=Generative AI by modality}
 {wiki}
+
+= Face generation
+{parent=Image generation}
+
+= Face generator
+{synonym}
+
+Very useful for idiotic websites that require real photos!
+
+* https://thispersondoesnotexist.com/ holy fuck, the images are so photorealistic, that <uncanny valley>[when there's a slight fail, it is really, really scary]
+
+= Text-to-image generation
+{parent=Image generation}
+{wiki}
+
+= Text-to-image model
+{parent=Text-to-image generation}
+{wiki}
+
+= Text-to-image
+{synonym}
+
+* https://deepai.org/machine-learning-model/text2img
+* https://openai.com/blog/dall-e/
+
+= Open source text-to-image model
+{parent=Text-to-image model}
+
+Bibliography:
+* https://www.edenai.co/post/top-free-image-generation-tools-apis-and-open-source-models
+
+= ludicrains/deep-gaze
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/lucidrains/deep-daze
+
+This just works, but it is also so incredibly slow that it is useless (or at least the quality it reaches in the time we have patience to wait from), at least on any setup we've managed to try, including e.g. on an <Nvidia A10G> on a <g5.xlarge>. Running:
+``
+time imagine "a house in the forest"
+``
+would likely take hours to complete.
+
+= runwayml/stable-diffusion
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/runwayml/stable-diffusion
+
+<Conda> install is a bit annoying, but gets the job done. The generation quality is very good.
+
+Someone should package this better for end user "just works after Conda install" image generation, it is currently much more of a library setup.
+
+Tested on <Amazon EC2> on a <g5.xlarge> machine, which has an <Nvidia A10G>, using the <AWS Deep Learning Base GPU AMI (Ubuntu 20.04)> image.
+
+First install <Conda> as per <install Conda on Ubuntu>{full}, and then just follow the instructions from the README, notably the https://github.com/runwayml/stable-diffusion/tree/08ab4d326c96854026c4eb3454cd3b02109ee982#reference-sampling-script[Reference sampling script] section.
+``
+git clone https://github.com/runwayml/stable-diffusion
+cd stable-diffusion/
+git checkout 08ab4d326c96854026c4eb3454cd3b02109ee982
+conda env create -f environment.yaml
+conda activate ldm
+mkdir -p models/ldm/stable-diffusion-v1/
+wget -O models/ldm/stable-diffusion-v1/model.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+python scripts/txt2img.py --prompt "a photograph of an astronaut riding a horse" --plms 
+``
+This took about 2 minutes and generated 6 images under `outputs/txt2img-samples/samples`, includining an image `outputs/txt2img-samples/grid-0000.png` which is a grid montage containing all the six images in one:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png]
+
+TODO how to change the number of images?
+
+A quick attempt at removing their useless safety features (watermark and <NSFW> text filter) is:
+``
+diff --git a/scripts/txt2img.py b/scripts/txt2img.py
+index 59c16a1..0b8ef25 100644
+--- a/scripts/txt2img.py
++++ b/scripts/txt2img.py
+@@ -87,10 +87,10 @@ def load_replacement(x):
+ def check_safety(x_image):
+     safety_checker_input = safety_feature_extractor(numpy_to_pil(x_image), return_tensors="pt")
+     x_checked_image, has_nsfw_concept = safety_checker(images=x_image, clip_input=safety_checker_input.pixel_values)
+-    assert x_checked_image.shape[0] == len(has_nsfw_concept)
+-    for i in range(len(has_nsfw_concept)):
+-        if has_nsfw_concept[i]:
+-            x_checked_image[i] = load_replacement(x_checked_image[i])
++    #assert x_checked_image.shape[0] == len(has_nsfw_concept)
++    #for i in range(len(has_nsfw_concept)):
++    #    if has_nsfw_concept[i]:
++    #        x_checked_image[i] = load_replacement(x_checked_image[i])
+     return x_checked_image, has_nsfw_concept
+
+
+@@ -314,7 +314,7 @@ def main():
+                             for x_sample in x_checked_image_torch:
+                                 x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
+                                 img = Image.fromarray(x_sample.astype(np.uint8))
+-                                img = put_watermark(img, wm_encoder)
++                                # img = put_watermark(img, wm_encoder)
+                                 img.save(os.path.join(sample_path, f"{base_count:05}.png"))
+                                 base_count += 1
+``
+but that produced 4 black images and only two unfiltered ones. Also likely the lack of sexual training data makes its porn suck, and not in the good way.
+
+= DeepFloyd IF
+{c}
+{parent=Open source text-to-image model}
+
+https://github.com/deep-floyd/IF
+
+= AI text generation
+{parent=Generative AI by modality}
+
+= Speech recognition
+{parent=AI text generation}
+{wiki}
+
+<Open source software> reviews by <Ciro Santilli>:
+* https://askubuntu.com/questions/24059/automatically-generate-subtitles-close-caption-from-a-video-using-speech-to-text/1522895#1522895
+* https://askubuntu.com/questions/161515/speech-recognition-app-to-convert-mp3-voice-to-text/1499768#1499768
+* https://unix.stackexchange.com/questions/256138/is-there-any-decent-speech-recognition-software-for-linux/613392#613392
+reviewing mostly the following software:
+* <OpenAi Whisper>
+* <Vosk>
+
+= Speech recognition software
+{parent=Speech recognition}
+
+= OpenAi Whisper
+{c}
+{parent=Speech recognition software}
+{tag=OpenAI project}
+
+= Vosk
+{c}
+{parent=Speech recognition software}
+
+= Text-to-text model
+{parent=AI text generation}
 
 = Machine translation
 {parent=Text-to-text model}
@@ -564,100 +717,20 @@ It tends to babble quite a lot by default, but eventually decides to stop.
 
 TODO is it possible to make it deterministic on the CLI? There is a "seed" parameter somewhere: https://github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter
 
-= Text-to-image model
+= AI sound generation
+{c}
 {parent=Generative AI by modality}
-{wiki}
 
-= Text-to-image
-{synonym}
-
-= Open source text-to-image model
-{parent=Text-to-image model}
-
-Bibliography:
-* https://www.edenai.co/post/top-free-image-generation-tools-apis-and-open-source-models
-
-= ludicrains/deep-gaze
+= AI music generation
 {c}
-{parent=Open source text-to-image model}
+{parent=AI sound generation}
 
-https://github.com/lucidrains/deep-daze
-
-This just works, but it is also so incredibly slow that it is useless (or at least the quality it reaches in the time we have patience to wait from), at least on any setup we've managed to try, including e.g. on an <Nvidia A10G> on a <g5.xlarge>. Running:
-``
-time imagine "a house in the forest"
-``
-would likely take hours to complete.
-
-= runwayml/stable-diffusion
+= Soundraw
 {c}
-{parent=Open source text-to-image model}
-
-https://github.com/runwayml/stable-diffusion
-
-<Conda> install is a bit annoying, but gets the job done. The generation quality is very good.
-
-Someone should package this better for end user "just works after Conda install" image generation, it is currently much more of a library setup.
-
-Tested on <Amazon EC2> on a <g5.xlarge> machine, which has an <Nvidia A10G>, using the <AWS Deep Learning Base GPU AMI (Ubuntu 20.04)> image.
-
-First install <Conda> as per <install Conda on Ubuntu>{full}, and then just follow the instructions from the README, notably the https://github.com/runwayml/stable-diffusion/tree/08ab4d326c96854026c4eb3454cd3b02109ee982#reference-sampling-script[Reference sampling script] section.
-``
-git clone https://github.com/runwayml/stable-diffusion
-cd stable-diffusion/
-git checkout 08ab4d326c96854026c4eb3454cd3b02109ee982
-conda env create -f environment.yaml
-conda activate ldm
-mkdir -p models/ldm/stable-diffusion-v1/
-wget -O models/ldm/stable-diffusion-v1/model.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
-python scripts/txt2img.py --prompt "a photograph of an astronaut riding a horse" --plms 
-``
-This took about 2 minutes and generated 6 images under `outputs/txt2img-samples/samples`, includining an image `outputs/txt2img-samples/grid-0000.png` which is a grid montage containing all the six images in one:
-
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Runwayml_stable-diffusion_a-photograph-of-an-astronaut-riding-a-horse.png]
-
-TODO how to change the number of images?
-
-A quick attempt at removing their useless safety features (watermark and <NSFW> text filter) is:
-``
-diff --git a/scripts/txt2img.py b/scripts/txt2img.py
-index 59c16a1..0b8ef25 100644
---- a/scripts/txt2img.py
-+++ b/scripts/txt2img.py
-@@ -87,10 +87,10 @@ def load_replacement(x):
- def check_safety(x_image):
-     safety_checker_input = safety_feature_extractor(numpy_to_pil(x_image), return_tensors="pt")
-     x_checked_image, has_nsfw_concept = safety_checker(images=x_image, clip_input=safety_checker_input.pixel_values)
--    assert x_checked_image.shape[0] == len(has_nsfw_concept)
--    for i in range(len(has_nsfw_concept)):
--        if has_nsfw_concept[i]:
--            x_checked_image[i] = load_replacement(x_checked_image[i])
-+    #assert x_checked_image.shape[0] == len(has_nsfw_concept)
-+    #for i in range(len(has_nsfw_concept)):
-+    #    if has_nsfw_concept[i]:
-+    #        x_checked_image[i] = load_replacement(x_checked_image[i])
-     return x_checked_image, has_nsfw_concept
-
-
-@@ -314,7 +314,7 @@ def main():
-                             for x_sample in x_checked_image_torch:
-                                 x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
-                                 img = Image.fromarray(x_sample.astype(np.uint8))
--                                img = put_watermark(img, wm_encoder)
-+                                # img = put_watermark(img, wm_encoder)
-                                 img.save(os.path.join(sample_path, f"{base_count:05}.png"))
-                                 base_count += 1
-``
-but that produced 4 black images and only two unfiltered ones. Also likely the lack of sexual training data makes its porn suck, and not in the good way.
-
-= DeepFloyd IF
-{c}
-{parent=Open source text-to-image model}
-
-https://github.com/deep-floyd/IF
+{parent=AI music generation}
 
 = Text-to-speech
-{parent=Generative AI by modality}
+{parent=AI sound generation}
 {title2=TTS}
 
 = Comparison of text-to-speech software
@@ -1254,9 +1327,13 @@ so what's that point of "Open" in the name anymore??
 * https://archive.ph/wXBtB How OpenAI Sold its Soul for \$1 Billion
 * https://www.reddit.com/r/GPT3/comments/n2eo86/is_gpt3_open_source/
 
-= OpenAI Gym
+= OpenAI project
 {c}
 {parent=OpenAI}
+
+= OpenAI Gym
+{c}
+{parent=OpenAI project}
 
 https://github.com/openai/gym
 
