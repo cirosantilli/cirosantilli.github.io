@@ -139,15 +139,24 @@ By opening a web inspector, you can see that only modified elements get updated.
 
 By looking at the terminal, we see that `render()` does get called every time the button is clicked, so the tree of elements does get recreated every time. But then React diffes thing out and only updates things in the DOM where needed.
 
-= React DOM mainpulation
+= react/ref-twice.html
+{file}
+{parent=React example}
+
+Failed attempt at minimizing <nodejs/next/ref-twice>{file} outside of <Next.js>.
+
+= React DOM manipulation
 {parent=React}
+
+= React DOM mainpulation
+{synonym}
 
 = React `ref`
 {synonym}
 
 = react/ref-click-counter.html
 {file}
-{parent=React DOM mainpulation}
+{parent=React DOM manipulation}
 
 Dummy example of using a <React `ref`> This example is useless and to the end user seems functionally equivalent to <react/hello.html>{file}.
 
@@ -164,7 +173,7 @@ In this case we managed to get away with it, but this is in general not easy/pos
 
 = react/ref-click-counter-func.html
 {file}
-{parent=React DOM mainpulation}
+{parent=React DOM manipulation}
 
 <React function component> version of <react/ref-click-counter.html>{file} using <useRef>.
 
@@ -268,7 +277,7 @@ TODO answer:
 = Next.js example
 {parent=Next.js}
 
-Our oxamples are located under \a[nodejs/next]:
+Our examples are located under \a[nodejs/next]:
 * \a[nodejs/next/hello-world]: a hello world. There's an in-tree one at: https://github.com/vercel/next.js/tree/e75361fd03872b097e817634c049b3185f24cf56/examples/hello-world[], but ours is truly minimal
 * \a[nodejs/next/hoc]: shows how to use a higher order component (HOC) to factor out `getStaticProps` across two pages: \a[nodejs/next/hoc/pages/index.js] and \a[nodejs/next/hoc/pages/notindex.js]
 * \a[nodejs/next/typescript]: simple <TypeScript> example, minimized from: https://github.com/vercel/next.js/tree/d61b0761efae09bd9cb1201ff134ed8950d9deca/examples/with-typescript
@@ -281,18 +290,42 @@ Solved ones:
   * ISR was basically unusable for CRUD websites because you can't force a one-off immediate page update:
     * https://github.com/vercel/next.js/discussions/25677
 
+= nodejs/next/ref-twice
+{file}
+{parent=Next.js example}
+
+This is a minimal reproducible example for the terrible problem of external effects applying twice to refs for effects that are not idempotent and thus blowup if applied twice.
+
+The issue is currently discussed at: https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed (https://web.archive.org/web/20240720100401/https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed[archive]) which says "you need to cleanup the thing yourself". https://web.archive.org/web/20240720100401/https://react.dev/learn/synchronizing-with-effects#subscribing-to-events is also says that for the specific case of `addEventListener`.
+
+But that's annoying! Can't we just somehow tell if we applied twice or not to avoid having to implement a cleanup? What if a third party system does not provide a cleanup at all?
+
+Is the correct solution to just just have a <useEffect> with empty dependency list? Seems to be good according to posts and to <ESLint>!
+
+Tried to do a <React> only reproduction at: <react/ref-twice.html>{file}.
+
+Bibliography:
+* https://github.com/facebook/react/issues/8619
+* https://github.com/vercel/next.js/tree/276fd521d04b6c228d5637ce359220ffa8f62a2f/examples/with-three-js
+* https://www.reddit.com/r/reactjs/comments/tbt2z8/comment/lizezgd/
+
+<Ciro Santilli>'s questions:
+* https://stackoverflow.com/questions/78891187/how-to-prevent-a-react-useeffect-from-running-twice-in-strictmode-development-wi
+* https://www.reddit.com/r/reactjs/comments/1ewprza/how_to_prevent_a_react_useeffect_from_running/
+
 = nodejs/next/posts
+{file}
 {parent=Next.js example}
 
 The goal of this example is to understand when states and effects happen when changing between different routes that use the same component.
 
-Behaviour is follows:
+Behavior is follows:
 * visit: http://localhost:3001/1
 * click `count++`. This makes `count: 1`
 * click "2" to vist http://localhost:3001/2
 * outcome: count is still 1
 
-This is likely because in <React> the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchaged.
+This is likely because in <React> the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchanged.
 
 Next if we click:
 * "Index" to go to http://localhost:3000

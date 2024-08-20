@@ -5,14 +5,14 @@ if [ $# -gt 0 ]; then
 else
   test=true
 fi
-if [ -d "../ourbigbook" && "$test" ]; then
+if [ -d "../ourbigbook" ] && "$test"; then
   cd ../ourbigbook
   web/bin/pg_dump_heroku
   cd -
 fi
 ourbigbook --web
 ourbigbook -p
-if [ -d "../ourbigbook" && "$test" ]; then
+if [ -d "../ourbigbook" ] && "$test"; then
   cd ../ourbigbook
   ./heroku run web/bin/normalize -c nested-set -u cirosantilli
   cd -
