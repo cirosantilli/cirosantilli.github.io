@@ -1,18 +1,26 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Post() {
   const router = useRouter()
-  const {pid} = router.query
+  const { pid } = router.query
+  const routeAsPath = useRouter().asPath
   const [count, setCount] = useState(0)
+  const [perPageCount, setPerPageCount] = useState(0)
+  useEffect(() => {
+    setPerPageCount(0)
+  }, [routeAsPath])
   return (<>
     <p>pid: {pid}</p>
     <p>count: {count}</p>
+    <p>perPageCount: {perPageCount}</p>
+    <p>routeAsPath: {routeAsPath}</p>
     <button
       onClick={(ev) => {
         setCount(c => c + 1)
+        setPerPageCount(c => c + 1)
       }}
     >
       count++

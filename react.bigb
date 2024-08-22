@@ -290,6 +290,30 @@ Solved ones:
   * ISR was basically unusable for CRUD websites because you can't force a one-off immediate page update:
     * https://github.com/vercel/next.js/discussions/25677
 
+= nodejs/next/posts
+{file}
+{parent=Next.js example}
+
+The goal of this example is to understand when states and effects happen when changing between different routes that use the same component.
+
+Behavior is follows:
+* visit: http://localhost:3001/1
+* click `count++`. This makes `count: 1`
+* click "2" to visit http://localhost:3001/2
+* outcome: count is still 1
+
+This is likely because in <React> the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchanged.
+
+Next if we click:
+* "Index" to go to http://localhost:3000
+* "1" to go to http://localhost:3001/1
+then the count is back to 0. This is because we changed the `Post` object in the DOM to `Index` and back, which resets everything.
+
+This example also illustrates how to prevent this from happening with <useEffect>.
+
+Bibliography:
+* https://stackoverflow.com/questions/63143334/how-to-not-persist-state-between-next-js-dynamic-routes
+
 = nodejs/next/ref-twice
 {file}
 {parent=Next.js example}
@@ -313,27 +337,20 @@ Bibliography:
 * https://stackoverflow.com/questions/78891187/how-to-prevent-a-react-useeffect-from-running-twice-in-strictmode-development-wi
 * https://www.reddit.com/r/reactjs/comments/1ewprza/how_to_prevent_a_react_useeffect_from_running/
 
-= nodejs/next/posts
+= nodejs/next/inject-into-static
 {file}
 {parent=Next.js example}
 
-The goal of this example is to understand when states and effects happen when changing between different routes that use the same component.
+In this example we attempt to inject <React> elements into statically rendered HTML coming from the server, and properly hydrate them.
 
-Behavior is follows:
-* visit: http://localhost:3001/1
-* click `count++`. This makes `count: 1`
-* click "2" to vist http://localhost:3001/2
-* outcome: count is still 1
-
-This is likely because in <React> the state kept in the virtual DOM structure, and identical structure implies identical state. So when we change from post 1 to 2, we still have a `Post` object, and state is unchanged.
-
-Next if we click:
-* "Index" to go to http://localhost:3000
-* "1" to go to http://localhost:3001/1
-then the count is back to 0. This is because we changed the `Post` object in the DOM to `Index` and back, which resets everything.
+Questions by <Ciro Santilli>:
+* https://stackoverflow.com/questions/78892868/how-to-inject-a-react-component-inside-static-pre-rendered-html-coming-from-the
+* https://www.reddit.com/r/nextjs/comments/1ewwea3/how_to_inject_a_react_component_inside_static/
+* https://github.com/vercel/next.js/discussions/69099
 
 Bibliography:
-* https://stackoverflow.com/questions/63143334/how-to-not-persist-state-between-next-js-dynamic-routes
+* https://stackoverflow.com/questions/76489919/nextjs-custom-component-hydration
+* https://stackoverflow.com/questions/67915232/how-to-use-domparser-in-next-js
 
 = Node Express Sequelize Next.js realworld example app
 {parent=Next.js}

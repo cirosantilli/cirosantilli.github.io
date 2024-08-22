@@ -15,7 +15,9 @@ export default function IndexPage() {
   }
   useEffect(() => {
     if (ref.current) {
-      complexExternalLibraryFunctionWithoutCleanup(ref.current, incIt)
+      const div = document.createElement('div')
+      ref.current.appendChild(div)
+      complexExternalLibraryFunctionWithoutCleanup(div, incIt)
     }
   }, [])
   return <div>
