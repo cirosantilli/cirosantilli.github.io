@@ -16,10 +16,10 @@ function Counter({ initialCount }) {
 const SERVER_HTML_SELECTOR = '.second'
 
 export default function IndexPage({ initialCount, serverHtml }) {
-  const serverHtmlElem = parse(serverHtml)
   const router = useRouter()
   const routeAsPath = useRouter().asPath
   const clientHtmlElem = useRef(null)
+  const serverHtmlElem = parse(serverHtml)
   serverHtmlElem.querySelector(SERVER_HTML_SELECTOR).innerHTML = renderToString(<Counter {...{ initialCount }} />)
   useEffect(() => {
     if (clientHtmlElem.current) {
