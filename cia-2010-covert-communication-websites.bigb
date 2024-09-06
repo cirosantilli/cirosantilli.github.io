@@ -9,20 +9,45 @@
 
 This article is about <cutout (espionage)>[covert agent communication channel] websites used by the <CIA> in many countries from the late 2000s until the early 2010s, when they were uncovered by <counter Intelligence> of the targeted countries circa 2011-2013. This discovery led to the imprisonment and execution of several assets in <Iran> and <China>, and subsequent shutdown of the channel.
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Aratu_talk_2024_promo_CIA_Star_Wars_website.jpg]
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/CIA_Star_Wars_website_promo.jpg]
 {height=700}
 
 The existence of such websites was first reported in November 2018 by Yahoo News: https://www.yahoo.com/video/cias-communications-suffered-catastrophic-compromise-started-iran-090018710.html[].
 
 Previous whispers had been heard in 2017 but without clear mention of websites: https://www.nytimes.com/2017/05/20/world/asia/china-cia-spies-espionage.html
 \Q[Some were convinced that a mole within the C.I.A. had betrayed the United States. Others believed that the Chinese had hacked the covert system the C.I.A. used to communicate with its foreign sources. Years later, that debate remains unresolved.]
+\Q[From the final weeks of 2010 through the end of 2012, \[...\] the Chinese killed at least a dozen of the <CIA>[C.I.A.]’s sources. \[...\] One was shot in front of his colleagues in the courtyard of a government building — a message to others who might have been working for the C.I.A.]
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Yahoo_CIA_website_article.png]
+{height=900}
 
 Then in September 2022 a few specific websites were finally reported by Reuters: https://www.reuters.com/investigates/special-report/usa-spies-iran/[], henceforth known only as "the <Reuters article>" in this article.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Reuters_CIA_website_article_banner.jpg]
+{height=800}
+{title=Banner of the <Reuters article>}
+{source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/www.reuters.com_investigates_special-report_usa-spies-iran_applet_reconstruction.jpg]
+{title=Reuters reconstruction of what the applet would have looked like}
+{height=850}
+{source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Reuters_CIA_website_article_image_urls_arrow.jpg]
+{title=Inspecting the <Reuters article> HTML source code}
+{description=The <Reuters article> only gave one URL explicitly: <iraniangoals.com>. But most others could be found by inspecting the HTML of the screenshots provided, except for <Searching for Carson>[the Carson website].}
+{source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
+{height=600}
 
 <Ciro Santilli> heard about the 2018 article at around 2020 while <Ciro Santilli's campaign for freedom of speech in China>[studying for his China campaign] because the websites had been used to take down the Chinese CIA network in China. He even asked on <Quora>: https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks[] but there were no publicly known domains at the time to serve as a starting point. Chris even replied suggesting that obviously the <CIA> is so competent that it would never ever have its sites leaked like that:
 \Q[Seriously a dumb question.]
 
 So when <Ciro Santilli> heard about the 2022 article almost a year after publication, and being a <ourbigbook.com>[half-arsed web developer himself], he <Ciro Santilli's naughty projects>[knew he had to try] and find some of the domains himself using the newly available information! It was an irresistible real-life <capture the flag (cybersecurity)>. The thing is, everyone who has ever developed a website knows that its <attack surface> is about the <Size of Texas meme>[size of Texas], and the potential for <fingerprinting (cybersecurity)> is off the charts with so many bits and pieces sticking out. https://www.quora.com/profile/Chris-2110[Chris, Electrical Engineer and former Avionics Tech in the US Navy], get fucked.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/CIA_2010_site_Quora_question_and_Chris_answer.png]
+{title="Seriously a dumb question" <Quora> answer by Chris from the <US Navy>}
+{height=550}
+{source=https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks/answer/Chris-2110}
 
 In particular, it is fun to have such a clear and visible to anyone examples of the <USA spying on its own allies> in the form of <Wayback Machine> archives.
 
@@ -32,6 +57,46 @@ This article documents the list of extremely likely candidates Ciro has found so
 * rudimentary IP range search on https://viewdns.info[] starting from the websites reported by Reuters
 * heuristic search for keywords in domains of the  <2013 DNS Census> plus <Wayback Machine CDX scanning>
 more details on methods also follow. It is still far from the https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[885 websites reported by citizenlabs], so there must be key techniques missing. But the fact that there are no <Google Search> hits for the domains or IPs (except in bulk e.g. in <expired domain trackers>) indicates that these might not have been previously clearly publicly disclosed.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/viewdns.info_activegameinfo.com_domain_to_IP_arrow.png]
+{title=<viewdns.info> `activegameinfo.com` domain to IP}
+{source=https://viewdns.info/iphistory/?domain=activegaminginfo.com}
+{height=550}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/viewdns.info_aroundthemiddleeast.com_IP_to_domain_arrow.png]
+{title=<viewdns.info> `aroundthemiddleeast.com` IP to domain}
+{source=https://viewdns.info/reverseip/?host=66.175.106.140&t=1}
+{height=550}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/dnscensus2013.neocities.org.png]
+{title=<DNS Census 2013> website}
+{description=This source provided valuable historical domain to IP data. It was likely extracted with an illegal <botnet>. Data excerpt from the CSVs:
+``
+amazon.com,2012-02-01T21:33:36,72.21.194.1
+amazon.com,2012-02-01T21:33:36,72.21.211.176
+amazon.com,2013-10-02T19:03:39,72.21.194.212
+amazon.com,2013-10-02T19:03:39,72.21.215.232
+amazon.com.au,2012-02-10T08:03:38,207.171.166.22
+amazon.com.au,2012-02-10T08:03:38,72.21.206.80
+google.com,2012-01-28T05:33:40,74.125.159.103
+google.com,2012-01-28T05:33:40,74.125.159.104
+google.com,2013-10-02T19:02:35,74.125.239.41
+google.com,2013-10-02T19:02:35,74.125.239.46
+``
+}
+{source=https://dnscensus2013.neocities.org/}
+{height=574}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-website-comms-methods.png]
+{title=The four <communication mechanisms> used by the CIA websites}
+{description=<Java> Applets, <Adobe Flash>, <JavaScript> and <HTTPS>}
+{height=800}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/github.com_cirosantilli_expired-domain-names-by-day-2011.png]
+{title=Expired domain names by day 2011}
+{description=The scraping of <expired domain trackers> to Github was one of the positive outcomes of this project.}
+{source=https://github.com/cirosantilli/expired-domain-names-by-day-2011}
+{height=850}
 
 If anyone can find others, or has better techniques: <contact>{full}. The techniques used so far have been very heuristic, and that added to the limited amount of data makes it almost certain that several <IP range search>[IP ranges] have been missed. There are two types of contributions that would be possible:
 * finding new IP ranges: harder more exiting, and potentially requires more intelligence
@@ -5836,7 +5901,7 @@ These have short single word names with some meaning linked to their website.
 Because the communication mechanisms are so crucial, they tend to be less varied, and serve as very good fingerprints. It is not ludicrous, e.g. identical files, but one look at a few and you will know the others.
 
 = CGI comms
-{parent=Reverse engineering}
+{parent=Communication mechanism}
 
 = CGI
 {synonym}
@@ -6441,6 +6506,10 @@ Initial announcements by self on 2023-06-10:
 Shared by others soo after:
 * 2023-06-11:
   * https://news.ycombinator.com/item?id=36279375#36280220[] (212 points). Shame that this was published when we only had about 20 websites. As of writing we had 240. Might have been a greater hit then.
+
+    \Image[https://raw.githubusercontent.com/cirosantilli/media/master/CIA_websites_hacker_news.png]
+    {height=600}
+    {source=https://news.ycombinator.com/item?id=36279375}
   * <Google Analytics> backlink from https://lms.fh-wedel.de/[] path unknown. Some shitty German university: https://en.wikipedia.org/wiki/Fachhochschule_Wedel_University_of_Applied_Sciences LMS stands for <Learning Management System>, apparently a <Moodle> instance. Maybe they have some <Open educational resources>, but all in <German (language)> so pointless
   * https://www.reddit.com/r/conspiracy/comments/14705gp/cia_2010_covert_communication_websites/ failed attempt with bad link unfortunately
 * a few days later:
