@@ -677,6 +677,7 @@ Down November 2023 http://web.archive.org/web/20231110041847/https://pypi.org/pr
 \Image[https://raw.githubusercontent.com/cirosantilli/china-dictatorship-media/master/pypi.org_project_china-dictatorship_down.png]
 {height=916}
 
+\Comment[[
 = Wall of pride and shame
 {parent=China dictatorship}
 
@@ -687,21 +688,24 @@ Down November 2023 http://web.archive.org/web/20231110041847/https://pypi.org/pr
 || Comments
 
 | GitHub
-| \Image[https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg]{height=300}
-| \Image[https://web.archive.org/web/20230609155744im_/https://preview.redd.it/15l6tpf1dqd31.jpg?width=836&auto=webp&v=enabled&s=2b2f3b9f0ae40826858e0f3908f621ff86d62520]{height=300}
+| \image[https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg]{height=300}
+| \image[https://web.archive.org/web/20230609155744im_/https://preview.redd.it/15l6tpf1dqd31.jpg?width=836&auto=webp&v=enabled&s=2b2f3b9f0ae40826858e0f3908f621ff86d62520]{height=300}
 | https://github.com/cirosantilli/china-dictatorship
 | Exemplary. Never let me down. Has a public per-country takedown list: https://github.com/github/gov-takedowns/tree/master/China
 
 | Stack Overflow
-| \Image[https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg]{height=300}
-| \Image[https://web.archive.org/web/20230609155744im_/https://preview.redd.it/15l6tpf1dqd31.jpg?width=836&auto=webp&v=enabled&s=2b2f3b9f0ae40826858e0f3908f621ff86d62520]{height=300}
+| \image[https://upload.wikimedia.org/wikipedia/commons/e/ef/Stack_Overflow_icon.svg]{height=300}
+| \image[https://web.archive.org/web/20230609155744im_/https://preview.redd.it/15l6tpf1dqd31.jpg?width=836&auto=webp&v=enabled&s=2b2f3b9f0ae40826858e0f3908f621ff86d62520]{height=300}
 | https://stackoverflow.com/users/895245/ciro-santilli-ourbigbook-com
 | Elected mods refuse to say what is allowed or not, you have to fight and infer from meta threads: https://meta.stackexchange.com/questions/366163/can-i-use-images-such-as-from-tiananmen-square-protests-to-criticise-the-chinese[]. But generally shaming anything the West does not like is OK.
+]]
 
 = Linux Kernel Module Cheat
 {parent=Aratu Week 2024 Talk by Ciro Santilli}
 
 https://github.com/cirosantilli/linux-kernel-module-cheat
+
+\Video[https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg]
 
 = Get a Linux terminal on QEMU
 {parent=Linux Kernel Module Cheat}
@@ -819,19 +823,54 @@ Start QEMU and wait for GDB:
 ./run --gdb-wait
 ``
 
-Connect GDB to QEMU and run up to a symbol that shows up at boot:
+On another shell, connect GDB to QEMU and run up to a symbol that shows up at boot:
 ``
 ./run-gdb start_kernel
 ``
 
-Outcome:
+Outcome: we are GDB step debugging the Linux Kernel:
 ``
+Breakpoint 1, start_kernel () at /root/lkmc/submodules/linux/init/main.c:837
+837     {
+loading vmlinux
+(gdb) n
+841             set_task_stack_end_magic(&init_task);
+(gdb) l
+836     asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
+837     {
+838             char *command_line;
+839             char *after_dashes;
+840
+841             set_task_stack_end_magic(&init_task);
+842             smp_setup_processor_id();
+843             debug_objects_early_init();
+844
+845             cgroup_init_early();
+(gdb) p &init_task
+$1 = (struct task_struct *) 0xffffffff82012840 <init_task>
+(gdb) bt
+#0  start_kernel () at /root/lkmc/submodules/linux/init/main.c:841
+#1  0xffffffff8215145c in x86_64_start_reservations (real_mode_data=<optimized out>) at /root/lkmc/submodules/linux/arch/x86/kernel/head64.c:490
+#2  0xffffffff821514e3 in x86_64_start_kernel (real_mode_data=0x138d0 <bts_ctx+2256> <error: Cannot access memory at address 0x138d0>) at /root/lkmc/submodules/linux/arch/x86/kernel/head64.c:471
+#3  0xffffffff810000e6 in secondary_startup_64 () at /root/lkmc/submodules/linux/arch/x86/kernel/head_64.S:243
+#4  0x0000000000000000 in ?? ()
+(gdb) up
+#1  0xffffffff8215145c in x86_64_start_reservations (real_mode_data=<optimized out>) at /root/lkmc/submodules/linux/arch/x86/kernel/head64.c:490
+490             start_kernel();
+(gdb) l
+485                     break;
+486             default:
+487                     break;
+488             }
+489
+490             start_kernel();
+491     }
 ``
 
 = Multiple architectures supported
 {parent=Linux Kernel Module Cheat}
 
-E.g., if you want aarch64:
+E.g., if you want aarch64 instead of the default x86_64:
 
 ``
 ./build -aA
