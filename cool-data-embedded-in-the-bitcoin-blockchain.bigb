@@ -16,7 +16,7 @@ This is a collection of cool data found in the Bitcoin blockchain using techniqu
 
 Drop some <Bitcoins> at \b[3KRk7f2JgekF6x7QBqPHdZ3pPDuMdY3eWR] if you are loaded and like this article in order to support some much needed higher educational reform: <sponsor>{full}.
 
-When this kind of non-financial data is embedded into a blockchain some people called an "<inscription (blockchain)>". the study or "early" inscriptions had been called a form of "archaeology"https://docs.ordinals.com/overview.html{ref}http://blockchainarchaeology.com/{ref}. Since this is a collection of archaelogical artifacts, we call it a "<museum>"!
+When this kind of non-financial data is embedded into a blockchain some people called an "<inscription (blockchain)>". The study or "early" inscriptions had been called a form of "archaeology"https://docs.ordinals.com/overview.html{ref}http://blockchainarchaeology.com/{ref}. Since this is a collection of archaelogical artifacts, we call it a "<museum>"!
 
 One really cool thing about inscriptions is that because blockchains are huge <Merkle trees>, it is impossible to censor any one inscription without censoring the entire blockchain. It is also really cool to see people treating the Bitcoin blockchain basically like a global social media feed!
 
@@ -1103,6 +1103,37 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
                        .cxOKNWMMMNd..:oc. :KMMMMWNKkd,
                            .;lxOKXNk.    :XNX0kdc,.
   ``
+* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0709.txt#L1808[tx 71d9187cbb7b00b4c516df218499bbc301996262cfafc4533fd7916af1fb6315], block 709632, (https://www.blockchain.com/explorer/transactions/btc/71d9187cbb7b00b4c516df218499bbc301996262cfafc4533fd7916af1fb6315[2021-11-14]) starts a consecutive sequence of transactions that encodes the characters 'Z' and 'N', an ad for the https://zenon.network/[Zenon Network] blockchain. This is the very first taproot enabled block, foreshadowing the great inscription boom that taproot would lead to, notably in the form of <ordinal ruleset inscriptions>.
+  ``
+      ,zzzzzzzzzzzzzzzzzzzzzzzz,      
+                  .:1zzzzzzzzz.       
+                .:qqzzzzqqq,          
+             ,;1zzzzzqqq,             
+          ,;1zzzzzqqq,                
+       ,;qzzzzz1qq,                   
+      ,zzzzzzzzzzzzzzzzzzzzzzzz,      
+
+      ,zzzzzq;.           1zzzz,      
+      ,zzzzzzzzq,         1zzzz,      
+      ,zzzzzzzzzz1:       1zzzz,      
+      ,zzzzq:1zzzzzq;.    1zzzz,      
+      ,zzzzq  ,qzzzzzz1,  1zzzz,      
+      ,zzzzq    .;qzzzzzq:1zzzz,      
+      ,zzzzq       ,qzzzzzzzzzz,      
+      ,zzzzq         .;qzzzzzzz,  
+  ``
+  This ASCII art had been previously https://www.reddit.com/r/Bitcoin/comments/qtk492/someone_tried_to_put_some_ascii_art_into_the/[noted by sroose and decoded by brando2131 on Reddit], and was brought to our attention by https://x.com/lilbagwing/status/1842622268314091994[Bagfoot OP446 on twitter]. <Ciro Santilli> had previously spotted the art, but failed to decode it. "ZENON NETWORK" is inscribed just after the art confiming the meaning of the characters, but it does not appear in our ASCII dumps presumably because the string it is too short and surrounded by non-ASCII.
+
+  Each line is encoded with <OP_RETURN>, is 38 bytes long, and starts and ends in 6 spaces, leading to 26 non-whitespace characters per line. The lines appear in scambled order and it is unclear if there is any logic in the ordering or if it was just meant as a little puzzle. But given the nearby "ZENON NETWORK" inscription, this decoding is overwhelmingly likely correct.
+  
+  The following lines also show up in our ASCII dump:
+  ``
+    ;4Fdzw1k=zzzzzzzzzzzzzzzz;      
+    ,vtv3f5aKY0jGQglP9a1AGw==.      
+    ;BynQtpeUyWTXKGTrGhdV2Q==;      
+    ;tVMd3L1CKM4wFmyxEEEUV2bY;      
+  ``
+  They seem like <base64> encoded data due to the `=` sign padding, but nothing human readable comes out of them, so their meaning remains currently unknown.
 * https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0720.txt#L682[tx cbf7cfb6c074e35e82ea604e2de6c82d00c168d7d7a1205383f93a6f40ee8520] (https://www.blockchain.com/explorer/transactions/btc/cbf7cfb6c074e35e82ea604e2de6c82d00c168d7d7a1205383f93a6f40ee8520[2022-01-24]) <ASCII typeface> ad for Keepcase, some kind of Bitcoin hardware wallet. Manually converted to horizontal form to not take up too much space here.
   ``
   @@@@@@@@@@@@@@@@@@@V/@@@@@@@@@@@@@@@@@@@
@@ -1508,33 +1539,6 @@ The following almost certainly contain ASCII art but we were not yet able to dec
   Could it be across? She's apparently <Christian> based on the website.
 
   https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0652.txt#L1[tx b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f], block 652005 (https://www.blockchain.com/explorer/transactions/btc/b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f[2020-10-09]) also contains some related content with her name, though not identical. Perhaps they are meant to be assembled together somehow? 
-* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0709.txt#L1808[tx 71d9187cbb7b00b4c516df218499bbc301996262cfafc4533fd7916af1fb6315], block 709632, (https://www.blockchain.com/explorer/transactions/btc/71d9187cbb7b00b4c516df218499bbc301996262cfafc4533fd7916af1fb6315[2021-11-14 ]) starts a consecutive sequence of transactions that seem to encode an ASCII art. Each line is encoded with <OP_RETURN>, is 38 bytes long, and starts and ends in 6 spaces, leading to 26 non-whitespace characters per line. In block order we have:
-  ``
-        ;4Fdzw1k=zzzzzzzzzzzzzzzz;      
-        ,zzzzzq;.           1zzzz,      
-        ,zzzzq  ,qzzzzzz1,  1zzzz,      
-         ,;qzzzzz1qq,                   
-               ,;1zzzzzqqq,             
-        ,zzzzq    .;qzzzzzq:1zzzz,      
-        ,zzzzq:1zzzzzq;.    1zzzz,      
-        ,zzzzq         .;qzzzzzzz,      
-        ,vtv3f5aKY0jGQglP9a1AGw==.      
-        ;BynQtpeUyWTXKGTrGhdV2Q==;      
-        ;tVMd3L1CKM4wFmyxEEEUV2bY;      
-        ,zzzzzzzzzzzzzzzzzzzzzzzz,      
-        ,zzzzzzzzq,         1zzzz,      
-                  .:qqzzzzqqq,          
-        ,zzzzq       ,qzzzzzzzzzz,      
-        ,zzzzzzzzzzzzzzzzzzzzzzzz,      
-  ``
-  The strings:
-  ``
-  vtv3f5aKY0jGQglP9a1AGw==
-  BynQtpeUyWTXKGTrGhdV2Q==
-  tVMd3L1CKM4wFmyxEEEUV2bY
-  4Fdzw1k=
-  ``
-  seem like <base64> encoded data due to the `=` sign padding, but nothing human readable comes out of them.
 
 = Custom encoded images of unknown source
 {parent=Images}
