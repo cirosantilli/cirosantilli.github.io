@@ -1023,6 +1023,58 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   |     After all these years true        |
   |      I love our time together         |
   ``
+* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0652.txt#L1[tx b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f], block 652005 (https://www.blockchain.com/explorer/transactions/btc/b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f[2020-10-09]) contains the obituary for Yang Yiping, a <Christian> <Chinese> lady who lived in <Germany>:
+  ``
+         .-==-.
+         |    |
+         |    |
+  .-====='    '=====-.
+  |   Yang, Yiping   |
+  *-====-.    .-====-*
+         | 　 |
+         | 杨 |
+         | 　 |
+         | 一 |
+         | 平 |
+         | 　 |
+         | 　 |
+         `-==-´
+  *~~~~~~~~~~~~~~~~~~*
+      Yang, Yiping
+        杨 一平
+  .~~~~~~~~~~~~~~~~~~.
+    ✰ 1957-07-19
+    ✞ 2020-10-08
+  '~~~~~~~~~~~~~~~~~~'
+  Wir vermissen dich!
+   杨一平，
+    我们思念你
+     ヾ(￣▽￣)
+      杨一平与
+       耶稣在一起
+  //yang.yiping.de/btc
+  ``
+
+  Translations:
+  * Wir vermissen dich: We miss you
+  * 杨一平: Yang Yiping
+  * 我们思念你: We miss you
+  * 杨一平与耶稣在一起: Yang Yiping is with <Jesus>
+
+  The link https://yang.yiping.de/btc is dead with no archives, but the toplevel https://yang.yiping.de survives as of 2024 and contais an obituary in a <WordPress> website. The Bitcoin message is acknowledged on the website at:
+  \Q[archiviert auf der BTC Blockchain TX b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f]
+  The website is also mirrored at https://yiping.de[]. The navigation is a bit confusing, but https://yang.yiping.de/?cat=10 contains a blog with many entries, presumably by her husband
+  * the https://yang.yiping.de/?p=1324[first post] is from slightly before her death on 2020-09-01 and documents their 2019 trip to <San Francisco> apparently to visit family. She could be a <COVID-19> casualty.
+  * https://yang.yiping.de/?p=367 gives transliterated names of her three children: Kaibin, Ella and Martin
+  * https://yang.yiping.de/?p=638 has some mentions of work colleagues, but not enough to easily identify where she worked
+
+  \Image[https://web.archive.org/web/20240206091158if_/https://yang.yiping.de/wp-content/uploads/2020/11/DSC01901-1024x576.jpg]
+  {title=Off-chain image of Yang Yiping}
+  {source=https://yang.yiping.de}
+
+  A previous failed upload is present at: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0651.txt#L584[tx b4ba91b4892ff85a5eb18b85bc1fd744d9418b2a71f1dc130447893b9e1cab60], block 651974 (https://www.blockchain.com/explorer/transactions/btc/b4ba91b4892ff85a5eb18b85bc1fd744d9418b2a71f1dc130447893b9e1cab60[2020-10-09]) 
+
+  The upload is done as <P2PKH> (20 bytes at a time) and is meant to show with newlines after each ouptut, <BitLen> style. It is also further broken down on our upload by the presence of <UTF-8> characters. https://www.reddit.com/user/brando2131/comments/1fy2aum/decoding_hidden_messages_on_the_bitcoin_blockchain/[brando2131 helped decoded this message on Reddit], after <Ciro Santilli> reached out for help after seeing his work on the <code ZN inscription>.
 * https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0669.txt#L565[tx 0d034d6dc3cfa8c8ebb1df202ada251bdf890f9dd5f0c4dffbe185b8cc5c999d], block 669986 (https://www.blockchain.com/explorer/transactions/btc/0d034d6dc3cfa8c8ebb1df202ada251bdf890f9dd5f0c4dffbe185b8cc5c999d[2021-02-10]) a teddy bear, also visible e.g. at https://www.asciiart.eu/toys/teddy-bears[]? https://en.wikipedia.org/wiki/Hugs_and_kisses["xoxo" means hugs and kisses]. Maybe this was in preparation for St. Valentine's day a bit later on February 14th?
   ``
     ___
@@ -1122,6 +1174,7 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
       ,zzzzq       ,qzzzzzzzzzz,      
       ,zzzzq         .;qzzzzzzz,  
   ``
+  {title=ZN inscription}
   This ASCII art had been previously https://www.reddit.com/r/Bitcoin/comments/qtk492/someone_tried_to_put_some_ascii_art_into_the/[noted by sroose and decoded by brando2131 on Reddit], and was brought to our attention by https://x.com/lilbagwing/status/1842622268314091994[Bagfoot OP446 on twitter]. <Ciro Santilli> had previously spotted the art, but failed to decode it. "ZENON NETWORK" is inscribed just after the art confiming the meaning of the characters, but it does not appear in our ASCII dumps presumably because the string it is too short and surrounded by non-ASCII.
 
   Each line is encoded with <OP_RETURN>, is 38 bytes long, and starts and ends in 6 spaces, leading to 26 non-whitespace characters per line. The lines appear in scambled order and it is unclear if there is any logic in the ordering or if it was just meant as a little puzzle. But given the nearby "ZENON NETWORK" inscription, this decoding is overwhelmingly likely correct.
@@ -1506,39 +1559,6 @@ Duriel@paystamper.com = 1HcuhfTAiQCt6KdMG2rZLXsTcKYj9nLDhS
 paystamper.com was some other blockchain service from circa 2015:
 * https://bitcointalk.org/index.php?action=profile;threads;u=412250;sa=showPosts
 * https://www.reddit.com/r/Bitcoin/comments/2p4on0/paystampercom_receive_unlimited_detailed_payments/
-
-= ASCII art TODO
-{c}
-{parent=ASCII art}
-
-The following almost certainly contain ASCII art but we were not yet able to decode them. Puzzle solvers from the Internet, we need your help!
-
-* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0651.txt#L584[tx b4ba91b4892ff85a5eb18b85bc1fd744d9418b2a71f1dc130447893b9e1cab60], block 651974 (https://www.blockchain.com/explorer/transactions/btc/b4ba91b4892ff85a5eb18b85bc1fd744d9418b2a71f1dc130447893b9e1cab60[2020-10-09]) The link https://yang.yiping.de/btc is dead with no archives, but the toplevel https://yang.yiping.de is an obituary to a Chinese lady called "Yang Yiping" (杨一平). The Bitcoin message is acknowledged on the website at:
-  \Q[archiviert auf der BTC Blockchain TX b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f]
-  She apparently lived in Germany as the website is bilingual German/Chinese, the text:
-  \Q[Wir vermissen dich]
-  means:
-  \Q[We miss you]
-  TODO decode properly. It is encoded as <P2PKH> keys (20 bytes at a timt) but also contains its own newlines and trailing spaces. Maybe a start:
-  ``
-            .-==-.
-            `-==-
-             |    |
-             |    |
-             |
-        Yang, Yiping
-       '~~~~~~~~~~~~~~~~~~'
-       *-====-.    .-====-*
-       *~~~~~~~~~~~~~~~~~~*
-       .-====='    '=====-.
-       .~~~~~~~~~~~~~~~~~~.
-       //yang.yiping.de/btc
-       Wir vermissen dich! |
-            Yang, Yiping   |~
-  ``
-  Could it be across? She's apparently <Christian> based on the website.
-
-  https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0652.txt#L1[tx b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f], block 652005 (https://www.blockchain.com/explorer/transactions/btc/b8e80f2bd1eac8c6db4dfb8b6cc9c8eb71133cbc1a0d32e6952c1a2818eecc8f[2020-10-09]) also contains some related content with her name, though not identical. Perhaps they are meant to be assembled together somehow? 
 
 = Custom encoded images of unknown source
 {parent=Images}
