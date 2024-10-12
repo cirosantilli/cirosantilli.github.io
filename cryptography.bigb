@@ -24,21 +24,31 @@
 = Symmetric and public-key cryptography
 {parent=Cryptography}
 
-= Symmetric-key algorithm
-{parent=Symmetric and public-key cryptography}
-{wiki}
-
 = Symmetric encryption
-{synonym}
+{parent=Symmetric and public-key cryptography}
+
+Symmetric encryption is a type of <encryption> where you use a password (also known as a "key") to encrypt your data, and then the same password to decrypt the data.
+
+For example, this is the type of encryption that is used for encrypting the data in our <smartphones> and <laptops> with <disk encryption>.
+
+This way, if your laptop gets stolen, the thief is not able to see your private photos without knowing your password, even though they are able to read every byte of your disk.
+
+The downside is that that you have to type your password every time you want to login. This leads people to want to use shorter passwords, which in turn are more prone to <password cracking>.
+
+The other main type of encryption is <public-key cryptography>.
+
+The advantage of <public-key cryptography> is that it allows you to send secret messages to other people even if the attacker is able to capture the encrypted messages. This is for example what you want to do when sending a personal message to a special friend.
+
+This is not possible with <symmetric encryption> because for your friend to decrypt the message in that system, you'd need to send them the password, which the attacker would also be able to eavesdrop and then decrypt the message.
 
 = Provably secure symmetric-key algorithm
-{parent=Symmetric-key algorithm}
+{parent=Symmetric encryption}
 {wiki}
 
 There aren't any 2020, except in the trivial <one-time pad> case where the key is as large as the message: https://crypto.stackexchange.com/questions/10815/how-do-we-prove-that-aes-des-etc-are-secure
 
 = One-time pad
-{parent=Symmetric-key algorithm}
+{parent=Symmetric encryption}
 {wiki}
 
 The only perfect cryptosystem!
@@ -46,6 +56,11 @@ The only perfect cryptosystem!
 The problem is that you need a shared <key (cryptography)> as large as the message.
 
 Systems like <advanced Encryption Standard> allow us to encrypt things larger than the key, but the tradeoff is that they could be possibly broken, as don't have any <provably secure symmetric-key algorithms> as of 2020.
+
+= Symmetric-key algorithm
+{parent=Symmetric encryption}
+
+Symmetric-key algorithm is al algorithm implementing <symmetric encryption>.
 
 = Advanced Encryption Standard
 {parent=Symmetric-key algorithm}
