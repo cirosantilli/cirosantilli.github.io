@@ -37,9 +37,37 @@ The downside is that that you have to type your password every time you want to 
 
 The other main type of encryption is <public-key cryptography>.
 
-The advantage of <public-key cryptography> is that it allows you to send secret messages to other people even if the attacker is able to capture the encrypted messages. This is for example what you want to do when sending a personal message to a special friend.
+The advantage of <public-key cryptography> is that it allows you to send secret messages to other people even an the attacker is able to capture the encrypted messages. This is for example what you want to do when sending a personal message to a friend over the <Internet>. Such <encryption> is especially crucial when using <wireless communication> such as <Wi-Fi>, where anyone nearby can capture the signals you send and receive, and would be able to read all your data if it weren't encrypted.
 
-This is not possible with <symmetric encryption> because for your friend to decrypt the message in that system, you'd need to send them the password, which the attacker would also be able to eavesdrop and then decrypt the message.
+Easily sending encrypted messages over the <Internet> is not possible with <symmetric encryption> because for your friend to decrypt the message in that system, you'd need to send them the password, which the attacker would also be able to eavesdrop and then decrypt the message that follows using it. The problem of sharing a password with another person online is called <key exchange>.
+
+<Advanced Encryption Standard> (AES) is one of the most popular families of <symmetric encryption> algorithms.
+
+<OpenSSL> is a popular <open source> implementation of <symmetric and public-key cryptography>. A simple example of using <OpenSSL> for <symmetric encryption> from the <command-line> is:
+``
+echo 'Hello World!' > message.txt
+openssl aes-256-cbc -a -salt -pbkdf2 -in message.txt -out message.txt.enc
+``
+This asks for a password, which we set as `asdfqwer`, and then produces a file `message.txt.enc` containing garbled text such that:
+``
+hd message.txt.enc
+``
+contains:
+``
+00000000  55 32 46 73 64 47 56 6b  58 31 38 58 48 65 2f 30  |U2FsdGVkX18XHe/0|
+00000010  70 56 42 2b 70 45 6c 55  59 38 2b 54 38 7a 4e 34  |pVB+pElUY8+T8zN4|
+00000020  4e 37 6d 52 2f 73 6d 4d  62 64 30 3d 0a           |N7mR/smMbd0=.|
+0000002d
+``
+Then to decrypt:
+``
+openssl aes-256-cbc -d -a -pbkdf2 -in message.txt.enc -out message.new.txt
+``
+once again asks for your password and given the correct password produces a file `message.new.txt` containing the original message:
+``
+Hello World!
+``
+This was tested on <Ubuntu 24.04>, OpenSSL 3.0.13. See also: https://stackoverflow.com/questions/16056135/how-to-use-openssl-to-encrypt-decrypt-files[How to use OpenSSL to encrypt/decrypt files? on Stack Overflow].
 
 = Provably secure symmetric-key algorithm
 {parent=Symmetric encryption}
@@ -217,6 +245,15 @@ https://crypto.stackexchange.com/questions/29906/how-does-diffie-hellman-differ-
 
 = Encrypted
 {synonym}
+
+= Encryption software
+{parent=Encryption}
+{wiki}
+
+= OpenSSL
+{c}
+{parent=Encryption software}
+{wiki}
 
 = Steganography
 {parent=Encryption}
