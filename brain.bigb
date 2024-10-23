@@ -99,7 +99,17 @@ https://github.com/foambubble/foam impressive.
 
 <Open source> <Roam Research> clone.
 
-Markdown based, <Visual Studio Code> based. Template project: https://github.com/foambubble/foam-template[]. Publishing possible but not mandatory focus, main focus is self notes. TODO possible or not? https://jackiexiao.github.io/foam/reference/publishing-pages/[] and if yes how. They seem to use graphs more than trees which will complicate publication. IDs seem to be correct, unscoped from files. IDs might be correctly implemented but need to confirm. A CLI tool at: https://github.com/foambubble/foam-cli[]
+Markdown based, <Visual Studio Code> based.
+
+Template project: https://github.com/foambubble/foam-template[].
+
+Publishing possible but not mandatory focus, main focus is self notes. Publishing guide at: https://foambubble.github.io/foam/user/recipes/recipes.html#publish Related: https://jackiexiao.github.io/foam/reference/publishing-pages/[].
+
+They seem to use graphs more than trees which will complicate publication.
+
+TODO are IDs might be correctly implemented and independent from source file location? Are there any examples? https://github.com/foambubble/foam/issues/512
+
+A CLI tool at: https://github.com/foambubble/foam-cli[]
 
 = Forester
 {c}
@@ -123,13 +133,21 @@ Headers have open/close:
 ``
 \subtree[jms-00YG]{}
 ``
-<OurBigBook> considered this, but went with `parent=` instead finally.
+<OurBigBook> considered this, but went with `parent=` instead finally to avoid huge lists of close parenthesis at the end of deep nodes.
+
+One really cool thing is that the headers render internal links as clickable, which brings it all closer to the "knowledge base as a formal <ontology>" approach.
 
 Does not encourage human readable IDs, uses stuff like `jms-00YG`.
 
 The markup doesn't seem to have any insane constructs, you have to type out open paragraphs everywhere?! OMG, too idealistic, not enough pragmatism.
 
 Jon has some very good theory of <personal knowledge base>, rationalizing several points that <Ciro Santilli> had in his mind but hadn't fully put into words, which is quite cool.
+
+OCaml dependency is not so bad, but it relies on actualy <LaTeX> for maths, which is bad. Maybe using <JavaScript> for <OurBigBook> wasn't such a bad choice after all, <KaTeX> just works.
+
+Docs at: https://www.jonmsterling.com/jms-005P.xml Sample repo at: https://github.com/jonsterling/forest but all parts of interest are in submodules on the authors private Git server.
+
+Viewing the generated output HTML directly requires `security.fileuri.strict_origin_policy` which is sad, but using a local server solves it. So it appears to actually pull pieces together with JavaScript? Also output files have .xml extension, the idealism! 
 
 = Logseq
 {c}
