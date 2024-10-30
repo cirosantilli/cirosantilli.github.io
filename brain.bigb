@@ -78,7 +78,7 @@ TODO those more:
   * tiddlyroam https://joekroese.github.io/tiddlyroam/ graph rather than text searchable ToC. Public instance? Multiuser?
   * Athens https://github.com/athensresearch/athens rudimentary <WYSIWYG>
   * Logseq https://github.com/logseq/logseq no web interface/centralized server?
-  * Zim https://zim-wiki.org/ Local only. <WYSIWYG>.
+  * Zim https://zim-wiki.org/ Local only. <WYSIWYG>. Can only link to toplevel of each source, not subheaders? Subpages get forced scope. https://github.com/zim-desktop-wiki/zim-desktop-wiki
 * https://itsfoss.com/obsidian-markdown-editor[]. <Closed source>. They have an OK static website publication mechanism: https://publish.obsidian.md/ram-rachum-research/Public/Agents+aren't+objective+entities%2C+they're+a+model but leaf node view only for now, no cross source page render. They are committed to having plaintext source which is cool: https://twitter.com/kepano/status/1675626836821409792
 * <Notion (productivity software)>[].
 
@@ -117,7 +117,7 @@ A CLI tool at: https://github.com/foambubble/foam-cli[]
 
 https://www.jonmsterling.com/tfmt-0001.xml
 
-Intro/docs: https://www.jonmsterling.com/jms-005P.xml
+Intro/docs: https://www.jonmsterling.com/jms-005P.xml[]. It is very hard to find information in that system however, largely because they don't seem to have a proper recursive cross file table of contents.
 
 This is the project with the closest philosophy to <OurBigBook> that <Ciro Santilli> has ever found. It just tends to be even more idealistic than, <OurBigBook> in general, which is insane!
 
@@ -127,7 +127,7 @@ Sample source file: https://git.sr.ht/~jonsterling/public-trees/tree/2356f52303c
 
 Author's main social media account seems to be: https://mathstodon.xyz/@jonmsterling e.g. https://mathstodon.xyz/@jonmsterling/111359099228291730
 
-They have `\Include` like <OurBigBook>, nice: https://www.jonmsterling.com/jms-007L.xml[], but OMG that name `\transclude{xxx-NNNN}`!!
+They have `\Include` like <OurBigBook>, nice: https://www.jonmsterling.com/jms-007L.xml[], but OMG that name `\transclude{xxx-NNNN}`!! It seems to be possible to have human readable IDs too if you want: https://www.jonmsterling.com/foreign-forester-armaëlguéneau.xml[] is under `trees/public/roladex/armaëlguéneau.tree`.
 
 Headers have open/close:
 ``
@@ -139,7 +139,10 @@ One really cool thing is that the headers render internal links as clickable, wh
 
 Does not encourage human readable IDs, uses stuff like `jms-00YG`.
 
-The markup doesn't seem to have any insane constructs, you have to type out open paragraphs everywhere?! OMG, too idealistic, not enough pragmatism.
+The markup has relatively few insane constructs, notably you need explicit open paragraphs everywhere `\p{}`?! OMG, too idealistic, not enough pragmatism. There are however a few insane constructs:
+* `[]()`: markdown like links
+* `[[bluecat]]`: wikilinks (but to raw IDs only, you can't seem to be able to do `[[blue cat]]`
+* `#{}` and `##{}` for inline and block maths, though that might just be a sane construct with an insane name
 
 Jon has some very good theory of <personal knowledge base>, rationalizing several points that <Ciro Santilli> had in his mind but hadn't fully put into words, which is quite cool.
 
@@ -147,7 +150,11 @@ OCaml dependency is not so bad, but it relies on actualy <LaTeX> for maths, whic
 
 Docs at: https://www.jonmsterling.com/jms-005P.xml Sample repo at: https://github.com/jonsterling/forest but all parts of interest are in submodules on the authors private Git server.
 
-Viewing the generated output HTML directly requires `security.fileuri.strict_origin_policy` which is sad, but using a local server solves it. So it appears to actually pull pieces together with JavaScript? Also output files have .xml extension, the idealism! 
+Viewing the generated output HTML directly requires `security.fileuri.strict_origin_policy` which is sad, but using a local server solves it. So it appears to actually pull pieces together with JavaScript? Also output files have .xml extension, the idealism! They are reconsidering that though: https://www.jonmsterling.com/foreign-forester-jms-005P.xml#tree-8720[].
+
+The Ctrl+K article dropdown search navigation is quite cool.
+
+`\rel` allows for arbitrary ontologies between nodes as <semantic triples>.
 
 = Logseq
 {c}
