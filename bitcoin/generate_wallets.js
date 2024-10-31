@@ -25,7 +25,7 @@ const bip39 = require('bip39')
 // Change the network appropriately
 const network = bitcoin.networks.regtest
 
-// Replace these values 
+// Replace these values
 // 128 bit entropy => 12 words mnemonic
 // bx seed -b 128
 const wallets = [
@@ -116,7 +116,7 @@ exec(
   }
     stdout && console.log(stdout)
     console.log('wallets.json has been written successfully')
-    
+
     // Import private keys to Bitcoin Core
     exec('./import_privkeys.sh', (error, stdout, stderr) => {
       if (error) {
@@ -125,5 +125,5 @@ exec(
       }
       stdout && console.log(stdout)
       console.log('Private keys have been imported to Bitcoin Core successfully')
-    })   
+    })
 })
