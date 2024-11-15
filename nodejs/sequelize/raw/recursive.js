@@ -47,6 +47,7 @@ common.assertEqual(rows, [
 ])
 
 // Cycle detection
+// https://stackoverflow.com/questions/31739150/to-find-infinite-recursive-loop-in-cte
 if (sequelize.options.dialect === 'postgres') {
 ;[rows, meta] = await sequelize.query(`
 WITH RECURSIVE "cte"(n) AS (
@@ -60,6 +61,7 @@ ORDER BY "n" ASC
 `)
 // TODO how to also fork multiple times without a table?
 // WITH "t" ("n") AS (VALUES ("m" * 2), ("m" * 3)) SELECT "m" FROM "cte"
+console.log(rows)
 common.assertEqual(rows, [
   { n: 0, },
   { n: 1, },
@@ -67,5 +69,23 @@ common.assertEqual(rows, [
   { n: 3, },
 ])
 }
+
+// To just avoid infinite loops without detection,
+// we can just use UNION rather than UNION ALL.
+;[rows, meta] = await sequelize.query(`
+WITH RECURSIVE "cte"(n) AS (
+  SELECT 0 AS "n"
+  UNION
+  SELECT ("n" + 1) % 4 FROM "cte"
+)
+SELECT * from "cte"
+ORDER BY "n" ASC
+`)
+common.assertEqual(rows, [
+  { n: 0, },
+  { n: 1, },
+  { n: 2, },
+  { n: 3, },
+])
 
 })().finally(() => { return sequelize.close() });
