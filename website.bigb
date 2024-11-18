@@ -507,6 +507,7 @@ Someone made and sold a helper for it:
 = Trillium Notes
 {parent=List of Wikis}
 {tag=Personal knowledge base software}
+{tag=Software that uses Electron}
 {wiki}
 
 https://github.com/zadam/trilium[].
@@ -515,17 +516,21 @@ Tree based organization at last. Infinitely deep.
 
 Amazing <WYSIWYG>, including maths and tables, plus insane plugins like canvas mode, and specific file formats like code/mermaid diagrams/drawing mode.
 
-Version history.
+Version history with automatic snapshots at intervals. TODO how is it implemented? Do they just <ZIP> multiple versions?
 
 No multiuser features. Except for that, could have been a good starting point of an online multiuser thing such as <OurBigBook.com>!
 
-Only possible to see one page at a time on output? Output chunking is a major feature of <OurBigBook>, I'm so proud. No proper built-in HTML static website export? https://github.com/zadam/trilium/issues/558
+With https://github.com/zadam/trilium/wiki/Book-note[Book Notes] it is possible possible to see more than one page at a time on the output, whic his a major feature of <OurBigBook>. But does it show on HTML export as well?
 
-No CLI to export to HTML? https://github.com/zadam/trilium/issues/3012
+You can static HTML export any subtree by right clicking on it in the navigation tree.
 
-HTML export keeps all data as HTMl is their native format. The files are mostly visible, but there is some CSS missing, it is not 100% like editor, notably math is broken. There is also a hosted way of exposing: https://github.com/zadam/trilium/wiki/Sharing[].
+Is there a CLI to export to HTML? https://github.com/zadam/trilium/issues/3012
 
-HTML export uses frame navigation, with a toc fixed on the left frame. Efficient, but not of this century.
+HTML export keeps all data as HTML is their native format. This may be inherited from CKEditor. The files are mostly visible, but there is some CSS missing, it is not 100% like editor, notably math is broken. There is also a hosted way of exposing: https://github.com/zadam/trilium/wiki/Sharing[].
+
+https://trilium.rocks however has a very good export, it is just a question of how much they had to hacked things, source at: https://github.com/zerebos/trilium.rocks
+
+The default tHTML export uses frame navigation, with a toc fixed on the left frame. Efficient, but not of this century.
 
 There is no concept of user created unique text IDs: you can have the same headers in the same folders in the UI. It's not even a matter of scopes. On exports they are differentiated as `1_name`, `2_name`, etc.
 ``
@@ -535,7 +540,7 @@ There is no concept of user created unique text IDs: you can have the same heade
 ``
 
 Markdown export warns:
-\Q[this preserves most of the formatting.]
+> this preserves most of the formatting
 
 Architecture: runs on local SQLite database via better-sqlite3. Data apparently stored in SQLite database at `~/.local/share/trilium-data`, no raw files.
 
@@ -544,6 +549,12 @@ Markup is stored as HTML as seen from: `sqlite3 document.db 'SELECT * from note_
 WYSIWYG based on https://ckeditor.com/ which is a dependency. It is kind of cool that the view in which you view the output is exactly the same as the one you edit in, and there is no intermediate format, just the HTML.
 
 Math is <KaTeX> based.
+
+It also runs on the browser via a server: https://github.com/zadam/trilium/wiki/Server-installation[]. And they have a paid service for it at: https://trilium.cc/[]. Quite impressive.
+
+They have server to from desktop sync: https://github.com/zadam/trilium/wiki/synchronization[]. There is no conflict resolution, one of them wins randomly. But they have revision history, and anything lost will be in the revision history. They have so many features it is mind blowing.
+
+Maintainer announced he would be slowing down development since January 2024: https://github.com/zadam/trilium/issues/4620?ref=selfh.st
 
 = Wikipedia
 {c}
@@ -572,6 +583,32 @@ Citing in Wikipedia is painful. Partly because of they have a billion different 
 
 \Video[https://www.youtube.com/watch?v=j9-CovbP-7U]
 {title=Inside the Wikimedia Foundation offices by <Wikimedia Foundation> (2008)}
+
+= Wikipedia user
+{c}
+{parent=Wikipedia}
+
+= WikiFauna
+{c}
+{parent=Wikipedia user}
+
+https://en.wikipedia.org/wiki/Wikipedia:WikiFauna
+
+<WikiFauna> refers to a classification of different <Wiki> contributor stereotypes. Some of them originate from the venerable <C2 wiki>.
+
+= WikiGnome
+{c}
+{parent=WikiFauna}
+
+* http://wiki.c2.com/?WikiGnome
+
+  > What motivates the <WikiGnomes>?
+
+    A: ObSouthPark:
+    * Clean up zillions of WikiPages.
+    * ???
+    * PROFIT!!
+* https://en.wikipedia.org/wiki/Wikipedia:WikiGnome
 
 = Wikipedia lore
 {c}
@@ -617,6 +654,9 @@ Notability constraints, which are are way too strict:
 * even information about important companies can be disputed. E.g. once <Ciro Santilli> tried to create a page for <PsiQuantum>, a startup with \$650m in funding, and there was a deletion proposal because it did not contain verifiable sources not linked directly to information provided by the company itself: https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/PsiQuantum Although this argument is correct, it is also true about 90% of everything that is on Wikipedia about any company. Where else can you get any information about a <B2B> company? Their clients are not going to say anything. Lawsuits and scandals are kind of the only possible source... In that case, the page was deleted with 2 votes against vs 3 votes for deletion.
   \Q[should we delete this extremely likely useful/correct content or not according to this extremely complex system of guidelines"]
   is very similar to <Stack Exchange>'s own <Stack Overflow content deletion> issues. <Ain't Nobody Got Time for That>. "Ain't Nobody Got Time for That" actually has a Wiki page: https://en.wikipedia.org/wiki/Ain%27t_Nobody_Got_Time_for_That[]. That's notable. Unlike a \$600M+ company of course.
+
+  In December 2023 the page was re-created, and seemed to stick: https://en.wikipedia.org/wiki/Talk:PsiQuantum#Secondary_sources[] It's just a random going back and forth. https://en.wikipedia.org/wiki/User:Ctjk[Author Ctjk] has an interesting background:
+  > I am a legal official at a major government antitrust agency. The only plausible connection is we regulate tech firms
 There are even a Wikis that were created to remove notability constraints: <Wiki without notability requirements>.
 
 For these reasons reason why Ciro basically only contributes images to Wikipedia: because they are either all in or all out, and you can determine which one of them it is. And this allows images to be more attributable, so people can actually see that it was Ciro that created a given amazing image, thus overcoming Wikipedia's lack of <reputation system> a little bit as well.
@@ -950,27 +990,6 @@ The <Wikidata>/<Abstract Wikipedia> guy.
 = Wikimedia Foundation project
 {c}
 {parent=Wikimedia Foundation}
-{wiki}
-
-= Wikidata
-{c}
-{parent=Wikimedia Foundation project}
-{tag=Ontology}
-{wiki}
-
-= Wikibase
-{c}
-{parent=Wikidata}
-{wiki}
-
-The software that powers <Wikidata>. <Wikidata> is an instance of <Wikibase>.
-
-= Abstract Wikipedia
-{parent=Wikidata}
-{wiki}
-
-= Semantic MediaWiki
-{parent=Wikidata}
 {wiki}
 
 = It is not possible to teach natural sciences on Wikipedia
