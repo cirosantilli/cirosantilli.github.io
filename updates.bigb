@@ -28,6 +28,47 @@ As you might imagine, the <secret services> use exactly this type of knowledge m
 
 If only I weren't such a rebel, I'd be a perfect fit for the <intelligence agencies>.
 
+This is the best monstrosity I had the patience to come up with:
+``
+SELECT
+  ?currency
+  (GROUP_CONCAT(DISTINCT ?currencyIsoCode; SEPARATOR=", ") AS ?currencyIsoCodes)
+  ?currencyLabel
+  (GROUP_CONCAT(DISTINCT ?countryLabel; SEPARATOR=", ") AS ?countries)
+WHERE {
+  ?country wdt:P31/wdt:P279* wd:Q6256. # is country
+  ?country p:P38 ?countryHasCurrency.
+  ?countryHasCurrency ps:P38 ?currency.
+  ?countryHasCurrency wikibase:rank ?countryHasCurrencyRank.
+  OPTIONAL {
+    ?currency p:P498 ?currencyHasIsoCode.
+    ?currencyHasIsoCode ps:P498 ?currencyIsoCode.
+  }
+  FILTER NOT EXISTS {?country wdt:P576 ?countryAbolished}
+  FILTER NOT EXISTS {?currency wdt:P576 ?currencyAbolished}
+  FILTER NOT EXISTS {?currency wdt:P582 ?currencyEndTime}
+  FILTER NOT EXISTS {?countryHasCurrency pq:P582 ?countryHasCurrencyEndtime}
+  FILTER (?countryHasCurrencyRank != wikibase:DeprecatedRank)
+  FILTER (!bound(?currencyHasIsoCode) || ?currencyHasIsoCode != wikibase:DeprecatedRank)
+  # TODO makes query take timeout? Why? Needed to exclude PLZ.
+  FILTER NOT EXISTS {?currencyHasIsoCode pq:P582 ?currencyHasIsoCodeEndtime}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?currency rdfs:label ?currencyLabel .
+    ?country rdfs:label ?countryLabel .
+  }
+}
+GROUP BY ?currency ?currencyLabel
+ORDER BY ?currencyIsoCodes ?currencyLabel
+``
+It got quite close to the ISO 4217 list.
+
+I was drawn into this waste of time after I noticed that someone had managed to create the Wikipedia of <PsiQuantum> which I had tried earlier but got deleted: https://mastodon.social/@cirosantilli/113488891292906243[], and then I made the mistake of having a look at the <Wikidata> page of <PsiQuantum>.
+
+\Image[https://files.mastodon.social/media_attachments/files/113/509/536/025/260/785/original/428906b92ab725f5.jpg]
+{title=500,000 Transnistrian ruble banknote 1997 series}
+{description=This is one of the most widely used currencies which does not have an ISO 4217 code.}
+
 = CIA 2010 websites video
 {parent=Updates}
 
