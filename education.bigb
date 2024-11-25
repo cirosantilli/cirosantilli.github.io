@@ -647,15 +647,25 @@ Notable papers:
 = Academic paper database
 {parent=Academic paper}
 
+By "Academic paper database" we mean a database that collects paper metadata such as authors and <citations>, but not necessarily the full article content.
+
 <Academia is so broken> that there isn't even one be-all and end-all database of:
 * all papers by a given author
-* all citations of a given paper
-It's <Closed access academic journals are evil> to the extreme.
+* all <citations> of a given paper
+It's <closed access academic journals are evil> to the extreme.
+
+= ORCID
+{c}
+{parent=Academic paper database}
+{wiki}
 
 = Open academic paper database
 {parent=Academic paper database}
 
 By "open" we also mean that you can download their database locally and that it has an open license, not just free access.
+
+TODO evaluate:
+* https://www.crossref.org/[]. No papers by author attempt unless they have <ORCID>: https://community.crossref.org/t/get-all-works-of-a-particular-author-without-orcid/3751[] so what's the point of this project? https://www.crossref.org/services/funder-registry/[] this Funder registry thing sounds cool though.
 
 = PubMed
 {c}
@@ -855,6 +865,40 @@ Short for <Doctor of Philosophy>, it's how some weird places like the <Universit
 {parent=Doctor of Philosophy}
 {title2=ABD}
 {wiki}
+
+= Rebel without a PhD
+{parent=Doctor of Philosophy}
+
+This section is about hardcore people who don't have a <PhD>.
+
+= Nobel Prize winner without a PhD
+{parent=Rebel without a PhD}
+
+Notably in <STEM>, not so interested in literature of course:
+* https://www.reddit.com/r/NoStupidQuestions/comments/mv85av/has_anybody_without_a_phd_ever_won_the_nobel/
+* https://www.quora.com/Has-anyone-ever-won-a-Nobel-Prize-without-a-PhD
+* https://groups.google.com/g/diybio/c/SiBRwxVkZmc?pli=1
+
+Here's a <SPARQL> sketch for <Wikidata> that can be run at https://query.wikidata.org/[]. It gathers all the relevant data, but TODO we don't know how to do the proper query yet:
+``
+# List of living Nobel Laureates sorted by date of birth 
+SELECT DISTINCT ?recipient ?recipientLabel $birthDate ?awardLabel ?nobelDate ?educatedAtLabel ?academicDegree ?academicDegreeLabel ?doctorateDate
+WHERE { 
+  ?recipient wdt:P31 wd:Q5 ; # recepient is human (Peace prize can go to organizations) 
+             wdt:P569 ?birthDate ; 
+             p:P166 ?awardStat . # recepient was awarded something 
+  ?awardStat ps:P166 ?award .
+  ?award wdt:P279* wd:Q7191 . # received any subclass of nobel prize (physics, chemistry, etc.) 
+  ?awardStat pq:P585 ?nobelDate .
+  ?recipient p:P69 ?recipientEducatedAt .
+  ?recipientEducatedAt ps:P69 ?educatedAt .
+  ?recipientEducatedAt pq:P512 ?academicDegree .
+  ?academicDegree wdt:P279* wd:Q849697 .
+  OPTIONAL{ ?recipientEducatedAt pq:P582 ?doctorateDate . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . } 
+} 
+ORDER BY ASC(?birthDate) ASC(?nobelDate) ASC(?awardLabel)
+``
 
 = Learned society
 {parent=Education}
