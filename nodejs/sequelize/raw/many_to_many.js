@@ -33,6 +33,8 @@ CREATE TABLE "AnimalTag" (
   FOREIGN KEY ("tagId") REFERENCES "Tag"(id) ON DELETE CASCADE
 )
 `)
+await sequelize.query(`CREATE INDEX "animalId" ON "AnimalTag"("animalId")`)
+await sequelize.query(`CREATE INDEX "tagId" ON "AnimalTag"("tagId")`)
 async function reset() {
   // Any of those also clears AnimalTag due to the CASCADE.
   await sequelize.query(`DELETE FROM "Animal"`)
@@ -43,13 +45,13 @@ async function reset() {
 
   // We have to first insert Animal and Tag because AnimalTag
   // depend on it.
-  await Promise.all([
-    `
+  await Promise.all([`
 INSERT INTO "Animal" VALUES
 (0, 'dog',  'white'),
 (1, 'cat',  'black'),
 (2, 'hawk', 'yellow'),
-(3, 'bee',  'yellow')
+(3, 'bee',  'yellow'),
+(4, 'ant',  'black')
 `,
     `
 INSERT INTO "Tag" VALUES
@@ -73,12 +75,12 @@ await reset()
 
 let rows, meta
 
-// Get all tags of all animals.
+// Get all tags of all animals. Ignore animals without any tags.
 // This shows how in general JOIN returns repeated animal and tag rows.
 ;[rows, meta] = await sequelize.query(`
 SELECT
-  "Animal".name AS "Animal_name",
-  "Tag".name AS "Tag_name"
+  "Animal"."name" AS "Animal_name",
+  "Tag"."name" AS "Tag_name"
 FROM "Animal"
 INNER JOIN "AnimalTag"
   ON "Animal"."id" = "AnimalTag"."animalId"
@@ -332,7 +334,7 @@ common.assertEqual(rows, [
 //
 // The hard part about this query is how to not get multiple Animal entries for each Tag2.
 //
-// What we woule really like to write would be something like:
+// What we would really like to write would be something like:
 //
 //     LEFT OUTER JOIN "AnimalTag" AS "AnimalTag2"
 //       ON "Animal"."id" = "AnimalTag2"."animalId"
@@ -340,7 +342,7 @@ common.assertEqual(rows, [
 //     LEFT OUTER JOIN "Tag" AS "Tag2"
 //       ON "AnimalTag2"."tagId" = "Tag2".id
 //
-// to get the NULL immmediately on the expansion, but we can't use Tag2 before defining
+// to get the NULL immediately on the expansion, but we can't use Tag2 before defining
 // it in the following AS.
 //
 // TODO any way to do it without either subquery or GROUP BY? Could not find a JOIN-only way.
@@ -402,6 +404,120 @@ common.assertEqual(rows, [
   { Animal_name: 'cat',  Tag2_name: null },
   { Animal_name: 'hawk', Tag2_name: 'flying' },
 ])
+}
+
+// Select all animals with at most 1 tag from each animal.
+// Pick the first tag name alphabetically.
+// - https://stackoverflow.com/questions/2111384/sql-join-selecting-the-last-records-in-a-one-to-many-relationship language agnostic
+// - https://stackoverflow.com/questions/tagged/greatest-n-per-group there's a tag for it!
+if (
+  sequelize.options.dialect === 'postgres' ||
+  sequelize.options.dialect === 'sqlite'
+) {
+  ;[rows, meta] = await sequelize.query(`
+SELECT * FROM (
+  SELECT 
+    "Animal"."id" AS "Animal_id",
+    "Animal"."name" AS "Animal_name",
+    "Tag".name AS "Tag_name",
+    ROW_NUMBER() OVER (PARTITION BY "Animal"."id" ORDER BY "Tag"."name" ASC) AS "rowNumber" 
+  FROM "Animal"
+  LEFT OUTER JOIN "AnimalTag"
+    ON "Animal"."id" = "AnimalTag"."animalId"
+  LEFT OUTER JOIN "Tag"
+    ON "AnimalTag"."tagId" = "Tag"."id"
+  ORDER BY "Animal"."id" ASC, "Tag"."name" ASC
+) AS "sub"
+WHERE "rowNumber" = 1
+`)
+  common.assertEqual(rows, [
+    { Animal_name: 'dog', Tag_name: 'mammal' },
+    //{ Animal_name: 'dog', Tag_name: 'vertebrate' },
+    { Animal_name: 'cat', Tag_name: 'mammal' },
+    //{ Animal_name: 'cat', Tag_name: 'vertebrate' },
+    { Animal_name: 'hawk', Tag_name: 'flying' },
+    //{ Animal_name: 'hawk', Tag_name: 'vertebrate' },
+    { Animal_name: 'bee', Tag_name: 'flying' },
+    { Animal_name: 'ant', Tag_name: null },
+  ])
+
+  // Same but with DESC name.
+  ;[rows, meta] = await sequelize.query(`
+SELECT * FROM (
+  SELECT 
+    "Animal"."id" AS "Animal_id",
+    "Animal"."name" AS "Animal_name",
+    "Tag".name AS "Tag_name",
+    ROW_NUMBER() OVER (PARTITION BY "Animal"."id" ORDER BY "Tag"."name" DESC) AS "rowNumber" 
+  FROM "Animal"
+  LEFT OUTER JOIN "AnimalTag"
+    ON "Animal"."id" = "AnimalTag"."animalId"
+  LEFT OUTER JOIN "Tag"
+    ON "AnimalTag"."tagId" = "Tag"."id"
+  ORDER BY "Animal"."id" ASC, "Tag"."name" ASC
+) AS "sub"
+WHERE "rowNumber" = 1
+`)
+  common.assertEqual(rows, [
+    //{ Animal_name: 'dog', Tag_name: 'mammal' },
+    { Animal_name: 'dog', Tag_name: 'vertebrate' },
+    //{ Animal_name: 'cat', Tag_name: 'mammal' },
+    { Animal_name: 'cat', Tag_name: 'vertebrate' },
+    //{ Animal_name: 'hawk', Tag_name: 'flying' },
+    { Animal_name: 'hawk', Tag_name: 'vertebrate' },
+    { Animal_name: 'bee', Tag_name: 'flying' },
+    { Animal_name: 'ant', Tag_name: null },
+  ])
+}
+
+// Same with PostgreSQL DISTINCT ON.
+if (sequelize.options.dialect === 'postgres') {
+  ;[rows, meta] = await sequelize.query(`
+SELECT DISTINCT ON("Animal"."id")
+  "Animal"."id" AS "Animal_id",
+  "Animal"."name" AS "Animal_name",
+  "Tag".name AS "Tag_name"
+FROM "Animal"
+LEFT OUTER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+LEFT OUTER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag"."id"
+ORDER BY "Animal"."id" ASC, "Tag"."name" ASC
+`)
+  common.assertEqual(rows, [
+    { Animal_name: 'dog', Tag_name: 'mammal' },
+    //{ Animal_name: 'dog', Tag_name: 'vertebrate' },
+    { Animal_name: 'cat', Tag_name: 'mammal' },
+    //{ Animal_name: 'cat', Tag_name: 'vertebrate' },
+    { Animal_name: 'hawk', Tag_name: 'flying' },
+    //{ Animal_name: 'hawk', Tag_name: 'vertebrate' },
+    { Animal_name: 'bee', Tag_name: 'flying' },
+    { Animal_name: 'ant', Tag_name: null },
+  ])
+
+  // Descending animal names instead just to make sure it is working.
+  ;[rows, meta] = await sequelize.query(`
+SELECT DISTINCT ON("Animal"."id")
+  "Animal"."id" AS "Animal_id",
+  "Animal"."name" AS "Animal_name",
+  "Tag".name AS "Tag_name"
+FROM "Animal"
+LEFT OUTER JOIN "AnimalTag"
+  ON "Animal"."id" = "AnimalTag"."animalId"
+LEFT OUTER JOIN "Tag"
+  ON "AnimalTag"."tagId" = "Tag"."id"
+ORDER BY "Animal"."id" ASC, "Tag"."name" DESC
+`)
+  common.assertEqual(rows, [
+    //{ Animal_name: 'dog', Tag_name: 'mammal' },
+    { Animal_name: 'dog', Tag_name: 'vertebrate' },
+    //{ Animal_name: 'cat', Tag_name: 'mammal' },
+    { Animal_name: 'cat', Tag_name: 'vertebrate' },
+    //{ Animal_name: 'hawk', Tag_name: 'flying' },
+    { Animal_name: 'hawk', Tag_name: 'vertebrate' },
+    { Animal_name: 'bee', Tag_name: 'flying' },
+    { Animal_name: 'ant', Tag_name: null },
+  ])
 }
 
 // Queries that modify data.
@@ -489,6 +605,7 @@ WHERE "Animal".id = "AnimalTag"."animalId"
   common.assertEqual(rows, [
     { name: 'dog' },
     { name: 'cat' },
+    { name: 'ant' },
   ])
   await reset()
 }
@@ -511,12 +628,13 @@ WHERE "Animal".id IN (
 common.assertEqual(rows, [
   { name: 'dog' },
   { name: 'cat' },
+  { name: 'ant' },
 ])
 await reset()
 
 // Delete any tags associated with 'dog' that have less than 3 animals.
 // In our specific test database, this should delete only the "mammal" tag.
-// Application: with 1 instead of 3, we could use this to clean up possbly
+// Application: with 1 instead of 3, we could use this to clean up possibly
 // empty tags after deleting animal, as there might be no more associated animals
 // to them after every animal deletion.
 await sequelize.query(`
