@@ -67,6 +67,39 @@ It is those early splinter groups that make it so clear that religion is fake. W
 = The bible
 {synonym}
 
+= Bible dataset
+{tag=Dataset}
+{parent=Bible}
+
+Verse number to text:
+* https://www.kaggle.com/datasets/oswinrh/bible verse to text. TODO how was it generated
+* https://gist.github.com/sebastiancarlos/2fdb072e46ee80038d6da196cc0bb8bc
+* https://sebastiancarlos.com/religions-please-migrate-your-holy-texts-to-json-76bce058291d
+  * https://www.reddit.com/r/programming/comments/wv6q6r/religions_please_migrate_your_holy_texts_to_json/
+* https://www.reddit.com/r/programming/comments/wv6q6r/religions_please_migrate_your_holy_texts_to_json/
+* https://github.com/acrawford73/postgresql-bible-kjv pre-extracted <CSV> with undocumented method
+
+Actual <NLP> into text:
+* https://github.com/BradyStephenson/bible-data actually digs a bit into the text
+
+= Convert project Gutenberg King James Bible to verse number to text dataset
+{parent=Bible dataset}
+
+This section is about converting: https://www.gutenberg.org/ebooks/10[], and most likely the <plaintext> version: https://stackoverflow.com/a/43060761/895245[] to the same data format as https://www.kaggle.com/datasets/oswinrh/bible mapping book/chapter/verse to the text:
+
+``
+1 1 1 In the beginning God created the heaven and the earth.
+1 1 2 And the earth was without form, and void; and darkness was upon the face of the deep.
+``
+
+On particular annoyance is that the txt version has multiple verses per line at times.
+
+We'd likely just want to use a slightly modified version of: https://stackoverflow.com/a/43060761/895245 that searches for patterns of type:
+``
+(\d+):(\d+)
+``
+with incremental integers.
+
 = Old Testament
 {c}
 {parent=Bible}
