@@ -765,12 +765,99 @@ Although <Ciro Santilli> is a big fan of <plaintext files> and of <Vim>, not so 
 {parent=Text-based game}
 {tag=Good}
 
-There is great beauty here. Great beauty.
+There is great beauty here. Great beauty. It's pure terminal <#poetry>.
+
+The most canonical source code <Ciro Santilli> can find right now is: https://sources.debian.org/src/bsdgames/
+
+= Build bsdgames from source
+{parent=bsdgames}
+
+Many of the games are disabled by default on <Ubuntu>. But we can enable some games and build from source with:
+
+```
+apt-get source bsdgames
+cd bsdgames-*
+sed -ri '/^bsd_games_cfg_no_build_dirs=/s/ number / /' config.params
+./configure
+make -j
+```
+
+Here we enabled the game <number (bsdgames)>, so now we can:
+``
+number/number 123
+``
+which gives:
+``
+one hundred twenty-three.
+``
+
+We can also "install" it locally with:
+``
+make install
+``
+which puts the games locally under:
+``
+debian/bsdgames/usr/games/number
+``
+which you can add to your <PATH (environment variable)>.
+
+Tested on Ubuntu 24.04, bsdgames 2.17. 
+
+= bsdgames game
+{parent=bsdgames}
+
+= number
+{c}
+{disambiguate=bsdgames}
+{parent=bsdgames game}
+
+Converts numberical numbers to their full English form: https://unix.stackexchange.com/questions/413441/converting-numbers-into-full-written-words
+
+For example:
+``
+number 123456789123456789123456879123456789123456789123456879
+``
+gives:
+```
+one hundred twenty-three sexdecillion.
+four hundred fifty-six quindecillion.
+seven hundred eighty-nine quattuordecillion.
+one hundred twenty-three tredecillion.
+four hundred fifty-six duodecillion.
+seven hundred eighty-nine undecillion.
+one hundred twenty-three decillion.
+four hundred fifty-six nonillion.
+eight hundred seventy-nine octillion.
+one hundred twenty-three septillion.
+four hundred fifty-six sextillion.
+seven hundred eighty-nine quintillion.
+one hundred twenty-three quadrillion.
+four hundred fifty-six trillion.
+seven hundred eighty-nine billion.
+one hundred twenty-three million.
+four hundred fifty-six thousand.
+eight hundred seventy-nine.
+```
+
+It also takes input from stdin, e.g.:
+```
+primes 1 10 | number
+```
+gives:
+```
+two.
+...
+three.
+...
+five.
+...
+seven.
+```
 
 = primes
 {c}
 {disambiguate=bsdgames}
-{parent=bsdgames}
+{parent=bsdgames game}
 
 = Tile-based video game
 {parent=Text-based game}

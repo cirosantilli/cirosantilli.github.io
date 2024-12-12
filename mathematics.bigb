@@ -141,6 +141,11 @@ Good place to hunt for <the beauty of mathematics>.
 
 He's a bit overly obsessed with <polynomials> for the taste of modern maths, but it's still fun.
 
+= Landau's problems
+{c}
+{parent=Lists of mathematical problems}
+{wiki}
+
 = Millennium Prize Problems
 {c}
 {parent=Lists of mathematical problems}
@@ -158,7 +163,7 @@ Hard to understand the motivation!
   Of course, everything of interest has already been proved conditionally on it, and the likely "true" result will in itself not have any immediate applications.
 
   As is often the case, the only usefulness would be possible new ideas from the proof technique, and people being more willing to prove stuff based on it without the risk of the hypothesis being false.
-* <Yang-Mills existence and mass gap>: this one has to do with findind/proving the existence of a more decent formalization of <quantum field theory> that does not resort to tricks like <perturbation theory> and <effective field theory> with a random cutoff value
+* <Yang-Mills existence and mass gap>: this one has to do with finding/proving the existence of a more decent formalization of <quantum field theory> that does not resort to tricks like <perturbation theory> and <effective field theory> with a random cutoff value
 
   This is important because the best theory of light and electrons (and therefore chemistry and material science) that we have today, <quantum electrodynamics>, is a <quantum field theory>.
 
@@ -170,7 +175,7 @@ Hard to understand the motivation!
 {parent=Functional equation}
 {wiki}
 
-Nice result on <Lebesgue measurable> required for unicity.
+Nice result on <Lebesgue measurable> required for uniqueness.
 
 = Area of mathematics
 {parent=Mathematics}
@@ -179,6 +184,478 @@ Nice result on <Lebesgue measurable> required for unicity.
 \Include[algebra]{parent=Area of mathematics}
 \Include[calculus]{parent=Area of mathematics}
 \Include[geometry]{parent=Area of mathematics}
+
+= Number theory
+{parent=Area of mathematics}
+{wiki}
+
+= Arithmetic
+{parent=Number theory}
+{wiki}
+
+Definition: "easy" number theory learnt in <primary school>, notably the operations of <addition>, <subtraction>, <multiplication> and <division>.
+
+= Computational number theory
+{parent=Number theory}
+{wiki}
+
+= Modular arithmetic
+{parent=Number theory}
+{wiki}
+
+= Modulo operation
+{parent=Modular arithmetic}
+{wiki}
+
+= Modulo
+{synonym}
+
+= Modular multiplication
+{parent=Modular arithmetic}
+
+= Modular multiplicative inverse
+{parent=Modular multiplication}
+
+= Modular exponentiation
+{parent=Modular arithmetic}
+{wiki}
+
+Can be calculated efficiently with the <extended Euclidean algorithm>.
+
+= Computational complexity of modular exponentiation
+{parent=Modular exponentiation}
+
+https://math.stackexchange.com/questions/2382011/computational-complexity-of-modular-exponentiation-from-rosens-discrete-mathem mentions:
+$$
+b^n mod m
+$$
+can be calculated in:
+$$
+log(m)^2 log(n)
+$$
+Remember that $log(m)$ and $log(n)$ are the lengths in bits of $m$ and $n$, so in terms of the length in bits $M$ and $N$ we'd get:
+$$
+M^2 N
+$$
+
+= Lowest common denominator
+{parent=Number theory}
+{title2=LCD}
+{wiki}
+
+= Prime number
+{parent=Number theory}
+{wiki}
+
+= Prime
+{synonym}
+
+= Type of prime number
+{parent=Prime number}
+{wiki=List_of_prime_numbers}
+
+This section is about <prime numbers> that satisfy further properties beyond just being a <prime>.
+
+= Are there infinitely many primes with property X
+{parent=Type of prime number}
+
+There are infinitely many conjectures asking if such types of primes also form infinite families.
+
+Usually the answer is yes, but no one was able to prove it yet.
+
+Collaborative mega list: https://math.stackexchange.com/questions/4523193/are-there-infinitely-many-primes-of-the-form-x-we-probably-dont-know
+
+Good section also at: https://en.wikipedia.org/wiki/List_of_unsolved_problems_in_mathematics#Prime_numbers
+
+= Mersenne prime
+{c}
+{parent=Type of prime number}
+{title2=$2^n - 1$}
+{wiki}
+
+= Are there infinitely many Mersenne primes?
+{parent=Mersenne prime}
+{tag=Famous conjecture}
+{tag=Are there infinitely many primes with property X}
+
+= Lucas-Lehmer primality test
+{c}
+{parent=Mersenne prime}
+{tag=Primality test}
+{wiki}
+
+= Prime k-tuple
+{parent=Type of prime number}
+{title2=p, p+i, p+j...}
+{wiki}
+
+= Admissible prime k-tuple
+{parent=Prime k-tuple}
+
+= Prime k-tuple conjecture
+{parent=Admissible prime k-tuple}
+
+There are infinitely many <prime k-tuples> for every admissible tuple.
+
+Generalization of the <Twin prime conjecture>.
+
+As of 2023, there was no specific admissible tuple for which it had been proven that there infinite of, only bounds of type:
+\Q[there are infinitely 2-tuple instances with at most a finite bound]
+But these do not specify which specific tuple, e.g. <Yitang Zhang's theorem>.
+
+= Yitang Zhang's theorem
+{parent=Prime k-tuple conjecture}
+{title2=2013}
+
+There are infinitely many primes with a neighbor not further apart than 70 million. This was the first such finite bound to be proven, and therefore a major breakthrough.
+
+This implies that for at least one value (or more) below 70 million there are infinitely many repetitions, but we don't know which e.g. we could have infinitely many:
+$$
+k, k + 2
+$$
+or infinitely many:
+$$
+k, k + 4
+$$
+or infinitely many:
+$$
+k, k + 6,999,999
+$$
+or infinitely many:
+$$
+k, k + 2 and k, k + 4
+$$
+but we don't know which of those.
+
+The <Prime k-tuple conjecture> conjectures that it is all of them.
+
+Also, if 70 million could be reduced down to 2, we would have a proof of the <Twin prime conjecture>, but this method would only work for (k, k + 2).
+
+= Twin prime
+{parent=Prime k-tuple}
+{wiki}
+
+= Twin prime conjecture
+{parent=Twin prime}
+{tag=Famous conjecture}
+{tag=Prime k-tuple conjecture}
+{wiki}
+
+Let's show them how it's done with <primes (bsdgames)> + <awk>. Edit. They have a `-d` option which also shows gaps!!! Too strong:
+``
+sudo apt install bsdgames
+primes -d 1 100 | awk '/\(2\)/{print $1 - 2, $1 }'
+``
+gives us the list of all twin primes up to 100:
+``
+0 2
+3 5
+5 7
+11 13
+17 19
+29 31
+41 43
+59 61
+71 73
+``
+Tested on <Ubuntu 22.10>.
+
+= Goldbach's conjecture
+{c}
+{parent=Prime number}
+{tag=Additive basis theorem}
+{title2=Every even natural number greater than 2 is the sum of two prime numbers}
+{wiki}
+
+= Goldbach conjecture
+{c}
+{synonym}
+
+= Sums of three cubes
+{parent=Goldbach's conjecture}
+{wiki}
+
+= Prime number theorem
+{parent=Prime number}
+{wiki}
+
+= prime-number-theorem
+{file}
+{parent=Prime number theorem}
+
+Consider this is a study in failed <computational number theory>.
+
+The $n/ln(n)$ approximation converges really slowly, and we can't easy go far enough to see that the ration converges to 1 with only <awk> and <primes (bsdgames)>:
+``
+sudo apt intsall bsdgames
+cd prime-number-theorem
+./main.py 100000000
+``
+Runs in 30 minutes tested on <Ubuntu 22.10> and <Ciro Santilli's hardware/p51>, producing:
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi.png]
+{title=Linear $\pi(n)$ vs $n/ln(n)$ approximation plot}
+{description=$f(n) = n$ and $f(n) = log(n)$ are added to give a better sense of scale. $log(n)$ is too close to 0 and not visible, and the approximation almost overlaps entirely with $pi$.}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-minus.png]
+{title=$\pi(n) - n/ln(n)$}
+{description=It is clear that the difference diverges, albeit very slowly.}
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-over.png]
+{title=$\pi(n)/(n/ln(n))$}
+{id=image-pi-n-over-n-ln-n}
+{description=We just don't have enough points to clearly see that it is converging to 1.0, the convergence truly is very slow. The <logarithm integral> approximation is much much better, but we can't calculate it in <awk>, sadface.}
+
+But looking at: https://en.wikipedia.org/wiki/File:Prime_number_theorem_ratio_convergence.svg we see that it takes way longer to get closer to 1, even at $10^24$ it is still not super close. Inspecting the code there we see:
+``
+(* Supplement with larger known PrimePi values that are too large for \
+Mathematica to compute *)
+LargePiPrime = {{10^13, 346065536839}, {10^14, 3204941750802}, {10^15,
+     29844570422669}, {10^16, 279238341033925}, {10^17,
+    2623557157654233}, {10^18, 24739954287740860}, {10^19,
+    234057667276344607}, {10^20, 2220819602560918840}, {10^21,
+    21127269486018731928}, {10^22, 201467286689315906290}, {10^23,
+    1925320391606803968923}, {10^24, 18435599767349200867866}};
+``
+so OK, it is not something doable on a <personal computer> just like that.
+
+= Prime power
+{parent=Prime number}
+{wiki}
+
+They come up a lot in many contexts, e.g.:
+* <classification of finite fields>
+
+= Primality test
+{parent=Prime number}
+{wiki}
+
+= Elliptic curve primality
+{parent=Primality test}
+{tag=Elliptic curve}
+{wiki}
+
+= Elliptic curve primality testing
+{synonym}
+
+<Polynomial time> for most inputs, but not for some very rare ones. TODO can they be determined?
+
+But it is better in practice than the <AKS primality test>, which is always <polynomial time>.
+
+= AKS primality test
+{c}
+{parent=Primality test}
+{title2=2002}
+{title2=First polynomial time primality test discovered}
+{tag=Polynomial time}
+{wiki}
+
+= Greatest common divisor
+{parent=Prime number}
+{title2=GCD}
+{wiki}
+
+The "greatest common divisor" of two <integers> $x$ and $y$, denoted $\gdc(x, y)$ is the largest <natural number> that divides both of the integers.
+
+For example, $\gdc(8, 12)$ is 4, because:
+* 4 divides both 8 and 12
+* and this is not the case for any number larger than 4. E.g.:
+  * 5 divides neither one
+  * 6 divides 12
+  * 7 divides neither
+  * 8 divides only 8
+  and so on.
+
+= Greatest common divisor algorithm
+{parent=Greatest common divisor}
+
+= Algorithm to find the greatest common divisor
+{synonym}
+
+= Euclidean algorithm
+{c}
+{parent=Greatest common divisor}
+{wiki}
+
+= Extended Euclidean algorithm
+{c}
+{parent=Euclidean algorithm}
+{wiki}
+
+= Coprime
+{parent=Greatest common divisor}
+{wiki}
+
+Two numbers such that the <greatest common divisor> is 1.
+
+= Euler's totient function
+{c}
+{parent=Coprime}
+{title2=$\varphi(n)$}
+{title2=varphi}
+
+= Totient function
+{synonym}
+
+TODO wtf is a "totient"? Where else is that word used besides in this concept?
+
+= Totient summatory function
+{parent=Euler's totient function}
+{title2=$\Phi(n)$}
+{title2=uppercase phi}
+{wiki}
+
+= Least common multiple
+{c}
+{parent=Prime number}
+{title2=lcm}
+{wiki}
+
+= Numerical analysis
+{parent=Area of mathematics}
+{wiki}
+
+Techniques to get numerical approximations to numeric <mathematical> problems.
+
+The entire field comes down to estimating the true values with a known error bound, and creating algorithms that make those error bounds asymptotically smaller.
+
+Not the most beautiful field of pure <mathematics>, but fundamentally useful since we can't solve almost any <computational physics>[useful equation] without computers!
+
+The solution visualizations can also provide valuable intuition however.
+
+Important numerical analysis problems include solving:
+* <partial differential equations>
+
+= Floating-point arithmetic
+{parent=Numerical analysis}
+{wiki}
+
+= Floating-point number
+{parent=Floating-point arithmetic}
+{wiki}
+
+= IEEE 754
+{c}
+{parent=Floating-point arithmetic}
+{wiki}
+
+Selected answers by <Ciro Santilli> on the subject:
+* https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
+* https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
+* https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number/53203428#53203428[What is a subnormal floating point number?]
+
+= Half-precision floating-point format
+{parent=IEEE 754}
+{wiki}
+
+= 16-bit floating point
+{synonym}
+{title2}
+
+= Numerical computing language
+{parent=Numerical analysis}
+{tag=Evil}
+
+All those dedicated <applied mathematicians> languages are a waste of society's time, <Ciro Santilli> sure <applied mathematicians> are capable of writing a few extra braces in exchange for a sane general purpose language, we should instead just invest in good libraries with fast <C (programming language)> bindings for those languages like <NumPy> where needed, and powerful mainlined <integrated development environments>.
+
+And when <Ciro Santilli> see the closed source ones like <MATLAB> being used, it makes him lose all hope on humanity. Why. As of 2020. Why? In the 1980s, maybe. But in the 2020s?
+
+= Scilab
+{c}
+{parent=Numerical computing language}
+{wiki}
+
+= MATLAB
+{c}
+{parent=Numerical computing language}
+{wiki}
+
+= MATLAB methlab pun
+{c}
+{parent=MATLAB}
+
+\Image[https://web.archive.org/web/20171026130800im_/http://www.allafinedelpalo.it/wp-content/uploads/2016/03/methlab2.png]
+{title=MATLAB <Breaking Bad> crossover}
+{source=http://www.allafinedelpalo.it/methlab-il-toolbox-di-matlab-ispirato-a-breaking-bad/}
+
+= Perturbation theory
+{parent=Numerical analysis}
+{wiki}
+
+Used a lot in <quantum mechanics>, where the equations are really hard to solve. There's even a dedicated wiki page for it: https://en.wikipedia.org/wiki/Perturbation_theory_(quantum_mechanics)[]. Notably, <Feynman diagrams> are a way to represent perturbation calculations in <quantum field theory>.
+
+Let's gather some of the best results we come across here:
+* <Dirac equation solution for the hydrogen atom>
+
+= Probability
+{parent=Area of mathematics}
+{wiki}
+
+= Expectation value
+{parent=Probability}
+{wiki}
+
+= Stochastic process
+{parent=Probability}
+{wiki}
+
+= Markov chain
+{c}
+{parent=Stochastic process}
+{wiki}
+
+A directed <weighted graph> where the sum of weights of all outgoing edges equals 1.
+
+= Average number of steps until reaching a state of a Markov chain
+{parent=Markov chain}
+{wiki}
+
+TODO how to calculate
+
+= Average number of steps spent on a node of a Markov chain
+{parent=Markov chain}
+{wiki}
+
+TODO how to calculate
+
+= Absorbing Markov chain
+{parent=Markov chain}
+{wiki}
+
+= Probability distribution
+{parent=Probability}
+{wiki}
+
+= Cumulative distribution function
+{parent=Probability}
+
+= Standard deviation
+{parent=Probability}
+{wiki}
+
+= Statistics
+{parent=Probability}
+{wiki}
+
+= Descriptive statistics
+{parent=Statistics}
+{wiki}
+
+= Arithmetic mean
+{parent=Descriptive statistics}
+{wiki}
+
+= Mean
+{synonym}
+
+= Mode
+{disambiguate=statistics}
+{parent=Descriptive statistics}
+{wiki}
+
+= Variance
+{parent=Descriptive statistics}
+{wiki}
 
 = Applied mathematics
 {parent=Area of mathematics}
@@ -813,877 +1290,6 @@ Only <Chinese characters> could be worse than that!
 These are not in the <Greek alphabet>:
 * <nabla>
 * <partial derivative symbol>
-
-= Number theory
-{parent=Mathematics}
-{wiki}
-
-= Arithmetic
-{parent=Number theory}
-{wiki}
-
-Definition: "easy" number theory learnt in <primary school>, notably the operations of <addition>, <subtraction>, <multiplication> and <division>.
-
-= Computational number theory
-{parent=Number theory}
-{wiki}
-
-= Modular arithmetic
-{parent=Number theory}
-{wiki}
-
-= Modulo operation
-{parent=Modular arithmetic}
-{wiki}
-
-= Modulo
-{synonym}
-
-= Modular multiplication
-{parent=Modular arithmetic}
-
-= Modular multiplicative inverse
-{parent=Modular multiplication}
-
-= Modular exponentiation
-{parent=Modular arithmetic}
-{wiki}
-
-Can be calculated efficiently with the <extended Euclidean algorithm>.
-
-= Computational complexity of modular exponentiation
-{parent=Modular exponentiation}
-
-https://math.stackexchange.com/questions/2382011/computational-complexity-of-modular-exponentiation-from-rosens-discrete-mathem mentions:
-$$
-b^n mod m
-$$
-can be calculated in:
-$$
-log(m)^2 log(n)
-$$
-Remember that $log(m)$ and $log(n)$ are the lengths in bits of $m$ and $n$, so in terms of the length in bits $M$ and $N$ we'd get:
-$$
-M^2 N
-$$
-
-= Lowest common denominator
-{parent=Number theory}
-{title2=LCD}
-{wiki}
-
-= Prime number
-{parent=Number theory}
-{wiki}
-
-= Prime
-{synonym}
-
-= Prime k-tuple
-{parent=Prime number}
-{wiki}
-
-= Admissible prime k-tuple
-{parent=Prime k-tuple}
-
-= Prime k-tuple conjecture
-{parent=Admissible prime k-tuple}
-
-There are infinitely many <prime k-tuples> for every admissible tuple.
-
-Generalization of the <Twin prime conjecture>.
-
-As of 2023, there was no specific admissible tuple for which it had been proven that there infinite of, only bounds of type:
-\Q[there are infinitely 2-tuple instances with at most a finite bound]
-But these do not specify which specific tuple, e.g. <Yitang Zhang's theorem>.
-
-= Yitang Zhang's theorem
-{parent=Prime k-tuple conjecture}
-{title2=2013}
-
-There are infinitely many primes with a neighbour not further apart than 70 million. This was the first such finite bound to be proven, and therefore a major breakthrough.
-
-This implies that for at least one value (or more) below 70 million there are infinitely many repetitions, but we don't know which e.g. we could have infinitely many:
-$$
-k, k + 2
-$$
-or infinitely many:
-$$
-k, k + 4
-$$
-or infinitely many:
-$$
-k, k + 6,999,999
-$$
-or infinitely many:
-$$
-k, k + 2 and k, k + 4
-$$
-but we don't know which of those.
-
-The <Prime k-tuple conjecture> conjectures that it is all of them.
-
-Also, if 70 million could be reduced down to 2, we would have a proof of the <Twin prime conjecture>, but this method would only work for (k, k + 2).
-
-= Twin prime
-{parent=Prime k-tuple}
-{wiki}
-
-= Twin prime conjecture
-{parent=Twin prime}
-{tag=Famous conjecture}
-{tag=Prime k-tuple conjecture}
-{wiki}
-
-Let's show them how it's done with <primes (bsdgames)> + <awk>. Edit. They have a `-d` option which also shows gaps!!! Too strong:
-``
-sudo apt install bsdgames
-primes -d 1 100 | awk '/\(2\)/{print $1 - 2, $1 }'
-``
-gives us the list of all twin primes up to 100:
-``
-0 2
-3 5
-5 7
-11 13
-17 19
-29 31
-41 43
-59 61
-71 73
-``
-Tested on <Ubuntu 22.10>.
-
-= Goldbach's conjecture
-{c}
-{parent=Prime number}
-{tag=Additive basis theorem}
-{title2=Every even natural number greater than 2 is the sum of two prime numbers}
-{wiki}
-
-= Goldbach conjecture
-{c}
-{synonym}
-
-= Sums of three cubes
-{parent=Goldbach's conjecture}
-{wiki}
-
-= Mersenne prime
-{c}
-{parent=Prime number}
-
-= Are there infinitely many Mersenne primes?
-{parent=Mersenne prime}
-{tag=Famous conjecture}
-
-= Lucas-Lehmer primality test
-{c}
-{parent=Mersenne prime}
-{tag=Primality test}
-{wiki}
-
-= Prime number theorem
-{parent=Prime number}
-{wiki}
-
-= prime-number-theorem
-{file}
-{parent=Prime number theorem}
-
-Consider this is a study in failed <computational number theory>.
-
-The $n/ln(n)$ approximation converges really slowly, and we can't easy go far enough to see that the ration converges to 1 with only <awk> and <primes (bsdgames)>:
-``
-sudo apt intsall bsdgames
-cd prime-number-theorem
-./main.py 100000000
-``
-Runs in 30 minutes tested on <Ubuntu 22.10> and <Ciro Santilli's hardware/p51>, producing:
-
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi.png]
-{title=Linear $\pi(n)$ vs $n/ln(n)$ approximation plot}
-{description=$f(n) = n$ and $f(n) = log(n)$ are added to give a better sense of scale. $log(n)$ is too close to 0 and not visible, and the approximation almost overlaps entirely with $pi$.}
-
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-minus.png]
-{title=$\pi(n) - n/ln(n)$}
-{description=It is clear that the difference diverges, albeit very slowly.}
-
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/prime-number-theorem/pi-over.png]
-{title=$\pi(n)/(n/ln(n))$}
-{id=image-pi-n-over-n-ln-n}
-{description=We just don't have enough points to clearly see that it is converging to 1.0, the convergence truly is very slow. The <logarithm integral> approximation is much much better, but we can't calculate it in <awk>, sadface.}
-
-But looking at: https://en.wikipedia.org/wiki/File:Prime_number_theorem_ratio_convergence.svg we see that it takes way longer to get closer to 1, even at $10^24$ it is still not super close. Inspecting the code there we see:
-``
-(* Supplement with larger known PrimePi values that are too large for \
-Mathematica to compute *)
-LargePiPrime = {{10^13, 346065536839}, {10^14, 3204941750802}, {10^15,
-     29844570422669}, {10^16, 279238341033925}, {10^17,
-    2623557157654233}, {10^18, 24739954287740860}, {10^19,
-    234057667276344607}, {10^20, 2220819602560918840}, {10^21,
-    21127269486018731928}, {10^22, 201467286689315906290}, {10^23,
-    1925320391606803968923}, {10^24, 18435599767349200867866}};
-``
-so OK, it is not something doable on a <personal computer> just like that.
-
-= Prime power
-{parent=Prime number}
-{wiki}
-
-They come up a lot in many contexts, e.g.:
-* <classification of finite fields>
-
-= Primality test
-{parent=Prime number}
-{wiki}
-
-= Elliptic curve primality
-{parent=Primality test}
-{tag=Elliptic curve}
-{wiki}
-
-= Elliptic curve primality testing
-{synonym}
-
-<Polynomial time> for most inputs, but not for some very rare ones. TODO can they be determined?
-
-But it is better in practice than the <AKS primality test>, which is always <polynomial time>.
-
-= AKS primality test
-{c}
-{parent=Primality test}
-{title2=2002}
-{title2=First polynomial time primality test discovered}
-{tag=Polynomial time}
-{wiki}
-
-= Greatest common divisor
-{parent=Prime number}
-{title2=GCD}
-{wiki}
-
-The "greatest common divisor" of two <integers> $x$ and $y$, denoted $\gdc(x, y)$ is the largest <natural number> that divides both of the integers.
-
-For example, $\gdc(8, 12)$ is 4, because:
-* 4 divides both 8 and 12
-* and this is not the case for any number larger than 4. E.g.:
-  * 5 divides neither one
-  * 6 divides 12
-  * 7 divides neither
-  * 8 divides only 8
-  and so on.
-
-= Greatest common divisor algorithm
-{parent=Greatest common divisor}
-
-= Algorithm to find the greatest common divisor
-{synonym}
-
-= Euclidean algorithm
-{c}
-{parent=Greatest common divisor}
-{wiki}
-
-= Extended Euclidean algorithm
-{c}
-{parent=Euclidean algorithm}
-{wiki}
-
-= Coprime
-{parent=Greatest common divisor}
-{wiki}
-
-Two numbers such that the <greatest common divisor> is 1.
-
-= Euler's totient function
-{c}
-{parent=Coprime}
-{title2=$\varphi(n)$}
-{title2=varphi}
-
-= Totient function
-{synonym}
-
-TODO wtf is a "totient"? Where else is that word used besides in this concept?
-
-= Totient summatory function
-{parent=Euler's totient function}
-{title2=$\Phi(n)$}
-{title2=uppercase phi}
-{wiki}
-
-= Least common multiple
-{c}
-{parent=Prime number}
-{title2=lcm}
-{wiki}
-
-= Numerical analysis
-{parent=Mathematics}
-{wiki}
-
-Techniques to get numerical approximations to numeric <mathematical> problems.
-
-The entire field comes down to estimating the true values with a known error bound, and creating algorithms that make those error bounds asymptotically smaller.
-
-Not the most beautiful field of pure <mathematics>, but fundamentally useful since we can't solve almost any <computational physics>[useful equation] without computers!
-
-The solution visualizations can also provide valuable intuition however.
-
-Important numerical analysis problems include solving:
-* <partial differential equations>
-
-= Floating-point arithmetic
-{parent=Numerical analysis}
-{wiki}
-
-= Floating-point number
-{parent=Floating-point arithmetic}
-{wiki}
-
-= IEEE 754
-{c}
-{parent=Floating-point arithmetic}
-{wiki}
-
-Selected answers by <Ciro Santilli> on the subject:
-* https://stackoverflow.com/questions/18118408/what-is-difference-between-quiet-nan-and-signaling-nan/55648118#55648118[What is difference between quiet NaN and signaling NaN?]
-* https://stackoverflow.com/questions/2618059/in-java-what-does-nan-mean/55673220#55673220[In Java, what does NaN mean?]
-* https://stackoverflow.com/questions/8341395/what-is-a-subnormal-floating-point-number/53203428#53203428[What is a subnormal floating point number?]
-
-= Half-precision floating-point format
-{parent=IEEE 754}
-{wiki}
-
-= 16-bit floating point
-{synonym}
-{title2}
-
-= Numerical computing language
-{parent=Numerical analysis}
-{tag=Evil}
-
-All those dedicated <applied mathematicians> languages are a waste of society's time, <Ciro Santilli> sure <applied mathematicians> are capable of writing a few extra braces in exchange for a sane general purpose language, we should instead just invest in good libraries with fast <C (programming language)> bindings for those languages like <NumPy> where needed, and powerful mainlined <integrated development environments>.
-
-And when <Ciro Santilli> see the closed source ones like <MATLAB> being used, it makes him lose all hope on humanity. Why. As of 2020. Why? In the 1980s, maybe. But in the 2020s?
-
-= Scilab
-{c}
-{parent=Numerical computing language}
-{wiki}
-
-= MATLAB
-{c}
-{parent=Numerical computing language}
-{wiki}
-
-= MATLAB methlab pun
-{c}
-{parent=MATLAB}
-
-\Image[https://web.archive.org/web/20171026130800im_/http://www.allafinedelpalo.it/wp-content/uploads/2016/03/methlab2.png]
-{title=MATLAB <Breaking Bad> crossover}
-{source=http://www.allafinedelpalo.it/methlab-il-toolbox-di-matlab-ispirato-a-breaking-bad/}
-
-= Perturbation theory
-{parent=Numerical analysis}
-{wiki}
-
-Used a lot in <quantum mechanics>, where the equations are really hard to solve. There's even a dedicated wiki page for it: https://en.wikipedia.org/wiki/Perturbation_theory_(quantum_mechanics)[]. Notably, <Feynman diagrams> are a way to represent perturbation calculations in <quantum field theory>.
-
-Let's gather some of the best results we come across here:
-* <Dirac equation solution for the hydrogen atom>
-
-= Polynomial
-{parent=Mathematics}
-{wiki}
-
-= Degree of a polynomial
-{parent=Polynomial}
-
-= Degree of the polynomial
-{synonym}
-
-= Algebraic equation
-{parent=Polynomial}
-{tag=Functional equation}
-{wiki}
-
-= Polynomial equation
-{synonym}
-{title2}
-
-= Named algebraic equation
-{parent=Algebraic equation}
-
-= Quadratic equation
-{parent=Named algebraic equation}
-{wiki}
-
-= Quadratic equation modulo n
-{parent=Quadratic equation}
-
-= Quadratic formula modulo n
-{synonym}
-
-= Quadratic equation over a cyclic group
-{synonym}
-{title2}
-
-* https://math.stackexchange.com/questions/229218/modulo-version-of-the-quadratic-formula-and-eulers-criterion
-
-= Quadratic formula
-{parent=Quadratic equation}
-{wiki}
-
-= Cubic equation
-{parent=Named algebraic equation}
-{wiki}
-
-= Quartic equation
-{parent=Named algebraic equation}
-{wiki}
-
-= Quintic equation
-{parent=Named algebraic equation}
-{wiki}
-
-= Abel-Ruffini theorem
-{c}
-{parent=Quintic equation}
-{wiki}
-
-= Algebraic equation over a field
-{parent=Algebraic equation}
-
-In this section we collect results about <algebraic equations> over more "exotic" <fields>
-
-= Algebraic equation modulo n
-{parent=Algebraic equation}
-{wiki}
-
-= Algebraic number
-{parent=Algebraic equation}
-{tag=Number}
-{title2=Root of a polynomial}
-{wiki}
-
-= Algebraic number field
-{parent=Algebraic number}
-{tag=Quadratically closed field}
-{title2=$\overline{\Q}$}
-{wiki=https://en.wikipedia.org/w/index.php?title=Algebraic_number&oldid=1168427661#Field}
-
-The set of all <algebraic numbers> forms a <field>.
-
-This field contains all of the <rational numbers>, but it is a <quadratically closed field>.
-
-Like the <rationals>, this field also has the same <cardinality> as the <natural numbers>, because we can specify and enumerate each of its members by a fixed number of integers from the <polynomial equation> that defines them. So it is a bit like the <rationals>, but we use potentially arbitrary numbers of integers to specify each number (polynomial coefficients + index of which root we are talking about) instead of just always two as for the rationals.
-
-Each <algebraic number> also has a degree associated to it, i.e. the <degree of the polynomial> used to define it.
-
-= Algebraic function
-{parent=Algebraic number}
-{title2=Root of a polynomial}
-{wiki}
-
-TODO understand.
-
-= Transcendental number
-{parent=Algebraic number}
-{wiki}
-
-Sometimes <mathematicians> go a little overboard with their naming.
-
-= Transcendental number conjecture
-{parent=Transcendental number}
-{tag=Simple to state but hard to prove}
-
-Open as of 2020:
-* $e + \pi$
-
-\Video[https://www.youtube.com/watch?v=BdHFLfv-ThQ]
-{title=Why π^π^π^π could be an integer by Stand-up Maths (2021)}
-{description=Sponsored by Jane Street. <finance is a cancer of society>[Shame].}
-
-= Diophantine equation
-{c}
-{parent=Polynomial}
-{wiki}
-
-<Polynomial> (possibly a <multivariate polynomial>) with <integer> coefficients.
-
-Sometimes systems of <Diophantine equations> are considered.
-
-Problems generally involve finding integer solutions to the equations, notably determining if any solution exists, and if infinitely solutions exist.
-
-The general problem is known to be <undecidable>: <Hilbert's tenth problem>.
-
-The <Pythagorean triples>, and its generalization <Fermat's last theorem>, are the quintessential examples.
-
-= Pythagorean triple
-{c}
-{parent=Diophantine equation}
-{title2=$a^2 + b^2 = c^2$}
-{wiki}
-
-\Image[https://web.archive.org/web/20220528162407im_/https://upload.wikimedia.org/wikipedia/commons/4/4c/Pythagorean_theorem_-_Ani.gif]
-{source=https://en.wikipedia.org/wiki/File:Pythagorean_theorem_-_Ani.gif}
-
-= Euclid's formula
-{c}
-{parent=Pythagorean triple}
-{{wiki=Pythagorean_triple#Generating_a_triple}}
-
-= There are infinitely many Pythagorean triples
-{parent=Euclid's formula}
-
-Direct consequence of <Euclid's formula>.
-
-= Euclid's formula generates all Pythagorean triples
-{parent=Euclid's formula}
-
-= Classification of Pythagorean triples
-{parent=Pythagorean triple}
-{tag=Classification (mathematics)}
-
-https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple
-
-= Taxicab number
-{parent=Pythagorean triple}
-{wiki}
-
-= Fermat's last theorem
-{c}
-{parent=Pythagorean triple}
-{wiki}
-
-A generalization of the <Pythagorean triple> infinity question.
-
-= Andrew Wiles
-{c}
-{parent=Fermat's last theorem}
-{wiki}
-
-\Video[https://www.youtube.com/watch?v=i0UTeQfnzfM]
-{title=Beauty Is Suffering}
-
-= Hilbert's tenth problem
-{c}
-{parent=Diophantine equation}
-{tag=Undecidable problem}
-{tag=Hilbert's problems}
-{title2=1970}
-{wiki}
-
-= Determine if one Diophantine equation has a solution
-{synonym}
-{title2}
-
-Once you hear about the <uncomputability> of such problems, it makes you see that all <Diophantine equation> questions risk being <undecidable>, though in some simpler cases we manage to come up with answers. The feeling is similar to watching people trying to solve the <Halting problem>, e.g. in the effort to determine <BB(5)>.
-
-= Hilbert's tenth problem variant
-{parent=Hilbert's tenth problem}
-
-https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
-
-= Decidability of Hilbert's tenth problem in modular arithmetic
-{parent=Hilbert's tenth problem variant}
-
-https://www.jstor.org/stable/1970438 says for <prime> modulo there is an algorithm.
-
-Question for non-prime modulo: https://math.stackexchange.com/questions/4944623/are-diophantine-equations-decidable-in-modular-arithmetic
-
-= Decidability of Hilbert's tenth problem of a given degree and number of variables
-{parent=Hilbert's tenth problem variant}
-
-* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
-* https://mathoverflow.net/questions/51987/which-types-of-diophantine-equations-are-solvable
-
-= Quadratic Diophantine equation
-{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
-
-= Hilbert's tenth problem is decidable for quadratic equations
-{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
-{tag=Quadratic Diophantine equation}
-
-TODO is it or is not:
-* https://mathoverflow.net/questions/207482/algorithmic-un-solvability-of-diophantine-equations-of-given-degree-with-given
-* https://math.stackexchange.com/questions/181380/second-degree-diophantine-equations
-* https://mathoverflow.net/questions/142938/is-there-an-algorithm-to-solve-quadratic-diophantine-equations
-* https://math.stackexchange.com/questions/798609/is-there-any-solution-to-this-quadratic-diophantine-equation
-
-= Undecidable Diophantine equation example
-{parent=Decidability of Hilbert's tenth problem of a given degree and number of variables}
-{tag=Undecidable problem}
-
-= Undecidable Diophantine equation problems
-{synonym}
-
-https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/103415#103415 provides a specific single undecidable <Diophantine equation>.
-
-= Hilbert's tenth problem over other rings
-{c}
-{parent=Hilbert's tenth problem variant}
-
-= Hilbert's tenth problem over other fields
-{c}
-{synonym}
-
-https://mathoverflow.net/questions/11540/what-are-the-most-attractive-turing-undecidable-problems-in-mathematics/11557#11557 contains a good overview of the decidability status of variants over <rings> other than the <integers>.
-
-= Additive number theory
-{parent=Diophantine equation}
-{wiki}
-
-= Additive basis
-{parent=Additive number theory}
-{wiki}
-
-= Additive basis theorem
-{parent=Additive basis}
-
-= Waring's problem
-{c}
-{parent=Additive basis theorem}
-{title2=Every number is a sum of $g$ positive numbers to the power of $k$}
-{wiki}
-
-And when it can't, attempt to classify which subset of the <integers> can be reached. E.g. <Legendre's three-square theorem>.
-
-= Waring's problem for squares
-{c}
-{parent=Waring's problem}
-
-4 squares are sufficient by <Lagrange's four-square theorem>.
-
-3 is not enough by <Legendre's three-square theorem>.
-
-The subsets reachable with 2 and 3 squares are fully characterized by <Legendre's three-square theorem> and 
-
-= Lagrange's four-square theorem
-{c}
-{parent=Waring's problem for squares}
-{title2=Every natural number is a sum of four squares}
-{title2=1770}
-{wiki}
-
-= Legendre's three-square theorem
-{c}
-{parent=Waring's problem for squares}
-{title2=iff not of form $4^a(8b + 7)$}
-{title2=1770}
-{wiki}
-
-= Sum of two squares theorem
-{parent=Waring's problem for squares}
-{wiki}
-
-= Waring problem variant
-{parent=Waring's problem}
-
-= Waring problem with negative numbers allowed
-{parent=Waring problem variant}
-
-= Sum of three cubes
-{parent=Waring problem with negative numbers allowed}
-{title2=Every number has infinitely many representations as the sum of three cubes}
-{tag=Open problem in mathematics}
-{wiki}
-
-Compared to <Waring's problem>, this is potentially much harder, as we can go infinitely negative in our attempts, there isn't a bound on how many tries we can have for each number.
-
-In other words, it is unlikely to have a <conjecture reduction to a halting problem>.
-
-\Video[https://www.youtube.com/watch?v=GXhzZAem7k0]
-{title=3 as the sum of the 3 cubes by <Numberphile> (2019)}
-
-= Waring-Goldbach problem
-{c}
-{parent=Waring problem variant}
-{tag=Goldbach's conjecture}
-{wiki}
-
-It is exactly what you'd expect from the name, Waring was <Netflix and chill>[watching Netflix] with Goldbach, when they suddenly came up with this.
-
-= Named small order polynomial
-{parent=Polynomial}
-
-= Linear polynomial
-{parent=Named small order polynomial}
-
-A <polynomial> of degree 1, i.e. of form $ax + b$.
-
-= Galois theory
-{c}
-{parent=Polynomial}
-{wiki}
-
-= Irreducible polynomial
-{parent=Polynomial}
-{wiki}
-
-= Multivariate polynomial
-{parent=Polynomial}
-
-A <polynomial> with multiple input arguments, e.g. with two inputs $x$ and $y$:
-$$
-f(x, y) = x^2 + 2x + y^3 + 1
-$$
-as opposed to a <polynomial> with a single argument e.g. one with just $x$:
-$$
-f(x) = x^2 + 2x + 1
-$$
-
-= Domain of a polynomial
-{parent=Polynomial}
-
-= Polynomial over a field
-{parent=Domain of a polynomial}
-{title2=$Field[X]$}
-{wiki}
-
-By default, we think of polynomials over the <real numbers> or <complex numbers>.
-
-However, a polynomial can be defined over any other field just as well, the most notable example being that of a polynomial over a <finite field>.
-
-For example, given the finite field of <order (algebra)> 9, $GP(3)$ and with elements $\{0, 1, 2\}$, we can denote polynomials over that ring as
-$$
-GP(3)[x]
-$$
-where $x$ is the variable name.
-
-For example, one such polynomial could be:
-$$
-P(x) = 2x^4 + x^2 + 2
-$$
-and another one:
-$$
-Q(X) = x^3 + 2x^2 + 2
-$$
-Note how all the coefficients are members of the finite field we chose.
-
-Given this, we could evaluate the polynomial for any element of the field, e.g.:
-$$
-P(0) = 2 (0 \times 0 \times 0 \times 0) + (0 \times 0) + 2 = 2
-P(1) = 2 (1 \times 1 \times 1 \times 1) + (1 \times 1) + 2 = 2 (1) + 1 + 2 = 2
-P(2) = 2 (2 \times 2 \times 2 \times 2) + (2 \times 2) + 2 = 2 (16 % 3) + (4 % 3) + 2 = 2 + 1 + 2 = 2
-$$
-and so on.
-
-We can also add polynomials as usual over the field:
-$$
-P(x) + Q(x) = 2x^4 + x^3 + (1+2)x^2 + (2 + 2) = 2x^4 + x^3 + (0)x^2 + 1 = 2x^4 + x^3 + 1
-$$
-and multiplication works analogously.
-
-= Polynomial over a ring
-{parent=Domain of a polynomial}
-{wiki}
-
-The usual definition of a <polynomial> is over a <field (mathematics)> as shown at <polynomial over a field>.
-
-However, there is nothing in the immediate definition that prevents us from having a <ring (mathematics)> instead, i.e. a <field (mathematics)> but without the <commutative property> and <inverse elements>.
-
-The only thing is that then we would need to differentiate between different orderings of the terms of <multivariate polynomial>, e.g. the following would all be potentially different terms:
-$$
-2xxy + 2xyx + 2yxx +
-x2xy + x2yx + y2xx +
-xx2y + xy2x + yx2x +
-xxy2 + xyx2 + yxx2
-$$
-while for a field they would all go into a single term:
-$$
-12x^2y
-$$
-so when considering a polynomial over a <ring (mathematics)> we end up with a lot more more possible terms.
-
-If the <ring> is a <commutative ring> however, polynomials do look like proper polynomials: <Polynomial over a commutative ring>{full}.
-
-= Polynomial over a commutative ring
-{parent=Domain of a polynomial}
-{wiki}
-
-Unlike <Polynomial over a ring>[over non-commutative rings], polynomials do look like proper <polynomials> over <commutative ring>.
-
-In particular, <Hilbert's tenth problem> is about <polynomials> over the <integers>, which is a <commutative ring>, and therefore brings mindshare to this definition.
-
-= Polynomial ring
-{parent=Polynomial}
-{wiki}
-
-The polynomials together with polynomial addition and multiplication form a <commutative> <ring (mathematics)>.
-
-= Probability
-{parent=Mathematics}
-{wiki}
-
-= Expectation value
-{parent=Probability}
-{wiki}
-
-= Stochastic process
-{parent=Probability}
-{wiki}
-
-= Markov chain
-{c}
-{parent=Stochastic process}
-{wiki}
-
-A directed <weighted graph> where the sum of weights of all outgoing edges equals 1.
-
-= Average number of steps until reaching a state of a Markov chain
-{parent=Markov chain}
-{wiki}
-
-TODO how to calculate
-
-= Average number of steps spent on a node of a Markov chain
-{parent=Markov chain}
-{wiki}
-
-TODO how to calculate
-
-= Absorbing Markov chain
-{parent=Markov chain}
-{wiki}
-
-= Probability distribution
-{parent=Probability}
-{wiki}
-
-= Cumulative distribution function
-{parent=Probability}
-
-= Standard deviation
-{parent=Probability}
-{wiki}
-
-= Statistics
-{parent=Probability}
-{wiki}
-
-= Descriptive statistics
-{parent=Statistics}
-{wiki}
-
-= Arithmetic mean
-{parent=Descriptive statistics}
-{wiki}
-
-= Mean
-{synonym}
-
-= Mode
-{disambiguate=statistics}
-{parent=Descriptive statistics}
-{wiki}
-
-= Variance
-{parent=Descriptive statistics}
-{wiki}
 
 = Mathematics bibliography
 {parent=Mathematics}

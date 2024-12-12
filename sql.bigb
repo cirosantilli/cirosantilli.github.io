@@ -344,10 +344,55 @@ psql testdb0 -c 'DROP TABLE table0;'
 * output one column per line: https://stackoverflow.com/questions/9604723/alternate-output-format-for-psql-showing-one-column-per-line-with-column-name
 * PostgreSQL does not automatically index foreign keys! https://stackoverflow.com/questions/970562/postgres-and-indexes-on-foreign-keys-and-primary-keys
 
+= PostgreSQL create test data
+{parent=PostgreSQL HOWTO}
+
+* https://stackoverflow.com/questions/3371503/sql-populate-table-with-random-data
+* https://stackoverflow.com/questions/24841142/how-can-i-generate-big-data-sample-for-postgresql-using-generate-series-and-rand
+
 = Generate random text in PostgreSQL
 {parent=PostgreSQL HOWTO}
 
 This one is good: https://stackoverflow.com/questions/36533429/generate-random-string-in-postgresql/44200391#44200391 as it also describes how to generate multiple values.
+``
+with symbols(characters) as (VALUES ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'))
+select string_agg(substr(characters, (random() * (length(characters) - 1) + 1)::INTEGER, 1), '')
+from symbols
+join generate_series(1,8) as word(chr_idx) on 1 = 1 -- word length
+join generate_series(1,10000) as words(idx) on 1 = 1 -- # of words
+group by idx;
+``
+
+Then you can insert it into a row with:
+``
+create table tmp(s text);
+insert into tmp(s)
+  select s from
+  (
+    with symbols(characters) as (VALUES ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'))
+    select string_agg(substr(characters, (random() * (length(characters) - 1) + 1)::INTEGER, 1), '') as asdf
+    from symbols
+    join generate_series(1,8) as word(chr_idx) on 1 = 1 -- word length
+    join generate_series(1,10000) as words(idx) on 1 = 1 -- # of words
+    group by idx
+  ) as sub(s);
+``
+
+A more convenient approach is likely to define the function:
+``
+CREATE OR REPLACE FUNCTION random_string(int) RETURNS TEXT as $$
+select
+  string_agg(substr(characters, (random() * length(characters) + 1)::integer, 1), '') as random_word
+from (values('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789    --')) as symbols(characters)
+  join generate_series(1, $1) on 1 = 1
+$$ language sql;  
+``
+
+And then:
+``
+create table tmp(s text, t text);
+insert into tmp(s) select random_string(10) from generate_series(10);
+``
 
 = Create a test user in PostgreSQL
 {parent=PostgreSQL}
@@ -456,6 +501,16 @@ Related questions:
 {c}
 {parent=SQL implementation}
 {wiki}
+
+= Transact-SQL
+{c}
+{parent=Microsoft SQL Server}
+{wiki}
+
+= T-SQL
+{c}
+{synonym}
+{title2}
 
 = Oracle Database
 {c}
