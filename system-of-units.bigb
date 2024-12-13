@@ -7,7 +7,7 @@ Ideally (or basically necessarily?) the starting point generally has to be discr
 * number of times some light oscillates per second
 * number of steps in a <quantum Hall effect> or <Josephson junction>
 
-What we don't want is to have macroscopics measurement artifacts, (or even worse, the size of body parts! Inset <dick> joke) as you can always make a bar slightly more or less wide. And even metals evaporate over time! Though the mad people of the <Avogadro project> still attempted otherwise well into the 2010s!
+What we don't want is to have macroscopic measurement artifacts, (or even worse, the size of body parts! Inset <dick> joke) as you can always make a bar slightly more or less wide. And even metals evaporate over time! Though the mad people of the <Avogadro project> still attempted otherwise well into the 2010s!
 
 Standards of measure that don't depend on artifacts are known as <intrinsic standards>.
 
@@ -17,6 +17,13 @@ Standards of measure that don't depend on artifacts are known as <intrinsic stan
 = Physical constant
 {parent=System of units}
 {wiki}
+
+= Metrology
+{parent=System of units}
+{wiki}
+
+= Metrology institute
+{parent=Metrology}
 
 = Unit of measurement
 {parent=System of units}
@@ -49,6 +56,7 @@ Learning the modern SI is also a great way to learn some interesting Physics.
 = International Bureau of Weights and Measures
 {c}
 {parent=International System of Units}
+{tag=Metrology institute}
 {title2=Organization behind SI}
 {wiki}
 
@@ -108,6 +116,11 @@ The breakdown is:
 
     Arbitrarily defines the Candela in terms of previous values to match historical records. The most useless unit comes last as you'd expect.
 
+= 2019 redefinition of the Kilogram
+{parent=2019 redefinition of the SI base units}
+
+Made possible by the <Kibble balance>.
+
 = Unit of the International System of Units
 {parent=International System of Units}
 
@@ -124,16 +137,27 @@ Affected by the <ampere in the 2019 redefinition of the SI base units>.
 {tag=2019 redefinition of the SI base units}
 {wiki}
 
-TODO how does basing it on the <elementary charge> help at all? Can we count individual electrons going through a wire? https://www.nist.gov/si-redefinition/ampere/ampere-quantum-metrology-triangle by the <NIST> explains that is it basically due to the following two <quantized (physics)> <solid-state physics> phenomena/experiments that allows for extremely precise measurements of the <elementary charge>:
+Starting in the <2019 redefinition of the SI base units>, the <elementary charge> is assigned a fixed number, and the Ampere is based on it and on the <second>, which is beautiful.
+
+This choice is not because we attempt to count individual <electrons> going through a wire, as it would be far too many to count!
+
+Rather, it is because because there are two crazy <quantum mechanical> effects that give us macroscopic measures that are directly related to the electron charge. https://www.nist.gov/si-redefinition/ampere/ampere-quantum-metrology-triangle[] by the <NIST> explains that the two effects are:
 * <quantum Hall effect>, which has <discrete> <electrical resistance>[resistances] of type:
   $$
   R_{xy} = \frac{V_\text{Hall}}{I_\text{channel}} = \frac{h}{e^2\nu}
   $$
   for integer values of $\nu$.
-* <Josephson effect>, which provides the <Josephson constant> which equals:
+* <Josephson effect>, used in the <Josephson voltage standard>. With the <Inverse AC Josephson effect> we are able to produce:
   $$
-  K_{J} = \frac{2e}{h}
+  K_{J} = \frac{2e}{h} V \cdot s
   $$
+  per <Josephson junction>. This is about 2 microvolt / GHz, where GHz is a practical input frequency. <video The evolution of voltage metrology to the latest generation of JVSs by Alain Rüfenacht> mentions that a typical operating frequency is 20 GHz.
+  
+  Therefore to attain a good 10 V, we need something in the order of a million <Josephson junctions>.
+  
+  But this is possible to implement in a single chip with existing micro fabrication techniques, and is exactly what the <Josephson voltage standard> does!
+
+Those effect work because they also involve dividing by the <Planck constant>, the fundamental constant of <quantum mechanics>, which is also tiny, and thus brings values into a much more measurable order of size.
 
 = Kilogram
 {parent=Unit of the International System of Units}
@@ -148,17 +172,53 @@ Defined in the <2019 redefinition of the SI base units> via the <Planck constant
 {parent=Kilogram}
 {{wiki=Alternative_approaches_to_redefining_the_kilogram#Avogadro_project}}
 
+Whichever problem you present a <German>, they will look for a mechanical solution to it!
+
 \Image[https://upload.wikimedia.org/wikipedia/commons/4/41/Silicon_sphere_for_Avogadro_project.jpg]
+{height=600}
 
 = Kibble balance
+{c}
 {parent=Kilogram}
 {wiki}
 
-Measures weight from a voltage.
+The <Kibble balance> is so precise and reproducible that it was responsible for the <2019 redefinition of the Kilogram>.
 
-https://www.bipm.org/documents/20126/28432564/working-document-ID-11315/8532173e-8bae-2bdf-b74a-cb48296b4e67
+It relies rely on not one, but three macroscopic <quantum mechanical> effects:
+* <atomic spectra>
+* <Josephson effect>
+* <quantum Hall effect>
+How cool is that! As usual, the advantage of those effects is that they are discrete, and have very fixed values that don't depend either:
+* on the physical dimensions of any apparatus (otherwise fabrication precision would be an issue)
+* small variations of temperature, magnetic field and so on
+One downside of using some <quantum mechanical> effects is that you have to cool everything down to 5K. But that's OK!
 
-TODO appears to rely on both <quantum Hall effect> and <Josephson effect>
+The operating principle is something along:
+* generate a precise frequency with a <signal generator>, ultimately calibrated by the <Caesium standard>
+* use that precise frequency to generate a precise <voltage> with a <Josephson voltage standard>
+* convert that precise voltage into a precise <electric current> by using the <quantum Hall Effect>, which produces a very precise <electrical resistance>
+* use that precise current to generate a precise force on the object your weighing, pushing it against <gravity>
+* then you precisely measure both:
+  * local <gravity> with a <gravimeter>
+  * the displacement acceleration of the object with a laser setup
+Then, based on all this, you can determine how much the object weights.
+
+\Video[https://www.youtube.com/watch?v=Oo0jm1PPRuo]
+{title=How We're Redefining the kg by <Veritasium>}
+
+\Video[https://www.youtube.com/watch?v=ZfNygYuuVAE]
+{title=The Kibble Balance, realizing the Kilogram from fundamental constants of nature by Richard Green}
+{description=
+Presented in 2022 for a <#CENAM> seminar, the <#Mexican> <metrology institute>. The speaker is from the <Canadian> <metrology institute>
+* https://youtu.be/ZfNygYuuVAE?t=854[]: they don't actually use the <Quantum Hall Effect> device during operation, they only use it to calibrate other non-quantum resistors
+}
+
+\Video[https://www.youtube.com/watch?v=VlJSwb4i_uQ]
+{title=The Watt balance and redefining the kilogram by <National Physical Laboratory>}
+{description=Nothing much, but fun to hear Kibble talking about his balance in beautiful English before he passed.}
+
+Bibliography:
+* https://www.bipm.org/documents/20126/28432564/working-document-ID-11315/8532173e-8bae-2bdf-b74a-cb48296b4e67
 
 = Dimension of the International System of Units
 {parent=International System of Units}
@@ -383,7 +443,7 @@ A series of systems usually derived from the <International System of Units> tha
 {wiki}
 
 = Imperial units
-{parent=System of units}
+{parent=List of systems of units}
 {wiki}
 
 = Imperial unit
