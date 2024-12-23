@@ -894,28 +894,6 @@ Bibliography:
 {parent=Software}
 {wiki}
 
-= ACID
-{disambiguate=database}
-{c}
-{parent=Database}
-{wiki}
-
-= Atomicity
-{disambiguate=database systems}
-{parent=ACID (database)}
-
-This means that e.g. if you do an `UPDATE` query on multiple rows, and power goes out half way, either all update, or none update.
-
-This is different from <isolation (database systems)>, which considers instead what can or cannot happen when multiple queries are running in parallel.
-
-= Isolation
-{disambiguate=database systems}
-{parent=ACID (database)}
-
-Determines what can or cannot happen when multiple queries are running in parallel.
-
-See <SQL transaction isolation level>{full} for the most common context under which this is discussed: <SQL>.
-
 = Database management system
 {parent=Database}
 {wiki}
@@ -926,9 +904,37 @@ See <SQL transaction isolation level>{full} for the most common context under wh
 
 A <software> that implements some database system, e.g. <PostgreSQL> or <MySQL> are two (widely extended) <SQL> implementations.
 
+= Object-relational mapping
+{parent=Database}
+{wiki=Object–relational_mapping}
+
+= ORM
+{c}
+{synonym}
+{title2}
+
+Per language:
+* <node.js ORM library>
+
+= How to decide if an ORM is good?
+{parent=Object-relational mapping}
+
+How to decide if an ORM is decent? Just try to replicate every <SQL> query from \a[nodejs/sequelize/raw/many_to_many.js] on <PostgreSQL> and <SQLite>.
+
+There is only a very finite number of possible reasonable queries on a two table many to many relationship with a join table. A decent ORM \i[has] to be able to do them all.
+
+If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer. E.g. <Sequelize> v5 is such an ORM that makes you suffer.
+
+The next thing to check are transactions.
+
+Basically, all of those come up if you try to implement a blog <hello world> world such as <gothinkster realworld> \i[correctly], i.e. without unnecessary inefficiencies due to your ORM on top of underlying SQL, and dealing with concurrency.
+
+= Type of database
+{parent=Database}
+
 = NoSQL
 {c}
-{parent=Database}
+{parent=Type of database}
 {wiki}
 
 = LevelDB
@@ -989,33 +995,8 @@ echo 'db.collectionName.find()' | mongo mydb
 
 Tested as of Ubuntu 20.04, there is no Mongo package available by default due to their change to <Server Side Public License>, which Debian opposed. Therefore, you have to add their custom PPA as mentioned at: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
-= Object-relational mapping
-{parent=Database}
-{wiki=Object–relational_mapping}
-
-= ORM
-{c}
-{synonym}
-{title2}
-
-Per language:
-* <node.js ORM library>
-
-= How to decide if an ORM is good?
-{parent=Object-relational mapping}
-
-How to decide if an ORM is decent? Just try to replicate every <SQL> query from \a[nodejs/sequelize/raw/many_to_many.js] on <PostgreSQL> and <SQLite>.
-
-There is only a very finite number of possible reasonable queries on a two table many to many relationship with a join table. A decent ORM \i[has] to be able to do them all.
-
-If it can do all those queries, then the ORM can actually do a good subset of SQL and is decent. If not, it can't, and this will make you suffer. E.g. <Sequelize> v5 is such an ORM that makes you suffer.
-
-The next thing to check are transactions.
-
-Basically, all of those come up if you try to implement a blog <hello world> world such as <gothinkster realworld> \i[correctly], i.e. without unnecessary inefficiencies due to your ORM on top of underlying SQL, and dealing with concurrency.
-
 = Relational database
-{parent=Database}
+{parent=Type of database}
 {wiki}
 
 = Relational database management system
@@ -1032,7 +1013,33 @@ Basically, all of those come up if you try to implement a blog <hello world> wor
 = Database feature
 {parent=Database}
 
+= ACID
+{disambiguate=database}
+{c}
+{parent=Database feature}
+{wiki}
+
+= Atomicity
+{disambiguate=database systems}
+{parent=ACID (database)}
+
+This means that e.g. if you do an `UPDATE` query on multiple rows, and power goes out half way, either all update, or none update.
+
+This is different from <isolation (database systems)>, which considers instead what can or cannot happen when multiple queries are running in parallel.
+
+= Isolation
+{disambiguate=database systems}
+{parent=ACID (database)}
+
+Determines what can or cannot happen when multiple queries are running in parallel.
+
+See <SQL transaction isolation level>{full} for the most common context under which this is discussed: <SQL>.
+
 = Database trigger
+{parent=Database feature}
+{wiki}
+
+= Full-text search
 {parent=Database feature}
 {wiki}
 
