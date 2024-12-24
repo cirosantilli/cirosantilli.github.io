@@ -398,6 +398,156 @@ insert into tmp(s) select random_string(10) from generate_series(10);
 {parent=PostgreSQL HOWTO}
 {tag=Full-text search}
 
+Let's create some test data like this:
+``
+time psql tmp -c 'DROP TABLE IF EXISTS fts;'
+time psql tmp -c 'CREATE TABLE fts(s TEXT, i INTEGER);'
+time psql tmp <<'EOF'
+INSERT INTO fts SELECT
+  i::text || ' ' ||
+    (i * 2  )::text || ' ' ||
+    (i * 5  )::text || ' ' ||
+    (i * 7  )::text || ' ' ||
+    (i * 11 )::text || ' ' ||
+    (i * 13 )::text || ' ' ||
+    (i * 17 )::text || ' ' ||
+    (i * 23 )::text || ' ' ||
+    (i * 29 )::text || ' ' ||
+    (i * 31 )::text
+  ,
+  i % 100
+FROM generate_series(1::bigint, 100000000::bigint) AS s(i);
+EOF
+``
+
+This test data will be simple to predict what each line contains so we can make educated queries, while also posing some difficulty to the RDMS. As per:
+``
+time psql tmp -c 'SELECT * FROM fts LIMIT 10;'
+``
+the first columns look like:
+``
+                  s                  | i  
+-------------------------------------+----
+ 1 2 5 7 11 13 17 23 29 31           |  1
+ 2 4 10 14 22 26 34 46 58 62         |  2
+ 3 6 15 21 33 39 51 69 87 93         |  3
+ 4 8 20 28 44 52 68 92 116 124       |  4
+ 5 10 25 35 55 65 85 115 145 155     |  5
+ 6 12 30 42 66 78 102 138 174 186    |  6
+ 7 14 35 49 77 91 119 161 203 217    |  7
+ 8 16 40 56 88 104 136 184 232 248   |  8
+ 9 18 45 63 99 117 153 207 261 279   |  9
+ 10 20 50 70 110 130 170 230 290 310 | 10
+``
+
+We aimed to create a test table of size around 10 GB, as in practice it is around that order of size that index speedups start to become very obvious on a <SSD>-based system.
+
+The creation time was 2m13s, and the final size was:
+``
+     table_name    | pg_size_pretty | pg_total_relation_size 
+------------------+----------------+------------------------
+ fts              | 13 GB          |            14067326976
+``
+
+Before we create the index, let's see if our non-indexed queries are slow enough for our tests:
+``
+time psql tmp -c "SELECT * FROM fts WHERE s LIKE '% 50000000 %';"
+``
+which gives:
+``
+                                                 s                                                 | i 
+---------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000   | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000 | 0
+(2 rows)
+
+
+real    0m11.758s
+user    0m0.017s
+sys     0m0.008s
+``
+so it should be enough to observe the index speedup.
+
+Now let's create the index:
+``
+time psql tmp <<'EOF'
+ALTER TABLE fts ADD COLUMN s_ts tsvector
+  GENERATED ALWAYS AS (to_tsvector('english', s)) STORED;
+EOF
+time psql tmp -c 'CREATE INDEX s_ts_gin_idx ON fts USING GIN (s_ts);'
+``
+These commands took 8m51s and 40m8s and the DB size went up about 5x:
+``
+    table_name    | pg_size_pretty | pg_total_relation_size 
+------------------+----------------+------------------------
+ fts              | 69 GB          |            74487758848
+``
+
+And finally let's try out the index:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000');"
+``
+which "instantly" gives us in 0m0.129s:
+``
+                                                   s                                                   | i 
+-------------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000       | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000 | 0
+``
+so the index worked!
+
+We understand from this that it only find exact word hits.
+
+Next we can also try some other queries with multiple terms. Text must contain two words with `&`:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 & 175000000');"
+``
+gives:
+``
+                                                   s                                                   | i 
+-------------------------------------------------------------------------------------------------------+---
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
+``
+
+Text can contain either word with `|`:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 | 175000000');"
+``
+gives:
+``
+                                                    s                                                    | i 
+---------------------------------------------------------------------------------------------------------+---
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000         | 0
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000   | 0
+ 87500000 175000000 437500000 612500000 962500000 1137500000 1487500000 2012500000 2537500000 2712500000 | 0
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000       | 0
+ 35000000 70000000 175000000 245000000 385000000 455000000 595000000 805000000 1015000000 1085000000     | 0
+``
+
+Text can contain the given words sequentially:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000 <-> 125000000 <-> 175000000');"
+``
+gives:
+``
+                                                   s                                                   | i 
+-------------------------------------------------------------------------------------------------------+---
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
+``
+
+We can also inspect how words were split by simply doing a `SELECT *` again:
+``
+              s              | i |                                 s_ts                                 
+-----------------------------+---+----------------------------------------------------------------------
+ 1 2 5 7 11 13 17 23 29 31   | 1 | '1':1 '11':5 '13':6 '17':7 '2':2 '23':8 '29':9 '31':10 '5':3 '7':4
+ 2 4 10 14 22 26 34 46 58 62 | 2 | '10':3 '14':4 '2':1 '22':5 '26':6 '34':7 '4':2 '46':8 '58':9 '62':10
+ 3 6 15 21 33 39 51 69 87 93 | 3 | '15':3 '21':4 '3':1 '33':5 '39':6 '51':7 '6':2 '69':8 '87':9 '93':10
+ ``
+
+ Also posted at:
+ * https://www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/ "Is it worth using Postgres' builtin full-text search or should I go straight to Elastic?", high top Google result for "PostgreSQL full text search" as of 2024. Random, but it's there.
+
 = Create a test user in PostgreSQL
 {parent=PostgreSQL}
 
@@ -500,6 +650,22 @@ Related questions:
 * https://stackoverflow.com/questions/7705273/what-are-the-conditions-for-encountering-a-serialization-failure
 * https://stackoverflow.com/questions/59351109/error-could-not-serialize-access-due-to-concurrent-update
 * https://stackoverflow.com/questions/50797097/postgres-could-not-serialize-access-due-to-concurrent-update/51932824
+
+= PostgreSQL function
+{parent=PostgreSQL}
+
+https://www.postgresql.org/docs/17/functions-srf.html
+
+= PostgreSQL `generate_series`
+{parent=PostgreSQL function}
+
+https://www.postgresql.org/docs/17/functions-srf.html
+
+Pattern you always want to generate <Generate random text in PostgreSQL>:
+``
+CREATE TABLE "mytable" ("i" INTEGER, "j" INTEGER);
+INSERT INTO "mytable" SELECT i, i*2 FROM generate_series(1, 10) as s(i);
+``
 
 = Microsoft SQL Server
 {c}
