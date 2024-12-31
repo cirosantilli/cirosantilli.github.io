@@ -67,13 +67,6 @@ Although there are several <quantum computer physical implementations>[types of 
 
 Beyond that basic model, programmers only may have to consider the <quantum logic gates are needed for physical implementation>[imperfections of their hardware], but the starting point will almost always be this basic model, and tooling that automates mapping the high level model to real hardware considering those imperfections (i.e. <quantum compilers>) is already getting better and better.
 
-This model is very simple to understand, being only marginally more complex than that of a classical computer, see also: https://quantumcomputing.stackexchange.com/questions/6639/is-my-background-sufficient-to-start-quantum-computing/14317#14317
-
-The situation of quantum computers today in the 2020's is somewhat analogous to that of the early days of classical circuits and computers in the 1950's and 1960's, before <CPU> came along and software ate the world. Even though the <semiconductor physical implementation>[exact physics of a classical computer] might be hard to understand and vary across different types of <integrated circuits>, those early hardware pioneers (and to this day modern CPU designers), can usefully view circuits from a higher level point of view, thinking only about concepts such as:
-* <logic gates> like AND, NOR and NOT
-* a clock + registers
-as modelled at the <register transfer level>, and only in a separate compilation step translated into actual chips. This high level understanding of how a classical computer works is what we can call "the programmer's model of a classical computer". So we are now going to describe the quantum analogue of it.
-
 The way quantum programmers think about a quantum computer in order to program can be described as follows:
 * the input of a N qubit quantum computer is a vector of dimension N containing classic bits 0 and 1
 * the quantum program, also known as circuit, is a $2^n \times 2^n$ <unitary matrix> of <complex numbers> $Q \in \C^{2^n} \times \C^{2^n}$ that operates on the input to generate the output
@@ -194,6 +187,11 @@ This interpretation of the quantum state vector clarifies a few things:
   This also allows us to understand intuitively why quantum computers may be capable of accelerating certain algorithms exponentially: that is because the quantum computer is able to quickly do an unitary matrix multiplication of a humongous $2^{N}$ sized matrix.
 
   If we are able to encode our algorithm in that matrix multiplication, considering the probabilistic interpretation of the output, then we stand a chance of getting that speedup.
+
+As we could see, this model is was simple to understand, being only marginally more complex than that of a classical computer, see also: https://quantumcomputing.stackexchange.com/questions/6639/is-my-background-sufficient-to-start-quantum-computing/14317#14317 The situation of quantum computers today in the 2020's is somewhat analogous to that of the early days of classical circuits and computers in the 1950's and 1960's, before <CPU> came along and software ate the world. Even though the <semiconductor physical implementation>[exact physics of a classical computer] might be hard to understand and vary across different types of <integrated circuits>, those early hardware pioneers (and to this day modern CPU designers), can usefully view circuits from a higher level point of view, thinking only about concepts such as:
+* <logic gates> like AND, NOR and NOT
+* a clock + registers
+as modelled at the <register transfer level>, and only in a separate compilation step translated into actual chips. This high level understanding of how a classical computer works is what we can call "the programmer's model of a classical computer". So we are now going to describe the quantum analogue of it.
 
 Bibliography:
 * https://arxiv.org/pdf/1804.03719.pdf Quantum Algorithm Implementations for Beginners by Abhijith et al. 2020

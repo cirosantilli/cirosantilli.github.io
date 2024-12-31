@@ -398,6 +398,8 @@ insert into tmp(s) select random_string(10) from generate_series(10);
 {parent=PostgreSQL HOWTO}
 {tag=Full-text search}
 
+This section was tested on <Ubuntu 24.10>, <PostgreSQL> 16.6.
+
 Let's create some test data like this:
 ``
 time psql tmp -c 'DROP TABLE IF EXISTS fts;'
@@ -418,6 +420,13 @@ INSERT INTO fts SELECT
   i % 100
 FROM generate_series(1::bigint, 100000000::bigint) AS s(i);
 EOF
+``
+
+The creation time was 2m13s, and the final size was:
+``
+     table_name    | pg_size_pretty | pg_total_relation_size 
+------------------+----------------+------------------------
+ fts              | 13 GB          |            14067326976
 ``
 
 This test data will be simple to predict what each line contains so we can make educated queries, while also posing some difficulty to the RDMS. As per:
@@ -442,13 +451,6 @@ the first columns look like:
 
 We aimed to create a test table of size around 10 GB, as in practice it is around that order of size that index speedups start to become very obvious on a <SSD>-based system.
 
-The creation time was 2m13s, and the final size was:
-``
-     table_name    | pg_size_pretty | pg_total_relation_size 
-------------------+----------------+------------------------
- fts              | 13 GB          |            14067326976
-``
-
 Before we create the index, let's see if our non-indexed queries are slow enough for our tests:
 ``
 time psql tmp -c "SELECT * FROM fts WHERE s LIKE '% 50000000 %';"
@@ -468,7 +470,7 @@ sys     0m0.008s
 ``
 so it should be enough to observe the index speedup.
 
-Now let's create the index:
+Now let's create the index. First we create a <generated column> that splits the strings with <to_tsvector>, and then we index that split column:
 ``
 time psql tmp <<'EOF'
 ALTER TABLE fts ADD COLUMN s_ts tsvector
@@ -498,6 +500,26 @@ which "instantly" gives us in 0m0.129s:
 so the index worked!
 
 We understand from this that it only find exact word hits.
+
+Another important use case is to search for prefixes of words, e.g. as you'd want in a simple autocompletion system. This can be achieved by adding `:*` at the end of the search term as in:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '50000000:*');"
+``
+This finishes in the same amount of time, and gives:
+``
+                                                     s                                                     | i  
+-----------------------------------------------------------------------------------------------------------+----
+ 10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000           |  0
+ 38461539 76923078 192307695 269230773 423076929 500000007 653846163 884615397 1115384631 1192307709       | 39
+ 45454546 90909092 227272730 318181822 500000006 590909098 772727282 1045454558 1318181834 1409090926      | 46
+ 50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000     |  0
+ 71428572 142857144 357142860 500000004 785714292 928571436 1214285724 1642857156 2071428588 2214285732    | 72
+ 100000000 200000000 500000000 700000000 1100000000 1300000000 1700000000 2300000000 2900000000 3100000000 |  0
+ 29411765 58823530 147058825 205882355 323529415 382352945 500000005 676470595 852941185 911764715         | 65
+ 25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000         |  0
+``
+so now we have cool hits such as `500000000`, `500000004`, `500000005`, `500000007` and `500000006`. The syntax is also mentioned at:
+* https://www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES
 
 Next we can also try some other queries with multiple terms. Text must contain two words with `&`:
 ``
@@ -538,15 +560,97 @@ gives:
 
 We can also inspect how words were split by simply doing a `SELECT *` again:
 ``
-              s              | i |                                 s_ts                                 
------------------------------+---+----------------------------------------------------------------------
- 1 2 5 7 11 13 17 23 29 31   | 1 | '1':1 '11':5 '13':6 '17':7 '2':2 '23':8 '29':9 '31':10 '5':3 '7':4
- 2 4 10 14 22 26 34 46 58 62 | 2 | '10':3 '14':4 '2':1 '22':5 '26':6 '34':7 '4':2 '46':8 '58':9 '62':10
- 3 6 15 21 33 39 51 69 87 93 | 3 | '15':3 '21':4 '3':1 '33':5 '39':6 '51':7 '6':2 '69':8 '87':9 '93':10
- ``
+             s              | i |                                 s_ts                                 
+----------------------------+---+----------------------------------------------------------------------
+1 2 5 7 11 13 17 23 29 31   | 1 | '1':1 '11':5 '13':6 '17':7 '2':2 '23':8 '29':9 '31':10 '5':3 '7':4
+2 4 10 14 22 26 34 46 58 62 | 2 | '10':3 '14':4 '2':1 '22':5 '26':6 '34':7 '4':2 '46':8 '58':9 '62':10
+3 6 15 21 33 39 51 69 87 93 | 3 | '15':3 '21':4 '3':1 '33':5 '39':6 '51':7 '6':2 '69':8 '87':9 '93':10
+``
 
- Also posted at:
- * https://www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/ "Is it worth using Postgres' builtin full-text search or should I go straight to Elastic?", high top Google result for "PostgreSQL full text search" as of 2024. Random, but it's there.
+Let's check if the index updates automatically when we do an insert and if insertion seems to have been significantly slowed down by the index:
+``
+time psql tmp -c "INSERT INTO fts VALUES ('abcd efgh', 99)"
+``
+finishes in:
+``
+real    0m0.043s
+user    0m0.014s
+sys     0m0.010s
+``
+so performance is OK. Presumably, the insertion time is proportional to the number of tokens, doing one logarithmic operation per token, so indexing short chunks of text like titles is easy. And then let's find it:
+``
+time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', 'efgh');"
+``
+which finds it with:
+``
+     s     | i  
+-----------+----
+ abcd efgh | 99
+``
+so we are all good. Unfortunately, accurate performance benchmarking is a bit harder than that, as the index by default first collects a certain number of updates into memory into the "pending list", before actually inserting them all at once after a certain mass is reached, as documented at: https://www.postgresql.org/docs/17/gin.html#GIN-IMPLEMENTATION
+
+The last thing that we need to understand is how <to_tsvector> #tokenizes strings for the `english` language. For example running:
+``
+psql -c "select to_tsvector('english', 'A Dog run runs fast faster two Cats: b c to from 1 é befhyph-afthyph.')"
+``
+gives:
+``
+'1':13
+'afthyph':17
+'b':9
+'befhyph':16
+'befhyph-afthyph':15
+'c':10
+'cat':8
+'dog':2
+'fast':5
+'faster':6
+'run':3,4
+'two':7
+'é':14
+``
+so we understand some of the heuristic normalizations:
+* prepositions like `to` and `from` are gone. These are called stopwords as documented at: https://www.postgresql.org/docs/17/textsearch-controls.html#TEXTSEARCH-PARSING-DOCUMENTS[]
+* words are lowercased and singularized, e.g. `Cats` becomes `cat`
+* hyphenated words are stored both in separate components and in the full hyphenated form:
+  * `'afthyph':17`
+  * `'befhyph':16`
+  * `'befhyph-afthyph':15`
+
+The full list of languages available can be obtained with:
+``
+psql -c '\dF'
+``
+On <Ubuntu 24.10>, the list contains major world languages, plus the special `simple` configuration such that:
+``
+psql -c "select to_tsvector('simple', 'A Dog run runs fast faster two Cats: b c to from 1 é befhyph-afthyph.')"
+``
+gives:
+``
+'1':13
+'a':1
+'afthyph':17
+'b':9
+'befhyph':16
+'befhyph-afthyph':15
+'c':10
+'cats':8
+'dog':2
+'fast':5
+'faster':6
+'from':12
+'run':3
+'runs':4
+'to':11
+'two':7
+'é':14
+``
+so we understand that it is similar to `english` but it does not:
+* seem to have any stopwords
+* does not do singularization normalization
+
+Also posted at:
+* https://www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/ "Is it worth using Postgres' builtin full-text search or should I go straight to Elastic?", high top Google result for "PostgreSQL full text search" as of 2024. Random, but it's there.
 
 = Create a test user in PostgreSQL
 {parent=PostgreSQL}
@@ -653,6 +757,7 @@ Related questions:
 
 = PostgreSQL function
 {parent=PostgreSQL}
+{tag=SQL function}
 
 https://www.postgresql.org/docs/17/functions-srf.html
 
@@ -666,6 +771,11 @@ Pattern you always want to generate <Generate random text in PostgreSQL>:
 CREATE TABLE "mytable" ("i" INTEGER, "j" INTEGER);
 INSERT INTO "mytable" SELECT i, i*2 FROM generate_series(1, 10) as s(i);
 ``
+
+= `to_tsvector`
+{parent=PostgreSQL function}
+
+https://www.postgresql.org/docs/17/textsearch-controls.html
 
 = Microsoft SQL Server
 {c}
@@ -1327,11 +1437,14 @@ Example: \a[nodejs/sequelize/raw/tree.js]
 
 How to implement <Nested set model> in <SQL>:
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
-* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunatly uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
+* https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/194031#194031 amazing ASCII art representations of the structure. Unfortunately uses a wonky left/right representation, rather than the much more natural left/size representation from the other post
 
 = SQL feature
 {c}
 {parent=SQL}
+
+= Generated column
+{parent=SQL feature}
 
 = SQL RECURSIVE query
 {c}

@@ -40,7 +40,10 @@ But finding a clean way to generate test data for testing out the speedup was no
   head -n10000000 \
   > lorem.txt
   ``
-  * to achieve that, I also proposed a better "
+  * to achieve that, I also proposed two superior "join every N lines" method for the CLI: https://stackoverflow.com/questions/25973140/joining-every-group-of-n-lines-into-one-with-bash/79257780#79257780[], notably this <awk> poem:
+    ``
+    seq 10 | awk '{ printf("%s%s", NR  == 1 ? "" : NR % 3 == 1 ? "\n" : " ", $0 ) } END { printf("\n") }'
+    ``
 * https://stackoverflow.com/questions/3371503/sql-populate-table-with-random-data/79255281#79255281 I propose:
   * a clean <PostgreSQL> random string stored procedure that picks random characters from an allowed character list
     ``
@@ -55,6 +58,8 @@ But finding a clean way to generate test data for testing out the speedup was no
     ``
     python generate_data.py 10 | psql mydb -c '\copy "mytable" FROM STDIN'
     ``
+
+Finally I did a writeup summarizing PostgreSQL full text search: <PostgreSQL full-text search>{full} and also dumped it at: https://www.reddit.com/r/PostgreSQL/comments/12yld1o/is_it_worth_using_postgres_builtin_fulltext/[] for good measure.
 
 = Getting a list of all currencies from Wikidata with SPARQL
 {parent=Updates}
