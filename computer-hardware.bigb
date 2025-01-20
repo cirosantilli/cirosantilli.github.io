@@ -937,6 +937,46 @@ The bad:
 
 Basically a synonym for <central processing unit> nowadays: https://electronics.stackexchange.com/questions/44740/whats-the-difference-between-a-microprocessor-and-a-cpu
 
+= CPU feature
+{parent=Central processing unit}
+
+= Trusted execution environment
+{parent=CPU feature}
+{wiki}
+
+= Software Guard Extensions
+{parent=Trusted execution environment}
+{wiki}
+
+= Intel SGX
+{c}
+{synonym}
+{title2}
+
+The hole point of <Intel SGX> is to allow users to be certain that a certain code was executed in a remove server that they rent but don't own, like <AWS>. Even if <AWS> wanted to be malicious, they would still not be able to modify your read your input, output nor modify the program.
+
+The way this seems to work is as follows.
+
+Each chip has its own unique private key embedded in the chip. There is no way for software to read that private key, only the hardware can read it, and Intel does not know that private key, only the corrsponding public one. The entire safety of the system relies on this key never ever leaking to anybody, even if they have the CPU in their hands. A big question is if there are physical forensic methods, e.g. using <electron microscopes>, that would allow this key to be identified.
+
+Then, using that private key, you can create enclaves.
+
+Once you have an enclave, you can load a certain code to run into the enclave.
+
+Then, non-secure users can give inputs to that enclave, and as an output, they get not only the output result, but also a public key certificate based on the internal private key.
+
+This certificates states:
+* given input X
+* program Y
+* produced output Z
+and that can then be verified online on Intel's website, since they keep a list of public keys. This service is called attestation.
+
+So, if the certificate is verified, you can be certain that a your input was ran by a specific code.
+
+Additionally:
+* you can public key encrypt your input to the enclave with the public key, and then ask the enclave to send output back encrypted to your key. This way the hardware owner cannot read neither the input not the output
+* all data stored on RAM is encrypted by the enclave, to prevent attacks that rely on using a modified RAM that logs data
+
 = Field-programmable gate array
 {parent=Type of processor}
 {wiki}
