@@ -240,7 +240,7 @@ Here is a very direct description of the system:
 * the sum of output values cannot obvious exceed the sum of input values. If it is any less, the leftover is sent to the miner of the transaction as a transaction fee, which is an incentive for mining.
 * once an output is used from an input, it becomes marked as spent, and cannot be reused again. Every input uses the selected output fully. Therefore, if you want to use an input of 1 <BTC> to pay 0.1 <BTC>, what you do is to send 0.1 <BTC> to the receiver, and 0.9 <BTC> back to yourself as <change (Bitcoin)>. This is why the vast majority of transactions has two outputs: one "real", and the other <change (Bitcoin)> back to self.
 <code Sample Bitcoin transaction graph> illustrates these concepts:
-* `tx0`: magic transaction without any inputs, i.e. either <Genesis block> or a coinbase <Bitcoin mining reward>[mining reward]. Since it is a magic transaction, it produces 3 Bitcoins from scratch: 1 in `out0` and 2 in `out1`. The initial value was actually 50 <BTC> and reduced with time: <Bitcoin halvening>{full}
+* `tx0`: magic transaction without any inputs, i.e. either <Genesis block> or a coinbase <Bitcoin mining reward>[mining reward]. Since it is a magic transaction, it produces 3 Bitcoins from scratch: 1 in `out0` and 2 in `out1`. The initial value was actually 50 <BTC> and reduced with time: <Bitcoin halving>{full}
 * `tx1`: regular transaction that takes:
   * a single input from `tx0 out0`, with value 1
   * produces two outputs:
@@ -729,8 +729,11 @@ The first invalid script is just e.g. "script":"01", which says will push one by
 {tag=Block reward}
 {tag=Mining reward}
 
-= Bitcoin halvening
+= Bitcoin halving
 {parent=Bitcoin mining reward}
+
+= Bitcoin halvening
+{synonym}
 
 https://cointelegraph.com/learn/bitcoin-halving-how-does-the-halving-cycle-work-and-why-does-it-matter Happens every 210,000 blocks, aiming approximately at 4 year intervals. The historical dates were:
 * 50 <BTC> initially
@@ -738,7 +741,7 @@ https://cointelegraph.com/learn/bitcoin-halving-how-does-the-halving-cycle-work-
 * 2nd: 2016: down to 12.5 <BTC>
 * 3rd: 2020: down to 6.25 <BTC>
 
-Each of these events prompts some commemorative <inscription (blockchain)>[inscriptions]: <Cool data embedded in the bitcoin blockchain/Halvening messages>{full}.
+Each of these events prompts some commemorative <inscription (blockchain)>[inscriptions]: <Cool data embedded in the bitcoin blockchain/Halving messages>{full}.
 
 = History of Bitcoin
 {parent=Bitcoin}
@@ -923,7 +926,7 @@ Some of the transactions are:
   * https://github.com/richardkiss/pycoin/blob/367a58e25aacf85549a7335f7607ba8a53727c81/COMMAND-LINE-TOOLS.md
   This is a highly unusual transaction from a single address https://www.blockchain.com/explorer/addresses/btc/17WFx2GQZUmh6Up2NDNCEDk3deYomdNCfk[17WFx2GQZUmh6Up2NDNCEDk3deYomdNCfk] to a single address https://www.blockchain.com/explorer/addresses/btc/1CZDM6oTttND6WPdt3D6bydo7DYKzd9Qik[1CZDM6oTttND6WPdt3D6bydo7DYKzd9Qik] for the exact value with no <change (Bitcoin)>.
 
-  By digging a bit, we see that the input comes from exactly 20 outputs, e.g. https://www.blockchain.com/explorer/addresses/btc/1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj[1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj], each of which is a block reward of 50 BTC, the <Bitcoin halvening>[reward value at those early times], thus satisfactorily explaining how the exact 10k value was obtained without <change (Bitcoin)>. Because we know that Laszlo was a big <GPU> miner, it is extremelly likely that this transaction was made by him.
+  By digging a bit, we see that the input comes from exactly 20 outputs, e.g. https://www.blockchain.com/explorer/addresses/btc/1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj[1E43t1VCc3Q3STKauEiUoVqLbT81XT67xj], each of which is a block reward of 50 BTC, the <Bitcoin halving>[reward value at those early times], thus satisfactorily explaining how the exact 10k value was obtained without <change (Bitcoin)>. Because we know that Laszlo was a big <GPU> miner, it is extremelly likely that this transaction was made by him.
 * https://www.blockchain.com/explorer/transactions/btc/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d[a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d] (22 May 2010 07:16:31 GMT+1) also has several <Google> mentions, e.g.:
   * https://tokenview.medium.com/bitcoin-pizza-day-the-story-of-buying-pizza-with-10-000-btc-54cd0896f9f1
 
@@ -1191,6 +1194,11 @@ As of 2024-04-10, it was now a Ghost blogging intance still by Alex: https://www
 
 https://www.vistomail.com/non-profits/ claims they were giving out grants via satoshin@nt-medic.com and provided address 1BCwUg3PsLK9wJK815RkmzSMdAnALNHu64
 
+\Image[]
+{title=<Wayback Machine> archive of https://www.vistomail.com/Default.aspx on 2013-12-09}
+{height=1024}
+{source=https://web.archive.org/web/20131209082226/https://www.vistomail.com/Default.aspx}
+
 = Alex Elbanna
 {parent=vistomail.com}
 {tag=Fraudster}
@@ -1198,10 +1206,11 @@ https://www.vistomail.com/non-profits/ claims they were giving out grants via sa
 * https://twitter.com/AlexElbanna
 * https://www.linkedin.com/in/alex-elbanna/
 
-Shady shady buyer of "vistomail.com". He sends emails as <satoshi@vistomail.com> without any disclaimers, Godlike.
+Shady shady owner of "<vistomail.com>" sine November 2023. He sends emails as <satoshi@vistomail.com> without any disclaimers, Godlike.
 
 \Image[https://web.archive.org/web/20240415144643if_/https://speakerhub.com/sites/default/files/styles/speakerhub_full_screen/public/user/gallery/2021/01/16/alexander-elbanna-gallery.jpg]
 {description=Source linked to from his <Twitter> account: https://web.archive.org/web/20240415144643if_/https://speakerhub.com/sites/default/files/styles/speakerhub_full_screen/public/user/gallery/2021/01/16/alexander-elbanna-gallery.jpg}
+{height=600}
 {source=https://speakerhub.com/speaker/alexander-elbanna}
 
 He or someone with the same name is having some fun with the <SEC>: https://dockets.justia.com/docket/florida/flmdce/8:2023cv01638/416506 for "Securities Fraud".
