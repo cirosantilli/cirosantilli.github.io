@@ -58,8 +58,19 @@ A computer model that is as powerful as the most powerful computer model we have
 {title2=AST}
 {wiki}
 
-= Recursively enumerable language
+= Chomsky hierarchy
+{c}
 {parent=Formal language theory}
+{wiki}
+
+This is the classic result of <formal language theory>, but there is too much slack between context free and context sensitive, which is <PSPACE> (larger than <NP (complexity)>!).
+
+By <Noam Chomsky>.
+
+A good summary table that opens up each category much more can be seen e.g. at the bottom of https://en.wikipedia.org/wiki/Automata_theory under the summary thingy at the bottom entitled "Automata theory: formal languages and formal grammars".
+
+= Recursively enumerable language
+{parent=Chomsky hierarchy}
 {tag=Chomsky hierarchy}
 {wiki}
 
@@ -73,8 +84,7 @@ Non-examples: https://cs.stackexchange.com/questions/52503/non-recursively-enume
 {wiki}
 
 = Recursive language
-{parent=Formal language theory}
-{tag=Recursively enumerable language}
+{parent=Recursively enumerable language}
 {wiki}
 
 Subset of <recursively enumerable language> as explained at: <difference between recursive language and recursively enumerable language>.
@@ -164,7 +174,7 @@ The prototypical example is the <Busy beaver function>, which is the easiest exa
 
 https://math.stackexchange.com/questions/462790/are-there-any-examples-of-non-computable-real-numbers
 
-There are only boring exampes of taking an uncomputable language and converting it into a number?
+There are only boring examples of taking an uncomputable language and converting it into a number?
 
 = Difference between recursive language and recursively enumerable language
 {parent=Recursive language}
@@ -178,19 +188,8 @@ https://stackoverflow.com/questions/33467040/what-is-the-difference-between-recu
 
 Same as <recursive language> but in the context of the <integers>.
 
-= Chomsky hierarchy
-{c}
-{parent=Formal language theory}
-{wiki}
-
-This is the classic result of <formal language theory>, but there is too much slack between context free and context sensitive, which is PSPACE (larger than <NP (complexity)>!).
-
-By <Noam Chomsky>.
-
-TODO had seen a good table on Wikipedia with an expanded hierarchy, but lost it!
-
 = Regular language
-{parent=Chomsky hierarchy}
+{parent=Recursive language}
 {wiki}
 
 = Regular expression
@@ -226,7 +225,7 @@ The canonical <undecidable problem>.
 
 A <Turing machine> decider is a program that decides if one or more <Turing machines> halts of not.
 
-Of course, because what we know about the <halting problem>, there cannot exist a single decider that decies all <Turing machines>.
+Of course, because what we know about the <halting problem>, there cannot exist a single decider that decides all <Turing machines>.
 
 E.g. <The Busy Beaver Challenge> has a set of deciders clearly published, which decide a large part of <BB(5)>. Their proposed deciders are listed at: https://discuss.bbchallenge.org/c/deciders/5[] and actually applied ones at: https://bbchallenge.org[].
 
@@ -252,7 +251,7 @@ Most of it is just regular <regular expression> notation, with a few differences
   ``
   indicates that the head `A` is on top of the last `1` of the last sequence of n `01`s to the left of the head.
 
-This notation is very useful, as it helps compress long repeated sequences of <Turing machine> tape and extract higher level patterns from them, which is how you go about understanding a Turing machin in order to apply <Turing machine acceleration>.
+This notation is very useful, as it helps compress long repeated sequences of <Turing machine> tape and extract higher level patterns from them, which is how you go about understanding a Turing machine in order to apply <Turing machine acceleration>.
 
 = Cycler Turing machine
 {parent=Turing machine decider}
@@ -267,11 +266,11 @@ Example: https://bbchallenge.org/279081[].
 
 These are very simple, they just check for exact state repetitions, which obviously imply that they will run forever.
 
-Unfortunately, cyclers may need to run throun an initial setup phase before reaching the initial cycle point, which is not very elegant.
+Unfortunately, cyclers may need to run through an initial setup phase before reaching the initial cycle point, which is not very elegant.
 
 Also, we have no way of knowing the initial setup length of the actual cycle length, so we just need an arbitrary cutoff value.
 
-And unfortunatly, this can lead to misses, e.g. <Skelet machine #1>, a 5 state machine, has a (translated) cycle that starts at around 50-200M styeps, and takes 8 trillion steps to repeat.
+And unfortunately, this can lead to misses, e.g. <Skelet machine #1>, a 5 state machine, has a (translated) cycle that starts at around 50-200M steps, and takes 8 trillion steps to repeat.
 
 = Translated cycler Turing machine
 {parent=Turing machine decider}
@@ -297,7 +296,7 @@ Described at: https://www.sligocki.com/2022/06/10/ctl.html
 
 The busy beaver game consists in finding, for a given $n$, the turing machine with $n$ states that writes the largest possible number of 1's on a tape initially filled with 0's. In other words, computing the <busy beaver function> for a given $n$.
 
-There are only finitely many Turing machines with $n$ states, so we are certain that there exists such a maxium. Computing the <Busy beaver function> for a given $n$ then comes down to solving the halting problem for every single machine with $n$ states.
+There are only finitely many Turing machines with $n$ states, so we are certain that there exists such a maximum. Computing the <Busy beaver function> for a given $n$ then comes down to solving the halting problem for every single machine with $n$ states.
 
 Some variant definitions define it as the number of time steps taken by the machine instead. Wikipedia talks about their relationship, but no patience right now.
 
@@ -412,7 +411,7 @@ Bibliography:
 {parent=Skelet’s machines}
 {tag=Translated cycler Turing machine}
 {title2=proved 2023}
-{title2=cyclel start: 50-200M}
+{title2=cycle start: 50-200M}
 {title2=period: ~8B}
 
 On <The Busy Beaver Challenge>: https://bbchallenge.org/68329601
@@ -787,10 +786,14 @@ To get an intuition for it, see the sample computation at: https://en.wikipedia.
 {parent=ELEMENTARY (complexity)}
 {wiki}
 
+= PSPACE
+{parent=EXPTIME}
+{wiki}
+
 = NP
 {c}
 {disambiguate=complexity}
-{parent=EXPTIME}
+{parent=PSPACE}
 {wiki}
 
 Strictly speaking, only defined for decision problems: https://cs.stackexchange.com/questions/9664/is-it-necessary-for-np-problems-to-be-decision-problems/128702#128702
@@ -804,6 +807,12 @@ Strictly speaking, only defined for decision problems: https://cs.stackexchange.
 = Polynomial time
 {synonym}
 {title2}
+
+= NC
+{disambiguate=complexity}
+{parent=P (complexity)}
+{title2=Efficiently parallelizable}
+{wiki}
 
 = Polynomial time algorithm
 {parent=P (complexity)}
