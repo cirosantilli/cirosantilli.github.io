@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const assert = require('assert')
-const path = require('path')
 const { DataTypes, Sequelize } = require('sequelize')
 let sequelize
 if (process.argv[2] === 'p') {

@@ -27,7 +27,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
     * https://github.com/sequelize/sequelize/issues/5481#issuecomment-964387232
     * https://dba.stackexchange.com/questions/141594/how-select-column-does-not-list-in-group-by-clause/141600 says that it was allowed in <SQL:1999> when there are no ambiguities due to constraints, e.g. when grouping by unique columns
     * https://github.com/postgres/postgres/blob/REL_13_5/src/test/regress/sql/functional_deps.sql#L27 shows that <PostgreSQL> wants it to work for `UNIQUE NOT NULL`, but they just haven't implemented it as of 13.5, where it only works if you group by `PRIMARY KEY`
-    * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to rationale mailing list thread: 
+    * https://dba.stackexchange.com/questions/158015/why-can-i-select-all-fields-when-grouping-by-primary-key-but-not-when-grouping-b also says that `UNIQUE NOT NULL` doesn't work. Dan Lenski then points to a rationale mailing list thread.
   * \a[nodejs/sequelize/raw/group_by_max_full_row.js]: here we try to get the full row of each group at which a given column reaches the max of the group
     * <Postgres>: has `SELECT DISCINTCT ON` which works perfectly if you only want one row in case of multiple rows attaining the max. `ON` is an extension to the standard unfortunately: https://www.postgresql.org/docs/9.3/sql-select.html#SQL-DISTINCT[] Docs specify that it always respects `ORDER BY` when selecting the row.
       * https://stackoverflow.com/questions/586781/postgresql-fetch-the-row-which-has-the-max-value-for-a-column asks it without the multiple matches use case
@@ -40,7 +40,7 @@ Here we list only examples which we believe are standard SQL, and should therefo
       * https://stackoverflow.com/questions/17277152/sqlite-select-distinct-of-one-column-and-get-the-others/71924314#71924314 get any full row without specifying which, we teach how to specify
       * https://code.djangoproject.com/ticket/22696 WONTFIXed `DISTINCT ON`
         * https://stackoverflow.com/questions/50846722/what-is-the-difference-between-postgres-distinct-vs-distinct-on/72997494#72997494 `DISTINCT` vs `DISTINCT ON`, somewhat related question
-    * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres 
+    * https://stackoverflow.com/questions/5803032/group-by-to-return-entire-row asks how to take the top N with distinct after order limit. I don't know how to do it in Postgres
   * \a[nodejs/sequelize/raw/most_frequent.js]: illustrates a few variants of findind the <mode (statistics)>, including across GROUP
     * https://stackoverflow.com/questions/12235595/find-most-frequent-value-in-sql-column/72979899#72979899
   * \a[nodejs/sequelize/raw/group_by_max_n.js]: get the top N in each group
@@ -191,7 +191,7 @@ Explanation:
 * `-s` in `createuser -s`: make it a superuser
 * `createdb`: TODO why do we have to create a table with the same name as the user? Otherwise login fails.
 
-You can now run `psql` without any password. This works without password due to peer authentication, 
+You can now run `psql` without any password. This works without password due to peer authentication:
 ``
 sudo cat /etc/postgresql/12/main/pg_hba.conf
 ``
@@ -212,7 +212,7 @@ psql -c '\du'
 output:
 ``
                                     List of roles
-  Role name  |                         Attributes                         | Member of 
+  Role name  |                         Attributes                         | Member of
 -------------+------------------------------------------------------------+-----------
  ciro        | Superuser, Create role, Create DB                          | {}
  owning_user |                                                            | {}
@@ -255,7 +255,7 @@ psql -c '\l'
 ``
 which shows:
 ``
-    Name     |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+    Name     |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
 -------------+----------+----------+-------------+-------------+-----------------------
  ciro        | postgres | UTF8     | en_GB.UTF-8 | en_GB.UTF-8 |
  postgres    | postgres | UTF8     | en_GB.UTF-8 | en_GB.UTF-8 |
@@ -306,10 +306,10 @@ psql testdb0 -c '\d+ table0'
 output:
 ``
                                       Table "public.table0"
- Column |     Type      | Collation | Nullable | Default | Storage  | Stats target | Description 
+ Column |     Type      | Collation | Nullable | Default | Storage  | Stats target | Description
 --------+---------------+-----------+----------+---------+----------+--------------+-------------
- int0   | integer       |           |          |         | plain    |              | 
- char0  | character(16) |           |          |         | extended |              | 
+ int0   | integer       |           |          |         | plain    |              |
+ char0  | character(16) |           |          |         | extended |              |
 ``
 
 Insert some data into it and get the data out:
@@ -385,7 +385,7 @@ select
   string_agg(substr(characters, (random() * length(characters) + 1)::integer, 1), '') as random_word
 from (values('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789    --')) as symbols(characters)
   join generate_series(1, $1) on 1 = 1
-$$ language sql;  
+$$ language sql;
 ``
 
 And then:
@@ -424,7 +424,7 @@ EOF
 
 The creation time was 2m13s, and the final size was:
 ``
-     table_name    | pg_size_pretty | pg_total_relation_size 
+    table_name    | pg_size_pretty | pg_total_relation_size
 ------------------+----------------+------------------------
  fts              | 13 GB          |            14067326976
 ``
@@ -435,7 +435,7 @@ time psql tmp -c 'SELECT * FROM fts LIMIT 10;'
 ``
 the first columns look like:
 ``
-                  s                  | i  
+                  s                  | i
 -------------------------------------+----
  1 2 5 7 11 13 17 23 29 31           |  1
  2 4 10 14 22 26 34 46 58 62         |  2
@@ -457,7 +457,7 @@ time psql tmp -c "SELECT * FROM fts WHERE s LIKE '% 50000000 %';"
 ``
 which gives:
 ``
-                                                 s                                                 | i 
+                                                 s                                                 | i
 ---------------------------------------------------------------------------------------------------+---
  10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000   | 0
  25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000 | 0
@@ -480,7 +480,7 @@ time psql tmp -c 'CREATE INDEX s_ts_gin_idx ON fts USING GIN (s_ts);'
 ``
 These commands took 8m51s and 40m8s and the DB size went up about 5x:
 ``
-    table_name    | pg_size_pretty | pg_total_relation_size 
+    table_name    | pg_size_pretty | pg_total_relation_size
 ------------------+----------------+------------------------
  fts              | 69 GB          |            74487758848
 ``
@@ -491,7 +491,7 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '5000
 ``
 which "instantly" gives us in 0m0.129s:
 ``
-                                                   s                                                   | i 
+                                                   s                                                   | i
 -------------------------------------------------------------------------------------------------------+---
  10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000       | 0
  25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
@@ -507,7 +507,7 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '5000
 ``
 This finishes in the same amount of time, and gives:
 ``
-                                                     s                                                     | i  
+                                                     s                                                     | i
 -----------------------------------------------------------------------------------------------------------+----
  10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000           |  0
  38461539 76923078 192307695 269230773 423076929 500000007 653846163 884615397 1115384631 1192307709       | 39
@@ -527,7 +527,7 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '5000
 ``
 gives:
 ``
-                                                   s                                                   | i 
+                                                   s                                                   | i
 -------------------------------------------------------------------------------------------------------+---
  25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
 ``
@@ -538,7 +538,7 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '5000
 ``
 gives:
 ``
-                                                    s                                                    | i 
+                                                    s                                                    | i
 ---------------------------------------------------------------------------------------------------------+---
  10000000 20000000 50000000 70000000 110000000 130000000 170000000 230000000 290000000 310000000         | 0
  50000000 100000000 250000000 350000000 550000000 650000000 850000000 1150000000 1450000000 1550000000   | 0
@@ -553,14 +553,14 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', '5000
 ``
 gives:
 ``
-                                                   s                                                   | i 
+                                                   s                                                   | i
 -------------------------------------------------------------------------------------------------------+---
  25000000 50000000 125000000 175000000 275000000 325000000 425000000 575000000 725000000 775000000     | 0
 ``
 
 We can also inspect how words were split by simply doing a `SELECT *` again:
 ``
-             s              | i |                                 s_ts                                 
+             s              | i |                                 s_ts
 ----------------------------+---+----------------------------------------------------------------------
 1 2 5 7 11 13 17 23 29 31   | 1 | '1':1 '11':5 '13':6 '17':7 '2':2 '23':8 '29':9 '31':10 '5':3 '7':4
 2 4 10 14 22 26 34 46 58 62 | 2 | '10':3 '14':4 '2':1 '22':5 '26':6 '34':7 '4':2 '46':8 '58':9 '62':10
@@ -583,13 +583,13 @@ time psql tmp -c "SELECT s, i FROM fts WHERE s_ts @@ to_tsquery('english', 'efgh
 ``
 which finds it with:
 ``
-     s     | i  
+     s     | i
 -----------+----
  abcd efgh | 99
 ``
-so we are all good. Unfortunately, accurate performance benchmarking is a bit harder than that, as the index by default first collects a certain number of updates into memory into the "pending list", before actually inserting them all at once after a certain mass is reached, as documented at: https://www.postgresql.org/docs/17/gin.html#GIN-IMPLEMENTATION
+so we are all good. Unfortunately, accurate performance benchmarking is a bit harder than that, as the index by default first collects a certain number of updates into memory into the "pending list", before actually inserting them all at once after a certain mass is reached, as documented at: https://www.postgresql.org/docs/17/gin.html#GIN-IMPLEMENTATION[]. We are not going that deep today.
 
-The last thing that we need to understand is how <to_tsvector> #tokenizes strings for the `english` language. For example running:
+The next thing that we need to understand is how <to_tsvector> #tokenizes strings for the `english` language. For example running:
 ``
 psql -c "select to_tsvector('english', 'A Dog run runs fast faster two Cats: b c to from 1 é befhyph-afthyph.')"
 ``
@@ -647,7 +647,25 @@ gives:
 ``
 so we understand that it is similar to `english` but it does not:
 * seem to have any stopwords
-* does not do singularization normalization
+* do singularization normalization
+
+From the query side of things, if the query is going to be open to end users on a web interface, we need to understand `to_tsquery` better. The issue is that `to_tsquery` is quite brutal and happily throws errors for common things users might do e.g. spaces:
+``
+select to_tsquery('english', 'abc def');
+``
+giving:
+``
+ERROR:  syntax error in tsquery: "abc def"
+``
+To avoid such errors, we can use:
+* `plainto_tsquery`: ANDs everything
+* `websearch_to_tsquery`: supports `AND` with spaces, OR with `or`, word negation with `-word` and concatenation with `"my word"`. But it unfortunately does not support prefixing, which is what everyone and their mother wants for autocomplete: https://stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery#comment78452351_41804957
+Bibliography:
+* https://stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/16020565#16020565
+* https://stackoverflow.com/questions/14103880/escaping-special-characters-in-to-tsquery
+* https://www.reddit.com/r/rails/comments/1cmloa6/sanitizing_a_search_phrase_when_using_to_tsvector/
+* https://stackoverflow.com/questions/6735881/to-tsquery-validation
+* https://dba.stackexchange.com/questions/135030/filtering-special-characters-in-to-tsquery
 
 Also posted at:
 * https://www.reddit.com/r/PostgreSQL/comments/12yld1o/comment/m3l5nkv/ "Is it worth using Postgres' builtin full-text search or should I go straight to Elastic?", high top Google result for "PostgreSQL full text search" as of 2024. Random, but it's there.
