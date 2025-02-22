@@ -782,26 +782,43 @@ How many stupid bugs. How many stupid bugs do we need to face???
 
 = Conda
 {parent=Python package manager}
+{tag=Python virtualization}
+{tag=Evil}
 {wiki}
 
 Conda is like <pip>, except that it also manages shared library dependencies, including providing prebuilts.
 
-This has made <Conda> very popular in the <deep learning> community around 2020, where using Python frontends like <PyTorch> to configure faster precompiled backends was extremelly common.
+This has made <Conda> very popular in the <deep learning> community around 2020, where using Python frontends like <PyTorch> to configure faster precompiled backends was extremely common.
+
+It also means that it is a full package manager and extremely overbloated and blows up all the time. People should just use <Docker> instead for that kind of stuff: https://www.reddit.com/r/learnmachinelearning/comments/kd88p8/comment/keco07k/
+
+You also have to buy a license to use their repos if you are part of a large-enough organization: https://stackoverflow.com/questions/74762863/are-conda-miniconda-and-anaconda-free-to-use-and-open-source
 
 = Install Conda on Ubuntu
-{parent=Python package manager}
+{parent=Conda}
 {wiki}
 
 Tested on <Ubuntu 20.04>:
 ``
 mkdir -p ~/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-2-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init bash
-. ~/.bashrc
 ``
-and from then on we can do `conda` commands normally.
+Add to your `.bashrc`:
+``
+PATH="$PATH:$HOME/miniconda3/bin"
+``
+and then to use it on a shell e.g. with Python 3.9 create the environment with:
+``
+conda create -y -n mytest3.9 python=3.9
+``
+and then use it with:
+``
+eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+conda activate mytest3.9
+``
+Now you can use `python` and `pip` normally from inside that `mytest3.9` environment.
 
 At that time, the exact installer under `latest` appears to have been: https://repo.anaconda.com/miniconda/Miniconda3-py311_23.11.0-2-Linux-x86_64.sh
 
@@ -821,9 +838,21 @@ The best package ever is: https://pypi.org/project/china-dictatorship/ see also:
 = Python virtualization
 {parent=Python (programming language)}
 
+= Python version virtualization
+{parent=Python virtualization}
+
+Answers by <Ciro Santilli>:
+* https://unix.stackexchange.com/questions/9711/what-is-the-proper-way-to-manage-multiple-python-versions/556519#556519
+* https://stackoverflow.com/questions/10960805/apt-get-install-for-different-python-versions/59268046#59268046
+* https://askubuntu.com/questions/682869/how-do-i-install-a-different-python-version-using-apt-get/1195153#1195153
+* "inside project" question:
+  * https://stackoverflow.com/questions/41902497/define-python-version-inside-project/64479032#64479032
+* https://stackoverflow.com/questions/2547554/multiple-python-versions-on-the-same-machine/79448734#79448734
+* https://www.reddit.com/r/learnpython/comments/uf4i6w/comment/mdfuyrj/
+
 = pyenv
 {c}
-{parent=Python virtualization}
+{parent=Python version virtualization}
 
 = virtualenv
 {parent=Python virtualization}

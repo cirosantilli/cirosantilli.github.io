@@ -33,16 +33,17 @@ async function reset() {
   // ``
   // cannot truncate a table referenced in a foreign key constraint
   // ``
-  // on TaggreSQL 13.4.
+  // on PostgreSQL 13.4.
   // https://github.com/sequelize/sequelize/issues/11289
-  // https://stackoverflow.com/questions/56700466/taggresql-truncate-table-with-foreign-key-constraint
+  // https://stackoverflow.com/questions/56700466/postgresql-truncate-table-with-foreign-key-constraint
   await sequelize.truncate({ cascade: true })
 
   // Create some animals and tags.
 
   bat = await Animal.create({ species: 'bat' })
-  frog = await Animal.create({ species: 'frog' })
   dog = await Animal.create({ species: 'dog' })
+  // Frogs aren't reptiles BTW.
+  frog = await Animal.create({ species: 'frog' })
   flying = await Tag.create({ name: 'flying' })
   mammal = await Tag.create({ name: 'mammal' })
   reptile = await Tag.create({ name: 'reptile' })
@@ -109,7 +110,7 @@ assert.strictEqual(await bat.countTags(), 2)
     { name: 'flying' },
     { name: 'mammal' },
   ])
-  // We can aslo access bat data here.
+  // We can also access bat data here.
   // But note that dog, who also has tag mammal, is missing
   // because the where selects it out. So we generally never want to do that.
   // like this.
@@ -118,8 +119,8 @@ assert.strictEqual(await bat.countTags(), 2)
   assert.strictEqual(rows[1].Animals[0].species, 'bat');
   assert.strictEqual(rows[1].Animals.length, 1);
 
-  // TODO is subQuery: false ever needed in the following cases? It was in some other related cases witih limit.
-  // Would need to understand the subQuery break a bit better to deciede.
+  // TODO is subQuery: false ever needed in the following cases? It was in some other related cases with limit.
+  // Would need to understand the subQuery break a bit better to decide.
   rows = await getTags('bat', { limit: 1 })
   common.assertEqual(rows, [
     { name: 'flying' },
@@ -185,7 +186,7 @@ assert.strictEqual(batTags.length, 2);
 // https://stackoverflow.com/questions/31091420/nodejs-sequelize-include-where-required-false
 // https://stackoverflow.com/questions/39658204/sequelize-how-to-do-a-where-condition-on-joined-table-with-left-outer-join
 //
-// TaggreSQL used to work with the desired, stopped at 6.14.0:
+// PostgreSQL used to work with the desired, stopped at 6.14.0:
 //
 // SELECT
 //   "Tag"."id",
@@ -413,6 +414,31 @@ assert.strictEqual(parseInt(rows[0].get('count'), 10), 1)
 assert.strictEqual(rows[1].species, 'frog')
 assert.strictEqual(parseInt(rows[1].get('count'), 10), 0)
 assert.strictEqual(rows.length, 2)
+
+// Get all animals without any tags.
+//
+// We could do this by modifying the above query that returns
+// all animals with less than two tags to select only those with
+// zero tags, but for the zero case we can do it more cleanly by
+// selecting NULLs on the OUTER JOIN.
+rows = await Animal.findAll({
+  attributes: ['species'],
+  include: [
+    {
+      model: Tag,
+      required: false,
+      attributes: [],
+      through: {attributes: []},
+    },
+  ],
+  // https://stackoverflow.com/questions/36262912/where-condition-for-joined-table-in-sequelize-orm
+  where: { '$Tags.id$': null },
+  // Same.
+  //where: sequelize.where(sequelize.col('Tags.id'), null),
+  order: [['species', 'ASC']],
+})
+assert.strictEqual(rows[0].species, 'frog')
+assert.strictEqual(rows.length, 1)
 
 // Count how many tags each animal that has a given tag has.
 async function getTagCountForAnimalsThatAreTagged(tagId) {

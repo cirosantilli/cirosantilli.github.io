@@ -52,9 +52,9 @@ common.assertEqual(rows, [
 ])
 
 // "Breadth-first" sorting with an extra level argument.
-// This veresion is not a strict breadth-first as we are not ensuring that nodes within a single level are always transversed left ot right.
+// This version is not a strict breadth-first as we are not ensuring that nodes within a single level are always transversed left ot right.
 // It is "breadth-first" only in the weak sense that each level is visited in before the next order.
-// This is manifested by us soting by parentId at:
+// This is manifested by us sorting by parentId at:
 // ``
 // ORDER BY "level", "parentId", "childIndex"
 // ``
@@ -346,6 +346,7 @@ common.assertEqual(rows, [
 // Infinite loop detection with CYCLE.
 // Create an infinite loop by setting the parent of 1 to 5.
 // Shame I don't know a clean way of doing this in SQLite, besides using strings for the path prefix.
+// https://cirosantilli.com/sql-recursive-prevent-infinite-recursion
 if (sequelize.options.dialect === 'postgres') {
 await sequelize.query('UPDATE "ParentIndexTree" SET "parentId" = 4 WHERE value = 1')
 ;[rows, meta] = await sequelize.query(`
