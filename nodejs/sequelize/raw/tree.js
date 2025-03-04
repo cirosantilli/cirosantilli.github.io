@@ -52,7 +52,8 @@ common.assertEqual(rows, [
 ])
 
 // "Breadth-first" sorting with an extra level argument.
-// This version is not a strict breadth-first as we are not ensuring that nodes within a single level are always transversed left ot right.
+// This version is not a strict breadth-first as we are not ensuring that nodes within a single level
+// are always traversed left ot right.
 // It is "breadth-first" only in the weak sense that each level is visited in before the next order.
 // This is manifested by us sorting by parentId at:
 // ``
@@ -202,8 +203,12 @@ common.assertEqual(rows, [
 // Ideally we would want to use binary strings rather than hex ASCII
 // for this to use a bit less memory rather than bytes.
 // In PostgreSQL can use arrays instead, which overcomes both:
-// - hex ASCII inneficiency
-// - maximum depth restrictions
+// - hex ASCII inefficiency
+// - maximum width restrictions
+//
+//   SQLite JSON array support should allow to overcome this however:
+//   https://stackoverflow.com/questions/3005231/how-to-store-array-in-one-column-in-sqlite3
+//   but I don't see how to perform lexicographic comparison of arrays.
 let nchars = 6
 let printf
 if (sequelize.options.dialect === 'sqlite') {
