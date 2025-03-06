@@ -41,6 +41,8 @@ does not make Calculus have an ID orr URL of `mathematics/calculus`, rather it's
 
 \Image[https://raw.githubusercontent.com/ourbigbook/ourbigbook-media/master/feature/x/hilbert-space-arrow.png]
 {title=Internal cross file internal link uses only the leaf ID `hilbert-space`.}
+{border}
+{height=571}
 
 But there is a fundamental difficulty in reaching critical mass to that self-sustaining point, as people don't seem to be convinced by these logical "my system is better" argument alone, as opposed to having them <Google> into stuff they need now and then understand that the project is awesome.
 
@@ -94,49 +96,62 @@ In any case, the outcome of that is that the tech has improved. And I have done 
 * https://x.com/OurBigBook
 though it is important to note that there have been more than one "fix a hard bug" weeks that were not published because they would just bore readers.
 
-During this period I have focused almost exclusively on improving <OurBigBook Web>, i.e. the dynamic website that powers <OurBigBook.com>. There are two reasons for that:
-* Web is what has the <OurBigBOok topics feature> for mind-melding, which is the killer feature of OurBigBook compared to other <note taking apps> and therefore deserves the highest levels of priority
+During this period the main focus has been on improving <OurBigBook Web>, i.e. the dynamic website that powers <OurBigBook.com>. There are two reasons for that:
+* Web is what has the <OurBigBook topics feature> for mind-melding, which is the killer feature of OurBigBook compared to other <note taking apps> and therefore deserves the highest levels of priority
 
   Static website generation is an indispensable escape valve that ensures that your content can be published forever even if <OurBigBook.com> goes down one day, which it won't as long as I live. But the innovation is Web.
-* static website generation good enough, but web wasn't and is fundamentally harder.
+* static website generation was closer to good enough, but web was much further and is fundamentally harder.
 
-  I'm extremely satisfied with <OurBigBook> static website generation and have touched it very little. It wasn't easy to reach this state, but I'm there.
+  I'm extremely satisfied with <OurBigBook> static website generation and haven't touched it as much. It wasn't easy to reach this state, but I'm there.
 
   But Web is a different and much more complex beast.
-  
+
   Making CLI software that will run on a person's local computer under full trust and building a bunch of HTML from <lightweight markup> in bulk is one thing.
 
   But making a public dynamic website that has to continuously maintain a coherent database state on granular updates, while giving users some trust but not enough for them to blow everything up is on a totally different level. See e.g. https://docs.ourbigbook.com/news/signup-ip-blacklist-vpn-detection-and-account-locking[the recent SPAM attack we've had to fend off].
+
+  \Image[https://raw.githubusercontent.com/ourbigbook/ourbigbook-media/master/feature/spam/crypto.png]
+  {title=Screenshot showing voting manipulated SPAM as the most highly upvoted article on <OurBigBook.com>}
+  {border}
+  {height=971}
+  {source=https://web.archive.org/web/20250228110911/https://ourbigbook.com/go/articles?sort=score}
 
   And then there's also the issue of front-end being mega-hard to get right.
 As a result, Web is now way less buggy and much more usable.
 
 If you look through the list of Web updates, there is nothing specifically mind blowing. The core ideas have largely crystallized, and we are just trying to making them click. I have a few more punches up my sleeve, but the core is decided.
 
+\Image[https://raw.githubusercontent.com/ourbigbook/ourbigbook-media/master/feature/search/full-text-calculus-fun-arrow.png]
+{title=OurBigBook Web search}
+{border}
+{description=This is one of the many basic quality of life improvements that have been done on OurBigBook Web.}
+{height=738}
+{source=https://ourbigbook.com/go/articles?body=false&search=calculus%20fun}
+
 Web process has been somewhat slower than what I'd like. Of course, it is the case of any project that things are easily said than done. But there are two other main structural factors that have played into it:
 * I have my first baby now, and we're learning how to deal with that on the fly.
 
   For example, we could have put him on childcare a bit earlier, but due to inexperience we've kept him a bit longer than we maybe should have.
-  
+
   Things are well sorted out now, but not matter how good your support system is, at the end of the day, and more often night, it is you the parents that have to deal with a lot of inevitable baby issues. Unless you want them to turn into psychopaths and drug addicts that is, which I don't. I've reached the point of semi failure middle age that the baby feels like my best moonshot.
-  
+
   All of this sets a fundamental limit on how many hours you can work per week.
-  
+
   But at least with the donations I was able to work on OurBigBook at all. Because if it weren't for that, I would have to focus entirely on the generic job instead and OurBigBook would have been put on hold.
 * the choice of Web stack. I was allured by <Next.js>. I can see the beauty and usefulness of a <Node.js> render front-end that also runs on backend and hydration. That is awesome.
 
   But:
   * <React> is insanely hard to learn and understand. Furthermore, it is also hard to understand the performance problem that it solves, and actually have a benchmark where this problem is solved faster than just delivering some HTML files with ad-hoc Js on top.
-  * the lack (or perhaps excess of shitty) actual web framework like <Ruby on Rails> and <Django (web framework)> means that I have to rediscover the wheel many times over for all the essential support activities like testing, login and so one
-  
+  * the lack (or perhaps excess of shitty) actual web framework like <Ruby on Rails> and <Django (web-framework)> means that I have to rediscover the wheel many times over for all the essential support activities like testing, login and so one
+
   At this point a rewrite is out of the question. I've managed to master things well enough to get a decent result, https://github.com/ourbigbook/ourbigbook/issues/361[and given up on the few things that I couldn't for the life of me achieve], after documenting them very well for posterity of course.
 
 Aside from Web, there was only one thing that received a significant improvement, and that was the https://docs.ourbigbook.com/visual-studio-code[OurBigBook VS Code extension]. The extension is not perfect, and it is not the "final UI", which has to be some <WYSIWYG> implementation, and there are some fundamental limitations that cannot be overcome without patching VS Code itself. However, the extension is already extremely usable, and I'm writing this on it right now. Basics like syntax highlighting, jump to definition and autocomplete are very useful and usable.
 
 \Image[https://raw.githubusercontent.com/ourbigbook/ourbigbook-media/master/feature/vscode/tree.png]
 {title=Tree navigation in the <OurBigBook> Visual Studio Code extension}
-{height=1100}
 {border}
+{height=1100}
 
 = What might be next
 {parent=OurBigBook Project Update March 2024}
@@ -244,7 +259,7 @@ This is up from \#38 in 2023 is even though I have answered less questions than 
 
 This is likely because <LLMs> have killed users that just answered lots of easy new questions, and favored those like me who only answer more important questions found through Google.
 
-I was \#13 on the last quarter, so this is likely to go even higher in 2025. More details at: <ciro-santilli-s-stack-overflow-contributions>{full}
+I was \#13 on the last quarter, so this is likely to go even higher in 2025. More details at: <Ciro Santilli's Stack Overflow contributions>{full}
 
 Announcements:
 * https://mastodon.social/@cirosantilli/113754291241197245
@@ -286,6 +301,7 @@ But finding a clean way to generate test data for testing out the speedup was no
   head -n10000000 \
   > lorem.txt
   ``
+
   * to achieve that, I also proposed two superior "join every N lines" method for the CLI: https://stackoverflow.com/questions/25973140/joining-every-group-of-n-lines-into-one-with-bash/79257780#79257780[], notably this <awk> poem:
     ``
     seq 10 | awk '{ printf("%s%s", NR  == 1 ? "" : NR % 3 == 1 ? "\n" : " ", $0 ) } END { printf("\n") }'
@@ -305,7 +321,7 @@ But finding a clean way to generate test data for testing out the speedup was no
     python generate_data.py 10 | psql mydb -c '\copy "mytable" FROM STDIN'
     ``
 * https://stackoverflow.com/questions/16020164/psqlexception-error-syntax-error-in-tsquery/79437030#79437030 regarding the safe generation of prefix search `tsquery` from user inputs without query errors, I've learned about `websearch_to_tsquery` and further highlighted a possible `tsquery -> text -> tsquery` approach that might be correct for prefix searches
-* https://stackoverflow.com/questions/67438575/fulltext-search-using-sequelize-postgres/79439253#79439253 I put everything together into a minimal <sequelize> example, read for usage in <OurBigBook>
+* https://stackoverflow.com/questions/67438575/fulltext-search-using-sequelize-postgres/79439253#79439253 I put everything together into a minimal <Sequelize> example, read for usage in <OurBigBook>
 
 Finally I did a writeup summarizing PostgreSQL full text search: <PostgreSQL full-text search>{full} and also dumped it at: https://www.reddit.com/r/PostgreSQL/comments/12yld1o/is_it_worth_using_postgres_builtin_fulltext/[] for good measure.
 
@@ -316,7 +332,7 @@ https://opendata.stackexchange.com/questions/1560/how-can-i-get-a-list-of-curren
 
 I've had a bit more fun with <SPARQL> and <Wikidata>.
 
-This one was way harder than my previous fun with "find the oldest people who won a given prize" (<Nobel prize>/<#Oscar>) https://mastodon.social/@cirosantilli/112689376315990248 because unlike those prizes where all the decisions are centralized, countries are much more complicated beasts, with changing currencies and international recognition.
+This one was way harder than my previous fun with "find the oldest people who won a given prize" (<Nobel Prize>/<#Oscar>) https://mastodon.social/@cirosantilli/112689376315990248 because unlike those prizes where all the decisions are centralized, countries are much more complicated beasts, with changing currencies and international recognition.
 
 This was a good experience to see a few ways in which Wikidata is inconsistent, with the same concept being expressed in multiple different ways, e.g. "end time" property of the current vs the superior "end time" qualifier.
 
@@ -451,7 +467,7 @@ Announcements:
 
 I like the <#Falun Mine> for two reasons:
 
-* some cool chemical discoveries have been made with a relation to the mine, notably <#tantalum> and <#selenium>, added a section to <Wikipedia>: https://en.wikipedia.org/w/index.php?title=Falun_Mine&oldid=1245374294#Discovery_of_new_elements I used the book <discovery Of The Elements by Mary Elvira Weeks> as my primary reference.
+* some cool chemical discoveries have been made with a relation to the mine, notably #tantalum and <#selenium>, added a section to <Wikipedia>: https://en.wikipedia.org/w/index.php?title=Falun_Mine&oldid=1245374294#Discovery_of_new_elements I used the book <discovery Of The Elements by Mary Elvira Weeks> as my primary reference.
 * it is the <Chinese> version of the <#Scunthorpe problem> due to a naming conflict with <Falun Gong>, a censored new religion that was banned in <China>
 
 Announcements:
@@ -460,7 +476,7 @@ Announcements:
 
 = duty-machine news on china-dictatorship issues
 {parent=Updates}
-{tag=China dictatorship}
+{tag=China Dictatorship}
 
 Whenever a user creates an issue or comment on <China Dictatorship>, the bot now automatically creates a new issue with one of the latest news from Duty Machine: https://github.com/duty-machine/duty-machine
 
@@ -585,12 +601,14 @@ Announcements:
   ``
   fmpeg -y -f v4l2 -framerate 30 -video_size 640x360 -input_format gray -i /dev/video2 -c copy out.mkv
   ``
+
   * https://mastodon.social/@cirosantilli/112261675634568209
   * https://twitter.com/cirosantilli/status/1778981935257116767
   * https://www.facebook.com/cirosantilli/posts/pfbid027M3n2p8snE9otAWdHtJ3ig2AhrXoDGv4h68o1z8agHceQBbFHZpEoxg7KZbiWAgWl
   * https://www.linkedin.com/feed/update/urn:li:activity:7184755892410576897/
   * https://www.youtube.com/watch?v=o1ZeR6pmf6o
   * https://commons.wikimedia.org/wiki/File:Infrared_video_of_Ciro_Santilli_waving_recorded_on_Lenovo_ThinkPad_P14s_with_FFmpeg_6.0_on_Ubuntu_23.10.webm
+
   \Image[https://web.archive.org/web/20240413030921if_/https://i.sstatic.net/c5KbD2gY.gif]
   {title=<Ciro Santilli> waving hello in infrared}
   {height=400}
