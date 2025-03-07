@@ -3,6 +3,7 @@ set -eu
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 hupo_dir="${script_dir}/tmp/hupo"
 webmasterhome_dir="${script_dir}/tmp/webmasterhome"
+justdropped_dir="${script_dir}/tmp/justdropped"
 outdir="${script_dir}/tmp/merge"
 rm -rf "$outdir"
 mkdir -p "$outdir"
@@ -31,6 +32,9 @@ while [ "$d" \< "$to" ] || [ "$d" \< "$to2" ]; do
     inf="$webmasterhome_dir/$d"
     if [ -f "$inf" ]; then
       "${script_dir}/webmastercn-post.sh" "$inf"
+    fi
+    if [ -f "$justdropped_dir/$d-com.html" ]; then
+      "${script_dir}/justdropped-post.sh" "$justdropped_dir/$d"-*.html
     fi
   ) | sort | uniq > "$outdir/$d"
   d=$(date -I -d "$d + 1 day")

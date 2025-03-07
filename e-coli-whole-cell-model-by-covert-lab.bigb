@@ -529,28 +529,26 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   * `GLC[p]`: <glucose>, this can be seen by comparing `minimal.tsv` with `minimal_no_glucose.tsv`
   * `AMMONIUM`: <ammonium>. This appears to be the primary source of <nitrogen> <atoms> for producing <amino acids>.
   * `CYTOSINE[c]`: hmmm, why is external <cytosine> needed? Weird.
-* ``
-  reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/` contains sequences of conditions for each time. For example:
-  * 
-  ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000000_basal.tsv` contains:
-    ``  "time (units.s)" "nutrients"
+* `reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/` contains sequences of conditions for each time. For example:
+  * `reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000000_basal.tsv` contains:
+    ``
+    "time (units.s)" "nutrients"
     0 "minimal"
-    ``  which means just using `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` until infinity. That is the default one used by `runSim.py`, as can be seen from `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Environment/attributes/nutrientTimeSeriesLabel` which contains just `000000_basal`.
-  * ``reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000001_cut_glucose.tsv` is more interesting and contains:
+    ``
+    which means just using `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` until infinity. That is the default one used by `runSim.py`, as can be seen from `./out/manual/wildtype_000000/000000/generation_000000/000000/simOut/Environment/attributes/nutrientTimeSeriesLabel` which contains just `000000_basal`.
+  * `reconstruction/ecoli/flat/reconstruction/ecoli/flat/condition/timeseries/000001_cut_glucose.tsv` is more interesting and contains:
     ``
     "time (units.s)" "nutrients"
     0 "minimal"
     1200 "minimal_no_glucose"
-    
-  ``
+    ``
     so we see that this will shift the conditions half-way to a condition that will eventually kill the bacteria because it will run out of <glucose> and thus energy!
 
-    Timeseries can be selected with `--variant nutrientTimeSeries X Y`, see also: <run variants>.
+  Timeseries can be selected with `--variant nutrientTimeSeries X Y`, see also: <run variants>.
 
-    We can use that variant with:
-    ``
-    VARIANT="condition" FIRST_VARIANT_INDEX=1 LAST_VARIANT_INDEX=1 python runscripts/manual/runSim.py
-    
+  We can use that variant with:
+  ``
+  VARIANT="condition" FIRST_VARIANT_INDEX=1 LAST_VARIANT_INDEX=1 python runscripts/manual/runSim.py
   ``
 * `reconstruction/ecoli/flat/condition/condition_defs.tsv` contains lines of form:
   ``
