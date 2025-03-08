@@ -16,7 +16,7 @@ To get a feeling of this, just have a look at the insane number of startups that
 
 To get a basic idea of what programming a quantum computer looks like start by reading: <quantum computing is just matrix multiplication>{full}.
 
-Some people <quantum computing skepticism>[have their doubts], and that is not unreasonable, it might truly not work out. We could be on the verge of an <AI Winter> of quantum computing. But <Ciro Santilli> feels that it is genuinely impossible to tell as of 2020 if something will work out or not. We really just have to try it out and see. There must have been skeptics before every single <next big thing>.
+Some people <quantum computing skepticism>[have their doubts], and that is not unreasonable, it might truly not work out. We could be on the verge of an <AI winter> of quantum computing. But <Ciro Santilli> feels that it is genuinely impossible to tell as of 2020 if something will work out or not. We really just have to try it out and see. There must have been skeptics before every single <next big thing>.
 
 = Introduction to quantum computing
 {parent=Quantum computing}
@@ -75,7 +75,7 @@ The way quantum programmers think about a quantum computer in order to program c
 To operate a quantum computer, you follow the <step of operation of a quantum computer>:
 * set the input <qubits> to classic input bits (<state initialization (quantum computing)>)
 * press a big red "RUN" button
-* read the classic output bits (<readout quantum computing>)
+* read the classic output bits (<readout (quantum computing)>)
 
 Each time you do this, you are literally conducting a physical experiment of the specific <quantum computer physical implementations>[physical implementation] of the computer:
 * setup your physical system to represent the classical 0/1 inputs
@@ -313,7 +313,7 @@ Sample implementations:
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=lvTqbM5Dq4Q]
-{title=<Shor's Algorithm> Explained by <minutephysics> (2019)}
+{title=<Shor's algorithm> Explained by <minutephysics> (2019)}
 
 = How many logical qubits are needed to run Shor's algorithm?
 {parent=Shor's algorithm}
@@ -324,11 +324,9 @@ https://quantumcomputing.stackexchange.com/questions/5048/how-many-logical-qubit
 {parent=Shor's algorithm}
 
 * 2023 https://www.schneier.com/blog/archives/2023/01/breaking-rsa-with-a-quantum-computer.html comments on "Factoring integers with sublinear resources on a superconducting quantum processor” https://arxiv.org/pdf/2212.12372.pdf
-\Q[
-A group of Chinese researchers have just published a paper claiming that they can—although they have not yet done so—break 2048-bit RSA. This is something to take seriously. It might not be correct, but it’s not obviously wrong.
+> A group of Chinese researchers have just published a paper claiming that they can—although they have not yet done so—break 2048-bit RSA. This is something to take seriously. It might not be correct, but it’s not obviously wrong.
 
-We have long known from Shor’s algorithm that factoring with a quantum computer is easy. But it takes a big quantum computer, on the orders of millions of qbits, to factor anything resembling the key sizes we use today. What the researchers have done is combine classical lattice reduction factoring techniques with a quantum approximate optimization algorithm. This means that they only need a quantum computer with 372 qbits, which is well within what’s possible today. (The IBM Osprey is a 433-qbit quantum computer, for example. Others are on their way as well.)
-]
+  We have long known from Shor’s algorithm that factoring with a quantum computer is easy. But it takes a big quantum computer, on the orders of millions of qbits, to factor anything resembling the key sizes we use today. What the researchers have done is combine classical lattice reduction factoring techniques with a quantum approximate optimization algorithm. This means that they only need a quantum computer with 372 qbits, which is well within what’s possible today. (The IBM Osprey is a 433-qbit quantum computer, for example. Others are on their way as well.)
 
 = Quantum compilation
 {parent=Quantum computing}
@@ -353,7 +351,7 @@ These appear to be benchmarks that don't involve running anything concretely, ju
 https://devblogs.microsoft.com/qsharp/introducing-quantum-intermediate-representation-qir/
 
 Used e.g. by <Oxford Quantum Circuits>, https://www.linkedin.com/in/john-dumbell-627454121/ mentions:
-\Q[Using <LLVM> to consume QIR and run optimization, scheduling and then outputting hardware-specific instructions.]
+> Using <LLVM> to consume QIR and run optimization, scheduling and then outputting hardware-specific instructions.
 
 Presumably the point of it is to allow simulation in <classical computers>?
 
@@ -441,7 +439,7 @@ TODO clear example of the <computational problem> that it solves.
 
 This is a term "invented" by <Ciro Santilli> to refer to quantum compilers that are able to convert non-specifically-quantum (<functional programming>[functional], since there is no state in quantum software) programs into <quantum circuit>.
 
-The term is made by adding "quantum" to the more "classical" concept of "<high level synthesis>", which refers to software that converts an <imperative program> into <register transfer-level> hardware, typicially for <FPGA> applications.
+The term is made by adding "quantum" to the more "classical" concept of "<high-level synthesis>", which refers to software that converts an <imperative program> into <register transfer level> hardware, typicially for <FPGA> applications.
 
 = Classiq
 {c}
@@ -823,7 +821,7 @@ Bibliography:
 
 = Universal quantum gates
 {parent=Quantum logic gate}
-{{wiki=Quantum_logic_gate#Universal_quantum_gates}}
+{wiki=Quantum_logic_gate\#Universal_quantum_gates}
 
 Just https://en.wikipedia.org/wiki/Functional_completeness[like as for classic gates], we would like to be able to select <quantum computer physical implementations> that can represent one or a few gates that can be used to create \i[any] quantum circuit.
 
@@ -846,8 +844,8 @@ The first two that you should study are:
 
 = Hadamard gate
 {c}
-{parent=Single qubit gate}
-{{wiki=Quantum_logic_gate#Hadamard_gate}}
+{parent=Single-qubit gate}
+{wiki=Quantum_logic_gate\#Hadamard_gate}
 
 The <Hadamard gate> takes $\ket{0}$ or $\ket{1}$ (<quantum states> with probability 1.0 of measuring either 0 or 1), and produces states that have equal probability of 0 or 1.
 
@@ -861,15 +859,15 @@ $$
 
 = Pauli gate
 {c}
-{parent=Single qubit gate}
+{parent=Single-qubit gate}
 
 = Pauli-X gate
 {c}
 {parent=Pauli gate}
 
 = Quantum NOT gate
-{title2}
 {synonym}
+{title2}
 
 The <quantum NOT gate> swaps the state of $\ket{0}$ and $\ket{1}$, i.e. it maps:
 $$
@@ -900,11 +898,11 @@ $$
 
 = Phase shift gate
 {c}
-{parent=Single qubit gate}
-{{wiki=Quantum_logic_gate#Phase_shift_gates}}
+{parent=Single-qubit gate}
+{wiki=Quantum_logic_gate\#Phase_shift_gates}
 
 = Multi-qubit gate
-{parent=Single qubit gate}
+{parent=Single-qubit gate}
 
 = Multi-qubit quantum gate
 {synonym}
@@ -912,11 +910,11 @@ $$
 = Two-qubit gate
 {synonym}
 
-The most common way to construct <multi=qubit gates> is to use <single-qubit gates> as part of a <controlled quantum gate>.
+The most common way to construct <multi-qubit gates> is to use <single-qubit gates> as part of a <controlled quantum gate>.
 
 = Controlled quantum gate
-{parent=Multi qubit gate}
-{{wiki=Quantum_logic_gate#Controlled_gates}}
+{parent=Multi-qubit gate}
+{wiki=Quantum_logic_gate\#Controlled_gates}
 
 <Controlled quantum gates> are gates that have two types of input qubits:
 * control <qubits>
@@ -1060,7 +1058,7 @@ Now go and study the <Bell state> and understand intuitively how this gate is us
 
 = Toffoli gate
 {c}
-{parent=Multi qubit gate}
+{parent=Multi-qubit gate}
 {wiki}
 
 = Clifford gates
@@ -1099,12 +1097,12 @@ Set of <quantum logic gate> composed of the <Clifford gates> plus the <Toffoli g
 {tag=Analog and digital computers}
 
 * https://quantumtech.blog/2023/01/17/quantum-computing-with-neutral-atoms/ OK this one hits it:
-  \Q[As Alex Keesling, CEO of <QuEra> told me, "... whereas in gate-based \[digital\] quantum computing the focus is on the sequence of the gates, in analog quantum processing it's more about the position of the atoms and where you place them so they can mirror real life problems. We arrange the atoms and define the forces that drive them and then measure the result... so it’s a geometric encoding of the problem itself."]
+  > As Alex Keesling, CEO of <QuEra> told me, "... whereas in gate-based \[digital\] quantum computing the focus is on the sequence of the gates, in analog quantum processing it's more about the position of the atoms and where you place them so they can mirror real life problems. We arrange the atoms and define the forces that drive them and then measure the result... so it’s a geometric encoding of the problem itself."
   So we understand that it is truly like the <classical computer> analog vs digital case.
 * https://thequantuminsider.com/2022/06/28/why-analog-neutral-atoms-quantum-computing-is-a-promising-direction-for-early-quantum-advantage on <The Quantum Insider> useless article mostly by <Pasqal>
 
 \Video[https://youtu.be/-o9AhIz1uvo?t=295]
-{title=<TensorFlow Quantum> by Masoud Mohseni (2020)}
+{title=<TensorFlow quantum> by Masoud Mohseni (2020)}
 {description=At the timestamp, Masoud gives a <thought experiment> example of the perhaps simplest to understand <analog quantum computer>: chained <double-slit experiments> with carefully calculated distances between slits. Calulating the final propability distribution of that grows exponentially.}
 
 = Continuous-variable quantum information
@@ -1167,7 +1165,7 @@ https://www.c12qe.com/articles/la-deeptech-c12-inaugure-sa-premiere-ligne-de-pro
 
 <Crunchbase> entry: https://www.crunchbase.com/organization/c12-quantum-electronics
 
-Founed by two twin brothers who both studied at <École Polytechnique>: <#Pierre Desjardins>[Pierre] and <#Matthieu Desjardins>.
+Founed by two twin brothers who both studied at <École Polytechnique>: <#Pierre Desjardins> and <#Matthieu Desjardins>.
 
 Funding:
 * 2024-06-19: <€>18m
@@ -1350,7 +1348,7 @@ Daniel wears a "Google SB" t-shirt, which either means <shabi> in <Chinese (lang
 }
 
 \Video[https://www.youtube.com/watch?v=xjlGL4Mvq7A]
-{title=A Brief History of <Superconducting Quantum Computing> by Steven Girvin (2021)}
+{title=A Brief History of <Superconducting quantum computing> by Steven Girvin (2021)}
 {description=
 * https://youtu.be/xjlGL4Mvq7A?t=138 <superconducting quantum computer need non-linear components> (too brief if you don't know what he means in advance)
 * https://youtu.be/xjlGL4Mvq7A?t=169 <quantum computing is hard because we want long coherence but fast control>
@@ -1358,7 +1356,8 @@ Daniel wears a "Google SB" t-shirt, which either means <shabi> in <Chinese (lang
 
 \Video[https://www.youtube.com/watch?v=eZJjQGu85Ps]
 {title=Superconducting Qubits I Part 1 by Zlatko Minev (2020)}
-{description=The Q&A in the middle of talking is a bit annoying.
+{description=
+The Q&A in the middle of talking is a bit annoying.
 
 * https://youtu.be/eZJjQGu85Ps?t=2443 the first actually useful part, shows a <transmon> diagram with some useful formulas on it
 }
@@ -1375,7 +1374,7 @@ Daniel wears a "Google SB" t-shirt, which either means <shabi> in <Chinese (lang
 
 Non-linearity is needed otherwise the input energy would just make the state go to higher and higher energy levels, e.g. from 1 to 2. But we only want to use levels 0 and 1.
 
-The way this is modelled in by starting from a pure <LC circuit>, which is an harmonic oscillator, see also <quantum LC circuit>, and then replacing the linear <inductor> with a <SQUID device>, e.g. mentioned at: https://youtu.be/eZJjQGu85Ps?t=1655 <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)}>.
+The way this is modelled in by starting from a pure <LC circuit>, which is an harmonic oscillator, see also <quantum LC circuit>, and then replacing the linear <inductor> with a <SQUID device>, e.g. mentioned at: https://youtu.be/eZJjQGu85Ps?t=1655 <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)>.
 
 = Superconducting qubit
 {parent=Superconducting quantum computing}
@@ -1404,7 +1403,7 @@ This is unlike atomic systems like <trapped ion quantum computers>, where each a
 Superconducting qubits are regarded as promising because superconductivity is a <macroscopic quantum phenomena> of <Bose-Einstein condensate>[Bose Einstein condensation], and so as a macroscopic phenomena, it is easier to control and observe.
 
 This is mentioned e.g. in this relatively early: https://physicsworld.com/a/superconducting-quantum-bits/[]. While most quantum phenomena is observed at the atomic scale, <superconducting qubits> are micrometer scale, which is huge!
-\Q[Physicists are comfortable with the use of quantum mechanics to describe atomic and subatomic particles. However, in recent years we have discovered that micron-sized objects that have been produced using standard semiconductor-fabrication techniques – objects that are small on everyday scales but large compared with atoms – can also behave as quantum particles.]
+> Physicists are comfortable with the use of quantum mechanics to describe atomic and subatomic particles. However, in recent years we have discovered that micron-sized objects that have been produced using standard semiconductor-fabrication techniques – objects that are small on everyday scales but large compared with atoms – can also behave as quantum particles.
 
 = Superconducting qubits are bad because of fabrication variation
 {parent=Pro of superconducting qubits}
@@ -1467,7 +1466,7 @@ Then he mentions that:
 
 Used e.g. in the <Sycamore processor>.
 
-The most basic type of transmon is in <Ciro's ASCII art circuit diagram notation>, an <LC circuit> e.g. as mentioned at https://youtu.be/cb_f9KpYipk?t=180[] from <video the transmon qubit by Leo Di Carlo (2018)>:
+The most basic type of transmon is in <Ciro's ASCII art circuit diagram notation>, an <LC circuit> e.g. as mentioned at https://youtu.be/cb_f9KpYipk?t=180[] from <video The transmon qubit by Leo Di Carlo (2018)>:
 ``
 +----------+
 | Island 1 |
@@ -1480,7 +1479,7 @@ The most basic type of transmon is in <Ciro's ASCII art circuit diagram notation
 +----------+
 ``
 
-https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)}> describes a (possibly simplified) physical model of it, as two superconducting metal islands linked up by a <Josephson junction> marked as `X` in the diagram as per-<Ciro's ASCII art circuit diagram notation>:
+https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 by Zlatko Minev (2020)> describes a (possibly simplified) physical model of it, as two superconducting metal islands linked up by a <Josephson junction> marked as `X` in the diagram as per-<Ciro's ASCII art circuit diagram notation>:
 ``
 +-------+       +-------+
 |       |       |       |
@@ -1490,7 +1489,7 @@ https://youtu.be/eZJjQGu85Ps?t=2443 from <video Superconducting Qubits I Part 1 
 ``
 The circuit is then analogous to a <LC circuit>, with the islands being the <capacitor>. The <Josephson junction> functions as a non-linear <inductor>.
 
-Others define it with a <SQUID device> instead: https://youtu.be/cb_f9KpYipk?t=328 from <video the transmon qubit by Leo Di Carlo (2018)>. He mentions that this allows tuning the inductive element without creating a new device.
+Others define it with a <SQUID device> instead: https://youtu.be/cb_f9KpYipk?t=328 from <video The transmon qubit by Leo Di Carlo (2018)>. He mentions that this allows tuning the inductive element without creating a new device.
 
 \Video[https://www.youtube.com/watch?v=dKTNBN99xLw]
 {title=The superconducting <transmon> qubit as a microwave resonator by <Daniel Sank> (2021)}
@@ -1584,7 +1583,7 @@ About their <qubit>:
 
 The "AI" part is just prerequisite buzzword of the <AI boom> era for any project and completely bullshit.
 
-According to job postings such as: https://archive.ph/wip/Fdgsv their center is in Goleta, <California>, near <Santa Barbara>. Though Google tends to promote it more as Santa Barbara, see e.g. Daniel's t-shirt at <video Building a quantum computer with superconducting qubits by Daniel Sank (2019)}>.
+According to job postings such as: https://archive.ph/wip/Fdgsv their center is in Goleta, <California>, near <Santa Barbara>. Though Google tends to promote it more as Santa Barbara, see e.g. Daniel's t-shirt at <video Building a quantum computer with superconducting qubits by Daniel Sank (2019)>.
 
 \Video[https://youtube.com/watch?v=VA2HEUmkrKo]
 {title=Control of <transmon> qubits using a cryogenic <CMOS> integrated circuit (QuantumCasts) by <Google> (2020)}
@@ -1608,8 +1607,8 @@ Announcement: https://blog.google/technology/ai/unveiling-our-new-quantum-ai-cam
 {description=2023}
 
 = Google Quantum AI employee
-{parent=Google Quantum AI}
 {c}
+{parent=Google Quantum AI}
 
 = Daniel Sank
 {c}
@@ -1655,8 +1654,8 @@ Timeline:
 * 2014: he and the entire lab were hired by <Google>
 
 \Image[https://web.archive.org/web/20241206185437im_/https://media.wired.com/photos/593245d858b0d64bb35d09c8/master/w_1920,c_limit/Martinis1.jpg]
-{source=https://www.wired.com/2014/09/martinis/}
 {height=600}
+{source=https://www.wired.com/2014/09/martinis/}
 
 = Google Quantum AI hardware
 {c}
@@ -1692,8 +1691,8 @@ Related blog post: https://blog.google/technology/research/google-willow-quantum
 {tag=IBM}
 
 = IBM Q
-{title2}
 {synonym}
+{title2}
 
 The term "IBM Q" has been used in some promotional material as of 2020, e.g.: https://www.ibm.com/mysupport/s/topic/0TO50000000227pGAA/ibm-q-quantum-computing?language=en_US though the fuller form "IBM Quantum Computing" is somewhat more widely used.
 
@@ -1701,7 +1700,7 @@ They also internally named an division as "IBM Q": https://sg.news.yahoo.com/ibm
 
 = IBM quantum computer
 {c}
-{parent=IBM quantum computing}
+{parent=IBM Quantum Computing}
 
 = OpenSuperQ
 {c}
@@ -1742,9 +1741,9 @@ Funding:
 Founding CEO of <Oxford Quantum Circuits>.
 
 As mentioned at https://www.investmentmonitor.ai/tech/innovation/in-conversation-with-oxford-quantum-circuits-ilana-wisby[] she is not the original tech person:
-\Q[she was finally headhunted by Oxford Science and Innovation to become the founding CEO of OQC. The company was spun out of Oxford University's physics department in 2017, at which point Wisby was handed "a laptop and a patent".]
+> she was finally headhunted by Oxford Science and Innovation to become the founding CEO of OQC. The company was spun out of Oxford University's physics department in 2017, at which point Wisby was handed "a laptop and a patent".
 Did they mean <Oxford Sciences Enterprises>? There's nothing called "Oxford Science and Innovation" on <Google>. Yes, it is just a typo https://oxfordscienceenterprises.com/news/meet-the-founder-ilana-wisby-ceo-of-oxford-quantum-circuits/ says it clearly:
-\Q[I was headhunted by <Oxford Sciences Enterprises> to be the founding CEO of OQC.]
+> I was headhunted by <Oxford Sciences Enterprises> to be the founding CEO of OQC.
 
 https://oxfordquantumcircuits.com/story mentions that the core patent was by Dr. Peter Leek: https://www.linkedin.com/in/peter-leek-00954b62/
 
@@ -1799,7 +1798,7 @@ A basic introduction, but very concrete, with only a bit of math it might be ama
   She is presumably describing the <Cirac–Zoller CNOT gate>.
 Sounds complicated, several technologies need to work together for that to work! Videos of ions moving are from https://www.physics.ox.ac.uk/research/group/ion-trap-quantum-computing[].
 
-A major flaw of this presentation is not explaining the <readout quantum computing> process.
+A major flaw of this presentation is not explaining the <readout (quantum computing)> process.
 }
 
 \Video[https://www.youtube.com/watch?v=LR_aNOcnH0Q]
@@ -1856,7 +1855,7 @@ Trapped ion people acknowledge that they can't put a million qubits in on chip (
 \Video[https://www.youtube.com/watch?v=9aOLwjUZLm0]
 {title=Quantum Computing with Trapped Ions by Christopher Monroe (2018)}
 {description=
-Co-founder of <IonQ>. Cool dude. Starts with basic background we already know now. Mentions that there is some relationship between <atomic clocks> and <trapped ion quantum computers>, which is interesting. Then he goes into turbo mode, and you get lost unless you're an expert! <video Quantum Simulation and Computation with Trapped Ions by Christopher Monroe (2021}> is perhaps a better watch.
+Co-founder of <IonQ>. Cool dude. Starts with basic background we already know now. Mentions that there is some relationship between <atomic clocks> and <trapped ion quantum computers>, which is interesting. Then he goes into turbo mode, and you get lost unless you're an expert! <video Quantum Simulation and Computation with Trapped Ions by Christopher Monroe (2021)> is perhaps a better watch.
 * https://youtu.be/9aOLwjUZLm0?t=1216 <superconducting qubits are bad because it is harder to ensure that they are all the same>
 * https://youtu.be/9aOLwjUZLm0?t=1270 our wires are provided by <lasers>. Gives example of <ytterbium>$^{+1}$, which has nice frequencies for practical <laser> choice. Ytterbium ends in 6s2 5d1, so they must remove the 5d1 electron? But then you are left with 2 electrons in 6s2, can you just change their spins at will without problem?
 * https://youtu.be/9aOLwjUZLm0?t=1391 a single atom actually reflects 1% of the input laser, not bad!
@@ -1881,7 +1880,7 @@ Co-founder of <IonQ>. Cool dude. Starts with basic background we already know no
 {wiki}
 
 \Video[https://www.youtube.com/watch?v=aV1wL5jsfRU]
-{title=Quantum Computing with Networked <Ion Traps> by <NQIT> (2018)}
+{title=Quantum Computing with Networked <Ion traps> by <NQIT> (2018)}
 {description=The video is a bit useless. But it does show the networked approach proposal a little bit. <Universal Quantum>'s homepage particularly rejects that.}
 
 = Oxford Ionics
@@ -1923,7 +1922,7 @@ E.g.: https://www.quantinuum.com/pressrelease/demonstrating-benefits-of-quantum-
 
 = Cambridge Quantum Computing
 {c}
-{parent=quantinuum}
+{parent=Quantinuum}
 {tag=Organization developing quantum software}
 {tag=University of Cambridge spinout company}
 {wiki}
@@ -1965,11 +1964,11 @@ Funding rounds:
   This grant is very secretive, very hard to find any other information about it! Most investment trackers are not listing it.
 
   The article reads:
-  \Q[Universal Quantum will lead a consortium that includes Rolls-Royce, quantum developer <Riverlane>, and world-class researchers from <Imperial College London> and The <University of Sussex>, among others.]
+  > Universal Quantum will lead a consortium that includes Rolls-Royce, quantum developer <Riverlane>, and world-class researchers from <Imperial College London> and The <University of Sussex>, among others.
   Interesting!
 
   A but further down the article gives some more information of partners, from which some of the hardware vendors can be deduced:
-  \Q[The consortium includes end-user <Rolls-Royce> supported by the <Science and Technology Facilities Council> (STFC) Hartree Centre, quantum software developer <Riverlane>, supply chain partners Edwards, https://www.tmd.co.uk/[TMD Technologies] (now acquired by Communications & Power Industries (CPI)) and https://www.diamondmic.com/[Diamond Microwave]]
+  > The consortium includes end-user <Rolls-Royce> supported by the <Science and Technology Facilities Council> (STFC) Hartree Centre, quantum software developer <Riverlane>, supply chain partners Edwards, https://www.tmd.co.uk/[TMD Technologies] (now acquired by Communications & Power Industries (CPI)) and https://www.diamondmic.com/[Diamond Microwave]
   * Edwards is presumably <Edwards Vacuum>, since we know that <trapped ion quantum computers> rely heavily on good vacuum systems. Edwards Vacuum is also located quite close to Universal Quantum as of 2022, a few minutes drive.
   * TMD Technologies is a <microwave> technology vendor amongst other things, and we know that microwaves are used e.g. to initialize the spin states of the ions
   * Diamond Microwave is another microwave stuff vendor
@@ -1977,11 +1976,9 @@ Funding rounds:
   The money comes from UK's "Industrial Strategy Challenge Fund".
 
   https://www.riverlane.com/news/2021/12/riverlane-joins-7-5-million-consortium-to-build-error-corrected-quantum-processor/ gives some more details on the use case provided by Rolls Royce:
-  \Q[
-  The work with Rolls Royce will explore how quantum computers can develop practical applications toward the development of more sustainable and efficient jet engines.  
+  > The work with Rolls Royce will explore how quantum computers can develop practical applications toward the development of more sustainable and efficient jet engines.  
 
-  This starts by applying quantum algorithms to take steps to toward a greater understanding of how liquids and gases flow, a field known as '<fluid dynamics>'. Simulating such flows accurately is beyond the computational capacity of even the most powerful classical computers today.
-  ]
+    This starts by applying quantum algorithms to take steps to toward a greater understanding of how liquids and gases flow, a field known as '<fluid dynamics>'. Simulating such flows accurately is beyond the computational capacity of even the most powerful classical computers today.
 
   This funding was part of a larger quantum push by the <UKNQTP>: https://www.ukri.org/news/50-million-in-funding-for-uk-quantum-industrial-projects/
 * 2020: \$4.5M (3.5M GBP) https://www.crunchbase.com/organization/universal-quantum[]. Just out of stealth.
@@ -2060,8 +2057,8 @@ Funding:
 {wiki=Linear optical quantum computing}
 
 = Linear optical quantum computing
-{title2}
 {synonym}
+{title2}
 
 * https://en.wikipedia.org/wiki/Linear_optical_quantum_computing
 * https://en.wikipedia.org/wiki/KLM_protocol
@@ -2154,7 +2151,7 @@ So he moved to <Palo Alto> and raised a total of \$665 million instead as of 202
 Makes for a reasonable <the old man lost his horse>.
 
 https://www.ft.com/content/afc27836-9383-11e9-aea1-2b1d33ac3271 British quantum computing experts leave for Silicon Valley talks a little bit about them leaving, but nothing too juicy. They were called PsiQ previously apparently.
-\Q[The departure of some of the UK’s leading experts in a potentially revolutionary new field of technology will raise fresh concerns over the country’s ability to develop industrial champions in the sector.]
+> The departure of some of the UK’s leading experts in a potentially revolutionary new field of technology will raise fresh concerns over the country’s ability to develop industrial champions in the sector.
 More interestingly, the article mentions that this was party advised by early investor <Hermann Hauser>, who is known to be preoccupied about UK's ability to create companies. Of course, <European Tower of Babel>.
 
 = Xanadu Quantum Technologies
@@ -2218,7 +2215,7 @@ The name "quantum interconnect" is likely partly a throwback to <classical compu
 
 Sample usages of the term:
 * https://news.mit.edu/2023/quantum-interconnects-photon-emission-0105
-  \Q[Researchers have demonstrated directional photon emission, the first step toward extensible \b[quantum interconnects]]
+  > Researchers have demonstrated directional photon emission, the first step toward extensible \b[quantum interconnects]
 * https://qpl.ece.ucsb.edu/research/quantum-interconnects
 
 \Video[https://www.youtube.com/watch?v=PzZJmujw71s]
@@ -2253,8 +2250,8 @@ Other good lists:
 
 Bibliography:
 * https://www.epcc.ed.ac.uk/whats-happening/articles/energy-efficient-quantum-computing-simulations mentions two types of <quantum computer simulation>:
-  * \Q[The most common approach to quantum simulations is to store the whole state in memory and to modify it with gates in a given order]
-  * \Q[However, there is a completely different approach that can sometimes eliminate this issue - tensor networks]
+  * > The most common approach to quantum simulations is to store the whole state in memory and to modify it with gates in a given order
+  * > However, there is a completely different approach that can sometimes eliminate this issue - tensor networks
 
 = Quantum software
 {parent=Quantum computing}
@@ -2434,9 +2431,9 @@ https://quantumcomputing.stackexchange.com/questions/13202/qiskit-initializing-n
 = qiskit/qft.py
 {file}
 {parent=Qiskit example}
-{tag=Quantum fourier transform}
+{tag=Quantum Fourier transform}
 
-This is an example of the `qiskit.circuit.library.QFT` implementation of the <Quantum fourier transform> function which is documented at: https://docs.quantum.ibm.com/api/qiskit/0.44/qiskit.circuit.library.QFT
+This is an example of the `qiskit.circuit.library.QFT` implementation of the <Quantum Fourier transform> function which is documented at: https://docs.quantum.ibm.com/api/qiskit/0.44/qiskit.circuit.library.QFT
 
 Output:
 ``
@@ -2490,7 +2487,7 @@ and the output of that approximately:
 ``
 which can be defined simply as the <normalized DFT> of the input <quantum state vector>.
 
-From this we see that the <Quantum fourier transform> is equivalent to a direct <discrete Fourier transform> on the <quantum state vector>, related: https://physics.stackexchange.com/questions/110073/how-to-derive-quantum-fourier-transform-from-discrete-fourier-transform-dft
+From this we see that the <Quantum Fourier transform> is equivalent to a direct <discrete Fourier transform> on the <quantum state vector>, related: https://physics.stackexchange.com/questions/110073/how-to-derive-quantum-fourier-transform-from-discrete-fourier-transform-dft
 
 = Qiskit component
 {c}
@@ -2692,8 +2689,8 @@ There are only 7 transformation rules that we need, and all others can be derive
 So, we can apply those rules to do https://en.wikipedia.org/w/index.php?title=ZX-calculus&oldid=1071329204#Diagram_rewriting[the transformation shown in Wikipedia]:
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/0/05/GHZ_circuit_as_ZX-diagram.svg]
-{height=500}
 {title=GHZ circuit as ZX-diagram}
+{height=500}
 
 and one of those rules finally tells us that that last graph means our desired state:
 $$
@@ -2703,7 +2700,8 @@ because it is a Z spider with $m = 3$ and $n = 1$.
 
 \Video[https://www.youtube.com/watch?v=JafI_LZts2g]
 {title=Working with <PyZX> by Aleks Kissinger (2019)}
-{description=This video appears to give amazing motivation on why you should care about <ZX-calculus>, it mentions
+{description=
+This video appears to give amazing motivation on why you should care about <ZX-calculus>, it mentions
 * <quantum compilation>
 * <quantum computer simulation>
 }
@@ -2752,7 +2750,7 @@ $$
 
 When unqualified as in "the Bell state", it generally just means $\ket{\Phi^+}$.
 
-The Bell states are entangled and <non separable>. Intuitively, we can see that when we measure that state, the values of the first and second bit are strictly correlated. This is the hallmark of <quantum computation>: making up states where qubits are highly correlated to match a specific algorithmic answer, and opposed to uniformly random noise. For example, the <Bell state circuit> is a common <hello world>, e.g. it is used in the official <Qiskit hello world>.
+The Bell states are entangled and <non-separable>. Intuitively, we can see that when we measure that state, the values of the first and second bit are strictly correlated. This is the hallmark of <quantum computation>: making up states where qubits are highly correlated to match a specific algorithmic answer, and opposed to uniformly random noise. For example, the <Bell state circuit> is a common <hello world>, e.g. it is used in the official <Qiskit hello world>.
 
 = Bell circuit
 {c}
@@ -2917,7 +2915,7 @@ https://www.reddit.com/r/QuantumComputing/comments/lf1vp2/comment/ibuukcq/?utm_s
 
 <Encryption algorithms> that run on <classical computers> that are expected to be resistant to <quantum computers>.
 
-This is notably not the case of the dominant 2020 algorithms, <RSA (cryptosystem)> and <elliptic curve cryptography>, which are provably broken by <grover's algorithm>.
+This is notably not the case of the dominant 2020 algorithms, <RSA (cryptosystem)> and <elliptic curve cryptography>, which are provably broken by <Grover's algorithm>.
 
 However, as of 2020, we <provably quantum secure encryption algorithm>[don't have any proof that any symmetric or public key algorithm is quantum resistant].
 
@@ -2928,7 +2926,7 @@ The reason is that attackers would be able to store captured <ciphertext>, and t
 There isn't a shade of a doubt that <intelligence agencies> are actively doing this as of 2020. They must have a database of how interesting a given source is, and then store as much as they can given some ammount of storage budget they have available.
 
 A good way to explain this to <quantum computing skeptics> is to ask them:
-\Q[If I told you there is a 5% chance that I will be able to decrypt everything you write online starting today in 10 years. Would you give me a dollar to reduce that chance to 0.5%?]
+> If I told you there is a 5% chance that I will be able to decrypt everything you write online starting today in 10 years. Would you give me a dollar to reduce that chance to 0.5%?
 Post-quantum cryptography is simply not a choice. It must be done now. Even if the risk is low, the cost would be way too great.
 
 = Post-quantum cryptography company
@@ -2981,7 +2979,7 @@ Bibliography:
 * https://qosf.org
 * https://www.qubitbyqubit.org/
 * https://www.qsium.com/
-  \Q[Qsium is a student-led initiative that aims to democratise education in quantum computing. With the focus of raising 'quantum literacy' and creating a thriving quantum ecosystem through our Quantum Youth Network, we support <STEM> students in the <UK>. ]
+  > Qsium is a student-led initiative that aims to democratise education in quantum computing. With the focus of raising 'quantum literacy' and creating a thriving quantum ecosystem through our Quantum Youth Network, we support <STEM> students in the <UK>. 
 * https://qworld.net
 
 = Quantum computing scholarship

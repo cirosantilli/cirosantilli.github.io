@@ -974,16 +974,16 @@ Have a look at some interesting examples under \a[nodejs/sequelize/raw/many_to_m
 https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-server
 
 = DELETE
-{c}
 {disambiguate=SQL}
+{c}
 {parent=SQL keyword}
 
 = Delete all duplicate rows in SQL
 {parent=DELETE (SQL)}
 
-* <sqlite> with `rowid`: https://stackoverflow.com/questions/8190541/deleting-duplicate-rows-from-sqlite-database
-  * <postgresql> is `ctid`: https://stackoverflow.com/questions/14626481/rowid-equivalent-in-postgres-9-2
-* <sql server> has crazy "CTEs" change backing table extension: https://stackoverflow.com/questions/18390574/how-to-delete-duplicate-rows-in-sql-server
+* <SQLite> with `rowid`: https://stackoverflow.com/questions/8190541/deleting-duplicate-rows-from-sqlite-database
+  * <PostgreSQL> is `ctid`: https://stackoverflow.com/questions/14626481/rowid-equivalent-in-postgres-9-2
+* <SQL Server> has crazy "CTEs" change backing table extension: https://stackoverflow.com/questions/18390574/how-to-delete-duplicate-rows-in-sql-server
 
 = GROUP BY
 {disambiguate=SQL}
@@ -992,8 +992,8 @@ https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-serve
 {wiki=Group_by_(SQL)}
 
 = HAVING
-{c}
 {disambiguate=SQL}
+{c}
 {parent=GROUP BY (SQL)}
 
 = HAVING vs WHERE
@@ -1026,7 +1026,7 @@ https://stackoverflow.com/questions/59297/when-why-to-use-cascading-in-sql-serve
 * https://www.sqlite.org/lang_returning.html
 
 = Upsert with `NOT NULL` column
-{parent=UPSERT}
+{parent=Upsert}
 
 Attempt at \a[nodejs/sequelize/raw/upsert.js]:
 * https://stackoverflow.com/questions/48816629/on-conflict-do-nothing-in-postgres-with-a-not-null-constraint OP unable to provide a minimal exampe, but it is likely the problem
@@ -1060,8 +1060,8 @@ It is mind blowing that this is not possible... the only way to avoid ambiguity 
 {parent=JOIN (SQL)}
 
 = LIKE
-{c}
 {disambiguate=SQL}
+{c}
 {parent=SQL keyword}
 
 = SELECT
@@ -1110,7 +1110,7 @@ In particular, everything that happens in a trigger happens as if it were in a t
   * https://stackoverflow.com/questions/35255304/sqlite-create-trigger-for-insert-or-update
 
 <ORM>:
-* <sequelize>: <SQL TRIGGER in Sequelize>
+* <Sequelize>: <SQL TRIGGER in Sequelize>
 
 = ISO SQL TRIGGER syntax
 {c}
@@ -1139,10 +1139,10 @@ This is defined at 13.5 "SQL procedure statement", but that is humongous and I'm
 In this example we cache track the number of posts per user on a cache column.
 
 = UNION
-{c}
 {disambiguate=SQL}
+{c}
 {parent=SQL keyword}
-{{wiki=Set_operations_(SQL)#UNION_operator}}
+{wiki=Set_operations_(SQL)\#UNION_operator}
 
 Basic example tested on <SQLite> 3.40.1, <Ubuntu 23.04>:
 ``
@@ -1186,8 +1186,8 @@ output:
 ``
 
 = UPDATE
-{c}
 {disambiguate=SQL}
+{c}
 {parent=SQL keyword}
 {wiki=Update_(SQL)}
 
@@ -1196,15 +1196,15 @@ output:
 
 This happens when you calculate a bunch of values on your program, and then want to save the to SQL.
 
-<Upsert> is an option, but it fails if you have a `NOT NULL` column: <Upsert with `NOT NULL` column>
+<Upsert> is an option, but it fails if you have a `NOT NULL` column: <Upsert with NOT NULL column>
 
 Bibliography:
 * https://stackoverflow.com/questions/11563869/update-multiple-rows-with-different-values-in-a-single-sql-query
 * https://dba.stackexchange.com/questions/69269/updating-multiple-rows-with-different-values-in-one-query
 
 = UPDATE with JOIN
-{c}
 {disambiguate=SQL}
+{c}
 {parent=UPDATE (SQL)}
 
 Dumping examples under \a[nodejs/sequelize/raw/many_to_many.js].
@@ -1219,14 +1219,14 @@ The `UPDATE` + `FROM` extension exists in a few <DBMS>s:
 * <Sequelize>: <UPDATE with JOIN in Sequelize>
 
 = DELETE with JOIN
-{c}
 {disambiguate=SQL}
+{c}
 {parent=UPDATE with JOIN (SQL)}
 {tag=DELETE (SQL)}
 
 Demo under: \a[nodejs/sequelize/raw/many_to_many.js].
 
-NO way in the <SQL standard> apparently, but you'd hope that implementation status would be similar to <UPDATE with JOIN (sql)>, but not even!
+NO way in the <SQL standard> apparently, but you'd hope that implementation status would be similar to <UPDATE with JOIN (SQL)>, but not even!
 * <PostgreSQL>: possible with `DELETE FROM USING`: https://stackoverflow.com/questions/11753904/postgresql-delete-with-inner-join
 * <SQLite>: not possible without subqueries as of 3.35 far: https://stackoverflow.com/questions/24511153/how-delete-table-inner-join-with-other-table-in-sqlite[], Does not appear to have any relevant features at: https://www.sqlite.org/lang_delete.html
 
@@ -1307,7 +1307,7 @@ which produces the desired:
 15|1
 ``
 
-And to consider empty ranges we can use <SQL `genenerate_series`> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
+And to consider empty ranges we can use <SQL genenerate_series> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
 ``
 sqlite3 tmp.sqlite <<EOF
 select x, sum(cnt) from (
@@ -1384,7 +1384,7 @@ which produces the desired:
 15|15|5
 ``
 
-And to consider empty ranges we can use <SQL `genenerate_series`> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
+And to consider empty ranges we can use <SQL genenerate_series> + as per https://stackoverflow.com/questions/72367652/populating-empty-bins-in-a-histogram-generated-using-sql[]:
 ``
 sqlite3 tmp.sqlite <<EOF
 select x, y, sum(cnt) from (
@@ -1457,8 +1457,8 @@ Example: \a[nodejs/sequelize/raw/tree.js]
 {wiki}
 
 = Nested set index
-{title2}
 {synonym}
+{title2}
 
 How to implement <Nested set model> in <SQL>:
 * https://stackoverflow.com/questions/192220/what-is-the-most-efficient-elegant-way-to-parse-a-flat-table-into-a-tree/42781302#42781302 contains the correct left/size representation and update queries, which makes it much easier to maintain the tree without having to worry about the sizes of siblings which are constant
@@ -1649,7 +1649,7 @@ which does:
 The fear then is that of a classic <read-modify-write> failure.
 
 But as https://www.postgresql.org/docs/14/transaction-iso.html page makes very clear, including with an explicit example of type `UPDATE accounts SET balance = balance + 100.00 WHERE acctnum = 12345;`, that the default isolation level, <SQL READ COMMITTED isolation level>, already prevents any problems with this, as the update always re-reads selected rows in case they were previously modified.
-\Q[If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row]
+> If the first updater commits, the second updater will ignore the row if the first updater deleted it, otherwise it will attempt to apply its operation to the updated version of the row
 
 Since in <PostgreSQL> "Read uncommitted" appears to be effectively the same as "Read committed", we won't be able to observe any failures on that database system for this example.
 
@@ -1693,7 +1693,7 @@ Observed behaviour under different <SQL transaction isolation levels>:
 * `READ COMMITTED` + `SELECT FOR UPDATE`: works. And does not do rollbacks, which probably makes it faster. With `p 10 100`, `REPEATABLE READ` was about 4.2s and `READ COMMITTED` + `SELECT FOR UPDATE` 3.2s on <ciro santilli s hardware/Lenovo ThinkPad P51 (2017)>.
 
   `SELECT FOR UPDATE` should be enough as mentioned at: https://www.postgresql.org/docs/13/explicit-locking.html#LOCKING-ROWS
-  \Q[FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.]
+  > FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update. This prevents them from being locked, modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt UPDATE, DELETE, SELECT FOR UPDATE, SELECT FOR NO KEY UPDATE, SELECT FOR SHARE or SELECT FOR KEY SHARE of these rows will be blocked until the current transaction ends; conversely, SELECT FOR UPDATE will wait for a concurrent transaction that has run any of those commands on the same row, and will then lock and return the updated row (or no row, if the row was deleted). Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started. For further discussion see Section 13.4.
 
 A non-raw version of this example can be seen at: <nodejs/sequelize/parallel_select_and_update.js>{file}.
 

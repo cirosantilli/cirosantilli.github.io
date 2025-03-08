@@ -147,9 +147,9 @@ By reading `models/ecoli/analysis/variant/massFractionSummary.py` a little bit, 
   From this we understand that all data that is to be saved from a simulation must be coming from listeners: likely nothing, or not much, is dumped by default, because otherwise it would take up too much disk space. You have to explicitly say what it is that you want to save via a listener that acts on each time step.
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/9/94/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_mass_fraction_summary.svg]
-{height=600}
 {title=Minimal condition mass fraction plot}
 {description=File name: `out/manual/plotOut/svg_plots/massFractionSummary.svg`}
+{height=600}
 
 More plot types will be explored at <time series run variant>, where we will contrast two runs with different <growth mediums>.
 
@@ -219,9 +219,9 @@ We can now compare the outputs of this run to the default `wildtype_000000` run 
   Then, at 20 minutes, which is about 0.3 hours, we see that the cell starts growing a bit less fast as the slope of the curve decreases a bit, because we removed that free amino acid supply.
 
   \Image[https://upload.wikimedia.org/wikipedia/commons/5/5f/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_acids_mass_fraction_summary.svg]
-  {height=600}
   {title=Minimal condition vs <amino acid> cut mass fraction plot}
   {description=From file `out/manual/plotOut/svg_plots/massFractionSummary.svg`.}
+  {height=600}
 
 The following plots from under `out/manual/wildtype_000000/000000/{generation_000000,nutrientTimeSeries_000025}/000000/plotOut/svg_plots` have been manually joined side-by-side with:
 ``
@@ -237,16 +237,15 @@ done
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/e/e1/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_acids_amino_acid_counts.svg]
 {title=<Amino acid> counts}
-{height=800}
 {description=
 `aaCounts.svg`:
 * default: quantities just increase
 * amino acid cut: there is an abrupt fall at 20 minutes when we cut off external supply, presumably because it takes some time for the cell to start producing its own
 }
+{height=800}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7e/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes_of_amino_acids.svg]
 {title=External exchange fluxes of amino acids}
-{height=800}
 {description=
 `aaExchangeFluxes.svg`:
 * default: no exchanges
@@ -254,23 +253,30 @@ done
 
   For PHE however, the flux is at all times, except shortly after the cut. Why? And why there was no excretion on the default conditions?
 }
+{height=800}
 \Image[https://upload.wikimedia.org/wikipedia/commons/d/d6/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_evaluation_time.svg]
 {title=Evaluation time}
 {description=`evaluationTime.svg`: this has nothing to do with biology, but it is rather a <profile (computer programming)> of the program runtime. We can see that the simulation gets slower and slower as time passes, presumably because there are more and more molecules to simulate.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/7/7a/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_mrna_count_of_highly_expressed_mRNAs.svg]
 {title=<mRNA> count of highly expressed mRNAs}
+{description=
+From file `expression_rna_03_high.svg`. Each of the entries is a <gene> using the conventional gene naming convention of `xyzW`, e.g. here's the <BioCyc> for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments 
+> Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.
+ and 
+> In E. coli, EF-Tu is encoded by two genes, tufA and tufB
+. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the <EF-Tu> of the <E. Coli>, which is an important part of <translation (biology)>.
+}
 {height=800}
-{description=From file `expression_rna_03_high.svg`. Each of the entries is a <gene> using the conventional gene naming convention of `xyzW`, e.g. here's the <BioCyc> for the first entry, `tufA`: https://biocyc.org/gene?orgid=ECOLI&id=EG11036[], which comments \Q[Elongation factor Tu (EF-Tu) is the most abundant protein in E. coli.] and \Q[In E. coli, EF-Tu is encoded by two genes, tufA and tufB]. What they seem to mean is that tufA and tufB are two similar molecules, either of which can make up the <EF-Tu> of the <E. Coli>, which is an important part of <translation (biology)>.}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/4/49/E._Coli_Whole_Cell_model_by_Covert_Lab_minimal_nutrients_vs_cut_amino_external_exchange_fluxes.svg]
 {title=External exchange fluxes}
-{height=1000}
 {description=
 `mediaExcange.svg`: this one is similar to `aaExchangeFluxes.svg`, but it also tracks other substances. The color version makes it easier to squeeze more substances in a given space, but you lose the shape of curves a bit. The title seems reversed: red must be excretion, since that's where <glucose> (GLC) is.
 
 The substances are different between the default and amino acid cut graphs, they seem to be the most exchanged substances. On the amino cut graph, first we see the cell intaking most (except <phenylalanine>, which is excreted for some reason). When we cut amino acids, the uptake of course stops.
 }
+{height=1000}
 
 = Other run variants
 {parent=E. Coli Whole Cell Model by Covert Lab}
@@ -311,6 +317,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   "l" "CCO-PILUS"
   "i" "CCO-PM-BAC-NEG"
   ``
+
   * `CCO`: "Celular COmpartment"
   * `BAC-NUCLEOID`: <nucleoid>
   * `CELL-PROJECTION`: <cell projection>
@@ -367,6 +374,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   "halfLife" "name" "seq" "type" "modifiedForms" "monomerId" "comments" "mw" "location" "ntCount" "id" "geneId" "microarray expression"
   174.0 "ThrA [RNA]" "AUGCGAGUGUUG..." "mRNA" [] "ASPKINIHOMOSERDEHYDROGI-MONOMER" "" [0.0, 0.0, 0.0, 0.0, 790935.00399999996, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] ["c"] [553, 615, 692, 603] "EG10998_RNA" "EG10998" 0.0005264904
   ``
+
   * `halfLife`: <half-life>
   * `mw`: molecular weight, same as in `reconstruction/ecoli/flat/proteins.tsv`. This <molecule> only have weight in the `mRNA` class, as expected, as it just codes for a protein
   * `location`: same as in `reconstruction/ecoli/flat/proteins.tsv`
@@ -383,6 +391,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   0.0               "f"         310     ["TERM0-1059"]   "thrL"    "PM00249"     0.198905992329492 "TU0-42486" ["EG11277"]                                  148
   657.057317358791  "f"         5022    ["TERM_WC-2174"] "thrLABC" "PM00249"     0.231049060186648 "TU00178"   ["EG10998", "EG10999", "EG11000", "EG11277"] 148
   ``
+
   * `promoter_id`: matches promoter id in `reconstruction/ecoli/flat/promoters.tsv`
   * `gene_id`: matches id in `reconstruction/ecoli/flat/genes.tsv`
   * `id`: matches exactly those used in <BioCyc>, which is quite nice, might be more or less standardized:
@@ -420,6 +429,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
     false
     ["ASPKINIIHOMOSERDEHYDROGII-CPLX", "ASPKINIHOMOSERDEHYDROGI-CPLX"]
   ``
+
   * `catalized by`: here we see `ASPKINIHOMOSERDEHYDROGI-CPLX`, which we can guess is a <protein complex> made out of `ASPKINIHOMOSERDEHYDROGI-MONOMER`, which is the ID for the `thrA` we care about! This is confirmed in `complexationReactions.tsv`.
 * `reconstruction/ecoli/flat/complexationReactions.tsv` contains information about <chemical reactions> that produce <protein complexes>:
   ``
@@ -445,7 +455,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   1
   ``
   The `coeff` is how many monomers need to get together for form the final complex. This can be seen from the Summary section of https://ecocyc.org/gene?orgid=ECOLI&id=ASPKINIHOMOSERDEHYDROGI-MONOMER[]:
-  \Q[Aspartate kinase I / homoserine dehydrogenase I comprises a dimer of ThrA dimers. Although the dimeric form is catalytically active, the binding equilibrium dramatically favors the tetrameric form. The aspartate kinase and homoserine dehydrogenase activities of each ThrA monomer are catalyzed by independent domains connected by a linker region.]
+  > Aspartate kinase I / homoserine dehydrogenase I comprises a dimer of ThrA dimers. Although the dimeric form is catalytically active, the binding equilibrium dramatically favors the tetrameric form. The aspartate kinase and homoserine dehydrogenase activities of each ThrA monomer are catalyzed by independent domains connected by a linker region.
   Fantastic literature summary! Can't find that in database form there however.
 * `reconstruction/ecoli/flat/proteinComplexes.tsv` contains <protein complex> information:
   ``
@@ -557,6 +567,7 @@ We'll realize that a lot of data and IDs come from/match <BioCyc> quite closely.
   "no_oxygen" "minimal_minus_oxygen"     {}                       100.0                       []
   "with_aa"   "minimal_plus_amino_acids" {}                       25.0                        ["CPLX-125", "MONOMER0-162", "CPLX0-7671", "CPLX0-228", "MONOMER0-155"]
   ``
+
   * `condition` refers to entries in `reconstruction/ecoli/flat/condition/condition_defs.tsv`
   * `nutrients` refers to entries under `reconstruction/ecoli/flat/condition/nutrient/`, e.g. `reconstruction/ecoli/flat/condition/nutrient/minimal.tsv` or `reconstruction/ecoli/flat/condition/nutrient/minimal_plus_amino_acids.tsv`
   * `genotype perturbations`: there aren't any in the file, but this suggests that genotype modifications can also be incorporated here

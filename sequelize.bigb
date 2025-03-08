@@ -41,7 +41,7 @@ Some glaring issues are listed at <the horrors of Sequelize>.
 * `.id` gets added to `SELECT` no matter what, breaking `GROUP BY` unless you do horrible workarounds:
   * https://github.com/sequelize/sequelize/issues/3256
   * https://github.com/sequelize/sequelize/issues/5481
-* no simple built-in mechanism for transaction retries: <sequelize transaction retries>
+* no simple built-in mechanism for transaction retries: <Sequelize transaction retries>
 * impossible to do subqueries in general. Docs just tell you to use literals. This in particular prevents single query deletes with join as done at \a[nodejs/sequelize/raw/many_to_many.js]:
   * https://sequelize.org/master/manual/sub-queries.html[]: the docs actually just tell you to use literals, lol
   * https://stackoverflow.com/questions/45354001/nodejs-sequelize-delete-with-nested-select-query
@@ -98,8 +98,8 @@ Overview of the examples:
 * \a[nodejs/sequelize/date.js]: automatic date typecasts
 * \a[nodejs/sequelize/like.js]: <LIKE (SQL)>
 * \a[nodejs/sequelize/camel_case.js]: trying to get everything in the database camel cased, columns starting with lowercase, and tables starting with uppercase. The defaults documented on getting started documentation do uppercase foreign keys, and lowercase non-foreign keys. It's a mess.
-* \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does <SQLite> `INSERT OR IGNORE INTO` or <PostgreSQL> `ON CONFLICT DO NOTHING`. Closely related <UPSERT> versions:
-  * <upsert>
+* \a[nodejs/sequelize/ignore_duplicates.js]: ignore query on unique violation with `ignoreDuplicates: true` which does <SQLite> `INSERT OR IGNORE INTO` or <PostgreSQL> `ON CONFLICT DO NOTHING`. Closely related <Upsert> versions:
+  * <Upsert>
     * \a[nodejs/sequelize/upsert.js]: `.upsert` selects the conflict column automatically by unique columns. Both <SQLite> and <PostgreSQL> do `INSERT INTO ON CONFLICT`. PostgreSQL uses `RETURNING`, which was added too recently to SQLite: https://www.sqlite.org/lang_returning.html
 
       At \a[nodejs/sequelize/composite_index.js] we have a `.upsert` test with a composite index. Works just fine as you'd expect with a composite `ON CONFLICT`. Well done.
@@ -163,8 +163,8 @@ Exampes under \a[nodejs/sequelize/raw]:
 
 = UPDATE with JOIN in Sequelize
 {c}
-{tag=UPDATE with JOIN (SQL)}
 {parent=Sequelize example}
+{tag=UPDATE with JOIN (SQL)}
 
 No support:
 * https://stackoverflow.com/questions/51275802/sequelize-bulk-update-with-inner-join
@@ -199,7 +199,7 @@ Then, the outcome is exactly as described at: <nodejs/sequelize/raw/parallel_sel
 * `READ_COMMITTED UPDATE`: works
 * `REPEATABLE_READ`: works, but is a bit slower, as it does rollbacks
 
-  This case also illustrates <sequelize transaction retries>, since in this transaction isolation level transactions may fail:
+  This case also illustrates <Sequelize transaction retries>, since in this transaction isolation level transactions may fail:
   * https://stackoverflow.com/questions/68427796/sequelize-transaction-retry-doenst-work-as-expected
   * https://github.com/sequelize/sequelize/issues/1478
   * https://github.com/sequelize/sequelize/issues/8294

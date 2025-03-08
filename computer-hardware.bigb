@@ -54,7 +54,7 @@ What a legendary place.
 = Company that makes semiconductor production equipment
 {synonym}
 
-As mentioned at https://youtu.be/16BzIG0lrEs?t=397 from <video Applied Materials by Asianometry (2021)}>, originally the companies <fabs> would make their own equipment. But eventually things got so complicated that it became worth it for separate companies to focus on equipment, which then then sell to the fabs.
+As mentioned at https://youtu.be/16BzIG0lrEs?t=397 from <video Applied Materials by Asianometry (2021)>, originally the companies <fabs> would make their own equipment. But eventually things got so complicated that it became worth it for separate companies to focus on equipment, which then then sell to the fabs.
 
 = ASML Holding
 {c}
@@ -208,7 +208,8 @@ As the quintessential <fabless> <fab>, there is on thing TSMC can never ever do:
 
 \Video[https://www.youtube.com/watch?v=9fVrWDdll0g]
 {title=How <Taiwan> Created TSMC by <Asianometry> (2020)}
-{description=Some points:
+{description=
+Some points:
 * UCM failed because it focused too much on the internal market, and was shielded from external competition, so it didn't become world leading
 * one of TSMC's great advances was the <fabless> business model approach.
 * they managed to do large technology transfers from the West to kickstart things off
@@ -403,8 +404,8 @@ Shows:
 }
 
 = Interconnect
-{parent=Integrated circuit}
 {disambiguate=integrated_circuits}
+{parent=Integrated circuit}
 
 = Chip interconnect
 {synonym}
@@ -454,7 +455,7 @@ The compilers essentially compile the RTL languages into a <standard cell librar
 
 Examples of companies that work at this level include:
 * <Intel>. Intel also has <semiconductor fabrication plants> however.
-* <Arm Company> which does not have <fabs>, and is therefore called a "<fabless>" company.
+* <Arm (company)> which does not have <fabs>, and is therefore called a "<fabless>" company.
 
 = High-level synthesis
 {parent=Register transfer level}
@@ -526,7 +527,7 @@ make run
 File structure is for example:
 * \a[verilog/counter.v]: <Verilog> file
 * \a[verilog/counter.cpp]: <C++> loop which clocks the design and runs tests with assertions on the outputs
-* \a[verilog/counter.params]: <GCC> compilation flags for this example
+* \a[verilog/counter.params]: <gcc> compilation flags for this example
 * \a[verilog/counter_tb.v]: <Verilog> version of the <C++> test. Not used by Verilator. Verilator can't actually run out `_tb` files, because they do in Verilog IO things that we do better from <C++> in Verilator, so Verilator didn't bother implementing them. This is a good thing.
 
 Example list:
@@ -538,7 +539,7 @@ Example list:
 {c}
 {parent=Verilator}
 
-The example under \a[verilog/interactive] showcases how to create a simple interactive visual <verilog> example using <verilator> and <sdl>.
+The example under \a[verilog/interactive] showcases how to create a simple interactive visual <Verilog> example using <Verilator> and <SDL>.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/verilog-interactive.gif]
 
@@ -707,8 +708,8 @@ https://stackoverflow.com/questions/3711443/minimal-instruction-set-to-solve-any
 {synonym}
 
 = ARM
-{c}
 {disambiguate=ISA}
+{c}
 {synonym}
 
 This <ISA> basically completely dominated the <smartphone> market of the 2010s and beyond, but it started appearing in other areas as the end of <Moore's law> made it more economical logical for large companies to start developing their own semiconductor, e.g. <Google custom silicon>, <Amazon custom silicon>.
@@ -764,8 +765,8 @@ Leading <RISC-V> consultants as of 2020, they are basically trying to become the
 {tag=QEMU}
 
 = riscv/timer.S
-{parent=RISC-V timer}
 {file}
+{parent=RISC-V timer}
 
 TODO: the interrupt is firing only once:
 * https://www.reddit.com/r/RISCV/comments/ov4vhh/timer_interrupt/
@@ -811,7 +812,7 @@ gdb-multiarch timer.elf -nh -ex "target remote :1234" -ex 'display /i $pc' -ex '
 <Intel> is known to have created customized chips for very large clients.
 
 This is mentioned e.g. at: https://www.theregister.com/2021/03/23/google_to_build_server_socs/
-\Q[Intel is known to do custom-ish cuts of Xeons for big customers.]
+> Intel is known to do custom-ish cuts of Xeons for big customers.
 Those chips are then used only in large scale server deployments of those very large clients. <Google> is one of them most likely, given their penchant for <Google custom hardware>.
 
 TODO better sources.
@@ -821,7 +822,7 @@ TODO better sources.
 {parent=List of instruction set architectures}
 
 https://esolangs.org/wiki/Y86 mentions:
-\Q[Y86 is a toy RISC CPU instruction set for education purpose.]
+> Y86 is a toy RISC CPU instruction set for education purpose.
 
 One specification at: http://web.cse.ohio-state.edu/~reeves.92/CSE2421sp13/PracticeProblemsY86.pdf
 
@@ -1080,7 +1081,7 @@ Official hello world: https://github.com/ROCm/HIP-Examples/blob/ff8123937c8851d8
 {c}
 {parent=ROCm}
 
-Tested on <Ubuntu 23.10> with <Ciro Santilli's hardware/p14s>:
+Tested on <Ubuntu 23.10> with <Ciro Santilli's hardware/P14s>:
 ``
 sudo apt install hipcc
 git clone https://github.com/ROCm/HIP-Examples
@@ -1269,7 +1270,7 @@ The opposite of <volatile memory>.
 
 = Magnetoresistive disk head
 {parent=Disk read-and-write head}
-{{wiki=Disk_read-and-write_head#Magnetoresistive_heads_(MR_heads)}}
+{wiki=Disk_read-and-write_head\#Magnetoresistive_heads_(MR_heads)}
 
 = Optical storage
 {parent=Non-volatile memory}
@@ -1672,7 +1673,7 @@ Some documentation on which GPU is in each instance can seen at: https://docs.aw
 When selecting the instance to launch, the GPU does not show anywhere apparently on the instance information page, it is so bad!
 
 Also note that this instance has 4 vCPUs, so on a new account you must first make a customer support request to Amazon to increase your limit from the default of 0 to 4, see also: https://stackoverflow.com/questions/68347900/you-have-requested-more-vcpu-capacity-than-your-current-vcpu-limit-of-0[], otherwise instance launch will fail with:
-\Q[You have requested more vCPU capacity than your current vCPU limit of 0 allows for the instance bucket that the specified instance type belongs to. Please visit http://aws.amazon.com/contact-us/ec2-request to request an adjustment to this limit.]
+> You have requested more vCPU capacity than your current vCPU limit of 0 allows for the instance bucket that the specified instance type belongs to. Please visit http://aws.amazon.com/contact-us/ec2-request to request an adjustment to this limit.
 
 When starting up the instance, also select:
 * image: <Ubuntu 22.04>
@@ -1745,7 +1746,7 @@ which gave:
 77.95user 2.87system 0:39.93elapsed 202%CPU (0avgtext+0avgdata 4345988maxresident)k
 0inputs+88outputs (0major+910748minor)pagefaults 0swaps
 ``
-so only marginally better than on <Ciro Santilli's hardware/p14s>. It would be fun to see how much faster we could make things on a more powerful GPU.
+so only marginally better than on <Ciro Santilli's hardware/P14s>. It would be fun to see how much faster we could make things on a more powerful GPU.
 
 = Amazon Machine Image
 {c}
@@ -1812,7 +1813,7 @@ Large but ephemeral storage for EC2 instances. Predetermined by the <EC2 instanc
 {c}
 {parent=EC2 instance type}
 
-<NVIDIA T4> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+<Nvidia T4> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
 
 = g5.xlarge
 {c}
@@ -1906,7 +1907,7 @@ heroku restart
 {parent=Heroku}
 
 Arghh, why so hard... tested 2021:
-* <Sendgrid>: this one is the first one I got working on free tier!
+* <SendGrid>: this one is the first one I got working on free tier!
 * Mailgun: the Heroku add-on creates a free plan. This is smaller than the flex plan and does not allow custom domains, and is not available when signing up on mailgun.com directly: https://help.mailgun.com/hc/en-us/articles/203068914-What-Are-the-Differences-Between-the-Free-and-Flex-Plans- And without custom domains you cannot send emails to anyone, only to people in the 5 manually whitelisted list, thus making this worthless. Also, gmail is not able to verify the DNS of the sandbox emails, and they go to spam.
 
   Mailgun does feel good otherwise if you are willing to pay. Their Heroku integration feels great, exposes everything you need on environment variables straight away.
@@ -1975,19 +1976,19 @@ as mentioned at:
 * https://www.ibm.com/support/pages/include-only-job-stdout-lsf-job-output-file
 * https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=o-n
 
-Another option is to run with the <bsub `-I` option>:
-```
+Another option is to run with the <bsub -I option>:
+``
 bsub -I 'echo a;sleep 1;echo b;sleep 1;echo c'
-```
+``
 This immediately prints stdout and stderr to the terminal.
 
 = bsub on foreground
 {parent=bsub}
 
-Run `bsub` on foreground, show stdout on host stdout live with an interactive with the <bsub `-I` option>:
-```
+Run `bsub` on foreground, show stdout on host stdout live with an interactive with the <bsub -I option>:
+``
 bsub -I 'echo a;sleep 1;echo b;sleep 1;echo c'; echo done
-```
+``
 Ctrl + C kills the job on remote as well as locally.
 
 Bibliography:
@@ -2067,8 +2068,8 @@ First publicly reached by <Frontier (supercomputer)>.
 {tag=Oak Ridge National Laboratory}
 
 = Frontier
-{c}
 {disambiguate=supercomputer}
+{c}
 {parent=Oak Ridge supercomputer}
 {wiki}
 
@@ -2240,7 +2241,7 @@ Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
 
 Some key specs:
 * <SoC>:
-  * name: RP2040. Custom designed by <Raspberry Pi Foundation>, likely the first they make themselves rather than using a <Broadcom> chip. But the design still is closed source, likely wouldn't be easy to open source due to the usage of closed proprietary IP like the <ARM ISA>
+  * name: RP2040. Custom designed by <Raspberry Pi Foundation>, likely the first they make themselves rather than using a <Broadcom> chip. But the design still is closed source, likely wouldn't be easy to open source due to the usage of closed proprietary IP like the <ARM (ISA)>
   * dual core <ARM Cortex-M0+>
   * frequency: 2 kHz to 133 MHz, 125 MHz by default
   * memory: 264KB on-chip <SRAM>
@@ -2260,7 +2261,7 @@ Datasheet: https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 {c}
 {parent=Raspberry Pi Pico variant}
 
-Has <serial wire debug> debug. Why would you ever get one without unless you are a clueless newbie like <Ciro Santilli>?!?!
+Has <Serial wire debug> debug. Why would you ever get one without unless you are a clueless newbie like <Ciro Santilli>?!?!
 
 = Raspberry Pi Pico W
 {c}
@@ -2551,7 +2552,7 @@ Mentioned e.g. at: https://videocardz.com/newz/amd-begins-rdna3-gfx11-graphics-a
 = AMD employee
 {c}
 {parent=AMD}
-{tag=employee}
+{tag=Employee}
 {wiki}
 
 = Jerry Sanders
@@ -2622,7 +2623,7 @@ This situation is the most bizarre thing ever. The dude was fired in 2020, but h
 
 = ARM Cortex-M
 {c}
-{parent=Arm CPU}
+{parent=ARM CPU}
 {wiki}
 
 = ARM Cortex-M0+
@@ -2645,7 +2646,7 @@ This situation is the most bizarre thing ever. The dude was fired in 2020, but h
 
 For some reason they attempt to make a single chip on an entire <wafer>!
 
-They didn't care about <MLPerf> as of 2019: https://www.zdnet.com/article/cerebras-did-not-spend-one-minute-working-on-mlperf-says-ceo/
+They didn't care about <MLperf> as of 2019: https://www.zdnet.com/article/cerebras-did-not-spend-one-minute-working-on-mlperf-says-ceo/
 
 * 2023: https://www.eetimes.com/cerebras-sells-100-million-ai-supercomputer-plans-8-more/ Cerebras Sells \$100 Million AI Supercomputer, Plans Eight More
 
@@ -2789,7 +2790,7 @@ This company is a bit like <Sun Microsystems>, you can hear a note of awe in the
 
 Those people created <OpenGL> for <God>'s sake! Venerable.
 
-Both of them and Sun kind of died in the same way, unable to move from the <workstation> to the <personal computer> fast enough, and just got killed by the scale of competitors who did, notably <NVIDIA> for graphics cards.
+Both of them and Sun kind of died in the same way, unable to move from the <workstation> to the <personal computer> fast enough, and just got killed by the scale of competitors who did, notably <Nvidia> for graphics cards.
 
 Some/all <Nintendo 64 games> were developed on it, e.g. it is well known that this was the case for <Super Mario 64>.
 

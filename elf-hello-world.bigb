@@ -1,8 +1,8 @@
 = ELF Hello World Tutorial
 {c}
 {numbered}
-{tag=articles}
 {scope}
+{tag=articles}
 
 Introductory analysis of a simple example of the <executable and Linkable Format>.
 
@@ -315,7 +315,7 @@ An ELF file contains the following parts:
 * N segments, with `N <= e_phnum` (only on executable)
 
 The order of those parts is \i[not] fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
-\Q[Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.]
+> Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.
 
 In pictures: sample object file with three sections:
 ``
@@ -362,8 +362,8 @@ But nothing (except sanity) prevents the following topology:
 But some newbies may prefer PNGs :-)
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/ELF_Executable_and_Linkable_Format_diagram_by_Ange_Albertini.png/1280px-ELF_Executable_and_Linkable_Format_diagram_by_Ange_Albertini.png]
-{height=900}
 {title=ELF Executable and Linkable Format diagram by Ange Albertini}
+{height=900}
 {source=https://github.com/corkami/pics/blob/28cb0226093ed57b348723bc473cea0162dad366/binary/elf101/elf101.pdf}
 
 = Section vs segment
@@ -511,7 +511,7 @@ Manual breakdown:
 * 2 8: `e_shoff` = `40` 7x `00` = `0x40`: section header table file offset, 0 if not present.
 * 3 0: `e_flags` = `00 00 00 00` Arch specific. `i386` docs say:
 
-  \Q[The Intel386 architecture defines no flags; so this member contains zero.]
+  > The Intel386 architecture defines no flags; so this member contains zero.
 * 3 4: `e_ehsize` = `40 00`: size of this elf header. TODO why this field needed? Isn't the size fixed?
 * 3 6: `e_phentsize` = `00 00`: size of each program header, 0 if not present.
 
@@ -594,7 +594,7 @@ Contained in bytes 0x40 to 0x7F.
 
 The first section is always magic: http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html says:
 
-\Q[If the number of sections is greater than or equal to SHN_LORESERVE (0xff00), e_shnum has the value SHN_UNDEF (0) and the actual number of section header table entries is contained in the sh_size field of the section header at index 0 (otherwise, the sh_size member of the initial entry contains 0).]
+> If the number of sections is greater than or equal to SHN_LORESERVE (0xff00), e_shnum has the value SHN_UNDEF (0) and the actual number of section header table entries is contained in the sh_size field of the section header at index 0 (otherwise, the sh_size member of the initial entry contains 0).
 
 There are also other magic sections detailed in `Figure 4-7: Special Section Indexes`.
 
@@ -619,12 +619,12 @@ In index 0, `SHT_NULL` is mandatory. Are there any other uses for it: https://st
   Here, `1` says the name of this section starts at the first character of that section, and ends at the first NUL character, making up the string `.data`.
 
   `.data` is one of the section names which has a predefined meaning according to http://www.sco.com/developers/gabi/2003-12-17/ch4.strtab.html[]:
-  \Q[These sections hold initialized data that contribute to the program's memory image.]
+  > These sections hold initialized data that contribute to the program's memory image.
 
 * 80 4: `sh_type` = `01 00 00 00`: `SHT_PROGBITS`: the section content is not specified by ELF, only by how the program interprets it. Normal since a `.data` section.
 * 80 8: `sh_flags` = `03` 7x `00`: `SHF_WRITE` and `SHF_ALLOC`: http://www.sco.com/developers/gabi/2003-12-17/ch4.sheader.html#sh_flags, as required from a `.data` section
 * 90 0: `sh_addr` = 8x `00`: TODO: standard says:
-  \Q[If the section will appear in the memory image of a process, this member gives the address at which the section's first byte should reside. Otherwise, the member contains 0.]
+  > If the section will appear in the memory image of a process, this member gives the address at which the section's first byte should reside. Otherwise, the member contains 0.
   but I don't understand it very well yet.
 * 90 8: `sh_offset` = `00 02 00 00 00 00 00 00` = `0x200`: number of bytes from the start of the program to the first byte in this section
 * a0 0: `sh_size` = `0d 00 00 00 00 00 00 00`
@@ -738,7 +738,7 @@ Section type: `sh_type == SHT_STRTAB`.
 Common name: "section header string table".
 
 The section name `.shstrtab` is reserved. The standard says:
-\Q[This section holds section names.]
+> This section holds section names.
 
 This section gets pointed to by the `e_shstrnd` field of the ELF header itself.
 
@@ -1143,19 +1143,19 @@ Breakdown of the first one:
 * 40 4: `p_flags` = `05 00 00 00` = execute and read permissions. No write: we cannot modify the text segment. A classic way to do this in C is with string literals: https://stackoverflow.com/a/30662565/895245 This allows kernels to do certain optimizations, like sharing the segment amongst processes.
 * 40 8: `p_offset` = 8x `00` TODO: what is this? Standard says:
 
-  \Q[This member gives the offset from the beginning of the file at which the first byte of the segment resides.]
+  > This member gives the offset from the beginning of the file at which the first byte of the segment resides.
 
   But it looks like offsets from the beginning of segments, not file?
 * 50 0: `p_vaddr` = `00 00 40 00 00 00 00 00`: initial virtual memory address to load this segment to
 * 50 8: `p_paddr` = `00 00 40 00 00 00 00 00`: unspecified effect. Intended for systems in which physical addressing matters. TODO example?
 * 60 0: `p_filesz` = `d7 00 00 00 00 00 00 00`: size that the segment occupies in memory. If smaller than `p_memsz`, the OS fills it with zeroes to fit when loading the program. This is how BSS data is implemented to save space on executable files. i368 ABI says on `PT_LOAD`:
 
-  \Q[The bytes from the file are mapped to the beginning of the memory segment. If the segment’s memory size (p_memsz) is larger than the file size (p_filesz), the ‘‘extra’’ bytes are defined to hold the value 0 and to follow the segment’s initialized area. The file size may not be larger than the memory size.]
+  > The bytes from the file are mapped to the beginning of the memory segment. If the segment’s memory size (p_memsz) is larger than the file size (p_filesz), the ‘‘extra’’ bytes are defined to hold the value 0 and to follow the segment’s initialized area. The file size may not be larger than the memory size.
 
 * 60 8: `p_memsz` = `d7 00 00 00 00 00 00 00`: size that the segment occupies in memory
 * 70 0: `p_align` = `00 00 20 00 00 00 00 00`: 0 or 1 mean no alignment required. TODO why is this required? Why not just use `p_addr` directly, and get that right? Docs also say:
 
-  \Q[p_vaddr should equal p_offset, modulo p_align]
+  > p_vaddr should equal p_offset, modulo p_align
 
 The second segment (`.data`) is analogous. TODO: why use offset `0x0000d8` and address `0x00000000006000d8`? Why not just use `0` and `0x00000000006000d8`?
 
