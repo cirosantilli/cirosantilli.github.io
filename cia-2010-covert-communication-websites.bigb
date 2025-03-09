@@ -3622,7 +3622,9 @@ From <The Reuters websites> and others we've found, we can establish see some cl
 * each hit domain is the only domain for its IP, i.e. the websites are all private hosted, no https://en.wikipedia.org/wiki/Shared_web_hosting_service[shared web hosting service] examples have been found so far
 * split images images: many of the website banners are composed of several images cut up. Stock images were first assembled into the banner, and then the resulting image was cut. Possibly this was done to make reverse image search to their stock image provider harder. But it somewhat backfired and serves as a good marker that confirms authorship. Maybe it is some kind of outdated web design thing, which they took much further in time than the average website, like the JAR. It would be fun to actually reverse search into one of their stock image provider's original images. Their websites do appear to follow common style guidelines form earlier eras, around the early 2000s notably, some legit sites that look a lot like hits:
   * https://web.archive.org/web/20031002010827/http://www.ausiranstudy.com/
-* many of the websites use the following pattern in their news summaries: `ul.rss-items > li.rss-item`, e.g.: https://web.archive.org/web/20110202092126/http://beamingnews.com/
+* some common pattern they follow in their news lists:
+  * `ul.rss-items > li.rss-item`, e.g.: https://web.archive.org/web/20110202092126/http://beamingnews.com/
+  * links with class `a.newslink` and `a.newslinkalt` e.g. https://web.archive.org/web/20110128181622/http://profile-news.com/
 The most notable dissonance from the rest of the web is that there are no commercial looking website of companies, presumably because it was felt that it would be possible to verify the existence of such companies.
 
 = IP range search
@@ -3892,11 +3894,11 @@ todayoutdoors.com:
   * 174.123.172.82	United States	SOFTLAYER	2011-04-04. Tested.
 
 esmundonoticias.com:
-* https://dnshistory.org/historical-dns-records/a/esmundonoticias.com 2010-02-05 -> 2010-08-02 216.93.248.194. Tested viewdns.info range: 216.93.248.184 216.93.248.204
+* https://dnshistory.org/historical-dns-records/a/esmundonoticias.com 2010-02-05 -> 2010-08-02 216.93.248.194. Tested viewdns.info range: 216.93.248.184 216.93.248.204. https://viewdns.info/reverseip/?host=216.93.248.194&t=1 gives:
   * 216.93.248.194: coxsackielive.com 2012-06-29. No archives.
   * 216.93.248.194: datapakassociates.org 2012-04-27. No rachives.
-  * 216.93.248.194: easywebworld.net 2012-02-27. Broken: https://web.archive.org/web/20101229051406/http://easywebworld.net/
-  * 216.93.248.194: esmundonoticias.com 2012-01-11
+  * 216.93.248.194: easywebworld.net 2012-02-27. Broken: https://web.archive.org/web/20101229051406/http://easywebworld.net/[]."This Site Is Under Construction. Come Back Soon!" so seems legit
+  * 216.93.248.194: esmundonoticias.com 2012-01-11. Hit.
   * 216.93.248.194: kukrinews.com 2011-06-22. Hit.
     * https://dnshistory.org/historical-dns-records/a/kukrinews.com 2010-02-26 -> 2010-08-07 216.93.248.194
     * https://viewdns.info/iphistory/?domain=kukrinews.com 216.93.248.194	Malden - United States	TWDX	2011-06-22
@@ -5724,6 +5726,11 @@ wait
 ./hupo-wc.sh
 ``
 
+Count unique domains in the repos: 
+``
+( echo */*/*/* | xargs cat ) | sort -u | wc
+``
+
 The extracted data is present at:
 * https://archive.org/details/expired-domain-names-by-day
 * https://github.com/cirosantilli/expired-domain-names-by-day-* repos:
@@ -6051,8 +6058,92 @@ https://crt.sh/?q=globalnewsbulletin.com has a hit to: https://crt.sh/?id=774803
 
 Let's try another one for secure.altworldnews.com: https://search.censys.io/certificates/e88f8db87414401fd00728db39a7698d874dbe1ae9d88b01c675105fabf69b94[]. Nope, no direct mega hits here either.
 
+= JAR reverse engineering
+{parent=Communication mechanism}
+
+TODO it would be cool to have a look at the JARs and see if they have anything in common that makes for a good fringerprint. Would not help find new ones, but would help to confirm possible hits.
+
+https://web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar unzips to:
+``
+.
+./c
+./c/b
+./c/b/b.class
+./c/b/c.class
+./c/b/d.class
+./c/b/a
+./c/b/a/a.class
+./c/b/a/b.class
+./c/b/a/c.class
+./c/b/a/d.class
+./c/a
+./c/a/a.class
+./c/a/b.class
+./c/a/c.class
+./b
+./b/a
+./b/a/a
+./b/a/a/e.class
+./b/a/a/f.class
+./b/a/a/a.class
+./b/a/a/b.class
+./b/a/a/g.class
+./b/a/a/c.class
+./b/a/a/d.class
+./META-INF
+./META-INF/MANIFEST.MF
+./a
+./a/cre
+./a/a
+./a/a/b
+./a/a/b/a.class
+./a/a/a
+./a/a/a/e.class
+./a/a/a/applet.configs
+./a/a/a/b
+./a/a/a/b/e.class
+./a/a/a/b/f.class
+./a/a/a/b/b.class
+./a/a/a/b/g.class
+./a/a/a/b/c.class
+./a/a/a/b/d.class
+./a/a/a/b/a
+./a/a/a/b/a/a.class
+./a/a/a/b/a/b.class
+./a/a/a/b/a/c.class
+./a/a/a/c.class
+./a/a/a/d.class
+./a/a/a/a
+./a/a/a/a/a.class
+``
+so it is fully obfuscated.
+
+`./META-INF/MANIFEST.MF`
+``
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_17-b04 (Sun Microsystems Inc.)
+``
+
+Other files whose existence might help to fingerprint include:
+* `a/a/a/applet.configs`
+* empty `a/cre`
+
+A quick:
+``
+find . -type f | xargs strings | sort -u
+``
+does not reveal any obvious cryptography calls.
+
+https://web.archive.org/web/20110207204640/http://flyingtimeline.com/aircraft.jar is very similar looking. `META-INF/MANIFEST.MF` is identical:
+``
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_17-b04 (Sun Microsystems Inc.)
+``
+
 = JavaScript reverse engineering
-{parent=Reverse engineering}
+{parent=Communication mechanism}
 
 = JavaScript with SHAs
 {parent=JavaScript reverse engineering}
@@ -6308,6 +6399,204 @@ Let's also search the fortuitously timed <2013 DNS Census>.
 = Work log
 {c}
 {parent=CIA 2010 covert communication websites}
+
+Scrapped justdropped data, patched:
+``
++++ b/cia-2010-covert-communication-websites/cdx-post.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ # Post process the output of cdx.sh to enrich IDs even further, and reconstruct easier to Web Archive inspect domain names.
+-grep -P -e '([^,)]+)\)\/\1\.swf|\)/[^/]+.jar|([^,)]+),([^,)]+),([^,)]+)\)/cgi-bin/[^/]+\.cgi' "$1" |
+-  sed -r 's/\).*//' | awk -F, '{ printf("%s.%s\n", $2, $1) }' | uniq -c | awk '$1 == 1{ print $2 }' | tee $1.post
++grep -P -e '([^,)]+)\)\/\1\.swf|\)/[^/]+.jar|([^,)]+),([^,)]+),([^,)]+)\)/cgi-bin/[^/]+\.cgi' "$1"|
++  sed -r 's/\).*//' | awk -F, '{ printf("%s.%s\n", $2, $1) }' | uniq -c | awk '{ print $2 }' | tee $1.post
+``
+and then:
+``
+./hupo-cdx-tor.sh out 'news|headline|internationali|mondo|mundo|mondi|iran|today' 2006 2011
+``
+
+https://web.archive.org/web/20101226034643/http://newsdelivered.net/[2010]. https://web.archive.org/web/20101226034643oe_/http://newsdelivered.net/tours.jar[JAR unarchived]. rss, split image
+* https://viewdns.info/iphistory/?domain=newsdelivered.net says:
+  * 192.96.218.41	United States	123NET	2013-06-10
+  * 196.40.84.210	Costa Rica	RADIOGRAFICA COSTARRICENSE	2013-05-20
+  * 50.63.202.40	United States	AS-26496-GO-DADDY-COM-LLC	2013-04-08
+  * 74.220.207.158	United States	UNIFIEDLAYER-AS-1	2013-03-11. https://viewdns.info/reverseip/?host=74.220.207.158&t=1 says large virtual.
+
+https://web.archive.org/web/20100513190714/http://latinamericanewsbeat.com/[2010]. https://web.archive.org/web/20110201000000*/http://latinamericanewsbeat.com/today.jar[JAR]. Split header.
+* https://viewdns.info/iphistory/?domain=latinamericanewsbeat.com says:
+  * 184.168.221.34	United States	AS-26496-GO-DADDY-COM-LLC	2013-03-23
+  * 74.91.172.195	United States	INTERNAP-BLOCK-4	2012-11-12
+  * 76.162.90.179	United States	WINDSTREAM	2011-09-08. https://viewdns.info/reverseip/?host=76.162.90.179&t=1 says small virtual? Explored 76.162.90.174 - 76.162.90.183.
+
+https://web.archive.org/web/20101229090625/http://globalinvestmentnews.net/[2010]. https://web.archive.org/web/20101229090847/http://globalinvestmentnews.net/ginews.jar[JAR]. rss, split headers.
+* https://viewdns.info/iphistory/?domain=globalinvestmentnews.net says:
+  * 50.63.202.75	United States	AS-26496-GO-DADDY-COM-LLC	2013-01-01
+  * 212.209.90.74	Sweden	UUNET	2012-11-20. In range.
+
+https://web.archive.org/web/20110201180802/http://inkfreenews.com/[2011]. https://web.archive.org/web/20110201180802oe_/http://inkfreenews.com/break.jar[JAR unarchived]. Split header.
+* https://viewdns.info/iphistory/?domain=inkfreenews.com says:
+  * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2012-09-21
+  * 128.121.9.46	United States	NTT-LTD-2914	2012-06-29. Reverse empty. Checked: 128.121.9.43 - 128.121.9.53
+
+https://web.archive.org/web/20110201212849/http://technologypresstoday.com/[2011]. https://web.archive.org/web/20110201212907/http://www.technologypresstoday.com/online.jar[JAR]. Farsi. RSS, split images.
+* https://viewdns.info/iphistory/?domain=technologypresstoday.com says 72.13.93.206	Santa Clara - United States	EGIHOSTING	2012-01-11. https://viewdns.info/reverseip/?host=72.13.93.206&t=1 says large virtual.
+* https://dnshistory.org/dns-records/technologypresstoday.com says empty
+
+https://web.archive.org/web/20110128181622/http://profile-news.com/[2011]. https://web.archive.org/web/20110128181907/http://profile-news.com/speedtest.jar[JAR]. a.newslink, a.newslinkalt.
+* https://viewdns.info/iphistory/?domain=profile-news.com says:
+  * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2012-06-29
+  * 199.204.248.105	United States	WEBINT	2012-01-11. https://viewdns.info/reverseip/?host=199.204.248.105&t=1 says large virtual.
+  * 205.214.86.38	United States	DATABANK-LATISYS	2011-08-11. https://viewdns.info/reverseip/?host=205.214.86.38&t=1 says small virtual.
+
+https://web.archive.org/web/20110207210023/http://nejadnews.com/[2011]. Arabic. RSS.
+
+https://web.archive.org/web/20110129115400/http://kmirano.com/ shallow but off style? Has a kmirano.sfw... https://viewdns.info/iphistory/?domain=kmirano.com says 211.1.224.71
+
+https://web.archive.org/web/20110208191615/http://wiredworldnews.com/[2011]. https://web.archive.org/web/20110208191739/http://wiredworldnews.com/development.jar[JAR]. Copyright 2008. Split header and other images. They are obsessed about CDMA (2G).
+* https://viewdns.info/iphistory/?domain=wiredworldnews.com says:
+  * 69.89.237.152	United States	RINGSQUARED	2012-01-11. Empty.
+  * 67.213.209.10	Atlanta - United States	UK-2 Limited	2011-04-04. Virtual.
+
+https://web.archive.org/web/20110202221408/http://the-news-scene.com/[2011]. https://web.archive.org/web/20110202221510/http://the-news-scene.com/world.jar[JAR]. split header, RSS.
+* https://viewdns.info/iphistory/?domain=the-news-scene.com says 74.81.69.194	United States	NTHL	2012-01-11. https://viewdns.info/reverseip/?host=74.81.69.194&t=1 says virtual.
+
+https://web.archive.org/web/20090420131359/http://fastnews-online.com/[2009]. https://web.archive.org/web/20110202145441/http://fastnews-online.com/worldnews.jar[JAR]. a.newslink / a.newslinkalt.
+* https://viewdns.info/iphistory/?domain=fastnews-online.com says 208.93.112.105	United States	TULIP-SYSTEMS	2012-03-03. https://viewdns.info/reverseip/?host=208.93.112.105&t=1 says not virtual... let's fucking go explored: 208.93.112.90 - 208.93.112.125
+  * 208.93.112.101: cketnews.com: https://web.archive.org/web/20070612034201/http://cketnews.com/[]. Archives from 2007 and off style.
+  * 208.93.112.105: fastnews-online.com: Hit.
+  * 208.93.112.106: travelxtreme.net: Hit. https://web.archive.org/web/20080314234452/http://travelxtreme.net/[2008]
+  * 208.93.112.108: https://web.archive.org/web/20130704042538/http://nbanewsroundup.com/[2013]. https://members.nbanewsroundup.com/cgi-bin/subscriber.cgi[CGI] but quite broken with only HTML archived in 2013, but links to unarchived: https://members.nbanewsroundup.com/cgi-bin/subscriber.cgi[] so let's count.
+  * 208.93.112.110: luxuryfive.net: no archives
+  * 208.93.112.111: topfootballnewsonline.com: no archives
+  * 208.93.112.112: todaysportscores.com: no archives
+  * 208.93.112.113: mostefficientself.com: no archives
+  * 208.93.112.114: dynamicworldnews.com: no archives
+  * 208.93.112.116: gazingvoyage.com: no archives
+  * 208.93.112.123: garundipost.com: no archives
+  * 208.93.112.125: theradioamateurs.com: no archives
+
+https://web.archive.org/web/20110201122747/http://purlicue-news.com/[2011]. https://web.archive.org/web/20110201122820/http://purlicue-news.com/netspeed.jar[JAR]. RSS, split header.
+* https://viewdns.info/iphistory/?domain=purlicue-news.com says 69.65.49.32	United States	ASN-GIGENET	2012-01-11. https://viewdns.info/reverseip/?host=69.65.49.32&t=1 says virtual.
+
+https://web.archive.org/web/20100528104248/http://eqranews.com/[2010]. Suspicious. But no clear fingrenprint. Also not as shallow as others. Also Joomla based which would be novel.
+* https://viewdns.info/iphistory/?domain=eqranews.com says:
+  * 69.64.147.243	United States	RIGHTSIDE	2012-03-03
+  * 67.228.81.180	Seattle - United States	SOFTLAYER	2011-04-04
+
+https://web.archive.org/web/20100515102926/http://magneticfieldnews.com/[2010]. https://web.archive.org/web/20100515103300/http://magneticfieldnews.com/science.jar[JAR].
+* https://viewdns.info/iphistory/?domain=magneticfieldnews.com says 173.205.124.151	United States	IMH-IAD	2012-01-11. https://viewdns.info/reverseip/?host=173.205.124.151&t=1 says large-ish virtual.
+* https://dnshistory.org/dns-records/magneticfieldnews.com empty
+
+https://web.archive.org/web/20110131054130/http://segomonews.com/[2011]. https://web.archive.org/web/20110131054332/http://segomonews.com/myjar.jar[JAR]. RSS, Split header images.
+* https://viewdns.info/iphistory/?domain=segomonews.com 204.13.11.6	United States	KATTARE	2012-01-11. https://viewdns.info/reverseip/?host=204.13.11.6&t=1 says virtual.
+* https://dnshistory.org/historical-dns-records/a/segomonews.com same
+
+http://newspapergateway.com/ very broken so hard to tell but generally off.
+
+https://web.archive.org/web/20110106212939/http://pondernews.net/[2011] Farsi. https://web.archive.org/web/20111021233539*/http://pondernews.net/reports.jar[JAR]. RSS.
+* https://dnshistory.org/dns-records/pondernews.net nothing
+* https://viewdns.info/iphistory/?domain=pondernews.net[]. privatesystems.net.
+  * 68.178.232.100	United States	AS-26496-GO-DADDY-COM-LLC	2011-11-28
+  * 67.222.6.108	Atlanta - United States	PRIVATESYSTEMS	2011-10-31. Virtual. Also here on very quick look at promising names:
+
+    * https://web.archive.org/web/20100517070603/http://middle-east-newstoday.com/ Only at that IP. https://web.archive.org/web/20100517070625/http://middle-east-newstoday.com/kurds.js[JS].
+
+https://web.archive.org/web/20091209022355/http://thefreshnews.com/ header split in 2. https://web.archive.org/web/20110202152749/http://thefreshnews.com/thefreshnews.swf[SWF].
+* https://viewdns.info/iphistory/?domain=thefreshnews.com says
+  107.20.206.69	Ashburn - United States	AMAZON-AES	2013-12-20
+  216.38.198.64	Highlands Ranch - United States	ASN-VINS	2013-09-26
+  107.20.206.69	Ashburn - United States	AMAZON-AES	2013-09-06
+  74.254.12.173	Atlantic Beach - United States	BELLSOUTH-NET-BLK	2011-08-11.
+
+https://web.archive.org/web/20100514160029/http://localtoglobalnews.com/[2010] https://web.archive.org/web/20110203005520*/http://localtoglobalnews.com/news.jar[JAR]. Split header, rss.
+* https://viewdns.info/iphistory/?domain=localtoglobalnews.com says 212.4.17.160	Fidenza - Italy	UUNET	2011-06-22. TODO we need to check out all of 2012.4.17.*.
+
+https://web.archive.org/web/20110202031020/http://internationalnewsworthiness.com/[2011]. English. Split header, RSS.
+* https://viewdns.info/iphistory/?domain=internationalnewsworthiness.com says 216.86.153.116	United States	STEADFAST	2011-04-04. Checking 216.86.153.106 - 216.86.153.125
+  * https://viewdns.info/reverseip/?host=216.86.153.114&t=1 big virtual
+  * https://viewdns.info/reverseip/?host=216.86.153.116&t=1 says it became a medium virtual
+* https://dnshistory.org/dns-records/internationalnewsworthiness.com empty
+
+https://web.archive.org/web/20110202091919/http://irankhodro3026.com/ don't think it's a hit, too many SWFs
+
+sandstormnews.com https://web.archive.org/web/20110208085035/http://sandstormnews.com/[2011], https://web.archive.org/web/20110208085820/http://sandstormnews.com/sandstormnews.swf[SWF] Arabic. `ul.rss-items > li.rss-item`, split header
+
+zerosandonesnews.com https://web.archive.org/web/20110209083732/http://zerosandonesnews.com/[2011]. https://web.archive.org/web/20110209084342/http://zerosandonesnews.com/zerosandonesnews.swf[SWF] Split header, `ul.rss-items > li.rss-item`
+* https://viewdns.info/iphistory/?domain=zerosandonesnews.com empty
+* https://dnshistory.org/dns-records/zerosandonesnews.com empty
+
+differentviewtoday.com: https://web.archive.org/web/20110202185635/http://differentviewtoday.com/ split header images JAR archived at: https://web.archive.org/web/20110202185659/http://differentviewtoday.com/bwm.jar
+* https://viewdns.info/iphistory/?domain=differentviewtoday.com empty
+* https://dnshistory.org/dns-records/differentviewtoday.com
+* JAR tree:
+  ``
+  inflating: META-INF/MANIFEST.MF    
+  inflating: c/b/c.class             
+  inflating: c/b/b.class             
+  inflating: c/b/a.class             
+  inflating: c/a/d.class             
+  inflating: c/a/e.class             
+  inflating: c/a/b.class             
+  inflating: c/a/a/d.class           
+  inflating: c/a/a/b.class           
+  inflating: c/a/a/a.class           
+  inflating: c/a/a/c.class           
+  inflating: c/a/c.class             
+  inflating: b/a/a/b.class           
+  inflating: b/a/a/c.class           
+  inflating: b/a/a/a.class           
+  inflating: b/a/b/a.class           
+  inflating: b/a/b/b.class           
+  inflating: b/a/b/c.class           
+  inflating: b/a/b/d.class           
+  inflating: b/a/b/e.class           
+  inflating: b/a/c.class             
+  inflating: a/a.class               
+  inflating: b/a/bw.properties
+  ``
+  with:
+  ``
+  META-INF/MANIFEST.MF
+  Manifest-Version: 1.0
+  Ant-Version: Apache Ant 1.6.5
+  Created-By: 1.5.0_12-b04 (Sun Microsystems Inc.)
+  ``
+
+lasthournews.com https://web.archive.org/web/20100513182623/http://lasthournews.com/[]. Urdu. JAR at: https://web.archive.org/web/20100513182724/http://lasthournews.com/recent.jar[]. Split header images.
+* https://viewdns.info/iphistory/?domain=lasthournews.com no relevant IPs on 
+* https://dnshistory.org/historical-dns-records/a/lasthournews.com mentions 2010-02-27 -> 2010-08-07 216.93.248.194
+* This Jar is a bit different, contains `/resource/resources.bin`, `./bulletin/News.class` and files 
+
+  ``
+  ./bulletin/A.class 
+  ./bulletin/Aa.class
+  ./bulletin/Ab.class
+  ./bulletin/Ac.class
+  ``
+
+  `./META-INF/MANIFEST.MF`
+  ``
+  Manifest-Version: 1.0
+  Ant-Version: Apache Ant 1.6.5
+  Created-By: 1.4.2_15-b02 (Sun Microsystems Inc.)
+  ``
+
+globalcitizennews.net https://web.archive.org/web/20101229090542/http://globalcitizennews.net/[] `ul.rss-items > li.rss-item`. JAR: https://web.archive.org/web/20101229090704/http://globalcitizennews.net/news.jar consistent with <JAR reverse engineering>.
+* https://viewdns.info/iphistory/?domain=globalcitizennews.net
+  * 204.11.56.26	British Virgin Islands	CONFLUENCE-NETWORK-INC	2014-09-01
+  * 204.176.38.133	United States	UUNET	2013-07-08. This falls in an existing range, we just didn't get before it because of the viewdns.info bug.
+
+mynepalnews.com, split header images, `ul.rss-items > li.rss-item`, Unarchived jar: /web/20110203000411oe_/http://mynepalnews.com/nepali.jar
+* https://viewdns.info/iphistory/?domain=mynepalnews.com
+  * 5.9.240.230	Falkenstein - Germany	Hetzner Online GmbH	2014-01-31
+  * 142.4.222.67	Canada	OVH SAS	2013-12-20
+  * 72.9.137.7	Nepal	WorldLink Communications Pvt Ltd	2013-06-30. Big virtual.
+  * 64.71.179.79	United States	HURRICANE	2012-11-12. Nothing else on 64.71.179.71 - 64.71.179.89
+
+* https://web.archive.org/web/20111008211517/http://elgintoday.com/ wordpress so unlikely
+  * 50.63.202.88	United States	AS-26496-GO-DADDY-COM-LLC	2014-02-21
+  * 97.74.249.128 	United States	AS-26496-GO-DADDY-COM-LLC	2014-01-11 big virtual
 
 = Wakatime redirects
 {c}

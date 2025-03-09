@@ -6,7 +6,7 @@ outdir=tmp/hupo-zip
 rm -rf "$outdir"
 mkdir -p "$outdir"
 cd "$outdir"
-from="${1:-2011}"
+from="${1:-2006}"
 to="${2:-2099}"
 ls -1 "$indir" | awk -F- '{ print $1 }' | uniq | while IFS= read -r year; do
   if [ "$year" -ge "$from" ] && [ "$year"  -le "$to" ]; then
