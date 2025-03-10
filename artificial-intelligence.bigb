@@ -741,20 +741,54 @@ Published as: https://arxiv.org/pdf/2304.03442.pdf Generative Agents: Interactiv
 {parent=Large language model}
 {tag=Open source software}
 
-= Ollama
+= Open weight LLM model
 {c}
 {parent=Open source LLM}
 
+= Llama
+{disambiguate=language model}
+{parent=Open weight LLM model}
+{tag=Software developed by Facebook}
+{wiki}
+
+Homepage: https://www.llama.com/
+
+= Llama
+{synonym}
+
+= Llama2
+{parent=Llama (language model)}
+{title2=2023}
+
+Page: https://www.llama.com/llama2/
+
+= Llama2 7B
+{parent=Llama2}
+
+= Ollama
+{c}
+{parent=Open source LLM}
+{tag=Good}
+
 https://github.com/jmorganca/ollama
 
-Highly automated wrapper for various <open source> <LLMs>.
+<Ollama> is a highly automated open source wrapper that makes it very easy to run multiple <open weight LLM models> either on <CPU> or <GPU>.
 
+Its README alone is of great value, serving as a fantastic list of the most popular <open weight LLM models> in existence.
+
+Install with:
 ``
 curl https://ollama.ai/install.sh | sh
+``
+
+The below was tested on Ollama 0.1.14 from December 2013.
+
+Download <llama2 7B> and open a prompt:
+``
 ollama run llama2
 ``
 
-And bang, a download later, you get a prompt. On <Ciro Santilli's Hardware/P14s> it runs on <CPU> and generates a few tokens at a time, which is quite usable for a quick interactive play.
+On <Ciro Santilli's Hardware/P14s> it runs on <CPU> and generates a few tokens per second, which is quite usable for a quick interactive play.
 
 As mentioned at https://github.com/jmorganca/ollama/blob/0174665d0e7dcdd8c60390ab2dd07155ef84eb3f/docs/faq.md the downloads to under `/usr/share/ollama/.ollama/models/` and <ncdu> tells me:
 ``
@@ -774,16 +808,15 @@ which gave me:
 0.13user 0.17system 2:06.32elapsed 0%CPU (0avgtext+0avgdata 17280maxresident)k
 0inputs+0outputs (0major+2203minor)pagefaults 0swaps
 ``
-but note that there is a random seed that affects each run by default.
+but note that there is a random seed that affects each run by default. This was apparently fixed however: https://github.com/ollama/ollama/issues/2773[], but <Ciro Santilli> doesn't know how to set the seed.
 
-Some other quick benchmarks from <Amazon EC2 GPU>, on <Nvidia T4>:
+Some other quick benchmarks from <Amazon EC2 GPU> on a <g4nd.xlarge> instance which had an <Nvidia Tesla T4>:
 ``
 0.07user 0.05system 0:16.91elapsed 0%CPU (0avgtext+0avgdata 16896maxresident)k
 0inputs+0outputs (0major+1960minor)pagefaults 0swaps
 ``
-On <Nvidia A10G>:
+and on <Nvidia A10G> in an <g5.xlarge> instance:
 ``
-
 0.03user 0.05system 0:09.59elapsed 0%CPU (0avgtext+0avgdata 17312maxresident)k
 8inputs+0outputs (1major+1934minor)pagefaults 0swaps
 ``

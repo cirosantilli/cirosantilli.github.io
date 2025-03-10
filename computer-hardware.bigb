@@ -1664,7 +1664,7 @@ As of December 2023, the cheapest instance with an <Nvidia GPU> is <g4nd.xlarge>
 ``
 00:1e.0 3D controller: NVIDIA Corporation TU104GL [Tesla T4] (rev a1)
 ``
-TODO meaning of "nd"? "n" presumably means <Nvidia>, but what is the "d"?
+so we see that it runs a <Nvidia T4> GPU.
 
 Be careful not to confuse it with <g4ad.xlarge>, which has an <AMD GPU> instead. TODO meaning of "ad"? "a" presumably means <AMD>, but what is the "d"?
 
@@ -1717,7 +1717,7 @@ If we start from the raw <Ubuntu 22.04>, first we have to install drivers:
 * https://askubuntu.com/questions/1109662/how-do-i-install-cuda-on-an-ec2-ubuntu-18-04-instance
 * https://askubuntu.com/questions/1397934/how-to-install-nvidia-cuda-driver-on-aws-ec2-instance
 
-From basically everything should just work as normal. E.g. we were able to run a <CUDA hello world> just fine along:
+From there basically everything should just work as normal. E.g. we were able to run a <CUDA hello world> just fine along:
 ``
 nvcc inc.cu
 ./a.out
@@ -1725,7 +1725,7 @@ nvcc inc.cu
 
 One issue with this setup, besides the time it takes to setup, is that you might also have to pay some network charges as it downloads a bunch of stuff into the instance. We should try out some of the pre-built images. But it is also good to know this pristine setup just in case.
 
-Some stuff we then managed to run:
+We then managed to run <Ollama> just fine with:
 ``
 curl https://ollama.ai/install.sh | sh
 /bin/time ollama run llama2 'What is quantum field theory?'
@@ -1803,6 +1803,8 @@ Large but ephemeral storage for EC2 instances. Predetermined by the <EC2 instanc
 {c}
 {parent=Amazon Elastic Compute Cloud}
 
+<Amazon>'s informtion about their own intances is so bad and non-public that this was created: https://instances.vantage.sh/
+
 = g4ad.xlarge
 {c}
 {parent=EC2 instance type}
@@ -1813,13 +1815,21 @@ Large but ephemeral storage for EC2 instances. Predetermined by the <EC2 instanc
 {c}
 {parent=EC2 instance type}
 
-<Nvidia T4> GPUs as mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+1 <Nvidia T4> GPU, 4 <vCPU>[vCPUs].
+
+Mentioned at: https://aws.amazon.com/ec2/instance-types/g4/
+
+TODO meaning of "nd"? "n" presumably means <Nvidia>, but what is the "d"? Compare it <g4ad.xlarge> which has AMD GPUs. https://aws.amazon.com/ec2/instance-types/g4/ mentions:
+> G4 instances are available with a choice of NVIDIA GPUs (G4dn) or AMD GPUs (G4ad).
+
+Price:
+* 2025-03-10: 0.526 USD / Hour
 
 = g5.xlarge
 {c}
 {parent=EC2 instance type}
 
-<Nvidia A10G> GPU, 4 <vCPU>[vCPUs].
+1 <Nvidia A10G> GPU, 4 <vCPU>[vCPUs].
 
 = Alibaba Cloud
 {c}
@@ -2759,19 +2769,64 @@ Open source <driver (software)>/hardware interface specification??? E.g. on <Ubu
 {c}
 {parent=Nvidia}
 
-= Nvidia Tesla
+The list: https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_unit
+
+= Nvidia GPU feature
+{c}
+{parent=Nvidia GPU}
+{wiki}
+
+= Nvidia tensor core
+{parent=Nvidia GPU feature}
+
+Bibliography:
+* https://developer.nvidia.com/blog/programming-tensor-cores-cuda-9/
+
+= Nvidia compute GPU
 {c}
 {parent=Nvidia GPU}
 {tag=GPGPU}
 {wiki}
 
+This section is about <Nvidia> GPUs that are focused on compute rather than rendering.
+
+Until 2020 these were branded as <Nvidia Tesla>, but then <Nvidia> dropped that brand due to confusion with the <#Tesla Inc.> the car maker.https://wccftech.com/nvidia-drops-tesla-brand-to-avoid-confusion-with-tesla/{ref}.
+
+= Nvidia Tesla
+{c}
+{parent=Nvidia compute GPU}
+{tag=GPGPU}
+{title2=2007-2020}
+{wiki}
+
+= List of Nvidia compute GPUs
+{parent=Nvidia compute GPU}
+
 = Nvidia T4
 {c}
-{parent=Nvidia Tesla}
+{parent=List of Nvidia compute GPUs}
+{title2=2018}
+{title2=65 TFLOPS}
+{title2=16 GB mem}
+
+= Nvidia Tesla T4
+{synonym}
+
+Official page: https://www.nvidia.com/en-gb/data-center/tesla-t4/
+
+According to https://wccftech.com/nvidia-drops-tesla-brand-to-avoid-confusion-with-tesla/ this was the first card that semi-dropped the "<Nvidia Tesla>" branding, though it is still visible in several places.
+
+= Nvidia A10
+{parent=List of Nvidia compute GPUs}
+
+Official page: https://www.nvidia.com/en-gb/data-center/products/a10-gpu/
 
 = Nvidia A10G
 {c}
-{parent=Nvidia Tesla}
+{parent=Nvidia A10}
+
+According to https://www.baseten.co/blog/nvidia-a10-vs-a10g-for-ml-model-inference/ the <Nvidia A10G> is a variant of the <Nvidia A10> created specifically for <AWS>. As such there isn't much information publicly available about it.
+> the A10 prioritizes tensor compute, while the A10G has a higher CUDA core performance
 
 = Qualcomm
 {c}
