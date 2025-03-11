@@ -257,17 +257,16 @@ https://modelzoo.co/
 
 https://github.com/activatedgeek/LeNet-5
 
-Good packaging!
+This repository contains a very clean minimal <PyTorch> implementation oof <LeNet-5>.
 
-Install on <Ubuntu 22.10> with:
+Install on <Ubuntu 24.10> with:
 ``
+sudo apt install protobuf-compiler
 git clone https://github.com/activatedgeek/LeNet-5
 cd LeNet-5
 git checkout 95b55a838f9d90536fd3b303cede12cf8b5da47f
 virtualenv -p python3 .venv
 . .venv/bin/activate
-
-# Their requirements.txt uses >= and some == are incompatible with our Ubuntu.
 pip install \
   Pillow==6.2.0 \
   numpy==1.24.2 \
@@ -277,9 +276,10 @@ pip install \
   visdom==0.2.4 \
 ;
 ``
-On <Ubuntu 24.10> we need to update the dependencies a bit because <Python> minor versions keep fucking breaking backward compatibility so nothing worked anymore:
+We use our own `pip install` because their requirements.txt uses `>=` instead of `==` making it random if things will work or not.
+
+On <Ubuntu 22.10> it was instead:
 ``
-sudo apt install protobuf-compiler
 pip install
   Pillow==6.2.0 \
   numpy==1.26.4 \
@@ -289,7 +289,7 @@ pip install
 ;
 ``
 
-Run with:
+Then run with:
 ``
 python run.py
 ``
@@ -334,7 +334,7 @@ output = self.c3(output)
 ``
 This doesn't seem to conform to the original <LeNet-5> however?
 }
-{height=800}
+{height=1200}
 
 = activatedgeek/LeNet-5 use ONNX for inference
 {parent=activatedgeek LeNet-5}
