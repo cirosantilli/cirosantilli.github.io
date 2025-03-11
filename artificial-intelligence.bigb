@@ -880,6 +880,11 @@ This was the Holy Grail as of 2023, when <text-to-image> started to really take 
 {parent=AI researcher}
 {wiki}
 
+The most classic thing he did perhaps was creating the <LeNet> <neural network> and using it on the <MNIST> dataset to recognize hand-written digits circ 1998.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/8/8e/Laura_Chaubard_%26_Yann_Le_Cun_-_2024_%2853814052697%29_%28cropped%29.jpg]
+{title=<Yann LeCun>}
+
 = Yohei Nakajima
 {c}
 {parent=AI researcher}
@@ -1550,6 +1555,60 @@ so what's that point of "Open" in the name anymore??
 {parent=OpenAI project}
 
 https://github.com/openai/gym
+
+Development ceased and was taken up by a not-for-profit as <Farama Gymnasium>.
+
+= Farama Gymnasium
+{c}
+{parent=OpenAI Gym}
+
+https://github.com/Farama-Foundation/Gymnasium
+
+<OpenAI Gym>
+
+gymnasium==1.1.1 just worked on <Ubuntu 24.10>:
+``
+sudo apt install swig
+``
+then from a <virtualenv>:
+``
+pip install "gymnasium[all]"
+``
+then the hello world:
+``
+import gymnasium as gym
+
+env = gym.make("LunarLander-v3", render_mode="human")
+observation, info = env.reset()
+episode_over = False
+while not episode_over:
+    action = env.action_space.sample()
+    observation, reward, terminated, truncated, info = env.step(action)
+    episode_over = terminated or truncated
+env.close()
+``
+just works and opens a game window.
+
+\Video[https://web.archive.org/web/20250225114240im_/https://gymnasium.farama.org/_images/lunar_lander.gif]
+{title=Lunar Lander environemnt of <Farama Gymnasium>}
+
+To actually play the games manually with keyboard, you need to define your own keybindings. Feature request for default keybindings: https://github.com/Farama-Foundation/Gymnasium/discussions/1330
+
+There is no <C> API, you have to go through <Python>: https://github.com/Farama-Foundation/Gymnasium/discussions/1181[]. Shame.
+
+= Farama Gymnasium solutions
+{parent=Farama Gymnasium}
+
+It would be cool if they maintained their own list!
+
+https://github.com/DLR-RM/rl-baselines3-zoo seems to contain some implementations.
+
+= Farama Foundation
+{parent=Farama Gymnasium}
+
+https://farama.org/
+
+Not-for profit that took up <OpenAI Gym> maintenance after <OpenAI> dropped it.
 
 = Implications of AGI
 {c}

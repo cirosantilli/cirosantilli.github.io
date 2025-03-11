@@ -990,6 +990,17 @@ How they are assigned: https://www.quora.com/How-are-MAC-addresses-assigned Basi
 {c}
 {parent=Domain Name System}
 
+A "<DNS database>" is a database that stores DNS records, notably A-records, which IP a domains is hosted at.
+
+For currently live domains, domain to IP can of course be easily determined on the fly by just resolving the domain like the browser does, e.g. 
+``
+cirosantilli.com
+``
+
+What is hard however is:
+* the other way around is harder however: given an IP, list all domains that it hosts. This is known as "reverse IP" searching.
+* historic data, i.e. what was the IP for a given domain at a given date and vice versa
+
 As of 2023, working with DNS data is just going through a mish-mash of closed datasets/expensive APIs.
 
 We really need some open data in that area.
@@ -997,6 +1008,30 @@ We really need some open data in that area.
 * https://opendata.stackexchange.com/questions/2110/domain-name-system-record-a-database
 * https://webmasters.stackexchange.com/questions/33395/find-the-ip-address-of-expired-domains/142751#142751
 * https://superuser.com/questions/686195/how-to-find-the-last-ip-used-for-an-expired-domain-name/1793224#1793224
+
+Some links of interest:
+* https://bushart.org/topic/ip
+* https://archive.org/details/internet-mapping
+* https://stackoverflow.com/questions/307553/possible-to-download-entire-whois-database-list-of-registered-domains (deleted question, see archives)
+* https://www.reversedns.ch/en/ has some OK reverse IPs, but you have to do them one by one with CAPTCHA, and we were already past that point when that source was found, so nothing new was found on it yet
+* https://iphistory.net/ announced at https://www.reddit.com/r/OSINT/comments/1bip8j7/iphistorynet_find_historic_ip_addresses_from/
+
+Bibliography:
+8 https://www.reddit.com/r/OSINT/comments/1j8uasm/does_domaintools_offer_historical_reverse_ip_ie/ by <Ciro Santilli>
+* https://www.reddit.com/r/OSINT/comments/ne27qi/really_historical_whois/
+
+= DomainTools
+{c}
+{parent=DNS database}
+
+TODO is their database amazing?
+
+TODO do they offer <DomainTools historical reverse IP>[historical reverse IP]?
+
+= DomainTools historical reverse IP
+{parent=DomainTools}
+
+https://www.reddit.com/r/OSINT/comments/1j8uasm/does_domaintools_offer_historical_reverse_ip_ie/
 
 = Carna botnet
 {c}
@@ -1015,6 +1050,33 @@ Some interesting analysis by Parth Shukla https://twitter.com/pparth[] | https:/
 * https://conference.apnic.net/data/36/2013-08-27-apnic-xian-carna-botnet_1377569266.pdf
 * https://www.scribd.com/document/516984589/Internet-Census-2012-Parth-Shukla-Thesis TODO pdf?
 Apparently most of the routers were <Chinese>. No surprise there.
+
+= viewdns.info
+{c}
+{parent=DNS database}
+{title2=2010-}
+
+https://viewdns.info
+
+This is the most accessible <DNS database> online, as it does not require login or payment.
+
+They have reasonable data. It's not fully complete as <Ciro Santilli> saw on <CIA 2010 covert communication websites>, but it is very valuable.
+
+Tested as of 2025, they seem to have removed the pre-IP checks on web interface, and just instead use #Cloudfare to check that you are human from time to time, which allows for a lot manual searching to be done! Awesome!
+
+Previously, tou could only get about 250 queries on the web interface, then 250 queries per free account via API. They check your IP when you signup, and you can't sign in twice from the same IP. They also state that Tor addresses are blacklisted. They also normalize dots in gmail addresses, so you need more diverse email accounts. But they haven't covered the `.gmail` vs `.googlemail` trick.
+
+Their data is also quite disjoint from the data of the <2013 DNS Census>. There is some overlap, but clearly their methodology is very different. Some times they slot into one another almost perfectly. 
+
+= viewdns.info reverse IP bug
+{parent=viewdns.info}
+
+Very curiously, their reverse IP search appears to be somewhat broken, or not to be historic, e.g.
+* https://viewdns.info/iphistory/?domain=vuvuzelanews.com hits 74.116.72.246 in 2011, later moved to others
+* https://viewdns.info/reverseip/?host=74.116.72.246&t=1 however does not contain `vuvuzelanews.com`
+We've contacted viewdns.info support and they replied:
+> The reverse IP tool will only show a domain if that is it's current IP address.
+This is likely not accurate, more precisely it likely only works if it was the last IP address, not necessarily a current one.
 
 = ipinf.ru
 {c}

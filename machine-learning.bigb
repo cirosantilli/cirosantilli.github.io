@@ -152,11 +152,17 @@ https://stats.stackexchange.com/questions/19048/what-is-the-difference-between-t
 = Training data set
 {parent=Training, validation, and test data sets}
 
+= Training data
+{synonym}
+
 = Validation data set
 {parent=Training, validation, and test data sets}
 
 = Test data set
 {parent=Training, validation, and test data sets}
+
+= Test data
+{synonym}
 
 = Training and inference
 {parent=Supervised learning}
@@ -239,6 +245,7 @@ https://modelzoo.co/
 {title2}
 
 \Image[https://upload.wikimedia.org/wikipedia/commons/c/cc/Comparison_image_neural_networks.svg]
+{height=600}
 
 = LeNet implementation
 {c}
@@ -250,7 +257,9 @@ https://modelzoo.co/
 
 https://github.com/activatedgeek/LeNet-5
 
-Good packaging! Tested on <Ubuntu 22.10>:
+Good packaging!
+
+Install on <Ubuntu 22.10> with:
 ``
 git clone https://github.com/activatedgeek/LeNet-5
 cd LeNet-5
@@ -259,7 +268,7 @@ virtualenv -p python3 .venv
 . .venv/bin/activate
 
 # Their requirements.txt uses >= and some == are incompatible with our Ubuntu.
-pip install
+pip install \
   Pillow==6.2.0 \
   numpy==1.24.2 \
   onnx==1.13.1 \
@@ -267,21 +276,50 @@ pip install
   torchvision==0.15.1 \
   visdom==0.2.4 \
 ;
-
-time python run.py
 ``
-This throws a billion exceptions because we didn't start the visdom server, but never mind that.
+On <Ubuntu 24.10> we need to update the dependencies a bit because <Python> minor versions keep fucking breaking backward compatibility so nothing worked anymore:
+``
+sudo apt install protobuf-compiler
+pip install
+  Pillow==6.2.0 \
+  numpy==1.26.4 \
+  onnx==1.17.0 torch==2.6.0 \
+  torchvision==0.21.0 \
+  visdom==0.2.4 \
+;
+``
 
-The scrip does a fixed 15 <epoch (deep learning)>[epochs].
+Run with:
+``
+python run.py
+``
+This script:
+* does a fixed 15 <epoch (deep learning)>[epochs] on the <training data>
+* it then uses the trained net from memory to check accuracy with the <test data>
+* then it also produces a `lenet.onnx` <ONNX> file which contains the trained network, nice!
+It throws a billion exceptions because we didn't start the Visdom server, but everything works nevertheless, we just don't get a visualization of the training.
 
-Output on <Ciro Santilli's hardware/P51>:
+The terminal outputs lines such as:
+``
+Train - Epoch 1, Batch: 0, Loss: 2.311587
+Train - Epoch 1, Batch: 10, Loss: 2.067062
+Train - Epoch 1, Batch: 20, Loss: 0.959845
+...
+Train - Epoch 1, Batch: 230, Loss: 0.071796
+Test Avg. Loss: 0.000112, Accuracy: 0.967500
+...
+Train - Epoch 15, Batch: 230, Loss: 0.010040
+Test Avg. Loss: 0.000038, Accuracy: 0.989300
+``
+
+And the runtime on <Ubuntu 22.10>, <Ciro Santilli's hardware/P51> was:
 ``
 real    2m10.262s
 user    11m9.771s
 sys     0m26.368s
 ``
 
-The run also produces a `lenet.onnx` <ONNX> file, which is pretty neat, and allows us for example to visualize it on <Netron>:
+One of the benefits of the <ONNX> output is that we can nicely visualize the <neural network> on <Netron>:
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/e9225ddf4bb8ce4bad8cc2a9d6503d683dec5db6/activatedgeek_LeNet-5_onnx.svg]
 {title=<Netron> visualization of the <activatedgeek LeNet-5> <ONNX> output}
@@ -296,23 +334,24 @@ output = self.c3(output)
 ``
 This doesn't seem to conform to the original <LeNet-5> however?
 }
+{height=800}
 
 = activatedgeek/LeNet-5 use ONNX for inference
 {parent=activatedgeek LeNet-5}
 
 Now let's try and use the trained <ONNX> file for inference on some manually drawn images on <GIMP>:
 
-Note that the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
-
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/home/python/pytorch/resnet_demo_out.jpg]
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png]
 {title=Number 9 drawn with mouse on <GIMP> by <Ciro Santilli> (2023)}
+
+Note that the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
 
 We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[python/onnx_cheat/infer_mnist.py]:
 ``
 cd python/onnx_cheat
 ./infer_mnist.py lenet.onnx infer_mnist_9.png
 ``
-and it works pretty well! The protram outputs:
+and it works pretty well! The program outputs:
 ``
 9
 ``
@@ -939,7 +978,9 @@ This is THE "<OG>" <computer vision dataset>.
 
 Playing with it is the de-facto <computer vision> <hello world>.
 
-But it is important to note that as of the 2010's, the benchmark had become too easy for many application.
+And it was on this dataset that <Yann LeCun> made great progress with the <LeNet> model. Running <LeNet> on <MNIST> has to be the most classic computer vision thing ever. See e.g. <activatedgeek LeNet-5> for a minimal and modern <PyTorch> educational implementation.
+
+But it is important to note that as of the 2010's, the benchmark had become too easy for many applications. It is perhaps fair to say that the next big dataset revolution of the same size was with <ImageNet>.
 
 The dataset can be downloaded from http://yann.lecun.com/exdb/mnist/[]:
 ``

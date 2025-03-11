@@ -3,15 +3,11 @@
 # https://docs.ourbigbook.com/activatedgeek-lenet-5-use-onnx-for-inference
 
 import json
-import os
 import sys
-import time
 
 import numpy as np
 import cv2
-import onnx
 import onnxruntime
-from onnx import numpy_helper
 
 model = sys.argv[1]
 path = sys.argv[2]
