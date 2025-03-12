@@ -53,9 +53,9 @@ dowork() (
     while :; do
       err=false
       if $domain_only; then
-        response="$(torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain" 2>&1 )"
+        response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain" 2>&1 )"
       else
-        response="$(torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
+        response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
       fi
       if [ "$?" -ne 0 ]; then
         echo $i $j $domain err

@@ -9,7 +9,7 @@ if [ -d "$dir" ]; then
     d="${last%-*}"
   fi
 fi
-while [ "$d" != 2025-01-01 ]; do 
+while [ "$d" != 2025-01-01 ]; do
   for tld in biz com info net org us
   do
     outfile="$dir/$d-$tld.html"
