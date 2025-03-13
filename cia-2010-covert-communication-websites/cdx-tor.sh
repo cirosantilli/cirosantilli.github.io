@@ -31,7 +31,12 @@ ndigits=2
 outdir=$domains.cdx
 #rm -rf "$outdir"
 mkdir -p "$outdir"
-split -l $((`wc -l < $domains`/($ntor - 1))) --numeric-suffixes --suffix-length $ndigits "$domains" "$outdir/"
+if [ "$ntor" -eq 1 ]; then
+ cp "$domains" "$outdir/00"
+else
+  split -l $((`wc -l < $domains`/($ntor - 1))) --numeric-suffixes --suffix-length $ndigits "$domains" "$outdir/"
+fi
+
 cd "$outdir"
 
 dowork() (
@@ -46,59 +51,64 @@ dowork() (
   out_err=err$i
   out_err_403=err_403_$i
   out_err_log=log$i
-  port=$((9050 + ${1}))
+  port=$((9050 + ${1} + 1))
   pid="$(netstat -nlp 2>/dev/null | awk '$4~":'"$port"'"{ gsub(/\/.*/,"",$7); print $7 }')"
-  tail -n+$((j + 1)) "$i" | while IFS= read -r domain; do
-    retry=0
-    while :; do
-      err=false
-      if $domain_only; then
-        response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain" 2>&1 )"
-      else
-        response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
-      fi
-      if [ "$?" -ne 0 ]; then
-        echo $i $j $domain err
-        echo $domain >> "$out_err"
-        echo $domain >> "$out_err_log"
-        echo $response >> "$out_err_log"
-        err=true
-      else
-        http_code=$(tail -n1 <<< "$response")
-        content=$(sed '$ d' <<< "$response")
-        echo $i $j $domain $http_code
-        if [ $http_code -eq 200 ]; then
-          if [ -n "$content" ]; then
-            echo "$content" >> "$out"
-          fi
+  # Fails if for last file if nubmer of domains is multiple of ntor.
+  if [ -f "$i" ]; then
+    tail -n+$((j + 1)) "$i" | while IFS= read -r domain; do
+      retry=0
+      while :; do
+        err=false
+        if $domain_only; then
+          response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain" 2>&1 )"
         else
-          if [ $http_code -eq 403 ]; then
-            echo "$domain" >> "$out_err_403"
-            # These appear to neve recover. And OMG they are interesting, why is access denied???
+          response="$(timeout 10 torsocks -P "$port" curl -s --connect-timeout 10 -w "%{http_code}" "https://web.archive.org/cdx/search/cdx?url=$domain&matchType=domain&filter=urlkey:.*\.(cgi|jar|swf|js)&to=20140101000000&limit=10" 2>&1 )"
+        fi
+        if [ "$?" -ne 0 ]; then
+          echo $i $j $domain err
+          echo $domain >> "$out_err"
+          echo $domain >> "$out_err_log"
+          echo $response >> "$out_err_log"
+          err=true
+        else
+          http_code=$(tail -n1 <<< "$response")
+          content=$(sed '$ d' <<< "$response")
+          echo $i $j $domain $http_code
+          if [ $http_code -eq 200 ]; then
+            if [ -n "$content" ]; then
+              echo "$content" >> "$out"
+            fi
+          else
+            if [ $http_code -eq 403 ]; then
+              echo "$domain" >> "$out_err_403"
+              # These appear to neve recover. And OMG they are interesting, why is access denied???
+              break
+            fi
+            echo "$domain" >> "$out_err"
+            err=true
+          fi
+        fi
+        if $err; then
+          kill -HUP $pid
+          if [ $retry -eq 10 ]; then
             break
           fi
-          echo "$domain" >> "$out_err"
-          err=true
-        fi
-      fi
-      if $err; then
-        kill -HUP $pid
-        if [ $retry -eq 10 ]; then
+          echo "$i $j $domain retry=$retry pid=$pid new_ip=$(torsocks -P $port curl -s http://checkip.amazonaws.com)"
+        else
           break
         fi
-        echo "$i $j $domain retry=$retry pid=$pid new ip: $(torsocks -P $port curl -s http://checkip.amazonaws.com)"
-      else
-        break
-      fi
-      #sleep 1
-      retry=$((retry+1))
+        #sleep 1
+        retry=$((retry+1))
+      done
+      echo "$j" > "$nfile"
+      j=$((j+1))
     done
-    echo "$j" > "$nfile"
-    j=$((j+1))
-  done
+  fi
 )
-for i in `seq $ntor`; do
+i=0
+while [ "$i" -lt "$ntor" ]; do
   dowork $i &
+  i=$((i + 1))
 done
 wait
 cat out* > out

@@ -177,6 +177,9 @@ Both of those already have <hardware acceleration> available as of the 2010s.
 {disambiguate=ML}
 {parent=Training and inference}
 
+= Inference
+{synonym}
+
 = Training
 {disambiguate=ML}
 {parent=Training and inference}
@@ -346,12 +349,15 @@ Now let's try and use the trained <ONNX> file for inference on some manually dra
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png]
 {title=Number 9 drawn with mouse on <GIMP> by <Ciro Santilli> (2023)}
 
-Note that the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
+Note that:
+* the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
+* images must be converted to 32x32 for `lenet.onnx`, as that is what training was done on. The training step converted the 28x28 images to 32x32 as the first thing it does before training even starts
 
 We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[python/onnx_cheat/infer_mnist.py]:
 ``
 cd python/onnx_cheat
-./infer_mnist.py lenet.onnx infer_mnist_9.png
+wget -O 9.png https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png
+./infer_mnist.py lenet.onnx 9.png
 ``
 and it works pretty well! The program outputs:
 ``
@@ -361,7 +367,7 @@ as desired.
 
 We can also try with images directly from <Extract MNIST images>.
 ``
-for f in /home/ciro/git/mnist_png/out/testing/1/*.png; do echo $f; infer.py $f ; done
+infer_mnist.py lenet.onnx mnist_png/out/testing/1/*.png
 ``
 and the accuracy is great as expected.
 
@@ -765,6 +771,7 @@ Notably, <convolution> can be implemented in terms of <GEMM>:
 = ONNX
 {c}
 {parent=Deep learning framework}
+{tag=Good}
 {wiki}
 
 The most important thing this project provides appears to be the `.onnx` file format, which represents <ANN models>, pre-trained or not.
@@ -774,6 +781,8 @@ The most important thing this project provides appears to be the `.onnx` file fo
 Some examples:
 * <activatedgeek LeNet-5> produces a trained `.onnx` from <PyTorch>
 * <MLperf v2.1 ResNet> can use `.onnx` as a pre-trained model
+
+The cool thing is that <ONNX> can then run <inference> in an uniform manner on a variety of devices without installing the <deep learning framework> used for. It's a bit like having a kind of portable executable. Neat.
 
 = Netron
 {c}
@@ -974,23 +983,24 @@ The accuracy is crap for anything but people. But still. Well done. Tested on <U
 {c}
 {synonym}
 
-60,000 28x28 grayscale images of hand-written digits 0-9, i.e. 10 categories.
+70,000 28x28 grayscale (1 byte per pixel) images of hand-written digits 0-9, i.e. 10 categories. 60k are considered <training data>, 10k are considered for <test data>.
 
 This is THE "<OG>" <computer vision dataset>.
 
 Playing with it is the de-facto <computer vision> <hello world>.
 
-And it was on this dataset that <Yann LeCun> made great progress with the <LeNet> model. Running <LeNet> on <MNIST> has to be the most classic computer vision thing ever. See e.g. <activatedgeek LeNet-5> for a minimal and modern <PyTorch> educational implementation.
+It was on this dataset that <Yann LeCun> made great progress with the <LeNet> model. Running <LeNet> on <MNIST> has to be the most classic computer vision thing ever. See e.g. <activatedgeek LeNet-5> for a minimal and modern <PyTorch> educational implementation.
 
-But it is important to note that as of the 2010's, the benchmark had become too easy for many applications. It is perhaps fair to say that the next big dataset revolution of the same size was with <ImageNet>.
+But it is important to note that as of the 2010's, the benchmark had become too easy for many applications. It is perhaps fair to say that the next big dataset revolution of the same importance was with <ImageNet>.
 
-The dataset can be downloaded from http://yann.lecun.com/exdb/mnist/[]:
+The dataset could be downloaded from http://yann.lecun.com/exdb/mnist/[] but as of March 2025 it was down and seems to have broken from time to time randomly, so <Wayback Machine> to the rescue:
 ``
 wget \
- http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz \
- http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz \
- http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz \
- http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+ https://web.archive.org/web/20120828222752/http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz \
+ https://web.archive.org/web/20120828182504/http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz \
+ https://web.archive.org/web/20240323235739/http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz \
+ https://web.archive.org/web/20240328174015/http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+
 ``
 but doing so is kind of pointless as both files use some crazy single-file custom binary format to store all images and labels. OMG!
 
