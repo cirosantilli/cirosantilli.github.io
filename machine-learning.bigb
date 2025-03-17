@@ -264,6 +264,12 @@ This repository contains a very clean minimal <PyTorch> implementation of <LeNet
 
 It trains the <LeNet-5> <neural network> on the <MNIST> dataset from scratch, and afterwards you can give it newly hand-written digits 0 to 9 and it will hopefully recognize the digit for you.
 
+<Ciro Santilli> created a small fork of this repo at <lenet>{file} adding better automation for:
+* <extracting MNIST images> as PNG
+* <ONNX> CLI inference taking any image files as input
+* a <Python tkinter> GUI that lets you draw and see inference live
+* running on <GPU>
+
 Install on <Ubuntu 24.10> with:
 ``
 sudo apt install protobuf-compiler
@@ -353,11 +359,12 @@ Note that:
 * the images must be drawn with white on black. If you use black on white, it the accuracy becomes terrible. This is a good very example of <brittleness in AI> systems!
 * images must be converted to 32x32 for `lenet.onnx`, as that is what training was done on. The training step converted the 28x28 images to 32x32 as the first thing it does before training even starts
 
-We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[python/onnx_cheat/infer_mnist.py]:
+We can try the code adapted from https://thenewstack.io/tutorial-using-a-pre-trained-onnx-model-for-inferencing/[] at \a[lenet/infer.py]:
 ``
-cd python/onnx_cheat
+cd lenet
+cp ~/git/LeNet-5/lenet.onnx .
 wget -O 9.png https://raw.githubusercontent.com/cirosantilli/media/master/Digit_9_hand_drawn_by_Ciro_Santilli_on_GIMP_with_mouse_white_on_black.png
-./infer_mnist.py lenet.onnx 9.png
+./infer.py 9.png
 ``
 and it works pretty well! The program outputs:
 ``
@@ -425,8 +432,46 @@ and leads to a faster runtime, with less `user` as now we are spending more time
 real    1m27.829s
 user    4m37.266s
 sys     0m27.562s
-
 ``
+
+= lenet
+{file}
+{parent=activatedgeek LeNet-5}
+
+This is a small fork of <activatedgeek LeNet-5> by <Ciro Santilli> adding better integration and automation for:
+* <extracting MNIST images> as <PNG>
+* <ONNX> CLI inference taking any image files as input
+* a <Python tkinter> GUI that lets you draw and see inference live
+* running on <GPU>
+
+Install on <Ubuntu 24.10>:
+``
+sudo apt install protobuf-compiler
+cd lenet
+virtualenv -p python3 .venv
+. .venv/bin/activate
+pip install -r requirements-python-3-12.txt
+``
+
+Download and extract <MNIST> train, test accuracy, and generate the <ONNX> `lenet.onnx`:
+``
+./train.py
+``
+<Extract MNIST images> as <PNG>:
+``
+./extract_pngs.py
+``
+Infer some individual images using the <ONNX>:
+``
+./infer.py data/MNIST/png/test/0/*.png
+``
+Draw on a <GUI> and see live inference using the <ONNX>:
+``
+./draw.py
+``
+TODO: the following are missing for this to work:
+* start a background task. This we know how to do: https://stackoverflow.com/questions/1198262/tkinter-locks-python-when-an-icon-is-loaded-and-tk-mainloop-is-in-a-thread/79502287#79502287
+* get bytes from the canvas: all methods are ugly: https://stackoverflow.com/questions/9886274/how-can-i-convert-canvas-content-to-an-image
 
 = Residual neural network
 {parent=ANN model}
@@ -449,6 +494,7 @@ Apparently destroyed <ImageNet 2015> and became very very famous as such.
 {parent=Residual neural network}
 
 * <torchvision ResNet>
+* <MLperf v2.1 ResNet> contains a pre-trained <ResNet> <ONNX> at https://zenodo.org/record/4735647/files/resnet50_v1.onnx for its inference benchmark. We've tested it at: <Run MLperf v2.1 ResNet on Imagenette>.
 
 = ResNet variant
 {c}
@@ -461,7 +507,7 @@ Apparently destroyed <ImageNet 2015> and became very very famous as such.
 https://catalog.ngc.nvidia.com/orgs/nvidia/resources/resnet_50_v1_5_for_pytorch explains:
 > The difference between v1 and v1.5 is that, in the bottleneck blocks which requires downsampling, v1 has stride = 2 in the first 1x1 convolution, whereas v1.5 has stride = 2 in the 3x3 convolution.
 
-  This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a smallperformance drawback (~5% imgs/sec).
+  This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a small performance drawback (~5% imgs/sec).
 
 = Convolutional neural network
 {parent=ANN model}
@@ -689,7 +735,7 @@ TODO!
 {c}
 {parent=MLperf v2.1 ResNet}
 
-Let's run on this Imagenet10 subset, <Imagenette>.
+Let's run on this Imagenet10 subset called <Imagenette>.
 
 First ensure that you get the dummy test data run working as per <MLperf v2.1 ResNet>.
 
@@ -1018,6 +1064,9 @@ OK-ish data explorer: https://knowyourdata-tfds.withgoogle.com/#tab=STATS&datase
 = Extract MNIST images
 {c}
 {parent=MNIST database}
+
+= Extracting MNIST images
+{synonym}
 
 * https://stackoverflow.com/questions/40427435/extract-images-from-idx3-ubyte-file-or-gzip-via-python/75993239#75993239
 * https://stackoverflow.com/questions/55049511/how-to-download-mnist-images-as-pngs/75993252#75993252

@@ -174,10 +174,23 @@ https://sciendo.com/journal/JAGI
 * https://www.reddit.com/r/agi/comments/zzfwww/are_there_people_actually_working_to_make_an_agi/
 * <Sergey Brin> explicit internal memo aiming at <AGI>: https://techcrunch.com/2025/02/28/sergey-brin-says-rto-is-key-to-google-winning-the-agi-race/
 
+= Safe Superintelligence Inc.
+{c}
+{parent=AGI research entity}
+
+https://ssi.inc/
+
+Raised \$1B at \$5B valuation on September 2024, then \$2B at \$30B on March 2025. Lol!
+
+From their website:
+> Superintelligence is within reach.
+> Our singular focus means no distraction by management overhead or product cycles, and our business model means safety, security, and progress are all insulated from short-term commercial pressures.
+
 = Steven Byrnes
 {c}
 {parent=AGI research entity}
 {tag=Astera Institute person}
+{wiki}
 
 * https://sjbyrnes.com/
 * https://twitter.com/steve47285
@@ -1556,7 +1569,7 @@ so what's that point of "Open" in the name anymore??
 
 https://github.com/openai/gym
 
-Development ceased and was taken up by a not-for-profit as <Farama Gymnasium>.
+Development ceased in 2021 and was taken up by a not-for-profit as <Farama Gymnasium>.
 
 = Farama Gymnasium
 {c}
@@ -1564,37 +1577,69 @@ Development ceased and was taken up by a not-for-profit as <Farama Gymnasium>.
 
 https://github.com/Farama-Foundation/Gymnasium
 
-<OpenAI Gym>
+<OpenAI Gym> development by <OpenAI> ceased in 2021, and the <Farama Foundation> not for profit took up maintenance of it.
 
-gymnasium==1.1.1 just worked on <Ubuntu 24.10>:
+gymnasium==1.1.1 just worked on <Ubuntu 24.10> testing with the <hello world> \a[gym/random_control.py]:
 ``
 sudo apt install swig
+cd gym
+virtualenv -p python3
+. .venv/bin/activate
+pip install -r requirements-python-3-12.txt
+./random_control.py
 ``
-then from a <virtualenv>:
-``
-pip install "gymnasium[all]"
-``
-then the hello world:
-``
-import gymnasium as gym
+just works and opens a game window on my desktop.
 
-env = gym.make("LunarLander-v3", render_mode="human")
-observation, info = env.reset()
-episode_over = False
-while not episode_over:
-    action = env.action_space.sample()
-    observation, reward, terminated, truncated, info = env.step(action)
-    episode_over = terminated or truncated
-env.close()
+\Image[https://web.archive.org/web/20250225114240im_/https://gymnasium.farama.org/_images/lunar_lander.gif]
+{title=Lunar Lander environment of <Farama Gymnasium> with random controls}
+
+This example just passes random commands to the ship so don't expect wonders. The cool thing about it though is that you can open any environment with it e.g.
 ``
-just works and opens a game window.
+./random_control.py CarRacing-v3
+``
 
-\Video[https://web.archive.org/web/20250225114240im_/https://gymnasium.farama.org/_images/lunar_lander.gif]
-{title=Lunar Lander environemnt of <Farama Gymnasium>}
+To manually control it we can use \a[gym/moon_play.py]:
+``
+cd gym
+./moon_play.py
+``
 
-To actually play the games manually with keyboard, you need to define your own keybindings. Feature request for default keybindings: https://github.com/Farama-Foundation/Gymnasium/discussions/1330
+Manual control is extremely useful to get an intuition about the problem. You will notice immediately that controlling the ship is extremely difficult.
 
-There is no <C> API, you have to go through <Python>: https://github.com/Farama-Foundation/Gymnasium/discussions/1181[]. Shame.
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/Gymnasium_LunarLander-v3_manual_control.gif]
+{title=Lunar Lander environment of <Farama Gymnasium> with manual control}
+
+We slow it down to 10 FPS to give us some fighting chance.
+
+We don't know if it is realistic, but what is certain is that this is definitely not designed to be a fun video game!
+* the legs of the lander are short and soft, and you're not supposed to hit the body on ground, so you have to go very slow
+* the thrusters are quite weak and inertia management is super important
+* the ground is very slippery
+A good strategy is to land anywhere very slowly and then inch yourself towards the landing pad.
+
+The documentation for it is available at: https://gymnasium.farama.org/environments/box2d/lunar_lander/ The agent input is described as:
+> The state is an 8-dimensional vector: the coordinates of the lander in x & y, its linear velocities in x & y, its angle, its angular velocity, and two booleans that represent whether each leg is in contact with the ground or not.
+so it is a fundamentally flawed robot training example as global x and y coordinates are precisely known.
+
+Variation in the scenario comes from:
+* initial speed of vehicle
+* shape of lunar surface, but TODO can the ship observe the lunar surface shape in any way? If not, once again, this is a deeply flawed example.
+
+The actions are documented at:
+* 0: do nothing
+* 1: fire left orientation engine
+* 2: fire main engine
+* 3: fire right orientation engine
+so we can make it spin like mad counter clockwise with:
+``
+action = 1
+``
+
+To actually play the games manually with keyboard, you need to define your own keybindings with https://gymnasium.farama.org/api/utils/#gymnasium.utils.play.play[gymnasium.utils.play.play]. Feature request for default keybindings: https://github.com/Farama-Foundation/Gymnasium/discussions/1330
+
+There is no <C (language)> API, you have to go through <Python>: https://github.com/Farama-Foundation/Gymnasium/discussions/1181[]. Shame.
+
+They have video recording support, minimal ex https://stackoverflow.com/questions/77042526/how-to-record-and-save-video-of-gym-environment/79514542#79514542
 
 = Farama Gymnasium solutions
 {parent=Farama Gymnasium}
@@ -1602,6 +1647,8 @@ There is no <C> API, you have to go through <Python>: https://github.com/Farama-
 It would be cool if they maintained their own list!
 
 https://github.com/DLR-RM/rl-baselines3-zoo seems to contain some implementations.
+
+Suggested at: https://github.com/Farama-Foundation/Gymnasium/discussions/1331
 
 = Farama Foundation
 {parent=Farama Gymnasium}

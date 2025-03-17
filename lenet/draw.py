@@ -35,17 +35,22 @@ def doClear():
     global canvas
     canvas.delete("all")
 
+# Consts
 w = 400
 cmdsH = w//10
 clearW = w//2
 font = 'Times 14'
 
+# State
+drawing = False
+
 ui = Tk()
 ui.title('Painting Canvas')
 ui.geometry('{}x{}'.format(w, w + cmdsH))
 ui.pack_propagate(False)
-drawing = False
+ui.bind('<Escape>', lambda ev: sys.exit())
 
+# Canvas
 canvas = Canvas(ui, bg="white")
 canvas.pack(fill=BOTH, expand=True)
 canvas.place()
@@ -53,6 +58,7 @@ canvas.bind("<Button-1>", start_drawing)
 canvas.bind("<B1-Motion>", draw)
 canvas.bind("<ButtonRelease-1>", stop_drawing)
 
+# Bar at bottom
 bar = Frame(ui, width=w, height=cmdsH)
 bar.pack(padx=0, pady=0)
 clear = Button(
@@ -72,5 +78,4 @@ label.place(x=w/2, height=30, anchor='nw')
 
 # TODO https://stackoverflow.com/questions/39840815/exiting-a-tkinter-app-with-ctrl-c-and-catching-sigint#:~:text=You%20can%20then%20use%20Ctrl,use%20Tkinter%20in%20your%20code).
 #signal.signal(signal.SIGINT, lambda x, y: sys.exit())
-ui.bind('<Escape>', lambda ev: sys.exit())
 ui.mainloop()

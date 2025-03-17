@@ -2,6 +2,7 @@
 
 # https://cirosantilli.com/activatedgeek-lenet-5-use-onnx-for-inference
 
+import os
 import sys
 
 import numpy as np
@@ -11,9 +12,11 @@ np.set_printoptions(linewidth=np.inf)
 import onnxruntime
 from PIL import Image
 
-model = sys.argv[1]
-paths = sys.argv[2:]
-session = onnxruntime.InferenceSession(model, None)
+paths = sys.argv[1:]
+session = onnxruntime.InferenceSession(
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lenet.onnx'),
+    None
+)
 input_name = session.get_inputs()[0].name
 output_name = session.get_outputs()[0].name
 for path in paths:
@@ -29,4 +32,4 @@ for path in paths:
 
     result = session.run([output_name], { input_name: img })
     prediction=np.argmax(np.array(result).squeeze(), axis=0)
-    print(prediction)
+    print(f'{path} {prediction}')
