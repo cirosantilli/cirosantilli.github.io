@@ -236,9 +236,65 @@ Ciro's motivation/push for this can be seen e.g. at: <Ciro's 2D reinforcement le
 
 https://modelzoo.co/
 
+= Residual neural network
+{parent=ANN model}
+{title2=2015}
+{wiki}
+
+= ResNet
+{c}
+{synonym}
+{title2}
+
+Interesting layer skip architecture thing.
+
+Apparently destroyed <ImageNet 2015> and became very very famous as such.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/255px-ResNets.svg.png]
+
+= ResNet implementation
+{c}
+{parent=Residual neural network}
+
+* <torchvision ResNet>
+* <MLperf v2.1 ResNet> contains a pre-trained <ResNet> <ONNX> at https://zenodo.org/record/4735647/files/resnet50_v1.onnx for its inference benchmark. We've tested it at: <Run MLperf v2.1 ResNet on Imagenette>.
+
+= ResNet variant
+{c}
+{parent=Residual neural network}
+
+= ResNet v1 vs v1.5
+{c}
+{parent=ResNet variant}
+
+https://catalog.ngc.nvidia.com/orgs/nvidia/resources/resnet_50_v1_5_for_pytorch explains:
+> The difference between v1 and v1.5 is that, in the bottleneck blocks which requires downsampling, v1 has stride = 2 in the first 1x1 convolution, whereas v1.5 has stride = 2 in the 3x3 convolution.
+
+  This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a small performance drawback (~5% imgs/sec).
+
+= Convolutional neural network
+{parent=ANN model}
+{tag=Convolution}
+{title2=CNN}
+{wiki}
+
+= CNN convolution kernels are also learnt
+{parent=Convolutional neural network}
+
+CNN convolution kernels are not hardcoded. They are learnt and optimized via <backpropagation>. You just specify their size! Example in <PyTorch> you'd do just:
+``
+nn.Conv2d(1, 6, kernel_size=(5, 5))
+``
+as used for example at: <activatedgeek LeNet-5>.
+
+This can also be inferred from: https://stackoverflow.com/questions/55594969/how-to-visualise-filters-in-a-cnn-with-pytorch where we see that the kernels are not perfectly regular as you'd expected from something hand coded.
+
+= List of convolutional neural networks
+{parent=Convolutional neural network}
+
 = LeNet
 {c}
-{parent=ANN model}
+{parent=List of convolutional neural networks}
 {title2=1998}
 {wiki}
 
@@ -473,63 +529,15 @@ TODO: the following are missing for this to work:
 * start a background task. This we know how to do: https://stackoverflow.com/questions/1198262/tkinter-locks-python-when-an-icon-is-loaded-and-tk-mainloop-is-in-a-thread/79502287#79502287
 * get bytes from the canvas: all methods are ugly: https://stackoverflow.com/questions/9886274/how-can-i-convert-canvas-content-to-an-image
 
-= Residual neural network
-{parent=ANN model}
-{title2=2015}
+= You Only Look Once
+{c}
+{parent=List of convolutional neural networks}
+{title2=2015-}
 {wiki}
-
-= ResNet
-{c}
-{synonym}
-{title2}
-
-Interesting layer skip architecture thing.
-
-Apparently destroyed <ImageNet 2015> and became very very famous as such.
-
-\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/255px-ResNets.svg.png]
-
-= ResNet implementation
-{c}
-{parent=Residual neural network}
-
-* <torchvision ResNet>
-* <MLperf v2.1 ResNet> contains a pre-trained <ResNet> <ONNX> at https://zenodo.org/record/4735647/files/resnet50_v1.onnx for its inference benchmark. We've tested it at: <Run MLperf v2.1 ResNet on Imagenette>.
-
-= ResNet variant
-{c}
-{parent=Residual neural network}
-
-= ResNet v1 vs v1.5
-{c}
-{parent=ResNet variant}
-
-https://catalog.ngc.nvidia.com/orgs/nvidia/resources/resnet_50_v1_5_for_pytorch explains:
-> The difference between v1 and v1.5 is that, in the bottleneck blocks which requires downsampling, v1 has stride = 2 in the first 1x1 convolution, whereas v1.5 has stride = 2 in the 3x3 convolution.
-
-  This difference makes ResNet50 v1.5 slightly more accurate (~0.5% top1) than v1, but comes with a small performance drawback (~5% imgs/sec).
-
-= Convolutional neural network
-{parent=ANN model}
-{tag=Convolution}
-{title2=CNN}
-{wiki}
-
-= CNN convolution kernels are also learnt
-{parent=Convolutional neural network}
-
-CNN convolution kernels are not hardcoded. They are learnt and optimized via <backpropagation>. You just specify their size! Example in <PyTorch> you'd do just:
-``
-nn.Conv2d(1, 6, kernel_size=(5, 5))
-``
-as used for example at: <activatedgeek LeNet-5>.
-
-This can also be inferred from: https://stackoverflow.com/questions/55594969/how-to-visualise-filters-in-a-cnn-with-pytorch where we see that the kernels are not perfectly regular as you'd expected from something hand coded.
 
 = YOLO model
 {c}
-{parent=Convolutional neural network}
-{wiki}
+{synonym}
 
 Object detection model.
 
@@ -940,6 +948,10 @@ Version of <TensorFlow> with a <Cirq> backend that can run in either <quantum co
 
 = Object detection
 {parent=Computer vision}
+
+= Image segmentation
+{parent=Object detection}
+{wiki}
 
 = Face detection
 {parent=Object detection}
