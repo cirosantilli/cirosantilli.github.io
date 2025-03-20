@@ -101,6 +101,16 @@ Not possible it seems:
 {parent=Compiler}
 {wiki}
 
+= Automatic code generation
+{synonym}
+
+= Code generation
+{synonym}
+
+= AI code generation
+{c}
+{synonym}
+
 We use the term "automatic programming" to mean "generating code from <natural language>".
 
 The ultimate high level of which is of course to program with:
@@ -116,11 +126,16 @@ But in the current <AI boom>, this is the sense that matters, so that's what we 
 Bibliography:
 * https://www.reddit.com/r/LocalLLaMA/comments/1d25arj/a_coding_llm_that_actually_tries_to_compile_andor/
 
-= Automatic code generation
+= AI code generation framework that tries to run code
 {parent=Automatic programming}
 
-= Code generation
-{synonym}
+* OpenAI's GPT-4-turbo can generate and run <Python> code if it detects that the prompt would be better answered by Python, e.g. maths
+
+= AI code generation benchmark
+{parent=Automatic programming}
+
+Bibliography:
+* https://www.reddit.com/r/LocalLLaMA/comments/1e4unuz/any_up_to_date_benchmarking_sites_for_coding_llms/
 
 = Lowering and raising
 {parent=Compiler}
@@ -680,6 +695,32 @@ Very sweet. This is the future of the web.
 = List of command line utilities
 {parent=Command line utility}
 
+= Expect
+{parent=List of command line utilities}
+{tag=Necessary evil}
+{wiki}
+
+= Expect HOWTO
+{parent=Expect}
+
+= Get output of `send` command on expect
+{parent=Expect HOWTO}
+
+This pattern works well:
+``
+set prompt ">>> "
+log_user 0
+send "What is quantum field theory?\r"
+expect -re "(.+)$prompt"
+puts -nonewline [join [lrange [lmap line [split $expect_out(1,string) \n] {regsub {\r$} $line ""}] 1 end] "\n"]
+``
+Then stdout will contain only the output of the command and nothing else.
+
+Bibliography:
+* https://unix.stackexchange.com/questions/239161/get-the-output-from-expect-script-in-a-variable/792645#792645
+* https://stackoverflow.com/questions/45210358/expect-output-only-stdout-of-the-command-and-nothing-else/79517903#79517903
+* https://stackoverflow.com/questions/57975853/how-to-read-the-send-command-output-in-expect-script title is wrong, OP wants exit status apparently not stdout
+
 = GNU parallel
 {parent=List of command line utilities}
 {tag=Good}
@@ -731,7 +772,7 @@ d 4 1
 ``
 The percent must be a reference to "split the inputs module the number of workers", and modulo uses the `%` symbol in many programming languages such as <C (language)>.
 
-To pass multiple CLI argments per command you can use `-X` e.g.:
+To pass multiple CLI arguments per command you can use `-X` e.g.:
 ``
 printf 'a\nb\nc\nd\n' | parallel -j2 -X echo '{} {#} {%}'
 ``

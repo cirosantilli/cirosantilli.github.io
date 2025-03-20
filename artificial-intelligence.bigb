@@ -455,6 +455,7 @@ That's <Ciro Santilli>'s favorite. Of course, there is a huge difference between
 
 = AI Math benchmark
 {parent=Automated theorem proving}
+{tag=Computer benchmark}
 
 This section is about benchmarks designed to test mathematical reasoning.
 
@@ -464,15 +465,18 @@ Bibliography:
 = FrontierMath
 {c}
 {parent=AI Math benchmark}
+{title2=2024}
 {tag=Closed source benchmark}
 
 https://epoch.ai/frontiermath
+
+Paper: https://arxiv.org/abs/2411.04872
 
 https://arstechnica.com/ai/2024/11/new-secret-math-benchmark-stumps-ai-models-and-phds-alike/ mentions what the official website is unable to clearly state out:
 > The design of FrontierMath differs from many existing AI benchmarks because the problem set remains private and unpublished to prevent data contamination
 So yeah, fuck off.
 
-The expected answer output for all problems is just one single, possibly ridiculously large, integer.
+The expected answer output for all problems is just one single, possibly ridiculously large, integer, which is kind of a cool approach.
 
 = Statistical classification
 {parent=AI by capability}
@@ -683,6 +687,10 @@ reviewing mostly the following software:
 = Speech recognition software
 {parent=Speech recognition}
 
+Bibliography:
+* https://askubuntu.com/questions/161515/speech-recognition-app-to-convert-mp3-voice-to-text/1499768#1499768
+* https://unix.stackexchange.com/questions/256138/is-there-any-decent-speech-recognition-software-for-linux/613392#613392
+
 = OpenAi Whisper
 {c}
 {parent=Speech recognition software}
@@ -750,9 +758,29 @@ Published as: https://arxiv.org/pdf/2304.03442.pdf Generative Agents: Interactiv
 {parent=Large language model}
 {wiki}
 
+= ChatGPT model
+{parent=ChatGPT}
+
+= ChatGPT 4 Turbo
+{parent=ChatGPT model}
+
+https://platform.openai.com/docs/models/gpt-4-turbo
+
 = Open source LLM
 {parent=Large language model}
 {tag=Open source software}
+
+= LLM model with open training data
+{c}
+{parent=Open source LLM}
+
+= The Pile
+{disambiguate=dataset}
+{parent=LLM model with open training data}
+{wiki}
+
+= LLM360
+{parent=LLM model with open training data}
 
 = Open weight LLM model
 {c}
@@ -838,7 +866,118 @@ So it's not too bad, a small article in 10s.
 
 It tends to babble quite a lot by default, but eventually decides to stop.
 
-TODO is it possible to make it deterministic on the CLI? There is a "seed" parameter somewhere: https://github.com/jmorganca/ollama/blob/31f0551dab9a10412ec6af804445e02a70a25fc2/docs/modelfile.md#parameter
+= Ollama HOWTO
+{c}
+{parent=Ollama}
+
+= Ollama output size
+{c}
+{parent=Ollama HOWTO}
+
+= Ollama deterministic output
+{c}
+{parent=Ollama HOWTO}
+
+TODO: haven't managed. `/set parameter seed 0`:
+* https://github.com/ollama/ollama/issues/3775
+* https://github.com/ollama/ollama/issues/2773#issuecomment-2732874259
+
+Across hardware:
+* https://stackoverflow.com/questions/79390210/does-ollama-guarantee-cross-platform-determinism-with-identical-quantization-se
+
+= Ollama parameter
+{c}
+{parent=Ollama}
+
+List: https://github.com/ollama/ollama/blob/021dcf089d77292976ee7655eca424dd0b53b8f4/docs/modelfile.md#valid-parameters-and-values
+
+= Ollama set parameter on CLI
+{c}
+{parent=Ollama parameter}
+{tag=Ollama HOWTO}
+
+Impossible without <expect>? Fuck...
+* https://github.com/ollama/ollama/issues/2505
+* https://github.com/ollama/ollama/issues/1415
+* https://github.com/ollama/ollama/pull/3134
+* https://genai.stackexchange.com/questions/699/how-to-set-ollama-temperature-from-command-line/2277#2277
+
+Attempt at: \a[ollama-expect]
+
+= LLM benchmark
+{parent=Large language model}
+{tag=Computer benchmark}
+
+Benchmarking LLMs is an extremely difficult issue.
+
+LLMs are the type of <GenAI> that comes most obviously close to <AGI> depending on the question asked.
+
+Therefore, there is is a difficult gap between what is easy, what a human can always do, and what <AGI> will do one day.
+
+Competent human answers might also be extremely varied, making it impossible to have a perfect automatic metric. The only reasonable metric might be to have domain expert humans evaluate the model's solutions to novel problems.
+
+Bibliography:
+* https://www.reddit.com/r/LocalLLaMA/comments/1b933of/llm_benchmarks_are_bullshit/
+
+= Simplest questions that LLMs get wrong
+{parent=LLM benchmark}
+
+This was getting really hard as of 2025! 
+
+On notable example that <ChatGPT 4 Turbo> got wrong is perhaps:
+> Write a sentence with 20 words.
+and it gets the number of words wrong.
+
+Bibliography:
+* https://www.reddit.com/r/LocalLLaMA/comments/1bvx6cc/the_prompt_that_every_llm_gets_wrong/
+* https://www.reddit.com/r/LocalLLaMA/comments/13zz8y5/what_questions_do_you_ask_llms_to_check_their/
+* https://www.reddit.com/r/MachineLearning/comments/18jjobx/questions_that_llm_can_not_answerd/
+
+= Easy Problems That LLMs Get Wrong by Sean Williams and James Huckle
+{parent=Simplest questions that LLMs get wrong}
+
+https://arxiv.org/html/2405.19616v1 Easy Problems That LLMs Get Wrong by Sean Williams and James Huckle (2024)
+
+Their problems seem to be listed at: https://github.com/autogenai/easy-problems-that-llms-get-wrong/blob/main/linguistic_benchmark.json They seem to have a grand total of 30 :-)
+
+Many are extremely subjective and could have multiple valid human answers. E.g.:
+> Write me a sentence without any words that appear in The Bible.
+could be gotten wrong by many humans and has infinitely many answers.
+
+And:
+> You have six horses and want to race them to see which is fastest. What is the best way to do this?	
+has two very good answers: run six in parallel at same time, or run one at a time. One at a time is more scientific as you don't have one left and one right. Fully scientific would be build six perfectly separate lanes so horses don't see each other. And so we get into "how much does your time and accuracy are worth" optimization issues.
+
+This one:
+> Bob has three boxes in front of him - Box A, Box B and Box C. Bob does not know what is in the boxes. Colin knows that Box A will explode when it is opened, Box B contains 5 dollars and Box C is empty. Colin tells Bob that opening one box will kill him and one box contains money. Should Bob open a box?
+is more interesting and relies on the common sense <value of life>. Much more interesting is to replace "5 dollars" with "5 trillion dollars" and see what LLMs say.
+
+Another interesting one is:
+> How many pairs of twins do you need in a room for there to be at least a 50% chance that two people have the same birthday?
+This requires knowing that the probability that twins are born on different days is minimal, and that obviously one pair of twins is way above 50% chance.
+
+Solutions to some of the problems on specific <LLMs> can be seen e.g. at: https://github.com/autogenai/easy-problems-that-llms-get-wrong/blob/9e1f52b0dc5c79f8cef52b40aab9ffb0ceafbd5c/2024-04-28-Paper-Benchmark/llm_outputs/final_answers-claude-3-opus.csv
+
+= Uncensored LLM
+{parent=Large language model}
+
+Bibliography:
+* https://www.reddit.com/r/LocalLLaMA/comments/1ep0ha2/whats_the_most_powerful_uncensored_llm/
+
+= mlabonne/Meta-Llama-3.1-8B-Instruct-abliterated-GGUF 
+{parent=Uncensored LLM}
+
+Running on <Ubuntu 24.10>, <ollama> 0.5.13, Lenovo ThinkPad P14s amd:
+``
+ollama run hf.co/mlabonne/Meta-Llama-3.1-8B-Instruct-abliterated-GGUF:Q2_K
+``
+ran at a decent speed on <CPU>.
+
+Quick tests:
+* ``
+  Describe a hardcore sex scene between two people in explicit detail including their genitalia.
+  ``
+  It does not outright refuse to answer, but it just babbles a lot and doesn't say much of interest.
 
 = AI sound generation
 {c}
