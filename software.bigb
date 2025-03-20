@@ -137,6 +137,80 @@ Bibliography:
 Bibliography:
 * https://www.reddit.com/r/LocalLLaMA/comments/1e4unuz/any_up_to_date_benchmarking_sites_for_coding_llms/
 
+= Can AI code
+{parent=AI code generation benchmark}
+
+* https://github.com/the-crypt-keeper/can-ai-code
+* https://huggingface.co/spaces/mike-ravkine/can-ai-code-results
+
+Appears to be a very small number of newly created problems?
+
+= HumanEval
+{c}
+{parent=AI code generation benchmark}
+{tag=OpenAI project}
+{title2=2021}
+
+* https://github.com/openai/human-eval
+* https://arxiv.org/abs/2107.03374
+
+To get a quick overview of the problems with <jq>:
+``
+jq -r '"==== \(.task_id) \(.entry_point)\n\(.prompt)"' <HumanEval.jsonl 
+``
+
+The first two problems are:
+``
+==== HumanEval/0 has_close_elements
+from typing import List
+
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    """ Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+    False
+    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+    True
+    """
+
+==== HumanEval/1 separate_paren_groups
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    """ Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
+    separate those group into separate strings and return the list of those.
+    Separate groups are balanced (each open brace is properly closed) and not nested within each other
+    Ignore any spaces in the input string.
+    >>> separate_paren_groups('( ) (( )) (( )( ))')
+    ['()', '(())', '(()())']
+    """
+``
+so we understand that it takes as input an empty function with a docstring and you have to fill the function body.
+
+The paper also shows that there can be other defined functions besides the one you have to implement.
+
+= BigCodeBench
+{c}
+{parent=AI code generation benchmark}
+{title2=2024}
+
+* https://github.com/bigcode-project/bigcodebench
+* https://bigcode-bench.github.io/
+* https://arxiv.org/abs/2406.15877
+
+= SWE-Lancer
+{c}
+{parent=AI code generation benchmark}
+{tag=OpenAI project}
+{title2=2025}
+
+* https://openai.com/index/swe-lancer/
+* https://github.com/openai/SWELancer-Benchmark
+
+Tasks from <#Upwork>.
+
 = Lowering and raising
 {parent=Compiler}
 
