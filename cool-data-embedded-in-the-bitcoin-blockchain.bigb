@@ -1709,7 +1709,7 @@ They are also artsy peoeple themselves, and as pointed at https://twitter.com/Al
 
 The first upload that we could find at https://github.com/cirosantilli/bitcoin-inscription-indexer/tree/3f53e152ec9bb0d070dbcb8f9249d92f89effa70#atomsea-index was https://www.blockchain.com/explorer/transactions/btc/44e80475dc363de2c7ee17b286f8cd49eb146165a79968a62c1c2c4cf80772c9[tx 44e80475dc363de2c7ee17b286f8cd49eb146165a79968a62c1c2c4cf80772c9] on https://www.blockchain.com/explorer/blocks/btc/272573[block 272573] (2013-12-01) but it does not show on Bitfossil: http://bitfossil.org/44e80475dc363de2c7ee17b286f8cd49eb146165a79968a62c1c2c4cf80772c9/[]. This is was due to an upload bug explained by the following entry. By looking at the ASCII data at https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0272.txt#L449 that this is meant to contain the same content as the following message: a quote from the <Bhagavad Gita>, so this is definitely a bugged version of the following one.
 
-The next one is http://bitfossil.org/c9d1363ea517cd463950f83168ce8242ef917d99cd6518995bd1af927d335828/[tx c9d1363ea517cd463950f83168ce8242ef917d99cd6518995bd1af927d335828] on block 272577 (2013-12-02). It actually shows on bifossil and it reads:
+The next one is http://bitfossil.org/c9d1363ea517cd463950f83168ce8242ef917d99cd6518995bd1af927d335828/[tx c9d1363ea517cd463950f83168ce8242ef917d99cd6518995bd1af927d335828], block 272577 (2013-12-02). It actually shows on bifossil and it reads:
 > I WONDER WHAT HISTORY WILL THINK ABOUT THESE FIRST FEW BUGS...HA HA HA. NOBODY IS PERFECT.
 followed by:
 > He who regards
@@ -2684,7 +2684,7 @@ https://www.blockchain.com/explorer/transactions/btc/b4f537bc536c392d425af0693e3
 {description=
 https://www.blockchain.com/explorer/transactions/btc/225ed8bc432d37cf434f80717286fd5671f676f12b573294db72a2a8f9b1e7ba[tx 225ed8bc432d37cf434f80717286fd5671f676f12b573294db72a2a8f9b1e7ba], https://www.blockchain.com/explorer/blocks/btc/654100[block 685647] (2021-05-31) Stored on SegWit. Googling leads to this hit: https://github.com/aureleoules/bitcandle by French programmer Aurèle Oulès which is an obscure uploader not known to us before this transaction was found.
 
-https://www.blockchain.com/explorer/transactions/btc/8dc2785335c59df6c00257f9b20e5df9b932a717f97066b279e292faba71a67a[tx 8dc2785335c59df6c00257f9b20e5df9b932a717f97066b279e292faba71a67a] on block 685737 contains another one, but with a slightly different encoding, presumably Aureole was trying out different things. 
+https://www.blockchain.com/explorer/transactions/btc/8dc2785335c59df6c00257f9b20e5df9b932a717f97066b279e292faba71a67a[tx 8dc2785335c59df6c00257f9b20e5df9b932a717f97066b279e292faba71a67a], block 685737 contains another one, but with a slightly different encoding, presumably Aureole was trying out different things. 
 }
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-inscription-indexer/data/bin/3110f49fb6047d62e6fa198a0a4b180d9abf7075d6f29472747990ae286295cb.jpg]
@@ -2737,6 +2737,7 @@ TODO decode:
 
 = cryptograffiti.info
 {parent=Raw images}
+{tag=Inscription service}
 {title2=2014-2017}
 
 https://cryptograffiti.info
@@ -3123,7 +3124,7 @@ Misc:
 * https://ordinals.com/inscription/3a474f540c1917817fba51d2f9fd647887c8c3cd9687eb8d34ab6787c9e8a7fai0[tx 3a474f540c1917817fba51d2f9fd647887c8c3cd9687eb8d34ab6787c9e8a7fa]: ASCII art of mysterious man typing on his laptop. <Satoshi> comes to mind. The man's hat contains the following Korean characters;
   > 진실로같이가요
   which <Google Translate> translates as:
-  > Let’s go together truly
+  > Let's go together truly
 * https://ordinals.com/inscription/18b7728f32ff27d410e57e289bca7b8c2bdf7c30a1c572a41acc1a8ff576b6abi0[tx 18b7728f32ff27d410e57e289bca7b8c2bdf7c30a1c572a41acc1a8ff576b6ab]: "I Want you BTC Maxis, Ordinal Army Enlist Now"
 * https://ordinals.com/inscription/2fc46b52e3ab7a1053c4c65a4dc3af6bb7e51eb15cb988294af3a203ad254eedi0[tx 2fc46b52e3ab7a1053c4c65a4dc3af6bb7e51eb15cb988294af3a203ad254eed]: contains an ASCII art of an <#Iron Man>-like mask with text:
   > Did you know that within ASCII art an <encrypted> msg can be inside? All you need to do is decode it. Hence a pictureworthsthousandwords.
@@ -3636,99 +3637,326 @@ The sentences are not very coherent together, perhaps this is because lines were
 
 = Base58 messages
 {parent=Text}
-{title2=2011 - }
+{title2=2011-}
 
-Bitcoin addresses are by convention expressed in <Base58>, which is a human readable <binary-to-text encoding> invented by Bitcoin. It is a bit like <Base64>, but obsessed with eliminating characters that look like one another in popular but stupid fonts like capital "I" and lower case ell "l".
+Bitcoin addresses are by convention expressed in <Base58>, which is a human readable <binary-to-text encoding> invented by Bitcoin.
 
-This seems to be one of the earliest strategies used to encode messages.
+It is a bit like <Base64>, but obsessed with eliminating characters that look like one another in popular but stupid fonts like capital "I" and lower case ell "l". As such, any embedded text is rather obfuscated due to this limitations, and people often resort to <#leet>-like replacements such as '1' to represent 'I'.
 
-These messages were originally found with: https://github.com/cirosantilli/bitcoin-inscription-indexer#payload-size-out-utxo-2vals
+This seems to be one of the earliest strategies used to encode messages into the <Bitcoin blockchain>. The first known example appears in 2011. Then in November 2011, a large number of messages were inscribed, presumably by a single person or small group.
 
-The generated text is however rather obfuscated by the limitations of <Base58>.
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/bitcoin-inscription-indexer/ascii-art/Total_burn_address_vs_time_by_Khatib_Legout.png]
+{title=Total burn addresses as a function of time found by <Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes>}
+{description=Although it is not solely focused on inscriptions and may also contain functional burn addresses, it is likely that the methods of Khatib/Legout capture the overall trend of base58 inscription counts.}
 
-The following transactions contain base58 encoded messages on addresses:
-* https://www.blockchain.com/btc/tx/57bfd63000bbfa6e9a61f7285a4abf9aef91dfcfba4fe0f940b431653eb8068b[tx 7961b5ae2f053a16d5c589104f87edfabe80fcae185832ea185e7f0cf06c7747] (2011-12-01) is a <Lorem ipsum>, 7961b5ae2f053a16d5c589104f87edfabe80fcae185832ea185e7f0cf06c7747 is another one:
-  ``
-  11Lorem1psumDo1orSitAmetXXXWAEZ6C
-  11ConsecteturAdipiscingE1itYQHEPM
-  ...
-  ``
-* https://www.blockchain.com/btc/tx/751ff11286a43da5d6cf7da8f5bc736e522bbd698ec03c76c63368e5260667e6 seems to contain a bunch of names. It is very noisy, but feels too much coincidence not not be intentional
+These messages were originally found with: https://github.com/cirosantilli/bitcoin-inscription-indexer#payload-size-out-utxo-2vals[] which tracks the largest transactions with unspent outputs. 
+<Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes> later revealed many new ones.
+
+The interesting following transactions contain base58 encoded messages on addresses, sorted chronologically, and heighlighted either due to their earliness or historical or artistic quality:
+
+* https://www.blockchain.com/btc/tx/751ff11286a43da5d6cf7da8f5bc736e522bbd698ec03c76c63368e5260667e6[tx 751ff11286a43da5d6cf7da8f5bc736e522bbd698ec03c76c63368e5260667e6], block 136463 (2011-07-15) seems to contain a bunch of names, possibly in the format First Namea + Last name initial across 459 Outputs. It is very noisy, but feels too much coincidence not not be intentional. TODO understand meaning and origin, this one is fascinating:
   ``
   1JameLs3Q9enoB7VT3bDc3XYoziRDqW7o6
   1NeLLAADSPYk4wvzCbiac362DdTWNqnWxV
   1MaRinaQFfRbEDoz5FvDaJoST1PsqQQhL7
   1DioNTe4eHexc74CPPCwJMGPHaDE8za4BM
+  1JULiehNiV7SPqGiYoismHc5SePUvaijuB
+  1BobbyE2LXU3PMPG3uGgNAZicAasyqnuZ5
+  1JoaniEwAEfJEhBV8sNp14PDxGQAe5MGCz
+  1DWaiNezxpNiPfS9Fv1ydhexZeNTMj4of7
+  1JEANnAvfaCw5Mv4siZ9nKQms5hdwwJ92j
+  1LisTEn76TDDBorREtpqKGn3ddVbtVra56
+  1DontaevDw3rqi84VkZpZN6sAE2moRZEDH
+  1GrayCeqHU7sX46UfwBQWbgVAev7oHxash
+  1KaLeyMixsEBtGyRthJ898ykMtGYMBP7Te
+  1JaMiLvyAJAgM1W836JkUgrJFbUMT27H6p
+  1NUMeraLNjTDdahhCUToCyfvC8SXftsH8y
   ``
-* https://www.blockchain.com/btc/tx/ace9524519577138ca98ec01651758fd1e5ec33ce0110c6681eccba0e716cc7a is also possible, `11Bitta1ktvchristmasspecia1WNDvAa` repeats over an over, so something along `Bitta Christmas Special`
-* https://www.blockchain.com/btc/tx/8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8[tx 8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8] (2011-12-05) advertises http://etchablock.com[]:
-  ``
-  EtchABLockDotComGivesYou
-  BLockChain1mmortaLity
-  ``
-  so maybe this is the service used to for those base58 encodings. It is down as of 2021, and there are no decent archives unfortunately: http://web.archive.org/web/20130301000000*/http://etchablock.com/[]. Some online mentions:
-  * https://www.reddit.com/r/Bitcoin/comments/s9cra/comment/c4d5x9b/ suggests that the creator is a "Jonathan Ryan Owens". Some profiles:
-    * https://bitcointalk.org/index.php?action=profile;u=22299
+* https://www.blockchain.com/explorer/addresses/btc/1MartinHaferkorncii112o11HdkMrtttD[`1MartinHaferkorncii112o11HdkMrtttD`] on https://www.blockchain.com/explorer/transactions/btc/dab55eefd5cef495719a43bbd190c57c8ca60ecc45d630edf3442b2096965a97[tx dab55eefd5cef495719a43bbd190c57c8ca60ecc45d630edf3442b2096965a97], block 152851 (2011-11-11) encodes the name:
+  > Martin Haferkorn
+  Likely:
+  * https://www.efinance.wiwi.uni-frankfurt.de/en/team/alumni/dr-martin-haferkorn.html
+  * https://scholar.google.com/citations?hl=de&user=BNLeMMAAAAAJ&view_op=list_works&sortby=pubdate
+* https://www.blockchain.com/explorer/addresses/btc/1EricLombrozoXXXXXXXXXXXXXXXWACBVB[`1EricLombrozoXXXXXXXXXXXXXXXWACBVB`] appears on 3 separate transactions on 2011-11-24:
+  * block 154630:
+    * https://www.blockchain.com/explorer/transactions/btc/65a3a76d26b9ba82d1419368311727d46452341bd62c3de543eb79a7b918642b[tx 65a3a76d26b9ba82d1419368311727d46452341bd62c3de543eb79a7b918642b]
+    * https://www.blockchain.com/explorer/transactions/btc/87b34e465fb96d7c73345e1a3b14e4326905e850fa5ab569bf2b3f4ec650214c[tx 87b34e465fb96d7c73345e1a3b14e4326905e850fa5ab569bf2b3f4ec650214c] burns 0.005 BTC
+  * block 154637: https://www.blockchain.com/explorer/transactions/btc/dea183908e40e0cebfee6a0d8362b299e07cf193fbc02ffd3308b43781eca208[dea183908e40e0cebfee6a0d8362b299e07cf193fbc02ffd3308b43781eca208]. This one is more interesting and also contains a second output, both at 0.005 BTC
+    > 1969SandraSandicXXXXXXXXXXXXXvdEiU
+    so possibly a wedding token of Eric with Sandra Sandic after two previous test transactions. This also possibly gives Sandra's birth year of 1969.
+  Alsmost certainly this guy:
+  * https://www.linkedin.com/in/ericlombrozo/
+  * https://x.com/eric_lombrozo
+  https://www.officialusa.com/names/Sandra-Sandic/ suggests a link between Eric and Sandra sharing phone number (858) 461-1843 and residing at 12631 El Camino Real, San Diego, CA. Eric's LinkedIn marks him as living in San Diego, and Sandra's birthday is marked 1969-01-05, so matching the inscription year. The address shows as a regular appartment block on <Google Maps>, so maybe they are not crazy rich, or they have restraint. https://besthistorysites.net/name/eric-lombrozo reconfirms the address.
 
-  More spams:
-  * https://www.blockchain.com/btc/tx/14bac1f94636c24ada613b1ccc5fe4fca35657683baac6cc861f0eb88fd33fbc
-  * https://www.blockchain.com/btc/tx/bfb41cbb857a8189bfacecfc3cd544ee9d14af4414ea95a7b4f86507eace8183
-  * https://www.blockchain.com/btc/tx/14bac1f94636c24ada613b1ccc5fe4fca35657683baac6cc861f0eb88fd33fbc
-* https://www.blockchain.com/btc/tx/028b8514a4f6cc96ac3c1c83dbb117ab9dc5eb09deab7b49bf038fd460173127
+  In 2023 https://www.facebook.com/sandra.sandic.3[this Sandra Sandic on Facebook] liked https://www.facebook.com/story.php/?story_fbid=563741739148161&id=100065370197668&_rdr[this post related] to a show in San Diego, giving a possible profile. At https://www.facebook.com/sandra.sandic.3/posts/pfbid0s92xQqhSRGWyRNU4PKfWZQQ8LVmxofvet7sGHnQ8REfxLJPvSFKKSuKwSnwt1fQsl[this post] she links to https://www.cnbc.com/2017/06/20/bitcoin-millionaire-erik-finman-says-going-to-college-isnt-worth-it.html[this story] about <Erik Finman>, young <Bitcoin> millionaire, thus establishing an interest link between that profile and Bitcoin. She also has various posts in Bosnian, so she speaks the language and is likely a <first generation immigrant>.
+
+  \Image[https://cryptotutor.in/crypto-celebrity/eric-lombrozo]
+  {title=Eric Lombrozo}
+  {description=Off-chain image.}
+  {source=https://cryptotutor.in/crypto-celebrity/eric-lombrozo}
+* https://www.blockchain.com/explorer/addresses/btc/1BitTaLkTVChristmasSpeciaLXXRix9Ea[`1BitTaLkTVChristmasSpeciaLXXRix9Ea`] is repeated a dozen times on transactions between https://www.blockchain.com/explorer/transactions/btc/8e2bacf9971ce1a29d69d1a0484bfaa198257cc116530c7415ab6c38ae54ebc3[tx 8e2bacf9971ce1a29d69d1a0484bfaa198257cc116530c7415ab6c38ae54ebc3], block 154721 (2011-11-25) and 2011-11-27.
+
+  It is a quick ad for the https://web.archive.org/web/20120219155246/http://bittalk.tv/?p=114[BitTalk.tv Christmas Special] by 
+Matthew N. Wright. https://bitcointalk.org/index.php?topic=3025298.0 mentions he is the founder bittalk.tv and co-founder of <#Bitcoin Magazine>. https://www.reddit.com/r/Bitcoin/comments/ruo73/matthew_n_wright_scammer_of_bitcoinmagazine_and/ says he's a scammer. TODO is the video still watchable somewhere? Also announced at: https://bitcointalk.org/index.php?topic=52712[]. As of 2025, the domain had been reappropriated as a #SolarMovie mirror. It is quite likely that all the large set of message that follow were inscribed by him.
+
+  Later on there is also another variant addresses https://www.blockchain.com/explorer/addresses/BTC/11Bitta1ktvchristmasspecia1WNDvAa[`11Bitta1ktvchristmasspecia1WNDvAa`] on repeated almost 300 times on https://www.blockchain.com/btc/tx/ace9524519577138ca98ec01651758fd1e5ec33ce0110c6681eccba0e716cc7a[tx ace9524519577138ca98ec01651758fd1e5ec33ce0110c6681eccba0e716cc7a], block 155545 (2011-12-01)
+
+  Other likely mentions of Matthew N Wright:
+  * https://www.blockchain.com/explorer/addresses/btc/11MatthewLovesmandaXXXXXXXXabCJPY[`11MatthewLovesmandaXXXXXXXXabCJPY`] on https://www.blockchain.com/explorer/transactions/btc/d7c57205d69420dc7f4593b4de0806c9ec96f4755b64315cd034bd4b0b90dc2a[tx d7c57205d69420dc7f4593b4de0806c9ec96f4755b64315cd034bd4b0b90dc2a], block 155698 (2011-12-01) has a quick love declaration:
+    > Matthew loves Amanda
+  * https://www.blockchain.com/explorer/addresses/btc/1MatthewNWrightisaScammer124DNsfX[`1MatthewNWrightisaScammer124DNsfX`] is etched twice
+* https://www.blockchain.com/explorer/transactions/btc/28ccf29cfcc9f82d42793db770e7c7894d61ccf3d18299f34bda2e54415da287[tx 28ccf29cfcc9f82d42793db770e7c7894d61ccf3d18299f34bda2e54415da287], block 154769 (2011-11-25) contains a short excerpt from <#Alice in Wonderland>
   ``
-  11TheSetupTheJokeA1waysXXXXTF9Wzp
-  11BeginsWithAFami1yActGoingY3Q4qw
-  111nToSeeATa1entAgentThoseXZxb7hQ
+  1But1DontWantToGoAmongMadxxxzDmyW6
+  1Peop1eA1iceRemarkedxxxxxxxxxuLyKu
+  12ohYouCantHe1pThatxxxxxxxxxzCjyMs
+  19SaidTheCatWereA11MadHerexxyTvEir
+  191mMadYoureMadxxxxxxxxxxxxxvwA4Up
+  1HowDoYouKnow1mMadSaidA1icexxZA4Nr
+  12YouMustBeSaidTheCatxxxxxxxz2tFa2
+  12orYouWou1dntHaveComeHerexxvtHbqq
   ``
-  Source text: https://en.wikipedia.org/wiki/The_Aristocrats
-* https://www.blockchain.com/btc/tx/89010c791c9d7ed24affa1d638b12179d2ca7ec91704fe906834386f43a8101d
-  ``
-  11When1nTheCourseofHumanXXXXdfMdQ
-  11Events1tBecomesNecessaryXYC2rJ5
-  11ForonePeop1eToDisso1veTheXKXUiD
-  ``
-  Source text: https://en.wikipedia.org/wiki/United_States_Declaration_of_Independence
-* https://www.blockchain.com/btc/tx/c99179465b2d3b88fb6ede5d2e42015b15ec641e7a68f18216acaf741723de00
-  ``
-  11The1ntegerDataTypesCharXXZZwJAn
-  11ShortLongAnd1ntCanBeXXXXXVfzLKj
-  11EitherSignedorUnsignedXXXYMhhUY
-  ``
-  Possible source: https://en.wikipedia.org/wiki/C_data_types
-* https://www.blockchain.com/btc/tx/3bbd94d22346a3bfb44257293e10c3b5c9ee39230c1cd358bdce2bf03c61ba0b https://en.wikipedia.org/wiki/Emerald_Tablet
+  Original text referred to:
+  > But I don't want to go among mad people," Alice remarked. "Oh, you can't help that," said the Cat: "we're all mad here. I'm mad. You're mad." "How do you know I'm mad?" said Alice. "You must be," said the Cat, "or you wouldn’t have come here."
+* https://www.blockchain.com/explorer/transactions/btc/3bbd94d22346a3bfb44257293e10c3b5c9ee39230c1cd358bdce2bf03c61ba0b[tx 3bbd94d22346a3bfb44257293e10c3b5c9ee39230c1cd358bdce2bf03c61ba0b] (block 154965 , 2011-11-27) contains 49 base58 messages on a single transaction transcribing https://fiefgoldenlake.proboards.com/thread/30870/passages?page=3[this version] of the <#Emerald Tablet>, a type of mystical medieval text:
   ``
   12TisTrueWithoutALie22222221wT3qjn
   1CertainAndMostTrue2222222225YPnJF
   12ThatWhich1sBe1ow1sAs222221y3G7mv
   12ThatWhich1sAboveAnd2222221vxkcEq
   ...
+  1AboutTheWorkingsofTheSun1zzyWJtfm
   ``
-* https://www.blockchain.com/btc/tx/237b50dac42af130171773b233954e62690182fd4901a453ad5d11d1d54a8ca3 https://en.wikipedia.org/wiki/The_Glass_Menagerie
+  Some of the messages weirdly have "xoxo" inserted into them, not sure why, e.g.
   ``
-  11TomAppearsAtTheTopofTheXXWyM2Bt
-  11A11eyAfterEachSo1emnBoomXaBp7oy
-  11ofTheBe111nTheTowerHeXXXXVQaies
-  11ShakesALitt1eNoisemakeroraeWTgK
+  12TheFatherofTheWho1eWor1d2249xs5g
+  191sHereXoXoXoXoXoXoXoXoXoXo72uqJv
+  191tsPower1sWho1e1f1tHasXoXoWhYr3M
+  1BeenTurned1ntoEarth222222221soWAL
+  ``
+  The full decoded text is:
+  > It is true, without error, certain and most true,
+    That which is below is as that which is above, and that which is above is as that which is below, to perform the miracles of the one thing.
+    And as all things were from the one, by means of the meditation of the one, thus all things were born from the one, by means of adaptation.
+    Its father is the Sun, its mother is the Moon, the Wind carried it in its belly, its nurse is the earth.
+    The father of the whole world is here.
+    Its power is whole if it has been turned into earth.
+    You will separate the earth from the fire, the subtle from the dense, sweetly, with great skill.
+    It ascends from earth into heaven and again it descends to the earth, and receives the power of higher and of lower things.
+    Thus you will have the Glory of the whole world.
+    Therefore will all obscurity flee from you.
+    Of all strength this is true strength, because it will conquer all that is subtle, and penetrate all that is solid.
+    Thus was the world created.
+    From this were wonderful adaptations, of which this is the means. Therefore am I named Thrice-Great Hermes, having the three parts of the philosophy of the whole world.
+    It is finished, what I have said about the working of the Sun.
+* https://www.blockchain.com/explorer/addresses/btc/11111111LeonhardEu1er111126nxjP[`11111111LeonhardEu1er111126nxjP`] on https://www.blockchain.com/explorer/transactions/btc/80ddf2e7e04922e2cbf6e744dbf47aec02d781505d8b2c4ee5f725b8882ddb2d[tx 80ddf2e7e04922e2cbf6e744dbf47aec02d781505d8b2c4ee5f725b8882ddb2d], block 155051 (2011-11-28) is a tribute to Swiss mathematician <#Leonhard Euler>
+
+  \Image[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg/500px-Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg]
+  {title=Swiss mathematician <#Leonard Euler>}
+  {description=Off-chain image.}
+* https://www.blockchain.com/explorer/transactions/btc/024b093afb54f69426c5624f09a5f2d3791ce20513225cbb42d333ad72f8576e[024b093afb54f69426c5624f09a5f2d3791ce20513225cbb42d333ad72f8576e], block 155256 (2011-11-29) has two self-explanatory outputs:
+  > Just A Two Line
+    Test
+  ``
+  112JustATwoLine222222222221vcJxpZ
+  11111Test111112222222222222LiApa
+  ``
+* https://www.blockchain.com/explorer/transactions/btc/8f64d2b7a762767e3870c4aee95f8c7b5439cf02cf7d7e5d99b6e39967ecada8[tx 8f64d2b7a762767e3870c4aee95f8c7b5439cf02cf7d7e5d99b6e39967ecada8], block 155256 (2011-11-29) encodes the poem "Shall I compare thee to a summer's day?" by #Shakespeare 22 addresses starting with:
+  ``
+  11Sha111CompareTheeToAXXXXXVnRohE
+  11SummersDayThouArtMoreXXXXUcpgnX
+  11Love1yAndMoreTemperateXXXUu485j
   ...
   ``
-* https://www.blockchain.com/btc/tx/1f9606f267cc398356663b14d1a7a3591e3da06572893394c14975a6fc11798f https://en.wikipedia.org/wiki/Philosophiæ_Naturalis_Principia_Mathematica
+  Full original text:
+  > Shall I compare thee to a summer's day?
+    Thou art more lovely and more temperate.
+    Rough winds do shake the darling buds of May,
+    And summer's lease hath all too short a date.
+    Sometime too hot the eye of heaven shines,
+    And often is his gold complexion dimmed;
+    And every fair from fair sometime declines,
+    By chance, or nature's changing course, untrimmed;
+    But thy eternal summer shall not fade,
+    Nor lose possession of that fair thou ow'st,
+    Nor shall death brag thou wand'rest in his shade,
+    When in eternal lines to Time thou grow'st.
+    So long as men can breathe, or eyes can see,
+    So long lives this, and this gives life to thee.
+  More Shakespeare follows at https://www.blockchain.com/explorer/transactions/btc/0ae2eaaa9cddafba89b4c92d074f4e5254cbf7691cbe7f64660bf549c7071147[tx 0ae2eaaa9cddafba89b4c92d074f4e5254cbf7691cbe7f64660bf549c7071147], block 155383 (2011-11-20) has a passage from <#Romeo and Juliet> starting with:
   ``
-  11Ru1e1WeAreToAdmitNoMoreXXazQ96z
-  11CausesofNatura1ThingsThanZAQ9ig
-  11SuchAsAreBothTrueAndXXXXXZyzfQp
-  11SufficientToExp1ainTheirXVSC2gY
+  11TisButThyNameThat1sMyXXXXWabTZh
+  11EnemyThouArtThyse1fThoughXNRG4J
+  11NotAMontagueWhatsMontagueYEJDfM
+  111t1sNorHandNorFootNorArmXVNeFEV
   ``
-* https://www.blockchain.com/btc/tx/ef374dcc5b23f16ecb0b1b639ba577d2acda7ad32321b5866db2fa9e6807b9c5[tx ef374dcc5b23f16ecb0b1b639ba577d2acda7ad32321b5866db2fa9e6807b9c5] (2011-12-01) contains the intruction from the bitgoin.org website: https://web.archive.org/web/20210129054851/https://bitcoin.org/en/
+  Full original text:
+  > 'Tis but thy name that is my enemy;
+    Thou art thyself, though not a Montague.
+    What's Montague? It is nor hand, nor foot,                    
+    Nor arm, nor face, nor any other part
+    Belonging to a man. O, be some other name!
+    What's in a name? That which we call a rose,
+    By any other word would smell as sweet.
+    So Romeo would - were he not Romeo called -
+    Retain that dear perfection which he owes
+    Without that title. Romeo, doff thy name,
+    And for that name, which is no part of thee,
+    Take all myself.
+* Various other notable texts follow on 2011-12-01:
+  * https://www.blockchain.com/explorer/transactions/btc/1f9606f267cc398356663b14d1a7a3591e3da06572893394c14975a6fc11798f[tx 1f9606f267cc398356663b14d1a7a3591e3da06572893394c14975a6fc11798f], block 155467 (2011-12-01) contains an excerpt from Newton's <Principia> starting with:
+    ``
+    11Ru1e1WeAreToAdmitNoMoreXXazQ96z
+    11CausesofNatura1ThingsThanZAQ9ig
+    11SuchAsAreBothTrueAndXXXXXZyzfQp
+    11SufficientToExp1ainTheirXVSC2gY
+    ``
+    Full original texthttps://history.hanover.edu/courses/excerpts/212newt.html{ref}:
+    > RULE 1 We are to admit no more causes of natural things, than such as are both true and sufficient to explain their appearances.
+  
+      RULE II Therefore to the same natural effects we must, as far as possible, assign the same causes.
+  
+      RULE III The qualities of bodies, which admit neither intension nor remission of degrees, and which are found to belong to all bodies within reach of our experiments, are to be esteemed the universal qualities of all bodies whatsoever.
+  
+      RULE IV In experimental philosophy we are to look upon propositions collected by general induction from phenomena as accurately or very nearly true, notwithstanding any contrary hypotheses that may be imagined, till such time as other phenomena occur, by which they may either be made more accurate, or liable to exceptions.
+  * https://www.blockchain.com/explorer/transactions/btc/89010c791c9d7ed24affa1d638b12179d2ca7ec91704fe906834386f43a8101d[tx 89010c791c9d7ed24affa1d638b12179d2ca7ec91704fe906834386f43a8101d] starting at `11When1nTheCourseofHumanXXXXdfMdQ`: <#Declaration of Independence> 
+  * https://www.blockchain.com/explorer/transactions/btc/f7ca83a8a2e1c78efdfde0791d99a567ddaa60805c3b5b857bc7ec14ec2c8204[tx f7ca83a8a2e1c78efdfde0791d99a567ddaa60805c3b5b857bc7ec14ec2c8204] starting at `11AVa1id1dentifier1sAXXXXXXcrnyki`: likely contains an excerpt of the C or C++ standard. Possible source: https://en.wikipedia.org/wiki/C_data_types[].
+  * https://www.blockchain.com/explorer/transactions/btc/028b8514a4f6cc96ac3c1c83dbb117ab9dc5eb09deab7b49bf038fd460173127[tx 028b8514a4f6cc96ac3c1c83dbb117ab9dc5eb09deab7b49bf038fd460173127] starting at `11TheSetupTheJokeA1waysXXXXTF9Wzp`: https://www.reddit.com/r/Lovecraft/comments/zxtkd/hp_lovecrafts_the_aristocrats/[The aristocrats by HP Lovecraft], which talks about the <#The Aristocrats> joke pattern
+  * https://www.blockchain.com/explorer/transactions/btc/bd513d9ee605ead1a299c9dfb77de1127bf651c54d99820e9be8b40cef8c8dfe[tx bd513d9ee605ead1a299c9dfb77de1127bf651c54d99820e9be8b40cef8c8dfe] starting at `11Si1ex1sAnAcronymForXXXXXXcujTa5` talks briefly about SILEX (<#separation of isotopes by laser excitation>)
+  and others in close succession.
+  * https://www.blockchain.com/btc/tx/ef374dcc5b23f16ecb0b1b639ba577d2acda7ad32321b5866db2fa9e6807b9c5[tx ef374dcc5b23f16ecb0b1b639ba577d2acda7ad32321b5866db2fa9e6807b9c5], block 155494 (2011-12-01) contains the intruction from the bitcoin.org website: https://web.archive.org/web/20210129054851/https://bitcoin.org/en/
+    ``
+    11Bitcoin1sADecentra1izedXXWPM6Hs
+    11PeertopeerNetworkoverXXXXUkyy3M
+    11WhichUsersMakeXXXXXXXXXXXX4tQgN
+    11TransactionsThatAreXXXXXXVdZfnJ
+    ``
+  * https://www.blockchain.com/explorer/transactions/btc/05ee60dfb92795c79e46e106f52bbdbc1006eba0837ed9e4ad99d9b214eb5fcf[tx 05ee60dfb92795c79e46e106f52bbdbc1006eba0837ed9e4ad99d9b214eb5fcf], block 155538 contains a tribute to Archimedes:
+    ``
+    11ArchimedesWasANativeofXXXXJsj6W
+    11SyracuseSici1y1t1sXXXXXXXaYF4CE
+    11ReportedBySomeAuthorsThatXjFBcV
+    11HeVisitedEgyptAndThereXXXYVzj58
+    ``
+    original text at: https://mathshistory.st-andrews.ac.uk/Biographies/Archimedes/[]
+    > Archimedes was a native of Syracuse, Sicily. It is reported by some authors that he visited Egypt and there invented a device now known as Archimedes' screw. This is a pump, still used in many parts of the world. It is highly likely that, when he was a young man, Archimedes studied with the successors of Euclid in Alexandria. Certainly he was completely familiar with the mathematics developed there, but what makes this conjecture much more certain, he knew personally the mathematicians working there and he sent his results to Alexandria with personal messages. He regarded Conon of Samos, one of the mathematicians at Alexandria, both very highly for his abilities as a mathematician and he also regarded him as a close friend.
+  * https://www.blockchain.com/btc/tx/237b50dac42af130171773b233954e62690182fd4901a453ad5d11d1d54a8ca3[tx 237b50dac42af130171773b233954e62690182fd4901a453ad5d11d1d54a8ca3], block 155545 (2012-01-01) contains an exceprt from https://en.wikipedia.org/wiki/The_Glass_Menagerie
+    ``
+    11TomAppearsAtTheTopofTheXXWyM2Bt
+    11A11eyAfterEachSo1emnBoomXaBp7oy
+    11ofTheBe111nTheTowerHeXXXXVQaies
+    11ShakesALitt1eNoisemakeroraeWTgK
+    ...
+    ``
+  * https://www.blockchain.com/btc/tx/57bfd63000bbfa6e9a61f7285a4abf9aef91dfcfba4fe0f940b431653eb8068b[tx 57bfd63000bbfa6e9a61f7285a4abf9aef91dfcfba4fe0f940b431653eb8068b], block 155494 (2011-12-01) is a <Lorem ipsum> and https://www.blockchain.com/explorer/transactions/btc/7961b5ae2f053a16d5c589104f87edfabe80fcae185832ea185e7f0cf06c7747[tx 7961b5ae2f053a16d5c589104f87edfabe80fcae185832ea185e7f0cf06c7747] (2011-12-05) is another one:
+    ``
+    11Lorem1psumDo1orSitAmetXXXWAEZ6C
+    11ConsecteturAdipiscingE1itYQHEPM
+    ...
+    ``
+* https://www.blockchain.com/btc/tx/8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8[tx 8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8], block 156164 (2011-12-05) advertises <etchablock.com> by repeating the following 3 messages 80 times:
   ``
-  11Bitcoin1sADecentra1izedXXWPM6Hs
-  11PeertopeerNetworkoverXXXXUkyy3M
-  11WhichUsersMakeXXXXXXXXXXXX4tQgN
-  11TransactionsThatAreXXXXXXVdZfnJ
+  11EtchABLockDotComGivesYouXZHcYVz
+  11BLockChain1mmortaLityXXXXYRZD5m
+  11VisitEtchABLockDotComNowXTbeZZ9
   ``
+  decoding to:
+  > etchablock.com gives you blockchain immortaility. Visit etchablock.com now.
+  More ads can be seen at:
+  * https://www.blockchain.com/btc/tx/14bac1f94636c24ada613b1ccc5fe4fca35657683baac6cc861f0eb88fd33fbc[tx 14bac1f94636c24ada613b1ccc5fe4fca35657683baac6cc861f0eb88fd33fbc]
+  * https://www.blockchain.com/btc/tx/bfb41cbb857a8189bfacecfc3cd544ee9d14af4414ea95a7b4f86507eace8183[tx bfb41cbb857a8189bfacecfc3cd544ee9d14af4414ea95a7b4f86507eace8183]
+* https://www.blockchain.com/explorer/transactions/btc/12a8866ea85a8a6838d77cc67ce74ef190a074bc822572f4a82daad00fd980d6[tx 12a8866ea85a8a6838d77cc67ce74ef190a074bc822572f4a82daad00fd980d6], block 156119 (2011-12-05) seems like an alphabet test:
+  ``
+  111111111a11111111111b11dC8yHQ
+  111111111c1111111111111dWctEU9
+  111111111111e1111111111W7v25m
+  111111f1111111111111111g11WfG2p8
+  1111111111111h111111111WdQPXP
+  11111i111111111111j1111111bL5SyF
+  11111111k111111111111111XV7PT9D
+  111L1111111111111111111m111YmYGPJ
+  1111111111111111n11111U4Rs6D
+  1111111111111o111111111cLV3wA
+  11111111p11111111111111qW1RK1A
+  1111111111111111r1111VRWJZs
+  111111111111s1111111111VUeyXS
+  11111111111t11111111111Vq1Wm3
+  11111111u111111111111111bVpCYE
+  111111111v11111111111111XoV17A
+  11111111w1111111111111111YyEFv6
+  111111111x11111111111111XvZPGp
+  11111111111y11111111111Y1hDo5
+  111111111111111zXXXXXXVSn6d5
+  ``
+* https://www.blockchain.com/explorer/transactions/btc/31331de21d321766fcac556d7233ad0e3918bc78c7af22b99373569c07d4f30c[tx 31331de21d321766fcac556d7233ad0e3918bc78c7af22b99373569c07d4f30c], block 158772 (2011-12-23) has a quick love declaration by a Chinese dude to his Chinese dudess
+  ``
+  11YechunnanLoveChenchenYeziSsezJq
+  11ForeverXXXXXXXXXXXXXXXXXXWcSE4Z
+  ``
+  presumably the man's name is "Ye Chunnan", possible profile: https://github.com/finway-china
+* https://www.blockchain.com/explorer/transactions/btc/bf40e4a1c2546747bc800a085e7145d921a9f402aaf4040c155ff5d0df9cc999[tx bf40e4a1c2546747bc800a085e7145d921a9f402aaf4040c155ff5d0df9cc999], block 161202 (2012-01-08) encodes:
+  ``
+  11When1DieBuryMeDeepLayTwoXVEY5jv
+  11SpeakersAtMyFeetAPairofXXTyrHor
+  11HeadphonesonMyHeadAndXXXXYUSvnd
+  11ALwaysPLayTheGratefuLDeadWdq4Xo
+  ``
+  > When I die, bury me deep, lay two speakers at my feet, a pair of headphones on my head. Always play the grateful dead.
+  Related quote mention: https://www.reddit.com/r/quotes/comments/w51yfg/comment/iwnxk9i/
+* https://www.blockchain.com/explorer/addresses/btc/1BrianDeeryWasHereCaryNCUSAy1hRCCC[1BrianDeeryWasHereCaryNCUSAy1hRCCC] on https://www.blockchain.com/explorer/transactions/btc/c584dd7d3e9ba9776d61ae91f801371e21e434b9d8dab3c81850301433a50fcb[tx c584dd7d3e9ba9776d61ae91f801371e21e434b9d8dab3c81850301433a50fcb], block 188657 (2012-06-12) is a check-in by a Brian Deery at Cary, NC, USA. Most likely:
+  * https://www.crunchbase.com/person/brian-deery
+  * https://x.com/deery_me
+  * https://www.findinggeniuspodcast.com/podcasts/brian-deery-on-asic-boost-the-blockchain-and-the-history-and-future-of-bitcoin/
+
+Related:
+* https://www.reddit.com/r/Buttcoin/comments/3kqdjv/a_list_of_bitcoin_addresses_used_to_intentionally/
+* https://github.com/BranndonWork/bitcoin-bulk-balance-check/blob/master/burned.csv
+* https://bitcointalk.org/index.php?topic=85935 Coins sent to the great wallet in the sky (2012-06-07)
+* https://bitcointalk.org/index.php?topic=90982.285 Rare address hall of fame (2015)
+* https://bitcointalk.org/index.php?topic=917913.0 Burn Baby Burn! - Compiling all Bitcoin burn addresses by fairglu (2015)
+* https://bitcointalk.org/index.php?topic=553449.0 Longest most impressive VANITY (2014)
+* https://bitcointalk.org/index.php?topic=558604.0 Custom Bitcoin address? (2014)
+* https://medium.com/@westkate37/burned-bitcoins-d9b15b3699d6
+* https://www.bitcoinwhoswho.com/blog/2018/12/29/2-btc-burned-in-2018/
+* https://bitcoin.stackexchange.com/questions/70241/whats-with-this-address-1111111111111111111114olvt2/125931#125931
+* https://bitcoin.stackexchange.com/questions/49625/whats-the-point-of-bitcoin-eaters mentions in particular `1BitcoinEaterAddressDontSendf59kuE`
+
+= etchablock.com
+{c}
+{parent=Base58 messages}
+{tag=Inscription service}
+{title2=2011-?}
+
+http://etchablock.com was presumably an <inscription service> that allowed people to pay to have <Base58 messages> inscribed on the <Bitcoin blockchain>.
+
+The service failed to gain popularity and not much is known about it. <justdropped.com> marks the domain as having expired on 2013-02-03.https://justdropped.com/drops/020313com.html{ref}.
+
+The first known mentions of the service date back to December 2011, when it started self-advertizing in the blockchain around https://www.blockchain.com/btc/tx/8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8[tx 8ffacbb18f63576fe323cbf2acc6c4c01c86aadf13d8352cfdd39d91916d98c8], block 156164 (2011-12-05) by repeating the following 3 messages 80 times:
+``
+11EtchABLockDotComGivesYouXZHcYVz
+11BLockChain1mmortaLityXXXXYRZD5m
+11VisitEtchABLockDotComNowXTbeZZ9
+``
+decoding to:
+> etchablock.com gives you blockchain immortaility. Visit etchablock.com now.
+
+The website was down as of 2021, and there are were decent archives unfortunately: http://web.archive.org/web/20130301000000*/http://etchablock.com/[].
+
+Some surviging online mentions include:
+* https://www.reddit.com/r/Bitcoin/comments/s9cra/comment/c4d5x9b/ Gold, Silver, and Bitcoin spot prices are now only a call (or text) away (2012-04-14) suggests that the creator is a "Jonathan Ryan Owens" since user https://www.reddit.com/user/jonathanryanowens/[jonathanryanowens] comments:
+  > Aside from Bitcoinduit, which was the first project we worked on for the purpose of investigating the inner workings of the bitcoin network and double spend threats? Ok.. here's a few: We developed custom bitcoin signing agents (etchablock.com), we did the first facebook bitcoin wallet (yougotcoin.com), we have our own custom c++ libraries that completely reimplement bitcoind for our own applications, we have an actual working double spend detection and alerter infrastructure, and also a coming slew of apps related to microlending and fixed exchange services..
+  Some profiles:
+  * https://bitcointalk.org/index.php?action=profile;u=22299
+* https://bitcointalk.org/index.php?topic=53752.msg651512#msg651512 says on 2011-12-15:
+  > Try etchablock.com!
+  by user https://bitcointalk.org/index.php?action=profile;u=34329[TT].
+* https://dune.com/queries/3857233 has a random looking commented out mention of `etchablock.com` on the <SQL>
 
 = Eternity Wall
 {c}
 {parent=Text}
+{tag=Inscription service}
 {title2=2015-}
 {title2=eternitywall.it}
 
@@ -3841,11 +4069,15 @@ https://blockchain.news/news/mysterious-bitcoin-inscriptions-a-puzzle-in-raw-bin
 = Events
 {synonym}
 
-In this section we document events that led to a large number of thematically related messages being added to the chain., e.g. referencing some current event that happened, as opposed to the media encoding/type like <images> and <text> sections.
+In this section we document events that led to a large number of thematically related messages being added to the chain e.g. referencing some current event that happened, as opposed to the media encoding/type like <images> and <text> sections.
 
-"<Hitler> did nothing wrong" <meme> https://knowyourmeme.com/memes/hitler-did-nothing-wrong{ref} is repeated several times, e.g.: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0366.txt#L660[tx 41967a7d75e9e1ca8c142a45ce29ea08b451a3b55c3e33538f5cc8a389ec66ab] (https://www.blockchain.com/explorer/transactions/btc/41967a7d75e9e1ca8c142a45ce29ea08b451a3b55c3e33538f5cc8a389ec66ab[2015-07-20]):
+The "<Hitler> did nothing wrong" <meme>https://knowyourmeme.com/memes/hitler-did-nothing-wrong{ref} is repeated several times, e.g.: https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0366.txt#L660[tx 41967a7d75e9e1ca8c142a45ce29ea08b451a3b55c3e33538f5cc8a389ec66ab] (https://www.blockchain.com/explorer/transactions/btc/41967a7d75e9e1ca8c142a45ce29ea08b451a3b55c3e33538f5cc8a389ec66ab[2015-07-20]):
 > EW Hitler did nothing wrong.
-This one is also an <Eternity Wall> message.
+This one is also an <Eternity Wall> message. The message had also been previously <Base58 messages>[Base58 encoded] at https://www.blockchain.com/explorer/addresses/btc/1HitLerDidNothingWrongggggghJewfv[address 1HitLerDidNothingWrongggggghJewfv] in two different instances:
+* https://www.blockchain.com/explorer/transactions/btc/55654178fe601c1fbe8b52b544286962523f11ec60ef12c94bc55198bb8c405c[tx 55654178fe601c1fbe8b52b544286962523f11ec60ef12c94bc55198bb8c405c], block 216909 (2013-01-17). That one is also followed by some other niceties:
+  * https://www.blockchain.com/explorer/addresses/btc/1NiggersNiggersNiggersNiggerwxhs77[`1NiggersNiggersNiggersNiggerwxhs77`]: 4x "Niggers"
+  * https://www.blockchain.com/explorer/addresses/btc/1JewsDidTheEconomyXXXXXXXXXXbd7ZkE[`1JewsDidTheEconomyXXXXXXXXXXbd7ZkE`]: "Jews Did the Economy"
+* https://www.blockchain.com/explorer/transactions/btc/daa7fa928b8079174a646a9456ce9dad14eac44beb2fe5a2cb1c35ce70e92916[tx daa7fa928b8079174a646a9456ce9dad14eac44beb2fe5a2cb1c35ce70e92916], block 310007 (2014-07-10)
 
 <Brazil>:
 * tx 1c05bb7c0a8c9498d33a1e6d4a91bbb4c651daa5ea5a21aa5c8c600d3300b8bb Viva Brazil's Impeachment!
@@ -4022,7 +4254,7 @@ Bibliography:
     \<luke-jr> Graet: Catholics do not believe in freedom of religion.
 
     \<Graet> and you make your non catholic miners aware of this?
-* 2011-11-2 https://bitcointalk.org/index.php?topic=52979.0 "Mysterious transaction spotted in blockchain!" 
+* 2011-11-02 https://bitcointalk.org/index.php?topic=52979.0 "Mysterious transaction spotted in blockchain!" 
 
 = Illegal content of block 229k
 {parent=Themes}
@@ -4166,6 +4398,15 @@ https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out
 <3 You Seals!
 ``
 
+There are also a few <Base58> messages referring to Mt Gox, the nicest and most expensive one being to burn addres:
+> https://blockchair.com/bitcoin/address/1FuckMtGoxFFFFFFFUUUUUUUUUUQXW5ik[1FuckMtGoxFFFFFFFUUUUUUUUUUQXW5ik]
+which as of 2025 holds 0.014537 BTC burnt on:
+* 14x 0.001 BTC transactions starting at https://www.blockchain.com/explorer/transactions/btc/b170551d4df68d714fa98189c73f61b0c2bc54cafe33a2953fcc0bc11f6aa72a[tx b170551d4df68d714fa98189c73f61b0c2bc54cafe33a2953fcc0bc11f6aa72a], block 287826 (2014-02-26)
+* plus one 0.001337 BTC transaction in the middle at https://www.blockchain.com/explorer/transactions/btc/6b878716d1d9af0f50de441f318da68121261a5778fd541def4408c0aac531f6[tx 6b878716d1d9af0f50de441f318da68121261a5778fd541def4408c0aac531f6], block 287868 (2014-02-26), why not.
+Many of these transactions also contain other quick messages, e.g.:
+* https://www.blockchain.com/explorer/transactions/btc/e6d4cfbbc45b5e3cfcfa36613b04a8732c7b4606f5dbbd8af3ba06d8f3899fc2[tx e6d4cfbbc45b5e3cfcfa36613b04a8732c7b4606f5dbbd8af3ba06d8f3899fc2] also features a <rickrolling> instance.
+* https://www.blockchain.com/explorer/transactions/btc/10a9bb0625447df044410cf9cd74742ec0bf334d48b4b1f93c10a4a60748bb5d[tx 10a9bb0625447df044410cf9cd74742ec0bf334d48b4b1f93c10a4a60748bb5d] also features `Nigger` inside a spendable vanity address: https://www.blockchain.com/explorer/addresses/btc/1Niggerw15VezU6rA7jRBuJt9ceg9VL1jh[1Niggerw15VezU6rA7jRBuJt9ceg9VL1jh]
+
 = Protests against larger block sizes
 {parent=Themes}
 {title2=May 2015}
@@ -4213,6 +4454,7 @@ appears about 13 thousand times. WTF happened?
 = Rickrolling
 {c}
 {parent=Themes}
+{tag=/Rickrolling}
 
 </Rickrolling> lyrics were mined several times into the blockchain.
 
@@ -4342,10 +4584,6 @@ Analysis of some of them follows.
 {parent=Cool data embedded in the Bitcoin blockchain}
 
 Other Bitcon analysis:
-
-Analyses in other blockchains:
-* <Ethereum>
-  * https://reidjs.medium.com/top-6-weird-innovative-and-hilarious-findings-in-the-ethereum-blockchain-83dbbca461ca Top 6 Weird, Innovative, and Hilarious findings in the Ethereum Blockchain by Reid Sherman (2018)
 * "Annotated blockchain project"
   * https://etherpad.mit.edu/p/r.e33d2e7230fafc0612a0f2e7ebc87bae
   * https://etherpad.mit.edu/p/r.19b7b3e2c5ea08a61cb0bef0aeb213fd image list (February 8, 2017) We tried going over it, but it is just too much work, the huge majority of the results are just <AtomSea & EMBII> so not that interesting.
@@ -4399,6 +4637,23 @@ Mentions some upload mechanisms, notably <AtomSea & EMBII> and <Satoshi uploader
 
 https://messagesfromthemines.brangerbriz.com
 
+= Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes
+{parent=Bibliography}
+{title2=2025-03-18}
+
+https://arxiv.org/pdf/2503.14057 
+
+By Mohamed el Khatib and Arnaud Legout.
+
+Both autors were at <Inria Centre at Université Côte d'Azur>, Mohamed the intern and Arnaud the Inria researcher employee.
+
+Cool, this method could reveal novel <P2FKH> images:
+> We propose a methodology to automatically detect burn addresses. We manually classified
+208,656 addresses suspected to be burn addresses because they have a low Shannon entropy
+> Our model identified 7,905 true burn addresses from a pool of 1,283,997,050 addresses with only 1,767 false positive.
+Unfortunately their method might not be well suited for finding images, later on:
+> Storing images for fun and posterity. We did not observe plain text messages encoded in Bech32 addresses. As our methodology is designed to identify burn addresses with a human-readable structure or easily identifiable patterns, we are not supposed to detect images encoded in burn addresses.
+
 = Other blockchains
 {parent=Cool data embedded in the Bitcoin blockchain}
 
@@ -4408,6 +4663,8 @@ https://messagesfromthemines.brangerbriz.com
     * https://nftnow.com/art/quantum-the-first-piece-of-nft-art-ever-created/[]
 
     \Image[https://web.archive.org/web/20240416163318/https://sothebys-md.brightspotcdn.com/dims4/default/e598dd0/2147483647/strip/true/crop/1280x1280+0+0/resize/385x385!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F5a%2Fcf%2F91ff8b7e484eb6d1e765a2a9a14d%2Fmccoy-quantum-still.jpeg]
+* <Ethereum>
+  * https://reidjs.medium.com/top-6-weird-innovative-and-hilarious-findings-in-the-ethereum-blockchain-83dbbca461ca Top 6 Weird, Innovative, and Hilarious findings in the Ethereum Blockchain by Reid Sherman (2018)
 * <Monero>: as of January 2024, Ciro downloaded the blockchain and `strings -n20 -s` didnt' seem to have not even a single <ASCII art>, it is quite sad. Bibliography:
   * https://monero.stackexchange.com/questions/3066/is-it-possible-to-embed-message-for-recipient-in-transaction
   * https://www.mordinals.io/
@@ -4427,7 +4684,7 @@ By <Ciro Santilli>:
 By others:
 * 2021-04-15 https://news.ycombinator.com/item?id=26801067[] (96 points) on <Hacker News>. Reached position 16 at one point: https://archive.ph/L0Fte and led to about 5k views total. Ah, Ciro could watch that <Google Analytics> realtime view go bling all day long. <Narcissism> is a bitch.
 * 2021 https://cryptonewmedia.press/tankman-image-on-bitcoin-blockchain/ by user igadjeed
-* 2022-01-23 https://news.ycombinator.com/item?id=30050479 "Abuse and Harassment on the Blockchain ", comment-mid thread
+* 2022-01-23 https://news.ycombinator.com/item?id=30050479 "Abuse and Harassment on the Blockchain", comment-mid thread
 * 2022-01-24 https://www.reddit.com/r/Buttcoin/comments/sbw0se/when_i_heard_about_nfts_i_thought_they_were/hu2uk8g "When I heard about NFTs, I thought they were stupid, but then I watched a video explaining how they work, it really changed my perspective", comment mid-thread
 * 2023-02 lots of <Twitter> backlinks as a result of <ordinal ruleset inscriptions>:
   * 2023-02-03
@@ -4439,15 +4696,8 @@ By others:
 * 2024-01-18 https://twitter.com/pete_rizzo_/status/1748049913286447355 by Rizzo, <#The Bitcoin Historian> (81k followers, mid-thread)
 * 2024-12-29: https://x.com/lopp/status/1873453363523932630 by <#Jameson Lopp> (492k subscribers)
 * ? https://cloudhiker.net/ A hand curated and categorized list of interesting links by Kevin Woblick. Only allows users to visit a random one per category, so we can't get proof of backlink, this was noticed through <Google Analytics>.
-* 2025-03-18 https://arxiv.org/pdf/2503.14057 Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes by Mohamed el Khatib and Arnaud Legout. Both autors were at <Inria Centre at Université Côte d'Azur>, Mohamed the intern and Arnaud the Inria researcher employee.
+* 2025-03-18 <Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes>
   The mention of this project is brief:
   > Ciro Santilli maintains a Web page listing arbitrary data embedded in the Bitcoin blockchain. This is the most complete and up-to-date list of arbitrary data we are aware of. However, he does not specifically focus on burn addresses, but on the stored contents.
-  Cool, this method could reveal novel <P2FKH> images:
-  > We propose a methodology to automatically detect burn addresses. We manually classified
-208,656 addresses suspected to be burn addresses because they have a low Shannon entropy
-  > Our model identified 7,905 true burn addresses from a pool of 1,283,997,050 addresses with only 1,767 false positive.
-  Unfortunately their method might not be well suited for finding images, later on:
-  > Storing images for fun and posterity. We did not observe plain text messages encoded in Bech32 addresses. As our methodology is designed to identify burn addresses with a human-readable structure or easily identifiable patterns, we are not supposed to detect images encoded in burn addresses.
-
   Announced at:
   * https://mastodon.social/@cirosantilli/114196089446001434
