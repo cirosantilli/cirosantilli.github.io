@@ -3643,7 +3643,7 @@ Bitcoin addresses are by convention expressed in <Base58>, which is a human read
 
 It is a bit like <Base64>, but obsessed with eliminating characters that look like one another in popular but stupid fonts like capital "I" and lower case ell "l". As such, any embedded text is rather obfuscated due to this limitations, and people often resort to <#leet>-like replacements such as '1' to represent 'I'.
 
-This seems to be one of the earliest strategies used to encode messages into the <Bitcoin blockchain>. The first known example appears in 2011. Then in November 2011, a large number of messages were inscribed, presumably by a single person or small group.
+This seems to be one of the earliest strategies used to encode messages into the <Bitcoin blockchain>. The first known example appears in 2011. Then starting November 2011, a large number of messages were inscribed n short successsion, presumably by a single person or small group.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/Total_burn_address_vs_time_by_Khatib_Legout.png]
 {title=Total burn addresses as a function of time found by <Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes>}
@@ -3652,6 +3652,11 @@ This seems to be one of the earliest strategies used to encode messages into the
 
 These messages were originally found with: https://github.com/cirosantilli/bitcoin-inscription-indexer#payload-size-out-utxo-2vals[] which tracks the largest transactions with unspent outputs. 
 <Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes> later revealed many new ones.
+
+Finding Base58 messages is intrinsically hard for a few reasons
+* the words may be garbled by Base58 leet
+* only very small ammounts of data can be encoded at a time, and all of it contains ASCII, so you can't just "find all long ASCII strings" as we started doing for other ASCII inscriptions a la <strings (binutils)>[`strings -n20`]; you have to use some dictionary as a basis
+* the Base58 does not show up raw on the blockchain, as it is just a human representation for the actual binary data that does, so you can't just <strings (binutils)>[strings] the blockchain, you have to parse it
 
 The interesting following transactions contain base58 encoded messages on addresses, sorted chronologically, and heighlighted either due to their earliness or historical or artistic quality:
 
@@ -3684,7 +3689,7 @@ The interesting following transactions contain base58 encoded messages on addres
     * https://www.blockchain.com/explorer/transactions/btc/87b34e465fb96d7c73345e1a3b14e4326905e850fa5ab569bf2b3f4ec650214c[tx 87b34e465fb96d7c73345e1a3b14e4326905e850fa5ab569bf2b3f4ec650214c] burns 0.005 BTC
   * block 154637: https://www.blockchain.com/explorer/transactions/btc/dea183908e40e0cebfee6a0d8362b299e07cf193fbc02ffd3308b43781eca208[tx dea183908e40e0cebfee6a0d8362b299e07cf193fbc02ffd3308b43781eca208]. This one is more interesting and also contains a second output, both at 0.005 BTC
     > 1969SandraSandicXXXXXXXXXXXXXvdEiU
-    so possibly a wedding token of Eric with Sandra Sandic after two previous test transactions. This also possibly gives Sandra's birth year of 1969.
+    so possibly a wedding token of Eric with Sandra Sandic after two previous test transactions. This also possibly gives Sandra's birth year of 1969. Pinged him at: https://x.com/cirosantilli/status/1904212575211901129[].
   Alsmost certainly this guy:
   * https://www.linkedin.com/in/ericlombrozo/
   * https://x.com/eric_lombrozo
@@ -3895,7 +3900,7 @@ The interesting following transactions contain base58 encoded messages on addres
   ``
 * https://www.blockchain.com/explorer/transactions/btc/31331de21d321766fcac556d7233ad0e3918bc78c7af22b99373569c07d4f30c[tx 31331de21d321766fcac556d7233ad0e3918bc78c7af22b99373569c07d4f30c], block 158772 (2011-12-23) has a quick love declaration by a Chinese dude to his Chinese dudess
   ``
-  11YechunnanLoveChenchenYeziSsezJq
+  11YechunnanLoveChenchenYeziSsezJQ
   11ForeverXXXXXXXXXXXXXXXXXXWcSE4Z
   ``
   presumably the man's name is "Ye Chunnan", possible profile: https://github.com/finway-china
@@ -3938,6 +3943,7 @@ Related:
 * https://www.bitcoinwhoswho.com/blog/2018/12/29/2-btc-burned-in-2018/
 * https://bitcoin.stackexchange.com/questions/70241/whats-with-this-address-1111111111111111111114olvt2/125931#125931
 * https://bitcoin.stackexchange.com/questions/49625/whats-the-point-of-bitcoin-eaters mentions in particular `1BitcoinEaterAddressDontSendf59kuE`
+* https://kf106.medium.com/interesting-addresses-on-the-bitcoin-blockchain-e0956f06ec01 has some interesting monetary ones, not inscriptions
 
 = etchablock.com
 {c}
@@ -4723,3 +4729,5 @@ By others:
   > Ciro Santilli maintains a Web page listing arbitrary data embedded in the Bitcoin blockchain. This is the most complete and up-to-date list of arbitrary data we are aware of. However, he does not specifically focus on burn addresses, but on the stored contents.
   Announced at:
   * https://mastodon.social/@cirosantilli/114196089446001434
+  * https://x.com/cirosantilli/status/1902784226896019512
+  * https://x.com/cirosantilli/status/1904211594000715781
