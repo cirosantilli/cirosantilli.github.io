@@ -328,6 +328,14 @@ Basically it looks like the dude got enough money after selling some companies, 
 {parent=GoodAI}
 {wiki}
 
+= NDEA
+{c}
+{parent=AGI research entity}
+
+https://ndea.com/
+> We believe program synthesis holds the key to unlocking <AGI>.
+Cool. Founders are also very interested in <ARC-AGI>.
+
 = Numenta
 {c}
 {parent=AGI research entity}
@@ -445,6 +453,324 @@ It is somewhat of a flawed analogy to <NP-complete>.
 This one goes all in the following themes:
 * few examples to learn from. You have to carefully inspect the input examples to deduce the output rules. Rules can require specific It application ordering, so you actually generate an algorithm. It tends to be easy for humans, but sometimes not so easy!
 * extensive use of geometric concepts, notably "contained inside", "adjacent to", "connected"
+
+Bibliography:
+* https://www.reddit.com/r/mlscaling/comments/1ht4emi/anyone_else_suspect_arcagi_was_never_much_of_a/ Anyone else suspect ARC-AGI was never much of a test of anything? (2025)
+
+= ARC-AGI-2
+{c}
+{parent=AGI test}
+{title2=2025-03-24}
+
+* https://github.com/arcprize/ARC-AGI-2
+* https://arcprize.org/play?task=1ae2feb7
+
+= ARC-AGI-2 problem
+{parent=ARC-AGI-2}
+{scope}
+
+= Approach
+{c}
+{parent=ARC-AGI-2 problem}
+
+= Primitive
+{parent=Approach}
+
+These section lists common visual primitives that a solver must first extract in order to infer solutions.
+
+Some of these have a lot of prior world content, others less.
+
+Many people have come up with the same idea on the Discord. Some nicely call it <domain specific language>[DSL].
+
+Implementations:
+* https://github.com/michaelhodel/arc-dsl
+
+= Input primitive
+{parent=Primitive}
+
+= Background color
+{parent=Input primitive}
+
+If a color is inferred to be a background color, it contains no information and should be ignored.
+
+Most problems tend to use black as a background color, but not all of them.
+
+= Object
+{parent=Input primitive}
+
+An "object" is a set of points that is understood to be one singular entity.
+
+Contiguity and having the same color are strong indicators that something should be understood as an object.
+
+= Container
+{parent=Object}
+
+= Box
+{parent=Container}
+
+A rectangular container.
+
+The toplevel viewport is always implicitly understood as a special box.
+
+= Edge
+{parent=Box}
+
+= Left edge
+{parent=Edge}
+
+= Right edge
+{parent=Edge}
+
+= Top edge
+{parent=Edge}
+
+= Bottom edge
+{parent=Edge}
+
+= Toplevel box
+{parent=Box}
+
+There are two or more boxes drawn inside the toplevel and sharing boundaries with toplevel.
+
+= Two toplevel boxes
+{parent=Toplevel box}
+
+= Input output toplevel boxes
+{parent=Two toplevel boxes}
+
+There are <two toplevel boxes>, one contains only input, and all output goes to the second one. The second one may also contain some input.
+
+= Monocolor object
+{parent=Object}
+
+= Primitive relation
+{parent=Object}
+
+= Distance
+{parent=Primitive relation}
+
+A path is something you obtain by somehow drawing from one point to another, e.g. a <line>, and then starting another drawing between two points from the end point.
+
+= Adjacent
+{parent=Distance}
+
+= Touching
+{synonym}
+{title2}
+
+<Distance> = 0.
+
+= Rectangle
+{parent=Object}
+
+Rectangle is like a box but always fully filled.
+
+= Square
+{parent=Rectangle}
+
+= Point
+{parent=Square}
+
+A point is a 1-<square>.
+
+= Path
+{parent=Object}
+
+= Dotted path
+{parent=Path}
+
+A dotted line is a generalized line that cycles between a color pattern, e.g.:
+> r r g
+would be a line:
+> r r g r r g r r g
+An extra color "transparent" may also be added to not change for that pixel.
+
+= Line
+{parent=Path}
+
+= Dotted line
+{parent=Line}
+
+A <dotted path> that is also a <dotted line>.
+
+= Monocolor line
+{parent=Line}
+
+= Perpendicular line
+{parent=Line}
+
+= Vertical line
+{parent=Perpendicular line}
+
+= Horizontal line
+{parent=Perpendicular line}
+
+= Diagonal line
+{parent=Line}
+
+= Repeat
+{parent=Input primitive}
+
+= Output primitive
+{parent=Primitive}
+
+= Optimize
+{parent=Output primitive}
+
+There is no unique solution, we just have to optimize something, often the least changed colors.
+
+= Draw line
+{parent=Output primitive}
+
+= List
+{parent=ARC-AGI-2 problem}
+{scope}
+
+= 1ae2feb7
+{parent=List}
+{title2=1}
+
+https://arcprize.org/play?task=1ae2feb7
+
+To the left of the vertical red line, count the number of each color on each row.
+
+Then to the right, on each line draw one square of each color to the left every n columns, starting with a square on the first column to the right of the red line, where n is the count of that color.
+
+Start with the color furthest away from the red line, and then color with colors nearer to the red line. If there's overlap, replace the old color with the new one.
+
+Input:
+* <background color>
+* <dotted line>
+* <monocolor line>
+* <box>
+* <input output toplevel boxes>
+
+Output:
+* draw <dotted lines>
+
+= 3e6067c3
+{parent=List}
+{title2=2}
+
+https://arcprize.org/play?task=3e6067c3
+
+Input primitives:
+* <ARC-AGI-2 problem/background color>
+* squares
+  * squares with color inside
+* points
+
+Transformations primitives:
+* line drawing
+
+= 16b78196
+{parent=List}
+{title2=3}
+
+https://arcprize.org/play?task=16b78196
+
+Solution: move pieces to fill the gap on the fat object that crosses the screen. Place objects either on fat object or on other objects placed on the fat object. Anything you add must end in a rectangle.
+
+The rules for this one are not entirely clear with the number of examples.
+
+Also clearly if the goal is to make rectangular towers, then this is an <NP-hard> optimization problem in general.
+
+Input primitives:
+* same color chunk. Properties: crosses screen.
+
+Transformation primitives:
+* move solid around
+* fills the gap
+
+This existed earlier: https://x.com/GianpaoloGalli/status/1846144236900827413
+
+= 142ca369
+{parent=List}
+{title2=4}
+
+https://arcprize.org/play?task=142ca369
+
+Solution: vs are guns that shoot diagonal line of their color, when line touches another object, change line color to match that of the object, then bounce on the object and continue going with the new color
+
+Input primitives:
+* diagonal line
+
+Assumptions:
+* line don't cross each other, it is unclear how to resolve that case
+
+Transformation primitives:
+* draw line
+  * draw line and bounce
+
+= 136b0064
+{parent=List}
+{title2=5}
+
+https://arcprize.org/play?task=136b0064
+
+Input primitive:
+* <monocolor object>
+* 2 <toplevel boxes>
+
+Transformation primitives:
+* draw <lines>
+
+= 0934a4d8
+{parent=List}
+{title2=6}
+
+https://arcprize.org/play?task=0934a4d8
+
+TODO I can't solve that one.
+
+= 135a2760
+{parent=List}
+{title2=7}
+
+https://arcprize.org/play?task=135a2760
+
+Input:
+* <background color>
+* <box>
+* <input output toplevel boxes>
+* <repeat>
+
+Output:
+* make <repeat>
+* <optimize>
+
+= 13e47133
+{parent=List}
+{title2=8}
+
+https://arcprize.org/play?task=13e47133
+
+Input:
+* <background color>
+* <boxes>
+* <points> inside boxes
+  * <distance> between point and box
+
+Output:
+* make <repeat>
+* <optimize>
+
+= 195c6913
+{parent=List}
+{title2=10}
+
+https://arcprize.org/play?task=195c6913
+
+Input: three or more <containers>:
+* one <touching> top left corner
+  * inside it there are three <monocolor objects>
+* one touching bottom right corner of <toplevel box>
+  * inside it there is one <monocolor object>
+* outside of those, touching the left toplevel box edge, there is one or more <point>
+
+Output:
+* draw <dotted path> of <perpendicular line>
+  * the path color pattern comes from the color of top left objects, ordered from nearest to furthest from top le
 
 = The Employment Test
 {c}

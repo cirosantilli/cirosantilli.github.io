@@ -122,10 +122,22 @@ They might have shut down, but they still have the cutest name! And they've made
 
 https://en.bitcoin.it/wiki/Slush_Pool
 
-= Vanity address
+= Address
+{disambiguate=cryptocurrency}
 {parent=Cryptocurrency}
 
+= Vanity address
+{parent=Address (cryptocurrency)}
+
 https://bitcoin.stackexchange.com/questions/20305/what-is-vanity-address
+
+= Vanity number
+{parent=Vanity address}
+{wiki}
+
+= Vanity plate
+{parent=Vanity address}
+{wiki}
 
 = List of cryptocurrencies
 {parent=Cryptocurrency}
@@ -1429,9 +1441,24 @@ Implementations:
 = Bitcoin address
 {c}
 {parent=Bitcoin transaction}
+{tag=Address (cryptocurrency)}
+
+= Bitcoin vanity address
+{c}
+{parent=Bitcoin address}
+{tag=Vanity address}
+
+Some early ones we can find:
+* https://www.blockchain.com/explorer/transactions/btc/0215a8214297a4b7eb044641cb641c64c8a822c518841a830878c163d74feb91[tx 0215a8214297a4b7eb044641cb641c64c8a822c518841a830878c163d74feb91] block 128700 (2011-06-05) sends to the spendable https://www.blockchain.com/explorer/addresses/btc/1NLkboNANZAsxHyMLoyvAEYkhpxCS4gWA8[1NLkboNANZAsxHyMLoyvAEYkhpxCS4gWA8] which contains the word "bonanzas" (8-letters)
+* https://www.blockchain.com/explorer/transactions/btc/08d6efecf6119729fac4d148ffbe3a67344b641ed87284be23a34e072cb2dc9f[tx 08d6efecf6119729fac4d148ffbe3a67344b641ed87284be23a34e072cb2dc9f] block 133837 (2011-06-29) has https://www.blockchain.com/explorer/addresses/btc/17kEAfXiu9a6fpQs91J2kAMBtRprESENtS[17kEAfXiu9a6fpQs91J2kAMBtRprESENtS] ends in "presents" (8-letter). Unspent but possible.
+  * Also its sister output on  sends to 
+https://www.blockchain.com/explorer/addresses/btc/1Ga9Dizn1p6ctGWausC1osLSrXFdioxide[1Ga9Dizn1p6ctGWausC1osLSrXFdioxide] which ends in "dioxide" (7-letter), and is spendable
+
+= List of bitcoin addresses
+{parent=Bitcoin address}
 
 = 1MVpQJA7FtcDrwKC6zATkZvZcxqma4JixS
-{parent=Bitcoin address}
+{parent=List of bitcoin addresses}
 
 The fee/change address of <Cool data embedded in the Bitcoin blockchain/cryptograffiti.info>.
 
@@ -1555,7 +1582,8 @@ https://www.blockchain.com/explorer/blocks/btc/78
 {c}
 {parent=Bitcoin implementation}
 
-This section is about partial implementations that are only able to read the blocks, ususally coming from <Bitcoin Core>, to interpret the data.
+This section is about partial implementations that are only able to read the blocks, ususally coming from <Bitcoin Core>, to interpret the data:
+* https://bitcoin.stackexchange.com/questions/22500/is-there-a-lightweight-blockchain-parser-library-server
 
 = python-bitcoin-blockchain-parser
 {c}
@@ -1700,8 +1728,36 @@ Further bibliography:
 = Blockchain explorer
 {parent=How to extract data from the Bitcoin blockchain}
 
-= Blockchair
+= Blockchain SQL explorer
 {parent=Blockchain explorer}
+
+* https://bitcoin.stackexchange.com/questions/11687/reliable-efficient-way-to-parse-the-blockchain-into-a-sql-database
+* https://bitcoin.stackexchange.com/questions/93080/what-is-the-currently-most-efficient-and-reliable-method-to-store-the-bitcoin-bl?noredirect=1&lq=1
+* https://www.reddit.com/r/Bitcoin/comments/6wcbbs/recent_blockchain_sql_dumps/
+* https://bitcointalk.org/index.php?topic=5464721.0
+
+Cloud options:
+* <Google BigQuery>: https://cloud.google.com/blog/topics/public-datasets/bitcoin-in-bigquery-blockchain-analytics-on-public-data Sample query to get all addresses ever:
+  ``
+  SELECT block_number, transaction_hash, index, type, addresses, value
+  FROM `bigquery-public-data.crypto_bitcoin.outputs`
+  ORDER BY block_number ASC, transaction_hash ASC, index ASC, index ASC
+  LIMIT 100
+  ``
+  First output lines:
+  ``
+  block_number,transaction_hash,index,type,addresses,value
+  0,4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b,0,pubkey,[1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa],5000000000
+  1,0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098,0,pubkey,[12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX],5000000000
+  2,9b0fc92260312ce44e74ef369f5c66bbb85848f2eddd5a7a1cde251e54ccfdd5,0,pubkey,[1HLoD9E4SDFFPDiYfNYnkBLQ85Y51J3Zb1],5000000000
+  ``
+* <Amazon Athena>: https://aws.amazon.com/blogs/web3/access-bitcoin-and-ethereum-open-datasets-for-cross-chain-analytics/
+
+= Blockchain explorer website
+{parent=Blockchain explorer}
+
+= Blockchair
+{parent=Blockchain explorer website}
 
 https://blockchair.com/
 
@@ -1709,8 +1765,10 @@ Very good explorer, you can create several complex queries on it e.g.
 * https://bitcoin.stackexchange.com/questions/121718/fnd-the-most-valuable-transactions-made-to-a-given-address/121719#121719
 * https://bitcoin.stackexchange.com/questions/71019/filter-transactions-by-time-on-a-given-address/121720#121720
 
+Unfrotunately their API became paid only circa 2025...
+
 = Blockchain.info
-{parent=Blockchain explorer}
+{parent=Blockchain explorer website}
 
 TODO who owns it? Are they reliable?
 
@@ -1732,6 +1790,8 @@ bitcoin-tx-out-scripts() (
     xxd -r -p > "${h}.bin"
 )
 ``
+
+Their API limit witout key is 1 query per 10 seconds!!!
 
 = Bitcoin Inscription Indexer
 {c}
