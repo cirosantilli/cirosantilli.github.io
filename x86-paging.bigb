@@ -63,7 +63,7 @@ Where:
 
 <Compilers> don't need to worry about other programs: they just use simple logical addresses.
 
-As far as programs are concerned, they think they can use any address between 0 and 4GiB (2^32, `FFFFFFFF`) on 32-bit systems.
+As far as programs are concerned, they think they can use any address between 0 and 4 GiB (2^32, `FFFFFFFF`) on 32-bit systems.
 
 The OS then sets up paging so that identical logical addresses will go into different physical addresses and not overwrite each other.
 
@@ -95,7 +95,7 @@ Operating systems must setup and control paging by communicating to the CPU hard
 
   Using RAM data structures is a common technique when lots of data must be transmitted to the CPU as it would cost too much to have such a large CPU register.
 
-  The format of the configuration data structures is fixed _by the hardware_, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
+  The format of the configuration data structures is fixed by the hardware, but it is up to the OS to set up and manage those data structures on RAM correctly, and to tell the hardware where to find them (via `cr3`).
 
   Then some heavy caching is done to ensure that the RAM access will be fast, in particular using the TLB.
 
@@ -141,7 +141,7 @@ Paging has become so much more popular that support for segmentation was dropped
 = Example: simplified single-level paging scheme
 {parent=x86 paging}
 
-This is an example of how paging operates on a _simplified_ version of a x86 architecture to implement a virtual memory space with a `20 | 12` address split (4 KiB page size).
+This is an example of how paging operates on a simplified version of a x86 architecture to implement a virtual memory space with a `20 | 12` address split (4 KiB page size).
 
 = Single level paging scheme visualization
 {parent=Example: simplified single-level paging scheme}
@@ -194,8 +194,8 @@ Notice that:
 * the page table is just a large array with 2^20 page table entries
 * each entry is 4 bytes big, so the array takes up 4 MiB
 * each page table contains the physical address a page
-* each page is a 4 KiB aligned 4KiB chunk of memory that user processes may use
-* we have 2^20 table entries. Since each page is 4KiB == 2^12, this covers the whole 4GiB (2^32) of 32-bit memory
+* each page is a 4 KiB aligned 4 KiB chunk of memory that user processes may use
+* we have 2^20 table entries. Since each page is 4 KiB == 2^12, this covers the whole 4 GiB (2^32) of 32-bit memory
 
 = Single level paging scheme numerical translation example
 {parent=Example: simplified single-level paging scheme}
@@ -263,7 +263,7 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 
   So in this case we would have:
   *page = 0x00000. This part must be translated to a physical location.
-  *offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position _within_ the page.
+  *offset = 0x001. This part is added directly to the page address, and is not translated: it contains the position within the page.
 * look into Page table 1 because `cr3` points to it.
 * The hardware knows that this entry is located at RAM address `CR3 + 0x00000 * 4 = CR3`:
   *`0x00000` because the page part of the logical address is `0x00000`
@@ -281,7 +281,7 @@ Step-by-step translation for process 1 of logical address `0x00000001` to physic
 
   because `00001` is the physical address of the page looked up on the table and `001` is the offset.
 
-  We shift `00001` by 12 bits because the pages are always aligned to 4KiB.
+  We shift `00001` by 12 bits because the pages are always aligned to 4 KiB.
 
   The offset is always simply added the physical address of the page.
 * the hardware then gets the memory at that physical location and puts it in a register.
@@ -341,7 +341,7 @@ In any case, the OS needs to know which address generated the Page Fault to be a
 = Page table entries
 {parent=Example: simplified single-level paging scheme}
 
-The exact format of table entries is fixed _by the hardware_.
+The exact format of table entries is fixed by the hardware.
 
 Each page entry can be seen as a `struct` with many fields.
 
@@ -371,7 +371,7 @@ The fields are explained in the manual just after.
 = Page size choice
 {parent=Example: simplified single-level paging scheme}
 
-Why are pages 4KiB anyways?
+Why are pages 4 KiB anyways?
 
 There is a trade-off between memory wasted in:
 * page tables
@@ -381,11 +381,11 @@ This can be seen with the extreme cases:
 * if the page size were 1 byte:
   * granularity would be great, and the OS would never have to allocate unneeded padding memory
   * but the page table would have 2^32 entries, and take up the entire memory!
-* if the page size were 4GiB:
-  * we would need to swap 4GiB to disk every time a new process becomes active
+* if the page size were 4 GiB:
+  * we would need to swap 4 GiB to disk every time a new process becomes active
   * the page size would be a single entry, so it would take almost no memory at all
 
-x86 designers have found that 4KiB pages are a good middle ground.
+x86 designers have found that 4 KiB pages are a good middle ground.
 
 = Example: multi-level paging scheme
 {parent=x86 paging}
@@ -393,9 +393,9 @@ x86 designers have found that 4KiB pages are a good middle ground.
 = The problem with single-level paging
 {parent=Example: multi-level paging scheme}
 
-The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries _per_ process.
+The problem with a single-level paging scheme is that it would take up too much RAM: 4G / 4K = 1M entries per process.
 
-If each entry is 4 bytes long, that would make 4M _per process_, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
+If each entry is 4 bytes long, that would make 4M per process, which is too much even for a desktop computer: `ps -A | wc -l` says that I am running 244 processes right now, so that would take around 1GB of my RAM!
 
 For this reason, x86 developers decided to use a multi-level scheme that reduces RAM usage.
 
@@ -647,7 +647,7 @@ Even if the total addressable memory is 64GB, individual process are still only 
 
 Page size extension.
 
-Allows for pages to be 4M ( or 2M if PAE is on ) in length instead of 4K.
+Allows for pages to be 4M (or 2M if PAE is on) in length instead of 4K.
 
 PSE is turned on and off via the `PSE` bit of `cr4`.
 
@@ -668,7 +668,7 @@ If either PAE and PSE are active, different paging level schemes are used:
 
   Therefore, the designers decided to increase entry size to 64 bits, and to make them fit into a single page table it is necessary reduce the number of entries to 2^9 instead of 2^10.
 
-  The starting 2 is a new Page level called Page Directory Pointer Table (PDPT), since it _points_ to page directories and fill in the 32 bit linear address. PDPTs are also 64 bits wide.
+  The starting 2 is a new Page level called Page Directory Pointer Table (PDPT), since it points to page directories and fill in the 32 bit linear address. PDPTs are also 64 bits wide.
 
   `cr3` now points to PDPTs which must be on the fist four 4GB of memory and aligned on 32 bit multiples for addressing efficiency. This means that now `cr3` has 27 significative bits instead of 20: 2^5 for the 32 multiples * 2^27 to complete the 2^32 of the first 4GB.
 * PAE and PSE: `2 | 9 | 21`
@@ -754,7 +754,7 @@ adding `0000D -> 0000A` would give:
 {c}
 {parent=TLB}
 
-Using the TLB makes translation faster, because the initial translation takes one access _per TLB level_, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.
+Using the TLB makes translation faster, because the initial translation takes one access per TLB level, which means 2 on a simple 32 bit scheme, but 3 or 4 on 64 bit architectures.
 
 The TLB is usually implemented as an expensive type of RAM called content-addressable memory (CAM). CAM implements an associative map on hardware, that is, a structure that given a key (linear address), retrieves a value.
 
@@ -774,7 +774,7 @@ linear  physical
 FFFFF   00000
 ``
 
-However, to implement this with RAM, _it would be necessary to have 2^20 addresses_:
+However, to implement this with RAM, it would be necessary to have 2^20 addresses:
 ``
 linear  physical
 ------  --------
