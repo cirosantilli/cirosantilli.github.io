@@ -72,7 +72,68 @@ They even have the old IP of the domain. But because they don't have reverse IP 
 
 Interestingly a large number of the websites with broken Wayback Machine are from regions outside of the USA, presumably being slower to load from Wayback Machine US-based servers makes he archives more likely to break.
 
-The full list of newly found domains is:
+= Mass Deface III pastebin better understood
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
+I also understood a bit better the Mass Deface III pastebin https://pastebin.com/CTXnhjeS discovered by https://x.com/shakirov2036[Oleg Shakirov] which contains some hits: I think that the hits are purely coincidental when some hacker broke into "Condor Hosting" systems and then defaced several websites it contained, inadvertently also taking down some CIA websites along the day which is funny.
+
+And this seems to be a small host chosen by the CIA, so it contained a disproportionate dense concentration of CIA hits. But the original hackers likely had no idea of what they did. https://www.zone-h.com/mirror/id/18994983 suggests that Iranian hacker group Sejeal was behind the defacing.
+
+= virtual IPs squeezed further on viewdns.info
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
+I also squeezed a few of the previously known IPs without clear range a bit harder on https://viewdns.info[], as I now understand that there do exist a few websites that share the same IPs. This led to X entirely new hits, and also me moving a few domains that were previously marked as "unknown range" to a specific IP when two or more domains were found in a given IP.
+
+= whoisXMLAPI whois history squeezed further and better understood
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
+I also squeezed <whoisXMLAPI> harder but nothing much came out.
+
+The vast majority of domains use <domainsbyproxy.com> privacy which does not seem to leak any information on their whois except dates which appear well spread out.
+
+I did notice however that some of the sites are registered with <Network Solutions, LLC> and a few others in Godaddy without <domainsbyproxy.com>. These have names of people on them, and I did as many <whoisXMLAPI> searches for those names as I had the patience for.
+
+A few had another known hit on the results, and a new hit domain came out of this: http://cqcounter.com/whois/www/rolling-in-rapids.com.html[rolling-in-rapids.com] which as it turns out has no Wayback machine archive, but does have a CQ Counter archive which allowed me to confirm the hit page style. That one was found by reverse searching for the registrant of `alljohnny.com`, "Glaze, L." on https://tools.whoisxmlapi.com/reverse-whois-search[] and its IP matches 65.218.91.9 from `welcometonyc.net`.
+
+If anyone would like to donate 140 USD to dump into whoisXMLAPI I could dump all the known hit histories and have a look at them to see if anything else comes out on reverse search.
+
+\Image[https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/screenshots/cqcounter/rolling-in-rapids.com.gif?raw=true]
+{height=545}
+{source=http://cqcounter.com/whois/www/rolling-in-rapids.com.html}
+
+= Better understanding and understanding of IP range owners
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
+I also started to better note down the IP owner and location of each IP range from <viewdns.info> at <CIA 2010 covert communication websites/Hits with nearby IP hits>, as this is an important information which could offer further clues. All IPs in each range belong to the same provider, since IPs are generally bought in blocks. For example:
+* 62.22.60.49 telecom-headlines.com was owned by the company UUNET and hosted from Spain, and the same is true for neighboring IPs such as:
+  * 62.22.60.48: currentcommunique.com
+  * 62.22.60.52: collectedmedias.com
+* 63.131.229.12 cyberreportagenews.com was owned by the company ADHOST and hosted from Coeur d'Alene - United States. Interestingly US-based hosts also offer city-level information while foreign ones don't.
+These don't necessarily tell us directly who the CIA hosted with, since in some cases hosting providers can indirectly rent out IPs from other providers, e.g. Heroku uses AWS. But it does suggest that some nearby IP ranges were done on the same hosting provider while others weren't.
+
+= Possible cute internal information leaks on a few sites
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
+I'm not sure about this and it's not very useful, but the following were cute.
+
+216.105.98.132 europeantravelcafe.com is a very likely hit that:
+* had a "Plan Your Trip" link in 2010: https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/ linking to an external website: https://secure-cert.net/~etc/transport.html
+* and had the link removed in 2011: https://web.archive.org/web/20110201192245/http://europeantravelcafe.com/
+This suggests that this was an internal site management link for the site operators which was later noticed and removed across versions, leaking the management method in the process.
+
+\Image[https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/screenshots/www.europeantravelcafe.com-arrow.jpg?raw=true]
+{title=2010 <Wayback Machine> archive of https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/[www.europeantravelcafe.com]}
+{description=The suspicious "Plan Your Trip" link that https://web.archive.org/web/20110201192245/http://europeantravelcafe.com/[was later removed] is highlighted with an arrow made by us.}
+{height=1024}
+{source=https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/}
+
+https://web.archive.org/web/20110207150839/http://webofcheer.com/[199.187.208.12 webofcheer.com] has an exceedingly weird HTML page title:
+> pg1c
+which feels like it could be a leak of an internal identifier for this website, or perhaps even worse, for the CIA program itself.
+
+= Full list of newly found screenshots
+{parent=60 new CIA website screenshots discovered on CQ Counter}
+
 * http://cqcounter.com/whois/www/affairesdumonde.com.html[affairesdumonde.com]
 * http://cqcounter.com/whois/www/american-historyonline.com.html[american-historyonline.com]
 * http://cqcounter.com/whois/www/arborstribune.org.html[arborstribune.org]
@@ -133,65 +194,6 @@ The full list of newly found domains is:
 * http://cqcounter.com/whois/www/waronfilmonline.com.html[waronfilmonline.com]
 * http://cqcounter.com/whois/www/worldfeedstoday.com.html[worldfeedstoday.com]
 * http://cqcounter.com/whois/www/worldnewsandtravel.com.html[worldnewsandtravel.com]
-
-= Mass Deface III pastebin better understood
-{parent=60 new CIA website screenshots discovered on CQ Counter}
-
-I also understood a bit better the Mass Deface III pastebin https://pastebin.com/CTXnhjeS discovered by https://x.com/shakirov2036[Oleg Shakirov] which contains some hits: I think that the hits are purely coincidental when some hacker broke into "Condor Hosting" systems and then defaced several websites it contained, inadvertently also taking down some CIA websites along the day which is funny.
-
-And this seems to be a small host chosen by the CIA, so it contained a disproportionate dense concentration of CIA hits. But the original hackers likely had no idea of what they did. https://www.zone-h.com/mirror/id/18994983 suggests that Iranian hacker group Sejeal was behind the defacing.
-
-= virtual IPs squeezed further on viewdns.info
-{parent=60 new CIA website screenshots discovered on CQ Counter}
-
-I also squeezed a few of the previously known IPs without clear range a bit harder on https://viewdns.info[], as I now understand that there do exist a few websites that share the same IPs. This led to X entirely new hits, and also me moving a few domains that were previously marked as "unknown range" to a specific IP when two or more domains were found in a given IP.
-
-= whoisXMLAPI whois history squeezed further and better understood
-{parent=60 new CIA website screenshots discovered on CQ Counter}
-
-I also squeezed <whoisXMLAPI> harder but nothing much came out.
-
-The vast majority of domains use <domainsbyproxy.com> privacy which does not seem to leak any information on their whois except dates which appear well spread out.
-
-I did notice however that some of the sites are registered with <Network Solutions, LLC> and a few others in Godaddy without <domainsbyproxy.com>. These have names of people on them, and I did as many <whoisXMLAPI> searches for those names as I had the patience for.
-
-A few had another known hit on the results, and a new hit domain came out of this: http://cqcounter.com/whois/www/rolling-in-rapids.com.html[rolling-in-rapids.com] which as it turns out has no Wayback machine archive, but does have a CQ Counter archive which allowed me to confirm the hit page style. That one was found by reverse searching for the registrant of `alljohnny.com`, "Glaze, L." on https://tools.whoisxmlapi.com/reverse-whois-search[] and its IP matches 65.218.91.9 from `welcometonyc.net`.
-
-If anyone would like to donate 140 USD to dump into whoisXMLAPI I could dump all the known hit histories and have a look at them to see if anything else comes out on reverse search.
-
-\Image[https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/screenshots/cqcounter/rolling-in-rapids.com.gif?raw=true]
-{height=545}
-{source=http://cqcounter.com/whois/www/rolling-in-rapids.com.html}
-
-= Better understanding and understanding of IP range owners
-{parent=60 new CIA website screenshots discovered on CQ Counter}
-
-I also started to better note down the IP owner and location of each IP range from <viewdns.info> at <CIA 2010 covert communication websites/Hits with nearby IP hits>, as this is an important information which could offer further clues. All IPs in each range belong to the same provider, since IPs are generally bought in blocks. For example:
-* 62.22.60.49 telecom-headlines.com was owned by the company UUNET and hosted from Spain, and the same is true for neighboring IPs such as:
-  * 62.22.60.48: currentcommunique.com
-  * 62.22.60.52: collectedmedias.com
-* 63.131.229.12 cyberreportagenews.com was owned by the company ADHOST and hosted from Coeur d'Alene - United States. Interestingly US-based hosts also offer city-level information while foreign ones don't.
-These don't necessarily tell us directly who the CIA hosted with, since in some cases hosting providers can indirectly rent out IPs from other providers, e.g. Heroku uses AWS. But it does suggest that some nearby IP ranges were done on the same hosting provider while others weren't.
-
-= Possible cute internal information leaks on a few sites
-{parent=60 new CIA website screenshots discovered on CQ Counter}
-
-I'm not sure about this and it's not very useful, but the following were cute.
-
-216.105.98.132 europeantravelcafe.com is a very likely hit that:
-* had a "Plan Your Trip" link in 2010: https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/ linking to an external website: https://secure-cert.net/~etc/transport.html
-* and had the link removed in 2011: https://web.archive.org/web/20110201192245/http://europeantravelcafe.com/
-This suggests that this was an internal site management link for the site operators which was later noticed and removed across versions, leaking the management method in the process.
-
-\Image[https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/screenshots/www.europeantravelcafe.com-arrow.jpg?raw=true]
-{title=2010 <Wayback Machine> archive of https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/[www.europeantravelcafe.com]}
-{description=The suspicious "Plan Your Trip" link that https://web.archive.org/web/20110201192245/http://europeantravelcafe.com/[was later removed] is highlighted with an arrow made by us.}
-{height=1024}
-{source=https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/}
-
-https://web.archive.org/web/20110207150839/http://webofcheer.com/[199.187.208.12 webofcheer.com] has an exceedingly weird HTML page title:
-> pg1c
-which feels like it could be a leak of an internal identifier for this website, or perhaps even worse, for the CIA program itself.
 
 = New Bitcoin Base58 messages found due to a new paper: Bitcoin Burn Addresses: Unveiling the Permanent Losses and Their Underlying Causes
 {parent=Updates}
