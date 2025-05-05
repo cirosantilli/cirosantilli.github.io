@@ -9,6 +9,55 @@ For a more theme-oriented version of the best results see: <articles>{full}.
 
 For <OurBigBook Project> updates see: https://docs.ourbigbook.com/news
 
+= Post OurBigBook job search round 2025
+{parent=Updates}
+
+I shouldn't be doing this on funded <OurBigBook> time which is until the end of May, but I was getting too nervous and decided to start a casual job search to test the waters.
+
+In particular I want to see if I can get past the HR lady step without toning down my online profiles a bit. If nothing works out for the next round I'll be hiding anything too spicy like:
+* prominently seeking funding for <OurBigBook> on my <LinkedIn> profile
+* <CIA 2010 covert communication websites> references
+* https://cirosantilli.com/china-dictatorship/gay-putin[gay Putin] profile picture on <Stack Overflow>
+
+\Image[https://web.archive.org/web/20240707132335im_/https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/images/methode/2017/04/06/0a2ae706-1a94-11e7-b4ed-ac719e54b474_1280x720_145124.jpg?itok=1PDxSxTA]
+{title=https://cirosantilli.com/china-dictatorship/gay-putin[Gay Putin], currently used in <Ciro Santilli's Stack Overflow profile>}
+{description=Ciro's profiles may be a bit too much for the HR ladies who reject his job applications on the spot. To be fair, perhaps not enough years of experience for certain applications and job hopping may have something to do with it too. But since they don't ever tell you anything not to get sued, we'll never know.}
+
+I'm looking in particular either for:
+* <machine learning>-adjacent jobs in companies that seem to be doing something that could further <AGI>, e.g. <automatic code generation> or <robotics> would be ideal
+* <quantum computing>
+* <systems programming>, which is what I actually have work experience with
+
+I spent the last two weeks doing that:
+* one week browsing everything of interest in <London> and <Paris> and sending applications to anything that seemed both relevant and interesting. Maintaining an application list at: <Job application by Ciro Santilli>{full}.
+* one week on a very laborious but somewhat interesting take home exercise for <Linux Kernel> engineer a <Canonical (company)>, makers of <Ubuntu>.
+
+  I had a week to finish 5 practical coding and packaging questions, and I tried to do everything as perfectly as possible, but I somewhat underestimated the amount of work and wait needed to do everything and didn't manage to finish question 4 and missed 5. Oops let's see how that goes.
+
+  At least this had a few good outcomes for the Internet as I tried to document things as nicely as I could where they were missing from <Google> as usual:
+  * <quickemu>: this is a good <emulator manager> and I think I'll be using it for <Ubuntu> images when needed from now on. I wrote:
+    * https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1545712#1545712[How to run Ubuntu desktop on QEMU?]: an introductory tutorial to the software as their README is not that good as is often the case. It's hard for project authors to predict what new users want or not. This is my second answer to this question, the https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1046792#1046792[previous one] focusing on a more manual approach without third party helpers.
+    * https://www.reddit.com/r/commandline/comments/v85fmx/how_to_share_folder_between_guesthost_quickemu/[How to share folder between guest/host? (Quickemu)]: I explained how to setup a 9p mount to share a directory between guest and host
+  * https://askubuntu.com/questions/496549/error-you-must-put-some-source-uris-in-your-sources-list/857433#857433[Error :: You must put some 'source' URIs in your sources.list]: updated this answer for <Ubuntu 24.04>. This issue comes up when you want to do either of:
+    ```
+    sudo apt build-dep
+    sudo apt source
+    ```
+    which don't work by default, and my answer explains how to do it from the GUI and CLI. The CLI method is specially important for <Docker> images. Since Ubuntu doesn't offer a stable CLI method for this, the method breaks from time to time and we have to find the new config file to edit.
+  * https://askubuntu.com/questions/248914/what-is-hardware-enablement-hwe/1546835#1546835p[What is hardware enablement (HWE)?]: I learned a bit better how Ubuntu structures its kernel releases for each <Ubuntu release>
+
+    \Image[]
+    {title=Linux kernel version used for each <Ubuntu release>}
+    {description=In particular, Ubuntu has HWE kernels which are updated kernels for older releases. E.g.
+    * 24.04.0 and 24.04.1 had kernel 6.8
+    * 24.04.2 moved up to kernel 6.11, the same one used in 24.10, to support newer hardware
+    }
+    {source=https://ubuntu.com/about/release-cycle}
+
+  Some of the main issues I had were:
+  * <compiling Linux kernel for Ubuntu> is extremely slow. I was used to compiling for embedded system with <Buildroot>, which finishes in minutes, but for Ubuntu is hours, presumably because they enable as many drivers as possible to make a single ISO work on as many different computers as possible, which makes sense, but also makes development harder
+  * my <QEMU> setup for Ubuntu was not quite as streamlined and I relearned a few things and set up <quickemu>. By chance I had recently come across <quickemu> for testing <OurBigBook> on <MacOS>, but I had to learn a bit how to set it up reasonably too
+
 = 60 new CIA website screenshots discovered on CQ Counter
 {parent=Updates}
 {scope}

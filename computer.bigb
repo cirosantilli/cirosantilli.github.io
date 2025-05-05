@@ -972,6 +972,14 @@ How they are assigned: https://www.quora.com/How-are-MAC-addresses-assigned Basi
 \Video[https://www.youtube.com/watch?v=rPoalUa4m8E]
 {title=The Internet Protocol by Ben Eater (2014)}
 
+= Find your public IP
+{parent=IP address}
+
+= Find your public IP from the command line
+{parent=Find your public IP}
+
+* https://askubuntu.com/questions/95910/command-for-determining-my-public-ip/712144#712144
+
 = Transmission Control Protocol
 {c}
 {parent=Internet protocol suite}
@@ -1395,12 +1403,37 @@ Associated article: https://www.nextplatform.com/2019/10/31/hypercalers-lead-the
 = Modem router
 {parent=Router (computing)}
 
-= TP Link Archer VR2800 router Virgin Media Hub 3.0 Wifi setup
+= TP-Link
+{c}
 {parent=Modem router}
+{wiki}
+
+= TP-Link Archer VR2800 router allow external access to the network
+{c}
+{parent=TP-Link}
+
+This section explains a tutorial on how to allow external computers to access a computer in your network.
+
+For example, this could for example be used to allow you to access <SSH> or a web server running on a computer at your home from your laptop when you are outside of your home.
+
+What you need to do seems to be:
+* NAT Forwarding: allows you to select which external port you want to forward to which internal IP + port
+* Network > LAN Settings > Address reservation > and reserve the IP above to the MAC of your computer
+From there on, you just need to <find your public IP> and use that, e.g. you could test accessing a test server from your cell phone cellular network after turning <wifi> off for the cell phone.
+
+<Ciro Santilli> tested this on his <TP-Link Archer VR2800 router Virgin Media Hub 3.0 Wifi setup> and it just worked. Virgin Media doesn't seem to pose any strict restrictions to this.
+
+A next good step if you are going to have a workhorse computer without much personal logins of value is to setup "group isolation" so that if that computer ever gets compromised, hackers won't be able to infiltrate the rest of the network. But TODO: couldn't find the setting on the TP-Link Archer VR2800 even though the manual says it should be there. Oh well.
+
+= TP-Link Archer VR2800 router Virgin Media Hub 3.0 Wifi setup
+{parent=TP-Link}
 
 Put Hub 3.0 in modem mode on 192.168.0.1. Turn it off. You MUST TURN IT OFF NOW.
 
-TP Link Archer VR2800 192.168.1.1 > "Operation mode" > "Wireless router mode" (was "DSL Modem/Router mode" by default).
+TP Link Archer VR2800 192.168.1.1 and set:
+
+* "Operation mode" > "Wireless router mode" (was "DSL Modem/Router mode" by default).
+* "Network" > "Internet" > "Add" > "Internet Connection Type" > "Dynamic IP" > "Save"
 
 Custom configs we had, not sure if mandatory:
 * Dynamic DHPC mode
@@ -1417,6 +1450,9 @@ Outcome:
 * Archer WAN light turns on white. Not red. Red means error
 * you have Wifi. Notably, the 5G Wifi is way way faster and reaches the WAN limit of 256 Mbps.
 * Ethernet does not work anymore on either Hub nor Archer, Wifi only. But it doesn't matter because the 5G Wifi already reaches the speed limit.
+
+\Video[https://www.youtube.com/watch?v=7vqVVlEFnV4]
+{title=How to use a TP-Link ARCHER VR2800 modem/router with Virgin Media Hub 3.0 for Wifi}
 
 Bibliography:
 * https://community.virginmedia.com/t5/Forum-Archive/Connecting-Tp-link-archer-vr2800-to-Hub-3/td-p/4765927 This was The thread, the only one that clearly explained the fundamental importance of turn on off ordering by "jbrennand".

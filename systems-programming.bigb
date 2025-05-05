@@ -249,13 +249,12 @@ You must watch this: <truth Happens advertisement by Red Hat>.
 
 The fact that this foundation has a bunch of paid, closed, certification courses makes <Ciro Santilli> not respect them at all. They should be making <open access> content instead!
 
-= Linux insides
+= Linux kernel build output
 {c}
 {parent=Linux kernel}
 
-https://github.com/0xAX/linux-insides
-
-Documents the <Linux kernel>. Somewhat of a competitor to <Linux Kernel Module Cheat>, but more wordy and less automated.
+= vmlinux
+{parent=Linux kernel build output}
 
 = Step debug the Linux kernel
 {c}
@@ -273,6 +272,48 @@ Documents the <Linux kernel>. Somewhat of a competitor to <Linux Kernel Module C
 {c}
 {parent=JTAG}
 {title2=SWD}
+
+= Linux kernel bibliography
+{parent=Linux kernel}
+
+= Linux insides
+{c}
+{parent=Linux kernel bibliography}
+
+https://github.com/0xAX/linux-insides
+
+Documents the <Linux kernel>. Somewhat of a competitor to <Linux Kernel Module Cheat>, but more wordy and less automated.
+
+= Linux Device Drivers book
+{parent=Linux kernel bibliography}
+
+This is perhaps by far the most famous kernel driver book.
+
+As of 2025 the latest version was quite old however, <Linux Device Drivers book 3rd edition> from 2005.
+
+= Linux Device Drivers book edition
+{parent=Linux Device Drivers book}
+
+= Linux Device Drivers book 3rd edition
+{parent=Linux Device Drivers book edition}
+{title2=2005}
+{title2=Kernel 2.6.10}
+
+= LDD3
+{synonym}
+{title2}
+
+https://lwn.net/Kernel/LDD3/ contains the PDF of each chapter.
+
+https://www.amazon.co.uk/dp/B0026OR2XQ
+
+The book covers the Linux kernel version 2.6.10.
+
+= https://github.com/martinezjavier/ldd3
+{parent=Linux Device Drivers book 3rd edition}
+{file}
+
+This repo has ported the kernels up to 5.10 as of writing. https://github.com/martinezjavier/ldd3/pull/86 attempts to go further into 6.x but has been ignored for two years unfortunately.
 
 = Linux distribution
 {c}
@@ -431,6 +472,11 @@ The greatest advantage of it being that it has the likely largest desktop user b
 
 Ciro considers that the killer flaw of Ubuntu, and most desktop distros of 2020, is that no one under the Sun knows how to build them fully from source: <Linux distribution buildable from source>. This is why Ciro based the <Linux Kernel Module Cheat> on <Buildroot>, see also: <Linux distribution buildable from source>.
 
+= Canonical
+{disambiguate=company}
+{parent=Ubuntu}
+{wiki}
+
 = apport
 {disambiguate=software}
 {c}
@@ -469,7 +515,6 @@ apport-cli gnome-shell
 
 = How to report Ubuntu crashes
 {parent=Ubuntu HOWTO}
-{wiki}
 
 Their crash system does not have an amazing user interface.
 
@@ -520,6 +565,40 @@ sudo apt install ubuntu-dbgsym-keyring
 but then `sudo apt update` fails with:
 ``
 E: The repository 'http://ddebs.ubuntu.com impish-security Release' does not have a Release file.
+``
+
+= Compile Linux kernel for Ubuntu
+{parent=Ubuntu HOWTO}
+
+= Compiling Linux kernel for Ubuntu
+{synonym}
+
+This section describes our attempts at compiling the <Linux kernel> for <Ubuntu> so as to use the exact patches and build configuration as used for a given <Ubuntu release>. The same toolchain would also be ideal, but perhaps this would require a <Linux distribution buildable from source>.
+
+https://canonical-kteam-docs.readthedocs-hosted.com/en/public/how-to/build-kernel.html seems promising it says that for <Ubuntu 24.04> and above you should do the following which was tested on <Ubuntu 24.10>:
+
+``
+sudo cp /etc/apt/sources.list /etc/apt/sources.list~
+sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+sudo apt-get update
+sudo apt build-dep -y linux linux-image-unsigned-$(uname -r)
+sudo apt install -y fakeroot llvm libncurses-dev dwarves
+apt source linux-image-unsigned-$(uname -r)
+~/tmp/ubuntu/linux-6.11.0
+cd linux-6.11.0
+chmod a+x debian/rules
+chmod a+x debian/scripts/*
+chmod a+x debian/scripts/misc/*
+fakeroot debian/rules clean
+fakeroot debian/rules binary
+``
+
+The build is extremely slow compared to a build of a more embedded and specifically targeted minimal kernel, and took about 2 hours on <Ciro Santilli's hardware/P14s>. Their philosophy is likely to enable as many drivers as possible so that a single download will work for everyone. Which makes sense, fair enough. It would be cute though if there was a smarter way. Oh well.
+
+After it finally finishes the build including our <vmlinux> is present at:
+
+``
+linux-6.11.0/debian/build/build-generic
 ``
 
 = Ubuntu release
@@ -775,7 +854,7 @@ Related "GPU has fallen off the bus": https://askubuntu.com/questions/868321/gpu
 
 Sometimes it just feels like Ubuntu devs don't actually use Ubuntu as a desktop.
 
-Some extremelly anoying problems are introduced and just never get fixed, even though they feel so obvious!
+Some extremely annoying problems are introduced and just never get fixed, even though they feel so obvious!
 
 Would never happen on <Mac>...
 
@@ -1126,9 +1205,42 @@ Stopped 2019 apparently. Shame. We need something to be upstreamed!
 https://virt-manager.org/
 
 = quickemu
+{c}
 {parent=Emulator manager}
 
-https://github.com/quickemu-project/quickemu
+Homepage: https://github.com/quickemu-project/quickemu
+
+Introductor tutorial by <Ciro Santilli>: https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1545712#1545712 intro
+
+= quickemu HOWTO
+{c}
+{parent=quickemu}
+
+= quickemu directory sharing
+{c}
+{parent=quickemu HOWTO}
+
+Tutorial by <Ciro Santilli>: https://www.reddit.com/r/commandline/comments/v85fmx/comment/mpsvd25/
+
+= quickemu serial without GUI
+{c}
+{parent=quickemu HOWTO}
+
+This would serve as a good workaround for the lack of clipboard and the default annoyiance of mouse capture!
+
+I don't see how to get it working out of box immediately, but after you do on guest:
+``
+sudo apt install openssh-server
+``
+then the host terminal tells you the ssh command e.g.:
+``
+ssh user@localhost -p 22220
+``
+and that worked. You can also <quickemu> with:
+``
+quickemu --display none
+``
+to not get any annoying GUI.
 
 = Systems programmer
 {parent=Systems programming}
