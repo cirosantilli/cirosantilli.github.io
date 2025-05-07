@@ -19,7 +19,7 @@ This article is about <cutout (espionage)>[covert agent communication channel] w
 
 This discovery led to the imprisonment and execution of several assets in <Iran> and <China>, and subsequent shutdown of the channel.  This is likely a Wikipedia page that talks about the disastrous outcome of the websites being found out: https://en.wikipedia.org/wiki/2010%E2%80%932012_killing_of_CIA_sources_in_China[2010–2012 killing of CIA sources in China], although it contained no mention of websites before <Ciro Santilli> edited it in.
 
-Of particular interest is also the fact that, based on their language and content, certain of the websites seem to have <USA spying on its own allies>[targeted other democracies such as Germany, France, Spain and Brazil].
+Of particular interest is that based on their language and content, certain of the websites seem to have <USA spying on its own allies>[targeted other democracies such as Germany, France, Spain and Brazil].
 
 This article uses publicly available information to publicly disclose for the first time a few hundred of what we feel are extremely likely candidate sites of the network. The starting point for this article was the <Reuters article>[September 2022 Reuters article "America’s Throwaway Spies"] for the first time gave some example websites, <The Reuters websites>[nine of them in total], and claimed that the network consisted of "more than 350 websites".
 
@@ -133,7 +133,17 @@ That article also gives a cute insight into the <OPSEC> guidelines for the asset
 Finally the article also gives us a cute terminology: COVCOM:
 > “And the agency would produce its own COVCOM \[covert communications\] systems in-house. We’d test it there. In denied areas, we had special systems.”
 
-\b[September 2022] a few specific websites were finally reported by Reuters: https://www.reuters.com/investigates/special-report/usa-spies-iran/[], henceforth known only as "the <Reuters article>" in this article.
+\b[29 September 2022]: https://www.reuters.com/investigates/special-report/usa-spies-iran/[Reuters reported nine specific websites of the network at "America's Throwaway Spies"], henceforth known only as "the <Reuters article>" in this article.
+
+The most important thing that this article gave were screenshots of nine websites, including the domain names of two of them: iraniangoals.com and iraniangoalkicks.com:
+> In addition, some sites bore strikingly similar names. For example, while Hosseini was communicating with the CIA through Iraniangoals.com, a site named Iraniangoalkicks.com was built for another informant. At least two dozen of the 350-plus sites produced by the CIA appeared to be messaging platforms for Iranian operatives, the analysts found.
+The "350-plus" number is a bit random, given that their own analysts stated a much higher 885 in their report.
+
+The article also reveals the critical flaw of the system; the usage of sequential IPs:
+> Online records they analyzed reveal the hosting space for these front websites was often purchased in bulk by the dozen, often from the same internet providers, on the same server space. The result was that numerical identifiers, or IP addresses, for many of these websites were sequential, much like houses on the same street.
+
+It also mentions that other countries besides Iran and Chine were also likely targeted:
+> This vulnerability went far beyond Iran. Written in various languages, the websites appeared to be a conduit for CIA communications with operatives in at least 20 countries, among them China, Brazil, Russia, Thailand and Ghana, the analysts found.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/Reuters_CIA_website_article_banner.jpg]
 {title=Banner of the <Reuters article>}
@@ -141,14 +151,45 @@ Finally the article also gives us a cute terminology: COVCOM:
 {source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/www.reuters.com_investigates_special-report_usa-spies-iran_applet_reconstruction.jpg]
-{title=Reuters reconstruction of what the applet would have looked like}
+{title=Reuters reconstruction of what the iraniangoals.com applet would have looked like}
 {height=850}
 {source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
+
+\b[29 September 2022]: on the same day that Reuters published their report, Citizenlab, which Reuters used as analysts for the article, https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[also simultaneously published their more technical account of things at "Statement on the fatal flaws found in a defunct CIA covert communications system"].
+
+One of the most important information given in that report is the large number of sites found, 885, and the fact that they are available on <Wayback Machine>:
+> Using only a single website, as well as publicly available material such as historical internet scanning results and the <Internet Archive>'s <Wayback Machine>, we identified a network of 885 websites and have high confidence that the United States (US) Central Intelligence Agency (<CIA>) used these sites for covert communication.
+The million dollar question is "which website" and "how much does it cost if anything" since our investigation has so far had to piece together a few different hacky sources. One way to try and deduce this is to look through their other reports, e.g.:
+* https://citizenlab.ca/2021/07/hooking-candiru-another-mercenary-spyware-vendor-comes-into-focus/ uses Censys, and it notably has historical data:
+  > We searched historical data from Censys
+* https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/ mentions https://scans.io/[]
+* https://citizenlab.ca/2020/12/running-in-circles-uncovering-the-clients-of-cyberespionage-firm-circles/ mentions: https://www.shodan.io/[]
+
+The article mentioned the different types of <communication mechanisms> found:
+> The websites included similar <Java>, <JavaScript>, <Adobe Flash>, and <CGI> artifacts that implemented or apparently loaded covert communications apps. In addition, blocks of sequential IP addresses registered to apparently fictitious US companies were used to host some of the websites. All of these flaws would have facilitated discovery by hostile parties.
+
+They describe the most common subject matters and language of the websites:
+> The websites, which purported to be news, weather, sports, healthcare, and other legitimate websites, appeared to be localized to at least 29 languages and geared towards at least 36 countries.
+
+They also give the dates range in which the system was active, which is very helpful for better targeting our searches:
+> The bulk of the websites that we discovered were active at various periods between 2004 and 2013.
+
+And then a bomb, they claim to have found information regarding specific officers:
+> Nevertheless, a subset of the websites are linked to individuals who may be former and possibly still active intelligence community employees or assets:
+  * Several are currently abroad
+  * Another left mainland China in the time frame of the Chinese crackdown
+  * Another was subsequently employed by the US State Department
+  * Another now works at a foreign intelligence contractor
+  Given that we cannot rule out ongoing risks to CIA employees or assets, we are not publishing full technical details regarding our process of mapping out the network at this time. As a first step, we intend to conduct a limited disclosure to <US Government> oversight bodies.
+This basically implies that they must have either
+* <= IP and DNS metadata>[found some communication layer] level identifier, e.g. <domain name> registration HTTPS certificate certificate because it is impossible to believe that real agent names would have been present on the website content itself!
+* or they may be instead talking about a separate recruitment network which offered the VISAs which we conjecture might have existed but currently have no examples of, and which might conceivably contain real embassy contacts
+We have so for not yet found any such clear references to people.
 
 = Overview of Ciro Santilli's investigation
 {parent=Background}
 
-<Ciro Santilli> hard heard about the 2018 Yahoo article around 2020 while <Ciro Santilli's campaign for freedom of speech in China>[studying for his China campaign] because the websites had been used to take down the Chinese CIA network in China. He even asked on <Quora>: https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks[] but there were no publicly known domains at the time to serve as a starting point. https://www.quora.com/profile/Chris-2110[Chris, Electrical Engineer and former Avionics Tech in the US Navy], even replied suggesting that obviously the <CIA> is so competent that it would never ever have its sites leaked like that:
+<Ciro Santilli> hard heard about the 2018 Yahoo article around 2020 while <Ciro Santilli's campaign for freedom of speech in China>[studying for his China campaign] because the websites had been used to take down the Chinese CIA network in China. He https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks[even asked on Quora about it], but there were no publicly known domains at the time to serve as a starting point. https://www.quora.com/profile/Chris-2110[Chris, Electrical Engineer and former Avionics Tech in the US Navy], even replied suggesting that obviously the <CIA> is so competent that it would never ever have its sites leaked like that:
 > Seriously a dumb question.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/CIA_2010_site_Quora_question_and_Chris_answer.png]
@@ -156,11 +197,29 @@ Finally the article also gives us a cute terminology: COVCOM:
 {height=550}
 {source=https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks/answer/Chris-2110}
 
-So when <Ciro Santilli> heard about the 2022 article almost a year after publication, and being a <OurBigBook.com>[half-arsed web developer himself], he <Ciro Santilli's naughty projects>[knew he had to try] and find some of the domains himself using the newly available information! It was an irresistible real-life <capture the flag (cybersecurity)>. The thing is, everyone who has ever developed a website knows that its <attack surface> is about the <Size of Texas meme>[size of Texas], and the potential for <fingerprinting (cybersecurity)> is off the charts with so many bits and pieces sticking out. Chris, get fucked.
+In 2023, one year after the Reuters article had been published, <Ciro Santilli> was killing some time on <YouTube> when he saw a curious video: <video Compromised Comms by Darknet Diaries (2023)>. As soon as he understood what it was about and that it was likely related to the previously undisclosed websites that he was interested in, he went on to read the Reuters article.
 
-In particular, it is fun to have such a clear and visible to anyone examples of the <USA spying on its own allies> in the form of <Wayback Machine> archives.
+Being a <OurBigBook.com>[half-arsed web developer himself], Ciro knows that the <attack surface> of a website is about the <Size of Texas meme>[size of Texas], and the potential for <fingerprinting (cybersecurity)> is off the charts with so many bits and pieces sticking out. And given that there were at least 885 of them, surely we should be able to find a few more than nine, right?
 
-Given that it was reported that there were "more than 350" such websites, it would be really cool if we could uncover more of those websites ourselves beyond the 9 domains reported by Reuters!
+In particular, it is fun how these websites provide to anyone "live" examples of the <USA spying on its own allies> in the form of <Wayback Machine> archives.
+
+Given all of this, <Ciro Santilli's naughty projects>[Ciro knew he had to try] and find some of the domains himself using the newly available information! It was an irresistible real-life <capture the flag (cybersecurity)>. 
+
+Chris, get fucked.
+
+\Video[https://www.youtube.com/watch?v=uh_q02eefFM]
+{title=Compromised Comms by Darknet Diaries (2023)}
+{description=
+It was the <YouTube> suggestion for this video that made <Ciro Santilli> aware of the <Reuters article> almost one year after its publication, which kickstarted his research on the topic.
+
+Full podcast transcript: https://darknetdiaries.com/transcript/75/
+
+https://x.com/cirosantilli/status/1900278353065894324[Ciro Santilli pinged the Podcast's host Jack Rhysider on Twitter] and he ACK'ed which is cool, though he was skeptical about the strength of the fingerprints found, and didn't reply when clarification was offered. Perhaps the material is just not impactful enough for him to produce any new content based on it. Or also perhaps it comes too close to <sources and methods> for his own good as a presumably American citizen.
+}
+
+The first step was to try and obtain the domain names of all nine websites that Reuters had highlighted as they had only given two.
+
+Thankfully however, inspecting the HTML addresses 
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/Reuters_CIA_website_article_image_urls_arrow.jpg]
 {title=Inspecting the <Reuters article> HTML source code}
@@ -213,16 +272,6 @@ google.com,2013-10-02T19:02:35,74.125.239.46
 {height=850}
 {source=https://github.com/cirosantilli/expired-domain-names-by-day-2011}
 
-\Video[https://www.youtube.com/watch?v=uh_q02eefFM]
-{title=Compromised Comms by Darknet Diaries (2023)}
-{description=
-It was the <YouTube> suggestion for this video that made <Ciro Santilli> aware of the <Reuters article> almost one year after its publication, which kickstarted his research on the topic.
-
-Full podcast transcript: https://darknetdiaries.com/transcript/75/
-
-https://x.com/cirosantilli/status/1900278353065894324[Ciro Santilli pinged the Podcast's host Jack Rhysider on Twitter] and he ACK'ed which is cool, though he was skeptical about the strength of the fingerprints found, and didn't reply when clarification was offered. Perhaps the material is just not impactful enough for him to produce any new content based on it. Or also perhaps it comes too close to <sources and methods> for his own good as a presumably American citizen.
-}
-
 = Results
 {parent=CIA 2010 covert communication websites}
 
@@ -243,9 +292,13 @@ The subtitle "Beyond The Unknown" may be a reference to the https://starwars.fan
 \Image[https://web.archive.org/web/20250312060328if_/https://media.gettyimages.com/id/172984439/photo/little-jedi.jpg?s=2048x2048&w=gi&k=20&c=vKTUlTKpYtPcL8wQobbZMQEhU1CZefV7VlXxDExqZn8=]
 {title=Stock photo of a Jedi boy from Getty Images used on https://web.archive.org/web/20101230033220/http://starwarsweb.net/[starwarsweb.net]}
 {description=
+Marked as Uploaded 10 October, 2008.
+
 The photo can still be licensed today as of 2025: https://www.gettyimages.co.uk/detail/photo/little-jedi-royalty-free-image/172984439[]. We found it by https://www.gettyimages.co.uk/search/2/image?phrase=jedi%20boy&sort=best&license=rf%2Crm[searching for "jedi boy" on gettyimages.co.uk]. The photo is credited to a `madisonwi`, presumably an alias based on the location <#Madison, Wisconsin>. Here's a random website about adoption that uses it: https://www.adoptionadvocates.net/star-wars-adoption-language/ and where it can be seen without the watermarks.
 
 The droids can be seen e.g. at: https://www.amazon.co.uk/04-Kampf-Droiden-Superheftig-Jedi/dp/B004TINSW6[], a promotional material for a 2008 The Clone Wars television series audio CD and available as transparent PNGs without background in several sources. The Yoda art also seems to come from that show: https://rpggamer.org/page.php?page=4229[]. One can picture the contractor's children watching that show when a lightbulb popped over their heads.
+
+It later ocurred to <Ciro Santilli> that perhaps Reuters did not showcase this website because it features a minor. But Ciro is sure that that minor is now a handsome young man in his 20's and would find the entire story very amusing if he ever finds out about it!
 }
 {source=https://www.gettyimages.co.uk/detail/photo/little-jedi-royalty-free-image/172984439}
 }
@@ -393,7 +446,7 @@ Ciro couldn't help but feel as if looking through the Eyes of <Sauron> himself!
 
 It is worth noting that democracies represent just a small minority of the websites found. The Middle East, and Spanish language sites (presumably for Venezuela + war on drugs countries?) where the huge majority. But <Americans> have to understand that https://cirosantilli.com/china-dictatorship/dictatorships-tend-to-work-together[democracies have to work together and build mutual trust, and not spy on one another]. Even some of the enlightened people from <Hacker News> seem https://news.ycombinator.com/item?id=36279768[to not grasp this point]. The <USA> cannot single handedly maintain world order as it once could. Collaboration based on trust is the only way.
 
-<Snowden>'s 2013 revelations particularly shocked USA allies with the fact that they were being spied upon, and as of the 2020's, everybody knows this and has "stopped caring", and or moved to <end-to-end encryption> by default. This is beautifully illustrated in the <Snowden (film)> when Snowden talks about his time in <Japan> working for <Dell> as an undercover <NSA> operative:
+<Snowden>'s 2013 revelations particularly shocked USA "allies" with the fact that they were being spied upon, and as of the 2020's, everybody knows this and has "stopped caring", and or moved to <end-to-end encryption> by default. This is beautifully illustrated in the <Snowden (film)> when Snowden talks about his time in <Japan> working for <Dell> as an undercover <NSA> operative:
 > <NSA> wanted to impress the <Japanese>. Show them our reach. They loved the live video from drones. This is <Pakistan> right now \[video shows CIA agents demonstrating drone footage to Japanese officials\]. They were not as excited about that we wanted their help to spy on the Japanese population. They said it was against their laws.
 
   We bugged the country anyway, of course.
@@ -2714,7 +2767,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110106023855/http://dylandon.net/dylandon.swf[SWF]
 | music
-| "Dylan" presumably a reference to https://en.wikipedia.org/wiki/Bob_Dylan[Bob Dylan]? "Don" unclear. Maybe https://en.wikipedia.org/wiki/Don_McLean[Don McLean]?
+| "Dylan" presumably a reference to https://en.wikipedia.org/wiki/Bob_Dylan[Bob Dylan]? "Don" unclear. Maybe https://en.wikipedia.org/wiki/Don_McLean[Don McLean]? But it is all a bit weird given that the actual contents of the website don't seem to have anything to do with music, it appears to just be a news aggregator.
 
 | 74.254.12.166
 | afghanpoetry.net
@@ -4716,32 +4769,6 @@ This section tries to explain how the discoveries were made in more detail.
 
 Some of the subsections are quite readable, while others are mostly data dumps and work logs, so bear with us.
 
-= Gathering key points from the articles
-{parent=Methodology}
-
-https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/[] did an investigation and found 885 such websites, but decided not to disclose the list or methods:
-> Using only a single website, as well as publicly available material such as historical internet scanning results and the <Internet Archive>'s <Wayback Machine>, we identified a network of 885 websites and have high confidence that the United States (US) Central Intelligence Agency (<CIA>) used these sites for covert communication.
-
-  The websites included similar <Java>, <JavaScript>, <Adobe Flash>, and <CGI> artifacts that implemented or apparently loaded covert communications apps. In addition, blocks of sequential IP addresses registered to apparently fictitious US companies were used to host some of the websites. All of these flaws would have facilitated discovery by hostile parties.
-
-  The websites, which purported to be news, weather, sports, healthcare, and other legitimate websites, appeared to be localized to at least 29 languages and geared towards at least 36 countries.
-The question is which website. E.g. at https://citizenlab.ca/2021/07/hooking-candiru-another-mercenary-spyware-vendor-comes-into-focus/ they used data from Censys.
-> We searched historical data from Censys
-https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/ mentions https://scans.io/[]. https://citizenlab.ca/2020/12/running-in-circles-uncovering-the-clients-of-cyberespionage-firm-circles/ mentions: https://www.shodan.io/[], Censys really seems to be their thing.
-
-Another critical excerpt is:
-> The bulk of the websites that we discovered were active at various periods between 2004 and 2013. We do not believe that the CIA has recently used this communications infrastructure. Nevertheless, a subset of the websites are linked to individuals who may be former and possibly still active intelligence community employees or assets:
-  * Several are currently abroad
-  * Another left mainland China in the time frame of the Chinese crackdown
-  * Another was subsequently employed by the US State Department
-  * Another now works at a foreign intelligence contractor
-  Given that we cannot rule out ongoing risks to CIA employees or assets, we are not publishing full technical details regarding our process of mapping out the network at this time. As a first step, we intend to conduct a limited disclosure to <US Government> oversight bodies.
-This basically implies that they must have found some communication layer level identifier, e.g. <IP> registration, <domain name> registration, or certificate because it is impossible to believe that real agent names would have been present on the website content itself!
-
-The websites were used from at least as early as August 2008, as per Gholamreza Hosseini's account, and the system was only shutdown in 2013 apparently. https://citizenlab.ca/2022/09/statement-on-the-fatal-flaws-found-in-a-defunct-cia-covert-communications-system/ however claims that they were used since as early as 2004.
-
-Notably, so as to be less suspicious the websites are often in the language of the country for which they were intended, so we can often guess which country they were intended for!
-
 = The Reuters websites
 {parent=Methodology}
 
@@ -4985,7 +5012,7 @@ Some mildly interesting facts include:
   senderosdemontana.com/index.html
   sixty2media.com/index.htm
   ``
-It is hard to tell if these were oversights, or intentional. But they are cute in any case.
+It is impossible to tell if these were oversights, or intentional to simulate common web development quircks. But they are cute in any case.
 
 = IP range search
 {parent=Methodology}
@@ -8629,8 +8656,8 @@ Announcements and updates by self:
 
 Pings by self:
 * 2025-03-13:
-  * https://x.com/cirosantilli/status/1900278353065894324 pinging https://x.com/JackRhysider Jack Rhysider, host of the Darkent Diaries podcast
-  * https://x.com/cirosantilli/status/1900828210578727276 pinging https://x.com/JennaMC_Laugh Jenna McLaughlin and https://x.com/zachsdorfman Zach Dorfman, authors of the 2018 Yahoo articles
+  * https://x.com/cirosantilli/status/1900278353065894324 pings https://x.com/JackRhysider Jack Rhysider, host of the Darkent Diaries podcast
+  * https://x.com/cirosantilli/status/1900828210578727276 pings https://x.com/JennaMC_Laugh Jenna McLaughlin and https://x.com/zachsdorfman Zach Dorfman, authors of the 2018 Yahoo articles
 * 2025-03-31 going to find random interested people on Twitter:
   * https://x.com/search?q=%22iraniangoals.com%22&src=typed_query&f=live
     * https://x.com/EkaterinaJanss1/status/1777087949634490722K
@@ -8647,11 +8674,12 @@ Pings by self:
     * https://x.com/cirosantilli/status/1906730076080660877
     * https://x.com/cirosantilli/status/1906731097779536203
 * 2025-05-05:
-  * https://inteltoday.org/2021/07/31/us-national-whistleblower-day-july-30-2021-i-john-reidy-declare-cia-debacle-in-iran-china/#comment-46375 pinging the author Dr. Ludwig De Braeckeleer. Besides his interest in intelligence, the dude actually also won a <Breakthrough Prize> in Physics, holy fuck it's mind boggling.
-  * https://x.com/cirosantilli/status/1919391488422662245 pinging https://x.com/marisaataylor Marisa Taylor, author of the 2014, McClathy DC article
-  * https://x.com/cirosantilli/status/1919859345593880812 and https://x.com/cirosantilli/status/1919846838850499002 pinging https://x.com/cirosantilli/status/1919859345593880812 Bill Marczak and https://x.com/thezedwards Zach Edwards, technical researchers for the <Reuters article>
-  * https://x.com/cirosantilli/status/1919860643408007644 pinging https://x.com/joel_schectman Joel Schectman and Bozorgmehr Sharafedin https://x.com/bozorgmehr author of the <Reuters article>
+  * https://inteltoday.org/2021/07/31/us-national-whistleblower-day-july-30-2021-i-john-reidy-declare-cia-debacle-in-iran-china/#comment-46375 pings the author Dr. Ludwig De Braeckeleer. Besides his interest in intelligence, the dude actually also won a <Breakthrough Prize> in Physics, holy fuck it's mind boggling.
+  * https://x.com/cirosantilli/status/1919391488422662245 pings https://x.com/marisaataylor Marisa Taylor, author of the 2014, McClathy DC article
+  * https://x.com/cirosantilli/status/1919859345593880812 and https://x.com/cirosantilli/status/1919846838850499002 pings https://x.com/cirosantilli/status/1919859345593880812 Bill Marczak and https://x.com/thezedwards Zach Edwards, technical analysts for the <Reuters article>
+  * https://x.com/cirosantilli/status/1919860643408007644 pings https://x.com/joel_schectman Joel Schectman and https://x.com/bozorgmehr Bozorgmehr Sharafedin authors of the <Reuters article>
   * https://x.com/cirosantilli/status/1919870831758365113 pings https://x.com/zachsdorfman Zach Dorfman (protected account) author of the Foreign Policy article
+  * https://x.com/cirosantilli/status/1920073080363241727 pings https://x.com/markmazzettinyt Mark Mazzetti, https://x.com/nytmike Michael S. Schmidt and https://x.com/mattapuzzo Matt Apuzzo authors of the 2017 New York Times article. Could not find a Twitter for the fourth author Adam Goldman.
 
 Reactions by others:
 * 2023-06-19: https://www.reddit.com/r/numberstations/comments/14dexiu/after_numbers_stations_vanished/ (30 points) off topic on that sub, but thankfully was not deleted, interesting sub topic
@@ -8663,3 +8691,8 @@ Reactions by others:
     presumably referring to <DNS Census 2013>.
 * 2024-01-12: https://twitter.com/jeremy_wokka/status/1745657801584656564 (40k followers, mid of thread)
 * 2025-04-02: https://www.reddit.com/r/wikipedia/comments/1kd7rzo/comment/mqoocu7/?context=3 user Gilda1234_ mentions this project in a comment to "Between 2010 and 2012, China identified and killed at least 30 CIA informants in the country" by idlikebab
+
+Notable reactions to the websites themselves
+* https://www.reddit.com/r/soccer/comments/xrgua4/the_cia_used_a_message_board_on_a_fake_soccer/ "The CIA used a message board on a fake soccer website called "Iraniangoals.com" to communicate with Iranian spies, dozens of whom were arrested after the website was discovered." by user Carlos-Dangerzone (2022-09-29)
+
+  The fact that there were
