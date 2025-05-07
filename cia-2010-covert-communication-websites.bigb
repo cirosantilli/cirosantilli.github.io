@@ -159,7 +159,7 @@ It also mentions that other countries besides Iran and Chine were also likely ta
 
 One of the most important information given in that report is the large number of sites found, 885, and the fact that they are available on <Wayback Machine>:
 > Using only a single website, as well as publicly available material such as historical internet scanning results and the <Internet Archive>'s <Wayback Machine>, we identified a network of 885 websites and have high confidence that the United States (US) Central Intelligence Agency (<CIA>) used these sites for covert communication.
-The million dollar question is "which website" and "how much does it cost if anything" since our investigation has so far had to piece together a few different hacky sources. One way to try and deduce this is to look through their other reports, e.g.:
+The million dollar question is "which website did they use" and "how much does it cost if anything" since our investigation has so far had to piece together a few different hacky sources. One way to try and deduce this is to look through their other reports, e.g.:
 * https://citizenlab.ca/2021/07/hooking-candiru-another-mercenary-spyware-vendor-comes-into-focus/ uses Censys, and it notably has historical data:
   > We searched historical data from Censys
 * https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/ mentions https://scans.io/[]
@@ -184,7 +184,7 @@ And then a bomb, they claim to have found information regarding specific officer
 This basically implies that they must have either
 * <= IP and DNS metadata>[found some communication layer] level identifier, e.g. <domain name> registration HTTPS certificate certificate because it is impossible to believe that real agent names would have been present on the website content itself!
 * or they may be instead talking about a separate recruitment network which offered the VISAs which we conjecture might have existed but currently have no examples of, and which might conceivably contain real embassy contacts
-We have so for not yet found any such clear references to people.
+We have so for not yet found any such clear references to real individuals.
 
 = Overview of Ciro Santilli's investigation
 {parent=Background}
@@ -197,7 +197,7 @@ We have so for not yet found any such clear references to people.
 {height=550}
 {source=https://www.quora.com/What-were-some-examples-of-the-websites-that-the-CIA-used-around-2010-as-a-communication-mechanism-for-its-spies-in-China-and-Iran-but-were-later-found-and-used-to-take-down-their-spy-networks/answer/Chris-2110}
 
-In 2023, one year after the Reuters article had been published, <Ciro Santilli> was killing some time on <YouTube> when he saw a curious video: <video Compromised Comms by Darknet Diaries (2023)>. As soon as he understood what it was about and that it was likely related to the previously undisclosed websites that he was interested in, he went on to read the Reuters article.
+In 2023, one year after the Reuters article had been published, <Ciro Santilli> was killing some time on <YouTube> when he saw a curious video: <video Compromised Comms by Darknet Diaries (2023)>. As soon as he understood what it was about and that it was likely related to the previously undisclosed websites that he was interested in, he went on to read the <Reuters article> that the podcast pointed him to.
 
 Being a <OurBigBook.com>[half-arsed web developer himself], Ciro knows that the <attack surface> of a website is about the <Size of Texas meme>[size of Texas], and the potential for <fingerprinting (cybersecurity)> is off the charts with so many bits and pieces sticking out. And given that there were at least 885 of them, surely we should be able to find a few more than nine, right?
 
@@ -217,15 +217,23 @@ Full podcast transcript: https://darknetdiaries.com/transcript/75/
 https://x.com/cirosantilli/status/1900278353065894324[Ciro Santilli pinged the Podcast's host Jack Rhysider on Twitter] and he ACK'ed which is cool, though he was skeptical about the strength of the fingerprints found, and didn't reply when clarification was offered. Perhaps the material is just not impactful enough for him to produce any new content based on it. Or also perhaps it comes too close to <sources and methods> for his own good as a presumably American citizen.
 }
 
-The first step was to try and obtain the domain names of all nine websites that Reuters had highlighted as they had only given two.
+The first step was to try and obtain the domain names of all nine websites that Reuters had highlighted as they had only given two domains explicitly.
 
-Thankfully however, inspecting the HTML addresses 
+Thankfully however, either by carelessness or intentionally, this was easy to do by inspecting the address of the screenshots provided as mentioned at <the Reuters websites>{full}.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/Reuters_CIA_website_article_image_urls_arrow.jpg]
 {title=Inspecting the <Reuters article> HTML source code}
 {description=The <Reuters article> only gave one URL explicitly: <iraniangoals.com>. But most others could be found by inspecting the HTML of the screenshots provided, except for <Searching for Carson>[the Carson website].}
 {height=600}
 {source=https://www.reuters.com/investigates/special-report/usa-spies-iran/}
+
+Once we had this, we were then able to inspect the websites on the <Wayback Machine> to better understand possible <fingerprints> such as their <communication mechanism>.
+
+The next step was to use our knowledge of the sequential IP flaw to look for more neighbor websites to the nine we knew of.
+
+This was not so easy to do because the websites are down and so it requires historical data. But for our luck we found <viewdns.info> which allowed for 200 free historical queries (and they seem to have since removed this hard limit and moved to only throttling), leading to the discovery or some or our own new domains!
+
+This gave us a wider website sample size, which allowed us to better grasp more of the possible different styles of website and have a better idea of what a good <fingerprint> would look like.
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/viewdns.info_activegameinfo.com_domain_to_IP_arrow.png]
 {title=<viewdns.info> `activegameinfo.com` domain to IP}
@@ -236,6 +244,17 @@ Thankfully however, inspecting the HTML addresses
 {title=<viewdns.info> `aroundthemiddleeast.com` IP to domain}
 {height=550}
 {source=https://viewdns.info/reverseip/?host=66.175.106.140&t=1}
+
+The next major step would be to find new IP ranges.
+
+This was and still is a hacky heuristic process for us, but we've had success with the following methods:
+* step 1) get huge lists of historic domain names. The two most valuable sources so far have been:
+  * <2013 DNS Census>
+  * scraping <expired domain trackers>
+* step 2) filter the domain lists down somehow to a more manageable number of domains. The most successful heuristics have been:
+  * for <2013 DNS Census> which has IPs, check that they are the only domain in a given IP, which was the case for the majority of CIA websites, but was already not so common for legitimate websites
+  * they have the word `news` on the domain name, given that so many of the websites were fake news aggregators
+* step 3) search on Wayback machine if any of those filtered domains contain URL's that could be those of a <communication mechanism>. In particular, we've used <Wayback Machine CDX scanning with Tor parallelization>[a small army of Tor bots] to overcome the Wayback Machine's IP throttling and greatly increase our checking capacity
 
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/dnscensus2013.neocities.org.png]
 {title=<DNS Census 2013> website}
@@ -262,15 +281,17 @@ google.com,2013-10-02T19:02:35,74.125.239.46
 {description=<Java> Applets, <Adobe Flash>, <JavaScript> and <HTTPS>}
 {height=800}
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/archive-tabs.png]
-{title=You can never have enough <Wayback Machine> tabs open}
-{description=This is how the end of the fingerprint pipeline looks like: as many tabs as you have the patience to go through one by one!}
-
 \Image[https://raw.githubusercontent.com/cirosantilli/media/master/github.com_cirosantilli_expired-domain-names-by-day-2011.png]
 {title=Expired domain names by day 2011}
 {description=The scraping of <expired domain trackers> to Github was one of the positive outcomes of this project.}
 {height=850}
 {source=https://github.com/cirosantilli/expired-domain-names-by-day-2011}
+
+Finally, at the very end of our pipeline, we were left with a a few hundred domains, and we just manually inspected them one by one as far as patience would allow it to confirm or discard the.
+
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/archive-tabs.png]
+{title=You can never have enough <Wayback Machine> tabs open}
+{description=This is how the end of the fingerprint pipeline looks like: as many tabs as you have the patience to go through one by one!}
 
 = Results
 {parent=CIA 2010 covert communication websites}
@@ -421,11 +442,11 @@ The geisha can be seen at: https://www.shutterstock.com/image-vector/pretty-geis
 {c}
 {parent=Results}
 
-Being <Brazilian>, <Ciro Santilli> is particularly curious about the existence of a Brazilian-focused website one mentioned in the article, as well as in other <democracies>.
+Being <Brazilian>, <Ciro Santilli> was particularly curious about the existence of a Brazilian-focused website one mentioned in the article, as well as in other <democracies>.
 
 WTF the <CIA> was doing in Brazil in the early 2010s! Wasn't helping to install the <Military dictatorship in Brazil> enough!
 
-Here are the democracies found so far, defining a democracy as a country with score 7.0 or more in the https://graphics.eiu.com/PDF/Democracy_Index_2010_web.pdf[Democracy index 2010]. In native language:
+Here are the websites likely targeting democracies based on their language and content found so far, defining a democracy as a country with score 7.0 or more in the https://graphics.eiu.com/PDF/Democracy_Index_2010_web.pdf[Democracy index 2010]:
 * <France> (6: http://cqcounter.com/whois/www/affairesdumonde.com.html[affairesdumonde.com], https://web.archive.org/web/20110203080503/http://guide-daventure.com/[guide-daventure.com], https://web.archive.org/web/20100514032916/http://lesummumdelafinance.com/[lesummumdelafinance.com], https://web.archive.org/web/20101015050644/http://football-de-luxe.com/[football-de-luxe.com], http://cqcounter.com/whois/www/romulusactualites.com.html[romulusactualites.com], https://web.archive.org/web/20110128111638/http://suparakuvi.com/[suparakuvi.com])
 * <Germany>(2: https://web.archive.org/web/20101211095158/http://www.dedrickonline.com/[dedrickonline.com], https://web.archive.org/web/20100109023107/http://www.neighbour-news.com/[neighbour-news.com])
 * <Italy> (2: https://web.archive.org/web/20110128162039/http://attivitaestremi.com/[attivitaestremi.com], https://web.archive.org/web/20110424044637/http://www.garanziadellasicurezza.com:80/[garanziadellasicurezza.com], https://web.archive.org/web/20101009032531/http://podisticamondiale.com/[podisticamondiale.com])
@@ -4793,7 +4814,7 @@ The <Reuters article> directly reported only two domains in writing:
 
 But by looking at the URLs of the screenshots they provided from other websites we can easily uncover all others that had screenshots, <Searching for Carson>[except for the Johnny Carson one], which is just generically named. E.g. the image for the Chinese one is https://www.reuters.com/investigates/special-report/assets/usa-spies-iran/screencap-activegaminginfo.com.jpg?v=192516290922 which leads us to domain http://activegaminginfo.com[].
 
-<Oleg Shakirov> later discovered that the Carson one had its domain written right on the screenshot, as part of a watermark on the original website itself. Therefore the URLs of all the websites were in one way or another essentially given on the article.
+<Oleg Shakirov> later discovered that the Carson one had its domain written right on the screenshot, as part of a watermark present on the original website itself. Therefore the URLs of all the websites were in one way or another essentially given on the article.
 
 The full list of domains from screenshots is:
 * `activegaminginfo.com`: <Chinese (language)> gaming information website.
@@ -4844,13 +4865,11 @@ The full list of domains from screenshots is:
   <Java> JAR file: https://web.archive.org/web/20110203021403/http://fightwithoutrules.com/boxing.jar[].
 * `alljohnny.com`: <#Johnny Carson> fansite
 
-  2004 archive: https://web.archive.org/web/20110203021315/http://fightwithoutrules.com/[].
+  2004 archive: https://web.archive.org/web/20040113025122/http://alljohnny.com/[].
 
   Domain available as of 2023.
 
   <CGI comms>: https://secure.alljohnny.com/cgi-bin/memlog.cgi[].
-
-This brings up to 8 known <domain names> with <Wayback Machine> archives, plus the yet unidentified Johnny Carlson one, see also: <Searching for Carson>{full}, which is also almost certainly is on Wayback Machine somewhere given that they have a screenshot of it.
 
 = Fingerprints
 {parent=Methodology}
