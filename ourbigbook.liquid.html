@@ -2,10 +2,11 @@
 <html lang=en>
 <head>
 <meta charset=utf-8>
-<title>{{ title }}{% unless is_index_article %} - Ciro Santilli{% endunless %}</title>
-{% if is_index_article %}<script type="application/ld+json">{"name":"Ciro Santilli","url":"https://cirosantilli.com"}</script>
-{% endif %}<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<title>{{ title }}{% unless is_index_article %} - Ciro Santilli{% endunless %}</title>{% if is_index_article %}
+<script type="application/ld+json">{"name":"Ciro Santilli","url":"https://cirosantilli.com"}</script>{% endif %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" crossorigin="anonymous" referrerpolicy="no-referrer">{% unless is_index_article %}
+<link rel="canonical" href="https://ourbigbook.com/cirosantilli/{{ toplevel_id }}">{% endunless %}
 <style>{{ style }}</style>
 <link rel="stylesheet" type="text/css" href="{{ raw_relpath }}/main.css">
 <link rel="shortcut icon" type="image/x-icon" href="{{ github_prefix }}/ID_photo_of_Ciro_Santilli_taken_in_2013_square_398.jpg">
@@ -36,15 +37,15 @@
 <div><a href="{{ root_relpath }}contact{{ html_ext }}">Contact Ciro Santilli</a></div>
 {% comment %}<div>Website Git version: <a href="https://github.com/cirosantilli/cirosantilli.github.io/commit/{{ git_sha }}">{{ git_sha }}</a></div>
 {% endcomment %}{% if input_path != "" %}<div><a href="{{ dir_relpath }}{{ html_index }}">Website source code</a></div>
-<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>
-{% if input_path != "" %}<div><a href="{{ file_relpath }}/{{ input_path }}{{ html_ext }}">Source code for this page: {{ input_path }}</a></div>{% endif %}
+<div><a href="https://github.com/cirosantilli/cirosantilli.github.io">Website source code on GitHub</a></div>{% if input_path != "" %}
+<div><a href="{{ file_relpath }}/{{ input_path }}{{ html_ext }}">Source code for this page: {{ input_path }}</a></div>{% endif %}
 <div><a href="https://github.com/cirosantilli/cirosantilli.github.io/blob/{{ git_sha }}/{{ input_path }}">Source code for this page on GitHub</a></div>{% endif %}
 <div>Cite with: <a href="https://zenodo.org/badge/latestdoi/16453261">this DOI</a></div>
 <div><img src="{{ github_prefix }}/ID_photo_of_Ciro_Santilli_taken_in_2013_left_eye_200_100.jpg" loading="lazy" alt="ID photo of Ciro Santilli taken in 2013 right eye"></div>
 </footer>
-{{ post_body }}<script src="{{ raw_relpath }}/main.js"></script>
+{{ post_body }}<script src="{{ raw_relpath }}/main.js"></script>{% if publishTargetIsWebsite %}
 <script>
-{% if publishTargetIsWebsite %}{% comment %}Google Analytics, AKA selling my soul to Google for some backlinks.{% endcomment %}(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+{% comment %}Google Analytics, AKA selling my soul to Google for some backlinks.{% endcomment %}(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
@@ -72,6 +73,6 @@ ga('send', 'pageview');
         data-lang="en"
         crossorigin="anonymous"
         async>
-</script>
-{% endif %}</body>
+</script>{% endif %}
+</body>
 </html>
