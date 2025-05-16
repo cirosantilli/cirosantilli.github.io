@@ -131,6 +131,15 @@ Bibliography:
 
 * OpenAI's GPT-4-turbo can generate and run <Python> code if it detects that the prompt would be better answered by Python, e.g. maths
 
+= AlphaEvolve
+{c}
+{parent=AI code generation framework that tries to run code}
+{title2=2025}
+
+Blog post: https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/
+
+<Whitepaper>: https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf
+
 = AI code generation benchmark
 {parent=Automatic programming}
 
@@ -1781,9 +1790,27 @@ Display count in seconds on the video:
     y=(h-text_h)/2
   "
   ``
+* count 0 to 2 with one different sine wave per count:
+  ``
+  ffmpeg -lavfi "
+  color=white:480x480:d=3,
+  format=rgb24,
+  drawtext=
+  fontcolor=black:
+  fontsize=600:
+  text='%{eif\:t\:d}':
+  x=(w-text_w)/2:
+  y=(h-text_h)/2[v];
+  sine=f=500:d=1[a1];
+  sine=f=1000:d=1[a2];
+  sine=f=2000:d=1[a3];
+  [a1][a2][a3]concat=n=3:v=0:a=1[a];
+  " -map '[v]' -map '[a]' count.mkv
+  ``
 * bibliography:
   * https://gist.github.com/derand/31b8312fd64156120cb8f45825a1f0f7
   * https://www.reddit.com/r/ffmpeg/comments/11kxugt/make_a_video_timer_or_countdown/
+  * https://stackoverflow.com/questions/11640458/how-can-i-generate-a-video-file-directly-from-an-ffmpeg-filter-with-no-actual-in/79618057#79618057
 
 Bibliography:
 * https://ffmpeg.org//ffmpeg-filters.html#Video-Sources main section of the documentation listing various video generators

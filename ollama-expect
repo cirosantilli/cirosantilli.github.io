@@ -1,13 +1,13 @@
 #!/usr/bin/expect -f
 set prompt ">>> "
 log_user 0
-spawn ollama run llama3.2
+spawn ollama run [lindex $argv 0]
 expect $prompt
 send "/set parameter seed 0\r"
 expect $prompt
-send "/set parameter num_predict 40\r"
+send "/set parameter num_predict 100\r"
 expect $prompt
-send "What is quantum field theory?\r"
+send "[lindex $argv 1]\r"
 expect -re "\n(.*?)$prompt"
 puts -nonewline $expect_out(1,string)
 send -- "/bye"
