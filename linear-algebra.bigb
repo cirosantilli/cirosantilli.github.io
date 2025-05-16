@@ -623,7 +623,7 @@ https://math.stackexchange.com/questions/41706/practical-uses-of-matrix-multipli
 
 https://math.stackexchange.com/questions/30330/fast-algorithm-for-solving-system-of-linear-equations/259372#259372
 
-= General Matrix Matrix Multiplication
+= General matrix matrix multiplication
 {parent=Matrix multiplication algorithm}
 {wiki}
 
@@ -640,12 +640,35 @@ https://math.stackexchange.com/questions/30330/fast-algorithm-for-solving-system
 
 The terminology <GEMM> is present on <BLAS>, and has stuck pretty much.
 
+= Strassen algorithm
+{c}
+{parent=General matrix matrix multiplication}
+{wiki}
+
 = Matrix multiplication of specific size
 {parent=Matrix multiplication algorithm}
 
 <Deepmind> likes coming up with new improved algorithms for these more specific cases, e.g. it was announced in 2025 that <AlphaEvolve> found a novel 4x4 <complex> valued algorithm that uses 48 multiplications.
 
-= 3x3 matrix multiplication algorithm
+= Commutative matrix multiplication algorithm
+{parent=Matrix multiplication of specific size}
+
+A "commutative matrix multiplication algorithm" is a matrix multiplication algorithm that requires the ring to be commutative. Such algorithms are inferior because you cannot use them to create more efficient algorithms for <general matrix matrix multiplication> by decomposing the bigger matrix into smaller ones.
+
+For example, the <Strassen algorithm> is based on reduction to non-commutative <2x2 matrix multiplication> optimized to be done in 7 multiplications rather than 8 as in the native algorithm.
+
+For <3x3 matrix multiplication>, the best algorithms as of 2025 are:
+* commutative: 21 multiplications
+* non-commutative: 23 multiplications
+and beating the <Strassen algorithm> using 3x3 matrices would require a non-commutative algorithm with 21 multiplications.
+
+Bibliography:
+* https://stackoverflow.com/questions/10827209/ladermans-3x3-matrix-multiplication-with-only-23-multiplications-is-it-worth-i
+
+= 2x2 matrix multiplication
+{parent=Matrix multiplication of specific size}
+
+= 3x3 matrix multiplication
 {parent=Matrix multiplication of specific size}
 
 * https://stackoverflow.com/questions/10827209/ladermans-3x3-matrix-multiplication-with-only-23-multiplications-is-it-worth-i#:~:text=Take%20the%20product%20of%20two,them%20in%20the%20right%20way.
