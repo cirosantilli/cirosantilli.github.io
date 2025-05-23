@@ -111,7 +111,7 @@ The report also reveals that there was a temporary "interim system" that new sou
 
 The usage of of Google dorking is then mentioned:
 > In fact, the Iranians used Google to identify the website the CIA was using to communicate with agents.
-It seems to us that this would have been very difficult on the generically themed websites that we have found so far. This suggests the existence of a separate recruitment website network, perhaps the one reported in 2011 by Iran offering VISAs. It would be plausible that such network could link back to the CIA and other government websites. Recruited agents would only then later use the comms network to send information back. The target countries may have first found the recruitment network, and then injected double agents into it, who later came to know about the comms network.  TODO: it would be awesome to find some of those recruitment websites!
+It seems to us that this would have been very difficult on the generically themed websites that we have found so far. This suggests the existence of a separate recruitment website network, perhaps the one reported in 2011 by Iran offering VISAs. It would be plausible that such network could link back to the CIA and other government websites. Recruited agents would only then later use the comms network to send information back. The target countries may have first found the recruitment network, and then injected double agents into it, who later came to know about the comms network. TODO: it would be awesome to find some of those recruitment websites!
 
 Another very interesting mention is the platform had been over extended beyond its original domain application, which is in part why things went so catastrophically bad:
 > Former U.S. officials said the internet-based platform, which was first used in war zones in the Middle East, was not built to withstand the sophisticated counterintelligence efforts of a state actor like China or Iran. “It was never meant to be used long term for people to talk to sources,” said one former official. “The issue was that it was working well for too long, with too many people. But it was an elementary system.”
@@ -158,7 +158,7 @@ It also mentions that other countries besides Iran and Chine were also likely ta
 
 One of the most important information given in that report is the large number of sites found, 885, and the fact that they are available on <Wayback Machine>:
 > Using only a single website, as well as publicly available material such as historical internet scanning results and the <Internet Archive>'s <Wayback Machine>, we identified a network of 885 websites and have high confidence that the United States (US) Central Intelligence Agency (<CIA>) used these sites for covert communication.
-The million dollar question is "which website did they use" and "how much does it cost if anything" since our investigation has so far had to piece together a few different hacky sources. One way to try and deduce this is to look through their other reports, e.g.:
+The million dollar question is "which website did they use" and "how much does it cost if anything" since our investigation has so far had to piece together a few different hacky sources but didn't spend any money. And a lot of money could be poured into this, e.g. <DomainTools> which might contain one of the largest historical databases seems to start at 15k USD / 1000 queries. One way to try and deduce which website they used is to look through their other research, e.g.:
 * https://citizenlab.ca/2021/07/hooking-candiru-another-mercenary-spyware-vendor-comes-into-focus/ uses Censys, and it notably has historical data:
   > We searched historical data from Censys
 * https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/ mentions https://scans.io/[]
@@ -563,7 +563,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20130828000000*/http://euronewsonline.net/papers.jar[JAR]
 | news
-| a.newslink. The image of the woman reading newspapers reverse searches to https://www.istockphoto.com/photo/news-gm101581053-7410445[], iStock from Getty images
+| a.newslink. The image of the woman reading newspapers reverse searches to https://www.istockphoto.com/photo/news-gm101581053-7410445[], iStock from Getty images. Copyright 2007.
 
 | <Hits without nearby IP hits>[?]
 | europeannewsflash.com
@@ -617,7 +617,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20101229090929/http://globaltourist.net/speed.jar[JAR]
 | travel
-| split imageshttps://web.archive.org/web/20101229090818/http://globaltourist.net/images/index_01.jpg{ref}https://web.archive.org/web/20101229090840/http://globaltourist.net/images/index_04.jpg{ref}, `rss-items`. speed.jar "speed test" JAR pattern. Seems to have been legit both before.
+| split imageshttps://web.archive.org/web/20101229090818/http://globaltourist.net/images/index_01.jpg{ref}https://web.archive.org/web/20101229090840/http://globaltourist.net/images/index_04.jpg{ref}, `rss-items`. speed.jar "speed test" JAR pattern. The split headers have a weird style however `<li><a id="banner1">&nbsp;</a></li>` and then filled with a CSS background image. This is a weird one, there is some chance that it is a legit website in the CIA style. Notably, https://web.archive.org/web/20120829122604/http://globaltourist.net/[at least as of August 2012 it had become a wordpress site] marked "Just another Media Network Online Sites site", which is a bit early. Likely they just watch for good domain drops and take over quickly. The last in-style archive is https://web.archive.org/web/20120301030918/http://www.globaltourist.net:80/[from March 2012], which is first followed by a Godaddy parked domain on https://web.archive.org/web/20120418194608/http://www.globaltourist.net:80/[April 2012]. Also it has a 2003 archive: https://web.archive.org/web/20031221163711/http://globaltourist.net/[] which also has a link to http://globaltourist.net/speed.jar so seems related to the 2010 version. Its history does however remember us of alljohnny.com, which had its 2004 version and then a 2010 rehash. Both of these versions contain `ImageReady Slices` mentions in them, characteristic of the <split header images> fingerprint.
 
 | <Hits without nearby IP hits>[?]
 | hassannews.net
@@ -750,9 +750,9 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 | https://web.archive.org/web/20110203000411/http://mynepalnews.com/[2011]
 | English
 |
-| https://web.archive.org/web/20110203000411oe_/http://mynepalnews.com/nepali.jar[JAR]
+| https://web.archive.org/web/20110204143500/http://mynepalnews.com/nepali.jar[JAR]
 | news
-| split images, JAR unarchived. Nice swimsuit ad.
+| Split images with `<li><a id="banner1">&nbsp;</a></li>` style. Nice swimsuit ad. The bottom bar "Copyright © 2008 My Nepal News, LLC. All Rights Reserved." is also kind of typical, see e.g. https://web.archive.org/web/20110208042144/http://helpinghandssite.com/[], both have `<!-- begin #footer -->` and `<div id="footer">`. https://web.archive.org/web/20110201170354/http://ingenuitytrendz.com/[ingenuitytrendz.com] is another closely related template. One ridiculously mind blowing thing about this website is the presence of Webalizer reports under /stats e.g.: https://web.archive.org/web/20110204095803/http://mynepalnews.com:80/stats/[]. This fact is so mind blowing that it makes us question if this an actual hit or just style coincidence. Particularly ridiculous is the presence of `inurl:cgi server_software` at https://web.archive.org/web/20110204095809/http://mynepalnews.com:80/stats/usage_200805.html which is almost certainly a Google dork search, which we know is something that the Iranians used to find the websites. That search hits under https://web.archive.org/web/20110204095351/http://mynepalnews.com:80/cgi-bin/check.cgi[/cgi-bin/check.cgi]. That page is itself os some interest containing `SERVER_ADMIN = mmadev@mmadev.com`. https://web.archive.org/web/20110204095815/http://mynepalnews.com:80/stats/usage_200806.html also reveals several request IPs. Even if this is not a CIA website, there's a chance we could find the IP of the Iranian counter-intelligence in these IP list, it's mind blowing. And if legit, we could also find IPs used by CIA handlers to see if the website is working. Lot's of referrer spam too as well.
 
 | <Hits without nearby IP hits>[?]
 | newdaynewsonline.com
@@ -842,7 +842,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20111021233539*/http://pondernews.net/reports.jar[JAR]
 | news
-| rss
+| rss. Some archived pages use unusual paths such as https://web.archive.org/web/20100827070339/http://pondernews.net:80/lldwg/qlaqft.php?fc=282910[/lldwg/qlaqft.php?fc=282910].
 
 | <Hits without nearby IP hits>[?]
 | profile-news.com
@@ -878,7 +878,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110201184827/http://shadesofnews.com/sports.jar[JAR]
 | news
-| a.rss-item, split images. Also has a second JAR at: https://web.archive.org/web/20131229092754/http://shadesofnews.com/sptgms213.jar
+| a.rss-item, split images. Also has a second from 2013 JAR at: https://web.archive.org/web/20131229092754/http://shadesofnews.com/sptgms213.jar and a raw .class https://web.archive.org/web/20131229101800/http://shadesofnews.com/crime.Business.class[crime.Business.class] which replies with "The requested document was not found on this server". Copyright 2009.
 
 | <Hits without nearby IP hits>[?]
 | sportsnewsfinder.com
@@ -1049,7 +1049,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110602073616/https://www.inside-vc.com/cgi-bin/capital.cgi[CGI]
 | finance
-| "vc" is a standard abbreviation for <venture capital>
+| "vc" is a standard abbreviation for <venture capital>. Previously legit circa 2004: https://web.archive.org/web/20030306171752/http://www.inside-vc.com/
 
 | 62.22.61.200
 | zerosandonesnews.com
@@ -1220,7 +1220,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20101230170013/https://secure.nutricion-saludable.info/cgi-bin/healthy.cgi[CGI]
 | health
-| Also under nutricion-saludable.info
+| Also under nutricion-saludable.info. There is weirdly a single page archived from 2008: https://web.archive.org/web/20080517023227/http://www.nutricion-saludable.net:80/epages/nutricion-saludable_net.sf[epages/nutricion-saludable_net.sf] with this weird `.sf` extension. It is HTML however. It says: "Lo sentimos, la tienda está actualmente cerrada por razones técnicas. Pronto estaremos a tu disposición. Si lo deseas puedes ponerte en contacto con nosotros en el tel: 651 80 76 19". This appears to be a spanish phone number: without country code, which would be +34https://www.listaspam.com/busca.php?Telefono=651807619{ref}.
 
 | 63.131.229.20
 | fixashion.net
@@ -1283,7 +1283,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 | Azerbaijan
 | https://web.archive.org/web/20110624214047/http://azerinews.org/cable.jar[JAR]
 | news
-| https://dnshistory.org/historical-dns-records/a/azerinews.org[rdns source]. Split images, `rss-items`.
+| https://dnshistory.org/historical-dns-records/a/azerinews.org[rdns source]. Split images, `rss-items`. "Azeri" is a https://en.wikipedia.org/wiki/Azerbaijanis[word that denotes the people from the region of Azerbaijan].
 
 | 64.16.204.53
 | bosniakbusinessnews.com
@@ -1526,7 +1526,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://secure.alljohnny.com/cgi-bin/memlog.cgi[CGI]
 | fansite
-| mega early hit from 2004 to 2005. Then a gap, then they redid the domain: https://web.archive.org/web/20110207134126/http://alljohnny.com/[2011]. Same authors given content similarities e.g. "Submit Your Favorite Carson Moment". Reusing the domain after all these years, the lack of OPSEC is just mind blowing! New website marked Copyright 2003. Part of <Oleg Shakirov's findings>. One of <the Reuters websites>. Search documented at: <Searching for Carson>. Carson is also featured, although less proeminently, at `webofcheer.com`. There must have been some massive Johnny Carson fan among the contractors a that time!
+| mega early hit from 2004 to 2005. Then a gap, then they redid the domain: https://web.archive.org/web/20110207134126/http://alljohnny.com/[2011]. Same authors given content similarities e.g. "Submit Your Favorite Carson Moment". Reusing the domain after all these years, the lack of OPSEC is just mind blowing! New website marked Copyright 2003. Part of <Oleg Shakirov's findings>. One of <the Reuters websites>. Search documented at: <Searching for Carson>. Carson is also featured, although less proeminently, at `webofcheer.com`. There must have been some massive Johnny Carson fan among the contractors a that time! 
 
 | 66.45.179.192
 | thegraceofislam.com
@@ -1814,7 +1814,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 | Albania
 | https://web.archive.org/web/20110202210331/http://bcenews.com/plan.jar[JAR]
 | news
-|
+| Used to be a legit Korean website circa 2004: https://web.archive.org/web/20030401214602/http://www.bcenews.com/
 
 | 66.104.173.163
 | runakonews.com
@@ -2057,7 +2057,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20111129013633/https://sslrollins.rollinsnetwork.com/cgi-bin/network.cgi[CGI]
 | tech
-| <CGI> linked to but not archived
+| Archive quite broken. <CGI> linked to but not archived. Seems to have been legit https://web.archive.org/web/20060624163532/http://rollinsnetwork.com/[circa 2006]. http://cqcounter.com/whois/www/rollinsnetwork.com.html empty from 2025.
 
 | 66.104.175.46
 | infosharenews.com
@@ -4497,7 +4497,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110128212738/https://secure.entreman.com/cgi-bin/login.cgi[CGI]
 | business
-| Comms unarchived. Marked Copyright 2011. Archive a bit broken, original styling more clearly visible at: http://cqcounter.com/whois/www/entreman.com.html[]. Stock of office workers at: https://www.shutterstock.com/image-photo/presentation-business-people-working-office-2-4767229 by Marcin Balcerzak. Light bulb stock at: https://www.bigstockphoto.com/image-4406416/stock-photo-money-light by PhilipO.
+| Comms unarchived. Marked Copyright 2011. Archive a bit broken, original styling more clearly visible at: http://cqcounter.com/whois/www/entreman.com.html[]. Tis is the only website found so far that stores its custom fonts on the site e.g. https://web.archive.org/web/20110128213046/http://entreman.com/M-1c-fontfacekit/mplus-1c-black-webfont.svg[/M-1c-fontfacekit/mplus-1c-black-webfont.svg]. Stock of office workers at: https://www.shutterstock.com/image-photo/presentation-business-people-working-office-2-4767229 by Marcin Balcerzak. Light bulb stock at: https://www.bigstockphoto.com/image-4406416/stock-photo-money-light by PhilipO.
 
 | 216.105.98.152
 | modernarabicnews.com
@@ -4713,7 +4713,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110208064052/http://newscentertoday.com/economy.jar[JAR]
 | news
-| Copyright 2008. https://dnshistory.org/historical-dns-records/a/newscentertoday.com[rdns source]. `rss-items`. https://web.archive.org/web/20180606122214/http://newscentertoday.com:80/[Later legit], with a pause https://web.archive.org/web/20161008072958/http://newscentertoday.com/[The domain name you have entered is not available. It has been taken down because the email address of the domain holder (Registrant) has not been verified.].
+| Copyright 2008. https://dnshistory.org/historical-dns-records/a/newscentertoday.com[rdns source]. `rss-items`. https://web.archive.org/web/20180606122214/http://newscentertoday.com:80/[Later legit]. In 2016: https://web.archive.org/web/20161008072958/http://newscentertoday.com/[The domain name you have entered is not available. It has been taken down because the email address of the domain holder (Registrant) has not been verified.].
 
 | 219.90.62.242
 | ride-captain.com
@@ -4789,6 +4789,40 @@ http://secure-cert.net/~sayitint/products-page/bags-totes/duffel-bag/ We've grep
 {title=2010 <Wayback Machine> archive of https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/[www.europeantravelcafe.com] with "plan your trip" highlighted by us}
 {height=1024}
 {source=https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/}
+
+Starting https://web.archive.org/web/20041215182457/http://alljohnny.com/index.html[December 2004] the "Submit your favorid carlson quote" was mind blowingly switched to point to https://web.archive.org/web/20050328224840/https://washington.serversecured.net/~alljohnn/cgi-bin/memlog.cgi[\https://washington.serversecured.net/~alljohnn/cgi-bin/memlog.cgi] thus likely leaking the control site URL. Beauty. It previously pointed to the more sensible: https://web.archive.org/web/20040901162621/https://secure.alljohnny.com/cgi-bin/memlog.cgi[]
+
+A similar thing happened to alljohnny.com
+
+A few separate websites have an archive with the same `pid` parameter:
+``
+fightwithoutrules.com/20131220205811/?pid=2POQ7BC1G/index.html
+half-court.net/20131223165013/?pid=2POQ7BC1G/index.html
+health-men-today.com/20131223002237/?pid=2POQ7BC1G/index.html
+intlnewsdaily.com/20131221121441/?pid=2POQ7BC1G/index.html
+intoworldnews.com/20131217193621/?pid=2POQ7BC1G/index.html
+``
+It is unclear what it means. All of them contain something like:
+``
+<html>
+<head>
+<meta name="robots" content="noarchive" />
+<meta name="googlebot" content="nosnippet" />
+</head>
+<body>
+<div align=center>
+<h3>Error. Page cannot be displayed. Please contact your service provider for more details.  (11)</h3>
+</div>
+</body>
+</html>
+``
+so looks like an archival artifact only.
+
+The following two websites have a `feeds.php` system for their RSS:
+``
+./mydailynewsreport.com/20110211111053/myrss/feeds.php?src=http:/www.refahemelli.com/pashto/news/rss.php&chan=y&desc=1&targ=y&utf=y
+./magneticfieldnews.com/20110208063545/magneticfeeds/feeds.php?src=http:/www.bbc.co.uk/pashto/index.xml&chan=y&desc=1&targ=y&utf=y
+``
 
 = Methodology
 {parent=CIA 2010 covert communication websites}
@@ -4893,15 +4927,7 @@ From <The Reuters websites> and others we've found, we can establish see some cl
 * .com and .net <top-level domains>, plus a few other very rare <non .com .net TLDs>, notably .info and .org
 * each one has one "communication mechanism file": <communication mechanisms>
 * narrow page width like in the days of old, lots of images
-* split images images: many of the website banners are composed of several images cut up. Stock images were first assembled into the banner, and then the resulting image was cut. Possibly this was done to make reverse image search to their stock image provider harder. But it somewhat backfired and serves as a good marker that confirms authorship. Maybe it is some kind of outdated web design thing, which they took much further in time than the average website, like the JAR. Their websites do appear to follow common style guidelines form earlier eras, around the early 2000s notably, some legit sites that look a lot like hits:
-  An example:
-  * http://classicalmusicboxonline.com/images/banner_01.jpg
-  * http://classicalmusicboxonline.com/images/banner_02.jpg
-  * ...
-  * http://classicalmusicboxonline.com/images/banner_19.jpg
-  * http://classicalmusicboxonline.com/images/banner_20.jpg
-
-  * https://web.archive.org/web/20031002010827/http://www.ausiranstudy.com/
+* <split header images>
 * some common pattern they follow in their news lists:
   * `ul.rss-items > li.rss-item`, e.g.: https://web.archive.org/web/20110202092126/http://beamingnews.com/
   * links with class `a.newslink` and `a.newslinkalt` e.g. https://web.archive.org/web/20110128181622/http://profile-news.com/
@@ -4915,6 +4941,51 @@ It would be fun to actually reverse search into one of their stock image provide
 * https://raw.githubusercontent.com/cirosantilli/media/master/cia-2010-covert-communication-websites/screenshots/starwarsweb.net.jpg
   * https://www.gettyimages.co.uk/detail/photo/little-jedi-royalty-free-image/172984439[]
 
+= Split header images
+{parent=Fingerprints}
+
+Many of the website banners are composed of several images cut up.
+
+Often stock images were first assembled into the banner, and then the resulting image was cut.
+
+Possibly this was done to make reverse image search to their stock image provider harder.
+
+But it somewhat backfired and serves as a good marker that confirms authorship.
+
+Maybe it is some kind of outdated web design thing, which they took much further in time than the average website, like the JAR.
+
+Their websites do appear to follow common style guidelines form earlier eras, around the early 2000s notably, some legit sites that look a lot like hits:
+
+An example:
+* http://classicalmusicboxonline.com/images/banner_01.jpg
+* http://classicalmusicboxonline.com/images/banner_02.jpg
+* ...
+* http://classicalmusicboxonline.com/images/banner_19.jpg
+* http://classicalmusicboxonline.com/images/banner_20.jpg
+
+* https://web.archive.org/web/20031002010827/http://www.ausiranstudy.com/
+
+Looking at the source code of: https://web.archive.org/web/20130828122833/http://euronewsonline.net/euro_bus.php we noticed an interesting comment:
+``
+<!-- ImageReady Slices (enewsweather.psd) -->
+``
+which presumably refers to Adobe ImageReady:
+> Adobe ImageReady was a bitmap graphics editor that was shipped with Adobe Photoshop for six years. It was available for Windows, Classic Mac OS and Mac OS X from 1998 to 2007. ImageReady was designed for web development and closely interacted with Photoshop
+A sample tutorial: https://people.goshen.edu/~paulmr/physix/326/imageready/slicendice.php
+
+Some of the websites use CSS background images to populate the images, e.g. https://web.archive.org/web/20110201170354/http://ingenuitytrendz.com/[ingenuitytrendz.com] has HTML:
+``
+ingenuitytrendz.com/20110201170354/index.html:                  <li><a id="banner1">&nbsp;</a></li>
+ingenuitytrendz.com/20110201170354/index.html:                  <li><a id="banner2">&nbsp;</a></li>
+ingenuitytrendz.com/20110201170354/index.html:                  <li><a id="banner3">&nbsp;</a></li>
+``
+and then the CSS https://web.archive.org/web/20110201170405cs_/http://ingenuitytrendz.com/engineering.css[engineering.css] does:
+``
+#banner1 { background: url(/web/20110201170405im_/http://ingenuitytrendz.com/images/banner_01.jpg) no-repeat center; }
+#banner2 { background: url(/web/20110201170405im_/http://ingenuitytrendz.com/images/banner_02.jpg) no-repeat center; }
+#banner3 { background: url(/web/20110201170405im_/http://ingenuitytrendz.com/images/banner_03.jpg) no-repeat center; }
+``
+
 = HTML analysis
 {parent=Fingerprints}
 
@@ -4923,6 +4994,57 @@ The HTML from the index page of Wayback Machine were:
 * downloaded with: https://github.com/cirosantilli/media/tree/master/cia-2010-covert-communication-websites/download-html.sh[]. Note that there were many supurious errors notably:
   > OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to web.archive.org:443
   we just ran it multiple times until all errors were gone.
+
+The best way to analyse the HTML is to grap our dumps from: https://github.com/cirosantilli/cia-2010-websites-dump[].
+
+Some possibly interesting searches include:
+* list all HTML comments, maybe something spicy was left over:
+  ``
+  git grep '<!--'
+  ``
+* search for weird file extensions:
+  ``
+  git ls-files | grep -Ev '\.(jpg|gif|html|txt|png|css|php|js|jar|cgi|htm|swf|ico|JPG|class|zip|sf)'
+  ``
+* have a look at the largest folers:
+  ``
+  ncdeu
+  ``
+
+Some of the HTML files contain <#conditional comments> e.g. https://web.archive.org/web/20091023041107/http://aquaswimming.com/ contains:
+``
+<!--[if IE 6]> <link href="swimstyleie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+``
+
+Varios of the non-English websites seem to have comments translating the content e.g.:
+``
+./noticiasmusica.net/20101230165001/index.html:<h2>Alguns dos Melhores Sites Nacionais</h2><!--some of the best national sites (in music)-->
+``
+This feels like it could be the translation helping the technical webdev team know what is what.
+
+Many of the RSS frame pages use:
+``
+<base target="_blank" />
+``
+which is a weird HTML tag that would lead all links to open on new tabs, e.g. https://web.archive.org/web/20110202124411/http://thecricketfan.com/home.html[].
+
+Various websites have pages with .php extension. It feels likely that all websites were written in <PHP>.
+
+Some sites use a `feeds.php` for the feeds, e.g. https://web.archive.org/web/20101231174008/http://www.absolutebearing.net//absolutebearing_feeds/feeds.php?src=http%3A%2F%2Ffeeds2.feedburner.com%2FOceanyachtsinfo&desc=1[\http://www.absolutebearing.net//absolutebearing_feeds/feeds.php?src=http%3A%2F%2Ffeeds2.feedburner.com%2FOceanyachtsinfo&desc=1]
+
+Some URLs existed both in HTML and .php extension, or were converted at some point:
+``
+allworldstatistics.com/20110207151941/comprehensivesources.html
+allworldstatistics.com/20130818155225/comprehensivesources.php
+``
+
+A few of the PHP urls have weird IDs in them like `omktf`, `juqwt` and `qlaqft`:
+``
+./middle-east-newstoday.com/20100829004127/omktf/uirl.php?ok=461128
+./newsandsportscentral.com/20100327130237/juqwt/eubcek.php?pe=747155
+./pondernews.net/20100826031745/lldwg/qlaqft.php?fc=281298
+``
+we wonder what they mean.
 
 = Binary files
 {parent=HTML analysis}
@@ -5087,13 +5209,15 @@ Summaries of the IP range exploration done so far follows, combined data from al
 {parent=IP range search}
 {tag=TODO}
 
-Here we list domains for which the correct IP was apparently not found since there are no neighbouring hits.
+Here we list of suspected domains for which the correct IP was apparently not found since there are no neighbouring hits.
 
 These are suspicious, and suggest either that we didn't obtain the correct reverse IP, or a change in CIA methodology from an older time at which they were not yet using the obscene IP ranges.
 
 For example, in the case of inews-today.com, <2013 DNS Census> gave one IP 193.203.49.212, but then <viewdns.info> gave another one 66.175.106.146 which fit into an existing IP range, and which assumed to be the correct IP of interest.
 
 A similar case happened when we found IP 212.209.74.126 for headlines2day.com with <dnshistory.org>: https://dnshistory.org/historical-dns-records/a/headlines2day.com.
+
+It is also possible that some of them are simply false positives so they should be taken with a grain of salt. Further reverse engineering e.g. of <comms> or <HTML analysis> might be able to exclude some of them.
 
 It is interesting to note that Reuters seems to have featured disproportionately many hits from that range, one wonders why that happened. It is possible that they chose these because they actually didn't have any nearby hits to give away less obvious information, though they did pick some from the ranges as wel.
 
@@ -6380,16 +6504,19 @@ We take the truth of this article as an <axiom>. And then all we claim is that a
 
 = Wayback Machine
 {parent=Data sources}
+{tag=/Wayback Machine}
 
 D'oh.
 
-But to be serious. The </Wayback Machine> contains a very large proportion of all sites. It is the most complete database we have found so far. Some archives are very broken. But those are rares.
+But to be serious. The </Wayback Machine> contains a very large proportion of all sites. It does happen sometime that a Wayback Machine archive is missing or broken and <cqcounter> has the screenshot. But the Wayback Machine is still the most complete database we have found so far. Some archives are very broken. But those are rare.
 
 The only problem with the </Wayback Machine> is that there is no known efficient way to query its archives across domains. You have to have a domain in hand for CDX queries: <Wayback Machine CDX scanning>.
 
 The <Common Crawl> project attempts in part to address this lack of querriability, but we haven't managed to extract any hits from it.
 
 CDX + <2013 DNS Census> + heuristics however has been fruitful however.
+
+We have dumped all Wayback Machine archives of known websites to: https://github.com/cirosantilli/cia-2010-websites-dump using \a[cia-2010-covert-communication-websites/download-websites.sh]. This allows for better grepping and serves as a backup in case they ever go down.
 
 = Wayback Machine CDX scanning
 {parent=Wayback Machine}
@@ -7565,7 +7692,9 @@ The data here had a little bit of non-overlap from other sources. 4 new confirme
 http://cqcounter.com has an exceptionally complete database containing:
 * domains
 * IP of the domain in the past e.g. http://cqcounter.com/whois/site/activegaminginfo.com.html which actually contains the IP 66.175.106.148!
-* 727 x 545 screenshots from the past e.g. at: http://cqcounter.com/whois/www/activegaminginfo.com.html[]. These were also presumably meant to show as a thumbnail on the main page: http://cqcounter.com/whois/www/activegaminginfo.com.html[] but don't because it's buggy. It's not as good as the HTML from Wayback machine as we can't confirm comms like that, but still this can d help to verify if known in-range domains that the wayback machine didn't archive well (because it is buggy as hell?) have correct style and if they have anything fun in them
+* 727 x 545 screenshots from the past e.g. at: http://cqcounter.com/whois/www/activegaminginfo.com.html[]. These were also presumably meant to show as a thumbnail on the main page: http://cqcounter.com/whois/www/activegaminginfo.com.html[] but don't because it's buggy. It's not as good as the HTML from Wayback machine as we can't confirm comms like that, but still this can d help to verify if known in-range domains that the wayback machine didn't archive well (because it is buggy as hell?) have correct style and if they have anything fun in them. We are storing:
+  * a backup of the screenshots at: https://github.com/cirosantilli/media/tree/master/cia-2010-covert-communication-websites/screenshots/cqcounter
+  * a list of their source URLs at: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/cqcounter-images.txt This should be merged into hits.json but we are lazy.
 
 Unfortunately I can't find a reverse IP search method.
 
@@ -7619,6 +7748,17 @@ There are four main types of communication mechanisms found:
   http://tee-shot.net/tee-shot.swf
   ``
   While this is somewhat of a fingerprint, it is worth noting that is was a relatively commonly used pattern. But it is also the rarest of the mechanisms. This is a at a dissonance with the rest of the web, which circa 2010 already had way more SWF than JAR apparently.
+
+  Some of the SWF websites have archives for empty `/servlet` pages:
+  ``
+  ./bailsnboots.com/20110201234509/servlet/teammate/index.html
+  ./currentcommunique.com/20110130162713/servlet/summer/index.html
+  ./mynepalnews.com/20110204095758/servlet/SnoopServlet/index.html
+  ./mynepalnews.com/20110204095403/servlet/release/index.html
+  ./www.hassannews.net/20101230175421/servlet/jordan/index.html
+  ./zerosandonesnews.com/20110209084339/servlet/technews/index.html
+  ``
+  which makes us think that it is a part of the SWF system.
 * <CGI comms>
 These have short single word names with some meaning linked to their website.
 
@@ -8678,7 +8818,8 @@ Announcements and updates by self:
 * 2024-01-23: https://mastodon.social/@cirosantilli/111807480628392615[] <ipinf.ru> gives 4 hits and 4 new suspects, announced at:
 * 2024-09 <Aratu Week 2024 Talk by Ciro Santilli>
 * 2025-03-13: 44 new domains found: <Updates/44 new CIA websites>{full}
-* 2025-04-14: <cqcounter> screenshots used to confirm many new hits: <Updates/60 new CIA website screenshots discovered on CQ Counter>
+* 2025-04-14: <cqcounter> screenshots used to confirm many new hits: <Updates/60 new CIA website screenshots discovered on CQ Counter>{full}
+* 2025-05-23: <Updates/Backing up CIA website archives for research and posterity>{full}
 
 Pings by self:
 * 2025-03-13:
