@@ -1587,6 +1587,32 @@ Bibliography:
 {synonym}
 {title2}
 
+= vscode freezes or crashes when opening a large folder
+{parent=Visual Studio Code}
+
+<snap> vscode 1.100.2, <Ubuntu 25.04>
+
+The issue appears to be that the file watcher goes out of control.
+
+The reproduction is very simple:
+``
+mkdir mytest
+cd mytest
+seq 1000000 | xargs touch
+code --disable-extensions .
+``
+and now the editor GUI hangs and Ubuntu shows a popup:
+> The window is not responding
+
+<htop> reveals a bunch of processes or threads of type:
+``
+/snap/code/194/usr/share/code/code
+``
+
+Infinite duplicate pool:
+* https://github.com/microsoft/vscode/issues/237394
+* https://github.com/microsoft/vscode/issues/79336
+
 = vscode bug
 {parent=Visual Studio Code}
 
@@ -3145,6 +3171,32 @@ Please, use <AsciiDoc> and <one page to rule them all>.
 = Software engineering
 {parent=Software}
 {wiki}
+
+= Software engineering interview
+{parent=Software engineering}
+
+= Cracking the coding interview
+{c}
+{parent=Software engineering interview}
+
+= Cracking the coding interview edition
+{c}
+{parent=Software engineering interview}
+
+= Cracking the coding interview 6ed
+{c}
+{parent=Software engineering interview}
+
+= Cracking the coding interview 6ed problem
+{c}
+{parent=Cracking the coding interview 6ed}
+
+* 1.2 Check permutation: \a[cpp/string_is_permutation.cpp]
+* 1.5 One away: \a[cpp/one_away.cpp]
+* 4.1 Route Between Nodes: \a[cpp/directed_graph_size.cpp]
+* 4.7 Build Order: \a[cpp/topological_sort.cpp]
+* 16.10 Living People: \a[cpp/max_interval_overlaps.cpp]
+* 16.25 LRU Cache: \a[cpp/lru_cache.cpp]
 
 = Software development
 {parent=Software engineering}
