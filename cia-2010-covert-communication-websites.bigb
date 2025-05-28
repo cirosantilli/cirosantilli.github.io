@@ -7717,6 +7717,9 @@ The data here had a little bit of non-overlap from other sources. 4 new confirme
 = cqcounter
 {parent=Data sources}
 
+= cqcounter
+{synonymNoScope}
+
 http://cqcounter.com has an exceptionally complete database containing:
 * domains
 * IP of the domain in the past e.g. http://cqcounter.com/whois/site/activegaminginfo.com.html which actually contains the IP 66.175.106.148!
@@ -7913,12 +7916,13 @@ https://crt.sh/?q=globalnewsbulletin.com has a hit to: https://crt.sh/?id=774803
 
 Let's try another one for secure.altworldnews.com: https://search.censys.io/certificates/e88f8db87414401fd00728db39a7698d874dbe1ae9d88b01c675105fabf69b94[]. Nope, no direct mega hits here either.
 
-= JAR reverse engineering
+= <JAR> reverse engineering
+{c}
 {parent=Communication mechanism}
 
 TODO it would be cool to have a look at the JARs and see if they have anything in common that makes for a good fringerprint. Would not help find new ones, but would help to confirm possible hits.
 
-The most advanced reverse engineering effort so far has been by quat1024 on GitHub:
+The most advanced reverse engineering effort so far has been by https://github.com/quat1024[GitHub user quat1024], an undergratuate student at Ohio State University and Minecraft modding extraordinaire. Minecraft is written in Java, which partly explains his Java skills.
 * https://github.com/cirosantilli/cirosantilli.github.io/issues/203
 * https://notes.highlysuspect.agency/cia-jars.html
 He managed to deobfuscate the strings present inthe JARs using Enigma, possibly https://github.com/FabricMC/Enigma[], a Java reverse engineering tool. Cool findings on https://web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar include:
@@ -7927,7 +7931,6 @@ He managed to deobfuscate the strings present inthe JARs using Enigma, possibly 
    Fri Feb 05 12:04:29 EST 2010
   ``
   Also cool is the present of a timeszone, "EST" unsurprisingly.
-* The Software shall be used for Good, not Evil
 
 https://web.archive.org/web/20110208072027/http://newsupdatesite.com/update.jar unzips to:
 
