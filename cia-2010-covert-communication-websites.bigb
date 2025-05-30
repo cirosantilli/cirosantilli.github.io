@@ -788,7 +788,7 @@ Commented edge cases that didn't make the cut can be found mostly under <IP rang
 |
 | https://web.archive.org/web/20110204143500/http://mynepalnews.com/nepali.jar[JAR]
 | news
-| Split images with `<li><a id="banner1">&nbsp;</a></li>` style. Nice swimsuit ad. The bottom bar "Copyright © 2008 My Nepal News, LLC. All Rights Reserved." is also kind of typical, see e.g. https://web.archive.org/web/20110208042144/http://helpinghandssite.com/[], both have `<!-- begin #footer -->` and `<div id="footer">`. https://web.archive.org/web/20110201170354/http://ingenuitytrendz.com/[ingenuitytrendz.com] is another closely related template. One ridiculously mind blowing thing about this website is the presence of Webalizer reports https://web.archive.org/web/*/http://mynepalnews.com/stats/*[under /stats] e.g.: https://web.archive.org/web/20110204095803/http://mynepalnews.com:80/stats/[/stats]. This fact is so mind blowing that it makes us question if this an actual hit or just style coincidence. Particularly ridiculous is the presence of `inurl:cgi server_software` at https://web.archive.org/web/20110204095809/http://mynepalnews.com:80/stats/usage_200805.html which is almost certainly a Google dork search, which we know is something that the Iranians used to find the websites. Also of interest are link backs from at https://web.archive.org/web/20110204095815/http://mynepalnews.com:80/stats/usage_200806.html from http://whois.domaintools.com/mynepalnews.com and http://www.whois.sc/mynepalnews.com That search hits under https://web.archive.org/web/20110204095351/http://mynepalnews.com:80/cgi-bin/check.cgi[/cgi-bin/check.cgi]. That page is itself os some interest containing `SERVER_ADMIN = mmadev@mmadev.com`. https://web.archive.org/web/20110204095815/http://mynepalnews.com:80/stats/usage_200806.html also reveals several request IPs. Even if this is not a CIA website, there's a chance we could find the IP of the Iranian counter-intelligence in these IP list, it's mind blowing. And if legit, we could also find IPs used by CIA handlers to see if the website is working. Lot's of referrer spam too as well.
+| Split images with `<li><a id="banner1">&nbsp;</a></li>` style. Nice swimsuit ad. The bottom bar "Copyright © 2008 My Nepal News, LLC. All Rights Reserved." is also kind of typical, see e.g. https://web.archive.org/web/20110208042144/http://helpinghandssite.com/[], both have `<!-- begin #footer -->` and `<div id="footer">`. https://web.archive.org/web/20110201170354/http://ingenuitytrendz.com/[ingenuitytrendz.com] is another closely related template. One ridiculously mind blowing thing about this website is the presence of Webalizer reports https://web.archive.org/web/*/http://mynepalnews.com/stats/*[under /stats] e.g.: https://web.archive.org/web/20110204095803/http://mynepalnews.com:80/stats/[/stats]. This fact is so mind blowing that it makes us question if this an actual hit or just style coincidence. Particularly ridiculous is the presence of `inurl:cgi server_software` at https://web.archive.org/web/20110204095809/http://mynepalnews.com:80/stats/usage_200805.html which is almost certainly a Google dork search, which we know is something that the Iranians used to find the websites. Also of interest are link backs from at https://web.archive.org/web/20110204095815/http://mynepalnews.com:80/stats/usage_200806.html from http://whois.domaintools.com/mynepalnews.com and http://www.whois.sc/mynepalnews.com That search hits under https://web.archive.org/web/20110204095351/http://mynepalnews.com:80/cgi-bin/check.cgi[/cgi-bin/check.cgi]. That page is itself os some interest containing `SERVER_ADMIN = mmadev@mmadev.com`. https://web.archive.org/web/20110204095815/http://mynepalnews.com:80/stats/usage_200806.html also reveals several request IPs. Even if this is not a CIA website, there's a chance we could find the IP of the Iranian counter-intelligence in these IP list, it's mind blowing. And if a hit, we could also find IPs used by CIA handlers to see if the website is working. Lot's of referrer spam too as well.
 
 | <Hits without nearby IP hits>[?]
 | newdaynewsonline.com
@@ -5012,7 +5012,7 @@ Some possibly interesting searches include:
   ``
 * have a look at the largest folers:
   ``
-  ncdeu
+  ncdu
   ``
 
 Some of the HTML files contain <#conditional comments> e.g. https://web.archive.org/web/20091023041107/http://aquaswimming.com/ contains:
@@ -5078,6 +5078,35 @@ The following two websites have a `feeds.php` system for their RSS:
 ``
 ./mydailynewsreport.com/20110211111053/myrss/feeds.php?src=http:/www.refahemelli.com/pashto/news/rss.php&chan=y&desc=1&targ=y&utf=y
 ./magneticfieldnews.com/20110208063545/magneticfeeds/feeds.php?src=http:/www.bbc.co.uk/pashto/index.xml&chan=y&desc=1&targ=y&utf=y
+``
+
+Some of the HTML uses attributes without quotes, which is legal, but very unusual nowadays:
+``
+soldiersofsouthasia.com/20110207203705/home.htm: <a href=http://www.rss-to-javascript.com
+``
+
+We can try to search for any link leaks by listing all domains linked to with:
+``
+git grep --no-color -I -h --no-line -o 'https?://[^/">?]+[/">?]' | sed -r 's/.$//' | sort | uniq -c | sort -nk1
+``
+The first thing that shows up is that there are some IPs linked to directly! But they seem to be the direct IPs of legitimate websites, we are not sure why IPs were used rather than domain names:
+* http://69.167.160.171 at https://web.archive.org/web/20110208053653/http://sa-michigan.com/ to https://web.archive.org/web/20100304122019/http://69.167.160.171/ marked with image "fantasyplayers.com", a legit website called Fantasy Players Network
+* http://69.94.11.53 at https://web.archive.org/web/20101229193800/http://newsresolution.net/ titled "International Tribunal for Rwanda" to https://web.archive.org/web/20101229193800/http://69.94.11.53/default.htm
+* http://74.125.77.132 mynepalnews.com Webalizer
+* http://194.165.154.66/index.php https://web.archive.org/web/20110129161937/http://icwb-news.com/ MiddleEast links to 194.165.154.66/index.php but that is an actual page: https://web.archive.org/web/20110529142501/http://194.165.154.66/index.php
+* http://200.55.6.87 at https://web.archive.org/web/20110128170204/http://noticiasdelmundolatino.com/ after clicking "Maps" tab entitled "Mapas en la red" to https://web.archive.org/web/20100329150648/http://200.55.6.87/es/index.htm
+* http://213.97.154.118 at https://web.archive.org/web/20120429042725/http://montanismoaventura.com/ entitled "Mallorca Verde" to https://web.archive.org/web/20120430191214/http://213.97.154.118/mallorcaverde/ The target is a bit weird and almost empty.
+* http://216.218.196.146 at entitled "AskTheDr.com" to https://web.archive.org/web/20070303080403/http://216.218.196.146/askthedr/index.htm
+
+We can also get the full line for each with sorted by least common domains with the slow:
+``
+git grep --no-color -I -h --no-line -o 'https?://[^/">?]+[/">?]' | sed -r 's/.$//' | sort | uniq -c | sort -nk1 | awk '{if ($1 < 10) print $2}' | xargs -I{} git --no-pager grep -h --no-line -o '{}.*<' | tee tmp.log
+
+``
+
+We can search for all IP-like strings with:
+``
+git grep '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\b'
 ``
 
 = Binary files
@@ -8574,7 +8603,19 @@ mynepalnews.com, split header images, `ul.rss-items > li.rss-item`, Unarchived j
   * 5.9.240.230	Falkenstein - Germany	Hetzner Online GmbH	2014-01-31
   * 142.4.222.67	Canada	OVH SAS	2013-12-20
   * 72.9.137.7	Nepal	WorldLink Communications Pvt Ltd	2013-06-30. Big virtual.
-  * 64.71.179.79	United States	HURRICANE	2012-11-12. Nothing else on 64.71.179.71 - 64.71.179.89
+  * 64.71.179.79	United States	HURRICANE	2012-11-12. Nothing else on 64.71.179.71 - 64.71.179.89.
+
+    This IP address also shows up on https://web.archive.org/web/20110204095753/http://mynepalnews.com/cgi-bin/check.cgi/
+
+    ``
+    SERVER_ADDR = 64.71.179.79
+    ``
+
+    There we also see:
+    ``
+    REMOTE_ADDR = 204.236.235.245
+    ``
+    which appears to be the crawler's IP: https://github.com/duy13/vDDoS-Protection/issues/29
 * https://securitytrails.com/domain/mynepalnews.com/history/a
   * 5.9.219.166 Hetzner Online GmbH 2013-12-31 (11 years)	2014-01-08 (11 years)	8 days
   * 142.4.222.67 OVH SAS 2013-12-02 (11 years)	2013-12-31 (11 years)	29 days
