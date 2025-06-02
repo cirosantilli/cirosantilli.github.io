@@ -241,7 +241,7 @@ Almost all of them are copy pastes of stuff present elsewhere, or boring high re
   \Image[https://web.archive.org/web/20231209170108im_/https://i.kym-cdn.com/photos/images/newsfeed/002/023/077/166.png]
   {title=Hypno toad}
   {description=Off-chain reference image for the <ASCII art>}
-* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0341.txt#L139[tx 0913d8125167f728cec1b95d27e6fc62a7a45af35eecfefd3b5000e367ee1468] (https://www.blockchain.com/explorer/transactions/btc/0913d8125167f728cec1b95d27e6fc62a7a45af35eecfefd3b5000e367ee1468[2015-02-01]) via <cryptograffiti.info>: <ASCII typeface> add for an unsuccesful cryptocurrency with a link to its homepage http://zeit-coin.net[]:
+* https://github.com/cirosantilli/bitcoin-inscription-indexer/blob/master/data/out/0341.txt#L139[tx 0913d8125167f728cec1b95d27e6fc62a7a45af35eecfefd3b5000e367ee1468] (https://www.blockchain.com/explorer/transactions/btc/0913d8125167f728cec1b95d27e6fc62a7a45af35eecfefd3b5000e367ee1468[2015-02-01]) via <cryptograffiti.info>: <ASCII typeface> add for an unsuccessful cryptocurrency with a link to its homepage http://zeit-coin.net[]:
   ``
            _ _            _
           (_) |          (_)
@@ -1687,35 +1687,49 @@ It also links to a popular <Reddit> thread that contains the image from May 2015
 {parent=Images}
 {title2=2013-}
 
-An upload system for various media types includeing text, images, HTML pages and audio.
+= P2FK
+{c}
+{synonymNoScope}
 
-<bitfossil.org> is an indexer website created by <EMBII> for it.
+"AtomSea & EMBII" refers to an upload system for various media types includeing text, images, HTML pages and audio.
 
-Each AtomSea payload has a toplevel transaction which links to other transactions. All the linked transactions together make up the payload. The most common payload type is a text plus image, as is the case of <Nelson-Mandela.jpg>, which can be seen at http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/ where `78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e` is the toplevel transaction ID: https://www.blockchain.com/btc/tx/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e
+The official name used by its creators for the protocol is <P2FK> (Pay To Future Key Hash).
 
-See <Nelson-Mandela.jpg>{full} for a detailed reverse engineering of the format, and <AtomSea & EMBII data format>{full} for a summary of it.
-
-Holy crap, they actually support:
-* multipage setups: `The Mahabharata` http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/
-
-  \Image[https://web.archive.org/web/20230221120627im_/http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/Mahabharata.jpg]
-  {title=Illustration for The Mahabharata inscription}
-* image galleries: http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
-* audio: `Spock_Live_Long_And_Prosper.mp3` http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
-* author photo below post via signture!!! http://bitfossil.org/738ab32bf82e3e0d4d2b29e40ad194cbbef6685d0116e94371e3cef4992349c8/index.htm (testnet) See the `SIGNED BY` with EMBII's photo!
-
-http://apertus.io/ is the system to upload/index locally, and therefore likely part of the backend of bitfossil: https://github.com/HugPuddle/Apertus
-
-The system shows the messages and the images on a single page: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm It is basically a blockchain-based Twitter.
-
-<Hidden surprises in the Bitcoin blockchain by Ken Shirriff (2014)> suggests that AtomSea & EMBII are the creator's aliases. The following online profiles of the creators feel authentic:
+The name "AtomSea & EMBII" is a reference to the online handles of its creators. That string appears to be added as padding in the protocol and is therefore visible repeatebly in the blockchain, though it is sometimes cut up a bit. The following online profiles of the creators feel authentic:
+* <EMBII>
+  * https://twitter.com/EMBII4U EMBII replies on Twitter and given his knowledge of the subject he's undoubtedly one of the creators, not to mention likely owning private keys and repeatedlyt proving so
 * AtomSea:
   * https://twitter.com/TheAtomSea
   * https://github.com/AtomSea
-* <EMBII>
 * HugPuddle
   * https://github.com/HugPuddle
 Tried saying hi to them at: https://twitter.com/cirosantilli/status/1382080760774033415 and they replied: https://twitter.com/AllenVandever/status/1563964396656812034
+
+The feature-set of their protocol is impressive:
+* various media formats:
+  * multipage setups: `The Mahabharata` http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/
+  
+    \Image[https://web.archive.org/web/20230221120627im_/http://bitfossil.com/0618f12af65a4e82f8e7b41f8578721dfeb109e9a73ff71aebdbc982696e3720/Mahabharata.jpg]
+    {title=Illustration for The Mahabharata inscription}
+  * image galleries: http://bitfossil.org/ae8d3b46b934bedc363e11abe8c8607171994470957c286274f699a0b3a9bbd7/index.htm
+  * audio: `Spock_Live_Long_And_Prosper.mp3` http://bitfossil.org/1bc87dbff1ff5831287f62ac7cf95579794e4386688479bab66174963f9a4a0c/index.htm
+* social fetures:
+  * author photo below post via signture!!! http://bitfossil.org/738ab32bf82e3e0d4d2b29e40ad194cbbef6685d0116e94371e3cef4992349c8/index.htm (testnet) See the `SIGNED BY` with EMBII's photo!
+  * selling your uploads! I.e., they've likely created the earliest <Bitcoin>-based <NFT> system. For example, this lists the buy and sell orders for <image YellowRobot.jpg>: https://p2fk.io/GetObjectByAddress/17mdB8cVCQVhBi46bF43JpniZ4DAgE3JjH?mainnet=true&verbose=true
+  * sending messages to other people. TODO example.
+  * voting. TODO example.
+* tooling:
+  * <Sup!? (P2FK client)> a local GUI client
+    * http://apertus.io/ TODO vs Sup?
+
+    \Video[https://www.youtube.com/watch?v=cr6XjUrmmNY]
+    {title=Sup!? Buying, Listing and Offers by <EMBII>}
+  * <bitfossil.org> is an indexer website for the inscriptions. For example https://bitfossil.org/67b2facfd8160d4fa11b02829b6387d07537b57a7a24f19b029b2a5ae7b81830/ displays <image YellowRobot.jpg> which was inscribed at toplevel transaction https://www.blockchain.com/explorer/transactions/btc/67b2facfd8160d4fa11b02829b6387d07537b57a7a24f19b029b2a5ae7b81830[tx 67b2facfd8160d4fa11b02829b6387d07537b57a7a24f19b029b2a5ae7b81830]. Functionality seems a bit limited compared to the local clients however, e.g. you can't see all uploades by a given author.
+Basically they've created a fully descentralized Bitcoin-based social media. Their system is basically a sligly more clunky superset of <Ordinal ruleset inscriptions>, just way older and way less known for whatever reason.
+
+Each <P2FK> inscription is done over <P2FKH> payloads. Each inscription a toplevel transaction which links to other transactions. All the linked transactions together make up the payload. The most common payload type is a text plus image, as is the case of <Nelson-Mandela.jpg>, which can be seen at http://bitfossil.com/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e/ where `78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e` is the toplevel transaction ID: https://www.blockchain.com/btc/tx/78f0e6de0ce007f4dd4a09085e649d7e354f70bc7da06d697b167f353f115b8e See <Nelson-Mandela.jpg>{full} for a detailed reverse engineering of the format, and <AtomSea & EMBII data format>{full} for a summary of it.
+
+The system shows the messages and the images on a single page: http://bitfossil.org/4cbb32cd27b5b5edc12d3559bdffc1355ac2a210463d5cfaadc7ce9b06675b2b/index.htm It is basically a blockchain-based Twitter.
 
 Somewhat related projects:
 * http://www.memorymatrix.org/
