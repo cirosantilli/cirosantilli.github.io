@@ -45,6 +45,16 @@ This is how other languages compare:
 {disambiguate=programming}
 {synonym}
 
+= Programming language feature
+{parent=Type of programming language}
+
+= Inline assembly
+{parent=Programming language feature}
+{wiki=Inline_assembler}
+
+= Inline assembler
+{synonym}
+
 = Programming paradigm
 {parent=Type of programming language}
 {wiki}
@@ -187,7 +197,7 @@ Examples under \a[c].
     11d1:       48 3b 45 e8             cmp    -0x18(%rbp),%rax
     11d5:       72 f1                   jb     11c8 <main+0x7f>
 ``
-To do about 1s on <Ciro Santilli's hardware/P14s>:
+To do about 1s on <Ciro Santilli's hardware/P14s> we need 2.5 billion instructions:
 ``
 time ./inc_loop.out 2500000000
 ``
@@ -217,6 +227,28 @@ With -O3 it manages to fully unroll the loop removing it entirely and producing:
     107e:       c3                      ret
 ``
 to is it smart enough to just return the return value from strtoll directly as is in `rax`.
+
+= c/inc_loop_asm.c
+{parent=C example}
+
+This is the only way that we've managed to reliably get a single `inc` instruction loop, by using <inline assembly>, e.g. on we do <x86>:
+``
+loop:
+  inc %[i];
+  cmp %[max], %[i];
+  jb loop;
+``
+
+For 1s on <Ciro Santilli's hardware/P14s> <Ubuntu 25.04> GCC 14.2 -O0 x86_64 we need about 5 billion:
+``
+time ./inc_loop_asm.out 5000000000
+``
+
+= c/inc_loop_asm_n.sh
+{parent=C example}
+{tag=Microarchitectural benchmark}
+
+This is a quick <microarchitectural benchmark> to try and determine how many <functional units> our CPU has that can do an `inc` instruction.
 
 = ANSI C
 {c}
