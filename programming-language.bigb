@@ -260,20 +260,22 @@ loop:
   inc %[i0];
   inc %[i1];
   inc %[i2];
+  ...
+  inc %[i_n];
   cmp %[max], %[i0];
   jb loop;
 ``
 with different numbers of inc instructions.
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/refs/heads/master/c/inc_loop_asm_n.png]
+\Image[https://raw.githubusercontent.com/cirosantilli/media/refs/heads/master/c/inc_loop_asm_n_manual.png]
 {title=<c/inc_loop_asm_n.sh>{file} results for a few CPUs}
 {description=
-Data from multiple CPUs manually collated and plotted manually with \a[c/inc_loop_asm_n_manual.sh].
-
 Quite clearly:
 * <AMD 7840U> can run INC on 4 functional units
 * <Intel i7-7820HQ> can run INC on 2 functional units
 and both have low instruction count effects that destroy performance, AMD at 3 and Intel at 3 and 5. TODO it would be cool to understand those better.
+
+Data from multiple CPUs manually collated and plotted manually with \a[c/inc_loop_asm_n_manual.sh].
 }
 {height=480}
 
