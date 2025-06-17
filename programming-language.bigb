@@ -188,6 +188,7 @@ Examples under \a[c].
 {parent=C (programming language)}
 
 = c/inc_loop.c
+{file}
 {parent=C example}
 
 <Ubuntu 25.04> GCC 14.2 -O0 x86_64 produces a horrendous:
@@ -229,7 +230,9 @@ With -O3 it manages to fully unroll the loop removing it entirely and producing:
 to is it smart enough to just return the return value from strtoll directly as is in `rax`.
 
 = c/inc_loop_asm.c
+{file}
 {parent=C example}
+{tag=CPU microbenchmark}
 
 This is the only way that we've managed to reliably get a single `inc` instruction loop, by using <inline assembly>, e.g. on we do <x86>:
 ``
@@ -245,10 +248,22 @@ time ./inc_loop_asm.out 5000000000
 ``
 
 = c/inc_loop_asm_n.sh
+{file}
 {parent=C example}
-{tag=Microarchitectural benchmark}
+{tag=CPU microbenchmark}
 
-This is a quick <microarchitectural benchmark> to try and determine how many <functional units> our CPU has that can do an `inc` instruction.
+This is a quick <microarchitectural benchmark> to try and determine how many <functional units> our CPU has that can do an `inc` instruction at the same time due to <superscalar architecture>.
+
+The generated programs do loops like:
+``
+loop:
+  inc %[i0];
+  inc %[i1];
+  inc %[i2];
+  cmp %[max], %[i0];
+  jb loop;
+``
+with different numbers of inc instructions.
 
 = ANSI C
 {c}

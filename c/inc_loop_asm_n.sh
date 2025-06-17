@@ -145,7 +145,7 @@ set term png
 set output "${b}.png"
 set title "Time to run 5B loops of N parallelizable instructions on AMD 7840U"
 set xlabel "{/*1.25N instructions per loop}\n{/*0.75 *0 means just one inc for loop variable}"
-set ylabel "time (s)'
+set ylabel 'time (s)'
 set xtics 1
 set yrange [0:]
 plot '$dat' using 1:2 with linespoints title 'inc'
