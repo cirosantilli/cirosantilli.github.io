@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # This is the one I used after manually collating data from various CPUs.
+# http://ourbigbook.com/cirosantilli/_file/c/inc_loop_asm_n.sh
 gnuplot <<EOF
 set term png
 set output "inc_loop_asm_n_manual.png"
