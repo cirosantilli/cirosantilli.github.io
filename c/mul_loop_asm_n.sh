@@ -5,7 +5,7 @@ set -eu
 ninsts_max="${1:-12}"
 nloops="${2:-5000000000}"
 ninsts=0
-f=inc_loop_asm_n.c
+f=mul_loop_asm_n.c
 b=${f%.*}
 exec="${b}.out"
 dat="${b}.txt"
@@ -13,7 +13,7 @@ dat="${b}.txt"
 rm -f "$dat"
 while [ "$ninsts" -le "$ninsts_max" ]; do
 printf "$ninsts " >> "$dat"
-for inst in inc; do
+for inst in mul; do
 echo "$ninsts $inst"
 
 # Stuff derived from inst only.
@@ -21,14 +21,7 @@ clobbers=
 # Limits because we don't have enough registers of a given type.
 ninsts_inst_max=12
 case "$inst" in
-  inc) ;;
-  add) ;;
   mul)
-    # This builds, but it won't show anything fun because x86 MUL is insane
-    # and takes rax as both input and output, so it's not possible to expose
-    # instruction level parallelism with it. To see it we need to actually
-    # move the values around a bit. I could likely patch that in this example, but
-    # I'll just make a separate one instead I think, it will be simpler.
     clobbers='"rax", "rdx"'
     ninsts_inst_max=9
   ;;
@@ -46,7 +39,7 @@ EOF
 i=0
 while [ "$i" -le "$ninsts" ]; do
 cat <<EOF >>"$f"
-    uint64_t i${i} = 0;
+    uint64_t i${i} = 1;
 EOF
   i="$((i + 1))"
 done
@@ -67,13 +60,13 @@ EOF
 i=1
 while [ "$i" -le "$ninsts" ]; do
   case "$inst" in
-    inc) s="${inst} %[i${i}]";;
-    add) s="${inst} \$1, %[i${i}]";;
     mul) s="${inst} %[i${i}]";;
     *) exit 1;;
   esac
   cat <<EOF >>"$f"
+        "mov %[i${i}], %%rax;"
         "$s;"
+        "mov %%rax, %[i${i}];"
 EOF
   i="$((i + 1))"
 done
@@ -151,5 +144,5 @@ set xlabel "{/*1.25N instructions per loop}\n{/*0.75 *0 means just one INC for l
 set ylabel 'time (s)'
 set xtics 1
 set yrange [0:]
-plot '$dat' using 1:2 with linespoints title 'inc'
+plot '$dat' using 1:2 with linespoints title 'mul'
 EOF

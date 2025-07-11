@@ -1259,6 +1259,12 @@ Page: https://www.llama.com/llama2/
 = Llama2 7B
 {parent=Llama2}
 
+= Llama3
+{parent=Llama (language model)}
+{title2=2024}
+
+https://www.llama.com/models/llama-3/
+
 = Ollama
 {c}
 {parent=Open source LLM}
@@ -1292,6 +1298,11 @@ As mentioned at https://github.com/jmorganca/ollama/blob/0174665d0e7dcdd8c60390a
     4.0 KiB [                           ]  .profile
     4.0 KiB [                           ]  .bash_logout
 ``
+The file:
+``
+/usr/share/ollama/.ollama/models/manifests/hf.co/mlabonne/Meta-Llama-3.1-8B-Instruct-abliterated-GGUF/Q2_K
+``
+gives a the exact model name and parameters.
 
 We can also do it non-interactively with:
 ``
@@ -1302,7 +1313,7 @@ which gave me:
 0.13user 0.17system 2:06.32elapsed 0%CPU (0avgtext+0avgdata 17280maxresident)k
 0inputs+0outputs (0major+2203minor)pagefaults 0swaps
 ``
-but note that there is a random seed that affects each run by default. This was apparently fixed however: https://github.com/ollama/ollama/issues/2773[], but <Ciro Santilli> doesn't know how to set the seed.
+but note that there is a random seed that affects each run by default. <ollama-expect>{file} is an attempt to make the output deterministic.
 
 Some other quick benchmarks from <Amazon EC2 GPU> on a <g4nd.xlarge> instance which had an <Nvidia Tesla T4>:
 ``
@@ -1369,10 +1380,11 @@ e.g.:
 ``
 ./ollama-expect llama3.2 'What is quantum field theory?'
 ``
+This generates 100 tokens for the given prompt with the given model.
 
 Benchmarks:
-* <Ciro Santilli's hardware/P14s>: 4.8s, CPU only
-* <Ciro Santilli's hardware/P51>: 9.6s, uses <NVIDIA> GPU
+* <Ciro Santilli's hardware/P14s>: 4.8s, CPU only: ~21 tokens / s
+* <Ciro Santilli's hardware/P51>: 9.6s, uses <NVIDIA> GPU: ~10 tokens / s
 
 = LLM benchmark
 {parent=Large language model}
