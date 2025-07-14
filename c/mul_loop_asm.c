@@ -8,21 +8,21 @@ int main(int argc, char **argv) {
     } else {
         max = 1;
     }
-    i = 0;
+    i = max;
     x0 = 1;
 #if defined(__x86_64__) || defined(__i386__)
     __asm__ (
         "mov %[x0], %%rax;"
         "mov $2, %%rbx;"
+        ".align 64;"
         "loop:"
         "mul %%rbx;"
-        "inc %[i];"
-        "cmp %[max], %[i];"
-        "jb loop;"
+        "dec %[i];"
+        "jne loop;"
         "mov %%rax, %[x0];"
         : [i] "+r" (i),
           [x0] "+r" (x0)
-        : [max] "r" (max)
+        :
         : "rax",
           "rbx",
           "rdx"

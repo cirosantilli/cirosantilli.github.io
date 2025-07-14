@@ -23,7 +23,7 @@ ninsts_inst_max=12
 case "$inst" in
   mul)
     clobbers='"rax", "rdx"'
-    ninsts_inst_max=9
+    ninsts_inst_max=11
   ;;
   *) exit 1;;
 esac
@@ -35,8 +35,14 @@ cat <<EOF >"$f"
 
 int main(int argc, char **argv) {
     uint64_t nloops;
+    if (argc > 1 ) {
+        nloops = strtoll(argv[1], NULL, 0);
+    } else {
+        nloops = 1;
+    }
+    uint64_t i0 = nloops;
 EOF
-i=0
+i=1
 while [ "$i" -le "$ninsts" ]; do
 cat <<EOF >>"$f"
     uint64_t i${i} = 1;
@@ -44,18 +50,10 @@ EOF
   i="$((i + 1))"
 done
 cat <<EOF >>"$f"
-    if (argc > 1 ) {
-        nloops = strtoll(argv[1], NULL, 0);
-    } else {
-        nloops = 1;
-    }
 #if defined(__x86_64__) || defined(__i386__)
     __asm__ (
+        ".align 64;"
         "loop:"
-EOF
-
-cat <<EOF >>"$f"
-        "inc %[i0];"
 EOF
 i=1
 while [ "$i" -le "$ninsts" ]; do
@@ -67,13 +65,14 @@ while [ "$i" -le "$ninsts" ]; do
         "mov %[i${i}], %%rax;"
         "$s;"
         "mov %%rax, %[i${i}];"
+
 EOF
   i="$((i + 1))"
 done
 
 cat <<EOF >>"$f"
-        "cmp %[nloops], %[i0];"
-        "jb loop;"
+        "dec %[i0];"
+        "jne loop;"
 EOF
 
 if [ "$ninsts" -eq 0 ]; then
@@ -100,7 +99,7 @@ fi
 
 # End.
 cat <<EOF >>"$f"
-        : [nloops] "r" (nloops)
+        :
         : ${clobbers}
     );
 #endif
@@ -140,9 +139,9 @@ gnuplot <<EOF
 set term png
 set output "${b}.png"
 set title "Time to run 5B loops of N parallelizable instructions on AMD 7840U"
-set xlabel "{/*1.25N instructions per loop}\n{/*0.75 *0 means just one INC for loop variable}"
+set xlabel "{/*1.25N instructions per loop}\n{/*0.75 *0 means just one DEC for loop variable}"
 set ylabel 'time (s)'
 set xtics 1
 set yrange [0:]
-plot '$dat' using 1:2 with linespoints title 'mul'
+plot '$dat' using 1:2 with linespoints title 'MUL'
 EOF
