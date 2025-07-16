@@ -1330,6 +1330,42 @@ So it's not too bad, a small article in 10s.
 
 It tends to babble quite a lot by default, but eventually decides to stop.
 
+= llama.cpp
+{c}
+{parent=Ollama}
+
+https://ollama.com
+
+This appears to be the backend library of <ollama>.
+
+They have a <CLI> front-end named <llama-cli>.
+
+https://askubuntu.com/questions/1461564/install-llama-cpp-locally has some tutorials for <Ubuntu>. There was no nicely pre-packaged one for <Ubuntu 25.04>, but build worked on 79e0b68c178656bb0632cb8602d2940b755077f8 In particular it exposed <Vulkan> support before <ollama> did: https://github.com/ollama/ollama/pull/5059 and it did seem to work, using up my <AMD GPU>.
+
+= llama-cli
+{c}
+{parent=llama.cpp}
+
+A <CLI> front-end for <llama.cpp>.
+
+A decent test command:
+``
+time ./llama-cli \
+  --no-display-prompt \
+  --single-turn \
+  --temp 0 \
+  -c 16384 \
+  -cnv \
+  -m Llama-3.1-Tulu-3-8B-Q8_0.gguf \
+  -n 1000 \
+  -ngl 100 \
+  -p 'What is quantum field theory?' \
+  -t 10 |
+  tee output.txt \
+;
+``
+but it failed to be deterministic despite `--temperature 0`. This ran 2x faster at 18 tokens/s for 1000 tokens  on <Ciro Santilli's hardware/P14s> on GPU via Vulkan than on CPU which is achievable by removing the `-ngl 100`.
+
 = Ollama HOWTO
 {c}
 {parent=Ollama}
@@ -1345,9 +1381,12 @@ It tends to babble quite a lot by default, but eventually decides to stop.
 TODO: haven't managed. `/set parameter seed 0`:
 * https://github.com/ollama/ollama/issues/3775
 * https://github.com/ollama/ollama/issues/2773#issuecomment-2732874259
+* https://www.reddit.com/r/ollama/comments/1jmnb8b/testability_of_llms_the_elusive_hunt_for/
 
 Across hardware:
 * https://stackoverflow.com/questions/79390210/does-ollama-guarantee-cross-platform-determinism-with-identical-quantization-se
+
+It might be easier to just use <llama-cli> for this, it has a `--temperature` flag.
 
 = Ollama parameter
 {c}

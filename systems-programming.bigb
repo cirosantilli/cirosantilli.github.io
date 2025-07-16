@@ -197,14 +197,23 @@ west build -b qemu_cortex_a53 samples/synchronization -t run
 {parent=Operating system}
 {wiki}
 
-= UNIX
+= The three operating systems
+{parent=Operating system}
+
+As of 2025 and much earlier, there were only 3 operating systems that mattered on desktop:
+* <Windows>
+* <MacOS>
+* <Linux>
+We refer to them as "the three operating systems".
+
+= List of operating systems
 {c}
 {parent=Operating system}
 {wiki}
 
 = Linux
 {c}
-{parent=Operating system}
+{parent=List of operating systems}
 {wiki}
 
 It ain't perfect, but it's decent enough.
@@ -606,6 +615,16 @@ After it finally finishes the build including our <vmlinux> is present at:
 linux-6.11.0/debian/build/build-generic
 ``
 
+= Emulate <Windows> on Ubuntu
+{parent=Ubuntu HOWTO}
+
+* https://superuser.com/questions/1707074/create-a-stable-virtualized-windows-os-on-ubuntu
+* https://www.reddit.com/r/linux/comments/11ruj9u/creating_a_qemu_windows_10_vm_on_linux/
+
+More specialized versions:
+* https://askubuntu.com/questions/1523535/installing-windows-11-in-a-vm-on-ubuntu-24-04 wants to keep real Windows data as well
+* https://askubuntu.com/questions/1528367/what-is-the-best-way-to-set-up-a-windows-10-vm-with-hypervisor-and-virtual-machi asks for some hypervisor stuff
+
 = Ubuntu release
 {c}
 {parent=Ubuntu}
@@ -903,7 +922,7 @@ Issues:
 
 = Berkeley Software Distribution
 {c}
-{parent=Operating system}
+{parent=List of operating systems}
 
 = BSD Operating System
 {c}
@@ -921,9 +940,37 @@ Did <Apple> just fork it and made Mac OS X without giving anything back?
 {parent=Berkeley Software Distribution}
 {wiki}
 
-= POSIX
+= TempleOS
+{c}
+{parent=List of operating systems}
+{wiki}
+
+The OS that the <Gods> ordered be made.
+
+One is reminded of https://ulillillia.fandom.com/wiki/Ulillillia[Ulillillia], see also: https://www.youtube.com/watch?v=9-79yOZ13qg The Story of Ulillillia by Atrocity Guide (2019)
+
+We are <autism>[all somewhere in the spectrum].
+
+\Video[https://www.youtube.com/watch?v=FoTYV22qZTg]
+{title=I like elephants and <God> likes elephants}
+
+= Terry A. Davis
+{c}
+{parent=TempleOS}
+{title2=Creator of TempleOS}
+{wiki}
+
+\Video[https://www.youtube.com/watch?v=ozhHrzOXZkI]
+{title=<Terry A. Davis> writes a message to the <CIA>}
+
+= UNIX
 {c}
 {parent=Operating system}
+{wiki}
+
+= POSIX
+{c}
+{parent=UNIX}
 {tag=Good}
 {wiki}
 
@@ -1051,29 +1098,6 @@ Getting started tutorial: https://unix.stackexchange.com/questions/223078/best-w
 = stdout
 {c}
 {synonym}
-
-= TempleOS
-{c}
-{parent=Operating system}
-{wiki}
-
-The OS that the <Gods> ordered be made.
-
-One is reminded of https://ulillillia.fandom.com/wiki/Ulillillia[Ulillillia], see also: https://www.youtube.com/watch?v=9-79yOZ13qg The Story of Ulillillia by Atrocity Guide (2019)
-
-We are <autism>[all somewhere in the spectrum].
-
-\Video[https://www.youtube.com/watch?v=FoTYV22qZTg]
-{title=I like elephants and <God> likes elephants}
-
-= Terry A. Davis
-{c}
-{parent=TempleOS}
-{title2=Creator of TempleOS}
-{wiki}
-
-\Video[https://www.youtube.com/watch?v=ozhHrzOXZkI]
-{title=<Terry A. Davis> writes a message to the <CIA>}
 
 = Executable file format
 {parent=Systems programming}
@@ -1232,9 +1256,15 @@ https://virt-manager.org/
 {c}
 {parent=Emulator manager}
 
+This is a cool project that attempts to make it easy to emulate any of <the three operating systems> on <QEMU>.
+
 Homepage: https://github.com/quickemu-project/quickemu
 
 Introductor tutorial by <Ciro Santilli>: https://askubuntu.com/questions/884534/how-to-run-ubuntu-desktop-on-qemu/1545712#1545712 intro
+
+Unofrtunately as of 2025 the project was falling a bit back on support, and the latest versions of the two closed source systems were buggy, tested as of quickemu 4.9.7 on <Ubuntu 25.04>:
+* <Windows 11>: https://github.com/quickemu-project/quickemu/issues/1475
+* <MacOS 14> (Sonoma) installs <MacOS 15>, which is not listed on the list of installable systems: https://github.com/quickemu-project/quickemu/issues/1561[]. The issue was closed, but it still happens.
 
 = quickemu HOWTO
 {c}
