@@ -218,6 +218,7 @@ Asymmetric components have multiple letters indicating different ports. The capi
   DC_10---R_10---G
   ``
   If the voltage is not given, it is assumed to be a <potentiometer>.
+* `LED`: same as diode
 * `T`: <transistor>. The ports are `sgTd`:
   * `s`: source
   * `g`: gate
@@ -250,7 +251,25 @@ Asymmetric components have multiple letters indicating different ports. The capi
   ``
   without any ports. This is notably often the case for AC circuits.
 
-  Optionaly, we can also add the sides as in:
+  Optionally, we can also add the sides as in:
+* ports can also be separated by underscores from the components to increase readability. Underscores can also be used to increase readability of longer multi-word component names e.g.:
+  ``
+  RPI_PICO_W__1gp0____3gnd
+              |       |
+              R_2k    |
+              |       |
+              +-aLEDc-+
+  ``
+  which is the same as:
+  ``
+  RPI_PICO_W
+  1gp0  3gnd
+  |       |               
+  R_2k    |               
+  |       |               
+  +-aLEDc-+               
+  ``
+  represents a circuit linking port 1 of a <Raspberry Pi Pico W>, which is GPIO pin 0, through a <resistor> and an <LED>, back to pin 3 of the board, which is ground.
 
 Numbers characterizing components are put just next to each component with an underscore. When there is only one parameter, standard units are assumed, e.g.:
 ``
@@ -575,6 +594,15 @@ First watch: <video Oscillators: RC, LC, Crystal by GreatScott! (2015)>
 \Video[https://www.youtube.com/watch?v=9BDTtcRMxpA]
 {title=How <LEDs> work by VirtualBrain}
 {description=2021. Good 3d schematics clearly explaining part of the <LED electronic package>.}
+
+= LED HOWTO
+{c}
+{parent=Light-emitting diode}
+
+= Calculate resistor needed for an LED
+{parent=LED HOWTO}
+
+https://electronics.stackexchange.com/questions/492867/calculating-the-resistor-needed-for-a-simple-led-and-battery-circuit
 
 = LED electronic package
 {parent=Light-emitting diode}

@@ -2273,11 +2273,17 @@ Some good insights on the earlier history of the industry at: <The Supermen: The
 
 = Exascale computing
 {parent=Supercomputer}
+{title2=$10^{18}$}
 {wiki}
 
-The scale where human <brain simulation> becomes possible according to some estimates.
-
 First publicly reached by <Frontier (supercomputer)>.
+
+= Exascale hypothesis
+{parent=Exascale computing}
+
+The "exascale hypothesis" is a name made up by <Ciro Santilli> to refer to the hypothesis that the real-time human <brain simulation> becomes possible at <exascale computing>.
+
+It is a simple extrapolation from the <number of synapses in the human brain> ($10^{15}$) times the number of times each neuron fires per second.
 
 = TOP500
 {c}
@@ -2480,16 +2486,119 @@ Datasheet: https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 \Image[https://web.archive.org/web/20220808214856im_/https://twilio-cms-prod.s3.amazonaws.com/images/6ofE97USO9rBn4LidgxTgfrAqK0UiI3v524IPNHc7ac3SA.width-800.png]
 {source=https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf}
 
+= <Raspberry Pi Pico> getting started
+{c}
+{parent=Raspberry Pi pico}
+
+Getting started on <Ubuntu 25.04>: see: <Program Raspberry Pi Pico W with X>.
+
+Then ignore the other steps from the tutorial, as theese use the picozero package, which is broken with this error: https://github.com/raspberrypilearning/getting-started-with-the-pico/issues/57
+``
+AttributeError: module 'pkgutil' has no attribute 'ImpImporter'. Did you mean: 'zipimporter'
+``
+and uses picozero specific code. Rather, just use our examples from \a[rpi-pico-w].
+
+= Flash the Raspberry Pi Pico
+{parent=Raspberry Pi Pico getting started}
+
+This is a major design flaw, that the only easy default way is that you have to unplug, press bootsel, replug.
+* https://forums.raspberrypi.com/viewtopic.php?t=328795
+* https://www.reddit.com/r/raspberrypipico/comments/p9kmub/did_you_get_sick_of_unplugging_and_replugging/
+
+= picotool
+{parent=Flash the Raspberry Pi Pico}
+
+https://github.com/raspberrypi/picotool
+
+Tested on <Ubuntu 25.04>, 
+
+``
+sudo apt install libusb-1.0-0-dev
+git clone https://github.com/raspberrypi/pico-sdk
+git clone https://github.com/raspberrypi/picotool
+cd picotool
+git checkout de8ae5ac334e1126993f72a5c67949712fd1e1a4
+export PICO_SDK_PATH="$(pwd)/../pico-sdk"
+mkdir build
+cd build
+cmake ..
+cmake --build . -- -j"$(npro)" VERBOSE=1
+``
+and the executable is there under `build/picotool` so copy it somewhere in your `PATH` like:
+``
+cp picotool ~/bin
+``
+and then trying to use a <Zephyr> example:
+``
+sudo ~/bin/picotool load -f build/zephyr/zephyr.uf2
+``
+fails with:
+``
+No accessible RP2040 devices in BOOTSEL mode were found
+``
+TODO: how to avoid that? https://youtu.be/tRXLxrtfU_s?t=207 gives a workaround if you are using the Pico SDK by adding to CMakeLists.txt:
+``
+pico_enable_stdio_usb(blink 1)
+``
+but how to do it in <Zephyr>? Video description says:
+> make sure that your program initializes the USB code via a call to "stdio_init_all()".
+but again how to do that from <Zephyr>? It appears that this only works if the code currently running has support for the feature:
+* https://forums.raspberrypi.com/viewtopic.php?t=361359
+
+\Video[https://www.youtube.com/watch?v=tRXLxrtfU_s]
+{title=Never unplug your Raspberry Pi Pico again by deltocode}
+
+= Run Zephyr on Raspberry Pi Pico
+{parent=Raspberry Pi Pico}
+{tag=Run Zephyr on X}
+
+<Zephyr> docs: https://docs.zephyrproject.org/latest/boards/raspberrypi/rpi_pico/doc/index.html
+
+Note that the <LED blinker> example does not work on the <Raspberry Pi Pico W>, see also: <Run Zephyr on Raspberry Pi Pico W>.
+
+You can speed up the debug loop a little bit by plugging the Pi with BOOTSEL selected, and then running:
+``
+west flash --runner uf2
+``
+This flashes the image, and immediately turns off BOOTSEL mode and runs the program.
+
+However to run again you need to unplug the USB and re-plug with BOOTSEL again so it is still painful.
+
+\Video[https://www.youtube.com/watch?v=OyMyY4IwsJE]
+{title=Let's run Zephyr RTOS on Raspberry Pi Pico. Ep.1 by Mr. Green's Workshop}
+
+= Run Zephyr on <Raspberry Pi Pico W>
+{parent=Run Zephyr on Raspberry Pi Pico}
+
+The Zephir <LED blinker> example does not work on the <Raspberry Pi Pico W> because the on-board LED is wired differently. But the hello world works and with:
+``
+screen /dev/ttyUSB0 115200
+``
+host shows:
+``
+*** Booting Zephyr OS build v4.2.0-491-g47b07e5a09ef ***
+Hello World! rpi_pico/rp2040
+``
+Nice!
+
 = Raspberry Pi Pico variant
 {c}
 {parent=Raspberry Pi Pico}
 {title2=2022}
 
+= Raspberry Pi Pico 1
+{c}
+{parent=Raspberry Pi Pico variant}
+
+This section is about the original <Raspberry Pi Pico> board. The "1" was added retroactively to the name as more boards were released and "Raspberry Pi Pico" became a generic name for the brand.
+
 = Raspberry Pi Pico H
 {c}
 {parent=Raspberry Pi Pico variant}
 
-Has <Serial wire debug> debug. Why would you ever get one without unless you are a clueless newbie like <Ciro Santilli>?!?!
+Has <Serial wire debug> debug pre-soldered. Why would you ever get one without unless you are a clueless newbie like <Ciro Santilli>?!?!
+
+It is however possible to solder it yourself on <Raspberry Pi Pico W>.
 
 = Raspberry Pi Pico W
 {c}
@@ -2497,6 +2606,8 @@ Has <Serial wire debug> debug. Why would you ever get one without unless you are
 {title2=2022}
 
 Datasheet: https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
+
+Pinout: https://datasheets.raspberrypi.com/picow/PicoW-A4-Pinout.pdf
 
 = Raspberry Pi Pico W UART
 {parent=Raspberry Pi Pico W}
@@ -2514,16 +2625,29 @@ but be aware of: <Raspberry Pi Pico W freezes a few seconds after after screen d
 Other options:
 * <ampy> `run` command, which solves <How to run a MicroPython script from a file on the Raspberry Pi Pico W from the command line?>
 
-= Program Raspberry Pi Pico W with MicroPython
+= Program Raspberry Pi Pico W with X
 {parent=Raspberry Pi Pico W}
+
+= Program Raspberry Pi Pico W with MicroPython
+{parent=Program Raspberry Pi Pico W with X}
 {tag=MicroPython}
+
+Install firmware: https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/3
+
+Then there are two appraoches:
+* thonny if you like clicking mouse buttons:
+  ``
+  pipx install thonny
+  ``
+  and select the interpreter as the Pico.
+* <ampy> if you like things to just run from the CLI: <How to run a MicroPython script from a file on the Raspberry Pi Pico W from the command line>
 
 = How to run a MicroPython script from a file on the Raspberry Pi Pico W from the command line?
 {parent=Program Raspberry Pi Pico W with MicroPython}
 
 The first/only way Ciro could find was with <ampy>: https://stackoverflow.com/questions/74150782/how-to-run-a-micropython-host-script-file-on-the-raspbery-pi-pico-from-the-host/74150783#74150783 That just worked and it worked perfectly!
 ``
-python3 -m pip install --user adafruit-ampy
+pipx install adafruit-ampy
 ampy --port /dev/ttyACM0 run blink.py
 ``
 
@@ -2586,15 +2710,58 @@ An upstream repo at: https://github.com/raspberrypi/pico-micropython-examples
 Our examples at: \a[rpi-pico-w/upython].
 
 The examples can be run as described at <Program Raspberry Pi Pico W with MicroPython>.
-* \a[rpi-pico-w/upython/blink.py]: blink on-board <LED>. Note that they broke the LED hello world compatibility from non-W to W for God's sake!!!
-* \a[rpi-pico-w/upython/led_on.py]: turn on-board LED on and leave it on forever
-* \a[rpi-pico-w/upython/uart.py]: has automatic <UART> via USB. Any `print()` command ends up on the <Raspberry Pi Pico W UART>! Is is just like with <Micro Bit>, must be a standard Micro Python thing. The onboard LED is blinked as a <heartbeat (computing)>.
-* \a[rpi-pico-w/upython/blink_gpio.py]: toggle GPIO pin 0 on and off twice a second. Also toggle the on-board LED and print to UART for correlation. You can see this in action e.g. by linking an LED between pin 0 and one of the GND pins of the Pi, and the LED will blink.
-* \a[rpi-pico-w/upython/pwm.py]: <pulse width modulation>. Using the same circuit as the \a[rpi-pico-w/upython/blink_gpio.py] example, you will now see the external LED go from dark to bright continuously  and then back
+
+* \a[rpi-pico-w/upython/led_on.py]: turn on-board LED on and leave it on forever. Useful to quickly check that you are still able to update the firmware.
+* \a[rpi-pico-w/upython/led_off.py]: turn on-board LED off and leave it off forever
+* \a[rpi-pico-w/upython/pwm.py]: <pulse width modulation>. Using the same circuit as the <rpi-pico-w/upython/blink_gpio.py>{file}, you will now see the external LED go from dark to bright continuously  and then back
 * \a[rpi-pico-w/upython/adc.py]: <analog-to-digital converter>. The program prints to the <UART> the value of the ADC on GPIO 26 once every 0.2 seconds. The onboard LED is blinked as a <heartbeat (computing)>. The hello world is with a <potentiometer>: extremes on GND and VCC pins of the Pi, and middle output on pin 26, then as you turn the knob, the uart value goes from about 0 to about 64k.
 
+= rpi-pico-w/upython/blink.py
+{file}
+{parent=Raspberry Pi Pico W MicroPython example}
+{tag=LED blinker}
+
+Blink on-board <LED>. Note that they broke the LED hello world compatibility from non-W to W for God's sake!!!
+
+The <Micropython> code needs to be changed from the <Raspberry Pi Pico 1>, https://forums.raspberrypi.com/viewtopic.php?p=2016234#p2016234 comments:
+> Unlike the original Raspberry Pi Pico, the on-board LED on Pico W is not connected to a pin on RP2040, but instead to a GPIO pin on the wireless chip. 
+
+= rpi-pico-w/upython/blink_gpio.py
+{file}
+{parent=Raspberry Pi Pico W MicroPython example}
+{tag=LED blinker}
+
+Toggle GPIO pin 0 on and off twice a second. Also toggle the on-board LED and print to UART for correlation. You can see this in action e.g. by linking an LED between pin 0 and one of the GND pins of the Pi, and the LED will blink. Circuit:
+
+``
+RPI_PICO_W__1gp0____3gnd
+            |       |
+            R_2k    |
+            |       |
+            +-aLEDc-+
+``
+
+= rpi-pico-w/upython/uart.py
+{file}
+{parent=Raspberry Pi Pico W MicroPython example}
+{tag=LED blinker}
+
+Any `print()` command ends up on the USB, and is shown on the computer via programs such as <ampy> get back.
+
+However, you can also send data over actual UART.
+
+We managed to get it working based on: https://timhanewich.medium.com/using-uart-between-a-raspberry-pi-pico-and-raspberry-pi-3b-raspbian-71095d1b259f with the help of a <DSD TECH USB to TTL Serial Converter CP2102> just as shown at: https://stackoverflow.com/questions/16040128/hook-up-raspberry-pi-via-ethernet-to-laptop-without-router/39086537#39086537 for the RPI.
+
+We connect Pin 0 (TX), Pin 1 (RX) and Pin 2 (GND) to the DSD TECH, and the USB to the <Ubuntu 25.04> host laptop.
+
+Then on the host laptop I run:
+``
+screen /dev/ttyUSB0 9600
+``
+and a counter shows up there just fine!
+
 = Program Raspberry Pi Pico W with C
-{parent=Raspberry Pi Pico W}
+{parent=Program Raspberry Pi Pico W with X}
 {tag=MicroPython}
 
 * https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html

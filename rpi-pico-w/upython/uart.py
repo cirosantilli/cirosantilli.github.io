@@ -1,13 +1,13 @@
-import machine
+from machine import UART, Pin
 import time
 
-led = machine.Pin('LED', machine.Pin.OUT)
-# For Rpi Pico (non-W) it was like this instead apparently.
-# led = Pin(25, Pin.OUT)
-
+led = Pin('LED', Pin.OUT)
+uart0 = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+#uart1 = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 i = 0
 while (True):
     led.toggle()
-    print(i)
+    uart0.write(str(i) + '\r\n')
+    print(-i)
     time.sleep(.5)
     i += 1
