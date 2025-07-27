@@ -1,7 +1,7 @@
-import machine
+from machine import Pin
 import time
 
-led = machine.Pin('LED', machine.Pin.OUT)
+led = Pin('LED', Pin.OUT)
 # For Rpi Pico (non-W) it was like this instead apparently.
 # led = Pin(25, Pin.OUT)
 

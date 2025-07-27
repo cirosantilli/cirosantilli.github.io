@@ -1,10 +1,10 @@
 from machine import ADC, Pin
-import time
+from time import sleep
 
-led = machine.Pin('LED', machine.Pin.OUT)
+led = Pin('LED', Pin.OUT)
 adc = ADC(Pin(26))
 
 while True:
     print(adc.read_u16())
     led.toggle()
-    time.sleep(0.2)
+    sleep(0.2)

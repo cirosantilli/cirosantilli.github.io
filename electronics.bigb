@@ -217,8 +217,15 @@ Asymmetric components have multiple letters indicating different ports. The capi
   ``
   DC_10---R_10---G
   ``
-  If the voltage is not given, it is assumed to be a <potentiometer>.
+  If the voltage is not given, it is assumed to be a variable voltage power supply.
 * `LED`: same as diode
+* `I`: <electric current> source. Ports:
+  * `s`: electron source
+  * `d`: electron destination
+* `P`: <potentiometer> source. Ports:
+  * `1`: one of the sides
+  * `2`: the middle
+  * `3`: the other side
 * `T`: <transistor>. The ports are `sgTd`:
   * `s`: source
   * `g`: gate
@@ -239,9 +246,6 @@ Asymmetric components have multiple letters indicating different ports. The capi
   --Tsgd--
      |
   ``
-* `I`: <electric current> source. Ports:
-  * `s`: electron source
-  * `d`: electron destination
 * `V`: <Voltmeter>. Ports:
   * `p`: positive
   * `n`: negative
@@ -670,6 +674,12 @@ It resists to change in <electric current>. Well seen at: <video LC circuit by E
 {parent=Resistor}
 {wiki}
 
+Variable <resistance> element.
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/0/0a/Electronic-Component-Potentiometer.jpg]
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/1/19/Potentiometer_symbol.svg]
+
 = Electrical resistance and conductance
 {parent=Resistor}
 {wiki}
@@ -679,6 +689,9 @@ It resists to change in <electric current>. Well seen at: <video LC circuit by E
 
 = Electrical resistance
 {parent=Electrical resistance and conductance}
+
+= Resistance
+{synonym}
 
 = Drude model
 {c}
@@ -1006,19 +1019,20 @@ Breadboards are a thing of beauty and wonder.
 {synonym}
 {title2}
 
+= <Microcontroller> devboard
+{parent=Microprocessor development board}
+
 = Arduino
 {c}
-{parent=Microprocessor development board}
+{parent=Microcontroller devboard}
 {wiki}
 
 = Micro Bit
 {c}
-{parent=Microprocessor development board}
+{parent=Microcontroller devboard}
 {title2=2016}
 {title2=BBC Micro Bit}
 {wiki}
-
-<Zephyr> support: https://docs.zephyrproject.org/2.7.0/boards/arm/bbc_microbit/doc/index.html
 
 <Bluetooth> support: not enough <RAM> for it, though in principle its chip/<transceiver> could support it! https://microbit-micropython.readthedocs.io/en/v1.0.1/ble.html
 
@@ -1096,8 +1110,40 @@ and the program starts executing immediately after flash ends.
 
 You can restart the program by clicking the reset button near the USB. When you push down the program dies, and it restarts as soon as you release the button.
 
-= Compile MicroPython code for Micro Bit locally
+= Program the Micro Bit with X
 {parent=Micro Bit}
+
+= Run <Zephyr> on Micro Bit
+{parent=Program the Micro Bit with X}
+{tag=Run Zephyr on X}
+
+Docs: https://docs.zephyrproject.org/2.7.0/boards/arm/bbc_microbit/doc/index.html
+
+Build worked:
+``
+west build -d build/microbit/hello_world -b bbc_microbit samples/hello_world
+``
+but flash failed:
+``
+west flash -d build/microbit/hello_world
+``
+Related: https://mattoppenheim.com/2018/06/24/using-udev-to-remove-the-need-for-sudo-with-the-bbc-microbit
+
+The build also generates a .hex file by default, and we've tried to flash it manually with:
+``
+cp build/microbit/hello_world/zephyr/zephyr.hex /media/ciro/MICROBIT/
+``
+but we failed to see it do anything with <zephyr/blink_gpio.c>{file}, so not sure if the flashing was broken or if the code was broken, or if we didn't find the IO pins correctly.
+
+= Run MicroPython on Micro Bit
+{parent=Program the Micro Bit with X}
+{tag=Run MicroPython on X}
+
+Bibliography:
+* https://tech.microbit.org/software/micropython/
+
+= Compile MicroPython code for Micro Bit locally
+{parent=Run MicroPython on Micro Bit}
 
 * https://stackoverflow.com/questions/73425359/is-it-possible-to-compile-microbit-python-code-locally
 * https://stackoverflow.com/questions/52691853/generating-micropython-python-code-hex-file-from-commandline
@@ -1114,11 +1160,9 @@ What that does is:
 * join it up with a prebuilt firmware that ships with uflash which contains the MicroPython interpreter
 * flashes that
 
-To build your own firmware see:
+To build your own firmware see: <Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware>
 
-Got it working: <Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware>
-
-= Compile MicroPython code for Micro Bit locally on Ubuntu 22.04 with your own firmware
+= Compile MicroPython code for Micro Bit locally on <Ubuntu 22.04> with your own firmware
 {parent=Compile MicroPython code for Micro Bit locally}
 
 TODO didn't manage from source <Ubuntu 22.04>, their setup bitrotted way too fast... it's shameful even. Until I gave up and went for the magic <Docker> of + https://github.com/bbcmicrobit/micropython[], and it bloody worked:
@@ -1219,7 +1263,7 @@ bibliography:
 
 = Program the Micro Bit in C
 {c}
-{parent=Micro Bit}
+{parent=Program the Micro Bit with X}
 {tag=C (language)}
 
 https://stackoverflow.com/questions/73877965/how-to-compile-c-c-code-into-a-hex-file-for-the-bbc-microbit

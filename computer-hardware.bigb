@@ -1018,6 +1018,34 @@ It is interpreted. It actually implements a Python (-like ?) interpreter that ca
 
 As a result, it is both very convenient, as it does not require a C toolchain to build for, but also very slow and produces larger images.
 
+= Run MicroPython on X
+{c}
+{parent=MicroPython}
+
+= MicroPython example
+{c}
+{parent=MicroPython}
+
+Under: \a[micropython]
+
+= micropython/blink_gpio.py
+{file}
+{parent=MicroPython example}
+
+Toggle pin 0 twice per second. This could be used for example to blink LED on pin 0 once per second with this test circuit:
+
+``
+BOARD__1gp0____3gnd
+       |       |
+       R_2k    |
+       |       |
+       +-aLEDc-+
+``
+
+Tested on:
+
+* <RPI Pico W>
+
 = Microcontroller vs CPU
 {parent=Microcontroller}
 {wiki}
@@ -2470,7 +2498,7 @@ Serial from `cat /proc/cpuinfo`: 00000000c77ddb77
 = Raspberry Pi Pico
 {c}
 {parent=Raspberry Pi}
-{tag=Microcontroller}
+{tag=Microcontroller devboard}
 {title2=2021}
 
 Some key specs:
@@ -2501,9 +2529,10 @@ and uses picozero specific code. Rather, just use our examples from \a[rpi-pico-
 = Flash the Raspberry Pi Pico
 {parent=Raspberry Pi Pico getting started}
 
-This is a major design flaw, that the only easy default way is that you have to unplug, press bootsel, replug.
+This is a major design flaw, that the only easy default way is that you have to unplug, press bootsel, replug:
 * https://forums.raspberrypi.com/viewtopic.php?t=328795
 * https://www.reddit.com/r/raspberrypipico/comments/p9kmub/did_you_get_sick_of_unplugging_and_replugging/
+* https://raspberrypi.stackexchange.com/questions/149006/how-to-load-binary-into-raspberry-pi-pico-only-with-cli-without-gui
 
 = picotool
 {parent=Flash the Raspberry Pi Pico}
@@ -2604,6 +2633,10 @@ It is however possible to solder it yourself on <Raspberry Pi Pico W>.
 {c}
 {parent=Raspberry Pi Pico variant}
 {title2=2022}
+
+= RPI Pico W
+{c}
+{synonym}
 
 Datasheet: https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
 
@@ -2707,14 +2740,15 @@ Examples at: <Raspberry Pi Pico W MicroPython example>.
 
 An upstream repo at: https://github.com/raspberrypi/pico-micropython-examples
 
-Our examples at: \a[rpi-pico-w/upython].
+Some generic Micropython examples most of which work on this board can be found at: <MicroPython example>{full}.
+
+Pico W specific examples are under: \a[rpi-pico-w/upython].
 
 The examples can be run as described at <Program Raspberry Pi Pico W with MicroPython>.
 
 * \a[rpi-pico-w/upython/led_on.py]: turn on-board LED on and leave it on forever. Useful to quickly check that you are still able to update the firmware.
 * \a[rpi-pico-w/upython/led_off.py]: turn on-board LED off and leave it off forever
 * \a[rpi-pico-w/upython/pwm.py]: <pulse width modulation>. Using the same circuit as the <rpi-pico-w/upython/blink_gpio.py>{file}, you will now see the external LED go from dark to bright continuously  and then back
-* \a[rpi-pico-w/upython/adc.py]: <analog-to-digital converter>. The program prints to the <UART> the value of the ADC on GPIO 26 once every 0.2 seconds. The onboard LED is blinked as a <heartbeat (computing)>. The hello world is with a <potentiometer>: extremes on GND and VCC pins of the Pi, and middle output on pin 26, then as you turn the knob, the uart value goes from about 0 to about 64k.
 
 = rpi-pico-w/upython/blink.py
 {file}
@@ -2731,15 +2765,7 @@ The <Micropython> code needs to be changed from the <Raspberry Pi Pico 1>, https
 {parent=Raspberry Pi Pico W MicroPython example}
 {tag=LED blinker}
 
-Toggle GPIO pin 0 on and off twice a second. Also toggle the on-board LED and print to UART for correlation. You can see this in action e.g. by linking an LED between pin 0 and one of the GND pins of the Pi, and the LED will blink. Circuit:
-
-``
-RPI_PICO_W__1gp0____3gnd
-            |       |
-            R_2k    |
-            |       |
-            +-aLEDc-+
-``
+Same as the more generic <micropython/blink_gpio.py>{file} but with the onboard LED added.
 
 = rpi-pico-w/upython/uart.py
 {file}
@@ -2759,6 +2785,30 @@ Then on the host laptop I run:
 screen /dev/ttyUSB0 9600
 ``
 and a counter shows up there just fine!
+
+= rpi-pico-w/upython/adc.py
+{file}
+{parent=Raspberry Pi Pico W MicroPython example}
+{tag=LED blinker}
+
+\a[rpi-pico-w/upython/adc.py]: <analog-to-digital converter>.
+
+The program continuously prints to the USB the value of the ADC on GPIO 26 once every 0.2 seconds.
+
+The onboard LED is blinked as a <heartbeat (computing)>.
+
+The hello world is with a <potentiometer>: extremes on GND and VCC pins of the Pi, and middle output on pin GIO26, then as you turn the knob, the uart value goes from about 0 to about 64k.
+
+The 0 side is quite noisy and varies between 0 and 300 for some reason.
+
+In <Ciro's ASCII art circuit diagram notation>:
+``
+RPI_PICO_W__gnd__gpio26__5v
+            |    |       |
+            |    |       |
+            |    |       |
+         P__1____2_______3
+``
 
 = Program Raspberry Pi Pico W with C
 {parent=Program Raspberry Pi Pico W with X}

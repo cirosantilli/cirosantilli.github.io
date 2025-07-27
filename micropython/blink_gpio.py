@@ -1,5 +1,3 @@
-# Blink LED on pin 0. Tested on: RPI Pico W
-
 from machine import Pin
 from time import sleep
 

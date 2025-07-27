@@ -80,6 +80,8 @@ https://www.amazon.co.uk/dp/B0CL41RG93
 
 https://www.amazon.co.uk/dp/B0B76VGXYH
 
+<MicroPython> driver: https://github.com/Danielerikrust/LCD-20x4-Feed
+
 = ELEGOO Upgraded Electronics Fun Kit
 {c}
 {parent=Electronic components}
@@ -120,10 +122,15 @@ https://www.amazon.co.uk/dp/B0B76VGXYH
 * Buttons
 * CDS-55 Photoresistor
 * Electrolytic Capacitor
-* MF52D 103f 3950 thermistor
+* Focusens MF52D 103f 3950 thermistor. Beta value 25/50 Celcius: 3950. R_25: I measured 9.61 k Ohms. The number 103 they document as:
+  * digit 1: code of dimension
+  * digit 2: rated resistance
+  * digit 3: fills with its precision symbol
+  These descriptions are weird, but ChatGPT has the theory that the first two digits are actual values, and the last is multiplier, so $10 \times 10^3$ which makes 10k.
+  but I have no idea how that maps to 10 k Ohms.
 * PN2222 General Purpose Transistor
 * Passive buzzer
-* 3386p Bourns Precision Potentiometer - 1 103T: 10 Ohms to 2 mega Ohms. TODO part broken? Multimeter measures fixed 10 kOhms no matter where I set it
+* 3386p Bourns Precision Potentiometer - 1 103T: from 0 to 10k Ohms, measured with multimeter. According to the manual the "103" mean 10 k oms, which is consistent with our measurement. "P 103" is etched into the part.
 * <LEDs>:
   * White LED 10x
   * Kingbright RGB LEDs 10x red, green, yellow, blue:
