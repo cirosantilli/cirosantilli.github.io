@@ -403,6 +403,10 @@ https://asianometry.substack.com/ gives an abbreviated name "Jon Y".
 {title2=IC}
 {wiki}
 
+= Chip
+{synonym}
+{title2}
+
 It is quite amazing to read through books such as <The Supermen: The Story of Seymour Cray by Charles J. Murray (1997)>, as it makes you notice that earlier <CPUs> (all before the 70's) were not made with <integrated circuits>, but rather smaller pieces glued up on <PCBs>! E.g. the <arithmetic logic unit> was actually a discrete component at one point.
 
 The reason for this can also be understood quite clearly by reading books such as <Robert Noyce: The Man Behind the Microchip by Leslie Berlin (2006)>. The first <integrated circuits> were just too small for this. It was initially unimaginable that a CPU would fit in a single chip! Even just having a very small number of components on a chip was already revolutionary and enough to kick-start the industry. Just imagine how much money any level of integration saved in those early days for production, e.g. as opposed to manually soldering <point-to-point constructions>. Also the reliability, size an weight gains were amazing. In particular for military and spacial applications originally.
@@ -1009,42 +1013,42 @@ One specification at: http://web.cse.ohio-state.edu/~reeves.92/CSE2421sp13/Pract
 
 As of 2020's, it is basically a cheap/slow/simple CPU used in <embedded system> applications.
 
-= MicroPython
+= Microcontroller <emulation>
 {parent=Microcontroller}
-{tag=Python (programming language)}
+{tag=Emulation}
+
+= Microcontroller plus circuit emulation
+{parent=Microcontroller emulation}
+
+There were still no amazing <open source> implementations as of 2025.
+
+This section is about emulation setups that simulate both the microcontroller as well as the electronics it controls.
+
+Bibliography:
+* https://www.reddit.com/r/embedded/comments/smi37p/emulators_for_microcontrollers/
+* https://www.reddit.com/r/embedded/comments/1fb2yph/tools_for_simulating_microcontroller_boards/
+
+People seeking <QEMU>-based solutions:
+* https://stackoverflow.com/questions/60764018/how-to-connect-gpio-in-qemu-emulated-machine-to-an-object-in-host
+* https://raspberrypi.stackexchange.com/questions/56373/is-it-possible-to-get-the-state-of-the-leds-and-gpios-in-a-qemu-emulation-like-t
+
+= Proteus Design Suite
+{c}
+{parent= Microcontroller plus circuit emulation}
 {wiki}
 
-It is interpreted. It actually implements a Python (-like ?) interpreter that can run on a microcontroller. See e.g.: <Compile MicroPython code for Micro Bit locally>.
+\Image[https://web.archive.org/web/20250731153059im_/https://miro.medium.com/v2/resize:fit:720/format:webp/0*MyhQ0US6SxmftMHr.PNG]
+{source=https://satyamkr80.medium.com/stm32-bluepill-library-simulation-in-proteus-4c9820d64b7b}
 
-As a result, it is both very convenient, as it does not require a C toolchain to build for, but also very slow and produces larger images.
-
-= Run MicroPython on X
+= Wokwi
 {c}
-{parent=MicroPython}
+{parent= Microcontroller plus circuit emulation}
+{tag=JavaScript software}
 
-= MicroPython example
-{c}
-{parent=MicroPython}
+https://wokwi.com/
 
-Under: \a[micropython]
-
-= micropython/blink_gpio.py
-{file}
-{parent=MicroPython example}
-
-Toggle pin 0 twice per second. This could be used for example to blink LED on pin 0 once per second with this test circuit:
-
-``
-BOARD__1gp0____3gnd
-       |       |
-       R_2k    |
-       |       |
-       +-aLEDc-+
-``
-
-Tested on:
-
-* <RPI Pico W>
+\Image[https://web.archive.org/web/20250520035317im_/https://i0.wp.com/subethasoftware.com/wp-content/uploads/2022/12/wokwi-sample.png?resize=624%2C439&ssl=1]
+{source=https://subethasoftware.com/2022/12/18/wokwi-online-arduino-esp32-simulator/}
 
 = Microcontroller vs CPU
 {parent=Microcontroller}
@@ -1248,6 +1252,46 @@ One limitation is that it only handles digital electronics: https://electronics.
 = GPUs
 {c}
 {synonym}
+
+= Discrete and integrated GPUs
+{parent=Graphics processing unit}
+
+= Discrete GPU
+{parent=Discrete and integrated GPUs}
+
+= Discrete GPUs
+{synonym}
+
+= dGPU
+{c}
+{synonym}
+{title2}
+
+= Integrated GPU
+{parent=Discrete and integrated GPUs}
+
+= Integrated GPUs
+{synonym}
+
+= iGPU
+{c}
+{synonym}
+{title2}
+
+= Video random-access memory
+{parent=Graphics processing unit}
+{wiki}
+
+= VRAM
+{c}
+{synonym}
+{title2}
+
+In <discrete GPUs>, <VRAM> is <RAM> memory that lives on the <GPU>'s <PCB>.
+
+They are located in separate chips to the GPU's compute, since just like for <CPUs>, you can't put both on the same <chip> as the manufacturing processes are different and incompatible.
+
+<Integrated GPUs> don't have <VRAM> and just instead use the same <RAM> as the <CPU>.
 
 = General-purpose computing on graphics processing units
 {parent=Graphics processing unit}
@@ -2803,11 +2847,40 @@ The 0 side is quite noisy and varies between 0 and 300 for some reason.
 
 In <Ciro's ASCII art circuit diagram notation>:
 ``
-RPI_PICO_W__gnd__gpio26__5v
-            |    |       |
-            |    |       |
-            |    |       |
-         P__1____2_______3
+RPI_PICO_W__gnd__gpio26Adc__3.3V@36
+            |    |          |
+            |    |          |
+            |  +-+          |
+            |  |            |
+            |  |  +---------+ 
+            |  |  |
+         P__1__2__3
+``
+
+= rpi-pico-w/upython/thermistor_fan_control.py
+{file}
+{parent=Raspberry Pi Pico W MicroPython example}
+{tag=LED blinker}
+
+This example attempts to keep temperature to a fixed point by turning on a fan when a <thermistor> gets too hot.
+
+You can test it easily if you are not in a place that is too hot by holding the <thermistor> with your finger to turn on the fan.
+
+You can use a simple <LED> to represent the fan if you don't have one handy.
+
+In <Ciro's ASCII art circuit diagram notation>:
+``
+            +----------FAN-----------+
+            |                        |
+            |                        |
+RPI_PICO_W__gnd__gpio26Adc__3.3V@36__gpio2
+            |    |          |
+            |    |          |
+            |    |          |
+            |    +-THERMISTOR
+            |    |
+            |    |
+            R_10-+
 ``
 
 = Program Raspberry Pi Pico W with C

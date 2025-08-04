@@ -1206,6 +1206,36 @@ Published as: https://arxiv.org/pdf/2304.03442.pdf Generative Agents: Interactiv
 \Video[https://www.youtube.com/watch?v=nWBEMjAoA14]
 {title=AI Agents Behaving Like Humans by Prompt Engineering (2023)}
 
+= <LLM> <inference> optimization
+{c}
+{parent=Large language model}
+
+This section discusses techniques that can be used to make <LLMs> infer with lower latency or greater throughput.
+
+Bibliography:
+* https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/
+
+= LLM inference batching
+{c}
+{parent=LLM inference optimization}
+
+<LLM inference batching> means running multiple independent queries in parallel on a given model.
+
+This can be used to overcome the fact that most single prompt inference will be heavily <memory bound>, see also: <theoretical peak performance of GPT inference>{full}. Batching helps increase the GPU compute utilization and balance it out with the memory.
+
+Bibliography:
+* https://medium.com/@yohoso/llm-inference-optimisation-continuous-batching-2d66844c19e9
+* https://www.hyperstack.cloud/technical-resources/tutorials/static-vs.-continuous-batching-for-large-language-model-inference
+
+= LLM KV Caching
+{c}
+{parent=Large language model}
+{wiki=Transformer_(deep_learning_architecture)\#KV_caching}
+
+Bibliography:
+* https://huggingface.co/blog/not-lain/kv-caching
+* https://medium.com/@joaolages/kv-caching-explained-276520203249
+
 = Generative pre-trained transformer
 {c}
 {parent=Large language model}
@@ -1220,16 +1250,159 @@ Published as: https://arxiv.org/pdf/2304.03442.pdf Generative Agents: Interactiv
 {title=5 Years of GPTs by Finbarr Timbers}
 {description=2023. Good talk.}
 
+\Video[https://www.youtube.com/watch?v=eMlx5fFNoYc]
+{title=Attention in transformers, step-by-step by <3Blue1Brown>}
+{description=2024. Uses on <GPT-3> as basis.}
+
+\Video[https://www.youtube.com/watch?v=9-Jl0dxWQs8]
+{title=How might LLMs store facts by <3Blue1Brown>}
+{description=Followup to the above video.}
+
 = ChatGPT
 {c}
 {parent=Generative pre-trained transformer}
 {wiki}
 
+= GPT model
+{c}
+{parent=Generative pre-trained transformer}
+
+= Theoretical peak performance of <GPT> inference
+{parent=GPT model}
+
+For inferencing just a single prompt, things appear to be very obviously memory bound, i.e. bound by the transfer speeds of <VRAM> to GPU cache for loading model parameters into GPU so they can be used, supposing that the model fits in <VRAM>, which is the case for many popular models.
+
+It is however possible to make fuller utilization of the GPU's compute power by running multiple independent queries in parallel, this way you load the subset of model weights that you need, and then use those to do part of the inference for multiple input prompts. With this it should be possible to reach full utilization.
+
+Bibliography:
+* https://www.reddit.com/r/LocalLLaMA/comments/1brcnps/is_inferencing_memory_bandwidth_limited/
+* https://zeux.io/2024/03/15/llm-inference-sol/
+
+= Number of multiplications per token in a <GPT> model
+{parent=Theoretical peak performance of GPT inference}
+
+The following is for a "classic" <GPT-2>-style model, the following estimates the number attention multiplications.
+
+For each layer (L):
+* for each attention head (h):
+  * K = d_model * d_head (takes embedding and converts to vector of length d_head)
+  * Q = d_model * d_head (same)
+  * K Q dot product: d_head (element-wise multiplication of two vectors of size d_head)
+  * multiply that by V: d_head * d_model (goes back to a vector of size d_model)
+* fully connected: d_model * d_ff + d_ff * d_model (converts the embedding to the hidden layer size and then back)
+So the total sum is: L * ( h * ( 2 * d_model * d_head + d_head + d_head * d_model ) + 2 * d_model * d_ff )
+
+Putting in the numbers for
+* <GPT-2>: 
+
+Bibliography:
+* https://www.reddit.com/r/theydidthemath/comments/1fzrs1k/request_how_many_individual/
+* https://www.gaohongnan.com/playbook/training/how_to_calculate_flops_in_transformer_based_models.html#sanity-check-with-palm-paper-s-flops-calculation
+
+= GPT model by <OpenAI>
+{parent=GPT model}
+
 = ChatGPT model
-{parent=ChatGPT}
+{c}
+{synonym}
+
+= GPT-1
+{c}
+{parent=GPT model by OpenAI}
+{title2=117 M parameters}
+{title2=2019-06}
+
+= Improving Language Understanding by Generative Pre-Training
+{c}
+{parent=GPT-1}
+
+= GPT-1 paper
+{c}
+{title2}
+{synonym}
+
+= GPT-2
+{c}
+{parent=GPT model by OpenAI}
+{title2=124 M parameters}
+{title2=2019-11-05}
+
+* Vocabulary size (V): 50,257
+* Hidden size (d_model): 768
+* Context length (n_ctx): 1024
+* Q V size: (d_head): 64
+* Attention heads (h): 12
+* FFN inner size (d_ff): 3072
+* Layers (L): 12
+
+= Language Models are Unsupervised Multitask Learners
+{c}
+{parent=GPT-2}
+
+= GPT-2 paper
+{c}
+{title2}
+{synonym}
+
+https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf
+
+= GPT-2 implementation
+{c}
+{parent=GPT-2}
+
+= GPT-2 implementation in <PyTorch>
+{c}
+{parent=GPT-2}
+{tag=PyTorch model}
+
+= nanoGPT
+{c}
+{parent=GPT-2 implementation in PyTorch}
+
+https://github.com/karpathy/nanoGPT
+
+= GPT-2 variant
+{c}
+{parent=GPT-2}
+
+= GPT-2 medium
+{c}
+{parent=GPT-2 variant}
+{title2=355 M parameters}
+
+= GPT-2 large
+{c}
+{parent=GPT-2 variant}
+{title2=774 M parameters}
+
+= GPT-2 XL
+{c}
+{parent=GPT-2 variant}
+
+= GPT-3
+{c}
+{parent=GPT model by OpenAI}
+{title2=175 B parameters}
+{title2=2020-06}
+
+* Vocabulary size (V): 50,257
+* Hidden size (d_model): 12,288
+* Context length	2048
+* Q V size: (d_head): 128
+* Attention heads	(h): 96
+* FFN inner size (d_ff)	4 × 12,288 = 49,152
+* Layers (L): 96
+
+= GPT-4
+{c}
+{parent=GPT model by OpenAI}
+
+= GPT 4 Turbo
+{c}
+{parent=GPT-4}
 
 = ChatGPT 4 Turbo
-{parent=ChatGPT model}
+{synonym}
 
 https://platform.openai.com/docs/models/gpt-4-turbo
 
@@ -1362,7 +1535,7 @@ https://askubuntu.com/questions/1461564/install-llama-cpp-locally has some tutor
 
 A <CLI> front-end for <llama.cpp>.
 
-A decent test command:
+A decent test command as of <llama.cpp> 79e0b68c178656bb0632cb8602d2940b755077f8:
 ``
 time ./llama-cli \
   --no-display-prompt \
@@ -1379,6 +1552,19 @@ time ./llama-cli \
 ;
 ``
 but it failed to be deterministic despite `--temperature 0`. This ran 2x faster at 18 tokens/s for 1000 tokens  on <Ciro Santilli's hardware/P14s> on GPU via Vulkan than on CPU which is achievable by removing the `-ngl 100`.
+
+= <llama-cli> inference batching
+{parent=llama-cli}
+{tag=LLM inference batching}
+
+As of <llama.cpp> 79e0b68c178656bb0632cb8602d2940b755077f8 there is a `--parallel` option but not sure what it does.
+
+Bibliography:
+* https://github.com/ggml-org/llama.cpp/discussions/3222
+* https://www.reddit.com/r/LocalLLaMA/comments/12aj0ze/what_is_batchsize_in_llamacpp_also_known_as_n/
+* https://www.reddit.com/r/LocalLLaMA/comments/12gtanv/batch_queries/
+* related for server:
+  * https://www.reddit.com/r/LocalLLaMA/comments/1f19t2l/parallel_requests_using_llamaserver
 
 = Ollama HOWTO
 {c}

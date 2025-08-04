@@ -3,7 +3,7 @@ from math import log
 from machine import ADC, Pin, PWM, UART
 from time import sleep
 
-# Thermistor parameters
+# Thermistor parameter found on its datasheet.
 T_R25 = 10000
 T_BETA = 3950
 # Resistance of the other fixed resistor of the thermistor voltage divider.
