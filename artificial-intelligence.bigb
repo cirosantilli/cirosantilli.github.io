@@ -1229,12 +1229,18 @@ Bibliography:
 
 = LLM KV Caching
 {c}
-{parent=Large language model}
+{parent=LLM inference optimization}
 {wiki=Transformer_(deep_learning_architecture)\#KV_caching}
 
 Bibliography:
 * https://huggingface.co/blog/not-lain/kv-caching
 * https://medium.com/@joaolages/kv-caching-explained-276520203249
+
+= Grouped-Query attention
+{parent=LLM inference optimization}
+
+Bibliography:
+* https://aliissa99.medium.com/-a596e4d86f79
 
 = Generative pre-trained transformer
 {c}
@@ -1277,6 +1283,7 @@ It is however possible to make fuller utilization of the GPU's compute power by 
 Bibliography:
 * https://www.reddit.com/r/LocalLLaMA/comments/1brcnps/is_inferencing_memory_bandwidth_limited/
 * https://zeux.io/2024/03/15/llm-inference-sol/
+8 https://jax-ml.github.io/scaling-book/
 
 = Number of multiplications per token in a <GPT> model
 {parent=Theoretical peak performance of GPT inference}
@@ -1285,22 +1292,36 @@ The following is for a "classic" <GPT-2>-style model, the following estimates th
 
 For each layer (L):
 * for each attention head (h):
-  * K = d_model * d_head (takes embedding and converts to vector of length d_head)
+  * K = d_model * d_head (takes embedding of one token and converts to vector of length d_head)
   * Q = d_model * d_head (same)
-  * K Q dot product: d_head (element-wise multiplication of two vectors of size d_head)
-  * multiply that by V: d_head * d_model (goes back to a vector of size d_model)
+  * K Q dot product for attention pattern: n_ctx * d_head (n_ctx times dot products of vectors of size d_head, once new K vs every Q. Q vs every K zeroed out by causality.)
+  * new value vector for new token: d_model * d_model
+  * new updates: n_ctx * d_model (multiply each value vector by the new attention column scalar)
 * fully connected: d_model * d_ff + d_ff * d_model (converts the embedding to the hidden layer size and then back)
-So the total sum is: L * ( h * ( 2 * d_model * d_head + d_head + d_head * d_model ) + 2 * d_model * d_ff )
+So the total sum is:
+``
+L * (
+  h * (
+    2 * d_model * d_head +
+    n_ctx * d_head +
+    d_model * d_model +
+    n_ctx * d_model
+  ) +
+  2 * d_model * d_ff
+)
+``
 
-Putting in the numbers for
-* <GPT-2>: 
+This is coded at: \a[llm_count_mults.py].
 
 Bibliography:
 * https://www.reddit.com/r/theydidthemath/comments/1fzrs1k/request_how_many_individual/
 * https://www.gaohongnan.com/playbook/training/how_to_calculate_flops_in_transformer_based_models.html#sanity-check-with-palm-paper-s-flops-calculation
 
-= GPT model by <OpenAI>
+= List of GPT models
 {parent=GPT model}
+
+= GPT model by <OpenAI>
+{parent=List of GPT models}
 
 = ChatGPT model
 {c}
@@ -1406,6 +1427,57 @@ https://github.com/karpathy/nanoGPT
 
 https://platform.openai.com/docs/models/gpt-4-turbo
 
+= Llama
+{disambiguate=language model}
+{parent=List of GPT models}
+{tag=Open weight LLM model}
+{tag=Software developed by Facebook}
+{wiki}
+
+Homepage: https://www.llama.com/
+
+= Llama
+{synonym}
+
+= Llama 2
+{parent=Llama (language model)}
+{title2=2023}
+
+= Llama2
+{synonym}
+
+Page: https://www.llama.com/llama2/
+
+= Llama 2 7B
+{parent=Llama 2}
+
+= Llama2 7B
+{synonym}
+
+= Llama 3
+{parent=Llama (language model)}
+{title2=2024}
+
+= Llama3
+{synonym}
+
+https://www.llama.com/models/llama-3/
+
+= Llama 3.1
+{c}
+{parent=Llama 3}
+
+= Llama 3.1 8B
+{parent=Llama 3.1}
+
+= Llama 3.1 70B
+{c}
+{parent=Llama 3.1}
+
+= Llama 3.1 405B
+{c}
+{parent=Llama 3.1}
+
 = Open source LLM
 {parent=Large language model}
 {tag=Open source software}
@@ -1425,32 +1497,6 @@ https://platform.openai.com/docs/models/gpt-4-turbo
 = Open weight LLM model
 {c}
 {parent=Open source LLM}
-
-= Llama
-{disambiguate=language model}
-{parent=Open weight LLM model}
-{tag=Software developed by Facebook}
-{wiki}
-
-Homepage: https://www.llama.com/
-
-= Llama
-{synonym}
-
-= Llama2
-{parent=Llama (language model)}
-{title2=2023}
-
-Page: https://www.llama.com/llama2/
-
-= Llama2 7B
-{parent=Llama2}
-
-= Llama3
-{parent=Llama (language model)}
-{title2=2024}
-
-https://www.llama.com/models/llama-3/
 
 = Ollama
 {c}
