@@ -809,6 +809,10 @@ The hello world!
 {parent=Python implementation}
 {wiki}
 
+= CPython feature
+{c}
+{parent=CPython}
+
 = Global Interpreter Lock
 {c}
 {parent=CPython}
@@ -816,7 +820,77 @@ The hello world!
 
 https://stackoverflow.com/questions/1294382/what-is-the-global-interpreter-lock-gil-in-cpython
 
+= CPython JIT
+{c}
+{parent=CPython}
+
+Added in <CPython 3.13>.
+
+To enable tested on <Ubuntu 25.04>:
+``
+git clone https://github.com/python/cpython
+cd cpython
+git checkout v3.13.7
+./configure --enable-experimental-jit
+make -j
+``
+
+However, the JIT appears to be useless tested as of this Python version, lol:
+* https://news.ycombinator.com/item?id=44476023
+* https://devclass.com/2025/07/09/despite-30-months-work-core-developer-says-pythons-jit-compiler-is-often-slower-than-the-interpreter/
+* https://fidget-spinner.github.io/posts/jit-reflections.html
+
+We can try to test it with \a[python/inc_loop.py]:
+``
+time ./python python/inc_loop.py 10000000
+``
+but the result is just as pathetic as without JIT currently, taking about 1 second for only 10m loops.
+
+This can be compared with the optimal assembly from \a[c/inc_loop_asm.c]:
+``
+time ./inc_loop_asm.out 1000000000
+``
+which does 1 billion loops in about half a second on <Ciro Santilli's hardware/P14s>.
+
+For comparison, <PyPy> actually speeds things up and does 1 billion loops in about a second, so only 2x worse than native.
+
+TODO triple check that JIT is enabled. Many threads say the command is:
+``
+./python -c 'import sysconfig; sysconfig.get_config_var("JIT_DEPS")'
+``
+but that fails with:
+``
+ModuleNotFoundError: No module named '_sysconfigdata__linux_x86_64-linux-gnu'
+``
+
+For comparison with a properly implemented dynamic language JIT running \a[nodejs/inc_loop.js] does 1 billion loops in 0.6s on v22.14.0, close to native.
+
+https://tonybaloney.github.io/posts/python-gets-a-jit.html documents what the initial "JIT" implementation does. It is just an extremely naive concatenation of instructions that avoids a for + switch. No wonder it doesn't speed things up much at all.
+
+= CPython version
+{c}
+{parent=CPython}
+{wiki}
+
+= CPython 3.13
+{parent=CPython version}
+
 = Cython
+{c}
+{parent=Python implementation}
+{wiki}
+
+= Jython
+{c}
+{parent=Python implementation}
+{wiki}
+
+= Numba
+{c}
+{parent=Python implementation}
+{wiki}
+
+= PyPy
 {c}
 {parent=Python implementation}
 {wiki}
@@ -840,7 +914,7 @@ How many stupid bugs. How many stupid bugs do we need to face???
   * https://stackoverflow.com/questions/30797124/how-to-use-setup-py-to-install-dependencies-only/63743115
   * https://stackoverflow.com/questions/6947988/when-to-use-pip-requirements-file-versus-install-requires-in-setup-py
   So basically `requirements.txt` is the `package-lock.json`. But how to generate it cleanly? You would need to create a virtualenv?
-* `pip search` was disabled in 2020: https://stackoverflow.com/questions/17373473/how-do-i-search-for-an-available-python-package-using-pip[]. WTF. If server load is a problem, just create a token system! It is hard to understand how such a popular language can't rais enough money to keep such simple server functionality running.
+* `pip search` was disabled in 2020: https://stackoverflow.com/questions/17373473/how-do-i-search-for-an-available-python-package-using-pip[]. WTF. If server load is a problem, just create a token system! It is hard to understand how such a popular language can't raise enough money to keep such simple server functionality running.
 
 = Conda
 {parent=Python package manager}
