@@ -352,7 +352,7 @@ https://www.youtube.com/@eons
 {parent=Journalist}
 {wiki}
 
-\Video[https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Ryan_Mac_%2854136525602%29_%28cropped%29.jpg/250px-Ryan_Mac_%2854136525602%29_%28cropped%29.jpg]
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Ryan_Mac_%2854136525602%29_%28cropped%29.jpg/250px-Ryan_Mac_%2854136525602%29_%28cropped%29.jpg]
 
 = Article by Ryan Mac
 {parent=Ryan Mac}
@@ -1345,17 +1345,14 @@ Instead of announcing organizing hackathons, people should just curate forums wh
 
 Restricting intensive development to a few days tends to produce crappy code and not reach real goals.
 
-= Pre-university knowledge olympiad
+= Knowledge olympiad by age limit
 {parent=Knowledge olympiad}
 
-= International Mathematical Olympiad
-{parent=Pre-university knowledge olympiad}
-{title2=1959-}
-{title2=IMO}
-{wiki}
+= Pre-university knowledge olympiad
+{parent=Knowledge olympiad by age limit}
 
-\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/IMO_logo.svg/300px-IMO_logo.svg.png]
-{title=Logo of the <International Mathematical Olympiad>}
+= University knowledge olympiad
+{parent=Knowledge olympiad by age limit}
 
 = Knowledge olympiad by domain of knowledge
 {parent=Knowledge olympiad}
@@ -1365,11 +1362,43 @@ Restricting intensive development to a few days tends to produce crappy code and
 {parent=Knowledge olympiad by domain of knowledge}
 {wiki}
 
+= International Mathematical Olympiad
+{parent=Mathematical olympiad}
+{tag=Pre-university knowledge olympiad}
+{title2=1959-}
+{wiki}
+
+= IMO
+{c}
+{title2}
+{synonym}
+
+\Image[https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/IMO_logo.svg/300px-IMO_logo.svg.png]
+{title=Logo of the <International Mathematical Olympiad>}
+
+= International Mathematics Competition
+{c}
+{parent=Mathematical olympiad}
+{wiki}
+
 = Competitive programming
 {parent=Knowledge olympiad by domain of knowledge}
 {wiki}
 
 A waste of time like the rest of the <knowledge olympiads>.
+
+= On-site programming competition
+{parent=Competitive programming}
+
+= International Collegiate Programming Contest
+{c}
+{parent=On-site programming competition}
+{wiki}
+
+= ICPC
+{c}
+{synonym}
+{title2}
 
 = Competitive programming website
 {parent=Competitive programming}
@@ -1419,6 +1448,8 @@ Basically no one ever had the patience to solve them all. What we need is a coll
 
 Problems are under <CC BY-NC-SA>: https://projecteuler.net/copyright
 
+Once you solve a problem, you can then access its "private" forum thread: https://projecteuler.net/thread=950 and people will post a bunch of code solutions in there.
+
 How problems are chosen:
 * https://matheducators.stackexchange.com/questions/12087/how-does-project-euler-come-up-with-such-good-problems-so-rapidly
 
@@ -1450,6 +1481,159 @@ https://www.theatlantic.com/technology/archive/2011/06/how-i-failed-failed-and-f
 TODO: real name? Occupation?
 
 Claude says he's from the UK and has a background in mathematics. <Oxbridge> feels likely. <How I Failed, Failed, and Finally Succeeded at Learning How to Code> says he started off on the ORIC computer, which is British-made, so he is likely British.
+
+= Project Euler problem
+{c}
+{parent=Project Euler}
+
+= Project Euler problem 254
+{c}
+{parent=Project Euler problem}
+{title2=2009}
+
+https://projecteuler.net/problem=254
+
+= Project Euler problem 910
+{c}
+{parent=Project Euler problem}
+
+https://projecteuler.net/problem=910
+
+``
+A(x) = x + 1
+Z(u)(v) = v
+S(u)(v)(w) = v(u(v)(w))
+``
+
+Let's resolve the second example ourselves:
+
+``
+S
+  (S)
+  (S(S))
+  (S(Z))
+(A)
+(0)
+
+S
+(S)
+(
+  S
+  (S(S))
+  (S(Z))
+)
+(A)
+(0)
+
+S
+(S(S))
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(0)
+
+S
+(Z)
+(
+  S(S)
+  (S(Z))
+  (
+    S
+    (
+      S
+      (S(S))
+      (S(Z))
+    )
+    (A)
+  )
+)
+(0)
+
+S(S)
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(
+  Z
+  (
+    S(S)
+    (S(Z))
+    (
+      S
+      (
+        S
+        (S(S))
+        (S(Z))
+      )
+      (A)
+    )
+  )
+  (0)
+)
+
+S
+(S)
+(S(Z))
+(
+  S
+  (
+    S
+    (S(S))
+    (S(Z))
+  )
+  (A)
+)
+(0)
+``
+TODO: how long would this be?
+
+So we see that all of these rules resolve quite quickly and do not go into each other. `S` however offers some problems, in that:
+
+``
+C_0 = Z
+C_i = S(C_{i-1})
+D_i = C_i(S)(S)
+``
+
+So we see that `D_i` goes somewhat simply into `C_i`, and `C_i` is recursive giving:
+``
+S^i(Z)
+``
+
+Calculate the nine first digits of:
+``
+D_a(D_b)(D_c)(C_d)(A)(e)
+``
+
+Removing `D_a`:
+``
+S^i(Z)S)(S)(D_b)(D_c)(C_d)(A)(e)
+``
+
+= ProjectEuler+
+{c}
+{parent=Project Euler}
+{tag=HackerRank contest}
+
+https://www.hackerrank.com/contests/projecteuler/challenges
+
+As mentioned at https://euler.stephan-brumme.com these tend to be harder, as they have their own judge system that actually runs programs, and therefore can test input multiple test cases against their reference implementation rather than just hard testing the result for a single input.
+
+Goes only up to <Project Euler problem 254> as of 2025, which had been published much much earlier, in 2009, so presumably they've stopped there.
 
 = UVa Online Judge
 {c}

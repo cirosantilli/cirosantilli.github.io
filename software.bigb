@@ -218,6 +218,22 @@ so we understand that it takes as input an empty function with a docstring and y
 
 The paper also shows that there can be other defined functions besides the one you have to implement.
 
+= AlgoTune
+{c}
+{parent=AI code generation benchmark}
+
+https://algotune.io/
+
+This one focuses on improving speed of important numerical algorithms as compared to popular implementations.
+
+The general pattern can be seen by observing the optimization of: https://algotune.io/aes_gcm_encryption_anthropic_claude-opus-4-1-20250805.html This shows the chat that the system had.
+
+They define an OS interface to edit files and run right on the prompt, and tell at each stage how many credits are left for a given API and what the speedup was. Amazing. Each task has a \$1 budget per provider. Then their software parses commands out of the LLM output and sends formatted responses back. Quite amazing that it works at all.
+
+All pieces of code seem to be in <Python>, and the speedups come mainly from using more advanced external computing libraries, like compiling with <Cython> or using faster external libraries that are pre-compiled, or more parallel. So it is not that impressive from a purely algorithmic point of view, but it is not bad either.
+
+Correctness is checked automatically by comparing the optimized solution to the original non-optimized one likely for certain inputs.
+
 = BigCodeBench
 {c}
 {parent=AI code generation benchmark}
@@ -242,7 +258,9 @@ https://www.swebench.com/
 
 By <Princeton> people.
 
-This one aims to solve <GitHub> issues. It appears to contain 2,294 real-world GitHub issues and their corresponding pull requests
+This one aims to solve <GitHub> issues. It appears to contain 2,294 real-world GitHub issues and their corresponding pull requests.
+
+Evaluation is simply based on "does the pull request make some pre-written failing test cases pass".
 
 The dataset appears to be at: https://huggingface.co/datasets/princeton-nlp/SWE-bench in <Parquet> format.
 
@@ -256,6 +274,16 @@ The dataset appears to be at: https://huggingface.co/datasets/princeton-nlp/SWE-
 * https://github.com/openai/SWELancer-Benchmark
 
 Tasks from <#Upwork>.
+
+= AI code generation company
+{c}
+{parent=Automatic programming}
+
+= Code SA
+{c}
+{parent=AI code generation company}
+
+https://code-sa.ai/
 
 = Lowering and raising
 {parent=Compiler}
