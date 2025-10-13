@@ -524,6 +524,139 @@ This one goes all in the following themes:
 Bibliography:
 * https://www.reddit.com/r/mlscaling/comments/1ht4emi/anyone_else_suspect_arcagi_was_never_much_of_a/ Anyone else suspect ARC-AGI was never much of a test of anything? (2025)
 
+= ARC-AGI visualization
+{c}
+{parent=ARC-AGI}
+
+https://www.kaggle.com/code/allegich/arc-agi-2025-visualization-all-1000-120-tasks
+
+Although you can see 
+
+= ARC-AGI approach
+{c}
+{parent=ARC-AGI}
+
+* https://arcprize.org/guide
+* https://lewish.io/posts/how-to-beat-arc-agi-2
+
+= ARC-AGI implementation
+{c}
+{parent=ARC-AGI}
+
+Bibliography:
+* https://github.com/michaelhodel/arc-dsl
+* https://github.com/zoecarver/grover-arc/issues/1
+
+= Local CPU ARC-AGI without LLM
+{parent=ARC-AGI implementation}
+
+* https://iliao2345.github.io/blog_posts/arc_agi_without_pretraining/arc_agi_without_pretraining.html
+
+= aviad12g/ARC-AGI-solution 
+{c}
+{parent=Local CPU ARC-AGI without LLM}
+
+https://github.com/aviad12g/ARC-AGI-solution
+
+Interesting looking repo with optional <GPU> and optional <LLM>.
+
+It seems to have been tested on something older than <Ubuntu 24.04>, as 24.04 install requires some porting, started process at: https://github.com/cirosantilli/ARC-AGI-solution/tree/ubuntu-24-04 but gave up to try <Ubuntu 22.04> instead.
+
+<Ubuntu 22.04> <Docker> install worked without patches, after installing <Poetry (Python)> e.g. to try and solve <aRC-AGI-2 problem/list/1ae2feb7>:
+``
+git clone https://github.com/aviad12g/ARC-AGI-solution
+cd ARC-AGI-solution
+git checkout f3283f727488ad98fe575ea6a5ac981e4a188e49
+poetry install
+git clone https://github.com/arcprize/ARC-AGI-2
+`poetry env activate`
+export PYTHONPATH="$PWD/src:$PYTHONPATH"
+python3 -m arc_solver.cli.main solve ARC-AGI-2/data/evaluation/1ae2feb7.json
+``
+but towards the end we have:
+``
+{
+  "success": false,
+  "error": "Search failed: no_multi_example_solution",
+  "search_stats": {
+    "nodes_expanded": 21,
+    "nodes_generated": 903,
+    "termination_reason": "no_multi_example_solution",
+    "candidates_generated": 25,
+    "examples_validated": 3,
+    "validation_success_rate": 0.0,
+    "multi_example_used": true
+  },
+  "predictions": [
+    null,
+    null,
+    null
+  ],
+  "computation_time": 30.234344280001096,
+  "task_id": "1ae2feb7",
+  "task_file": "ARC-AGI-2/data/evaluation/1ae2feb7.json",
+  "solver_version": "0.1.0",
+  "total_time": 30.24239572100123,
+  "timestamp": 1760353369.9701269
+}
+
+Task: 1ae2feb7.json
+Success: False
+Error: Search failed: no_multi_example_solution
+Multi-example validation: ENABLED
+Training examples validated: 3
+Candidates generated: 25
+Validation success rate: 0.0%
+Computation time: 30.23s
+Total time: 30.24s
+``
+so it failed.
+
+Let's see if any of them work at all as advertised:
+``
+ls ARC-AGI-2/data/evaluation/ | xargs -I'{}' python3 -m arc_solver.cli.main solve 'ARC-AGI-2/data/evaluation/{}' |& tee tmp.txt
+``
+and at the end:
+``
+grep 'Success: True' tmp.txt | wc
+``
+has only 7 successes.
+
+Also weirdly 
+``
+grep 'Success: True' tmp.txt | wc
+``
+only has 102 hits, but there were 120 JSON tasks in that folder. I search for the missing executions:
+``
+diff -u <(grep Task: tmp.txt | cut -d' ' -f2) <(ls ARC-AGI-2/data/evaluation)
+``
+The first missing one is 135a2760, it blows up with:
+``
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+``
+and grepping ERROR gives us:
+``
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type SizePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type ndarray is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type HorizontalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON serializable
+``
+Reported at: https://github.com/aviad12g/ARC-AGI-solution/issues/1
+
 = ARC-AGI version
 {c}
 {parent=ARC-AGI}
@@ -541,6 +674,7 @@ Bibliography:
 * https://arcprize.org/play?task=1ae2feb7
 
 = ARC-AGI-2 problem
+{c}
 {parent=ARC-AGI-2}
 {scope}
 
@@ -877,6 +1011,10 @@ That's <Ciro Santilli>'s favorite. Of course, there is a huge difference between
 
 = Automated theorem proving
 {parent=AI by capability}
+
+= Math AI 
+{synonym}
+{title2}
 
 <AGI-complete> in general? Obviously. But still, a lot can be done. See e.g.:
 * <The Busy Beaver Challenge> deciders

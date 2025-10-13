@@ -8,7 +8,7 @@ variable (A B C : Set U)
 variable (x : U)
 
 #check x ∈ A
-#check x \mem A
+#check Set.mem x A
 #check A ∪ B
 #check B \ C
 #check C ∩ A
