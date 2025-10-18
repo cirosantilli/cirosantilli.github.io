@@ -528,9 +528,7 @@ Bibliography:
 {c}
 {parent=ARC-AGI}
 
-https://www.kaggle.com/code/allegich/arc-agi-2025-visualization-all-1000-120-tasks
-
-Although you can see 
+https://www.kaggle.com/code/allegich/arc-agi-2025-visualization-all-1000-120-tasks contains plots of all questions and answers. It is truly very convenient.
 
 = ARC-AGI approach
 {c}
@@ -544,8 +542,41 @@ Although you can see
 {parent=ARC-AGI}
 
 Bibliography:
-* https://github.com/michaelhodel/arc-dsl
 * https://github.com/zoecarver/grover-arc/issues/1
+
+= ARC-DSL
+{c}
+{parent=ARC-AGI implementation}
+
+https://github.com/michaelhodel/arc-dsl
+
+This interesting repo defines a set of input transformations that can be composed together into programs to generate the solve ARC problems.
+
+It does not appear to have any <program synthesis>: it only defines the DSL and then provides manual solutions to the problems.
+
+The README is lacking as usual, an overview of the files is:
+* https://github.com/michaelhodel/arc-dsl/blob/635de4902a5fb4e376f27333feaa396d3f5dfdcb/dsl.py[dsl.py]: defines the transformations as Python functions
+* https://github.com/michaelhodel/arc-dsl/blob/635de4902a5fb4e376f27333feaa396d3f5dfdcb/solvers.py[solvers.py]: defines solvers for the 400 <ARC-AGI-1 training problems>
+
+Intended usage to run the solvers seems to be:
+``
+git clone https://github.com/fchollet/ARC-AGI
+cd ARC-AGI
+git checkout 399030444e0ab0cc8b4e199870fb20b863846f34
+git clone https://github.com/michaelhodel/arc-dsl
+cd arc-dsl
+git checkout 635de4902a5fb4e376f27333feaa396d3f5dfdcb
+python main.py
+``
+Unfortunately this blows up on <Ubuntu 25.04> on `test_mpapply` apparently due to a <Python 3.12> issue and the pull request https://github.com/michaelhodel/arc-dsl/pull/7 has been ignored for more than one year, so the project is largely dead.
+
+= ARC-DSL-2
+{c}
+{parent=ARC-AGI implementation}
+
+https://github.com/arc-dsl-2/arc-dsl-2
+
+<Ciro Santilli>'s fork of <ARC-DSL> merging all pull requests needed to make tests run again on <Ubuntu 25.04>.
 
 = Local CPU ARC-AGI without LLM
 {parent=ARC-AGI implementation}
@@ -665,6 +696,31 @@ Reported at: https://github.com/aviad12g/ARC-AGI-solution/issues/1
 {c}
 {parent=ARC-AGI version}
 
+= ARC-AGI-1 problem
+{parent=ARC-AGI-1}
+{scope}
+
+= Train
+{parent=ARC-AGI-1 problem}
+
+= ARC-AGI-1 training problem
+{synonymNoScope}
+
+= 007bbfb7
+{parent=Train}
+{title2=1}
+
+https://arcprize.org/play?task=007bbfb7
+
+= 0520fde7
+{parent=Train}
+{title2=6}
+
+https://arcprize.org/play?task=0520fde7
+
+= Eval
+{parent=ARC-AGI-1 problem}
+
 = ARC-AGI-2
 {c}
 {parent=ARC-AGI version}
@@ -695,7 +751,7 @@ Some of these have a lot of prior world content, others less.
 Many people have come up with the same idea on the Discord. Some nicely call it <domain specific language>[DSL].
 
 Implementations:
-* https://github.com/michaelhodel/arc-dsl
+* <ARC-DSL>
 
 = Input primitive
 {parent=Primitive}
@@ -838,8 +894,14 @@ There is no unique solution, we just have to optimize something, often the least
 {parent=ARC-AGI-2 problem}
 {scope}
 
-= 1ae2feb7
+= Train
 {parent=List}
+
+= Eval
+{parent=List}
+
+= 1ae2feb7
+{parent=Eval}
 {title2=1}
 
 https://arcprize.org/play?task=1ae2feb7
@@ -861,7 +923,7 @@ Output:
 * draw <dotted lines>
 
 = 3e6067c3
-{parent=List}
+{parent=Eval}
 {title2=2}
 
 https://arcprize.org/play?task=3e6067c3
@@ -876,7 +938,7 @@ Transformations primitives:
 * line drawing
 
 = 16b78196
-{parent=List}
+{parent=Eval}
 {title2=3}
 
 https://arcprize.org/play?task=16b78196
@@ -897,7 +959,7 @@ Transformation primitives:
 This existed earlier: https://x.com/GianpaoloGalli/status/1846144236900827413
 
 = 142ca369
-{parent=List}
+{parent=Eval}
 {title2=4}
 
 https://arcprize.org/play?task=142ca369
@@ -915,7 +977,7 @@ Transformation primitives:
   * draw line and bounce
 
 = 136b0064
-{parent=List}
+{parent=Eval}
 {title2=5}
 
 https://arcprize.org/play?task=136b0064
@@ -928,7 +990,7 @@ Transformation primitives:
 * draw <lines>
 
 = 0934a4d8
-{parent=List}
+{parent=Eval}
 {title2=6}
 
 https://arcprize.org/play?task=0934a4d8
@@ -936,7 +998,7 @@ https://arcprize.org/play?task=0934a4d8
 TODO I can't solve that one.
 
 = 135a2760
-{parent=List}
+{parent=Eval}
 {title2=7}
 
 https://arcprize.org/play?task=135a2760
@@ -952,7 +1014,7 @@ Output:
 * <optimize>
 
 = 13e47133
-{parent=List}
+{parent=Eval}
 {title2=8}
 
 https://arcprize.org/play?task=13e47133
@@ -968,7 +1030,7 @@ Output:
 * <optimize>
 
 = 195c6913
-{parent=List}
+{parent=Eval}
 {title2=10}
 
 https://arcprize.org/play?task=195c6913
@@ -2025,6 +2087,28 @@ This was the Holy Grail as of 2023, when <text-to-image> started to really take 
 = AI research entity
 {c}
 {parent=Artificial intelligence}
+
+= Independent AI research lab
+{parent=AI research entity}
+
+Cool rich dudes tend to create these a lot.
+
+= Tufa Labs
+{c}
+{parent=Independent AI research lab}
+
+https://tufalabs.ai/team.html
+
+= Benjamin Crouzier
+{c}
+{parent=Tufa Labs}
+
+The rich guy behind <Tufa Labs>:
+* https://github.com/pinouchon
+* https://pinouchon.github.io
+* https://www.youtube.com/benjamincrouzier He's also a wooden block fanatic. Funnily <Ciro Santilli> had seen his channel before knowing he was rich. https://www.youtube.com/watch?v=5HyYyXHSW74 shows probable home and could likely be geolocated.
+* https://tufalabs.ai/team.html describes how he made his money:
+  > Benjamin has a masters in Computer Science and applied ML to quant finance previously.
 
 = AI researcher
 {c}
