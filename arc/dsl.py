@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+from fractions import Fraction
 import json
 from dataclasses import dataclass, field
 from typing import Optional
@@ -135,8 +136,8 @@ if __name__ == '__main__':
             output_dsl = get_dsl(output)
             #print(output_dsl)
 
-            ioWidthRatios.append((inputWidth, outputWidth))
-            ioHeightRatios.append((inputHeight, outputHeight))
+            ioWidthRatios.append(Fraction(outputWidth, inputWidth))
+            ioHeightRatios.append(Fraction(outputHeight, inputHeight))
 
         inputConstraints = []
         outputConstraints = []
@@ -147,22 +148,31 @@ if __name__ == '__main__':
         if all_equal(inputHeights):
             h = inputHeights[0]
             inputConstraints.append(('fixedHeight', lambda dsl: dsl['height'] != h and f'{dsl['height']} != {h}'))
-        if all_equal(ioWidthRatios):
-            def f(dsl_i, dsl_o):
-                i, o = ioWidthRatios[0]
-                expect = dsl_i['width'] * o // i
-                actual = dsl_o['width']
-                if expect != actual:
-                    return f'{expect} != {actual}'
-            outputConstraints.append(('widthRatio', f))
-        if all_equal(outputHeights):
-            def f(dsl_i, dsl_o):
-                i, o = ioHeightRatios[0]
-                expect = dsl_i['height'] * o // i
-                actual = dsl_o['height']
-                if expect != actual:
-                    return f'{expect} != {actual}'
-            outputConstraints.append(('heightRatio', f))
+        
+        # Output width inference.
+        for isWidth in [True, False]:
+            if isWidth:
+                outputs = outputWidths
+                ioRatios = ioWidthRatios
+                wh_str = 'width'
+            else:
+                outputs = outputHeights
+                ioRatios = ioHeightRatios
+                wh_str = 'height'
+            outputsEqual = all_equal(outputs)
+            outputRatiosEqual = all_equal(ioRatios)
+            if outputsEqual or outputRatiosEqual:
+                def f(dsl_i, dsl_o):
+                    expect = outputs[0]
+                    r = ioRatios[0]
+                    w = dsl_o[wh_str]
+                    expectRatio = dsl_i[wh_str] * r.numerator // r.denominator
+                    actualRatio = w
+                    if expect != w and expectRatio != actualRatio:
+                        return f'actual: {w} fixed expect: {expect} ratio expect: {expectRatio}'
+                outputConstraints.append((f'{wh_str}FixedOrRatio', f))
+            else:
+                print(f'{id}: unknown output {wh_str} rule {ioRatios}')
 
         #for perpendicular in (True, False):
         #    for obj in sorted(monocolorObjects[perpendicular], key=lambda o: -len(o)):
