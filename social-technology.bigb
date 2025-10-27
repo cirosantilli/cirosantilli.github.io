@@ -1670,6 +1670,7 @@ S^i(Z)S)(S)(D_b)(D_c)(C_d)(A)(e)
 = Project Euler problem 943
 {c}
 {parent=Project Euler problem}
+{title2=May 2025}
 
 https://projecteuler.net/problem=943
 
@@ -1693,9 +1694,9 @@ assert T(2, 3, 10) == 25
 assert T(4, 2, 10**4) == 30004
 assert T(5, 8, 10**6) == 6499871
 ``
-which passes the tests, but takes half a second on mypy. So clearly it is not going to work for `22332223332233`  which has 14 digits.
+which passes the tests, but takes half a second on <pypy>. So clearly it is not going to work for `22332223332233`  which has 14 digits.
 
-Maybe if `T` is optimized enough, then we can just bruteforce over the ~40k possible sum ranges 2 to 223. Otherwise another optimization step may be needed at that level as well
+Maybe if `T` is optimized enough, then we can just bruteforce over the ~40k possible sum ranges 2 to 223. 1 second would mean 14 hours to do them all, so bruteforce but doable. Otherwise another optimization step may be needed at that level as well: one wonders if multiple sums can be factored out, or if the modularity can of the answer can help in a meaningful way. The first solver was <ecnerwala> using C/C++ in 1 hour, so there must be another insight missing, unless they have access to a supercomputer.
 
 The first idea that comes to mind to try and optimize `T` is that this is a <dynamic programming>, but then the question is what is the recurrence relation.
 
@@ -1703,13 +1704,23 @@ The sequence appears to be a generalization of the <Kolakoski sequence> but to n
 
 https://maths-people.anu.edu.au/~brent/pd/Kolakoski-ACCMCC.pdf "A fast algorithm for the Kolakoski sequence" might provide the solution, the paper says:
 > It is conjectured that the algorithm runs in time $O(n^α)$ and space $O(n^α)$, where $α = log(2)/ log(3) \approx 0.631$
-and provides exactly a <dynamic programming> approac.
+and provides exactly a recurrence relation and a <dynamic programming> approach.
 
 https://www.reddit.com/r/dailyprogrammer/comments/8df7sm/20180419_challenge_357_intermediate_kolakoski/ might offer some reference implementations. It references a longer slide by Brent: https://maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf
 
 https://www.reddit.com/r/algorithms/comments/8cv3se/kolakoski_sequence/ asks for an implementation but no one gave anything. Dupe question: https://math.stackexchange.com/questions/2740997/kolakoski-sequence contains an answer with Python and Rust code but just for the original 1,2 case.
 
 https://github.com/runbobby/Kolakoski has some C++ code but it is not well documented so it's not immediately easy to understand what it actually does. It does appear to consider the m n case however.
+
+Announcements:
+* https://mastodon.social/@cirosantilli/115446059895647190
+* https://x.com/cirosantilli/status/1982782344135107043
+* https://www.linkedin.com/feed/update/urn:li:activity:7386417197440454658/
+
+= Project Euler problem 961
+{c}
+{parent=Project Euler problem}
+{title2=September 2025}
 
 = ProjectEuler+
 {c}
@@ -1726,6 +1737,18 @@ Goes only up to <Project Euler problem 254> as of 2025, which had been published
 {c}
 {parent=Competitive programming website}
 {wiki}
+
+= Competitive programmer
+{parent=Competitive programming}
+
+= Andrew He
+{c}
+{parent=Competitive programmer}
+{wiki}
+
+= ecnerwala
+{synonym}
+{title2}
 
 = Grinding for software interviews
 {parent=Knowledge olympiad}
