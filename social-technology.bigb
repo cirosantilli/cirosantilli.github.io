@@ -1494,6 +1494,10 @@ Claude says he's from the UK and has a background in mathematics. <Oxbridge> fee
 {c}
 {parent=Project Euler problem}
 
+= Project Euler problem 0
+{synonym}
+{title2}
+
 This was a registration <CAPTCHA> problem as of 2025:
 > Among the first 510 thousand square numbers, what is the sum of all the odd squares?
 <Python> solution:
@@ -1503,6 +1507,7 @@ for i in range(1, 510001, 2):
     s += i*i
 print(s)
 ``
+At: \a[euler/0.py]
 
 = Project Euler problem 1
 {c}
@@ -1661,6 +1666,50 @@ Removing `D_a`:
 ``
 S^i(Z)S)(S)(D_b)(D_c)(C_d)(A)(e)
 ``
+
+= Project Euler problem 943
+{c}
+{parent=Project Euler problem}
+
+https://projecteuler.net/problem=943
+
+A naive `T` in Python is:
+
+``
+from collections import deque
+
+def T(a: int, b: int, N: int) -> int:
+    total = a
+    q = deque([a] * (a - 1))
+    is_a = False
+    for i in range(N - 1):
+        cur = q.popleft()
+        total += cur
+        q.extend([a if is_a else b] * cur)
+        is_a = not is_a
+    return total
+
+assert T(2, 3, 10) == 25
+assert T(4, 2, 10**4) == 30004
+assert T(5, 8, 10**6) == 6499871
+``
+which passes the tests, but takes half a second on mypy. So clearly it is not going to work for `22332223332233`  which has 14 digits.
+
+Maybe if `T` is optimized enough, then we can just bruteforce over the ~40k possible sum ranges 2 to 223. Otherwise another optimization step may be needed at that level as well
+
+The first idea that comes to mind to try and optimize `T` is that this is a <dynamic programming>, but then the question is what is the recurrence relation.
+
+The sequence appears to be a generalization of the <Kolakoski sequence> but to numbers other than 1 and 2.
+
+https://maths-people.anu.edu.au/~brent/pd/Kolakoski-ACCMCC.pdf "A fast algorithm for the Kolakoski sequence" might provide the solution, the paper says:
+> It is conjectured that the algorithm runs in time $O(n^α)$ and space $O(n^α)$, where $α = log(2)/ log(3) \approx 0.631$
+and provides exactly a <dynamic programming> approac.
+
+https://www.reddit.com/r/dailyprogrammer/comments/8df7sm/20180419_challenge_357_intermediate_kolakoski/ might offer some reference implementations. It references a longer slide by Brent: https://maths-people.anu.edu.au/~brent/pd/Kolakoski-UNSW.pdf
+
+https://www.reddit.com/r/algorithms/comments/8cv3se/kolakoski_sequence/ asks for an implementation but no one gave anything. Dupe question: https://math.stackexchange.com/questions/2740997/kolakoski-sequence contains an answer with Python and Rust code but just for the original 1,2 case.
+
+https://github.com/runbobby/Kolakoski has some C++ code but it is not well documented so it's not immediately easy to understand what it actually does. It does appear to consider the m n case however.
 
 = ProjectEuler+
 {c}
