@@ -115,7 +115,7 @@ def delta_log_space(
 def T_log_space(a: int, b: int, n: int, d :int|None =None) -> int:
     return delta_to_sum(a, b, n, delta_log_space(a, b, n, d=d))
 
-CacheRowStateType = tuple[bool], ...]
+CacheRowStateType = tuple[bool, ...]
 
 def delta_log_time(
     a: int,
@@ -125,6 +125,7 @@ def delta_log_time(
     ret_seq :list[int]|None =None,
     d :int|None =None,
 ) -> int:
+    print(f'{a=} {b=}')
     if d is None:
         # Let's use up to 9/10 of total mem to leave some for the rest of sys.
         # And for this simple python implementation, let's assume each entry take 64 bytes.
@@ -136,29 +137,27 @@ def delta_log_time(
             if ret_seq is not None:
                 ret_seq.append(a)
             return -delta_log_space(b, a, n - 1, ret_seq=ret_seq) + 1
-        row = [(True, 0)] + [(True, a - 1)] * (d - 1)
+        row = [(True, 0), (True, a - 1)]
         # The cache zeroes out the first nonzero entry, i.e. it takes states of type:
         #
-        #     x_0(0), x_1(0), ..., x_{l-1}(0), x_l(n > 0)
+        #     x_0(0), x_1(0), ..., x_{l-1}(0), x_l(x_l - 1)
         #
         # to a state of type:
         #
         #     y_0(0), y_1(0), ..., y_{l-1}(0), x_l(0)
         #
-        # As such, we only need to store the (x_i) -> (z_i) and not the counts themselves.
+        # From this point onwards, x_l would be determined by x_{l+1} and we can't progress further.
         #
-        # (n zeroes + is_a) -> (jump size, delta)
+        # As such, we only need to store the (x_i) -> (z_i) and not the counts themselves.
         #
         # Each jump works as follows:
         # - takes a state that ends in non-zero amount to right
         # - jumps until that becomes zero
         # We  do it like that because once it becomes zero, its next
         # value might depend on the right, so the cache can't progress.
-        cache: dict[tuple[int, bool], tuple[int, int]]  = {}
+        cache: dict[CacheRowStateType, tuple[CacheRowStateType, int, int]]  = {}
         # n rows -> previous state
-        cache_todo: dict[tuple[int, bool], tuple[int, int]] = {}
-        for i in range(d):
-            cache_todo[i] = (tuple(row[:i + 1]), 0, 0)
+        cache_todo: dict[int, tuple[CacheRowStateType, int, int]] = {}
         delta += 1
         if ret_seq is not None:
             ret_seq.append(a)
@@ -166,23 +165,21 @@ def delta_log_time(
         longest_cache_hit = None
         while i < n - 1:
             print(f'{i=}')
+            import pprint;print('row = ' + pprint.pformat(row))
             import pprint;print('cache = \n' + pprint.pformat(cache))
-            if i == 9:
-                asdf
+            import pprint;print('cache_todo = \n' + pprint.pformat(cache_todo))
             done = False
             if longest_cache_hit is not None:
                 delta_row, delta_i, delta_delta = longest_cache_hit
                 if i + delta_i < n:
-                    row = list(delta_row) + row[len(delta_row):]
-                    print('delta_row = ' + str(delta_row))
-                    print('row = ' + str(row))
-                    print('delta_i = ' + str(delta_i))
+                    row = map(lambda ab: (ab, 0), delta_row) + row[len(delta_row):]
                     i += delta_i
                     delta += delta_delta
                     done = True
             if not done:
                 l = len(row)
-                for j in range(1, l):
+                for j in range(l - 1):
+                    print(f'{j=}')
                     x_is_a = row[j][0]
                     x = a if x_is_a else b
                     stop = False
@@ -194,19 +191,16 @@ def delta_log_time(
                         new_y = ny - 1
                         y_i = j + 1
                         row[y_i] = (y_is_a, new_y)
-                        if y_i < d and new_y == 0:
+                        if j > 0 and y_i < d and new_y == 0:
                             # Zero reached, add to cache.
                             state0, i0, delta0 = cache_todo.pop(y_i)
-                            print('i0 = ' + str(i0))
-                            cache[state0] = (tuple(row[:y_i + 1]), i - i0, delta - delta0)
-                            if i - i0 == 0:
-                                qwer
+                            cache[state0] = (tuple(map(lambda r: r[0], row[:y_i + 1])), i - i0, delta - delta0)
                         if j == l - 2:
                             row.append((True, a - 1))
                         stop = True
                     nx2 = x2 - 1
-                    state = tuple(row[:j])
-                    if j > 0 and j < d and nx2 > 0:
+                    if j > 0 and j < d:
+                        state = tuple(map(lambda r: r[0], row[:j]))
                         longest_cache_hit = cache.get(state, None)
                         if longest_cache_hit is None:
                             cache_todo[j] = (state, i, delta)
@@ -219,22 +213,19 @@ def delta_log_time(
                 if ret_seq is not None:
                     ret_seq.append(cur)
                 i += 1
+            print()
         return delta
 
 def T_log_time(a: int, b: int, n: int, *, d :int|None =None) -> int:
     return delta_to_sum(a, b, n, delta_log_time(a, b, n, d=d))
 
-print('here')
-print(delta_log_time(2, 1, 100, d=3))
-print('hara')
-
 if __name__ == '__main__':
     # Compare to known sequences to length n.
-    d = 3
+    d = 5
     for f in [
         delta_linear,
         delta_log_space,
-        # Can't be used here as we don't get full sequence to skips.
+        # Can't be used directly here as we don't get full sequence to skips.
         #delta_log_time,
     ]:
         l=[]
@@ -258,16 +249,16 @@ if __name__ == '__main__':
 
     # Compare deltas for a few n
     for n in range(1, 100):
-        tc.assertEqual(delta_linear(1, 2, n), delta_log_space(1, 2, n, d=d), str(f'{n=}'))
+        tc.assertEqual(delta_linear(1, 2, n), delta_log_space(1, 2, n, d=d), f'{n=}')
     for n in range(1, 100):
-        tc.assertEqual(delta_linear(2, 3, n), delta_log_space(2, 3, n, d=d), str(f'{n=}'))
+        tc.assertEqual(delta_linear(2, 3, n), delta_log_space(2, 3, n, d=d), f'{n=}')
     for n in range(1, 100):
-        tc.assertEqual(delta_linear(3, 4, n), delta_log_space(3, 4, n, d=d), str(f'{n=}'))
-    for a in range(1, 100):
-        for b in range(1, 100):
+        tc.assertEqual(delta_linear(3, 4, n), delta_log_space(3, 4, n, d=d), f'{n=}')
+    for a in range(2, 100):
+        for b in range(2, 100):
             if a != b:
-                tc.assertEqual(delta_linear(a, b, 100, d=d), delta_log_space(a, b, 100, d=d))
-                #tc.assertEqual(delta_linear(a, b, 100, d=d), delta_log_time(a, b, 100, d=d))
+                tc.assertEqual(delta_linear(a, b, 100, d=d), delta_log_space(a, b, 100, d=d), f'{a=} {b=} {d=}')
+                #tc.assertEqual(delta_linear(a, b, 100, d=d), delta_log_time(a, b, 100, d=d), f'{a=} {b=} {d=}')
     for T in [
         T_linear,
         T_log_space,

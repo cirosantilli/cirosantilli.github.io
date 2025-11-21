@@ -1215,9 +1215,12 @@ Paper: https://arxiv.org/abs/2411.04872
 
 https://arstechnica.com/ai/2024/11/new-secret-math-benchmark-stumps-ai-models-and-phds-alike/ mentions what the official website is unable to clearly state out:
 > The design of FrontierMath differs from many existing AI benchmarks because the problem set remains private and unpublished to prevent data contamination
-So yeah, fuck off.
 
-The expected answer output for all problems is just one single, possibly ridiculously large, integer, which is kind of a cool approach. Similar to <Project Euler> in that aspect.
+The expected answer output for all problems is one single SymPy expression, which is kind of a cool approach which allows either for large integers like <Project Euler>, but also for irrational expressions to be given, e.g. "An optimization problem in BMO space" from the sample problems has answer:
+$$
+\frac{\sqrt{3}}{36} + \frac{\sqrt{3}}{6} e^{-20\sqrt{3} - \frac{1}{6}}
+$$
+Of course, when the output is not an integer, this leads to the question of simplification equivalence questions. Also, like <Project Euler>, solutions essentially expect you to write and execute code.
 
 The most interesting aspect of this benchmark is the difficulty. <Mathematical olympiad> coach <Evan Chen> comments:https://arstechnica.com/ai/2024/11/new-secret-math-benchmark-stumps-ai-models-and-phds-alike/{ref}
 > Problems in \[the <International Mathematical Olympiad>\] typically require creative insight while avoiding complex implementation and specialized knowledge \[but for <FrontierMath>\] they keep the first requirement, but outright invert the second and third requirement
