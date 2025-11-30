@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-By GPT-5. Runtime: 3.4s on pypy3 3.11.11, Ubuntu 24.04, Lenovo ThinkPad P41s.
+By GPT-5. Runtime: 3.4s on pypy3 3.11.11, Ubuntu 25.04, Lenovo ThinkPad P14s.
 '''
 
 from math import isqrt
