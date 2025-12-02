@@ -125,12 +125,11 @@ def F_bruteforce(n):
 
 
 if __name__ == "__main__":
-    # Sanity check: compare recurrence vs brute force for small n
     F, A, B, C, Cat = compute_F(60)
+    assert F[3] == 4
+    assert F[8] == 181
     for n in range(1, 11):
         fb = F_bruteforce(n)
-        print(f"n={n:2d}  brute={fb:4d}  recurrence={F[n]:4d}  match={fb == F[n]}")
-
-    # Finally, print F(60)
-    print("F(60) =", F[60])
+        assert fb == F[n]
+    print(F[60])
 

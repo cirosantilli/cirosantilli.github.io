@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 By GPT-5. Instant solution on pypy3.
 '''
@@ -70,5 +72,4 @@ def first_eight_non6_digits(n: int, dps: int = 200) -> str:
 if __name__ == "__main__":
     # Example calls (H(2) and H(3) values in the problem statement are *not* from the asymptotic;
     # for very small n the neglected poles matter. For n = 10**6 this method is effectively exact.)
-    n = 10**6
-    print(first_eight_non6_digits(n, dps=220))
+    print(first_eight_non6_digits(10**6, dps=220))

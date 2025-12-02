@@ -92,5 +92,4 @@ exp = dec.adjusted()
 mant = dec.scaleb(-exp)
 mant_rounded = +mant.quantize(Decimal('1.' + '0' * 10))
 sci = f"{mant_rounded}e{exp}"
-
-print("P(7) =", sci)
+print(sci)

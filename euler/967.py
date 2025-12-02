@@ -5,6 +5,7 @@
 # Python implementation of the meet-in-the-middle algorithm for Project Euler 967 (B-trivisible)
 # This will print the example values and the final answer F(10**18, 120).
 # It is written to be reasonably efficient in CPython.
+
 import bisect, sys
 sys.setrecursionlimit(10000)
 
@@ -91,12 +92,7 @@ def solve(N, B):
     return ans
 
 if __name__ == "__main__":
-    # examples
-    print(solve(10, 4))    # expect 5
-    print(solve(10, 10))   # expect 3
-    print(solve(100, 10))  # expect 41
-
-    # final requested value
-    N = 10**18
-    B = 120
-    print(solve(N, B))
+    assert solve(10, 4) == 5
+    assert solve(10, 10) == 3
+    assert solve(100, 10) == 41
+    print(solve(10**18, 120))

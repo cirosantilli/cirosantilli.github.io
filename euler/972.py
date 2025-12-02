@@ -103,10 +103,7 @@ def compute_T(N, show_stats=False):
     return total
 
 if __name__ == "__main__":
-    # verify small cases
-    print("T(2) should be 24; computed:", compute_T(2))
-    print("T(3) should be 1296; computed:", compute_T(3))
-    # compute T(12)
-    t12 = compute_T(12, show_stats=True)
-    print("T(12) =", t12)
+    assert compute_T(2) == 24
+    assert compute_T(3) == 1296
+    print(compute_T(12))
 

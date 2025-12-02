@@ -134,5 +134,5 @@ def compute_sum_S_upto_N(N):
     return total
 
 if __name__ == "__main__":
-    N = 10**18
-    print(compute_sum_S_upto_N(N) % MOD)
+    assert compute_sum_S_upto_N(10) == 43
+    print(compute_sum_S_upto_N(10**18) % MOD)

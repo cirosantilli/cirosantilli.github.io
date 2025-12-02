@@ -6,8 +6,6 @@ By GPT-5. Runtime: 3.4s on pypy3 3.11.11, Ubuntu 25.04, Lenovo ThinkPad P14s.
 
 from math import isqrt
 
-N = 10**8  # target upper bound for primes
-
 def sieve_primes_upto(n):
     """Return list of primes <= n using odd-only sieve (memory ~ n/2 bytes).
     """
@@ -109,18 +107,6 @@ def compute_S(limit):
     return total
 
 if __name__ == '__main__':
-    # Quick sanity checks
-    print('Sanity checks:')
-    small_primes = sieve_primes_upto(100)
-    # Verify C(11) == 7 as in problem statement
-    print('C(11) should be 7 ->', end=' ')
-    print(1 + ((11-1)//5) * count_periodic_in_mu5(11))
-    # Verify S(100) == 127
-    print('S(100) should be 127 ->', end=' ')
-    print(compute_S(100))
-
-    # Main computation (uncomment to run full):
-    # Note: this will use around ~50 MB memory for the odd-only sieve and may take
-    # a few minutes depending on CPU.
-    result = compute_S(N)
-    print('S(10**8) =', result)
+    assert compute_S(11) == 7
+    assert compute_S(100) == 127
+    print(compute_S(10**8))

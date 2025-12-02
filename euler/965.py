@@ -5,7 +5,7 @@
 
 from decimal import Decimal, getcontext
 
-def compute_F_farey(N):
+def F(N: int) -> Decimal:
     # high precision to ensure correct rounding to 13 decimals
     getcontext().prec = 50
     a, b, c, d = 0, 1, 1, N
@@ -20,8 +20,7 @@ def compute_F_farey(N):
     return total
 
 if __name__ == "__main__":
-    N = 10_000
-    value = compute_F_farey(N)
-    # round to 13 digits after decimal point
-    result = value.quantize(Decimal('0.0000000000001'))
-    print(result)
+    assert F(1) == Decimal('0.5')
+    assert F(4) == Decimal('0.25')
+    assert str(F(10).quantize(Decimal('0.0000000000001'))) == '0.1319444444444'
+    print(F(10*4).quantize(Decimal('0.0000000000001')))
