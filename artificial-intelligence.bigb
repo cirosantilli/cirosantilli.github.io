@@ -555,6 +555,12 @@ People who do cool open tech stuff when don't need money anymore are awesome:
 * https://arcprize.org/guide
 * https://lewish.io/posts/how-to-beat-arc-agi-2
 
+= ARC-AGI feature extraction
+{c}
+{parent=ARC-AGI approach}
+
+https://www.kaggle.com/code/allegich/eda-statistical-analysis-and-feature-extraction
+
 = ARC-AGI implementation
 {c}
 {parent=ARC-AGI}
@@ -600,6 +606,8 @@ https://github.com/arc-dsl-2/arc-dsl-2
 {parent=ARC-AGI implementation}
 
 https://github.com/cristianoc/arc-agi-2-abstraction-dataset
+
+Contains 120 DSL implementations for the 
 
 From another awesome retired tech bro that does this project for fun.
 
@@ -713,13 +721,20 @@ ERROR: Solve command failed: Object of type VerticalLinePredicate is not JSON se
 ``
 Reported at: https://github.com/aviad12g/ARC-AGI-solution/issues/1
 
-= ARC-AGI version
+= ARC-AGI problem set
 {c}
 {parent=ARC-AGI}
 
+= ARC-AGI version
+{c}
+{synonym}
+
+= Official ARC-AGI problem set
+{parent=ARC-AGI problem set}
+
 = ARC-AGI-1
 {c}
-{parent=ARC-AGI version}
+{parent=Official ARC-AGI problem set}
 
 = ARC-AGI-1 problem
 {parent=ARC-AGI-1}
@@ -731,7 +746,7 @@ Reported at: https://github.com/aviad12g/ARC-AGI-solution/issues/1
 = ARC-AGI-1 training problem
 {synonymNoScope}
 
-= 007bbfb7
+= 007bbfb
 {parent=Train}
 {title2=1}
 
@@ -748,11 +763,18 @@ https://arcprize.org/play?task=0520fde7
 
 = ARC-AGI-2
 {c}
-{parent=ARC-AGI version}
+{parent=Official ARC-AGI problem set}
 {title2=2025-03-24}
 
 * https://github.com/arcprize/ARC-AGI-2
 * https://arcprize.org/play?task=1ae2feb7
+
+Has the following structure:
+
+* <ARC-AGI-2 training dataset>[Training Set]: 1000 tasks: a variety of difficulty levels, easy to hard, designed to contain all "primitives" needed for eval
+* <ARC-AGI-2 public evaluation dataset>[Public Eval Set]: 120 tasks
+* Semi-Private Eval: 120 hard tasks, may have been exposed to limited third-parties eg. via API
+* Private Eval Set: 120 tasks, never exposed to third parties
 
 = ARC-AGI-2 problem
 {c}
@@ -922,8 +944,14 @@ There is no unique solution, we just have to optimize something, often the least
 = Train
 {parent=List}
 
+= ARC-AGI-2 training dataset
+{synonymNoScope}
+
 = Eval
 {parent=List}
+
+= ARC-AGI-2 public evaluation dataset
+{synonymNoScope}
 
 = 1ae2feb7
 {parent=Eval}
@@ -1073,9 +1101,36 @@ Output:
 
 = ARC-AGI-3
 {c}
-{parent=ARC-AGI version}
+{parent=Official ARC-AGI problem set}
+{tag=Gridworld AI game}
 
-They are moving to <2d> <voxel> games
+They are moving to <2d discrete AI games>.
+
+Although there is merit in that, it is a shame that it just similar to other pre-existing work such as <gvgai> and many others.
+
+Solutions to these solutions require much more thought to formalize a solution.
+
+Also the solutions are much less unique, finding the actual optimal solution being obviously <NP-hard>.
+
+These aspects make those games much less elegant than the older ARC-AGI 1 and 2 counterparts.
+
+= Unofficial ARC-AGI problem set
+{c}
+{parent=Official ARC-AGI problem set}
+
+This section is about unofficial <ARC-AGI>-like problem sets.
+
+These are interesting from both a:
+* practical point of view, as they provide more training data for potential solvers. If you believe that they are representative that is of course.
+* theoretical point of view, as they might help to highlight missing or excessive presumptions of the official datasets
+
+https://github.com/neoneye/arc-dataset-collection contains a fantastic collection of such datasets, with visualization at: https://neoneye.github.io/arc/
+
+= ARC-AGI problem generator
+{parent=Unofficial ARC-AGI problem set}
+
+= arc-like
+{parent=ARC-AGI problem generator}
 
 = The Employment Test
 {c}
@@ -1155,12 +1210,9 @@ This section is about benchmarks designed to test mathematical reasoning.
 Bibliography:
 * https://mathscholar.org/2025/02/deepseek-a-breakthrough-in-ai-for-math-and-everything-else/
 
-= List of math AI benchmarks
-{parent=Math AI benchmark}
-
 = Closed AI math benchmark
 {c}
-{parent=List of math AI benchmarks}
+{parent=Math AI benchmark}
 {tag=Closed source benchmark}
 
 Even more than in other areas of benchmarking, in maths where you only have a right or wrong answer, and it is costly to come up with good sample problems, some benchmarks have adopted private test data sets.
@@ -1174,6 +1226,9 @@ However this is not practical for the following reasons:
 Perhaps the ideal scenario therefore is what <ARC-AGI> has done: give a sizeable public dataset, which you feel is highly representative of the difficulty level of the private test data, while at the same time holding out some private test data. Half half seems reasonable.
 
 This way, reproducible models can actually self test themselves reliably on the open data, while the closed data can then be used for the cases where the open data can't be used.
+
+= List of math AI benchmarks
+{parent=Math AI benchmark}
 
 = MathArena
 {c}
@@ -1257,6 +1312,15 @@ Of course, when the output is not an integer, this leads to the question of simp
 The most interesting aspect of this benchmark is the difficulty. <Mathematical olympiad> coach <Evan Chen> comments:https://arstechnica.com/ai/2024/11/new-secret-math-benchmark-stumps-ai-models-and-phds-alike/{ref}
 > Problems in \[the <International Mathematical Olympiad>\] typically require creative insight while avoiding complex implementation and specialized knowledge \[but for <FrontierMath>\] they keep the first requirement, but outright invert the second and third requirement
 
+= Elliot Glazer
+{c}
+{parent=FrontierMath}
+
+Creator of <FrontierMath>.
+
+Socials:
+* https://x.com/ElliotGlazer
+
 = LiveBench
 {c}
 {parent=List of math AI benchmarks}
@@ -1275,6 +1339,15 @@ Math almost saturated as of 2025 release, so meh:
 https://openreview.net/forum?id=kqj2Cn3Sxr
 
 > We introduce Putnam-AXIOM, a benchmark of 522 university-level competition problems drawn from the prestigious William Lowell Putnam Mathematical Competition, and Putnam-AXIOM Variation, an unseen companion set of 100 functional variants generated by programmatically perturbing variables and constants.
+
+= Verina
+{c}
+{parent=List of math AI benchmarks}
+{title2=2025}
+
+https://verina.io
+
+<AI code generation benchmark> in which part of the benchmark includes producing a formal <Lean> proof of the implementation. Sweet.
 
 = Regression analysis
 {parent=AI by capability}
@@ -1357,10 +1430,10 @@ The <GAN paper> itself does a bit of this, cool hello world:
 This is going to be the most important application of <generative AI>. Especially if we ever achieve good <text-to-video>.
 
 Image generators plus human ranking:
-* https://pornpen.ai/ a bit too restrictive. Girl laying down. Girl sitting. Penis or no penis. But realtively good at it
+* https://pornpen.ai/ a bit too restrictive. Girl laying down. Girl sitting. Penis or no penis. But relatively good at it
 * https://civitai.tv/[]. How to reach it: https://civitai.tv/tag/nun/2/
 
-https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodies Part 1: Sister's Mary First Act. Pornhub title: "AI generated Hentai Story: Sexy Nun alternative World(Isekai) Stable Diffusion" Interesting concept, slide-narrated over visual novel. The question is how they managed to keep face consistency across images.
+https://www.pornhub.com/view_video.php?viewkey=ph63c71351edece[]: Heavenly Bodies Part 1: Sister's Mary First Act. <Pornhub> title: "AI generated Hentai Story: Sexy Nun alternative World(Isekai) Stable Diffusion" Interesting concept, slide-narrated over visual novel. The question is how they managed to keep face consistency across images.
 
 = Generative AI by modality
 {parent=Generative AI}
@@ -2651,6 +2724,9 @@ In more advanced cases, the generation itself can be done with <AI>. This is a p
 {parent=2D AI game}
 {tag=Gridworld}
 
+= 2d discrete AI game
+{synonym}
+
 * https://github.com/google-deepmind/pushworld 2023 Too combinatorial, gripping makes it so much easier to move stuff around in the real world. But cool nonetheless.
 
 = 2D continuous AI game
@@ -2878,7 +2954,7 @@ https://www.quora.com/Which-chess-engine-would-be-stronger-Alpha-Zero-or-Stockfi
 
 http://www.gvgai.net (dead as of 2023)
 
-The project kind of died circa 2020 it seems, a shame. Likely they funding ran out. The domain is dead as of 2023, last archive from 2022: https://web.archive.org/web/20220331022932/http://gvgai.net/[]. Marks as funded by <DeepMind>. Researchers really should use university/GitHub domain names!
+The project kind of died circa 2020 it seems, a shame. Likely they funding ran out. The domain is dead as of 2023, last archive from 2022: https://web.archive.org/web/20220331022932/http://gvgai.net/[] is marked as funded by <DeepMind>. Researchers really should use university/GitHub domain names!
 
 Similar goals to <Ciro's 2D reinforcement learning games>, but they were focusing mostly on discrete games.
 
