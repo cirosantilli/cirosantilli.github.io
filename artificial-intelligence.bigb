@@ -533,20 +533,38 @@ This one goes all in the following themes:
 Bibliography:
 * https://www.reddit.com/r/mlscaling/comments/1ht4emi/anyone_else_suspect_arcagi_was_never_much_of_a/ Anyone else suspect ARC-AGI was never much of a test of anything? (2025)
 
+= ARC-AGI theory
+{c}
+{parent=ARC-AGI}
+
+= Information theoretical musings inspired by ARC-AGI
+{parent=ARC-AGI theory}
+
+The extreme <overfitting> case of training is to have a map where each input leads to one output.
+
+However it is cool that this overfit does not allow you to compute the final input for which there is no known output.
+
+This therefore forces the creation of more general solution rules.
+
+While in some cases solutions can work for any input, in many others they require specific assumptions about input, but the model could simply check that the assumptions apply to all inputs and use them for the final algorithm.
+
+Bibliography:
+* https://lewish.io/posts/how-to-beat-arc-agi-2
+
+= ARC-AGI is a black hole for early retired tech and finance bros
+{parent=ARC-AGI theory}
+
+People who do cool open tech stuff when don't need money anymore are awesome:
+* François Chollet, project founder: https://www.linkedin.com/in/fchollet/ 9 years at Google from 2015 to 2024. He founded ARC while he was still at Google though, so maybe doesn't count
+* Cristiano Calgano from <cristianoc arc-agi-2-abstraction-dataset>. <Imperial College London> researcher who founded a <formal verification> company and sold it to <Facebook> where he staid for 7 years
+* <Benjamin Crouzier> from <Tufa Labs>
+  > Benjamin has a masters in Computer Science and applied ML to quant finance previously, https://tufalabs.ai/team.html mentions:
+
 = ARC-AGI visualization
 {c}
 {parent=ARC-AGI}
 
 https://www.kaggle.com/code/allegich/arc-agi-2025-visualization-all-1000-120-tasks contains plots of all questions and answers. It is truly very convenient.
-
-= ARC-AGI is a black hole for early retired tech and finance bros
-{parent=ARC-AGI visualization}
-
-People who do cool open tech stuff when don't need money anymore are awesome:
-* François Chollet, project founder: https://www.linkedin.com/in/fchollet/ 9 years at Google from 2015 to 2024. He founded ARC while he was still at Google though, so maybe doesn't coun
-* Cristiano Calgano from <cristianoc arc-agi-2-abstraction-dataset>. <Imperial College London> researcher who founded a <formal verification> company and sold it to <Facebook> where he staid for 7 years
-* <Benjamin Crouzier> from <Tufa Labs>
-  > Benjamin has a masters in Computer Science and applied ML to quant finance previously, https://tufalabs.ai/team.html mentions:
 
 = ARC-AGI approach
 {c}
@@ -559,7 +577,7 @@ People who do cool open tech stuff when don't need money anymore are awesome:
 {c}
 {parent=ARC-AGI approach}
 
-https://www.kaggle.com/code/allegich/eda-statistical-analysis-and-feature-extraction
+https://www.kaggle.com/code/allegich/eda-statistical-analysis-and-feature-extraction has a very basic feature extraction.
 
 = ARC-AGI implementation
 {c}
@@ -611,8 +629,14 @@ Contains 120 DSL implementations for the
 
 From another awesome retired tech bro that does this project for fun.
 
-= Local CPU ARC-AGI without LLM
+= ARC-AGI without LLM
+{c}
 {parent=ARC-AGI implementation}
+
+Some mentions at: https://arcprize.org/blog/arc-prize-2025-results-analysis section "Zero-Pretraining Deep Learning Methods".
+
+= Local CPU ARC-AGI without LLM
+{parent=ARC-AGI without LLM}
 
 * https://iliao2345.github.io/blog_posts/arc_agi_without_pretraining/arc_agi_without_pretraining.html
 
@@ -751,6 +775,73 @@ Reported at: https://github.com/aviad12g/ARC-AGI-solution/issues/1
 {title2=1}
 
 https://arcprize.org/play?task=007bbfb7
+
+Hard input constraints:
+* inputs are 3x3
+* inputs contain only 2 colors monocolored: black and another
+
+Hard output constraints:
+* output is 3x input width and height. Suggests that the output is a 3x3 grid based on the input.
+  * stronger: if output is split as a 3x3 grid, then each 3x3 block is either black or a copy as input. Which is which?
+    * stronger: each pixel of the input determines if block is black or copy (final solution)
+* output contains only two colors: black and another
+  * stronger: the same two colors as input
+
+Input output comparison:
+* input appears pasted on output multiple times: suggests it is being copy pasted
+
+Hard output constraints:
+* output is 3x input width and height: suggests that the output is a 3x3 grid based on the input
+
+  If that is the case, let's try to figure out what is placed on each output grid.
+
+  Notice: each grid element is either blank or the input.
+
+  OK so let's determine what in the input determines each output grid.
+
+  Because input in 3x3 maybe there's a direct mapping.
+
+= 00d62c1b
+{parent=Train}
+{title2=2}
+
+https://arcprize.org/play?task=00d62c1b
+
+Hard input constraints:
+* inputs have two colors: green and black
+
+Hard output constraints:
+* output has three colors: black, green and yellow
+* output has same size as input
+* green is copied from input to output
+  * output differs from input by making some black pixels yellow. Which pixels are becoming yellow?
+    * output differs from input by making inner regions (non-diagonal) yellow with non-diagonal flood fill
+
+= 017c7c7b
+{parent=Train}
+{title2=3}
+
+https://arcprize.org/play?task=017c7c7b
+
+Input constraints:
+* inputs are 3x6
+
+Output constraints:
+* outputs are 3x9
+
+TODO: this one is quite challenging.
+
+= 025d127b
+{parent=Train}
+{title2=4}
+
+https://arcprize.org/play?task=025d127b
+
+Output constraints:
+* Input and output have the same size
+* Supposing background is black, input and output contain the same number of objects of each color
+  * the lower right part of each object (non-diagonal) does not move
+    * the rest of each object outside the lower right part moves by 1 square to the right
 
 = 0520fde7
 {parent=Train}
@@ -1129,6 +1220,29 @@ https://github.com/neoneye/arc-dataset-collection contains a fantastic collectio
 = ARC-AGI problem generator
 {parent=Unofficial ARC-AGI problem set}
 
+= re-arc
+{parent=ARC-AGI problem generator}
+
+https://github.com/michaelhodel/re-arc
+
+By the author of <ARC-DSL>.
+
+README says:
+> This repository presents code to procedurally generate examples for the ARC training tasks. For each of the 400 tasks, an example generator is provided.
+
+https://arxiv.org/html/2404.07353v1 says:
+> Each generator is a standalone Python function merely making use of the <ARC-DSL>[DSL] and functions from the random module from the standard library. The median generator consists of 40 lines of code and uses 22 DSL primitive calls and 10 calls to the random module.
+
+Cool!
+
+Original:
+
+\Image[https://web.archive.org/web/20250216160803im_/https://github.com/michaelhodel/re-arc/raw/main/00d62c1b_original.png]
+
+Generated:
+
+\Image[https://web.archive.org/web/20250216160803im_/https://github.com/michaelhodel/re-arc/raw/main/00d62c1b_generated.png]
+
 = arc-like
 {parent=ARC-AGI problem generator}
 
@@ -1161,9 +1275,71 @@ That's <Ciro Santilli>'s favorite. Of course, there is a huge difference between
 <AGI-complete> in general? Obviously. But still, a lot can be done. See e.g.:
 * <The Busy Beaver Challenge> deciders
 
+= Math AI company
+{parent=Automated theorem proving}
+{tag=Machine learning company}
+
+A good quick December 2025 list: https://x.com/AlexKontorovich/status/1997051032384446629
+
+= Axiom Math
+{c}
+{parent=Math AI company}
+
+* https://axiommath.ai
+* https://x.com/axiommathai
+
+Not to be confused with tutoring company "Axiom Maths" which shows on top of Google results: https://axiommaths.com/ lol fuck.
+
+= harmonic.fun
+{c}
+{parent=Math AI company}
+{tag=Neuro-symbolic AI}
+{wiki}
+
+https://harmonic.fun/
+
+They seem to do <autoformalization>, <automated theorem proving> and <code generation>, and they use <Lean> a lot. Sounds fun.
+
+= Logical Intelligence Inc.
+{c}
+{parent=Math AI company}
+
+Not much info available about them outside of <Twitter>:
+* https://www.logicalintelligence.com
+* https://x.com/logic_int
+They use <Lean>.
+
+= Math, Inc
+{c}
+{parent=Math AI company}
+
+* https://www.math.inc/
+
+= Math, Inc careers page puzzle
+{c}
+{parent=Math AI company}
+
+https://www.math.inc/careers
+> Suppose that today is June 1, 2025. We call a date "square" if all of its components (day, month, and year) are perfect squares. I was born in the last millennium, and my next birthday (relative to that date) will be the last square date in my life. If you sum the square roots of the components of that upcoming square birthday (day, month, year), you obtain my age on June 1, 2025. My mother would have been born on a square date if the month were a square number; in reality it is not a square date, but both the month and day are perfect cubes. When was I born, and when was my mother born?
+
+One shot by <GPT 5.1>, possibly contaminated obviously:
+
+> You were born on 25 September 1971.
+>
+> Your mother was born on 1 August 1936.
+
+= Principia Labs
+{c}
+{parent=Math AI company}
+
+https://www.principialabs.org
+> We combine large-scale pretraining with reinforcement learning to create models that can rederive and learn from the entire corpus of human mathematics. Our goal is automated mathematical discovery: AI that does the creative, generative work that was previously only possible for the world's best researchers—and can be deployed on the hardest problems in science and engineering.
+
 = Math AI implementation
 {c}
 {parent=Automated theorem proving}
+
+Quick list: https://x.com/AlexKontorovich/status/1997051032384446629
 
 = AlphaProof
 {c}
@@ -1242,6 +1418,14 @@ How they "ensure" that models are not contaminated:
 >  By evaluating models as soon as new problems are released, we effectively eliminate the risk of contamination
 
 Most of their problems come from <high school knowledge olympiads> and they are therefore completely irrelevant for 2025 <LLMs>.
+
+= MathArena Apex
+{c}
+{parent=MathArena}
+
+https://matharena.ai/apex/
+
+A subsets of problems that they curate from competitions. 
 
 = AI Mathematical Olympiad
 {c}
@@ -1753,7 +1937,19 @@ Bibliography:
 = List of GPT models
 {parent=GPT model}
 
+= GPT model by <Google>
+{parent=List of GPT models}
+
+= Gemini model
+{c}
+{parent=GPT model by Google}
+
+= Gemini 3
+{c}
+{parent=Gemini model}
+
 = GPT model by <OpenAI>
+{c}
 {parent=List of GPT models}
 
 = ChatGPT model
@@ -1863,6 +2059,16 @@ https://platform.openai.com/docs/models/gpt-4-turbo
 = GPT-5
 {c}
 {parent=GPT model by OpenAI}
+
+= GPT-5.1
+{c}
+{parent=GPT-5}
+
+= GPT-5.1 Pro
+{c}
+{parent=GPT-5.1}
+
+This is the variant of <GPT 5.1> that you get on the web UI. It is unknown exactly how it correlates with the API.
 
 = Llama
 {disambiguate=language model}
