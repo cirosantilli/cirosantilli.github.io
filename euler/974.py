@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-'''
-By GPT-5.2. Runtime: 0m0.497s on pypy3 3.11.13, Ubuntu 25.10, Lenovo ThinkPad P14s.
-'''
+# By GPT-5.2. Runtime: 0m0.497s on pypy3 3.11.13, Ubuntu 25.10, Lenovo ThinkPad P14s.
 
 from functools import lru_cache
 
