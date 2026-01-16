@@ -1,9 +1,10 @@
+-- Convert a huge set to a Finset to illustrate that Finset is not actually naively reaslized at runtime.
+
 import Mathlib.Data.Set.Finite.Basic
 import Mathlib.Data.Finset.Range
 import Mathlib.Data.Nat.Basic
 
 noncomputable section
-open Classical
 
 def bound : ℕ := (10 : ℕ) ^ ( 1000000000 ^ 100000000 )
 

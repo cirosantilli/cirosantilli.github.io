@@ -8,12 +8,6 @@ They don't have an actual online judge system, all problems simply have a single
 
 The only metric that matters is who solved the problem first after publication. This is visible e.g. at: https://projecteuler.net/fastest=454[] but only for logged in users... Lol it is ridiculous. The "language" in which problems were solved is just whatever the user put in their profile, they can't actually confirm that.
 
-<Project Euler> problems typically involve finding or proving and then using a <lemma (mathematics)> that makes computation of the solution feasible without brute force. As such, they live in the intersection of mathematics and computer science.
-
-In many cases, the efficient solution involves <dynamic programming>.
-
-There are also a set of problems which are very <numerical analysis> in nature and require the approximation of some number.
-
 Problems are under <CC BY-NC-SA>: https://projecteuler.net/copyright
 
 Once you solve a problem, you can then access its "private" forum thread: https://projecteuler.net/thread=950 and people will post a bunch of code solutions in there.
@@ -24,6 +18,25 @@ How problems are chosen:
 https://projecteuler.net says it started as a subsection in mathschallenge.net, and in 2006 moved to its own domain. <WhoisXMLAPI> WHOIS history says it was registered by domainmonster.com but details are anonymous. TODO: sample problem on mathschallenge.net on <Wayback Machine>? Likely wouldn't reveal much anyways though as there is no attribution to problem authors on that site.
 
 https://www.hackerrank.com/contests/projecteuler/challenges holds challenges with an actual judge and sometimes multiple test cases so just printing the final solution number is not enough.
+
+= Project Euler problem style
+{parent=Project Euler}
+
+<Project Euler> problems typically involve finding or proving and then using a <lemma (mathematics)> that makes computation of the solution feasible without brute force. There is often an obvious brute force approach, but the pick problem sizes large enough such that it is just not fast enough, but the non-brute-force is.
+
+As such, they live in the intersection of <mathematics> and <computer science>.
+
+https://news.ycombinator.com/item?id=7057408 which is mega high on <Google> says:
+> I love project euler, but I've come to the realization that its purpose is to beat programmers soundly about the head and neck with a big math stick. At work last week, we were working on project euler at lunch, and had the one CS PhD in our midst not jumped up and explained the chinese remainder theorem to us, we wouldn't have had a chance.
+
+In many cases, the efficient solution involves <dynamic programming>.
+
+There are also a set of problems which are very <numerical analysis> in nature and require the approximation of some <real number> to a given precision. These are often very fiddly as I doubt most people can prove that their chosen <hyperparameters> guarantee the required precision.
+
+Many problems ask for solution modulo some number. In general, this is only so that C/C++ users won't have to resort to using an <arbitrary-precision arithmetic> library and be able to fit everything into `uint64` instead. Maybe it also helps the judge system slightly having smaller strings to compare. The final modulos usually don't add any insight to the problems.
+
+Bibliography:
+* https://www.reddit.com/r/cscareerquestions/comments/620u4x/what_are_peoples_thoughts_on_project_euler/ What are peoples thoughts on Project Euler?
 
 = Project Euler solutions
 {parent=Project Euler}
@@ -47,10 +60,13 @@ Basically no one has ever had the patience to create a single source that solves
 
 At https://github.com/cirosantilli/project-euler-solvers <Ciro Santilli> attempted to do it with <LLMs>.
 
-= <Project Euler> <Lean> solutions
+= <Project Euler> solutions in X
 {parent=Project Euler solutions}
 
-Using <Lean> or other programmable <proof assistants> to solve <Project Euler> is the inevitable collision of two autisms. In particular, using <Lean> to prove that you have the correct solution, just making a Lean program that prints out the correct solution is likely now trivial as of 2025 by asking an <LLM> to port a <Python> solution to the new language.
+= <Project Euler> <Lean> solutions
+{parent=Project Euler solutions in X}
+
+Using <Lean> or other programmable <proof assistants> to solve <Project Euler> is the inevitable collision of two <autisms>. In particular, using <Lean> to prove that you have the correct solution, just making a Lean program that prints out the correct solution is likely now trivial as of 2025 by asking an <LLM> to port a <Python> solution to the new language.
 
 Some efforts:
 * https://github.com/mfornet/project-euler-lean Attempts proofs, but only did <Project Euler problem 1> :-)
@@ -61,6 +77,7 @@ Mentions:
 * https://leanprover-community.github.io/archive/stream/270676-lean4/topic/Competitive.20programmers.html#287860835[Alex J. Best (Jun 29 2022 at 14:20)] on the <Lean Zulip> mentions:
   >  It would also be very interesting to collect verified fast Project Euler solutions for Lean 4 at some point, this would simultaneously work out the compiled speed and the mathematics libraries which would be fun.
   That dude was actually working at <harmonic.fun> as of 2025, bastard.
+* https://codeforces.com/blog/entry/124615
 
 = Project Euler as an AI benchmark
 {parent=Project Euler}
