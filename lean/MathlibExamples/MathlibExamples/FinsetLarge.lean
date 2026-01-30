@@ -1,6 +1,11 @@
+-- This example shows that it is possible to prove things about humongous finsets
+-- that don't fit into the universe, they don't materialize.
+
 import Mathlib.Data.Set.Finite.Basic
 import Mathlib.Data.Finset.Range
 import Mathlib.Data.Nat.Basic
+
+noncomputable section
 
 def bound : ℕ := (10 : ℕ) ^ ( 1000000000 ^ 100000000 ^ 1000000000 )
 
@@ -17,5 +22,12 @@ lemma evensBelow_finite : (evensBelow).Finite := by
   simpa using (Finset.mem_range.mpr hn.1)
 
 -- Convert Set → Finset using the finiteness proof
-noncomputable def evensBelow_finset : Finset ℕ :=
+def evensBelow_finset : Finset ℕ :=
   (evensBelow_finite).toFinset
+
+
+import Mathlib.Data.Finset.Basic -- Finset
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic -- ∑, ∏
+
+example : (∑ x ∈ ({1, 2, 4} : Finset ℕ), x) = 7 := by decide
+example : (∏ x ∈ ({1, 2, 4} : Finset ℕ), x) = 8 := by decide
