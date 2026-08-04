@@ -401,10 +401,116 @@ Bibliography:
 {synonym}
 {title2}
 
+= Internet privacy technology
+{parent=Internet privacy}
+{wiki}
+
+= I2P
+{c}
+{parent=Internet privacy technology}
+{wiki}
+
+https://en.wikipedia.org/wiki/I2P
+
+Seems very similar to <Tor>, but also supports anonymous sharing of large files, notably via <BitTorrent>, which <Tor> does not support well. Shame.
+
+= I2P on <Ubuntu>
+{parent=I2P}
+
+On <Ubuntu 26.04>, visiting https://i2p.net/en/downloads/ recommended me to download https://files.i2p.net/2.12.0/i2pinstall_2.12.0.jar so I did:
+``
+cd ~
+wget https://files.i2p.net/2.12.0/i2pinstall_2.12.0.jar
+sudo apt install openjdk-17-jre
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 PATH="$JAVA_HOME/bin:$PATH" java -jar ./i2pinstall_2.12.0.jar -console
+``
+Then after some clicking faff
+``
+cd ~/i2p
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 PATH="$JAVA_HOME/bin:$PATH" ./i2prouter start
+``
+and it told me:
+``
+Starting I2P Service...
+Waiting for I2P Service....
+running: PID:423806
+``
+and it automatically opened up a Chrome tab at: http://127.0.0.1:7657/welcome
+
+The default Java 8 installed on my machine is too old, needed 17 or above. Very annoying.
+
+To make things more bearable I added this to my `.bashrc`:
+
+``
+i2p() (
+  cd ~/i2p
+  JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 PATH="$JAVA_HOME/bin:$PATH" ./i2prouter "$@"
+)
+``
+
+so I can just:
+
+``
+i2p start
+i2p stop
+``
+
+= I2P on <Ubuntu> browser setup
+{parent=I2P on Ubuntu}
+
+It does not come with a default browser... A popular option seems to be to install a praivate browser such as LibreWolf (Firefox based) to be your I2P thing https://www.youtube.com/watch?v=qFE1J9YhhWg Setting it up as such makes it not work as a regular clearnet browser. Instructions at: https://librewolf.net/installation/debian/
+
+``
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable librewolf && sudo extrepo update librewolf
+sudo apt update && sudo apt install librewolf -y
+``
+
+Then go to Proxy settings and set Manual proxy configuration:
+
+* HTTP Proxy: 127.0.0.1:4444
+* SOCKS Host: 127.0.0.1:4447
+
+Another setting you really want in LibreWolf is:
+> Don't enable HTTPS-Only Mode
+otherwise it keeps complaining every time that pages are not https, because they are all http, because the security is happening at a lower layer of the protocol already. 
+
+Then I can visit the sample website http://tracker2.postman.i2p. It complains that it's not https, but I say, OK, I think I'm already mega encrypted figers crossed. It is a simple oldschool forum like phpBB where people announce their I2P compatible Torrents. From the posts I can copy a Magnet link and add it to http://127.0.0.1:7657/i2psnark/, the built-in Torrent thing, the only convenient thing they have pre-setup for you :-)
+
+Shame setting up this project is so difficult, it can never reach mainstream like this. Tor Browser and centralized VPN are so much more streamlined. But if it were mainstream, it would be boring? Early 200ss vibes come to mind.
+
+= I2P <Ubuntu> via PPA
+{parent=I2p on <Ubuntu>}
+
+https://i2p.net/en/docs/guides/installing-i2p-on-debian-and-ubuntu/ documents the experimental PPA method:
+
+```
+sudo apt-add-repository ppa:i2p-maintainers/i2p
+sudo apt-get update
+sudo apt-get install i2p
+```
+
+but then when I ran:
+
+```
+i2prouter start
+```
+
+it fails with:
+
+```
+Starting I2P Service...
+Removed stale pid file: /home/ciro/.i2p/i2p.pid
+Waiting for I2P Service.....
+WARNING: I2P Service may have failed to start.
+```
+
+Meh?
+
 = Tor
 {disambiguate=anonymity network}
 {c}
-{parent=Internet privacy}
+{parent=Internet privacy technology}
 {wiki}
 
 = Tor
