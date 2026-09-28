@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# https://cirosantilli.com/_file/python/pytorch/matmul.py
+# https://cirosantilli.com/-/file/python/pytorch/matmul.py
 
 import sys
 
