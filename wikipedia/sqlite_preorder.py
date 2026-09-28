@@ -166,7 +166,7 @@ if out_bigb:
 <body>
 <header>
 <a href="{{ root_page }}"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/250px-Wikipedia-logo-v2.svg.png" />OurBigBook Wikipedia Bot</a>
-<a href="https://docs.ourbigbook.com/wikipedia-bot"><img src="https://docs.ourbigbook.com/_raw/logo.svg" />Documentation</a>
+<a href="https://docs.ourbigbook.com/wikipedia-bot"><img src="https://docs.ourbigbook.com/-/raw/logo.svg" />Documentation</a>
 </header>
 <main class="ourbigbook">
 {{ body }}</main>
