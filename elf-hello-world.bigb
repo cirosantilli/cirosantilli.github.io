@@ -25,7 +25,7 @@ ELF is specified by the https://en.wikipedia.org/wiki/Linux_Standard_Base[LSB]:
 The LSB basically links to other standards with minor extensions, in particular:
 
 * Generic (both by https://en.wikipedia.org/wiki/Santa_Cruz_Operation[SCO]):
-  * System V ABI 4.1 (1997) http://www.sco.com/developers/devspecs/gabi41.pdf, no 64 bit, although a magic number is reserved for it. Same for core files. \i[This] is the first document you should look at when searching for information.
+  * System V ABI 4.1 (1997) http://www.sco.com/developers/devspecs/gabi41.pdf, no 64 bit, although a magic number is reserved for it. Same for core files. *This* is the first document you should look at when searching for information.
   * System V ABI Update DRAFT 17 (2003) http://www.sco.com/developers/gabi/2003-12-17/contents.html, adds 64 bit. Only updates chapters 4 and 5 of the previous document: the others remain valid and are still referenced.
 * Architecture specific (by the processor vendor):
   * IA-32: https://refspecs.linuxfoundation.org/LSB_4.1.0/LSB-Core-IA32/LSB-Core-IA32/elf-ia32.html, points mostly to http://www.sco.com/developers/devspecs/abi386-4.pdf
@@ -314,7 +314,7 @@ An ELF file contains the following parts:
 * Program header table (only on executable). Each has `e_phnum` program headers, each pointing to the position of a segment.
 * N segments, with `N <= e_phnum` (only on executable)
 
-The order of those parts is \i[not] fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
+The order of those parts is *not* fixed: the only fixed thing is the ELF header that must be the first thing on the file: Generic docs say:
 > Although the figure shows the program header table immediately after the ELF header, and the section header table following the sections, actual files may differ. Moreover, sections and segments have no specified order. Only the ELF header has a fixed position in the file.
 
 In pictures: sample object file with three sections:
