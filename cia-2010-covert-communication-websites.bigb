@@ -4833,7 +4833,11 @@ The HTML `<title>` of https://web.archive.org/web/20110207150839/http://webofche
 ``
 pg1c
 ``
-rather than a more natural title like "Web of cheer" as is the case for the other website. This feels like a forgotten placeholder for an internal page identifier, e.g. "page 1C" sounds plausible. At <HTML title element>{full} we riefly inspected the `<title>` of every other hit with a wayback machine archive, and unfortunately none other seemed to have any such interesting title.
+rather than a more natural title like "Web of cheer" as is the case for the other website. That identifier also appears as a comment at the start of the HTML file:
+``
+<!-- ImageReady Slices (pg1c.psd) -->
+``
+This feels like a forgotten placeholder for an internal page identifier, e.g. "page 1C" sounds plausible. At <HTML title element>{full} we riefly inspected the `<title>` of every other hit with a wayback machine archive, and unfortunately none other seemed to have any such interesting title.
 
 The https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/[2010 archive of europeantravelcafe.com] has a "plan your trip" link links to a different domain: https://secure-cert.net/~etc/transport.html[]. This appears to have been a link to the system used by CIA operators to manage the website. Furthermore, the link then was later https://web.archive.org/web/20110201192245/http://europeantravelcafe.com/[removed from the 2011 version], so it was almost certainly a leak! "secure-cert.net" is obscure, the only other surviving online mention of it is https://www.leewillis.co.uk/wordpress-plugins/#comment-6513[] to
 http://secure-cert.net/~sayitint/products-page/bags-totes/duffel-bag/ We've grepped all the HTML downloaded as <HTML analysis> but no other links to it were found.
@@ -4844,6 +4848,45 @@ http://secure-cert.net/~sayitint/products-page/bags-totes/duffel-bag/ We've grep
 {source=https://web.archive.org/web/20100724024623/http://www.europeantravelcafe.com/}
 
 A similar thing happened to alljohnny.com Starting https://web.archive.org/web/20041215182457/http://alljohnny.com/index.html[December 2004] the "Submit your favorite carlson quote" was mind blowingly switched to point to https://web.archive.org/web/20050328224840/https://washington.serversecured.net/~alljohnn/cgi-bin/memlog.cgi[\https://washington.serversecured.net/~alljohnn/cgi-bin/memlog.cgi] thus likely leaking the control site URL. Beauty. It previously pointed to the more sensible: https://web.archive.org/web/20040901162621/https://secure.alljohnny.com/cgi-bin/memlog.cgi[]
+
+<GPT-6> noticed that at https://web.archive.org/web/20100514032916/http://lesummumdelafinance.com/[lesummumdelafinance.com] the "Outils de trading" (Trading tools) bottom right section has links to `file://` URLs:
+* `file:///\\Gambit\charts\graphique-forex-en-temps-réel`: Graphique Forex en temps réel
+* `file:///\\Gambit\forex-tools\convertisseur-de-devises`: Convertisseur de devises
+* `file:///\\Gambit\forex-tools\calculatrice-fibonacci`: Calculatrice Fibonacci
+* `file:///\\Gambit\forex-tools\calculateur-de-points-pivots-forex`: Calculateur de points pivots Forex
+but it is unclear if this is an operational leak of if they just copy pasted it from somewhere else... Interesting though.
+
+= Possible media leaks
+{parent=Possible HTML information leaks}
+
+<GPT-6> noticed the following not so mind-blowing facts about some media present in some of the websites
+
+33 images on https://web.archive.org/web/20110207232048/http://stickshiftnews.com/[stickshiftnews.com] record Photoshop saves on 2010-08-24, 14:16:41–14:17:50 at UTC-4 (<Langley>): a 69-second batch. This supports batch asset preparation possibly from ImageReady, and also gives us the exact Photoshop version used and operating system: Adobe Photoshop CS4 (released 2008). They used <Windows>. That's the real reason the network went down!
+``
+exiftool -r -q -if '$HistoryWhen' -p '$HistoryWhen | $HistoryAction | $HistorySoftwareAgent | $Directory/$FileName' stickshiftnews.com | sort
+``
+gives:
+``
+2010:08:24 14:16:41-04:00 | created | Adobe Photoshop CS4 Windows | stickshiftnews.com/20110207233507/images/199.jpg
+2010:08:24 14:16:44-04:00 | saved | Adobe Photoshop CS4 Windows | stickshiftnews.com/20110207232515/images/2.jpg
+...
+2010:08:24 14:17:50-04:00 | created | Adobe Photoshop CS4 Windows | stickshiftnews.com/20110207232233/images/9.jpg
+``
+
+Four graphics across ballbatstumpsandbails.com and myhealthlibrary.net share `uuid:B48CC374F6E2DC1193D6E593F704EF94`:
+``
+exiftool -r -q -if '$OriginalDocumentID eq "uuid:B48CC374F6E2DC1193D6E593F704EF94"' -p '$Directory/$FileName | $OriginalDocumentID' ballbatstumpsandbails.com www.myhealthlibrary.net
+``
+gives:
+``
+ballbatstumpsandbails.com/20110202033048/images/bbsb-logo.jpg | uuid:B48CC374F6E2DC1193D6E593F704EF94
+ballbatstumpsandbails.com/20110202033025/images/cornerimg.jpg | uuid:B48CC374F6E2DC1193D6E593F704EF94
+www.myhealthlibrary.net/20111015023625/images/back.gif | uuid:B48CC374F6E2DC1193D6E593F704EF94
+www.myhealthlibrary.net/20111015023519/images/top.jpg | uuid:B48CC374F6E2DC1193D6E593F704EF94
+``
+However that same UUID also appears on a few unrealted Google hits e.g.:
+* https://commons.wikimedia.org/wiki/File:Fortune_Brands_Home_%26_Security_Logo.png
+so it cannot reliably establish a connection between their operators. TODO how did that come about. LLMs say that this UUID comes from PhotoShop and depends on the exact version, but they are not fully clear on the details of how they come about.
 
 = Methodology
 {parent=CIA 2010 covert communication websites}
@@ -8015,12 +8058,9 @@ Let's try another one for secure.altworldnews.com: https://search.censys.io/cert
 {c}
 {parent=JAR reverse engineering}
 
-This project was originally done before <Ciro Santilli> knew how to use <Codex> and before Codex was so incredibly strong. Codex can now just disassemble, deobfuscate and datamine the fuck out of such binaries, so we asked it to. Unfortunately it couldn't really find anything mind blowing, but here are the results anyways.
+This project was originally done before <Ciro Santilli> knew how to use <Codex> and before Codex was so incredibly strong. Codex 6 Astra High can now just disassemble, deobfuscate and datamine the fuck out of such binaries, so we asked it to. Unfortunately it couldn't really find anything mind blowing, but here are the results anyways.
 
-The analysis scripts are:
-* https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar.py[jar.py]
-* https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/swf.py[swf.py]
-and they should be pointed to a dump directory of the websites such as <CIA 2010 websites dump>. The analysis below was done as of commit b9eb31618c36421133e4875bc1cd7d7ac7763a32.
+The analysis scripts is: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar.py[jar.py] and it should be pointed to a dump directory of the websites such as <CIA 2010 websites dump>. The analysis below was done as of commit b9eb31618c36421133e4875bc1cd7d7ac7763a32.
 
 These scripts produce TODO directories.
 
@@ -8079,7 +8119,6 @@ Here are the best small finds:
     Applet.BundleSize=1
     ResponseKey.UserData.0.Size=85
     ``
-
   * `bw.properties`, ZIP-packed: 30. Example: `casanewsnow.com/20110201184918/casanews.jar` path `b/a/bw.properties`
   * none of these configuration resources: 9. Example: `factorforcenews.com/20110202125321/factorspeed.jar`
 
@@ -8100,6 +8139,8 @@ Here are the best small finds:
     #Auto-generated Starbuck client config file: Mon Jun 21 14:32:02 ACT 2010
     ``
   * config key backup Unix epoch milliseconds key, e.g. the `1277148810409` in `Config.properties.old.1277148810409`. So their editing tool kept backups as they were editing it, which is a small OPSEC defect.
+
+We've dumped timestamp data to: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar/dates.csv No dates of interest was found in the <SWF>.
 
 Many of the timestamps present are much older than the earliest archive we have for each website, suggesting that they were around for much longer. E.g. 2005-06-02.
 
@@ -8364,6 +8405,31 @@ We can use a <JavaScript> beautifier such as https://beautifier.io/ to be abe to
 It is worth noting that there's a lot of `<script>` tags inline as well, which seem to matter.
 
 Further analysis would be needed.
+
+= SWF reverse engineering
+{parent=Communication mechanism}
+
+= SWF
+{c}
+{synonym}
+
+Codex did some SWF reverse engineering for us creating the analysis script: https://github.com/cirosantilli/media/blob/master/cia-2010-covert-communication-websites/jar.py[jar.py] and should be pointed to a dump directory of the websites such as <CIA 2010 websites dump>. The analysis below was done as of commit b9eb31618c36421133e4875bc1cd7d7ac7763a32.
+
+Unfortunately, the SWF are much less interesting than the JAR files.
+
+According to Codex' analysis, it is just a lean client, and doesn't even contain its own UI which seems to be downloaded from the server. As such, we will never know what it actually looked like.
+
+One thing that they do do is to load a gallery or things that it loops through, presumably images, and loop through them automatically. These are loaded one by one from the server, and it keeps doing server requests after that.
+
+Codex mentions that the SWF could also download another SWF to execute, which could in turn contain the login UI, possibly upon click. But it is all hidden.
+
+A particularly interesting example is https://web.archive.org/web/20130625064723id_/http://worlddispatch.net/servlet/news2[worlddispatch.net/servlet/news2]. This is apparently a helper page for the SWF, but perhaps because the website became broken after it was abandoned, it was archived, and contains the following 10 bytes of a URL query string:
+``
+c=0&f=3424
+``
+Codex' reverse engineering identified what the parameters do exactly:
+* `c=0`: Selects the ordinary content-cycling mode. `c=1` selects a different scrolling/animated branch.
+* `f=3424`: advance to the next content item every 3.424 seconds, when content is available. The code's default is 4 seconds.
 
 = Google searches for known domains and IPs
 {c}
@@ -9291,7 +9357,7 @@ Reactions by others:
     * https://www.gamespot.com/articles/the-cia-once-ran-a-star-wars-fan-site-as-part-of-a-global-intelligence-effort/1100-6532045/
     * https://www.darkhorizons.com/how-u-s-spies-used-a-star-wars-fan-page/
     * https://gigazine.net/news/20250527-starwars-fan-sites-made-by-cia/
-  Starting on that same day someone made starwarsweb.net redirect to cia.gov at 2025-05-26T13:28:02Z: https://www.whois.com/whois/starwarsweb.net
+  Starting on that same day someone made <starwarsweb.net> redirect to cia.gov at 2025-05-26T13:28:02Z: https://www.whois.com/whois/starwarsweb.net
 * 2025-08-01 saw another mini-trend due to The CIA Built Hundreds of Covert Websitesby Alan Macleod: https://www.mintpressnews.com/cia-secret-network-885-fake-websites/290325/ 
   This then spawned some sindicated posts:
   * https://www.sott.net/article/500997-The-CIA-built-hundreds-of-covert-websites-Heres-what-they-were-hiding
