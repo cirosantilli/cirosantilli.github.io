@@ -278,8 +278,8 @@ This was not so easy to do because the websites are down and so it requires hist
 
 This gave us a larger website sample size in the order of the tens, which allowed us to better grasp more of the possible different styles of website and have a much better idea of what a good <fingerprint> would look like.
 
-\Image[https://raw.githubusercontent.com/cirosantilli/media/master/viewdns.info_activegameinfo.com_domain_to_IP_arrow.png]
-{title=<viewdns.info> `activegameinfo.com` domain to IP}
+\Image[https://raw.githubusercontent.com/cirosantilli/media/master/viewdns.info_activegaminginfo.com_domain_to_IP_arrow.png]
+{title=<viewdns.info> `activegaminginfo.com` domain to IP}
 {height=550}
 {source=https://viewdns.info/iphistory/?domain=activegaminginfo.com}
 
@@ -546,6 +546,15 @@ Snowden has talked specifically about Brazil in the past. On 17 December 2013, h
 > Today, if you carry a cell phone in Sao Paolo, the NSA can and does keep track of your location: they do this 5 billion times a day to people around the world. 
 and so on.
 Two particular targets were then president Dilma Rousseff and Brazilian national oil company Petrobras.
+
+The only real alliance is the <Five Eyes>, which has a policy not to spy on each other. E.g.:https://www.lowyinstitute.org/external-publications/we-need-five-eyes-spy-network-oversight{ref}
+> The partnership has one core rule, that the members agree not to spy on each other. Or, as Admiral Dennis Blair, Barack Obama’s first director of national intelligence, said in Australia in 2013: “We do not spy on each other. We just ask.”
+There are however concerns that this applies strictly only for government espionage, with members potentially spying on each other's private citizens for one another to work around privacy laws:https://www.theguardian.com/world/2013/jun/22/nsa-leaks-britain-us-surveillance{ref}
+> Other documents underline how the decades-old intelligence arrangement has worked, not least how within the UKUSA treaty different roles have been subcontracted to partners – for both practical and regulatory reasons.
+
+  In one document, the NSA's chief Lt Gen. Keith Alexander asks pointedly: "Why can't we collect all the signals all the time? … Sounds like a good summer project for Menwith" — a reference to GCHQ's Menwith Hill eavesdropping site in northern England.
+
+  On the legal front – as GCHQ's own lawyers boasted in advice to its US partners – Cheltenham had an advantage to its US partners: "We have a light oversight regime compared with the US".
 
 = List of websites
 {parent=Results}
@@ -6004,7 +6013,7 @@ todaysolar.com. This might just be legit, but keeping it around just in case.
   * prepared2act.com
   * newsandmusicminute.com
   * jennisdish.com https://web.archive.org/web/20110207105346/http://jennisdish.com/ godaddy
-  but more interestingly this address is the same as other hits: <activegameinfo.com> and <noticiasmusica.net>! "PO Box 459" anywhere search has 10k+ domains and so does Drums so not helping.
+  but more interestingly this address is the same as other hits: <activegaminginfo.com> and <noticiasmusica.net>! "PO Box 459" anywhere search has 10k+ domains and so does Drums so not helping.
 * 66.237.236.229: pearls-playlist.com 2011-11-13. Hit. <domainsbyproxy.com>
 * 66.237.236.230: beyondthefringe.info 2013-01-02. Hit. GoDaddy.com for
   ``
@@ -6559,10 +6568,9 @@ Other hits:
 * 219.90.62.233: theworld-news.net. Hit.
 * 219.90.62.234: recuerdosdeviajeonline.com. Hit
 * 219.90.62.235: ordenpolicial.com. Hit.
-* 219.90.62.240: cityworldnewsnow.com. Hit. No archives but has subdomain: secure.cityworldnewsnow.com so likely <CGI comms>. http://cqcounter.com/whois/www/cityworldnewsnow.com.html in-style, arab world mentions.
 * 219.90.62.237: elcorreodenoticias.com. Hit.
 * 219.90.62.238: freshtechonline.com. Hit.
-* 219.90.62.240: cityworldnewsnow.com. Hit.
+* 219.90.62.240: cityworldnewsnow.com. Hit. No archives but has subdomain: secure.cityworldnewsnow.com so likely <CGI comms>. http://cqcounter.com/whois/www/cityworldnewsnow.com.html in-style, arab world mentions.
 * 219.90.62.241: newscentertoday.com. Hit.
 * 219.90.62.242: ride-captain.com. Hit.
 * 219.90.62.244: easytraveleurope.com. Hit.
@@ -6651,6 +6659,27 @@ This is a dark art, and many of the sources are shady as fuck! We often have no 
 In order to explore IPs in known IP ranges, what we need are good <DNS databases>.
 
 * https://www.zone-h.org/archive/ip=208.76.80.93/page=11?hz=1 mentions `newsupdatesite.com` and mentions "defacement", the <Mass Deface III pastebin> comes to mind. No other nearby hits on quick inspection.
+
+Pointed out by ChatGPT
+* https://new.circl.lu/services/passive-dns/[]: 2011 onwards, vetting. By Luxembourg government. Sent them an email November 2026 to request access explaining this project. They gave access on the same day! But unfortunately does not seem to have much data of interest to us:
+  ``
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/circl.lu'
+  {"rrtype": "A", "rrname": "185.194.93.63", "rdata": "circl.lu", "count": 671, "time_first": 1790946729, "time_last": 1794583744, "origin": "https://www.circl.lu/pdns/"}
+  {"rrtype": "A", "rrname": "185.194.93.14", "rdata": "circl.lu", "count": 8617, "time_first": 1696798385, "time_last": 1790942704, "origin": "https://www.circl.lu/pdns/"}
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/185.194.93.63'
+  {"rrtype": "A", "rrname": "185.194.93.63", "rdata": "circl.lu", "count": 671, "time_first": 1790946729, "time_last": 1794583744, "origin": "https://www.circl.lu/pdns/"}
+  {"rrtype": "A", "rrname": "185.194.93.63", "rdata": "cfss1.circl.lu", "count": 16691, "time_first": 1764769208, "time_last": 1794583268, "origin": "https://www.circl.lu/pdns/"}
+  {"rrtype": "A", "rrname": "185.194.93.63", "rdata": "pgp-servers.net", "count": 3, "time_first": 1786068163, "time_last": 1786800848, "origin": "https://www.circl.lu/pdns/"}
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/activegaminginfo.com'
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/feedsdemexicoyelmundo.com'
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/noticiasmusica.net'
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/arabicnewsource.com'
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/pakcricketgrd.com'~/bak/git/notes-private
+  $ curl -u $TOKEN -H 'dribble-filter-rrtype: A' -H 'dribble-disable-active-query: 1' 'https://www.circl.lu/pdns/query/noticiassofisticadas.com'
+  ``
+  They do reverse IP.
+* https://www.ptrarchive.com.about.ag/index.html[]: 2008 onwards, server broken, unclear if they would have data. Pinged R. Scott Perry by email November 2026.
+* https://dnslytics.com/hosting-history[]. March 2012 onwards, zone files starting November 2014. The Hosting History Tool requires a premium subscription. €29 EUR month pass gives 100 search queries/page views a day.
 
 = Reuters article
 {parent=Data sources}
@@ -9108,9 +9137,12 @@ https://whoisrequest.com/history/ mentions:
 * ns1.qwknetllc.com
 * ns2.qwknetllc.com
 
-= activegameinfo.com
+= activegaminginfo.com
 {parent=IP and DNS metadata}
 {title2=66.175.106.148}
+
+= activegamenfo.com
+{synonym}
 
 whoisxmlapi WHOIS history March 22, 2011:
 * Registrar Name: NETWORK SOLUTIONS, LLC.
